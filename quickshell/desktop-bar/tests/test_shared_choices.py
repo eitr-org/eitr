@@ -28,7 +28,7 @@ class SharedChoicesTests(unittest.TestCase):
             self.assertIn(contract, dropdown)
         self.assertNotIn('visible: control.expanded', dropdown)
         call_sites = {'panels/AudioMenu.qml': 1, 'panels/DisplaySettingsEditor.qml': 5, 'panels/RecordingMenu.qml': 1,
-                      'settings/SettingsDesktopPage.qml': 6, 'settings/SettingsSystemPage.qml': 1, 'settings/SettingsInputPage.qml': 1}
+                      'settings/SettingsDesktopPage.qml': 6, 'settings/SettingsSystemPage.qml': 4, 'settings/SettingsInputPage.qml': 1}
         for path, count in call_sites.items():
             with self.subTest(call_site=path):
                 self.assertEqual((BAR / path).read_text().count('ChoiceDropdown {'), count)

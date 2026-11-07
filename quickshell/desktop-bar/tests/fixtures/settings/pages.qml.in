@@ -32,7 +32,7 @@ ShellRoot {
  }
  Timer {
   interval: 180; running: true; repeat: true
-  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "connections/bluetooth", "displays/nightlight", "bar", "windows", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "default-apps", "user", "git-cloud", "security", "updates", "check-pc", "about"]
+  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "windows", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "default-apps", "user", "git-cloud", "security", "updates", "check-pc", "about"]
   property int current: 0
   property int phase: 0
   property bool saved: false
@@ -78,10 +78,30 @@ ShellRoot {
     system.updates = {status: "ready", data: {count: 7}};
     system.hardware = {sections: [{title: "CPU", name: "8 cores"}, {title: "RAM", name: "32 GiB"}]};
     system.checks = [{group: "Updates", status: "info", message: "The cached package list is current."}, {group: "Storage", status: "warning", message: "Free disk space is low.", meaning: "Free some space before updating."}];
-    const summary = pages[current] === "keybinds" ? [{group: "Launchers", title: "Open terminal", detail: "SUPER + Enter"}, {group: "Windows", title: "Close window", detail: "SUPER + Q"}] : pages[current] === "about" ? [{title: "Version", detail: "0.7.0"}, {title: "Codename", detail: "Huginn"}, {title: "Update Channel", detail: "Stable"}, {title: "Kernel", detail: "Linux"}, {title: "Licence", detail: "GPL-3.0-or-later"}] : pages[current] === "security" ? [{title: "Firewall", detail: "Eitr firewall active.", actionMenu: "security"}, {title: "Fingerprint", detail: "Review status and settings", menu: "fingerprint"}] : [{title: "Git Accounts", detail: "Personal identity · Project folder rules", menu: "git-accounts"}, {title: "Cloud", detail: "Example context · Project", menu: "cloud"}];
-    fixture.find(content, "settings-system-helper").summary = {items: summary};
+    const summary = pages[current] === "keybinds" ? [{group: "Launchers", title: "Open terminal", detail: "SUPER + Enter"}, {group: "Windows", title: "Close window", detail: "SUPER + Q"}] : pages[current] === "about" ? [{title: "Version", detail: "0.7.0"}, {title: "Codename", detail: "Huginn"}, {title: "Update Channel", detail: "Stable"}, {title: "Kernel", detail: "Linux"}, {title: "Licence", detail: "GPL-3.0-or-later"}] : pages[current] === "security" ? [{title: "Firewall", detail: "Eitr firewall active.", actionMenu: "security"}, {title: "Fingerprint", detail: "Review status and settings", menu: "fingerprint", controls: [{title: "Enable Fingerprint Authentication", detail: "Password fallback retained", actionMenu: "fingerprint"}, {title: "Enroll Fingerprint", detail: "Requires a supported reader", actionMenu: "fingerprint"}]}] : [{title: "Git Accounts", detail: "Personal identity · Project folder rules", menu: "git-accounts", controls: [{title: "Make Default", detail: "Use this identity outside folder rules", gitAccount: "fixture"}, {title: "Remove Folder", detail: "Stop using this account in a folder", gitAccount: "fixture", options: ["~/Projects/example"]}]}, {title: "Cloud", detail: "Example context · Project", menu: "cloud"}];
+    fixture.find(content, "settings-system-helper").summary = {items: pages[current] === "assistants" ? [{title: "Example assistant", detail: "Installed", controls: [{title: "Default", detail: "Current", command: []}, {title: "Add Account…", detail: "Sign in to a separate account", command: []}]}, {title: "Let assistants work together", detail: "Read-only help from your connected assistants", controls: [{title: "Let assistants work together", command: []}]}] : summary, providers: [{value: "aws", label: "AWS"}, {value: "gcp", label: "Google Cloud"}, {value: "azure", label: "Azure"}]};
     fixture.find(content, "settings-default-apps-helper").summary = {items: ["Web browser", "File manager", "Text editor", "Image viewer", "Video player", "Music player", "Mail", "PDF viewer", "Terminal"].map(label => ({kind: "fixture", label: label, current: "fixture.desktop", name: "Example app", choices: [{value: "fixture.desktop", label: "Example app"}, {value: "other.desktop", label: "Other app"}]}))};
    } else if (phase === 2) {
+    if (pages[current] === "connections") {
+     const wifi = fixture.find(content, "settings-wifiSlot");
+     if (!wifi || !wifi.embedded || !wifi.opened || !wifi.visible) throw new Error("embedded Wi-Fi missing");
+     const footer = fixture.find(wifi, "wifi-settings-footer");
+     if (!footer || footer.visible || footer.height !== 0) throw new Error("embedded return link is visible");
+     content.forceActiveFocus();
+     wifi.dismissPopup();
+     wifi.openSettings("connections/wifi");
+     wifi.networkActionFinished("Fixture action completed", "");
+     if (!wifi.opened || !wifi.visible || wifi.devices.length !== 1) throw new Error("embedded Wi-Fi disappeared after focus/action");
+    }
+    if (pages[current] === "streaming") {
+     const streaming = fixture.find(content, "settings-streaming-page");
+     streaming.snapshot = {status: "ready", data: {allowed: true, streaming: {installed: true, moonlightInstalled: true, running: false, startAtLogin: true,
+      status: "Sharing stopped", facts: [{label: "Host", value: "Sunshine"}], actions: [
+       {menu: "remote-share", source: "Start Sharing", title: "Start Sharing"},
+       {menu: "remote-share", source: "Pair a Device", title: "Pair a Device"},
+       {menu: "remote-share-setup", source: "Set Up Sharing", title: "Set Up Sharing", description: "Review screen capture and input permissions"},
+       {menu: "remote-share-setup", source: "Restore Sharing Setup", title: "Restore Sharing Setup", description: "Undo capture and virtual input permissions"}]}}};
+    }
     if (pages[current] === "default-apps") {
      const card = fixture.find(content, "settings-default-app-card");
      if (!card || card.width < 200 || card.height < 60 || !card.visible) { console.error("DEFAULT_CARD", card ? card.width : -1, card ? card.height : -1); Qt.exit(1); return; }

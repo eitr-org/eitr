@@ -95,10 +95,18 @@ Rectangle {
             live: settings.live; networkService: settings.networkService
             foreground: settings.foreground; background: settings.background; accent: settings.accent
         }
+        SettingsStreamingPage {
+            anchors.fill: parent
+            visible: settings.page === "streaming"
+            active: settings.opened && visible
+            live: settings.live
+            foreground: settings.foreground; background: settings.background; accent: settings.accent
+        }
         SettingsSystemPage {
             id: systemPage
+            onPageRequested: page => settings.navigate(page)
             anchors.fill: parent
-            visible: ["keybinds", "default-apps", "user", "git-cloud", "security", "updates", "check-pc", "about"].includes(settings.page)
+            visible: ["keybinds", "default-apps", "user", "git-cloud", "security", "assistants", "updates", "check-pc", "about"].includes(settings.page)
             page: settings.page; title: settings.current.title
             active: settings.opened && visible
             live: settings.live

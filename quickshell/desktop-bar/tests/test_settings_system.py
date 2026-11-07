@@ -25,6 +25,75 @@ class SettingsSystemTests(unittest.TestCase):
         environment.start()
         self.addCleanup(environment.stop)
 
+    def test_security_controls_expand_without_self_navigation(self):
+        controls = settings.static_controls('security')
+        titles = [entry['title'] for entry in controls]
+        for title in ('Enable Fingerprint Authentication', 'Enroll Security Key', 'Enroll TPM Unlock', 'Remove TPM Unlock', 'Firewall', 'Create User…'):
+            self.assertIn(title, titles)
+        self.assertEqual(next(entry for entry in controls if entry['title'] == 'Profile Picture')['page'], 'user')
+        self.assertTrue(all('menu' not in entry for entry in controls))
+
+    def test_git_controls_use_inline_confirmation_and_selection(self):
+        git = settings.module('settings_git_inline_test', 'walker/scripts/actions/development/git-accounts.py')
+        model = {'accounts': {'fixture': {'label': 'Example'}}, 'default': None,
+                 'folders': [{'account': 'fixture', 'path': '/projects/example'}]}
+        with patch.object(git, 'load', return_value=model), patch.object(git, 'save') as save, patch.object(git, 'walker', side_effect=AssertionError('Walker opened')):
+            git.perform('fixture', 'Remove Folder', confirmation=lambda question: False, picker=lambda options, prompt: options[0])
+            save.assert_not_called()
+            git.perform('fixture', 'Remove Folder', confirmation=lambda question: True, picker=lambda options, prompt: options[0])
+            self.assertEqual(save.call_args.args[0]['folders'], [])
+            git.perform('fixture', 'Make Default', confirmation=lambda question: True)
+            self.assertEqual(save.call_args.args[0]['default'], 'fixture')
+
+    def test_git_action_rejects_unconfirmed_changes_and_stale_choices(self):
+        helper = SimpleNamespace(TERMINAL_ACTIONS={}, perform=lambda *arguments, **options: options['picker'](['allowed'], 'Choose'))
+        with patch.object(settings, 'module', return_value=helper):
+            with self.assertRaisesRegex(ValueError, 'Confirmation required'):
+                settings.git_action('fixture', 'Remove Account', '', False)
+            with self.assertRaisesRegex(ValueError, 'Selection changed'):
+                settings.git_action('fixture', 'Remove Folder', 'stale', True)
+
+    def test_security_leaf_actions_and_assistant_dropdown_survive_projection(self):
+        items = [{'title': 'Firewall', 'menu': '', 'actionMenu': 'security'},
+                 {'title': 'Fingerprint', 'menu': 'fingerprint'},
+                 {'title': 'Assistant Access', 'menu': 'assistant-access'}]
+        with patch.object(settings, 'summary', return_value={'items': items}), patch('eitr_assistants.assistant_access', return_value='ask'):
+            result = settings.controls_summary('security')
+        self.assertNotIn('controls', result['items'][0])
+        self.assertEqual(result['items'][0]['actionMenu'], 'security')
+        self.assertTrue(result['items'][1]['controls'])
+        self.assertEqual(result['access'], 'ask')
+
+    def test_assistant_account_actions_are_direct_and_forms_use_task_terminals(self):
+        accounts = {'supported': True, 'accounts': [{'id': 'default', 'label': 'Default', 'current': True}, {'id': 'fixture', 'label': 'Example'}]}
+        with patch('eitr_assistants.assistants', return_value={'codex': {'label': 'Example assistant'}}), patch('eitr_assistants.available', return_value=True), patch('eitr_ai_accounts.menu', return_value=accounts):
+            result = settings.assistants()['items']
+        commands = [entry['command'] for item in result for entry in item['controls']]
+        self.assertTrue(any('switch' in command and 'fixture' in command for command in commands))
+        self.assertTrue(any('delete' in command and any('task-terminal.py' in argument for argument in command) for command in commands))
+        self.assertFalse(any(any('walker/bin/walker' in argument for argument in command) for command in commands))
+        with patch('eitr_assistants.assistants', return_value={'codex': {'label': 'Example assistant'}}), patch('eitr_assistants.available', return_value=False):
+            missing = settings.assistants()['items'][0]
+        self.assertIn('recipe', missing['controls'][0]['command'])
+
+    def test_cloud_controls_use_scoped_helpers_and_inline_delete(self):
+        git = SimpleNamespace(load=lambda: {'accounts': {}, 'folders': []})
+        providers = SimpleNamespace(PROVIDERS={'cloudflare': {'name': 'Cloudflare'}},
+            account_entries=lambda provider, context: [
+                {'Text': 'Sign In', 'Subtext': context, 'Actions': {'open': 'kitty --class eitr-cloud -e python3 helper.py cloudflare login fixture'}},
+                {'Text': 'Delete Account', 'Subtext': context, 'Actions': {'open': 'python3 helper.py cloudflare delete fixture'}}])
+        items = [{'title': 'Cloudflare', 'detail': 'fixture · context', 'provider': 'cloudflare', 'context': 'fixture'},
+                 {'title': 'AWS', 'detail': 'Example · fixture', 'provider': 'aws', 'context': 'fixture'}]
+        with patch.object(settings, 'summary', return_value={'items': items}), patch.object(settings, 'module', side_effect=lambda name, relative: git if name == 'settings_git_controls' else providers), patch.object(settings.subprocess, 'Popen', side_effect=AssertionError('Action during read')):
+            result = settings.controls_summary('git-cloud')
+        sign_in, delete = result['items'][0]['controls']
+        self.assertTrue(sign_in['command'][0].endswith('walker/bin/menu-path/kitty'))
+        self.assertEqual(delete['cloudDelete'], 'fixture')
+        self.assertNotIn('command', delete)
+        self.assertIn('fixture', delete['confirmation'])
+        self.assertIn('rename', result['items'][1]['controls'][0]['command'])
+        self.assertEqual(len(result['providers']), 4)
+
     def test_shortcuts_resolve_every_canonical_reference(self):
         reference = settings.shortcut_reference()
         result = settings.shortcuts()['items']

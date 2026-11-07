@@ -2683,6 +2683,9 @@ msgstr "Remove bar item"
 msgid "Remove local sign-in"
 msgstr "Remove local sign-in"
 
+msgid "Remove local sign-in; the remote account is kept."
+msgstr "Remove local sign-in; the remote account is kept."
+
 msgid "Remove plugin {id} and its service?"
 msgstr "Remove plugin {id} and its service?"
 

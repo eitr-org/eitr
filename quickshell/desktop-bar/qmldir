@@ -174,3 +174,4 @@ MonitorMap components/MonitorMap.qml
 FamilyWindow settings/FamilyWindow.qml
 FamilySidebar settings/FamilySidebar.qml
 FamilyPageHeader settings/FamilyPageHeader.qml
+SettingsStreamingPage settings/SettingsStreamingPage.qml

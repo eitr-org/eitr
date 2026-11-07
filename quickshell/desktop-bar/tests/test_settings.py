@@ -10,11 +10,70 @@ from layout_render import BAR, copy_runtime, render_environment, render, capture
 
 
 class SettingsTests(unittest.TestCase):
+    def test_footer_routes_and_settings_have_no_launcher(self):
+        routes = {"WifiMenu": "connections/wifi", "KeyboardLayoutMenu": "input", "RemoteAccessMenu": "streaming", "AiUsageMenu": "assistants"}
+        for panel, destination in routes.items():
+            source = (BAR / "panels" / (panel + ".qml")).read_text()
+            self.assertIn('openSettings("' + destination + '")', source)
+            self.assertNotIn('walker/bin/walker', source)
+        for source in (BAR / "settings").glob("*.qml"):
+            self.assertNotIn('walker/bin/walker', source.read_text(), source)
+            self.assertNotIn('menus:', source.read_text(), source)
+        streaming = (BAR / "settings/SettingsStreamingPage.qml").read_text()
+        self.assertIn('DesktopData.observe("remote.status", view)', streaming)
+        self.assertIn('DesktopData.releaseOwner(view)', streaming)
+        self.assertIn('settingsMode: true', streaming)
+        self.assertNotIn('Tailscale', streaming)
+        self.assertIn('SettingsStreamingPage settings/SettingsStreamingPage.qml', (BAR / 'qmldir').read_text())
+
+    def test_footer_opens_owning_shell_and_embedded_dismissal_is_inert(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            copy_runtime(folder)
+            fixture = '''import QtQuick
+import QtTest
+import Quickshell
+import "." as Bar
+ShellRoot {
+ QtObject { id: host; property string destination: ""; function showSettings(page) { destination = page; } }
+ FloatingWindow {
+  id: window; visible: true; implicitWidth: 500; implicitHeight: 400
+  property var host: host
+  Item { id: anchor; width: 20; height: 20 }
+  Item { id: inlineSlot; width: 300; height: 300 }
+ }
+ Bar.DockPanel { id: panel; attachmentTarget: anchor; opened: true; implicitWidth: 100; implicitHeight: 100 }
+ Bar.ThemedPopup { id: embedded; inlineParent: inlineSlot; target: null; opened: true; foreground: "white"; background: "black"; accent: "gold"; implicitWidth: 200; implicitHeight: 200 }
+ TestCase {
+  name: "SettingsFooterRouting"; when: window.visible
+  function test_routing() {
+   wait(150);
+   panel.openSettings("connections/bluetooth");
+   compare(host.destination, "connections/bluetooth");
+   verify(!panel.opened);
+   embedded.forceActiveFocus(); anchor.forceActiveFocus();
+   embedded.dismissPopup(); embedded.openSettings("sound");
+   wait(100);
+   verify(embedded.visible && embedded.opened);
+   compare(host.destination, "connections/bluetooth");
+   console.log("FOOTER_OK"); Qt.quit();
+  }
+ }
+}
+'''
+            # The owning window exposes the shell as host, as BarWindow does.
+            fixture = fixture.replace('id: host;', 'id: shellHost;').replace('property var host: host', 'property var host: shellHost').replace('compare(host.destination', 'compare(shellHost.destination')
+            (folder / 'fixture.qml').write_text(fixture)
+            code, output = render(folder / 'fixture.qml', render_environment(folder), 10)
+            self.assertEqual(code, 0, output)
+            self.assertIn('FOOTER_OK', output)
+            self.assertNotIn('FAIL!', output)
+
     def test_search_index(self):
         source = (BAR / 'settings/SettingsIndex.js').read_text().replace('.pragma library', '')
         script = source + '''
 const assert = require('node:assert/strict');
-assert.equal(pages.length, 19);
+assert.equal(pages.length, 21);
 assert(!pages.some(page => ["themes", "plugins"].includes(page.id)));
 assert(pages.every(page => page.rune && page.description));
 assert.equal(pages[0].id, 'system');
@@ -23,7 +82,7 @@ assert.equal(new Set(pages.map(page => page.id)).size, pages.length);
 assert.equal(filter('cpu', text => text)[0].id, 'system');
 assert.equal(filter('nothing matches', text => text).length, 0);
 assert.equal(filter('profile avatar', text => text)[0].id, 'system');
-for (const [keyword, page] of [['gaps', 'windows'], ['cursor', 'appearance'], ['dnd', 'notifications'], ['rotation', 'displays'], ['wifi', 'connections'], ['workspaces', 'bar'], ['pdf', 'default-apps'], ['kernel', 'about'], ['folder rules', 'git-cloud'], ['fido', 'security']]) assert.equal(filter(keyword, text => text)[0].id, page);
+for (const [keyword, page] of [['gaps', 'windows'], ['cursor', 'appearance'], ['dnd', 'notifications'], ['rotation', 'displays'], ['wifi', 'connections'], ['workspaces', 'bar'], ['pdf', 'default-apps'], ['kernel', 'about'], ['folder rules', 'git-cloud'], ['sunshine', 'streaming'], ['moonlight', 'streaming'], ['remote game', 'streaming'], ['fido', 'security']]) assert.equal(filter(keyword, text => text)[0].id, page);
 assert.equal(resolve('network/bluetooth').page, 'connections');
 assert.equal(entry('network').id, 'connections');
 assert.equal(searchDestination('appearance', 'puntero', text => text === 'Cursor family' ? 'Familia del puntero' : text), 'appearance/fonts');

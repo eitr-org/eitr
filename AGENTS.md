@@ -52,6 +52,16 @@ existing design and workflows rather than replacing them with upstream defaults.
 
 - Keep changes small and cohesive. Read neighboring code before adding a new
   component or helper; reuse existing patterns and shared style APIs.
+- Keep files small and single-purpose: one owner per page, panel, component or
+  helper (one Settings page per file; shared rows, cards and controls in
+  `quickshell/desktop-bar/components/`). Source files stay under the limit in
+  `tools/file-size-baseline.json` (400 lines); the older files listed there may
+  only shrink, and their entry follows them down. `tools/tests/test_file_sizes.py`
+  enforces both. When a file would pass the limit, split it by responsibility
+  first; never raise a baseline entry. Before writing a component, control or
+  helper, search for an existing one and extend it: a second copy of the same
+  behaviour is a review failure, as is a bar panel embedded in Settings where it
+  does not fit (build a Settings page on the same data and helpers instead).
 - Avoid duplicated behavior and duplicated theme constants. Put reusable
   logic in one owner module and update its callers, but do not create an
   abstraction merely to eliminate a few clear lines.
@@ -398,6 +408,10 @@ git diff --check
 ## Recurring Review Findings
 
 Check these before committing; reviews keep catching them.
+
+- Pages grow one feature at a time into grab-bag files: before adding to a Settings
+  page, panel or helper, check its size and split it if the addition would pass the
+  limit. Briefs for delegated work state the limit and the reuse rule.
 
 - A new QML type under `quickshell/desktop-bar`, including its subfolders, must be
   listed with its relative path in the root `qmldir`,

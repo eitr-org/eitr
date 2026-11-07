@@ -43,6 +43,13 @@ class RemoteStatusTests(unittest.TestCase):
                     self.assertFalse(result['connected'])
                     self.assertEqual(result['signedOut'], expected == 'Signed out')
 
+    def test_moonlight_status_is_independent_of_sunshine(self):
+        with patch.object(status.shutil, 'which', side_effect=lambda executable: '/usr/bin/moonlight' if executable == 'moonlight' else None), patch.object(status, 'query') as query:
+            result = status.streaming_status()
+        self.assertTrue(result['moonlightInstalled'])
+        self.assertFalse(result['installed'])
+        query.assert_not_called()
+
     def test_sharing_status_does_not_start_service(self):
         with patch.object(status.shutil, 'which', return_value='/usr/bin/sunshine'), \
                 patch.object(status, 'query', return_value=subprocess.CompletedProcess([], 0, 'ActiveState=active\nUnitFileState=enabled\n')) as query:

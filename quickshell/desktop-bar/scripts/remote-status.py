@@ -58,7 +58,7 @@ def tailscale_status():
 
 
 def streaming_status():
-    state = {'installed': bool(shutil.which('sunshine')), 'running': False,
+    state = {'installed': bool(shutil.which('sunshine')), 'moonlightInstalled': bool(shutil.which('moonlight')), 'running': False,
              'facts': [{'label': tr('Host'), 'value': 'Sunshine'},
                        {'label': tr('Client'), 'value': 'Moonlight'}]}
     if not state['installed']:

@@ -35,8 +35,7 @@ ThemedPopup {
             accent: menu.accent
             background: menu.background
             onSettingsRequested: {
-                menu.opened = false;
-                Quickshell.execDetached([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:remote-access"]);
+                menu.openSettings("streaming");
             }
             onActionRequested: function(sourceMenu, source) {
                 menu.opened = false;

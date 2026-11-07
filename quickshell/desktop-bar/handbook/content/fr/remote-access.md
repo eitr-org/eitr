@@ -4,7 +4,7 @@ Configuration regroupe les réglages. Partager ce PC > Configuration contient Co
 
 État détaillé ouvre un terminal de diagnostic qui reste ouvert jusqu’à un appui sur Esc.
 
-Ouvrez Paramètres > Connectivité > Accès à distance. Le partage reste désactivé jusqu’à
+Ouvrez Paramètres > Streaming pour Sunshine et Moonlight, ou Walker > Paramètres > Connectivité > Accès à distance pour les menus d’accès distant. Le partage reste désactivé jusqu’à
 son activation. Cette étape contrôle le bureau Eitr connecté et éveillé.
 Le fonctionnement sans écran, avant connexion et wake on LAN viendront plus tard.
 Si cet ordinateur se verrouille pendant le partage, l’écran distant affiche
@@ -93,3 +93,5 @@ association par adresse, image, clavier, souris, audio, l’écran de verrouilla
 Restaurer la configuration sur le réseau domestique, ainsi que la configuration,
 la connexion et l’accès Tailscale depuis l’extérieur. Les manettes, les autres
 cartes graphiques et les autres clients n’ont pas été testés.
+
+Streaming se trouve à côté de Connexions dans Périphériques. Sunshine affiche l’état du partage, la configuration, le démarrage/arrêt, le lancement à la connexion, l’association, les réglages, le diagnostic et la restauration. Moonlight affiche l’état d’installation et un bouton installer/ouvrir. Tailscale reste dans ses menus et son panneau actuels.

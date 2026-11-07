@@ -46,14 +46,15 @@ def account_lock(directory, exclusive=False):
         os.close(descriptor)
 
 
-def delete_account(provider, name):
+def delete_account(provider, name, *, confirmation=None):
+    confirmation = confirmation or confirm
     directory = account_path(provider, name)
     with account_lock(directory, exclusive=True) as descriptor:
         if Path.cwd().resolve().is_relative_to(directory.resolve()):
             raise ValueError(tr('Account is in use'))
         message = tr('Delete {provider} account {account}? The provider’s sign-in for this account on this computer will be removed. The remote account itself is not affected.',
                      provider=PROVIDERS[provider]['name'], account=name)
-        if not confirm(message):
+        if not confirmation(message):
             return False
         account_path(provider, name)
         if any(path.is_symlink() for path in directory.rglob('*')):

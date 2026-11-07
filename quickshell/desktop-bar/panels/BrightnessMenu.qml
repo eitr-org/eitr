@@ -287,7 +287,7 @@ ThemedPopup {
         anchors.fill: parent
         anchors.margins: 0
         focus: true
-        Keys.onEscapePressed: menu.opened = false
+        Keys.onEscapePressed: event => { if (menu.embedded) event.accepted = false; else menu.dismissPopup(); }
         Flickable {
             id: displayScroll
             anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top

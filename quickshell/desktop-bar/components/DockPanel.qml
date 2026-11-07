@@ -13,6 +13,11 @@ Item {
     property string attachmentEdge: "top"
     property string alignment: "right"
     property real leadingOffset: 0
+    function openSettings(destination) {
+        if (embedded) return;
+        if (hostWindow && hostWindow.host) hostWindow.host.showSettings(destination);
+        opened = false;
+    }
     property bool opened: false
     readonly property int transitionDuration: DesktopStyle.motionDuration(320)
     readonly property bool transitioning: revealProgress > 0 && revealProgress < 1

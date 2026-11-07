@@ -221,6 +221,16 @@ assert(not entries[2].Actions.cloud_delete)
             result = subprocess.run(['lua', '-'], input=script, capture_output=True, text=True, check=False)
             self.assertEqual(result.returncode, 0, result.stderr)
 
+    def test_settings_confirmation_uses_same_scoped_delete_without_walker(self):
+        directory = self.module.account_path('cloudflare', 'inline-confirmation')
+        directory.mkdir(parents=True)
+        (directory / 'token').write_text('fixture')
+        with patch.object(self.module, 'confirm', side_effect=AssertionError('Walker opened')):
+            self.assertFalse(self.module.delete_account('cloudflare', 'inline-confirmation', confirmation=lambda question: False))
+            self.assertTrue(directory.exists())
+            self.assertTrue(self.module.delete_account('cloudflare', 'inline-confirmation', confirmation=lambda question: True))
+        self.assertFalse(directory.exists())
+
     def test_delete_confirmation_cancellation_and_scope(self):
         for provider in self.module.PROVIDERS:
             directory = self.module.account_path(provider, 'delete-me')

@@ -86,8 +86,7 @@ sharing) that runs Walker's Connect/Disconnect or Start/Stop Sharing rows; befor
 that is possible the header shows the first step instead (Set Up, Sign In). Details
 follow, then Tailscale's devices with direct or relayed paths, or Streaming's Start
 at login switch and its everyday actions (Pair a Device, Connect to another PC).
-Setup and diagnostic rows sit in the "…" menu, and a footer opens Walker's Remote
-Access menu. Every control runs the same Walker row through menu-action.py. Streaming uses the Moonlight controller glyph.
+Setup and diagnostic rows sit in the "…" menu, and a footer opens Settings > Streaming. Every control runs the same Walker row through menu-action.py. Streaming uses the Moonlight controller glyph.
 
 Configuration reload errors use a native, padded popup with the bar's live
 Theme Color or Blur appearance. Error details are selectable and scroll within
@@ -1146,7 +1145,7 @@ and inline theme/wallpaper selection. Event sound controls are shared through
 panels through `DockPanel.inlineParent`, without focus grabs or detached surfaces;
 closing their Loader releases the panels' existing observer owners. Input uses
 `KeyboardLayoutRow` and the keyboard helper for selecting, adding, removing and
-ordering layouts. Remaining sidebar groups retain their current destinations.
+ordering layouts. Streaming sits beside Connections in Devices, reuses remote.status and the shared Sunshine controls, and gives Moonlight its own install/open row. Git, Cloud and Security expose direct helper actions inside Settings; interactive forms retain task terminals. AI Assistants manages installation, accounts and collaboration without opening Walker. Panel footer links open Settings directly through the owning shell. Embedded panels hide return links and ignore popup focus/review dismissal.
 
 Window gaps share `eitr/style.json` with Corners. `tools/choice-lists.json` owns
 None (0/0), Small (3/6), Default (6/12) and Large (12/24); the generator supplies

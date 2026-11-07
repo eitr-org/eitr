@@ -2683,6 +2683,9 @@ msgstr "Leistenelement entfernen"
 msgid "Remove local sign-in"
 msgstr "Lokale Anmeldung entfernen"
 
+msgid "Remove local sign-in; the remote account is kept."
+msgstr "Lokale Anmeldung entfernen; das entfernte Konto bleibt erhalten."
+
 msgid "Remove plugin {id} and its service?"
 msgstr "Plugin {id} und seinen Dienst entfernen?"
 

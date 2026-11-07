@@ -4,7 +4,7 @@ Einrichtung bündelt die Konfiguration. Unter Diesen PC freigeben > Einrichtung 
 
 Detaillierter Status öffnet ein Diagnoseterminal, das bis zum Drücken von Esc geöffnet bleibt.
 
-Öffnen Sie Einstellungen > Verbindungen > Fernzugriff. Die Freigabe bleibt bis zur
+Öffnen Sie Einstellungen > Streaming für Sunshine und Moonlight oder Walker > Einstellungen > Verbindungen > Fernzugriff für die Fernzugriffsmenüs. Die Freigabe bleibt bis zur
 Aktivierung ausgeschaltet. Unterstützt wird der angemeldete, wache Eitr-Desktop.
 Betrieb ohne Monitor, Zugriff vor der Anmeldung und wake on LAN folgen später.
 Sperrt sich dieser PC während der Freigabe, zeigt der entfernte Bildschirm den
@@ -96,3 +96,5 @@ starten, Kopplung über die Adresse, Bild, Tastatur, Maus, Audio, der Sperrbilds
 Freigabe-Einrichtung wiederherstellen im Heimnetz sowie Tailscale-Einrichtung,
 Anmeldung und Verbindung von unterwegs. Controller, andere Grafikkarten und andere
 Clients wurden nicht geprüft.
+
+Streaming steht unter Geräte neben Verbindungen. Sunshine zeigt Freigabestatus, Einrichtung, Start/Stopp, Start bei Anmeldung, Kopplung, Einstellungen, Diagnose und Wiederherstellung. Moonlight zeigt den Installationsstatus und eine Schaltfläche zum Installieren/Öffnen. Tailscale bleibt in seinen bisherigen Menüs und im Panel.

@@ -4,7 +4,7 @@ Setup groups the configuration actions. Share This PC > Setup contains Set Up Sh
 
 Detailed Status opens a diagnostic terminal that stays open until you press Esc.
 
-Use Settings > Connectivity > Remote Access. Hosting is off until you enable it.
+Open Settings > Streaming for Sunshine and Moonlight, or Walker > Settings > Connectivity > Remote Access for the remote-access menus. Hosting is off until you enable it.
 This milestone controls your signed-in, awake Eitr desktop. Headless use, access
 before login and wake on LAN are separate future work. While sharing, the remote
 screen shows the lockscreen when this PC locks; anyone connected sees it and can
@@ -96,3 +96,5 @@ keyboard, mouse, audio, the lockscreen (unlocked from the Mac), start at login,
 Stop Sharing and Restore Sharing Setup on the home network, and Tailscale setup,
 sign-in and connection from away. Controllers, other GPUs and other clients have
 not been tested.
+
+Streaming sits beside Connections under Devices. Sunshine shows sharing status, setup, start/stop, start at login, pairing, settings, diagnostics and restore setup. Moonlight shows installation status and an install/open button. Tailscale stays in its existing menus and panel.

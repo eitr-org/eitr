@@ -216,7 +216,7 @@ ThemedPopup {
             anchors.bottomMargin: 8
             text: Eitr.I18n.tr("AI Assistants…")
             foreground: menu.foreground
-            onClicked: { menu.opened = false; Quickshell.execDetached([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:ai-tools"]); }
+            onClicked: menu.openSettings("assistants")
         }
         Text { id: footer; anchors.bottom: parent.bottom; width: parent.width; elide: Text.ElideRight; text: menu.status; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
     }

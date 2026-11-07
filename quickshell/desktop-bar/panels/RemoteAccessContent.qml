@@ -15,6 +15,7 @@ Column {
     required property color accent
     required property color background
     property bool busy: false
+    property bool settingsMode: false
     readonly property var detail: state[kind] || ({})
     readonly property var actions: detail.actions || []
     readonly property bool tailscale: kind === "tailscale"
@@ -63,7 +64,7 @@ Column {
             }
             PanelMoreButton {
                 anchors.verticalCenter: parent.verticalCenter
-                visible: content.moreActions.length > 0
+                visible: !content.settingsMode && content.moreActions.length > 0
                 foreground: content.foreground; background: content.background
                 actions: content.moreActions.map(entry => ({title: entry.title, glyph: entry.icon,
                     run: () => content.actionRequested(entry.menu, entry.source)}))
@@ -208,17 +209,34 @@ Column {
             model: content.visibleSources.map(source => content.action(source)).filter(entry => entry !== null)
             PanelButton {
                 required property var modelData
-                width: (everyday.width - everyday.spacing) / 2; height: 34
-                text: modelData.title; leadingIcon: modelData.icon
+                width: content.settingsMode ? everyday.width : (everyday.width - everyday.spacing) / 2; height: 34
+                text: modelData.title; leadingIcon: modelData.icon || ""
                 textSize: PanelStyle.bodySize; iconSize: 16; textAlignment: Text.AlignLeft
                 foreground: content.foreground
                 onClicked: content.actionRequested(modelData.menu, modelData.source)
                 HoverHandler { id: buttonHover }
-                BarTooltip { target: parent; hovered: buttonHover.hovered; text: modelData.description; foreground: content.foreground; background: content.background }
+                BarTooltip { target: parent; hovered: buttonHover.hovered; text: modelData.description || ""; foreground: content.foreground; background: content.background }
+            }
+        }
+    }
+    Repeater {
+        model: content.settingsMode ? content.moreActions : []
+        ControlRow {
+            required property var modelData
+            text: modelData.title
+            description: modelData.description
+            foreground: content.foreground
+            PanelButton {
+                width: parent.width
+                text: Eitr.I18n.tr("Open")
+                foreground: content.foreground
+                available: !content.busy
+                onClicked: content.actionRequested(modelData.menu, modelData.source)
             }
         }
     }
     PanelFooterLink {
+        visible: !content.settingsMode
         text: Eitr.I18n.tr("Remote Access Settings…")
         foreground: content.foreground
         onClicked: content.settingsRequested()

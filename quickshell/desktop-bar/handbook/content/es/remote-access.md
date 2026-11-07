@@ -4,7 +4,7 @@ Configuración inicial agrupa la configuración. Compartir este PC > Configuraci
 
 Estado detallado abre un terminal de diagnóstico que permanece abierto hasta que pulses Esc.
 
-Abra Configuración > Conectividad > Acceso remoto. Compartir permanece desactivado hasta
+Abra Configuración > Streaming para Sunshine y Moonlight, o Walker > Configuración > Conectividad > Acceso remoto para los menús de acceso remoto. Compartir permanece desactivado hasta
 que lo active. Se controla la sesión de Eitr iniciada y despierta. El uso sin
 monitor, antes del inicio de sesión y wake on LAN quedan para después. Si este equipo
 se bloquea mientras comparte, la pantalla remota muestra la pantalla de bloqueo:
@@ -90,3 +90,5 @@ emparejamiento por dirección, imagen, teclado, ratón, audio, la pantalla de bl
 Restaurar la configuración en la red de casa, y la configuración, el inicio de
 sesión y la conexión de Tailscale desde fuera. No se han probado mandos, otras
 tarjetas gráficas ni otros clientes.
+
+Streaming está junto a Conexiones en Dispositivos. Sunshine muestra el estado de uso compartido, configuración, inicio/parada, inicio de sesión, emparejamiento, ajustes, diagnóstico y restauración. Moonlight muestra el estado de instalación y un botón para instalar/abrir. Tailscale permanece en sus menús y panel actuales.

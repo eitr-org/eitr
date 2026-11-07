@@ -19,6 +19,9 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
+    "AI Assistants": [
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
     "AI Assistants…": [
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
@@ -49,6 +52,9 @@
     "Add": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
+    "Add Account": [
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
     ],
     "Add Layout": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
@@ -120,6 +126,9 @@
     ],
     "Ask anything…": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
+    ],
+    "Ask before changes": [
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
     ],
     "Ask the AI to check": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -241,7 +250,8 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/TimePicker.qml",
-      "quickshell/desktop-bar/panels/WifiMenu.qml"
+      "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
     ],
     "Center": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -370,7 +380,8 @@
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Confirm": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
     ],
     "Confirm removal": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
@@ -381,6 +392,9 @@
     ],
     "Connect to WiFi": [
       "quickshell/desktop-bar/panels/Handbook.qml"
+    ],
+    "Connect to another PC": [
+      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
     "Connected": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -692,6 +706,9 @@
     "Full Screen": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
+    "Full access (default)": [
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+    ],
     "Full width": [
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
@@ -758,6 +775,9 @@
     "Images unavailable": [
       "quickshell/desktop-bar/settings/SettingsAppearanceModel.qml"
     ],
+    "Import Existing Setup": [
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+    ],
     "Input": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -771,7 +791,8 @@
       "quickshell/desktop-bar/components/MicrophoneMeter.qml"
     ],
     "Install": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
     "Install %1 themes · %2": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -783,7 +804,11 @@
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Installed": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
+    ],
+    "Installed assistants and collaboration preferences.": [
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Invalid assistant response.": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -860,6 +885,7 @@
     "Learn more": [
       "quickshell/desktop-bar/settings/SettingsDesktopPage.qml",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml",
+      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
       "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
     ],
     "Learn shortcuts and gestures": [
@@ -1068,6 +1094,9 @@
     "Normal": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
+    "Not installed": [
+      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
+    ],
     "Nothing": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
@@ -1131,6 +1160,11 @@
     "Opacity": [
       "quickshell/desktop-bar/settings/SettingsDesktopPage.qml"
     ],
+    "Open": [
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
+      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
+      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
+    ],
     "Open OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
@@ -1139,9 +1173,6 @@
     ],
     "Open recordings": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
-    ],
-    "Open settings": [
-      "quickshell/desktop-bar/settings/SettingsSystemPage.qml"
     ],
     "Outcome unknown; refresh before retrying.": [
       "quickshell/desktop-bar/panels/ObsMenu.qml",
@@ -1590,6 +1621,9 @@
     "Share WiFi": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
+    "Share this PC with Sunshine or connect with Moonlight.": [
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
     "Show QR": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
@@ -1674,7 +1708,8 @@
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Status unavailable": [
-      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
+      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
     "Stop Recording": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -1693,7 +1728,8 @@
     "Streaming": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
-      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP": [
       "quickshell/desktop-bar/services/NetworkService.qml"
@@ -2009,6 +2045,9 @@
     "Yours": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "ai usage assistants collaboration": [
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
     "alerts dnd": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -2092,6 +2131,9 @@
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
     ],
     "split concentration": [
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "streaming sunshine moonlight remote game desktop sharing": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "style colors palette cursor fonts terminal opacity corners wallpaper": [
@@ -6175,6 +6217,7 @@
       "distro/lib/eitr_profile.py"
     ],
     "Delete Account": [
+      "quickshell/desktop-bar/scripts/settings-system.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Delete this lockscreen? Enter deletes, Esc keeps it.": [
@@ -7884,6 +7927,9 @@
     ],
     "Remove local sign-in": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Remove local sign-in; the remote account is kept.": [
+      "quickshell/desktop-bar/scripts/settings-system.py"
     ],
     "Remove plugin {id} and its service?": [
       "walker/scripts/actions/install/plugins.py"

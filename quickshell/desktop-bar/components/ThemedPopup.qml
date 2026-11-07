@@ -8,6 +8,7 @@ import Eitr as Eitr
 DockPanel {
     id: popup
     property var escapeHandler: null
+    function dismissPopup() { if (!embedded) opened = false; }
     property bool grabReady: false
     onHostWindowChanged: if (!embedded && !hostWindow && grabReady) opened = false
     onVisibleChanged: if (!visible) grabReady = false
@@ -42,7 +43,7 @@ DockPanel {
     data: [
         Connections {
             target: PluginRegistry
-            function onReviewStarted() { popup.opened = false; }
+            function onReviewStarted() { popup.dismissPopup(); }
         },
         Connections {
             target: popup
@@ -57,13 +58,13 @@ DockPanel {
         Timer {
             id: grabDelay
             interval: 100
-            onTriggered: if (popup.opened) {
+            onTriggered: if (popup.opened && !popup.embedded) {
                 if (!popup.hostWindow) { popup.opened = false; return; }
                 popup.keyTarget.forceActiveFocus();
                 popup.grabReady = true;
             }
         },
-        HyprlandFocusGrab { id: grab; active: !popup.embedded && popup.grabReady && popup.opened && popup.visible && !!popup.hostWindow && popup.focusWindows.length > 0; windows: popup.focusWindows; onCleared: popup.opened = false },
+        HyprlandFocusGrab { id: grab; active: !popup.embedded && popup.grabReady && popup.opened && popup.visible && !!popup.hostWindow && popup.focusWindows.length > 0; windows: popup.focusWindows; onCleared: popup.dismissPopup() },
         // Islands: the card that grows from the pill's shape into this panel and back.
         Rectangle {
             id: pillCard

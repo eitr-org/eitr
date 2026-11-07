@@ -30,10 +30,7 @@ ThemedPopup {
         operation.command = ["python3", helper].concat(command);
         operation.running = true;
     }
-    function manageInWalker() {
-        opened = false;
-        Quickshell.execDetached([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:keyboard"]);
-    }
+    function manageLayouts() { openSettings("input"); }
     Component.onCompleted: refresh()
     onOpenedChanged: if (opened) { error = ""; refresh(); }
     // Alt+Shift switches fire activelayout; adding or removing a layout reloads the config.
@@ -66,7 +63,7 @@ ThemedPopup {
         onExited: function(code) {
             if (code === 0) {
                 menu.refresh();
-                menu.opened = false;
+                if (!menu.embedded) menu.opened = false;
             } else {
                 try { menu.error = JSON.parse(operationOutput.text).error || Eitr.I18n.tr("Could not change layout"); }
                 catch (e) { menu.error = Eitr.I18n.tr("Could not change layout"); }
@@ -129,7 +126,8 @@ ThemedPopup {
             anchors.bottom: parent.bottom
             text: Eitr.I18n.tr("Add or Remove Layouts…")
             foreground: menu.foreground
-            onClicked: menu.manageInWalker()
+            visible: !menu.embedded
+            onClicked: menu.manageLayouts()
         }
     }
 }

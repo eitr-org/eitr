@@ -893,6 +893,7 @@
   "Remove Ratatoskr?": "Supprimer Ratatoskr ?",
   "Remove bar item": "Retirer l’élément de barre",
   "Remove local sign-in": "Supprimer la connexion locale",
+  "Remove local sign-in; the remote account is kept.": "Supprimer la connexion locale ; le compte distant est conservé.",
   "Remove plugin {id} and its service?": "Supprimer le plugin {id} et son service ?",
   "Remove the {label} web app?": "Supprimer l’application web {label} ?",
   "Remove this account and its local configuration?": "Supprimer ce compte et sa configuration locale ?",

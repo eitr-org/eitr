@@ -522,7 +522,9 @@ def action_rows(identifier):
             for name in account_actions(model, identifier)]
 
 
-def perform(identifier, choice):
+def perform(identifier, choice, *, confirmation=None, picker=None):
+    confirmation = confirmation or approved
+    picker = picker or walker
     model = copy.deepcopy(load())
     account = model['accounts'][identifier]
     label = account['label']
@@ -530,34 +532,34 @@ def perform(identifier, choice):
         raise ValueError(tr('{choice} is not available for {label}', choice=f'{choice}', label=f'{label}'))
     if choice in TERMINAL_ACTIONS:
         in_terminal(TERMINAL_ACTIONS[choice], identifier)
-    elif choice == 'Make Default' and approved(tr("Use {label} in every folder without its own account?", label=label)):
+    elif choice == 'Make Default' and confirmation(tr("Use {label} in every folder without its own account?", label=label)):
         model['default'] = identifier
         save(model, tr("{label} is now the default account", label=label))
-    elif choice == 'Stop Using as Default' and approved(tr("Stop using {label} outside its folders?", label=label)):
+    elif choice == 'Stop Using as Default' and confirmation(tr("Stop using {label} outside its folders?", label=label)):
         model['default'] = None
         save(model, tr("{label} is no longer the default account", label=label))
     elif choice == 'Add Folder':
         options = [short(path) for path in project_folders()] + [tr('Other folder…')]
-        picked = walker(options, tr("Folder whose repositories use {label}", label=label))
+        picked = picker(options, tr("Folder whose repositories use {label}", label=label))
         if picked == tr('Other folder…'):
             in_terminal('add-folder', identifier)
-        elif picked and approved(tr("Use {label} for repositories in {picked}?", label=label, picked=picked)):
+        elif picked and confirmation(tr("Use {label} for repositories in {picked}?", label=label, picked=picked)):
             path = folder(picked)
             model['folders'] = [row for row in model['folders'] if row['path'] != path]
             model['folders'].append({'path': path, 'account': identifier})
             save(model, tr("{label} now applies to {picked}", label=label, picked=picked))
     elif choice == 'Remove Folder':
         options = [short(rule['path']) for rule in model['folders'] if rule['account'] == identifier]
-        picked = walker(options, tr("Folder to stop using {label} in", label=label))
-        if picked and approved(tr("Stop using {label} in {picked}?", label=label, picked=picked)):
+        picked = picker(options, tr("Folder to stop using {label} in", label=label))
+        if picked and confirmation(tr("Stop using {label} in {picked}?", label=label, picked=picked)):
             path = str(Path(picked).expanduser())
             model['folders'] = [row for row in model['folders'] if row['path'] != path]
             save(model, tr("{label} no longer applies to {picked}", label=label, picked=picked))
     elif choice == 'Set Existing SSH Key':
         directory = Path.home() / '.ssh'
         keys = sorted(short(path.with_suffix('')) for path in directory.glob('*.pub') if path.with_suffix('').is_file())
-        picked = walker(keys, tr("Private key for {label}", label=label))
-        if picked and approved(tr("Use {picked} for {label}?", picked=picked, label=label)):
+        picked = picker(keys, tr("Private key for {label}", label=label))
+        if picked and confirmation(tr("Use {picked} for {label}?", picked=picked, label=label)):
             account['key'] = private_key(Path(picked).expanduser())
             save(model, tr("{label} now uses {picked}", label=label, picked=picked))
     elif choice == 'Test Connection':
@@ -567,7 +569,7 @@ def perform(identifier, choice):
         greeting = next((line for line in answer if line.startswith(('Hi ', 'Welcome'))), '')
         notify(f'{label}: connected' if greeting else f'{label}: connection failed',
                greeting or (answer[-1] if answer else f'ssh exited {result.returncode}'))
-    elif choice == 'Remove Account' and approved(tr("Remove {label} and its folder rules? Keys stay on disk.", label=label)):
+    elif choice == 'Remove Account' and confirmation(tr("Remove {label} and its folder rules? Keys stay on disk.", label=label)):
         del model['accounts'][identifier]
         model['folders'] = [row for row in model['folders'] if row['account'] != identifier]
         if model.get('default') == identifier:

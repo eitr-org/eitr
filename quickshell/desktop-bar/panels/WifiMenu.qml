@@ -193,11 +193,13 @@ ThemedPopup {
         }
         PanelFooterLink {
             id: wifiFooter
-            visible: !menu.sharing && !menu.enterprise
+            objectName: "wifi-settings-footer"
+            visible: !menu.embedded && !menu.sharing && !menu.enterprise
+            height: visible ? PanelStyle.selectionRowHeight : 0
             anchors.bottom: parent.bottom
             text: Eitr.I18n.tr("Network Settings…")
             foreground: menu.foreground
-            onClicked: { menu.opened = false; Quickshell.execDetached([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:system-connectivity"]); }
+            onClicked: menu.openSettings("connections/wifi")
         }
         Flickable {
             visible: !menu.sharing && !menu.enterprise

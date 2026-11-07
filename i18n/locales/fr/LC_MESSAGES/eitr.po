@@ -2683,6 +2683,9 @@ msgstr "Retirer l’élément de barre"
 msgid "Remove local sign-in"
 msgstr "Supprimer la connexion locale"
 
+msgid "Remove local sign-in; the remote account is kept."
+msgstr "Supprimer la connexion locale ; le compte distant est conservé."
+
 msgid "Remove plugin {id} and its service?"
 msgstr "Supprimer le plugin {id} et son service ?"
 

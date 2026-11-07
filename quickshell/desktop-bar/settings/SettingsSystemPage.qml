@@ -25,6 +25,7 @@ Flickable {
     property var hardware: (DesktopData.topics["hardware.details"] || {}).data || ({})
     property var updates: DesktopData.topics["updates.status"] || ({})
     function dismiss() {
+        if (pendingAction) { pendingAction = null; return true; }
         if (!pictureSheet.opened)
             return false;
         profileEditor.cancel();
@@ -90,15 +91,32 @@ Flickable {
             items: []
         };
         contentY = 0;
+        pendingAction = null;
         query.text = "";
         if (pictureSheet.opened)
             profileEditor.cancel();
         Qt.callLater(demand);
     }
     Component.onDestruction: DesktopData.releaseOwner(view)
-    function menu(name) {
-        if (live)
-            Quickshell.execDetached([Eitr.Paths.code("walker/bin/walker"), "--provider", "menus:" + name]);
+    property var pendingAction: null
+    signal pageRequested(string page)
+    function terminal(script, arguments) {
+        const windowClass = script.includes("/cloud/") ? "eitr-cloud" : "eitr-git-accounts";
+        if (live) Quickshell.execDetached([Eitr.Paths.code("walker/bin/menu-path/kitty"), "--class", windowClass, "-e", "python3",
+            Eitr.Paths.code("walker/scripts/actions/task-terminal.py"), "python3", Eitr.Paths.code(script)].concat(arguments));
+    }
+    function runControl(entry, selection, confirmed) {
+        if (!live) return;
+        if (entry.gitAccount) {
+            const needsConfirmation = !["Test Connection", "Add Folder", "Show Public Key", "Create SSH Key", "Edit Name and Email", "Log In to CLI"].includes(entry.title);
+            if (needsConfirmation && !confirmed) { pendingAction = {entry: entry, selection: selection}; return; }
+            helper.change(["git-action", "git-cloud", entry.gitAccount, entry.title, selection, confirmed ? "confirmed" : ""]);
+        } else if (entry.cloudDelete) {
+            if (!confirmed) { pendingAction = {entry: entry, selection: ""}; return; }
+            helper.change(["cloud-delete", "git-cloud", entry.provider, entry.cloudDelete, "confirmed"]);
+        } else if (entry.command) Quickshell.execDetached(entry.command);
+        else if (entry.page) pageRequested(entry.page);
+        else action(entry.actionMenu, entry.actionTitle || entry.title);
     }
     function action(menu, title) {
         if (live)
@@ -107,7 +125,7 @@ Flickable {
     SettingsHelper {
         id: helper
         objectName: "settings-system-helper"
-        active: view.active && ["keybinds", "git-cloud", "security", "about"].includes(view.page)
+        active: view.active && ["keybinds", "git-cloud", "security", "assistants", "about"].includes(view.page)
         live: view.live
         script: Eitr.Paths.code("quickshell/desktop-bar/scripts/settings-system.py")
         summaryArguments: [view.page]
@@ -191,7 +209,7 @@ Flickable {
             }
         }
         Repeater {
-            model: ["keybinds", "git-cloud", "security", "about"].includes(view.page) ? view.matches : []
+            model: ["keybinds", "git-cloud", "security", "assistants", "about"].includes(view.page) ? view.matches : []
             ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
                 id: summaryCard
                 title: Eitr.I18n.tr(modelData.title)
@@ -207,19 +225,47 @@ Flickable {
                     color: Qt.alpha(view.foreground, PanelStyle.secondaryTextOpacity)
                 }
                 Label {
-                    text: Eitr.I18n.tr(summaryCard.modelData.title)
-                }
-                Label {
                     text: Eitr.I18n.tr(summaryCard.modelData.detail || "Unavailable")
                     color: Qt.alpha(view.foreground, PanelStyle.secondaryTextOpacity)
                     font.pixelSize: PanelStyle.captionSize
                 }
-                PanelButton {
-                    visible: !!summaryCard.modelData.menu || !!summaryCard.modelData.actionMenu
-                    width: 180
-                    text: Eitr.I18n.tr("Open settings")
-                    foreground: view.foreground
-                    onClicked: summaryCard.modelData.menu ? view.menu(summaryCard.modelData.menu) : view.action(summaryCard.modelData.actionMenu, summaryCard.modelData.actionTitle || summaryCard.modelData.title)
+                ChoiceDropdown {
+                    visible: summaryCard.modelData.menu === "assistant-access"
+                    width: parent.width
+                    foreground: view.foreground; background: view.background; gold: SettingsInk.gold
+                    choices: [{value: "full", label: Eitr.I18n.tr("Full access (default)")}, {value: "ask", label: Eitr.I18n.tr("Ask before changes")}]
+                    current: helper.summary.access || "full"
+                    onChosen: value => helper.change(["access", "security", value])
+                }
+                Repeater {
+                    model: summaryCard.modelData.controls || (summaryCard.modelData.actionMenu ? [summaryCard.modelData] : [])
+                    ControlRow {
+                        id: actionRow
+                        required property var modelData
+                        property string selection: (modelData.options || [])[0] || ""
+                        text: modelData.label || Eitr.I18n.tr(modelData.title)
+                        description: Eitr.I18n.tr(modelData.detail || "")
+                        foreground: view.foreground
+                        Column {
+                            width: parent.width
+                            spacing: 6
+                            ChoiceDropdown {
+                                visible: (actionRow.modelData.options || []).length > 0
+                                width: parent.width
+                                foreground: view.foreground; background: view.background; gold: SettingsInk.gold
+                                choices: (actionRow.modelData.options || []).map(option => ({value: option, label: option}))
+                                current: actionRow.selection
+                                onChosen: value => actionRow.selection = value
+                            }
+                            PanelButton {
+                                width: parent.width
+                                text: Eitr.I18n.tr("Open")
+                                foreground: view.foreground
+                                available: !helper.busy && (!["Remove Folder", "Set Existing SSH Key"].includes(actionRow.modelData.title) || actionRow.selection !== "")
+                                onClicked: view.runControl(actionRow.modelData, actionRow.selection, false)
+                            }
+                        }
+                    }
                 }
                 Rectangle {
                     width: parent.width
@@ -348,20 +394,58 @@ Flickable {
                 }
             }
         }
-        Row {
-            visible: view.page === "git-cloud"
-            spacing: 6
-            PanelButton {
-                width: 180
+        Popup {
+            parent: Overlay.overlay
+            anchors.centerIn: parent
+            width: Math.min(520, parent ? parent.width - 36 : 520)
+            padding: 0
+            modal: true
+            focus: true
+            visible: view.pendingAction !== null
+            closePolicy: Popup.NoAutoClose
+            contentItem: ControlCard {
+                title: view.pendingAction ? (view.pendingAction.entry.label || Eitr.I18n.tr(view.pendingAction.entry.title)) : ""
                 foreground: view.foreground
-                text: Eitr.I18n.tr("Git Accounts")
-                onClicked: view.menu("git-accounts")
+                surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
+                Label { text: view.pendingAction ? view.pendingAction.entry.confirmation || Eitr.I18n.tr(view.pendingAction.entry.detail || "") : "" }
+                Row {
+                    spacing: 8
+                    PanelButton { width: 140; text: Eitr.I18n.tr("Cancel"); foreground: view.foreground; onClicked: view.pendingAction = null }
+                    PanelButton {
+                        width: 140; text: Eitr.I18n.tr("Confirm"); foreground: view.foreground
+                        onClicked: { const pending = view.pendingAction; view.pendingAction = null; view.runControl(pending.entry, pending.selection, true); }
+                    }
+                }
+            }
+        }
+        ControlCard {
+            visible: view.page === "git-cloud"
+            title: Eitr.I18n.tr("Git Accounts")
+            foreground: view.foreground
+            surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
+            Row {
+                spacing: 8
+                PanelButton { width: 170; foreground: view.foreground; text: Eitr.I18n.tr("Add Account"); onClicked: view.terminal("walker/scripts/actions/development/git-accounts.py", ["add"]) }
+                PanelButton { width: 210; foreground: view.foreground; text: Eitr.I18n.tr("Import Existing Setup"); onClicked: view.terminal("walker/scripts/actions/development/git-accounts.py", ["import"]) }
+            }
+        }
+        ControlCard {
+            visible: view.page === "git-cloud"
+            title: Eitr.I18n.tr("Cloud")
+            foreground: view.foreground
+            surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
+            ChoiceDropdown {
+                id: cloudProvider
+                width: parent.width
+                foreground: view.foreground; background: view.background; gold: SettingsInk.gold
+                choices: helper.summary.providers || []
+                current: "aws"
+                onChosen: value => current = value
             }
             PanelButton {
-                width: 180
-                foreground: view.foreground
-                text: Eitr.I18n.tr("Cloud")
-                onClicked: view.menu("cloud")
+                width: 180; foreground: view.foreground; text: Eitr.I18n.tr("Add Account")
+                onClicked: view.terminal(["aws", "gcp", "azure"].includes(cloudProvider.current) ? "walker/scripts/menus/cloud/accounts.py" : "walker/scripts/menus/cloud/providers.py",
+                    ["aws", "gcp", "azure"].includes(cloudProvider.current) ? ["add", cloudProvider.current] : [cloudProvider.current, "add"])
             }
         }
         ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;

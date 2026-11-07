@@ -31,6 +31,13 @@ var pages = [
     },
     {
         "group": "Devices",
+        "id": "streaming",
+        "title": "Streaming",
+        "description": "Share this PC with Sunshine or connect with Moonlight.",
+        "keywords": "streaming sunshine moonlight remote game desktop sharing"
+    },
+    {
+        "group": "Devices",
         "id": "input",
         "title": "Input",
         "description": "Keyboard layouts, mouse and touchpad.",
@@ -77,6 +84,13 @@ var pages = [
         "title": "Focus",
         "description": "A quiet desktop with tabs and panes.",
         "keywords": "split concentration"
+    },
+    {
+        "group": "Apps & Keys",
+        "id": "assistants",
+        "title": "AI Assistants",
+        "description": "Installed assistants and collaboration preferences.",
+        "keywords": "ai usage assistants collaboration"
     },
     {
         "group": "Apps & Keys",
@@ -150,7 +164,7 @@ var groups = [
     {name: "Accounts & Security", rune: "ᚱ"},
     {name: "System", rune: "ᚲ"}
 ];
-var pageRunes = ["ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ", "ᚾ", "ᛁ", "ᛃ", "ᛇ", "ᛈ", "ᛉ", "ᛊ", "ᛏ", "ᛒ", "ᛖ"];
+var pageRunes = ["ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ", "ᚾ", "ᛁ", "ᛃ", "ᛇ", "ᛈ", "ᛉ", "ᛊ", "ᛏ", "ᛒ", "ᛖ", "ᛗ", "ᛚ"];
 pages.forEach((page, index) => { page.rune = pageRunes[index]; });
 function groupFor(page) { return groups.find(group => group.name === page.group) || groups[0]; }
 function entry(identifier) { return pages.find(page => page.id === resolve(identifier).page) || pages[0]; }
