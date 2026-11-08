@@ -221,3 +221,4 @@ ControlCenterFigure figures/ControlCenterFigure.qml
 SettingsWindowFigure figures/SettingsWindowFigure.qml
 LauncherFigure figures/LauncherFigure.qml
 WindowStyleFigure figures/WindowStyleFigure.qml
+PanelScrollBar components/PanelScrollBar.qml

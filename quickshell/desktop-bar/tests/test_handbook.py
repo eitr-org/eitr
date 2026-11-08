@@ -39,6 +39,15 @@ class HandbookTests(unittest.TestCase):
         self.assertIn("| Shortcut | Action |", text)
         self.assertIn("| Gesture | Action |", text)
 
+    def test_long_pages_show_a_scroll_bar_you_can_grab(self):
+        bar = (ROOT / "quickshell/desktop-bar/components/PanelScrollBar.qml").read_text()
+        self.assertIn("policy: needed ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff", bar)
+        self.assertIn("width: 10", bar)
+        for name in ("panels/Handbook.qml", "panels/CatalogContent.qml", "settings/SettingsDesktopHost.qml",
+                     "settings/SettingsSystemHost.qml", "settings/SettingsDevicesPage.qml",
+                     "settings/SettingsStreamingPage.qml", "settings/SettingsOverview.qml"):
+            self.assertIn("ScrollBar.vertical: PanelScrollBar {", (ROOT / "quickshell/desktop-bar" / name).read_text(), name)
+
     def test_runtime_reader_is_read_only_and_offline(self):
         source = (ROOT / "quickshell/desktop-bar/panels/Handbook.qml").read_text()
         self.assertIn("readOnly: true", source)

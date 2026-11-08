@@ -157,10 +157,7 @@ FamilyWindow {
                 contentHeight: article.height
                 clip: true
                 boundsBehavior: Flickable.StopAtBounds
-                ScrollBar.vertical: ScrollBar {
-                    width: 4; policy: ScrollBar.AsNeeded
-                    contentItem: Rectangle { radius: 2; color: Qt.alpha(book.ink, 0.25) }
-                }
+                ScrollBar.vertical: PanelScrollBar { foreground: book.ink }
                 Column {
                     id: article
                     width: articleScroll.width - 16

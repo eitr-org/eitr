@@ -622,7 +622,7 @@ Item {
             onContentYChanged: more()
             onContentHeightChanged: Qt.callLater(more)
             onHeightChanged: Qt.callLater(more)
-            ScrollBar.vertical: ScrollBar {}
+            ScrollBar.vertical: PanelScrollBar { foreground: catalog.foreground }
             Column {
                 id: sections; width: scroll.width - 12; spacing: 14
                 Repeater {
@@ -668,7 +668,7 @@ Item {
                 objectName: "detail-scroll"
                 anchors.fill: parent; anchors.margins: 22; anchors.topMargin: 52; anchors.bottomMargin: 70
                 contentWidth: width; contentHeight: detailColumn.height; clip: true
-                boundsBehavior: Flickable.StopAtBounds; ScrollBar.vertical: ScrollBar {}
+                boundsBehavior: Flickable.StopAtBounds; ScrollBar.vertical: PanelScrollBar { foreground: catalog.foreground }
                 Column {
                     id: detailColumn
                     width: parent.width - 12; spacing: 16
@@ -858,7 +858,7 @@ Item {
                 Flickable {
                     width: parent.width; height: Math.max(40, parent.height - 150); visible: !catalog.addingAddress
                     contentWidth: width; contentHeight: reviewColumn.height; clip: true; boundsBehavior: Flickable.StopAtBounds
-                    ScrollBar.vertical: ScrollBar {}
+                    ScrollBar.vertical: PanelScrollBar { foreground: catalog.foreground }
                     Column {
                         id: reviewColumn; width: parent.width - 12; spacing: 14
                         readonly property var facts: catalog.nativeReview || ({})
