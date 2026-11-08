@@ -489,11 +489,22 @@ ThemedPopup {
                     required property var modelData
                     readonly property bool editing: menu.settingsFor === modelData.name
                     readonly property bool isMain: modelData.name === menu.primaryDisplay
+                    // An open display sits on its own card, so it is clear which one the settings belong to.
+                    readonly property real cardInset: editing ? 8 : 0
                     width: content.width
-                    height: entryColumn.implicitHeight
+                    height: entryColumn.implicitHeight + cardInset * 2
+                    Rectangle {
+                        anchors.fill: parent
+                        visible: displayEntry.editing
+                        radius: DesktopStyle.radius(PanelStyle.controlRadius + 4)
+                        color: Qt.alpha(menu.foreground, 0.04)
+                        border.width: 1
+                        border.color: Qt.alpha(menu.accent, 0.45)
+                    }
                     Column {
                     id: entryColumn
-                    width: displayEntry.width
+                    x: displayEntry.cardInset; y: displayEntry.cardInset
+                    width: displayEntry.width - displayEntry.cardInset * 2
                     spacing: 10
                     Rectangle {
                         width: parent.width

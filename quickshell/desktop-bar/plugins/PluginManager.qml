@@ -118,6 +118,7 @@ Column {
             HoverHandler { id: rowHover }
             MouseArea {
                 anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
                 onClicked: manager.selectedPlugin = pluginRow.modelData.id
             }
             Accessible.role: Accessible.Button

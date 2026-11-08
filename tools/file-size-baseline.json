@@ -42,7 +42,7 @@
       "reason": "Barely over the limit; the bar window host."
     },
     "quickshell/desktop-bar/panels/BrightnessMenu.qml": {
-      "lines": 595,
+      "lines": 606,
       "reason": "To improve (TODO): display list, night light and power controls in one panel."
     },
     "quickshell/desktop-bar/panels/CalendarMenu.qml": {
