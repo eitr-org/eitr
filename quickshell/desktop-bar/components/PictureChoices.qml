@@ -23,6 +23,8 @@ Flow {
     property string appearance: "solid"
     property bool available: true
     property bool compact: false
+    readonly property bool barPictures: ["layout", "position", "appearance"].indexOf(kind) !== -1
+    readonly property bool smallCards: compact && !barPictures
     signal chosen(string value)
     width: parent ? parent.width : 600
     spacing: 8
@@ -34,8 +36,8 @@ Flow {
             readonly property string value: String(modelData.id ?? modelData.value ?? modelData.key ?? modelData)
             readonly property bool selected: value === control.current
             width: Math.floor((control.width - 8 * (columns - 1)) / columns)
-            readonly property int columns: control.compact ? Math.max(1, Math.min(control.choices.length, Math.floor((control.width + 8) / 110))) : Math.max(1, Math.floor((control.width + 8) / 190))
-            height: control.compact ? 108 : detail.visible ? 138 : 118
+            readonly property int columns: control.barPictures ? Math.max(1, Math.min(3, Math.floor((control.width + 8) / 210))) : control.smallCards ? Math.max(1, Math.min(control.choices.length, Math.floor((control.width + 8) / 110))) : Math.max(1, Math.floor((control.width + 8) / 190))
+            height: control.barPictures ? (detail.visible ? 220 : 200) : control.smallCards ? 108 : detail.visible ? 138 : 118
             radius: DesktopStyle.radius(6)
             color: pointer.containsMouse ? control.raised : control.surface
             border.width: selected || activeFocus ? 2 : 1
@@ -48,7 +50,7 @@ Flow {
             Keys.onReturnPressed: control.chosen(value)
             Keys.onSpacePressed: control.chosen(value)
             Loader {
-                x: 8; y: 8; width: parent.width - 16; height: control.compact ? 58 : 74
+                x: 8; y: 8; width: parent.width - 16; height: control.barPictures ? 156 : control.smallCards ? 58 : 74
                 sourceComponent: control.kind === "workspace" ? workspacePicture : control.kind === "layout" ? layoutPicture : control.kind === "position" ? positionPicture : control.kind === "appearance" ? appearancePicture : control.kind === "media" ? mediaPicture : control.kind === "gaps" ? gapsPicture : control.kind === "corners" ? cornersPicture : control.kind === "lockscreen" ? lockPicture : palettePicture
                 Component { id: workspacePicture; Item {
                     Row { anchors.centerIn: parent; spacing: 4
@@ -57,7 +59,7 @@ Flow {
                         }
                     }
                 } }
-                Component { id: layoutPicture; BarPreview { foreground: control.foreground; background: control.background; accent: control.accent; gold: control.gold; layout: card.value; edge: control.edge; appearance: control.appearance; expanded: pointer.containsMouse } }
+                Component { id: layoutPicture; BarPreview { foreground: control.foreground; background: control.background; accent: control.accent; gold: control.gold; layout: card.value; edge: control.edge; appearance: control.appearance } }
                 Component { id: positionPicture; PositionPreview { foreground: control.foreground; background: control.background; accent: control.accent; gold: control.gold; value: card.value } }
                 Component { id: appearancePicture; AppearancePreview { foreground: control.foreground; background: control.background; accent: control.accent; gold: control.gold; value: card.value; edge: control.edge } }
                 Component { id: mediaPicture; MediaPreview { foreground: control.foreground; background: control.background; accent: control.accent; gold: control.gold; value: card.value } }
@@ -68,17 +70,17 @@ Flow {
             }
             Text {
                 id: label
-                x: 10; y: control.compact ? 73 : 91; width: parent.width - 30
+                x: 10; y: control.barPictures ? 173 : control.smallCards ? 73 : 91; width: parent.width - 30
                 text: Eitr.I18n.tr(String(card.modelData.label ?? card.modelData.name ?? card.modelData))
                 color: card.selected ? control.gold : control.foreground
                 font.family: control.carved ? SiteStyle.carved : DesktopFonts.family; font.pixelSize: control.carved ? 11 : 13
                 elide: Text.ElideRight
             }
-            Text { anchors.right: parent.right; anchors.rightMargin: 9; y: control.compact ? 72 : 90; visible: card.selected; text: "✓"; color: control.gold }
+            Text { anchors.right: parent.right; anchors.rightMargin: 9; y: control.barPictures ? 172 : control.smallCards ? 72 : 90; visible: card.selected; text: "✓"; color: control.gold }
             Text {
                 id: detail
-                x: 10; y: 112; width: parent.width - 20
-                visible: !control.compact && !!card.modelData.description
+                x: 10; y: control.barPictures ? 196 : 112; width: parent.width - 20
+                visible: !control.smallCards && !!card.modelData.description
                 text: Eitr.I18n.tr(card.modelData.description || "")
                 color: control.muted
                 font.family: DesktopFonts.family; font.pixelSize: 10

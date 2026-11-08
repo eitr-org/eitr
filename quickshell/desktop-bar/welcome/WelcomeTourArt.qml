@@ -2,6 +2,7 @@ import ".."
 import QtQuick
 import "../PanelStyle.js" as PanelStyle
 import "../HandbookModel.js" as Model
+import "../ChoiceLists.js" as ChoiceLists
 
 // A small live drawing of one tour step in the current theme's colours. The bar and
 // themes reuse BarPreview, PalettePreview and WallpaperArt; the rest are simple shapes.
@@ -38,12 +39,12 @@ Rectangle {
             source: art.artSource
             BarPreview {
                 id: desktopBar
-                readonly property var layouts: ["unified", "islands", "dynamic", "centered"]
+                readonly property var layouts: ChoiceLists.ids(ChoiceLists.barLayouts)
                 property int shown: 0
                 anchors.fill: parent
-                zoom: Math.max(1, Math.min(width / 150, height / 90))
+                zoom: Math.max(1, Math.min(width / 300, height / 160))
                 scenery: !desktopPicture.loaded
-                layout: layouts[shown]; expanded: true
+                layout: layouts[shown]
                 foreground: art.foreground; background: art.background; accent: art.accent; gold: art.gold
                 Timer { interval: 1800; repeat: true; running: art.animate && !DesktopStyle.reduceMotion; onTriggered: desktopBar.shown = (desktopBar.shown + 1) % desktopBar.layouts.length }
             }

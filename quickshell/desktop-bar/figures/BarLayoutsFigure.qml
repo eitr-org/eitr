@@ -2,8 +2,7 @@ import ".."
 import QtQuick
 import "../ChoiceLists.js" as ChoiceLists
 
-// The five bar layouts side by side with their names: the compact picture
-// cards of Settings > Desktop Bar, unselected. Hovering a card unfolds its layout.
+// Layout cards share Settings geometry and wrap to fit the reader.
 Item {
     id: figure
     readonly property real minimumWidth: 560

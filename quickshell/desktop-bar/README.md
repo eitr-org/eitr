@@ -1227,7 +1227,8 @@ Shared choices live only in `components/`: `ChoiceSegmented`, `ChoiceDropdown`,
 keep Settings’ palette independent of panel colours. Carved labels are opt-in.
 `BarPreview`, `PositionPreview`, `AppearancePreview`, `MediaPreview`, `GapsPreview`,
 `CornersPreview`, `LockscreenPreview` and `PalettePreview` draw reusable examples;
-workspace pictures reuse `WorkspaceMarker`. Compact picture cards wrap at panel width.
+workspace pictures reuse `WorkspaceMarker`. Compact picture cards wrap at panel width. Bar pictures use larger cards, at most
+three per row, with upright edge-specific content and a screen-centred clock.
 `ChoiceDropdown` is the one selector for a list of choices: Settings pages, the Display
 editor, the OBS scene, the Audio panel's output and input devices (with a per-row Rename
 action) and Settings > Input's Add Layout. Its list is a `Popup` in the window's overlay,
