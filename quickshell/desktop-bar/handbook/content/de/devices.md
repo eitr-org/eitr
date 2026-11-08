@@ -4,15 +4,17 @@ Die Seite Anzeigen und das Anzeigepanel zeigen über der Bildschirmauswahl eine 
 
 Unter **Einstellungen > Bildschirme**, **Einstellungen > Ton** und **Einstellungen > Eingabe** stehen die gemeinsamen Steuerelemente direkt in Einstellungen bereit. Ton hat Karten für Ausgabe und Eingabe (Gerät, Lautstärke mit Stummschaltung und Mikrofonpegel), eine Zeile pro Anwendung, die Ton wiedergibt, und Ereignistöne; Umbenennen bleibt in der Geräteliste. Eingabe kann Tastaturlayouts hinzufügen, entfernen und mit den Pfeiltasten umsortieren.
 
-Diese Bedienelemente findest du unter **Einstellungen > Geräte und Eingabe** oder über die entsprechenden Symbole in der Leiste. Das Kontrollzentrum bietet ebenfalls die alltäglichen Schalter und Regler.
+Öffne Einstellungen > Bildschirme, Ton oder Eingabe. Die passenden Leistenpanels und das Kontrollzentrum bieten ebenfalls Schnellsteuerungen.
 
-## Audio und Mikrofon
+Walker > Einstellungen > Geräte und Eingabe > Beleuchtung steuert OpenRGB-Geräte. Sie ist anfangs aus; Thema folgen färbt unterstützte Geräte bei Designwechseln neu.
+
+## Ton und Mikrofon einstellen
 
 Lautstärke wählt den Standardausgang und regelt die Gesamtlautstärke sowie laufende Wiedergabeanwendungen. Geräte erscheinen mit lesbarem Namen und Typsymbol; klicke auf das aktuelle Gerät, um ein anderes zu wählen, und benenne ein Gerät mit seinem Stift-Knopf auf diesem Computer um. Mikrofon wählt den Standardeingang, die Verstärkung und die Stummschaltung. Die Live-Pegelanzeige läuft nur bei geöffnetem Mikrofonpanel und schreibt kein Audio auf die Festplatte. Andere Einstellungen zu öffnen startet keine Mikrofonüberwachung.
 
 Die Regler reichen bis 100 %; ein bereits höherer Wert bleibt bis zum Bewegen erhalten. Ein Wechsel des Standard-Audiogeräts kann ein Gespräch beeinflussen: Nimm ihn bewusst vor. Wiedergabesteuerung und Standardgeräteauswahl sind getrennt.
 
-## Bildschirm und Helligkeit
+## Bildschirme einrichten
 
 Das Bildschirm-Panel listet aktive Monitore auf. Klicke einen an, um seine Einstellungen innerhalb der Karte zu öffnen; erneutes Klicken schließt sie. Der als **Haupt** markierte Monitor trägt Leiste, Panels und Benachrichtigungen. Aktiviere **Hauptbildschirm** bei einem anderen Monitor, um sie dorthin zu verschieben. Wird er getrennt, zeigt ein anderer **Haupt** an und übernimmt die Leiste bis zu seiner Rückkehr; deine Auswahl bleibt gespeichert.
 
@@ -26,11 +28,15 @@ So lassen sich beliebig viele Monitore anordnen: jeweils links, rechts, über od
 
 Der Helligkeitsregler erscheint nur auf Laptops mit eingebautem Bildschirm (native Hintergrundbeleuchtung); Desktop-Monitore behalten ihre eigenen Tasten. Das Abdunkeln vor der Sperre kann externe Monitore weiterhin per DDC dimmen, wenn Monitor und Berechtigungen es erlauben. Nachtlicht bietet einen manuellen Schalter und einen optionalen Zeitplan mit bearbeitbaren Zeiten.
 
-**HDR** erscheint nur bei Monitoren, deren EDID PQ oder HLG unterstützt. Es zeigt den Desktop in HDR; Spiele können HDR auch bei ausgeschaltetem Schalter nutzen. Beim Ein- oder Ausschalten musst du die Änderung ebenfalls innerhalb von 15 Sekunden bestätigen, sonst wird sie zurückgesetzt. Bei aktivem HDR regelt **Helligkeit von SDR-Inhalten** SDR-Inhalte von 1,0× bis 2,0× und speichert sofort. HDR-Spiele im Vollbild können den Monitor auch bei ausgeschaltetem Desktop-HDR automatisch umschalten. In beiden Fällen nutzt Eitr die Spitzen- und Schwarzwerte aus der EDID des Monitors. Browser verwenden HDR nur, wenn Desktop-HDR für ihren Monitor eingeschaltet ist; sie schalten es nie automatisch ein. HDR-Spiele im Vollbild schalten weiterhin automatisch um, wenn Desktop-HDR ausgeschaltet ist. Die HDR-Wiedergabe im Browser hängt außerdem von dessen Unterstützung und Einstellungen ab.
+**HDR** erscheint nur bei Monitoren, deren EDID PQ oder HLG unterstützt. Es zeigt den Desktop in HDR; Spiele können HDR auch bei ausgeschaltetem Schalter nutzen. Beim Ein- oder Ausschalten musst du die Änderung ebenfalls innerhalb von 15 Sekunden bestätigen, sonst wird sie zurückgesetzt. Bei aktivem HDR regelt **Helligkeit von SDR-Inhalten** SDR-Inhalte von 1,0× bis 2,0× und speichert sofort.
 
-## Tastatur
+HDR-Spiele im Vollbild können den Monitor auch bei ausgeschaltetem Desktop-HDR automatisch umschalten. In beiden Fällen nutzt Eitr die Spitzen- und Schwarzwerte aus der EDID des Monitors. Browser verwenden HDR nur, wenn Desktop-HDR für ihren Monitor eingeschaltet ist; sie schalten es nie automatisch ein. HDR-Spiele im Vollbild schalten weiterhin automatisch um, wenn Desktop-HDR ausgeschaltet ist.
 
-Belegungen fügst du in Walker unter Einstellungen > Geräte und Eingabe > Tastatur hinzu oder entfernst sie dort. Tastaturbelegung hinzufügen listet alle Sprachen und Varianten (tippen zum Suchen); wähle eine Belegung und drücke Entf, um sie zu entfernen. Bis zu vier sind erlaubt, Duplikate werden abgelehnt, und mindestens eine muss bleiben. **Alt + Shift** wechselt zwischen ihnen. Ab zwei Belegungen zeigt die Leiste das Kürzel der aktiven (etwa US oder BR); ein Klick darauf oder das Kontrollzentrum wechselt sie. Tastaturbelegung und Systemsprache beziehungsweise Gebietsschema sind unabhängig.
+Die HDR-Wiedergabe im Browser hängt außerdem von dessen Unterstützung und Einstellungen ab.
+
+## Tastaturbelegungen ändern
+
+Öffne Einstellungen > Eingabe. Suche mit Layout hinzufügen nach Sprachen und Varianten, ordne Belegungen mit den Pfeilen und entferne sie mit der Entfernen-Schaltfläche. Bis zu vier sind erlaubt, ohne Duplikate; mindestens eine muss bleiben. **Alt + Shift** wechselt die Belegung. Ab zwei Belegungen kannst du das Kürzel in der Leiste anklicken. Belegung und Desktopsprache sind unabhängig; siehe [Sprache](handbook:language).
 
 Der Desktop startet mit der im Installationsprogramm gewählten Tastatur. US richtet US und US International ein; Akzente sind damit über Alt + Shift erreichbar.
 

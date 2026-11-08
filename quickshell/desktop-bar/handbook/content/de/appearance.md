@@ -1,7 +1,5 @@
 # Designs, Hintergrundbilder und Darstellung
 
-Diese Steuerelemente sind auch direkt in den Einstellungen verfügbar.
-
 Einstellungen (**SUPER + ,**) enthält Darstellungsoptionen; **Weitere Themes** öffnet den separaten Katalog für Themes und Plugins (**SUPER + F2**).
 
 ## Katalog für Themes und Plugins
@@ -16,12 +14,20 @@ Dunkel für Themes und eine separat scrollbare Galerie. Auf/Ab wechselt die
 Seitenleistenzeile; Rechts oder Tab öffnet den Inhalt. Links in der ersten Spalte
 kehrt zur Seitenleiste zurück.
 
-Öffne **Einstellungen > Stil > Themes und Plugins**, **Weitere Themes** in den Einstellungen (SUPER + ,), dem **+** neben Sonne und Mond im Designkarussell oder **SUPER + F2**. Der Katalog ist ein verschiebbares Fenster mit gespeicherter Größe. Halte SUPER und ziehe mit der linken Maustaste zum Verschieben oder mit der rechten zum Ändern der Größe. Normale Fensterkürzel kacheln es oder verschieben es auf eine andere Arbeitsfläche. Erneutes Öffnen fokussiert das vorhandene Fenster auch auf einer anderen Arbeitsfläche. SUPER + F2 schließt es, wenn es fokussiert ist. Auch die Schließen-Schaltfläche, Escape (nach dem Schließen eines Bestätigungsdialogs) oder das normale Fenster-Schließen-Kürzel schließen es. Installiert zeigt jedes Theme als Integriert, Offiziell, Drittanbieter oder
+Öffne **Weitere Themes** unter Einstellungen > Erscheinungsbild > Design und Hintergrundbild oder drücke **SUPER + F2**. Themes und Plugins hat ein eigenes Fenster. Die Navigation erklärt [Einstellungen](handbook:system).
+
+Der Katalog ist ein verschiebbares Fenster mit gespeicherter Größe. Halte SUPER und ziehe mit der linken Maustaste zum Verschieben oder mit der rechten zum Ändern der Größe. Normale Fensterkürzel kacheln es oder verschieben es auf eine andere Arbeitsfläche. Erneutes Öffnen fokussiert das vorhandene Fenster auch auf einer anderen Arbeitsfläche. SUPER + F2 schließt es, wenn es fokussiert ist.
+
+Auch die Schließen-Schaltfläche, Escape (nach dem Schließen eines Bestätigungsdialogs) oder das normale Fenster-Schließen-Kürzel schließen es. Installiert zeigt jedes Theme als Integriert, Offiziell, Drittanbieter oder
 Eigene in einer Vorschaugalerie. Ein Klick auf ein installiertes Theme wendet es
 über den normalen Ablauf an; ein Häkchen markiert das aktuelle Theme. Alle, Dunkel
-und Hell filtern die Galerie. Installiert wird beim Öffnen und nach Aktionen aktualisiert. Beim Öffnen werden Metadaten im Hintergrund geprüft; danach erscheinen Update-Markierungen. Es gibt keine regelmäßige Netzwerkprüfung; Update ersetzt ein Katalog-Theme. Wende ein aktualisiertes aktives Theme
+und Hell filtern die Galerie.
+
+Installiert wird beim Öffnen und nach Aktionen aktualisiert. Beim Öffnen werden Metadaten im Hintergrund geprüft; danach erscheinen Update-Markierungen. Es gibt keine regelmäßige Netzwerkprüfung; Update ersetzt ein Katalog-Theme. Wende ein aktualisiertes aktives Theme
 erneut an, um den Desktop zu erneuern. Entfernen fragt im Fenster nach und verweigert
-das aktive Theme: wende zuerst ein anderes an. Integrierte und eigene Themes bleiben erhalten.
+das aktive Theme: wende zuerst ein anderes an.
+
+Integrierte und eigene Themes bleiben erhalten.
 
 Offiziell vereint integrierte Themes und das Repository `eitr-org/eitr-themes`;
 Community zeigt Themes aus der Community. Ein Klick auf eine Karte dieser Tabs
@@ -33,16 +39,16 @@ Escape, die Schließen-Schaltfläche oder ein Klick außerhalb schließt die Det
 und gibt den Fokus an die Karte zurück. Vollständige entfernte Bilder werden erst
 beim Öffnen geladen, installierte Bilder lokal gelesen.
 
-Installieren auf der Karte schaltet die Auswahl um und zeigt Ausgewählt mit Haken.
-Installierte Karten zeigen Installiert und gegebenenfalls Aktuell. Wähle mehrere
+Installieren auf der Karte schaltet die Auswahl um und zeigt Ausgewählt mit Haken. Installierte Karten zeigen Installiert und gegebenenfalls Aktuell. Wähle mehrere
 Themes und öffne mit Installieren in der unteren Leiste die Prüfung mit Vorschauen,
 Quellen und Gesamtgröße; Leeren hebt die Auswahl auf. Pfeiltasten navigieren,
 Leertaste schaltet die Auswahl um, Enter öffnet Details in Offiziell oder Community.
-Mit Tab zu Installieren in der unteren Leiste und Enter öffnet sich die Prüfung.
-In Installiert wendet Enter weiterhin ein Theme an; eine offene Prüfung wird
+
+Mit Tab zu Installieren in der unteren Leiste und Enter öffnet sich die Prüfung. In Installiert wendet Enter weiterhin ein Theme an; eine offene Prüfung wird
 bestätigt. Installieren in den Details prüft nur dieses Theme; danach erscheint
-Anwenden oder Aktuell. Escape schließt zuerst die Prüfung, dann Details oder Fenster.
-Downloads, Fortschritt und Fehler bleiben im Fenster. Sichtbare Vorschauen und
+Anwenden oder Aktuell. Escape schließt zuerst die Prüfung, dann Details oder Fenster. Downloads, Fortschritt und Fehler bleiben im Fenster.
+
+Sichtbare Vorschauen und
 geöffnete Galerien nutzen den Benutzer-Cache. Bei nicht erreichbarem Repository
 lädt Erneut versuchen neu; Installiert bleibt offline verfügbar.
 
@@ -54,17 +60,21 @@ Die Plugin-Seite zeigt installierte Plugins und das offizielle Repository
 allgemeinem Plugin-Symbol. Kennzeichnungen zeigen installierte und deaktivierte
 Plugins. Das Entfernen wird im Fenster bestätigt.
 
-Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offiziell und Community öffnen Details mit Bildern, Videos und Komponenten. Videos starten stumm und stoppen beim Schließen. Installieren und Update zeigen Quelle, vollständigen Commit, Autor, Dateien, Befehle, Warnungen und Änderungen; die optionale KI-Prüfung erscheint als Text. Plugins haben alle Berechtigungen deines Kontos. Enter bestätigt, Escape bricht ab. Installiert wird genau der geprüfte Commit; Community verwendet den im Index festgelegten Commit. Die Prüfung läuft nach 15 Minuten ab und wird beim Schließen verworfen. Installiert > Von einer Git-Adresse hinzufügen akzeptiert HTTPS oder SSH für Plugins und datenbasierte Themes, ohne Terminal.
+Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offiziell und Community öffnen Details mit Bildern, Videos und Komponenten. Videos starten stumm und stoppen beim Schließen. Installieren und Update zeigen Quelle, vollständigen Commit, Autor, Dateien, Befehle, Warnungen und Änderungen; die optionale KI-Prüfung erscheint als Text. Plugins haben alle Berechtigungen deines Kontos.
 
-## Designs und Hintergrundbilder
+Enter bestätigt, Escape bricht ab. Installiert wird genau der geprüfte Commit; Community verwendet den im Index festgelegten Commit. Die Prüfung läuft nach 15 Minuten ab und wird beim Schließen verworfen. Installiert > Von einer Git-Adresse hinzufügen akzeptiert HTTPS oder SSH für Plugins und datenbasierte Themes, ohne Terminal.
 
-Öffne **Einstellungen > Stil > Design** oder **SUPER + Ctrl + Shift + N** für Walkers Dunkel/Hell-Menüs. Das Designkarussell des Desktops (rechter Doppelklick auf den Desktop, Einstellungen (SUPER + ,) > Erscheinungsbild oder appearance-IPC) zeigt alle Designs. Die Sonne über der ausgewählten Karte zeigt nur helle Designs, der Mond nur dunkle; ein zweiter Klick auf die ausgewählte zeigt wieder alle. Das **+** daneben öffnet den Katalog Themes und Plugins bei den offiziellen Designs, mit demselben Hell- oder Dunkel-Filter. Ctrl+Tab wechselt zwischen allen, dunklen und hellen. Tippe zum Suchen in den angezeigten Designs; Pfeiltasten/Tab wechseln die Auswahl, Enter wendet sie an. Backspace bearbeitet die Suche oder schließt bei leerer Suche; Escape leert die Suche vor dem Schließen. Das Hintergrundbildkarussell hat keine Designsuche.
+Die 13 integrierten Themes bleiben offline verfügbar. Die 12 zusätzlichen Themes werden aus dem offiziellen Katalog `eitr-org/eitr-themes` installiert. Bestehende Konten erhalten alle 12 im Hintergrund; bei Netzwerkfehlern wird es später erneut versucht. Das aktuelle Theme und das gespeicherte Hintergrundbild bleiben erhalten. Neue Konten erhalten nur die integrierten Themes.
+
+Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um die aktuelle Seite nach Name oder Beschreibung zu durchsuchen. Die Wörter können in beliebiger Reihenfolge stehen; Escape leert zuerst die Suche.
+
+## Design und Hintergrundbild wählen
+
+Wähle Design und Hintergrundbild unter Einstellungen > Erscheinungsbild > Design und Hintergrundbild. Walkers Dunkel/Hell-Menüs öffnest du mit **Walker > Einstellungen > Stil > Design** oder **SUPER + Ctrl + Shift + N**. Ein rechter Doppelklick auf freie Desktopfläche öffnet das Designkarussell. Sonne filtert helle, Mond dunkle Designs; erneutes Anklicken zeigt alle. Das + öffnet den separaten Katalog mit demselben Filter. Ctrl+Tab wechselt Filter, Tippen sucht, Pfeile/Tab bewegen und Enter wendet an. Backspace bearbeitet die Suche oder schließt bei leerer Suche; Escape leert sie vor dem Schließen.
 
 **SUPER + Ctrl + N** öffnet die Hintergrundbilder, **SUPER + Shift + N** wechselt zum nächsten. Ein Häkchen markiert die aktive Wahl in Walker. Änderungen zeigen keine Erfolgsbenachrichtigungen. Ultrawide-Monitore, deren Breite mindestens das Doppelte der Höhe beträgt, verwenden die 21:9-Version mit weniger Beschnitt; andere verwenden 4K in 16:9.
 
 Eitr hat vier Hintergrundbilder: Primordial Drop (Standard), Runestone, Élivágar und Venom Rootlight. Die Auswahl erfolgt über dieselben Steuerelemente; die Palette bleibt gleich. Das zweite Bild, Runestone, ist animiert: Polarlichter bewegen sich langsam hinter dem Runenring, aktualisieren sich hinter normalen Fenstern seltener, pausieren hinter Vollbildanwendungen und bleiben auf dem Sperrbildschirm still. Bei Software-Rendering (etwa in einer VM ohne 3D-Beschleunigung) wird das ausgewählte Standbild verwendet; dasselbe gilt, wenn der Renderer nicht erkannt werden kann. Graphite wurde entfernt; gespeicherte Graphite-Auswahlen wechseln zu Eitr und dessen Standardbild.
-
-Die 13 integrierten Themes bleiben offline verfügbar. Die 12 zusätzlichen Themes werden aus dem offiziellen Katalog `eitr-org/eitr-themes` installiert. Bestehende Konten erhalten alle 12 im Hintergrund; bei Netzwerkfehlern wird es später erneut versucht. Das aktuelle Theme und das gespeicherte Hintergrundbild bleiben erhalten. Neue Konten erhalten nur die integrierten Themes.
 
 Die 13 mitgelieferten Themes enthalten zehn dunkle Paletten der Welten: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim und Vanaheim. Jedes Welten-Theme hat zwei bis fünf Originalhintergründe in verschiedenen Tusche-, Gouache-, Cel-Shading- und Malstilen, in beiden Bildformaten. Der erste Hintergrund ist die Vorschau des Themes.
 
@@ -76,33 +86,39 @@ Wenn Hyprpaper das gewählte Hintergrundbild nicht anzeigen kann, zeichnet die L
 
 Eigene Bilder, Designs und Sperrbildschirme bleiben auf diesem Computer, in `~/.local/share/eitr/` (`wallpapers`, `themes` und `lockscreens`). Eitr lädt sie nie hoch und teilt sie nie, und Updates verändern sie nicht. Sie erscheinen neben den ausgelieferten, markiert mit **Eigenes**, und nur sie lassen sich löschen: auswählen, **Entf** drücken, dann Enter zum Bestätigen oder Escape zum Behalten.
 
-- **Einstellungen > Stil > Hintergrundbild > Eigenes Hintergrundbild hinzufügen** nimmt eine Bilddatei oder eine https-Adresse. Downloads enden bei 50 MB, und Eitr behält eine Kopie erst, nachdem geprüft wurde, dass die Datei ein JPEG-, PNG- oder WebP-Bild ist. Die Adresse einer Webseite funktioniert, wenn die Seite ein Hauptbild anbietet; sonst die Adresse des Bildes selbst kopieren. Das Bild wird sofort angewendet und erscheint in der Hintergrundbildliste, im Karussell und bei SUPER + Umschalt + N. Wird das aktive Hintergrundbild gelöscht, wechselt Eitr zuerst zum ersten Hintergrundbild des Designs. Wähle, ob dein Hintergrundbild bei allen Themen oder nur beim aktuellen Thema erscheint.
-- **Einstellungen > Stil > Design > Design erstellen** fragt nach einem Bild (das aktuelle Hintergrundbild, ein eigenes, eines des Designs oder eine andere Datei oder https-Adresse), hell oder dunkel (Automatisch folgt der Helligkeit des Bildes) und einem Namen. Nach der Übersicht erzeugt Eitr aus dem Bild eine vollständige Palette, bei der Text auf dem Hintergrund gut lesbar bleibt, und wendet das Design auf Leiste, Terminal, Starter, Apps und Symbole an. Danach folgt eine Farbliste: Akzent, Hintergrund, Text oder eine der sechs Terminalfarben wählen, sechs Hex-Ziffern eingeben, und die Änderung gilt sofort; Escape beendet. **Strg + E** auf einem eigenen Design öffnet die Liste erneut. Wird das aktive Design gelöscht, kehrt Eitr zuerst zum Design zurück, das vor dem Erstellen aktiv war.
-- **Einstellungen > Stil > Sperrbildschirm > Sperrbildschirm erstellen** nutzt das Design Theme Wallpaper oder Material mit deinem Bild, einer optionalen Akzentfarbe und einer optionalen Begrüßung unter der Uhr und zeigt dann eine Vorschau. Er wird wie jedes Design ausgewählt. Der Anmeldebildschirm kann den Home-Ordner nicht lesen: Er zeigt dasselbe Design, mit deinem Bild bei Theme Wallpaper und dem eigenen Bild des Designs bei Material. Wird der aktive Sperrbildschirm gelöscht, wählt Eitr zuerst sein Design.
+- **Walker > Einstellungen > Stil > Hintergrundbild > Eigenes Hintergrundbild hinzufügen** nimmt eine Bilddatei oder eine https-Adresse. Downloads enden bei 50 MB, und Eitr behält eine Kopie erst, nachdem geprüft wurde, dass die Datei ein JPEG-, PNG- oder WebP-Bild ist. Die Adresse einer Webseite funktioniert, wenn die Seite ein Hauptbild anbietet; sonst die Adresse des Bildes selbst kopieren. Das Bild wird sofort angewendet und erscheint in der Hintergrundbildliste, im Karussell und bei SUPER + Umschalt + N. Wird das aktive Hintergrundbild gelöscht, wechselt Eitr zuerst zum ersten Hintergrundbild des Designs. Wähle, ob dein Hintergrundbild bei allen Themen oder nur beim aktuellen Thema erscheint.
+- **Walker > Einstellungen > Stil > Design > Design erstellen** fragt nach einem Bild (das aktuelle Hintergrundbild, ein eigenes, eines des Designs oder eine andere Datei oder https-Adresse), hell oder dunkel (Automatisch folgt der Helligkeit des Bildes) und einem Namen. Nach der Übersicht erzeugt Eitr aus dem Bild eine vollständige Palette, bei der Text auf dem Hintergrund gut lesbar bleibt, und wendet das Design auf Leiste, Terminal, Starter, Apps und Symbole an. Danach folgt eine Farbliste: Akzent, Hintergrund, Text oder eine der sechs Terminalfarben wählen, sechs Hex-Ziffern eingeben, und die Änderung gilt sofort; Escape beendet. **Strg + E** auf einem eigenen Design öffnet die Liste erneut. Wird das aktive Design gelöscht, kehrt Eitr zuerst zum Design zurück, das vor dem Erstellen aktiv war.
+- **Walker > Einstellungen > Stil > Sperrbildschirm > Sperrbildschirm erstellen** nutzt das Design Theme Wallpaper oder Material mit deinem Bild, einer optionalen Akzentfarbe und einer optionalen Begrüßung unter der Uhr und zeigt dann eine Vorschau. Er wird wie jedes Design ausgewählt. Der Anmeldebildschirm kann den Home-Ordner nicht lesen: Er zeigt dasselbe Design, mit deinem Bild bei Theme Wallpaper und dem eigenen Bild des Designs bei Material. Wird der aktive Sperrbildschirm gelöscht, wählt Eitr zuerst sein Design.
 
-## Leiste und Ecken
+## Das Leistenlayout ändern
 
-**Einstellungen > Stil > Desktopleiste** wählt Unschärfe, Designfarbe oder Website, vollständige oder zentrierte Anordnung und Bildschirmkante. Walker folgt dieser Darstellung. **Einstellungen > Stil > Ecken** wählt eckige, abgerundete oder stark abgerundete Ecken für EITR-Flächen und Fensterdekorationen. Fremdanwendungen können eigene Bedienelemente behalten; runde Statuspunkte bleiben rund.
+**Einstellungen > Desktopleiste** wählt Layout, Position und Darstellung; siehe [Desktopleiste](handbook:desktop-bar). **Einstellungen > Fenster > Ecken** wählt Eckig, Abgerundet oder Stark abgerundet. Fensterabstände und Bewegung reduzieren stehen auf derselben Fenster-Seite. Fremde Apps können ihren eigenen internen Stil behalten.
 
 <!-- eitr-figure: window-style -->
 
 Fensterabstände und Ecken, wie **Einstellungen > Fenster** sie zeigt, mit deiner aktuellen Auswahl markiert. Standardmäßig liegen 6 px zwischen Fenstern und 12 px an den Bildschirmrändern.
 
-## Schriftarten
+Unter **Einstellungen > Fenster > Fensterabstände** oder **Walker > Einstellungen > Stil > Fensterabstände** stehen Keine, Klein, Standard und Groß zur Wahl. Die lokale Auswahl bleibt bei Themewechseln und Neuladen erhalten.
 
-**Einstellungen > Stil > Schriftarten** zeigt nutzbare installierte Schriftfamilien, nicht jede fette oder kursive Variante. Dokument- und Ersatzschriften bleiben verborgen. Standard ist JetBrainsMono Nerd Font. Die Auswahl aktualisiert unterstützte Anwendungen und aktiviert verfügbare Ligaturen. Das Entfernen einer Familie entfernt ihre unterstützten installierten Varianten; die letzte nutzbare Auswahl lässt sich nicht entfernen. Die Paketzugehörigkeit muss gegebenenfalls geprüft werden.
+## Schrift ändern
 
-## Mauszeiger
+Wähle eine installierte Schrift unter Einstellungen > Erscheinungsbild > Schriften & Zeiger. JetBrainsMono Nerd Font ist Standard. Die Auswahl aktualisiert unterstützte Desktop-Apps; manche Apps behalten eigene Schrifteinstellungen. Entferne Schriftfamilien unter Walker > Einstellungen > Stil > Schriftarten und prüfe die zugehörigen Pakete. Die letzte nutzbare Familie lässt sich nicht löschen.
 
-**Einstellungen > Stil > Mauszeiger** bietet Bibata Modern, Breeze und Vanilla DMZ. Farbe bietet automatisch, dunkel und hell; Größe bestimmt die Zeigergröße. Automatisch folgt der hellen oder dunklen Designkategorie, ohne deine gewählte Familie zu ändern. Ausdrückliche Farbvorgaben bleiben erhalten. Die ausgewählte Zeile hat links ein Häkchen; andere Familien zeigen Vorschauen. Fehlende Dateien führen zu einem Fehler statt einer ungültigen gespeicherten Auswahl.
+## Mauszeiger ändern
 
-Das Limine-Startmenü verwendet die aktuellen Designfarben, einen EITR-Titel und eine größere Schrift. Neue Installationen richten das ein; nach einem Designwechsel folgt das Menü beim nächsten Herunterfahren. Ist dein Design nicht lesbar, werden Standardfarben verwendet. Starteinträge bleiben unverändert und `limine.conf` wird vor jeder Änderung gesichert. Bei aktiviertem Secure Boot wird die Gestaltung übersprungen: Eine Änderung der Limine-Konfiguration würde bei registriertem Konfigurationshash den Start verhindern.
+Öffne Einstellungen > Erscheinungsbild > Schriften & Zeiger. Zeigerfamilie wählt Bibata Modern, Breeze oder Vanilla DMZ. Zeigerfarbe bietet Automatisch, Dunkel oder Hell; Automatisch folgt dem Design, ohne die Familie zu ändern. Zeigergröße passt die Größe an. Explizite Farb- und Größenwahlen bleiben bei Designwechseln erhalten. Die Seite zeigt den ausgewählten Zeiger, wenn dessen Dateien verfügbar sind.
 
-**Einstellungen > Stil > Sperrbildschirm** bestimmt Sperr- und Anmeldebildschirm. Bestehende Einstellungen bleiben bei Designwechseln erhalten.
+## Einen Sperrbildschirm wählen
+
+**Einstellungen > Sperrbildschirm** bestimmt Sperr- und Anmeldebildschirm. Bestehende Einstellungen bleiben bei Designwechseln erhalten.
 
 Verfügbar sind Clockwork Neo Orbital, Clockwork Tape, Eitr, Girl Coffee, Girl Pillow, Material Dark, Material Light, Nothing und Theme Wallpaper. Danach folgen deine eigenen Sperrbildschirme; Vorschauen sperren die Sitzung nicht. Ein nicht mehr ausgeliefertes Design wird durch Clockwork Tape ersetzt. Neue Installationen beginnen mit Eitr.
 
-Eitr zeigt die EITR-Wortmarke in der Akzentfarbe deines Themas im goldenen Runenring des Startbildschirms, der jede Sekunde weiterrückt, vor einem Sternenhimmel mit Milchstraße, gelegentlichen Sternschnuppen und dem Polarlicht des Desktops auf reinem Schwarz (auf einem OLED bleiben diese Pixel aus). Die Uhr zeigt Stunden und Minuten in Eitrs eigenen nordischen Ziffern und folgt der 12- oder 24-Stunden-Einstellung. Jedes eingegebene Zeichen meißelt eine Rune in das Passwortfeld (immer dieselben Runen in fester Reihenfolge, sodass nur die Länge sichtbar ist); Pfeiltasten, Pos1 und Ende bewegen den Blockcursor, Rücktaste oder Entf lassen die Rune daneben zerbröckeln. Nach erfolgreicher Authentifizierung wird die Sitzung sofort entsperrt. Beim Absenden, nach einer fehlgeschlagenen Anmeldung und beim Kontowechsel verschwinden die Runen sofort, ohne zu zerbröckeln. Bewegung reduzieren hält alles still und überspringt die Meißel- und Bröckeleffekte. In einer Vorschau schließen Enter und Escape sie sofort, ohne etwas zu entsperren.
+Eitr zeigt die EITR-Wortmarke in der Akzentfarbe deines Themas im goldenen Runenring des Startbildschirms, der jede Sekunde weiterrückt, vor einem Sternenhimmel mit Milchstraße, gelegentlichen Sternschnuppen und dem Polarlicht des Desktops auf reinem Schwarz (auf einem OLED bleiben diese Pixel aus). Die Uhr zeigt Stunden und Minuten in Eitrs eigenen nordischen Ziffern und folgt der 12- oder 24-Stunden-Einstellung.
+
+Jedes eingegebene Zeichen meißelt eine Rune in das Passwortfeld (immer dieselben Runen in fester Reihenfolge, sodass nur die Länge sichtbar ist); Pfeiltasten, Pos1 und Ende bewegen den Blockcursor, Rücktaste oder Entf lassen die Rune daneben zerbröckeln. Nach erfolgreicher Authentifizierung wird die Sitzung sofort entsperrt. Beim Absenden, nach einer fehlgeschlagenen Anmeldung und beim Kontowechsel verschwinden die Runen sofort, ohne zu zerbröckeln.
+
+Bewegung reduzieren hält alles still und überspringt die Meißel- und Bröckeleffekte. In einer Vorschau schließen Enter und Escape sie sofort, ohne etwas zu entsperren.
 
 Die Bilder sind für 4K (3840×2160, 16:9) vorgesehen. Coffee und Pillow behalten ihren ruhigen Anime-Stil mit nordischer Kleidung; Material und Clockwork verwenden dezente Runenornamente. Nothing behält sein Design. QML und SVG bleiben skalierbar.
 
@@ -110,13 +126,12 @@ Vergleiche die neun Designs mit `bash quickshell/lockscreen/scripts/gallery.sh`.
 
 **Design-Hintergrundbild** zeigt das aktuelle Hintergrundbild mit Uhr oben links und Passworteingabe unten rechts. Die Walker-Vorschau zeigt das aktuelle Bild. Spätere Änderungen erscheinen beim nächsten Sperren oder Öffnen der Vorschau; Ctrl+P zeigt das gesamte Design ohne Sperren. Der Anmeldebildschirm kann deinen persönlichen Ordner nicht lesen. Er nutzt eine Kopie, die Eitr beim Auswählen dieses Designs und bei jedem Bildwechsel speichert. Fehlt sie, wird ein anderes Bild des aktuellen Designs oder der Eitr-Standard verwendet.
 
-Auf PCs mit mehreren Konten zeigt der Anmeldebildschirm den ausgewählten Benutzer. Ein Klick auf die linke oder rechte Hälfte der Benutzerauswahl oder Ctrl+Left / Ctrl+Right wählt ein anderes Konto; Enter sendet weiterhin das Passwort und Escape behält seine bisherige Funktion. Mit einem Konto bleibt die Anmeldung optisch unverändert. Der Sperrbildschirm zeigt nach Möglichkeit den echten Namen der gesperrten Sitzung und akzeptiert nur das Passwort dieses Kontos. Benutzer wechseln (Ctrl+Alt+U) öffnet die SDDM-Anmeldung und lässt die ursprüngliche Sitzung gesperrt. Zurück in der gesperrten Sitzung klicken Sie einmal in das Passwortfeld, bevor Sie tippen. Die Aktion erscheint nur bei mehreren geeigneten Konten und wenn SDDM den Wechsel unterstützt. Vorschau und Galerie verwenden drei fiktive Konten und authentifizieren nie.
+Auf PCs mit mehreren Konten zeigt der Anmeldebildschirm den ausgewählten Benutzer. Ein Klick auf die linke oder rechte Hälfte der Benutzerauswahl oder Ctrl+Left / Ctrl+Right wählt ein anderes Konto; Enter sendet weiterhin das Passwort und Escape behält seine bisherige Funktion. Mit einem Konto bleibt die Anmeldung optisch unverändert. Der Sperrbildschirm zeigt nach Möglichkeit den echten Namen der gesperrten Sitzung und akzeptiert nur das Passwort dieses Kontos.
 
-Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offiziell und Community öffnen Details mit Bildern, Videos und Komponenten. Videos starten stumm und stoppen beim Schließen. Installieren und Update zeigen Quelle, vollständigen Commit, Autor, Dateien, Befehle, Warnungen und Änderungen; die optionale KI-Prüfung erscheint als Text. Plugins haben alle Berechtigungen deines Kontos. Enter bestätigt, Escape bricht ab. Installiert wird genau der geprüfte Commit; Community verwendet den im Index festgelegten Commit. Die Prüfung läuft nach 15 Minuten ab und wird beim Schließen verworfen. Installiert > Von einer Git-Adresse hinzufügen akzeptiert HTTPS oder SSH für Plugins und datenbasierte Themes, ohne Terminal.
+Benutzer wechseln (Ctrl+Alt+U) öffnet die SDDM-Anmeldung und lässt die ursprüngliche Sitzung gesperrt. Zurück in der gesperrten Sitzung klicken Sie einmal in das Passwortfeld, bevor Sie tippen. Die Aktion erscheint nur bei mehreren geeigneten Konten und wenn SDDM den Wechsel unterstützt. Vorschau und Galerie verwenden drei fiktive Konten und authentifizieren nie.
 
 Integrierte Themen gehören zu Eitr und können nicht entfernt werden. Der Papierkorb bei einem heruntergeladenen Thema löscht dessen installiertes Paket; das aktuelle Thema kann nicht entfernt werden.
 
-Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um die aktuelle Seite nach Name oder Beschreibung zu durchsuchen. Die Wörter können in beliebiger Reihenfolge stehen; Escape leert zuerst die Suche.
+## Technische Hinweise
 
-
-Unter **Einstellungen > Fenster > Fensterabstände** oder **Walker > Einstellungen > Stil > Fensterabstände** stehen Keine, Klein, Standard und Groß zur Wahl. Die lokale Auswahl bleibt bei Themewechseln und Neuladen erhalten.
+Das Limine-Startmenü verwendet die aktuellen Designfarben, einen EITR-Titel und eine größere Schrift. Neue Installationen richten das ein; nach einem Designwechsel folgt das Menü beim nächsten Herunterfahren. Ist dein Design nicht lesbar, werden Standardfarben verwendet. Starteinträge bleiben unverändert und `limine.conf` wird vor jeder Änderung gesichert. Bei aktiviertem Secure Boot wird die Gestaltung übersprungen: Eine Änderung der Limine-Konfiguration würde bei registriertem Konfigurationshash den Start verhindern.

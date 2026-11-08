@@ -14,10 +14,7 @@ override the packaged defaults and survive theme changes.
 
 ### Cursor Fire
 
-**Settings > Style > Terminal > Cursor Fire** offers **Disabled** (the default) and
-**Enabled**. Enabled selects Kitty's built-in `cursor-trail-blaze` effect on
-cursor movements, with no typing-speed detection. Disabled returns to the
-normal configured fast trail and any personal shader selection.
+Turn Cursor Fire on in **Settings > Appearance > Terminal** for Kitty’s blazing cursor trail. It is off by default. Turning it off restores your normal cursor trail and personal shader choice.
 
 The effect needs Kitty 0.49+ and `shader-slang`, included in Eitr's desktop
 dependencies. Enabling validates the built-in shader before saving or reloading
@@ -28,8 +25,7 @@ cell. Fonts, themes and personal config files remain intact.
 
 ## Choosing your terminal
 
-**Settings > Style > Terminal** in Walker and **Settings (SUPER + ,) > Appearance > Terminal** offer
-**Kitty** (the default) and **Ghostty**. The machine-local `terminal` field in
+Use Settings > Appearance > Terminal to choose Kitty or Ghostty. Walker > Settings > Style > Terminal is an alternative. The machine-local `terminal` field in
 `~/.config/eitr/terminal.json` controls Super+Enter, tmux, user terminal sessions,
 AI/project terminals and Walker's open-in-terminal actions. If Ghostty is missing,
 choosing it opens the normal official-package Install flow: Enter installs,
@@ -57,10 +53,9 @@ Eitr's task, menu, status and setup terminals always use Kitty, including
 `--title` options and floating-window rules remain Kitty-specific. They do not
 change when selecting Ghostty.
 
-
 ## Terminal appearance and shared blur
 
-Settings > Style > Terminal and Settings (SUPER + ,) > Appearance > Terminal apply opacity,
+Walker > Settings > Style > Terminal and Settings > Appearance > Terminal apply opacity,
 padding and blur presets to both Kitty and Ghostty. Opacity offers Solid (100%),
 Light (90%), Medium (80%), Default (75%) and Strong (70%). Padding offers None,
 Small (4 points) and Comfortable (8 points). Defaults preserve 75% opacity, no
@@ -68,12 +63,12 @@ padding and blur On. Utility terminals retain their solid background and task pa
 
 Blur Off disables compositor blur for ordinary Kitty and Ghostty windows; it does
 not make them opaque. Blur strength is shared across the desktop: Gentle (size 2,
-one pass), Medium (size 3, two passes, the default) and Strong (size 5, three passes).
-The same choice appears under Desktop Bar in Walker and Desktop Bar in
-Settings (SUPER + ,), next to appearance. Hyprland 0.57 has global blur strength, so this affects all
+one pass), Medium (size 3, two passes, the default) and Strong (size 5, three passes). The same choice appears under Desktop Bar in Walker and Desktop Bar in
+Settings (SUPER + ,), next to appearance.
+
+Hyprland 0.57 has global blur strength, so this affects all
 surfaces already using blur, including panels, notifications and Overview, and
-other blurred applications. Selecting a strength does not enable terminal blur.
-Stronger blur costs more GPU work. Theme Color keeps its existing solid appearance.
+other blurred applications. Selecting a strength does not enable terminal blur. Stronger blur costs more GPU work. Theme Color keeps its existing solid appearance.
 
 Terminal choices live in `eitr/terminal.json`; shared `blur-strength` lives in
 `quickshell/desktop-bar/bar-settings.json` (version 1). Generated
@@ -171,13 +166,16 @@ Defaults can change or be overridden; **Ctrl-b ?** is the live reference.
 Terminals that menus open, and the update and problem-report notifications'
 terminals, float centered above your windows and use the theme's solid background. AI assistant sessions and LazyVim projects (Development menu)
 open as ordinary tiled windows, like terminals you open yourself, with the
-translucent background.
-Ordinary terminals are interactive and unbranded. Installer/update/setup
+translucent background. Ordinary terminals are interactive and unbranded.
+
+Installer/update/setup
 terminals show the themed rune-style EITR banner; successful tasks normally
 close, and failures stay open until dismissed. Informational reports may stay
 open intentionally. Restarting Elephant is not supposed to close launched apps:
 apps and terminals opened from menus, key bindings and bar buttons use separate
-application scopes in a uwsm session. Without uwsm they launch directly. Elephant
+application scopes in a uwsm session.
+
+Without uwsm they launch directly. Elephant
 keeps process-only stopping for desktop helpers and fallback launches.
 
 Press **Esc** to close waiting task, account, report and About terminals. Enter remains for answers and confirmations, including acknowledging a recovery key and powering off the installer.

@@ -6,14 +6,13 @@ Kitty affiche une courte traînée lors des sauts d’au moins deux cellules, co
 
 ### Feu du curseur
 
-**Paramètres > Style > Terminal > Feu du curseur** propose **Désactivé** (par défaut) et **Activé**. Activé, il utilise l’effet intégré `cursor-trail-blaze` de Kitty pendant les déplacements, sans détecter la vitesse de frappe. Désactivé, il rétablit la traînée rapide normale et votre choix personnel de shader.
+Activez Feu du curseur dans **Paramètres > Apparence > Terminal** pour la traînée flamboyante de Kitty. Il est désactivé par défaut. Le désactiver rétablit la traînée normale et votre choix de shader.
 
 L’effet nécessite Kitty 0.49+ et `shader-slang`, inclus dans les dépendances d’Eitr. L’activation vérifie le shader avant d’enregistrer ou recharger Kitty. La préférence locale est `~/.config/eitr/terminal.json` ; l’utilitaire écrit `kitty/cursor-fire.conf`, inclus en dernier par le chargeur utilisateur. Activé, il choisit le shader de feu et abaisse le seuil à une cellule. Polices, thèmes et fichiers personnels restent intacts.
 
 ## Choisir son terminal
 
-**Paramètres > Style > Terminal** dans Walker et **Paramètres (SUPER + ,) > Apparence > Terminal** proposent
-**Kitty** (par défaut) et **Ghostty**. Le champ local `terminal` de
+Choisissez Kitty ou Ghostty dans Paramètres > Apparence > Terminal. Walker > Paramètres > Style > Terminal reste une alternative. Le champ local `terminal` de
 `~/.config/eitr/terminal.json` contrôle Super+Entrée, tmux, les sessions utilisateur,
 les terminaux IA/projets et les actions Walker pour ouvrir dans un terminal.
 Si Ghostty manque, le sélectionner ouvre le processus habituel d’installation du
@@ -23,9 +22,10 @@ Ghostty est facultatif et n’est pas inclus dans l’ISO.
 
 Les changements de thème régénèrent `~/.config/ghostty/eitr.conf` avec les 16 couleurs
 ANSI et les couleurs de fond, texte, sélection et curseur de texte. Les changements
-de police reprennent la famille choisie ; la taille par défaut est de 10 points.
-Ghostty utilise le même zsh et son invite, avec une opacité de 75 % et aucune marge
-intérieure dans les fenêtres normales. Hyprland fournit le flou, les décorations et
+de police reprennent la famille choisie ; la taille par défaut est de 10 points. Ghostty utilise le même zsh et son invite, avec une opacité de 75 % et aucune marge
+intérieure dans les fenêtres normales.
+
+Hyprland fournit le flou, les décorations et
 les règles normales. La famille, la taille et le choix Auto/Clair/Sombre du pointeur
 dans `eitr/cursor.json` restent appliqués par GTK et le compositeur, indépendamment
 du curseur de texte.
@@ -43,10 +43,9 @@ Kitty, y compris `eitr-menu-terminal`, `eitr-plugins` et `fif-terminal` : leurs
 options `--class`, `--hold`, `--title` et règles de fenêtres flottantes dépendent
 de Kitty. Choisir Ghostty ne les modifie pas.
 
-
 ## Apparence du terminal et flou partagé
 
-Paramètres > Style > Terminal et Paramètres (SUPER + ,) > Apparence > Terminal règlent
+Walker > Paramètres > Style > Terminal et Paramètres > Apparence > Terminal règlent
 l’opacité, les marges internes et le flou de Kitty et Ghostty. L’opacité propose
 Opaque (100%), Léger (90%), Moyen (80%), Par défaut (75%) et Fort (70%). Les marges
 proposent Aucune, Petites (4 points) et Confortables (8 points). Les valeurs par
@@ -55,12 +54,12 @@ utilitaires conservent leur fond opaque et leurs marges de tâche.
 
 Désactiver le flou le supprime des fenêtres ordinaires de Kitty et Ghostty, sans
 les rendre opaques. L’intensité est partagée : Doux (taille 2, une passe),
-Moyenne (taille 3, deux passes, valeur par défaut) et Forte (taille 5, trois passes).
-Le même choix apparaît dans Barre du bureau de Walker et Barre de bureau des
-Paramètres (SUPER + ,), près de l’apparence. Hyprland 0.57 ne propose qu’une intensité globale :
+Moyenne (taille 3, deux passes, valeur par défaut) et Forte (taille 5, trois passes). Le même choix apparaît dans Barre du bureau de Walker et Barre de bureau des
+Paramètres (SUPER + ,), près de l’apparence.
+
+Hyprland 0.57 ne propose qu’une intensité globale :
 elle affecte les panneaux, notifications, Vue d’ensemble et autres applications
-utilisant déjà le flou. Choisir une intensité n’active pas le flou du terminal.
-Un flou plus fort sollicite davantage le GPU. Couleur du thème conserve son fond opaque.
+utilisant déjà le flou. Choisir une intensité n’active pas le flou du terminal. Un flou plus fort sollicite davantage le GPU. Couleur du thème conserve son fond opaque.
 
 Les préférences du terminal sont dans `eitr/terminal.json` ; `blur-strength`
 partagé est dans `quickshell/desktop-bar/bar-settings.json` (version 1). Ces réglages
@@ -136,7 +135,11 @@ Pour continuer sans interface, lancez `cmux --headless --session work`, puis `cm
 
 ## Terminaux de tâches
 
-Les terminaux ouverts par les menus et notifications de mise à jour ou de rapport flottent au centre, au-dessus de vos fenêtres, avec le fond opaque du thème. Les sessions d’assistants IA et projets LazyVim de Développement s’ouvrent en fenêtres ordinaires en mosaïque avec fond translucide, comme vos terminaux personnels. Les terminaux ordinaires sont interactifs et sans bannière. Installation, mise à jour et configuration affichent la bannière runique d’EITR. Les tâches réussies se ferment normalement ; les échecs restent jusqu’à fermeture. Les rapports informatifs peuvent rester ouverts. Redémarrer Elephant ne doit pas fermer les applications lancées : les applications et terminaux ouverts depuis les menus, raccourcis et boutons de la barre utilisent des scopes d’application distincts dans une session uwsm. Sans uwsm, ils sont lancés directement. Elephant conserve l’arrêt du seul processus pour les auxiliaires du bureau et les lancements sans uwsm.
+Les terminaux ouverts par les menus et notifications de mise à jour ou de rapport flottent au centre, au-dessus de vos fenêtres, avec le fond opaque du thème. Les sessions d’assistants IA et projets LazyVim de Développement s’ouvrent en fenêtres ordinaires en mosaïque avec fond translucide, comme vos terminaux personnels.
+
+Les terminaux ordinaires sont interactifs et sans bannière. Installation, mise à jour et configuration affichent la bannière runique d’EITR. Les tâches réussies se ferment normalement ; les échecs restent jusqu’à fermeture. Les rapports informatifs peuvent rester ouverts. Redémarrer Elephant ne doit pas fermer les applications lancées : les applications et terminaux ouverts depuis les menus, raccourcis et boutons de la barre utilisent des scopes d’application distincts dans une session uwsm.
+
+Sans uwsm, ils sont lancés directement. Elephant conserve l’arrêt du seul processus pour les auxiliaires du bureau et les lancements sans uwsm.
 
 Appuyez sur **Échap** pour fermer les terminaux de tâches, de comptes, de rapports et À propos qui attendent une touche. Entrée reste utilisée pour les réponses et confirmations, notamment après avoir noté la clé de récupération et pour éteindre le programme d’installation.
 

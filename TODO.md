@@ -195,7 +195,7 @@ promises below. The roadmap table in `distro/RELEASES.md` has the wording.
 Assistant sessions use full access by default; Settings > AI Assistant > Assistant Access restores permission prompts. Not planned: the rest of the "Not planned now"
 list in `distro/RELEASES.md`.
 
-- [ ] Handbook revision with live illustrations: review every chapter, and show the thing being explained, rendered in QML with the current theme (the bar in each layout with its parts labelled, panels, the Control Center, Settings pages, menus), like Settings' picture previews, instead of text alone or static screenshots.
+- [x] Handbook revision with live illustrations: Settings app paths and tabs, Control Center shortcuts, profile pictures and update status are current. Task-first chapters and cross-links keep the settings workflow in one place; German, Spanish, French and Brazilian Portuguese follow the same revision. The six live figures cover bar anatomy and layouts, Control Center, Settings, Walker and window style.
 - [ ] Settings > Users: an administrator page for other accounts (create, remove, change type or password), separate from the User page for your own account. Reuse Walker's reviewed Create User flow and the root helper behind typed confirmation.
 - [ ] Settings > Git & Cloud for many companies: group each company's cloud profiles and contexts with its Git identity and folder rules.
 - [ ] Create a separate `eitr-store` repository and app for themes, plugins and other add-ons: catalog index, submissions and listings; replace the built-in catalog window later.

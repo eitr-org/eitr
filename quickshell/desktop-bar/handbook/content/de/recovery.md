@@ -6,7 +6,7 @@ Eitr unterstützt Snapper auf einem Btrfs-Root-Dateisystem, in dem `/usr`, `/etc
 
 ## Vor Aktualisierungen
 
-Die Installation aktiviert `/etc/eitr/system-update-policy.conf`. Bevor Einstellungen → System → Systemaktualisierung offizielle und AUR-Pakete aktualisiert, werden folgende Schritte ausgeführt:
+Die Installation aktiviert `/etc/eitr/system-update-policy.conf`. Bevor Einstellungen → Aktualisierungen → Systemaktualisierung offizielle und AUR-Pakete aktualisiert, werden folgende Schritte ausgeführt:
 
 1. Unterstützte Anordnung und Snapper-Konfiguration für das Root-Dateisystem prüfen.
 2. `/boot` und `/efi` nur bei getrennten Einhängepunkten archivieren. Ein Verzeichnis `/boot` innerhalb des Btrfs-Root-Dateisystems ist bereits im Root-Snapshot enthalten. Die Archive liegen unter `/var/lib/eitr/boot-backups/<snapshot-number>/` und sind nur für Root zugänglich.
@@ -72,17 +72,19 @@ Fällt der Desktop aus, startet das System aber noch, wechsle zu einer Textkonso
 
 ## Snapshots des persönlichen Ordners
 
-Standardmäßig ausgeschaltet. **Einstellungen > System > Instandhaltung > Momentaufnahmen > Snapshots des persönlichen Ordners** aktiviert sie nach Rückfrage; Ausschalten löscht sie. Snappers Konfiguration `home` behält dann einen Snapshot von `/home` pro Stunde für einen Tag und einen pro Tag für eine Woche. Sinkt der freie Speicher unter 20 %, werden die ältesten gelöscht.
+Standardmäßig ausgeschaltet. **Walker > Einstellungen > System > Instandhaltung > Momentaufnahmen > Snapshots des persönlichen Ordners** aktiviert sie nach Rückfrage; Ausschalten löscht sie. Snappers Konfiguration `home` behält dann einen Snapshot von `/home` pro Stunde für einen Tag und einen pro Tag für eine Woche. Sinkt der freie Speicher unter 20 %, werden die ältesten gelöscht.
 
 Caches, `~/Downloads`, VM-Laufwerksordner (`~/.local/share/libvirt/images`, GNOME Boxes, `~/VirtualBox VMs`) und die Steam-Bibliothek bleiben ausgeschlossen. Beim nächsten Start, vor jeder Anmeldung, wandelt `eitr-home-exclusions.service` sie in verschachtelte Btrfs-Subvolumes um, die Home-Snapshots nicht erfassen. Dateien bleiben mittels Reflinks erhalten; das Verschieben benötigt keinen zusätzlichen Speicher. Die Variante Eigene Dateien behalten übernimmt diese Subvolumes in das wiederhergestellte Home-Dateisystem: versteckte in den Ordner "Settings before reset"; Caches werden verworfen. Kann eines nicht verschoben werden, bleibt das vorherige Home-Dateisystem zur Prüfung erhalten, statt gelöscht zu werden.
 
-Die Umwandlung und das Anlegen fehlender ausgeschlossener Ordner erfolgen als Eigentümer des persönlichen Ordners, einschließlich seiner zusätzlichen Gruppen. Persönliche Ordner, die über symbolische Links erreicht werden, und Pfade auf einem anderen Dateisystem werden abgelehnt; ein ausgeschlossener Ordner, der selbst ein symbolischer Link ist oder unter einem liegt (etwa Downloads auf einer anderen Festplatte), bleibt unverändert und wird nie verfolgt. Bei einem Fehler bleibt die Einrichtung ausstehend; Ordner namens `NAME.eitr-subvolume` oder `NAME.eitr-old` bleiben zur Prüfung erhalten. Die Originaldateien liegen weiterhin unter `NAME` oder `NAME.eitr-old`. Prüfe diese Ordner, bevor du Reste entfernst und es erneut versuchst. Es erfolgt keine automatische Bereinigung mit Root-Rechten: Das Löschen eines nicht leeren Btrfs-Subvolumes durch seinen Eigentümer erfordert normalerweise `user_subvol_rm_allowed`.
+Die Umwandlung und das Anlegen fehlender ausgeschlossener Ordner erfolgen als Eigentümer des persönlichen Ordners, einschließlich seiner zusätzlichen Gruppen. Persönliche Ordner, die über symbolische Links erreicht werden, und Pfade auf einem anderen Dateisystem werden abgelehnt; ein ausgeschlossener Ordner, der selbst ein symbolischer Link ist oder unter einem liegt (etwa Downloads auf einer anderen Festplatte), bleibt unverändert und wird nie verfolgt.
+
+Bei einem Fehler bleibt die Einrichtung ausstehend; Ordner namens `NAME.eitr-subvolume` oder `NAME.eitr-old` bleiben zur Prüfung erhalten. Die Originaldateien liegen weiterhin unter `NAME` oder `NAME.eitr-old`. Prüfe diese Ordner, bevor du Reste entfernst und es erneut versuchst. Es erfolgt keine automatische Bereinigung mit Root-Rechten: Das Löschen eines nicht leeren Btrfs-Subvolumes durch seinen Eigentümer erfordert normalerweise `user_subvol_rm_allowed`.
 
 **Momentaufnahmen > Wiederherstellen einer Datei oder eines Ordners** (oder `eitr restore PATH`) listet Snapshots auf, die den Pfad enthalten, und kopiert die gewählte Version neben die aktuelle als `NAME (restored DATE)`. War sie gelöscht, wird sie am ursprünglichen Ort wiederhergestellt. Nichts wird überschrieben.
 
 ## Änderungen je Aktualisierung
 
-Prüfe vor einer Rücknahme, was du rückgängig machen würdest. **Einstellungen > System > Instandhaltung > Momentaufnahmen > Was jedes Update geändert hat** (oder `eitr snapshots changes`) listet jedes Vorher/Nachher-Paar mit der Anzahl aktualisierter, herabgestufter, installierter und entfernter Pakete auf. `eitr snapshots changes <before number>` zeigt jedes Paket einer Aktualisierung mit alter und neuer Version. Verglichen werden die Paketdatenbanken beider Snapshots. Fehlt der Nachher-Snapshot noch, wird mit dem laufenden System verglichen.
+Prüfe vor einer Rücknahme, was du rückgängig machen würdest. **Walker > Einstellungen > System > Instandhaltung > Momentaufnahmen > Was jedes Update geändert hat** (oder `eitr snapshots changes`) listet jedes Vorher/Nachher-Paar mit der Anzahl aktualisierter, herabgestufter, installierter und entfernter Pakete auf. `eitr snapshots changes <before number>` zeigt jedes Paket einer Aktualisierung mit alter und neuer Version. Verglichen werden die Paketdatenbanken beider Snapshots. Fehlt der Nachher-Snapshot noch, wird mit dem laufenden System verglichen.
 
 ## Einen älteren Snapshot starten
 

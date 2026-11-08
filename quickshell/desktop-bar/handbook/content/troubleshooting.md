@@ -2,14 +2,15 @@
 
 ## Check This PC
 
-Open **Settings > System > Maintenance > Check This PC**, the same button under Information in the Control Center, or run `eitr check`. Checks are read-only and never repair or restart anything. Cached update lists are not refreshed; DNS resolution uses the network. `eitr check --json` prints technical evidence without prompts.
+Open Settings > Check This PC and press Check This PC for read-only findings. It never repairs or restarts anything. For the interactive report, deeper checks and copy action described below, run `eitr check` or use Walker > Settings > System > Maintenance > Check This PC. Cached update lists are not refreshed; DNS resolution uses the network. `eitr check --json` prints technical evidence without prompts.
 
 Besides restarts, disk space, updates, recovery, services, memory, network and security, it checks displays (a screen running below the best refresh rate for its resolution), graphics (a driver for each graphics card and hardware acceleration) and audio (the sound system, an output device, the volume and the microphone). Each warning and problem starts with one plain sentence on what it means and what to try, followed by **Details:** with the technical evidence and where to fix it.
 
-**Run deeper checks (asks for your password)**: press Enter to run `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` in the same terminal, or Esc to skip. Results replace matching skipped checks. This reads root Snapper configuration, retained pre/post pairs, the last successful package upgrade description, existing Btrfs qgroups, boot guard JSON, an already mounted factory manifest, and trusted Arch Linux/Eitr keys with `pacman-key --list-keys`. It never enables quotas or mounts the factory point. Missing evidence is skipped with a reason. The factory manifest alone does not verify archive integrity. ESP checking uses `fsck.vfat -n` only on a uniquely identified FAT ESP not mounted read-write; otherwise it asks for an unmounted filesystem and skips.
+**Run deeper checks (asks for your password)**: press Enter to run `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` in the same terminal, or Esc to skip. Results replace matching skipped checks. This reads root Snapper configuration, retained pre/post pairs, the last successful package upgrade description, existing Btrfs qgroups, boot guard JSON, an already mounted factory manifest, and trusted Arch Linux/Eitr keys with `pacman-key --list-keys`.
+
+It never enables quotas or mounts the factory point. Missing evidence is skipped with a reason. The factory manifest alone does not verify archive integrity. ESP checking uses `fsck.vfat -n` only on a uniquely identified FAT ESP not mounted read-write; otherwise it asks for an unmounted filesystem and skips.
 
 Failed units show up to three names and a status command. Snapshot descriptions do not prove later desktop update steps succeeded; hook logs have no timestamps. Bar load errors have no structured query. Afterwards, **Enter** copies a redacted report and **Esc** closes. Review text before sharing; copying requires `wl-copy`.
-
 
 ## A menu action reports a missing tool
 
@@ -57,7 +58,9 @@ OBS capture uses the same broker across screens. One shared check runs every
 2 seconds only while an OBS window or process is known to exist. Recording
 details refresh every 2 seconds only while a recording panel is open, and also
 supply the shared status. Unknown status keeps the last known capture state and
-disables controls until a successful refresh. Capture actions and option writes
+disables controls until a successful refresh.
+
+Capture actions and option writes
 share an ordered queue; a timeout or broker exit leaves the outcome unknown and
 never repeats the action automatically. The standalone OBS command remains
 available to Walker and screenshot shortcuts.
@@ -65,7 +68,6 @@ available to Walker and screenshot shortcuts.
 Battery, power profiles and airplane status also share this broker. Battery reads run every 30 seconds; profile and radio reads run only while the relevant panels are open. Peripheral batteries do not enable laptop controls. Low-battery hooks and warnings retain their thresholds. Power-profile and airplane actions are ordered, report errors to the requesting panel and are never replayed after an unknown outcome. The standalone commands remain available.
 
 Display topology, brightness and night-light reads also share the broker. Monitor events and main-display preference changes refresh geometry across screens. Brightness and night-light refresh only while observed; DDC brightness is not polled. Display trials keep their independent automatic rollback even if the bar or broker exits. Standalone display and idle dim/restore commands remain available.
-
 
 ## Installation and recovery checks
 
@@ -82,7 +84,7 @@ independent backup. Start with [Recovery & Snapshots](handbook:recovery).
 
 ## Reporting a problem
 
-**Settings > System > Information > Report a Problem** collects the EITR and package
+**Walker > Settings > System > Information > Report a Problem** collects the EITR and package
 versions, graphics hardware, Hyprland errors, failed services, recent warnings,
 crashes of the last week, errors from the previous start, the installation log
 and recent package changes into `~/Documents/eitr-problem-report-<time>.txt`,
@@ -106,7 +108,11 @@ deleted at any time.
 
 ### When something crashes
 
-Crash Notifications are on by default. A user service watches new, readable systemd-coredump records for your own programs. Each crash offers Report a problem, Ignore, and Mute this program; Ask the AI appears when a default assistant is installed and selected. Repeated crashes of one program are limited to one notification every five minutes. A crash that ends your session is offered at the next login, but programs that crash in the minute after you log out, restart or shut down are not: they are only losing the desktop around them. Toggle Crash Notifications under Main > Toggle or Control Center > Quick Toggles. Preferences and muted program paths stay in `~/.config/eitr/crash-help.json`; remove a path from `ignored` to allow it again.
+Crash Notifications are on by default. A user service watches new, readable systemd-coredump records for your own programs. Each crash offers Report a problem, Ignore, and Mute this program; Ask the AI appears when a default assistant is installed and selected. Repeated crashes of one program are limited to one notification every five minutes.
+
+A crash that ends your session is offered at the next login, but programs that crash in the minute after you log out, restart or shut down are not: they are only losing the desktop around them. Toggle Crash Notifications in Settings > Notifications or Control Center > General > Quick Actions.
+
+Preferences and muted program paths stay in `~/.config/eitr/crash-help.json`; remove a path from `ignored` to allow it again.
 
 Ask the AI opens your default assistant with only the program, signal and backtrace from `coredumpctl info`, asking for an explanation and a proposed fix without changing the system unless you agree. No core dump is passed. Your assistant may send that summary to its provider when you choose this action. Report a problem attaches the same summary to the existing report workflow: review it before sharing; nothing is sent automatically.
 
@@ -132,11 +138,13 @@ retried at the next login (`~/.local/state/eitr/migrations.log`).
 
 Failed task terminals offer **A: ask the AI** when a default assistant is selected; **Esc** closes. Only the last 200 output lines are kept in memory, with ANSI escapes removed and obvious secret lines hidden before sharing: a cloud assistant sends this output to its provider, while Ratatoskr keeps it on this PC.
 
-Hardware uses one broker sampler across screens and the Control Center Hardware action. Opening a hardware panel refreshes immediately, then every two seconds while any hardware panel is open. Closing the last panel stops sampling. CPU, root-drive and GPU identity stay cached for the broker session, including unavailable or timed-out GPU probes. Last good sections remain visible when a read fails. The standalone `system-details.py` CLI remains available; `eitr-shell desktop-bar ipc call -- data status` includes `hardware.details` diagnostics.
+Hardware uses one broker sampler across screens and the Hardware panel. Opening a hardware panel refreshes immediately, then every two seconds while any hardware panel is open. Closing the last panel stops sampling. CPU, root-drive and GPU identity stay cached for the broker session, including unavailable or timed-out GPU probes. Last good sections remain visible when a read fails. The standalone `system-details.py` CLI remains available; `eitr-shell desktop-bar ipc call -- data status` includes `hardware.details` diagnostics.
 
 Remote access uses the shared broker: Tailscale and Sunshine status refresh on opening and every 10 seconds while any remote panel observes it. Closing the last panel stops status reads. Policy availability is read at startup and on policy changes only. Actions still use the existing Walker helpers; the broker changes no remote settings. The standalone `remote-status.py` CLI remains available. `eitr-shell desktop-bar ipc call -- data status` includes `remote.status` and `remote.availability` diagnostics.
 
-Weather shares one default forecast across screens and panels, using a 15-minute cache and refresh interval. City searches and alternate cities belong only to the requesting panel and do not replace the default forecast. AI usage shares its cache and refreshes on opening, then every five minutes only while a usage panel is open. Closing the last panel stops queued account jobs; active calls finish within their existing timeouts, then the AI adapter is released. Provider cooldowns are respected. The standalone weather and AI commands and the session selection file remain available. `eitr-shell desktop-bar ipc call -- data status` includes `weather.default` and `ai.usage` counters without account names or provider payloads.
+Weather shares one default forecast across screens and panels, using a 15-minute cache and refresh interval. City searches and alternate cities belong only to the requesting panel and do not replace the default forecast. AI usage shares its cache and refreshes on opening, then every five minutes only while a usage panel is open.
+
+Closing the last panel stops queued account jobs; active calls finish within their existing timeouts, then the AI adapter is released. Provider cooldowns are respected. The standalone weather and AI commands and the session selection file remain available. `eitr-shell desktop-bar ipc call -- data status` includes `weather.default` and `ai.usage` counters without account names or provider payloads.
 
 Update checks share the bar data broker across screens: 45 seconds after startup,
 every six hours, and after a partial update or a manual refresh; after a successful

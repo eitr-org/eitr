@@ -1,25 +1,61 @@
-# Se repérer dans les paramètres
+# Trouver un réglage
 
-Ouvrez **SUPER + F > Paramètres**. Les dossiers précèdent les actions, par ordre alphabétique. La recherche globale retrouve aussi les anciens noms, dont System et Toggle.
+Appuyez sur **SUPER + ,** pour ouvrir Paramètres. Saisissez du texte dans la recherche latérale pour trouver une page ; l’onglet correspondant s’ouvre directement. Système est la vue d’ensemble, pas un dossier contenant tous les réglages.
+
+<!-- eitr-figure: settings-window -->
+
+La fenêtre Paramètres propose une barre latérale avec recherche et des cartes regroupant les commandes liées. Un clic à l’extérieur ne la ferme pas. Utilisez Échap, son bouton de fermeture ou le raccourci habituel de fermeture de fenêtre.
+
+Les liens en bas des panneaux ferment le panneau et ouvrent la page correspondante de Paramètres. Tous les paramètres dans le Centre de contrôle fait de même ; **SUPER + I** ouvre les commandes rapides. Voir [Centre de contrôle](handbook:control-center).
+
+Choisissez Couleurs des paramètres dans Paramètres > Apparence > Thème et fond d’écran : Couleurs du thème suit le bureau, Site web Eitr utilise la palette du site. Cela concerne Paramètres, le Manuel et Thèmes et plugins, pas le thème du bureau.
+
+Le catalogue séparé Thèmes et plugins s’ouvre avec SUPER + F2 ou Plus de thèmes dans Apparence.
+
+## Choisir une page
+
+Utilisez les noms de page ci-dessous. Les chapitres liés expliquent les étapes.
+
+| Page | En savoir plus |
+| :--- | :--- |
+| Système | [Système](handbook:information) |
+| Écrans — Écrans, Éclairage nocturne | [Écrans](handbook:devices) |
+| Son | [Son](handbook:devices) |
+| Connexions — Wi-Fi, Bluetooth | [Connexions](handbook:connectivity) |
+| Streaming | [Streaming](handbook:remote-access) |
+| Saisie | [Saisie](handbook:devices) |
+| Apparence — Thème et fond d’écran, Polices et curseur, Terminal | [Apparence](handbook:appearance) |
+| Barre de bureau | [Barre de bureau](handbook:desktop-bar) |
+| Fenêtres | [Fenêtres](handbook:appearance) |
+| Écran de verrouillage | [Écran de verrouillage](handbook:appearance) |
+| Notifications | [Notifications](handbook:information) |
+| Focus | [Focus](handbook:focus) |
+| Assistant IA | [Assistant IA](handbook:development) |
+| Raccourcis clavier | [Raccourcis clavier](handbook:shortcuts) |
+| Applications par défaut | [Applications par défaut](handbook:apps) |
+| Utilisateur | [Utilisateur](handbook:security) |
+| Git et cloud | [Git et cloud](handbook:git-accounts) |
+| Sécurité | [Sécurité](handbook:security) |
+| Mises à jour | [Mises à jour](handbook:maintenance) |
+| Vérifier ce PC | [Vérifier ce PC](handbook:troubleshooting) |
+| À propos | [À propos](handbook:information) |
+
+## Changer votre photo de profil
+
+Ouvrez Paramètres > Utilisateur (ou cliquez sur votre photo dans la vue Système des paramètres) et choisissez Changer la photo. Le sélecteur de fichiers du système s’ouvre dans une fenêtre flottante centrée au-dessus des paramètres et n’affiche que des images ; une fois l’image choisie, l’éditeur de recadrage s’ouvre dans une feuille au-dessus des paramètres.
+
+Faites glisser l’aperçu rond pour déplacer l’image ; la molette, le curseur ou +/− zooment de 1× à 4×, et les flèches la déplacent. Enregistrer (ou Entrée) applique le recadrage ; Annuler ou Échap ferme la feuille sans l’appliquer. Supprimer, à côté de Changer la photo, retire la photo.
+
+La photo reste circulaire dans le Centre de contrôle, le verrouillage et l’écran de connexion. Le Centre de contrôle se contente d’afficher la photo en haut de sa navigation ; sans photo, il n’y affiche rien, tout comme le verrouillage et l’écran de connexion. Les paramètres affichent à la place l’initiale de votre nom sur un cercle de la couleur d’accent.
+
+PNG, JPEG, WebP, GIF (première image) et BMP sont acceptés jusqu’à 40 Mo et 12000 pixels par côté. Eitr corrige l’orientation, retire les métadonnées, enregistre un PNG de 512×512 dans `~/.face`, puis actualise AccountsService pour SDDM. En cas d’échec, la photo enregistrée fonctionne toujours au verrouillage ; l’interface ou la CLI signale l’erreur de connexion.
+
+## Utiliser Walker comme alternative
+
+**SUPER + F** ouvre Walker. Son menu Paramètres conserve des dossiers comme Style, Périphériques et saisie et Système. Ce sont des chemins Walker, pas des pages de l’application Paramètres.
 
 <!-- eitr-figure: launcher -->
 
-Le menu Paramètres dans Walker. **Connectivité**, **Périphériques et saisie**, **Langue**, **Sécurité**, **Style** et **Système** sont des dossiers, marqués par **>**. **Centre de contrôle** ouvre les mêmes commandes que SUPER + I ; **Fichiers de configuration** ouvre votre dossier de configuration dans VS Code ou LazyVim.
+Le menu Paramètres de Walker est une alternative avec ses propres dossiers. > ouvre un sous-menu ; la description sous une action explique son effet.
 
-Connectivité ouvre les panneaux natifs Bluetooth et WiFi, le moteur réseau et l’accès à distance. Le choix du moteur prépare le prochain démarrage sans relancer la connexion active.
-
-Périphériques et saisie contient Audio, Limite de charge de la batterie, Affichage, Clavier, Éclairage et Microphone. La limite apparaît uniquement avec une batterie système et nécessite un micrologiciel compatible. Les batteries de périphériques n’activent pas les commandes de portable. Affichage inclut luminosité, éclairage nocturne et profils d’énergie compatibles.
-
-L’éclairage est désactivé par défaut. Suivre le thème permet de recolorer les appareils gérés par OpenRGB lors des changements de thème.
-
-Style conserve les choix de thème, fond d’écran, verrouillage, polices et apparence du bureau. Toggle se nomme désormais Actions rapides dans Principal ; Démarrer l’écran de veille le lance immédiatement.
-
-**Paramètres > Système** contient **Informations**, **Entretien**, **Canal de mise à jour**, **À propos**, **Mise à jour du système**. À propos ouvre le résumé du système EITR. Informations contient Utilisation de l’IA, Matériel, Signaler un problème et Météo. Calendrier, vue des espaces de travail et Ragnarök restent accessibles par recherche globale.
-
-Entretien contient Réinitialisation d’usine, Instantanés, Vérifier ce PC, Choisir les miroirs les plus rapides et Nettoyage. La réinitialisation exige deux avertissements et une confirmation saisie ; lisez d’abord [Réinitialisation d’usine](handbook:factory-reset).
-
-Sécurité conserve les commandes d’authentification, de pare-feu et d’utilisateurs. La documentation reste dans [Secure Boot](handbook:secure-boot). Placez les réglages matériels dans `~/.config/hypr/local.lua` et excluez les secrets des sauvegardes de configuration.
-
-**Walker > Paramètres > Langue** liste les langues avec le choix actuel coché ; voir [Langue](handbook:language). Les noms anglais et traduits restent recherchables. Principal et Applications conservent leur ordre.
-
-Sécurité: Accès des assistants, Clé de sécurité FIDO2, Empreinte digitale, Déverrouillage du disque TPM, Utilisateurs, Pare-feu, Revenir à l’authentification par mot de passe, Mettre à jour le mot de passe.
+Walker affiche les dossiers avant les actions. Tapez pour chercher, appuyez sur Entrée pour ouvrir et Shift + Backspace pour revenir. La langue se choisit dans Walker > Paramètres > Langue ; voir [Langue](handbook:language).

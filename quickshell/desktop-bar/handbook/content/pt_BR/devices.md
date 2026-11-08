@@ -4,15 +4,17 @@ A página Telas e o painel de exibição mostram um mapa dos monitores acima do 
 
 Use **Configurações > Telas**, **Configurações > Som** e **Configurações > Entrada** para acessar os controles compartilhados dentro de Configurações. Som tem cartões de Saída e Entrada (dispositivo, volume com mudo e nível do microfone), uma linha para cada aplicativo que toca áudio e os sons de eventos; Renomear continua na lista de dispositivos. Entrada permite adicionar, remover e reordenar layouts de teclado com os botões de seta.
 
-Encontre estes controles em **Configurações > Dispositivos e entrada** ou nos ícones correspondentes da barra. A Central de controle também oferece os botões e controles deslizantes de uso diário.
+Abra Configurações > Telas, Som ou Entrada. Os painéis correspondentes da barra e a Central de controle também oferecem controles rápidos.
 
-## Áudio e microfone
+Walker > Configurações > Dispositivos e entrada > Iluminação controla dispositivos OpenRGB. Começa desativada; Seguir tema recolore os dispositivos compatíveis ao trocar de tema.
+
+## Ajustar som e microfone
 
 Volume seleciona a saída padrão e controla o volume geral e dos aplicativos em reprodução. Os dispositivos aparecem com nome legível e ícone do tipo; clique no dispositivo atual para escolher outro e use o botão de lápis de um dispositivo para renomeá-lo neste computador. Microfone seleciona a entrada padrão, o ganho e o mudo. O medidor de nível do microfone funciona somente enquanto o painel está aberto e não grava áudio em disco. Abrir outras configurações não inicia o monitoramento do microfone.
 
 Os controles deslizantes chegam a 100%; um valor maior já existente só muda quando você move o controle. Trocar o dispositivo de áudio padrão pode afetar uma chamada: faça isso conscientemente. Os controles de reprodução são separados da seleção do dispositivo padrão.
 
-## Tela e brilho
+## Configurar as telas
 
 O painel de Tela lista os monitores ativos. Clique em um para abrir as configurações dentro do cartão; clique novamente para fechar. O monitor **Principal** recebe a barra, os painéis e as notificações: ative **Tela principal** nas configurações de outro monitor para movê-los. Se ele for desconectado, outro aparecerá como **Principal** e receberá a barra até sua volta; sua escolha será mantida.
 
@@ -26,11 +28,15 @@ Cada configuração mostra o valor atual em uma linha; clique para ver as opçõ
 
 O controle de brilho só aparece em notebooks com tela integrada (iluminação nativa); monitores de mesa mantêm os próprios botões. O escurecimento antes do bloqueio ainda pode reduzir um monitor externo por DDC quando o monitor e as permissões permitem. A Luz noturna tem um botão manual e uma programação opcional com horários editáveis.
 
-**HDR** aparece apenas em monitores cujo EDID informa suporte a PQ ou HLG. Exibe a área de trabalho em HDR; jogos podem usar HDR mesmo com a opção desativada. Ativar ou desativar HDR também pede confirmação em 15 segundos; sem ela, a alteração é desfeita. Com HDR ativo, **Brilho do conteúdo SDR** ajusta o conteúdo SDR de 1,0× a 2,0× e salva imediatamente. Jogos HDR em tela cheia ainda podem alternar o monitor automaticamente quando o HDR da área de trabalho está desativado. Nos dois casos o Eitr usa os níveis de pico e de preto informados pela EDID do próprio monitor. Os navegadores usam HDR somente quando o HDR da área de trabalho está ativado para o monitor em que estão; nunca o ativam automaticamente. Jogos HDR em tela cheia continuam alternando automaticamente quando o HDR da área de trabalho está desativado. A reprodução HDR no navegador também depende do suporte e das configurações dele.
+**HDR** aparece apenas em monitores cujo EDID informa suporte a PQ ou HLG. Exibe a área de trabalho em HDR; jogos podem usar HDR mesmo com a opção desativada. Ativar ou desativar HDR também pede confirmação em 15 segundos; sem ela, a alteração é desfeita. Com HDR ativo, **Brilho do conteúdo SDR** ajusta o conteúdo SDR de 1,0× a 2,0× e salva imediatamente.
 
-## Teclado
+Jogos HDR em tela cheia ainda podem alternar o monitor automaticamente quando o HDR da área de trabalho está desativado. Nos dois casos o Eitr usa os níveis de pico e de preto informados pela EDID do próprio monitor. Os navegadores usam HDR somente quando o HDR da área de trabalho está ativado para o monitor em que estão; nunca o ativam automaticamente.
 
-Adicione e remova layouts no Walker: Configurações > Dispositivos e entrada > Teclado. Adicionar layout lista todos os idiomas e variantes (digite para buscar); selecione um layout e pressione Delete para removê-lo. São permitidos até quatro, sem duplicatas, e pelo menos um deve permanecer. **Alt + Shift** alterna entre eles. Com dois ou mais, a barra mostra o código do layout ativo (como US ou BR); clique nele, ou use a Central de controle, para trocar. O layout do teclado é independente do idioma e da localidade do sistema.
+Jogos HDR em tela cheia continuam alternando automaticamente quando o HDR da área de trabalho está desativado. A reprodução HDR no navegador também depende do suporte e das configurações dele.
+
+## Alterar layouts do teclado
+
+Abra Configurações > Entrada. Use Adicionar layout para buscar idiomas e variantes, as setas para ordenar e o botão de remover para excluir um layout. São aceitos até quatro, sem duplicatas, e pelo menos um deve permanecer. **Alt + Shift** alterna os layouts. Com dois ou mais, clique no código da barra para trocar. Layout e idioma da área de trabalho são independentes; veja [Idioma](handbook:language).
 
 A área de trabalho começa com o teclado escolhido no instalador. A opção US inclui US e US International; basta Alt + Shift para acessar os acentos.
 

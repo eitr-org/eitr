@@ -1,6 +1,6 @@
 # Git-Konten
 
-Öffne **Entwicklung > Git-Konten**. Du kannst GitHub- und GitLab-Konten gleichzeitig nutzen, auch mehrere beim selben Anbieter oder Unternehmenshost. Neue Installationen enthalten GitHub CLI (`gh`) und GitLab CLI (`glab`). Bestehende ISO-Dateien müssen für Änderungen neu gebaut werden.
+Öffne Einstellungen > Git und Cloud. Walker > Entwicklung > Git-Konten ist eine Alternative. Du kannst GitHub- und GitLab-Konten gleichzeitig nutzen, auch mehrere beim selben Anbieter oder Unternehmenshost. Neue Installationen enthalten GitHub CLI (`gh`) und GitLab CLI (`glab`). Bestehende ISO-Dateien müssen für Änderungen neu gebaut werden.
 
 Jede Kontozeile zeigt, wo Git das Konto verwendet: **Standard**, die Ordnernamen oder **Noch nicht verwendet**. Enter öffnet die Aktionen, Shift+Backspace kehrt zur Liste zurück.
 

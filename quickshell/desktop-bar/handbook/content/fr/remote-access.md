@@ -1,15 +1,15 @@
 # Accès à distance
 
-Configuration regroupe les réglages. Partager ce PC > Configuration contient Configurer le partage, Paramètres de partage, Démarrer à la connexion, Désactiver le démarrage à la connexion, État détaillé et Restaurer la configuration du partage. Accéder à ce PC à distance > Configuration contient Se connecter, Configurer l’accès distant, Restaurer la configuration d’accès distant, État détaillé et Tester un pair par ping. Les actions courantes restent directement dans leur menu parent.
-
-État détaillé ouvre un terminal de diagnostic qui reste ouvert jusqu’à un appui sur Esc.
-
 Ouvrez Paramètres > Streaming pour Sunshine et Moonlight, ou Walker > Paramètres > Connectivité > Accès à distance pour les menus d’accès distant. Le partage reste désactivé jusqu’à
 son activation. Cette étape contrôle le bureau Eitr connecté et éveillé.
 Le fonctionnement sans écran, avant connexion et wake on LAN viendront plus tard.
 Si cet ordinateur se verrouille pendant le partage, l’écran distant affiche
 l’écran de verrouillage : la personne connectée le voit et peut saisir le mot de
 passe. Arrêtez le partage avant de vous absenter si la confidentialité compte.
+
+Configuration regroupe les réglages. Partager ce PC > Configuration contient Configurer le partage, Paramètres de partage, Démarrer à la connexion, Désactiver le démarrage à la connexion, État détaillé et Restaurer la configuration du partage. Accéder à ce PC à distance > Configuration contient Se connecter, Configurer l’accès distant, Restaurer la configuration d’accès distant, État détaillé et Tester un pair par ping. Les actions courantes restent directement dans leur menu parent.
+
+État détaillé ouvre un terminal de diagnostic qui reste ouvert jusqu’à un appui sur Esc.
 
 ## Sunshine sur Eitr
 
@@ -19,10 +19,11 @@ au premier clic. Flatpak et AppImage ne proposent pas la capture KMS. Les régla
 et appareils associés sont conservés. Ne lancez pas une deuxième instance.
 
 Lisez l’avertissement de contrôle total et saisissez `yes` uniquement pour accepter
-la capture KMS et les entrées virtuelles du clavier, de la souris et de la manette.
-L’état initial est conservé dans `/var/lib/eitr/remote-access`. La configuration
+la capture KMS et les entrées virtuelles du clavier, de la souris et de la manette. L’état initial est conservé dans `/var/lib/eitr/remote-access`. La configuration
 ajoute une règle udev pour uinput, charge uinput au démarrage, accorde l’accès à
-votre utilisateur et applique `cap_sys_admin+p` à Sunshine. Rétablir la configuration du partage
+votre utilisateur et applique `cap_sys_admin+p` à Sunshine.
+
+Rétablir la configuration du partage
 rétablit les fichiers et l’ACL d’origine et retire les permissions de capture. Si la configuration a chargé uinput, l’annulation le décharge aussi. Si une autre
 application l’utilise encore, l’échec est signalé et le journal est conservé pour
 fermer l’application puis réessayer.
@@ -35,12 +36,14 @@ Moonlight. Eitr impose `upnp=off`. Ne configurez pas de redirection de ports sur
 
 TCP 47984, 47989 et 48010 et UDP 47998-48000 sont autorisés uniquement depuis les
 sous-réseaux LAN privés directement connectés et `tailscale0`. TCP 47990 reste
-accessible seulement depuis ce PC, même si une autre règle autorise l’accès.
-Les réseaux sont déterminés à chaque démarrage du partage ; relancez-le après un
-changement de réseau. Utilisez uniquement un réseau domestique de confiance.
-Arrêter le partage désactive aussi le démarrage automatique et ferme les ports, y compris
+accessible seulement depuis ce PC, même si une autre règle autorise l’accès. Les réseaux sont déterminés à chaque démarrage du partage ; relancez-le après un
+changement de réseau.
+
+Utilisez uniquement un réseau domestique de confiance. Arrêter le partage désactive aussi le démarrage automatique et ferme les ports, y compris
 les flux existants. Une défaillance du service les ferme aussi ; les ouvertures ne
-survivent pas au redémarrage. Après le premier démarrage, Démarrer et Arrêter le partage basculent aussitôt, sans question ni mot de passe. Démarrer à la connexion est facultatif et bascule aussitôt depuis le panneau Streaming ou le menu ;
+survivent pas au redémarrage. Après le premier démarrage, Démarrer et Arrêter le partage basculent aussitôt, sans question ni mot de passe.
+
+Démarrer à la connexion est facultatif et bascule aussitôt depuis le panneau Streaming ou le menu ;
 Désactiver le démarrage à la connexion conserve le démarrage manuel. État du partage affiche les erreurs.
 
 Au premier démarrage, la diffusion reste bloquée pendant la définition du mot de passe. Revenez au terminal et confirmez sa définition ; votre mot de passe administrateur autorise alors le contrôle à distance.
@@ -49,7 +52,9 @@ Une mise à jour du paquet Sunshine retire la capacité de capture de l’exécu
 Si le partage refuse ensuite de démarrer, utilisez à nouveau Configurer le partage
 et confirmez l’autorisation. Le journal d’annulation initial est conservé.
 
-Sunshine utilise la capacité KMS uniquement comme root ou avec le compte de partage : la configuration applique `root:eitr-sharing`, mode `0750`, et ajoute votre compte à ce groupe système. Déconnectez-vous puis reconnectez-vous avant de démarrer pour actualiser les groupes du service utilisateur. La configuration laisse le processus actif ; un redémarrage avant la prochaine connexion peut échouer. Arrêter conserve les permissions. Rétablir retire le compte du groupe et toutes les capacités du fichier, puis applique `root:root`, mode `0755`, même pour les anciens journaux. Après une mise à jour du paquet, la configuration répare le propriétaire et le mode avant de réattribuer la capacité.
+Sunshine utilise la capacité KMS uniquement comme root ou avec le compte de partage : la configuration applique `root:eitr-sharing`, mode `0750`, et ajoute votre compte à ce groupe système. Déconnectez-vous puis reconnectez-vous avant de démarrer pour actualiser les groupes du service utilisateur. La configuration laisse le processus actif ; un redémarrage avant la prochaine connexion peut échouer.
+
+Arrêter conserve les permissions. Rétablir retire le compte du groupe et toutes les capacités du fichier, puis applique `root:root`, mode `0755`, même pour les anciens journaux. Après une mise à jour du paquet, la configuration répare le propriétaire et le mode avant de réattribuer la capacité.
 
 ## Moonlight sur un Mac
 
@@ -67,11 +72,11 @@ Raccourcis SUPER depuis le Mac : dans les réglages de Moonlight, activez **Capt
 Dans Accéder à ce PC à distance, choisissez Configurer l’accès extérieur. Après installation,
 l’assistant root confirmé active et démarre `tailscaled.service`, puis définit
 votre utilisateur comme opérateur. La connexion au compte, la connexion au réseau et la déconnexion ne demandent donc aucun mot de passe. Un Tailscale configuré autrement demande le mot de passe administrateur.
+
 Se connecter ouvre l’URL de `tailscale login` dans le navigateur. Connect connecte ;
 Disconnect déconnecte sans effacer les identifiants. État de la connexion indique
 l’adresse de ce PC, l’absence de connexion au compte et les connexions directes,
-relayées ou inactives. Tester un appareil distant utilise `tailscale ping` pour un appareil précis.
-Le relais peut augmenter la latence et réduire la qualité.
+relayées ou inactives. Tester un appareil distant utilise `tailscale ping` pour un appareil précis. Le relais peut augmenter la latence et réduire la qualité.
 
 Installez [Tailscale sur le Mac](https://tailscale.com/download/mac), connectez-vous
 au même tailnet et connectez les deux ordinateurs. Ajoutez l’adresse Tailscale

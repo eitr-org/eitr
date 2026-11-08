@@ -6,7 +6,7 @@ Veinte segundos antes del bloqueo, las pantallas compatibles atenúan su brillo 
 
 ## Contraseña y autenticación alternativa
 
-**Configuración > Seguridad > Actualizar contraseña** cambia la contraseña de tu cuenta. Huella digital y FIDO2 tienen procesos separados de registro y activación. Una llave FIDO2 es un dispositivo físico, no el lector de huellas del portátil. Regístrala primero y después activa la autenticación. El auxiliar guarda una copia de los ajustes PAM; conserva una contraseña válida y una forma de acceder a un TTY.
+**Configuración > Seguridad > Actualizar contraseña** cambia la contraseña de tu cuenta. Huella digital y Llave de seguridad FIDO2 tienen procesos separados de registro y activación. Una llave FIDO2 es un dispositivo físico, no el lector de huellas del portátil. Regístrala primero y después activa la autenticación. El auxiliar guarda una copia de los ajustes PAM; conserva una contraseña válida y una forma de acceder a un TTY.
 
 Volver a la autenticación por contraseña restaura el acceso solo mediante contraseña. Estos cambios afectan los servicios PAM compatibles de bloqueo, inicio de sesión y sudo; requieren hardware compatible y los auxiliares instalados. La autenticación por huella puede retrasar brevemente la solicitud de contraseña. Leer esta página no modifica PAM.
 
@@ -36,6 +36,4 @@ La carpeta personal nueva no contiene archivos de tu cuenta. En el primer inicio
 
 ## Fotos de perfil
 
-Ajustes > Seguridad > Usuarios > Foto de perfil, en Walker, abre Configuración > Usuario, donde cambias la foto redonda que aparece en el Centro de control, el bloqueo y el inicio de sesión; el selector de archivos, el editor de recorte y lo que guarda Eitr se explican en [Centro de control](handbook:control-center).
-
-Configuración > Usuario muestra tu foto y tu nombre, con Cambiar foto y Quitar. Seguridad abre los flujos existentes con contraseñas, confirmaciones escritas y límites de administrador.
+Abre Configuración > Usuario para cambiar o quitar tu foto. Consulta [Configuración](handbook:system) para elegir una imagen y recortarla. El Centro de control solo muestra la foto.

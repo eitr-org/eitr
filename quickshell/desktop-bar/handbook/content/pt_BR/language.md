@@ -12,7 +12,9 @@ Se também precisar alterar as configurações de todo o sistema, use a configur
 LANG=pt_BR.UTF-8
 ```
 
-Os idiomas iniciais são `pt_BR.UTF-8` (português brasileiro), `es_ES.UTF-8` (espanhol), `de_DE.UTF-8` (alemão) e `fr_FR.UTF-8` (francês). Variantes regionais podem usar a tradução do idioma base. Execute `locale` em um terminal para verificar substituições e `locale -a` para listar as localidades instaladas. Saia da sessão e entre novamente para aplicar o idioma ao desktop, aos menus e aos novos terminais. O seletor grava apenas `~/.config/environment.d/90-eitr-language.conf`: define `LC_MESSAGES` e esvazia `LC_ALL` para a próxima sessão, preservando os formatos de data e números. **Padrão do sistema** remove essa preferência. Ele não altera `/etc/locale.conf` nem gera localidades; aplicativos já abertos mantêm o idioma atual.
+Os idiomas iniciais são `pt_BR.UTF-8` (português brasileiro), `es_ES.UTF-8` (espanhol), `de_DE.UTF-8` (alemão) e `fr_FR.UTF-8` (francês). Variantes regionais podem usar a tradução do idioma base. Execute `locale` em um terminal para verificar substituições e `locale -a` para listar as localidades instaladas. Saia da sessão e entre novamente para aplicar o idioma ao desktop, aos menus e aos novos terminais.
+
+O seletor grava apenas `~/.config/environment.d/90-eitr-language.conf`: define `LC_MESSAGES` e esvazia `LC_ALL` para a próxima sessão, preservando os formatos de data e números. **Padrão do sistema** remove essa preferência. Ele não altera `/etc/locale.conf` nem gera localidades; aplicativos já abertos mantêm o idioma atual.
 
 ## Contribuir com uma tradução
 

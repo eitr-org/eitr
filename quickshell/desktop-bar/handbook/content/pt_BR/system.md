@@ -1,25 +1,61 @@
-# Como navegar pelas Configurações
+# Encontrar uma configuração
 
-Abra **SUPER + F > Configurações**. As pastas aparecem antes das ações, em ordem alfabética. A busca global também encontra os nomes anteriores, incluindo System e Toggle.
+Pressione **SUPER + ,** para abrir Configurações. Digite na busca lateral para encontrar uma página; a aba correspondente abre diretamente. Sistema é a visão geral, não uma pasta com todas as configurações.
+
+<!-- eitr-figure: settings-window -->
+
+A janela Configurações tem uma barra lateral com busca e cartões para controles relacionados. Clicar fora não a fecha. Use Esc, o botão de fechar ou o atalho normal para fechar janelas.
+
+Links no rodapé dos painéis fecham o painel e abrem a página correspondente de Configurações. Todas as configurações na Central de controle faz o mesmo; **SUPER + I** abre os controles rápidos. Veja [Central de controle](handbook:control-center).
+
+Escolha Cores das configurações em Configurações > Aparência > Tema e papel de parede: Cores do tema acompanha o desktop; Site do Eitr usa a paleta do site. Isso afeta Configurações, o Manual e Temas e plugins, não o tema da área de trabalho.
+
+O catálogo separado Temas e plugins abre com SUPER + F2 ou Mais temas em Aparência.
+
+## Escolher uma página
+
+Use os nomes de página abaixo. Os capítulos vinculados explicam os passos.
+
+| Página | Saiba mais |
+| :--- | :--- |
+| Sistema | [Sistema](handbook:information) |
+| Telas — Telas, Luz noturna | [Telas](handbook:devices) |
+| Som | [Som](handbook:devices) |
+| Conexões — Wi-Fi, Bluetooth | [Conexões](handbook:connectivity) |
+| Streaming | [Streaming](handbook:remote-access) |
+| Entrada | [Entrada](handbook:devices) |
+| Aparência — Tema e papel de parede, Fontes e cursor, Terminal | [Aparência](handbook:appearance) |
+| Barra da área de trabalho | [Barra da área de trabalho](handbook:desktop-bar) |
+| Janelas | [Janelas](handbook:appearance) |
+| Tela de bloqueio | [Tela de bloqueio](handbook:appearance) |
+| Notificações | [Notificações](handbook:information) |
+| Focus | [Focus](handbook:focus) |
+| Assistente de IA | [Assistente de IA](handbook:development) |
+| Atalhos de teclado | [Atalhos de teclado](handbook:shortcuts) |
+| Apps padrão | [Apps padrão](handbook:apps) |
+| Usuário | [Usuário](handbook:security) |
+| Git e nuvem | [Git e nuvem](handbook:git-accounts) |
+| Segurança | [Segurança](handbook:security) |
+| Atualizações | [Atualizações](handbook:maintenance) |
+| Verificar este PC | [Verificar este PC](handbook:troubleshooting) |
+| Sobre | [Sobre](handbook:information) |
+
+## Alterar sua foto de perfil
+
+Abra Configurações > Usuário (ou clique na sua foto na visão geral Sistema das Configurações) e escolha Alterar foto. O seletor de arquivos do sistema abre flutuante, centralizado sobre as Configurações, mostrando só imagens; ao escolher uma, o editor de recorte abre em uma folha sobre as Configurações. Arraste a prévia circular para mover a imagem; use a roda, o controle deslizante ou +/− para ampliar de 1× a 4×, e as setas para mover.
+
+Salvar (ou Enter) aplica o recorte; Cancelar ou Esc fecha a folha sem aplicá-lo. Remover, ao lado de Alterar foto, apaga a foto.
+
+A foto aparece sempre como um círculo no Centro de Controle, no bloqueio e na tela de login. O Centro de Controle apenas exibe a foto no topo da navegação; sem foto, não mostra nada ali, assim como o bloqueio e a tela de login. As Configurações mostram em vez disso a inicial do seu nome sobre um círculo na cor de destaque.
+
+PNG, JPEG, WebP, GIF (primeiro quadro) e BMP são aceitos até 40 MB e 12000 pixels por lado. O Eitr aplica a orientação, remove metadados, salva um PNG de 512×512 em `~/.face` e atualiza o AccountsService para o SDDM. Se a atualização falhar, a foto salva continua funcionando no bloqueio; a interface ou CLI informa o erro da tela de login.
+
+## Usar o Walker como alternativa
+
+**SUPER + F** abre o Walker. O menu Configurações mantém pastas como Estilo, Dispositivos e entrada e Sistema. Esses são caminhos do Walker, não páginas do aplicativo Configurações.
 
 <!-- eitr-figure: launcher -->
 
-O menu Configurações no Walker. **Conectividade**, **Dispositivos e entrada**, **Idioma**, **Segurança**, **Estilo** e **Sistema** são pastas, marcadas com **>**. **Central de controle** abre os mesmos controles que SUPER + I; **Arquivos de configuração** abre sua pasta de configuração no VS Code ou LazyVim.
+O menu Configurações do Walker é uma alternativa com suas próprias pastas. > abre um submenu; a descrição abaixo de uma ação explica o que ela faz.
 
-Conectividade abre os painéis nativos de Bluetooth e WiFi, a infraestrutura de rede e o acesso remoto. A escolha do serviço prepara a próxima inicialização sem reiniciar a conexão atual.
-
-Dispositivos e entrada contém Áudio, Limite de Carga da Bateria, Tela, Teclado, Iluminação e Microfone. O limite só aparece com uma bateria do sistema e exige firmware compatível. Baterias de periféricos não ativam controles de notebook. Tela inclui brilho, luz noturna e perfis de energia compatíveis.
-
-Iluminação fica desativada por padrão. Seguir o tema permite recolorir os dispositivos controlados pelo OpenRGB a cada troca de tema.
-
-Estilo mantém as opções de tema, papel de parede, bloqueio, fontes e aparência da área de trabalho. Toggle agora se chama Ações rápidas no Principal; Iniciar protetor de tela o inicia imediatamente.
-
-**Configurações > Sistema** contém **Informações**, **Manutenção**, **Canal de atualização**, **Sobre**, **Atualização do sistema**. Sobre abre o resumo do sistema EITR. Informações contém Uso de IA, Hardware, Relatar um problema e Clima. Calendário, visão geral das áreas de trabalho e Ragnarök continuam disponíveis na busca global.
-
-Manutenção contém Redefinição de fábrica, Instantâneos, Verificar este PC, Escolher os espelhos mais rápidos e Limpeza. A redefinição exige dois avisos e confirmação digitada; leia [Redefinição de fábrica](handbook:factory-reset) antes.
-
-Segurança mantém os controles de autenticação, firewall e usuários. A documentação continua em [Secure Boot](handbook:secure-boot). Guarde ajustes de hardware em `~/.config/hypr/local.lua` e mantenha segredos fora dos backups de configuração.
-
-**Walker > Configurações > Idioma** lista os idiomas com o atual marcado; veja [Idioma](handbook:language). Os nomes ingleses e traduzidos continuam pesquisáveis. Principal e Aplicativos mantêm sua ordem.
-
-Segurança: Acesso dos assistentes, Chave de segurança FIDO2, Impressões digitais, Desbloqueio do disco por TPM, Usuários, Firewall, Voltar à autenticação da senha, Atualizar senha.
+O Walker mostra pastas antes das ações. Digite para buscar, pressione Enter para abrir e Shift + Backspace para voltar. O idioma continua em Walker > Configurações > Idioma; veja [Idioma](handbook:language).

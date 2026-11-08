@@ -4,15 +4,17 @@ La página Pantallas y el panel de pantalla muestran un mapa de monitores sobre 
 
 Usa **Configuración > Pantallas**, **Configuración > Sonido** e **Configuración > Entrada** para acceder a los controles compartidos dentro de Configuración. Sonido tiene tarjetas de Salida y Entrada (dispositivo, volumen con silencio y nivel del micrófono), una fila por cada aplicación que reproduce audio y los sonidos de eventos; Renombrar sigue en la lista de dispositivos. Entrada permite añadir, eliminar y reordenar distribuciones de teclado con los botones de flecha.
 
-Estos controles están en **Configuración > Dispositivos y entrada** o en los iconos correspondientes de la barra. El Centro de control también ofrece sus interruptores y deslizadores habituales.
+Abre Configuración > Pantallas, Sonido o Entrada. Los paneles correspondientes de la barra y el Centro de control también ofrecen controles rápidos.
 
-## Audio y micrófono
+Walker > Configuración > Dispositivos y entrada > Iluminación controla dispositivos OpenRGB. Empieza desactivada; Seguir el tema recolorea los dispositivos compatibles al cambiar de tema.
+
+## Ajustar sonido y micrófono
 
 Volumen selecciona la salida predeterminada y controla el volumen general y el de las aplicaciones en reproducción. Los dispositivos aparecen con un nombre legible y un icono de tipo; haz clic en el dispositivo actual para elegir otro y usa el botón de lápiz de un dispositivo para renombrarlo en este equipo. Micrófono selecciona la entrada predeterminada, la ganancia y el silencio. Su medidor de nivel solo funciona mientras el panel está abierto; no guarda audio en disco. Abrir otros ajustes no inicia la monitorización del micrófono.
 
 Los deslizadores llegan al 100 %; un valor superior ya existente no cambia hasta moverlos. Cambiar el dispositivo de audio predeterminado puede afectar a una llamada: hazlo conscientemente. Los controles de reproducción son independientes de la selección del dispositivo.
 
-## Pantalla y brillo
+## Configurar las pantallas
 
 El panel Pantalla muestra los monitores activos. Pulsa uno para abrir los ajustes dentro de su tarjeta y vuelve a pulsarlo para cerrarlos. El monitor **Principal** contiene la barra, los paneles y las notificaciones: activa **Pantalla principal** en los ajustes de otro monitor para trasladarlos. Si se desconecta, otro aparece como **Principal** y recibe la barra hasta su regreso; se conserva tu elección.
 
@@ -26,11 +28,15 @@ Puedes organizar cualquier número de monitores: coloca cada uno a izquierda, de
 
 El control deslizante de brillo solo aparece en portátiles con pantalla integrada (retroiluminación nativa); los monitores de escritorio conservan sus propios botones. El atenuado antes del bloqueo aún puede bajar un monitor externo mediante DDC si el monitor y los permisos lo permiten. La Luz nocturna tiene un interruptor manual y un horario opcional editable.
 
-**HDR** solo aparece en monitores cuyo EDID indica compatibilidad con PQ o HLG. Muestra el escritorio en HDR; los juegos pueden usar HDR aunque esté desactivado. Al activar o desactivar HDR también debes conservar el cambio en 15 segundos; de lo contrario, se revierte. Con HDR activo, **Brillo del contenido SDR** ajusta el contenido SDR de 1,0× a 2,0× y guarda inmediatamente. Los juegos HDR a pantalla completa pueden cambiar el monitor automáticamente aunque el HDR del escritorio esté desactivado. En ambos casos Eitr usa los niveles de pico y de negro que el propio monitor indica en su EDID. Los navegadores usan HDR solo cuando el HDR del escritorio está activado para su monitor; nunca lo activan automáticamente. Los juegos HDR en pantalla completa siguen cambiando automáticamente cuando el HDR del escritorio está desactivado. La reproducción HDR en el navegador también depende de su compatibilidad y configuración.
+**HDR** solo aparece en monitores cuyo EDID indica compatibilidad con PQ o HLG. Muestra el escritorio en HDR; los juegos pueden usar HDR aunque esté desactivado. Al activar o desactivar HDR también debes conservar el cambio en 15 segundos; de lo contrario, se revierte. Con HDR activo, **Brillo del contenido SDR** ajusta el contenido SDR de 1,0× a 2,0× y guarda inmediatamente.
 
-## Teclado
+Los juegos HDR a pantalla completa pueden cambiar el monitor automáticamente aunque el HDR del escritorio esté desactivado. En ambos casos Eitr usa los niveles de pico y de negro que el propio monitor indica en su EDID. Los navegadores usan HDR solo cuando el HDR del escritorio está activado para su monitor; nunca lo activan automáticamente.
 
-Añade y quita distribuciones en Walker: Configuración > Dispositivos y entrada > Teclado. Añadir distribución lista todos los idiomas y variantes (escribe para buscar); selecciona una distribución y pulsa Supr para quitarla. Se admiten hasta cuatro, sin duplicados, y debe quedar al menos una. **Alt + Shift** las recorre. Con dos o más, la barra muestra el código de la activa (como US o BR); haz clic en él, o usa el Centro de control, para cambiarla. La distribución del teclado es independiente del idioma y la configuración regional del sistema.
+Los juegos HDR en pantalla completa siguen cambiando automáticamente cuando el HDR del escritorio está desactivado. La reproducción HDR en el navegador también depende de su compatibilidad y configuración.
+
+## Cambiar distribuciones del teclado
+
+Abre Configuración > Entrada. Usa Añadir distribución para buscar idiomas y variantes, las flechas para ordenar y el botón de quitar para eliminar una distribución. Se admiten hasta cuatro, sin duplicados, y debe quedar al menos una. **Alt + Shift** las recorre. Con dos o más, pulsa el código de la barra para cambiar. La distribución y el idioma del escritorio son independientes; consulta [Idioma](handbook:language).
 
 El escritorio comienza con el teclado elegido en el instalador. Elegir US incluye US y US International: basta Alt + Shift para acceder a los acentos.
 

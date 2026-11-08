@@ -1,35 +1,35 @@
 # Leiste und Arbeitsflächen
 
-Diese Steuerelemente sind auch direkt in den Einstellungen verfügbar.
-
 <!-- eitr-figure: bar-anatomy -->
 
 Die volle Leiste. Das Eitr-Logo öffnet das Kontrollzentrum; danach folgen Übersicht, Arbeitsflächenmarkierungen, KI-Nutzung, Hardware und automatische Sperre. Datum und Uhrzeit bleiben mittig, die Medien davor und das Wetter dahinter. **Symbole anzeigen** blendet die Statussymbole rechts ein oder aus; die Benachrichtigungen stehen ganz am Ende.
 
-Inseln zeigt getrennte Flächen für Logo, Übersicht und Arbeitsflächen, KI-Nutzung/Hardware/Leerlaufsperre, Uhr, Wetter und Statussymbole. Medien und Aufnahme erscheinen nur bei Aktivität. Die Uhr bleibt exakt in der Bildschirmmitte; das Wetter erhält eine eigene Fläche daneben. Die Flächen sind unabhängig von der Eckeneinstellung immer vollständig abgerundet und folgen Balkenfarbe/Transparenz und Unschärfe. Sie liegen den halben aktuellen äußeren Abstand von Hyprland vom Bildschirmrand entfernt, mit dem vollen Abstand zwischen benachbarten Flächen, an allen vier Seiten. Der reservierte Fensterbereich umfasst Balkendicke und diesen halben Abstand; automatisches Ausblenden reserviert keinen Platz. Lücken lassen Klicks durch. Freie Bereiche jeder Fläche unterstützen die üblichen Doppelklick- und Ziehgesten. Ein geöffnetes Panel wächst als Karte aus seiner Insel (zur freien Seite: Wetter nach rechts, Medien und Aufnahme nach links, Status zur Mitte, die Uhr in beide Richtungen) und schiebt die Nachbarinseln beiseite; die Insel bleibt unter der Karte verborgen, bis diese wieder geschrumpft ist. Statussymbole behalten den manuellen Schalter zum Ein- und Ausblenden.
-
 ## Aktualisierungen
 
-Das Updatesymbol rechts vor Benachrichtigungen prüft kurz nach der Anmeldung und alle sechs Stunden auf Paket- und AUR-Updates. Bei verfügbaren Updates bietet eine Benachrichtigung die Systemaktualisierung an. Während der Prüfung dreht es sich, danach zeigt es einen Haken bei aktuellem System oder ein Updatesymbol mit Anzahl und Downloadgröße im Tooltip. Klicken startet die Systemaktualisierung; Rechtsklick prüft erneut. Nach einer Systemaktualisierung wird automatisch neu geprüft. Offline zeigt es das System als aktuell und prüft bei der nächsten Anmeldung wieder. Eine private Kopie der Paketdatenbanken verhindert, dass das System teilweise aktualisiert zurückbleibt.
+Das Updatesymbol vor Benachrichtigungen prüft kurz nach der Anmeldung und alle sechs Stunden. Klicken startet die Systemaktualisierung, Rechtsklick prüft erneut. Nach erfolgreicher Systemaktualisierung gilt es bis zur nächsten Prüfung als aktuell, ohne sofort erneut zu prüfen. Offline oder bei Fehlern wird ein nicht verfügbarer Zustand angezeigt, niemals fälschlich „aktuell“. Die Prüfung verwendet eine private Paketdatenbank und aktualisiert keine Pakete.
 
-## Position und Erscheinungsbild
+## Das Leistenlayout ändern
 
 - Doppelklicke mit links auf **leere Leistenfläche**, um Designfarbe → Unschärfe → Website zu durchlaufen; Neuinstallationen beginnen mit Designfarbe. Website verwendet die Farben der Eitr-Website, hell oder dunkel passend zum Thema.
 - Ein rechter Doppelklick auf leere Fläche wechselt Voll → Zentriert → Laschen → Inseln → Dynamisch → Voll.
 - Ziehe leere Fläche nach oben, unten, links oder rechts, um die Leiste zu verschieben. Links und rechts ist die Leiste so schmal wie oben und unten: Die Uhr zeigt Stunde über Minuten mit einem Kalendersymbol, das Wetter nur sein Symbol; Datum und Temperatur erscheinen beim Darüberfahren.
-- **Uhr** unter Stil > Desktopleiste und Einstellungen (SUPER + ,) > Desktopleiste zeigt die Zeit im 12-Stunden-Format mit AM/PM (Standard) oder im 24-Stunden-Format, an jedem Leistenrand.
-- Dieselben Einstellungen findest du unter **Einstellungen > Stil > Desktopleiste** und Einstellungen (SUPER + ,) > Desktopleiste.
+- **Uhr** unter Einstellungen > Desktopleiste zeigt die Zeit im 12-Stunden-Format mit AM/PM (Standard) oder im 24-Stunden-Format, an jedem Leistenrand.
+- Dieselben Einstellungen findest du unter **Einstellungen > Desktopleiste**.
 - **Bildschirme** (Anzeigen auf) zeigt die Leiste standardmäßig nur auf dem Hauptbildschirm oder auf allen Bildschirmen. Bei mehreren Leisten markiert jede die Arbeitsfläche ihres Bildschirms; Kürzel wie SUPER + I öffnen auf dem gerade genutzten Bildschirm, Benachrichtigungen erscheinen nur auf dem Hauptbildschirm. Wähle diesen im Bildschirm-Panel.
 
 <!-- eitr-figure: bar-layouts -->
 
 Die fünf Layouts in der Reihenfolge, in der ein rechter Doppelklick sie durchläuft. In Ruhe zeigt Zentriert nur die Uhr und Dynamisch drei kleine Inseln; beide klappen beim Darüberfahren auf.
 
-Im mittigen Modus bleibt nur die Uhr sichtbar, bis du den Mauszeiger darüber bewegst. Symbole klappen in gewohnter Reihenfolge aus. Die Stecknadel zwischen Medien und Uhr hält sie offen; geöffnete Panels ebenfalls. Bei voller Leiste schließen Panels direkt an, bei mittiger liegen sie daneben. Beide öffnen und schließen mit derselben flüssigen Animation. Jede Seite passt sich ihrem Inhalt an; die Uhr bleibt an jeder Bildschirmkante genau in der Bildschirmmitte.
+Wähle ein Layout unter Einstellungen > Desktopleiste. Alle fünf funktionieren an jedem Bildschirmrand.
 
-Laschen zeigt einen durchgehenden 7-px-Streifen und drei inhaltsgroße Laschen für die linke, mittlere und rechte Gruppe. Die Laschen behalten die volle Leistentiefe (horizontal 30 px), feste trapezförmige Übergänge mit geraden 45°-Schrägen außerhalb des Innenabstands. Die Uhr bleibt auch mit Medien exakt in der Bildschirmmitte. Panels schweben wie im zentrierten Modus als abgerundete, abgelöste Flächen neben der Leiste, wie bei Voll links, mittig oder rechts ausgerichtet und mit dem äußeren Abstand zum Bildschirmrand, mit dem aktuellen Hyprland-Fensterabstand und derselben 320-ms-Animation. Lücken lassen Klicks durch. Die volle Tiefe bleibt für Fenster reserviert. Ein rechter Doppelklick wechselt Voll → Zentriert → Laschen → Inseln → Dynamisch → Voll. Die Knicke sind leicht geglättet und unabhängig von der Eckeneinstellung; die Enden am Bildschirmrand bleiben eckig und gefüllt. Laschen zeigt alle rechten Steuerelemente ohne Ein-/Ausblendpfeil. Das Wetter bleibt verborgen, bis der mittlere Tab berührt wird, und gleitet dann in 320 ms hinter der festen Uhr hervor. Nach kurzer Verzögerung beim Verlassen wird es eingeklappt; bei geöffnetem Wetterpanel bleibt es sichtbar. Nur die nachfolgende Seite wächst entlang der Balkenachse, und endet direkt am letzten sichtbaren Element.
-
-Dynamisch fasst die Leiste in drei nebeneinanderliegende Inseln in der Bildschirmmitte zusammen, unabhängig von der Eckeneinstellung immer vollständig abgerundet. Im Ruhezustand zeigen sie das Eitr-Logo, die Uhrzeit (nur Stunden und Minuten) exakt bildschirmzentriert sowie Netzwerk und Akku. Beim Darüberfahren erweitert sich nur diese Insel: links erscheinen Übersicht, Arbeitsflächen, KI-Nutzung, Hardware und Inaktivitätssperre; die Mitte zeigt das vollständige Datum, AM/PM bei 12-Stunden-Uhr und das Wetter und bleibt als Ganzes zentriert; rechts erscheinen Medien, Aufnahme und alle Statussteuerungen ohne manuellen Schalter. Ein Panel, das aus einer Insel geöffnet wird, lässt diese Insel zum Panel selbst wachsen, und die anderen Inseln rücken zur Seite; beim Schließen schrumpft sie wieder zur Pille. Inseln wachsen in 320 ms, bei reduzierter Bewegung sofort, und klappen 350 ms nach Verlassen ein; ein offenes Panel oder Ziehen hält sie offen. Alle vier Ränder und Darstellungen werden unterstützt. Inseln schweben um den halben aktuellen Außenabstand vom Rand und reservieren ihre Ruhetiefe plus diesen Abstand; leerer Raum lässt Klicks durch. An kurzen Rändern lässt sich in einer erweiterten Insel scrollen, um Steuerungen zu erreichen, die nicht hineinpassen. ‹ und › auf der Karte wechseln zwischen den Panels dieser Insel.
+| Layout | Verhalten |
+| :--- | :--- |
+| Vollständig | Vollständig hält die ganze Leiste am Rand. Panels schließen daran an. |
+| Zentriert | Zentriert zeigt bis zum Darüberfahren nur die Uhr. Die Stecknadel hält die Leiste offen; Panels schweben daneben. |
+| Laschen | Laschen verbindet drei Tabs mit einem dünnen Streifen. Statussymbole bleiben sichtbar; über dem mittleren Tab erscheint das Wetter. |
+| Inseln | Inseln gibt jeder Gruppe eine eigene Fläche. Ein Panel erweitert seine Insel und schiebt Nachbargruppen beiseite. |
+| Dynamisch | Dynamisch beginnt mit drei Inseln: Logo, Uhr sowie Netzwerk/Akku. Darüberfahren erweitert eine; ein Panel wächst direkt aus ihr. |
 
 ## Arbeitsflächen
 
@@ -45,11 +45,13 @@ Audio/Mikro öffnet ein gemeinsames Panel mit getrennten Bereichen für Audioaus
 
 **Musikvisualisierer** öffnet cava in den Theme-Farben. Ein Rechtsklick auf den Medien-Equalizer öffnet denselben Visualisierer; ein Linksklick öffnet weiterhin die Mediendetails. **q** oder **Esc** schließt ihn. Auf bestehenden Desktops wird cava bei Bedarf zuerst installiert.
 
-**Automatisch ausblenden** unter Stil > Desktop-Leiste und Einstellungen (SUPER + ,) > Desktopleiste zieht die Leiste nach einer kurzen Verzögerung ein, wenn du den Zeiger wegbewegst. Bewege ihn an den Bildschirmrand, um sie einzublenden. Das funktioniert an allen vier Rändern mit den Layouts Voll, Zentriert, Laschen und Inseln. Offene Panels und Menüs sowie das Verschieben der Leiste halten sie sichtbar; danach blendet sie sich wieder aus. Solange Automatisch ausblenden aktiv ist, reserviert die Leiste keinen Platz für Fenster: Sie gleitet über die Fenster, statt sie zu verschieben. Die Einstellung wird unabhängig von der Stecknadel des zentrierten Layouts gespeichert und ist bei Neuinstallationen ausgeschaltet. Benachrichtigungen erscheinen, ohne sie einzublenden.
+**Automatisch ausblenden** unter Einstellungen > Desktopleiste zieht die Leiste nach einer kurzen Verzögerung ein, wenn du den Zeiger wegbewegst. Bewege ihn an den Bildschirmrand, um sie einzublenden. Das funktioniert an allen vier Rändern mit den Layouts Voll, Zentriert, Laschen und Inseln sowie Dynamisch. Offene Panels und Menüs sowie das Verschieben der Leiste halten sie sichtbar; danach blendet sie sich wieder aus.
 
-**Bewegung reduzieren** unter Stil > Desktop-Leiste und Einstellungen (SUPER + ,) > Desktopleiste zeigt das Öffnen und Schließen von Panels, die Übersicht, Benachrichtigungsübergänge und dekorative Leistenanimationen sofort. Die Option ist standardmäßig aus und wird in `bar-settings.json` gespeichert. Zeitgeber für Datenaktualisierung, Benachrichtigungen und automatisches Ausblenden behalten ihr normales Verhalten.
+Solange Automatisch ausblenden aktiv ist, reserviert die Leiste keinen Platz für Fenster: Sie gleitet über die Fenster, statt sie zu verschieben. Die Einstellung wird unabhängig von der Stecknadel des zentrierten Layouts gespeichert und ist bei Neuinstallationen ausgeschaltet. Benachrichtigungen erscheinen, ohne sie einzublenden.
 
-Der Medienstil wird in `bar-settings.json` gespeichert: Unter Stil > Desktopleiste oder Einstellungen (SUPER + ,) > Desktopleiste stehen Balken (Standard, zehn Balken) und Linie (eine einfache glatte Audiowelle) zur Wahl. Die Anzeige steht vor den Wiedergabesteuerungen, bleibt in jedem Layout gleich groß und dreht sich am linken und rechten Rand. Beim Darüberfahren erscheint der Titel; Linksklick öffnet Mediendetails, Rechtsklick den Musikvisualisierer. Bei pausierter Wiedergabe wird die Linie flach. Reduzierte Bewegung zeigt weiterhin Audiopegel ohne Übergänge und stoppt die dekorative Ersatzbewegung.
+**Bewegung reduzieren** unter Einstellungen > Desktopleiste zeigt das Öffnen und Schließen von Panels, die Übersicht, Benachrichtigungsübergänge und dekorative Leistenanimationen sofort. Die Option ist standardmäßig aus und wird in `bar-settings.json` gespeichert. Zeitgeber für Datenaktualisierung, Benachrichtigungen und automatisches Ausblenden behalten ihr normales Verhalten.
+
+Der Medienstil wird in `bar-settings.json` gespeichert: Unter Einstellungen > Desktopleiste stehen Balken (Standard, zehn Balken) und Linie (eine einfache glatte Audiowelle) zur Wahl. Die Anzeige steht vor den Wiedergabesteuerungen, bleibt in jedem Layout gleich groß und dreht sich am linken und rechten Rand. Beim Darüberfahren erscheint der Titel; Linksklick öffnet Mediendetails, Rechtsklick den Musikvisualisierer. Bei pausierter Wiedergabe wird die Linie flach. Reduzierte Bewegung zeigt weiterhin Audiopegel ohne Übergänge und stoppt die dekorative Ersatzbewegung.
 
 Die zentrierte Leiste schließt mit geraden Bildschirmkanten und denselben sanft abgerundeten 45°-Schrägen wie die Tabs auf beiden Seiten an den Bildschirmrand an. Die Schrägen drehen sich an allen vier Rändern mit und ignorieren die Eckeneinstellung; die abgesetzten Panels folgen dieser Einstellung weiterhin.
 
@@ -57,9 +59,13 @@ Die zentrierte Leiste schließt mit geraden Bildschirmkanten und denselben sanft
 
 Berühren Sie den Bildschirmrand gegenüber der Leiste, um das Dock einzublenden. Es entfaltet sich aus diesem Rand, mit geraden Seiten, die auf den Rand treffen, über den Fenstern, ohne deren Größe zu ändern, und verschwindet 350 ms nach Verlassen durch den Zeiger mit einer 320-ms-Animation (sofort bei reduzierter Bewegung). Es erscheint auf dem Hauptbildschirm oder auf allen Bildschirmen, wenn die Leiste überall angezeigt wird. Über einem Vollbildfenster wird es nie eingeblendet.
 
-Offene Anwendungen werden nach Klasse in der Hyprland-Fensterreihenfolge gruppiert. Die Symbolplätze sind 36 px groß, mit 6 px Abstand; verwendet wird das Anwendungssymbol oder ein Ersatzzeichen; Eitrs eigene Aufgaben- und Menüterminals teilen sich ein Eitr-Logo. Punkte darunter zählen die Fenster (bis zu drei) und werden blasser, wenn keines auf dem aktuellen Arbeitsbereich dieses Bildschirms liegt. Beim Darüberfahren erscheinen Name und Fensteranzahl; Symbole nahe dem Zeiger wachsen, das nächste am stärksten, und das Dock wird länger, damit sie darin bleiben, außer wenn **Bewegung reduzieren** aktiv ist. Ein Klick aktiviert das zuletzt verwendete Fenster und wechselt bei Bedarf den Arbeitsbereich; ein weiterer Klick springt zum nächsten Fenster der Anwendung. Ein Mittelklick schließt das zuletzt verwendete Fenster. Lange Listen lassen sich entlang des Docks scrollen. Die Oberfläche folgt Unschärfe/Themenfarbe und der Eckeneinstellung.
+Offene Anwendungen werden nach Klasse in der Hyprland-Fensterreihenfolge gruppiert. Die Symbolplätze sind 36 px groß, mit 6 px Abstand; verwendet wird das Anwendungssymbol oder ein Ersatzzeichen; Eitrs eigene Aufgaben- und Menüterminals teilen sich ein Eitr-Logo. Punkte darunter zählen die Fenster (bis zu drei) und werden blasser, wenn keines auf dem aktuellen Arbeitsbereich dieses Bildschirms liegt.
 
-**Dock** unter **Einstellungen > Stil > Desktopleiste** und **Einstellungen (SUPER + ,) > Desktopleiste** schaltet es ein oder aus. Die Einstellung `dock` in `bar-settings.json` ist standardmäßig `"yes"`. Es gibt kein Tastenkürzel für das Dock.
+Beim Darüberfahren erscheinen Name und Fensteranzahl; Symbole nahe dem Zeiger wachsen, das nächste am stärksten, und das Dock wird länger, damit sie darin bleiben, außer wenn **Bewegung reduzieren** aktiv ist. Ein Klick aktiviert das zuletzt verwendete Fenster und wechselt bei Bedarf den Arbeitsbereich; ein weiterer Klick springt zum nächsten Fenster der Anwendung.
+
+Ein Mittelklick schließt das zuletzt verwendete Fenster. Lange Listen lassen sich entlang des Docks scrollen. Die Oberfläche folgt Unschärfe/Themenfarbe und der Eckeneinstellung.
+
+**Dock** unter **Einstellungen > Desktopleiste** schaltet es ein oder aus. Die Einstellung `dock` in `bar-settings.json` ist standardmäßig `"yes"`. Es gibt kein Tastenkürzel für das Dock.
 
 Angeheftete Anwendungen bleiben auch ohne Fenster vollständig sichtbar und zeigen dann keine Punkte. Ein Klick startet sie in einem eigenen Anwendungs-Scope. Ein Rechtsklick bietet Im Dock behalten / Aus Dock entfernen, Neues Fenster (bei vorhandenem Desktop-Eintrag) und Schließen oder Alle Fenster schließen. Escape oder ein Klick außerhalb schließt das Menü. Anwendungen ohne Desktop-Eintrag lassen sich nicht anheften.
 
@@ -67,6 +73,6 @@ Ziehen Sie Symbole entlang des Docks, um angeheftete Anwendungen zu sortieren. Z
 
 Die IDs der Desktop-Einträge werden geordnet und atomar in der lokalen Datei `quickshell/desktop-bar/dock-pins.json` unter `$XDG_CONFIG_HOME` (normalerweise `~/.config`) gespeichert. Neue Installationen haben keine angehefteten Anwendungen. Fenster werden anhand von Desktop-IDs, StartupWMClass und Anwendungsklassen zugeordnet.
 
-Die Unschärfestärke gilt auch für Terminals. Wählen Sie Sanft, Mittel (Standard) oder Stark unter Desktop-Leiste in Walker oder in den Einstellungen (SUPER + ,). Siehe [Terminal und Editoren](terminal.md) für die globale Einschränkung und persönliche Einstellungen.
+Die Unschärfestärke gilt auch für Terminals. Wählen Sie Sanft, Mittel (Standard) oder Stark unter Desktop-Leiste in Walker oder in den Einstellungen (SUPER + ,). Siehe [Terminal und Editoren](handbook:terminal) für die globale Einschränkung und persönliche Einstellungen.
 
 Einstellungen > Desktop-Leiste enthält Arbeitsbereichsmarkierungen (Punkte, Symbol, Zahlen und Runen). Fenster behält Fenstereffekte und Abstände.

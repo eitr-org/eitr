@@ -27,10 +27,11 @@ Languages also offers **mise (many runtimes)** as an optional Arch package. Enab
 Install > Web Apps > Create Web App asks for a name and an address and adds a
 launcher that opens the site in its own window. The site's icon is downloaded
 when you create it, only over HTTP(S). Malformed manifests or unavailable icons
-fall back to page icons or a generic browser icon. Do not put login credentials
+fall back to page icons or a generic browser icon.
+
+Do not put login credentials
 in the address. Launchers and icons use your XDG data directory, including a
-custom `XDG_DATA_HOME`; removal through either menu uses that same location.
-Web apps need Chrome, Chromium, Edge, Brave or Vivaldi (Install > Browsers);
+custom `XDG_DATA_HOME`; removal through either menu uses that same location. Web apps need Chrome, Chromium, Edge, Brave or Vivaldi (Install > Browsers);
 streaming sites with DRM, such as Netflix, need Chrome. Remove one with Delete
 in Install > Web Apps or in the Apps menu.
 
@@ -40,13 +41,23 @@ Install > Browsers also offers Brave (AUR). Install > Productivity offers Baseca
 
 ## AI assistants
 
+Open Settings > AI Assistant to select your default, manage accounts and Assistant Access, or let assistants work together after consent. Development > AI keeps the session launchers.
+
 **SUPER + A** opens the assistant in your home folder, trusts that folder where safely supported and passes Handbook guidance through supported extra instruction options. Development > AI asks for a folder, starting in your home folder, and opens the assistant there as its own command would. CLI limitations are listed in distro/ASSISTANT-STARTUP.md. Read-only quick chat includes an Eitr primer and relevant localized Handbook excerpts; it says when the Handbook does not cover a question.
 
-Each cloud assistant has an Accounts submenu under Development > AI. Default uses the existing configuration and login without moving files. Add Account… asks for a label, shows a review, then opens the CLI’s own sign-in with a private browser window where supported (unknown browsers use their normal opener). Enter confirms; Esc cancels. Select an account to switch future interactive sessions, Ask the AI and read-only helpers manually; running sessions keep their account. Delete removes an added account and its local configuration after confirmation; Default cannot be removed. Removing the selected account returns to Default and never logs another account out. Antigravity offers only Default because its CLI has no supported config-folder override. Ratatoskr has one local account. Account labels and selection stay on this PC in `eitr/ai-accounts.json` (0600); separate folders live under `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). AI Usage groups readable accounts by assistant and hides unreadable or unsupported usage. Sections start closed at login and keep their open or closed state for the session.
+Each cloud assistant has an Accounts submenu under Development > AI. Default uses the existing configuration and login without moving files. Add Account… asks for a label, shows a review, then opens the CLI’s own sign-in with a private browser window where supported (unknown browsers use their normal opener). Enter confirms; Esc cancels.
+
+Select an account to switch future interactive sessions, Ask the AI and read-only helpers manually; running sessions keep their account. Delete removes an added account and its local configuration after confirmation; Default cannot be removed. Removing the selected account returns to Default and never logs another account out. Antigravity offers only Default because its CLI has no supported config-folder override.
+
+Ratatoskr has one local account. Account labels and selection stay on this PC in `eitr/ai-accounts.json` (0600); separate folders live under `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). AI Usage groups readable accounts by assistant and hides unreadable or unsupported usage. Sections start closed at login and keep their open or closed state for the session.
 
 Development > AI offers a menu for each installed assistant: Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode and Pi. Install them from Install > AI CLIs; with none installed, Development > AI links there.
 
-Session menus keep **New** first, then sort the other actions alphabetically. Claude Code and GitHub Copilot CLI offer **New Named**, **Continue Last**, **Resume Picker** and resume by name or ID (Claude labels it **Resume by Name**). Codex offers **Continue Last**, **Resume Picker** and **Resume by Name or ID**. Gemini CLI offers **Continue Last**, a Walker **Resume Picker** and **Resume by Number**; the last option displays the numbered session list in the terminal before asking for a number. Grok Build offers **Continue Last**, a Walker **Resume Picker** and **Resume by ID or Title**. OpenCode offers **Continue Last**, a Walker **Resume Picker**, **Resume by ID** and **New Named** through its session ID option: a new name creates a session, while an existing ID resumes it. Antigravity CLI offers **Continue Last** and **Resume by ID**, with no supported list or naming option. Pi keeps **New** only because session options could not be confirmed from the available package documentation. Walker pickers show session titles and dates where available; an empty list shows a message. Empty name/ID prompts cancel. Accounts submenus remain available.
+Session menus keep **New** first, then sort the other actions alphabetically. Claude Code and GitHub Copilot CLI offer **New Named**, **Continue Last**, **Resume Picker** and resume by name or ID (Claude labels it **Resume by Name**). Codex offers **Continue Last**, **Resume Picker** and **Resume by Name or ID**. Gemini CLI offers **Continue Last**, a Walker **Resume Picker** and **Resume by Number**; the last option displays the numbered session list in the terminal before asking for a number.
+
+Grok Build offers **Continue Last**, a Walker **Resume Picker** and **Resume by ID or Title**. OpenCode offers **Continue Last**, a Walker **Resume Picker**, **Resume by ID** and **New Named** through its session ID option: a new name creates a session, while an existing ID resumes it. Antigravity CLI offers **Continue Last** and **Resume by ID**, with no supported list or naming option.
+
+Pi keeps **New** only because session options could not be confirmed from the available package documentation. Walker pickers show session titles and dates where available; an empty list shows a message. Empty name/ID prompts cancel. Accounts submenus remain available.
 
 Opening a LazyVim or VS Code project first asks for a
 folder, starting in your home folder (hidden folders are left out): pick folders to go deeper, Open to use the one
@@ -54,7 +65,9 @@ you are in, and Back to go up a level or, at the top, return to the menu.
 
 Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode and Pi can also be started by command. If a tool is missing, Eitr explains it and offers the same installation as Install > AI CLIs. Enter confirms installation; Esc cancels. Without an interactive terminal, the command exits with installation instructions. Installed binaries take precedence over these launchers. Sign in through each tool’s own workflow; no assistant binaries or credentials are bundled.
 
-Development > Default Assistant selects one installed assistant for this computer. **SUPER + A** opens it in a terminal; without a default, it opens the chooser. The SUPER + A assistant opens with full access by default: it can change files and run commands without asking. Assistants opened from Development > AI keep their normal permission prompts. Choose **Settings > AI Assistant > Assistant Access > Ask before changes** to restore normal permission prompts. The preference is stored only on this PC in `eitr/ai.json`. Organization restrictions force permission prompts. Sudo still requires your password. Headless collaboration and voice reminders remain read-only.
+Development > Default Assistant selects one installed assistant for this computer. **SUPER + A** opens it in a terminal; without a default, it opens the chooser. The SUPER + A assistant opens with full access by default: it can change files and run commands without asking. Assistants opened from Development > AI keep their normal permission prompts.
+
+Choose **Settings > AI Assistant > Assistant Access > Ask before changes** to restore normal permission prompts. The preference is stored only on this PC in `eitr/ai.json`. Organization restrictions force permission prompts. Sudo still requires your password. Headless collaboration and voice reminders remain read-only.
 
 Theme changes update only the light/dark theme setting in existing, readable Claude Code, Gemini CLI and Grok Build settings. Other settings and formatting stay intact. Missing, broken or uninstalled clients are skipped; assistants without a supported light/dark setting follow their terminal’s colors.
 
@@ -98,12 +111,16 @@ Cloud menus use your local provider accounts/profiles. AWS profiles come from
 the local AWS configuration or configured EITR cloud profile mapping. Google
 Cloud lists named gcloud configurations with their account and project. A
 configuration without a project asks you to choose one when opening resource
-tools, so Login remains accessible before project discovery. Azure lists enabled
+tools, so Login remains accessible before project discovery.
+
+Azure lists enabled
 subscriptions with their tenant IDs. Select a context before choosing a tool:
 Google Cloud and Azure tools are searched inside their context menu, not from
 global search. Opening a Google context clears unrelated inherited project
 overrides; configurations without a project ask you to select one for resource
-tools. Terminal returns retain the context, and the project you picked
+tools.
+
+Terminal returns retain the context, and the project you picked
 for a configuration without one, without switching global CLI defaults. Login, Check Auth and
 Refresh live inside each detected context. Google Login targets its configured
 account; Azure Login targets its tenant and restores the previous default
@@ -117,12 +134,15 @@ Each provider menu offers **Add AWS Account**, **Add GCP Account** or
 example a company's Development and Production. It asks for a name first, then
 runs the provider CLI's own setup under that name: an AWS profile through AWS SSO
 (IAM Identity Center) or access keys, a separate gcloud configuration with its
-sign-in and project, or an Azure sign-in whose subscriptions you name. A missing
-`gcloud` or `az` is offered for installation first. **Ctrl+R** renames an account.
-Names live in `~/.config/eitr/cloud-contexts.json` (keyed by AWS profile, gcloud
+sign-in and project, or an Azure sign-in whose subscriptions you name.
+
+A missing
+`gcloud` or `az` is offered for installation first. **Ctrl+R** renames an account. Names live in `~/.config/eitr/cloud-contexts.json` (keyed by AWS profile, gcloud
 configuration or subscription ID); EITR does not infer environments or store
 credentials there, and Add never switches a global CLI default. Grafana
-and cloud operations need their corresponding accounts and permissions. Some
+and cloud operations need their corresponding accounts and permissions.
+
+Some
 actions are read-only; others can modify remote resources—review the requested
 operation and account before confirming.
 
@@ -162,16 +182,23 @@ and reported. Changes
 are recorded only on this computer in `~/.local/state/eitr/assistants.json`
 (or `XDG_STATE_HOME`). Turning the switch off removes exactly Eitr’s entries;
 if an entry was edited afterwards, Eitr keeps it and reports the conflict.
+
 Restart existing assistant sessions after changing the switch. Real-account
 hand-offs still await separate end-to-end verification.
 
-Antigravity CLI (`agy`) is available for personal Google accounts through Install > AI CLIs and the first-use launcher. It is never bundled. It installs through Google's official installer, which verifies its download, and you sign in with your Google account. It is not yet offered as an assistants-together helper. An already installed `agy` can be launched normally. Gemini CLI requires a Gemini API key or a Google Cloud/company account. Antigravity is not a collaboration helper: headless mode denies even reads. Its only unlocks bypass permissions or change global rules. Eitr will reconsider it when per-run permissions or a read-only headless mode are available.
+Antigravity CLI (`agy`) is available for personal Google accounts through Install > AI CLIs and the first-use launcher. It is never bundled. It installs through Google's official installer, which verifies its download, and you sign in with your Google account. It is not yet offered as an assistants-together helper. An already installed `agy` can be launched normally.
+
+Gemini CLI requires a Gemini API key or a Google Cloud/company account. Antigravity is not a collaboration helper: headless mode denies even reads. Its only unlocks bypass permissions or change global rules. Eitr will reconsider it when per-run permissions or a read-only headless mode are available.
 
 ### Additional providers
 
 Development > Cloud also lists Cloudflare (`wrangler`), DigitalOcean (`doctl`), Hetzner Cloud (`hcloud`), Oracle Cloud (`oci`), Vercel, Netlify and IBM Cloud (`ibmcloud`). Add an account using a lowercase name with digits or dashes. These accounts are private workspaces under `~/.config/eitr/cloud-accounts/<provider>/<name>`; existing provider configurations are never imported. The chosen provider and workspace remain visible in the tool picker and terminal. Return from a terminal to the same workspace; Shift+Backspace returns to the account list. Selecting a workspace never switches a global CLI default.
 
-Missing `wrangler`, `doctl` and `hcloud` are offered from Arch's official repositories (`doctl` and `hcloud` in extra). Oracle Cloud and IBM Cloud use their official HTTPS shell installers from `distro/installers.json`; Oracle passes `--accept-all-defaults`. Vercel (`vercel`) and Netlify (`netlify-cli`, command `netlify`) use the existing NVM/npm installation recipe. Installation requires confirmation. Sign-in and account actions run only inside the selected private workspace. DigitalOcean and Hetzner list native contexts; Oracle lists profiles from that workspace's `~/.oci/config`. Selecting their context/profile saves a local selection and uses per-command flags, without changing a global default. Vercel and Netlify expose their native switch action; enter the selected team/account label afterward. Vercel also asks for a scope before login and passes `--scope TEAM` on subsequent commands. IBM provides SSO and API-key sign-in, displays `ibmcloud target`, and targets an explicit account and region. The selected context/profile/scope/account and saved region remain visible when returning to the menu. These labels are local selections, not verified remote identities. Existing credentials and provider overrides are not inherited. Browser consoles use their own sessions; check the account before acting.
+Missing `wrangler`, `doctl` and `hcloud` are offered from Arch's official repositories (`doctl` and `hcloud` in extra). Oracle Cloud and IBM Cloud use their official HTTPS shell installers from `distro/installers.json`; Oracle passes `--accept-all-defaults`. Vercel (`vercel`) and Netlify (`netlify-cli`, command `netlify`) use the existing NVM/npm installation recipe. Installation requires confirmation. Sign-in and account actions run only inside the selected private workspace.
+
+DigitalOcean and Hetzner list native contexts; Oracle lists profiles from that workspace's `~/.oci/config`. Selecting their context/profile saves a local selection and uses per-command flags, without changing a global default. Vercel and Netlify expose their native switch action; enter the selected team/account label afterward. Vercel also asks for a scope before login and passes `--scope TEAM` on subsequent commands.
+
+IBM provides SSO and API-key sign-in, displays `ibmcloud target`, and targets an explicit account and region. The selected context/profile/scope/account and saved region remain visible when returning to the menu. These labels are local selections, not verified remote identities. Existing credentials and provider overrides are not inherited. Browser consoles use their own sessions; check the account before acting.
 
 The seven private-workspace providers use neutral resource and action icons with short descriptions. Accounts appear first in alphabetical order, followed by Add Account; tools are sorted alphabetically by their translated names. The picker shows the selected account, context and saved region, and each read-only report repeats that context above its output. Reports retain the shared AWS pager; no additional resource commands or log searches are introduced.
 
@@ -189,9 +216,15 @@ Cloud navigation uses real Elephant menus. Shift+Backspace goes to the previous 
 
 Delete an account with the Delete key on its account row or **Delete Account** inside its menu. The confirmation names the provider and account: it removes that provider’s sign-in for that account on this computer, without affecting the remote account. Cancellation changes nothing. Only the selected Eitr private account folder is removed; symbolic links, paths outside its provider root and accounts with a running Eitr action are refused. AWS, Azure and Google Cloud have no new deletion action. The confirmation opens inside Walker with Cancel and Confirm; no terminal opens.
 
-Read-only reports use the selected private account environment and the existing cloud pager. Cloudflare: Account, R2 Buckets, D1 Databases, KV Namespaces, Pages Projects, Queues. DigitalOcean: Droplets, Apps, Databases, Kubernetes, Volumes, Domains, Load Balancers, Balance. Hetzner: Servers, Volumes, Networks, Firewalls, Load Balancers, Primary IPs, Snapshots. Oracle: Compartments, Instances, Buckets, VCNs. Vercel: Projects, Deployments, Domains. Netlify: Status, Sites. IBM: Account, Target, Resource Groups, Service Instances. DigitalOcean and Hetzner always pass the chosen context; Oracle passes the chosen profile and security-token authentication, reading the tenancy only from that account’s private profile. Bucket listing first reads its namespace. Vercel passes the selected team scope. Errors remain readable and never trigger a retry with another account. Log searches retain the existing fzf viewer. Live checks with real accounts remain pending.
+Read-only reports use the selected private account environment and the existing cloud pager. Cloudflare: Account, R2 Buckets, D1 Databases, KV Namespaces, Pages Projects, Queues. DigitalOcean: Droplets, Apps, Databases, Kubernetes, Volumes, Domains, Load Balancers, Balance. Hetzner: Servers, Volumes, Networks, Firewalls, Load Balancers, Primary IPs, Snapshots. Oracle: Compartments, Instances, Buckets, VCNs. Vercel: Projects, Deployments, Domains.
 
-Setup forms for cloud accounts, Git Accounts (Add and Edit), monitoring dashboards and web apps list their steps on the left and the current answer on the right. Use arrows or Tab to select a step and Enter to answer it. Review lists every answer before applying anything; return to a step with Left or the arrows, and use PgUp/PgDn to scroll long reviews. Esc or Ctrl+C cancels without saving. Vendor sign-in starts after review; failed or interrupted sign-in discards the new account. Google Cloud asks for an optional project ID before sign-in; Azure asks for an optional subscription label before sign-in and otherwise keeps each subscription’s existing name. Vercel asks for its scope before sign-in.
+Netlify: Status, Sites. IBM: Account, Target, Resource Groups, Service Instances. DigitalOcean and Hetzner always pass the chosen context; Oracle passes the chosen profile and security-token authentication, reading the tenancy only from that account’s private profile. Bucket listing first reads its namespace. Vercel passes the selected team scope. Errors remain readable and never trigger a retry with another account.
+
+Log searches retain the existing fzf viewer. Live checks with real accounts remain pending.
+
+Setup forms for cloud accounts, Git Accounts (Add and Edit), monitoring dashboards and web apps list their steps on the left and the current answer on the right. Use arrows or Tab to select a step and Enter to answer it. Review lists every answer before applying anything; return to a step with Left or the arrows, and use PgUp/PgDn to scroll long reviews.
+
+Esc or Ctrl+C cancels without saving. Vendor sign-in starts after review; failed or interrupted sign-in discards the new account. Google Cloud asks for an optional project ID before sign-in; Azure asks for an optional subscription label before sign-in and otherwise keeps each subscription’s existing name. Vercel asks for its scope before sign-in.
 
 ## Docker
 

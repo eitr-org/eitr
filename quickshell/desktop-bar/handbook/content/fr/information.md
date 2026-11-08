@@ -2,10 +2,9 @@
 
 Les cartes de notification affichent la date et l’heure locales d’arrivée sous le titre, dans les popups comme dans l’historique. Ces horaires sont conservés uniquement pendant la session.
 
-## Paramètres > Système > Informations
+## Consulter les informations système
 
-À propos se trouve directement dans Paramètres > Système.
-À propos regroupe le matériel, les logiciels (dont la version installée d’EITR), l’âge du système, la durée de fonctionnement et la date dans des cadres aux couleurs du thème, à côté du logo E liquide. Des points de palette suivent les cadres ; les valeurs longues sont raccourcies pour préserver leur alignement.
+Ouvrez Paramètres > À propos pour la version d’Eitr, le nom de code, le canal, le noyau et la licence. La vue Système montre votre profil et l’utilisation actuelle du matériel. Pour les détails matériels, l’utilisation de l’IA et la météo, cliquez sur les icônes de la barre ; Walker les trouve aussi par nom.
 
 **Matériel** indique CPU, GPU, RAM et stockage du disque contenant `/`. Les autres disques ne sont pas additionnés à ce total. Les données manquantes des capteurs ou du GPU sont indiquées comme indisponibles.
 
@@ -23,10 +22,10 @@ Cliquez sur l’égaliseur animé pour voir pochette, titre et artiste, utiliser
 
 ## Notifications
 
-**SUPER + N** ou la cloche ouvre le centre de notifications. Les notifications sont regroupées par application. La carte la plus récente est devant la pile ; développez-la pour voir les précédentes. Vous pouvez ignorer une carte, effacer un groupe ou tout effacer. Les popups forment aussi des piles par application, avec le message le plus récent devant. Le survol suspend leur expiration. **SUPER + Alt + N** lance l’action principale de la notification la plus récente (comme un clic dessus), et **SUPER + Alt + Shift + N** la ferme. Une notification répétée (même application, titre et texte) remplace la précédente et affiche un compteur comme ×3 au lieu d’empiler une autre carte.
+**SUPER + N** ou la cloche ouvre le centre de notifications. Les notifications sont regroupées par application. La carte la plus récente est devant la pile ; développez-la pour voir les précédentes. Vous pouvez ignorer une carte, effacer un groupe ou tout effacer. Les popups forment aussi des piles par application, avec le message le plus récent devant.
+
+Le survol suspend leur expiration. **SUPER + Alt + N** lance l’action principale de la notification la plus récente (comme un clic dessus), et **SUPER + Alt + Shift + N** la ferme. Une notification répétée (même application, titre et texte) remplace la précédente et affiche un compteur comme ×3 au lieu d’empiler une autre carte.
 
 Les notifications ont une douce lueur intérieure dans la couleur d’accent du thème. Les critiques utilisent plutôt son rouge ; celles de faible priorité restent discrètes, sans lueur. Ne pas déranger masque les popups sans supprimer l’historique. Celui-ci reste en mémoire lors des rechargements de configuration, mais pas après le redémarrage du processus. Aucun contenu de notification n’est enregistré dans un journal.
 
-La conservation des miniatures utilise un budget de 32 MiB et décode les images jusqu’à 160×120. Les images masquées les plus anciennes sont libérées en premier ; le texte reste dans l’historique. Les images des fenêtres de notification ou du centre ouvert sont conservées jusqu’à leur masquage, même si le budget est temporairement dépassé.
-
-Paramètres > À propos affiche version, nom de code, canal, matériel, noyau et licence, avec des liens vers le site, le dépôt et le Manuel.
+Utilisez Paramètres > Notifications pour Ne pas déranger et Notifications de plantage.

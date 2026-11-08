@@ -6,14 +6,13 @@ Kitty zeigt bei Sprüngen ab zwei Zellen eine kurze Cursorspur, etwa bei Enter, 
 
 ### Cursor-Feuer
 
-**Einstellungen > Stil > Terminal > Cursor-Feuer** bietet **Deaktiviert** (Standard) und **Aktiviert**. Aktiviert wird Kittys integrierter Effekt `cursor-trail-blaze` bei Cursorbewegungen, ohne Erkennung der Tippgeschwindigkeit. Deaktivieren stellt die normale kurze Spur und deine eigene Shader-Auswahl wieder her.
+Schalte Cursor-Feuer unter **Einstellungen > Erscheinungsbild > Terminal** für Kittys leuchtende Cursorspur ein. Standardmäßig ist es aus. Ausschalten stellt deine normale Spur und eigene Shader-Auswahl wieder her.
 
 Erforderlich sind Kitty 0.49+ und `shader-slang` aus Eitrs Desktop-Abhängigkeiten. Aktivieren prüft den Shader vor Speichern oder Neuladen von Kitty. Die lokale Einstellung liegt in `~/.config/eitr/terminal.json`. Das Hilfsprogramm schreibt `kitty/cursor-fire.conf`, die der Benutzer-Lader zuletzt einbindet. Aktiviert wählt es den Feuershader und senkt die Bewegungsschwelle auf eine Zelle. Schriften, Designs und eigene Konfigurationsdateien bleiben unverändert.
 
 ## Terminal auswählen
 
-**Einstellungen > Stil > Terminal** in Walker und **Einstellungen (SUPER + ,) > Erscheinungsbild > Terminal** bieten
-**Kitty** (Standard) und **Ghostty**. Das lokale Feld `terminal` in
+Wähle Kitty oder Ghostty unter Einstellungen > Erscheinungsbild > Terminal. Walker > Einstellungen > Stil > Terminal ist eine Alternative. Das lokale Feld `terminal` in
 `~/.config/eitr/terminal.json` steuert Super+Enter, tmux, eigene Terminals,
 KI-/Projektterminals und Walkers Aktionen zum Öffnen im Terminal. Fehlt Ghostty,
 öffnet die Auswahl den normalen Installationsablauf für das offizielle Paket:
@@ -41,10 +40,9 @@ auch `eitr-menu-terminal`, `eitr-plugins` und `fif-terminal`: Optionen wie
 `--class`, `--hold`, `--title` und ihre Regeln für schwebende Fenster sind Kitty-spezifisch.
 Die Ghostty-Auswahl ändert sie nicht.
 
-
 ## Terminaldarstellung und gemeinsame Unschärfe
 
-Einstellungen > Stil > Terminal und Einstellungen (SUPER + ,) > Erscheinungsbild > Terminal stellen
+Walker > Einstellungen > Stil > Terminal und Einstellungen > Erscheinungsbild > Terminal stellen
 Deckkraft, Innenabstand und Unschärfe für Kitty und Ghostty ein. Die Deckkraft bietet
 Undurchsichtig (100%), Sanft (90%), Mittel (80%), Standard (75%) und Stark (70%).
 Innenabstand bietet Keiner, Klein (4 Punkt) und Komfortabel (8 Punkt). Standard
@@ -135,7 +133,9 @@ Für eine Sitzung ohne Oberfläche startest du `cmux --headless --session work` 
 
 ## Aufgabenterminals
 
-Terminals aus Menüs sowie Aktualisierungs- und Problembericht-Benachrichtigungen schweben mittig über deinen Fenstern mit deckendem Designhintergrund. KI-Sitzungen und LazyVim-Projekte aus Entwicklung öffnen sich als normale gekachelte Fenster mit durchsichtigem Hintergrund, ebenso wie selbst geöffnete Terminals. Gewöhnliche Terminals sind interaktiv und ohne Banner. Installation, Aktualisierung und Einrichtung zeigen das runenartige EITR-Banner. Erfolgreiche Aufgaben schließen normalerweise; Fehler bleiben bis zum Schließen sichtbar. Informationsberichte können absichtlich offen bleiben. Elephant neu zu starten soll gestartete Anwendungen nicht schließen: Anwendungen und Terminals aus Menüs, Tastenkürzeln und Leistenschaltflächen laufen in einer uwsm-Sitzung in eigenen Anwendungs-Scopes. Ohne uwsm werden sie direkt gestartet. Elephant behält das Beenden nur des Prozesses für Desktop-Helfer und Starts ohne uwsm bei.
+Terminals aus Menüs sowie Aktualisierungs- und Problembericht-Benachrichtigungen schweben mittig über deinen Fenstern mit deckendem Designhintergrund. KI-Sitzungen und LazyVim-Projekte aus Entwicklung öffnen sich als normale gekachelte Fenster mit durchsichtigem Hintergrund, ebenso wie selbst geöffnete Terminals. Gewöhnliche Terminals sind interaktiv und ohne Banner. Installation, Aktualisierung und Einrichtung zeigen das runenartige EITR-Banner. Erfolgreiche Aufgaben schließen normalerweise; Fehler bleiben bis zum Schließen sichtbar.
+
+Informationsberichte können absichtlich offen bleiben. Elephant neu zu starten soll gestartete Anwendungen nicht schließen: Anwendungen und Terminals aus Menüs, Tastenkürzeln und Leistenschaltflächen laufen in einer uwsm-Sitzung in eigenen Anwendungs-Scopes. Ohne uwsm werden sie direkt gestartet. Elephant behält das Beenden nur des Prozesses für Desktop-Helfer und Starts ohne uwsm bei.
 
 Drücke **Esc**, um wartende Aufgaben-, Konto-, Berichts- und Über-Terminals zu schließen. Enter bleibt für Antworten und Bestätigungen vorgesehen, etwa zum Bestätigen der notierten Wiederherstellungsschlüssel und zum Ausschalten im Installationsprogramm.
 

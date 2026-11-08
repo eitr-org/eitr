@@ -60,15 +60,15 @@
     "title": "Control Center",
     "icon": "󰒓",
     "group": "Desktop",
-    "summary": "General, Style, Settings, Capture and OCR",
+    "summary": "Quick controls, tools, chat and installed plugins",
     "source": "quickshell/desktop-bar/handbook/content/control-center.md"
   },
   {
     "id": "system",
-    "title": "Settings Menu",
+    "title": "Settings",
     "icon": "",
     "group": "Desktop",
-    "summary": "Connectivity, Devices & Input, Language, Security, Style and System",
+    "summary": "Search pages, change your profile picture and find Walker alternatives",
     "source": "quickshell/desktop-bar/handbook/content/system.md"
   },
   {
@@ -76,7 +76,7 @@
     "title": "Themes & Style",
     "icon": "󰸌",
     "group": "Desktop",
-    "summary": "Theme carousel, wallpapers, fonts, cursors, corners and lockscreen",
+    "summary": "Themes, wallpapers, fonts, cursors, window gaps, corners and lockscreen",
     "source": "quickshell/desktop-bar/handbook/content/appearance.md"
   },
   {

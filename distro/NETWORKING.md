@@ -1,6 +1,6 @@
 # Network backends
 
-Settings > Connectivity > Network Backend selects iwd (the fresh-install default) or
+Settings > Connections > Wi-Fi > WiFi backend selects iwd (the fresh-install default) or
 NetworkManager with wpa_supplicant. Both use systemd-resolved for DNS. The
 shared WiFi panel detects the running backend, not the saved next-boot choice.
 The current connection is not restarted: the root-owned helper prepares files

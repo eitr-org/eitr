@@ -2,10 +2,9 @@
 
 Os cartões de notificação mostram a data e a hora locais de chegada abaixo do título, tanto nos popups quanto no histórico. Esses horários são mantidos somente durante a sessão.
 
-## Configurações > Sistema > Informações
+## Consultar informações do sistema
 
-Sobre fica diretamente em Configurações > Sistema.
-Sobre agrupa hardware, software (incluindo a versão instalada do EITR), idade do sistema, tempo de atividade e data em caixas no terminal com as cores do tema, ao lado do logotipo E líquido. Pontos da paleta aparecem abaixo; valores longos são abreviados para manter as bordas alinhadas.
+Abra Configurações > Sobre para ver versão do Eitr, codinome, canal, kernel e licença. A visão Sistema mostra seu perfil e o uso atual do hardware. Para detalhes de hardware, Uso de IA e clima, clique nos ícones da barra; o Walker também os encontra pelo nome.
 
 **Hardware** mostra CPU, GPU, RAM e armazenamento da unidade que contém `/`; outros discos não entram nesse total. Dados de sensores ou GPU ausentes aparecem como indisponíveis.
 
@@ -23,10 +22,10 @@ Clique no equalizador animado para ver capa, título e artista, controlar anteri
 
 ## Notificações
 
-**SUPER + N** ou o sino abre a central de notificações. As notificações são agrupadas por aplicativo. O cartão mais recente fica à frente da pilha; expanda-a para ver os anteriores. Você pode dispensar um cartão, limpar um grupo ou limpar tudo. Os popups também se empilham por aplicativo, com a mensagem mais recente à frente; passar o ponteiro pausa o tempo de exibição. **SUPER + Alt + N** executa a ação principal da notificação mais recente (o mesmo que clicar nela) e **SUPER + Alt + Shift + N** a dispensa. Uma notificação repetida (mesmo app, título e texto) substitui a anterior e mostra um contador como ×3, em vez de empilhar outro cartão.
+**SUPER + N** ou o sino abre a central de notificações. As notificações são agrupadas por aplicativo. O cartão mais recente fica à frente da pilha; expanda-a para ver os anteriores. Você pode dispensar um cartão, limpar um grupo ou limpar tudo. Os popups também se empilham por aplicativo, com a mensagem mais recente à frente; passar o ponteiro pausa o tempo de exibição.
+
+**SUPER + Alt + N** executa a ação principal da notificação mais recente (o mesmo que clicar nela) e **SUPER + Alt + Shift + N** a dispensa. Uma notificação repetida (mesmo app, título e texto) substitui a anterior e mostra um contador como ×3, em vez de empilhar outro cartão.
 
 As notificações têm um brilho interno suave na cor de destaque do tema. As críticas usam o vermelho do tema; as de baixa prioridade ficam discretas, sem brilho. Não perturbe oculta os popups sem apagar o histórico. O histórico permanece na memória durante recargas da configuração, mas não ao reiniciar o processo. O conteúdo das notificações não é salvo em logs.
 
-A retenção de miniaturas usa um orçamento de 32 MiB e decodifica imagens com até 160×120. As imagens ocultas mais antigas são liberadas primeiro; o texto permanece no histórico. Imagens em popups ou na central aberta permanecem retidas até serem ocultadas, mesmo que isso exceda temporariamente o orçamento.
-
-Configurações > Sobre mostra versão, codinome, canal, hardware, kernel e licença, com links para site, repositório e Manual.
+Use Configurações > Notificações para Não perturbe e Notificações de falhas.

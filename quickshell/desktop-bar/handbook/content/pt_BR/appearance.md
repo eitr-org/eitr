@@ -1,7 +1,5 @@
 # Temas, papéis de parede e estilo
 
-Esses controles também estão disponíveis diretamente em Configurações.
-
 Configurações (**SUPER + ,**) inclui os controles de Aparência; **Mais temas** abre o catálogo separado de temas e plugins (**SUPER + F2**).
 
 ## Catálogo de temas e plugins
@@ -15,31 +13,43 @@ direita ficam o título, a descrição, o filtro Todas, Claro e Escuro para os t
 uma galeria com rolagem independente. Cima/Baixo percorre a barra; Direita ou Tab
 entra no conteúdo. Esquerda na primeira coluna volta à barra lateral.
 
-Abra **Configurações > Estilo > Temas e plugins**, **Mais temas** nas Configurações (SUPER + ,), o **+** ao lado do Sol e da Lua no carrossel de temas ou **SUPER + F2**. O catálogo é uma janela que lembra seu tamanho. Segure SUPER e arraste com o botão esquerdo para mover ou com o direito para redimensionar. Os atalhos normais permitem organizar em mosaico ou enviar para outro espaço de trabalho. Abrir novamente foca a janela existente, mesmo em outro espaço. SUPER + F2 fecha quando ela está focada. O botão de fechar, Escape (após dispensar qualquer confirmação) ou o atalho normal de fechar janelas também fecham o catálogo. Instalados mostra cada tema como Integrado, Oficial, De terceiros ou
+Abra **Mais temas** em Configurações > Aparência > Tema e papel de parede ou pressione **SUPER + F2**. Temas e plugins é uma janela separada. Veja [Configurações](handbook:system) para navegar.
+
+O catálogo é uma janela que lembra seu tamanho. Segure SUPER e arraste com o botão esquerdo para mover ou com o direito para redimensionar. Os atalhos normais permitem organizar em mosaico ou enviar para outro espaço de trabalho. Abrir novamente foca a janela existente, mesmo em outro espaço. SUPER + F2 fecha quando ela está focada.
+
+O botão de fechar, Escape (após dispensar qualquer confirmação) ou o atalho normal de fechar janelas também fecham o catálogo. Instalados mostra cada tema como Integrado, Oficial, De terceiros ou
 Seus numa galeria de prévias. Clique num tema instalado para aplicar pelo fluxo
-normal; uma marca indica o tema atual. Todos, Escuros e Claros filtram a galeria.
-Instalados atualiza ao abrir a janela e após cada ação. Ao abrir, os metadados são verificados em segundo plano e os indicadores de atualização aparecem ao terminar. Não há verificações periódicas de rede; Atualizar substitui um tema do catálogo. Reaplique
-um tema ativo atualizado para renovar a área de trabalho. Remover pede confirmação
+normal; uma marca indica o tema atual.
+
+Todos, Escuros e Claros filtram a galeria. Instalados atualiza ao abrir a janela e após cada ação. Ao abrir, os metadados são verificados em segundo plano e os indicadores de atualização aparecem ao terminar. Não há verificações periódicas de rede; Atualizar substitui um tema do catálogo. Reaplique
+um tema ativo atualizado para renovar a área de trabalho.
+
+Remover pede confirmação
 na janela e recusa o tema ativo: aplique outro antes. Temas integrados e seus são preservados.
 
 Oficial reúne temas integrados e o repositório `eitr-org/eitr-themes`; Comunidade
 lista temas da comunidade. Clique num cartão nessas abas para abrir os detalhes:
 prévia, descrição, paleta (passe o ponteiro para ver os valores hexadecimais),
 origem, tamanho, responsável e licença. Papéis de parede aparecem em miniaturas;
-os da comunidade usam cartões com nome e tamanho. Clique para ampliar, use
+os da comunidade usam cartões com nome e tamanho.
+
+Clique para ampliar, use
 Anterior/Próximo para navegar e Voltar para retornar. Escape, o botão de fechar ou
 um clique fora fecha os detalhes e devolve o foco ao cartão. Imagens remotas
 completas só são baixadas ao abrir; imagens instaladas são lidas localmente.
 
-O botão Instalar no cartão alterna a seleção e mostra Selecionado com uma marca.
-Cartões instalados mostram Instalado e, quando aplicável, Atual. Selecione vários
+O botão Instalar no cartão alterna a seleção e mostra Selecionado com uma marca. Cartões instalados mostram Instalado e, quando aplicável, Atual. Selecione vários
 temas e use Instalar na barra inferior para revisar prévias, origens e tamanho
 total; Limpar desfaz a seleção. Setas navegam, Espaço alterna a seleção e Enter
-abre detalhes em Oficial ou Comunidade. Use Tab até Instalar na barra inferior e
+abre detalhes em Oficial ou Comunidade.
+
+Use Tab até Instalar na barra inferior e
 Enter para revisar. Em Instalados, Enter continua aplicando o tema; numa revisão,
 confirma a instalação. Instalar nos detalhes revisa somente aquele tema; depois
 oferece Aplicar, ou Atual se já ativo. Escape cancela a revisão antes de fechar
-detalhes ou janela. Downloads, progresso e erros ficam na janela. Prévias visíveis
+detalhes ou janela. Downloads, progresso e erros ficam na janela.
+
+Prévias visíveis
 e galerias abertas usam o cache do usuário. Se o repositório estiver inacessível,
 Tentar novamente recarrega; Instalados permanece disponível sem conexão.
 
@@ -51,15 +61,25 @@ A página Plugins lista os plugins instalados e o repositório oficial
 genérico. Os selos indicam plugins instalados e desativados. A remoção tem confirmação
 na janela.
 
-O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e Comunidade abrem detalhes com imagens, vídeos e componentes. Vídeos começam sem som e param ao fechar. Instalar e Atualizar mostram fonte, commit completo, autor, arquivos, comandos, avisos e alterações; a verificação opcional por IA aparece como texto. Plugins têm todas as permissões da sua conta. Enter confirma e Escape cancela. A instalação usa exatamente o commit revisado; na Comunidade, usa o commit fixado pelo índice. A revisão expira em 15 minutos e é descartada ao fechar o catálogo. Instalados > Adicionar de um endereço Git aceita HTTPS ou SSH para plugins e temas de dados, sem terminal.
+O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e Comunidade abrem detalhes com imagens, vídeos e componentes. Vídeos começam sem som e param ao fechar. Instalar e Atualizar mostram fonte, commit completo, autor, arquivos, comandos, avisos e alterações; a verificação opcional por IA aparece como texto.
 
-## Temas e papéis de parede
+Plugins têm todas as permissões da sua conta. Enter confirma e Escape cancela. A instalação usa exatamente o commit revisado; na Comunidade, usa o commit fixado pelo índice. A revisão expira em 15 minutos e é descartada ao fechar o catálogo. Instalados > Adicionar de um endereço Git aceita HTTPS ou SSH para plugins e temas de dados, sem terminal.
 
-Abra **Configurações > Estilo > Tema** ou **SUPER + Ctrl + Shift + N** para os menus Escuro/Claro do Walker. O carrossel de temas da área de trabalho (clique duplo direito na área de trabalho, Configurações (SUPER + ,) > Aparência ou IPC appearance) mostra todos os temas. O Sol acima do cartão selecionado mostra só os temas claros e a Lua só os escuros; clique de novo no selecionado para voltar a ver todos. O **+** ao lado abre o catálogo Temas e plugins nos temas oficiais, com o mesmo filtro claro ou escuro. Ctrl+Tab alterna entre todos, escuros e claros. Digite para buscar entre os temas exibidos; setas/Tab navegam e Enter aplica. Backspace edita a busca ou fecha quando vazia; Escape limpa a busca antes de fechar. O carrossel de papéis de parede não tem busca de temas.
+Os temas integrados vêm com o Eitr e não podem ser removidos. A lixeira de um tema baixado exclui o pacote instalado; o tema atual não pode ser removido.
+
+Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar na página atual por nome ou descrição. As palavras podem estar em qualquer ordem; Escape limpa a pesquisa primeiro.
+
+## Escolher tema e papel de parede
+
+Escolha tema e papel de parede em Configurações > Aparência > Tema e papel de parede. Para os menus Escuro/Claro do Walker, use **Walker > Configurações > Estilo > Tema** ou **SUPER + Ctrl + Shift + N**. Um clique duplo direito no desktop vazio abre o carrossel. O Sol filtra temas claros e a Lua escuros; clique de novo no filtro ativo para mostrar todos.
+
+O + abre o catálogo separado com o mesmo filtro. Ctrl+Tab alterna filtros, digitar busca, setas/Tab movem e Enter aplica. Backspace edita a busca ou fecha se estiver vazia; Esc limpa antes de fechar.
 
 **SUPER + Ctrl + N** abre os papéis de parede e **SUPER + Shift + N** avança para o próximo. Uma marca indica a escolha ativa no Walker. As trocas não exibem notificações de sucesso. Monitores ultrawide, com largura de pelo menos duas vezes a altura, usam a versão 21:9 de cada imagem para reduzir o recorte; os demais usam a versão 4K 16:9.
 
-O Eitr tem quatro papéis de parede: Primordial Drop (padrão), Runestone, Élivágar e Venom Rootlight. Escolha pelos mesmos controles; a paleta permanece igual. O segundo, Runestone, é animado: auroras se movem lentamente atrás do anel de runas, atualizam mais devagar atrás de janelas comuns, pausam atrás de aplicativos em tela cheia e ficam estáticas na tela de bloqueio. A renderização por software (por exemplo, numa VM sem aceleração 3D) usa o papel de parede estático selecionado; o mesmo acontece se não for possível detectar o renderizador. Graphite foi removido; seleções salvas do Graphite mudam para Eitr e seu papel de parede padrão.
+O Eitr tem quatro papéis de parede: Primordial Drop (padrão), Runestone, Élivágar e Venom Rootlight. Escolha pelos mesmos controles; a paleta permanece igual. O segundo, Runestone, é animado: auroras se movem lentamente atrás do anel de runas, atualizam mais devagar atrás de janelas comuns, pausam atrás de aplicativos em tela cheia e ficam estáticas na tela de bloqueio.
+
+A renderização por software (por exemplo, numa VM sem aceleração 3D) usa o papel de parede estático selecionado; o mesmo acontece se não for possível detectar o renderizador. Graphite foi removido; seleções salvas do Graphite mudam para Eitr e seu papel de parede padrão.
 
 Os 13 temas integrados ficam disponíveis offline. Instale os 12 temas extras pelo catálogo oficial `eitr-org/eitr-themes`. Contas existentes recebem todos os 12 em segundo plano, com novas tentativas após falhas de rede, sem mudar o tema atual nem o papel de parede salvo. Contas novas recebem apenas os integrados.
 
@@ -73,33 +93,39 @@ Se o Hyprpaper não conseguir exibir o papel de parede selecionado, a barra dese
 
 Suas imagens, temas e telas de bloqueio ficam neste computador, em `~/.local/share/eitr/` (`wallpapers`, `themes` e `lockscreens`). O Eitr nunca os envia nem compartilha, e as atualizações nunca os alteram. Eles aparecem ao lado dos distribuídos, marcados como **Seu**, e só eles podem ser excluídos: selecione um, pressione **Delete** e depois Enter para confirmar ou Esc para mantê-lo.
 
-- **Configurações > Estilo > Papel de parede > Adicionar meu papel de parede** aceita um arquivo de imagem ou um endereço https. Downloads param em 50 MB, e o Eitr só guarda uma cópia depois de verificar que o arquivo é uma imagem JPEG, PNG ou WebP. O endereço de uma página funciona quando a página oferece uma imagem principal; senão, copie o endereço da própria imagem. A imagem é aplicada na hora e aparece na lista de papéis de parede, no carrossel e com SUPER + Shift + N. Excluir o papel de parede em uso muda antes para o primeiro papel de parede do tema. Escolha se o papel de parede aparece com todos os temas ou só com o tema atual.
-- **Configurações > Estilo > Tema > Criar tema** pede uma imagem (o papel de parede atual, um seu, um do tema ou outro arquivo ou endereço https), claro ou escuro (Automático segue o brilho da imagem) e um nome. Depois da revisão, o Eitr cria uma paleta completa a partir da imagem, mantendo o texto bem legível sobre o fundo, e aplica o tema à barra, ao terminal, ao lançador, aos apps e aos ícones. Em seguida vem uma lista de cores: escolha Destaque, Fundo, Texto ou uma das seis cores do terminal, digite seis dígitos hexadecimais e a alteração é aplicada na hora; Esc conclui. **Ctrl + E** em um dos seus temas abre a lista de novo. Excluir o tema em uso volta antes ao tema usado antes de criá-lo.
-- **Configurações > Estilo > Tela de bloqueio > Criar tela de bloqueio** usa o desenho Theme Wallpaper ou Material com sua imagem, uma cor de destaque opcional e uma saudação opcional abaixo do relógio, e depois mostra uma prévia. Ela é selecionada como qualquer desenho. A tela de login não consegue ler sua pasta pessoal: mostra o mesmo desenho, com sua imagem no Theme Wallpaper e a imagem do próprio desenho no Material. Excluir a tela de bloqueio em uso seleciona antes o desenho dela.
+- **Walker > Configurações > Estilo > Papel de parede > Adicionar meu papel de parede** aceita um arquivo de imagem ou um endereço https. Downloads param em 50 MB, e o Eitr só guarda uma cópia depois de verificar que o arquivo é uma imagem JPEG, PNG ou WebP. O endereço de uma página funciona quando a página oferece uma imagem principal; senão, copie o endereço da própria imagem. A imagem é aplicada na hora e aparece na lista de papéis de parede, no carrossel e com SUPER + Shift + N. Excluir o papel de parede em uso muda antes para o primeiro papel de parede do tema. Escolha se o papel de parede aparece com todos os temas ou só com o tema atual.
+- **Walker > Configurações > Estilo > Tema > Criar tema** pede uma imagem (o papel de parede atual, um seu, um do tema ou outro arquivo ou endereço https), claro ou escuro (Automático segue o brilho da imagem) e um nome. Depois da revisão, o Eitr cria uma paleta completa a partir da imagem, mantendo o texto bem legível sobre o fundo, e aplica o tema à barra, ao terminal, ao lançador, aos apps e aos ícones. Em seguida vem uma lista de cores: escolha Destaque, Fundo, Texto ou uma das seis cores do terminal, digite seis dígitos hexadecimais e a alteração é aplicada na hora; Esc conclui. **Ctrl + E** em um dos seus temas abre a lista de novo. Excluir o tema em uso volta antes ao tema usado antes de criá-lo.
+- **Walker > Configurações > Estilo > Tela de bloqueio > Criar tela de bloqueio** usa o desenho Theme Wallpaper ou Material com sua imagem, uma cor de destaque opcional e uma saudação opcional abaixo do relógio, e depois mostra uma prévia. Ela é selecionada como qualquer desenho. A tela de login não consegue ler sua pasta pessoal: mostra o mesmo desenho, com sua imagem no Theme Wallpaper e a imagem do próprio desenho no Material. Excluir a tela de bloqueio em uso seleciona antes o desenho dela.
 
-## Barra e cantos
+## Alterar o layout da barra
 
-**Configurações > Estilo > Barra da área de trabalho** escolhe desfoque, cor do tema ou site, layout completo ou centralizado e borda. O Walker acompanha essa aparência. **Configurações > Estilo > Cantos** escolhe cantos quadrados, arredondados ou muito arredondados para as superfícies do EITR e decorações do compositor. Aplicativos de terceiros podem manter seus controles próprios; pontos de estado circulares continuam circulares.
+**Configurações > Barra da área de trabalho** escolhe layout, posição e aparência; veja [Barra da área de trabalho](handbook:desktop-bar). **Configurações > Janelas > Cantos** escolhe Quadrados, Arredondados ou Muito arredondados. Espaçamento das janelas e Reduzir movimento ficam na mesma página Janelas. Aplicativos externos podem manter seu estilo interno.
 
 <!-- eitr-figure: window-style -->
 
 Espaçamento das janelas e Cantos como **Configurações > Janelas** os mostra, com suas escolhas atuais marcadas. Por padrão, há 6 px entre janelas e 12 px nas bordas da tela.
 
-## Fontes
+Em **Configurações > Janelas > Espaçamento das janelas** ou **Walker > Configurações > Estilo > Espaçamento das janelas**, escolha Nenhum, Pequeno, Padrão ou Grande. A preferência local permanece após trocas de tema e recarregamentos.
 
-**Configurações > Estilo > Fontes** lista famílias de fontes instaladas utilizáveis, não cada variante em negrito ou itálico. Famílias de documentos e de reserva ficam ocultas. JetBrainsMono Nerd Font é o padrão. A seleção atualiza os aplicativos compatíveis; ligaturas são ativadas quando disponíveis. Remover uma família remove suas variantes instaladas compatíveis; a última opção utilizável não pode ser removida. Pode ser necessário conferir a qual pacote a fonte pertence.
+## Alterar fontes
 
-## Cursor
+Escolha uma fonte instalada em Configurações > Aparência > Fontes e cursor. JetBrainsMono Nerd Font é o padrão. A escolha atualiza os apps compatíveis; alguns mantêm sua própria fonte. Para remover uma família, use Walker > Configurações > Estilo > Fontes e revise seus pacotes. A última família utilizável não pode ser removida.
 
-**Configurações > Estilo > Cursor** oferece Bibata Modern, Breeze e Vanilla DMZ. Cor oferece automático, escuro e claro; Tamanho define o tamanho do ponteiro. Automático segue a categoria clara ou escura do tema sem trocar a família escolhida. Cores definidas explicitamente são preservadas. A linha selecionada tem uma marca à esquerda; outras famílias mostram prévias. Recursos ausentes geram um erro em vez de salvar uma escolha inválida.
+## Alterar o ponteiro
 
-O menu de inicialização do Limine usa as cores do tema atual, o título EITR e uma fonte maior. Novas instalações configuram isso; após trocar o tema, o menu acompanha no próximo desligamento. Se não for possível ler seu tema, usa as cores do padrão. As entradas de inicialização nunca são alteradas, e `limine.conf` recebe um backup antes de cada mudança. O estilo não é aplicado com Secure Boot ativo, pois alterar uma configuração do Limine cujo hash foi cadastrado impediria a inicialização.
+Abra Configurações > Aparência > Fontes e cursor. Família do ponteiro escolhe Bibata Modern, Breeze ou Vanilla DMZ. Cor do ponteiro oferece Automático, Escuro ou Claro; Automático acompanha o tema sem trocar a família. Tamanho do ponteiro ajusta o tamanho. Escolhas explícitas de cor e tamanho sobrevivem às trocas de tema. A página mostra o ponteiro escolhido se seus arquivos estiverem disponíveis.
 
-**Configurações > Estilo > Tela de bloqueio** define o desenho da tela de bloqueio e da tela de login. As preferências existentes são mantidas nas trocas de tema.
+## Escolher uma tela de bloqueio
+
+**Configurações > Tela de bloqueio** define o desenho da tela de bloqueio e da tela de login. As preferências existentes são mantidas nas trocas de tema.
 
 Os desenhos disponíveis são Clockwork Neo Orbital, Clockwork Tape, Eitr, Girl Coffee, Girl Pillow, Material Dark, Material Light, Nothing e Theme Wallpaper. Depois vêm as suas próprias telas de bloqueio; prévias não bloqueiam a sessão. Uma escolha removida da distribuição passa para Clockwork Tape. Novas instalações começam com Eitr.
 
-Eitr mostra a marca EITR na cor de destaque do seu tema dentro do anel dourado de runas da tela de inicialização, que avança a cada segundo, sobre um céu estrelado com a Via Láctea, uma estrela cadente de vez em quando e a aurora da área de trabalho sobre preto puro (numa tela OLED esses pixels ficam apagados). O relógio mostra horas e minutos com os numerais nórdicos do próprio Eitr e segue a preferência de 12 ou 24 horas. Cada caractere digitado entalha uma runa no campo de senha (sempre as mesmas runas, em ordem, então só o tamanho aparece); as setas, Home e End movem o cursor em bloco, e Backspace ou Delete esfarelam a runa ao lado. A autenticação bem-sucedida desbloqueia a sessão imediatamente. Enviar a senha, uma falha de login e trocar de conta limpam as runas instantaneamente, sem esfarelar. Reduzir movimento deixa tudo parado e pula os efeitos de gravação e esfarelamento. Numa prévia, Enter e Esc a fecham imediatamente sem desbloquear nada.
+Eitr mostra a marca EITR na cor de destaque do seu tema dentro do anel dourado de runas da tela de inicialização, que avança a cada segundo, sobre um céu estrelado com a Via Láctea, uma estrela cadente de vez em quando e a aurora da área de trabalho sobre preto puro (numa tela OLED esses pixels ficam apagados).
+
+O relógio mostra horas e minutos com os numerais nórdicos do próprio Eitr e segue a preferência de 12 ou 24 horas. Cada caractere digitado entalha uma runa no campo de senha (sempre as mesmas runas, em ordem, então só o tamanho aparece); as setas, Home e End movem o cursor em bloco, e Backspace ou Delete esfarelam a runa ao lado.
+
+A autenticação bem-sucedida desbloqueia a sessão imediatamente. Enviar a senha, uma falha de login e trocar de conta limpam as runas instantaneamente, sem esfarelar. Reduzir movimento deixa tudo parado e pula os efeitos de gravação e esfarelamento. Numa prévia, Enter e Esc a fecham imediatamente sem desbloquear nada.
 
 A arte tem resolução alvo de 4K (3840×2160, 16:9). Coffee e Pillow mantêm o estilo anime tranquilo com roupas nórdicas; Material e Clockwork usam ornamentos rúnicos discretos. Nothing mantém seu desenho. QML e SVG continuam escaláveis.
 
@@ -107,13 +133,10 @@ Compare os nove desenhos com `bash quickshell/lockscreen/scripts/gallery.sh`. Is
 
 **Papel de parede do tema** usa o papel de parede atual com relógio no alto à esquerda e senha no canto inferior direito. A prévia do Walker mostra a imagem atual. Mudanças posteriores aparecem no próximo bloqueio ou prévia; Ctrl+P mostra o layout inteiro sem bloquear. A tela de login não pode ler sua pasta pessoal, então usa uma cópia salva pelo Eitr ao escolher esse desenho e a cada troca de papel de parede. Se ela estiver indisponível, usa outro papel do tema atual ou o padrão Eitr.
 
-Em PCs com várias contas, a tela de login mostra o usuário selecionado. Clique na metade esquerda ou direita do seletor, ou pressione Ctrl+Left / Ctrl+Right, para escolher outra conta; Enter continua enviando a senha e Escape mantém seu comportamento. Com uma conta, o layout de login não muda. A tela de bloqueio mostra o nome real da sessão bloqueada quando disponível e só aceita a senha dessa conta. Trocar usuário (Ctrl+Alt+U) abre o login do SDDM e mantém a sessão original bloqueada. Ao voltar para a sessão bloqueada, clique uma vez no campo de senha antes de digitar. A ação só aparece quando há várias contas elegíveis e o SDDM permite a troca. As prévias e a galeria usam três contas fictícias e nunca autenticam.
+Em PCs com várias contas, a tela de login mostra o usuário selecionado. Clique na metade esquerda ou direita do seletor, ou pressione Ctrl+Left / Ctrl+Right, para escolher outra conta; Enter continua enviando a senha e Escape mantém seu comportamento. Com uma conta, o layout de login não muda. A tela de bloqueio mostra o nome real da sessão bloqueada quando disponível e só aceita a senha dessa conta.
 
-O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e Comunidade abrem detalhes com imagens, vídeos e componentes. Vídeos começam sem som e param ao fechar. Instalar e Atualizar mostram fonte, commit completo, autor, arquivos, comandos, avisos e alterações; a verificação opcional por IA aparece como texto. Plugins têm todas as permissões da sua conta. Enter confirma e Escape cancela. A instalação usa exatamente o commit revisado; na Comunidade, usa o commit fixado pelo índice. A revisão expira em 15 minutos e é descartada ao fechar o catálogo. Instalados > Adicionar de um endereço Git aceita HTTPS ou SSH para plugins e temas de dados, sem terminal.
+Trocar usuário (Ctrl+Alt+U) abre o login do SDDM e mantém a sessão original bloqueada. Ao voltar para a sessão bloqueada, clique uma vez no campo de senha antes de digitar. A ação só aparece quando há várias contas elegíveis e o SDDM permite a troca. As prévias e a galeria usam três contas fictícias e nunca autenticam.
 
-Os temas integrados vêm com o Eitr e não podem ser removidos. A lixeira de um tema baixado exclui o pacote instalado; o tema atual não pode ser removido.
+## Notas técnicas
 
-Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar na página atual por nome ou descrição. As palavras podem estar em qualquer ordem; Escape limpa a pesquisa primeiro.
-
-
-Em **Configurações > Janelas > Espaçamento das janelas** ou **Walker > Configurações > Estilo > Espaçamento das janelas**, escolha Nenhum, Pequeno, Padrão ou Grande. A preferência local permanece após trocas de tema e recarregamentos.
+O menu de inicialização do Limine usa as cores do tema atual, o título EITR e uma fonte maior. Novas instalações configuram isso; após trocar o tema, o menu acompanha no próximo desligamento. Se não for possível ler seu tema, usa as cores do padrão. As entradas de inicialização nunca são alteradas, e `limine.conf` recebe um backup antes de cada mudança. O estilo não é aplicado com Secure Boot ativo, pois alterar uma configuração do Limine cujo hash foi cadastrado impediria a inicialização.

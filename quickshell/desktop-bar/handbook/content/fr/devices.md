@@ -4,15 +4,19 @@ La page Écrans et le panneau d’affichage montrent une carte des moniteurs au-
 
 Utilisez **Paramètres > Écrans**, **Paramètres > Son** et **Paramètres > Saisie** pour les commandes partagées dans les paramètres. Son contient les cartes Sortie et Entrée (périphérique, volume avec sourdine et niveau du micro), une ligne par application qui lit du son, et les sons d’événements ; Renommer reste dans la liste des périphériques. Entrée permet d’ajouter, supprimer et réordonner les dispositions du clavier avec les boutons fléchés.
 
-Ces commandes se trouvent dans **Paramètres > Périphériques et saisie** ou via les icônes correspondantes de la barre. Le Centre de contrôle propose aussi leurs interrupteurs et curseurs courants.
+Ouvrez Paramètres > Écrans, Son ou Saisie. Les panneaux correspondants de la barre et le Centre de contrôle proposent aussi des commandes rapides.
 
-## Audio et microphone
+Walker > Paramètres > Périphériques et saisie > Éclairage contrôle les appareils OpenRGB. Il est désactivé au départ ; Suivre le thème recolore les appareils compatibles lors des changements de thème.
 
-Volume sélectionne la sortie par défaut et règle le volume général ainsi que celui des applications en lecture. Les périphériques apparaissent avec un nom lisible et une icône de type ; cliquez sur le périphérique actuel pour en choisir un autre et utilisez le bouton crayon d’un périphérique pour le renommer sur cet ordinateur. Microphone sélectionne l’entrée par défaut, le gain et la mise en sourdine. Son indicateur de niveau ne fonctionne que lorsque le panneau est ouvert ; aucun son n’est enregistré sur disque. Ouvrir d’autres réglages ne démarre pas la surveillance du microphone.
+## Régler le son et le microphone
+
+Volume sélectionne la sortie par défaut et règle le volume général ainsi que celui des applications en lecture. Les périphériques apparaissent avec un nom lisible et une icône de type ; cliquez sur le périphérique actuel pour en choisir un autre et utilisez le bouton crayon d’un périphérique pour le renommer sur cet ordinateur.
+
+Microphone sélectionne l’entrée par défaut, le gain et la mise en sourdine. Son indicateur de niveau ne fonctionne que lorsque le panneau est ouvert ; aucun son n’est enregistré sur disque. Ouvrir d’autres réglages ne démarre pas la surveillance du microphone.
 
 Les curseurs vont jusqu’à 100 % ; une valeur supérieure déjà présente reste inchangée tant que vous ne déplacez pas le curseur. Changer le périphérique audio par défaut peut affecter un appel : faites-le délibérément. Les commandes de lecture sont distinctes du choix du périphérique par défaut.
 
-## Écran et luminosité
+## Configurer les écrans
 
 Le panneau Écran liste les moniteurs actifs. Cliquez sur l’un d’eux pour ouvrir ses réglages dans sa carte, puis à nouveau pour les fermer. L’écran **Principal** accueille la barre, les panneaux et les notifications : activez **Écran principal** dans les réglages d’un autre moniteur pour les y déplacer. S’il est déconnecté, un autre devient **Principal** et reçoit la barre jusqu’à son retour ; votre choix est conservé.
 
@@ -26,11 +30,15 @@ Vous pouvez disposer autant de moniteurs que nécessaire : placez chacun à gauc
 
 Le curseur de luminosité n’apparaît que sur les ordinateurs portables avec écran intégré (rétroéclairage natif) ; les moniteurs de bureau gardent leurs propres boutons. L’atténuation avant le verrouillage peut encore baisser un moniteur externe via DDC si le moniteur et les permissions le permettent. L’Éclairage nocturne propose un interrupteur manuel et une programmation facultative avec des horaires modifiables.
 
-**HDR** apparaît uniquement sur les moniteurs dont l’EDID indique la prise en charge de PQ ou HLG. Il affiche le bureau en HDR ; les jeux peuvent utiliser HDR même lorsque ce réglage est désactivé. Activer ou désactiver HDR demande aussi de conserver le changement sous 15 secondes, sinon il est annulé. Lorsque HDR est actif, **Luminosité du contenu SDR** règle le contenu SDR de 1,0× à 2,0× et enregistre immédiatement. Les jeux HDR en plein écran peuvent toujours basculer automatiquement le moniteur lorsque le HDR du bureau est désactivé. Dans les deux cas, Eitr utilise les niveaux de crête et de noir indiqués par l’EDID du moniteur. Les navigateurs utilisent HDR uniquement lorsque le HDR du bureau est activé pour leur moniteur ; ils ne l’activent jamais automatiquement. Les jeux HDR en plein écran continuent de basculer automatiquement lorsque le HDR du bureau est désactivé. La lecture HDR dans le navigateur dépend aussi de sa prise en charge et de ses réglages.
+**HDR** apparaît uniquement sur les moniteurs dont l’EDID indique la prise en charge de PQ ou HLG. Il affiche le bureau en HDR ; les jeux peuvent utiliser HDR même lorsque ce réglage est désactivé. Activer ou désactiver HDR demande aussi de conserver le changement sous 15 secondes, sinon il est annulé.
 
-## Clavier
+Lorsque HDR est actif, **Luminosité du contenu SDR** règle le contenu SDR de 1,0× à 2,0× et enregistre immédiatement. Les jeux HDR en plein écran peuvent toujours basculer automatiquement le moniteur lorsque le HDR du bureau est désactivé. Dans les deux cas, Eitr utilise les niveaux de crête et de noir indiqués par l’EDID du moniteur.
 
-Ajoutez et retirez des dispositions dans Walker : Paramètres > Périphériques et saisie > Clavier. Ajouter une disposition liste toutes les langues et variantes (tapez pour chercher) ; sélectionnez une disposition et appuyez sur Suppr pour la retirer. Jusqu’à quatre sont prises en charge, sans doublons, et au moins une doit rester. **Alt + Shift** les parcourt. À partir de deux, la barre affiche le code de la disposition active (comme US ou BR) ; cliquez dessus, ou utilisez le Centre de contrôle, pour en changer. La disposition du clavier est indépendante de la langue et des paramètres régionaux du système.
+Les navigateurs utilisent HDR uniquement lorsque le HDR du bureau est activé pour leur moniteur ; ils ne l’activent jamais automatiquement. Les jeux HDR en plein écran continuent de basculer automatiquement lorsque le HDR du bureau est désactivé. La lecture HDR dans le navigateur dépend aussi de sa prise en charge et de ses réglages.
+
+## Changer les dispositions du clavier
+
+Ouvrez Paramètres > Saisie. Utilisez Ajouter une disposition pour chercher langues et variantes, les flèches pour réordonner et le bouton de suppression pour retirer une disposition. Quatre au maximum sont acceptées, sans doublons ; une au moins doit rester. **Alt + Shift** les parcourt. À partir de deux, cliquez sur le code dans la barre pour changer. Disposition et langue du bureau sont distinctes ; voir [Langue](handbook:language).
 
 Le bureau démarre avec le clavier choisi dans l’installateur. Le choix US inclut US et US International ; Alt + Shift suffit pour accéder aux accents.
 

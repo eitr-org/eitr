@@ -6,7 +6,7 @@ Vingt secondes avant le verrouillage, les écrans compatibles réduisent leur lu
 
 ## Mot de passe et authentification alternative
 
-**Paramètres > Sécurité > Mettre à jour le mot de passe** change le mot de passe de votre compte. L’empreinte digitale et FIDO2 ont leurs propres procédures d’inscription et d’activation. Une clé de sécurité FIDO2 est un dispositif physique, pas le lecteur d’empreintes d’un portable. Inscrivez d’abord le dispositif, puis activez l’authentification. L’utilitaire sauvegarde les paramètres PAM ; gardez un mot de passe valide et un moyen d’accéder à un TTY.
+**Paramètres > Sécurité > Mettre à jour le mot de passe** change le mot de passe de votre compte. L’empreinte digitale et Clé de sécurité FIDO2 ont leurs propres procédures d’inscription et d’activation. Une clé de sécurité FIDO2 est un dispositif physique, pas le lecteur d’empreintes d’un portable. Inscrivez d’abord le dispositif, puis activez l’authentification. L’utilitaire sauvegarde les paramètres PAM ; gardez un mot de passe valide et un moyen d’accéder à un TTY.
 
 Revenir à l’authentification par mot de passe rétablit l’accès uniquement par mot de passe. Ces changements concernent les services PAM de verrouillage, de connexion et de sudo pris en charge. Ils nécessitent du matériel compatible et les utilitaires installés. L’authentification par empreinte peut retarder brièvement la demande de mot de passe. Lire cette page ne modifie pas PAM.
 
@@ -36,6 +36,4 @@ Le nouveau dossier personnel ne contient aucun fichier de votre compte. À la pr
 
 ## Photos de profil
 
-Dans Walker, Paramètres > Sécurité > Utilisateurs > Photo de profil ouvre Paramètres > Utilisateur, où vous changez la photo ronde affichée dans le Centre de contrôle, au verrouillage et à la connexion ; le sélecteur de fichiers, l’éditeur de cadrage et ce qu’Eitr enregistre sont décrits dans [Centre de contrôle](handbook:control-center).
-
-Paramètres > Utilisateur affiche votre photo et votre nom, avec Changer la photo et Supprimer. Sécurité ouvre les parcours existants en conservant mots de passe, confirmations saisies et limites administrateur.
+Ouvrez Paramètres > Utilisateur pour changer ou supprimer votre photo. Voir [Paramètres](handbook:system) pour choisir une image et ajuster son cadrage. Le Centre de contrôle affiche seulement la photo.

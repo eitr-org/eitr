@@ -1,11 +1,9 @@
 # Focus
 
-Esses controles também estão disponíveis diretamente em Configurações.
-
 ![Faixa de abas do Focus com janelas de exemplo e dois painéis unidos.](assets/focus-strip.png)
 
 O Focus troca a barra por uma faixa de abas de 28 px no topo de cada monitor.
-Abra **Configurações > Estilo > Focus** ou **Configurações (SUPER + ,) > Focus**, ou execute
+Abra **Configurações > Focus**, ou execute
 `eitr focus on`. `eitr focus status` mostra `on` ou `off` sem consultar o
 Hyprland. `eitr focus off` restaura a barra, os efeitos e os atalhos normais.
 **SUPER + Shift + F** ou `eitr focus toggle` alterna o Focus.
@@ -22,7 +20,9 @@ As janelas abertas, incluindo as flutuantes e as da área de trabalho especial,
 são reunidas em grupos nativos do Hyprland. Um grupo ocupa toda a tela abaixo
 da faixa. Espaçamentos, bordas, cantos arredondados, desfoque, sombras e animações
 ficam desativados. A faixa acompanha o tema, tem bordas retas como o layout Abas
-e mostra apenas títulos, relógio e estado da rede/bateria. A bateria só aparece
+e mostra apenas títulos, relógio e estado da rede/bateria.
+
+A bateria só aparece
 se houver uma bateria do sistema. Títulos longos são abreviados; muitas abas
 permitem rolagem. A aba em destaque identifica a janela em foco. Linhas na cor
 de destaque unem os painéis visíveis da divisão. Aplicativos podem manter o
@@ -39,7 +39,9 @@ estilo interno de suas próprias caixas e menus.
 Dividir exige outra aba no grupo em foco. O limite é quatro painéis: dois ficam
 lado a lado ou empilhados; três ou quatro usam uma grade 2×2 (o terceiro ocupa
 toda a linha inferior até surgir o quarto). O redimensionamento ajusta os
-divisores compartilhados da grade. O atalho de retorno restaura um único grupo em tela cheia com uma tecla. A numeração segue a ordem de janelas do compositor, também usada
+divisores compartilhados da grade. O atalho de retorno restaura um único grupo em tela cheia com uma tecla.
+
+A numeração segue a ordem de janelas do compositor, também usada
 pela faixa. Os atalhos normais de áreas de trabalho, flutuação, movimentação e
 visibilidade da barra ficam inativos. Lançadores, fechar janela, Central de
 Controle e Manual continuam disponíveis. Aprender > Atalhos mostra as teclas do Focus enquanto ele está ativo.
@@ -56,9 +58,12 @@ Desativar o Focus desfaz os grupos e distribui as janelas por áreas numeradas,
 duas por área, mantendo seus monitores atuais. Posições anteriores, geometria
 flutuante e estado de tela cheia dos aplicativos não são preservados. Uma área
 vazia e comandos on/off repetidos são aceitos. Se o processo da faixa falhar,
-os grupos nativos e a navegação por teclado continuam funcionando. Execute
-`eitr focus off` em um terminal para recuperar a área de trabalho sem a faixa.
-Recarregar o Hyprland reaplica a preferência e reúne novas janelas sem desfazer
+os grupos nativos e a navegação por teclado continuam funcionando.
+
+Execute
+`eitr focus off` em um terminal para recuperar a área de trabalho sem a faixa. Recarregar o Hyprland reaplica a preferência e reúne novas janelas sem desfazer
 as divisões existentes; os tamanhos dos divisores e a orientação de dois painéis
 voltam ao padrão. Uma falha de comando mostra o erro; tente `eitr focus off`
-novamente quando o Hyprland estiver acessível. Fechar um painel expande os restantes.
+novamente quando o Hyprland estiver acessível.
+
+Fechar um painel expande os restantes.

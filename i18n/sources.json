@@ -4901,6 +4901,9 @@
     "Capture And Desktop": [
       "tools/handbook-build.py"
     ],
+    "Click Idle Lock": [
+      "tools/handbook-build.py"
+    ],
     "Click a bar icon": [
       "tools/handbook-build.py"
     ],
@@ -4911,9 +4914,6 @@
       "tools/handbook-build.py"
     ],
     "Connecting, known networks, enterprise credentials, pairing and airplane mode": [
-      "quickshell/desktop-bar/handbook/chapters.json"
-    ],
-    "Connectivity, Devices & Input, Language, Security, Style and System": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Control Center": [
@@ -5003,9 +5003,6 @@
     ],
     "Fuzzy-find text": [
       "tools/handbook-build.py"
-    ],
-    "General, Style, Settings, Capture and OCR": [
-      "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Gesture": [
       "tools/handbook-build.py"
@@ -5259,6 +5256,9 @@
     "Quarter-size window": [
       "tools/handbook-build.py"
     ],
+    "Quick controls, tools, chat and installed plugins": [
+      "quickshell/desktop-bar/handbook/chapters.json"
+    ],
     "Raise brightness": [
       "tools/handbook-build.py"
     ],
@@ -5292,9 +5292,6 @@
     "Reviewed installation software, defaults and organization policies": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
-    "Right-click Idle Lock": [
-      "tools/handbook-build.py"
-    ],
     "Rotate split direction": [
       "tools/handbook-build.py"
     ],
@@ -5306,6 +5303,9 @@
     ],
     "Search apps": [
       "tools/handbook-build.py"
+    ],
+    "Search pages, change your profile picture and find Walker alternatives": [
+      "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Secure Boot": [
       "quickshell/desktop-bar/handbook/chapters.json"
@@ -5344,10 +5344,8 @@
       "tools/handbook-build.py"
     ],
     "Settings": [
+      "quickshell/desktop-bar/handbook/chapters.json",
       "tools/handbook-build.py"
-    ],
-    "Settings Menu": [
-      "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Shortcut": [
       "tools/handbook-build.py"
@@ -5395,13 +5393,13 @@
     "Theme carousel": [
       "tools/handbook-build.py"
     ],
-    "Theme carousel, wallpapers, fonts, cursors, corners and lockscreen": [
-      "quickshell/desktop-bar/handbook/chapters.json"
-    ],
     "Theme picker": [
       "tools/handbook-build.py"
     ],
     "Themes & Style": [
+      "quickshell/desktop-bar/handbook/chapters.json"
+    ],
+    "Themes, wallpapers, fonts, cursors, window gaps, corners and lockscreen": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": [

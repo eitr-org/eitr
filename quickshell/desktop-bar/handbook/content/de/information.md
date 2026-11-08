@@ -2,10 +2,9 @@
 
 Benachrichtigungskarten zeigen unter dem Titel das lokale Eingangsdatum und die Uhrzeit, sowohl in Popups als auch im Verlauf. Diese Zeiten bleiben nur für die laufende Sitzung erhalten.
 
-## Einstellungen > System > Informationen
+## Systeminformationen lesen
 
-Über liegt direkt unter Einstellungen > System.
-Über gruppiert Hardware, Software (einschließlich der installierten EITR-Version), Systemalter, Laufzeit und Datum in themenfarbenen Terminalkästen neben dem flüssigen E-Logo. Darunter stehen Palettenpunkte; lange Werte werden gekürzt, damit die Rahmen ausgerichtet bleiben.
+Öffne Einstellungen > Über für Eitr-Version, Codename, Aktualisierungskanal, Kernel und Lizenz. Die Systemübersicht zeigt dein Profil und die aktuelle Hardwareauslastung. Für Hardwaredetails, KI-Nutzung und Wetter klicke auf die Leistensymbole; Walker findet sie auch nach Namen.
 
 **Hardware** zeigt CPU, GPU, RAM und den Speicher des Laufwerks, auf dem `/` liegt. Andere Laufwerke werden nicht in diese Summe einbezogen. Fehlende Sensor- oder GPU-Daten werden als nicht verfügbar gekennzeichnet.
 
@@ -23,10 +22,10 @@ Klicke auf den animierten Equalizer für Cover, Titel und Künstler, Zurück/Wie
 
 ## Benachrichtigungen
 
-**SUPER + N** oder die Glocke öffnet die Benachrichtigungszentrale. Benachrichtigungen sind nach Anwendung gruppiert. Die neueste Karte liegt vorn im Stapel; erweitere ihn für ältere Karten. Du kannst eine Karte verwerfen, eine Gruppe oder alle löschen. Popups bilden ebenfalls Stapel je Anwendung, mit der neuesten Meldung vorn. Darüberhalten des Zeigers pausiert ihre Ablaufzeit. **SUPER + Alt + N** führt die Hauptaktion der neuesten Benachrichtigung aus (wie ein Klick darauf), **SUPER + Alt + Shift + N** schließt sie. Eine wiederholte Benachrichtigung (gleiche App, gleicher Titel und Text) ersetzt die frühere und zeigt eine Anzahl wie ×3, statt eine weitere Karte zu stapeln.
+**SUPER + N** oder die Glocke öffnet die Benachrichtigungszentrale. Benachrichtigungen sind nach Anwendung gruppiert. Die neueste Karte liegt vorn im Stapel; erweitere ihn für ältere Karten. Du kannst eine Karte verwerfen, eine Gruppe oder alle löschen. Popups bilden ebenfalls Stapel je Anwendung, mit der neuesten Meldung vorn. Darüberhalten des Zeigers pausiert ihre Ablaufzeit.
+
+**SUPER + Alt + N** führt die Hauptaktion der neuesten Benachrichtigung aus (wie ein Klick darauf), **SUPER + Alt + Shift + N** schließt sie. Eine wiederholte Benachrichtigung (gleiche App, gleicher Titel und Text) ersetzt die frühere und zeigt eine Anzahl wie ×3, statt eine weitere Karte zu stapeln.
 
 Benachrichtigungen leuchten sanft nach innen in der Akzentfarbe des Themes. Kritische verwenden stattdessen dessen Rot; solche mit niedriger Priorität bleiben dezent und ohne Leuchten. Nicht stören unterdrückt Popups, ohne den Verlauf zu löschen. Dieser bleibt bei Konfigurationsneuladungen im Speicher, aber nicht bei einem Prozessneustart. Benachrichtigungsinhalte werden nicht protokolliert.
 
-Für gespeicherte Vorschaubilder gilt ein Speicherbudget von 32 MiB; Bilder werden mit höchstens 160×120 dekodiert. Die ältesten ausgeblendeten Bilder werden zuerst freigegeben; der Text bleibt im Verlauf. Bilder in Popups oder in der geöffneten Benachrichtigungszentrale bleiben bis zum Ausblenden gespeichert, auch wenn das Budget vorübergehend überschritten wird.
-
-Einstellungen > Über zeigt Version, Codename, Aktualisierungskanal, Hardware, Kernel und Lizenz sowie Links zu Website, Repository und Handbuch.
+Nicht stören und Absturzbenachrichtigungen findest du unter Einstellungen > Benachrichtigungen.

@@ -5,7 +5,7 @@ Your new desktop is ready. Take the short tour, set up the essentials, then make
 <!-- eitr-welcome:tour -->
 ## A quick tour
 
-- **Desktop Bar**: Workspaces, the clock and your status icons live along the screen edge. Click any icon to open its panel.
+- **Desktop Bar**: Workspaces, the clock and your status icons live along the screen edge. Click an icon for its controls; Idle Lock switches automatic locking directly.
 - **The launcher**: Press **SUPER + Space** for your apps, or **SUPER + F** for every menu. Start typing to search, then press Enter.
 - **Settings**: Press **SUPER + ,** for displays, sound, keyboard, appearance and more. Every page is searchable.
 - **Control Center**: Press **SUPER + I** for quick toggles, screen capture and a quick chat with your assistant.
@@ -17,7 +17,7 @@ Your new desktop is ready. Take the short tour, set up the essentials, then make
 
 On the desktop, each of these opens its page in Settings.
 
-- **Wi-Fi**: Join a network or pair Bluetooth devices.
+- **Wi-Fi**: Join a network.
 - **Theme & Wallpaper**: Choose the colors and art you want to see every day.
 - **Keyboard**: Add, order and switch your keyboard layouts.
 - **Profile picture**: Choose the picture shown with your account.
@@ -26,7 +26,7 @@ On the desktop, each of these opens its page in Settings.
 
 ## Good to know
 
-**SUPER** is the Windows or Command logo key. **SUPER + Enter** opens a terminal. Right-side bar icons may be hidden: click the arrow to reveal them. Fresh installs start with the **Eitr** theme and the **Clockwork Tape** lockscreen; existing desktops keep their choices.
+**SUPER** is the Windows or Command logo key. **SUPER + Enter** opens a terminal. Right-side bar icons may be hidden: click the arrow to reveal them. Fresh installs start with the **Eitr** theme and the **Eitr** lockscreen; existing desktops keep their choices.
 
 This welcome opens by itself at the first login. Turn on **Show this welcome at the next login** to see it again, or reopen it from **Learn > EITR Handbook** or **SUPER + F1**.
 
@@ -36,7 +36,7 @@ This welcome opens by itself at the first login. Turn on **Show this welcome at 
 
 Search finds chapter titles and text: **Ctrl + F** focuses it, Up/Down pick a match and Enter opens it. **Page Up/Page Down** scroll, **Ctrl + Home/End** jump to the start or end, and **Alt + Left/Right** move between chapters, like Previous and Next. Escape, the close button or the shortcut closes the window; a click beside it does not.
 
-The handbook never runs commands. Code blocks are examples to read and copy deliberately, and external links open only when you click them. Continue with [Shortcuts](handbook:shortcuts), [Desktop Bar](handbook:desktop-bar) or the [Settings Menu](handbook:system).
+The handbook never runs commands. Code blocks are examples to read and copy deliberately, and external links open only when you click them. Continue with [Shortcuts](handbook:shortcuts), [Desktop Bar](handbook:desktop-bar) or the [Settings](handbook:system).
 
 <!-- eitr-overview -->
 ## What Eitr includes

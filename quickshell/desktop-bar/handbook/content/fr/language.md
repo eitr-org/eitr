@@ -12,7 +12,9 @@ Si vous devez aussi modifier les réglages de tout le système, utilisez ses par
 LANG=pt_BR.UTF-8
 ```
 
-Les premières langues proposées sont `pt_BR.UTF-8` (portugais brésilien), `es_ES.UTF-8` (espagnol), `de_DE.UTF-8` (allemand) et `fr_FR.UTF-8` (français). Une variante régionale peut utiliser la traduction de la langue de base. Exécutez `locale` dans un terminal pour vérifier les variables prioritaires et `locale -a` pour afficher les locales installées. Déconnectez-vous puis reconnectez-vous pour appliquer la langue au bureau, aux menus et aux nouveaux terminaux. Le sélecteur écrit uniquement `~/.config/environment.d/90-eitr-language.conf` : il définit `LC_MESSAGES` et vide `LC_ALL` pour la prochaine session, en conservant les formats de date et de nombres. **Valeur par défaut du système** supprime cette préférence. Il ne modifie pas `/etc/locale.conf` et ne génère aucune locale. Les applications déjà ouvertes conservent leur langue.
+Les premières langues proposées sont `pt_BR.UTF-8` (portugais brésilien), `es_ES.UTF-8` (espagnol), `de_DE.UTF-8` (allemand) et `fr_FR.UTF-8` (français). Une variante régionale peut utiliser la traduction de la langue de base. Exécutez `locale` dans un terminal pour vérifier les variables prioritaires et `locale -a` pour afficher les locales installées. Déconnectez-vous puis reconnectez-vous pour appliquer la langue au bureau, aux menus et aux nouveaux terminaux.
+
+Le sélecteur écrit uniquement `~/.config/environment.d/90-eitr-language.conf` : il définit `LC_MESSAGES` et vide `LC_ALL` pour la prochaine session, en conservant les formats de date et de nombres. **Valeur par défaut du système** supprime cette préférence. Il ne modifie pas `/etc/locale.conf` et ne génère aucune locale. Les applications déjà ouvertes conservent leur langue.
 
 ## Contribuer à une traduction
 

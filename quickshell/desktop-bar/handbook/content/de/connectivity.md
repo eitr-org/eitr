@@ -1,20 +1,20 @@
 # WiFi, Bluetooth und Flugmodus
 
-Diese Steuerelemente sind auch direkt in den Einstellungen verfügbar.
+Öffne Einstellungen > Verbindungen und wähle Wi-Fi oder Bluetooth. Die Leistensymbole öffnen Schnellpanels für dieselben Geräte. Das Öffnen wechselt keinen Netzwerkdienst und trennt keine Verbindung.
 
-Öffne die Leistensymbole oder **Einstellungen > Verbindungen**. Ein Panel zu öffnen wechselt niemals selbstständig den Netzwerkdienst oder trennt Geräte.
+## Mit Wi-Fi verbinden
 
-## WiFi
-
-Das Panel trennt verbundene, bekannte und andere Netzwerke. Wähle ein verfügbares Netzwerk zum Verbinden; Passwortfelder verbergen den Inhalt. Gespeicherte nicht erreichbare Netzwerke bleiben ohne erfundene Signalprozentwerte sichtbar. Trennen liegt in der verbundenen Zeile; ein gespeichertes Netzwerk zu vergessen verlangt Bestätigung.
+Öffne Einstellungen > Verbindungen > Wi-Fi, schalte Wi-Fi ein und wähle unter Andere Netzwerke ein Netzwerk. Gib bei Bedarf das Passwort ein. Suchen sucht erneut. Verbundenes Netzwerk zeigt die aktuelle Verbindung; Bekannte Netzwerke enthält gespeicherte, auch nicht erreichbare Netzwerke. Trennen beendet die Verbindung; Vergessen entfernt sie nach Bestätigung. Fortschritt und Fehler erscheinen neben dem Netzwerk.
 
 Oben stehen Netzwerkstatus, Ping, WiFi-Band, IP-Adresse und Gateway. QR-Freigabe verwendet ein bereitgestelltes WiFi-Passwort und hält das Bild im Speicher. Unternehmenszugangsdaten werden nicht als persönlicher Netzwerk-QR geteilt.
 
 Für Unternehmensnetzwerke werden PEAP/MSCHAPv2 und TTLS/PAP unterstützt. Frage den Administrator nach Benutzername, CA-Zertifikat und Domäne des Authentifizierungsservers. Deaktiviere die Zertifikatsprüfung nicht. Andere Verfahren brauchen eine erweiterte Einrichtung. Siehe [Netzwerkdienste](handbook:network-backends).
 
-## Bluetooth
+Den WiFi-Dienst wählst du unter Einstellungen > Verbindungen > Wi-Fi > WiFi-Backend; Walker > Einstellungen > Verbindungen > Netzwerk-Backend ist eine Alternative. Lies vor dem Wechsel [Netzwerkdienste](handbook:network-backends). Die Auswahl gilt nach dem Neustart und lässt die aktuelle Verbindung bestehen.
 
-Schalte den Adapter ein oder aus, suche, kopple, verbinde, trenne oder vergiss Geräte. Verbundene, bekannte und neu entdeckte Geräte bilden eigene Gruppen. Eine vom Panel gestartete Suche endet nach 20 Sekunden oder beim Schließen.
+## Ein Bluetooth-Gerät koppeln
+
+Öffne Einstellungen > Verbindungen > Bluetooth und schalte Bluetooth ein. Wähle Suchen und dann ein Gerät zum Koppeln und Verbinden. Verbundene Geräte, Bekannte Geräte und Andere Geräte stehen getrennt. Geräte ohne Namen anzeigen hilft bei namenlosen Geräten. Trennen behält die Kopplung; Vergessen entfernt sie. Die Suche endet nach 20 Sekunden, beim Verlassen der Seite oder Schließen des Panels.
 
 Kopplung kann eine PIN oder einen Bestätigungsagenten benötigen. Der Desktop verwendet dafür derzeit Blueman. Ein schon gekoppeltes Gerät erneut zu verbinden belegt nicht, dass neue Kopplungen funktionieren. Behalte den Agenten, bis eine Kopplung mit PIN oder Bestätigung geprüft wurde. Die Abdeckung bei Neuinstallationen muss weiterhin geprüft werden.
 

@@ -5,7 +5,7 @@ Dein neuer Desktop ist bereit. Mach die kurze Tour, richte das Wichtigste ein un
 <!-- eitr-welcome:tour -->
 ## Eine kurze Tour
 
-- **Desktopleiste**: Arbeitsflächen, Uhr und Statussymbole liegen am Bildschirmrand. Ein Klick auf ein Symbol öffnet sein Panel.
+- **Desktopleiste**: Arbeitsflächen, Uhr und Statussymbole liegen am Bildschirmrand. Ein Klick auf ein Symbol öffnet seine Steuerung; automatische Sperre schaltet direkt um.
 - **Der Starter**: **SUPER + Space** öffnet deine Anwendungen, **SUPER + F** alle Menüs. Tippe zum Suchen und drücke Enter.
 - **Einstellungen**: **SUPER + ,** öffnet Bildschirme, Ton, Tastatur, Darstellung und mehr. Jede Seite ist durchsuchbar.
 - **Kontrollzentrum**: **SUPER + I** öffnet Schnellschalter, Bildschirmaufnahme und einen schnellen Chat mit deinem Assistenten.
@@ -17,7 +17,7 @@ Dein neuer Desktop ist bereit. Mach die kurze Tour, richte das Wichtigste ein un
 
 Auf dem Desktop öffnet jeder Eintrag seine Seite in den Einstellungen.
 
-- **Wi-Fi**: Verbinde dich mit einem Netzwerk oder kopple Bluetooth-Geräte.
+- **Wi-Fi**: Verbinde dich mit einem Netzwerk.
 - **Design und Hintergrundbild**: Wähle die Farben und Bilder, die du jeden Tag sehen möchtest.
 - **Tastatur**: Füge Tastaturlayouts hinzu, ordne sie und wechsle zwischen ihnen.
 - **Profilbild**: Wähle das Bild, das zu deinem Konto gehört.
@@ -26,7 +26,7 @@ Auf dem Desktop öffnet jeder Eintrag seine Seite in den Einstellungen.
 
 ## Gut zu wissen
 
-**SUPER** ist die Taste mit dem Windows- oder Command-Symbol. **SUPER + Enter** öffnet ein Terminal. Rechte Leistensymbole können ausgeblendet sein; der Pfeil zeigt sie an. Neue Installationen beginnen mit dem Theme **Eitr** und dem Sperrbildschirm **Clockwork Tape**; bestehende Desktops behalten ihre Auswahl.
+**SUPER** ist die Taste mit dem Windows- oder Command-Symbol. **SUPER + Enter** öffnet ein Terminal. Rechte Leistensymbole können ausgeblendet sein; der Pfeil zeigt sie an. Neue Installationen beginnen mit dem Theme **Eitr** und dem Sperrbildschirm **Eitr**; bestehende Desktops behalten ihre Auswahl.
 
 Diese Begrüßung öffnet sich bei der ersten Anmeldung von selbst. Aktiviere **Diese Begrüßung bei der nächsten Anmeldung anzeigen**, um sie erneut zu sehen, oder öffne sie über **Lernen > EITR-Handbuch** oder **SUPER + F1**.
 
@@ -36,7 +36,7 @@ Diese Begrüßung öffnet sich bei der ersten Anmeldung von selbst. Aktiviere **
 
 Die Suche findet Kapiteltitel und Text: **Ctrl + F** fokussiert sie, Up/Down wählen einen Treffer und Enter öffnet ihn. **Page Up/Page Down** scrollen, **Ctrl + Home/End** springen zum Anfang oder Ende und **Alt + Left/Right** wechseln Kapitel, wie Zurück und Weiter. Escape, die Schließen-Schaltfläche oder das Tastenkürzel schließen das Fenster; ein Klick daneben nicht.
 
-Das Handbuch führt nie Befehle aus. Codeblöcke sind Beispiele zum bewussten Lesen und Kopieren, und externe Links öffnen sich nur, wenn du sie anklickst. Weiter mit [Tastenkürzeln](handbook:shortcuts), [Desktopleiste](handbook:desktop-bar) oder [Einstellungsmenü](handbook:system).
+Das Handbuch führt nie Befehle aus. Codeblöcke sind Beispiele zum bewussten Lesen und Kopieren, und externe Links öffnen sich nur, wenn du sie anklickst. Weiter mit [Tastenkürzeln](handbook:shortcuts), [Desktopleiste](handbook:desktop-bar) oder [Einstellungen](handbook:system).
 
 <!-- eitr-overview -->
 ## Was Eitr bietet

@@ -1,7 +1,5 @@
 # Themes, wallpapers and style
 
-Settings also provides these controls inline.
-
 Settings (**SUPER + ,**) includes Appearance controls; **More themes** opens
 the separate Themes & Plugins catalog window (**SUPER + F2**).
 
@@ -17,18 +15,24 @@ filter for themes and an independently scrolling gallery. Up/Down moves between
 sidebar rows; Right or Tab enters the content. Left from the first column returns
 to the sidebar.
 
-Open **Settings > Style > Themes & Plugins**, **More themes** in Settings (SUPER + ,), the **+** beside the theme carousel's Sun and Moon, or **SUPER + F2**. The catalog opens as a movable, resizable window. Hold SUPER and drag with the
+Open **More themes** in Settings > Appearance > Theme & Wallpaper, or press **SUPER + F2**. Themes & Plugins is a separate window. See [Settings](handbook:system) for navigation.
+
+The catalog opens as a movable, resizable window. Hold SUPER and drag with the
 left mouse button to move it, or the right button to resize it. Its last size is
-remembered. Normal window shortcuts can tile it or send it to another workspace.
-Opening it again focuses the existing window, including on another workspace.
+remembered. Normal window shortcuts can tile it or send it to another workspace. Opening it again focuses the existing window, including on another workspace.
+
 SUPER + F2 closes it when focused. Its close button, Escape (after dismissing any
 review sheet), or the normal window close shortcut also closes it. Installed lists every theme as Built in, Official, Third-party
 or Yours in a preview gallery. Click an installed card to apply it through the
-normal theme workflow; a check marks the current theme. All, Dark and Light
+normal theme workflow; a check marks the current theme.
+
+All, Dark and Light
 filter the gallery. Installed refreshes when the window opens and after actions. Opening the window
 also checks package metadata in the background; update pills appear when it
 finishes. There is no periodic network check. Update replaces a catalog theme. Reapply an updated
-active theme to refresh the desktop. Remove asks inside the window and refuses
+active theme to refresh the desktop.
+
+Remove asks inside the window and refuses
 the active theme: apply another theme first. Built-in and Yours items stay here.
 
 Official combines built-in themes and the official `eitr-org/eitr-themes`
@@ -41,14 +45,16 @@ and returns focus to the card. Full remote wallpapers download only when opened;
 installed artwork is read locally.
 
 A card's Install button toggles its download selection and shows Selected with a
-check. Installed cards show Installed and retain Current where appropriate.
-Select several themes, then use the bottom Install button to review their previews,
+check. Installed cards show Installed and retain Current where appropriate. Select several themes, then use the bottom Install button to review their previews,
 sources and total size; Clear removes the selection. Arrows move between cards,
-Space toggles selection, and Enter opens details on Official or Community. Tab to
+Space toggles selection, and Enter opens details on Official or Community.
+
+Tab to
 the bottom Install button and press Enter to review the selection. Enter still
 applies a theme on Installed and confirms an open review. The detail sheet's
 Install reviews just that theme; after installation it offers Apply, or Current
 when active. Escape cancels a review before closing details or the window.
+
 Downloads, progress and errors stay in the window. Visible card previews and
 opened galleries use the user cache. If a repository is unreachable, Retry loads
 it again; Installed remains available offline.
@@ -77,17 +83,15 @@ Installed > Add from a Git address accepts an HTTPS or SSH repository address fo
 a plugin or a data-only theme package, then shows its review. No terminal opens.
 Walker and Control Center retain their terminal workflows.
 
-## Themes and wallpapers
+Built-in themes ship with Eitr and cannot be removed. The trash button on a
+downloaded theme deletes that installed package; the current theme cannot be removed.
 
-Open **Settings > Style > Theme** or **SUPER + Ctrl + Shift + N** for Walker's
-Dark/Light theme menus. The desktop theme carousel (desktop right double-click,
-Settings (SUPER + ,) > Appearance or appearance IPC) shows every theme. The Sun
-above the selected card shows only light themes and the Moon only dark ones; click
-the selected one again to show all. The **+** beside them opens the Themes & Plugins
-catalog on its Official themes, keeping the same light or dark filter. Ctrl+Tab cycles all, dark and light. Start
-typing to search the shown themes; arrows/Tab
-move and Enter applies. Backspace edits search or closes when empty; Escape
-clears search before closing. The wallpaper carousel has no theme search.
+Type anywhere in the catalog, or press Ctrl+F or /, to search the current page by
+name or description. Words can appear in any order; Escape clears the search first.
+
+## Choose a theme and wallpaper
+
+Choose your theme and wallpaper in Settings > Appearance > Theme & Wallpaper. For Walker’s Dark/Light theme menus, use **Walker > Settings > Style > Theme** or **SUPER + Ctrl + Shift + N**. Double-right-click empty desktop space to open the theme carousel. The Sun filters light themes, the Moon dark themes; click the active filter again for all themes. The + opens the separate catalog with the same filter. Ctrl+Tab cycles filters, typing searches, arrows/Tab move and Enter applies. Backspace edits search or closes when empty; Escape clears search before closing.
 
 **SUPER + Ctrl + N** opens wallpapers, and **SUPER + Shift + N** advances to
 the next one. A checkmark marks the active choice in Walker. Theme/wallpaper
@@ -100,6 +104,7 @@ The Eitr theme has four wallpapers: Primordial Drop (the default), Runestone,
 the palette stays the same. The second wallpaper, Runestone, is live: northern
 lights drift slowly behind the rune ring, update more slowly behind ordinary
 windows, pause behind fullscreen apps, and remain still on the lockscreen.
+
 Software rendering (for example, a VM without 3D acceleration) uses the selected
 still wallpaper; the same fallback applies if the renderer cannot be detected. Graphite has been retired; saved Graphite
 selections switch to Eitr and its default wallpaper.
@@ -124,14 +129,14 @@ uploads or shares them, and updates never change them. They appear beside the
 shipped ones, marked **Yours**, and only they can be deleted: select one and
 press **Delete**, then Enter to confirm or Escape to keep it.
 
-- **Settings > Style > Wallpaper > Add My Own Wallpaper** takes a picture file or an https
+- **Walker > Settings > Style > Wallpaper > Add My Own Wallpaper** takes a picture file or an https
   address. Downloads stop at 50 MB, and Eitr keeps a copy only after checking
   that the file is a JPEG, PNG or WebP picture. A web page's address works when
   the page offers a main picture; otherwise copy the image's own address. The
   picture is applied right away and appears in the wallpaper list, the carousel
   and SUPER + Shift + N. Deleting the wallpaper in
   use first switches to the theme's first wallpaper. Choose whether your wallpaper appears with all themes or only the current theme.
-- **Settings > Style > Theme > Create Theme** asks for a picture (the current wallpaper,
+- **Walker > Settings > Style > Theme > Create Theme** asks for a picture (the current wallpaper,
   one of yours, the theme's, or another file or https address), light or dark
   (Automatic follows the picture's brightness), and a name. After the review,
   Eitr builds a full palette from the picture, keeping text clearly readable on
@@ -140,50 +145,34 @@ press **Delete**, then Enter to confirm or Escape to keep it.
   terminal colors, type six hex digits, and the change applies at once; Escape
   finishes. **Ctrl + E** on one of your themes opens the list again. Deleting the
   theme in use first returns to the theme you used before creating it.
-- **Settings > Style > Lockscreen > Create Lockscreen** uses the Theme Wallpaper or
+- **Walker > Settings > Style > Lockscreen > Create Lockscreen** uses the Theme Wallpaper or
   Material design with your picture, an optional accent color and an optional
   greeting under the clock, then shows a preview. Select it like any design.
   The login screen cannot read your home folder: it shows the same design, with
   your picture for Theme Wallpaper and the design's own picture for Material.
   Deleting the lockscreen in use first selects its design.
 
-## Bar and corners
+## Change the bar layout
 
-**Settings > Style > Desktop Bar** selects Blur, Theme Color or Website, full/centered layout and edge.
-Walker follows that appearance. **Settings > Style > Corners** selects Square, Rounded or
-Extra Rounded for EITR surfaces and compositor decorations. Third-party apps
-may retain their own internal widget style; circular status dots remain circular.
+**Settings > Desktop Bar** selects the layout, position and appearance; see [Desktop Bar](handbook:desktop-bar). **Settings > Windows > Corners** selects Square, Rounded or Extra Rounded. Window gaps and Reduce motion are on the same Windows page. Third-party apps may keep their own internal styling.
 
 <!-- eitr-figure: window-style -->
 
 Window gaps and Corners as **Settings > Windows** shows them, with your current choices checked. Default gaps are 6 px between windows and 12 px at the screen edges.
 
-## Fonts
+Use **Settings > Windows > Window gaps** or **Walker > Settings > Style > Window gaps** to choose None, Small, Default or Large. The choice is saved locally with Corners and survives theme changes and reloads.
 
-**Settings > Style > Fonts** lists usable installed font families, not every bold/italic
-variant. Document/fallback families stay hidden. JetBrainsMono Nerd Font is
-the default. Selection updates supported desktop apps; ligatures are enabled
-where supported. Removing a family removes its supported installed variants;
-the last usable choice cannot be deleted. Package ownership may require review.
+## Change fonts
 
-## Cursor
+Choose an installed font in Settings > Appearance > Fonts & Cursor. JetBrainsMono Nerd Font is the default. The choice updates supported desktop apps; some apps keep their own font settings. To remove an installed font family, use Walker > Settings > Style > Fonts and review the packages it belongs to. The last usable family cannot be deleted.
 
-**Settings > Style > Cursor** offers Bibata Modern, Breeze and Vanilla DMZ; Color offers
-Auto, Dark and Light; Size chooses the pointer size. Auto follows the theme's
-light/dark category without changing your selected family. Explicit color
-overrides persist. The selected row uses a left-side checkmark; other family
-choices show previews. Missing assets produce an error rather than saving a
-broken selection.
+## Change the pointer
 
-The Limine boot menu shown at power-on uses the current theme's colours, an
-EITR title and a larger font. Fresh installations set this up; after a theme
-change the menu follows at the next shutdown, and the default theme's colours
-are used if yours cannot be read. Boot entries are never changed, and
-`limine.conf` is backed up before each change. The style is skipped while
-Secure Boot is enabled, because an enrolled Limine config hash would stop the
-system booting after an edit.
+Open Settings > Appearance > Fonts & Cursor. Cursor family chooses Bibata Modern, Breeze or Vanilla DMZ. Cursor colour offers Auto, Dark or Light; Auto follows the theme without changing your family. Cursor size adjusts the pointer size. Explicit colour and size choices survive theme changes. The page previews the selected pointer when its assets are available.
 
-**Settings > Style > Lockscreen** sets the design of both the lockscreen and the login
+## Choose a lockscreen
+
+**Settings > Lockscreen** sets the design of both the lockscreen and the login
 screen. Existing preferences survive theme changes.
 
 Available designs are Clockwork Neo Orbital, Clockwork Tape, Eitr, Girl Coffee,
@@ -192,7 +181,11 @@ by any lockscreens of your own; previews do not lock the session. A selection of
 that is no longer shipped moves to Clockwork Tape. Fresh installations start with
 Eitr.
 
-Eitr shows the EITR wordmark in your theme's accent inside the boot splash's gold rune ring, which ticks once a second, over a starry sky with the Milky Way, now and then a shooting star, and the desktop's aurora on pure black (on an OLED those pixels stay off). The clock shows hours and minutes in Eitr's own Norse numerals and follows the 12- or 24-hour preference. Each character you type carves a rune into the password field (always the same runes, in order, so only the length shows); arrows, Home and End move the block cursor, and Backspace or Delete crumble the rune beside it. Successful authentication unlocks immediately. Submitting, a failed login and switching accounts clear the runes instantly without crumbling. Reduce motion holds everything still and skips the carving and crumbling effects. In a preview, Enter and Escape close it immediately without unlocking anything.
+Eitr shows the EITR wordmark in your theme's accent inside the boot splash's gold rune ring, which ticks once a second, over a starry sky with the Milky Way, now and then a shooting star, and the desktop's aurora on pure black (on an OLED those pixels stay off). The clock shows hours and minutes in Eitr's own Norse numerals and follows the 12- or 24-hour preference.
+
+Each character you type carves a rune into the password field (always the same runes, in order, so only the length shows); arrows, Home and End move the block cursor, and Backspace or Delete crumble the rune beside it. Successful authentication unlocks immediately. Submitting, a failed login and switching accounts clear the runes instantly without crumbling.
+
+Reduce motion holds everything still and skips the carving and crumbling effects. In a preview, Enter and Escape close it immediately without unlocking anything.
 
 The artwork targets 4K (3840×2160, 16:9). Coffee and Pillow keep their
 relaxed anime style with Norse clothing; Material and Clockwork use subtle rune
@@ -213,19 +206,18 @@ read your home folder, so it shows a copy of the wallpaper that Eitr stores when
 you choose this design and again whenever you change wallpaper. If the saved image
 is unavailable it uses another current-theme wallpaper or the Eitr default.
 
-On PCs with several accounts, the login screen shows the selected user. Click the left or right half of the user picker, or press Ctrl+Left / Ctrl+Right, to choose another account; Enter still submits the password and Escape keeps its existing behavior. With one account the login layout is unchanged. The lockscreen shows the locked session’s real name when available and only accepts that account’s password. Switch user (Ctrl+Alt+U) opens SDDM’s login screen while keeping the original session locked. Back in the locked session, click the password field once before typing. It appears only when several eligible accounts exist and SDDM reports that switching is available. Previews and the gallery use three fictional accounts and never authenticate.
+On PCs with several accounts, the login screen shows the selected user. Click the left or right half of the user picker, or press Ctrl+Left / Ctrl+Right, to choose another account; Enter still submits the password and Escape keeps its existing behavior. With one account the login layout is unchanged.
 
-The catalog sidebar switches between Themes and Plugins pages. Official combines
-built-in items and Eitr's repositories; Community lists the community index.
-Installed lists local items and their source badges. Theme cards show palette
-swatches when available. Select themes, review their sources and total size, then
-install them together. Community plugins use the native commit review; Installed also accepts a Git address.
+The lockscreen shows the locked session’s real name when available and only accepts that account’s password. Switch user (Ctrl+Alt+U) opens SDDM’s login screen while keeping the original session locked. Back in the locked session, click the password field once before typing. It appears only when several eligible accounts exist and SDDM reports that switching is available.
 
-Built-in themes ship with Eitr and cannot be removed. The trash button on a
-downloaded theme deletes that installed package; the current theme cannot be removed.
+Previews and the gallery use three fictional accounts and never authenticate.
 
-Type anywhere in the catalog, or press Ctrl+F or /, to search the current page by
-name or description. Words can appear in any order; Escape clears the search first.
+## Technical notes
 
-
-Use **Settings > Windows > Window gaps** or **Walker > Settings > Style > Window gaps** to choose None, Small, Default or Large. The choice is saved locally with Corners and survives theme changes and reloads.
+The Limine boot menu shown at power-on uses the current theme's colours, an
+EITR title and a larger font. Fresh installations set this up; after a theme
+change the menu follows at the next shutdown, and the default theme's colours
+are used if yours cannot be read. Boot entries are never changed, and
+`limine.conf` is backed up before each change. The style is skipped while
+Secure Boot is enabled, because an enrolled Limine config hash would stop the
+system booting after an edit.

@@ -8,13 +8,13 @@ Principal > Desarrollo agrupa **IA**, **Nube**, **Cuentas de Git**, **Monitoriza
 
 Instalar > Lenguajes de desarrollo y Herramientas JavaScript instala las herramientas que elijas. Java, Flutter y clientes de bases de datos no son necesarios para ejecutar la barra, el lanzador o los temas de EITR. Instalar > Bases de datos ofrece herramientas opcionales. Instalar > Aplicaciones de desarrollo ofrece Bruno, Cursor, GitHub Desktop, Insomnia, JetBrains Toolbox, Meld, Postman, VS Code y Zed; Instalar > Productividad ofrece 1Password, Bitwarden, Discord, LibreOffice, Obsidian, Slack y Thunderbird. Los paquetes AUR se descargan y compilan en tu equipo; algunas licencias impiden que EITR los distribuya.
 
-
 Lenguajes también ofrece **mise (muchos entornos)** como paquete opcional de Arch. Actívalo manualmente con `eval "$(mise activate zsh)"` en `~/.zshrc`; puede entrar en conflicto con nvm/uv para el mismo entorno. Los gestores existentes no cambian.
 
 ## Aplicaciones web
 
-Instalar > Aplicaciones web > Crear aplicación web pide un nombre y una dirección y añade un acceso que abre el sitio en una ventana propia. El icono se descarga al crearla, solo por HTTP(S). Si el manifiesto es incorrecto o el icono no está disponible, se usa el icono de la página o uno genérico del navegador. No incluyas credenciales en la dirección. Accesos e iconos usan tu directorio de datos XDG, incluido un `XDG_DATA_HOME` personalizado; eliminarlos desde cualquiera de los menús usa la misma ubicación.
-Si hay varios perfiles del navegador, al crear una aplicación web se pregunta con qué perfil se abrirá; para cambiarlo, elimina la aplicación y vuelve a añadirla.
+Instalar > Aplicaciones web > Crear aplicación web pide un nombre y una dirección y añade un acceso que abre el sitio en una ventana propia. El icono se descarga al crearla, solo por HTTP(S). Si el manifiesto es incorrecto o el icono no está disponible, se usa el icono de la página o uno genérico del navegador.
+
+No incluyas credenciales en la dirección. Accesos e iconos usan tu directorio de datos XDG, incluido un `XDG_DATA_HOME` personalizado; eliminarlos desde cualquiera de los menús usa la misma ubicación. Si hay varios perfiles del navegador, al crear una aplicación web se pregunta con qué perfil se abrirá; para cambiarlo, elimina la aplicación y vuelve a añadirla.
 
 Las aplicaciones web necesitan Chrome, Chromium, Edge, Brave o Vivaldi (Instalar > Navegadores); los servicios de streaming con DRM, como Netflix, necesitan Chrome. Elimínalas con Delete en Instalar > Aplicaciones web o en el menú Aplicaciones.
 
@@ -22,19 +22,35 @@ Instalar > Navegadores también ofrece Brave (AUR). Instalar > Productividad ofr
 
 ## Asistentes de IA
 
+Abre Configuración > Asistente de IA para elegir el predeterminado, gestionar cuentas y el acceso, o permitir que los asistentes colaboren tras dar tu consentimiento. Desarrollo > IA conserva los iniciadores de sesiones.
+
 **SUPER + A** abre el asistente en tu carpeta personal, confía en ella cuando es seguro y compatible, y pasa indicaciones del Manual mediante opciones de instrucciones adicionales compatibles. Desarrollo > IA pide una carpeta, empezando en tu carpeta personal, y abre allí el asistente como lo haría su propio comando. Las limitaciones están en distro/ASSISTANT-STARTUP.md. El chat rápido de solo lectura incluye una introducción a Eitr y extractos pertinentes del Manual traducido; avisa si una pregunta no está cubierta.
 
-Cada asistente en la nube tiene un submenú Cuentas en Desarrollo > IA. Predeterminada usa la configuración y el inicio de sesión existentes sin mover archivos. Añadir cuenta… pide un nombre, muestra una revisión y abre el inicio de sesión de la CLI con una ventana privada del navegador cuando es compatible (los navegadores desconocidos usan la apertura normal). Enter confirma; Esc cancela. Seleccione una cuenta para cambiar manualmente las próximas sesiones interactivas, Preguntar a la IA y los asistentes de solo lectura; las sesiones abiertas conservan su cuenta. Delete elimina una cuenta añadida y su configuración local tras confirmar; Predeterminada no se puede eliminar. Eliminar la cuenta seleccionada vuelve a Predeterminada sin cerrar otra sesión. Antigravity solo ofrece Predeterminada porque su CLI no permite cambiar la carpeta de configuración. Ratatoskr tiene una cuenta local. Los nombres y la selección se guardan en este PC en `eitr/ai-accounts.json` (0600); las carpetas separadas están en `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). Uso de IA agrupa las cuentas con uso legible por asistente y oculta el uso ilegible o no compatible. Las secciones empiezan cerradas al iniciar sesión y conservan su estado abierto o cerrado durante la sesión.
+Cada asistente en la nube tiene un submenú Cuentas en Desarrollo > IA. Predeterminada usa la configuración y el inicio de sesión existentes sin mover archivos. Añadir cuenta… pide un nombre, muestra una revisión y abre el inicio de sesión de la CLI con una ventana privada del navegador cuando es compatible (los navegadores desconocidos usan la apertura normal).
+
+Enter confirma; Esc cancela. Seleccione una cuenta para cambiar manualmente las próximas sesiones interactivas, Preguntar a la IA y los asistentes de solo lectura; las sesiones abiertas conservan su cuenta. Delete elimina una cuenta añadida y su configuración local tras confirmar; Predeterminada no se puede eliminar. Eliminar la cuenta seleccionada vuelve a Predeterminada sin cerrar otra sesión.
+
+Antigravity solo ofrece Predeterminada porque su CLI no permite cambiar la carpeta de configuración. Ratatoskr tiene una cuenta local. Los nombres y la selección se guardan en este PC en `eitr/ai-accounts.json` (0600); las carpetas separadas están en `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). Uso de IA agrupa las cuentas con uso legible por asistente y oculta el uso ilegible o no compatible.
+
+Las secciones empiezan cerradas al iniciar sesión y conservan su estado abierto o cerrado durante la sesión.
 
 Desarrollo > IA ofrece un menú para cada asistente instalado: Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode y Pi. Instálalos desde Instalar > CLI de IA; si no hay ninguno, Desarrollo > IA enlaza allí.
 
-Los menús de sesión mantienen **Nuevo** primero y ordenan las demás acciones alfabéticamente. Claude Code y GitHub Copilot CLI ofrecen **Nueva con nombre**, **Continuar última**, **Selector de sesiones** y reanudación por nombre o ID (Claude muestra **Reanudar por nombre**). Codex ofrece **Continuar última**, **Selector de sesiones** y **Reanudar por nombre o ID**. Gemini CLI ofrece **Continuar última**, un **Selector de sesiones** de Walker y **Reanudar por número**; esta última opción muestra la lista numerada en el terminal antes de pedir el número. Grok Build ofrece **Continuar última**, un **Selector de sesiones** de Walker y **Reanudar por ID o título**. OpenCode ofrece **Continuar última**, un **Selector de sesiones** de Walker, **Reanudar por ID** y **Nueva con nombre** mediante su opción de ID: un nombre nuevo crea una sesión y un ID existente la reanuda. Antigravity CLI ofrece **Continuar última** y **Reanudar por ID**, sin opción compatible para listar o nombrar sesiones. Pi conserva solo **Nuevo** porque no se pudieron confirmar las opciones de sesión en la documentación disponible del paquete. Los selectores de Walker muestran títulos y fechas cuando están disponibles; una lista vacía muestra un mensaje. Los campos de nombre/ID vacíos cancelan. Se conservan los submenús de cuentas.
+Los menús de sesión mantienen **Nuevo** primero y ordenan las demás acciones alfabéticamente. Claude Code y GitHub Copilot CLI ofrecen **Nueva con nombre**, **Continuar última**, **Selector de sesiones** y reanudación por nombre o ID (Claude muestra **Reanudar por nombre**). Codex ofrece **Continuar última**, **Selector de sesiones** y **Reanudar por nombre o ID**.
+
+Gemini CLI ofrece **Continuar última**, un **Selector de sesiones** de Walker y **Reanudar por número**; esta última opción muestra la lista numerada en el terminal antes de pedir el número. Grok Build ofrece **Continuar última**, un **Selector de sesiones** de Walker y **Reanudar por ID o título**. OpenCode ofrece **Continuar última**, un **Selector de sesiones** de Walker, **Reanudar por ID** y **Nueva con nombre** mediante su opción de ID: un nombre nuevo crea una sesión y un ID existente la reanuda.
+
+Antigravity CLI ofrece **Continuar última** y **Reanudar por ID**, sin opción compatible para listar o nombrar sesiones. Pi conserva solo **Nuevo** porque no se pudieron confirmar las opciones de sesión en la documentación disponible del paquete. Los selectores de Walker muestran títulos y fechas cuando están disponibles; una lista vacía muestra un mensaje.
+
+Los campos de nombre/ID vacíos cancelan. Se conservan los submenús de cuentas.
 
 Abrir un proyecto en LazyVim o VS Code pide primero una carpeta, empezando en tu carpeta personal (sin carpetas ocultas): entra en carpetas para profundizar, usa Abrir para elegir la actual y Atrás para subir un nivel o volver al menú desde el nivel superior.
 
 También puedes iniciar Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode y Pi por comando. Si falta la herramienta, Eitr explica su función y ofrece la misma instalación que Instalar > CLI de IA. Enter confirma la instalación; Esc cancela. Sin terminal interactivo, el comando termina con instrucciones de instalación. Los binarios instalados tienen prioridad sobre estos lanzadores. Inicia sesión desde cada herramienta; Eitr no incluye binarios de asistentes ni credenciales.
 
-Desarrollo > Asistente predeterminado selecciona un asistente instalado en este equipo. **SUPER + A** lo abre en un terminal; si no hay uno predeterminado, abre el selector. El asistente de SUPER + A se abre con acceso completo por defecto: puede cambiar archivos y ejecutar comandos sin preguntar. Los asistentes abiertos desde Desarrollo > IA mantienen sus permisos normales. Elige **Configuración > Asistente de IA > Acceso del asistente > Preguntar antes de cambiar** para restaurar los permisos normales. La preferencia se guarda solo en este PC en `eitr/ai.json`. Las restricciones de organización fuerzan las preguntas. Sudo sigue necesitando tu contraseña. La colaboración sin ventana y los recordatorios de voz siguen siendo de solo lectura.
+Desarrollo > Asistente predeterminado selecciona un asistente instalado en este equipo. **SUPER + A** lo abre en un terminal; si no hay uno predeterminado, abre el selector. El asistente de SUPER + A se abre con acceso completo por defecto: puede cambiar archivos y ejecutar comandos sin preguntar. Los asistentes abiertos desde Desarrollo > IA mantienen sus permisos normales.
+
+Elige **Configuración > Asistente de IA > Acceso del asistente > Preguntar antes de cambiar** para restaurar los permisos normales. La preferencia se guarda solo en este PC en `eitr/ai.json`. Las restricciones de organización fuerzan las preguntas. Sudo sigue necesitando tu contraseña. La colaboración sin ventana y los recordatorios de voz siguen siendo de solo lectura.
 
 Al cambiar el tema, Eitr solo actualiza el ajuste claro/oscuro de los archivos existentes y legibles de Claude Code, Gemini CLI y Grok Build. Conserva las demás opciones y el formato. Omite clientes no instalados y archivos ausentes o dañados; los asistentes sin ajuste claro/oscuro compatible usan los colores del terminal.
 
@@ -42,9 +58,13 @@ Las versiones instaladas de los SDK y las fuentes de los instaladores se mantien
 
 ### OpenCode, Pi y la habilidad Eitr
 
-Install > AI CLIs también ofrece **OpenCode** (`opencode`, paquete oficial de Arch) y **Pi** (`pi`, paquete npm `@mariozechner/pi-coding-agent`). Ambos tienen menús en Development > AI, lanzadores de comandos que ofrecen instalar las herramientas ausentes y opciones de asistente predeterminado para SUPER + A. OpenCode usa `--auto` para el acceso completo. Su menú de cuentas solo ofrece Default: cambiar el directorio de configuración no aísla las credenciales. Pi admite cuentas separadas mediante `PI_CODING_AGENT_DIR` y recibe las instrucciones del manual con `--append-system-prompt`. Pi no incluye confirmaciones de permisos; Eitr impide iniciarlo interactivamente en Ask before changes o con restricciones de organización. Ninguno es un ayudante de colaboración de solo lectura.
+Install > AI CLIs también ofrece **OpenCode** (`opencode`, paquete oficial de Arch) y **Pi** (`pi`, paquete npm `@mariozechner/pi-coding-agent`). Ambos tienen menús en Development > AI, lanzadores de comandos que ofrecen instalar las herramientas ausentes y opciones de asistente predeterminado para SUPER + A. OpenCode usa `--auto` para el acceso completo.
 
-La habilidad **Eitr** incluida explica cómo cambiar el escritorio de forma segura y remite a este manual sin conexión. `eitr-config seed` copia la misma fuente a `~/.claude/skills/eitr/SKILL.md` para Claude Code y a `~/.agents/skills/eitr/SKILL.md` para Codex, Gemini CLI y OpenCode si la detección de habilidades está activa. `eitr-config update` actualiza las copias sin modificar, conserva las creadas o editadas por el usuario y escribe los valores nuevos en `.eitr-new` para revisarlos. Las instalaciones existentes reciben las habilidades ausentes al iniciar sesión. Las instrucciones de inicio de cada CLI siguen activas; no se inicia sesión con ningún proveedor.
+Su menú de cuentas solo ofrece Default: cambiar el directorio de configuración no aísla las credenciales. Pi admite cuentas separadas mediante `PI_CODING_AGENT_DIR` y recibe las instrucciones del manual con `--append-system-prompt`. Pi no incluye confirmaciones de permisos; Eitr impide iniciarlo interactivamente en Ask before changes o con restricciones de organización. Ninguno es un ayudante de colaboración de solo lectura.
+
+La habilidad **Eitr** incluida explica cómo cambiar el escritorio de forma segura y remite a este manual sin conexión. `eitr-config seed` copia la misma fuente a `~/.claude/skills/eitr/SKILL.md` para Claude Code y a `~/.agents/skills/eitr/SKILL.md` para Codex, Gemini CLI y OpenCode si la detección de habilidades está activa. `eitr-config update` actualiza las copias sin modificar, conserva las creadas o editadas por el usuario y escribe los valores nuevos en `.eitr-new` para revisarlos.
+
+Las instalaciones existentes reciben las habilidades ausentes al iniciar sesión. Las instrucciones de inicio de cada CLI siguen activas; no se inicia sesión con ningún proveedor.
 
 ### Ratatoskr
 
@@ -95,8 +115,8 @@ su comportamiento con archivos, shell o archivos de plan.
 Pide a tu asistente que consulte al otro para una revisión, explicación o
 sugerencia. Aprueba cada transferencia mediante la solicitud normal del
 asistente que llama; Eitr nunca autoriza previamente estas herramientas. No
-actives la aprobación automática de herramientas del servidor assistants.
-Los auxiliares solo leen; las ediciones corresponden al asistente principal.
+actives la aprobación automática de herramientas del servidor assistants. Los auxiliares solo leen; las ediciones corresponden al asistente principal.
+
 Un auxiliar no puede llamar a otro. Una notificación identifica quién
 consultó a quién y cada solicitud tiene un límite de tres minutos. El
 auxiliar lee el directorio de trabajo actual de quien llama; la pregunta y
@@ -106,19 +126,29 @@ La opción registra un servidor MCP `assistants` con el comando de cada
 asistente (`claude mcp add`, `codex mcp add`, `copilot mcp add` y `grok mcp add`, `gemini mcp add -s user`), así
 que cada asistente escribe sus propios ajustes. Un servidor existente con el mismo nombre se
 conserva y se notifica. Los cambios se registran solo en este equipo, en
-`~/.local/state/eitr/assistants.json` (o `XDG_STATE_HOME`). Desactivar elimina
+`~/.local/state/eitr/assistants.json` (o `XDG_STATE_HOME`).
+
+Desactivar elimina
 exactamente las entradas de Eitr; si una entrada se editó después, Eitr la
 conserva y notifica el conflicto. Reinicia las sesiones de los asistentes
 tras cambiar la opción. La verificación de extremo a extremo con cuentas
 reales queda pendiente de una comprobación separada.
 
-Antigravity CLI (`agy`) está disponible para cuentas personales de Google en Instalar > CLI de IA y mediante el lanzador de primer uso. Nunca se incluye en la distribución. Se instala con el instalador oficial de Google, que verifica la descarga, e inicias sesión con tu cuenta de Google. Todavía no se ofrece como auxiliar de asistentes trabajando juntos. Un `agy` ya instalado puede iniciarse normalmente. Gemini CLI requiere una clave de API Gemini o cuenta Google Cloud/empresa. Antigravity no es un auxiliar de colaboración: el modo sin interfaz deniega incluso lecturas. Solo puede desbloquearse omitiendo permisos o cambiando reglas globales. Eitr lo reconsiderará cuando tenga permisos por ejecución o un modo sin interfaz de solo lectura.
+Antigravity CLI (`agy`) está disponible para cuentas personales de Google en Instalar > CLI de IA y mediante el lanzador de primer uso. Nunca se incluye en la distribución. Se instala con el instalador oficial de Google, que verifica la descarga, e inicias sesión con tu cuenta de Google. Todavía no se ofrece como auxiliar de asistentes trabajando juntos.
+
+Un `agy` ya instalado puede iniciarse normalmente. Gemini CLI requiere una clave de API Gemini o cuenta Google Cloud/empresa. Antigravity no es un auxiliar de colaboración: el modo sin interfaz deniega incluso lecturas. Solo puede desbloquearse omitiendo permisos o cambiando reglas globales. Eitr lo reconsiderará cuando tenga permisos por ejecución o un modo sin interfaz de solo lectura.
 
 ### Proveedores adicionales
 
 Desarrollo > Nube también incluye Cloudflare (`wrangler`), DigitalOcean (`doctl`), Hetzner Cloud (`hcloud`), Oracle Cloud (`oci`), Vercel, Netlify e IBM Cloud (`ibmcloud`). Añade una cuenta con un nombre en minúsculas, dígitos o guiones. Son espacios privados en `~/.config/eitr/cloud-accounts/<provider>/<name>`; nunca se importan configuraciones existentes del proveedor. El proveedor y el espacio seleccionado aparecen en el selector de herramientas y el terminal. Al volver del terminal se conserva el espacio; Shift+Backspace vuelve a la lista de cuentas. Elegir un espacio nunca cambia el valor global predeterminado de la CLI.
 
-Si faltan, se ofrecen `wrangler`, `doctl` y `hcloud` desde los repositorios oficiales de Arch (`doctl` y `hcloud` en extra). Oracle Cloud e IBM Cloud usan sus instaladores oficiales de shell por HTTPS desde `distro/installers.json`; Oracle recibe `--accept-all-defaults`. Vercel (`vercel`) y Netlify (`netlify-cli`, comando `netlify`) usan la receta existente de NVM/npm. La instalación requiere confirmación. El inicio de sesión y las acciones de cuenta se ejecutan solo en el espacio privado elegido. DigitalOcean y Hetzner enumeran contextos nativos; Oracle enumera perfiles de `~/.oci/config` de ese espacio. La selección de contexto/perfil se guarda localmente y se pasa por comando, sin cambiar valores globales. Vercel y Netlify ofrecen su acción nativa de cambio; después se introduce la etiqueta del equipo/cuenta elegido. Vercel también pide un ámbito antes del inicio de sesión y pasa `--scope TEAM` en los comandos posteriores. IBM ofrece acceso por SSO y clave API, muestra `ibmcloud target` y selecciona explícitamente cuenta y región. El contexto/perfil/ámbito/cuenta y la región guardada siguen visibles al volver al menú. Estas etiquetas son selecciones locales, no identidades remotas verificadas. No se heredan credenciales ni variables del proveedor existentes. Las consolas del navegador tienen sesiones propias; comprueba la cuenta antes de actuar.
+Si faltan, se ofrecen `wrangler`, `doctl` y `hcloud` desde los repositorios oficiales de Arch (`doctl` y `hcloud` en extra). Oracle Cloud e IBM Cloud usan sus instaladores oficiales de shell por HTTPS desde `distro/installers.json`; Oracle recibe `--accept-all-defaults`. Vercel (`vercel`) y Netlify (`netlify-cli`, comando `netlify`) usan la receta existente de NVM/npm.
+
+La instalación requiere confirmación. El inicio de sesión y las acciones de cuenta se ejecutan solo en el espacio privado elegido. DigitalOcean y Hetzner enumeran contextos nativos; Oracle enumera perfiles de `~/.oci/config` de ese espacio. La selección de contexto/perfil se guarda localmente y se pasa por comando, sin cambiar valores globales.
+
+Vercel y Netlify ofrecen su acción nativa de cambio; después se introduce la etiqueta del equipo/cuenta elegido. Vercel también pide un ámbito antes del inicio de sesión y pasa `--scope TEAM` en los comandos posteriores. IBM ofrece acceso por SSO y clave API, muestra `ibmcloud target` y selecciona explícitamente cuenta y región.
+
+El contexto/perfil/ámbito/cuenta y la región guardada siguen visibles al volver al menú. Estas etiquetas son selecciones locales, no identidades remotas verificadas. No se heredan credenciales ni variables del proveedor existentes. Las consolas del navegador tienen sesiones propias; comprueba la cuenta antes de actuar.
 
 Los siete proveedores con espacios privados usan iconos neutros para recursos y acciones, con descripciones breves. Las cuentas aparecen primero en orden alfabético, seguidas de Añadir cuenta; las herramientas se ordenan alfabéticamente por sus nombres traducidos. El selector muestra la cuenta, el contexto y la región guardada, y cada informe de solo lectura repite ese contexto sobre su salida. Los informes mantienen el paginador compartido con AWS; no se añaden comandos de recursos ni búsquedas de registros.
 
@@ -132,13 +162,25 @@ Los siete proveedores con espacios privados usan iconos neutros para recursos y 
 | Netlify | `netlify login` | `netlify switch` |
 | IBM Cloud | `ibmcloud login --sso`; `ibmcloud login --apikey` | `ibmcloud target`; `ibmcloud target -c ACCOUNT -r REGION` |
 
-La navegación por la nube usa menús reales de Elephant. Shift+Backspace vuelve al menú anterior: un servicio o selector de recursos vuelve al menú que lo contiene, el menú de la cuenta vuelve a la lista de cuentas del proveedor y esa lista vuelve a Cloud. La cuenta y el contexto seleccionados siguen visibles. Eitr guarda esta selección de navegación en `~/.config/eitr/cloud-navigation.json`; los valores globales de las CLI de los proveedores no cambian. Los informes conservan su paginador, las búsquedas de registros conservan fzf y la configuración conserva los formularios de terminal con revisión. Las búsquedas de texto libre siguen aceptando texto en Walker; no son listas de navegación.
+La navegación por la nube usa menús reales de Elephant. Shift+Backspace vuelve al menú anterior: un servicio o selector de recursos vuelve al menú que lo contiene, el menú de la cuenta vuelve a la lista de cuentas del proveedor y esa lista vuelve a Cloud. La cuenta y el contexto seleccionados siguen visibles.
 
-Elimina una cuenta con la tecla Delete en su fila o **Eliminar cuenta** en su menú. La confirmación identifica al proveedor y la cuenta: elimina el inicio de sesión de ese proveedor para esa cuenta en este equipo, sin afectar a la cuenta remota. Cancelar no cambia nada. Solo se elimina la carpeta privada de la cuenta seleccionada en Eitr; se rechazan enlaces simbólicos, rutas fuera de la raíz del proveedor y cuentas con una acción de Eitr en ejecución. AWS, Azure y Google Cloud no reciben esta acción. La confirmación se abre en Walker con Cancelar y Confirmar; no se abre un terminal.
+Eitr guarda esta selección de navegación en `~/.config/eitr/cloud-navigation.json`; los valores globales de las CLI de los proveedores no cambian. Los informes conservan su paginador, las búsquedas de registros conservan fzf y la configuración conserva los formularios de terminal con revisión. Las búsquedas de texto libre siguen aceptando texto en Walker; no son listas de navegación.
 
-Los informes de solo lectura usan el entorno privado de la cuenta seleccionada y el paginador de nube existente. Cloudflare: cuenta, buckets R2, bases D1, espacios de nombres KV, proyectos Pages y colas. DigitalOcean: Droplets, aplicaciones, bases de datos, Kubernetes, volúmenes, dominios, balanceadores de carga y saldo. Hetzner: servidores, volúmenes, redes, cortafuegos, balanceadores de carga, IP primarias e instantáneas. Oracle: compartimentos, instancias, buckets y VCN. Vercel: proyectos, despliegues y dominios. Netlify: estado y sitios. IBM: cuenta, destino, grupos de recursos e instancias de servicio. DigitalOcean y Hetzner siempre pasan el contexto elegido; Oracle pasa el perfil y la autenticación por token de seguridad, leyendo la tenancy solo del perfil privado de esa cuenta. La lista de buckets consulta primero el espacio de nombres. Vercel pasa el ámbito del equipo seleccionado. Los errores siguen siendo legibles y nunca provocan un reintento con otra cuenta. Las búsquedas de registros mantienen el visor fzf existente. Las comprobaciones en vivo con cuentas reales siguen pendientes.
+Elimina una cuenta con la tecla Delete en su fila o **Eliminar cuenta** en su menú. La confirmación identifica al proveedor y la cuenta: elimina el inicio de sesión de ese proveedor para esa cuenta en este equipo, sin afectar a la cuenta remota. Cancelar no cambia nada. Solo se elimina la carpeta privada de la cuenta seleccionada en Eitr; se rechazan enlaces simbólicos, rutas fuera de la raíz del proveedor y cuentas con una acción de Eitr en ejecución.
 
-Los formularios de cuentas de nube, Git Accounts (añadir y editar), paneles de monitorización y aplicaciones web muestran los pasos a la izquierda y la respuesta actual a la derecha. Usa las flechas o Tab para seleccionar un paso y Enter para responder. La revisión muestra todas las respuestas antes de aplicar cambios; vuelve a un paso con Izquierda o las demás flechas y usa PgUp/PgDn para desplazar revisiones largas. Esc o Ctrl+C cancela sin guardar. El inicio de sesión del proveedor comienza tras la revisión; si falla o se interrumpe, se descarta la cuenta nueva. Google Cloud pide un ID de proyecto opcional antes de iniciar sesión; Azure pide una etiqueta opcional para las suscripciones y, si está vacía, conserva sus nombres. Vercel pide el ámbito antes de iniciar sesión.
+AWS, Azure y Google Cloud no reciben esta acción. La confirmación se abre en Walker con Cancelar y Confirmar; no se abre un terminal.
+
+Los informes de solo lectura usan el entorno privado de la cuenta seleccionada y el paginador de nube existente. Cloudflare: cuenta, buckets R2, bases D1, espacios de nombres KV, proyectos Pages y colas. DigitalOcean: Droplets, aplicaciones, bases de datos, Kubernetes, volúmenes, dominios, balanceadores de carga y saldo. Hetzner: servidores, volúmenes, redes, cortafuegos, balanceadores de carga, IP primarias e instantáneas.
+
+Oracle: compartimentos, instancias, buckets y VCN. Vercel: proyectos, despliegues y dominios. Netlify: estado y sitios. IBM: cuenta, destino, grupos de recursos e instancias de servicio. DigitalOcean y Hetzner siempre pasan el contexto elegido; Oracle pasa el perfil y la autenticación por token de seguridad, leyendo la tenancy solo del perfil privado de esa cuenta.
+
+La lista de buckets consulta primero el espacio de nombres. Vercel pasa el ámbito del equipo seleccionado. Los errores siguen siendo legibles y nunca provocan un reintento con otra cuenta. Las búsquedas de registros mantienen el visor fzf existente. Las comprobaciones en vivo con cuentas reales siguen pendientes.
+
+Los formularios de cuentas de nube, Git Accounts (añadir y editar), paneles de monitorización y aplicaciones web muestran los pasos a la izquierda y la respuesta actual a la derecha. Usa las flechas o Tab para seleccionar un paso y Enter para responder. La revisión muestra todas las respuestas antes de aplicar cambios; vuelve a un paso con Izquierda o las demás flechas y usa PgUp/PgDn para desplazar revisiones largas.
+
+Esc o Ctrl+C cancela sin guardar. El inicio de sesión del proveedor comienza tras la revisión; si falla o se interrumpe, se descarta la cuenta nueva. Google Cloud pide un ID de proyecto opcional antes de iniciar sesión; Azure pide una etiqueta opcional para las suscripciones y, si está vacía, conserva sus nombres.
+
+Vercel pide el ámbito antes de iniciar sesión.
 
 ## Docker
 

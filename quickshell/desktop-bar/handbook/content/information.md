@@ -3,10 +3,9 @@
 Notification cards show their local arrival date and time beneath the title,
 in both popups and notification history. Times are kept only for this session.
 
-## Settings > System > Information
+## Read system information
 
-About is directly under Settings > System.
-About groups hardware, software (including the installed EITR version), and OS age, uptime and date in themed terminal boxes beside the liquid E logo. Palette dots follow the boxes; long values are shortened to keep borders aligned.
+Open Settings > About for the Eitr version, codename, update channel, kernel and licence. The System overview shows your profile and current hardware usage. For detailed hardware, AI Usage and weather, click their bar icons; Walker also finds them by name.
 
 **Hardware** shows CPU, GPU,
 RAM and storage for the drive backing `/`; other disks are not combined into
@@ -35,21 +34,12 @@ recognized meetings. The ten bars follow live system audio through a private cav
 ## Notifications
 
 **SUPER + N** or the bell opens the notification center. Notifications group by
-application. The newest card fronts a stack; expand it to see older cards.
-Dismiss one card or clear a group/all deliberately. Popups also stack by app,
+application. The newest card fronts a stack; expand it to see older cards. Dismiss one card or clear a group/all deliberately. Popups also stack by app,
 showing the newest message over backing layers; hover pauses their expiry.
+
 **SUPER + Alt + N** runs the newest notification's main action (what clicking it
 does), and **SUPER + Alt + Shift + N** dismisses it. A repeated notification (same
 app, title and text) replaces the earlier one and shows a count such as ×3 instead
 of stacking another card.
 
-Notifications have a soft inward glow in the theme's accent colour; critical
-ones glow in the theme's red instead, and low-priority ones are subdued with
-no glow. Do Not Disturb suppresses popups
-without deleting history. History stays in memory across config reloads, not
-process restarts. No notification contents are saved as a log. Thumbnail retention uses a 32 MiB
-budget and decodes at up to 160×120. The oldest hidden images are released first;
-text remains in history. Images shown in popups or the open center stay retained
-until hidden, even if that temporarily exceeds the budget.
-
-Settings > About shows the release version, codename, update channel, hardware, kernel and licence, with links to the website, repository and Handbook.
+Use Settings > Notifications for Do Not Disturb and Crash Notifications.

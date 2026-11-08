@@ -27,21 +27,22 @@ Saved screenshots offer notification actions to open the image, edit it in the s
 ## Recording and streaming
 
 Screen Recording opens OBS controls. They use your configured OBS scene and saved
-Wayland capture permission; the scene must include a visible monitor source.
-Starting capture prepares OBS and closes the panel before capture begins.
-The controls use OBS's WebSocket, which OBS ships turned off: Eitr turns it on,
-with a password, the first time while OBS is closed. If OBS is open then, close
-it once and try again.
-Recordings go to **Videos/Records** in your home folder. OBS's own default is
+Wayland capture permission; the scene must include a visible monitor source. Starting capture prepares OBS and closes the panel before capture begins. The controls use OBS's WebSocket, which OBS ships turned off: Eitr turns it on,
+with a password, the first time while OBS is closed.
+
+If OBS is open then, close
+it once and try again. Recordings go to **Videos/Records** in your home folder. OBS's own default is
 the home folder itself; Eitr changes only that default, so a folder you pick in
-OBS > Settings > Output stays.
-While OBS records or streams, a red dot sits just left of the clock. Click it for the
+OBS > Settings > Output stays. While OBS records or streams, a red dot sits just left of the clock.
+
+Click it for the
 elapsed time and file size, pause/resume, stop, a chapter marker (needs OBS's
 Hybrid MP4 format), the OBS microphone and camera, and the scene; a stream shows
 a LIVE timer with its own stop. When a recording stops, a notification offers
-Play recording, Open folder and Copy path. Check audio/mic choices
-and the selected monitor before starting. Webcam requires an OBS camera source.
-Recording audio switches affect OBS inputs, not your system volume.
+Play recording, Open folder and Copy path.
+
+Check audio/mic choices
+and the selected monitor before starting. Webcam requires an OBS camera source. Recording audio switches affect OBS inputs, not your system volume.
 
 The handbook never starts a recording or stream. Screen sharing and capture
 remain explicit actions. Transcode offers the existing image/video conversion

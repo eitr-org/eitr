@@ -1,15 +1,15 @@
 # Fernzugriff
 
-Einrichtung bündelt die Konfiguration. Unter Diesen PC freigeben > Einrichtung stehen Freigabe einrichten, Freigabeeinstellungen, Beim Anmelden starten, Start beim Anmelden ausschalten, Detaillierter Status und Freigabeeinrichtung wiederherstellen. Remotezugriff auf diesen PC > Einrichtung enthält Anmelden, Fernzugriff einrichten, Fernzugriffseinrichtung wiederherstellen, Detaillierter Status und Peer anpingen. Tägliche Freigabe- und Verbindungsaktionen bleiben direkt im übergeordneten Menü.
-
-Detaillierter Status öffnet ein Diagnoseterminal, das bis zum Drücken von Esc geöffnet bleibt.
-
 Öffnen Sie Einstellungen > Streaming für Sunshine und Moonlight oder Walker > Einstellungen > Verbindungen > Fernzugriff für die Fernzugriffsmenüs. Die Freigabe bleibt bis zur
 Aktivierung ausgeschaltet. Unterstützt wird der angemeldete, wache Eitr-Desktop.
 Betrieb ohne Monitor, Zugriff vor der Anmeldung und wake on LAN folgen später.
 Sperrt sich dieser PC während der Freigabe, zeigt der entfernte Bildschirm den
 Sperrbildschirm; wer verbunden ist, sieht ihn und kann das Passwort eingeben.
 Beenden Sie die Freigabe, bevor Sie weggehen, wenn Vertraulichkeit wichtig ist.
+
+Einrichtung bündelt die Konfiguration. Unter Diesen PC freigeben > Einrichtung stehen Freigabe einrichten, Freigabeeinstellungen, Beim Anmelden starten, Start beim Anmelden ausschalten, Detaillierter Status und Freigabeeinrichtung wiederherstellen. Remotezugriff auf diesen PC > Einrichtung enthält Anmelden, Fernzugriff einrichten, Fernzugriffseinrichtung wiederherstellen, Detaillierter Status und Peer anpingen. Tägliche Freigabe- und Verbindungsaktionen bleiben direkt im übergeordneten Menü.
+
+Detaillierter Status öffnet ein Diagnoseterminal, das bis zum Drücken von Esc geöffnet bleibt.
 
 ## Sunshine auf Eitr
 
@@ -19,13 +19,10 @@ wird kein AUR-Paket gebaut. Flatpak und AppImage bieten keine KMS-Aufnahme.
 Einstellungen und gekoppelte Geräte bleiben erhalten. Starten Sie keine zweite Instanz.
 
 Lesen Sie die Warnung zur vollständigen Kontrolle. Geben Sie `yes` nur ein, wenn
-Sie KMS-Aufnahme und virtuelle Tastatur-, Maus- und Controller-Eingaben erlauben.
-Der ursprüngliche Zustand wird unter `/var/lib/eitr/remote-access` gespeichert.
-Die Einrichtung ergänzt eine udev-Regel für uinput, lädt uinput beim Start, gewährt
-Ihrem Benutzer Gerätezugriff und setzt `cap_sys_admin+p` für Sunshine.
-Freigabeeinrichtung zurücksetzen stellt Dateien und Geräte-ACL wieder her und entfernt die Aufnahmeberechtigungen.
-Wurde uinput bei der Einrichtung geladen, wird es beim Zurücksetzen entladen.
-Verwendet es eine andere Anwendung noch, wird der Fehler gemeldet und das Protokoll
+Sie KMS-Aufnahme und virtuelle Tastatur-, Maus- und Controller-Eingaben erlauben. Der ursprüngliche Zustand wird unter `/var/lib/eitr/remote-access` gespeichert. Die Einrichtung ergänzt eine udev-Regel für uinput, lädt uinput beim Start, gewährt
+Ihrem Benutzer Gerätezugriff und setzt `cap_sys_admin+p` für Sunshine. Freigabeeinrichtung zurücksetzen stellt Dateien und Geräte-ACL wieder her und entfernt die Aufnahmeberechtigungen.
+
+Wurde uinput bei der Einrichtung geladen, wird es beim Zurücksetzen entladen. Verwendet es eine andere Anwendung noch, wird der Fehler gemeldet und das Protokoll
 bleibt erhalten. Schließen Sie die Anwendung und versuchen Sie es erneut.
 
 Freigabe starten fragt nach und öffnet `https://localhost:47990`. Akzeptieren Sie das
@@ -37,13 +34,15 @@ Eitr erzwingt `upnp=off`. Richten Sie keine Portweiterleitung am Router ein.
 TCP 47984, 47989 und 48010 sowie UDP 47998-48000 sind nur aus direkt verbundenen
 privaten LAN-Subnetzen und über `tailscale0` zugänglich. TCP 47990 bleibt auf diesen
 PC beschränkt, auch wenn andere Regeln Zugriff erlauben. LAN-Bereiche werden bei
-jedem Start ermittelt; starten Sie die Freigabe nach einem Netzwechsel neu.
-Verwenden Sie nur ein vertrautes Heimnetz. Freigabe beenden deaktiviert den Autostart
+jedem Start ermittelt; starten Sie die Freigabe nach einem Netzwechsel neu. Verwenden Sie nur ein vertrautes Heimnetz.
+
+Freigabe beenden deaktiviert den Autostart
 und schließt die Ports samt bestehenden Streams. Auch Dienstfehler schließen sie;
 die Öffnungen überstehen keinen Neustart. Nach dem ersten Start schalten Freigabe starten und Freigabe beenden sofort, ohne Fragen
 oder Passwort. Bei Anmeldung starten ist optional und schaltet sofort
-im Streaming-Panel oder im Menü um. Anmeldestart deaktivieren behält manuelles Starten bei.
-Freigabestatus zeigt Dienstfehler.
+im Streaming-Panel oder im Menü um.
+
+Anmeldestart deaktivieren behält manuelles Starten bei. Freigabestatus zeigt Dienstfehler.
 
 Beim ersten Mal bleibt Streaming während der Passwortvergabe gesperrt. Kehren Sie zum Terminal zurück und bestätigen Sie die Vergabe; Ihr Administratorpasswort erlaubt dann die Fernkontrolle.
 

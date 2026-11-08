@@ -12,7 +12,9 @@ Wenn du auch systemweite Einstellungen ändern musst, verwende die Gebietsschema
 LANG=pt_BR.UTF-8
 ```
 
-Die ersten unterstützten Sprachen sind `pt_BR.UTF-8` (brasilianisches Portugiesisch), `es_ES.UTF-8` (Spanisch), `de_DE.UTF-8` (Deutsch) und `fr_FR.UTF-8` (Französisch). Regionale Varianten können auf die Basissprache zurückgreifen. Prüfe mit `locale` im Terminal, welche Variablen die Einstellungen überschreiben, und liste mit `locale -a` die installierten Gebietsschemata auf. Melde dich ab und wieder an, damit die Sprache für den Desktop, die Menüs und neue Terminals gilt. Die Auswahl schreibt nur `~/.config/environment.d/90-eitr-language.conf`: Sie setzt `LC_MESSAGES` und leert `LC_ALL` für die nächste Sitzung. Datums- und Zahlenformate bleiben erhalten. **Systemstandard** entfernt diese Einstellung. `/etc/locale.conf` wird nicht geändert und es werden keine Gebietsschemata erzeugt. Bereits laufende Anwendungen behalten ihre Sprache.
+Die ersten unterstützten Sprachen sind `pt_BR.UTF-8` (brasilianisches Portugiesisch), `es_ES.UTF-8` (Spanisch), `de_DE.UTF-8` (Deutsch) und `fr_FR.UTF-8` (Französisch). Regionale Varianten können auf die Basissprache zurückgreifen. Prüfe mit `locale` im Terminal, welche Variablen die Einstellungen überschreiben, und liste mit `locale -a` die installierten Gebietsschemata auf. Melde dich ab und wieder an, damit die Sprache für den Desktop, die Menüs und neue Terminals gilt.
+
+Die Auswahl schreibt nur `~/.config/environment.d/90-eitr-language.conf`: Sie setzt `LC_MESSAGES` und leert `LC_ALL` für die nächste Sitzung. Datums- und Zahlenformate bleiben erhalten. **Systemstandard** entfernt diese Einstellung. `/etc/locale.conf` wird nicht geändert und es werden keine Gebietsschemata erzeugt. Bereits laufende Anwendungen behalten ihre Sprache.
 
 ## Eine Übersetzung beitragen
 

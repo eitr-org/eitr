@@ -5,7 +5,7 @@ Tu nuevo escritorio está listo. Haz el recorrido breve, configura lo esencial y
 <!-- eitr-welcome:tour -->
 ## Un recorrido rápido
 
-- **Barra del escritorio**: Los espacios de trabajo, el reloj y los iconos de estado están en el borde de la pantalla. Haz clic en un icono para abrir su panel.
+- **Barra del escritorio**: Los espacios de trabajo, el reloj y los iconos de estado están en el borde de la pantalla. Pulsa un icono para sus controles; Bloqueo automático cambia directamente el bloqueo por inactividad.
 - **El lanzador**: Pulsa **SUPER + Space** para tus aplicaciones o **SUPER + F** para todos los menús. Escribe para buscar y pulsa Enter.
 - **Configuración**: Pulsa **SUPER + ,** para pantallas, sonido, teclado, apariencia y más. Todas las páginas se pueden buscar.
 - **Centro de control**: Pulsa **SUPER + I** para los interruptores rápidos, la captura de pantalla y un chat rápido con tu asistente.
@@ -17,7 +17,7 @@ Tu nuevo escritorio está listo. Haz el recorrido breve, configura lo esencial y
 
 En el escritorio, cada uno abre su página en Configuración.
 
-- **Wi-Fi**: Conéctate a una red o empareja dispositivos Bluetooth.
+- **Wi-Fi**: Conéctate a una red.
 - **Tema y fondo de pantalla**: Elige los colores y el arte que quieres ver cada día.
 - **Teclado**: Añade, ordena y cambia tus distribuciones de teclado.
 - **Foto de perfil**: Elige la imagen que acompaña a tu cuenta.
@@ -26,7 +26,7 @@ En el escritorio, cada uno abre su página en Configuración.
 
 ## Conviene saber
 
-**SUPER** es la tecla con el logotipo de Windows o Command. **SUPER + Enter** abre una terminal. Los iconos del lado derecho de la barra pueden estar ocultos: haz clic en la flecha para mostrarlos. Las instalaciones nuevas empiezan con el tema **Eitr** y la pantalla de bloqueo **Clockwork Tape**; los escritorios existentes conservan su elección.
+**SUPER** es la tecla con el logotipo de Windows o Command. **SUPER + Enter** abre una terminal. Los iconos del lado derecho de la barra pueden estar ocultos: haz clic en la flecha para mostrarlos. Las instalaciones nuevas empiezan con el tema **Eitr** y la pantalla de bloqueo **Eitr**; los escritorios existentes conservan su elección.
 
 Esta bienvenida se abre sola en el primer inicio de sesión. Activa **Mostrar esta bienvenida al iniciar sesión** para volver a verla, o ábrela desde **Aprender > Manual de EITR** o con **SUPER + F1**.
 
@@ -36,7 +36,7 @@ Esta bienvenida se abre sola en el primer inicio de sesión. Activa **Mostrar es
 
 La búsqueda encuentra títulos y texto de los capítulos: **Ctrl + F** la enfoca, Up/Down eligen un resultado y Enter lo abre. **Page Up/Page Down** desplazan, **Ctrl + Home/End** saltan al principio o al final y **Alt + Left/Right** cambian de capítulo, como Anterior y Siguiente. Escape, el botón de cerrar o el atajo cierran la ventana; un clic fuera de ella no.
 
-El manual nunca ejecuta comandos. Los bloques de código son ejemplos para leer y copiar de forma deliberada, y los enlaces externos solo se abren al hacer clic. Continúa con [Atajos](handbook:shortcuts), [Barra del escritorio](handbook:desktop-bar) o el [Menú de configuración](handbook:system).
+El manual nunca ejecuta comandos. Los bloques de código son ejemplos para leer y copiar de forma deliberada, y los enlaces externos solo se abren al hacer clic. Continúa con [Atajos](handbook:shortcuts), [Barra del escritorio](handbook:desktop-bar) o el [Configuración](handbook:system).
 
 <!-- eitr-overview -->
 ## Qué incluye Eitr

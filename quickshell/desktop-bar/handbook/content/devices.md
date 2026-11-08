@@ -4,10 +4,11 @@ The Displays page and Display panel show a monitor map above the monitor selecto
 
 Use **Settings > Displays**, **Settings > Sound** and **Settings > Input** for the shared controls inside Settings. Sound has Output and Input cards (device, volume with mute, and the microphone level), one row per application playing audio, and event sounds; Rename stays on the device list. Input can add, remove and reorder keyboard layouts; the arrow buttons change their order.
 
-Find these controls under **Settings > Devices & Input** or the corresponding bar
-icons. The Control Center provides their everyday toggles and sliders too.
+Open Settings > Displays, Sound or Input. The corresponding bar panels and Control Center provide quick controls too.
 
-## Audio and microphone
+Walker > Settings > Devices & Input > Lighting controls OpenRGB devices. It starts off; Follow Theme lets theme changes recolour supported devices.
+
+## Change sound and microphone
 
 Volume selects the default output and controls both master volume and playback
 applications. Devices appear by readable name with a type icon; click the current
@@ -20,7 +21,7 @@ Sliders adjust to 100%; an existing higher value is not changed until moved.
 Changing your default audio device can affect a call: do it deliberately.
 Media playback controls are separate from default device selection.
 
-## Display and brightness
+## Set up your displays
 
 The Display panel lists active monitors. Click one to open its settings inside
 its card; click it again to close them. The **Main** display holds the bar,
@@ -61,16 +62,15 @@ backlight); desktop monitors keep their own buttons. Idle dimming can still lowe
 an external monitor through DDC where the monitor and permissions allow it.
 Night Light has a manual switch and an optional schedule with editable times.
 
-**HDR** appears only on monitors whose EDID reports PQ or HLG support. It shows the desktop in HDR; games can use HDR even when it is off. Turning HDR on or off also asks you to keep the change within 15 seconds, otherwise it reverts. While HDR is on, **SDR content brightness** adjusts SDR content from 1.0× to 2.0× and saves immediately. Fullscreen HDR games can still switch the monitor automatically when desktop HDR is off. In both cases Eitr uses the monitor's own peak and black levels from its EDID. Browsers use HDR only when desktop HDR is on for their monitor; they never switch it on automatically. Fullscreen HDR games still switch automatically when desktop HDR is off. Browser HDR playback also depends on browser support and settings.
+**HDR** appears only on monitors whose EDID reports PQ or HLG support. It shows the desktop in HDR; games can use HDR even when it is off. Turning HDR on or off also asks you to keep the change within 15 seconds, otherwise it reverts. While HDR is on, **SDR content brightness** adjusts SDR content from 1.0× to 2.0× and saves immediately.
 
-## Keyboard
+Fullscreen HDR games can still switch the monitor automatically when desktop HDR is off. In both cases Eitr uses the monitor's own peak and black levels from its EDID. Browsers use HDR only when desktop HDR is on for their monitor; they never switch it on automatically. Fullscreen HDR games still switch automatically when desktop HDR is off.
 
-Add and remove layouts in Walker: Settings > Devices & Input > Keyboard. Add Layout
-lists every language and variant (type to search); select a layout and press
-Delete to remove it. Up to four layouts are supported, duplicates are rejected
-and at least one layout must remain. **Alt + Shift** cycles them. With two or
-more, the bar shows the active layout's code (such as US or BR); click it, or use
-the Control Center, to switch. A keyboard layout is not the system language or locale.
+Browser HDR playback also depends on browser support and settings.
+
+## Change keyboard layouts
+
+Open Settings > Input. Use Add Layout to search languages and variants, the arrows to reorder layouts and the remove button to delete one. Up to four layouts are supported; duplicates are refused and at least one must remain. **Alt + Shift** cycles layouts. With two or more, click the layout code in the bar to switch. Layouts and the desktop language are separate; see [Language](handbook:language).
 
 The desktop starts with the keyboard you chose in the installer. Choosing US
 gives both US and US International, so accents are one Alt + Shift away.

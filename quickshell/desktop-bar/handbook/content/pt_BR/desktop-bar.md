@@ -1,39 +1,49 @@
 # Barra e espaços de trabalho
 
-Esses controles também estão disponíveis diretamente em Configurações.
-
 <!-- eitr-figure: bar-anatomy -->
 
 A barra completa. O logotipo do Eitr abre a Central de controle; depois vêm Visão geral, os marcadores de espaços de trabalho, Uso de IA, Hardware e Bloqueio automático. A data e a hora ficam centralizadas, com a mídia antes e o clima depois. **Mostrar ícones** exibe ou oculta os ícones de status à direita; as notificações ficam por último.
 
-Ilhas apresenta grupos em superfícies separadas: logotipo, Visão geral e espaços de trabalho, Uso de IA/Hardware/Bloqueio por inatividade, relógio, clima e controles de estado. Mídia e captura aparecem apenas quando ativos. O relógio permanece exatamente centrado na tela; o clima tem a sua própria superfície ao lado. As superfícies são sempre totalmente arredondadas, seja qual for a preferência de cantos, e seguem cor/transparência e desfoque. As superfícies ficam a metade do espaçamento exterior atual do Hyprland da borda, com o espaçamento completo entre superfícies vizinhas, nas quatro posições. O espaço reservado para janelas inclui a espessura e essa metade; a ocultação automática não reserva espaço. Os intervalos deixam passar cliques. O espaço vazio nas superfícies aceita os gestos habituais de clique duplo e arrasto. Abrir um painel faz crescer um cartão a partir da sua ilha (para o lado livre: o clima para a direita, mídia e captura para a esquerda, o estado para o centro, o relógio para os dois lados) e afasta as ilhas vizinhas; a ilha fica escondida sob o cartão até ele encolher de volta. Os ícones de estado mantêm o botão manual de mostrar/ocultar.
+Ilhas apresenta grupos em superfícies separadas: logotipo, Visão geral e espaços de trabalho, Uso de IA/Hardware/Bloqueio por inatividade, relógio, clima e controles de estado. Mídia e captura aparecem apenas quando ativos. O relógio permanece exatamente centrado na tela; o clima tem a sua própria superfície ao lado. As superfícies são sempre totalmente arredondadas, seja qual for a preferência de cantos, e seguem cor/transparência e desfoque.
+
+As superfícies ficam a metade do espaçamento exterior atual do Hyprland da borda, com o espaçamento completo entre superfícies vizinhas, nas quatro posições. O espaço reservado para janelas inclui a espessura e essa metade; a ocultação automática não reserva espaço. Os intervalos deixam passar cliques. O espaço vazio nas superfícies aceita os gestos habituais de clique duplo e arrasto.
+
+Abrir um painel faz crescer um cartão a partir da sua ilha (para o lado livre: o clima para a direita, mídia e captura para a esquerda, o estado para o centro, o relógio para os dois lados) e afasta as ilhas vizinhas; a ilha fica escondida sob o cartão até ele encolher de volta.
+
+Os ícones de estado mantêm o botão manual de mostrar/ocultar.
 
 ## Atualizações
 
-O ícone de atualizações fica no grupo da direita, antes de Notificações, e verifica atualizações de pacotes e do AUR logo após o login e a cada seis horas. Ao encontrar atualizações, uma notificação oferece executar a Atualização do sistema. Ele gira durante a consulta e depois mostra uma marca de verificação quando tudo está atualizado, ou um ícone de atualização cuja dica informa a quantidade e o tamanho do download. Clique para atualizar o sistema; clique com o botão direito para consultar novamente. A consulta se repete automaticamente ao terminar a atualização. Sem rede, ele indica sistema atualizado e consulta no próximo login. Usa uma cópia privada dos bancos de pacotes para nunca deixar o sistema parcialmente atualizado.
+O ícone de atualizações, antes de Notificações, verifica pouco depois do login e a cada seis horas. Clique para atualizar o sistema; o botão direito verifica novamente. Uma Atualização do sistema bem-sucedida o marca como atualizado até a próxima verificação, sem iniciar outra imediatamente. Sem conexão ou em caso de falha, o estado fica indisponível, nunca falsamente “atualizado”. A verificação usa uma base privada e não atualiza pacotes.
 
-## Posição e aparência
+## Alterar o layout da barra
 
 - Dê dois cliques com o botão esquerdo no **espaço vazio da barra** para alternar entre Cor do tema → Desfoque → Site; novas instalações começam com Cor do tema. Site usa as cores do site do Eitr, claras ou escuras conforme o tema.
 - Dê dois cliques com o botão direito no espaço vazio para alternar Completa → Centralizada → Abas → Ilhas → Dinâmico → Completa.
 - Arraste um espaço vazio para cima, baixo, esquerda ou direita para mover a barra. À esquerda e à direita, a barra é tão fina quanto em cima e embaixo: o relógio mostra a hora acima dos minutos com um ícone de calendário, e o clima só o ícone; passe o ponteiro para ver a data e a temperatura.
-- **Relógio** em Estilo > Barra da área de trabalho e Configurações (SUPER + ,) > Barra da área de trabalho mostra a hora no formato de 12 horas com AM/PM (padrão) ou de 24 horas, em qualquer borda.
-- As mesmas opções ficam em **Configurações > Estilo > Barra da área de trabalho** e Configurações (SUPER + ,) > Barra da área de trabalho.
+- **Relógio** em Configurações > Barra da área de trabalho mostra a hora no formato de 12 horas com AM/PM (padrão) ou de 24 horas, em qualquer borda.
+- As mesmas opções ficam em **Configurações > Barra da área de trabalho**.
 - **Telas** (Mostrar em) coloca a barra apenas no monitor principal, por padrão, ou em todos os monitores. Em todos, cada barra marca o espaço de trabalho de sua própria tela; atalhos como SUPER + I abrem na tela em uso e as notificações aparecem apenas na principal. Escolha a principal no painel de Tela.
 
 <!-- eitr-figure: bar-layouts -->
 
 Os cinco layouts na ordem em que o clique duplo direito os alterna. Em repouso, Centralizada mostra só o relógio e Dinâmico três pequenas ilhas; ambos se expandem ao passar o ponteiro.
 
-O modo centralizado mostra o relógio até você passar o ponteiro. Os ícones se expandem na ordem habitual. O alfinete entre a mídia e o relógio mantém a barra aberta; painéis abertos também a mantêm expandida. No modo completo, os painéis se unem à barra; no centralizado, ficam ao lado. Ambos abrem e fecham com a mesma animação fluida. Cada lado se ajusta ao conteúdo, e o relógio permanece no centro da tela nas quatro bordas.
+Escolha um layout em Configurações > Barra da área de trabalho. Os cinco funcionam em qualquer borda.
 
-Abas mostra uma faixa contínua de 7 px e três abas ajustadas ao conteúdo dos grupos esquerdo, central e direito. As abas mantêm a profundidade completa (30 px na horizontal), junções trapezoidais fixas com inclinações retas de 45° fora do espaçamento interno das abas. O relógio fica exatamente no centro da tela mesmo com mídia. Os painéis flutuam ao lado da barra em superfícies arredondadas separadas, alinhadas à esquerda, ao centro ou à direita como no modo Completa e afastadas das bordas da tela pela margem externa, com o espaçamento atual entre janelas do Hyprland e a mesma animação de 320 ms do modo Centralizado. Os espaços deixam os cliques passar; toda a profundidade das abas fica reservada para as janelas. Clique duplo direito alterna Completa → Centralizada → Abas → Ilhas → Dinâmico → Completa. As duas dobras são levemente suavizadas e independentes da preferência de cantos; as extremidades da tela ficam quadradas e preenchidas. Abas sempre mostra todos os controles à direita sem seta para ocultar. O clima fica oculto até passar o ponteiro sobre a aba central e desliza após o relógio fixo em 320 ms. Recolhe após um breve atraso ao sair e permanece visível enquanto seu painel está aberto. Apenas o lado posterior cresce ao longo do eixo da barra, terminando logo no último item visível.
-
-Dinâmico reúne a barra em três ilhas lado a lado no centro da tela, sempre totalmente arredondadas, seja qual for a preferência de cantos. Em repouso mostram o logotipo do Eitr, a hora (só horas e minutos) exatamente centralizada e o estado de rede e bateria. Ao passar o ponteiro, só aquela ilha se expande: a da esquerda mostra Visão geral, espaços de trabalho, Uso de IA, Hardware e Bloqueio por inatividade; a do meio mostra a data completa, AM/PM no relógio de 12 horas e o clima, e continua centralizada como um todo; a da direita mostra mídia, captura e todos os controles de estado sem botão manual. Abrir um painel a partir de uma ilha faz essa ilha crescer até virar o próprio painel, e as outras ilhas se afastam; ao fechar, ela volta a ser uma pílula. As ilhas crescem em 320 ms, instantaneamente com Reduzir movimento, e se recolhem 350 ms depois que o ponteiro sai; um painel aberto ou o arrasto as mantêm expandidas. Funciona nas quatro bordas e com todas as aparências. As ilhas flutuam a metade do espaço externo da borda e reservam sua profundidade em repouso mais esse espaço; o espaço vazio deixa os cliques passarem. Em bordas curtas, role dentro de uma ilha expandida para alcançar controles que não cabem. ‹ e › no cartão percorrem os painéis daquela ilha.
+| Layout | Comportamento |
+| :--- | :--- |
+| Completa | Completa mantém toda a barra na borda. Os painéis se unem a ela. |
+| Centralizada | Centralizada mostra só o relógio até passar o ponteiro. O alfinete a mantém aberta; os painéis flutuam ao lado. |
+| Abas | Abas une três abas por uma faixa fina. Os ícones de estado ficam visíveis; passe o ponteiro no centro para ver o clima. |
+| Ilhas | Ilhas dá a cada grupo sua própria cápsula. Abrir um painel amplia sua ilha e afasta os grupos vizinhos. |
+| Dinâmico | Dinâmico começa com três ilhas: logo, relógio e rede/bateria. Passe o ponteiro para ampliar uma; um painel cresce a partir dessa mesma ilha. |
 
 ## Espaços de trabalho
 
-A barra começa em 1–5 e cresce até o espaço atual ou o maior ocupado, com limite de 10. Marcadores superiores vazios desaparecem quando não são mais necessários. Clique com o botão direito em um marcador para escolher Pontos, Glifo, Números ou Runas, com exemplos ao vivo. Runas é o padrão e representa os espaços de 1 a 10 pelas primeiras dez runas do Futhark Antigo (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ). O marcador ativo usa o símbolo na cor de destaque, sem fundo preenchido. As quatro opções cabem no menu em qualquer borda da barra, sem rolagem.
+A barra começa em 1–5 e cresce até o espaço atual ou o maior ocupado, com limite de 10. Marcadores superiores vazios desaparecem quando não são mais necessários. Clique com o botão direito em um marcador para escolher Pontos, Glifo, Números ou Runas, com exemplos ao vivo. Runas é o padrão e representa os espaços de 1 a 10 pelas primeiras dez runas do Futhark Antigo (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ).
+
+O marcador ativo usa o símbolo na cor de destaque, sem fundo preenchido. As quatro opções cabem no menu em qualquer borda da barra, sem rolagem.
 
 **SUPER + 1–9/0** muda de espaço; **SUPER + Shift + 1–9/0** move uma janela. **SUPER + Tab** abre a Visão geral. Clique em uma prévia ou use setas e Enter; 1–9/0 muda diretamente. Só aparecem espaços numerados ocupados, com prévias mantidas em memória. Escape ou um clique fora fecha a Visão geral.
 
@@ -41,15 +51,19 @@ A barra começa em 1–5 e cresce até o espaço atual ou o maior ocupado, com l
 
 Os gestos de mouse para papéis de parede e temas no espaço vazio da área de trabalho estão em **Aprender > Gestos do mouse**. Em caso de dúvida, use os atalhos de teclado dos carrosséis.
 
-O controle Áudio/Mic abre um painel com seções separadas para saída de áudio e microfone. Tailscale e Streaming ficam imediatamente antes do OBS. Um interruptor no cabeçalho conecta o Tailscale ou inicia o compartilhamento, depois vêm detalhes e dispositivos, e as ações de configuração ou diagnóstico ficam no menu “…”. O fundo dos botões de ícone aparece quando você passa o ponteiro sobre eles; os painéis se atualizam sozinhos ao abrir, um ícone de atualização gira só enquanto carregam, e as dicas aparecem perto do ponteiro. Os interruptores e botões de ação internos usam tamanhos compactos compartilhados.
+O controle Áudio/Mic abre um painel com seções separadas para saída de áudio e microfone. Tailscale e Streaming ficam imediatamente antes do OBS. Um interruptor no cabeçalho conecta o Tailscale ou inicia o compartilhamento, depois vêm detalhes e dispositivos, e as ações de configuração ou diagnóstico ficam no menu “…”.
+
+O fundo dos botões de ícone aparece quando você passa o ponteiro sobre eles; os painéis se atualizam sozinhos ao abrir, um ícone de atualização gira só enquanto carregam, e as dicas aparecem perto do ponteiro. Os interruptores e botões de ação internos usam tamanhos compactos compartilhados.
 
 **Visualizador de música** abre o cava com as cores do tema. Clique com o botão direito no equalizador de mídia para abrir o mesmo visualizador; o botão esquerdo continua abrindo os detalhes da mídia. Pressione **q** ou **Esc** para fechar. Se o cava não estiver instalado, ele será instalado primeiro.
 
-**Ocultar automaticamente**, em Estilo > Barra da área de trabalho e Configurações (SUPER + ,) > Barra da área de trabalho, recolhe a barra após um breve atraso quando o ponteiro sai. Encoste o ponteiro na borda da tela para mostrá-la. Funciona nas quatro bordas com os modos Completa, Centralizada, Abas e Ilhas. Painéis e menus abertos, assim como arrastar a barra, mantêm a barra visível; depois ela volta a se ocultar. Enquanto estiver ativado, a barra não reserva espaço das janelas: ela desliza sobre elas em vez de movê-las. A preferência é salva separadamente do alfinete do modo centralizado e vem desativada em novas instalações. As notificações aparecem sem mostrá-la.
+**Ocultar automaticamente**, em Configurações > Barra da área de trabalho, recolhe a barra após um breve atraso quando o ponteiro sai. Encoste o ponteiro na borda da tela para mostrá-la. Funciona nas quatro bordas com os modos Completa, Centralizada, Abas e Ilhas e Dinâmico. Painéis e menus abertos, assim como arrastar a barra, mantêm a barra visível; depois ela volta a se ocultar.
 
-**Reduzir movimento**, em Estilo > Barra da área de trabalho e Configurações (SUPER + ,) > Barra da área de trabalho, torna instantâneas a abertura e o fechamento dos painéis, as entradas da Visão geral, as transições de notificações e as animações decorativas da barra. Vem desativado e é salvo em `bar-settings.json`. Os temporizadores de atualização de dados, expiração de notificações e ocultação automática mantêm seu funcionamento normal.
+Enquanto estiver ativado, a barra não reserva espaço das janelas: ela desliza sobre elas em vez de movê-las. A preferência é salva separadamente do alfinete do modo centralizado e vem desativada em novas instalações. As notificações aparecem sem mostrá-la.
 
-O estilo de mídia é salvo em `bar-settings.json`: escolha Barras (padrão, dez barras) ou Linha (uma onda de áudio simples e suave) em Estilo > Barra da área de trabalho ou Configurações (SUPER + ,) > Barra da área de trabalho. O indicador vem antes dos controles, mantém tamanho fixo em todos os layouts e gira nas bordas esquerda e direita. Passe o ponteiro para ver a música; o clique esquerdo abre os detalhes e o direito abre o visualizador de música. Em pausa, a linha fica plana. Reduzir movimento mantém os níveis de áudio sem transições e interrompe o movimento decorativo de reserva.
+**Reduzir movimento**, em Configurações > Barra da área de trabalho, torna instantâneas a abertura e o fechamento dos painéis, as entradas da Visão geral, as transições de notificações e as animações decorativas da barra. Vem desativado e é salvo em `bar-settings.json`. Os temporizadores de atualização de dados, expiração de notificações e ocultação automática mantêm seu funcionamento normal.
+
+O estilo de mídia é salvo em `bar-settings.json`: escolha Barras (padrão, dez barras) ou Linha (uma onda de áudio simples e suave) em Configurações > Barra da área de trabalho. O indicador vem antes dos controles, mantém tamanho fixo em todos os layouts e gira nas bordas esquerda e direita. Passe o ponteiro para ver a música; o clique esquerdo abre os detalhes e o direito abre o visualizador de música. Em pausa, a linha fica plana. Reduzir movimento mantém os níveis de áudio sem transições e interrompe o movimento decorativo de reserva.
 
 O modo Centralizado encontra a borda da tela com extremidades retas e as mesmas rampas de 45° suavemente arredondadas de Abas nos dois lados. As rampas giram com a barra nas quatro bordas e ignoram a preferência de cantos; os painéis separados continuam seguindo essa preferência.
 
@@ -57,9 +71,13 @@ O modo Centralizado encontra a borda da tela com extremidades retas e as mesmas 
 
 Toque na borda oposta à barra para revelar o dock. Ele se desdobra a partir dessa borda, com laterais retas que encontram a borda, sobre as janelas sem redimensioná-las e se esconde 350 ms após o ponteiro sair, com animação de 320 ms (instantânea com Reduzir movimento). Aparece na tela principal ou em todas quando a barra usa todas as telas. Nunca aparece sobre uma janela em tela cheia.
 
-Os aplicativos abertos são agrupados pela classe, na ordem das janelas do Hyprland. Os ícones usam espaços de 36 px separados por 6 px, com o ícone do aplicativo ou um símbolo alternativo; os terminais de tarefas e menus do próprio Eitr compartilham um único ícone com o logo do Eitr. Os pontos abaixo contam as janelas, até três, e ficam esmaecidos quando nenhuma está no espaço de trabalho atual daquela tela. Passe o ponteiro para ver o nome e o número de janelas; os ícones perto do ponteiro crescem, o mais próximo mais que os outros, e o dock se alonga para mantê-los dentro, exceto com **Reduzir movimento** ativado. Clique para focar a janela usada mais recentemente, mudando de espaço se necessário; clique de novo para ir à próxima janela dele. O botão do meio fecha a janela mais recente. Listas longas rolam ao longo do dock. A superfície segue Desfoque/Cor do tema e os cantos escolhidos.
+Os aplicativos abertos são agrupados pela classe, na ordem das janelas do Hyprland. Os ícones usam espaços de 36 px separados por 6 px, com o ícone do aplicativo ou um símbolo alternativo; os terminais de tarefas e menus do próprio Eitr compartilham um único ícone com o logo do Eitr.
 
-**Dock** em **Configurações > Estilo > Barra da área de trabalho** e **Configurações (SUPER + ,) > Barra da área de trabalho** ativa ou desativa o dock. A opção `dock` em `bar-settings.json` começa em `"yes"`. Não há atalho para o dock.
+Os pontos abaixo contam as janelas, até três, e ficam esmaecidos quando nenhuma está no espaço de trabalho atual daquela tela. Passe o ponteiro para ver o nome e o número de janelas; os ícones perto do ponteiro crescem, o mais próximo mais que os outros, e o dock se alonga para mantê-los dentro, exceto com **Reduzir movimento** ativado.
+
+Clique para focar a janela usada mais recentemente, mudando de espaço se necessário; clique de novo para ir à próxima janela dele. O botão do meio fecha a janela mais recente. Listas longas rolam ao longo do dock. A superfície segue Desfoque/Cor do tema e os cantos escolhidos.
+
+**Dock** em **Configurações > Barra da área de trabalho** ativa ou desativa o dock. A opção `dock` em `bar-settings.json` começa em `"yes"`. Não há atalho para o dock.
 
 Aplicativos fixados permanecem totalmente opacos e sem pontos quando fechados; clique para abri-los em seu próprio escopo de aplicativo. Clique com o botão direito para Manter no Dock / Remover do Dock, Nova janela (quando houver uma entrada de desktop) e Fechar ou Fechar todas as janelas. Escape ou um clique fora fecha o menu. Aplicativos sem entrada de desktop não podem ser fixados.
 
@@ -67,6 +85,6 @@ Arraste os ícones ao longo do dock para organizar os fixados. Arraste um aplica
 
 Os IDs das entradas de desktop são salvos em ordem no arquivo local `quickshell/desktop-bar/dock-pins.json`, sob `$XDG_CONFIG_HOME` (normalmente `~/.config`), com gravação atômica. Instalações novas não têm aplicativos fixados. As janelas são associadas pelos IDs das entradas de desktop, por StartupWMClass e pelas classes dos aplicativos.
 
-A intensidade do desfoque é compartilhada com os terminais. Escolha Leve, Média (padrão) ou Forte em Barra da área de trabalho no Walker ou nas Configurações (SUPER + ,). Veja [Terminal e editores](terminal.md) para a limitação global e as configurações pessoais.
+A intensidade do desfoque é compartilhada com os terminais. Escolha Leve, Média (padrão) ou Forte em Barra da área de trabalho no Walker ou nas Configurações (SUPER + ,). Veja [Terminal e editores](handbook:terminal) para a limitação global e as configurações pessoais.
 
 Configurações > Barra da área de trabalho inclui os marcadores de espaços (pontos, glifo, números e runas). Janelas mantém os efeitos e os espaçamentos.

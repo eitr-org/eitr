@@ -6,14 +6,13 @@ O Kitty mostra uma trilha curta em saltos de pelo menos duas células, como Ente
 
 ### Fogo do cursor
 
-**Configurações > Estilo > Terminal > Fogo do cursor** oferece **Desativado** (padrão) e **Ativado**. Ativado usa o efeito `cursor-trail-blaze` integrado do Kitty nos movimentos do cursor, sem detectar velocidade de digitação. Desativado restaura a trilha rápida normal e a seleção pessoal de shader.
+Ative Fogo do cursor em **Configurações > Aparência > Terminal** para o rastro flamejante do Kitty. Vem desativado. Desativá-lo restaura o rastro normal e sua escolha de shader.
 
 O efeito exige Kitty 0.49+ e `shader-slang`, incluídos nas dependências do Eitr. A ativação valida o shader antes de salvar ou recarregar o Kitty. A preferência local fica em `~/.config/eitr/terminal.json`; o auxiliar escreve `kitty/cursor-fire.conf`, incluído por último pelo carregador do usuário. Ativado, escolhe o shader de fogo e reduz o limiar para uma célula. Fontes, temas e configurações pessoais permanecem intactos.
 
 ## Escolher o terminal
 
-**Configurações > Estilo > Terminal** no Walker e **Configurações (SUPER + ,) > Aparência > Terminal** oferecem
-**Kitty** (padrão) e **Ghostty**. O campo local `terminal` em
+Escolha Kitty ou Ghostty em Configurações > Aparência > Terminal. Walker > Configurações > Estilo > Terminal é uma alternativa. O campo local `terminal` em
 `~/.config/eitr/terminal.json` controla Super+Enter, tmux, sessões do usuário,
 terminais de IA/projetos e ações do Walker para abrir no terminal. Se Ghostty não
 estiver instalado, escolhê-lo abre o fluxo normal de instalação do pacote oficial:
@@ -41,10 +40,9 @@ incluindo `eitr-menu-terminal`, `eitr-plugins` e `fif-terminal`: suas opções
 `--class`, `--hold`, `--title` e regras de janelas flutuantes dependem do Kitty.
 Escolher Ghostty não os altera.
 
-
 ## Aparência do terminal e desfoque compartilhado
 
-Configurações > Estilo > Terminal e Configurações (SUPER + ,) > Aparência > Terminal aplicam
+Walker > Configurações > Estilo > Terminal e Configurações > Aparência > Terminal aplicam
 opacidade, espaçamento interno e desfoque ao Kitty e ao Ghostty. A opacidade oferece
 Sólido (100%), Leve (90%), Médio (80%), Padrão (75%) e Forte (70%). O espaçamento
 oferece Nenhum, Pequeno (4 pontos) e Confortável (8 pontos). Os padrões mantêm 75%
@@ -55,10 +53,11 @@ Desativar o desfoque o remove das janelas normais do Kitty e do Ghostty, sem tor
 opacas. A intensidade é compartilhada por toda a área de trabalho: Leve (tamanho 2,
 uma passagem), Média (tamanho 3, duas passagens, padrão) e Forte (tamanho 5, três
 passagens). A mesma escolha aparece em Barra da área de trabalho no Walker e nas
-Configurações (SUPER + ,), junto da aparência. O Hyprland 0.57 só oferece intensidade
+Configurações (SUPER + ,), junto da aparência.
+
+O Hyprland 0.57 só oferece intensidade
 global; a escolha afeta painéis, notificações, Visão geral e outros aplicativos que
-já usam desfoque. Escolher uma intensidade não ativa o desfoque do terminal.
-Desfoque mais forte exige mais da GPU. Cor do tema mantém a aparência sólida.
+já usam desfoque. Escolher uma intensidade não ativa o desfoque do terminal. Desfoque mais forte exige mais da GPU. Cor do tema mantém a aparência sólida.
 
 As escolhas do terminal ficam em `eitr/terminal.json`; `blur-strength` compartilhado
 fica em `quickshell/desktop-bar/bar-settings.json` (versão 1). Essas preferências
@@ -134,7 +133,11 @@ Para continuar a sessão sem a interface, execute `cmux --headless --session wor
 
 ## Terminais de tarefas
 
-Terminais abertos por menus e pelas notificações de atualização e relatório ficam centralizados sobre suas janelas, com fundo sólido do tema. Sessões de assistentes de IA e projetos LazyVim, em Desenvolvimento, abrem como janelas normais em mosaico, com fundo translúcido, assim como terminais abertos por você. Terminais comuns são interativos e não exibem marca. Instalação, atualização e configuração mostram o banner rúnico do EITR; tarefas bem-sucedidas normalmente fecham, falhas permanecem até serem dispensadas. Relatórios informativos podem ficar abertos. Reiniciar o Elephant não deve fechar aplicativos lançados: aplicativos e terminais abertos por menus, atalhos e botões da barra usam escopos de aplicação separados em uma sessão uwsm. Sem uwsm, eles são iniciados diretamente. O Elephant mantém o encerramento somente do processo para auxiliares da área de trabalho e inicializações sem uwsm.
+Terminais abertos por menus e pelas notificações de atualização e relatório ficam centralizados sobre suas janelas, com fundo sólido do tema. Sessões de assistentes de IA e projetos LazyVim, em Desenvolvimento, abrem como janelas normais em mosaico, com fundo translúcido, assim como terminais abertos por você. Terminais comuns são interativos e não exibem marca.
+
+Instalação, atualização e configuração mostram o banner rúnico do EITR; tarefas bem-sucedidas normalmente fecham, falhas permanecem até serem dispensadas. Relatórios informativos podem ficar abertos. Reiniciar o Elephant não deve fechar aplicativos lançados: aplicativos e terminais abertos por menus, atalhos e botões da barra usam escopos de aplicação separados em uma sessão uwsm.
+
+Sem uwsm, eles são iniciados diretamente. O Elephant mantém o encerramento somente do processo para auxiliares da área de trabalho e inicializações sem uwsm.
 
 Pressione **Esc** para fechar terminais de tarefas, contas, relatórios e Sobre que aguardam uma tecla. Enter continua sendo usado para respostas e confirmações, incluindo confirmar que a chave de recuperação foi anotada e desligar o instalador.
 

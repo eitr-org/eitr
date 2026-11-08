@@ -2,14 +2,15 @@
 
 ## Comprobar este PC
 
-Abra **Configuración > Sistema > Mantenimiento > Comprobar este PC**, el mismo botón en Información del Centro de control, o `eitr check`. Las comprobaciones solo leen; no reparan ni reinician nada. No actualizan listas de paquetes. DNS usa la red. `eitr check --json` muestra detalles técnicos sin preguntas.
+Abre Configuración > Comprobar este PC y pulsa Comprobar este PC para ver resultados de solo lectura. Nunca repara ni reinicia nada. Para el informe interactivo, las comprobaciones más profundas y la acción de copiar descritos abajo, ejecuta `eitr check` o usa Walker > Configuración > Sistema > Mantenimiento > Comprobar este PC. No se actualizan las listas guardadas; DNS usa la red. `eitr check --json` muestra pruebas técnicas sin preguntas.
 
 Además de reinicios, espacio en disco, actualizaciones, recuperación, servicios, memoria, red y seguridad, comprueba las pantallas (una pantalla por debajo de la mejor frecuencia de actualización para su resolución), los gráficos (un controlador para cada tarjeta gráfica y la aceleración por hardware) y el audio (el sistema de sonido, un dispositivo de salida, el volumen y el micrófono). Cada advertencia y cada problema empieza con una frase sencilla sobre qué significa y qué probar, seguida de **Details:** con los datos técnicos y dónde corregirlo.
 
-**Comprobaciones profundas (requiere contraseña)**: Para comprobaciones profundas pulse Enter; Esc las omite. `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` pide su contraseña en el mismo terminal. Los resultados sustituyen las comprobaciones omitidas correspondientes. Lee Snapper, pares pre/post, la última actualización de paquetes correcta, qgroups Btrfs existentes, JSON de protección de arranque, un manifiesto de fábrica ya montado y claves Arch Linux/Eitr con `pacman-key --list-keys`. Nunca activa cuotas ni monta el punto de fábrica. Los datos ausentes se omiten con un motivo; el manifiesto no verifica la integridad del archivo. `fsck.vfat -n` solo comprueba una ESP FAT identificada sin ambigüedad que no esté montada con escritura; de lo contrario pide desmontarla y omite la prueba.
+**Comprobaciones profundas (requiere contraseña)**: Para comprobaciones profundas pulse Enter; Esc las omite. `sudo /usr/lib/eitr/eitr-system selfcheck-deeper` pide su contraseña en el mismo terminal. Los resultados sustituyen las comprobaciones omitidas correspondientes. Lee Snapper, pares pre/post, la última actualización de paquetes correcta, qgroups Btrfs existentes, JSON de protección de arranque, un manifiesto de fábrica ya montado y claves Arch Linux/Eitr con `pacman-key --list-keys`.
+
+Nunca activa cuotas ni monta el punto de fábrica. Los datos ausentes se omiten con un motivo; el manifiesto no verifica la integridad del archivo. `fsck.vfat -n` solo comprueba una ESP FAT identificada sin ambigüedad que no esté montada con escritura; de lo contrario pide desmontarla y omite la prueba.
 
 Las unidades fallidas muestran hasta tres nombres y un comando de estado. Las descripciones de snapshots no prueban los pasos posteriores; los hooks no tienen fechas. No hay consulta estructurada de errores de la barra. Después **Enter** copia el informe redactado y **Esc** cierra. Revíselo antes de compartir; copiar requiere `wl-copy`.
-
 
 ## Una acción indica que falta una herramienta
 
@@ -45,11 +46,15 @@ La captura de OBS usa el mismo proceso compartido entre pantallas. Se realiza
 una única comprobación cada 2 segundos solo mientras se conoce una ventana o
 un proceso de OBS. Los detalles de grabación se actualizan cada 2 segundos solo
 mientras un panel de grabación está abierto y también proporcionan el estado
-compartido. Un estado desconocido conserva el último estado de captura conocido
+compartido.
+
+Un estado desconocido conserva el último estado de captura conocido
 y desactiva los controles hasta una actualización correcta. Las acciones de
 captura y los cambios de opciones comparten una cola ordenada; si se agota el
 plazo o el proceso termina, el resultado queda desconocido y la acción nunca se
-repite automáticamente. El comando independiente de OBS sigue disponible para
+repite automáticamente.
+
+El comando independiente de OBS sigue disponible para
 Walker y los atajos de captura de pantalla.
 
 La batería, los perfiles de energía y el modo avión también comparten este proceso. La batería se lee cada 30 segundos; los perfiles y las radios solo mientras los paneles correspondientes están abiertos. Las baterías de periféricos no activan controles de portátil. Los avisos y ganchos de batería baja conservan sus umbrales. Las acciones de perfil y modo avión se ordenan, muestran errores en el panel solicitante y nunca se repiten tras un resultado desconocido. Los comandos independientes siguen disponibles.
@@ -62,7 +67,7 @@ Guarda copias de tus otros discos antes de instalar en un SSD separado y comprue
 
 ## Informar de un problema
 
-**Configuración > Sistema > Información > Informar de un problema** recoge versiones de EITR y paquetes, hardware gráfico, errores de Hyprland, servicios fallidos, avisos recientes, fallos de la última semana, errores del arranque anterior, registro de instalación y cambios recientes de paquetes en `~/Documents/eitr-problem-report-<time>.txt`, legible solo por ti. Elimina usuario, nombre del equipo, ruta personal, correo, IP y MAC; los registros aún pueden mencionar aplicaciones o archivos. Léelo antes de enviarlo.
+**Walker > Configuración > Sistema > Información > Informar de un problema** recoge versiones de EITR y paquetes, hardware gráfico, errores de Hyprland, servicios fallidos, avisos recientes, fallos de la última semana, errores del arranque anterior, registro de instalación y cambios recientes de paquetes en `~/Documents/eitr-problem-report-<time>.txt`, legible solo por ti. Elimina usuario, nombre del equipo, ruta personal, correo, IP y MAC; los registros aún pueden mencionar aplicaciones o archivos. Léelo antes de enviarlo.
 
 Nada se envía automáticamente. El terminal muestra solo dónde se guardó y ofrece enviarlo o leerlo primero:
 
@@ -75,7 +80,11 @@ El informe se usa solo para identificar y corregir el problema y se elimina al r
 
 ### Cuando falla un componente
 
-Las Notificaciones de fallos están activadas de forma predeterminada. Un servicio de usuario observa los nuevos registros legibles de systemd-coredump de tus propios programas. Cada fallo ofrece Informar de un problema, Ignorar y Silenciar este programa; Preguntar a la IA aparece cuando tienes un asistente predeterminado instalado y seleccionado. Los fallos repetidos de un programa generan como máximo una notificación cada cinco minutos. Un fallo que cierra la sesión se ofrece en el siguiente inicio de sesión, pero no los programas que fallan en el minuto posterior a cerrar sesión, reiniciar o apagar: solo están perdiendo el escritorio. Actívalas o desactívalas en Principal > Acciones rápidas o Centro de control > Acciones rápidas. Las preferencias y las rutas silenciadas se guardan en `~/.config/eitr/crash-help.json`; elimina una ruta de `ignored` para volver a recibir avisos.
+Las Notificaciones de fallos están activadas de forma predeterminada. Un servicio de usuario observa los nuevos registros legibles de systemd-coredump de tus propios programas. Cada fallo ofrece Informar de un problema, Ignorar y Silenciar este programa; Preguntar a la IA aparece cuando tienes un asistente predeterminado instalado y seleccionado. Los fallos repetidos de un programa generan como máximo una notificación cada cinco minutos.
+
+Un fallo que cierra la sesión se ofrece en el siguiente inicio de sesión, pero no los programas que fallan en el minuto posterior a cerrar sesión, reiniciar o apagar: solo están perdiendo el escritorio. Activa o desactiva Notificaciones de fallos en Configuración > Notificaciones.
+
+Las preferencias y las rutas silenciadas se guardan en `~/.config/eitr/crash-help.json`; elimina una ruta de `ignored` para volver a recibir avisos.
 
 Preguntar a la IA abre tu asistente predeterminado solo con el programa, la señal y la traza de pila de `coredumpctl info`, pidiendo una explicación y una propuesta de solución sin cambiar el sistema salvo que lo autorices. No se pasa ningún volcado de memoria. Al elegir esta acción, el asistente puede enviar el resumen a su proveedor. Informar de un problema adjunta el mismo resumen al flujo existente: revísalo antes de compartirlo; nada se envía automáticamente.
 
@@ -93,13 +102,20 @@ Archivos como `kitty/theme.conf` y el estilo de Walker se regeneran al cambiar t
 
 Los terminales de tareas fallidas ofrecen **A: preguntar a la IA** si hay un asistente predeterminado; **Esc** cierra. Solo se conservan en memoria las últimas 200 líneas, sin secuencias ANSI y con líneas de secretos evidentes ocultas antes de compartir: un asistente en la nube envía esta salida a su proveedor y Ratatoskr la mantiene en este PC.
 
-
 La topología de pantallas, el brillo y la luz nocturna también comparten el broker. Los eventos de monitores y los cambios de pantalla principal actualizan la geometría en todas las pantallas. El brillo y la luz nocturna se actualizan solo mientras se observan; el brillo DDC no se consulta periódicamente. Las pruebas de pantalla conservan su reversión automática independiente aunque se cierre la barra o el broker. Los comandos independientes de pantalla y de atenuación y restauración siguen disponibles.
 
-Hardware usa un único muestreador del broker en todas las pantallas y desde la acción Hardware del centro de control. Al abrir un panel, actualiza de inmediato y luego cada dos segundos mientras haya algún panel de hardware abierto. Al cerrar el último panel, deja de muestrear. La identidad de CPU, disco raíz y GPU queda en memoria durante la sesión del broker, incluso si la GPU no está disponible o agota el tiempo de espera. Si falla una lectura, las últimas secciones válidas siguen visibles. La CLI independiente `system-details.py` sigue disponible; `eitr-shell desktop-bar ipc call -- data status` incluye el diagnóstico de `hardware.details`.
+Hardware usa un único muestreador del broker en todas las pantallas y desde la acción Hardware del centro de control. Al abrir un panel, actualiza de inmediato y luego cada dos segundos mientras haya algún panel de hardware abierto. Al cerrar el último panel, deja de muestrear. La identidad de CPU, disco raíz y GPU queda en memoria durante la sesión del broker, incluso si la GPU no está disponible o agota el tiempo de espera.
+
+Si falla una lectura, las últimas secciones válidas siguen visibles. La CLI independiente `system-details.py` sigue disponible; `eitr-shell desktop-bar ipc call -- data status` incluye el diagnóstico de `hardware.details`.
 
 El acceso remoto usa el broker compartido: el estado de Tailscale y Sunshine se actualiza al abrir y cada 10 segundos mientras algún panel remoto lo observa. Cerrar el último panel detiene las lecturas. La disponibilidad de la política se lee solo al inicio y cuando cambia. Las acciones siguen usando los auxiliares de Walker; el broker no cambia ajustes remotos. La CLI `remote-status.py` sigue disponible. `eitr-shell desktop-bar ipc call -- data status` incluye diagnósticos de `remote.status` y `remote.availability`.
 
-El tiempo comparte una previsión predeterminada entre pantallas y paneles, con caché y actualización cada 15 minutos. Las búsquedas y ciudades alternativas pertenecen solo al panel solicitante y no sustituyen la previsión predeterminada. El uso de IA comparte su caché y se actualiza al abrir y luego cada cinco minutos solo mientras haya un panel de uso abierto. Cerrar el último panel impide iniciar trabajos de cuentas en cola; las llamadas activas terminan dentro de sus límites existentes y después se libera el adaptador de IA. Se respetan los tiempos de espera de los proveedores. Los comandos independientes de tiempo e IA y el archivo de selección de sesión siguen disponibles. `eitr-shell desktop-bar ipc call -- data status` incluye contadores de `weather.default` y `ai.usage`, sin nombres de cuentas ni respuestas de proveedores.
+El tiempo comparte una previsión predeterminada entre pantallas y paneles, con caché y actualización cada 15 minutos. Las búsquedas y ciudades alternativas pertenecen solo al panel solicitante y no sustituyen la previsión predeterminada. El uso de IA comparte su caché y se actualiza al abrir y luego cada cinco minutos solo mientras haya un panel de uso abierto.
 
-Las comprobaciones de actualizaciones comparten el broker de datos de la barra entre pantallas: 45 segundos después del inicio, cada seis horas y después de una actualización parcial o una consulta manual; tras Actualizar el sistema con éxito, el icono muestra «al día» hasta la siguiente comprobación. Una solicitud durante una comprobación programa otra al terminar. Las consultas sin conexión o ilegibles nunca indican que el sistema está al día; haga clic derecho en el icono de actualizaciones para reintentar. Las notificaciones y los terminales de tareas siguen a cargo del shell. La CLI independiente de consulta sigue disponible. El comando de diagnóstico anterior incluye `updates.status`.
+Cerrar el último panel impide iniciar trabajos de cuentas en cola; las llamadas activas terminan dentro de sus límites existentes y después se libera el adaptador de IA. Se respetan los tiempos de espera de los proveedores. Los comandos independientes de tiempo e IA y el archivo de selección de sesión siguen disponibles.
+
+`eitr-shell desktop-bar ipc call -- data status` incluye contadores de `weather.default` y `ai.usage`, sin nombres de cuentas ni respuestas de proveedores.
+
+Las comprobaciones de actualizaciones comparten el broker de datos de la barra entre pantallas: 45 segundos después del inicio, cada seis horas y después de una actualización parcial o una consulta manual; tras Actualizar el sistema con éxito, el icono muestra «al día» hasta la siguiente comprobación. Una solicitud durante una comprobación programa otra al terminar.
+
+Las consultas sin conexión o ilegibles nunca indican que el sistema está al día; haga clic derecho en el icono de actualizaciones para reintentar. Las notificaciones y los terminales de tareas siguen a cargo del shell. La CLI independiente de consulta sigue disponible. El comando de diagnóstico anterior incluye `updates.status`.

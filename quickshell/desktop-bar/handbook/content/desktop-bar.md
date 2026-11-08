@@ -1,32 +1,22 @@
 # Desktop bar and workspaces
 
-Settings also provides these controls inline.
-
 <!-- eitr-figure: bar-anatomy -->
 
 The Full bar. The Eitr logo opens Control Center; Overview, the workspace markers, AI Usage, Hardware and Idle Lock follow it. The date and time stay centered, with media before them and the weather after them. **Show Icons** reveals or hides the status icons on the right; Notifications come last.
 
 ## Updates
 
-The updates icon in the right-side group, before Notifications, checks for
-package and AUR updates shortly after you log in and every six hours. When it
-finds new updates, a notification offers to run System Update. It spins while checking,
-then shows a check mark when the system is up to date, or an update icon whose
-tooltip gives the number of updates and the download size. Click it to run
-System Update; right-click it to check again. It checks again automatically when
-System Update finishes. When offline, it shows up to date and checks again at
-the next login. The check uses a private copy of the package databases, so it
-never leaves the system partially upgraded.
+The updates icon, before Notifications, checks shortly after login and every six hours. Click it to run System Update; right-click to check again. A successful System Update marks it up to date until the next check, without starting another check immediately. Offline or failed checks show an unavailable state, never a false “up to date”. The check uses a private package database and does not upgrade packages.
 
-## Position and appearance
+## Change the bar layout
 
 - Double-left-click **empty bar space** to cycle Theme Color → Blur → Website (new
   installations start with Theme Color). Website uses the Eitr website's colors,
   light or dark with the theme.
 - Double-right-click empty space to cycle Full → Centered → Tabs → Islands → Dynamic → Full.
 - Drag empty space toward the top, bottom, left or right to move the bar. Left and right bars are as thin as top and bottom ones: the clock shows the hour over the minutes with a calendar icon, and the weather shows its icon; hover them for the date and temperature.
-- **Clock** under Settings > Style > Desktop Bar and Settings (SUPER + ,) > Desktop Bar shows 12-hour time with AM/PM (the default) or 24-hour time, on every bar edge.
-- The same settings are under **Settings > Style > Desktop Bar** and Settings (SUPER + ,) > Desktop Bar.
+- **Clock** under Settings > Desktop Bar shows 12-hour time with AM/PM (the default) or 24-hour time, on every bar edge.
+- The same settings are under **Settings > Desktop Bar**.
 - **Displays** (Show on) puts the bar on the main display only, the default, or
   on every display. With a bar on every display, each one marks the workspace
   shown on its own screen, shortcuts such as SUPER + I open on the display you
@@ -37,18 +27,15 @@ never leaves the system partially upgraded.
 
 The five layouts in the order double-right-click cycles them. At rest, Centered shows only the clock and Dynamic three small islands; both unfold on hover.
 
-Centered meets the screen edge with square edge ends and the same softly rounded 45° slopes as Tabs on both sides. These slopes rotate with the bar on all four edges and ignore the corner preference; its detached panels still follow that preference.
+Choose a layout in Settings > Desktop Bar. All five work on every screen edge.
 
-Centered mode shows the clock until you hover. Icons unfold in their usual
-order. Each side fits its content while the clock stays at the screen center on every edge. The pin between media and the clock keeps the bar open; open panels
-also keep it expanded. Full-bar panels join the bar; centered-bar panels sit
-beside it. Both open and close with the same fluid animation.
-
-Islands gives the logo, Overview/workspaces, AI Usage/Hardware/Idle Lock, clock, weather and status controls separate content-sized pills, preserving their order and Full’s icon spacing. Media and capture indicators get pills only while active. The clock stays exactly screen-centred; weather has its own pill beside it. Pills are always fully rounded, whatever the corner preference, and follow the bar colour/transparency and blur. Pills sit half of Hyprland’s live outer gap from the screen edge, with the full gap between neighbouring pills, on all four edges. The reserved window space includes the pill depth and that half gap; auto-hide reserves none. Gaps and rounded corners pass clicks through. Empty space on each pill supports the usual double-click and drag gestures. Opening a panel grows a card out of its pill (from the pill's free side: weather to the right, media and capture to the left, status toward the centre, the clock both ways), pushing the neighbouring pills aside; the pill hides under the card until it has shrunk back. The status group retains Full’s manual show/hide toggle.
-
-Tabs uses a continuous 7 px strip and three content-sized tabs for the left, centre and right groups. Tabs retain the full bar depth (30 px horizontally), fixed trapezoid joins with straight 45° slopes outside the tab padding. The clock stays exactly screen-centred, including with media visible. Panels float beside the bar on detached rounded surfaces, aligned left, centre or right like Full and inset from screen edges by the outer gap, with the live Hyprland inter-window gap and the same 320 ms reveal as Centered. Gaps pass clicks through; the full tab depth is reserved for windows. Double-right-click cycles Full → Centered → Tabs → Islands → Dynamic → Full. The slopes have subtly softened bends and do not follow the corner preference; screen-edge ends stay square and filled. Tabs always shows all right-side controls without a show/hide arrow. Weather is hidden until the centre tab is hovered, then slides out after the fixed clock in 320 ms; it retracts after a short hover delay and stays visible while its panel is open. Only the trailing side grows, along the bar axis on every edge, ending right at the last visible item.
-
-Dynamic gathers the bar into three islands side by side at the screen centre, always fully rounded whatever the corner preference. At rest they show the Eitr logo, the time (hours and minutes only) exactly screen-centred, and network/battery status. Hover expands only that island: the left reveals Overview, workspaces, AI Usage, Hardware and Idle Lock; the middle shows the full date, AM/PM when the 12-hour clock is used, and the weather, staying centred as a whole; the right reveals media, capture and every status control without a manual toggle. Opening a panel from an island grows that island into the panel itself, and the other islands slide aside; closing shrinks it back into its pill. Islands grow in 320 ms, instantly with Reduce motion, and collapse 350 ms after the pointer leaves; an open panel or dragging keeps them expanded. All four edges and appearances are supported. Islands float half the live outer gap off the edge and reserve their resting depth plus that gap; empty space passes clicks through. On short edges, scroll inside an expanded island to reach controls that do not fit. ‹ and › on the card step through that island's panels.
+| Layout | What to expect |
+| :--- | :--- |
+| Full | Full keeps the whole bar at the edge. Panels join it. |
+| Centered | Centered shows the clock until hovered. Use the pin to keep it expanded; panels float beside it. |
+| Tabs | Tabs uses three tabs joined by a thin strip. Status icons stay visible; hover the middle tab for weather. |
+| Islands | Islands gives each group its own pill. Opening a panel expands its pill and moves neighbouring groups aside. |
+| Dynamic | Dynamic starts with three islands: logo, clock and network/battery. Hover one to expand it; opening a panel grows that island into the panel. |
 
 ## Workspaces
 
@@ -75,19 +62,23 @@ The Audio/Mic control opens one panel with separate output and microphone sectio
 
 **Music Visualizer** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.
 
-**Auto-hide**, under Settings > Style > Desktop Bar and Settings (SUPER + ,) > Desktop Bar, slides the bar away after a short pointer-leave delay. Touch its screen edge to reveal it. It works on all four edges with Full, Centered, Tabs, Islands and Dynamic layouts. Open panels and popups, and dragging the bar, keep it visible; it hides again afterwards. While auto-hide is on, the bar reserves no window space: it slides over windows instead of moving them. The setting is saved independently of the centered-layout pin and is off by default on new installations. Notifications appear without revealing it.
+**Auto-hide**, under Settings > Desktop Bar, slides the bar away after a short pointer-leave delay. Touch its screen edge to reveal it. It works on all four edges with Full, Centered, Tabs, Islands and Dynamic layouts. Open panels and popups, and dragging the bar, keep it visible; it hides again afterwards. While auto-hide is on, the bar reserves no window space: it slides over windows instead of moving them. The setting is saved independently of the centered-layout pin and is off by default on new installations. Notifications appear without revealing it.
 
-**Reduce motion**, under Settings > Style > Desktop Bar and Settings (SUPER + ,) > Desktop Bar, makes panel unfolding and folding, Overview entrances, notification transitions and decorative bar animations instant. It is off by default and saved in `bar-settings.json`. Timers that refresh data, dismiss notifications or delay auto-hide keep their normal behavior.
+**Reduce motion**, under Settings > Desktop Bar, makes panel unfolding and folding, Overview entrances, notification transitions and decorative bar animations instant. It is off by default and saved in `bar-settings.json`. Timers that refresh data, dismiss notifications or delay auto-hide keep their normal behavior.
 
-Media style is saved in `bar-settings.json`: choose Bars (default, ten bars) or Line (a simple smooth audio wave) under Settings > Style > Desktop Bar or Settings (SUPER + ,) > Desktop Bar. The indicator precedes the playback controls, keeps a fixed size in every layout and rotates on left/right edges. Hover for the song name; left-click opens media details and right-click opens Music Visualizer. Paused playback settles the line flat. Reduce motion keeps live audio levels without easing and stops decorative fallback motion.
+Media style is saved in `bar-settings.json`: choose Bars (default, ten bars) or Line (a simple smooth audio wave) under Settings > Desktop Bar. The indicator precedes the playback controls, keeps a fixed size in every layout and rotates on left/right edges. Hover for the song name; left-click opens media details and right-click opens Music Visualizer. Paused playback settles the line flat. Reduce motion keeps live audio levels without easing and stops decorative fallback motion.
 
 ## Edge dock
 
 Touch the screen edge opposite the bar to reveal the application dock. It unfolds from that edge, its straight sides meeting the edge, over windows without moving or resizing them and hides 350 ms after the pointer leaves, with the shared 320 ms motion (instant with Reduce motion). It appears on the main screen, or on every screen when Displays is set to all, and never reveals over a fullscreen window.
 
-The dock shows pinned apps first, followed by other open applications in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback; Eitr’s own task and menu terminals share one Eitr logo icon. Dots below an icon count its windows, up to three, and dim when none is on the current workspace of that screen. Hover for its name and window count; icons near the pointer grow, the closest one most, and the dock lengthens to keep them inside, unless **Reduce motion** is on. Click to focus its most recently used window (including switching workspace); click again to move to its next window. Middle-click closes the most recent window. Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
+The dock shows pinned apps first, followed by other open applications in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback; Eitr’s own task and menu terminals share one Eitr logo icon. Dots below an icon count its windows, up to three, and dim when none is on the current workspace of that screen.
 
-**Dock** in **Settings > Style > Desktop Bar** and **Settings (SUPER + ,) > Desktop Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
+Hover for its name and window count; icons near the pointer grow, the closest one most, and the dock lengthens to keep them inside, unless **Reduce motion** is on. Click to focus its most recently used window (including switching workspace); click again to move to its next window. Middle-click closes the most recent window.
+
+Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
+
+**Dock** in **Settings > Desktop Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
 
 Pinned apps stay at full opacity with no dots when closed; click one to launch it in its own application scope. Right-click an icon for Keep in Dock / Remove from Dock, New Window (when a desktop entry is available), and Close or Close All Windows. Escape or a click outside dismisses the menu. Apps without a desktop entry cannot be pinned.
 
@@ -95,6 +86,6 @@ Drag icons along the dock to reorder pins. Drag a running app into the pinned se
 
 Pins are desktop-entry IDs stored in order in the machine-local `quickshell/desktop-bar/dock-pins.json` under `$XDG_CONFIG_HOME` (normally `~/.config`), written atomically. Fresh installs have no pins. Window matching uses desktop-entry IDs, StartupWMClass and application classes.
 
-Blur strength is shared with terminals. Choose Gentle, Medium (default) or Strong under Desktop Bar in Walker or in Settings (SUPER + ,). See [Terminal and editors](terminal.md) for the global blur limitation and personal overrides.
+Blur strength is shared with terminals. Choose Gentle, Medium (default) or Strong under Desktop Bar in Walker or in Settings (SUPER + ,). See [Terminal and editors](handbook:terminal) for the global blur limitation and personal overrides.
 
 Settings > Desktop Bar includes workspace markers (Dots, Glyph, Numbers and Runes). The Windows page keeps window effects and gaps.

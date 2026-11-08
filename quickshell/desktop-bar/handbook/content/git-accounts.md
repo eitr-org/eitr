@@ -1,6 +1,6 @@
 # Git accounts
 
-Open **Development > Git Accounts**. GitHub and GitLab accounts can be used
+Open Settings > Git & Cloud. Walker > Development > Git Accounts is an alternative. GitHub and GitLab accounts can be used
 simultaneously, including several accounts on the same provider or enterprise
 hostname. GitHub CLI (`gh`) and GitLab CLI (`glab`) ship in new installations.
 Existing ISO images must be rebuilt to include changes.

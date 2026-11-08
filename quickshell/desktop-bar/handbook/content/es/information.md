@@ -2,10 +2,9 @@
 
 Las tarjetas de notificación muestran la fecha y hora locales de llegada bajo el título, tanto en los avisos emergentes como en el historial. Las horas se conservan solo durante esta sesión.
 
-## Configuración > Sistema > Información
+## Consultar información del sistema
 
-Acerca de está directamente en Configuración > Sistema.
-Acerca de agrupa hardware, software (incluida la versión instalada de EITR), antigüedad del sistema, tiempo de actividad y fecha en recuadros del terminal con los colores del tema, junto al logotipo E líquido. Debajo aparecen puntos de la paleta; los valores largos se acortan para mantener alineados los bordes.
+Abre Configuración > Acerca de para ver versión de Eitr, nombre en clave, canal, núcleo y licencia. La vista Sistema muestra tu perfil y el uso actual del hardware. Para detalles del hardware, Uso de IA y Tiempo, pulsa sus iconos de la barra; Walker también los encuentra por nombre.
 
 **Hardware** muestra CPU, GPU, RAM y almacenamiento de la unidad que contiene `/`; otros discos no se suman al total. Los datos de sensores o GPU que faltan aparecen como no disponibles.
 
@@ -23,10 +22,10 @@ Haz clic en el ecualizador animado para ver portada, título y artista, usar ant
 
 ## Notificaciones
 
-**SUPER + N** o la campana abre el centro de notificaciones. Se agrupan por aplicación. La tarjeta más reciente queda delante de la pila; expándela para ver las anteriores. Puedes descartar una tarjeta, borrar un grupo o borrarlas todas. Los avisos emergentes también se apilan por aplicación, con el más reciente delante; mantener el puntero encima pausa su caducidad. **SUPER + Alt + N** ejecuta la acción principal de la notificación más reciente (lo mismo que pulsarla) y **SUPER + Alt + Shift + N** la descarta. Una notificación repetida (misma aplicación, título y texto) sustituye a la anterior y muestra un contador como ×3 en lugar de apilar otra tarjeta.
+**SUPER + N** o la campana abre el centro de notificaciones. Se agrupan por aplicación. La tarjeta más reciente queda delante de la pila; expándela para ver las anteriores. Puedes descartar una tarjeta, borrar un grupo o borrarlas todas. Los avisos emergentes también se apilan por aplicación, con el más reciente delante; mantener el puntero encima pausa su caducidad.
+
+**SUPER + Alt + N** ejecuta la acción principal de la notificación más reciente (lo mismo que pulsarla) y **SUPER + Alt + Shift + N** la descarta. Una notificación repetida (misma aplicación, título y texto) sustituye a la anterior y muestra un contador como ×3 en lugar de apilar otra tarjeta.
 
 Las notificaciones tienen un brillo interior suave con el color de acento del tema. Las críticas usan el rojo del tema y las de baja prioridad son discretas, sin brillo. No molestar oculta los avisos emergentes sin borrar el historial. Este permanece en memoria al recargar la configuración, pero no al reiniciar el proceso. No se guarda el contenido de las notificaciones en un registro.
 
-La retención de miniaturas usa un presupuesto de 32 MiB y decodifica imágenes de hasta 160×120. Las imágenes ocultas más antiguas se liberan primero; el texto permanece en el historial. Las imágenes de los avisos emergentes o del centro abierto se conservan hasta que se ocultan, aunque se supere temporalmente el presupuesto.
-
-Configuración > Acerca de muestra versión, nombre en clave, canal, hardware, núcleo y licencia, con enlaces al sitio, repositorio y Manual.
+Usa Configuración > Notificaciones para No molestar y Notificaciones de fallos.

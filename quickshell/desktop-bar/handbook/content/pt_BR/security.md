@@ -6,7 +6,7 @@ Vinte segundos antes do bloqueio, as telas compatíveis reduzem o brilho para ce
 
 ## Senha e autenticação alternativa
 
-**Configurações > Segurança > Atualizar senha** altera a senha da conta. Impressão digital e FIDO2 têm etapas próprias de cadastro e ativação. Uma chave de segurança FIDO2 é um dispositivo físico, não o leitor de impressão digital do notebook. Cadastre primeiro e depois ative a autenticação. O auxiliar faz backup das configurações do PAM; mantenha uma senha que funcione e uma forma de acessar um TTY.
+**Configurações > Segurança > Atualizar senha** altera a senha da conta. Impressão digital e Chave de segurança FIDO2 têm etapas próprias de cadastro e ativação. Uma chave de segurança FIDO2 é um dispositivo físico, não o leitor de impressão digital do notebook. Cadastre primeiro e depois ative a autenticação. O auxiliar faz backup das configurações do PAM; mantenha uma senha que funcione e uma forma de acessar um TTY.
 
 Voltar à autenticação por senha restaura o acesso somente por senha. As mudanças afetam os serviços PAM compatíveis de bloqueio, login e sudo; exigem hardware compatível e os auxiliares instalados. A autenticação por impressão digital pode atrasar brevemente a solicitação de senha. Ler esta página não altera o PAM.
 
@@ -36,6 +36,4 @@ A nova pasta pessoal não contém arquivos da sua conta. No primeiro login no Hy
 
 ## Fotos de perfil
 
-No Walker, Configurações > Segurança > Usuários > Foto de perfil abre Configurações > Usuário, onde você altera a foto redonda mostrada no Centro de Controle, no bloqueio e na tela de login; o seletor de arquivos, o editor de recorte e o que o Eitr salva estão em [Centro de Controle](handbook:control-center).
-
-Configurações > Usuário mostra sua foto e seu nome, com Alterar foto e Remover. Segurança abre os fluxos existentes, preservando senhas, confirmações digitadas e limites de administrador.
+Abra Configurações > Usuário para alterar ou remover sua foto. Veja [Configurações](handbook:system) para escolher uma imagem e ajustar o recorte. A Central de controle apenas exibe a foto.

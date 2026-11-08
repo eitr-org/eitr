@@ -6,14 +6,13 @@ Kitty muestra una estela corta en saltos de al menos dos celdas, como Enter, Hom
 
 ### Fuego del cursor
 
-**Configuración > Estilo > Terminal > Fuego del cursor** ofrece **Desactivado** (predeterminado) y **Activado**. Activado usa el efecto `cursor-trail-blaze` integrado de Kitty al mover el cursor, sin detectar velocidad de escritura. Desactivado recupera la estela rápida normal y tu elección personal de shader.
+Activa Fuego del cursor en **Configuración > Apariencia > Terminal** para la estela ardiente de Kitty. Está desactivado por defecto. Al apagarlo, vuelve la estela normal y tu elección de shader.
 
 Requiere Kitty 0.49+ y `shader-slang`, incluidos en las dependencias de Eitr. Activarlo valida el shader antes de guardar o recargar Kitty. La preferencia local está en `~/.config/eitr/terminal.json`; el auxiliar escribe `kitty/cursor-fire.conf`, incluido al final por el cargador del usuario. Activado, selecciona el shader de fuego y baja el umbral a una celda. Fuentes, temas y archivos personales quedan intactos.
 
 ## Elegir terminal
 
-**Configuración > Estilo > Terminal** en Walker y **Configuración (SUPER + ,) > Apariencia > Terminal** ofrecen
-**Kitty** (predeterminado) y **Ghostty**. El campo local `terminal` de
+Elige Kitty o Ghostty en Configuración > Apariencia > Terminal. Walker > Configuración > Estilo > Terminal es una alternativa. El campo local `terminal` de
 `~/.config/eitr/terminal.json` controla Super+Enter, tmux, las sesiones de usuario,
 los terminales de IA/proyectos y las acciones de Walker para abrir en un terminal.
 Si falta Ghostty, elegirlo abre el flujo normal de instalación del paquete oficial:
@@ -42,10 +41,9 @@ incluidos `eitr-menu-terminal`, `eitr-plugins` y `fif-terminal`: dependen de sus
 opciones `--class`, `--hold`, `--title` y reglas de ventanas flotantes.
 Elegir Ghostty no los cambia.
 
-
 ## Apariencia del terminal y desenfoque compartido
 
-Configuración > Estilo > Terminal y Configuración (SUPER + ,) > Apariencia > Terminal aplican
+Walker > Configuración > Estilo > Terminal y Configuración > Apariencia > Terminal aplican
 opacidad, relleno y desenfoque a Kitty y Ghostty. La opacidad ofrece Sólido (100%),
 Ligero (90%), Medio (80%), Predeterminado (75%) y Fuerte (70%). El relleno ofrece
 Ninguno, Pequeño (4 puntos) y Cómodo (8 puntos). Los valores predeterminados conservan
@@ -54,11 +52,11 @@ conservan su fondo sólido y su relleno de tareas.
 
 Desactivar el desenfoque lo elimina de las ventanas normales de Kitty y Ghostty,
 sin volverlas opacas. La intensidad es compartida: Suave (tamaño 2, una pasada),
-Media (tamaño 3, dos pasadas, predeterminada) y Fuerte (tamaño 5, tres pasadas).
-La misma opción aparece en Barra del escritorio de Walker y Barra del escritorio
-de Configuración (SUPER + ,), junto a apariencia. Hyprland 0.57 solo permite intensidad global: afecta
-a paneles, notificaciones, Vista general y otras aplicaciones que ya usan desenfoque.
-Elegir una intensidad no activa el desenfoque del terminal. Mayor intensidad exige
+Media (tamaño 3, dos pasadas, predeterminada) y Fuerte (tamaño 5, tres pasadas). La misma opción aparece en Barra del escritorio de Walker y Barra del escritorio
+de Configuración (SUPER + ,), junto a apariencia.
+
+Hyprland 0.57 solo permite intensidad global: afecta
+a paneles, notificaciones, Vista general y otras aplicaciones que ya usan desenfoque. Elegir una intensidad no activa el desenfoque del terminal. Mayor intensidad exige
 más trabajo de GPU. Color del tema conserva su apariencia sólida.
 
 Las preferencias del terminal están en `eitr/terminal.json`; `blur-strength`
@@ -136,7 +134,11 @@ Para que una sesión continúe sin interfaz, ejecuta `cmux --headless --session 
 
 ## Terminales de tareas
 
-Los terminales abiertos por menús y notificaciones de actualización o informes flotan centrados sobre tus ventanas, con fondo sólido del tema. Las sesiones de asistentes de IA y proyectos LazyVim de Desarrollo se abren como ventanas normales en mosaico, con fondo translúcido, igual que tus terminales. Los terminales normales son interactivos y no llevan marca. Instalación, actualización y configuración muestran el banner rúnico de EITR; las tareas correctas suelen cerrarse y los fallos permanecen visibles hasta cerrarlos. Los informes informativos pueden quedar abiertos. Reiniciar Elephant no debe cerrar aplicaciones lanzadas: las aplicaciones y terminales abiertos desde menús, atajos y botones de la barra usan ámbitos de aplicación separados en una sesión uwsm. Sin uwsm, se inician directamente. Elephant mantiene la terminación solo del proceso para auxiliares del escritorio e inicios sin uwsm.
+Los terminales abiertos por menús y notificaciones de actualización o informes flotan centrados sobre tus ventanas, con fondo sólido del tema. Las sesiones de asistentes de IA y proyectos LazyVim de Desarrollo se abren como ventanas normales en mosaico, con fondo translúcido, igual que tus terminales. Los terminales normales son interactivos y no llevan marca.
+
+Instalación, actualización y configuración muestran el banner rúnico de EITR; las tareas correctas suelen cerrarse y los fallos permanecen visibles hasta cerrarlos. Los informes informativos pueden quedar abiertos. Reiniciar Elephant no debe cerrar aplicaciones lanzadas: las aplicaciones y terminales abiertos desde menús, atajos y botones de la barra usan ámbitos de aplicación separados en una sesión uwsm.
+
+Sin uwsm, se inician directamente. Elephant mantiene la terminación solo del proceso para auxiliares del escritorio e inicios sin uwsm.
 
 Pulsa **Esc** para cerrar los terminales de tareas, cuentas, informes y Acerca de que esperan una tecla. Enter sigue sirviendo para respuestas y confirmaciones, como confirmar que has anotado la clave de recuperación y apagar el instalador.
 

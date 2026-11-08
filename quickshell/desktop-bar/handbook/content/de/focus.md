@@ -1,11 +1,9 @@
 # Focus
 
-Diese Steuerelemente sind auch direkt in den Einstellungen verfügbar.
-
 ![Focus-Tabstreifen mit Beispielfenstern und zwei verbundenen Bereichen.](assets/focus-strip.png)
 
 Focus ersetzt die Leiste durch einen 28 px hohen Tabstreifen oben auf jedem
-Bildschirm. Öffne **Einstellungen > Stil > Focus** oder **Einstellungen (SUPER + ,) > Focus**, oder
+Bildschirm. Öffne **Einstellungen > Focus**, oder
 starte `eitr focus on`. `eitr focus status` zeigt `on` oder `off`, ohne Hyprland
 abzufragen. `eitr focus off` stellt die normale Leiste, Effekte und Tastenkürzel
 wieder her. **SUPER + Shift + F** oder `eitr focus toggle` schaltet Focus um.
@@ -57,9 +55,8 @@ begrenzt die Focus-Streifen nicht.
 Ausschalten löst Gruppen auf und verteilt Fenster auf normale nummerierte
 Arbeitsbereiche, zwei je Arbeitsbereich, auf ihren aktuellen Bildschirmen. Alte
 Positionen, schwebende Geometrie und Vollbildzustände der Anwendungen bleiben
-nicht erhalten. Ein leerer Desktop und wiederholte on/off-Befehle funktionieren.
-Stürzt der Streifenprozess ab, bleiben native Gruppen und Tastaturbedienung aktiv.
-Starte `eitr focus off` in einem Terminal, um den Desktop ohne Streifen wiederherzustellen.
+nicht erhalten. Ein leerer Desktop und wiederholte on/off-Befehle funktionieren. Stürzt der Streifenprozess ab, bleiben native Gruppen und Tastaturbedienung aktiv. Starte `eitr focus off` in einem Terminal, um den Desktop ohne Streifen wiederherzustellen.
+
 Ein Hyprland-Neuladen wendet die Einstellung an und sammelt neue Fenster, ohne
 bestehende Teilungen aufzulösen; Teilergrößen und die Ausrichtung zweier Bereiche
 werden zurückgesetzt. Fehlgeschlagene Befehle zeigen den Fehler. Wiederhole

@@ -11,7 +11,7 @@ Twenty seconds before locking, supported displays dim to about 30% of their prev
 ## Password and alternative authentication
 
 **Settings > Security > Update Password** changes your account password.
-Fingerprint and FIDO2 have their own enrollment/enable workflows. A FIDO2
+Fingerprint and FIDO2 Security Key have their own enrollment/enable workflows. A FIDO2
 security key is a physical security device, not a laptop fingerprint reader.
 Enroll first, then enable authentication. The helper backs up PAM settings;
 keep a working password and a way to reach a TTY.
@@ -61,6 +61,4 @@ The new home contains no files from your account. At its first Hyprland login th
 
 ## Profile pictures
 
-Walker’s Settings > Security > Users > Profile Picture opens Settings > User, where you change the round picture shown in the Control Center, on the lockscreen and on the login screen; see [Control Center](handbook:control-center) for the file chooser, the crop editor and what Eitr stores.
-
-Settings > User shows your picture and display name, with Change picture and Remove. Settings > Security opens the existing security flows, preserving password prompts, typed confirmations and root boundaries.
+Open Settings > User to change or remove your profile picture. See [Settings](handbook:system) for choosing an image and adjusting its crop. The Control Center only displays your picture.

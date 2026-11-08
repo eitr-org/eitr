@@ -173,10 +173,12 @@ class LocalizedHandbookTests(unittest.TestCase):
                 translated = bold.findall((BOOK / "content" / locale / (chapter["id"] + ".md")).read_text())
                 with self.subTest(locale=locale, chapter=chapter["id"]):
                     self.assertEqual(len(translated), len(source), "Keep emphasized controls aligned with English")
-                    primary = "qml" if chapter["id"] in panel_chapters else "menus"
-                    secondary = "menus" if primary == "qml" else "qml"
-                    catalog = {**catalogs[secondary], **catalogs[primary]}
                     for original, localized in zip(source, translated):
+                        primary = "qml" if chapter["id"] in panel_chapters or original.startswith("Settings > ") else "menus"
+                        if original.startswith("Walker > "):
+                            primary = "menus"
+                        secondary = "menus" if primary == "qml" else "qml"
+                        catalog = {**catalogs[secondary], **catalogs[primary]}
                         original_parts = re.sub(r"\s+", " ", original).split(" > ")
                         localized_parts = re.sub(r"\s+", " ", localized).split(" > ")
                         if not any(part.removesuffix(":") in catalog for part in original_parts):
@@ -189,6 +191,22 @@ class LocalizedHandbookTests(unittest.TestCase):
                             if key in catalog and key not in KEY_NAMES:
                                 self.assertEqual(label.removesuffix(":").strip(), catalog[key],
                                                  f"{original}: use the {primary} interface label for {key!r}")
+
+    def test_settings_directory_covers_current_pages_and_tabs(self):
+        index = (ROOT / "quickshell/desktop-bar/settings/SettingsIndex.js").read_text()
+        pages = json.loads(re.search(r"var pages = (\[.*?\]);", index, re.DOTALL)[1])
+        tabs = ("Wi-Fi", "Bluetooth", "Night Light", "Theme & Wallpaper", "Fonts & Cursor", "Terminal")
+        for locale in ("en", "de", "es", "fr", "pt_BR"):
+            folder = BOOK / "content" if locale == "en" else BOOK / "content" / locale
+            directory = (folder / "system.md").read_text()
+            catalog = json.loads((ROOT / "i18n/catalogs" / locale / "qml.json").read_text())
+            with self.subTest(locale=locale):
+                for label in [page["title"] for page in pages] + list(tabs):
+                    self.assertIn(catalog.get(label, label), directory)
+                self.assertIn("SUPER + ,", directory)
+                control_center = (folder / "control-center.md").read_text()
+                self.assertIn("SUPER + I", control_center)
+                self.assertNotIn("eitr-figure: settings-window", control_center)
 
     def test_source_changes_are_detected_even_after_catalog_regeneration(self):
         with tempfile.TemporaryDirectory() as temporary:

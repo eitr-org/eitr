@@ -188,7 +188,7 @@ def shortcuts():
     lines.extend(["| **SUPER + left drag on a window** | Move a floating window. |",
                   "| **SUPER + right drag on a window** | Resize a window. |",
                   "| **Click a bar icon** | Open/toggle its panel; outside click or Escape dismisses it. |",
-                  "| **Right-click Idle Lock** | Toggle automatic locking. |"])
+                  "| **Click Idle Lock** | Toggle automatic locking. |"])
     return "\n".join(lines) + "\n"
 
 

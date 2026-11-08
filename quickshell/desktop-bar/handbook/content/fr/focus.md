@@ -5,7 +5,7 @@ Ces commandes sont également disponibles directement dans les paramètres.
 ![Bande d’onglets Focus avec des fenêtres d’exemple et deux volets reliés.](assets/focus-strip.png)
 
 Focus remplace la barre par une bande d’onglets de 28 px en haut de chaque écran.
-Ouvrez **Paramètres > Style > Focus** ou **Paramètres (SUPER + ,) > Focus**, ou lancez
+Ouvrez **Paramètres > Focus**, ou lancez
 `eitr focus on`. `eitr focus status` affiche `on` ou `off` sans contacter Hyprland.
 `eitr focus off` restaure la barre, les effets et les raccourcis habituels. **SUPER + Shift + F** ou `eitr focus toggle` bascule Focus.
 **SUPER + Shift + A/B/C/W/M** ouvre les panneaux Audio/Bluetooth/Calendrier/WiFi/Écran
@@ -37,7 +37,9 @@ visibles d’une division. Les applications peuvent garder leur style interne.
 Il faut un autre onglet dans le groupe actif pour diviser. Quatre volets maximum :
 deux sont côte à côte ou empilés ; trois ou quatre utilisent une grille 2×2 (le
 troisième remplit la ligne inférieure jusqu’à l’ajout du quatrième). Redimensionner
-ajuste les séparateurs partagés. Le raccourci de retour restaure un groupe plein écran en une seule pression. Les numéros suivent l’ordre des fenêtres du compositeur, aussi utilisé par
+ajuste les séparateurs partagés. Le raccourci de retour restaure un groupe plein écran en une seule pression.
+
+Les numéros suivent l’ordre des fenêtres du compositeur, aussi utilisé par
 la bande. Les raccourcis des espaces de travail, du flottement, du déplacement et
 de la visibilité de la barre sont inactifs. Lanceurs, fermeture de fenêtre, Centre
 de contrôle et Manuel restent accessibles. Apprendre > Raccourcis affiche les
@@ -53,11 +55,14 @@ Focus les réunit. Le choix d’écrans de la barre normale ne limite pas les ba
 
 Désactiver Focus dissout les groupes et répartit les fenêtres dans des espaces
 numérotés, deux par espace, en gardant leurs écrans actuels. Les anciennes positions,
-la géométrie flottante et les états plein écran des applications ne sont pas gardés.
-Un bureau vide et des commandes on/off répétées sont pris en charge. Si le processus
+la géométrie flottante et les états plein écran des applications ne sont pas gardés. Un bureau vide et des commandes on/off répétées sont pris en charge.
+
+Si le processus
 de la bande plante, les groupes natifs et le clavier fonctionnent toujours. Lancez
 `eitr focus off` dans un terminal pour récupérer le bureau sans la bande. Recharger
 Hyprland réapplique la préférence et réunit les nouvelles fenêtres sans dissoudre
 les divisions ; les tailles des séparateurs et l’orientation de deux volets sont
-réinitialisées. Un échec affiche son erreur ; réessayez `eitr focus off` quand
+réinitialisées.
+
+Un échec affiche son erreur ; réessayez `eitr focus off` quand
 Hyprland est accessible. Fermer un volet agrandit les volets restants.

@@ -1,11 +1,9 @@
 # Focus
 
-Estos controles también están disponibles directamente en Configuración.
-
 ![Franja de pestañas de Focus con ventanas de ejemplo y dos paneles unidos.](assets/focus-strip.png)
 
 Focus sustituye la barra por una franja de pestañas de 28 px en la parte superior
-de cada monitor. Abre **Configuración > Estilo > Focus** o **Configuración (SUPER + ,) > Focus**,
+de cada monitor. Abre **Configuración > Focus**,
 o ejecuta `eitr focus on`. `eitr focus status` muestra `on` u `off` sin consultar
 Hyprland. `eitr focus off` restaura la barra, los efectos y los atajos habituales.
 **SUPER + Shift + F** o `eitr focus toggle` alterna Focus.
@@ -19,10 +17,11 @@ La configuración de la barra normal se guarda por separado y no se sustituye.
 ## Pestañas y paneles
 
 Las ventanas abiertas, incluidas las flotantes y las del espacio especial, se
-reúnen en grupos nativos de Hyprland. Un grupo llena la pantalla bajo la franja.
-Se desactivan separaciones, bordes, esquinas redondeadas, desenfoque, sombras y
+reúnen en grupos nativos de Hyprland. Un grupo llena la pantalla bajo la franja. Se desactivan separaciones, bordes, esquinas redondeadas, desenfoque, sombras y
 animaciones. La franja sigue el tema, tiene extremos cuadrados como el diseño
-Pestañas y solo muestra títulos, reloj y estado de red/batería. La batería aparece
+Pestañas y solo muestra títulos, reloj y estado de red/batería.
+
+La batería aparece
 solo si existe una batería del sistema. Los títulos largos se abrevian y las
 pestañas numerosas permiten desplazamiento. La pestaña resaltada identifica la
 ventana enfocada; líneas del color de acento unen los paneles visibles de una
@@ -39,7 +38,9 @@ división. Los cuadros y menús de las aplicaciones pueden conservar su estilo p
 La división necesita otra pestaña en el grupo enfocado. Se permiten hasta cuatro
 paneles: dos pueden estar lado a lado o apilados; tres o cuatro forman una cuadrícula
 2×2 (el tercero ocupa toda la fila inferior hasta añadir el cuarto). El cambio de
-tamaño ajusta los divisores compartidos. El atajo de retorno restaura un grupo a pantalla completa con una pulsación. Los números siguen el orden de ventanas del compositor, también usado
+tamaño ajusta los divisores compartidos. El atajo de retorno restaura un grupo a pantalla completa con una pulsación.
+
+Los números siguen el orden de ventanas del compositor, también usado
 por la franja. Los atajos de espacios, flotación, movimiento de ventanas y visibilidad
 de barra están inactivos. Siguen disponibles lanzadores, cerrar ventana, Centro de
 control y Manual. Aprender > Atajos muestra las teclas de Focus mientras está activo.
@@ -57,8 +58,9 @@ numerados, dos por espacio, manteniendo sus monitores actuales. No se guardan la
 posiciones anteriores, la geometría flotante ni el estado de pantalla completa de
 las aplicaciones. Se admite un escritorio vacío y comandos on/off repetidos. Si
 falla el proceso de la franja, siguen funcionando los grupos nativos y el teclado.
-Ejecuta `eitr focus off` desde un terminal para recuperar el escritorio sin la franja.
-Recargar Hyprland reaplica la preferencia y reúne ventanas nuevas sin deshacer las
-divisiones; se restablecen los tamaños de los divisores y la orientación de dos paneles.
-Los comandos fallidos muestran el error; vuelve a intentar `eitr focus off` cuando
-Hyprland sea accesible. Cerrar un panel permite ampliar los restantes.
+
+Ejecuta `eitr focus off` desde un terminal para recuperar el escritorio sin la franja. Recargar Hyprland reaplica la preferencia y reúne ventanas nuevas sin deshacer las
+divisiones; se restablecen los tamaños de los divisores y la orientación de dos paneles. Los comandos fallidos muestran el error; vuelve a intentar `eitr focus off` cuando
+Hyprland sea accesible.
+
+Cerrar un panel permite ampliar los restantes.

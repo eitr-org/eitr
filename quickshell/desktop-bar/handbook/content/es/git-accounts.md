@@ -1,6 +1,6 @@
 # Cuentas Git
 
-Abre **Desarrollo > Cuentas de Git**. Puedes usar cuentas GitHub y GitLab simultáneamente, incluso varias del mismo proveedor o servidor empresarial. Las instalaciones nuevas incluyen GitHub CLI (`gh`) y GitLab CLI (`glab`); las ISO existentes deben reconstruirse para incorporar cambios.
+Abre Configuración > Git y nube. Walker > Desarrollo > Cuentas Git es una alternativa. Puedes usar cuentas GitHub y GitLab simultáneamente, incluso varias del mismo proveedor o servidor empresarial. Las instalaciones nuevas incluyen GitHub CLI (`gh`) y GitLab CLI (`glab`); las ISO existentes deben reconstruirse para incorporar cambios.
 
 Cada cuenta muestra dónde la usa Git: **Predeterminado**, sus carpetas o **Todavía sin usar**. Enter abre las acciones; Shift+Backspace vuelve a la lista.
 

@@ -1,25 +1,59 @@
-# In den Einstellungen zurechtfinden
+# Eine Einstellung finden
 
-Öffne **SUPER + F > Einstellungen**. Zuerst kommen Ordner, dann Aktionen, jeweils alphabetisch. Die globale Suche findet auch frühere Namen wie System und Toggle.
+**SUPER + ,** öffnet Einstellungen. Tippe in die Suche der Seitenleiste, um eine Seite zu finden; ein passender Tab öffnet sich direkt. System ist die Übersicht, kein Ordner für alle Einstellungen.
+
+<!-- eitr-figure: settings-window -->
+
+Das Einstellungsfenster hat eine durchsuchbare Seitenleiste und Karten für zusammengehörige Bedienelemente. Es bleibt beim Klick außerhalb offen. Escape, die Schließen-Schaltfläche oder das normale Tastenkürzel zum Schließen beendet es.
+
+Links am unteren Panelrand schließen das Panel und öffnen die passende Einstellungsseite. Alle Einstellungen im Kontrollzentrum tut dasselbe; **SUPER + I** öffnet die Schnellsteuerung. Siehe [Kontrollzentrum](handbook:control-center).
+
+Wähle Einstellungsfarben unter Einstellungen > Erscheinungsbild > Design und Hintergrundbild: Theme-Farben folgt deinem Desktop, Eitr-Website verwendet die Website-Palette. Das betrifft Einstellungen, Handbuch sowie Themes und Plugins, nicht das Desktop-Design.
+
+Den separaten Katalog Themes und Plugins öffnest du mit SUPER + F2 oder Weitere Themes im Erscheinungsbild.
+
+## Eine Seite wählen
+
+Verwende die folgenden Seitennamen. Anleitungen stehen in den verlinkten Kapiteln.
+
+| Seite | Mehr erfahren |
+| :--- | :--- |
+| System | [System](handbook:information) |
+| Bildschirme — Bildschirme, Nachtlicht | [Bildschirme](handbook:devices) |
+| Ton | [Ton](handbook:devices) |
+| Verbindungen — Wi-Fi, Bluetooth | [Verbindungen](handbook:connectivity) |
+| Streaming | [Streaming](handbook:remote-access) |
+| Eingabe | [Eingabe](handbook:devices) |
+| Erscheinungsbild — Design und Hintergrundbild, Schriften & Zeiger, Terminal | [Erscheinungsbild](handbook:appearance) |
+| Desktopleiste | [Desktopleiste](handbook:desktop-bar) |
+| Fenster | [Fenster](handbook:appearance) |
+| Sperrbildschirm | [Sperrbildschirm](handbook:appearance) |
+| Benachrichtigungen | [Benachrichtigungen](handbook:information) |
+| Focus | [Focus](handbook:focus) |
+| KI-Assistent | [KI-Assistent](handbook:development) |
+| Tastenbelegungen | [Tastenbelegungen](handbook:shortcuts) |
+| Standard-Apps | [Standard-Apps](handbook:apps) |
+| Benutzer | [Benutzer](handbook:security) |
+| Git und Cloud | [Git und Cloud](handbook:git-accounts) |
+| Sicherheit | [Sicherheit](handbook:security) |
+| Aktualisierungen | [Aktualisierungen](handbook:maintenance) |
+| Diesen PC prüfen | [Diesen PC prüfen](handbook:troubleshooting) |
+| Über | [Über](handbook:information) |
+
+## Dein Profilbild ändern
+
+Öffne Einstellungen > Benutzer (oder klicke in der System-Übersicht der Einstellungen auf dein Bild) und wähle „Bild ändern“. Die Dateiauswahl des Systems öffnet sich schwebend und zentriert über den Einstellungen und zeigt nur Bilder; nach der Auswahl öffnet sich der Zuschneide-Editor als Blatt über den Einstellungen. Ziehe die runde Vorschau zum Verschieben; Mausrad, Schieberegler oder +/− zoomen von 1× bis 4×, die Pfeiltasten verschieben. Speichern (oder Enter) übernimmt den Zuschnitt; Abbrechen oder Escape schließt das Blatt, ohne ihn anzuwenden. „Entfernen“ neben „Bild ändern“ löscht das Bild.
+
+Das Bild erscheint im Kontrollzentrum, auf dem Sperrbildschirm und am Anmeldebildschirm immer rund. Das Kontrollzentrum zeigt das Bild oben in seiner Navigation nur an; ohne Bild zeigt es dort nichts, ebenso Sperr- und Anmeldebildschirm. Die Einstellungen zeigen stattdessen den Anfangsbuchstaben deines Namens auf einem Kreis in der Akzentfarbe. Unterstützt werden PNG, JPEG, WebP, GIF (erstes Bild) und BMP bis 40 MB und 12000 Pixel pro Seite.
+
+Eitr korrigiert die Ausrichtung, entfernt Metadaten, speichert ein PNG mit 512×512 Pixeln unter `~/.face` und aktualisiert AccountsService für SDDM. Bei einem Fehler bleibt das Bild für den Sperrbildschirm erhalten; Oberfläche oder CLI melden den Anmeldefehler.
+
+## Walker als Alternative verwenden
+
+**SUPER + F** öffnet Walker. Sein Einstellungsmenü enthält weiterhin Ordner wie Stil, Geräte und Eingabe sowie System. Das sind Walker-Pfade, keine Seiten der Einstellungs-App.
 
 <!-- eitr-figure: launcher -->
 
-Das Einstellungsmenü in Walker. **Verbindungen**, **Geräte und Eingabe**, **Sprache**, **Sicherheit**, **Stil** und **System** sind Ordner, markiert mit **>**. **Kontrollzentrum** öffnet dieselben Bedienelemente wie SUPER + I; **Konfigurationsdateien** öffnet deinen Konfigurationsordner in VS Code oder LazyVim.
+Walkers Einstellungsmenü ist eine Alternative mit eigenen Ordnern. > öffnet ein Untermenü; die Beschreibung unter einer Aktion erklärt ihre Wirkung.
 
-Verbindungen öffnet die nativen Bluetooth- und WiFi-Panels, Netzwerk-Backend und Fernzugriff. Die Backend-Auswahl bereitet den nächsten Start vor, ohne die laufende Verbindung neu zu starten.
-
-Geräte & Eingabe enthält Audio, Batterieladegrenzwert, Anzeige, Tastatur, Beleuchtung und Mikrofon. Der Batterieladegrenzwert erscheint nur mit einer Systembatterie und benötigt unterstützte Firmware. Peripheriebatterien aktivieren keine Laptop-Bedienelemente. Anzeige enthält Helligkeit, Nachtlicht und unterstützte Laptop-Energieprofile.
-
-Beleuchtung ist standardmäßig ausgeschaltet. Thema folgen lässt Themenwechsel die von OpenRGB gesteuerten Geräte neu einfärben.
-
-Stil enthält die bisherigen Optionen für Thema, Hintergrundbild, Sperrbildschirm, Schriften und Desktop-Aussehen. Im Hauptmenü heißt Toggle jetzt Schnellaktionen; Bildschirmschoner starten startet ihn sofort.
-
-**Einstellungen > System** enthält **Informationen**, **Instandhaltung**, **Update-Kanal**, **Über**, **Systemaktualisierung**. Über öffnet die EITR-Systemübersicht. Informationen enthält KI-Nutzung, Hardware, Problem melden und Wetter. Kalender, Arbeitsbereichsübersicht und Ragnarök bleiben über die globale Suche erreichbar.
-
-Wartung enthält Werksreset, Snapshots, Diesen PC prüfen, Schnellste Spiegel auswählen und Bereinigung. Der Werksreset verlangt zwei Warnungen und eine eingetippte Bestätigung; lies zuerst [Werksreset](handbook:factory-reset).
-
-Sicherheit behält die bisherigen Authentifizierungs-, Firewall- und Benutzerfunktionen. Die Dokumentation bleibt unter [Secure Boot](handbook:secure-boot). Hardware-Anpassungen gehören in `~/.config/hypr/local.lua`; halte Geheimnisse aus Konfigurationssicherungen heraus.
-
-**Walker > Einstellungen > Sprache** listet die Sprachen mit markierter aktueller Auswahl; siehe [Sprache](handbook:language). Englische und übersetzte Namen bleiben suchbar. Hauptmenü und Apps behalten ihre eigene Reihenfolge.
-
-Sicherheit: Assistentenzugriff, FIDO2 Sicherheitsschlüssel, Fingerabdrücke, TPM-Laufwerksentsperrung, Benutzer, Firewall, Zurück zur Passwort-Authentifizierung, Passwort ändern.
+Walker zeigt Ordner vor Aktionen. Tippe zum Suchen, drücke Enter zum Öffnen und Shift + Backspace für Zurück. Die Sprachwahl bleibt unter Walker > Einstellungen > Sprache; siehe [Sprache](handbook:language).
