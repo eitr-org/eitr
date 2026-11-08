@@ -1,12 +1,10 @@
 import ".."
 import QtQuick
-import QtQuick.Controls.Basic
 import Quickshell
 import Eitr as Eitr
 
 Flickable {
     id: view
-    ScrollBar.vertical: PanelScrollBar { foreground: view.foreground }
     objectName: "settings-streaming-page"
     required property color foreground
     required property color background

@@ -63,7 +63,10 @@ ColumnLayout {
     }
     Flickable {
         id: navigationScroll
-        ScrollBar.vertical: PanelScrollBar { foreground: sidebar.foreground }
+        ScrollBar.vertical: ScrollBar {
+            width: 4; policy: ScrollBar.AsNeeded
+            contentItem: Rectangle { radius: 2; color: Qt.alpha(sidebar.foreground, 0.25) }
+        }
         Layout.fillWidth: true; Layout.fillHeight: true
         contentHeight: navigation.height; clip: true; boundsBehavior: Flickable.StopAtBounds
         enabled: sidebar.interactive

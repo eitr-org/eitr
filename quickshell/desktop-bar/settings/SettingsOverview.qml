@@ -43,7 +43,10 @@ Flickable {
     Component.onDestruction: DesktopData.releaseOwner(overview)
     contentHeight: dashboard.height
     boundsBehavior: Flickable.StopAtBounds; clip: true
-    ScrollBar.vertical: PanelScrollBar { foreground: overview.foreground }
+    ScrollBar.vertical: ScrollBar {
+        width: 4; policy: ScrollBar.AsNeeded
+        contentItem: Rectangle { radius: 2; color: Qt.alpha(overview.foreground, 0.25) }
+    }
     FileView {
         id: uptime
         path: overview.observing && overview.live ? "/proc/uptime" : ""

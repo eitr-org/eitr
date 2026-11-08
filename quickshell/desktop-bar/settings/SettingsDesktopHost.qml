@@ -1,13 +1,11 @@
 import ".."
 import QtQuick
-import QtQuick.Controls.Basic
 import Quickshell
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
 Flickable {
     id: hostView
-    ScrollBar.vertical: PanelScrollBar { foreground: hostView.foreground }
     objectName: "settings-desktop-page"
     required property string page
     required property string title

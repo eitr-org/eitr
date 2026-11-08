@@ -39,14 +39,13 @@ class HandbookTests(unittest.TestCase):
         self.assertIn("| Shortcut | Action |", text)
         self.assertIn("| Gesture | Action |", text)
 
-    def test_long_pages_show_a_scroll_bar_you_can_grab(self):
+    def test_handbook_pages_show_a_scroll_bar_you_can_grab(self):
         bar = (ROOT / "quickshell/desktop-bar/components/PanelScrollBar.qml").read_text()
         self.assertIn("policy: needed ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff", bar)
         self.assertIn("width: 10", bar)
-        for name in ("panels/Handbook.qml", "panels/CatalogContent.qml", "settings/SettingsDesktopHost.qml",
-                     "settings/SettingsSystemHost.qml", "settings/SettingsDevicesPage.qml",
-                     "settings/SettingsStreamingPage.qml", "settings/SettingsOverview.qml"):
-            self.assertIn("ScrollBar.vertical: PanelScrollBar {", (ROOT / "quickshell/desktop-bar" / name).read_text(), name)
+        # Only the Handbook's reading area uses it; Settings and the sidebars keep their light bars.
+        self.assertIn("ScrollBar.vertical: PanelScrollBar {", (ROOT / "quickshell/desktop-bar/panels/Handbook.qml").read_text())
+        self.assertNotIn("PanelScrollBar", (ROOT / "quickshell/desktop-bar/settings/FamilySidebar.qml").read_text())
 
     def test_runtime_reader_is_read_only_and_offline(self):
         source = (ROOT / "quickshell/desktop-bar/panels/Handbook.qml").read_text()

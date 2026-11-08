@@ -2,7 +2,7 @@ import ".."
 import QtQuick
 import QtQuick.Controls.Basic
 
-// The scroll bar for long pages (Handbook chapters, Settings pages): always shown while
+// The Handbook reading area's scroll bar for long chapters: always shown while
 // the content is taller than its view, wide enough to grab and drag, stronger on hover.
 ScrollBar {
     id: bar

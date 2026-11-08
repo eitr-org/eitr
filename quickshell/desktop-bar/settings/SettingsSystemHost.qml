@@ -68,7 +68,9 @@ Flickable {
     contentHeight: content.implicitHeight + 18
     boundsBehavior: Flickable.StopAtBounds
     clip: true
-    ScrollBar.vertical: PanelScrollBar { foreground: hostView.foreground }
+    ScrollBar.vertical: ScrollBar {
+        policy: ScrollBar.AsNeeded
+    }
     function demand() {
         DesktopData.releaseOwner(hostView);
         if (!active || !live)

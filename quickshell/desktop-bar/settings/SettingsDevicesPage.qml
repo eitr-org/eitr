@@ -1,12 +1,10 @@
 import ".."
 import QtQuick
-import QtQuick.Controls.Basic
 import Quickshell
 import Eitr as Eitr
 
 Flickable {
     id: view
-    ScrollBar.vertical: PanelScrollBar { foreground: view.foreground }
     objectName: "settings-devices-page"
     required property string page
     required property string title
