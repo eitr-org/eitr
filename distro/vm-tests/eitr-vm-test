@@ -39,8 +39,11 @@ class VmTestError(RuntimeError):
 
 
 def ssh_options(work):
+    # QEMU's port forward accepts a connection even while the guest restarts, so
+    # ConnectTimeout alone can leave a probe waiting forever; keep-alives end it.
     return ["-i", str(work / "key"), "-p", str(SSH_PORT), "-o", "StrictHostKeyChecking=no",
-            "-o", f"UserKnownHostsFile={work / 'known_hosts'}", "-o", "ConnectTimeout=5", "-o", "BatchMode=yes"]
+            "-o", f"UserKnownHostsFile={work / 'known_hosts'}", "-o", "ConnectTimeout=5", "-o", "BatchMode=yes",
+            "-o", "ServerAliveInterval=5", "-o", "ServerAliveCountMax=6"]
 
 
 def ssh(work, command, tty=False, check=True, capture=True):
