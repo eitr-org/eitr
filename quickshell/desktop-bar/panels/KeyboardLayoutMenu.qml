@@ -21,8 +21,10 @@ ThemedPopup {
     readonly property string activeLabel: active ? active.label : ""
     implicitWidth: 428
     // Heading, 16 px gap, the rows, then 8 px above the (usually empty) error line and
-    // 8 px above the footer link.
-    implicitHeight: heading.implicitHeight + 16 + Math.max(1, layouts.length) * (PanelStyle.selectionRowHeight + PanelStyle.selectionRowGap)
+    // 8 px above the footer link. XKB allows four active layouts, so four rows show; any
+    // more listed by hand scroll inside the list.
+    readonly property int visibleRows: 4
+    implicitHeight: heading.implicitHeight + 16 + Math.max(1, Math.min(layouts.length, visibleRows)) * (PanelStyle.selectionRowHeight + PanelStyle.selectionRowGap)
         + 16 + PanelStyle.selectionRowHeight + (error ? 34 : 0) + verticalContentInset
 
     function refresh() { if (!query.running && !operation.running) query.running = true; }
