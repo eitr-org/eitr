@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+import unittest
 
 BAR = Path(__file__).resolve().parents[1]
 EDGES = ('top', 'bottom', 'left', 'right')
@@ -42,6 +43,10 @@ def capture_path(kind, directory, filename):
 
 
 def render(path, environment, timeout):
+    # Render tests need the Quickshell binary; CI images without it skip them, as the
+    # older render tests already do with their own skipUnless.
+    if not shutil.which('quickshell'):
+        raise unittest.SkipTest('Quickshell required')
     try:
         result = subprocess.run(['quickshell', '--no-color', '-p', str(path)], env=environment,
                                 text=True, capture_output=True, timeout=timeout)
