@@ -108,8 +108,9 @@ byte-for-byte; ultrawides are new panoramic compositions from the same final
 written prompts, with only Eitr’s emblem used as the drop’s shape reference.
 Exact prompts, hashes, sizes and framing: `themes/artwork-batch-09.json`.
 Masters and reproducible exports: `branding/sources/wallpapers/batch-09/`.
-Eitr’s order is Drop (default), Runestone, Élivágar, Rootlight; the existing
-preview is preserved. Runestone and its live layers are now numbered 02.
+Only Primordial Drop remains shipped from batch 09, now numbered 03.
+Élivágar and Venom Rootlight are marked removed with their prompts preserved.
+Runestone and its live layers are numbered 04; the independent preview is preserved.
 
 The ten realms, Eitr and Eitr Light use local Neovim and VS Code themes from the same contrast-corrected palette roles. Run `python3 themes/build-vscode-themes.py` and its `--check` after palette changes; VSIX archives use fixed timestamps and content-derived versions. Afterglow and Wisteria retain their existing VS Code integrations.
 
@@ -132,3 +133,24 @@ panel over Primordial Drop, rather than a live desktop capture. Reproduce with
 `EITR_PANEL_REVIEW_RENDERS=/tmp/eitr-light-review python3 quickshell/desktop-bar/tests/render_panel_motion.py --theme eitr-light --panels CalendarMenu --desktop-preview`.
 Copy the resulting `CalendarMenu-eitr-light.png` to its `preview.png`
 after visual inspection. The artwork exporter does not rewrite panel captures.
+
+## Eitr and Eitr Light — Batch 11
+
+The owner-approved order is Gates of Yggdrasil (default), Rune Seal, Primordial
+Drop, then the animated Runestone in Eitr only. Gates uses bold hand-inked
+Norse screenprint with flat colours and cel shading, black sky and moon in Eitr,
+pale parchment and illustrated sun in Eitr Light. Rune Seal uses the explicitly
+approved neon emblem and gold rune rings on true black (OLED); the light
+counterpart uses forest green, bronze and a gentle pale sheen. Rune ornament,
+logo silhouettes and these controlled glows are intentional owner exceptions.
+Batch 11 replaces Élivágar and Venom Rootlight in both themes. Saved paths
+migrate to their renamed files or the theme's new Gates default.
+
+`themes/artwork-batch-11.json` records the supplied prompts verbatim, input
+images and earlier edit history, native dimensions, hashes and subject-centred
+framing. Codex image generation produced these originals through image-input
+edits of earlier drafts; the panoramas are separate generated sideways
+expansions, not stretched masters. Eight native PNGs and the shared-pipeline
+`export.py` live under `branding/sources/wallpapers/batch-11/`. Outputs are
+3840×2160 and 3440×1440 JPEGs using Lanczos, without padding or stretching.
+Existing independent theme previews are preserved; website cards select Gates.

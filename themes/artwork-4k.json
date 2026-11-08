@@ -176,7 +176,41 @@
       ]
     },
     {
-      "file": "themes/eitr-light/backgrounds/01-primordial-drop.jpg",
+      "file": "themes/eitr-light/backgrounds/01-gates-of-yggdrasil.jpg",
+      "source": "branding/sources/wallpapers/batch-11/eitr-light-01-gates-of-yggdrasil.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "5404a5870ef0ed69263371c8c53cedad9cb9188ed6810d50d01565614458b379",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/eitr-light/backgrounds/02-rune-seal.jpg",
+      "source": "branding/sources/wallpapers/batch-11/eitr-light-02-rune-seal.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "source_sha256": "865535eaea3a39c6dc78af1fd18961a01c1e9b75878f831bff6042c3a34bad28",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "output_size": [
+        3840,
+        2160
+      ]
+    },
+    {
+      "file": "themes/eitr-light/backgrounds/03-primordial-drop.jpg",
       "source": "branding/sources/wallpapers/batch-10/eitr-light-01-primordial-drop.png",
       "source_size": [
         1672,
@@ -193,13 +227,13 @@
       ]
     },
     {
-      "file": "themes/eitr-light/backgrounds/02-elivagar.jpg",
-      "source": "branding/sources/wallpapers/batch-10/eitr-light-02-elivagar.png",
+      "file": "themes/eitr/backgrounds/01-gates-of-yggdrasil.jpg",
+      "source": "branding/sources/wallpapers/batch-11/eitr-01-gates-of-yggdrasil.png",
       "source_size": [
         1672,
         941
       ],
-      "source_sha256": "65e09a2d5a54832aab78e15fc58d1fe94284dbe157648ebbf820e60dd54de95f",
+      "source_sha256": "3bd964441db6ea3003bf35d4b800e4eaf85295955de7a1b7cf87d193985c3795",
       "centering": [
         0.5,
         0.5
@@ -210,13 +244,13 @@
       ]
     },
     {
-      "file": "themes/eitr-light/backgrounds/03-venom-rootlight.jpg",
-      "source": "branding/sources/wallpapers/batch-10/eitr-light-03-venom-rootlight.png",
+      "file": "themes/eitr/backgrounds/02-rune-seal.jpg",
+      "source": "branding/sources/wallpapers/batch-11/eitr-02-rune-seal.png",
       "source_size": [
         1672,
         941
       ],
-      "source_sha256": "e03df29d345bcd013969fbab09c9a0a4fc1be47519c20266073d86fc64c236d3",
+      "source_sha256": "5ed92bae54b437705dc27f75c0bf66a61843a555b80dadf98eca23165f60ae36",
       "centering": [
         0.5,
         0.5
@@ -227,47 +261,13 @@
       ]
     },
     {
-      "file": "themes/eitr/backgrounds/01-primordial-drop.jpg",
+      "file": "themes/eitr/backgrounds/03-primordial-drop.jpg",
       "source": "branding/sources/wallpapers/batch-09/eitr-01-primordial-drop.png",
       "source_size": [
         1672,
         940
       ],
       "source_sha256": "d6734be7e4330f9a1c00532c0df23f422ab9f1120c71790284d97e6005e105fb",
-      "centering": [
-        0.5,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ]
-    },
-    {
-      "file": "themes/eitr/backgrounds/03-elivagar.jpg",
-      "source": "branding/sources/wallpapers/batch-09/eitr-03-elivagar.png",
-      "source_size": [
-        1672,
-        941
-      ],
-      "source_sha256": "1a14facc937f97ad59c36567a6522a2abea265ee731b025a2d7bddc3019ddf04",
-      "centering": [
-        0.5,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ]
-    },
-    {
-      "file": "themes/eitr/backgrounds/04-venom-rootlight.jpg",
-      "source": "branding/sources/wallpapers/batch-09/eitr-04-venom-rootlight.png",
-      "source_size": [
-        1672,
-        941
-      ],
-      "source_sha256": "3dc2b07c63bd97c24558a5b578e73d30699493b11f28cc9eebfe636a119f12bb",
       "centering": [
         0.5,
         0.5
@@ -703,6 +703,6 @@
     }
   ],
   "procedural": {
-    "themes/eitr/backgrounds/02-eitr-runestone.png": "Native 3840×2160; generated with themes/eitr/references/generate-wallpapers.py, including its motion layers."
+    "themes/eitr/backgrounds/04-eitr-runestone.png": "Native 3840×2160; generated with themes/eitr/references/generate-wallpapers.py, including its motion layers."
   }
 }

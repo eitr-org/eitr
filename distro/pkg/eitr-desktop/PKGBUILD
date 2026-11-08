@@ -61,7 +61,7 @@ check() {
 package() {
   cd "$srcdir/eitr" || return
   python3 distro/bin/eitr-config --repo . stage "$pkgdir/usr/share/eitr"
-  # eitr-artwork owns these.
+  # eitr-artwork owns wallpaper sets and motion layers, including curated Eitr assets.
   rm -rf -- "$pkgdir"/usr/share/eitr/themes/*/backgrounds "$pkgdir"/usr/share/eitr/themes/*/backgrounds-ultrawide \
     "$pkgdir"/usr/share/eitr/themes/*/motion \
     "$pkgdir"/usr/share/eitr/themes/*/preview.png

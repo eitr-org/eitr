@@ -41,7 +41,7 @@ def main():
             parser.read(design.parent / "theme.conf")
             settings = dict(parser["General"])
             if design.parent.name == "theme-wallpaper":
-                settings['background'] = (ROOT.parents[1] / 'themes/eitr/backgrounds/02-eitr-runestone.png').as_uri()
+                settings['background'] = (ROOT.parents[1] / 'themes/eitr/backgrounds/04-eitr-runestone.png').as_uri()
             modes = ['dark', 'light'] if arguments.all_modes and design.parent.name in ('eitr', 'tape', 'neo-orbital') else [settings.get('themeMode', 'light')]
             for mode in modes:
                 settings['themeMode'] = mode

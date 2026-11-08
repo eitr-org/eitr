@@ -60,7 +60,7 @@ class ThemeMigrationTests(unittest.TestCase):
         config('theme/current/display-name').write_text('Nord\n')
         config('eitr').mkdir()
         self.preference = config('eitr/appearance.json')
-        self.preference.write_text(json.dumps({'theme': 'nord', 'wallpaper': str(config('theme/current/backgrounds/03-elivagar.jpg')), 'other': 42}))
+        self.preference.write_text(json.dumps({'theme': 'nord', 'wallpaper': str(config('theme/current/backgrounds/03-primordial-drop.jpg')), 'other': 42}))
         cache().mkdir()
         cache('current-theme').write_text('nord\n')
         self.before = {path: path.read_bytes() for path in config().rglob('*') if path.is_file()}

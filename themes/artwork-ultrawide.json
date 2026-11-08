@@ -126,8 +126,32 @@
       ]
     },
     {
-      "file": "themes/eitr-light/backgrounds-ultrawide/01-primordial-drop.jpg",
-      "wallpaper": "themes/eitr-light/backgrounds/01-primordial-drop.jpg",
+      "file": "themes/eitr-light/backgrounds-ultrawide/01-gates-of-yggdrasil.jpg",
+      "wallpaper": "themes/eitr-light/backgrounds/01-gates-of-yggdrasil.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-11/eitr-light-01-gates-of-yggdrasil-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.0
+      ]
+    },
+    {
+      "file": "themes/eitr-light/backgrounds-ultrawide/02-rune-seal.jpg",
+      "wallpaper": "themes/eitr-light/backgrounds/02-rune-seal.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-11/eitr-light-02-rune-seal-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/eitr-light/backgrounds-ultrawide/03-primordial-drop.jpg",
+      "wallpaper": "themes/eitr-light/backgrounds/03-primordial-drop.jpg",
       "source": {
         "file": "branding/sources/wallpapers/batch-10/eitr-light-01-primordial-drop-ultrawide.png"
       },
@@ -138,10 +162,22 @@
       ]
     },
     {
-      "file": "themes/eitr-light/backgrounds-ultrawide/02-elivagar.jpg",
-      "wallpaper": "themes/eitr-light/backgrounds/02-elivagar.jpg",
+      "file": "themes/eitr/backgrounds-ultrawide/01-gates-of-yggdrasil.jpg",
+      "wallpaper": "themes/eitr/backgrounds/01-gates-of-yggdrasil.jpg",
       "source": {
-        "file": "branding/sources/wallpapers/batch-10/eitr-light-02-elivagar-ultrawide.png"
+        "file": "branding/sources/wallpapers/batch-11/eitr-01-gates-of-yggdrasil-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.0
+      ]
+    },
+    {
+      "file": "themes/eitr/backgrounds-ultrawide/02-rune-seal.jpg",
+      "wallpaper": "themes/eitr/backgrounds/02-rune-seal.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-11/eitr-02-rune-seal-ultrawide.png"
       },
       "framing": "crop",
       "centering": [
@@ -150,20 +186,8 @@
       ]
     },
     {
-      "file": "themes/eitr-light/backgrounds-ultrawide/03-venom-rootlight.jpg",
-      "wallpaper": "themes/eitr-light/backgrounds/03-venom-rootlight.jpg",
-      "source": {
-        "file": "branding/sources/wallpapers/batch-10/eitr-light-03-venom-rootlight-ultrawide.png"
-      },
-      "framing": "crop",
-      "centering": [
-        0.5,
-        0.5
-      ]
-    },
-    {
-      "file": "themes/eitr/backgrounds-ultrawide/01-primordial-drop.jpg",
-      "wallpaper": "themes/eitr/backgrounds/01-primordial-drop.jpg",
+      "file": "themes/eitr/backgrounds-ultrawide/03-primordial-drop.jpg",
+      "wallpaper": "themes/eitr/backgrounds/03-primordial-drop.jpg",
       "source": {
         "file": "branding/sources/wallpapers/batch-09/eitr-01-primordial-drop-ultrawide.png"
       },
@@ -174,35 +198,11 @@
       ]
     },
     {
-      "file": "themes/eitr/backgrounds-ultrawide/02-eitr-runestone.jpg",
-      "wallpaper": "themes/eitr/backgrounds/02-eitr-runestone.png",
+      "file": "themes/eitr/backgrounds-ultrawide/04-eitr-runestone.jpg",
+      "wallpaper": "themes/eitr/backgrounds/04-eitr-runestone.png",
       "source": {
         "final": "exported from the original 21:9 artwork; this file is now the master"
       }
-    },
-    {
-      "file": "themes/eitr/backgrounds-ultrawide/03-elivagar.jpg",
-      "wallpaper": "themes/eitr/backgrounds/03-elivagar.jpg",
-      "source": {
-        "file": "branding/sources/wallpapers/batch-09/eitr-03-elivagar-ultrawide.png"
-      },
-      "framing": "crop",
-      "centering": [
-        0.5,
-        0.5
-      ]
-    },
-    {
-      "file": "themes/eitr/backgrounds-ultrawide/04-venom-rootlight.jpg",
-      "wallpaper": "themes/eitr/backgrounds/04-venom-rootlight.jpg",
-      "source": {
-        "file": "branding/sources/wallpapers/batch-09/eitr-04-venom-rootlight-ultrawide.png"
-      },
-      "framing": "crop",
-      "centering": [
-        0.5,
-        0.5
-      ]
     },
     {
       "file": "themes/helheim/backgrounds-ultrawide/01-hel.jpg",

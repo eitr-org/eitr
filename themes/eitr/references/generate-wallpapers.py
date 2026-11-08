@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Render the Norse runestone wallpaper (3840x2160) into ../backgrounds, and its
-live layers into ../motion/02-eitr-runestone.
+live layers into ../motion/04-eitr-runestone.
 
 The EITR emblem sits inside a ring of carved runes. Runes are drawn as straight
 strokes, so no font is needed. The output is deterministic. The live layers are
@@ -290,7 +290,7 @@ def eitr_runestone():
 def runestone_motion():
     """Layers for the live wallpaper; the desktop draws the moving aurora between
     them with quickshell/desktop-bar/shaders/aurora.frag."""
-    folder = MOTION / "02-eitr-runestone"
+    folder = MOTION / "04-eitr-runestone"
     folder.mkdir(parents=True, exist_ok=True)
     to_image(runestone_sky()).save(folder / "sky.png", optimize=True)
     runestone_ring().save(folder / "ring.png", optimize=True)
@@ -345,7 +345,7 @@ def runestone_ring_svg():
 def main():
     OUTPUT.mkdir(exist_ok=True)
     runestone_ring_svg()
-    name = "02-eitr-runestone.png"
+    name = "04-eitr-runestone.png"
     eitr_runestone().save(OUTPUT / name, optimize=True)
     runestone_motion()
     print(name)

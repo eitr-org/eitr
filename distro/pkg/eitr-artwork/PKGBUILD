@@ -1,5 +1,5 @@
 # shellcheck shell=bash disable=SC2034,SC2154 # makepkg reads the metadata and sets startdir/srcdir/pkgdir.
-# EITR theme wallpapers and previews, split from eitr-desktop so that code
+# EITR theme wallpapers, including the curated Eitr sets, and previews, split from eitr-desktop so that code
 # updates do not download them again. The version is the last commit that
 # changed them, so it moves only when the artwork does. Built from a Git
 # checkout's committed HEAD; see distro/README.md.

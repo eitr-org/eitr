@@ -80,7 +80,7 @@ Le + ouvre le catalogue séparé avec le même filtre. Ctrl+Tab parcourt les fil
 
 **SUPER + Ctrl + N** ouvre les fonds et **SUPER + Shift + N** passe au suivant. Une coche indique le choix actif dans Walker. Les changements n’affichent aucune notification de réussite. Les écrans ultrawide, au moins deux fois plus larges que hauts, utilisent la version 21:9 pour réduire le recadrage ; les autres utilisent la version 4K 16:9.
 
-Eitr propose quatre fonds : Primordial Drop (par défaut), Runestone, Élivágar et Venom Rootlight. Utilisez les mêmes commandes de sélection ; la palette reste identique. Le deuxième fond, Runestone, est animé : les aurores se déplacent lentement derrière l’anneau de runes, se mettent à jour moins souvent derrière les fenêtres ordinaires, s’arrêtent derrière les applications plein écran et restent fixes sur le verrouillage.
+Eitr propose quatre fonds : The Gates of Yggdrasil (par défaut), Rune Seal, Primordial Drop et Runestone. Utilisez les mêmes commandes de sélection ; la palette reste identique. Le quatrième fond, Runestone, est animé : les aurores se déplacent lentement derrière l’anneau de runes, se mettent à jour moins souvent derrière les fenêtres ordinaires, s’arrêtent derrière les applications plein écran et restent fixes sur le verrouillage.
 
 Le rendu logiciel (par exemple, une VM sans accélération 3D) utilise le fond fixe sélectionné ; il en va de même si le moteur de rendu ne peut pas être détecté. Graphite a été retiré ; les sélections Graphite enregistrées passent à Eitr et à son fond par défaut.
 
@@ -88,7 +88,7 @@ Les 13 thèmes intégrés restent disponibles hors ligne. Installez les 12 thèm
 
 Les 13 thèmes fournis comprennent dix palettes sombres des royaumes : Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim et Vanaheim. Chaque thème des royaumes comprend de deux à cinq fonds originaux, dans des styles variés : encre, gouache, cel-shading et peinture, dans les deux formats. Le premier fond sert d’aperçu du thème.
 
-Eitr Light est la variante claire de Primordial Venom, avec des surfaces vert pâle, du texte vert foncé, des accents jaune-vert de venin et des touches de jade/émeraude. Ses trois fonds fixes sont Primordial Drop, Élivágar et Venom Rootlight, chacun avec une composition panoramique distincte. Choisissez-le dans la catégorie Claire ; Eitr reste le thème par défaut. Fond du thème utilise l’image fixe sélectionnée sur l’écran de verrouillage.
+Eitr Light est la variante claire de Primordial Venom, avec des surfaces vert pâle, du texte vert foncé, des accents jaune-vert de venin et des touches de jade/émeraude. Ses trois fonds fixes sont The Gates of Yggdrasil (par défaut), Rune Seal et Primordial Drop, chacun avec une composition panoramique distincte. Choisissez-le dans la catégorie Claire ; Eitr reste le thème par défaut. Fond du thème utilise l’image fixe sélectionnée sur l’écran de verrouillage.
 
 Si Hyprpaper ne peut pas afficher le fond choisi, la barre dessine la même image fixe sur chaque écran concerné, y compris les variantes ultralarges. Les choix de fond et de thème restent appliqués en mode Focus ; cet affichage de secours change sans animation de dévoilement.
 

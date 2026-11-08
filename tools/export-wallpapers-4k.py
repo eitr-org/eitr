@@ -20,6 +20,14 @@ MANIFEST = ROOT / 'themes/artwork-4k.json'
 JPEG_QUALITY = 92
 
 
+def export_source(source, output, centering=(0.5, 0.5)):
+    """Export a retained native master with explicit subject framing."""
+    with Image.open(source) as image:
+        fitted = ImageOps.fit(image.convert('RGB'), SIZE,
+                              method=Image.Resampling.LANCZOS, centering=tuple(centering))
+        fitted.save(output, quality=JPEG_QUALITY, subsampling=0, optimize=True)
+
+
 def export(path, lossless=frozenset()):
     original = path.stat()
     with Image.open(path) as image:

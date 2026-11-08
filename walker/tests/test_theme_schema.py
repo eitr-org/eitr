@@ -90,9 +90,9 @@ class ThemeSchemaTests(unittest.TestCase):
 
     def test_eitr_light_batch_10_provenance_and_exports(self):
         batch = json.loads((THEMES / 'artwork-batch-10.json').read_text())
-        names = ['01-primordial-drop', '02-elivagar', '03-venom-rootlight']
+        names = ['03-primordial-drop', '02-elivagar', '03-venom-rootlight']
         self.assertEqual([record['name'] for record in batch['images']], names)
-        for record in batch['images']:
+        for record in active(batch['images']):
             self.assertEqual(record['theme'], 'eitr-light')
             self.assertEqual(record['input_images'], [])
             self.assertTrue(record['prompt'])
@@ -109,12 +109,13 @@ class ThemeSchemaTests(unittest.TestCase):
                     self.assertEqual(image.size, size)
                     self.assertEqual(image.format, 'JPEG')
         for folder in ('backgrounds', 'backgrounds-ultrawide'):
-            self.assertEqual(sorted(path.stem for path in (THEMES / 'eitr-light' / folder).iterdir()), names)
+            self.assertEqual(sorted(path.stem for path in (THEMES / 'eitr-light' / folder).iterdir()),
+                             ['01-gates-of-yggdrasil', '02-rune-seal', '03-primordial-drop'])
 
     def test_eitr_runestone_and_ragnarok_fenrir_collections(self):
-        for folder, runestone in (("backgrounds", "02-eitr-runestone.png"),
-                                   ("backgrounds-ultrawide", "02-eitr-runestone.jpg")):
-            self.assertEqual(sorted(path.name for path in (THEMES / "eitr" / folder).iterdir()), ["01-primordial-drop.jpg", runestone, "03-elivagar.jpg", "04-venom-rootlight.jpg"])
+        for folder, runestone in (("backgrounds", "04-eitr-runestone.png"),
+                                   ("backgrounds-ultrawide", "04-eitr-runestone.jpg")):
+            self.assertEqual(sorted(path.name for path in (THEMES / "eitr" / folder).iterdir()), ["01-gates-of-yggdrasil.jpg", "02-rune-seal.jpg", "03-primordial-drop.jpg", runestone])
             self.assertTrue((THEMES / "ragnarok" / folder / "05-fenrir.jpg").is_file())
         for manifest in ("artwork-4k.json", "artwork-ultrawide.json"):
             records = json.loads((THEMES / manifest).read_text())["images"]
@@ -252,7 +253,8 @@ class ThemeSchemaTests(unittest.TestCase):
         for record in batch["images"]:
             with self.subTest(wallpaper=record["name"]):
                 self.assertEqual(record["theme"], theme)
-                self.assertIn("owner-approved", record["status"])
+                if record.get("status") != "removed":
+                    self.assertIn("owner-approved", record["status"])
                 self.assertTrue(record["rendering_style"])
                 self.assertTrue(record["prompt"])
                 self.assertTrue(record["ultrawide_prompt"])
@@ -264,6 +266,8 @@ class ThemeSchemaTests(unittest.TestCase):
                     with Image.open(source) as image:
                         self.assertEqual(list(image.size), record[prefix + "_size"])
                 self.assertNotEqual(record["native_sha256"], record["ultrawide_native_sha256"])
+                if record.get("status") == "removed":
+                    continue
                 for key, size in (("file", (3840, 2160)), ("ultrawide_file", (3440, 1440))):
                     with Image.open(ROOT / record[key]) as image:
                         self.assertEqual(image.size, size)
@@ -277,13 +281,13 @@ class ThemeSchemaTests(unittest.TestCase):
 
     def test_eitr_batch_09_provenance_and_exports(self):
         self.check_painterly_batch("09", "eitr",
-                                  ["01-primordial-drop", "03-elivagar", "04-venom-rootlight"])
+                                  ["03-primordial-drop", "03-elivagar", "04-venom-rootlight"])
         self.assertFalse((THEMES / "graphite").exists())
         integrations = json.loads((THEMES / "integrations.json").read_text())
         self.assertNotIn("graphite", integrations)
         for record in json.loads((THEMES / "artwork-batch-09.json").read_text())["images"]:
             self.assertEqual(record["input_images"], ["branding/png/eitr-logo-white-1024.png"]
-                             if record["name"] == "01-primordial-drop" else [])
+                             if record["name"] == "03-primordial-drop" else [])
 
     def test_eitr_generator_preserves_palette_and_light_mode(self):
         import importlib.util

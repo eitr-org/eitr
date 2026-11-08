@@ -10,6 +10,8 @@ const art = new URL("../public/art/", import.meta.url);
 const data = new URL("../src/data/", import.meta.url);
 const approvedArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-04.json", import.meta.url), "utf8"));
 
+const curatedArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-11.json", import.meta.url), "utf8"));
+
 const eitr = {
   mimir: "../assets/norse/03-mimir-well-of-wisdom.jpg",
   valkyrie: "../assets/norse/05-valkyrie.jpg",
@@ -37,7 +39,8 @@ for (const entry of (await readdir(themes, { withFileTypes: true })).filter((ite
   const colors = palette(await readFile(new URL("colors.toml", directory), "utf8"));
   const name = (await readFile(new URL("display-name", directory), "utf8")).trim();
   const light = await readFile(new URL("light.mode", directory)).then(() => true, () => false);
-  const selectedArtwork = approvedArtwork.previews[entry.name];
+  const selectedArtwork = curatedArtwork.images.find((image) => image.theme === entry.name && image.name === "01-gates-of-yggdrasil")?.file
+    ?? approvedArtwork.previews[entry.name];
   const previewSource = selectedArtwork
     ? new URL(`../../${selectedArtwork}`, import.meta.url).pathname
     : new URL(`backgrounds/${wallpapers[0]}`, directory).pathname;

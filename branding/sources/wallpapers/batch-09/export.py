@@ -5,7 +5,7 @@ import importlib.util
 import json
 from pathlib import Path
 
-from PIL import Image, ImageOps
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[4]
 
@@ -24,12 +24,16 @@ def checked_source(record, prefix='native'):
     return source
 
 
-def main():
-    batch = json.loads((ROOT / 'themes/artwork-batch-09.json').read_text())
+def main(number="09"):
+    batch = json.loads((ROOT / f'themes/artwork-batch-{number}.json').read_text())
     specification = importlib.util.spec_from_file_location(
         'ultrawide', ROOT / 'tools/export-wallpapers-ultrawide.py')
     ultrawide = importlib.util.module_from_spec(specification)
     specification.loader.exec_module(ultrawide)
+    specification = importlib.util.spec_from_file_location(
+        'four_k', ROOT / 'tools/export-wallpapers-4k.py')
+    four_k = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(four_k)
     records_path = ROOT / 'themes/artwork-4k.json'
     records = json.loads(records_path.read_text())
     exports = {record['file']: record for record in records['images']}
@@ -44,11 +48,7 @@ def main():
                        if 'ultrawide_native_source' in record else source)
         output = ROOT / record['file']
         output.parent.mkdir(parents=True, exist_ok=True)
-        with Image.open(source) as image:
-            fitted = ImageOps.fit(image.convert('RGB'), (3840, 2160),
-                                  method=Image.Resampling.LANCZOS,
-                                  centering=tuple(record.get('centering', [0.5, 0.5])))
-            fitted.save(output, quality=92, subsampling=0, optimize=True)
+        four_k.export_source(source, output, record.get('centering', [0.5, 0.5]))
         exports[record['file']] = {
             'file': record['file'], 'source': record['native_source'],
             'source_size': record['native_size'], 'source_sha256': record['native_sha256'],

@@ -1,0 +1,60 @@
+"""Approved artwork provenance, framing and theme default regression checks."""
+import importlib.util
+import hashlib
+import json
+from pathlib import Path
+import unittest
+
+from PIL import Image
+
+ROOT = Path(__file__).resolve().parents[2]
+
+
+class Batch11Tests(unittest.TestCase):
+    def test_sources_exports_hashes_and_default_order(self):
+        batch = json.loads((ROOT / 'themes/artwork-batch-11.json').read_text())
+        self.assertEqual(len(batch['images']), 4)
+        for record in batch['images']:
+            self.assertTrue(record['prompt'])
+            self.assertTrue(record['prompt_history'])
+            self.assertTrue(record['input_images'])
+            self.assertTrue(record['ultrawide_input_images'])
+            self.assertEqual(record['centering'], [0.5, 0.5])
+            for prefix in ('native', 'ultrawide_native'):
+                path = ROOT / record[prefix + '_source']
+                self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), record[prefix + '_sha256'])
+                with Image.open(path) as image:
+                    self.assertEqual(list(image.size), record[prefix + '_size'])
+            for key, size in (('file', (3840, 2160)), ('ultrawide_file', (3440, 1440))):
+                path = ROOT / record[key]
+                self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), record[key + '_sha256'])
+                with Image.open(path) as image:
+                    self.assertEqual(image.size, size)
+                    self.assertEqual(image.format, 'JPEG')
+        for theme in ('eitr', 'eitr-light'):
+            for folder in ('backgrounds', 'backgrounds-ultrawide'):
+                names = sorted(path.stem for path in (ROOT / 'themes' / theme / folder).iterdir())
+                expected = ['01-gates-of-yggdrasil', '02-rune-seal', '03-primordial-drop']
+                if theme == 'eitr':
+                    expected.append('04-eitr-runestone')
+                self.assertEqual(names, expected)
+
+    def test_theme_switch_and_fresh_install_first_wallpaper(self):
+        specification = importlib.util.spec_from_file_location(
+            'transition', ROOT / 'walker/scripts/actions/wallpaper/transition.py')
+        transition = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(transition)
+        for theme in ('eitr', 'eitr-light'):
+            wallpapers = transition.wallpapers(ROOT / 'themes' / theme / 'backgrounds')
+            self.assertEqual(Path(wallpapers[0]).name, '01-gates-of-yggdrasil.jpg')
+
+    def test_retired_records_cannot_be_exported_again(self):
+        for number in ('09', '10'):
+            batch = json.loads((ROOT / f'themes/artwork-batch-{number}.json').read_text())
+            for record in batch['images']:
+                if record['name'] == '03-primordial-drop':
+                    self.assertNotEqual(record.get('status'), 'removed')
+                else:
+                    self.assertEqual(record['status'], 'removed')
+                    self.assertFalse((ROOT / record['file']).exists())
+                    self.assertFalse((ROOT / record['ultrawide_file']).exists())

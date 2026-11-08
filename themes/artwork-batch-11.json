@@ -1,0 +1,232 @@
+{
+  "batch": "2026-11-original-11",
+  "generator": "Codex image generation",
+  "status": "owner-approved",
+  "resolution": [
+    3840,
+    2160
+  ],
+  "ultrawide_resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Subject-centred Lanczos crop-to-fill; separate generated panoramic image inputs for ultrawide. Never stretched or padded; exports are not native 4K detail.",
+  "images": [
+    {
+      "theme": "eitr",
+      "name": "01-gates-of-yggdrasil",
+      "rendering_style": "Ink screenprint",
+      "status": "owner-approved",
+      "file": "themes/eitr/backgrounds/01-gates-of-yggdrasil.jpg",
+      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/01-gates-of-yggdrasil.jpg",
+      "prompt": "Use your image generation/editing tool to edit the attached image eitr-gates-d.png and save the result as eitr-gates-e.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep everything exactly the same (composition, gate, stairs, roots, Yggdrasil, figure, ravens, sky, sun or moon, colours and style) except the two carved bear heads on the pillars. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nToday both carved bear heads face the same direction. Make them mirror each other so they face one another across the arch: the bear on the LEFT pillar looks to the right (toward the centre of the arch) and the bear on the RIGHT pillar looks to the left (toward the centre of the arch). Same size, position, carved gold style and expression as now; only their facing direction changes.\n",
+      "prompt_file": "brief-bears-eitr-gates-e.png.md",
+      "input_images": [
+        "eitr-gates-d.png"
+      ],
+      "input_role": "Codex image-generation edit of the earlier owner draft named above; original briefs and their reference inputs retained verbatim below.",
+      "prompt_history": [
+        {
+          "file": "brief-gates.md",
+          "prompt": "Use your image generation tool to create two wallpaper drafts for the Eitr desktop's \"Eitr\" theme and save them as PNG files in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers): eitr-gates-a.png and eitr-gates-b.png. Landscape 16:9 at the highest resolution the tool supports. Do not write code or change anything else; afterwards report each file name with its actual pixel size.\n\nSubject: \"The Gates of Yggdrasil\". The attached refs/gates-example.png shows the idea the owner likes (a monumental carved stone gate with a glowing passage and a lone small figure walking toward it); use it only as a guide, never copy it.\n\nStyle (Eitr's art direction): original Norse fantasy screenprint illustration with bold hand-inked black contours, stylized expressive shapes, flat limited spot colours and two-tone cel shading; clearly drawn, not photographic, not 3D, not cinematic volumetric rendering. Pure black (#000000) as the dominant background with generous negative space. Palette of the Eitr theme: black, venom green glow (#b9d77e, deeper #85c69a), muted gold (#d5c27d) for carved runes and ornament, ivory (#e2eae2) highlights. The gate is carved with Elder Futhark runes and Norse interlace; through the arch glows the trunk and roots of the world tree Yggdrasil in venom green; a tiny cloaked figure stands before it for scale. Keep the whole gate in frame, centred, with calm dark areas left and right for desktop icons and windows. No landscape scenery beyond the gate's stone base (no mountains, forests or sky clouds), no text, no watermark.\nVariant b: a different composition: the gate seen from a low angle with the roots of Yggdrasil growing through and around the stonework, the figure on a stair of rune-carved steps.\n"
+        },
+        {
+          "file": "brief-gates-edit.md",
+          "prompt": "Use your image generation/editing tool to edit the attached image eitr-gates-b.png and save the result as eitr-gates-c.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep everything else exactly the same: the composition, the gate, the stairs, the roots, Yggdrasil glowing green through the arch, the cloaked figure, the style (bold hand-inked black contours, flat colours, two-tone cel shading) and the palette (black, venom green, muted gold, ivory, grey stone). Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nChanges:\n1. The two gold ravens perched on top of the arch currently read as birds with two heads (the wing overlaps the head). Redraw each as a clearly single-headed raven in profile: one head, one beak, the wing folded cleanly against the body.\n2. The two gold animal heads carved on the pillars (left and right of the arch, currently wolf/tiger-like) become bear heads: a carved Norse bear, roaring or calm, clearly a bear (rounded ears, broad muzzle), in the same gold carved style.\n3. The background stays pure black, but add a night sky behind the gate: small scattered stars (white and faint ivory dots of varied sizes, sparse, a few slightly brighter) and a moon (a crescent or full moon in ivory/pale gold, drawn in the same ink style, placed in the upper left or upper right where the black space is), without clouds, gradients, aurora or scenery. The black must remain black between the stars.\n"
+        },
+        {
+          "file": "brief-gates-dark-moon.md",
+          "prompt": "Use your image generation/editing tool to edit the attached image eitr-gates-c.png and save the result as eitr-gates-d.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep everything exactly the same (composition, gate, stairs, roots, Yggdrasil, the figure, the ravens, the bears, the stars, the style and the palette, and the pure black sky) except the moon. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nChange only the moon in the upper left: make it a FULL moon (a complete round disc, not a crescent), in the same position and about the same size or a little larger, in ivory and pale gold with a few subtle darker ink marks for craters, and make it a little more luminous: a soft, thin halo of pale light just around its edge (subtle, not a big glow), so it shines slightly more than now. The black sky around it stays pure black beyond the thin halo.\n"
+        }
+      ],
+      "ultrawide_prompt": "Use your image generation/editing tool to create an ultrawide 21:9 panoramic version of the attached image eitr-gates-e.png and save it as eitr-gates-e-ultrawide.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Generate at the widest 21:9 (or closest) size the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nKeep the central artwork exactly the same (same drawing, size relative to the image height, colours, style and details), centred. Extend the scene only sideways to fill the wider frame with more of the same background: for a black sky, more black with the same sparse stars (and keep the moon or sun where it is relative to the artwork); for a pale sky, more of the same flat pale colour; for the ground or stone base, continue it naturally a little to the sides if it reaches the edges. Do not stretch, squash or crop the artwork, and add no new subjects, text or watermark.\n",
+      "ultrawide_input_images": [
+        "eitr-gates-e.png"
+      ],
+      "ultrawide_input_role": "Codex image-generation panoramic edit of the approved 16:9 master, extending sideways.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.0
+      ],
+      "framing": "Horizontally subject-centred crop to fill; top-aligned panorama crop preserves the complete gate medallion and removes only lower background. No stretching or padding.",
+      "native_source": "branding/sources/wallpapers/batch-11/eitr-01-gates-of-yggdrasil.png",
+      "native_sha256": "3bd964441db6ea3003bf35d4b800e4eaf85295955de7a1b7cf87d193985c3795",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-11/eitr-01-gates-of-yggdrasil-ultrawide.png",
+      "ultrawide_native_sha256": "84b93c2670753039f1210ef6f6539964623f69106d787030b87ee9f6abf25477",
+      "ultrawide_native_size": [
+        1913,
+        822
+      ],
+      "file_sha256": "0847c6f187f6742121e1d61e52b60ea25b5a1f863bba037013cbf7fe6e09580f",
+      "ultrawide_file_sha256": "e2075309f27c07f4dcccd5d72a728e75f4fc7df5f91b403a20187f189f69a5da"
+    },
+    {
+      "theme": "eitr",
+      "name": "02-rune-seal",
+      "rendering_style": "Neon seal on true black (OLED)",
+      "status": "owner-approved",
+      "file": "themes/eitr/backgrounds/02-rune-seal.jpg",
+      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/02-rune-seal.jpg",
+      "prompt": "Use your image generation/editing tool to edit the attached image eitr-oled-seal-b.png and save the result as eitr-oled-seal-c.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep EVERYTHING exactly the same: the glowing neon-green Eitr logo (same size, shape, gradient and glow), the venom drip, the inner gold ring, the runes (same glyphs, thin strokes, positions and size), the pure black background and the overall size of the seal. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nOnly two changes:\n1. Remove the outermost thin circle with the small dots and tick marks (the extra fine ring outside the rune band). The rune band itself stays, bounded by its two gold rings.\n2. Make the gold (the rings and the runes) glow a little: a subtle soft golden halo around the strokes, similar in feel to the logo's green glow but weaker. The black between and around stays pure black.\n",
+      "prompt_file": "brief-seal-edit.md",
+      "input_images": [
+        "eitr-oled-seal-b.png"
+      ],
+      "input_role": "Codex image-generation edit of the earlier owner draft named above; original briefs and their reference inputs retained verbatim below.",
+      "prompt_history": [
+        {
+          "file": "brief.md",
+          "prompt": "Use your image generation tool to create wallpaper drafts for the Eitr desktop's \"Eitr\" theme, and save every result as a PNG in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers), named as listed below. Generate in landscape 16:9 at the highest resolution the tool supports. Do not write code or change anything else; after generating, report each file name with its actual pixel size.\n\nThe theme palette: pure black background (#000000), venom green accent (#b9d77e, with a deeper green #85c69a), muted gold (#d5c27d), ivory (#e2eae2). \"Eitr\" in Norse myth is the primordial venom that flowed from the Élivágar rivers; the first giant, Ymir, formed from its drops where the venom met frost.\n\nAttached references (use them only as guides, never copy them):\n- refs/eitr-logo.png: the Eitr logo (a white emblem). Reproduce its silhouette faithfully when a design calls for the logo.\n- refs/rune-circle-example.png: the owner likes this STYLE for design 1: a glowing symbol inside a ring of runes on pure black, like neon on an OLED screen.\n- refs/muspelheim-main.jpg: the main wallpaper of another theme; design 2 must be equally striking but completely different in subject, composition and colour.\n\nDesign 1, OLED rune seal (two variants: eitr-oled-seal-a.png and eitr-oled-seal-b.png):\nPure black background (true #000000 everywhere outside the artwork, so OLED pixels stay off). In the centre, the Eitr logo drawn as a glowing venom-green neon emblem. Around it, a thin circular ring in muted gold holding the 24 Elder Futhark runes in their real order (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ), evenly spaced, clean strokes, softly glowing. Minimal and elegant, generous black space; the seal fills about 45% of the image height, centred. Variant b: a second, finer outer ring with small dots or tick marks between the runes and a subtle drip of venom from the emblem; still minimal. No text other than runes, no watermark.\n\nDesign 2, main theme wallpaper (two variants: eitr-main-a.png and eitr-main-b.png):\nOriginal Norse fantasy screenprint illustration with bold hand-inked black contours, stylized expressive shapes, flat limited spot colours and two-tone cel shading (not realistic, not 3D, not photographic). Pure black as the dominant background with large negative space. Subject: the birth of Ymir from the primordial venom: a colossal giant's silhouette rising out of a pool of glowing venom-green drops that fall from above, where the venom meets swirling frost; tiny figure or ravens for scale optional. Palette: black, venom green glow, ivory frost, touches of muted gold. A strong, iconic central composition readable as a desktop background, the subject fully in frame, with calm areas left and right for desktop icons and windows. No landscape scenery (no trees, mountains or lakes), no text, no watermark. Variant b: a different composition: a single enormous venom drop falling into frost with the giant's face forming inside the splash.\n"
+        }
+      ],
+      "ultrawide_prompt": "Use your image generation/editing tool to create an ultrawide 21:9 panoramic version of the attached image eitr-oled-seal-c.png and save it as eitr-oled-seal-c-ultrawide.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Generate at the widest 21:9 (or closest) size the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nKeep the central artwork exactly the same (same drawing, size relative to the image height, colours, style and details), centred. Extend the scene only sideways to fill the wider frame with more of the same background: for a black sky, more black with the same sparse stars (and keep the moon or sun where it is relative to the artwork); for a pale sky, more of the same flat pale colour; for the ground or stone base, continue it naturally a little to the sides if it reaches the edges. Do not stretch, squash or crop the artwork, and add no new subjects, text or watermark.\n",
+      "ultrawide_input_images": [
+        "eitr-oled-seal-c.png"
+      ],
+      "ultrawide_input_role": "Codex image-generation panoramic edit of the approved 16:9 master, extending sideways.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "framing": "Subject-centred crop to fill, without stretching or padding.",
+      "native_source": "branding/sources/wallpapers/batch-11/eitr-02-rune-seal.png",
+      "native_sha256": "5ed92bae54b437705dc27f75c0bf66a61843a555b80dadf98eca23165f60ae36",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-11/eitr-02-rune-seal-ultrawide.png",
+      "ultrawide_native_sha256": "e003a5bf2a0561e9243d798d995e3c67c704fb5eb8295fa84bee71443f96d601",
+      "ultrawide_native_size": [
+        1881,
+        836
+      ],
+      "file_sha256": "27b0faa3046f903023a24e36344b821e8ba075661b9ed146b483775d69955464",
+      "ultrawide_file_sha256": "38ec579995b3f3c21be66a5404cd5fa66d379e94704f988928bb8545b07ae27d"
+    },
+    {
+      "theme": "eitr-light",
+      "name": "01-gates-of-yggdrasil",
+      "rendering_style": "Ink screenprint on pale parchment",
+      "status": "owner-approved",
+      "file": "themes/eitr-light/backgrounds/01-gates-of-yggdrasil.jpg",
+      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/01-gates-of-yggdrasil.jpg",
+      "prompt": "Use your image generation/editing tool to edit the attached image eitr-gates-light-b.png and save the result as eitr-gates-light-c.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep everything exactly the same (composition, gate, stairs, roots, Yggdrasil, figure, ravens, sky, sun or moon, colours and style) except the two carved bear heads on the pillars. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nToday both carved bear heads face the same direction. Make them mirror each other so they face one another across the arch: the bear on the LEFT pillar looks to the right (toward the centre of the arch) and the bear on the RIGHT pillar looks to the left (toward the centre of the arch). Same size, position, carved gold style and expression as now; only their facing direction changes.\n",
+      "prompt_file": "brief-bears-eitr-gates-light-c.png.md",
+      "input_images": [
+        "eitr-gates-light-b.png"
+      ],
+      "input_role": "Codex image-generation edit of the earlier owner draft named above; original briefs and their reference inputs retained verbatim below.",
+      "prompt_history": [
+        {
+          "file": "brief-gates.md",
+          "prompt": "Use your image generation tool to create two wallpaper drafts for the Eitr desktop's \"Eitr\" theme and save them as PNG files in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers): eitr-gates-a.png and eitr-gates-b.png. Landscape 16:9 at the highest resolution the tool supports. Do not write code or change anything else; afterwards report each file name with its actual pixel size.\n\nSubject: \"The Gates of Yggdrasil\". The attached refs/gates-example.png shows the idea the owner likes (a monumental carved stone gate with a glowing passage and a lone small figure walking toward it); use it only as a guide, never copy it.\n\nStyle (Eitr's art direction): original Norse fantasy screenprint illustration with bold hand-inked black contours, stylized expressive shapes, flat limited spot colours and two-tone cel shading; clearly drawn, not photographic, not 3D, not cinematic volumetric rendering. Pure black (#000000) as the dominant background with generous negative space. Palette of the Eitr theme: black, venom green glow (#b9d77e, deeper #85c69a), muted gold (#d5c27d) for carved runes and ornament, ivory (#e2eae2) highlights. The gate is carved with Elder Futhark runes and Norse interlace; through the arch glows the trunk and roots of the world tree Yggdrasil in venom green; a tiny cloaked figure stands before it for scale. Keep the whole gate in frame, centred, with calm dark areas left and right for desktop icons and windows. No landscape scenery beyond the gate's stone base (no mountains, forests or sky clouds), no text, no watermark.\nVariant b: a different composition: the gate seen from a low angle with the roots of Yggdrasil growing through and around the stonework, the figure on a stair of rune-carved steps.\n"
+        },
+        {
+          "file": "brief-gates-edit.md",
+          "prompt": "Use your image generation/editing tool to edit the attached image eitr-gates-b.png and save the result as eitr-gates-c.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep everything else exactly the same: the composition, the gate, the stairs, the roots, Yggdrasil glowing green through the arch, the cloaked figure, the style (bold hand-inked black contours, flat colours, two-tone cel shading) and the palette (black, venom green, muted gold, ivory, grey stone). Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nChanges:\n1. The two gold ravens perched on top of the arch currently read as birds with two heads (the wing overlaps the head). Redraw each as a clearly single-headed raven in profile: one head, one beak, the wing folded cleanly against the body.\n2. The two gold animal heads carved on the pillars (left and right of the arch, currently wolf/tiger-like) become bear heads: a carved Norse bear, roaring or calm, clearly a bear (rounded ears, broad muzzle), in the same gold carved style.\n3. The background stays pure black, but add a night sky behind the gate: small scattered stars (white and faint ivory dots of varied sizes, sparse, a few slightly brighter) and a moon (a crescent or full moon in ivory/pale gold, drawn in the same ink style, placed in the upper left or upper right where the black space is), without clouds, gradients, aurora or scenery. The black must remain black between the stars.\n"
+        },
+        {
+          "file": "brief-gates-light.md",
+          "prompt": "Use your image generation/editing tool to edit the attached image eitr-gates-c.png into a LIGHT-theme version and save it as eitr-gates-light.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nKeep the exact same drawing: composition, gate, stairs, roots, Yggdrasil through the arch, the cloaked figure, the two single-headed ravens, the carved bears on the pillars, the bold black ink contours, flat colours and two-tone cel shading.\n\nChange only the colour scheme to the Eitr Light theme: the black sky becomes a pale, slightly cool off-white parchment (#f1f6f1), flat with no gradient; remove every star and the moon; in their place, in the upper left where the moon was, draw a sun: a round disc in warm pale gold with a dark ink outline and a few short, simple ink rays (flat, no glow, no gradient), the same size as the moon was or slightly larger; stone in light warm greys with dark ink contours; the gold ornament in deeper bronze; Yggdrasil and the roots in deep forest green (#1f4d31 to #3e5212) with lighter green highlights instead of a neon glow; the light through the arch a soft pale green. It must read as a calm, bright wallpaper for a light theme, with the same quiet empty areas left and right. No text, no watermark.\n"
+        },
+        {
+          "file": "brief-gates-sun.md",
+          "prompt": "Use your image generation/editing tool to edit the attached image eitr-gates-light.png and save the result as eitr-gates-light-b.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep everything exactly the same (composition, gate, stairs, roots, Yggdrasil, figure, ravens, bears, colours, style, the flat pale sky) except the sun. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nReplace the simple icon-like sun (a flat disc with thin straight line rays) in the upper left with a proper illustrated sun drawn in the SAME hand-inked style as the rest of the picture, as carefully drawn as the gate itself: a full round sun disc in warm gold and pale amber with two-tone cel shading and a few ink texture strokes, surrounded by bold flame-like rays (alternating long and short tapered, slightly wavy points, like a Norse sun emblem of Sól), each ray with a dark ink contour and a lighter inner tone, plus a thin ring of pale golden light just around the disc. About the same size as the moon in the dark version (a little larger is fine), in the same position. No face on the sun, no gradient sky, no clouds, no text.\n"
+        }
+      ],
+      "ultrawide_prompt": "Use your image generation/editing tool to create an ultrawide 21:9 panoramic version of the attached image eitr-gates-light-c.png and save it as eitr-gates-light-c-ultrawide.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Generate at the widest 21:9 (or closest) size the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nKeep the central artwork exactly the same (same drawing, size relative to the image height, colours, style and details), centred. Extend the scene only sideways to fill the wider frame with more of the same background: for a black sky, more black with the same sparse stars (and keep the moon or sun where it is relative to the artwork); for a pale sky, more of the same flat pale colour; for the ground or stone base, continue it naturally a little to the sides if it reaches the edges. Do not stretch, squash or crop the artwork, and add no new subjects, text or watermark.\n",
+      "ultrawide_input_images": [
+        "eitr-gates-light-c.png"
+      ],
+      "ultrawide_input_role": "Codex image-generation panoramic edit of the approved 16:9 master, extending sideways.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.0
+      ],
+      "framing": "Horizontally subject-centred crop to fill; top-aligned panorama crop preserves the complete gate medallion and removes only lower background. No stretching or padding.",
+      "native_source": "branding/sources/wallpapers/batch-11/eitr-light-01-gates-of-yggdrasil.png",
+      "native_sha256": "5404a5870ef0ed69263371c8c53cedad9cb9188ed6810d50d01565614458b379",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-11/eitr-light-01-gates-of-yggdrasil-ultrawide.png",
+      "ultrawide_native_sha256": "1442f5ca2e68962fc8fa7b7ad7f9766bb5a98e62edc288f578aa4f1f3476b617",
+      "ultrawide_native_size": [
+        1914,
+        822
+      ],
+      "file_sha256": "96179e17ab0953f4eb5620c69f0b5d0cea7be640224d69bc3d60e92f3c4720a3",
+      "ultrawide_file_sha256": "da30b61a09f641b7034b657a13a3cba3428138affb4adfb06f93536c9e5446ed"
+    },
+    {
+      "theme": "eitr-light",
+      "name": "02-rune-seal",
+      "rendering_style": "Light counterpart of the neon seal",
+      "status": "owner-approved",
+      "file": "themes/eitr-light/backgrounds/02-rune-seal.jpg",
+      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/02-rune-seal.jpg",
+      "prompt": "Use your image generation/editing tool to edit the attached image eitr-oled-seal-c.png into a LIGHT-theme version and save it as eitr-seal-light-ai.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep the exact same design, sizes and positions: the Eitr logo blob with its emblem, the venom drip, the two gold rings and the same runes in the same places. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nChange only the colours to the Eitr Light theme: the black background becomes a flat pale, slightly cool off-white (#f1f6f1), no gradient; the logo blob becomes deep forest green (#1f4d31) with a slightly lighter green toward its centre, the emblem cut-out inside it pale (#f1f6f1); the drip the same deep green; the rings and runes become deep bronze (#5c4b14); replace the neon glows with a very soft, pale warm halo (pale gold around the rings and runes, pale green around the logo) that reads as a gentle sheen on a light background, never as a dark shadow.\n",
+      "prompt_file": "brief-seal-light.md",
+      "input_images": [
+        "eitr-oled-seal-c.png"
+      ],
+      "input_role": "Codex image-generation edit of the earlier owner draft named above; original briefs and their reference inputs retained verbatim below.",
+      "prompt_history": [
+        {
+          "file": "brief.md",
+          "prompt": "Use your image generation tool to create wallpaper drafts for the Eitr desktop's \"Eitr\" theme, and save every result as a PNG in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers), named as listed below. Generate in landscape 16:9 at the highest resolution the tool supports. Do not write code or change anything else; after generating, report each file name with its actual pixel size.\n\nThe theme palette: pure black background (#000000), venom green accent (#b9d77e, with a deeper green #85c69a), muted gold (#d5c27d), ivory (#e2eae2). \"Eitr\" in Norse myth is the primordial venom that flowed from the Élivágar rivers; the first giant, Ymir, formed from its drops where the venom met frost.\n\nAttached references (use them only as guides, never copy them):\n- refs/eitr-logo.png: the Eitr logo (a white emblem). Reproduce its silhouette faithfully when a design calls for the logo.\n- refs/rune-circle-example.png: the owner likes this STYLE for design 1: a glowing symbol inside a ring of runes on pure black, like neon on an OLED screen.\n- refs/muspelheim-main.jpg: the main wallpaper of another theme; design 2 must be equally striking but completely different in subject, composition and colour.\n\nDesign 1, OLED rune seal (two variants: eitr-oled-seal-a.png and eitr-oled-seal-b.png):\nPure black background (true #000000 everywhere outside the artwork, so OLED pixels stay off). In the centre, the Eitr logo drawn as a glowing venom-green neon emblem. Around it, a thin circular ring in muted gold holding the 24 Elder Futhark runes in their real order (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ), evenly spaced, clean strokes, softly glowing. Minimal and elegant, generous black space; the seal fills about 45% of the image height, centred. Variant b: a second, finer outer ring with small dots or tick marks between the runes and a subtle drip of venom from the emblem; still minimal. No text other than runes, no watermark.\n\nDesign 2, main theme wallpaper (two variants: eitr-main-a.png and eitr-main-b.png):\nOriginal Norse fantasy screenprint illustration with bold hand-inked black contours, stylized expressive shapes, flat limited spot colours and two-tone cel shading (not realistic, not 3D, not photographic). Pure black as the dominant background with large negative space. Subject: the birth of Ymir from the primordial venom: a colossal giant's silhouette rising out of a pool of glowing venom-green drops that fall from above, where the venom meets swirling frost; tiny figure or ravens for scale optional. Palette: black, venom green glow, ivory frost, touches of muted gold. A strong, iconic central composition readable as a desktop background, the subject fully in frame, with calm areas left and right for desktop icons and windows. No landscape scenery (no trees, mountains or lakes), no text, no watermark. Variant b: a different composition: a single enormous venom drop falling into frost with the giant's face forming inside the splash.\n"
+        },
+        {
+          "file": "brief-seal-edit.md",
+          "prompt": "Use your image generation/editing tool to edit the attached image eitr-oled-seal-b.png and save the result as eitr-oled-seal-c.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep EVERYTHING exactly the same: the glowing neon-green Eitr logo (same size, shape, gradient and glow), the venom drip, the inner gold ring, the runes (same glyphs, thin strokes, positions and size), the pure black background and the overall size of the seal. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nOnly two changes:\n1. Remove the outermost thin circle with the small dots and tick marks (the extra fine ring outside the rune band). The rune band itself stays, bounded by its two gold rings.\n2. Make the gold (the rings and the runes) glow a little: a subtle soft golden halo around the strokes, similar in feel to the logo's green glow but weaker. The black between and around stays pure black.\n"
+        }
+      ],
+      "ultrawide_prompt": "Use your image generation/editing tool to create an ultrawide 21:9 panoramic version of the attached image eitr-seal-light-ai.png and save it as eitr-seal-light-ai-ultrawide.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Generate at the widest 21:9 (or closest) size the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nKeep the central artwork exactly the same (same drawing, size relative to the image height, colours, style and details), centred. Extend the scene only sideways to fill the wider frame with more of the same background: for a black sky, more black with the same sparse stars (and keep the moon or sun where it is relative to the artwork); for a pale sky, more of the same flat pale colour; for the ground or stone base, continue it naturally a little to the sides if it reaches the edges. Do not stretch, squash or crop the artwork, and add no new subjects, text or watermark.\n",
+      "ultrawide_input_images": [
+        "eitr-seal-light-ai.png"
+      ],
+      "ultrawide_input_role": "Codex image-generation panoramic edit of the approved 16:9 master, extending sideways.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "framing": "Subject-centred crop to fill, without stretching or padding.",
+      "native_source": "branding/sources/wallpapers/batch-11/eitr-light-02-rune-seal.png",
+      "native_sha256": "865535eaea3a39c6dc78af1fd18961a01c1e9b75878f831bff6042c3a34bad28",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-11/eitr-light-02-rune-seal-ultrawide.png",
+      "ultrawide_native_sha256": "a1f242e3073845ecb1470e0443266acd9f2f69a0baf44346cadc06528f248b67",
+      "ultrawide_native_size": [
+        1914,
+        822
+      ],
+      "file_sha256": "a794152c710ff9303cc8a92104b8b24920acc9ae15dd8a6fbb056a47f1122795",
+      "ultrawide_file_sha256": "3ebd4398bde2152812230c78e1dba93040d7b70b7bc81454f79353079548f300"
+    }
+  ]
+}
