@@ -691,3 +691,11 @@ html:not([lang="en"]) .road-release > .road-body { min-width: 0; overflow-wrap: 
   html:not([lang="en"]) .hero-details { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   html:not([lang="en"]) .hero-details a { white-space: normal; overflow-wrap: anywhere; }
 }
+
+.release-shots{display:grid;gap:14px;margin:4px 0 26px}
+.release-shots.pair{grid-template-columns:repeat(2,minmax(0,1fr))}
+.release-shot{display:block;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#000}
+.release-shot img{display:block;width:100%;height:auto}
+.release-shot:hover,.release-shot:focus-visible{border-color:var(--line-strong)}
+.release-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:24px}
+@media(max-width:600px){.release-shots.pair{grid-template-columns:1fr}}

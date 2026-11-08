@@ -108,6 +108,27 @@ export const screenshotGroups = [
     "title": "themes_style",
     "shots": [
       {
+        "file": "settings-bar",
+        "caption": "settings_caption",
+        "alt": "settings_alt",
+        "width": 1152,
+        "height": 852
+      },
+      {
+        "file": "eitr-seal",
+        "caption": "eitr_seal_caption",
+        "alt": "eitr_seal_alt",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "eitr-gates",
+        "caption": "eitr_gates_caption",
+        "alt": "eitr_gates_alt",
+        "width": 1920,
+        "height": 1080
+      },
+      {
         "file": "themes",
         "caption": "choosing_a_theme",
         "alt": "choosing_a_theme",
@@ -118,8 +139,8 @@ export const screenshotGroups = [
         "file": "catalog",
         "caption": "catalog_caption",
         "alt": "catalog_alt",
-        "width": 1920,
-        "height": 1080
+        "width": 1152,
+        "height": 852
       },
       {
         "file": "eitr-light",
@@ -338,8 +359,8 @@ export const screenshotGroups = [
         "file": "handbook",
         "caption": "the_eitr_handbook_s_welcome",
         "alt": "the_eitr_handbook_open_on_the_desktop",
-        "width": 1920,
-        "height": 1080
+        "width": 1152,
+        "height": 852
       },
       {
         "file": "handbook-shortcuts",

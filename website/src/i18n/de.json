@@ -227,7 +227,8 @@
     "islands_groups": "Inseln gruppiert Bedienelemente in schwebenden Kapseln mit mittiger Uhr.",
     "focus_preset": "Focus bietet Fenstertabs und bis zu vier Bereiche pro Monitor und bewahrt deine normalen Leisteneinstellungen.",
     "clock_format": "Wähle das 12- oder 24-Stunden-Format.",
-    "lockscreen_accounts": "Wähle aus neun Sperrbildschirm-Designs. Eitrs eigenes ritzt für jede getippte Taste eine Rune."
+    "lockscreen_accounts": "Wähle aus neun Sperrbildschirm-Designs. Eitrs eigenes ritzt für jede getippte Taste eine Rune.",
+    "whats_new_in": "Neu in {version}"
   },
   "development": {
     "development_part_of_the_same_desktop": "Entwicklung / Teil desselben Desktops",
@@ -604,7 +605,10 @@
     "guide_description": "Lies Eitrs Handbuch online: Tastenkürzel, Anwendungen, Entwicklung, KI-Agenten, Git-Identitäten, Cloud-Abläufe, Desktop-Einstellungen und Wiederherstellung.",
     "privacy_label": "Datenschutz",
     "privacy_title": "Eitr-Linux-Datenschutz — Berichte und Website-Daten",
-    "privacy_description": "Wie Eitr Linux optionale Problemberichte behandelt und welche Daten die Website erfasst."
+    "privacy_description": "Wie Eitr Linux optionale Problemberichte behandelt und welche Daten die Website erfasst.",
+    "whatsnew_label": "Neuigkeiten",
+    "whatsnew_title": "Neu in Eitr Linux 0.7.2 — Einstellungen, Handbuch und neue Hintergründe",
+    "whatsnew_description": "Eitr 0.7.2 bringt eine Einstellungen-App für den ganzen Desktop, ein Fenster für Themes & Plugins, ein Handbuch, das dich mit einer Tour begrüßt, und neue Eitr-Hintergründe, angeführt vom Rune Seal."
   },
   "gallery": {
     "desktop_bar": "Desktop und Leiste",
@@ -674,7 +678,13 @@
     "eitr_light_caption": "Eitr Light",
     "eitr_light_alt": "Der Eitr-Light-Desktop mit Neovim und Über",
     "terminal_settings_caption": "Terminal-Darstellung",
-    "terminal_settings_alt": "Walkers Terminal-Menü mit Unschärfe, Unschärfestärke, Cursorfeuer, Deckkraft, Innenabstand, Ghostty und Kitty"
+    "terminal_settings_alt": "Walkers Terminal-Menü mit Unschärfe, Unschärfestärke, Cursorfeuer, Deckkraft, Innenabstand, Ghostty und Kitty",
+    "settings_caption": "Einstellungen: alle Desktop-Steuerelemente in einem Fenster",
+    "settings_alt": "Das Eitr-Einstellungsfenster auf der Seite der Leiste, mit Live-Vorschauen der fünf Layouts",
+    "eitr_seal_caption": "Rune Seal, der Standardhintergrund des Eitr-Themes",
+    "eitr_seal_alt": "Der leere Eitr-Desktop mit dem leuchtend grünen Eitr-Emblem in einem goldenen Runenring auf reinem Schwarz",
+    "eitr_gates_caption": "The Gates of Yggdrasil",
+    "eitr_gates_alt": "Der Eitr-Desktop mit dem Hintergrund The Gates of Yggdrasil: ein geschnitztes Steintor mit Bären und Raben, das sich zum Weltenbaum öffnet"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "Desktop-Code aus Paketen; Offline-Installer, signiertes Repository, Werksreset und Dual-Boot",
@@ -692,7 +702,8 @@
     "stable": "stabil",
     "Updates served from download.eitr.info": "Updates von download.eitr.info",
     "Real-desktop screenshots on the site and smaller downloads": "Echte Desktop-Screenshots auf der Website und kleinere Downloads",
-    "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "Plugins, das Eitr-Design mit eigenen Neovim- und VS-Code-Farben, der Focus-Modus und das Leistenlayout Islands"
+    "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "Plugins, das Eitr-Design mit eigenen Neovim- und VS-Code-Farben, der Focus-Modus und das Leistenlayout Islands",
+    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "Die Einstellungen-App, das Fenster Themes & Plugins, ein Handbuch, das mit einer Willkommenstour beginnt, WLAN und Bluetooth unter Verbindungen und neue Eitr-Hintergründe, angeführt vom Rune Seal"
   },
   "client": {
     "day": "Tag",
@@ -736,5 +747,57 @@
     "fallback": "Dieses Kapitel wird auf Englisch angezeigt, während seine Übersetzung auf Prüfung wartet.",
     "generated": "Tastatur- und Maustabellen werden aus den Quellen für Tastenkürzel und Gesten von Lernen generiert.",
     "shared": "Dieses Kapitel wird mit dem Offline-Handbuch geteilt und nicht separat für die Website gepflegt."
+  },
+  "whatsnew": {
+    "eyebrow": "Eitr {version} {codename}",
+    "heading": "Neuigkeiten",
+    "heading_em": "in dieser Version",
+    "lead": "Ein Ort für jede Einstellung, ein Zuhause für Themes und Plugins, ein Handbuch, das dich am ersten Tag begrüßt, und neue Bilder für das Eitr-Theme.",
+    "sections": "Höhepunkte der Version",
+    "settings_eyebrow": "Einstellungen",
+    "settings_title": "Jede Einstellung,",
+    "settings_title_em": "ein Fenster",
+    "settings_text": "Die neue Einstellungen-App bündelt die Steuerelemente des Desktops in einem durchsuchbaren Fenster im nordischen Stil von Eitr. Die Panels der Leiste bleiben schnell, und ihre Links in der Fußzeile öffnen die passende Seite, wenn du mehr willst.",
+    "settings_point_pages": "Seiten für Bildschirme, Ton, Verbindungen, Streaming, Eingabe, Darstellung, die Leiste, Fenster, den Sperrbildschirm, Benachrichtigungen, Fokus, den KI-Assistenten, Tastenkürzel, Standard-Apps, Git- und Cloud-Konten, Sicherheit, Updates und dein Benutzerkonto.",
+    "settings_point_connections": "Verbindungen zeigt WLAN und Bluetooth nebeneinander in Tabs, mit Netzwerkdetails und Geräten in der Nähe.",
+    "settings_point_previews": "Layouts und Positionen der Leiste, Hintergründe und Sperrbildschirme wählst du über Bildvorschauen; Bildschirme ordnest du auf einer Monitorkarte an.",
+    "settings_point_controls": "Auswahllisten schweben über der Seite und springen beim Tippen zur Option; die Einstellungen können den Farben deines Themes folgen oder die Palette der Eitr-Website nutzen.",
+    "catalog_eyebrow": "Themes & Plugins",
+    "catalog_title": "Mach es zu deinem,",
+    "catalog_title_em": "in einem eigenen Fenster",
+    "catalog_text": "Themes und Plugins haben jetzt ihr eigenes Fenster im Stil der Einstellungen, damit Stöbern und Installieren nie den restlichen Desktop überladen.",
+    "catalog_point_sources": "Listen für Installiert, Offiziell und Community, für Themes und Plugins.",
+    "catalog_point_filter": "Theme-Karten zeigen eine Vorschau und die Palette; filtere nach hell oder dunkel.",
+    "catalog_point_community": "Die Community-Listen sind bereit für Themes und Plugins, die andere teilen.",
+    "handbook_eyebrow": "Handbuch",
+    "handbook_title": "Ein herzlicher Empfang,",
+    "handbook_title_em": "ein Leitfaden, der bleibt",
+    "handbook_text": "Das EITR-Handbuch öffnet sich jetzt bei der ersten Anmeldung mit einer Willkommensseite. Es funktioniert offline, ist durchsuchbar und wurde von vorn bis hinten überarbeitet.",
+    "handbook_point_tour": "Eine kurze Tour stellt die Leiste, den Starter, die Einstellungen, das Kontrollzentrum und Themes vor.",
+    "handbook_point_setup": "Einrichtungskarten öffnen die Einstellungsseiten, die du zuerst brauchst: WLAN, Theme und Hintergrund, Tastatur, Profilbild und Bildschirme.",
+    "handbook_point_figures": "Kapitel zeigen Live-Illustrationen der echten Leisten-Layouts und Panels in deinem aktuellen Theme.",
+    "handbook_point_web": "Dieselben Kapitel stehen auf dieser Website, damit du vor der Installation vorauslesen kannst.",
+    "wallpapers_eyebrow": "Hintergründe",
+    "wallpapers_title": "Neue Bilder",
+    "wallpapers_title_em": "für das Eitr-Theme",
+    "wallpapers_text": "Zwei neue, von Hand getuschte Hintergründe ergänzen Primordial Drop und den animierten Runestone.",
+    "wallpapers_point_seal": "Rune Seal, der neue Standard: das Eitr-Emblem leuchtet in einem goldenen Runenring auf reinem Schwarz, gemacht für OLED-Bildschirme.",
+    "wallpapers_point_gates": "The Gates of Yggdrasil: geschnitzte Bären und Raben bewachen ein Steintor, das sich zum Weltenbaum öffnet.",
+    "wallpapers_point_light": "Eitr Light hat beide Bilder auf hellem Pergament, mit einer Sonne statt des Mondes. Jeder Hintergrund liegt auch als Ultrawide-Version bei.",
+    "details_eyebrow": "Und mehr",
+    "details_title": "Kleinere Dinge,",
+    "details_title_em": "ruhigere Tage",
+    "details_control_center": "Das Kontrollzentrum ist schlanker, und seine Plugin-Zeilen zeigen den Zeiger-Cursor.",
+    "details_bluetooth": "Bluetooth verbindet ein Gerät, wenn du auf seine Zeile klickst, und zeigt auf Wunsch auch unbenannte Geräte.",
+    "details_keyboard": "Das Tastatur-Panel zeigt bis zu vier Layouts und scrollt, wenn du mehr hinzufügst.",
+    "details_display": "Das Bildschirm-Panel gibt dem geöffneten Bildschirm eine eigene Karte.",
+    "details_updates": "Nach der Systemaktualisierung zeigt die Leiste das System sofort als aktuell an.",
+    "get_eyebrow": "Holen",
+    "get_title": "Neu installieren",
+    "get_title_em": "oder direkt aktualisieren",
+    "get_text": "Du nutzt Eitr schon? Starte die Systemaktualisierung, um alles auf dieser Seite zu bekommen. Neu hier? Lade die ISO herunter und folge der Installationsanleitung.",
+    "download": "{version} herunterladen",
+    "installation_link": "Installationsanleitung",
+    "screenshots_link": "Mehr Bildschirmfotos"
   }
 }

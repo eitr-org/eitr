@@ -47,6 +47,7 @@ npm run preview   # serves the production build locally
 - `src/pages/screenshots.astro`: `/screenshots/`, the complete grouped screenshot gallery.
 - `src/pages/about.astro`: `/about/`, the distribution's identity, audience and beta scope.
 - `src/pages/features.astro`: `/features/`, current desktop, development and recovery capabilities.
+- `src/pages/whats-new.astro`: `/whats-new/`, the current release's highlights beside real screenshots.
 - `src/pages/installation.astro`: `/installation/`, target requirements and hardware evidence.
 - `src/pages/development.astro`: `/development/`, included tools, optional installs and integrated account/AI workflows.
 - `src/pages/guide.astro`: `/guide/`, searchable chapter index and canonical installation/VM links.

@@ -1,0 +1,61 @@
+---
+import { translator } from '../i18n';
+const t = translator(Astro.url.pathname, 'whatsnew');
+const gallery = translator(Astro.url.pathname, 'gallery');
+import Layout from '../layouts/Layout.astro';
+import { sitePages } from '../data/site-pages';
+import release from '../data/release.json';
+import download from '../data/download.json';
+
+// One section per headline change of the current release, each beside its real screenshot.
+const highlights = [
+  { id: 'settings', shot: 'settings-bar', size: [1152, 852], alt: 'settings_alt', points: ['settings_point_pages', 'settings_point_connections', 'settings_point_previews', 'settings_point_controls'] },
+  { id: 'catalog', shot: 'catalog', size: [1152, 852], alt: 'catalog_alt', points: ['catalog_point_sources', 'catalog_point_filter', 'catalog_point_community'] },
+  { id: 'handbook', shot: 'handbook', size: [1152, 852], alt: 'the_eitr_handbook_open_on_the_desktop', points: ['handbook_point_tour', 'handbook_point_setup', 'handbook_point_figures', 'handbook_point_web'] },
+  { id: 'wallpapers', shot: 'eitr-seal', alt: 'eitr_seal_alt', second: { shot: 'eitr-gates', alt: 'eitr_gates_alt' }, points: ['wallpapers_point_seal', 'wallpapers_point_gates', 'wallpapers_point_light'] },
+];
+---
+<Layout {...sitePages.whatsnew}>
+  <section class="wrap guide-intro">
+    <p class="eyebrow">{t('eyebrow', { version: release.version, codename: release.codename })}</p>
+    <h1>{t('heading')}<br /><em>{t('heading_em')}</em></h1>
+    <p class="lead">{t('lead')}</p>
+    <nav class="info-links" aria-label={t('sections')}>
+      {highlights.map(item => <a class="text-link" href={`#${item.id}`}>{t(`${item.id}_eyebrow`)}</a>)}
+      <a class="text-link" href="#details">{t('details_eyebrow')}</a>
+    </nav>
+  </section>
+  <div class="wrap info-body">
+    {highlights.map(item => <section class="info-section release-highlight" id={item.id} aria-labelledby={`whatsnew-${item.id}`}>
+      <p class="eyebrow">{t(`${item.id}_eyebrow`)}</p>
+      <h2 id={`whatsnew-${item.id}`}>{t(`${item.id}_title`)}<br /><em>{t(`${item.id}_title_em`)}</em></h2>
+      <div class:list={['release-shots', { pair: item.second }]}>
+        <a class="release-shot" href={`/shots/${item.shot}.webp`}><img src={`/shots/${item.shot}.webp`} alt={gallery(item.alt)} width={item.size?.[0] ?? 1920} height={item.size?.[1] ?? 1080} loading="lazy" /></a>
+        {item.second && <a class="release-shot" href={`/shots/${item.second.shot}.webp`}><img src={`/shots/${item.second.shot}.webp`} alt={gallery(item.second.alt)} width="1920" height="1080" loading="lazy" /></a>}
+      </div>
+      <p>{t(`${item.id}_text`)}</p>
+      <ul>{item.points.map(point => <li>{t(point)}</li>)}</ul>
+    </section>)}
+    <section class="info-section" id="details" aria-labelledby="whatsnew-details">
+      <p class="eyebrow">{t('details_eyebrow')}</p>
+      <h2 id="whatsnew-details">{t('details_title')}<br /><em>{t('details_title_em')}</em></h2>
+      <ul>
+        <li>{t('details_control_center')}</li>
+        <li>{t('details_bluetooth')}</li>
+        <li>{t('details_keyboard')}</li>
+        <li>{t('details_display')}</li>
+        <li>{t('details_updates')}</li>
+      </ul>
+    </section>
+    <section class="info-section" aria-labelledby="whatsnew-get">
+      <p class="eyebrow">{t('get_eyebrow')}</p>
+      <h2 id="whatsnew-get">{t('get_title')}<br /><em>{t('get_title_em')}</em></h2>
+      <p>{t('get_text')}</p>
+      <div class="release-actions">
+        <a class="button primary" href={download.url} download={download.file}>{t('download', { version: download.version })}</a>
+        <a class="text-link" href="/installation/">{t('installation_link')}</a>
+        <a class="text-link" href="/screenshots/">{t('screenshots_link')}</a>
+      </div>
+    </section>
+  </div>
+</Layout>

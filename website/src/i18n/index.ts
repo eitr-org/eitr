@@ -14,7 +14,7 @@ export function languageFor(path: string): Language {
 export function unprefixed(path: string) {
   return path.replace(/^\/(pt-br|es|de|fr)(?=\/|$)/, '') || '/';
 }
-export const pagePaths = ['/', '/about/', '/features/', '/development/', '/installation/', '/privacy/', '/screenshots/', '/intro/', '/guide/'];
+export const pagePaths = ['/', '/about/', '/features/', '/whats-new/', '/development/', '/installation/', '/privacy/', '/screenshots/', '/intro/', '/guide/'];
 export function hasLocalizedPage(path: string) {
   return pagePaths.includes(path) || /^\/guide\/[a-z0-9-]+\/$/.test(path);
 }

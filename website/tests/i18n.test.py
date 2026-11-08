@@ -11,7 +11,7 @@ import xml.etree.ElementTree as ElementTree
 ROOT = Path(__file__).resolve().parents[1]
 LANGUAGES = ('en', 'pt-br', 'es', 'de', 'fr')
 CHAPTERS = json.loads((ROOT.parent / 'quickshell/desktop-bar/handbook/chapters.json').read_text())
-PAGES = ('', 'about/', 'features/', 'development/', 'installation/', 'privacy/', 'screenshots/', 'guide/', 'intro/') + tuple(f'guide/{chapter["id"]}/' for chapter in CHAPTERS)
+PAGES = ('', 'about/', 'features/', 'whats-new/', 'development/', 'installation/', 'privacy/', 'screenshots/', 'guide/', 'intro/') + tuple(f'guide/{chapter["id"]}/' for chapter in CHAPTERS)
 
 
 class Document(HTMLParser):

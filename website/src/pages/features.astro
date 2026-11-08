@@ -4,6 +4,7 @@ const t = translator(Astro.url.pathname, 'features');
 import Layout from '../layouts/Layout.astro';
 import { sitePages } from '../data/site-pages';
 import themes from '../data/themes.json';
+import release from '../data/release.json';
 ---
 <Layout {...sitePages.features}>
   <section class="wrap guide-intro">
@@ -11,7 +12,7 @@ import themes from '../data/themes.json';
     <h1>{t('one_desktop')}<br /><em>{t('many_ways_to_use_it')}</em></h1>
     <p class="lead">{t('eitr_linux_brings_an_arch_based_system_a_native_hyprlan')}</p>
     <nav class="info-links" aria-label={t('feature_sections')}>
-      <a class="text-link" href="#desktop">{t('desktop')}</a><a class="text-link" href="#development">{t('development_ai')}</a><a class="text-link" href="#accounts">{t('accounts')}</a><a class="text-link" href="#organizations">{t('organizations')}</a><a class="text-link" href="#recovery">{t('recovery')}</a>
+      <a class="text-link" href="#desktop">{t('desktop')}</a><a class="text-link" href="#development">{t('development_ai')}</a><a class="text-link" href="#accounts">{t('accounts')}</a><a class="text-link" href="#organizations">{t('organizations')}</a><a class="text-link" href="#recovery">{t('recovery')}</a><a class="text-link" href="/whats-new/">{t('whats_new_in', { version: release.version })}</a>
     </nav>
   </section>
   <div class="wrap info-body">

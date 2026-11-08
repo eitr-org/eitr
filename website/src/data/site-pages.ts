@@ -6,6 +6,7 @@ export const sitePages = {
   home: { path: '/', label: en.metadata.home_label, title: en.metadata.home_title, description: en.metadata.home_description },
   screenshots: { path: '/screenshots/', label: en.metadata.screenshots_label, title: en.metadata.screenshots_title, description: en.metadata.screenshots_description },
   about: { path: '/about/', label: en.metadata.about_label, title: en.metadata.about_title, description: en.metadata.about_description },
+  whatsnew: { path: '/whats-new/', label: en.metadata.whatsnew_label, title: en.metadata.whatsnew_title, description: en.metadata.whatsnew_description },
   features: { path: '/features/', label: en.metadata.features_label, title: en.metadata.features_title, description: en.metadata.features_description },
   development: { path: '/development/', label: en.metadata.development_label, title: en.metadata.development_title, description: en.metadata.development_description },
   installation: { path: '/installation/', label: en.metadata.installation_label, title: en.metadata.installation_title, description: en.metadata.installation_description },
