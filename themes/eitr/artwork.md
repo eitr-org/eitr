@@ -8,8 +8,8 @@ Neovim and VS Code use Eitr's own themes from this palette.
 
 ## Wallpapers
 
-1. `01-gates-of-yggdrasil.jpg` — The Gates of Yggdrasil: carved bears facing across a monumental gate, ravens, a lone figure and the world tree. The new default; owner-approved ink screenprint with bold contours and flat cel shading.
-2. `02-rune-seal.jpg` — the Eitr emblem and venom drip within gold rune rings; owner-approved neon seal on true black for OLED displays.
+1. `01-rune-seal.jpg` — the Eitr emblem and venom drip within gold rune rings; the default, an owner-approved neon seal on true black for OLED displays.
+2. `02-gates-of-yggdrasil.jpg` — The Gates of Yggdrasil: carved bears facing across a monumental gate, ravens, a lone figure and the world tree; owner-approved ink screenprint with bold contours and flat cel shading.
 3. `03-primordial-drop.jpg` — the complete venom teardrop in black void.
 4. `04-eitr-runestone.png` — the procedural bronze-gold emblem and rune ring beneath an aurora; the animated wallpaper.
 
@@ -27,7 +27,7 @@ the original drawings; they are not distributed wallpaper assets.
 Primordial Drop retains its owner-approved painterly style and provenance in
 `../artwork-batch-09.json`. Élivágar and Venom Rootlight are removed;
 their prompts remain in those manifests as history. Saved selections migrate
-to the renamed image or the new Gates default.
+to the renamed image or the new Rune Seal default.
 
 `references/generate-wallpapers.py` generates the runestone and live layers in
 `motion/04-eitr-runestone/`. Its static image remains the lockscreen fallback.

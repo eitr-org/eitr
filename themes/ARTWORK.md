@@ -136,15 +136,16 @@ after visual inspection. The artwork exporter does not rewrite panel captures.
 
 ## Eitr and Eitr Light — Batch 11
 
-The owner-approved order is Gates of Yggdrasil (default), Rune Seal, Primordial
-Drop, then the animated Runestone in Eitr only. Gates uses bold hand-inked
+The owner-approved order in Eitr is Rune Seal (default), Gates of Yggdrasil,
+Primordial Drop, then the animated Runestone; Eitr Light starts with Gates of
+Yggdrasil, then Rune Seal and Primordial Drop. Gates uses bold hand-inked
 Norse screenprint with flat colours and cel shading, black sky and moon in Eitr,
 pale parchment and illustrated sun in Eitr Light. Rune Seal uses the explicitly
 approved neon emblem and gold rune rings on true black (OLED); the light
 counterpart uses forest green, bronze and a gentle pale sheen. Rune ornament,
 logo silhouettes and these controlled glows are intentional owner exceptions.
 Batch 11 replaces Élivágar and Venom Rootlight in both themes. Saved paths
-migrate to their renamed files or the theme's new Gates default.
+migrate to their renamed files or the theme's new default.
 
 `themes/artwork-batch-11.json` records the supplied prompts verbatim, input
 images and earlier edit history, native dimensions, hashes and subject-centred
@@ -153,4 +154,4 @@ edits of earlier drafts; the panoramas are separate generated sideways
 expansions, not stretched masters. Eight native PNGs and the shared-pipeline
 `export.py` live under `branding/sources/wallpapers/batch-11/`. Outputs are
 3840×2160 and 3440×1440 JPEGs using Lanczos, without padding or stretching.
-Existing independent theme previews are preserved; website cards select Gates.
+Existing independent theme previews are preserved; website cards select each theme's first wallpaper.

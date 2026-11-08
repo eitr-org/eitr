@@ -14,11 +14,11 @@
   "images": [
     {
       "theme": "eitr",
-      "name": "01-gates-of-yggdrasil",
+      "name": "02-gates-of-yggdrasil",
       "rendering_style": "Ink screenprint",
       "status": "owner-approved",
-      "file": "themes/eitr/backgrounds/01-gates-of-yggdrasil.jpg",
-      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/01-gates-of-yggdrasil.jpg",
+      "file": "themes/eitr/backgrounds/02-gates-of-yggdrasil.jpg",
+      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/02-gates-of-yggdrasil.jpg",
       "prompt": "Use your image generation/editing tool to edit the attached image eitr-gates-d.png and save the result as eitr-gates-e.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep everything exactly the same (composition, gate, stairs, roots, Yggdrasil, figure, ravens, sky, sun or moon, colours and style) except the two carved bear heads on the pillars. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nToday both carved bear heads face the same direction. Make them mirror each other so they face one another across the arch: the bear on the LEFT pillar looks to the right (toward the centre of the arch) and the bear on the RIGHT pillar looks to the left (toward the centre of the arch). Same size, position, carved gold style and expression as now; only their facing direction changes.\n",
       "prompt_file": "brief-bears-eitr-gates-e.png.md",
       "input_images": [
@@ -53,13 +53,13 @@
         0.0
       ],
       "framing": "Horizontally subject-centred crop to fill; top-aligned panorama crop preserves the complete gate medallion and removes only lower background. No stretching or padding.",
-      "native_source": "branding/sources/wallpapers/batch-11/eitr-01-gates-of-yggdrasil.png",
+      "native_source": "branding/sources/wallpapers/batch-11/eitr-02-gates-of-yggdrasil.png",
       "native_sha256": "3bd964441db6ea3003bf35d4b800e4eaf85295955de7a1b7cf87d193985c3795",
       "native_size": [
         1672,
         941
       ],
-      "ultrawide_native_source": "branding/sources/wallpapers/batch-11/eitr-01-gates-of-yggdrasil-ultrawide.png",
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-11/eitr-02-gates-of-yggdrasil-ultrawide.png",
       "ultrawide_native_sha256": "84b93c2670753039f1210ef6f6539964623f69106d787030b87ee9f6abf25477",
       "ultrawide_native_size": [
         1913,
@@ -70,11 +70,11 @@
     },
     {
       "theme": "eitr",
-      "name": "02-rune-seal",
+      "name": "01-rune-seal",
       "rendering_style": "Neon seal on true black (OLED)",
       "status": "owner-approved",
-      "file": "themes/eitr/backgrounds/02-rune-seal.jpg",
-      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/02-rune-seal.jpg",
+      "file": "themes/eitr/backgrounds/01-rune-seal.jpg",
+      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/01-rune-seal.jpg",
       "prompt": "Use your image generation/editing tool to edit the attached image eitr-oled-seal-b.png and save the result as eitr-oled-seal-c.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep EVERYTHING exactly the same: the glowing neon-green Eitr logo (same size, shape, gradient and glow), the venom drip, the inner gold ring, the runes (same glyphs, thin strokes, positions and size), the pure black background and the overall size of the seal. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nOnly two changes:\n1. Remove the outermost thin circle with the small dots and tick marks (the extra fine ring outside the rune band). The rune band itself stays, bounded by its two gold rings.\n2. Make the gold (the rings and the runes) glow a little: a subtle soft golden halo around the strokes, similar in feel to the logo's green glow but weaker. The black between and around stays pure black.\n",
       "prompt_file": "brief-seal-edit.md",
       "input_images": [
@@ -101,13 +101,13 @@
         0.5
       ],
       "framing": "Subject-centred crop to fill, without stretching or padding.",
-      "native_source": "branding/sources/wallpapers/batch-11/eitr-02-rune-seal.png",
+      "native_source": "branding/sources/wallpapers/batch-11/eitr-01-rune-seal.png",
       "native_sha256": "5ed92bae54b437705dc27f75c0bf66a61843a555b80dadf98eca23165f60ae36",
       "native_size": [
         1672,
         941
       ],
-      "ultrawide_native_source": "branding/sources/wallpapers/batch-11/eitr-02-rune-seal-ultrawide.png",
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-11/eitr-01-rune-seal-ultrawide.png",
       "ultrawide_native_sha256": "e003a5bf2a0561e9243d798d995e3c67c704fb5eb8295fa84bee71443f96d601",
       "ultrawide_native_size": [
         1881,

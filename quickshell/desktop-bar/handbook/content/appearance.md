@@ -99,7 +99,7 @@ changes stay quiet: they do not send success notifications. Ultrawide monitors
 (at least twice as wide as tall) show each wallpaper's 21:9 version, so less of
 the picture is cut away; other monitors show the 4K 16:9 one.
 
-The Eitr theme has four wallpapers: The Gates of Yggdrasil (the default), Rune Seal,
+The Eitr theme has four wallpapers: Rune Seal (the default), The Gates of Yggdrasil,
 Primordial Drop and Runestone. Select them through the same wallpaper controls;
 the palette stays the same. The fourth wallpaper, Runestone, is live: northern
 lights drift slowly behind the rune ring, update more slowly behind ordinary

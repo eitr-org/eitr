@@ -10,6 +10,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / 'distro/migrations/20261108120000-eitr-wallpaper-curation.py'
+SWAP = ROOT / 'distro/migrations/20261108180000-eitr-rune-seal-first.py'
 
 
 class WallpaperCurationTests(unittest.TestCase):
@@ -29,14 +30,15 @@ class WallpaperCurationTests(unittest.TestCase):
             self.assertEqual(rename(path, 'eitr'), path)
 
     def test_saved_paths_monitor_config_symlinks_and_lock_picture_are_idempotent(self):
-        for theme, retired in (('eitr', '03-elivagar'), ('eitr-light', '02-elivagar')):
+        for theme, retired, default in (('eitr', '03-elivagar', '01-rune-seal'),
+                                        ('eitr-light', '02-elivagar', '01-gates-of-yggdrasil')):
             with tempfile.TemporaryDirectory() as directory:
                 home = Path(directory)
                 config = home / 'config'
                 cache = home / 'cache'
                 data = home / 'data'
                 selected = f'/usr/share/eitr/themes/{theme}/backgrounds/{retired}.jpg'
-                expected = selected.replace(retired, '01-gates-of-yggdrasil')
+                expected = selected.replace(retired, default)
                 preference = config / 'eitr/appearance.json'
                 preference.parent.mkdir(parents=True)
                 preference.write_text(json.dumps(dict(theme=theme, wallpaper=selected, other=42,
@@ -90,3 +92,24 @@ class WallpaperCurationTests(unittest.TestCase):
                 PYTHONPATH=str(ROOT / 'distro/lib'))
             subprocess.run([sys.executable, str(SCRIPT)], env=environment, check=True, timeout=10)
             self.assertEqual(list(home.iterdir()), [])
+
+    def test_rune_seal_swap_after_either_curation_and_leaves_eitr_light_alone(self):
+        themes = '/usr/share/eitr/themes/'
+        cases = (('eitr', 'eitr/backgrounds/03-elivagar.jpg', 'eitr/backgrounds/01-rune-seal.jpg'),
+                 ('eitr', 'eitr/backgrounds/01-gates-of-yggdrasil.jpg', 'eitr/backgrounds/02-gates-of-yggdrasil.jpg'),
+                 ('eitr', 'eitr/backgrounds-ultrawide/02-rune-seal.jpg', 'eitr/backgrounds-ultrawide/01-rune-seal.jpg'),
+                 ('eitr-light', 'eitr-light/backgrounds/01-gates-of-yggdrasil.jpg',
+                  'eitr-light/backgrounds/01-gates-of-yggdrasil.jpg'))
+        for theme, saved, expected in cases:
+            with self.subTest(saved=saved), tempfile.TemporaryDirectory() as directory:
+                home = Path(directory)
+                preference = home / 'config/eitr/appearance.json'
+                preference.parent.mkdir(parents=True)
+                preference.write_text(json.dumps(dict(theme=theme, wallpaper=themes + saved)))
+                environment = dict(os.environ, HOME=str(home), XDG_CONFIG_HOME=str(home / 'config'),
+                    XDG_CACHE_HOME=str(home / 'cache'), XDG_DATA_HOME=str(home / 'data'),
+                    PYTHONPATH=str(ROOT / 'distro/lib'))
+                for migration in (SCRIPT, SWAP, SWAP):
+                    subprocess.run([sys.executable, str(migration)], env=environment, check=True, timeout=10)
+                self.assertEqual(json.loads(preference.read_text())['wallpaper'], themes + expected)
+                self.assertTrue((ROOT / 'themes' / expected).is_file())

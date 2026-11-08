@@ -9,8 +9,8 @@ from eitr_paths import cache, config, data, read_settings, write_settings
 RENAMES = {
     'eitr': {'01-primordial-drop': '03-primordial-drop',
              '02-eitr-runestone': '04-eitr-runestone',
-             '03-elivagar': '01-gates-of-yggdrasil',
-             '04-venom-rootlight': '01-gates-of-yggdrasil'},
+             '03-elivagar': '01-rune-seal',
+             '04-venom-rootlight': '01-rune-seal'},
     'eitr-light': {'01-primordial-drop': '03-primordial-drop',
                    '02-elivagar': '01-gates-of-yggdrasil',
                    '03-venom-rootlight': '01-gates-of-yggdrasil'},
@@ -27,11 +27,11 @@ def selected_theme():
     return 'eitr'
 
 
-def renamed(value, theme):
+def renamed(value, theme, renames=RENAMES):
     if isinstance(value, dict):
-        return {key: renamed(item, theme) for key, item in value.items()}
+        return {key: renamed(item, theme, renames) for key, item in value.items()}
     if isinstance(value, list):
-        return [renamed(item, theme) for item in value]
+        return [renamed(item, theme, renames) for item in value]
     if not isinstance(value, str):
         return value
     path = Path(value)
@@ -43,7 +43,7 @@ def renamed(value, theme):
     identifier = owner.name if owner.parent.name == 'themes' else None
     if owner == config('theme/current'):
         identifier = theme
-    replacement = RENAMES.get(identifier, {}).get(path.stem)
+    replacement = renames.get(identifier, {}).get(path.stem)
     if replacement is None:
         return value
     suffix = path.suffix if replacement == '04-eitr-runestone' else '.jpg'
@@ -60,26 +60,27 @@ def atomic_text(path, text):
         Path(temporary).unlink(missing_ok=True)
 
 
-def main():
+def main(renames=RENAMES):
+    """Rewrite saved wallpaper paths named in renames; later migrations reuse this."""
     theme = selected_theme()
     paths = [config('eitr/appearance.json'), *data('eitr/lockscreens').glob('*/lockscreen.json')]
     for path in paths:
         if path.is_file():
             values = read_settings(path)
-            updated = renamed(values, theme)
+            updated = renamed(values, theme, renames)
             if values != updated:
                 write_settings(path, updated)
     for directory in {cache(), Path.home() / '.cache'}:
         marker = directory / 'current-wallpaper'
         if marker.is_file():
             current = marker.read_text()
-            updated = renamed(current.strip(), theme)
+            updated = renamed(current.strip(), theme, renames)
             if updated != current.strip():
                 atomic_text(marker, updated + '\n')
         link = directory / 'current-wallpaper-image'
         if link.is_symlink():
             current = os.readlink(link)
-            updated = renamed(current, theme)
+            updated = renamed(current, theme, renames)
             if updated != current:
                 temporary = link.with_suffix('.new')
                 temporary.unlink(missing_ok=True)
@@ -89,7 +90,7 @@ def main():
         if monitors.is_file():
             current = monitors.read_text()
             updated = re.sub(r'(?m)^(\s*path\s*=\s*)([^\n]+)',
-                             lambda match: match[1] + renamed(match[2], theme), current)
+                             lambda match: match[1] + renamed(match[2], theme, renames), current)
             if current != updated:
                 atomic_text(monitors, updated)
 

@@ -80,7 +80,7 @@ Le + ouvre le catalogue séparé avec le même filtre. Ctrl+Tab parcourt les fil
 
 **SUPER + Ctrl + N** ouvre les fonds et **SUPER + Shift + N** passe au suivant. Une coche indique le choix actif dans Walker. Les changements n’affichent aucune notification de réussite. Les écrans ultrawide, au moins deux fois plus larges que hauts, utilisent la version 21:9 pour réduire le recadrage ; les autres utilisent la version 4K 16:9.
 
-Eitr propose quatre fonds : The Gates of Yggdrasil (par défaut), Rune Seal, Primordial Drop et Runestone. Utilisez les mêmes commandes de sélection ; la palette reste identique. Le quatrième fond, Runestone, est animé : les aurores se déplacent lentement derrière l’anneau de runes, se mettent à jour moins souvent derrière les fenêtres ordinaires, s’arrêtent derrière les applications plein écran et restent fixes sur le verrouillage.
+Eitr propose quatre fonds : Rune Seal (par défaut), The Gates of Yggdrasil, Primordial Drop et Runestone. Utilisez les mêmes commandes de sélection ; la palette reste identique. Le quatrième fond, Runestone, est animé : les aurores se déplacent lentement derrière l’anneau de runes, se mettent à jour moins souvent derrière les fenêtres ordinaires, s’arrêtent derrière les applications plein écran et restent fixes sur le verrouillage.
 
 Le rendu logiciel (par exemple, une VM sans accélération 3D) utilise le fond fixe sélectionné ; il en va de même si le moteur de rendu ne peut pas être détecté. Graphite a été retiré ; les sélections Graphite enregistrées passent à Eitr et à son fond par défaut.
 

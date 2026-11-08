@@ -77,7 +77,7 @@ O + abre o catálogo separado com o mesmo filtro. Ctrl+Tab alterna filtros, digi
 
 **SUPER + Ctrl + N** abre os papéis de parede e **SUPER + Shift + N** avança para o próximo. Uma marca indica a escolha ativa no Walker. As trocas não exibem notificações de sucesso. Monitores ultrawide, com largura de pelo menos duas vezes a altura, usam a versão 21:9 de cada imagem para reduzir o recorte; os demais usam a versão 4K 16:9.
 
-O Eitr tem quatro papéis de parede: The Gates of Yggdrasil (padrão), Rune Seal, Primordial Drop e Runestone. Escolha pelos mesmos controles; a paleta permanece igual. O quarto, Runestone, é animado: auroras se movem lentamente atrás do anel de runas, atualizam mais devagar atrás de janelas comuns, pausam atrás de aplicativos em tela cheia e ficam estáticas na tela de bloqueio.
+O Eitr tem quatro papéis de parede: Rune Seal (padrão), The Gates of Yggdrasil, Primordial Drop e Runestone. Escolha pelos mesmos controles; a paleta permanece igual. O quarto, Runestone, é animado: auroras se movem lentamente atrás do anel de runas, atualizam mais devagar atrás de janelas comuns, pausam atrás de aplicativos em tela cheia e ficam estáticas na tela de bloqueio.
 
 A renderização por software (por exemplo, numa VM sem aceleração 3D) usa o papel de parede estático selecionado; o mesmo acontece se não for possível detectar o renderizador. Graphite foi removido; seleções salvas do Graphite mudam para Eitr e seu papel de parede padrão.
 

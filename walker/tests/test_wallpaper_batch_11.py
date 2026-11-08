@@ -36,7 +36,7 @@ class Batch11Tests(unittest.TestCase):
                 names = sorted(path.stem for path in (ROOT / 'themes' / theme / folder).iterdir())
                 expected = ['01-gates-of-yggdrasil', '02-rune-seal', '03-primordial-drop']
                 if theme == 'eitr':
-                    expected.append('04-eitr-runestone')
+                    expected = ['01-rune-seal', '02-gates-of-yggdrasil', '03-primordial-drop', '04-eitr-runestone']
                 self.assertEqual(names, expected)
 
     def test_theme_switch_and_fresh_install_first_wallpaper(self):
@@ -44,9 +44,9 @@ class Batch11Tests(unittest.TestCase):
             'transition', ROOT / 'walker/scripts/actions/wallpaper/transition.py')
         transition = importlib.util.module_from_spec(specification)
         specification.loader.exec_module(transition)
-        for theme in ('eitr', 'eitr-light'):
+        for theme, first in (('eitr', '01-rune-seal.jpg'), ('eitr-light', '01-gates-of-yggdrasil.jpg')):
             wallpapers = transition.wallpapers(ROOT / 'themes' / theme / 'backgrounds')
-            self.assertEqual(Path(wallpapers[0]).name, '01-gates-of-yggdrasil.jpg')
+            self.assertEqual(Path(wallpapers[0]).name, first)
 
     def test_retired_records_cannot_be_exported_again(self):
         for number in ('09', '10'):

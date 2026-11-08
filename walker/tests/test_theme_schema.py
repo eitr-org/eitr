@@ -115,7 +115,7 @@ class ThemeSchemaTests(unittest.TestCase):
     def test_eitr_runestone_and_ragnarok_fenrir_collections(self):
         for folder, runestone in (("backgrounds", "04-eitr-runestone.png"),
                                    ("backgrounds-ultrawide", "04-eitr-runestone.jpg")):
-            self.assertEqual(sorted(path.name for path in (THEMES / "eitr" / folder).iterdir()), ["01-gates-of-yggdrasil.jpg", "02-rune-seal.jpg", "03-primordial-drop.jpg", runestone])
+            self.assertEqual(sorted(path.name for path in (THEMES / "eitr" / folder).iterdir()), ["01-rune-seal.jpg", "02-gates-of-yggdrasil.jpg", "03-primordial-drop.jpg", runestone])
             self.assertTrue((THEMES / "ragnarok" / folder / "05-fenrir.jpg").is_file())
         for manifest in ("artwork-4k.json", "artwork-ultrawide.json"):
             records = json.loads((THEMES / manifest).read_text())["images"]

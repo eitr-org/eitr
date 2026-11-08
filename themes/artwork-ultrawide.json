@@ -162,10 +162,10 @@
       ]
     },
     {
-      "file": "themes/eitr/backgrounds-ultrawide/01-gates-of-yggdrasil.jpg",
-      "wallpaper": "themes/eitr/backgrounds/01-gates-of-yggdrasil.jpg",
+      "file": "themes/eitr/backgrounds-ultrawide/02-gates-of-yggdrasil.jpg",
+      "wallpaper": "themes/eitr/backgrounds/02-gates-of-yggdrasil.jpg",
       "source": {
-        "file": "branding/sources/wallpapers/batch-11/eitr-01-gates-of-yggdrasil-ultrawide.png"
+        "file": "branding/sources/wallpapers/batch-11/eitr-02-gates-of-yggdrasil-ultrawide.png"
       },
       "framing": "crop",
       "centering": [
@@ -174,10 +174,10 @@
       ]
     },
     {
-      "file": "themes/eitr/backgrounds-ultrawide/02-rune-seal.jpg",
-      "wallpaper": "themes/eitr/backgrounds/02-rune-seal.jpg",
+      "file": "themes/eitr/backgrounds-ultrawide/01-rune-seal.jpg",
+      "wallpaper": "themes/eitr/backgrounds/01-rune-seal.jpg",
       "source": {
-        "file": "branding/sources/wallpapers/batch-11/eitr-02-rune-seal-ultrawide.png"
+        "file": "branding/sources/wallpapers/batch-11/eitr-01-rune-seal-ultrawide.png"
       },
       "framing": "crop",
       "centering": [

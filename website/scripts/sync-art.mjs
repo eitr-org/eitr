@@ -39,7 +39,7 @@ for (const entry of (await readdir(themes, { withFileTypes: true })).filter((ite
   const colors = palette(await readFile(new URL("colors.toml", directory), "utf8"));
   const name = (await readFile(new URL("display-name", directory), "utf8")).trim();
   const light = await readFile(new URL("light.mode", directory)).then(() => true, () => false);
-  const selectedArtwork = curatedArtwork.images.find((image) => image.theme === entry.name && image.name === "01-gates-of-yggdrasil")?.file
+  const selectedArtwork = curatedArtwork.images.find((image) => image.theme === entry.name && image.name.startsWith("01-"))?.file
     ?? approvedArtwork.previews[entry.name];
   const previewSource = selectedArtwork
     ? new URL(`../../${selectedArtwork}`, import.meta.url).pathname
