@@ -2,7 +2,9 @@
 
 Ouvrez **SUPER + F > Paramètres**. Les dossiers précèdent les actions, par ordre alphabétique. La recherche globale retrouve aussi les anciens noms, dont System et Toggle.
 
-**Connectivité**, **Périphériques et saisie**, **Langue**, **Sécurité**, **Style**, **Système** sont des dossiers. **Centre de contrôle** ouvre les mêmes commandes que SUPER + virgule. **Fichiers de configuration** ouvre votre dossier de configuration dans VS Code ou LazyVim.
+<!-- eitr-figure: launcher -->
+
+Le menu Paramètres dans Walker. **Connectivité**, **Périphériques et saisie**, **Langue**, **Sécurité**, **Style** et **Système** sont des dossiers, marqués par **>**. **Centre de contrôle** ouvre les mêmes commandes que SUPER + I ; **Fichiers de configuration** ouvre votre dossier de configuration dans VS Code ou LazyVim.
 
 Connectivité ouvre les panneaux natifs Bluetooth et WiFi, le moteur réseau et l’accès à distance. Le choix du moteur prépare le prochain démarrage sans relancer la connexion active.
 

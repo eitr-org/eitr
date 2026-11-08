@@ -213,3 +213,11 @@ WelcomeTour welcome/WelcomeTour.qml
 WelcomeTourArt welcome/WelcomeTourArt.qml
 WelcomeSetupCards welcome/WelcomeSetupCards.qml
 WelcomeMore welcome/WelcomeMore.qml
+HandbookFigure figures/HandbookFigure.qml
+FigureCallout figures/FigureCallout.qml
+BarAnatomyFigure figures/BarAnatomyFigure.qml
+BarLayoutsFigure figures/BarLayoutsFigure.qml
+ControlCenterFigure figures/ControlCenterFigure.qml
+SettingsWindowFigure figures/SettingsWindowFigure.qml
+LauncherFigure figures/LauncherFigure.qml
+WindowStyleFigure figures/WindowStyleFigure.qml

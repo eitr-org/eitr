@@ -81,6 +81,10 @@ Suas imagens, temas e telas de bloqueio ficam neste computador, em `~/.local/sha
 
 **Configurações > Estilo > Barra da área de trabalho** escolhe desfoque, cor do tema ou site, layout completo ou centralizado e borda. O Walker acompanha essa aparência. **Configurações > Estilo > Cantos** escolhe cantos quadrados, arredondados ou muito arredondados para as superfícies do EITR e decorações do compositor. Aplicativos de terceiros podem manter seus controles próprios; pontos de estado circulares continuam circulares.
 
+<!-- eitr-figure: window-style -->
+
+Espaçamento das janelas e Cantos como **Configurações > Janelas** os mostra, com suas escolhas atuais marcadas. Por padrão, há 6 px entre janelas e 12 px nas bordas da tela.
+
 ## Fontes
 
 **Configurações > Estilo > Fontes** lista famílias de fontes instaladas utilizáveis, não cada variante em negrito ou itálico. Famílias de documentos e de reserva ficam ocultas. JetBrainsMono Nerd Font é o padrão. A seleção atualiza os aplicativos compatíveis; ligaturas são ativadas quando disponíveis. Remover uma família remove suas variantes instaladas compatíveis; a última opção utilizável não pode ser removida. Pode ser necessário conferir a qual pacote a fonte pertence.
@@ -112,4 +116,4 @@ Os temas integrados vêm com o Eitr e não podem ser removidos. A lixeira de um 
 Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar na página atual por nome ou descrição. As palavras podem estar em qualquer ordem; Escape limpa a pesquisa primeiro.
 
 
-Em **Configurações > Janelas > Espaçamento das janelas** ou **Walker > Configurações > Estilo > Espaçamento das janelas**, escolha Nenhum, Pequeno, Padrão ou Grande. Padrão mantém 6 px internos e 12 px externos. A preferência local permanece após trocas de tema e recarregamentos.
+Em **Configurações > Janelas > Espaçamento das janelas** ou **Walker > Configurações > Estilo > Espaçamento das janelas**, escolha Nenhum, Pequeno, Padrão ou Grande. A preferência local permanece após trocas de tema e recarregamentos.

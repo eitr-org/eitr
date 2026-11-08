@@ -2,7 +2,9 @@
 
 Ces commandes sont également disponibles directement dans les paramètres.
 
-La barre garde la date et l’heure centrées. À gauche figure d’abord le logo Eitr, qui ouvre le Centre de contrôle, puis Vue d’ensemble, marqueurs d’espaces de travail, Utilisation IA, Matériel et Verrouillage automatique ; à droite, les commandes de périphériques et d’état. Cliquez sur **Afficher les icônes** pour afficher ou masquer ce groupe droit.
+<!-- eitr-figure: bar-anatomy -->
+
+La barre complète. Le logo Eitr ouvre le Centre de contrôle ; viennent ensuite Vue d’ensemble, les marqueurs d’espaces de travail, Utilisation IA, Matériel et Verrouillage automatique. La date et l’heure restent centrées, le multimédia avant elles et la météo après. **Afficher les icônes** affiche ou masque les icônes d’état à droite ; les notifications viennent en dernier.
 
 Îlots présente des surfaces séparées pour le logo, la vue d’ensemble et les espaces de travail, Utilisation IA/Matériel/Verrouillage d’inactivité, l’horloge, la météo et les icônes d’état. Les indicateurs multimédias et de capture apparaissent uniquement lorsqu’ils sont actifs. L’horloge reste exactement centrée à l’écran ; la météo possède sa propre surface à côté. Les surfaces sont toujours entièrement arrondies, quel que soit le réglage des coins, et suivent la couleur/transparence et le flou. Elles se placent à la moitié de l’espacement extérieur actuel de Hyprland du bord, avec l’espacement complet entre surfaces voisines, sur les quatre côtés. La zone réservée aux fenêtres inclut l’épaisseur et cette moitié ; le masquage automatique ne réserve rien. Les intervalles laissent passer les clics. Les zones vides acceptent les gestes habituels de double clic et de glissement. Ouvrir un panneau fait grandir une carte depuis son îlot (vers le côté libre : la météo à droite, le multimédia et la capture à gauche, l’état vers le centre, l’horloge des deux côtés) et écarte les îlots voisins ; l’îlot reste caché sous la carte jusqu’à ce qu’elle ait rétréci. Les icônes d’état gardent leur bouton manuel d’affichage/masquage.
 
@@ -18,6 +20,10 @@ L’icône de mises à jour du groupe droit, avant Notifications, vérifie les p
 - **Horloge** dans Style > Barre de bureau et Paramètres (SUPER + ,) > Barre de bureau affiche l’heure sur 12 heures avec AM/PM (par défaut) ou sur 24 heures, sur chaque bord.
 - Les mêmes réglages figurent dans **Paramètres > Style > Barre de bureau** et Paramètres (SUPER + ,) > Barre de bureau.
 - **Écrans** (Afficher sur) place la barre uniquement sur l’écran principal, par défaut, ou sur tous. Avec plusieurs barres, chacune indique l’espace de travail de son écran ; les raccourcis comme SUPER + I s’ouvrent sur l’écran utilisé et les notifications apparaissent uniquement sur le principal. Choisissez celui-ci dans le panneau Écran.
+
+<!-- eitr-figure: bar-layouts -->
+
+Les cinq dispositions dans l’ordre où le double clic droit les fait défiler. Au repos, Centrée n’affiche que l’horloge et Dynamique trois petits îlots ; les deux se déplient au survol.
 
 Le mode centré n’affiche que l’horloge jusqu’au survol. Les icônes se déploient dans l’ordre habituel. L’épingle entre médias et horloge garde la barre ouverte ; les panneaux ouverts aussi. En mode complet, les panneaux rejoignent la barre ; en mode centré, ils restent à côté. Les deux s’ouvrent et se ferment avec la même animation fluide. Chaque côté épouse son contenu et l’horloge reste au centre de l’écran sur les quatre bords.
 

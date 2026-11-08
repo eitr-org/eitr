@@ -8,7 +8,11 @@ Las listas desplegables permiten navegar escribiendo cuando el selector o la lis
 
 ## Configuración
 
-Los grupos son Resumen, Dispositivos, Escritorio, Aplicaciones y teclas, Cuentas y seguridad y Sistema. Los títulos con runas y el indicador dorado deslizante facilitan la navegación. Cada página tiene título, descripción y tarjetas de ajustes. La ventana sigue siendo opaca. El Manual y Temas y plugins usan el mismo marco, barra lateral, encabezado de página y tarjetas, y siguen la misma elección de colores.
+<!-- eitr-figure: settings-window -->
+
+Configuración agrupa sus páginas en Resumen, Dispositivos, Escritorio, Aplicaciones y teclas, Cuentas y seguridad y Sistema, cada grupo con un título rúnico. Un indicador dorado deslizante marca la página actual; la búsqueda encuentra nombres y descripciones de páginas. Cada página tiene ruta, título y descripción, y tarjetas con borde agrupan las filas relacionadas.
+
+La ventana sigue siendo opaca. El Manual y Temas y plugins usan el mismo marco, barra lateral, encabezado de página y tarjetas, y siguen la misma elección de colores.
 
 Conexiones tiene pestañas **Wi-Fi** y **Bluetooth**, cada una con un interruptor de encendido rotulado al principio. Wi-Fi muestra de la red conectada la señal, la seguridad, la banda, el canal, la velocidad del enlace, las direcciones, la puerta de enlace, el DNS, la dirección MAC, la interfaz, el backend y el ping (solo los campos que informa el backend) con Desconectar; después, las redes conocidas con Olvidar, otras redes y la elección del backend, que se aplica tras reiniciar. Bluetooth muestra los dispositivos conectados con su nivel de batería y Desconectar, los conocidos (emparejados) con Olvidar y otros dispositivos; los dispositivos sin nombre quedan bajo **Mostrar dispositivos sin nombre**. Haz clic en la fila de una red o un dispositivo para conectar: un dispositivo nuevo se empareja primero, una red protegida pide su contraseña, y el progreso y los errores aparecen en la fila. **Buscar** en la cabecera de Otras redes u Otros dispositivos busca más; en Bluetooth, pulsarlo de nuevo detiene la búsqueda. Pantallas separa **Pantallas** y **Luz nocturna**. Apariencia separa **Tema y fondo de pantalla**, **Fuentes y cursor** y **Terminal**. Izquierda/Derecha cambia la pestaña enfocada; la búsqueda abre la pestaña correspondiente. `settings show connections/bluetooth` abre Bluetooth; `network` sigue siendo un alias. Las tarjetas muestran diseños de barra, bordes, superficies, visualizadores, espacios, esquinas y pantallas de bloqueo. **Colores de Ajustes** permite elegir **Colores del tema** o **Sitio web de Eitr** para Ajustes, el Manual y Temas y plugins. La preferencia local se guarda en `eitr/settings-app.json`; también se cambia con `settings palette theme` o `settings palette website`, sin cambiar los colores del escritorio.
 
@@ -22,8 +26,12 @@ Sus páginas son General, Plugins y Herramientas. El botón con engranaje debajo
 
 ## General
 
+<!-- eitr-figure: control-center -->
+
+La página General. Los botones de la izquierda cambian entre General, Plugins y Herramientas; el engranaje de debajo abre Configuración. Un control activado se rellena con el color de acento del tema.
+
 - **Conectividad:** interruptores de WiFi y Bluetooth y Modo avión.
-- **Acciones rápidas:** Bloqueo automático, Notificaciones de fallos, No molestar, Modo juego (desactiva efectos, desenfoque y ventanas emergentes y activa el perfil de rendimiento hasta apagarlo) y Luz nocturna. Un control activado se rellena con el color de acento del tema. Debajo, Ocultar barra (SUPER+Shift+Space la recupera) y Salvapantallas se ejecutan una vez.
+- **Acciones rápidas:** Bloqueo automático, Notificaciones de fallos, No molestar, Modo juego (desactiva efectos, desenfoque y ventanas emergentes y activa el perfil de rendimiento hasta apagarlo) y Luz nocturna. Debajo, Ocultar barra (SUPER+Shift+Space la recupera) y Salvapantallas se ejecutan una vez.
 - **Sonido:** volumen y ganancia/silencio del micrófono, y dos interruptores opcionales, desactivados por defecto: **Sonidos de notificación** (un aviso, otro distinto para las urgentes; las de baja prioridad no suenan) y, en equipos con batería, **Sonidos del cargador** al conectarlo o desconectarlo. Ninguno suena en No molestar ni en Modo juego.
 - **Pantalla:** brillo, en portátiles con pantalla integrada.
 - **Multimedia:** portada, artista, reproducción y desplazamiento por la pista cuando se admite.

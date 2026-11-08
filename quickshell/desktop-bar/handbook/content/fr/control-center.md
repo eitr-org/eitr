@@ -8,7 +8,11 @@ Les listes déroulantes permettent de naviguer en tapant lorsque le sélecteur o
 
 ## Paramètres
 
-Les groupes sont Aperçu, Périphériques, Bureau, Applications et touches, Comptes et sécurité, et Système. Les titres runiques et le repère doré glissant facilitent la navigation. Chaque page possède titre, description et cartes de réglages. La fenêtre reste opaque. Le Manuel et Thèmes et plugins utilisent le même cadre, la même barre latérale, le même en-tête de page et les mêmes cartes, et suivent le même choix de couleurs.
+<!-- eitr-figure: settings-window -->
+
+Paramètres regroupe ses pages sous Aperçu, Périphériques, Bureau, Applications et touches, Comptes et sécurité, et Système, chaque groupe avec un titre runique. Un repère doré glissant indique la page actuelle ; la recherche trouve les noms et descriptions des pages. Chaque page a un fil d’Ariane, un titre et une description, et des cartes bordées regroupent les lignes liées.
+
+La fenêtre reste opaque. Le Manuel et Thèmes et plugins utilisent le même cadre, la même barre latérale, le même en-tête de page et les mêmes cartes, et suivent le même choix de couleurs.
 
 Connexions propose les onglets **Wi-Fi** et **Bluetooth**, chacun commençant par un interrupteur d’alimentation libellé. Wi-Fi affiche pour le réseau connecté le signal, la sécurité, la bande, le canal, le débit de la liaison, les adresses, la passerelle, le DNS, l’adresse MAC, l’interface, le moteur et le ping (seulement les champs fournis par le moteur) avec Déconnecter, puis les réseaux connus avec Oublier, les autres réseaux et le choix du moteur réseau, appliqué après un redémarrage. Bluetooth liste les appareils connectés avec leur niveau de batterie et Déconnecter, les appareils connus (associés) avec Oublier, et les autres appareils ; les appareils sans nom restent sous **Afficher les appareils sans nom**. Cliquez sur la ligne d’un réseau ou d’un appareil pour vous connecter : un nouvel appareil est d’abord associé, un réseau protégé demande son mot de passe, et la progression et les erreurs s’affichent sur la ligne. **Rechercher** dans l’en-tête de Autres réseaux ou Autres appareils en cherche d’autres ; en Bluetooth, un nouvel appui arrête la recherche. Écrans sépare **Écrans** et **Éclairage nocturne**. Apparence sépare **Thème et fond d’écran**, **Polices et curseur** et **Terminal**. Gauche/Droite change l’onglet actif au clavier ; la recherche ouvre le bon onglet. `settings show connections/bluetooth` ouvre Bluetooth ; `network` reste un alias. Les cartes illustrent les dispositions de barre, bords, surfaces, visualiseurs, espacements, coins et écrans de verrouillage. **Couleurs des paramètres** permet de choisir **Couleurs du thème** ou **Site web Eitr** pour les Paramètres, le Manuel et Thèmes et plugins. Le fichier local `eitr/settings-app.json` conserve ce choix ; `settings palette theme` et `settings palette website` le modifient aussi, indépendamment des couleurs du bureau.
 
@@ -22,8 +26,12 @@ Ses pages sont Général, Plugins et Outils. Le bouton en forme d’engrenage en
 
 ## Général
 
+<!-- eitr-figure: control-center -->
+
+La page Général. Les boutons de gauche passent entre Général, Plugins et Outils ; l’engrenage en dessous ouvre les Paramètres. Une commande activée se remplit de la couleur d’accent du thème.
+
 - **Connectivité:** interrupteurs WiFi et Bluetooth, et Mode avion.
-- **Actions rapides:** Verrouillage automatique, Notifications de plantage, Ne pas déranger, Mode jeu (effets, flou et notifications contextuelles désactivés, profil de performances activé jusqu’à désactivation) et Éclairage nocturne. Une commande activée se remplit de la couleur d’accent du thème. En dessous, Masquer la barre (SUPER+Shift+Space la réaffiche) et Économiseur d’écran s’exécutent une fois.
+- **Actions rapides:** Verrouillage automatique, Notifications de plantage, Ne pas déranger, Mode jeu (effets, flou et notifications contextuelles désactivés, profil de performances activé jusqu’à désactivation) et Éclairage nocturne. En dessous, Masquer la barre (SUPER+Shift+Space la réaffiche) et Économiseur d’écran s’exécutent une fois.
 - **Son:** volume et gain/sourdine du microphone, et deux interrupteurs facultatifs, désactivés par défaut : **Sons de notification** (un signal, un autre pour les notifications urgentes ; celles de faible priorité restent silencieuses) et, sur les PC avec batterie, **Sons du chargeur** au branchement et au débranchement. Aucun ne sonne en Ne pas déranger ni en Mode jeu.
 - **Écran:** luminosité, sur les ordinateurs portables avec écran intégré.
 - **Média:** pochette, artiste, lecture et déplacement dans la piste si disponible.

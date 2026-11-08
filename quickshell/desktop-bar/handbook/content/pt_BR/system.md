@@ -2,7 +2,9 @@
 
 Abra **SUPER + F > Configurações**. As pastas aparecem antes das ações, em ordem alfabética. A busca global também encontra os nomes anteriores, incluindo System e Toggle.
 
-**Conectividade**, **Dispositivos e entrada**, **Idioma**, **Segurança**, **Estilo**, **Sistema** são pastas. **Central de controle** abre os mesmos controles que SUPER + vírgula. **Arquivos de configuração** abre sua pasta de configuração no VS Code ou LazyVim.
+<!-- eitr-figure: launcher -->
+
+O menu Configurações no Walker. **Conectividade**, **Dispositivos e entrada**, **Idioma**, **Segurança**, **Estilo** e **Sistema** são pastas, marcadas com **>**. **Central de controle** abre os mesmos controles que SUPER + I; **Arquivos de configuração** abre sua pasta de configuração no VS Code ou LazyVim.
 
 Conectividade abre os painéis nativos de Bluetooth e WiFi, a infraestrutura de rede e o acesso remoto. A escolha do serviço prepara a próxima inicialização sem reiniciar a conexão atual.
 

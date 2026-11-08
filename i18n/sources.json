@@ -28,6 +28,7 @@
     "AI Usage": [
       "quickshell/desktop-bar/bar/BarLeftGroup.qml",
       "quickshell/desktop-bar/bar/BarVerticalPlacement.qml",
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
@@ -49,6 +50,9 @@
     ],
     "Accounts & Security": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Action and description": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
     "Add": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
@@ -86,6 +90,7 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Airplane": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Align with %1": [
@@ -99,6 +104,7 @@
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "All settings": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
     ],
     "Anonymous identity (optional)": [
@@ -202,6 +208,7 @@
     "Bluetooth": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
@@ -268,6 +275,9 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Cards": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
     "Center": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -356,6 +366,7 @@
       "quickshell/desktop-bar/notifications/NotificationList.qml"
     ],
     "Clock": [
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Clockwork Neo Orbital": [
@@ -446,6 +457,8 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Connectivity": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
+      "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Continue": [
@@ -455,7 +468,9 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Control Center": [
-      "quickshell/desktop-bar/bar/EitrLogo.qml"
+      "quickshell/desktop-bar/bar/EitrLogo.qml",
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
+      "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
     "Copied": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -471,6 +486,7 @@
     ],
     "Corners": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
+      "quickshell/desktop-bar/figures/WindowStyleFigure.qml",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Could not change Cursor Fire": [
@@ -520,11 +536,15 @@
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Crash Notifications": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Current": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Current page": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
     "Current wallpaper": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
@@ -601,7 +621,11 @@
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "Devices": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Devices & Input": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
     "Devices without a name: %1": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
@@ -642,6 +666,7 @@
     ],
     "Do Not Disturb": [
       "quickshell/desktop-bar/bar/NotificationWidget.qml",
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/notifications/NotificationList.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
@@ -655,6 +680,9 @@
     "Done editing widgets": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
+    ],
+    "Dotfiles": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
     "Dynamic": [
       "tools/choice-lists.json"
@@ -730,6 +758,7 @@
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Event sounds": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
     ],
     "Files": [
@@ -778,6 +807,7 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "General": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Girl · Coffee": [
@@ -803,7 +833,8 @@
     ],
     "Hardware": [
       "quickshell/desktop-bar/bar/BarLeftGroup.qml",
-      "quickshell/desktop-bar/bar/BarVerticalPlacement.qml"
+      "quickshell/desktop-bar/bar/BarVerticalPlacement.qml",
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml"
     ],
     "Hardware information unavailable": [
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
@@ -831,6 +862,8 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Idle Lock": [
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
@@ -953,6 +986,9 @@
     "LOGIN": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
     ],
+    "Language": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml"
+    ],
     "Large": [
       "tools/choice-lists.json"
     ],
@@ -998,6 +1034,7 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Lock": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
     "Lock the screen automatically when you're away.": [
@@ -1044,6 +1081,7 @@
     ],
     "Media": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml"
     ],
     "Media style": [
@@ -1118,6 +1156,7 @@
       "quickshell/desktop-bar/media/MediaCard.qml"
     ],
     "Night Light": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/BrightnessMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
@@ -1230,10 +1269,12 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Notification sounds": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/EventSoundSettings.qml"
     ],
     "Notifications": [
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/notifications/NotificationList.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
@@ -1299,11 +1340,17 @@
     "Open System Monitor": [
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
+    "Open quick toggles, media and tools": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml"
+    ],
     "Open recordings": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Open with the assistant shortcut": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+    ],
+    "Open your configuration folder in an editor": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
     "Other devices": [
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
@@ -1316,18 +1363,21 @@
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Output": [
-      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
     "Output device": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "Output, input and event sounds.": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Overview": [
       "quickshell/desktop-bar/bar/BarLeftGroup.qml",
       "quickshell/desktop-bar/bar/BarVerticalPlacement.qml",
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/overview/WorkspaceOverview.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -1354,6 +1404,12 @@
     "Padding": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Page header": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
+    ],
+    "Pages": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml"
     ],
     "Paired": [
       "quickshell/desktop-bar/components/BluetoothConnector.qml"
@@ -1412,6 +1468,7 @@
       "quickshell/desktop-bar/settings/EventSoundSettings.qml"
     ],
     "Play a sound with notification popups.": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/EventSoundSettings.qml"
     ],
     "Plugin": [
@@ -1439,6 +1496,7 @@
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Power": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
     "Power Profile": [
@@ -1448,6 +1506,7 @@
       "quickshell/desktop-bar/components/PowerControls.qml"
     ],
     "Power…": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
     "Preferences": [
@@ -1485,6 +1544,7 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
     "Quick Actions": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Quickshell reload failed": [
@@ -1647,6 +1707,9 @@
     "Rotation": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
+    "Rune groups": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
+    ],
     "Runs on this PC; nothing is saved": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
@@ -1713,6 +1776,10 @@
     "Screenshots": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
+    "Search": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml",
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
+    ],
     "Search city": [
       "quickshell/desktop-bar/panels/WeatherMenu.qml"
     ],
@@ -1723,6 +1790,7 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Search settings": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/SettingsContent.qml"
     ],
     "Search shortcuts": [
@@ -1735,6 +1803,7 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Security": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -1743,6 +1812,9 @@
     ],
     "Selected": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Selected row": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
     "Selection": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -1772,6 +1844,7 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Settings": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/SettingsContent.qml",
       "quickshell/desktop-bar/settings/SettingsWindow.qml"
     ],
@@ -1812,7 +1885,8 @@
     ],
     "Show icons": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
-      "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
+      "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml"
     ],
     "Show less": [
       "quickshell/desktop-bar/welcome/WelcomeMore.qml"
@@ -1864,6 +1938,8 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Sound": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -1887,6 +1963,9 @@
     ],
     "Start the screensaver now.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
+    ],
+    "Status icons": [
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml"
     ],
     "Status unavailable": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
@@ -1919,16 +1998,26 @@
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Style": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml"
+    ],
+    "Submenu": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml"
+    ],
     "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Suspend": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
+    "Switch": [
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
+    ],
     "Switch user": [
       "quickshell/lockscreen/shell.qml"
     ],
     "System": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "System Update": [
@@ -2167,6 +2256,7 @@
     ],
     "Volume": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
+      "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "WELCOME BACK": [
@@ -2190,6 +2280,7 @@
     ],
     "Weather": [
       "quickshell/desktop-bar/bar/WeatherWidget.qml",
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/panels/WeatherMenu.qml"
     ],
     "Webcam": [
@@ -2211,6 +2302,7 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "WiFi": [
+      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
@@ -2231,6 +2323,7 @@
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Window gaps": [
+      "quickshell/desktop-bar/figures/WindowStyleFigure.qml",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Window gaps, corners and motion.": [
@@ -2244,6 +2337,9 @@
     ],
     "Workspace style": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+    ],
+    "Workspaces": [
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml"
     ],
     "YEAR": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"

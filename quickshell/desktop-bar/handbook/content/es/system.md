@@ -2,7 +2,9 @@
 
 Abre **SUPER + F > Configuración**. Primero aparecen las carpetas y luego las acciones, en orden alfabético. La búsqueda global también encuentra nombres anteriores como System y Toggle.
 
-**Conectividad**, **Dispositivos y entrada**, **Idioma**, **Seguridad**, **Estilo**, **Sistema** son carpetas. **Centro de control** abre los mismos controles que SUPER + coma. **Archivos de configuración** abre tu carpeta de configuración en VS Code o LazyVim.
+<!-- eitr-figure: launcher -->
+
+El menú Configuración en Walker. **Conectividad**, **Dispositivos y entrada**, **Idioma**, **Seguridad**, **Estilo** y **Sistema** son carpetas, marcadas con **>**. **Centro de control** abre los mismos controles que SUPER + I; **Archivos de configuración** abre tu carpeta de configuración en VS Code o LazyVim.
 
 Conectividad abre los paneles nativos de Bluetooth y WiFi, el servicio de red y el acceso remoto. La elección del servicio prepara el próximo arranque sin reiniciar la conexión actual.
 

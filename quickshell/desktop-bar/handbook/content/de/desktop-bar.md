@@ -2,7 +2,9 @@
 
 Diese Steuerelemente sind auch direkt in den Einstellungen verfügbar.
 
-Die Leiste hält Datum und Uhrzeit mittig. Links steht zuerst das Eitr-Logo, das das Kontrollzentrum öffnet, danach folgen Übersicht, Arbeitsflächenmarkierungen, KI-Nutzung, Hardware und automatische Sperre; rechts Geräte- und Statussteuerung. **Symbole anzeigen** blendet diese rechte Gruppe ein oder aus.
+<!-- eitr-figure: bar-anatomy -->
+
+Die volle Leiste. Das Eitr-Logo öffnet das Kontrollzentrum; danach folgen Übersicht, Arbeitsflächenmarkierungen, KI-Nutzung, Hardware und automatische Sperre. Datum und Uhrzeit bleiben mittig, die Medien davor und das Wetter dahinter. **Symbole anzeigen** blendet die Statussymbole rechts ein oder aus; die Benachrichtigungen stehen ganz am Ende.
 
 Inseln zeigt getrennte Flächen für Logo, Übersicht und Arbeitsflächen, KI-Nutzung/Hardware/Leerlaufsperre, Uhr, Wetter und Statussymbole. Medien und Aufnahme erscheinen nur bei Aktivität. Die Uhr bleibt exakt in der Bildschirmmitte; das Wetter erhält eine eigene Fläche daneben. Die Flächen sind unabhängig von der Eckeneinstellung immer vollständig abgerundet und folgen Balkenfarbe/Transparenz und Unschärfe. Sie liegen den halben aktuellen äußeren Abstand von Hyprland vom Bildschirmrand entfernt, mit dem vollen Abstand zwischen benachbarten Flächen, an allen vier Seiten. Der reservierte Fensterbereich umfasst Balkendicke und diesen halben Abstand; automatisches Ausblenden reserviert keinen Platz. Lücken lassen Klicks durch. Freie Bereiche jeder Fläche unterstützen die üblichen Doppelklick- und Ziehgesten. Ein geöffnetes Panel wächst als Karte aus seiner Insel (zur freien Seite: Wetter nach rechts, Medien und Aufnahme nach links, Status zur Mitte, die Uhr in beide Richtungen) und schiebt die Nachbarinseln beiseite; die Insel bleibt unter der Karte verborgen, bis diese wieder geschrumpft ist. Statussymbole behalten den manuellen Schalter zum Ein- und Ausblenden.
 
@@ -18,6 +20,10 @@ Das Updatesymbol rechts vor Benachrichtigungen prüft kurz nach der Anmeldung un
 - **Uhr** unter Stil > Desktopleiste und Einstellungen (SUPER + ,) > Desktopleiste zeigt die Zeit im 12-Stunden-Format mit AM/PM (Standard) oder im 24-Stunden-Format, an jedem Leistenrand.
 - Dieselben Einstellungen findest du unter **Einstellungen > Stil > Desktopleiste** und Einstellungen (SUPER + ,) > Desktopleiste.
 - **Bildschirme** (Anzeigen auf) zeigt die Leiste standardmäßig nur auf dem Hauptbildschirm oder auf allen Bildschirmen. Bei mehreren Leisten markiert jede die Arbeitsfläche ihres Bildschirms; Kürzel wie SUPER + I öffnen auf dem gerade genutzten Bildschirm, Benachrichtigungen erscheinen nur auf dem Hauptbildschirm. Wähle diesen im Bildschirm-Panel.
+
+<!-- eitr-figure: bar-layouts -->
+
+Die fünf Layouts in der Reihenfolge, in der ein rechter Doppelklick sie durchläuft. In Ruhe zeigt Zentriert nur die Uhr und Dynamisch drei kleine Inseln; beide klappen beim Darüberfahren auf.
 
 Im mittigen Modus bleibt nur die Uhr sichtbar, bis du den Mauszeiger darüber bewegst. Symbole klappen in gewohnter Reihenfolge aus. Die Stecknadel zwischen Medien und Uhr hält sie offen; geöffnete Panels ebenfalls. Bei voller Leiste schließen Panels direkt an, bei mittiger liegen sie daneben. Beide öffnen und schließen mit derselben flüssigen Animation. Jede Seite passt sich ihrem Inhalt an; die Uhr bleibt an jeder Bildschirmkante genau in der Bildschirmmitte.
 

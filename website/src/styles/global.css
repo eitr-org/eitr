@@ -530,6 +530,8 @@ kbd{font:inherit;color:var(--fg)}
 .doc-copy h3{font-size:28px;margin:28px 0 14px}
 .doc-copy h4{font-size:22px;margin:24px 0 12px}
 .doc-copy p,.doc-copy ul,.doc-copy ol{margin:16px 0;color:var(--muted)}
+/* The desktop reader draws a live figure above this caption; the site shows the caption as text. */
+.doc-copy figure{margin:16px 0;color:var(--muted)}
 .doc-copy ul,.doc-copy ol{padding-left:26px}
 .doc-copy li+li{margin-top:8px}
 .doc-copy strong{color:var(--fg)}

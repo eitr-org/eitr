@@ -48,6 +48,17 @@ function articleBlocks(chapter) {
     return blocks.length && /^<h1>/.test(blocks[0]) ? blocks.slice(1) : blocks;
 }
 
+// A figure block from handbook-build.py: {name, caption} with the caption's inline HTML, or null.
+function figureBlock(block) {
+    var match = /^<figure data-figure="([a-z-]+)"><figcaption>([\s\S]*)<\/figcaption><\/figure>$/.exec(block);
+    return match ? {name: match[1], caption: match[2]} : null;
+}
+
+// The QML file that draws a figure: "bar-anatomy" is figures/BarAnatomyFigure.qml.
+function figureFile(name) {
+    return name.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join("") + "Figure.qml";
+}
+
 // Plain titles of the level-2 headings among `blocks`, such as the welcome's further reading.
 function sectionTitles(blocks) {
     return blocks.filter(block => /^<h2>/.test(block))

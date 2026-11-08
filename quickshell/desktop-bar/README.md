@@ -125,6 +125,18 @@ Stop it with `quickshell ipc -p handbook-preview.qml call -- preview stop` from
 this directory: it closes the surface before quitting, avoiding Qt's cursor
 teardown abort observed when forcibly exiting a visible preview on Qt 6.12.
 
+A `<!-- eitr-figure: NAME -->` line, then a blank line and one caption paragraph,
+places a live figure in a chapter. `tools/handbook-build.py` accepts only the names
+in its `FIGURES` list, turns the pair into a
+`<figure data-figure="NAME"><figcaption>…</figcaption></figure>` block and requires
+translated chapters to keep the English figures in order. The reader draws
+`figures/<Name>Figure.qml` (such as `BarAnatomyFigure.qml`) on a card above
+the caption; the website shows the caption alone. Figures are static drawings in the
+Settings palette built from the shared components (picture cards, Control Center
+tiles, the Settings sidebar and cards) with thin gold `FigureCallout` labels; they
+start no processes, read no live data and ignore clicks. A figure narrower than its
+`minimumWidth` is laid out at that width and scaled down to the reading column.
+
 ## Control Center
 
 The chat rail button opens an in-memory conversation with the default assistant.

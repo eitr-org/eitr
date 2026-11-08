@@ -85,6 +85,10 @@ Tus imágenes, temas y pantallas de bloqueo se quedan en este equipo, en `~/.loc
 
 **Configuración > Estilo > Barra del escritorio** elige desenfoque, color del tema o sitio web, disposición completa o centrada y borde. Walker sigue esa apariencia. **Configuración > Estilo > Esquinas** elige esquinas cuadradas, redondeadas o muy redondeadas para las superficies EITR y las decoraciones del compositor. Las aplicaciones externas pueden conservar sus controles propios; los indicadores circulares siguen siendo circulares.
 
+<!-- eitr-figure: window-style -->
+
+Espaciado de ventanas y Esquinas tal como los muestra **Configuración > Ventanas**, con tu elección actual marcada. Por defecto hay 6 px entre ventanas y 12 px en los bordes de la pantalla.
+
 ## Fuentes
 
 **Configuración > Estilo > Fuentes** muestra familias instaladas utilizables, no cada variante negrita o cursiva. Las familias para documentos o sustitución quedan ocultas. JetBrainsMono Nerd Font es la predeterminada. La selección actualiza las aplicaciones compatibles y activa ligaduras donde se admiten. Eliminar una familia elimina sus variantes instaladas compatibles; no se puede eliminar la última opción utilizable. Puede ser necesario revisar a qué paquete pertenece.
@@ -116,4 +120,4 @@ Los temas integrados vienen con Eitr y no se pueden eliminar. La papelera de un 
 Escribe en cualquier parte del catálogo, o pulsa Ctrl+F o /, para buscar en la página actual por nombre o descripción. Las palabras pueden ir en cualquier orden; Escape borra primero la búsqueda.
 
 
-En **Configuración > Ventanas > Espaciado de ventanas** o **Walker > Configuración > Estilo > Espaciado de ventanas** puedes elegir Ninguno, Pequeño, Predeterminado o Grande. Predeterminado mantiene 6 px interiores y 12 px exteriores. La selección local se conserva al cambiar el tema o recargar.
+En **Configuración > Ventanas > Espaciado de ventanas** o **Walker > Configuración > Estilo > Espaciado de ventanas** puedes elegir Ninguno, Pequeño, Predeterminado o Grande. La selección local se conserva al cambiar el tema o recargar.

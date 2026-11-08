@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import re
 import sys
 from pathlib import Path
 import subprocess
@@ -116,6 +117,41 @@ class HandbookTests(unittest.TestCase):
                        good.replace("**Two**: Second.", "Two, second."), good.replace("# Hi\n\nLead.\n\n", "")):
             with self.assertRaises(ValueError):
                 parse(broken)
+
+    def test_figure_markers_become_captioned_figure_blocks(self):
+        def parse(text):
+            return builder.parse_blocks(builder.markdown.markdown(text)).blocks
+        blocks = parse("# Hi\n\n<!-- eitr-figure: bar-anatomy -->\n\nThe **bar**.\n\nAfter.\n")
+        self.assertEqual(blocks[1], '<figure data-figure="bar-anatomy"><figcaption>The <strong>bar</strong>.</figcaption></figure>')
+        self.assertEqual(blocks[2], "<p>After.</p>")
+        for broken in ("<!-- eitr-figure: unknown -->\n\nCaption.\n", "<!-- eitr-figure: launcher -->\n",
+                       "<!-- eitr-figure: launcher -->\n\n## Heading\n",
+                       "<!-- eitr-figure: launcher -->\n<!-- eitr-figure: launcher -->\n\nCaption.\n"):
+            with self.assertRaises(ValueError):
+                parse(broken)
+
+    def test_every_figure_is_drawn_placed_and_kept_by_translations(self):
+        figures = ROOT / "quickshell/desktop-bar/figures"
+        qmldir = (ROOT / "quickshell/desktop-bar/qmldir").read_text()
+        for name in builder.FIGURES:
+            filename = "".join(word.capitalize() for word in name.split("-")) + "Figure.qml"
+            self.assertTrue((figures / filename).is_file(), filename)
+            self.assertIn(f"{filename[:-4]} figures/{filename}", qmldir)
+            source = (figures / filename).read_text()
+            for forbidden in ("Process {", "execDetached", "XMLHttpRequest", "FileView", "Timer {"):
+                self.assertNotIn(forbidden, source, filename)
+        english = {chapter["id"]: builder.figures(chapter["blocks"]) for chapter in json.loads(builder.build())["chapters"]}
+        self.assertEqual(sorted(name for names in english.values() for name in names), sorted(builder.FIGURES))
+        for locale in ("de", "es", "fr", "pt_BR"):
+            for chapter in json.loads(builder.build(locale))["chapters"]:
+                self.assertEqual(builder.figures(chapter["blocks"]), english[chapter["id"]], f"{locale}/{chapter['id']}")
+
+    def test_launcher_figure_shows_the_settings_menu_rows(self):
+        source = (ROOT / "quickshell/desktop-bar/figures/LauncherFigure.qml").read_text()
+        drawn = re.findall(r'\{text: Eitr\.I18n\.tr\("([^"]+)"\), icon: "\\u\{([0-9A-F]+)\}"(?:, description: Eitr\.I18n\.tr\("([^"]+)"\))?\}', source)
+        rows = json.loads((ROOT / "elephant/menu-rows/settings.json").read_text())
+        self.assertEqual([(text, int(code, 16), description or ">") for text, code, description in drawn],
+                         [(row["text"], ord(row["icon"]), row["subtext"]) for row in rows])
 
     def test_toggle_script_does_not_need_a_positional_argument(self):
         source = (ROOT / "quickshell/desktop-bar/scripts/handbook.sh").read_text()

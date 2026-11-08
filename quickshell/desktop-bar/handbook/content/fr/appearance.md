@@ -86,6 +86,10 @@ Vos images, thèmes et écrans de verrouillage restent sur cet ordinateur, dans 
 
 **Paramètres > Style > Barre de bureau** choisit flou, couleur du thème ou site web, disposition complète ou centrée et bord d’écran. Walker suit cette apparence. **Paramètres > Style > Coins** choisit des coins carrés, arrondis ou très arrondis pour les surfaces EITR et les décorations du compositeur. Les applications tierces peuvent garder leurs propres contrôles ; les points d’état circulaires restent ronds.
 
+<!-- eitr-figure: window-style -->
+
+Espacement des fenêtres et Coins tels que **Paramètres > Fenêtres** les montre, avec vos choix actuels cochés. Par défaut, 6 px séparent les fenêtres et 12 px les bords de l’écran.
+
 ## Polices
 
 **Paramètres > Style > Polices** liste les familles installées utilisables, pas chaque variante grasse ou italique. Les familles de documents et de remplacement restent masquées. JetBrainsMono Nerd Font est la police par défaut. La sélection actualise les applications compatibles ; les ligatures sont activées si possible. Supprimer une famille retire ses variantes installées compatibles ; le dernier choix utilisable ne peut pas être supprimé. Il peut être nécessaire de vérifier le paquet propriétaire.
@@ -117,4 +121,4 @@ Les thèmes intégrés font partie d’Eitr et ne peuvent pas être supprimés. 
 Tapez n’importe où dans le catalogue, ou appuyez sur Ctrl+F ou /, pour chercher dans la page actuelle par nom ou description. Les mots peuvent être dans n’importe quel ordre ; Échap efface d’abord la recherche.
 
 
-Dans **Paramètres > Fenêtres > Espacement des fenêtres** ou **Walker > Paramètres > Style > Espacement des fenêtres**, choisissez Aucun, Petit, Par défaut ou Grand. Par défaut conserve 6 px à l’intérieur et 12 px à l’extérieur. Le choix local résiste aux changements de thème et aux rechargements.
+Dans **Paramètres > Fenêtres > Espacement des fenêtres** ou **Walker > Paramètres > Style > Espacement des fenêtres**, choisissez Aucun, Petit, Par défaut ou Grand. Le choix local résiste aux changements de thème et aux rechargements.

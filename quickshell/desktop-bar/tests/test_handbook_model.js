@@ -58,3 +58,10 @@ assert.deepStrictEqual(Array.from(results, row => row.id), ["focus", "start"], "
 assert(results.every(row => row.group === "Results"));
 assert.equal(context.groupOf(book, book[2]).name, "Desktop");
 console.log("Handbook rendering and sidebar grouping passed");
+const figure = context.figureBlock('<figure data-figure="bar-anatomy"><figcaption>The <strong>bar</strong>.</figcaption></figure>');
+assert.equal(figure.name, "bar-anatomy");
+assert.equal(figure.caption, "The <strong>bar</strong>.");
+assert.equal(context.figureBlock("<p>Text</p>"), null);
+assert.equal(context.figureFile("bar-anatomy"), "BarAnatomyFigure.qml");
+assert.equal(context.figureFile("launcher"), "LauncherFigure.qml");
+console.log("Handbook figure blocks passed");

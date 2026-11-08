@@ -2,7 +2,9 @@
 
 Estos controles también están disponibles directamente en Configuración.
 
-La barra mantiene fecha y hora centradas. A la izquierda está primero el logotipo de Eitr, que abre el Centro de control, seguido de Vista general, marcadores de espacios de trabajo, Uso de IA, Hardware y Bloqueo automático; a la derecha, controles de dispositivos y estado. Pulsa **Mostrar iconos** para mostrar u ocultar ese grupo derecho.
+<!-- eitr-figure: bar-anatomy -->
+
+La barra completa. El logotipo de Eitr abre el Centro de control; le siguen Vista general, los marcadores de espacios de trabajo, Uso de IA, Hardware y Bloqueo automático. La fecha y la hora quedan centradas, con la multimedia delante y el tiempo detrás. **Mostrar iconos** muestra u oculta los iconos de estado de la derecha; las notificaciones van al final.
 
 Islas presenta grupos en superficies separadas: logotipo, Vista general y espacios de trabajo, Uso de IA/Hardware/Bloqueo por inactividad, reloj, tiempo y controles de estado. Los indicadores multimedia y de captura aparecen solo cuando están activos. El reloj permanece exactamente centrado en la pantalla; el tiempo tiene su propia superficie al lado. Las superficies son siempre totalmente redondeadas, sea cual sea la preferencia de esquinas, y siguen el color/transparencia y el desenfoque. Las superficies quedan a la mitad del espacio exterior actual de Hyprland del borde, con el espacio completo entre superficies vecinas, en los cuatro lados. La reserva para ventanas incluye el grosor y esa mitad; la ocultación automática no reserva espacio. Los huecos dejan pasar los clics. El espacio vacío de cada superficie admite los gestos habituales de doble clic y arrastre. Abrir un panel hace crecer una tarjeta desde su isla (hacia el lado libre: el tiempo a la derecha, multimedia y captura a la izquierda, el estado hacia el centro, el reloj hacia ambos lados) y aparta las islas vecinas; la isla queda oculta bajo la tarjeta hasta que vuelve a encogerse. Los iconos de estado conservan el botón manual para mostrar u ocultar.
 
@@ -18,6 +20,10 @@ El icono de actualizaciones está en el grupo derecho, antes de Notificaciones, 
 - **Reloj** en Estilo > Barra del escritorio y Configuración (SUPER + ,) > Barra del escritorio muestra la hora en formato de 12 horas con AM/PM (predeterminado) o de 24 horas, en cualquier borde.
 - Las mismas opciones están en **Configuración > Estilo > Barra del escritorio** y Configuración (SUPER + ,) > Barra del escritorio.
 - **Pantallas** (Mostrar en) coloca la barra solo en la principal, por defecto, o en todas. En todas, cada barra marca el espacio de trabajo de su pantalla; atajos como SUPER + I se abren en la pantalla en uso y las notificaciones aparecen solo en la principal. Elige la principal en el panel Pantalla.
+
+<!-- eitr-figure: bar-layouts -->
+
+Los cinco diseños en el orden en que los recorre el doble clic derecho. En reposo, Centrada muestra solo el reloj y Dinámico tres pequeñas islas; ambos se despliegan al pasar el puntero.
 
 El modo centrado muestra el reloj hasta pasar el puntero. Los iconos se despliegan en su orden habitual. La chincheta entre medios y reloj mantiene la barra abierta; los paneles abiertos también. En modo completo los paneles se unen a la barra; en modo centrado se sitúan junto a ella. Ambos abren y cierran con la misma animación fluida. Cada lado se ajusta a su contenido y el reloj permanece en el centro de la pantalla en los cuatro bordes.
 

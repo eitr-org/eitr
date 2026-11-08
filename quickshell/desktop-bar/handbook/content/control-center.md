@@ -8,10 +8,10 @@ Dropdown lists support type-ahead while the selector or list has keyboard focus.
 
 ## Settings
 
-Settings groups its pages under Overview, Devices, Desktop, Apps & Keys,
-Accounts & Security, and System. Rune captions and a sliding gold marker help
-navigation; search matches page names and descriptions. Every page has a
-breadcrumb, carved title and description. Bordered cards group related rows.
+<!-- eitr-figure: settings-window -->
+
+Settings groups its pages under Overview, Devices, Desktop, Apps & Keys, Accounts & Security, and System, each with a rune caption. A sliding gold marker shows the current page; search matches page names and descriptions. Every page has a breadcrumb, carved title and description, and bordered cards group related rows.
+
 The opaque surface supports light and dark palettes. The Handbook and Themes & Plugins use the same frame, sidebar, page header and cards, and follow the same palette choice.
 
 Connections has **Wi-Fi** and **Bluetooth** tabs, each starting with a labelled power switch. Wi-Fi shows the connected network's signal, security, band, channel, link speed, addresses, gateway, DNS, MAC address, interface, backend and ping (only the fields the backend reports) with Disconnect, then known networks with Forget, other networks and the reboot-only backend choice. Bluetooth lists connected devices with their battery level and Disconnect, known (paired) devices with Forget, and other devices; devices without a name stay under **Show unnamed devices**. Click a network or device row to connect: a new device pairs first, a secured network asks for its password, and progress and errors appear on the row. **Scan** in the header of Other networks or Other devices looks for more; on Bluetooth, press it again to stop. Displays separates **Displays** and **Night Light**; Appearance separates **Theme & Wallpaper**, **Fonts & Cursor** and **Terminal**. Use Left/Right on a focused tab to switch. Search opens the matching tab. IPC accepts `settings show connections/bluetooth`; `network` remains an alias for Connections.
@@ -36,10 +36,14 @@ a section's title to open or close it, remembered until you log out. Where the b
 
 ## General
 
+<!-- eitr-figure: control-center -->
+
+The General page. The buttons on the left switch between General, Plugins and Tools; the gear below them opens Settings. A toggle that is on fills with the theme accent.
+
 - **Connectivity:** WiFi and Bluetooth power toggles, plus Airplane mode.
 - **Quick Actions:** automatic Idle Lock, Crash Notifications, Do Not Disturb, Game Mode (effects, blur
   and popups off and the performance profile on, until you turn it off) and Night
-  Light. A toggle that is on fills with the theme accent. Below them, Hide Bar
+  Light. Below them, Hide Bar
   (SUPER+Shift+Space brings it back) and Screensaver run once.
 - **Sound:** volume and microphone gain/mute, and two optional switches, off by
   default: **Notification sounds** (a chime, a different one for urgent

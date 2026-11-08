@@ -2,7 +2,9 @@
 
 Esses controles também estão disponíveis diretamente em Configurações.
 
-A barra mantém data e hora centralizadas. À esquerda fica primeiro o logotipo do Eitr, que abre a Central de controle, seguido de Visão geral, marcadores de espaços de trabalho, Uso de IA, Hardware e Bloqueio automático; à direita, os controles de dispositivos e status. Clique em **Mostrar ícones** para exibir ou ocultar esse grupo da direita.
+<!-- eitr-figure: bar-anatomy -->
+
+A barra completa. O logotipo do Eitr abre a Central de controle; depois vêm Visão geral, os marcadores de espaços de trabalho, Uso de IA, Hardware e Bloqueio automático. A data e a hora ficam centralizadas, com a mídia antes e o clima depois. **Mostrar ícones** exibe ou oculta os ícones de status à direita; as notificações ficam por último.
 
 Ilhas apresenta grupos em superfícies separadas: logotipo, Visão geral e espaços de trabalho, Uso de IA/Hardware/Bloqueio por inatividade, relógio, clima e controles de estado. Mídia e captura aparecem apenas quando ativos. O relógio permanece exatamente centrado na tela; o clima tem a sua própria superfície ao lado. As superfícies são sempre totalmente arredondadas, seja qual for a preferência de cantos, e seguem cor/transparência e desfoque. As superfícies ficam a metade do espaçamento exterior atual do Hyprland da borda, com o espaçamento completo entre superfícies vizinhas, nas quatro posições. O espaço reservado para janelas inclui a espessura e essa metade; a ocultação automática não reserva espaço. Os intervalos deixam passar cliques. O espaço vazio nas superfícies aceita os gestos habituais de clique duplo e arrasto. Abrir um painel faz crescer um cartão a partir da sua ilha (para o lado livre: o clima para a direita, mídia e captura para a esquerda, o estado para o centro, o relógio para os dois lados) e afasta as ilhas vizinhas; a ilha fica escondida sob o cartão até ele encolher de volta. Os ícones de estado mantêm o botão manual de mostrar/ocultar.
 
@@ -18,6 +20,10 @@ O ícone de atualizações fica no grupo da direita, antes de Notificações, e 
 - **Relógio** em Estilo > Barra da área de trabalho e Configurações (SUPER + ,) > Barra da área de trabalho mostra a hora no formato de 12 horas com AM/PM (padrão) ou de 24 horas, em qualquer borda.
 - As mesmas opções ficam em **Configurações > Estilo > Barra da área de trabalho** e Configurações (SUPER + ,) > Barra da área de trabalho.
 - **Telas** (Mostrar em) coloca a barra apenas no monitor principal, por padrão, ou em todos os monitores. Em todos, cada barra marca o espaço de trabalho de sua própria tela; atalhos como SUPER + I abrem na tela em uso e as notificações aparecem apenas na principal. Escolha a principal no painel de Tela.
+
+<!-- eitr-figure: bar-layouts -->
+
+Os cinco layouts na ordem em que o clique duplo direito os alterna. Em repouso, Centralizada mostra só o relógio e Dinâmico três pequenas ilhas; ambos se expandem ao passar o ponteiro.
 
 O modo centralizado mostra o relógio até você passar o ponteiro. Os ícones se expandem na ordem habitual. O alfinete entre a mídia e o relógio mantém a barra aberta; painéis abertos também a mantêm expandida. No modo completo, os painéis se unem à barra; no centralizado, ficam ao lado. Ambos abrem e fecham com a mesma animação fluida. Cada lado se ajusta ao conteúdo, e o relógio permanece no centro da tela nas quatro bordas.
 

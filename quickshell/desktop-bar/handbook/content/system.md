@@ -2,7 +2,9 @@
 
 Open **SUPER + F > Settings**. Folders come first, then actions, in alphabetical order. Global search also finds settings by their old names, including System and Toggle.
 
-**Connectivity**, **Devices & Input**, **Language**, **Security**, **Style** and **System** are folders. **Control Center** opens the same controls as SUPER + comma. **Dotfiles** opens your configuration folder in VS Code or LazyVim.
+<!-- eitr-figure: launcher -->
+
+The Settings menu in Walker. **Connectivity**, **Devices & Input**, **Language**, **Security**, **Style** and **System** are folders, marked with **>**. **Control Center** opens the same controls as SUPER + I; **Dotfiles** opens your configuration folder in VS Code or LazyVim.
 
 Connectivity opens the native Bluetooth and WiFi panels, Network Backend and Remote Access. Backend selection prepares the next boot without restarting the live connection.
 

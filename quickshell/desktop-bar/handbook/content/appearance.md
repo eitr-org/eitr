@@ -154,6 +154,10 @@ Walker follows that appearance. **Settings > Style > Corners** selects Square, R
 Extra Rounded for EITR surfaces and compositor decorations. Third-party apps
 may retain their own internal widget style; circular status dots remain circular.
 
+<!-- eitr-figure: window-style -->
+
+Window gaps and Corners as **Settings > Windows** shows them, with your current choices checked. Default gaps are 6 px between windows and 12 px at the screen edges.
+
 ## Fonts
 
 **Settings > Style > Fonts** lists usable installed font families, not every bold/italic
@@ -224,4 +228,4 @@ Type anywhere in the catalog, or press Ctrl+F or /, to search the current page b
 name or description. Words can appear in any order; Escape clears the search first.
 
 
-Use **Settings > Windows > Window gaps** or **Walker > Settings > Style > Window gaps** to choose None, Small, Default or Large. Default keeps 6 px inner and 12 px outer gaps. The choice is saved locally with Corners and survives theme changes and reloads.
+Use **Settings > Windows > Window gaps** or **Walker > Settings > Style > Window gaps** to choose None, Small, Default or Large. The choice is saved locally with Corners and survives theme changes and reloads.

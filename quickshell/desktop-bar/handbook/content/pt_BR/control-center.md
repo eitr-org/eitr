@@ -8,7 +8,11 @@ As listas suspensas permitem digitar para navegar quando o seletor ou a lista te
 
 ## Configurações
 
-Os grupos são Visão geral, Dispositivos, Área de trabalho, Aplicativos e teclas, Contas e segurança e Sistema. Títulos com runas e um marcador dourado deslizante ajudam na navegação. Cada página tem título, descrição e cartões de ajustes. A janela continua opaca. O Manual e Temas e plugins usam a mesma moldura, barra lateral, cabeçalho de página e cartões, e seguem a mesma escolha de cores.
+<!-- eitr-figure: settings-window -->
+
+Configurações agrupa suas páginas em Visão geral, Dispositivos, Área de trabalho, Aplicativos e teclas, Contas e segurança e Sistema, cada grupo com um título rúnico. Um marcador dourado deslizante indica a página atual; a busca encontra nomes e descrições de páginas. Cada página tem caminho, título e descrição, e cartões com borda agrupam as linhas relacionadas.
+
+A janela continua opaca. O Manual e Temas e plugins usam a mesma moldura, barra lateral, cabeçalho de página e cartões, e seguem a mesma escolha de cores.
 
 Conexões tem abas **Wi-Fi** e **Bluetooth**, cada uma começando com um interruptor de energia identificado. Wi-Fi mostra da rede conectada o sinal, a segurança, a banda, o canal, a velocidade do link, os endereços, o gateway, o DNS, o endereço MAC, a interface, o backend e o ping (apenas os campos que o backend informa) com Desconectar; depois, as redes conhecidas com Esquecer, outras redes e a escolha do backend, aplicada após reiniciar. Bluetooth lista os dispositivos conectados com o nível de bateria e Desconectar, os conhecidos (pareados) com Esquecer e outros dispositivos; dispositivos sem nome ficam em **Mostrar dispositivos sem nome**. Clique na linha de uma rede ou dispositivo para conectar: um dispositivo novo é pareado primeiro, uma rede protegida pede a senha, e o progresso e os erros aparecem na linha. **Buscar** no cabeçalho de Outras redes ou Outros dispositivos procura mais; no Bluetooth, pressioná-lo de novo interrompe a busca. Monitores separa **Telas** e **Luz noturna**. Aparência separa **Tema e papel de parede**, **Fontes e cursor** e **Terminal**. Esquerda/Direita muda a aba com foco; a busca abre a aba correspondente. `settings show connections/bluetooth` abre Bluetooth; `network` continua como alias. Os cartões mostram layouts da barra, bordas, superfícies, visualizadores, espaçamentos, cantos e telas de bloqueio. **Cores das configurações** permite escolher **Cores do tema** ou **Site do Eitr** para as Configurações, o Manual e Temas e plugins. A preferência local fica em `eitr/settings-app.json`; `settings palette theme` e `settings palette website` também mudam essa escolha, sem alterar as cores do desktop.
 
@@ -22,8 +26,12 @@ Suas páginas são Geral, Plugins e Ferramentas. O botão de engrenagem abaixo d
 
 ## Geral
 
+<!-- eitr-figure: control-center -->
+
+A página Geral. Os botões à esquerda alternam entre Geral, Plugins e Ferramentas; a engrenagem abaixo abre Configurações. Um controle ligado fica preenchido com a cor de destaque do tema.
+
 - **Conectividade:** ligar/desligar WiFi e Bluetooth, além do Modo avião.
-- **Ações rápidas:** Bloqueio automático, Notificações de falhas, Não perturbe, Modo jogo (desativa efeitos, desfoque e pop-ups e ativa o perfil de desempenho até você desligá-lo) e Luz noturna. Um controle ligado fica preenchido com a cor de destaque do tema. Abaixo, Ocultar barra (SUPER+Shift+Space a traz de volta) e Protetor de tela executam uma vez.
+- **Ações rápidas:** Bloqueio automático, Notificações de falhas, Não perturbe, Modo jogo (desativa efeitos, desfoque e pop-ups e ativa o perfil de desempenho até você desligá-lo) e Luz noturna. Abaixo, Ocultar barra (SUPER+Shift+Space a traz de volta) e Protetor de tela executam uma vez.
 - **Som:** volume e ganho/mudo do microfone, e dois interruptores opcionais, desligados por padrão: **Sons de notificação** (um aviso, outro para notificações urgentes; as de baixa prioridade ficam em silêncio) e, em PCs com bateria, **Sons do carregador** ao conectar ou desconectar. Nenhum toca em Não perturbe nem no Modo jogo.
 - **Tela:** brilho, em notebooks com tela integrada.
 - **Mídia:** capa, artista, reprodução e avanço na faixa quando compatível.

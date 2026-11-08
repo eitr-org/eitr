@@ -199,8 +199,10 @@ FamilyWindow {
                                 id: block
                                 required property string modelData
                                 readonly property bool framed: /^<(pre|table)>/.test(modelData)
+                                // A figure block is drawn by its QML figure, with the caption below it.
+                                readonly property var figure: Model.figureBlock(modelData)
                                 width: parent.width
-                                height: blockText.contentHeight + (framed ? 28 : 0)
+                                height: figure ? figureView.height : blockText.contentHeight + (framed ? 28 : 0)
                                 color: framed ? SettingsPalette.surface : "transparent"
                                 border.width: framed ? 1 : 0
                                 border.color: SettingsPalette.line
@@ -211,7 +213,8 @@ FamilyWindow {
                                     width: parent.width - 2 * x
                                     height: contentHeight
                                     topPadding: /^<h[2-6]/.test(block.modelData) ? 12 : 0
-                                    text: Model.readableHtml(block.modelData, String(SettingsPalette.accent), book.selectedId === "shortcuts", "", book.htmlStyle)
+                                    visible: !block.figure
+                                    text: block.figure ? "" : Model.readableHtml(block.modelData, String(SettingsPalette.accent), book.selectedId === "shortcuts", "", book.htmlStyle)
                                     textFormat: TextEdit.RichText
                                     renderType: TextEdit.NativeRendering
                                     baseUrl: Qt.resolvedUrl("../handbook/")
@@ -224,6 +227,16 @@ FamilyWindow {
                                     font.pixelSize: PanelStyle.bodySize
                                     onLinkActivated: link => book.activateLink(link)
                                     HoverHandler { enabled: book.opened; cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.IBeamCursor }
+                                }
+                                Loader {
+                                    id: figureView
+                                    width: parent.width
+                                    active: !!block.figure
+                                    sourceComponent: HandbookFigure {
+                                        name: block.figure.name
+                                        caption: block.figure.caption
+                                        onLinkActivated: link => book.activateLink(link)
+                                    }
                                 }
                             }
                         }

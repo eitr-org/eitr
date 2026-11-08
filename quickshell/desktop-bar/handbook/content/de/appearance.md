@@ -84,6 +84,10 @@ Eigene Bilder, Designs und Sperrbildschirme bleiben auf diesem Computer, in `~/.
 
 **Einstellungen > Stil > Desktopleiste** wählt Unschärfe, Designfarbe oder Website, vollständige oder zentrierte Anordnung und Bildschirmkante. Walker folgt dieser Darstellung. **Einstellungen > Stil > Ecken** wählt eckige, abgerundete oder stark abgerundete Ecken für EITR-Flächen und Fensterdekorationen. Fremdanwendungen können eigene Bedienelemente behalten; runde Statuspunkte bleiben rund.
 
+<!-- eitr-figure: window-style -->
+
+Fensterabstände und Ecken, wie **Einstellungen > Fenster** sie zeigt, mit deiner aktuellen Auswahl markiert. Standardmäßig liegen 6 px zwischen Fenstern und 12 px an den Bildschirmrändern.
+
 ## Schriftarten
 
 **Einstellungen > Stil > Schriftarten** zeigt nutzbare installierte Schriftfamilien, nicht jede fette oder kursive Variante. Dokument- und Ersatzschriften bleiben verborgen. Standard ist JetBrainsMono Nerd Font. Die Auswahl aktualisiert unterstützte Anwendungen und aktiviert verfügbare Ligaturen. Das Entfernen einer Familie entfernt ihre unterstützten installierten Varianten; die letzte nutzbare Auswahl lässt sich nicht entfernen. Die Paketzugehörigkeit muss gegebenenfalls geprüft werden.
@@ -115,4 +119,4 @@ Integrierte Themen gehören zu Eitr und können nicht entfernt werden. Der Papie
 Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um die aktuelle Seite nach Name oder Beschreibung zu durchsuchen. Die Wörter können in beliebiger Reihenfolge stehen; Escape leert zuerst die Suche.
 
 
-Unter **Einstellungen > Fenster > Fensterabstände** oder **Walker > Einstellungen > Stil > Fensterabstände** stehen Keine, Klein, Standard und Groß zur Wahl. Standard behält 6 px innen und 12 px außen bei. Die lokale Auswahl bleibt bei Themewechseln und Neuladen erhalten.
+Unter **Einstellungen > Fenster > Fensterabstände** oder **Walker > Einstellungen > Stil > Fensterabstände** stehen Keine, Klein, Standard und Groß zur Wahl. Die lokale Auswahl bleibt bei Themewechseln und Neuladen erhalten.

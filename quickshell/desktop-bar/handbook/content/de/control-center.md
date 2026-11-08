@@ -8,7 +8,11 @@ Auswahllisten unterstützen die Navigation durch Tippen, wenn das Auswahlfeld od
 
 ## Einstellungen
 
-Die Gruppen heißen Übersicht, Geräte, Desktop, Apps und Tasten, Konten und Sicherheit sowie System. Runen-Überschriften und eine gleitende goldene Markierung erleichtern die Navigation. Jede Seite hat einen Titel, eine Beschreibung und Karten mit beschrifteten Einstellungen. Das Fenster bleibt deckend. Das Handbuch sowie Themes und Plugins nutzen denselben Rahmen, dieselbe Seitenleiste, Seitenüberschrift und Karten und folgen derselben Farbwahl.
+<!-- eitr-figure: settings-window -->
+
+Einstellungen gruppiert seine Seiten unter Übersicht, Geräte, Desktop, Apps und Tasten, Konten und Sicherheit sowie System, jeweils mit einer Runen-Überschrift. Eine gleitende goldene Markierung zeigt die aktuelle Seite; die Suche findet Seitennamen und Beschreibungen. Jede Seite hat einen Pfad, einen Titel und eine Beschreibung, und umrandete Karten fassen zusammengehörige Zeilen zusammen.
+
+Das Fenster bleibt deckend. Das Handbuch sowie Themes und Plugins nutzen denselben Rahmen, dieselbe Seitenleiste, Seitenüberschrift und Karten und folgen derselben Farbwahl.
 
 Verbindungen hat die Tabs **Wi-Fi** und **Bluetooth**, die jeweils mit einem beschrifteten Ein/Aus-Schalter beginnen. Wi-Fi zeigt für das verbundene Netzwerk Signal, Sicherheit, Band, Kanal, Verbindungsgeschwindigkeit, Adressen, Gateway, DNS, MAC-Adresse, Schnittstelle, Backend und Ping (nur die Felder, die das Backend liefert) mit Trennen, danach bekannte Netzwerke mit Vergessen, andere Netzwerke und die Backend-Auswahl, die nach einem Neustart gilt. Bluetooth listet verbundene Geräte mit Akkustand und Trennen, bekannte (gekoppelte) Geräte mit Vergessen und andere Geräte; Geräte ohne Namen bleiben unter **Geräte ohne Namen anzeigen**. Ein Klick auf eine Netzwerk- oder Gerätezeile verbindet: Ein neues Gerät wird zuerst gekoppelt, ein geschütztes Netzwerk fragt nach seinem Passwort, und Fortschritt und Fehler erscheinen in der Zeile. **Suchen** im Kopf von Andere Netzwerke oder Andere Geräte sucht nach weiteren; bei Bluetooth beendet ein zweiter Druck die Suche. Die Anzeige trennt **Bildschirme** und **Nachtlicht**. Erscheinungsbild trennt **Design und Hintergrundbild**, **Schriften & Zeiger** und **Terminal**. Links/Rechts wechselt den fokussierten Tab; die Suche öffnet den passenden Tab. `settings show connections/bluetooth` öffnet Bluetooth; `network` bleibt ein Alias. Bildkarten zeigen Leistenlayouts, Bildschirmkanten, Oberflächen, Medienanzeige, Fensterabstände, Ecken und Sperrbildschirme. Unter Erscheinungsbild wählt **Einstellungsfarben** zwischen **Theme-Farben** und **Eitr-Website** für Einstellungen, Handbuch sowie Themes und Plugins. Die lokale Datei `eitr/settings-app.json` speichert die Auswahl; `settings palette theme` und `settings palette website` ändern sie ebenfalls. Die Desktop-Farben bleiben davon unabhängig.
 
@@ -22,8 +26,12 @@ Seine Seiten sind Allgemein, Plugins und Werkzeuge. Die Zahnrad-Schaltfläche da
 
 ## Allgemein
 
+<!-- eitr-figure: control-center -->
+
+Die Seite Allgemein. Die Schaltflächen links wechseln zwischen Allgemein, Plugins und Werkzeuge; das Zahnrad darunter öffnet die Einstellungen. Ein eingeschalteter Schalter füllt sich mit der Akzentfarbe des Designs.
+
 - **Verbindungen:** WiFi- und Bluetooth-Schalter sowie Flugmodus.
-- **Schnellaktionen:** automatische Bildschirmsperre, Absturzbenachrichtigungen, Nicht stören, Spielmodus (Effekte, Unschärfe und Popups aus, Leistungsprofil an, bis du ihn ausschaltest) und Nachtlicht. Ein eingeschalteter Schalter füllt sich mit der Akzentfarbe des Designs. Darunter führen Leiste ausblenden (SUPER+Shift+Space holt sie zurück) und Bildschirmschoner einmalig eine Aktion aus.
+- **Schnellaktionen:** automatische Bildschirmsperre, Absturzbenachrichtigungen, Nicht stören, Spielmodus (Effekte, Unschärfe und Popups aus, Leistungsprofil an, bis du ihn ausschaltest) und Nachtlicht. Darunter führen Leiste ausblenden (SUPER+Shift+Space holt sie zurück) und Bildschirmschoner einmalig eine Aktion aus.
 - **Ton:** Lautstärke sowie Mikrofonverstärkung und Stummschaltung, dazu zwei optionale, standardmäßig ausgeschaltete Schalter: **Benachrichtigungstöne** (ein Klang, ein anderer für dringende Benachrichtigungen; unwichtige bleiben still) und auf PCs mit Akku **Ladetöne** beim An- und Abstecken des Ladegeräts. Beide schweigen bei Nicht stören und im Spielmodus.
 - **Bildschirm:** Helligkeit, auf Laptops mit eingebautem Bildschirm.
 - **Medien:** Cover, Interpret, Wiedergabesteuerung und Positionswahl, sofern unterstützt.

@@ -2,9 +2,9 @@
 
 Settings also provides these controls inline.
 
-The bar keeps the date and time centered. Its left side starts with the Eitr logo, which opens Control Center, then Overview,
-workspace markers, AI Usage, Hardware and Idle Lock; its right side contains device/status
-controls. Click **Show Icons** to reveal or hide that right-side group.
+<!-- eitr-figure: bar-anatomy -->
+
+The Full bar. The Eitr logo opens Control Center; Overview, the workspace markers, AI Usage, Hardware and Idle Lock follow it. The date and time stay centered, with media before them and the weather after them. **Show Icons** reveals or hides the status icons on the right; Notifications come last.
 
 ## Updates
 
@@ -32,6 +32,10 @@ never leaves the system partially upgraded.
   shown on its own screen, shortcuts such as SUPER + I open on the display you
   are using, and notifications pop up on the main display only. Choose the
   main display in the Display panel.
+
+<!-- eitr-figure: bar-layouts -->
+
+The five layouts in the order double-right-click cycles them. At rest, Centered shows only the clock and Dynamic three small islands; both unfold on hover.
 
 Centered meets the screen edge with square edge ends and the same softly rounded 45° slopes as Tabs on both sides. These slopes rotate with the bar on all four edges and ignore the corner preference; its detached panels still follow that preference.
 

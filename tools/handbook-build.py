@@ -16,11 +16,17 @@ sys.path.insert(0, str(ROOT / ("distro/lib" if (ROOT / "distro/lib").is_dir() el
 from eitr_i18n import languages, table
 from eitr_focus import shortcut_entries
 
+# Live illustrations the reader draws in QML (quickshell/desktop-bar/figures/<Name>Figure.qml).
+FIGURES = ("bar-anatomy", "bar-layouts", "control-center", "settings-window", "launcher", "window-style")
+
 
 class Blocks(HTMLParser):
     """Keep top-level rich-text blocks small enough to render independently.
 
-    Each block also records the welcome section (`<!-- eitr-welcome:NAME -->`) it sits in."""
+    Each block also records the welcome section (`<!-- eitr-welcome:NAME -->`) it sits in.
+    A figure marker (`<!-- eitr-figure: NAME -->`) turns the paragraph after it into one
+    `<figure data-figure="NAME"><figcaption>…</figcaption></figure>` block: the reader
+    draws the named figure above that caption, the website shows the caption alone."""
     def __init__(self):
         super().__init__(convert_charrefs=False)
         self.depth = 0
@@ -28,14 +34,30 @@ class Blocks(HTMLParser):
         self.blocks = []
         self.sections = []
         self.section = None
+        self.figure = None
 
     def flush(self):
         if self.buffer:
-            self.blocks.append("".join(self.buffer))
+            block = "".join(self.buffer)
+            if self.figure:
+                caption = re.fullmatch(r"<p>(.*)</p>", block.strip(), re.DOTALL)
+                if not caption:
+                    raise ValueError(f"The figure {self.figure} needs a caption paragraph right after its marker")
+                block = f'<figure data-figure="{self.figure}"><figcaption>{caption[1].strip()}</figcaption></figure>'
+                self.figure = None
+            self.blocks.append(block)
             self.sections.append(self.section)
             self.buffer = []
 
     def handle_comment(self, data):
+        figure = re.fullmatch(r"\s*eitr-figure:\s*([a-z-]+)\s*", data)
+        if figure:
+            if self.depth or self.figure:
+                raise ValueError("Figure markers sit between top-level blocks, each before its caption")
+            if figure[1] not in FIGURES:
+                raise ValueError(f"Unknown handbook figure: {figure[1]}")
+            self.figure = figure[1]
+            return
         marker = re.fullmatch(r"\s*(/?)eitr-welcome:([a-z]+)\s*", data)
         if not marker:
             return
@@ -82,7 +104,14 @@ def parse_blocks(html):
         raise ValueError("Unbalanced handbook HTML")
     if parser.section:
         raise ValueError(f"Unclosed welcome marker: {parser.section}")
+    if parser.figure:
+        raise ValueError(f"The figure {parser.figure} needs a caption paragraph right after its marker")
     return parser
+
+
+def figures(blocks):
+    """Figure names in block order."""
+    return [match[1] for block in blocks if (match := re.match(r'<figure data-figure="([a-z-]+)">', block))]
 
 
 def blocks(html):
@@ -258,6 +287,11 @@ def build(locale="en"):
                 raise ValueError(f"Missing or unsafe handbook image: {figure['src']}")
         html = markdown.markdown(unnest_fences(text), extensions=["tables", "fenced_code", "sane_lists"])
         parsed = parse_blocks(html)
+        if locale != "en" and localized.is_file() and "source" in chapter:
+            english = parse_blocks(markdown.markdown(unnest_fences((ROOT / chapter["source"]).read_text()),
+                                                     extensions=["tables", "fenced_code", "sane_lists"]))
+            if figures(parsed.blocks) != figures(english.blocks):
+                raise ValueError(f"{locale}/{chapter['id']} needs the English chapter's figures, in order")
         metadata = {key: value for key, value in chapter.items() if key not in ("source", "generated")}
         if "welcome" in chapter:
             metadata["welcome"] = welcome(chapter["welcome"], parsed)

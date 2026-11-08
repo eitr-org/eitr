@@ -2,7 +2,9 @@
 
 Öffne **SUPER + F > Einstellungen**. Zuerst kommen Ordner, dann Aktionen, jeweils alphabetisch. Die globale Suche findet auch frühere Namen wie System und Toggle.
 
-**Verbindungen**, **Geräte und Eingabe**, **Sprache**, **Sicherheit**, **Stil**, **System** sind Ordner. **Kontrollzentrum** öffnet dieselben Bedienelemente wie SUPER + Komma. **Konfigurationsdateien** öffnet deinen Konfigurationsordner in VS Code oder LazyVim.
+<!-- eitr-figure: launcher -->
+
+Das Einstellungsmenü in Walker. **Verbindungen**, **Geräte und Eingabe**, **Sprache**, **Sicherheit**, **Stil** und **System** sind Ordner, markiert mit **>**. **Kontrollzentrum** öffnet dieselben Bedienelemente wie SUPER + I; **Konfigurationsdateien** öffnet deinen Konfigurationsordner in VS Code oder LazyVim.
 
 Verbindungen öffnet die nativen Bluetooth- und WiFi-Panels, Netzwerk-Backend und Fernzugriff. Die Backend-Auswahl bereitet den nächsten Start vor, ohne die laufende Verbindung neu zu starten.
 
