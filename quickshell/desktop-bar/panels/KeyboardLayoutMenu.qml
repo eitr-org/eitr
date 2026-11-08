@@ -20,8 +20,10 @@ ThemedPopup {
     readonly property string activeCode: active ? active.code : ""
     readonly property string activeLabel: active ? active.label : ""
     implicitWidth: 428
+    // Heading, 16 px gap, the rows, then 8 px above the (usually empty) error line and
+    // 8 px above the footer link.
     implicitHeight: heading.implicitHeight + 16 + Math.max(1, layouts.length) * (PanelStyle.selectionRowHeight + PanelStyle.selectionRowGap)
-        + 8 + PanelStyle.selectionRowHeight + (error ? 34 : 0) + verticalContentInset
+        + 16 + PanelStyle.selectionRowHeight + (error ? 34 : 0) + verticalContentInset
 
     function refresh() { if (!query.running && !operation.running) query.running = true; }
     function perform(command) {
