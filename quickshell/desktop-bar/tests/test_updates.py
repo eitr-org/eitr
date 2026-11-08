@@ -35,12 +35,13 @@ class UpdatesTests(unittest.TestCase):
             with self.subTest(result=result), patch.object(updates, "run", return_value=result):
                 self.assertEqual(updates.repository_updates(Path("/run/db")), ([], 0))
         with patch.object(updates.shutil, "which", return_value=None):
-            self.assertEqual(updates.aur_updates(), [])
+            self.assertEqual(updates.aur_updates(Path("/run/db")), [])
 
-    def test_aur_updates_come_from_yay(self):
+    def test_aur_updates_come_from_yay_with_the_freshly_synced_databases(self):
         with patch.object(updates.shutil, "which", return_value="/usr/bin/yay"), \
-                patch.object(updates, "run", return_value=Completed(0, "yay-bin 12.4-1 -> 12.5-1\n")):
-            self.assertEqual(updates.aur_updates(), ["yay-bin"])
+                patch.object(updates, "run", return_value=Completed(0, "yay-bin 12.4-1 -> 12.5-1\n")) as run:
+            self.assertEqual(updates.aur_updates(Path("/run/db")), ["yay-bin"])
+        run.assert_called_once_with(["yay", "-Qua", "--dbpath", "/run/db"])
 
     def test_bar_icon_sits_between_obs_and_notifications_and_refreshes_after_updates(self):
         shell = (ROOT / "bar/BarHorizontalStatus.qml").read_text() + (ROOT / "bar/BarHorizontalPlacement.qml").read_text() + (ROOT / "bar/BarVerticalStatus.qml").read_text()
@@ -111,4 +112,4 @@ class BrokerUpdateResultsTests(unittest.TestCase):
             with self.subTest(diagnostic=diagnostic), patch.object(updates, 'run', return_value=result), \
                     patch.object(updates.shutil, 'which', return_value='/usr/bin/yay'):
                 with self.assertRaises(RuntimeError):
-                    updates.aur_updates(strict=True)
+                    updates.aur_updates(Path('/run/db'), strict=True)

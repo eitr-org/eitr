@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import re
 import subprocess
 import tempfile
 import unittest
@@ -81,6 +82,17 @@ class UpdateWorkflowTests(unittest.TestCase):
         self.assertIn("Checking official package updates…", result.stderr)
         self.assertIn("Checking AUR updates…", result.stderr)
         self.assertIn("Checking Flatpak updates…", result.stderr)
+
+    def test_aur_check_reads_the_databases_checkupdates_synced(self):
+        with tempfile.TemporaryDirectory() as directory:
+            record = Path(directory) / "calls"
+            result = run_protected_update('checkupdates() { echo "db=$CHECKUPDATES_DB" >>"$CALLS"; return 2; }; '
+                                          'yay() { echo "yay $*" >>"$CALLS"; return 1; }; flatpak() { :; };\n',
+                                          environment_extra={"CALLS": str(record)})
+            calls = record.read_text()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        database = re.search(r"db=(\S+)", calls)[1]
+        self.assertIn(f"yay -Qua --devel --dbpath {database}", calls)
 
     def test_yay_silent_exit_one_means_no_aur_updates(self):
         result = run_protected_update('checkupdates() { return 2; }; yay() { return 1; }; flatpak() { :; };\n')

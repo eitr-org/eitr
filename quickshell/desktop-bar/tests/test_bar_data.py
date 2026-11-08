@@ -1343,7 +1343,7 @@ class VmAcceptanceRegressionTests(unittest.IsolatedAsyncioTestCase):
                 self.assertEqual(arguments, ['pacman', '--dbpath', '/fixture/session-runtime/eitr-checkupdates-db',
                                             '-Si', 'eitr-desktop', 'linux', 'mesa'])
                 return subprocess.CompletedProcess(arguments, 0, 'Download Size : 8527667 B\n', '')
-            self.assertEqual(arguments, ['yay', '-Qua'])
+            self.assertEqual(arguments, ['yay', '-Qua', '--dbpath', '/fixture/session-runtime/eitr-checkupdates-db'])
             return subprocess.CompletedProcess(arguments, 1, '', '')
         try:
             with patch.dict(os.environ, XDG_RUNTIME_DIR='/fixture/session-runtime', EITR_TEST_SESSION='inherited'), \

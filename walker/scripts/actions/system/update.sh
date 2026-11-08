@@ -38,6 +38,10 @@ full_update() { pacman_update; yay -Sua --devel; update_flatpaks; }
 no_updates() (
   local official aur flatpaks aur_errors status=0
   local check_output
+  # yay reads the databases checkupdates just synced: the system's own can predate
+  # a repository (a fresh install has no [eitr] database yet), and that repository's
+  # packages would then look like outdated AUR packages.
+  export CHECKUPDATES_DB="${TMPDIR:-/tmp}/checkup-db-${UID}"
   check_output="$(mktemp)" || return 1
   trap 'rm -f "$check_output"' EXIT
   capture_check() { "$@" >"$check_output"; }
@@ -49,7 +53,7 @@ no_updates() (
   # silent empty result is a no-update result; diagnostics keep the update path.
   aur_errors="$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/eitr-update-check.XXXXXX")" || return 1
   status=0
-  capture_aur() { yay -Qua --devel >"$check_output" 2>"$aur_errors"; }
+  capture_aur() { yay -Qua --devel --dbpath "$CHECKUPDATES_DB" >"$check_output" 2>"$aur_errors"; }
   run_with_spinner "$(eitr_gettext 'Checking AUR updates…')" capture_aur || status=$?
   aur="$(cat "$check_output")"
   if [[ -s "$aur_errors" ]]; then

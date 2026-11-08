@@ -61,10 +61,12 @@ def repository_updates(database, strict=False):
     return names, download_bytes(details.stdout) if details and details.returncode == 0 else 0
 
 
-def aur_updates(strict=False):
+def aur_updates(database, strict=False):
     if not shutil.which("yay"):
         return []
-    result = run(["yay", "-Qua"])
+    # The databases checkupdates just synced: the system's own can predate a repository
+    # (a fresh install has no [eitr] one yet), making its packages look like AUR updates.
+    result = run(["yay", "-Qua", "--dbpath", str(database)])
     # Query mode exits 1 without output when there are no AUR upgrades.
     empty = result is not None and result.returncode == 1 and not result.stdout.strip() and not getattr(result, "stderr", "").strip()
     if strict and (result is None or (result.returncode != 0 and not empty)):
@@ -79,7 +81,7 @@ class UpdatesDomain:
         runtime = Path(os.environ.get("XDG_RUNTIME_DIR") or f"/tmp/eitr-{os.getuid()}")
         try:
             repository, size = repository_updates(runtime / "eitr-checkupdates-db", strict=True)
-            aur = aur_updates(strict=True)
+            aur = aur_updates(runtime / "eitr-checkupdates-db", strict=True)
         except RuntimeError as error:
             return {"state": str(error)}
         return {"state": "ready", "count": len(repository) + len(aur),
@@ -89,7 +91,7 @@ class UpdatesDomain:
 def main():
     runtime = Path(os.environ.get("XDG_RUNTIME_DIR") or f"/tmp/eitr-{os.getuid()}")
     repository, size = repository_updates(runtime / "eitr-checkupdates-db")
-    aur = aur_updates()
+    aur = aur_updates(runtime / "eitr-checkupdates-db")
     print(json.dumps({"count": len(repository) + len(aur), "repository": len(repository), "aur": len(aur),
                       "downloadBytes": size}))
 
