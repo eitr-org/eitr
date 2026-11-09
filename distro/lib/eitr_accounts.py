@@ -28,10 +28,10 @@ def target_user(username):
     return account
 
 
-def protect_last(account):
+def protect_last(account, message):
     if is_administrator(account) and not any(
             other.pw_name != account.pw_name and is_administrator(other) for other in human_users()):
-        raise ValueError(tr('Cannot remove the last administrator'))
+        raise ValueError(message)
 
 
 def ensure_logged_out(account, run):
@@ -66,7 +66,7 @@ def apply(action, request, run, atomic):
                     sudoers.unlink(missing_ok=True)
                 raise
         else:
-            protect_last(account)
+            protect_last(account, tr('Cannot make the last administrator a standard account'))
             import grp
             wheel = grp.getgrnam('wheel')
             if account.pw_gid == wheel.gr_gid:
@@ -85,7 +85,7 @@ def apply(action, request, run, atomic):
             raise ValueError(tr('Invalid home folder choice'))
         if username == os.environ.get('SUDO_USER'):
             raise ValueError(tr('Cannot remove your own account'))
-        protect_last(account)
+        protect_last(account, tr('Cannot remove the last administrator'))
         ensure_logged_out(account, run)
         run(['userdel', *(['--remove'] if request['delete_home'] else []), '--', username])
         sudoers.unlink(missing_ok=True)

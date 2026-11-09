@@ -6158,6 +6158,9 @@
     "Cannot inspect package dependency database {database}: {error}": [
       "distro/lib/eitr_profile.py"
     ],
+    "Cannot make the last administrator a standard account": [
+      "distro/lib/eitr_accounts.py"
+    ],
     "Cannot remove the last administrator": [
       "distro/lib/eitr_accounts.py"
     ],

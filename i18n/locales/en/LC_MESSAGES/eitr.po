@@ -583,6 +583,9 @@ msgstr "Cannot demote an account with wheel as its primary group"
 msgid "Cannot inspect package dependency database {database}: {error}"
 msgstr "Cannot inspect package dependency database {database}: {error}"
 
+msgid "Cannot make the last administrator a standard account"
+msgstr "Cannot make the last administrator a standard account"
+
 msgid "Cannot remove the last administrator"
 msgstr "Cannot remove the last administrator"
 

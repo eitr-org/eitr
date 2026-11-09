@@ -193,6 +193,7 @@
   "Cannot change another user": "Não é possível alterar outro usuário",
   "Cannot demote an account with wheel as its primary group": "Não é possível rebaixar uma conta cujo grupo principal é wheel",
   "Cannot inspect package dependency database {database}: {error}": "Não foi possível examinar o banco de dependências {database}: {error}",
+  "Cannot make the last administrator a standard account": "O último administrador não pode virar uma conta padrão",
   "Cannot remove the last administrator": "Não é possível remover o último administrador",
   "Cannot remove your own account": "Não é possível remover sua própria conta",
   "Cannot validate Flatpak additions (internet and flatpak required): {error}": "Não foi possível validar adições Flatpak (internet e flatpak necessários): {error}",

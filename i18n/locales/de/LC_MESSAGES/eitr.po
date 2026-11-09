@@ -583,6 +583,9 @@ msgstr "Ein Konto mit wheel als primärer Gruppe kann nicht zum Standardkonto we
 msgid "Cannot inspect package dependency database {database}: {error}"
 msgstr "Abhängigkeitsdatenbank {database} kann nicht geprüft werden: {error}"
 
+msgid "Cannot make the last administrator a standard account"
+msgstr "Der letzte Administrator kann kein Standardkonto werden"
+
 msgid "Cannot remove the last administrator"
 msgstr "Der letzte Administrator kann nicht entfernt werden"
 

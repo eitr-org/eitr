@@ -1528,5 +1528,6 @@
   "Invalid password": "Invalid password",
   "Only administrators can manage accounts": "Only administrators can manage accounts",
   "Only human accounts can be managed": "Only human accounts can be managed",
-  "Use Change password for your own account": "Use Change password for your own account"
+  "Use Change password for your own account": "Use Change password for your own account",
+  "Cannot make the last administrator a standard account": "Cannot make the last administrator a standard account"
 }
