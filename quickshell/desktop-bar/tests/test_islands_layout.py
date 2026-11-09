@@ -59,3 +59,13 @@ class IslandsLayoutTests(unittest.TestCase):
                         transverse = 300 - 12 - (60 if edge in ('left', 'right') else 30) // 2 if edge in ('bottom', 'right') else 12 + (60 if edge in ('left', 'right') else 30) // 2
                         point = (transverse, 960) if edge in ('left', 'right') else (960, transverse)
                         self.assertGreater(image.getpixel(point)[0], 240)
+
+
+class IslandsStatusTests(unittest.TestCase):
+    def test_status_icons_always_show_without_a_toggle(self):
+        shell = (BAR / 'shell.qml').read_text()
+        self.assertRegex(shell, r'readonly property bool iconsOpen: [^\n]*islandsLayout')
+        for name in ('bar/BarHorizontalStatus.qml', 'bar/BarVerticalStatus.qml'):
+            with self.subTest(file=name):
+                toggle = (BAR / name).read_text()
+                self.assertIn('&& !barHost.islandsLayout', toggle.split('Hide icons', 1)[0].rsplit('visible:', 1)[1])

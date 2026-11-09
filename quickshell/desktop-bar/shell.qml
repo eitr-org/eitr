@@ -106,7 +106,7 @@ ShellRoot {
     // Radius of the four bends on each Tabs slope.
     readonly property real tabBendRound: 6
     readonly property bool centeredLayout: barLayout === "centered"
-    readonly property bool iconsOpen: centeredLayout || notchLayout || dynamicLayout || statusOpen
+    readonly property bool iconsOpen: centeredLayout || notchLayout || dynamicLayout || islandsLayout || statusOpen
     property string barEdge: "top"
     property bool settingsDirty: false
     property string dragCandidate: ""

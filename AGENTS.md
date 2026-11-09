@@ -311,8 +311,8 @@ existing design and workflows rather than replacing them with upstream defaults.
   surface. Do not align glyph centers at the expense of button backgrounds or
   add duplicate per-panel padding above the shared content frame.
 - Keep the right-side icon group hidden by default, with its manual toggle and
-  no auto-close timer. Tabs and Dynamic’s expanded right island show it without
-  the toggle.
+  no auto-close timer. Tabs, Islands and Dynamic’s expanded right island show it
+  without the toggle.
   Preserve the existing arrow direction and icon order.
 - Focus is a separate Style preset, controlled by `eitr focus on|off|toggle|status`,
   Walker's Settings > Style > Focus and the Settings window's Focus page. Its machine-local preference preserves
@@ -330,7 +330,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   Clock remains screen-centred. Opening a panel grows a card out of its pill toward
   the pill's free side and pushes neighbouring pills aside; the pill hides under the
   card until it has shrunk back.
-  Status controls keep Full’s manual toggle.
+  Every status icon is always shown, without Full’s show/hide toggle.
 - Dynamic: three full-pill islands side by side at the screen centre (always fully
   rounded, ignoring the corner preference): logo, time-only clock exactly centred at
   rest, network/battery. Hover expands one island along the bar (the clock island then

@@ -34,7 +34,7 @@ Choose a layout in Settings > Desktop Bar. All five work on every screen edge.
 | Full | Full keeps the whole bar at the edge. Panels join it. |
 | Centered | Centered shows the clock until hovered. Use the pin to keep it expanded; panels float beside it. |
 | Tabs | Tabs uses three tabs joined by a thin strip. Status icons stay visible; hover the middle tab for weather. |
-| Islands | Islands gives each group its own pill. Opening a panel expands its pill and moves neighbouring groups aside. |
+| Islands | Islands gives each group its own pill, with every status icon always shown. Opening a panel expands its pill and moves neighbouring groups aside. |
 | Dynamic | Dynamic starts with three islands: logo, clock and network/battery. Hover one to expand it; opening a panel grows that island into the panel. |
 
 ## Workspaces

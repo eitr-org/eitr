@@ -38,7 +38,7 @@ Choisissez une disposition dans Paramètres > Barre de bureau. Les cinq fonction
 | Complète | Complète garde toute la barre au bord. Les panneaux s’y rattachent. |
 | Centrée | Centrée montre seulement l’horloge avant le survol. L’épingle la garde ouverte ; les panneaux flottent à côté. |
 | Onglets | Onglets relie trois onglets par une fine bande. Les icônes d’état restent visibles ; survolez le centre pour la météo. |
-| Îlots | Îlots donne une capsule à chaque groupe. Ouvrir un panneau agrandit son îlot et écarte les groupes voisins. |
+| Îlots | Îlots donne une capsule à chaque groupe et affiche toujours toutes les icônes d’état. Ouvrir un panneau agrandit son îlot et écarte les groupes voisins. |
 | Dynamique | Dynamique commence par trois îlots : logo, horloge et réseau/batterie. Survolez-en un pour le déplier ; le panneau grandit depuis ce même îlot. |
 
 ## Espaces de travail
