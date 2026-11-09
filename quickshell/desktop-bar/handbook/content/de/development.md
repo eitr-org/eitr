@@ -40,7 +40,7 @@ Grok Build bietet **Letzte fortsetzen**, eine Walker-**Sitzungsauswahl** und **N
 
 Pi behält nur **Neu**, da sich Sitzungsoptionen aus der verfügbaren Paketdokumentation nicht bestätigen ließen. Walker zeigt verfügbare Titel und Datumsangaben; bei leeren Listen erscheint eine Meldung. Leere Namens-/ID-Eingaben brechen ab. Die Kontenuntermenüs bleiben erhalten.
 
-Beim Öffnen eines LazyVim- oder VS Code-Projekts wähle zuerst einen Ordner, beginnend im Home-Ordner (versteckte Ordner werden ausgeblendet): Ordner öffnen vertieft die Auswahl, Öffnen verwendet den aktuellen Ordner und Zurück führt eine Ebene höher beziehungsweise oben zurück zum Menü.
+Beim Öffnen eines LazyVim- oder VS Code-Projekts wähle zuerst einen Ordner, beginnend im Home-Ordner (versteckte Ordner werden ausgeblendet): Ordner öffnen vertieft die Auswahl, Öffnen verwendet den aktuellen Ordner und Zurück führt eine Ebene höher beziehungsweise oben zurück zum Menü. Tippen durchsucht jeden Ordner unterhalb des aktuellen, bis zu sechs Ebenen tief, ohne `node_modules`, `target`, `build`, `dist`, `venv` und `__pycache__`; der Ordnerschritt der KI-Menüs funktioniert genauso.
 
 Du kannst Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode und Pi auch per Befehl starten. Fehlt ein Werkzeug, erklärt Eitr seine Funktion und bietet dieselbe Installation wie Installieren > KI-CLIs an. Enter bestätigt die Installation; Esc bricht ab. Ohne interaktives Terminal endet der Befehl mit Installationshinweisen. Installierte Programme haben Vorrang vor diesen Startern. Melde dich über das jeweilige Werkzeug an; Eitr enthält weder Assistenten-Binärdateien noch Zugangsdaten.
 

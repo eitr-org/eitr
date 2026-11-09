@@ -74,6 +74,16 @@ class ChooseFolderTests(unittest.TestCase):
         self.assertIn(FOLDER + "Development", self.menu(1))
         self.assertNotIn(FOLDER + ".cache", self.menu(1))
 
+    def test_typing_finds_folders_below_the_current_one(self):
+        (self.development / "work/app/node_modules/lib").mkdir(parents=True)
+        (self.development / "work/.git/objects").mkdir(parents=True)
+        (self.development / "work/app/notes.txt").write_text("not a folder")
+        result = self.run_script(PICKER, "AI project", "*", choices=[FOLDER + "work/app", "*  Open work/app"])
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), str(self.development / "work/app"))
+        rows = self.menu(1)
+        self.assertEqual(rows[2:], [FOLDER + "personal", FOLDER + "work", FOLDER + "work/app"])
+
     def test_back_at_the_top_and_dismissal_have_their_own_codes(self):
         self.assertEqual(self.run_script(PICKER, "AI project", "*", choices=[BACK]).returncode, 2)
         (self.home / "count").unlink()

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Folder picker under DEV_DIR (default: the home folder), shared by the AI and
-# project menus. Usage: choose-folder.sh TITLE ICON
+# project menus; typing searches every folder below the current one (folders only).
+# Usage: choose-folder.sh TITLE ICON
 # Prints the chosen folder and exits 0; exits 1 when dismissed and 2 when Back
 # is chosen at the top, so the caller can reopen the menu it came from.
 
@@ -16,6 +17,8 @@ DEV_DIR="${DEV_DIR:-$HOME}"
 DEV_DIR="${DEV_DIR%/}"
 WALKER_DMENU="${WALKER_DMENU:-$EITR_CODE_ROOT/walker/bin/walker-dmenu}"
 back_label="󰁍  Back"
+SEARCH_DEPTH=6
+SEARCH_LIMIT=5000
 
 if [ ! -d "$DEV_DIR" ]; then
   notify-send "$title" "$DEV_DIR does not exist"
@@ -36,19 +39,19 @@ while true; do
     open_label="$icon  Open $rel"
   fi
 
+  # The folders here come first, then every folder below them as a relative path,
+  # nearest first, so typing searches the whole tree while browsing looks the same.
   options=("$open_label" "$back_label")
   while IFS= read -r folder; do
     options+=("󰉋  $folder")
   done < <(
-    find "$current" -mindepth 1 -maxdepth 1 -type d \
-      ! -name ".*" \
-      ! -name "node_modules" \
-      ! -name ".idea" \
-      ! -name ".gradle" \
-      ! -name "target" \
-      ! -name "build" \
-      -printf "%f\n" |
-      sort
+    find "$current" -mindepth 1 -maxdepth "$SEARCH_DEPTH" \
+      \( -name ".*" -o -name "node_modules" -o -name "target" -o -name "build" -o -name "dist" \
+         -o -name "venv" -o -name "__pycache__" \) -prune -o \
+      -type d -printf "%d\t%P\n" 2>/dev/null |
+      sort -t $'\t' -k1,1n -k2,2 |
+      cut -f2- |
+      head -n "$SEARCH_LIMIT"
   )
 
   chosen="$(printf "%s\n" "${options[@]}" | "$WALKER_DMENU" --dmenu --no-sort --matching=contains --cache-file /dev/null --prompt="$prompt")" || exit 1

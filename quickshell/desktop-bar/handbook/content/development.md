@@ -61,7 +61,9 @@ Pi keeps **New** only because session options could not be confirmed from the av
 
 Opening a LazyVim or VS Code project first asks for a
 folder, starting in your home folder (hidden folders are left out): pick folders to go deeper, Open to use the one
-you are in, and Back to go up a level or, at the top, return to the menu.
+you are in, and Back to go up a level or, at the top, return to the menu. Typing searches every folder below the one
+you are in, six levels deep, skipping `node_modules`, `target`, `build`, `dist`, `venv` and `__pycache__`; the AI
+menus' folder step works the same way.
 
 Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode and Pi can also be started by command. If a tool is missing, Eitr explains it and offers the same installation as Install > AI CLIs. Enter confirms installation; Esc cancels. Without an interactive terminal, the command exits with installation instructions. Installed binaries take precedence over these launchers. Sign in through each tool’s own workflow; no assistant binaries or credentials are bundled.
 
