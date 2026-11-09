@@ -9,8 +9,8 @@ from eitr_paths import cache, config, data, read_settings, write_settings
 RENAMES = {
     'eitr': {'01-primordial-drop': '03-primordial-drop',
              '02-eitr-runestone': '04-eitr-runestone',
-             '03-elivagar': '01-rune-seal',
-             '04-venom-rootlight': '01-rune-seal'},
+             '03-elivagar': '01-gates-of-yggdrasil',
+             '04-venom-rootlight': '01-gates-of-yggdrasil'},
     'eitr-light': {'01-primordial-drop': '03-primordial-drop',
                    '02-elivagar': '01-gates-of-yggdrasil',
                    '03-venom-rootlight': '01-gates-of-yggdrasil'},

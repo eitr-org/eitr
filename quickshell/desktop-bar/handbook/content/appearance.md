@@ -99,8 +99,8 @@ changes stay quiet: they do not send success notifications. Ultrawide monitors
 (at least twice as wide as tall) show each wallpaper's 21:9 version, so less of
 the picture is cut away; other monitors show the 4K 16:9 one.
 
-The Eitr theme has four wallpapers: Rune Seal (the default), The Gates of Yggdrasil,
-Primordial Drop and Runestone. Select them through the same wallpaper controls;
+The Eitr theme has four wallpapers: Aurora Fjord (the default), Dusk Fjord,
+Rune Seal and Runestone. Select them through the same wallpaper controls;
 the palette stays the same. The fourth wallpaper, Runestone, is live: northern
 lights drift slowly behind the rune ring, update more slowly behind ordinary
 windows, pause behind fullscreen apps, and remain still on the lockscreen.
@@ -109,7 +109,7 @@ Software rendering (for example, a VM without 3D acceleration) uses the selected
 still wallpaper; the same fallback applies if the renderer cannot be detected. Graphite has been retired; saved Graphite
 selections switch to Eitr and its default wallpaper.
 
-Eitr Light is the light counterpart of Primordial Venom, with pale green surfaces, dark green text, venom yellow-green accents and jade/emerald highlights. Its three still wallpapers are The Gates of Yggdrasil (default), Rune Seal and Primordial Drop, each with a separate panoramic composition. Select it in the Light category; Eitr remains the default. Theme Wallpaper uses the selected still image on the lockscreen.
+Eitr Light is the light counterpart of Primordial Venom, with pale green surfaces, dark green text, venom yellow-green accents and jade/emerald highlights. Its four still wallpapers are Dusk Fjord (default), The Gates of Yggdrasil, Rune Seal and Primordial Drop, each with a separate panoramic composition. Select it in the Light category; Eitr remains the default. Theme Wallpaper uses the selected still image on the lockscreen.
 
 The 13 built-in themes remain available offline. Install the 12 extra themes from the official `eitr-org/eitr-themes` catalog. Existing accounts receive all 12 in the background, with offline retries; their current theme and saved wallpaper stay unchanged. New accounts receive only built-ins.
 

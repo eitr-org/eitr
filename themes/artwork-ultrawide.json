@@ -126,8 +126,20 @@
       ]
     },
     {
-      "file": "themes/eitr-light/backgrounds-ultrawide/01-gates-of-yggdrasil.jpg",
-      "wallpaper": "themes/eitr-light/backgrounds/01-gates-of-yggdrasil.jpg",
+      "file": "themes/eitr-light/backgrounds-ultrawide/01-dusk-fjord.jpg",
+      "wallpaper": "themes/eitr-light/backgrounds/01-dusk-fjord.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-12/eitr-02-dusk-fjord-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/eitr-light/backgrounds-ultrawide/02-gates-of-yggdrasil.jpg",
+      "wallpaper": "themes/eitr-light/backgrounds/02-gates-of-yggdrasil.jpg",
       "source": {
         "file": "branding/sources/wallpapers/batch-11/eitr-light-01-gates-of-yggdrasil-ultrawide.png"
       },
@@ -138,8 +150,8 @@
       ]
     },
     {
-      "file": "themes/eitr-light/backgrounds-ultrawide/02-rune-seal.jpg",
-      "wallpaper": "themes/eitr-light/backgrounds/02-rune-seal.jpg",
+      "file": "themes/eitr-light/backgrounds-ultrawide/03-rune-seal.jpg",
+      "wallpaper": "themes/eitr-light/backgrounds/03-rune-seal.jpg",
       "source": {
         "file": "branding/sources/wallpapers/batch-11/eitr-light-02-rune-seal-ultrawide.png"
       },
@@ -150,8 +162,8 @@
       ]
     },
     {
-      "file": "themes/eitr-light/backgrounds-ultrawide/03-primordial-drop.jpg",
-      "wallpaper": "themes/eitr-light/backgrounds/03-primordial-drop.jpg",
+      "file": "themes/eitr-light/backgrounds-ultrawide/04-primordial-drop.jpg",
+      "wallpaper": "themes/eitr-light/backgrounds/04-primordial-drop.jpg",
       "source": {
         "file": "branding/sources/wallpapers/batch-10/eitr-light-01-primordial-drop-ultrawide.png"
       },
@@ -162,22 +174,10 @@
       ]
     },
     {
-      "file": "themes/eitr/backgrounds-ultrawide/02-gates-of-yggdrasil.jpg",
-      "wallpaper": "themes/eitr/backgrounds/02-gates-of-yggdrasil.jpg",
+      "file": "themes/eitr/backgrounds-ultrawide/01-aurora-fjord.jpg",
+      "wallpaper": "themes/eitr/backgrounds/01-aurora-fjord.jpg",
       "source": {
-        "file": "branding/sources/wallpapers/batch-11/eitr-02-gates-of-yggdrasil-ultrawide.png"
-      },
-      "framing": "crop",
-      "centering": [
-        0.5,
-        0.0
-      ]
-    },
-    {
-      "file": "themes/eitr/backgrounds-ultrawide/01-rune-seal.jpg",
-      "wallpaper": "themes/eitr/backgrounds/01-rune-seal.jpg",
-      "source": {
-        "file": "branding/sources/wallpapers/batch-11/eitr-01-rune-seal-ultrawide.png"
+        "file": "branding/sources/wallpapers/batch-12/eitr-01-aurora-fjord-ultrawide.png"
       },
       "framing": "crop",
       "centering": [
@@ -186,10 +186,22 @@
       ]
     },
     {
-      "file": "themes/eitr/backgrounds-ultrawide/03-primordial-drop.jpg",
-      "wallpaper": "themes/eitr/backgrounds/03-primordial-drop.jpg",
+      "file": "themes/eitr/backgrounds-ultrawide/02-dusk-fjord.jpg",
+      "wallpaper": "themes/eitr/backgrounds/02-dusk-fjord.jpg",
       "source": {
-        "file": "branding/sources/wallpapers/batch-09/eitr-01-primordial-drop-ultrawide.png"
+        "file": "branding/sources/wallpapers/batch-12/eitr-02-dusk-fjord-ultrawide.png"
+      },
+      "framing": "crop",
+      "centering": [
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "file": "themes/eitr/backgrounds-ultrawide/03-rune-seal.jpg",
+      "wallpaper": "themes/eitr/backgrounds/03-rune-seal.jpg",
+      "source": {
+        "file": "branding/sources/wallpapers/batch-11/eitr-01-rune-seal-ultrawide.png"
       },
       "framing": "crop",
       "centering": [

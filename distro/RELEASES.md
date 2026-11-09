@@ -1,8 +1,9 @@
 # Releases
 
 Eitr Light adds the light Primordial Venom palette, local light Neovim and VS Code
-themes, and three painterly primordial wallpapers with separate panoramic
-compositions. Eitr remains the default among 13 built-in themes. The 12 extra
+themes, and four still wallpapers led by Dusk Fjord. Eitr starts with Aurora
+Fjord, then Dusk Fjord, Rune Seal and the animated Runestone. The fjords use
+flat ink cel shading with separately generated panoramas. Eitr remains the default among 13 built-in themes. The 12 extra
 themes are official packages from `eitr-org/eitr-themes`: Catppuccin, Catppuccin
 Latte, Daylight, Gruvbox, Jade, Kanagawa, Moss, Nord, One Dark Pro, Rosé Pine,
 Stillwater and Wisteria. Existing accounts receive all 12 in the background,
@@ -92,7 +93,7 @@ problem report and the ISO name and boot menu all read it.
 | 0.6.4 | Mimir | beta | Translations (Portuguese, Spanish, German, French), multi-monitor arrangement, Control Center, AI assistants, crash help, OBS defaults |
 | 0.6.5 | Mimir | beta | HDR switch and HDR games, Tabs bar, assistants (SUPER+A, quick chat, accounts), calendars, your own themes, faster disk unlock, stronger disk passphrases |
 | 0.7.0 | Huginn | beta | Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout |
-| 0.7.2 | Huginn | beta | The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal |
+| 0.7.2 | Huginn | beta | The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by Aurora Fjord |
 | 0.8.0 | Muninn | release candidate | The exact ISO intended for 1.0: repeated clean installs, upgrades from earlier public releases and destructive recovery tests in isolated environments, until installation, maintenance and recovery are reproducible on the declared supported configurations |
 | 1.0.0 | Bifröst | stable | A supported hardware matrix, tested upgrade paths, documented rollback limitations, a security-update process and a clear compatibility policy |
 

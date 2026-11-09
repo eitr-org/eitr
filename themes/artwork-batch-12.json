@@ -1,0 +1,148 @@
+{
+  "batch": "2026-11-original-12",
+  "generator": "Codex image generation",
+  "status": "owner-approved",
+  "resolution": [
+    3840,
+    2160
+  ],
+  "ultrawide_resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Subject-centred Lanczos crop-to-fill; separate generated panoramic image inputs for ultrawide. Never stretched or padded; exports are not native 4K detail.",
+  "images": [
+    {
+      "theme": "eitr",
+      "name": "01-aurora-fjord",
+      "rendering_style": "Ink cel-shaded vector",
+      "status": "owner-approved",
+      "file": "themes/eitr/backgrounds/01-aurora-fjord.jpg",
+      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/01-aurora-fjord.jpg",
+      "prompt": "Use your image generation tool to create three NEW desktop wallpapers and save them in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers) as fjord-a.png, fjord-b.png and fjord-c.png. Landscape 16:9, the highest resolution the tool supports. Do not write code. Afterwards report each file name and its actual pixel size.\n\nThe attached image ref-fjord-style.png is a STYLE reference only. Match its art style closely: a clean flat vector / cel-shaded illustration with bold black ink outlines, flat colour planes with one or two shading steps, angular faceted cliffs and mountains, simple triangular pine trees, chunky cartoon clouds with ink outlines, calm glassy water with simple horizontal reflections, and a small Viking longship as the focal point. It should feel friendly, bold and handcrafted, like an animated-series background. Do not copy its composition: each wallpaper needs its own original layout (different mountain shapes, framing and placement of the ship), keep the centre and the area under a top bar calm so desktop windows and a 40 px bar look good over it, and leave no text, logos, signatures or watermarks.\n\nThe wallpapers are for \"Eitr\", a Norse-themed Linux desktop whose theme colours are near-black (#000000, #0b110e), deep green surfaces (#19251d), a pale foreground (#e2eae2), a venom yellow-green accent (#b9d77e) and a soft jade green (#85c69a).\n\n1. fjord-a.png — Daylight: a fjord at late morning under a clear teal-to-pale sky with a small sun, green cliffs, snowy peaks and a longship with a striped sail, in the reference's bright palette.\n2. fjord-b.png — Night in Eitr's colours: the same art style at night. Near-black sky with a few stars and a large flowing aurora in venom yellow-green (#b9d77e) and jade (#85c69a); cliffs in deep green-black with jade rim light; the aurora reflected in the still water; the longship with a dark sail and one warm lantern. Mostly dark so it suits an OLED screen, but still readable and beautiful.\n3. fjord-c.png — Dusk: a warm sunset (amber and rose low in the sky fading into deep blue-green), cliffs in dark green with warm edge light, the longship's sail catching the last light, long reflections in the water.\n",
+      "prompt_file": "brief-fjord.md",
+      "input_images": [
+        "ref-fjord-style.png"
+      ],
+      "input_role": "Owner-supplied third-party style reference only; not distributed.",
+      "prompt_history": [],
+      "ultrawide_prompt": "Use your image generation/editing tool to make ultrawide versions of the two attached wallpapers and save them in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers) as fjord-b-ultrawide.png (from fjord-b.png) and fjord-c-ultrawide.png (from fjord-c.png). Each must be a 21:9 landscape image at the highest resolution the tool supports. Do not write code; afterwards report each file name and its actual pixel size.\n\nExtend each picture sideways (outpaint left and right) so it fills 21:9. Keep everything already in the picture exactly as it is: the same art style (bold black ink outlines, flat cel-shaded colour planes, angular faceted cliffs, triangular pines), the same colours, the same longship, sky, aurora or sunset, clouds and water, at the same size and in the same place relative to each other. Only add new matching scenery at the sides (more cliffs, pines, water and sky continuing naturally). Never stretch, squash or pad with flat colour, and add no text, logos or watermarks.\n",
+      "ultrawide_prompt_file": "brief-uw-fjord.md",
+      "ultrawide_input_images": [
+        "fjord-b.png"
+      ],
+      "ultrawide_input_role": "Separate generated panoramic sideways extension of the approved master.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "framing": "Subject-centred Lanczos crop to fill; longship and aurora or sunset remain in frame. No stretching or padding.",
+      "native_source": "branding/sources/wallpapers/batch-12/eitr-01-aurora-fjord.png",
+      "native_sha256": "4e10e6a13d7f9ca4a46f89ee37a732492fb01765a4578d5a59188e6ed0321042",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-12/eitr-01-aurora-fjord-ultrawide.png",
+      "ultrawide_native_sha256": "cddc15bb9352f1e41f6fde40d559ba85774ec61c874bdff733ce3557d6fec5e8",
+      "ultrawide_native_size": [
+        1915,
+        821
+      ],
+      "file_sha256": "c0185edcc2ddb0547ad4bd67ea2c70751b7e35b2a79c5e6e78c23452795e8cd2",
+      "ultrawide_file_sha256": "e208144aa9f6cdc8b893d82d18865b09ff28f4c1563e1fd7a293e34b77f59e91"
+    },
+    {
+      "theme": "eitr",
+      "name": "02-dusk-fjord",
+      "rendering_style": "Ink cel-shaded vector",
+      "status": "owner-approved",
+      "file": "themes/eitr/backgrounds/02-dusk-fjord.jpg",
+      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/02-dusk-fjord.jpg",
+      "prompt": "Use your image generation tool to create three NEW desktop wallpapers and save them in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers) as fjord-a.png, fjord-b.png and fjord-c.png. Landscape 16:9, the highest resolution the tool supports. Do not write code. Afterwards report each file name and its actual pixel size.\n\nThe attached image ref-fjord-style.png is a STYLE reference only. Match its art style closely: a clean flat vector / cel-shaded illustration with bold black ink outlines, flat colour planes with one or two shading steps, angular faceted cliffs and mountains, simple triangular pine trees, chunky cartoon clouds with ink outlines, calm glassy water with simple horizontal reflections, and a small Viking longship as the focal point. It should feel friendly, bold and handcrafted, like an animated-series background. Do not copy its composition: each wallpaper needs its own original layout (different mountain shapes, framing and placement of the ship), keep the centre and the area under a top bar calm so desktop windows and a 40 px bar look good over it, and leave no text, logos, signatures or watermarks.\n\nThe wallpapers are for \"Eitr\", a Norse-themed Linux desktop whose theme colours are near-black (#000000, #0b110e), deep green surfaces (#19251d), a pale foreground (#e2eae2), a venom yellow-green accent (#b9d77e) and a soft jade green (#85c69a).\n\n1. fjord-a.png — Daylight: a fjord at late morning under a clear teal-to-pale sky with a small sun, green cliffs, snowy peaks and a longship with a striped sail, in the reference's bright palette.\n2. fjord-b.png — Night in Eitr's colours: the same art style at night. Near-black sky with a few stars and a large flowing aurora in venom yellow-green (#b9d77e) and jade (#85c69a); cliffs in deep green-black with jade rim light; the aurora reflected in the still water; the longship with a dark sail and one warm lantern. Mostly dark so it suits an OLED screen, but still readable and beautiful.\n3. fjord-c.png — Dusk: a warm sunset (amber and rose low in the sky fading into deep blue-green), cliffs in dark green with warm edge light, the longship's sail catching the last light, long reflections in the water.\n",
+      "prompt_file": "brief-fjord.md",
+      "input_images": [
+        "ref-fjord-style.png"
+      ],
+      "input_role": "Owner-supplied third-party style reference only; not distributed.",
+      "prompt_history": [],
+      "ultrawide_prompt": "Use your image generation/editing tool to make ultrawide versions of the two attached wallpapers and save them in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers) as fjord-b-ultrawide.png (from fjord-b.png) and fjord-c-ultrawide.png (from fjord-c.png). Each must be a 21:9 landscape image at the highest resolution the tool supports. Do not write code; afterwards report each file name and its actual pixel size.\n\nExtend each picture sideways (outpaint left and right) so it fills 21:9. Keep everything already in the picture exactly as it is: the same art style (bold black ink outlines, flat cel-shaded colour planes, angular faceted cliffs, triangular pines), the same colours, the same longship, sky, aurora or sunset, clouds and water, at the same size and in the same place relative to each other. Only add new matching scenery at the sides (more cliffs, pines, water and sky continuing naturally). Never stretch, squash or pad with flat colour, and add no text, logos or watermarks.\n",
+      "ultrawide_prompt_file": "brief-uw-fjord.md",
+      "ultrawide_input_images": [
+        "fjord-c.png"
+      ],
+      "ultrawide_input_role": "Separate generated panoramic sideways extension of the approved master.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "framing": "Subject-centred Lanczos crop to fill; longship and aurora or sunset remain in frame. No stretching or padding.",
+      "native_source": "branding/sources/wallpapers/batch-12/eitr-02-dusk-fjord.png",
+      "native_sha256": "9263e9bc9a1fa868f91a326b3fe80f5676814b98147a603ec60ea1e2fdba53f2",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-12/eitr-02-dusk-fjord-ultrawide.png",
+      "ultrawide_native_sha256": "d52c816ceb0456c5c2562211a21042df58938f4dc2fc774e3956887b44adbb3d",
+      "ultrawide_native_size": [
+        1915,
+        821
+      ],
+      "file_sha256": "cb0591e8288e36d2536d9d7674d29e7c248d4d54c6b62760dc8316d941923b18",
+      "ultrawide_file_sha256": "14175b92af6996e888914abdbe8fbf1d30ed66c30c340efb370d0b7da897d232"
+    },
+    {
+      "theme": "eitr-light",
+      "name": "01-dusk-fjord",
+      "rendering_style": "Ink cel-shaded vector",
+      "status": "owner-approved",
+      "file": "themes/eitr-light/backgrounds/01-dusk-fjord.jpg",
+      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/01-dusk-fjord.jpg",
+      "prompt": "Use your image generation tool to create three NEW desktop wallpapers and save them in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers) as fjord-a.png, fjord-b.png and fjord-c.png. Landscape 16:9, the highest resolution the tool supports. Do not write code. Afterwards report each file name and its actual pixel size.\n\nThe attached image ref-fjord-style.png is a STYLE reference only. Match its art style closely: a clean flat vector / cel-shaded illustration with bold black ink outlines, flat colour planes with one or two shading steps, angular faceted cliffs and mountains, simple triangular pine trees, chunky cartoon clouds with ink outlines, calm glassy water with simple horizontal reflections, and a small Viking longship as the focal point. It should feel friendly, bold and handcrafted, like an animated-series background. Do not copy its composition: each wallpaper needs its own original layout (different mountain shapes, framing and placement of the ship), keep the centre and the area under a top bar calm so desktop windows and a 40 px bar look good over it, and leave no text, logos, signatures or watermarks.\n\nThe wallpapers are for \"Eitr\", a Norse-themed Linux desktop whose theme colours are near-black (#000000, #0b110e), deep green surfaces (#19251d), a pale foreground (#e2eae2), a venom yellow-green accent (#b9d77e) and a soft jade green (#85c69a).\n\n1. fjord-a.png — Daylight: a fjord at late morning under a clear teal-to-pale sky with a small sun, green cliffs, snowy peaks and a longship with a striped sail, in the reference's bright palette.\n2. fjord-b.png — Night in Eitr's colours: the same art style at night. Near-black sky with a few stars and a large flowing aurora in venom yellow-green (#b9d77e) and jade (#85c69a); cliffs in deep green-black with jade rim light; the aurora reflected in the still water; the longship with a dark sail and one warm lantern. Mostly dark so it suits an OLED screen, but still readable and beautiful.\n3. fjord-c.png — Dusk: a warm sunset (amber and rose low in the sky fading into deep blue-green), cliffs in dark green with warm edge light, the longship's sail catching the last light, long reflections in the water.\n",
+      "prompt_file": "brief-fjord.md",
+      "input_images": [
+        "ref-fjord-style.png"
+      ],
+      "input_role": "Owner-supplied third-party style reference only; not distributed.",
+      "prompt_history": [],
+      "ultrawide_prompt": "Use your image generation/editing tool to make ultrawide versions of the two attached wallpapers and save them in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers) as fjord-b-ultrawide.png (from fjord-b.png) and fjord-c-ultrawide.png (from fjord-c.png). Each must be a 21:9 landscape image at the highest resolution the tool supports. Do not write code; afterwards report each file name and its actual pixel size.\n\nExtend each picture sideways (outpaint left and right) so it fills 21:9. Keep everything already in the picture exactly as it is: the same art style (bold black ink outlines, flat cel-shaded colour planes, angular faceted cliffs, triangular pines), the same colours, the same longship, sky, aurora or sunset, clouds and water, at the same size and in the same place relative to each other. Only add new matching scenery at the sides (more cliffs, pines, water and sky continuing naturally). Never stretch, squash or pad with flat colour, and add no text, logos or watermarks.\n",
+      "ultrawide_prompt_file": "brief-uw-fjord.md",
+      "ultrawide_input_images": [
+        "fjord-c.png"
+      ],
+      "ultrawide_input_role": "Separate generated panoramic sideways extension of the approved master.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "framing": "Subject-centred Lanczos crop to fill; longship and aurora or sunset remain in frame. No stretching or padding.",
+      "native_source": "branding/sources/wallpapers/batch-12/eitr-02-dusk-fjord.png",
+      "native_sha256": "9263e9bc9a1fa868f91a326b3fe80f5676814b98147a603ec60ea1e2fdba53f2",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-12/eitr-02-dusk-fjord-ultrawide.png",
+      "ultrawide_native_sha256": "d52c816ceb0456c5c2562211a21042df58938f4dc2fc774e3956887b44adbb3d",
+      "ultrawide_native_size": [
+        1915,
+        821
+      ],
+      "file_sha256": "cb0591e8288e36d2536d9d7674d29e7c248d4d54c6b62760dc8316d941923b18",
+      "ultrawide_file_sha256": "14175b92af6996e888914abdbe8fbf1d30ed66c30c340efb370d0b7da897d232"
+    }
+  ]
+}

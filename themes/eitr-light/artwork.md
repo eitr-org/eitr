@@ -9,30 +9,25 @@ with `../build-theme-files.py` and `../build-vscode-themes.py`.
 
 ## Wallpapers
 
-1. `01-gates-of-yggdrasil.jpg` — The Gates of Yggdrasil: carved bears facing across a monumental gate, ravens, a lone figure and the world tree. The new default; owner-approved ink screenprint with bold contours and flat cel shading.
-2. `02-rune-seal.jpg` — the Eitr emblem and venom drip within gold rune rings; owner-approved neon seal, recoloured in forest green and bronze on pale parchment with a gentle sheen.
-3. `03-primordial-drop.jpg` — the complete venom teardrop in pale mist.
+1. `01-dusk-fjord.jpg` — the default: a striped-sail longship in a warm sunset fjord, shared with Eitr.
+2. `02-gates-of-yggdrasil.jpg` — carved bears, ravens and the world tree in an ink screenprint on pale parchment.
+3. `03-rune-seal.jpg` — the Eitr emblem in forest green and bronze with a gentle pale sheen.
+4. `04-primordial-drop.jpg` — the complete venom teardrop in pale mist.
 
 All ship at 3840×2160 in `backgrounds/` and 3440×1440 JPEG in
-`backgrounds-ultrawide/`. Batch 11 preserves eight owner-approved native PNGs
-byte-for-byte: four 16:9 masters and four separately generated panoramic edits.
-These are subject-centred Lanczos exports, without stretching or padding,
-not native 4K generations. Exact supplied prompts, earlier draft inputs, edit
-history, native sizes, SHA-256 hashes and framing are in
-`../artwork-batch-11.json`; rebuild with
-`branding/sources/wallpapers/batch-11/export.py`. These originals were made with
-Codex image generation, including edits with image inputs. References guided
-the original drawings; they are not distributed wallpaper assets.
+`backgrounds-ultrawide/`, using subject-centred Lanczos crop-to-fill without
+stretching or padding. These exports are not native 4K generations.
+Batch 12 preserves four approved PNGs: two 16:9 fjords and two separately
+generated panoramic sideways extensions. Exact prompts, input filenames,
+native sizes, SHA-256 hashes and framing are in `../artwork-batch-12.json`;
+rebuild with `branding/sources/wallpapers/batch-12/export.py`.
+The third-party style reference is documented by filename only and is not distributed.
+Batch 11 retains the rune seals and Eitr Light Gates with their prompts and sources.
+Saved selections follow the migration chain to their renamed image or the new default.
 
-Primordial Drop retains its owner-approved painterly style and provenance in
-`../artwork-batch-10.json`. Élivágar and Venom Rootlight are removed;
-their prompts remain in those manifests as history. Saved selections migrate
-to the renamed image or the new Gates default.
-
-The independent `preview.png` remains the isolated Calendar panel capture over
-Primordial Drop described in `../ARTWORK.md`; the exporter preserves it.
-All three wallpapers are still images; Theme Wallpaper uses the selected image
-on the lockscreen.
+Primordial Drop retains its painterly style and batch 10 provenance. All four
+wallpapers are still images. The independent Calendar capture in `preview.png`
+is preserved; see `../ARTWORK.md` for reproduction.
 
 Artwork is CC-BY-4.0, credited to the EITR project.
 

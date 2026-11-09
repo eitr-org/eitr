@@ -10,7 +10,7 @@ const art = new URL("../public/art/", import.meta.url);
 const data = new URL("../src/data/", import.meta.url);
 const approvedArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-04.json", import.meta.url), "utf8"));
 
-const curatedArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-11.json", import.meta.url), "utf8"));
+const curatedArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-12.json", import.meta.url), "utf8"));
 
 const eitr = {
   mimir: "../assets/norse/03-mimir-well-of-wisdom.jpg",

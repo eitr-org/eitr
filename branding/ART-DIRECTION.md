@@ -101,8 +101,8 @@ byte-for-byte; ultrawides are new panoramic compositions from the same final
 written prompts, with only Eitr’s emblem used as the drop’s shape reference.
 Exact prompts, hashes, sizes and framing: `themes/artwork-batch-09.json`.
 Masters and reproducible exports: `branding/sources/wallpapers/batch-09/`.
-Only Primordial Drop remains shipped from batch 09, now numbered 03.
-Élivágar and Venom Rootlight are marked removed with their prompts preserved.
+All batch 09 wallpapers are removed from Eitr; their prompts and native
+masters remain as provenance.
 Runestone and its live layers are numbered 04; the independent preview is preserved.
 
 ## Eitr Light batch 10
@@ -115,27 +115,25 @@ Keep the upper 6–8% calm for the bar, preserve complete subjects and create
 separate panoramic compositions. No letters, runes, logos or watermarks.
 Written briefs only; no image references. Exact prompts, edits, native sizes,
 hashes and export framing: `themes/artwork-batch-10.json`. Masters and exporter:
-`branding/sources/wallpapers/batch-10/`. Primordial Drop remains shipped, now numbered 03; the other two
+`branding/sources/wallpapers/batch-10/`. Eitr Light Primordial Drop remains shipped, now numbered 04; the other two
 subjects are removed with their prompts retained as history.
 
-## Eitr and Eitr Light — Batch 11
+## Eitr and Eitr Light — Batch 12
 
-The owner-approved order in Eitr is Rune Seal (default), Gates of Yggdrasil,
-Primordial Drop, then the animated Runestone; Eitr Light starts with Gates of
-Yggdrasil, then Rune Seal and Primordial Drop. Gates uses bold hand-inked
-Norse screenprint with flat colours and cel shading, black sky and moon in Eitr,
-pale parchment and illustrated sun in Eitr Light. Rune Seal uses the explicitly
-approved neon emblem and gold rune rings on true black (OLED); the light
-counterpart uses forest green, bronze and a gentle pale sheen. Rune ornament,
-logo silhouettes and these controlled glows are intentional owner exceptions.
-Batch 11 replaces Élivágar and Venom Rootlight in both themes. Saved paths
-migrate to their renamed files or the theme's new default.
+Eitr now starts with Aurora Fjord, then Dusk Fjord, Rune Seal and the animated
+Runestone. Eitr Light starts with the same Dusk Fjord, then its Gates of
+Yggdrasil, Rune Seal and Primordial Drop. Eitr's dark Gates and Primordial Drop
+are removed; batch 11 retains only three active pairs of native masters.
+The owner deliberately approved scenic fjords in a flat ink cel-shaded vector
+direction: bold black contours, angular faceted cliffs, triangular pines,
+limited colour planes and calm horizontal water reflections. A small longship
+anchors each scene; venom-green aurora leads Eitr and warm sunset leads Eitr Light.
+This owner-approved scenic direction extends Eitr's default art direction.
 
-`themes/artwork-batch-11.json` records the supplied prompts verbatim, input
-images and earlier edit history, native dimensions, hashes and subject-centred
-framing. Codex image generation produced these originals through image-input
-edits of earlier drafts; the panoramas are separate generated sideways
-expansions, not stretched masters. Eight native PNGs and the shared-pipeline
-`export.py` live under `branding/sources/wallpapers/batch-11/`. Outputs are
-3840×2160 and 3440×1440 JPEGs using Lanczos, without padding or stretching.
-Existing independent theme previews are preserved; website cards select each theme's first wallpaper.
+`themes/artwork-batch-12.json` preserves both supplied prompts verbatim, input
+filenames, native dimensions, hashes and subject-centred framing. The third-party
+`ref-fjord-style.png` guided style only and is not distributed. Four native PNGs
+and `export.py` live under `branding/sources/wallpapers/batch-12/`. Separate
+generated sideways extensions provide the panoramas. Shared Lanczos exports
+are 3840×2160 and 3440×1440, without stretching or padding; not native 4K detail.
+Independent theme previews remain unchanged; website cards use each theme's first wallpaper.

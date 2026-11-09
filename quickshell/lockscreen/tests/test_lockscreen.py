@@ -193,7 +193,7 @@ class ThemeWallpaperTests(unittest.TestCase):
         theme.touch()
         self.assertEqual(self.settings.theme_wallpaper(), theme)
         theme.unlink()
-        fallback = self.home / 'package/themes/eitr/backgrounds/04-eitr-runestone.png'
+        fallback = self.home / 'package/themes/eitr/backgrounds/01-aurora-fjord.jpg'
         fallback.parent.mkdir(parents=True)
         fallback.touch()
         self.assertEqual(self.settings.theme_wallpaper(), fallback)
@@ -205,11 +205,11 @@ class ThemeWallpaperTests(unittest.TestCase):
         shipped = ROOT.parents[1] / 'themes/eitr-light'
         theme.parent.mkdir(parents=True)
         theme.symlink_to(shipped, target_is_directory=True)
-        expected = shipped / 'backgrounds/01-gates-of-yggdrasil.jpg'
+        expected = shipped / 'backgrounds/01-dusk-fjord.jpg'
         self.assertEqual(self.settings.theme_wallpaper(), expected)
         self.assertEqual(self.settings.design_config('theme-wallpaper')['background'], expected.as_uri())
         self.assertEqual(self.settings.eitr_config()['themeMode'], 'light')
-        selected = shipped / 'backgrounds-ultrawide/02-rune-seal.jpg'
+        selected = shipped / 'backgrounds-ultrawide/03-rune-seal.jpg'
         (self.cache / 'current-wallpaper').write_text(str(selected))
         self.assertEqual(self.settings.theme_wallpaper(), selected)
         self.assertEqual(self.settings.design_config('theme-wallpaper')['background'], selected.as_uri())

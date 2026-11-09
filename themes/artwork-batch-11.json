@@ -16,7 +16,7 @@
       "theme": "eitr",
       "name": "02-gates-of-yggdrasil",
       "rendering_style": "Ink screenprint",
-      "status": "owner-approved",
+      "status": "removed",
       "file": "themes/eitr/backgrounds/02-gates-of-yggdrasil.jpg",
       "ultrawide_file": "themes/eitr/backgrounds-ultrawide/02-gates-of-yggdrasil.jpg",
       "prompt": "Use your image generation/editing tool to edit the attached image eitr-gates-d.png and save the result as eitr-gates-e.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep everything exactly the same (composition, gate, stairs, roots, Yggdrasil, figure, ravens, sky, sun or moon, colours and style) except the two carved bear heads on the pillars. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nToday both carved bear heads face the same direction. Make them mirror each other so they face one another across the arch: the bear on the LEFT pillar looks to the right (toward the centre of the arch) and the bear on the RIGHT pillar looks to the left (toward the centre of the arch). Same size, position, carved gold style and expression as now; only their facing direction changes.\n",
@@ -66,15 +66,16 @@
         822
       ],
       "file_sha256": "0847c6f187f6742121e1d61e52b60ea25b5a1f863bba037013cbf7fe6e09580f",
-      "ultrawide_file_sha256": "e2075309f27c07f4dcccd5d72a728e75f4fc7df5f91b403a20187f189f69a5da"
+      "ultrawide_file_sha256": "e2075309f27c07f4dcccd5d72a728e75f4fc7df5f91b403a20187f189f69a5da",
+      "retirement": "Removed from Eitr in batch 12; provenance retained as history."
     },
     {
       "theme": "eitr",
-      "name": "01-rune-seal",
+      "name": "03-rune-seal",
       "rendering_style": "Neon seal on true black (OLED)",
       "status": "owner-approved",
-      "file": "themes/eitr/backgrounds/01-rune-seal.jpg",
-      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/01-rune-seal.jpg",
+      "file": "themes/eitr/backgrounds/03-rune-seal.jpg",
+      "ultrawide_file": "themes/eitr/backgrounds-ultrawide/03-rune-seal.jpg",
       "prompt": "Use your image generation/editing tool to edit the attached image eitr-oled-seal-b.png and save the result as eitr-oled-seal-c.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep EVERYTHING exactly the same: the glowing neon-green Eitr logo (same size, shape, gradient and glow), the venom drip, the inner gold ring, the runes (same glyphs, thin strokes, positions and size), the pure black background and the overall size of the seal. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nOnly two changes:\n1. Remove the outermost thin circle with the small dots and tick marks (the extra fine ring outside the rune band). The rune band itself stays, bounded by its two gold rings.\n2. Make the gold (the rings and the runes) glow a little: a subtle soft golden halo around the strokes, similar in feel to the logo's green glow but weaker. The black between and around stays pure black.\n",
       "prompt_file": "brief-seal-edit.md",
       "input_images": [
@@ -118,11 +119,11 @@
     },
     {
       "theme": "eitr-light",
-      "name": "01-gates-of-yggdrasil",
+      "name": "02-gates-of-yggdrasil",
       "rendering_style": "Ink screenprint on pale parchment",
       "status": "owner-approved",
-      "file": "themes/eitr-light/backgrounds/01-gates-of-yggdrasil.jpg",
-      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/01-gates-of-yggdrasil.jpg",
+      "file": "themes/eitr-light/backgrounds/02-gates-of-yggdrasil.jpg",
+      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/02-gates-of-yggdrasil.jpg",
       "prompt": "Use your image generation/editing tool to edit the attached image eitr-gates-light-b.png and save the result as eitr-gates-light-c.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep everything exactly the same (composition, gate, stairs, roots, Yggdrasil, figure, ravens, sky, sun or moon, colours and style) except the two carved bear heads on the pillars. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nToday both carved bear heads face the same direction. Make them mirror each other so they face one another across the arch: the bear on the LEFT pillar looks to the right (toward the centre of the arch) and the bear on the RIGHT pillar looks to the left (toward the centre of the arch). Same size, position, carved gold style and expression as now; only their facing direction changes.\n",
       "prompt_file": "brief-bears-eitr-gates-light-c.png.md",
       "input_images": [
@@ -178,11 +179,11 @@
     },
     {
       "theme": "eitr-light",
-      "name": "02-rune-seal",
+      "name": "03-rune-seal",
       "rendering_style": "Light counterpart of the neon seal",
       "status": "owner-approved",
-      "file": "themes/eitr-light/backgrounds/02-rune-seal.jpg",
-      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/02-rune-seal.jpg",
+      "file": "themes/eitr-light/backgrounds/03-rune-seal.jpg",
+      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/03-rune-seal.jpg",
       "prompt": "Use your image generation/editing tool to edit the attached image eitr-oled-seal-c.png into a LIGHT-theme version and save it as eitr-seal-light-ai.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/eitr-wallpapers). Keep the exact same design, sizes and positions: the Eitr logo blob with its emblem, the venom drip, the two gold rings and the same runes in the same places. Landscape 16:9, the highest resolution the tool supports. Do not write code or change anything else; afterwards report the file name and its actual pixel size.\n\nChange only the colours to the Eitr Light theme: the black background becomes a flat pale, slightly cool off-white (#f1f6f1), no gradient; the logo blob becomes deep forest green (#1f4d31) with a slightly lighter green toward its centre, the emblem cut-out inside it pale (#f1f6f1); the drip the same deep green; the rings and runes become deep bronze (#5c4b14); replace the neon glows with a very soft, pale warm halo (pale gold around the rings and runes, pale green around the logo) that reads as a gentle sheen on a light background, never as a dark shadow.\n",
       "prompt_file": "brief-seal-light.md",
       "input_images": [

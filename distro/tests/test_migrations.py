@@ -378,7 +378,7 @@ class GraphiteRemovalTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
                 values = json.loads(preference.read_text())
                 self.assertEqual(values['theme'], 'eitr')
-                self.assertEqual(Path(values['wallpaper']).name, '01-rune-seal.jpg')
+                self.assertEqual(Path(values['wallpaper']).name, '01-aurora-fjord.jpg')
                 self.assertTrue(Path(values['wallpaper']).is_file())
                 self.assertEqual(values['barColor'], 'theme')
                 self.assertEqual(values['other'], 42)

@@ -90,7 +90,7 @@ class ThemeSchemaTests(unittest.TestCase):
 
     def test_eitr_light_batch_10_provenance_and_exports(self):
         batch = json.loads((THEMES / 'artwork-batch-10.json').read_text())
-        names = ['03-primordial-drop', '02-elivagar', '03-venom-rootlight']
+        names = ['04-primordial-drop', '02-elivagar', '03-venom-rootlight']
         self.assertEqual([record['name'] for record in batch['images']], names)
         for record in active(batch['images']):
             self.assertEqual(record['theme'], 'eitr-light')
@@ -110,12 +110,12 @@ class ThemeSchemaTests(unittest.TestCase):
                     self.assertEqual(image.format, 'JPEG')
         for folder in ('backgrounds', 'backgrounds-ultrawide'):
             self.assertEqual(sorted(path.stem for path in (THEMES / 'eitr-light' / folder).iterdir()),
-                             ['01-gates-of-yggdrasil', '02-rune-seal', '03-primordial-drop'])
+                             ['01-dusk-fjord', '02-gates-of-yggdrasil', '03-rune-seal', '04-primordial-drop'])
 
     def test_eitr_runestone_and_ragnarok_fenrir_collections(self):
         for folder, runestone in (("backgrounds", "04-eitr-runestone.png"),
                                    ("backgrounds-ultrawide", "04-eitr-runestone.jpg")):
-            self.assertEqual(sorted(path.name for path in (THEMES / "eitr" / folder).iterdir()), ["01-rune-seal.jpg", "02-gates-of-yggdrasil.jpg", "03-primordial-drop.jpg", runestone])
+            self.assertEqual(sorted(path.name for path in (THEMES / "eitr" / folder).iterdir()), ["01-aurora-fjord.jpg", "02-dusk-fjord.jpg", "03-rune-seal.jpg", runestone])
             self.assertTrue((THEMES / "ragnarok" / folder / "05-fenrir.jpg").is_file())
         for manifest in ("artwork-4k.json", "artwork-ultrawide.json"):
             records = json.loads((THEMES / manifest).read_text())["images"]

@@ -77,7 +77,7 @@ O + abre o catálogo separado com o mesmo filtro. Ctrl+Tab alterna filtros, digi
 
 **SUPER + Ctrl + N** abre os papéis de parede e **SUPER + Shift + N** avança para o próximo. Uma marca indica a escolha ativa no Walker. As trocas não exibem notificações de sucesso. Monitores ultrawide, com largura de pelo menos duas vezes a altura, usam a versão 21:9 de cada imagem para reduzir o recorte; os demais usam a versão 4K 16:9.
 
-O Eitr tem quatro papéis de parede: Rune Seal (padrão), The Gates of Yggdrasil, Primordial Drop e Runestone. Escolha pelos mesmos controles; a paleta permanece igual. O quarto, Runestone, é animado: auroras se movem lentamente atrás do anel de runas, atualizam mais devagar atrás de janelas comuns, pausam atrás de aplicativos em tela cheia e ficam estáticas na tela de bloqueio.
+O Eitr tem quatro papéis de parede: Fiorde da aurora (padrão), Fiorde ao entardecer, Rune Seal e Runestone. Escolha pelos mesmos controles; a paleta permanece igual. O quarto, Runestone, é animado: auroras se movem lentamente atrás do anel de runas, atualizam mais devagar atrás de janelas comuns, pausam atrás de aplicativos em tela cheia e ficam estáticas na tela de bloqueio.
 
 A renderização por software (por exemplo, numa VM sem aceleração 3D) usa o papel de parede estático selecionado; o mesmo acontece se não for possível detectar o renderizador. Graphite foi removido; seleções salvas do Graphite mudam para Eitr e seu papel de parede padrão.
 
@@ -85,7 +85,7 @@ Os 13 temas integrados ficam disponíveis offline. Instale os 12 temas extras pe
 
 Os 13 temas incluídos oferecem dez paletas escuras dos reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim e Vanaheim. Cada tema dos reinos tem de dois a cinco papéis de parede originais, com estilos variados de tinta, guache, cel shading e pintura, nas duas proporções. O primeiro papel de parede é a prévia do tema.
 
-Eitr Light é a versão clara de Primordial Venom, com superfícies verde-claras, texto verde-escuro, detalhes em amarelo-esverdeado de veneno e realces de jade/esmeralda. Seus três papéis de parede estáticos são The Gates of Yggdrasil (padrão), Rune Seal e Primordial Drop, cada um com uma composição panorâmica própria. Selecione-o na categoria Clara; Eitr continua sendo o padrão. Papel de parede do tema usa a imagem estática selecionada na tela de bloqueio.
+Eitr Light é a versão clara de Primordial Venom, com superfícies verde-claras, texto verde-escuro, detalhes em amarelo-esverdeado de veneno e realces de jade/esmeralda. Seus quatro papéis de parede estáticos são Fiorde ao entardecer (padrão), The Gates of Yggdrasil, Rune Seal e Primordial Drop, cada um com uma composição panorâmica própria. Selecione-o na categoria Clara; Eitr continua sendo o padrão. Papel de parede do tema usa a imagem estática selecionada na tela de bloqueio.
 
 Se o Hyprpaper não conseguir exibir o papel de parede selecionado, a barra desenha a mesma imagem estática em cada tela afetada, incluindo as versões ultrawide. As escolhas de papel de parede e tema continuam valendo no modo Focus; a alternativa troca a imagem sem a animação de revelação.
 

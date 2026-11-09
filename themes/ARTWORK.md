@@ -15,6 +15,8 @@ marked removed with the official repository location. The Eitr theme combines pr
 - `artwork-batch-05.json`: the ten approved realm illustrations and their native sources, exact prompts and preview selections.
 - `artwork-batch-06.json`: the ten second realm wallpapers, using owner-requested scenic painterly environments, with native sources, exact prompts and framing.
 - `artwork-batch-07.json`: realm wallpapers with individually recorded rendering styles, written prompts, native sources and framing; Ragnarök excluded.
+- `artwork-batch-12.json`: owner-approved Aurora and Dusk Fjords, verbatim prompts, image input filenames, native sources and export hashes.
+- `artwork-batch-11.json`: active rune seals and light Gates; removed dark Gates retained as provenance.
 - `artwork-batch-08.json`: three owner-approved Ragnarök selections with separate panoramic compositions, exact written prompts and native provenance.
 - `artwork-batch-03.json`: second reference-led round, two artworks per theme, generated with the built-in image tool.
 - `artwork-witcher.json`: the four Witcher fan-art wallpapers once made for One Dark Pro, all removed, with their prompts kept as history.
@@ -108,8 +110,8 @@ byte-for-byte; ultrawides are new panoramic compositions from the same final
 written prompts, with only Eitr’s emblem used as the drop’s shape reference.
 Exact prompts, hashes, sizes and framing: `themes/artwork-batch-09.json`.
 Masters and reproducible exports: `branding/sources/wallpapers/batch-09/`.
-Only Primordial Drop remains shipped from batch 09, now numbered 03.
-Élivágar and Venom Rootlight are marked removed with their prompts preserved.
+All batch 09 wallpapers are removed from Eitr; their prompts and native
+masters remain as provenance.
 Runestone and its live layers are numbered 04; the independent preview is preserved.
 
 The ten realms, Eitr and Eitr Light use local Neovim and VS Code themes from the same contrast-corrected palette roles. Run `python3 themes/build-vscode-themes.py` and its `--check` after palette changes; VSIX archives use fixed timestamps and content-derived versions. Afterglow and Wisteria retain their existing VS Code integrations.
@@ -134,24 +136,22 @@ panel over Primordial Drop, rather than a live desktop capture. Reproduce with
 Copy the resulting `CalendarMenu-eitr-light.png` to its `preview.png`
 after visual inspection. The artwork exporter does not rewrite panel captures.
 
-## Eitr and Eitr Light — Batch 11
+## Eitr and Eitr Light — Batch 12
 
-The owner-approved order in Eitr is Rune Seal (default), Gates of Yggdrasil,
-Primordial Drop, then the animated Runestone; Eitr Light starts with Gates of
-Yggdrasil, then Rune Seal and Primordial Drop. Gates uses bold hand-inked
-Norse screenprint with flat colours and cel shading, black sky and moon in Eitr,
-pale parchment and illustrated sun in Eitr Light. Rune Seal uses the explicitly
-approved neon emblem and gold rune rings on true black (OLED); the light
-counterpart uses forest green, bronze and a gentle pale sheen. Rune ornament,
-logo silhouettes and these controlled glows are intentional owner exceptions.
-Batch 11 replaces Élivágar and Venom Rootlight in both themes. Saved paths
-migrate to their renamed files or the theme's new default.
+Eitr now starts with Aurora Fjord, then Dusk Fjord, Rune Seal and the animated
+Runestone. Eitr Light starts with the same Dusk Fjord, then its Gates of
+Yggdrasil, Rune Seal and Primordial Drop. Eitr's dark Gates and Primordial Drop
+are removed; batch 11 retains only three active pairs of native masters.
+The owner deliberately approved scenic fjords in a flat ink cel-shaded vector
+direction: bold black contours, angular faceted cliffs, triangular pines,
+limited colour planes and calm horizontal water reflections. A small longship
+anchors each scene; venom-green aurora leads Eitr and warm sunset leads Eitr Light.
+This owner-approved scenic direction extends Eitr's default art direction.
 
-`themes/artwork-batch-11.json` records the supplied prompts verbatim, input
-images and earlier edit history, native dimensions, hashes and subject-centred
-framing. Codex image generation produced these originals through image-input
-edits of earlier drafts; the panoramas are separate generated sideways
-expansions, not stretched masters. Eight native PNGs and the shared-pipeline
-`export.py` live under `branding/sources/wallpapers/batch-11/`. Outputs are
-3840×2160 and 3440×1440 JPEGs using Lanczos, without padding or stretching.
-Existing independent theme previews are preserved; website cards select each theme's first wallpaper.
+`themes/artwork-batch-12.json` preserves both supplied prompts verbatim, input
+filenames, native dimensions, hashes and subject-centred framing. The third-party
+`ref-fjord-style.png` guided style only and is not distributed. Four native PNGs
+and `export.py` live under `branding/sources/wallpapers/batch-12/`. Separate
+generated sideways extensions provide the panoramas. Shared Lanczos exports
+are 3840×2160 and 3440×1440, without stretching or padding; not native 4K detail.
+Independent theme previews remain unchanged; website cards use each theme's first wallpaper.

@@ -17,10 +17,10 @@
   "images": [
     {
       "theme": "eitr-light",
-      "name": "03-primordial-drop",
+      "name": "04-primordial-drop",
       "rendering_style": "Painterly cinematic Norse primordial fantasy on pale mist, bone and parchment greens; restrained jade and venom yellow-green light.",
-      "file": "themes/eitr-light/backgrounds/03-primordial-drop.jpg",
-      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/03-primordial-drop.jpg",
+      "file": "themes/eitr-light/backgrounds/04-primordial-drop.jpg",
+      "ultrawide_file": "themes/eitr-light/backgrounds-ultrawide/04-primordial-drop.jpg",
       "prompt": "Create one original desktop wallpaper, native 16:9 landscape 3840x2160 if supported. Subject: Primordial Drop, one complete small translucent venom teardrop suspended at x64% y54%, fully enclosed with generous margins, no long stem, no ground or pool. Pale mist and bone/parchment green void, broad quiet negative space especially left and upper quarter. Painterly cinematic Norse primordial fantasy with visible fine brushwork, elegant jade liquid currents within the drop and sparse yellow-green venom light as the only chromatic accent. Light counterpart of dark Eitr Primordial Venom: pale warm green ground, restrained emerald, no black void. Calm upper 8% for desktop bar. No text, letters, runes, logos, watermarks, borders, sun, moon, neon or 3D render. No emblem or icon.",
       "ultrawide_prompt": "Create one original desktop wallpaper, true panoramic 2.39:1 landscape, native widest aspect supported ideally 3440x1440. NEW panoramic composition, not an expanded or cropped image. Subject: Primordial Drop, a small complete translucent jade venom teardrop suspended at x64% y54%, only 18% image width and 38% height, fully enclosed with generous margins, short tip below upper quarter, no stem, no ground, terrain or pool. Empty pale bone and parchment green mist void with broad quiet negative space especially left and upper quarter. Painterly cinematic Norse primordial fantasy with visible fine brushwork; subtle jade liquid currents within drop, sparse yellow-green venom light as only chromatic accent. Pale light ground, never black void. Calm low-detail upper 8% for desktop bar. No text, letters, runes, logos, emblems, watermarks, borders, sun, moon, neon, 3D render.",
       "status": "Agent-inspected; awaiting owner visual review.",
