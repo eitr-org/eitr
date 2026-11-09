@@ -3,6 +3,10 @@
     "group": "development",
     "reason": "Optional web server."
   },
+  "decibels": {
+    "group": "media",
+    "reason": "Optional music player."
+  },
   "eitr-sunshine": {
     "group": "remote_access",
     "reason": "Optional streaming host, inactive until explicitly configured."

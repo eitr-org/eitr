@@ -20,7 +20,7 @@ returns to the parent.
 
 ## Choose default apps
 
-Open Settings > Default apps to choose installed handlers for web links, files, text, images, video, music, mail and PDFs. Its Terminal choice is shared with Appearance > Terminal.
+Open Settings > Default apps to choose installed handlers for web links, files, text, images, video, music, mail and PDFs. Its Terminal choice is shared with Appearance > Terminal. Music files open in Decibels unless you choose another player; GNOME Music, if installed, only plays songs from its own library and cannot open a file.
 
 ## Install
 

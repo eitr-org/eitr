@@ -12,7 +12,7 @@ Les menus dynamiques recherchent aussi les actions secondaires déjà chargées,
 
 ## Choisir les applications par défaut
 
-Ouvrez Paramètres > Applications par défaut pour choisir les logiciels installés pour les liens web, fichiers, texte, images, vidéo, musique, courrier et PDF. Terminal partage son choix avec Apparence > Terminal.
+Ouvrez Paramètres > Applications par défaut pour choisir les logiciels installés pour les liens web, fichiers, texte, images, vidéo, musique, courrier et PDF. Terminal partage son choix avec Apparence > Terminal. Les fichiers musicaux s’ouvrent dans Decibels, sauf si vous choisissez un autre lecteur ; GNOME Music, s’il est installé, ne lit que les morceaux de sa propre bibliothèque et ne peut pas ouvrir un fichier.
 
 ## Installer
 

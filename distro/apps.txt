@@ -5,6 +5,7 @@ archlinux-xdg-menu
 breeze
 btrfs-progs
 cronie
+decibels
 dmidecode
 efibootmgr
 eog

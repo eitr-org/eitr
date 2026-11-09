@@ -10,7 +10,7 @@ Menus dinâmicos também buscam ações já carregadas de seus submenus, como a�
 
 ## Escolher apps padrão
 
-Abra Configurações > Apps padrão para escolher programas instalados para links web, arquivos, texto, imagens, vídeo, música, e-mail e PDF. Terminal compartilha a escolha com Aparência > Terminal.
+Abra Configurações > Apps padrão para escolher programas instalados para links web, arquivos, texto, imagens, vídeo, música, e-mail e PDF. Terminal compartilha a escolha com Aparência > Terminal. Arquivos de música abrem no Decibels, a menos que você escolha outro player; o GNOME Music, se instalado, só toca músicas da própria biblioteca e não abre um arquivo.
 
 ## Instalar
 

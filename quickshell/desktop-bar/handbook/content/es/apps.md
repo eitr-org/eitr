@@ -10,7 +10,7 @@ Los menús dinámicos también buscan acciones secundarias ya cargadas, como las
 
 ## Elegir apps predeterminadas
 
-Abre Configuración > Apps predeterminadas para elegir programas instalados para enlaces web, archivos, texto, imágenes, vídeo, música, correo y PDF. Terminal comparte la elección con Apariencia > Terminal.
+Abre Configuración > Apps predeterminadas para elegir programas instalados para enlaces web, archivos, texto, imágenes, vídeo, música, correo y PDF. Terminal comparte la elección con Apariencia > Terminal. Los archivos de música se abren en Decibels salvo que elijas otro reproductor; GNOME Music, si está instalado, solo reproduce canciones de su propia biblioteca y no puede abrir un archivo.
 
 ## Instalar
 

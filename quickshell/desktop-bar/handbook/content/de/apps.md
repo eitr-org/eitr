@@ -10,7 +10,7 @@ Dynamische Menüs durchsuchen auch bereits geladene untergeordnete Aktionen, etw
 
 ## Standard-Apps wählen
 
-Öffne Einstellungen > Standard-Apps, um installierte Programme für Weblinks, Dateien, Text, Bilder, Video, Musik, E-Mail und PDFs zu wählen. Terminal teilt seine Auswahl mit Erscheinungsbild > Terminal.
+Öffne Einstellungen > Standard-Apps, um installierte Programme für Weblinks, Dateien, Text, Bilder, Video, Musik, E-Mail und PDFs zu wählen. Terminal teilt seine Auswahl mit Erscheinungsbild > Terminal. Musikdateien öffnen sich in Decibels, solange du keinen anderen Player wählst; GNOME Music spielt, falls installiert, nur Titel aus seiner eigenen Bibliothek und kann keine Datei öffnen.
 
 ## Installieren
 
