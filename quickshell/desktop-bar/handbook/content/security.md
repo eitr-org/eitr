@@ -29,7 +29,7 @@ sharing apps Eitr installs: KDE Connect (ports 1714-1764) and LocalSend (53317).
 Virtual machines and containers on your computer still reach it, and outgoing
 traffic is never filtered. When SSH is enabled, SSH stays reachable too.
 
-**Settings > Security > Firewall** shows whether it is on and switches it after you
+**Settings > Security > Protection > Firewall** shows whether it is on and switches it after you
 confirm. Computers set up before the firewall existed start with it off. To let
 another app accept connections, add a file to `/etc/eitr/firewall.d/`, for
 example `game.nft` containing:

@@ -14,7 +14,7 @@ Zurück zur Passwortauthentifizierung stellt die Anmeldung ausschließlich per P
 
 Neue Installationen starten mit eingeschalteter Firewall. Sie weist eingehende Verbindungen ab, außer Antworten auf Verbindungen, die dein Rechner gestartet hat, lokale Namenssuche und Verbindungen der von Eitr installierten Freigabeprogramme: KDE Connect (Ports 1714-1764) und LocalSend (53317). Virtuelle Maschinen und Container auf deinem Rechner können ihn weiterhin erreichen. Ausgehender Datenverkehr wird nie gefiltert. Ist SSH aktiviert, bleibt es ebenfalls erreichbar.
 
-**Einstellungen > Sicherheit > Firewall** zeigt den Zustand an und ändert ihn nach deiner Bestätigung. Rechner, die vor Einführung der Firewall eingerichtet wurden, starten mit ausgeschalteter Firewall. Damit ein weiteres Programm Verbindungen annehmen kann, füge eine Datei unter `/etc/eitr/firewall.d/` hinzu, zum Beispiel `game.nft` mit folgendem Inhalt:
+**Einstellungen > Sicherheit > Schutz > Firewall** zeigt den Zustand an und ändert ihn nach deiner Bestätigung. Rechner, die vor Einführung der Firewall eingerichtet wurden, starten mit ausgeschalteter Firewall. Damit ein weiteres Programm Verbindungen annehmen kann, füge eine Datei unter `/etc/eitr/firewall.d/` hinzu, zum Beispiel `game.nft` mit folgendem Inhalt:
 
 ```
 add rule inet eitr_firewall input udp dport 27015 accept

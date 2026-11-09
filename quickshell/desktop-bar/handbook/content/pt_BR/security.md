@@ -14,7 +14,7 @@ Voltar à autenticação por senha restaura o acesso somente por senha. As mudan
 
 Novas instalações começam com o firewall ativo. Ele recusa conexões de entrada, exceto respostas a conexões iniciadas pelo computador, descoberta de nomes locais e os aplicativos de compartilhamento instalados pelo Eitr: KDE Connect (portas 1714-1764) e LocalSend (53317). Máquinas virtuais e contêineres no computador continuam podendo acessá-lo, e o tráfego de saída nunca é filtrado. Se o SSH estiver ativo, ele também continua acessível.
 
-**Configurações > Segurança > Firewall** mostra o estado e permite alterá-lo após confirmação. Computadores configurados antes da existência do firewall começam com ele desativado. Para permitir conexões em outro aplicativo, adicione um arquivo em `/etc/eitr/firewall.d/`, como `game.nft`, contendo:
+**Configurações > Segurança > Proteção > Firewall** mostra o estado e permite alterá-lo após confirmação. Computadores configurados antes da existência do firewall começam com ele desativado. Para permitir conexões em outro aplicativo, adicione um arquivo em `/etc/eitr/firewall.d/`, como `game.nft`, contendo:
 
 ```
 add rule inet eitr_firewall input udp dport 27015 accept

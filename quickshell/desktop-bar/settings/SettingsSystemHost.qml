@@ -15,6 +15,8 @@ Flickable {
     required property color foreground
     required property color background
     required property color accent
+    property string tab: ""
+    signal tabRequested(string value)
     property bool active: false
     property bool live: true
     property var checks: []
@@ -62,7 +64,8 @@ Flickable {
         }
     }
     readonly property var items: helper.summary.items || []
-    readonly property var matches: items.filter(entry => [entry.group || "", entry.title, entry.detail].join(" ").toLocaleLowerCase().includes(shortcutQuery.trim().toLocaleLowerCase()))
+    readonly property var matches: items.filter(entry => (!entry.tab || entry.tab === tab)
+        && [entry.group || "", entry.title, entry.detail].join(" ").toLocaleLowerCase().includes(shortcutQuery.trim().toLocaleLowerCase()))
     contentHeight: content.implicitHeight + 18
     boundsBehavior: Flickable.StopAtBounds
     clip: true

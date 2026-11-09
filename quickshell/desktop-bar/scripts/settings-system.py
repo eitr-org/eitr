@@ -34,6 +34,11 @@ def shortcuts():
     return {'items': items}
 
 
+# Settings > Security's tab for each Walker Security row.
+SECURITY_TABS = {'FIDO2 Security Key': 'sign-in', 'Fingerprint': 'sign-in', 'Return to Password Authentication': 'sign-in',
+                 'Firewall': 'protection', 'TPM Disk Unlock': 'protection', 'Users': 'users'}
+
+
 def security():
     import eitr_selfcheck
     context = eitr_selfcheck.Context()
@@ -52,10 +57,11 @@ def security():
     statuses['TPM Disk Unlock'] = tr('Enrollment status requires the existing disk-unlock flow')
     items = []
     for row in rows('security'):
-        # Settings > User changes the password; Walker keeps its Security row.
-        if row['text'] == 'Update Password':
+        # Settings > User changes the password and the AI Assistant page sets assistant
+        # access; Walker keeps both rows in its Security menu.
+        if row['text'] in ('Update Password', 'Assistant Access'):
             continue
-        items.append({'title': messages.get(row['text'], row['text']), 'actionTitle': row['text'],
+        items.append({'tab': SECURITY_TABS.get(row['text'], 'protection'), 'title': messages.get(row['text'], row['text']), 'actionTitle': row['text'],
                       'detail': statuses.get(row['text'], messages.get(row.get('subtext'), row.get('subtext')) if row.get('subtext') != '>' else tr('Review status and settings')),
                       'menu': row.get('submenu', ''), 'actionMenu': '' if row.get('submenu') else 'security'})
     return {'items': items}
@@ -67,12 +73,14 @@ def about():
     if not release_path.is_file():
         release_path = code('distro/release.json')
     release = json.loads(release_path.read_text())
+    titles = {'Storage': tr('Storage'), 'Memory slot': tr('Memory slot')}
     return {'items': [{'title': tr('Version'), 'detail': release['version']},
                       {'title': tr('Codename'), 'detail': release['codename']},
                       {'title': tr('Update Channel'), 'detail': about_source.update_channel() or tr('Unavailable')},
                       {'title': tr('Kernel'), 'detail': platform.release()},
                       {'title': tr('Licence'), 'detail': 'GPL-3.0-or-later'}],
-            'hardware': module('settings_details', 'quickshell/desktop-bar/scripts/system-details.py').inventory()}
+            'hardware': [{**line, 'title': titles.get(line['title'], line['title'])} for line in
+                         module('settings_details', 'quickshell/desktop-bar/scripts/system-details.py').inventory()]}
 
 
 def assistants():

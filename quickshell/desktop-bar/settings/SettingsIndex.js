@@ -118,7 +118,7 @@ var pages = [
         "id": "security",
         "title": "Security",
         "description": "Authentication, firewall and security tools.",
-        "keywords": "fingerprint fido tpm firewall assistant access authentication"
+        "keywords": "fingerprint fido tpm firewall users authentication"
     },
     {
         "group": "System",
@@ -165,7 +165,8 @@ function entry(identifier) { return pages.find(page => page.id === resolve(ident
 var tabs = {
     displays: [{id: "displays", label: "Displays", keywords: "monitor resolution brightness rotation scale"}, {id: "nightlight", label: "Night Light", keywords: "night light schedule temperature"}],
     connections: [{id: "wifi", label: "Wi-Fi", keywords: "wifi network backend wireless"}, {id: "bluetooth", label: "Bluetooth", keywords: "bluetooth pairing"}],
-    appearance: [{id: "theme", label: "Theme & Wallpaper", keywords: "theme wallpaper palette"}, {id: "fonts", label: "Fonts & Cursor", keywords: "fonts cursor typography"}, {id: "terminal", label: "Terminal", keywords: "terminal opacity blur fire"}]
+    appearance: [{id: "theme", label: "Theme & Wallpaper", keywords: "theme wallpaper palette"}, {id: "fonts", label: "Fonts & Cursor", keywords: "fonts cursor typography"}, {id: "terminal", label: "Terminal", keywords: "terminal opacity blur fire"}],
+    security: [{id: "sign-in", label: "Sign-in", keywords: "fingerprint fido security key authentication password-only"}, {id: "protection", label: "Protection", keywords: "firewall tpm disk unlock encryption"}, {id: "users", label: "Users", keywords: "users accounts create"}]
 };
 function resolve(identifier) {
     const parts = String(identifier || "system").split("/");
@@ -183,7 +184,8 @@ function searchDestination(page, query, translate) {
         displays: ["Displays", "Brightness", "Resolution", "Scale"], nightlight: ["Night Light", "Edit schedule"],
         theme: ["Theme", "Wallpaper", "Settings colours"],
         fonts: ["Fonts", "Cursor family", "Cursor colour", "Cursor size", "Corners"],
-        terminal: ["Terminal", "Opacity", "Padding", "Blur strength (shared)", "Cursor Fire"]
+        terminal: ["Terminal", "Opacity", "Padding", "Blur strength (shared)", "Cursor Fire"],
+        "sign-in": ["Fingerprint", "FIDO2 Security Key"], protection: ["Firewall", "TPM Disk Unlock"], users: ["Users"]
     };
     let match = null;
     let highest = 0;

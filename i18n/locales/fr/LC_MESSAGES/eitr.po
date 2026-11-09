@@ -1951,6 +1951,9 @@ msgstr "Moyen (80%)"
 msgid "Memory"
 msgstr "Mémoire"
 
+msgid "Memory slot"
+msgstr "Emplacement mémoire"
+
 msgid "Message queues"
 msgstr "Files de messages"
 
@@ -3219,6 +3222,9 @@ msgstr "Tâches arrêtées"
 
 msgid "Stops and deletes its background service ({unit})."
 msgstr "Arrête et supprime son service en arrière-plan ({unit})."
+
+msgid "Storage"
+msgstr "Stockage"
 
 msgid "Storage Accounts"
 msgstr "Comptes de stockage"

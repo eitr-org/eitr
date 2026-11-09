@@ -14,7 +14,7 @@ Revenir à l’authentification par mot de passe rétablit l’accès uniquement
 
 Les nouvelles installations démarrent avec le pare-feu activé. Il refuse les connexions entrantes, sauf les réponses aux connexions lancées par votre ordinateur, la découverte des noms locaux et les connexions des applications de partage installées par Eitr : KDE Connect (ports 1714-1764) et LocalSend (53317). Les machines virtuelles et les conteneurs de votre ordinateur peuvent toujours y accéder ; le trafic sortant n’est jamais filtré. Si SSH est activé, il reste également accessible.
 
-**Paramètres > Sécurité > Pare-feu** indique son état et permet de le modifier après confirmation. Sur les ordinateurs configurés avant son introduction, le pare-feu est initialement désactivé. Pour autoriser une autre application à recevoir des connexions, ajoutez un fichier dans `/etc/eitr/firewall.d/`, par exemple `game.nft` contenant :
+**Paramètres > Sécurité > Protection > Pare-feu** indique son état et permet de le modifier après confirmation. Sur les ordinateurs configurés avant son introduction, le pare-feu est initialement désactivé. Pour autoriser une autre application à recevoir des connexions, ajoutez un fichier dans `/etc/eitr/firewall.d/`, par exemple `game.nft` contenant :
 
 ```
 add rule inet eitr_firewall input udp dport 27015 accept

@@ -14,7 +14,7 @@ Volver a la autenticación por contraseña restaura el acceso solo mediante cont
 
 Las nuevas instalaciones comienzan con el cortafuegos activado. Rechaza conexiones entrantes salvo las respuestas a conexiones iniciadas por tu equipo, el descubrimiento de nombres locales y las aplicaciones de intercambio que instala Eitr: KDE Connect (puertos 1714-1764) y LocalSend (53317). Las máquinas virtuales y los contenedores de tu equipo siguen pudiendo acceder a él, y el tráfico saliente nunca se filtra. Cuando SSH está habilitado, SSH también se mantiene accesible.
 
-**Configuración > Seguridad > Cortafuegos** muestra si está encendido y lo cambia después de confirmar. Los equipos configurados antes de que existiera el cortafuegos comienzan con él apagado. Para permitir que otra aplicación acepte conexiones, añade un archivo a `/etc/eitr/firewall.d/`, por ejemplo `game.nft`, con este contenido:
+**Configuración > Seguridad > Protección > Cortafuegos** muestra si está encendido y lo cambia después de confirmar. Los equipos configurados antes de que existiera el cortafuegos comienzan con él apagado. Para permitir que otra aplicación acepte conexiones, añade un archivo a `/etc/eitr/firewall.d/`, por ejemplo `game.nft`, con este contenido:
 
 ```
 add rule inet eitr_firewall input udp dport 27015 accept

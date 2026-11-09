@@ -1534,6 +1534,9 @@
     "Profile picture": [
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
+    "Protection": [
+      "quickshell/desktop-bar/settings/SettingsSecurityPage.qml"
+    ],
     "QR Code": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -1909,6 +1912,9 @@
     "Shutdown": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
+    "Sign-in": [
+      "quickshell/desktop-bar/settings/SettingsSecurityPage.qml"
+    ],
     "Signal": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -2256,6 +2262,9 @@
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
+    "Users": [
+      "quickshell/desktop-bar/settings/SettingsSecurityPage.qml"
+    ],
     "View error details": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
@@ -2402,7 +2411,7 @@
     "ddd MMM dd hh:mm AP": [
       "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
-    "fingerprint fido tpm firewall assistant access authentication": [
+    "fingerprint fido tpm firewall users authentication": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "gaps corners rounded square shape animations effects": [
@@ -7497,6 +7506,9 @@
     "Memory": [
       "fastfetch/eitr.py"
     ],
+    "Memory slot": [
+      "quickshell/desktop-bar/scripts/settings-system.py"
+    ],
     "Message queues": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -8795,6 +8807,9 @@
     ],
     "Stops and deletes its background service ({unit}).": [
       "distro/lib/eitr_local_assistant.py"
+    ],
+    "Storage": [
+      "quickshell/desktop-bar/scripts/settings-system.py"
     ],
     "Storage Accounts": [
       "walker/scripts/menus/cloud/navigation.py"

@@ -163,6 +163,61 @@ def installed_memory(memory=Path('/sys/devices/system/memory'), meminfo=Path('/p
     return total / 1024 ** 2
 
 
+# JEDEC manufacturer codes (bank, code) of common memory brands; others show the part number alone.
+MEMORY_BRANDS = {(1, 0x2C): 'Micron', (1, 0x98): 'Kingston', (1, 0xAD): 'SK hynix', (1, 0xCE): 'Samsung',
+                 (3, 0x9E): 'Corsair', (5, 0xCB): 'ADATA', (5, 0xCD): 'G.Skill', (5, 0xEF): 'Team Group',
+                 (6, 0x02): 'Patriot', (6, 0x9B): 'Crucial'}
+
+
+def memory_brand(module):
+    named = module.get('MANUFACTURER', '').strip()
+    if named and named != 'Not Specified' and not all(character in '0123456789ABCDEFabcdef' for character in named):
+        return named
+    identifier = module.get('MODULE_MANUFACTURER_ID', '')
+    try:
+        bank, code = identifier.replace('Bank', '').replace('Hex', '').split(',')
+        return MEMORY_BRANDS.get((int(bank), int(code, 16)), '')
+    except ValueError:
+        return ''
+
+
+def memory_modules(properties):
+    """Installed modules from udev's DMI properties (`udevadm info -p /devices/virtual/dmi/id`)."""
+    modules = {}
+    for line in properties.splitlines():
+        key, _, value = line.partition('=')
+        parts = key.split('_', 3)
+        if len(parts) == 4 and parts[:2] == ['MEMORY', 'DEVICE'] and parts[2].isdigit():
+            modules.setdefault(int(parts[2]), {})[parts[3]] = value
+    return [module for _, module in sorted(modules.items()) if module.get('PRESENT') != '0' and module.get('SIZE', '0').isdigit()
+            and int(module['SIZE']) > 0]
+
+
+def memory_lines(properties, installed):
+    """About's RAM summary and one line per module, when the firmware describes them."""
+    modules = memory_modules(properties)
+    if not modules:
+        return [{'title': 'RAM', 'name': f'{installed:.0f} GiB'}]
+    sizes = {int(module['SIZE']) for module in modules}
+    kinds = sorted({module.get('TYPE') for module in modules if module.get('TYPE') not in (None, 'Unknown', 'Other')})
+    running = sorted({int(module['CONFIGURED_SPEED_MTS']) for module in modules if module.get('CONFIGURED_SPEED_MTS', '').isdigit()})
+    rated = sorted({int(module['SPEED_MTS']) for module in modules if module.get('SPEED_MTS', '').isdigit()})
+    speed = ''
+    if running:
+        speed = f'{running[0]} MT/s' + (f' (rated {rated[-1]} MT/s)' if rated and rated[-1] > running[0] else '')
+    elif rated:
+        speed = f'{rated[-1]} MT/s'
+    layout = f'{len(modules)} × {sizes.pop() / 1024 ** 3:.0f} GiB' if len(sizes) == 1 else f'{len(modules)} modules'
+    summary = ' · '.join(filter(None, [f'{installed:.0f} GiB', '/'.join(kinds), speed, layout]))
+    lines = [{'title': 'RAM', 'name': summary}]
+    for module in modules:
+        part = module.get('PART_NUMBER', '').strip()
+        product = ' '.join(filter(None, [memory_brand(module), part if part != 'Not Specified' else '']))
+        lines.append({'title': 'Memory slot', 'name': ' · '.join(filter(None, [
+            module.get('LOCATOR', '').strip(), product, f'{int(module["SIZE"]) / 1024 ** 3:.0f} GiB']))})
+    return lines
+
+
 def disk_size(size):
     """Capacity in the decimal units printed on drives: 500 GB, 1.0 TB."""
     return f'{size / 1e12:.1f} TB' if size >= 1e12 else f'{round(size / 1e9)} GB'
@@ -198,7 +253,7 @@ def inventory():
     """About's hardware lines: names and amounts that do not change while running."""
     lines = [{'title': 'CPU', 'name': cpu_identity(Path('/proc/cpuinfo').read_text())['name']}]
     lines += [{'title': 'GPU', 'name': name} for name in graphics_names(query(['lspci', '-mm']))]
-    lines.append({'title': 'RAM', 'name': f'{installed_memory():.0f} GiB'})
+    lines += memory_lines(query(['udevadm', 'info', '-q', 'property', '-p', '/devices/virtual/dmi/id']), installed_memory())
     try:
         devices = json.loads(query(['lsblk', '-J', '-d', '-b', '-o', 'NAME,TYPE,SIZE,MODEL,ROTA,TRAN']))['blockdevices']
     except (ValueError, KeyError, TypeError):

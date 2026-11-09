@@ -107,7 +107,8 @@ Rectangle {
             onPageRequested: page => settings.navigate(page)
             anchors.fill: parent
             visible: ["keybinds", "default-apps", "user", "security", "assistant", "updates", "check-pc", "about"].includes(settings.page)
-            page: settings.page; title: settings.current.title
+            page: settings.page; title: settings.current.title; tab: settings.tab
+            onTabRequested: value => settings.tab = value
             active: settings.opened && visible
             live: settings.live
             foreground: settings.foreground; background: settings.background; accent: settings.accent

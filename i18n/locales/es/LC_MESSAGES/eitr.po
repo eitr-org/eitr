@@ -1951,6 +1951,9 @@ msgstr "Medio (80%)"
 msgid "Memory"
 msgstr "Memoria"
 
+msgid "Memory slot"
+msgstr "Ranura de memoria"
+
 msgid "Message queues"
 msgstr "Colas de mensajes"
 
@@ -3219,6 +3222,9 @@ msgstr "Tareas detenidas"
 
 msgid "Stops and deletes its background service ({unit})."
 msgstr "Detiene y elimina su servicio en segundo plano ({unit})."
+
+msgid "Storage"
+msgstr "Almacenamiento"
 
 msgid "Storage Accounts"
 msgstr "Cuentas de almacenamiento"

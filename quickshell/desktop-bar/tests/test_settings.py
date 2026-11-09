@@ -91,6 +91,9 @@ assert.equal(resolve('connections/unknown').tab, 'wifi');
 assert.equal(filter('bluetooth', text => text)[0].destinationId, 'connections/bluetooth');
 assert.equal(filter('cursor', text => text)[0].destinationId, 'appearance/fonts');
 assert.equal(filter('night light', text => text)[0].destinationId, 'displays/nightlight');
+assert.equal(filter('firewall', text => text)[0].destinationId, 'security/protection');
+assert.equal(filter('fingerprint', text => text)[0].destinationId, 'security/sign-in');
+assert.equal(resolve('security').tab, 'sign-in');
 assert.equal(filter('traduit', text => text === 'Displays' ? 'traduit' : text)[0].id, 'displays');
 '''
         subprocess.run(['node', '-e', script], check=True, capture_output=True)

@@ -105,9 +105,12 @@ class SettingsSystemTests(unittest.TestCase):
                 patch.object(eitr_assistants, 'assistant_access', return_value='ask'), \
                 patch.object(eitr_selfcheck, 'check_security_firewall', return_value=('info', 'Firewall active', '', '')):
             result = settings.security()['items']
-        # Settings > User changes the password, so Security leaves Walker's Update Password out.
+        # Settings > User changes the password and AI Assistant sets assistant access, so
+        # Security leaves those two Walker rows out; every other row belongs to a tab.
         self.assertEqual([entry['title'] for entry in result],
-                         [entry['text'] for entry in settings.rows('security') if entry['text'] != 'Update Password'])
+                         [entry['text'] for entry in settings.rows('security') if entry['text'] not in ('Update Password', 'Assistant Access')])
+        self.assertEqual({entry['title'] for entry in result}, set(settings.SECURITY_TABS))
+        self.assertEqual({entry['tab'] for entry in result}, {'sign-in', 'protection', 'users'})
         self.assertEqual(next(entry for entry in result if entry['title'] == 'Firewall')['detail'], 'Firewall active')
         for entry in result:
             self.assertTrue(entry['menu'] or entry['actionMenu'])

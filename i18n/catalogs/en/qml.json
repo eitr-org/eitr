@@ -754,6 +754,9 @@
   "Used to sign in, unlock the screen and approve system changes. A disk encryption passphrase is separate and stays the same.": "Used to sign in, unlock the screen and approve system changes. A disk encryption passphrase is separate and stays the same.",
   "Your profile picture, display name and password.": "Your profile picture, display name and password.",
   "choose a stronger one": "choose a stronger one",
-  "fingerprint fido tpm firewall assistant access authentication": "fingerprint fido tpm firewall assistant access authentication",
-  "login account profile picture display name password change": "login account profile picture display name password change"
+  "login account profile picture display name password change": "login account profile picture display name password change",
+  "fingerprint fido tpm firewall users authentication": "fingerprint fido tpm firewall users authentication",
+  "Protection": "Protection",
+  "Sign-in": "Sign-in",
+  "Users": "Users"
 }
