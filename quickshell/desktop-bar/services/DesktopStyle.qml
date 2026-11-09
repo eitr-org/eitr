@@ -6,12 +6,27 @@ import Quickshell
 import Quickshell.Io
 import "../ChoiceLists.js" as ChoiceLists
 
-// Shared motion policy, corners, window gaps and critical-notification color.
+// Shared motion policy, corners, window gaps/layout and critical-notification color.
 // desktop-style.py reloads the saved preferences; theme refresh supplies criticalColor.
 QtObject {
     id: style
     property var styles: ({})
     property string defaultStyle: "rounded"
+    property var windowLayout: ({layout: "dwindle", scrollDirection: "right", scrollWidth: "half", scrollFocusFit: "fit", scrollFollowFocus: "yes", scrollFullscreen: "yes"})
+    function selectLayout(key, value) {
+        if (save.running) return;
+        save.command = ["python3", Quickshell.shellDir + "/scripts/desktop-style.py", "set", key, value];
+        save.running = true;
+    }
+    function applyLayout(preference) {
+        const defaults = {layout: "dwindle", scrollDirection: "right", scrollWidth: "half", scrollFocusFit: "fit", scrollFollowFocus: "yes", scrollFullscreen: "yes"};
+        const choices = {layout: ChoiceLists.windowLayouts, scrollDirection: ChoiceLists.scrollingDirections, scrollWidth: ChoiceLists.scrollingWidths, scrollFocusFit: ChoiceLists.scrollingFocusFit};
+        for (const key of Object.keys(defaults)) {
+            const options = choices[key] ? ChoiceLists.ids(choices[key]) : ["yes", "no"];
+            if (options.includes(preference[key])) defaults[key] = preference[key];
+        }
+        windowLayout = defaults;
+    }
     property string gaps: "default"
     function selectGaps(value) {
         if (save.running || !ChoiceLists.ids(ChoiceLists.windowGaps).includes(value)) return;
@@ -39,10 +54,11 @@ QtObject {
     function apply(text) {
         try {
             const preference = JSON.parse(text);
+            applyLayout(preference);
             gaps = ChoiceLists.ids(ChoiceLists.windowGaps).includes(preference.gaps) ? preference.gaps : "default";
             let value = preference.corners;
             corners = styles[value] ? value : defaultStyle;
-        } catch (error) { corners = defaultStyle; gaps = "default"; }
+        } catch (error) { applyLayout({}); corners = defaultStyle; gaps = "default"; }
     }
 
     property Process save: Process {}
@@ -69,7 +85,7 @@ QtObject {
                 style.apply(style.preferenceText);
             } catch (error) { console.warn("Invalid corner settings:", error); }
         }
-        onLoadFailed: { style.preferenceText = ""; style.corners = style.defaultStyle; style.gaps = "default"; }
+        onLoadFailed: { style.applyLayout({}); style.preferenceText = ""; style.corners = style.defaultStyle; style.gaps = "default"; }
     }
     property IpcHandler ipc: IpcHandler {
         target: "style"

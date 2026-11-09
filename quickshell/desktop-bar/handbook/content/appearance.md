@@ -3,6 +3,15 @@
 Settings (**SUPER + ,**) includes Appearance controls; **More themes** opens
 the separate Themes & Plugins catalog window (**SUPER + F2**).
 
+## Window layout
+
+Choose **Tiling** (the default, Hyprland dwindle) or **Scrolling** in **Settings > Windows > Window layout** or **Walker > Settings > Style > Window layout**. Scrolling places windows in columns on a moving tape. Choices are saved locally and survive theme changes, config reloads and reboots; selection reloads the compositor configuration without restarting the session.
+
+Scrolling reveals Direction (Right, Left, Down, Up), Default column width (One third, Half, Two thirds, Full), and Focus fit. Center centres the focused column; Fit brings it into view with minimal movement. Follow focus allows the tape to move when focus changes, including clicks. Fullscreen when one column lets a lone column fill the screen; it does not put the application into fullscreen. Defaults are Right, Half, Fit, and both switches on. These options stay saved when returning to Tiling. Walker also offers direction and width submenus.
+
+Only while Scrolling is selected: **SUPER + ALT + arrows** focuses windows; **SUPER + ALT + SHIFT + Left/Right** swaps columns; **SUPER + ALT + Equal/Minus** cycles column width through one third, half, two thirds and full. Width cycles resize the focused column; Default column width controls new columns. See the generated [keyboard reference](handbook:shortcuts).
+
+
 ## Themes & Plugins catalog
 
 The catalog shares the Settings window's frame, sidebar, page header and cards.

@@ -120,6 +120,12 @@
     "submenu": "window-gaps"
   },
   {
+    "text": "Window layout",
+    "subtext": ">",
+    "icon": "󰍹",
+    "submenu": "window-layout"
+  },
+  {
     "text": "Workspaces",
     "subtext": ">",
     "keywords": [

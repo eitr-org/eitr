@@ -613,6 +613,9 @@ msgstr "Service du catalogue indisponible"
 msgid "Catalog operation failed"
 msgstr "Échec de l’opération du catalogue"
 
+msgid "Center"
+msgstr "Centrer"
+
 msgid "Change this visual placement"
 msgstr "Changer l’emplacement de cet élément"
 
@@ -1138,6 +1141,9 @@ msgstr "DocumentDB"
 msgid "Domains"
 msgstr "Domaines"
 
+msgid "Down"
+msgstr "Bas"
+
 msgid "Download this plugin for review?"
 msgstr "Télécharger ce plugin pour le vérifier ?"
 
@@ -1381,6 +1387,9 @@ msgstr "Pare-feu : activé (également ouvert : {ports})"
 msgid "Firewalls"
 msgstr "Pare-feu"
 
+msgid "Fit"
+msgstr "Ajuster"
+
 msgid "Flathub apps install at the first start with a network connection."
 msgstr "Les applications Flathub sont installées au premier démarrage avec une connexion Internet."
 
@@ -1434,6 +1443,9 @@ msgstr "Trouvé dans votre configuration Git"
 
 msgid "Friday"
 msgstr "Vendredi"
+
+msgid "Full"
+msgstr "Pleine"
 
 msgid "Full access (default)"
 msgstr "Accès complet (par défaut)"
@@ -1503,6 +1515,9 @@ msgstr "Groupes"
 
 msgid "HTTPS or SSH Git repository URL"
 msgstr "URL HTTPS ou SSH du dépôt Git"
+
+msgid "Half"
+msgstr "Moitié"
 
 msgid "Hardware"
 msgstr "Matériel"
@@ -1890,6 +1905,9 @@ msgstr "Dernières étiquettes d’image"
 
 msgid "Latest log streams"
 msgstr "Derniers flux de journaux"
+
+msgid "Left"
+msgstr "Gauche"
 
 msgid "Let assistants work together"
 msgstr "Permettre aux assistants de travailler ensemble"
@@ -2283,6 +2301,9 @@ msgstr "Ollama n’a pas pu être installé. Votre assistant par défaut reste i
 
 msgid "On"
 msgstr "Activé"
+
+msgid "One third"
+msgstr "Un tiers"
 
 msgid "Only administrators can manage accounts"
 msgstr "Seuls les administrateurs peuvent gérer les comptes"
@@ -2875,6 +2896,9 @@ msgstr "Vérifier l’installation"
 msgid "Review status and settings"
 msgstr "Consulter l’état et les paramètres"
 
+msgid "Right"
+msgstr "Droite"
+
 msgid "Roles"
 msgstr "Rôles"
 
@@ -2991,6 +3015,9 @@ msgstr "Capture d’écran enregistrée"
 
 msgid "Screenshot saved and copied"
 msgstr "Capture d’écran enregistrée et copiée"
+
+msgid "Scrolling"
+msgstr "Défilement"
 
 msgid "Search bucket by name"
 msgstr "Rechercher un bucket par nom"
@@ -3766,6 +3793,9 @@ msgstr "Vous devez supprimer cet outil avec le gestionnaire utilisé pour son in
 msgid "Thursday"
 msgstr "Jeudi"
 
+msgid "Tiling"
+msgstr "Mosaïque"
+
 msgid "Time"
 msgstr "Temps"
 
@@ -3828,6 +3858,9 @@ msgstr "Les désactiver SUPPRIME tous les instantanés des dossiers personnels ;
 
 msgid "Turning them on keeps a snapshot of the home folders every hour for a day and one a day for a week, deleting the oldest when the disk is 80% full. Caches, Downloads, VM disks and games are left out; they are prepared at the next start, before you log in. Restore with Snapshots > Restore a File or Folder."
 msgstr "Les activer conserve un instantané des dossiers personnels par heure pendant un jour et un par jour pendant une semaine, en supprimant les plus anciens lorsque le disque est plein à 80%. Les caches, Downloads, disques de machines virtuelles et jeux sont exclus ; les exclusions sont préparées au prochain démarrage, avant votre connexion. Restaurez avec Instantanés > Restaurer un fichier ou un dossier."
+
+msgid "Two thirds"
+msgstr "Deux tiers"
 
 msgid "Type 1, 2, 3 or 4, or press Enter."
 msgstr "Saisissez 1, 2, 3 ou 4, ou appuyez sur Enter."
@@ -3969,6 +4002,9 @@ msgstr "Unsupported uninstall source"
 
 msgid "Until {date}"
 msgstr "Jusqu’au {date}"
+
+msgid "Up"
+msgstr "Haut"
 
 msgid "Update Channel"
 msgstr "Canal de mise à jour"

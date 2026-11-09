@@ -21,7 +21,7 @@ class ShortcutsMenuTests(unittest.TestCase):
     def test_each_row_resolves_its_exact_binding(self):
         for entry in shortcut_reference():
             if 'key' in entry:
-                selection = '  ' + entry['key'].ljust(26) + entry['description']
+                selection = '  ' + entry['key'].ljust(max(26, len(entry['key']) + 2)) + entry['description']
                 self.assertEqual(shortcut_command(selection), entry['command'])
                 self.assertEqual(shortcut_command(selection.strip()), entry['command'])
         self.assertIsNone(shortcut_command('SUPER + Unknown  Unknown action'))

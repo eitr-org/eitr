@@ -2038,6 +2038,38 @@
         }
       },
       {
+        "text": "Focus down (scrolling only)",
+        "subtext": "SUPER + ALT + Down",
+        "icon": "󰍹",
+        "actions": {
+          "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus d"
+        }
+      },
+      {
+        "text": "Focus left (scrolling only)",
+        "subtext": "SUPER + ALT + Left",
+        "icon": "󰍹",
+        "actions": {
+          "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus l"
+        }
+      },
+      {
+        "text": "Focus right (scrolling only)",
+        "subtext": "SUPER + ALT + Right",
+        "icon": "󰍹",
+        "actions": {
+          "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus r"
+        }
+      },
+      {
+        "text": "Focus up (scrolling only)",
+        "subtext": "SUPER + ALT + Up",
+        "icon": "󰍹",
+        "actions": {
+          "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus u"
+        }
+      },
+      {
         "text": "Fuzzy Find Files",
         "subtext": "SUPER + P",
         "icon": "󰈞",
@@ -2059,6 +2091,30 @@
         "icon": "",
         "actions": {
           "open": "/usr/share/eitr/hypr/scripts/manual-lock.sh"
+        }
+      },
+      {
+        "text": "Move column left (scrolling only)",
+        "subtext": "SUPER + ALT + SHIFT + Left",
+        "icon": "󰍹",
+        "actions": {
+          "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll swapcol l"
+        }
+      },
+      {
+        "text": "Move column right (scrolling only)",
+        "subtext": "SUPER + ALT + SHIFT + Right",
+        "icon": "󰍹",
+        "actions": {
+          "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll swapcol r"
+        }
+      },
+      {
+        "text": "Next column width (scrolling only)",
+        "subtext": "SUPER + ALT + Equal",
+        "icon": "󰍹",
+        "actions": {
+          "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll colresize +conf"
         }
       },
       {
@@ -2091,6 +2147,14 @@
         "icon": "",
         "actions": {
           "open": "kitty"
+        }
+      },
+      {
+        "text": "Previous column width (scrolling only)",
+        "subtext": "SUPER + ALT + Minus",
+        "icon": "󰍹",
+        "actions": {
+          "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll colresize -conf"
         }
       },
       {
@@ -2408,6 +2472,12 @@
         ],
         "icon": "󰍹",
         "submenu": "window-gaps"
+      },
+      {
+        "text": "Window layout",
+        "subtext": ">",
+        "icon": "󰍹",
+        "submenu": "window-layout"
       },
       {
         "text": "Workspaces",
@@ -3011,6 +3081,20 @@
           "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/install/vpn.py wireguard"
         }
       }
+    ],
+    "window-layout": [
+      {
+        "text": "Default column width",
+        "subtext": ">",
+        "icon": "󰍹",
+        "submenu": "scrolling-width"
+      },
+      {
+        "text": "Direction",
+        "subtext": ">",
+        "icon": "󰍹",
+        "submenu": "scrolling-direction"
+      }
     ]
   },
   "parents": {
@@ -3184,6 +3268,8 @@
     "remote-share": "remote-access",
     "screenrecord": "capture",
     "screenshot": "capture",
+    "scrolling-direction": "window-layout",
+    "scrolling-width": "window-layout",
     "security": "settings",
     "settings": "main",
     "share": "tools",
@@ -3215,6 +3301,7 @@
     "wallpaper": "style",
     "webapps": "install",
     "window-gaps": "style",
+    "window-layout": "style",
     "workspaces": "style"
   },
   "shortcuts": [
@@ -3771,6 +3858,62 @@
       "description": "Emoji picker",
       "line": "  SUPER + ;                 Emoji picker",
       "command": "\"$ACTIONS_DIR/emoji-picker.sh\""
+    },
+    {
+      "description": "Focus left (scrolling only)",
+      "row": "Focus left (scrolling only)",
+      "key": "SUPER + ALT + Left",
+      "command": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus l",
+      "line": "  SUPER + ALT + Left        Focus left (scrolling only)"
+    },
+    {
+      "description": "Focus right (scrolling only)",
+      "row": "Focus right (scrolling only)",
+      "key": "SUPER + ALT + Right",
+      "command": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus r",
+      "line": "  SUPER + ALT + Right       Focus right (scrolling only)"
+    },
+    {
+      "description": "Focus up (scrolling only)",
+      "row": "Focus up (scrolling only)",
+      "key": "SUPER + ALT + Up",
+      "command": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus u",
+      "line": "  SUPER + ALT + Up          Focus up (scrolling only)"
+    },
+    {
+      "description": "Focus down (scrolling only)",
+      "row": "Focus down (scrolling only)",
+      "key": "SUPER + ALT + Down",
+      "command": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus d",
+      "line": "  SUPER + ALT + Down        Focus down (scrolling only)"
+    },
+    {
+      "description": "Move column left (scrolling only)",
+      "row": "Move column left (scrolling only)",
+      "key": "SUPER + ALT + SHIFT + Left",
+      "command": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll swapcol l",
+      "line": "  SUPER + ALT + SHIFT + Left  Move column left (scrolling only)"
+    },
+    {
+      "description": "Move column right (scrolling only)",
+      "row": "Move column right (scrolling only)",
+      "key": "SUPER + ALT + SHIFT + Right",
+      "command": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll swapcol r",
+      "line": "  SUPER + ALT + SHIFT + Right  Move column right (scrolling only)"
+    },
+    {
+      "description": "Next column width (scrolling only)",
+      "row": "Next column width (scrolling only)",
+      "key": "SUPER + ALT + Equal",
+      "command": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll colresize +conf",
+      "line": "  SUPER + ALT + Equal       Next column width (scrolling only)"
+    },
+    {
+      "description": "Previous column width (scrolling only)",
+      "row": "Previous column width (scrolling only)",
+      "key": "SUPER + ALT + Minus",
+      "command": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll colresize -conf",
+      "line": "  SUPER + ALT + Minus       Previous column width (scrolling only)"
     },
     {
       "heading": "  Media And Hardware"
@@ -8119,6 +8262,86 @@
       "key": "dccd55cbdfc9842f1db42ffc4e4f0d28d221fe0ed36374d857fae6880928704d",
       "provider": "menus:shortcuts",
       "identifier": "shortcuts:16",
+      "text": "Focus down (scrolling only)",
+      "subtext": "SUPER + ALT + Down",
+      "icon": "󰍹",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Focus down (scrolling only)",
+        "Focus down (scrolling only)",
+        "SUPER + ALT + Down"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "2f51e71b9758da976be88883be0eeac4edec84c10d0f1302b95016d11ef68896",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:17",
+      "text": "Focus left (scrolling only)",
+      "subtext": "SUPER + ALT + Left",
+      "icon": "󰍹",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Focus left (scrolling only)",
+        "Focus left (scrolling only)",
+        "SUPER + ALT + Left"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "1f54c9f59b36d05a6bf445a1b649bc6d3c39f3c538f177d7f691de1670840061",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:18",
+      "text": "Focus right (scrolling only)",
+      "subtext": "SUPER + ALT + Right",
+      "icon": "󰍹",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Focus right (scrolling only)",
+        "Focus right (scrolling only)",
+        "SUPER + ALT + Right"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "bb94bb8e42250686a36a7362d8bba9e41724c47be3ac4feb3a10914cbf2395cc",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:19",
+      "text": "Focus up (scrolling only)",
+      "subtext": "SUPER + ALT + Up",
+      "icon": "󰍹",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Focus up (scrolling only)",
+        "Focus up (scrolling only)",
+        "SUPER + ALT + Up"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "6521b392d1552424cd6b27f854bb80aaa777a82fe876a41a14e7e8ae9a17faf8",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:20",
       "text": "Fuzzy Find Files",
       "subtext": "SUPER + P",
       "icon": "󰈞",
@@ -8136,9 +8359,9 @@
       ]
     },
     {
-      "key": "2f51e71b9758da976be88883be0eeac4edec84c10d0f1302b95016d11ef68896",
+      "key": "252f12905fa8500e81789eab83bf51703099830ed3f38e850e86a9f0937004be",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:17",
+      "identifier": "shortcuts:21",
       "text": "Fuzzy Find Text",
       "subtext": "SUPER + Ctrl + P",
       "icon": "󰈞",
@@ -8156,9 +8379,9 @@
       ]
     },
     {
-      "key": "1f54c9f59b36d05a6bf445a1b649bc6d3c39f3c538f177d7f691de1670840061",
+      "key": "c854a74673848e1fffb56b2d3f220140c6fddda2e420d25fb68a22e7c8dbbc2d",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:18",
+      "identifier": "shortcuts:22",
       "text": "Lock Screen",
       "subtext": "SUPER + M",
       "icon": "",
@@ -8176,9 +8399,69 @@
       ]
     },
     {
-      "key": "bb94bb8e42250686a36a7362d8bba9e41724c47be3ac4feb3a10914cbf2395cc",
+      "key": "b0e2100e82a81cf09e9e4b1e156a6e27833e536aad46c797c8b901255431d724",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:19",
+      "identifier": "shortcuts:23",
+      "text": "Move column left (scrolling only)",
+      "subtext": "SUPER + ALT + SHIFT + Left",
+      "icon": "󰍹",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Move column left (scrolling only)",
+        "Move column left (scrolling only)",
+        "SUPER + ALT + SHIFT + Left"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "8541c9a2842b905906c96d9c38e9be85b82af88df3544e2cba5a76e70f653bc1",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:24",
+      "text": "Move column right (scrolling only)",
+      "subtext": "SUPER + ALT + SHIFT + Right",
+      "icon": "󰍹",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Move column right (scrolling only)",
+        "Move column right (scrolling only)",
+        "SUPER + ALT + SHIFT + Right"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "f132cda0db2d3cb20de70ca3586825244c689fb1253ee5d0faad740ee5adeba8",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:25",
+      "text": "Next column width (scrolling only)",
+      "subtext": "SUPER + ALT + Equal",
+      "icon": "󰍹",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Next column width (scrolling only)",
+        "Next column width (scrolling only)",
+        "SUPER + ALT + Equal"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "2afe92cac5ca2d5591fd4ad1c54209b025ce8b11cd780fb8ffa5d4bd398669e7",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:26",
       "text": "Next Wallpaper",
       "subtext": "SUPER + Shift + N",
       "icon": "🖻",
@@ -8196,9 +8479,9 @@
       ]
     },
     {
-      "key": "6521b392d1552424cd6b27f854bb80aaa777a82fe876a41a14e7e8ae9a17faf8",
+      "key": "1c8f4e239fa5e8c07d91c9273c3afcccb9836b08cb0861aadb2211cdfdee18c3",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:20",
+      "identifier": "shortcuts:27",
       "text": "Notification Center",
       "subtext": "SUPER + N",
       "icon": "󰂛",
@@ -8216,9 +8499,9 @@
       ]
     },
     {
-      "key": "252f12905fa8500e81789eab83bf51703099830ed3f38e850e86a9f0937004be",
+      "key": "2c9651b8fb835db45c2ad9b33a795b184d34ba2cbd70373d2d8db115af5979ca",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:21",
+      "identifier": "shortcuts:28",
       "text": "Open Newest Notification",
       "subtext": "SUPER + Alt + N",
       "icon": "󰂞",
@@ -8236,9 +8519,9 @@
       ]
     },
     {
-      "key": "c854a74673848e1fffb56b2d3f220140c6fddda2e420d25fb68a22e7c8dbbc2d",
+      "key": "bec9465f67411bbf1fc6a6533d4fd35a25a3d7b81c85c3a21daa1788fcbfc71d",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:22",
+      "identifier": "shortcuts:29",
       "text": "Open Terminal",
       "subtext": "SUPER + Enter",
       "icon": "",
@@ -8256,9 +8539,29 @@
       ]
     },
     {
-      "key": "b0e2100e82a81cf09e9e4b1e156a6e27833e536aad46c797c8b901255431d724",
+      "key": "a94f52803acc4fa3d4ba5e1fe89f17584198eaaade8cd3ff249b74ab4b69a23f",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:23",
+      "identifier": "shortcuts:30",
+      "text": "Previous column width (scrolling only)",
+      "subtext": "SUPER + ALT + Minus",
+      "icon": "󰍹",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Previous column width (scrolling only)",
+        "Previous column width (scrolling only)",
+        "SUPER + ALT + Minus"
+      ],
+      "menus": [
+        "learn",
+        "main"
+      ]
+    },
+    {
+      "key": "815d407fd4a91eda78bcf705aba59155c7f62e30e1ba5a90e167a96688a39c51",
+      "provider": "menus:shortcuts",
+      "identifier": "shortcuts:31",
       "text": "Screenshot Full",
       "subtext": "Print",
       "icon": "",
@@ -8276,9 +8579,9 @@
       ]
     },
     {
-      "key": "8541c9a2842b905906c96d9c38e9be85b82af88df3544e2cba5a76e70f653bc1",
+      "key": "9aa7ae680f44af8d833988685984bd409fac86d3383e3ee7e02edd29f8902fd3",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:24",
+      "identifier": "shortcuts:32",
       "text": "Screenshot Selection",
       "subtext": "SUPER + Print",
       "icon": "󰄀",
@@ -8296,9 +8599,9 @@
       ]
     },
     {
-      "key": "f132cda0db2d3cb20de70ca3586825244c689fb1253ee5d0faad740ee5adeba8",
+      "key": "356ca3b1e5b539f66746eca8b2c7f541205f62649de6304a5c778b3ad60a9be1",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:25",
+      "identifier": "shortcuts:33",
       "text": "Search Apps",
       "subtext": "SUPER + Space",
       "icon": "󰍉",
@@ -8316,9 +8619,9 @@
       ]
     },
     {
-      "key": "2afe92cac5ca2d5591fd4ad1c54209b025ce8b11cd780fb8ffa5d4bd398669e7",
+      "key": "da59893b838032800111073e2015d5a88a052c69ff2b1f6050bdb4c5ea2c6c6d",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:26",
+      "identifier": "shortcuts:34",
       "text": "Search Google",
       "subtext": "SUPER + G",
       "icon": "",
@@ -8336,9 +8639,9 @@
       ]
     },
     {
-      "key": "1c8f4e239fa5e8c07d91c9273c3afcccb9836b08cb0861aadb2211cdfdee18c3",
+      "key": "3d3426368202215fe25a80b0357ec85d1a3fcf87ff2f36746dff121039bcf929",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:27",
+      "identifier": "shortcuts:35",
       "text": "Settings",
       "subtext": "SUPER + ,",
       "icon": "󰒓",
@@ -8356,9 +8659,9 @@
       ]
     },
     {
-      "key": "2c9651b8fb835db45c2ad9b33a795b184d34ba2cbd70373d2d8db115af5979ca",
+      "key": "8fee0cdfad989f9e3298065e23af4741d74d34f783fdb6c4859aa98ce888d11a",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:28",
+      "identifier": "shortcuts:36",
       "text": "Theme Picker",
       "subtext": "SUPER + Ctrl + Shift + N",
       "icon": "󰏘",
@@ -8376,9 +8679,9 @@
       ]
     },
     {
-      "key": "bec9465f67411bbf1fc6a6533d4fd35a25a3d7b81c85c3a21daa1788fcbfc71d",
+      "key": "7f0af6194106985970c038da70e5722186a373843e69b46838f94b31d31005f1",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:29",
+      "identifier": "shortcuts:37",
       "text": "Toggle Bar Auto-Hide",
       "subtext": "SUPER + Shift + Space",
       "icon": "󰍜",
@@ -8396,9 +8699,9 @@
       ]
     },
     {
-      "key": "a94f52803acc4fa3d4ba5e1fe89f17584198eaaade8cd3ff249b74ab4b69a23f",
+      "key": "086ed717de804cc4013306973faeaca6abf65bc14f5b6ed421fd6dce5561149e",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:30",
+      "identifier": "shortcuts:38",
       "text": "Toggle Floating And Pin",
       "subtext": "SUPER + T",
       "icon": "󰖲",
@@ -8416,9 +8719,9 @@
       ]
     },
     {
-      "key": "815d407fd4a91eda78bcf705aba59155c7f62e30e1ba5a90e167a96688a39c51",
+      "key": "05ae4a9760d0b66d15a92994dfbd5b89f2bcb62799d6e9a85b9c7b5e1e140c22",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:31",
+      "identifier": "shortcuts:39",
       "text": "Toggle Focus",
       "subtext": "SUPER + Shift + F",
       "icon": "󰍹",
@@ -8436,9 +8739,9 @@
       ]
     },
     {
-      "key": "9aa7ae680f44af8d833988685984bd409fac86d3383e3ee7e02edd29f8902fd3",
+      "key": "596bc0e187d2ea02542747d971edf9249d02e874ed8770cf519c61a8017c5d79",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:32",
+      "identifier": "shortcuts:40",
       "text": "Toggle Fullscreen",
       "subtext": "SUPER + Ctrl + F",
       "icon": "󰊓",
@@ -8456,9 +8759,9 @@
       ]
     },
     {
-      "key": "356ca3b1e5b539f66746eca8b2c7f541205f62649de6304a5c778b3ad60a9be1",
+      "key": "1597e847c7858f49e02c18b917caff78b447db25d4467fed02975f23cb0212e3",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:33",
+      "identifier": "shortcuts:41",
       "text": "Uninstall Selected App",
       "subtext": "Delete in Apps / SUPER + Space · confirmation required",
       "icon": "󰆴",
@@ -8476,9 +8779,9 @@
       ]
     },
     {
-      "key": "da59893b838032800111073e2015d5a88a052c69ff2b1f6050bdb4c5ea2c6c6d",
+      "key": "3e925f33a62e7ae4202ca0d58437b03823944276ca88e851104ef061b4ca40ea",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:34",
+      "identifier": "shortcuts:42",
       "text": "Wallpaper Picker",
       "subtext": "SUPER + Ctrl + N",
       "icon": "🖻",
@@ -8499,9 +8802,9 @@
       ]
     },
     {
-      "key": "3d3426368202215fe25a80b0357ec85d1a3fcf87ff2f36746dff121039bcf929",
+      "key": "607603f02a726119a58e0ff43c9613cd8068e34413f7ba512ea5d7ea17439ba3",
       "provider": "menus:shortcuts",
-      "identifier": "shortcuts:35",
+      "identifier": "shortcuts:43",
       "text": "WiFi Panel",
       "subtext": "SUPER + Shift + W",
       "icon": "󰍹",
@@ -8915,6 +9218,24 @@
       "key": "59a3cafea575680fd37eab2733609f52ee9d7365a20172847c58561ad125bf86",
       "provider": "menus:style",
       "identifier": "style:10",
+      "text": "Window layout",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "Window layout",
+        "Window layout"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ],
+      "submenu": "window-layout"
+    },
+    {
+      "key": "1db91a564243e617e6e4b53303f3e36aa34bcc0ca8f450836402e251dfd866b0",
+      "provider": "menus:style",
+      "identifier": "style:11",
       "text": "Workspaces",
       "subtext": ">",
       "icon": "󰍹",
@@ -8934,9 +9255,9 @@
       "submenu": "workspaces"
     },
     {
-      "key": "1db91a564243e617e6e4b53303f3e36aa34bcc0ca8f450836402e251dfd866b0",
+      "key": "d62387b562b4014cca4c276e1de5420eff0f3c13b357365cd19f6260a259bfd7",
       "provider": "menus:style",
-      "identifier": "style:11",
+      "identifier": "style:12",
       "text": "Themes & Plugins",
       "subtext": "Browse installed and official themes and plugins",
       "icon": "󰸌",
@@ -10095,6 +10416,44 @@
         "install",
         "main"
       ]
+    },
+    {
+      "key": "d018a14241f4b846788755babe8d69049446a961ddec08818ce9fbaf0d92d753",
+      "provider": "menus:window-layout",
+      "identifier": "window-layout:0",
+      "text": "Default column width",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "Default column width",
+        "Default column width"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "scrolling-width"
+    },
+    {
+      "key": "332c162f5f8d29143d3a7746bf7237d3aa5811ce838bb9c500f89aa2c6d5e71a",
+      "provider": "menus:window-layout",
+      "identifier": "window-layout:1",
+      "text": "Direction",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "Direction",
+        "Direction"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "scrolling-direction"
     }
   ]
 }

@@ -34,8 +34,8 @@
       "reason": "One destructive transaction, kept together so it can be reviewed in one place."
     },
     "hypr/hyprland.lua": {
-      "lines": 580,
-      "reason": "Hyprland reads one config file; machine-specific parts already live in local.lua."
+      "lines": 614,
+      "reason": "One compositor configuration, including preference-backed layout options and bindings; machine-specific settings live in local.lua."
     },
     "quickshell/desktop-bar/bar/BarWindow.qml": {
       "lines": 429,

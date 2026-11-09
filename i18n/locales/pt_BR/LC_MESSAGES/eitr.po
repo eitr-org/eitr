@@ -613,6 +613,9 @@ msgstr "Serviço do catálogo indisponível"
 msgid "Catalog operation failed"
 msgstr "A operação do catálogo falhou"
 
+msgid "Center"
+msgstr "Centralizar"
+
 msgid "Change this visual placement"
 msgstr "Alterar a posição deste elemento"
 
@@ -1138,6 +1141,9 @@ msgstr "DocumentDB"
 msgid "Domains"
 msgstr "Domínios"
 
+msgid "Down"
+msgstr "Baixo"
+
 msgid "Download this plugin for review?"
 msgstr "Baixar este plugin para revisão?"
 
@@ -1381,6 +1387,9 @@ msgstr "Firewall: ativado (também aberto: {ports})"
 msgid "Firewalls"
 msgstr "Firewalls"
 
+msgid "Fit"
+msgstr "Ajustar"
+
 msgid "Flathub apps install at the first start with a network connection."
 msgstr "Os aplicativos Flathub são instalados na primeira inicialização com conexão à internet."
 
@@ -1434,6 +1443,9 @@ msgstr "Encontrado na sua configuração do Git"
 
 msgid "Friday"
 msgstr "Sexta-feira"
+
+msgid "Full"
+msgstr "Inteira"
 
 msgid "Full access (default)"
 msgstr "Acesso completo (padrão)"
@@ -1503,6 +1515,9 @@ msgstr "Grupos"
 
 msgid "HTTPS or SSH Git repository URL"
 msgstr "URL HTTPS ou SSH do repositório Git"
+
+msgid "Half"
+msgstr "Metade"
 
 msgid "Hardware"
 msgstr "Hardware"
@@ -1890,6 +1905,9 @@ msgstr "Tags de imagem mais recentes"
 
 msgid "Latest log streams"
 msgstr "Fluxos de logs mais recentes"
+
+msgid "Left"
+msgstr "Esquerda"
 
 msgid "Let assistants work together"
 msgstr "Permitir que assistentes trabalhem juntos"
@@ -2283,6 +2301,9 @@ msgstr "Não foi possível instalar o Ollama. Seu assistente padrão não foi al
 
 msgid "On"
 msgstr "Ativado"
+
+msgid "One third"
+msgstr "Um terço"
 
 msgid "Only administrators can manage accounts"
 msgstr "Somente administradores podem gerenciar contas"
@@ -2875,6 +2896,9 @@ msgstr "Revisar instalação"
 msgid "Review status and settings"
 msgstr "Revisar estado e configurações"
 
+msgid "Right"
+msgstr "Direita"
+
 msgid "Roles"
 msgstr "Papéis"
 
@@ -2991,6 +3015,9 @@ msgstr "Captura de tela salva"
 
 msgid "Screenshot saved and copied"
 msgstr "Captura de tela salva e copiada"
+
+msgid "Scrolling"
+msgstr "Rolagem"
 
 msgid "Search bucket by name"
 msgstr "Buscar bucket pelo nome"
@@ -3766,6 +3793,9 @@ msgstr "Esta ferramenta deve ser removida pelo gerenciador usado na instalação
 msgid "Thursday"
 msgstr "Quinta-feira"
 
+msgid "Tiling"
+msgstr "Ladrilhos"
+
 msgid "Time"
 msgstr "Tempo"
 
@@ -3828,6 +3858,9 @@ msgstr "Desativar os snapshots EXCLUI todos os snapshots da pasta pessoal; seus 
 
 msgid "Turning them on keeps a snapshot of the home folders every hour for a day and one a day for a week, deleting the oldest when the disk is 80% full. Caches, Downloads, VM disks and games are left out; they are prepared at the next start, before you log in. Restore with Snapshots > Restore a File or Folder."
 msgstr "Ativar os snapshots mantém um snapshot das pastas pessoais por hora durante um dia e um por dia durante uma semana, excluindo os mais antigos quando o disco estiver 80% cheio. Caches, Downloads, discos de máquinas virtuais e jogos ficam de fora; essas exclusões são preparadas na próxima inicialização, antes do login. Restaure em Snapshots > Restaurar arquivo ou pasta."
+
+msgid "Two thirds"
+msgstr "Dois terços"
 
 msgid "Type 1, 2, 3 or 4, or press Enter."
 msgstr "Digite 1, 2, 3 ou 4, ou pressione Enter."
@@ -3969,6 +4002,9 @@ msgstr "Unsupported uninstall source"
 
 msgid "Until {date}"
 msgstr "Até {date}"
+
+msgid "Up"
+msgstr "Cima"
 
 msgid "Update Channel"
 msgstr "Canal de atualização"

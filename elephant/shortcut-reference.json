@@ -438,6 +438,38 @@
     "row": "Emojis"
   },
   {
+    "description": "Focus left (scrolling only)",
+    "row": "Focus left (scrolling only)"
+  },
+  {
+    "description": "Focus right (scrolling only)",
+    "row": "Focus right (scrolling only)"
+  },
+  {
+    "description": "Focus up (scrolling only)",
+    "row": "Focus up (scrolling only)"
+  },
+  {
+    "description": "Focus down (scrolling only)",
+    "row": "Focus down (scrolling only)"
+  },
+  {
+    "description": "Move column left (scrolling only)",
+    "row": "Move column left (scrolling only)"
+  },
+  {
+    "description": "Move column right (scrolling only)",
+    "row": "Move column right (scrolling only)"
+  },
+  {
+    "description": "Next column width (scrolling only)",
+    "row": "Next column width (scrolling only)"
+  },
+  {
+    "description": "Previous column width (scrolling only)",
+    "row": "Previous column width (scrolling only)"
+  },
+  {
     "heading": "  Media And Hardware"
   },
   {

@@ -2,6 +2,15 @@
 
 Configurações (**SUPER + ,**) inclui os controles de Aparência; **Mais temas** abre o catálogo separado de temas e plugins (**SUPER + F2**).
 
+## Layout das janelas
+
+Escolha **Ladrilhos** (padrão, dwindle do Hyprland) ou **Rolagem** em **Configurações > Janelas > Layout das janelas** ou **Walker > Configurações > Estilo > Layout das janelas**. Rolagem organiza as janelas em colunas sobre uma faixa móvel. A escolha é salva localmente e permanece após trocas de tema, recargas e reinicializações; a seleção recarrega a configuração do compositor sem reiniciar a sessão.
+
+Rolagem mostra Direção (Direita, Esquerda, Baixo, Cima), Largura padrão da coluna (Um terço, Metade, Dois terços, Inteira) e Ajuste do foco. Centralizar centraliza a coluna em foco; Ajustar a traz para a tela com o mínimo de movimento. Seguir o foco permite mover a faixa quando o foco muda, inclusive por cliques. Tela cheia com uma coluna permite que uma única coluna preencha a tela sem ativar o modo de tela cheia do aplicativo. Os padrões são Direita, Metade, Ajustar e os dois interruptores ligados. As opções continuam salvas ao voltar para Ladrilhos. O Walker também oferece submenus de direção e largura.
+
+Somente em Rolagem: **SUPER + ALT + setas** muda o foco; **SUPER + ALT + SHIFT + Esquerda/Direita** troca as colunas; **SUPER + ALT + Equal/Minus** alterna a largura entre um terço, metade, dois terços e inteira. O ciclo redimensiona a coluna em foco; a largura padrão vale para colunas novas. Veja a [referência de teclado](handbook:shortcuts).
+
+
 ## Catálogo de temas e plugins
 
 O catálogo compartilha a moldura, a barra lateral, o cabeçalho de página e os

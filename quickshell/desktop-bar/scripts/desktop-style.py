@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Shared corner and window-gap preferences for Eitr surfaces and Hyprland."""
+"""Shared corner, gap and window-layout preferences for Eitr and Hyprland."""
 import json
 import os
 import tempfile
@@ -15,7 +15,8 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 from eitr_paths import code, config as user_config, read_settings, write_settings
 from eitr_i18n import tr
-from eitr_choice_lists import WINDOW_GAPS
+from eitr_choice_lists import (WINDOW_GAPS, WINDOW_LAYOUTS, SCROLLING_DIRECTIONS,
+                               SCROLLING_WIDTHS, SCROLLING_FOCUS_FIT)
 import subprocess
 
 SETTINGS = user_config("eitr/style.json")
@@ -44,24 +45,69 @@ def current_gaps():
 
 def generate_gaps():
     choice = next(choice for choice in WINDOW_GAPS if choice["id"] == current_gaps())
-    target = SETTINGS.with_name("window-gaps.lua")
+    write_generated("window-gaps.lua", f'return {{inner = {int(choice["inner"])}, outer = {int(choice["outer"])}}}\n')
+
+
+def write_generated(name, content):
+    target = SETTINGS.with_name(name)
     target.parent.mkdir(parents=True, exist_ok=True)
-    descriptor, temporary = tempfile.mkstemp(prefix=".window-gaps-", dir=target.parent)
+    descriptor, temporary = tempfile.mkstemp(prefix="." + name + "-", dir=target.parent)
     try:
         with os.fdopen(descriptor, "w") as output:
-            output.write(f'return {{inner = {int(choice["inner"])}, outer = {int(choice["outer"])}}}\n')
+            output.write(content)
         os.replace(temporary, target)
     finally:
         if os.path.exists(temporary):
             os.unlink(temporary)
 
 
+LAYOUT_CHOICES = {"layout": WINDOW_LAYOUTS, "scrollDirection": SCROLLING_DIRECTIONS,
+                  "scrollWidth": SCROLLING_WIDTHS, "scrollFocusFit": SCROLLING_FOCUS_FIT}
+LAYOUT_DEFAULTS = {"layout": "dwindle", "scrollDirection": "right", "scrollWidth": "half",
+                   "scrollFocusFit": "fit", "scrollFollowFocus": "yes", "scrollFullscreen": "yes"}
+
+
+def current_layout():
+    data = read_settings(SETTINGS)
+    result = {}
+    for key, default in LAYOUT_DEFAULTS.items():
+        options = [choice["id"] for choice in LAYOUT_CHOICES[key]] if key in LAYOUT_CHOICES else ["yes", "no"]
+        result[key] = data.get(key) if data.get(key) in options else default
+    return result
+
+
+def generate_layout():
+    preference = current_layout()
+    def value(key):
+        return next(choice["value"] for choice in LAYOUT_CHOICES[key] if choice["id"] == preference[key])
+    fields = {"layout": json.dumps(preference["layout"]), "direction": json.dumps(preference["scrollDirection"]),
+              "column_width": value("scrollWidth"), "focus_fit_method": value("scrollFocusFit"),
+              "follow_focus": "1" if preference["scrollFollowFocus"] == "yes" else "0",
+              "fullscreen_on_one_column": "true" if preference["scrollFullscreen"] == "yes" else "false",
+              "explicit_column_widths": json.dumps(", ".join(choice["value"] for choice in SCROLLING_WIDTHS))}
+    write_generated("window-layout.lua", "return {" + ", ".join(key + " = " + item for key, item in fields.items()) + "}\n")
+
+
+def scroll_action(arguments):
+    allowed = {"focus l", "focus r", "focus u", "focus d", "swapcol l", "swapcol r", "colresize +conf", "colresize -conf"}
+    message = " ".join(arguments)
+    if message not in allowed:
+        raise ValueError("Unknown scrolling action")
+    result = subprocess.run(["hyprctl", "-j", "getoption", "general:layout"],
+                            capture_output=True, text=True, check=True, timeout=5)
+    if json.loads(result.stdout).get("str") == "scrolling":
+        subprocess.run(["hyprctl", "dispatch", "layoutmsg", message], check=True, timeout=5)
+
+
 def select(value, key="corners"):
     options = definitions()[1] if key == "corners" else {choice["id"] for choice in WINDOW_GAPS}
-    if key not in ("corners", "gaps") or value not in options:
+    if key in LAYOUT_DEFAULTS:
+        options = {choice["id"] for choice in LAYOUT_CHOICES[key]} if key in LAYOUT_CHOICES else {"yes", "no"}
+    if key not in ("corners", "gaps", *LAYOUT_DEFAULTS) or value not in options:
         raise ValueError('Unknown desktop style')
     write_settings(SETTINGS, {**read_settings(SETTINGS), key: value, "version": 1})
     generate_gaps()
+    generate_layout()
     commands = [["hyprctl", "reload"],
                 ["eitr-shell", "desktop-bar", "ipc", "call", "--", "style", "reload"]]
     if key == "corners":
@@ -75,8 +121,20 @@ def select(value, key="corners"):
 
 
 def main():
+    if sys.argv[1:2] == ["scroll"]:
+        scroll_action(sys.argv[2:])
+        return
+    if len(sys.argv) >= 3 and sys.argv[2] in LAYOUT_DEFAULTS:
+        key = sys.argv[2]
+        if len(sys.argv) == 4 and sys.argv[1] == "set":
+            select(sys.argv[3], key)
+        elif sys.argv[1] != "get" or len(sys.argv) != 3:
+            raise ValueError("Usage: desktop-style.py get KEY | set KEY VALUE")
+        print(current_layout()[key])
+        return
     if sys.argv[1:] == ["generate"]:
         generate_gaps()
+        generate_layout()
         return
     if len(sys.argv) >= 3 and sys.argv[2] == "gaps":
         if sys.argv[1:] == ["get", "gaps"]:
@@ -93,7 +151,7 @@ def main():
         select(arguments[1])
         print(current())
     elif arguments == ["summary"]:
-        print(json.dumps({"current": current(), "gaps": current_gaps(), "gapChoices": WINDOW_GAPS, "available": True,
+        print(json.dumps({"current": current(), "gaps": current_gaps(), "gapChoices": WINDOW_GAPS, **current_layout(), "available": True,
                           "choices": [{"value": value, "label": details["label"], "available": True}
                                       for value, details in definitions()[1].items()]}))
     elif arguments == ["get"]:

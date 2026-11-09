@@ -48,3 +48,4 @@ hypr/cursor-env.conf
 /ghostty/eitr.conf
 
 eitr/window-gaps.lua
+eitr/window-layout.lua

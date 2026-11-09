@@ -13,7 +13,7 @@ from eitr_i18n import tr
 GENERATED_OUTPUTS = (
     'walker/themes/current/style.css', 'walker/themes/current/workspace-examples.css',
     'walker/themes/current/codex.svg', 'ghostty/eitr.conf', 'kitty/theme.conf', 'kitty/fonts.conf', 'kitty/cursor-fire.conf', 'kitty/appearance.conf', 'hypr/appearance.lua',
-    'eitr/window-gaps.lua', 'swayosd/style.css', 'hypr/cursor-env.conf', 'btop/themes/current.theme',
+    'eitr/window-gaps.lua', 'eitr/window-layout.lua', 'swayosd/style.css', 'hypr/cursor-env.conf', 'btop/themes/current.theme',
     'gtk-3.0/settings.ini', 'gtk-4.0/settings.ini', 'qt5ct/qt5ct.conf', 'qt6ct/qt6ct.conf',
     'Kvantum/kvantum.kvconfig',
 )

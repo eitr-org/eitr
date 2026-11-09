@@ -1529,5 +1529,17 @@
   "Only administrators can manage accounts": "Only administrators can manage accounts",
   "Only human accounts can be managed": "Only human accounts can be managed",
   "Use Change password for your own account": "Use Change password for your own account",
-  "Cannot make the last administrator a standard account": "Cannot make the last administrator a standard account"
+  "Cannot make the last administrator a standard account": "Cannot make the last administrator a standard account",
+  "Center": "Center",
+  "Down": "Down",
+  "Fit": "Fit",
+  "Full": "Full",
+  "Half": "Half",
+  "Left": "Left",
+  "One third": "One third",
+  "Right": "Right",
+  "Scrolling": "Scrolling",
+  "Tiling": "Tiling",
+  "Two thirds": "Two thirds",
+  "Up": "Up"
 }

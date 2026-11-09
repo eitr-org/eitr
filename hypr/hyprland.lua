@@ -50,6 +50,20 @@ if gaps_loader then
 	end
 end
 
+local window_layout = {layout = "dwindle", direction = "right", column_width = 0.5,
+	focus_fit_method = 1, follow_focus = 1, fullscreen_on_one_column = true,
+	explicit_column_widths = "0.333, 0.5, 0.667, 1.0"}
+local layout_loader = loadfile(paths.config .. "/eitr/window-layout.lua")
+if layout_loader then
+	local valid, saved = pcall(layout_loader)
+	if valid and type(saved) == "table" then
+		for key, default in pairs(window_layout) do
+			if type(saved[key]) == type(default) then window_layout[key] = saved[key] end
+		end
+	end
+end
+if window_layout.layout ~= "scrolling" then window_layout.layout = "dwindle" end
+
 local window_rounding = nil
 local corner_styles = read_file(paths.code("quickshell/desktop-bar/corner-styles.json"))
 if corner_styles then
@@ -152,7 +166,15 @@ hl.config({
 		},
 		resize_on_border = false,
 		allow_tearing = false,
-		layout = "dwindle",
+		layout = window_layout.layout,
+	},
+	scrolling = {
+		direction = window_layout.direction,
+		column_width = window_layout.column_width,
+		focus_fit_method = window_layout.focus_fit_method,
+		follow_focus = window_layout.follow_focus,
+		fullscreen_on_one_column = window_layout.fullscreen_on_one_column,
+		explicit_column_widths = window_layout.explicit_column_widths,
 	},
 	decoration = {
 		rounding = window_rounding,
@@ -305,6 +327,18 @@ hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "l" }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "d" }))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "u" }))
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "r" }))
+
+-- Scrolling-only actions, registered only while the scrolling layout is chosen.
+if window_layout.layout == "scrolling" then
+	hl.bind(mainMod .. " + ALT + Left", hl.dsp.layout("focus l"))
+	hl.bind(mainMod .. " + ALT + Right", hl.dsp.layout("focus r"))
+	hl.bind(mainMod .. " + ALT + Up", hl.dsp.layout("focus u"))
+	hl.bind(mainMod .. " + ALT + Down", hl.dsp.layout("focus d"))
+	hl.bind(mainMod .. " + ALT + SHIFT + Left", hl.dsp.layout("swapcol l"))
+	hl.bind(mainMod .. " + ALT + SHIFT + Right", hl.dsp.layout("swapcol r"))
+	hl.bind(mainMod .. " + ALT + equal", hl.dsp.layout("colresize +conf"))
+	hl.bind(mainMod .. " + ALT + minus", hl.dsp.layout("colresize -conf"))
+end
 
 -- Resize active window
 hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.resize({ x = -15, y = 0, relative = true }), { repeating = true })

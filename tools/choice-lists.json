@@ -182,5 +182,79 @@
       "inner": "12",
       "outer": "24"
     }
+  ],
+  "window_layouts": [
+    {
+      "id": "dwindle",
+      "label": "Tiling",
+      "description": "Split windows into tiles"
+    },
+    {
+      "id": "scrolling",
+      "label": "Scrolling",
+      "description": "Arrange windows in scrolling columns"
+    }
+  ],
+  "scrolling_directions": [
+    {
+      "id": "right",
+      "label": "Right",
+      "description": "New columns grow right"
+    },
+    {
+      "id": "left",
+      "label": "Left",
+      "description": "New columns grow left"
+    },
+    {
+      "id": "down",
+      "label": "Down",
+      "description": "New columns grow down"
+    },
+    {
+      "id": "up",
+      "label": "Up",
+      "description": "New columns grow up"
+    }
+  ],
+  "scrolling_widths": [
+    {
+      "id": "third",
+      "label": "One third",
+      "description": "Use one third of the screen",
+      "value": "0.333"
+    },
+    {
+      "id": "half",
+      "label": "Half",
+      "description": "Use half of the screen",
+      "value": "0.5"
+    },
+    {
+      "id": "two-thirds",
+      "label": "Two thirds",
+      "description": "Use two thirds of the screen",
+      "value": "0.667"
+    },
+    {
+      "id": "full",
+      "label": "Full",
+      "description": "Use the full screen width",
+      "value": "1.0"
+    }
+  ],
+  "scrolling_focus_fit": [
+    {
+      "id": "center",
+      "label": "Center",
+      "description": "Center the focused column",
+      "value": "0"
+    },
+    {
+      "id": "fit",
+      "label": "Fit",
+      "description": "Bring the focused column into view",
+      "value": "1"
+    }
   ]
 }

@@ -78,7 +78,7 @@ def shortcut_reference():
 
 def shortcut_options():
     return '\n'.join(entry['heading'] if 'heading' in entry else
-                     '  ' + entry['key'].ljust(26) + entry['description']
+                     '  ' + entry['key'].ljust(max(26, len(entry['key']) + 2)) + entry['description']
                      for entry in shortcut_reference())
 
 

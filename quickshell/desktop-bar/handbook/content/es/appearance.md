@@ -2,6 +2,15 @@
 
 Configuración (**SUPER + ,**) incluye los controles de Apariencia; **Más temas** abre el catálogo independiente de temas y plugins (**SUPER + F2**).
 
+## Distribución de ventanas
+
+Elige **Mosaico** (predeterminado, dwindle de Hyprland) o **Desplazamiento** en **Configuración > Ventanas > Distribución de ventanas** o **Walker > Configuración > Estilo > Distribución de ventanas**. Desplazamiento organiza las ventanas en columnas sobre una cinta móvil. La selección se guarda localmente y persiste tras cambios de tema, recargas y reinicios; los cambios recargan la configuración del compositor sin reiniciar la sesión.
+
+Desplazamiento muestra Dirección (Derecha, Izquierda, Abajo, Arriba), Anchura predeterminada de columna (Un tercio, Mitad, Dos tercios, Completa) y Ajuste del foco. Centrar centra la columna enfocada; Ajustar la muestra con el mínimo movimiento. Seguir el foco permite mover la cinta al cambiar el foco, incluidos los clics. Pantalla completa con una columna permite que una columna única ocupe la pantalla, sin activar la pantalla completa de la aplicación. Valores predeterminados: Derecha, Mitad, Ajustar y ambos interruptores activados. Las opciones se conservan al volver a Mosaico. Walker también ofrece submenús de dirección y anchura.
+
+Solo en Desplazamiento: **SUPER + ALT + flechas** enfoca ventanas; **SUPER + ALT + SHIFT + Izquierda/Derecha** intercambia columnas; **SUPER + ALT + Equal/Minus** alterna entre un tercio, mitad, dos tercios y anchura completa. El ciclo redimensiona la columna enfocada; la anchura predeterminada se aplica a columnas nuevas. Consulta la [referencia de teclado](handbook:shortcuts).
+
+
 ## Catálogo de temas y plugins
 
 El catálogo comparte el marco, la barra lateral, el encabezado de página y las

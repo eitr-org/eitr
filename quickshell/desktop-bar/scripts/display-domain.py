@@ -53,7 +53,7 @@ class DisplayDomain:
                     raise ValueError('invalid-gaps')
                 gaps[key] = values
             return dict(monitors=active, primary=primary.choose_primary(active, primary.saved_primary(), preferred),
-                        preferred=preferred, **gaps)
+                        preferred=preferred, windowLayout=self.adapter('desktop-style').current_layout(), **gaps)
         if topic == 'display.settings':
             return self.adapter('display-settings').list_settings(self.monitors())
         return self.adapter('brightness' if topic == 'display.brightness' else 'nightlight').status()

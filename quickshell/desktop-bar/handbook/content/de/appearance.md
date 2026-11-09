@@ -2,6 +2,15 @@
 
 Einstellungen (**SUPER + ,**) enthält Darstellungsoptionen; **Weitere Themes** öffnet den separaten Katalog für Themes und Plugins (**SUPER + F2**).
 
+## Fensterlayout
+
+Wähle **Kacheln** (Standard, Hyprland dwindle) oder **Scrollen** unter **Einstellungen > Fenster > Fensterlayout** oder **Walker > Einstellungen > Stil > Fensterlayout**. Scrollen ordnet Fenster in Spalten auf einem beweglichen Band an. Die Auswahl wird lokal gespeichert und bleibt bei Themenwechseln, Konfigurationsneuladen und Neustarts erhalten. Änderungen laden die Compositor-Konfiguration ohne Sitzungsneustart neu.
+
+Scrollen zeigt Richtung (Rechts, Links, Unten, Oben), Standard-Spaltenbreite (Ein Drittel, Hälfte, Zwei Drittel, Voll) und Fokusanpassung. Zentrieren zentriert die fokussierte Spalte; Einpassen bringt sie mit möglichst wenig Bewegung ins Blickfeld. Fokus folgen erlaubt dem Band, Fokuswechseln einschließlich Klicks zu folgen. Vollbild bei einer Spalte lässt eine einzelne Spalte den Bildschirm füllen, ohne die Anwendung in den Vollbildmodus zu versetzen. Standard: Rechts, Hälfte, Einpassen und beide Schalter an. Die Optionen bleiben beim Wechsel zu Kacheln gespeichert. Walker bietet ebenfalls Untermenüs für Richtung und Breite.
+
+Nur bei Scrollen: **SUPER + ALT + Pfeiltasten** fokussiert Fenster; **SUPER + ALT + SHIFT + Links/Rechts** tauscht Spalten; **SUPER + ALT + Equal/Minus** wechselt die Spaltenbreite zwischen einem Drittel, der Hälfte, zwei Dritteln und voller Breite. Der Wechsel verändert die fokussierte Spalte; Standard-Spaltenbreite gilt für neue Spalten. Siehe [Tastaturreferenz](handbook:shortcuts).
+
+
 ## Katalog für Themes und Plugins
 
 Der Katalog teilt Rahmen, Seitenleiste, Seitenüberschrift und Karten mit dem

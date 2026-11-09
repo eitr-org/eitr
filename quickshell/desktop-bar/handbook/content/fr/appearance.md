@@ -4,6 +4,15 @@ Ces commandes sont également disponibles directement dans les paramètres.
 
 Les paramètres (**SUPER + ,**) incluent les réglages d’apparence ; **Plus de thèmes** ouvre le catalogue séparé des thèmes et plugins (**SUPER + F2**).
 
+## Disposition des fenêtres
+
+Choisis **Mosaïque** (par défaut, dwindle de Hyprland) ou **Défilement** dans **Paramètres > Fenêtres > Disposition des fenêtres** ou **Walker > Paramètres > Style > Disposition des fenêtres**. Défilement place les fenêtres en colonnes sur un ruban mobile. Le choix est enregistré localement et persiste après les changements de thème, rechargements et redémarrages ; il recharge la configuration du compositeur sans redémarrer la session.
+
+Défilement affiche Direction (Droite, Gauche, Bas, Haut), Largeur de colonne par défaut (Un tiers, Moitié, Deux tiers, Pleine) et Ajustement du focus. Centrer centre la colonne active ; Ajuster la rend visible avec un déplacement minimal. Suivre le focus autorise le ruban à suivre les changements de focus, y compris les clics. Plein écran avec une seule colonne permet à une colonne unique de remplir l’écran sans activer le plein écran de l’application. Valeurs par défaut : Droite, Moitié, Ajuster et les deux interrupteurs activés. Les options restent enregistrées en revenant à Mosaïque. Walker propose aussi des sous-menus de direction et de largeur.
+
+Uniquement en Défilement : **SUPER + ALT + flèches** change le focus ; **SUPER + ALT + SHIFT + Gauche/Droite** échange les colonnes ; **SUPER + ALT + Equal/Minus** alterne entre un tiers, la moitié, deux tiers et la pleine largeur. Le cycle redimensionne la colonne active ; la largeur par défaut s’applique aux nouvelles colonnes. Voir la [référence clavier](handbook:shortcuts).
+
+
 ## Catalogue de thèmes et plugins
 
 Le catalogue partage le cadre, la barre latérale, l’en-tête de page et les cartes

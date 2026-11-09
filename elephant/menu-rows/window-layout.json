@@ -1,0 +1,4 @@
+[
+  {"text": "Default column width", "subtext": ">", "icon": "󰍹", "submenu": "scrolling-width"},
+  {"text": "Direction", "subtext": ">", "icon": "󰍹", "submenu": "scrolling-direction"}
+]

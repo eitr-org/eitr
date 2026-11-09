@@ -1173,6 +1173,13 @@ Window gaps share `eitr/style.json` with Corners. `tools/choice-lists.json` owns
 None (0/0), Small (3/6), Default (6/12) and Large (12/24); the generator supplies
 QML, Python and Lua choices. The helper parses the saved JSON and atomically
 generates `eitr/window-gaps.lua`, read by Hyprland on reload.
+Window layout uses the same preference, generation and reload path through
+`eitr/window-layout.lua`. Tiling (dwindle) is the default; Scrolling exposes direction,
+column width, focus fit, follow focus and single-column fullscreen on Settings > Windows.
+Walker > Settings > Style > Window layout also offers direction and width submenus.
+The scrolling-only SUPER+ALT+arrows focus windows; add Shift with Left/Right to swap
+columns. SUPER+ALT+Equal/Minus cycle the configured widths. Their helper checks the
+active layout before dispatching a native layout message.
 Changing gaps uses the same config reload path as Corners. DisplayService refreshes
 live topology and gaps on `configreloaded`, including existing island/panel spacing.
 

@@ -291,7 +291,8 @@
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
     "Center": [
-      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "tools/choice-lists.json"
     ],
     "Centered": [
       "tools/choice-lists.json"
@@ -619,6 +620,9 @@
     "Default apps": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Default column width": [
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
     "Delete": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -672,6 +676,9 @@
     "Dim and lock automatically while idle.": [
       "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
+    "Direction": [
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
     "Disable effects and popups; use the performance profile.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
@@ -715,6 +722,9 @@
     ],
     "Dotfiles": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
+    ],
+    "Down": [
+      "tools/choice-lists.json"
     ],
     "Dynamic": [
       "tools/choice-lists.json"
@@ -796,9 +806,18 @@
     "Files": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Fit": [
+      "tools/choice-lists.json"
+    ],
     "Focus": [
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Focus fit": [
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
+    "Follow focus": [
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Follow the theme or choose a fixed colour.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -832,6 +851,9 @@
     "Full width": [
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
+    "Fullscreen when one column": [
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
     "Game Mode": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
@@ -853,6 +875,9 @@
     ],
     "HTTPS or SSH Git address": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Half": [
+      "tools/choice-lists.json"
     ],
     "Handbook": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -1028,7 +1053,8 @@
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "Left": [
-      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "tools/choice-lists.json"
     ],
     "Left of": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -1338,6 +1364,9 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/services/UpdatesStatus.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "One third": [
+      "tools/choice-lists.json"
     ],
     "Only the next occurrence can be skipped": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -1741,7 +1770,8 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Right": [
-      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "tools/choice-lists.json"
     ],
     "Right of": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -1817,6 +1847,9 @@
     ],
     "Screenshots": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
+    ],
+    "Scrolling": [
+      "tools/choice-lists.json"
     ],
     "Search": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml",
@@ -2191,6 +2224,9 @@
     "This welcome": [
       "quickshell/desktop-bar/welcome/WelcomePage.qml"
     ],
+    "Tiling": [
+      "tools/choice-lists.json"
+    ],
     "Today": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
@@ -2220,6 +2256,9 @@
     ],
     "Turned right": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Two thirds": [
+      "tools/choice-lists.json"
     ],
     "Typography": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -2261,6 +2300,9 @@
     "Unpin bar": [
       "quickshell/desktop-bar/bar/BarHorizontalCenter.qml",
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml"
+    ],
+    "Up": [
+      "tools/choice-lists.json"
     ],
     "Upcoming": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -2400,7 +2442,10 @@
       "quickshell/desktop-bar/figures/WindowStyleFigure.qml",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
-    "Window gaps, corners and motion.": [
+    "Window layout": [
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
+    "Window layout, gaps, corners and motion.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Window shape": [
@@ -2470,7 +2515,7 @@
     "fingerprint fido tpm firewall authentication": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
-    "gaps corners rounded square shape animations effects": [
+    "gaps corners rounded square shape animations effects tiling scrolling columns direction focus width": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "good afternoon": [
@@ -2724,6 +2769,9 @@
       "elephant/menu-rows/main.json",
       "elephant/menus/apps.lua"
     ],
+    "Arrange windows in scrolling columns": [
+      "tools/choice-lists.json"
+    ],
     "Ask before changes": [
       "elephant/menus/assistant-access.lua"
     ],
@@ -2788,6 +2836,9 @@
     "Brightness, Night Light, resolution, refresh rate and scale": [
       "elephant/menu-rows/system-devices.json"
     ],
+    "Bring the focused column into view": [
+      "tools/choice-lists.json"
+    ],
     "Browse bucket": [
       "elephant/menus/aws-s3-browse-bucket-1.lua"
     ],
@@ -2835,6 +2886,12 @@
     ],
     "Capture the whole screen to Pictures and the clipboard": [
       "elephant/menu-rows/screenshot.json"
+    ],
+    "Center": [
+      "tools/choice-lists.json"
+    ],
+    "Center the focused column": [
+      "tools/choice-lists.json"
     ],
     "Centered": [
       "tools/choice-lists.json"
@@ -3106,6 +3163,10 @@
       "elephant/menu-rows/shortcuts.json",
       "elephant/menus/ai-default.lua"
     ],
+    "Default column width": [
+      "elephant/menu-rows/window-layout.json",
+      "elephant/menus/scrolling-width.lua"
+    ],
     "Default · {folders}": [
       "elephant/menus/git-accounts.lua"
     ],
@@ -3155,6 +3216,10 @@
       "elephant/menus/digitalocean-account.lua",
       "elephant/menus/digitalocean-contexts.lua"
     ],
+    "Direction": [
+      "elephant/menu-rows/window-layout.json",
+      "elephant/menus/scrolling-direction.lua"
+    ],
     "Disabled": [
       "elephant/menus/bar-dock.lua",
       "elephant/menus/terminal-cursor-fire.lua"
@@ -3196,6 +3261,9 @@
     ],
     "Dotfiles": [
       "elephant/menu-rows/settings.json"
+    ],
+    "Down": [
+      "tools/choice-lists.json"
     ],
     "Dynamic": [
       "tools/choice-lists.json"
@@ -3294,6 +3362,9 @@
     "Firewall": [
       "elephant/menu-rows/security.json"
     ],
+    "Fit": [
+      "tools/choice-lists.json"
+    ],
     "Focus": [
       "elephant/menu-rows/style.json",
       "elephant/menus/focus.lua"
@@ -3301,14 +3372,26 @@
     "Focus down": [
       "distro/lib/eitr_focus.py"
     ],
+    "Focus down (scrolling only)": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
     "Focus left": [
       "distro/lib/eitr_focus.py"
+    ],
+    "Focus left (scrolling only)": [
+      "elephant/menu-rows/shortcuts.json"
     ],
     "Focus right": [
       "distro/lib/eitr_focus.py"
     ],
+    "Focus right (scrolling only)": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
     "Focus up": [
       "distro/lib/eitr_focus.py"
+    ],
+    "Focus up (scrolling only)": [
+      "elephant/menu-rows/shortcuts.json"
     ],
     "Folder": [
       "elephant/menu-rows/share.json",
@@ -3414,6 +3497,9 @@
     ],
     "Grok": [
       "elephant/menus/ai-grok.lua"
+    ],
+    "Half": [
+      "tools/choice-lists.json"
     ],
     "Hardware": [
       "elephant/menu-rows/system-information.json"
@@ -3584,6 +3670,9 @@
     "Leave As Is": [
       "elephant/menus/lighting.lua"
     ],
+    "Left": [
+      "tools/choice-lists.json"
+    ],
     "Let assistants work together": [
       "elephant/menus/ai-tools.lua"
     ],
@@ -3693,6 +3782,12 @@
     "Mouse Gestures": [
       "elephant/menu-rows/learn.json"
     ],
+    "Move column left (scrolling only)": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "Move column right (scrolling only)": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
     "Music Visualizer": [
       "elephant/menu-rows/tools.json"
     ],
@@ -3750,7 +3845,22 @@
     "New Reminder": [
       "elephant/menu-rows/reminders.json"
     ],
+    "New columns grow down": [
+      "tools/choice-lists.json"
+    ],
+    "New columns grow left": [
+      "tools/choice-lists.json"
+    ],
+    "New columns grow right": [
+      "tools/choice-lists.json"
+    ],
+    "New columns grow up": [
+      "tools/choice-lists.json"
+    ],
     "Next Wallpaper": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "Next column width (scrolling only)": [
       "elephant/menu-rows/shortcuts.json"
     ],
     "Next tab": [
@@ -3792,6 +3902,9 @@
     "On": [
       "elephant/menus/focus.lua",
       "elephant/menus/terminal-blur.lua"
+    ],
+    "One third": [
+      "tools/choice-lists.json"
     ],
     "Opacity": [
       "elephant/menu-rows/terminal.json",
@@ -3932,6 +4045,9 @@
     "Power": [
       "elephant/menu-rows/main.json",
       "elephant/menus/power.lua"
+    ],
+    "Previous column width (scrolling only)": [
+      "elephant/menu-rows/shortcuts.json"
     ],
     "Previous tab": [
       "distro/lib/eitr_focus.py"
@@ -4181,6 +4297,9 @@
     "Review screen capture and input permissions": [
       "elephant/menu-rows/remote-share-setup.json"
     ],
+    "Right": [
+      "tools/choice-lists.json"
+    ],
     "Route 53": [
       "elephant/menus/aws-route53.lua"
     ],
@@ -4213,6 +4332,30 @@
       "elephant/menu-rows/shortcuts.json"
     ],
     "SUPER + A": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + ALT + Down": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + ALT + Equal": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + ALT + Left": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + ALT + Minus": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + ALT + Right": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + ALT + SHIFT + Left": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + ALT + SHIFT + Right": [
+      "elephant/menu-rows/shortcuts.json"
+    ],
+    "SUPER + ALT + Up": [
       "elephant/menu-rows/shortcuts.json"
     ],
     "SUPER + Alt + N": [
@@ -4312,6 +4455,9 @@
     ],
     "Screenshot Selection": [
       "elephant/menu-rows/shortcuts.json"
+    ],
+    "Scrolling": [
+      "tools/choice-lists.json"
     ],
     "Search": [
       "elephant/menus/search-index.lua"
@@ -4564,6 +4710,9 @@
     "Split stacked": [
       "distro/lib/eitr_focus.py"
     ],
+    "Split windows into tiles": [
+      "tools/choice-lists.json"
+    ],
     "Stable": [
       "tools/choice-lists.json"
     ],
@@ -4723,6 +4872,9 @@
     "This CLI has no supported isolated account folder": [
       "elephant/ai-account-entries.lua"
     ],
+    "Tiling": [
+      "tools/choice-lists.json"
+    ],
     "Time from 00:00 to 23:59, like 21:30": [
       "elephant/menus/bar-clock.lua"
     ],
@@ -4766,6 +4918,9 @@
     "Turn the firewall on or off and see its status": [
       "elephant/menu-rows/security.json"
     ],
+    "Two thirds": [
+      "tools/choice-lists.json"
+    ],
     "Undo capture and virtual input permissions": [
       "elephant/menu-rows/remote-share-setup.json"
     ],
@@ -4774,6 +4929,9 @@
     ],
     "Uninstall Selected App": [
       "elephant/menu-rows/shortcuts.json"
+    ],
+    "Up": [
+      "tools/choice-lists.json"
     ],
     "Upcoming Reminders": [
       "elephant/menu-rows/reminders.json"
@@ -4805,8 +4963,14 @@
     "Use a blurred transparent bar": [
       "tools/choice-lists.json"
     ],
+    "Use half of the screen": [
+      "tools/choice-lists.json"
+    ],
     "Use it in folders without their own account": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Use one third of the screen": [
+      "tools/choice-lists.json"
     ],
     "Use the Eitr website's colours": [
       "tools/choice-lists.json"
@@ -4817,6 +4981,9 @@
     "Use the current theme colour": [
       "tools/choice-lists.json"
     ],
+    "Use the full screen width": [
+      "tools/choice-lists.json"
+    ],
     "Use these workspace markers": [
       "elephant/menus/workspaces.lua"
     ],
@@ -4825,6 +4992,9 @@
     ],
     "Use this font throughout the desktop": [
       "elephant/menus/fonts.lua"
+    ],
+    "Use two thirds of the screen": [
+      "tools/choice-lists.json"
     ],
     "User access keys": [
       "elephant/menus/aws-iam-user-access-keys-1.lua"
@@ -4914,6 +5084,10 @@
     "Window gaps": [
       "elephant/menu-rows/style.json",
       "elephant/menus/window-gaps.lua"
+    ],
+    "Window layout": [
+      "elephant/menu-rows/style.json",
+      "elephant/menus/window-layout.lua"
     ],
     "Window: Copy": [
       "elephant/menu-rows/screenshot.json"
@@ -5070,7 +5244,13 @@
     "Focus down": [
       "tools/handbook-build.py"
     ],
+    "Focus down (scrolling only)": [
+      "tools/handbook-build.py"
+    ],
     "Focus left": [
+      "tools/handbook-build.py"
+    ],
+    "Focus left (scrolling only)": [
       "tools/handbook-build.py"
     ],
     "Focus mode": [
@@ -5080,7 +5260,13 @@
     "Focus right": [
       "tools/handbook-build.py"
     ],
+    "Focus right (scrolling only)": [
+      "tools/handbook-build.py"
+    ],
     "Focus up": [
+      "tools/handbook-build.py"
+    ],
+    "Focus up (scrolling only)": [
       "tools/handbook-build.py"
     ],
     "Frozen selection (floating editor)": [
@@ -5206,6 +5392,12 @@
     "Move a floating window.": [
       "tools/handbook-build.py"
     ],
+    "Move column left (scrolling only)": [
+      "tools/handbook-build.py"
+    ],
+    "Move column right (scrolling only)": [
+      "tools/handbook-build.py"
+    ],
     "Move to a screen edge": [
       "tools/handbook-build.py"
     ],
@@ -5259,6 +5451,9 @@
     ],
     "Network Backends": [
       "quickshell/desktop-bar/handbook/chapters.json"
+    ],
+    "Next column width (scrolling only)": [
+      "tools/handbook-build.py"
     ],
     "Next existing workspace": [
       "tools/handbook-build.py"
@@ -5330,6 +5525,9 @@
       "tools/handbook-build.py"
     ],
     "Play or pause media": [
+      "tools/handbook-build.py"
+    ],
+    "Previous column width (scrolling only)": [
       "tools/handbook-build.py"
     ],
     "Previous existing workspace": [
@@ -6213,6 +6411,9 @@
     "Catalog operation failed": [
       "quickshell/desktop-bar/scripts/catalog-domain.py"
     ],
+    "Center": [
+      "tools/choice-lists.json"
+    ],
     "Change this visual placement": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -6754,6 +6955,9 @@
     "Domains": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Down": [
+      "tools/choice-lists.json"
+    ],
     "Download this plugin for review?": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -6999,6 +7203,9 @@
     "Firewalls": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Fit": [
+      "tools/choice-lists.json"
+    ],
     "Flathub apps install at the first start with a network connection.": [
       "distro/lib/eitr_profile.py"
     ],
@@ -7053,6 +7260,9 @@
     ],
     "Friday": [
       "walker/scripts/actions/tools/reminders.py"
+    ],
+    "Full": [
+      "tools/choice-lists.json"
     ],
     "Full access (default)": [
       "quickshell/desktop-bar/scripts/settings-system.py"
@@ -7122,6 +7332,9 @@
     ],
     "HTTPS or SSH Git repository URL": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Half": [
+      "tools/choice-lists.json"
     ],
     "Hardware": [
       "fastfetch/eitr.py"
@@ -7522,6 +7735,9 @@
     ],
     "Latest log streams": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Left": [
+      "tools/choice-lists.json"
     ],
     "Let assistants work together": [
       "walker/scripts/actions/assistant-collaboration.py"
@@ -7931,6 +8147,9 @@
     ],
     "On": [
       "distro/lib/eitr_appearance.py"
+    ],
+    "One third": [
+      "tools/choice-lists.json"
     ],
     "Only administrators can manage accounts": [
       "distro/lib/eitr_accounts.py"
@@ -8537,6 +8756,9 @@
     "Review status and settings": [
       "quickshell/desktop-bar/scripts/settings-system.py"
     ],
+    "Right": [
+      "tools/choice-lists.json"
+    ],
     "Roles": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -8653,6 +8875,9 @@
     ],
     "Screenshot saved and copied": [
       "quickshell/desktop-bar/scripts/obs-control.py"
+    ],
+    "Scrolling": [
+      "tools/choice-lists.json"
     ],
     "Search bucket by name": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -9442,6 +9667,9 @@
     "Thursday": [
       "walker/scripts/actions/tools/reminders.py"
     ],
+    "Tiling": [
+      "tools/choice-lists.json"
+    ],
     "Time": [
       "fastfetch/eitr.py"
     ],
@@ -9504,6 +9732,9 @@
     ],
     "Turning them on keeps a snapshot of the home folders every hour for a day and one a day for a week, deleting the oldest when the disk is 80% full. Caches, Downloads, VM disks and games are left out; they are prepared at the next start, before you log in. Restore with Snapshots > Restore a File or Folder.": [
       "walker/scripts/actions/system/home-snapshots.py"
+    ],
+    "Two thirds": [
+      "tools/choice-lists.json"
     ],
     "Type 1, 2, 3 or 4, or press Enter.": [
       "walker/scripts/actions/system/report-problem.py"
@@ -9647,6 +9878,9 @@
     ],
     "Until {date}": [
       "walker/scripts/actions/tools/reminders.py"
+    ],
+    "Up": [
+      "tools/choice-lists.json"
     ],
     "Update Channel": [
       "quickshell/desktop-bar/scripts/settings-system.py"

@@ -131,6 +131,38 @@
     }
   },
   {
+    "text": "Focus down (scrolling only)",
+    "subtext": "SUPER + ALT + Down",
+    "icon": "󰍹",
+    "actions": {
+      "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus d"
+    }
+  },
+  {
+    "text": "Focus left (scrolling only)",
+    "subtext": "SUPER + ALT + Left",
+    "icon": "󰍹",
+    "actions": {
+      "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus l"
+    }
+  },
+  {
+    "text": "Focus right (scrolling only)",
+    "subtext": "SUPER + ALT + Right",
+    "icon": "󰍹",
+    "actions": {
+      "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus r"
+    }
+  },
+  {
+    "text": "Focus up (scrolling only)",
+    "subtext": "SUPER + ALT + Up",
+    "icon": "󰍹",
+    "actions": {
+      "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll focus u"
+    }
+  },
+  {
     "text": "Fuzzy Find Files",
     "subtext": "SUPER + P",
     "icon": "󰈞",
@@ -152,6 +184,30 @@
     "icon": "",
     "actions": {
       "open": "/usr/share/eitr/hypr/scripts/manual-lock.sh"
+    }
+  },
+  {
+    "text": "Move column left (scrolling only)",
+    "subtext": "SUPER + ALT + SHIFT + Left",
+    "icon": "󰍹",
+    "actions": {
+      "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll swapcol l"
+    }
+  },
+  {
+    "text": "Move column right (scrolling only)",
+    "subtext": "SUPER + ALT + SHIFT + Right",
+    "icon": "󰍹",
+    "actions": {
+      "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll swapcol r"
+    }
+  },
+  {
+    "text": "Next column width (scrolling only)",
+    "subtext": "SUPER + ALT + Equal",
+    "icon": "󰍹",
+    "actions": {
+      "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll colresize +conf"
     }
   },
   {
@@ -184,6 +240,14 @@
     "icon": "",
     "actions": {
       "open": "kitty"
+    }
+  },
+  {
+    "text": "Previous column width (scrolling only)",
+    "subtext": "SUPER + ALT + Minus",
+    "icon": "󰍹",
+    "actions": {
+      "open": "python3 \"/usr/share/eitr/quickshell/desktop-bar/scripts/desktop-style.py\" scroll colresize -conf"
     }
   },
   {

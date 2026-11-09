@@ -613,6 +613,9 @@ msgstr "Catalog backend unavailable"
 msgid "Catalog operation failed"
 msgstr "Catalog operation failed"
 
+msgid "Center"
+msgstr "Center"
+
 msgid "Change this visual placement"
 msgstr "Change this visual placement"
 
@@ -1138,6 +1141,9 @@ msgstr "DocumentDB"
 msgid "Domains"
 msgstr "Domains"
 
+msgid "Down"
+msgstr "Down"
+
 msgid "Download this plugin for review?"
 msgstr "Download this plugin for review?"
 
@@ -1381,6 +1387,9 @@ msgstr "Firewall: on (also open: {ports})"
 msgid "Firewalls"
 msgstr "Firewalls"
 
+msgid "Fit"
+msgstr "Fit"
+
 msgid "Flathub apps install at the first start with a network connection."
 msgstr "Flathub apps install at the first start with a network connection."
 
@@ -1434,6 +1443,9 @@ msgstr "Found in your Git configuration"
 
 msgid "Friday"
 msgstr "Friday"
+
+msgid "Full"
+msgstr "Full"
 
 msgid "Full access (default)"
 msgstr "Full access (default)"
@@ -1503,6 +1515,9 @@ msgstr "Groups"
 
 msgid "HTTPS or SSH Git repository URL"
 msgstr "HTTPS or SSH Git repository URL"
+
+msgid "Half"
+msgstr "Half"
 
 msgid "Hardware"
 msgstr "Hardware"
@@ -1890,6 +1905,9 @@ msgstr "Latest image tags"
 
 msgid "Latest log streams"
 msgstr "Latest log streams"
+
+msgid "Left"
+msgstr "Left"
 
 msgid "Let assistants work together"
 msgstr "Let assistants work together"
@@ -2283,6 +2301,9 @@ msgstr "Ollama could not be installed. Your default assistant is unchanged."
 
 msgid "On"
 msgstr "On"
+
+msgid "One third"
+msgstr "One third"
 
 msgid "Only administrators can manage accounts"
 msgstr "Only administrators can manage accounts"
@@ -2875,6 +2896,9 @@ msgstr "Review installation"
 msgid "Review status and settings"
 msgstr "Review status and settings"
 
+msgid "Right"
+msgstr "Right"
+
 msgid "Roles"
 msgstr "Roles"
 
@@ -2991,6 +3015,9 @@ msgstr "Screenshot saved"
 
 msgid "Screenshot saved and copied"
 msgstr "Screenshot saved and copied"
+
+msgid "Scrolling"
+msgstr "Scrolling"
 
 msgid "Search bucket by name"
 msgstr "Search bucket by name"
@@ -3766,6 +3793,9 @@ msgstr "This tool must be removed through its installation manager."
 msgid "Thursday"
 msgstr "Thursday"
 
+msgid "Tiling"
+msgstr "Tiling"
+
 msgid "Time"
 msgstr "Time"
 
@@ -3828,6 +3858,9 @@ msgstr "Turning them off DELETES every home snapshot; files you have now are not
 
 msgid "Turning them on keeps a snapshot of the home folders every hour for a day and one a day for a week, deleting the oldest when the disk is 80% full. Caches, Downloads, VM disks and games are left out; they are prepared at the next start, before you log in. Restore with Snapshots > Restore a File or Folder."
 msgstr "Turning them on keeps a snapshot of the home folders every hour for a day and one a day for a week, deleting the oldest when the disk is 80% full. Caches, Downloads, VM disks and games are left out; they are prepared at the next start, before you log in. Restore with Snapshots > Restore a File or Folder."
+
+msgid "Two thirds"
+msgstr "Two thirds"
 
 msgid "Type 1, 2, 3 or 4, or press Enter."
 msgstr "Type 1, 2, 3 or 4, or press Enter."
@@ -3969,6 +4002,9 @@ msgstr "Unsupported uninstall source"
 
 msgid "Until {date}"
 msgstr "Until {date}"
+
+msgid "Up"
+msgstr "Up"
 
 msgid "Update Channel"
 msgstr "Update Channel"

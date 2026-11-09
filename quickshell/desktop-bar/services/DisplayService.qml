@@ -7,7 +7,7 @@ import Eitr as Eitr
 
 QtObject {
     id: service
-    property var topology: ({monitors: [], primary: "", preferred: [], windowGaps: [6, 6, 6, 6], screenGaps: [12, 12, 12, 12]})
+    property var topology: ({monitors: [], primary: "", preferred: [], windowLayout: ({layout: "dwindle"}), windowGaps: [6, 6, 6, 6], screenGaps: [12, 12, 12, 12]})
     readonly property var snapshot: DesktopData.topics["display.topology"]
     onSnapshotChanged: if (snapshot && snapshot.status === "ready") {
         topology = snapshot.data;

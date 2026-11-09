@@ -613,6 +613,9 @@ msgstr "Servicio del catálogo no disponible"
 msgid "Catalog operation failed"
 msgstr "La operación del catálogo falló"
 
+msgid "Center"
+msgstr "Centrar"
+
 msgid "Change this visual placement"
 msgstr "Cambiar la ubicación de este elemento"
 
@@ -1138,6 +1141,9 @@ msgstr "DocumentDB"
 msgid "Domains"
 msgstr "Dominios"
 
+msgid "Down"
+msgstr "Abajo"
+
 msgid "Download this plugin for review?"
 msgstr "¿Descargar este plugin para revisarlo?"
 
@@ -1381,6 +1387,9 @@ msgstr "Cortafuegos: activado (también abierto: {ports})"
 msgid "Firewalls"
 msgstr "Cortafuegos"
 
+msgid "Fit"
+msgstr "Ajustar"
+
 msgid "Flathub apps install at the first start with a network connection."
 msgstr "Las aplicaciones de Flathub se instalan en el primer arranque con conexión a internet."
 
@@ -1434,6 +1443,9 @@ msgstr "Encontrado en tu configuración de Git"
 
 msgid "Friday"
 msgstr "Viernes"
+
+msgid "Full"
+msgstr "Completa"
 
 msgid "Full access (default)"
 msgstr "Acceso completo (predeterminado)"
@@ -1503,6 +1515,9 @@ msgstr "Grupos"
 
 msgid "HTTPS or SSH Git repository URL"
 msgstr "URL HTTPS o SSH del repositorio Git"
+
+msgid "Half"
+msgstr "Mitad"
 
 msgid "Hardware"
 msgstr "Hardware"
@@ -1890,6 +1905,9 @@ msgstr "Últimas etiquetas de imagen"
 
 msgid "Latest log streams"
 msgstr "Últimos flujos de registros"
+
+msgid "Left"
+msgstr "Izquierda"
 
 msgid "Let assistants work together"
 msgstr "Permitir que los asistentes trabajen juntos"
@@ -2283,6 +2301,9 @@ msgstr "No se pudo instalar Ollama. Tu asistente predeterminado no cambió."
 
 msgid "On"
 msgstr "Activado"
+
+msgid "One third"
+msgstr "Un tercio"
 
 msgid "Only administrators can manage accounts"
 msgstr "Solo los administradores pueden gestionar cuentas"
@@ -2875,6 +2896,9 @@ msgstr "Revisar instalación"
 msgid "Review status and settings"
 msgstr "Revisar estado y configuración"
 
+msgid "Right"
+msgstr "Derecha"
+
 msgid "Roles"
 msgstr "Roles"
 
@@ -2991,6 +3015,9 @@ msgstr "Captura guardada"
 
 msgid "Screenshot saved and copied"
 msgstr "Captura guardada y copiada"
+
+msgid "Scrolling"
+msgstr "Desplazamiento"
 
 msgid "Search bucket by name"
 msgstr "Buscar bucket por nombre"
@@ -3766,6 +3793,9 @@ msgstr "Debes eliminar esta herramienta con el gestor que la instaló."
 msgid "Thursday"
 msgstr "Jueves"
 
+msgid "Tiling"
+msgstr "Mosaico"
+
 msgid "Time"
 msgstr "Tiempo"
 
@@ -3828,6 +3858,9 @@ msgstr "Desactivar las instantáneas ELIMINA todas las instantáneas de las carp
 
 msgid "Turning them on keeps a snapshot of the home folders every hour for a day and one a day for a week, deleting the oldest when the disk is 80% full. Caches, Downloads, VM disks and games are left out; they are prepared at the next start, before you log in. Restore with Snapshots > Restore a File or Folder."
 msgstr "Activar las instantáneas conserva una instantánea de las carpetas personales por hora durante un día y una por día durante una semana, eliminando las más antiguas cuando el disco está al 80%. Las cachés, Downloads, discos de máquinas virtuales y juegos se excluyen; las exclusiones se preparan en el próximo arranque, antes de iniciar sesión. Restaura con Instantáneas > Restaurar un archivo o carpeta."
+
+msgid "Two thirds"
+msgstr "Dos tercios"
 
 msgid "Type 1, 2, 3 or 4, or press Enter."
 msgstr "Escribe 1, 2, 3 o 4, o pulsa Enter."
@@ -3969,6 +4002,9 @@ msgstr "Unsupported uninstall source"
 
 msgid "Until {date}"
 msgstr "Hasta {date}"
+
+msgid "Up"
+msgstr "Arriba"
 
 msgid "Update Channel"
 msgstr "Canal de actualizaciones"

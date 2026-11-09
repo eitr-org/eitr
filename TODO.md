@@ -13,14 +13,6 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
-- **Scrolling window layout (in progress, 2026-11-09).** Hyprland 0.57 ships a native
-  `scrolling` layout beside today's `dwindle` (`general:layout`). Offer it in Settings >
-  Windows and Walker's Style menu, saved machine-locally and kept across theme reloads,
-  with its options: direction (`scrolling:direction`, right/left/up/down), default column
-  width (`column_width`), preset widths to cycle (`explicit_column_widths`), how focus
-  brings a column into view (`focus_fit_method`, `follow_focus`) and one column
-  fullscreen (`fullscreen_on_one_column`). Shortcuts to move and resize columns only
-  while it is on; Learn, Handbook and the Overview/workspace previews must still match.
 - **Settings search finds individual settings (in progress, 2026-11-09).** Today search
   opens the right page or tab from keywords. Each setting becomes a result ("Cursor
   size · Appearance › Fonts & Cursor"); choosing it opens the page and tab, scrolls to

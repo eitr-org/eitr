@@ -73,7 +73,7 @@ def _validate_display_settings(result):
 
 
 def _validate_display_topology(result):
-    fields(result, {"primary": (str,), "preferred": (list,), "windowGaps": (list,), "screenGaps": (list,)})
+    fields(result, {"primary": (str,), "preferred": (list,), "windowGaps": (list,), "screenGaps": (list,), "windowLayout": (dict,)})
     if "monitors" in result:
         objects(result["monitors"])
 

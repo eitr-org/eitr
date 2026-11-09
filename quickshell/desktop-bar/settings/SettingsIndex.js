@@ -61,8 +61,8 @@ var pages = [
         "group": "Desktop",
         "id": "windows",
         "title": "Windows",
-        "description": "Window gaps, corners and motion.",
-        "keywords": "gaps corners rounded square shape animations effects"
+        "description": "Window layout, gaps, corners and motion.",
+        "keywords": "gaps corners rounded square shape animations effects tiling scrolling columns direction focus width"
     },
     {
         "group": "Desktop",
