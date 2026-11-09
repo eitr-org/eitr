@@ -199,4 +199,19 @@ list in `distro/RELEASES.md`.
 - [ ] Settings > Users: an administrator page for other accounts (create, remove, change type or password), separate from the User page for your own account. Reuse Walker's reviewed Create User flow and the root helper behind typed confirmation.
 - [ ] Git & Cloud for many companies (Walker; Settings no longer has the page): group each company's cloud profiles and contexts with its Git identity and folder rules.
 - [ ] Create a separate `eitr-store` repository and app for themes, plugins and other add-ons: catalog index, submissions and listings; replace the built-in catalog window later.
-- [ ] Move Tailscale out of the default install into a suggested plugin; retain the current install and remote-access workflows until that migration is implemented.
+- [ ] **VPN plugins and Tailscale out of the default install (agreed 2026-11-09, after Users).**
+  - Three official plugins in `eitr-org/eitr-plugins`: Tailscale (today's bar icon, panel and
+    actions; operator setup moves from the core root helper to the plugin's own reviewed step),
+    WireGuard (import a config, connect/disconnect, status) and NetworkManager VPN
+    (OpenVPN/OpenConnect profiles; explains the NetworkManager backend when on iwd).
+  - Plugin format gains an optional `packages` field: official Arch/Eitr repositories only.
+    The install review lists them; after approval they install with the administrator
+    password, ideally inside the Themes & Plugins session, otherwise a terminal that returns
+    to it. Packages already installed are detected and not reinstalled. Removing the plugin
+    offers to remove only the packages it installed that nothing else needs.
+  - Plugins never install silently. A one-time update step installs the official Tailscale
+    plugin (pinned, reviewed) on desktops that already have Tailscale, with a notification;
+    Tailscale is never uninstalled automatically. New installs no longer include it.
+  - Remove the Tailscale rows from Walker; keep Install > VPN.
+  - Order: plugin `packages` field (VM-tested), the three plugins, then remove Tailscale from
+    the core and ship the update step after the plugin passes a VM test.
