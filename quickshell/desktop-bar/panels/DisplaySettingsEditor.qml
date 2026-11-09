@@ -179,7 +179,7 @@ Column {
                 objectName: "sdrBrightness"
                 width: parent.width
                 foreground: editor.foreground; accent: editor.accent
-                from: 1; to: 2; stepSize: 0.1
+                from: 1; to: 2; stepSize: 0.1; ticks: 11
                 value: Number(editor.monitor.sdr_brightness || 1)
                 enabled: !editor.busy
                 onMoved: brightnessSettle.restart()

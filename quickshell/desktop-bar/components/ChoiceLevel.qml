@@ -1,5 +1,6 @@
 import ".."
 import QtQuick
+import QtQuick.Controls.Basic as Controls
 import Eitr as Eitr
 
 Item {
@@ -14,9 +15,27 @@ Item {
     function valueOf(choice) {
         return String(choice.value ?? choice.id);
     }
+    // The choice just made, held until the saved value catches up, so the handle never
+    // springs back to the old stop while the change is applied.
+    property string pending: ""
+    function indexOf(value) {
+        return Math.max(0, choices.findIndex(choice => valueOf(choice) === value));
+    }
     function commit() {
-        if (choices.length)
-            chosen(valueOf(choices[Math.round(slider.value)]));
+        if (!choices.length)
+            return;
+        const value = valueOf(choices[Math.round(slider.value)]);
+        if (value === (pending || current))
+            return;
+        pending = value;
+        settle.restart();
+        chosen(value);
+    }
+    onCurrentChanged: pending = ""
+    Timer {
+        id: settle
+        interval: 5000
+        onTriggered: level.pending = ""
     }
     width: parent ? parent.width : 240
     implicitHeight: 36
@@ -28,6 +47,8 @@ Item {
         from: 0
         to: Math.max(0, level.choices.length - 1)
         stepSize: 1
+        snapMode: Controls.Slider.SnapAlways
+        ticks: level.choices.length
         enabled: level.available && level.choices.length > 0
         foreground: level.foreground
         accent: level.accent
@@ -35,7 +56,7 @@ Item {
         Binding {
             target: slider
             property: "value"
-            value: Math.max(0, level.choices.findIndex(choice => level.valueOf(choice) === level.current))
+            value: level.indexOf(level.pending || level.current)
             when: !slider.pressed
         }
         onMoved: if (!pressed)
