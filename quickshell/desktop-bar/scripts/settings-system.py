@@ -69,26 +69,20 @@ def security():
 
 def users():
     """Settings > Users: every login on this PC, yours first, with its picture and type."""
-    import grp
     import os
     from pathlib import Path
-    import pwd
-    from eitr_users import human_users
-    try:
-        wheel = grp.getgrnam('wheel')
-        administrators, wheel_id = set(wheel.gr_mem), wheel.gr_gid
-    except KeyError:
-        administrators, wheel_id = set(), None
+    from eitr_users import human_users, is_administrator
     items = []
     for account in human_users():
         picture = Path('/var/lib/AccountsService/icons') / account.pw_name
-        administrator = account.pw_name in administrators or account.pw_gid == wheel_id
+        administrator = is_administrator(account)
         name = account.pw_gecos.split(',')[0].strip() or account.pw_name
         items.append({'title': name, 'login': account.pw_name, 'current': account.pw_uid == os.getuid(),
                       'initial': name[:1].upper(), 'administrator': administrator,
                       'detail': tr('Administrator') if administrator else tr('Standard'),
                       'picture': str(picture) if picture.is_file() and os.access(picture, os.R_OK) else ''})
-    return {'items': sorted(items, key=lambda item: not item['current'])}
+    return {'items': sorted(items, key=lambda item: not item['current']),
+            'administrator': any(item['current'] and item['administrator'] for item in items)}
 
 
 def about():

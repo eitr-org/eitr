@@ -229,14 +229,23 @@ msgstr "Detalhes da conta"
 msgid "Account directories cannot be symbolic links"
 msgstr "Os diretórios de contas não podem ser links simbólicos"
 
+msgid "Account has an active login session"
+msgstr "A conta tem uma sessão de login ativa"
+
 msgid "Account is in use"
 msgstr "A conta está em uso"
+
+msgid "Account management requires root"
+msgstr "O gerenciamento de contas exige root"
 
 msgid "Account name"
 msgstr "Nome da conta"
 
 msgid "Account password"
 msgstr "Senha da conta"
+
+msgid "Account request is too large"
+msgstr "Solicitação de conta muito grande"
 
 msgid "Account summary"
 msgstr "Resumo da conta"
@@ -568,14 +577,26 @@ msgstr "Cancelado; nada foi alterado."
 msgid "Cannot change another user"
 msgstr "Não é possível alterar outro usuário"
 
+msgid "Cannot demote an account with wheel as its primary group"
+msgstr "Não é possível rebaixar uma conta cujo grupo principal é wheel"
+
 msgid "Cannot inspect package dependency database {database}: {error}"
 msgstr "Não foi possível examinar o banco de dependências {database}: {error}"
+
+msgid "Cannot remove the last administrator"
+msgstr "Não é possível remover o último administrador"
+
+msgid "Cannot remove your own account"
+msgstr "Não é possível remover sua própria conta"
 
 msgid "Cannot validate Flatpak additions (internet and flatpak required): {error}"
 msgstr "Não foi possível validar adições Flatpak (internet e flatpak necessários): {error}"
 
 msgid "Cannot validate Flatpak remote {remote}: {reason}"
 msgstr "Não foi possível validar o repositório Flatpak {remote}: {reason}"
+
+msgid "Cannot verify account login sessions"
+msgstr "Não foi possível verificar as sessões de login da conta"
 
 msgid "Capture"
 msgstr "Captura"
@@ -591,6 +612,9 @@ msgstr "A operação do catálogo falhou"
 
 msgid "Change this visual placement"
 msgstr "Alterar a posição deste elemento"
+
+msgid "Change {username} to {account_type}."
+msgstr "Mudar {username} para {account_type}."
 
 msgid "Changed executable file: {path}"
 msgstr "Arquivo executável alterado: {path}"
@@ -1023,6 +1047,9 @@ msgstr "Padrão: {key}: {value}"
 
 msgid "Delete Account"
 msgstr "Excluir conta"
+
+msgid "Delete home folder"
+msgstr "Excluir pasta pessoal"
 
 msgid "Delete this lockscreen? Enter deletes, Esc keeps it."
 msgstr "Excluir esta tela de bloqueio? Enter exclui, Esc mantém."
@@ -1654,6 +1681,12 @@ msgstr "Nome de WiFi inválido"
 msgid "Invalid account or provider"
 msgstr "Conta ou provedor inválido"
 
+msgid "Invalid account request"
+msgstr "Solicitação de conta inválida"
+
+msgid "Invalid account type"
+msgstr "Tipo de conta inválido"
+
 msgid "Invalid anonymous identity"
 msgstr "Identidade anônima inválida"
 
@@ -1684,6 +1717,9 @@ msgstr "Regra de pasta inválida"
 msgid "Invalid font package"
 msgstr "Invalid font package"
 
+msgid "Invalid home folder choice"
+msgstr "Opção de pasta pessoal inválida"
+
 msgid "Invalid hostname {hostname}"
 msgstr "Nome de host {hostname} inválido"
 
@@ -1695,6 +1731,9 @@ msgstr "Arquivo de pacote inválido: {value}"
 
 msgid "Invalid package name"
 msgstr "Nome de pacote inválido"
+
+msgid "Invalid password"
+msgstr "Senha inválida"
 
 msgid "Invalid peer address."
 msgstr "Endereço de dispositivo inválido."
@@ -1735,6 +1774,9 @@ msgstr "ID de assinatura inválido"
 msgid "Invalid tenant ID"
 msgstr "ID de tenant inválido"
 
+msgid "Invalid username"
+msgstr "Nome de usuário inválido"
+
 msgid "Invalid username {username}"
 msgstr "Nome de usuário {username} inválido"
 
@@ -1773,6 +1815,9 @@ msgstr "Mantenha pelo menos uma família de fontes instalada"
 
 msgid "Keep at least one keyboard layout"
 msgstr "Mantenha pelo menos um layout de teclado"
+
+msgid "Keep home folder"
+msgstr "Manter pasta pessoal"
 
 msgid "Keep it"
 msgstr "Manter"
@@ -2017,6 +2062,9 @@ msgstr "Novo nome"
 msgid "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n"
 msgstr "Novas partições são criadas no espaço livre de {path}.\nAs partições existentes são mantidas, mas faça antes um backup dos arquivos importantes.\n"
 
+msgid "New password"
+msgstr "Nova senha"
+
 msgid "New password: "
 msgstr "Nova senha: "
 
@@ -2233,6 +2281,9 @@ msgstr "Não foi possível instalar o Ollama. Seu assistente padrão não foi al
 msgid "On"
 msgstr "Ativado"
 
+msgid "Only administrators can manage accounts"
+msgstr "Somente administradores podem gerenciar contas"
+
 msgid "Only files in the home folders have snapshots."
 msgstr "Apenas arquivos das pastas pessoais têm snapshots."
 
@@ -2241,6 +2292,9 @@ msgstr "Só funciona com firmware que expõe charge_control_end_threshold."
 
 msgid "Only for Another picture: a file such as ~/Pictures/lake.jpg or an https address. Eitr downloads it and keeps a copy on this computer."
 msgstr "Só para Outra imagem: um arquivo como ~/Pictures/lake.jpg ou um endereço https. O Eitr baixa e guarda uma cópia neste computador."
+
+msgid "Only human accounts can be managed"
+msgstr "Somente contas humanas podem ser gerenciadas"
 
 msgid "Only {theme}"
 msgstr "Só {theme}"
@@ -2466,6 +2520,9 @@ msgstr "Preparando a atualização…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Enter confirma; Esc cancela."
+
+msgid "Press Enter to continue or Esc to cancel."
+msgstr "Pressione Enter para continuar ou Esc para cancelar."
 
 msgid "Press Enter to continue or Esc to cancel: "
 msgstr "Pressione Enter para continuar ou Esc para cancelar: "
@@ -2716,6 +2773,9 @@ msgstr "Remover {label} e suas regras de pastas? As chaves permanecem no disco."
 msgid "Remove {name}."
 msgstr "Remover {name}."
 
+msgid "Remove {username}: {home}."
+msgstr "Remover {username}: {home}."
+
 msgid "Remove: {value}"
 msgstr "Remover: {value}"
 
@@ -2730,6 +2790,9 @@ msgstr "Renomear {current}"
 
 msgid "Renamed to {label}."
 msgstr "Renomeado para {label}."
+
+msgid "Repeat new password"
+msgstr "Repita a nova senha"
 
 msgid "Repeat new password: "
 msgstr "Repita a nova senha: "
@@ -3000,6 +3063,9 @@ msgstr "Defina primeiro a senha do Sunshine. Insira o PIN exibido pelo Moonlight
 
 msgid "Set a Sunshine username and password in the local settings page before pairing any device."
 msgstr "Defina usuário e senha do Sunshine nas configurações locais antes de parear qualquer dispositivo."
+
+msgid "Set password for {username}."
+msgstr "Definir senha de {username}."
 
 msgid "Set up Ratatoskr?"
 msgstr "Configurar Ratatoskr?"
@@ -3580,6 +3646,9 @@ msgstr "Não foi possível carregar o serviço do usuário."
 msgid "The window manager found errors in its settings, so some shortcuts or layouts may not apply; undo recent changes to your own settings or report a problem."
 msgstr "O gerenciador de janelas encontrou erros nas configurações, então alguns atalhos ou layouts podem não ser aplicados; desfaça suas mudanças recentes ou relate um problema."
 
+msgid "Their login keyring will keep its old password."
+msgstr "O chaveiro de login dessa conta manterá a senha antiga."
+
 msgid "Theme"
 msgstr "Tema"
 
@@ -3934,6 +4003,9 @@ msgstr "Atualizações com snapshots (informe um número 'before' para ver todos
 msgid "Uptime"
 msgstr "Tempo ativo"
 
+msgid "Use Change password for your own account"
+msgstr "Use Alterar senha para sua própria conta"
+
 msgid "Use a JPEG, PNG or WebP picture."
 msgstr "Use uma imagem JPEG, PNG ou WebP."
 
@@ -3951,6 +4023,9 @@ msgstr "Use um endereço http ou https."
 
 msgid "Use an https address or a file on this computer."
 msgstr "Use um endereço https ou um arquivo deste computador."
+
+msgid "Use at least 8 characters, without line breaks."
+msgstr "Use pelo menos 8 caracteres, sem quebras de linha."
 
 msgid "Use at least 8 characters. Your input is hidden."
 msgstr "Use pelo menos 8 caracteres. A entrada fica oculta."

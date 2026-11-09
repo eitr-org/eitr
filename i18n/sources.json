@@ -89,6 +89,9 @@
     "Adjust the pointer size in pixels.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
+    "Administrator": [
+      "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
+    ],
     "Airplane": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
@@ -273,6 +276,7 @@
       "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/TimePicker.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
@@ -293,6 +297,16 @@
     "Change picture": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
+    ],
+    "Change to Administrator": [
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
+    ],
+    "Change to Standard": [
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
+    ],
+    "Change type": [
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
+      "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
     "Channel": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
@@ -463,7 +477,8 @@
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Continue": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
     ],
     "Continue · %1": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -542,6 +557,7 @@
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Create User…": [
+      "quickshell/desktop-bar/settings/SettingsManageUsers.qml",
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "Current": [
@@ -602,6 +618,9 @@
     ],
     "Delete every occurrence": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
+    ],
+    "Delete home folder": [
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
     ],
     "Delete reminder": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -936,6 +955,9 @@
     "Keep expanded": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
+    "Keep home folder": [
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
+    ],
     "Keep in Dock": [
       "quickshell/desktop-bar/dock/EdgeDock.qml"
     ],
@@ -1064,6 +1086,9 @@
     ],
     "Main display · others go around it": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Manage": [
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "Manual": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -1625,6 +1650,8 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml",
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
+      "quickshell/desktop-bar/settings/SettingsManageUsers.qml",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "Remove %1": [
@@ -1647,6 +1674,9 @@
     ],
     "Remove picture?": [
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
+    ],
+    "Remove this account? Keeping the home folder preserves its files.": [
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
     ],
     "Rename": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
@@ -1846,6 +1876,10 @@
     "Set": [
       "quickshell/desktop-bar/panels/TimePicker.qml"
     ],
+    "Set password": [
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
+      "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
+    ],
     "Set the font used by desktop text.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
@@ -1957,6 +1991,9 @@
     ],
     "Stable": [
       "tools/choice-lists.json"
+    ],
+    "Standard": [
+      "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
     "Start": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -2088,6 +2125,9 @@
     ],
     "The theme is deleted from this computer.": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal.": [
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
     ],
     "Theme": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
@@ -5758,8 +5798,14 @@
     "Account directories cannot be symbolic links": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Account has an active login session": [
+      "distro/lib/eitr_accounts.py"
+    ],
     "Account is in use": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Account management requires root": [
+      "distro/lib/eitr_accounts.py"
     ],
     "Account name": [
       "distro/lib/eitr_ai_accounts.py",
@@ -5767,6 +5813,9 @@
     ],
     "Account password": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Account request is too large": [
+      "distro/lib/eitr_accounts.py"
     ],
     "Account summary": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -6103,14 +6152,26 @@
     "Cannot change another user": [
       "distro/system/eitr_remote.py"
     ],
+    "Cannot demote an account with wheel as its primary group": [
+      "distro/lib/eitr_accounts.py"
+    ],
     "Cannot inspect package dependency database {database}: {error}": [
       "distro/lib/eitr_profile.py"
+    ],
+    "Cannot remove the last administrator": [
+      "distro/lib/eitr_accounts.py"
+    ],
+    "Cannot remove your own account": [
+      "distro/lib/eitr_accounts.py"
     ],
     "Cannot validate Flatpak additions (internet and flatpak required): {error}": [
       "distro/lib/eitr_profile.py"
     ],
     "Cannot validate Flatpak remote {remote}: {reason}": [
       "distro/lib/eitr_profile.py"
+    ],
+    "Cannot verify account login sessions": [
+      "distro/lib/eitr_accounts.py"
     ],
     "Capture": [
       "quickshell/desktop-bar/scripts/remote-status.py"
@@ -6126,6 +6187,9 @@
     ],
     "Change this visual placement": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Change {username} to {account_type}.": [
+      "walker/scripts/actions/system/users.py"
     ],
     "Changed executable file: {path}": [
       "distro/lib/eitr_plugin_install.py"
@@ -6569,6 +6633,9 @@
     ],
     "Delete Account": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Delete home folder": [
+      "walker/scripts/actions/system/users.py"
     ],
     "Delete this lockscreen? Enter deletes, Esc keeps it.": [
       "walker/scripts/actions/style/own.py"
@@ -7212,6 +7279,13 @@
     "Invalid account or provider": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Invalid account request": [
+      "distro/lib/eitr_accounts.py",
+      "walker/scripts/actions/system/users.py"
+    ],
+    "Invalid account type": [
+      "distro/lib/eitr_accounts.py"
+    ],
     "Invalid anonymous identity": [
       "distro/system/network-backend.py"
     ],
@@ -7243,6 +7317,9 @@
     "Invalid font package": [
       "walker/scripts/actions/style/fonts.py"
     ],
+    "Invalid home folder choice": [
+      "distro/lib/eitr_accounts.py"
+    ],
     "Invalid hostname {hostname}": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -7254,6 +7331,9 @@
     ],
     "Invalid package name": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "Invalid password": [
+      "distro/lib/eitr_accounts.py"
     ],
     "Invalid peer address.": [
       "walker/scripts/actions/system/remote-access.py"
@@ -7297,6 +7377,10 @@
     "Invalid tenant ID": [
       "walker/scripts/menus/cloud/contexts.py"
     ],
+    "Invalid username": [
+      "distro/lib/eitr_accounts.py",
+      "walker/scripts/actions/system/users.py"
+    ],
     "Invalid username {username}": [
       "distro/archinstall/eitr-guided-install"
     ],
@@ -7335,6 +7419,9 @@
     ],
     "Keep at least one keyboard layout": [
       "quickshell/desktop-bar/scripts/keyboard-layout.py"
+    ],
+    "Keep home folder": [
+      "walker/scripts/actions/system/users.py"
     ],
     "Keep it": [
       "walker/scripts/actions/tools/reminders.py"
@@ -7589,6 +7676,9 @@
     "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n": [
       "distro/archinstall/installer-ui.py"
     ],
+    "New password": [
+      "walker/scripts/actions/system/users.py"
+    ],
     "New password: ": [
       "walker/scripts/actions/system/security.py"
     ],
@@ -7814,6 +7904,9 @@
     "On": [
       "distro/lib/eitr_appearance.py"
     ],
+    "Only administrators can manage accounts": [
+      "distro/lib/eitr_accounts.py"
+    ],
     "Only files in the home folders have snapshots.": [
       "walker/scripts/actions/system/restore-file.py"
     ],
@@ -7822,6 +7915,9 @@
     ],
     "Only for Another picture: a file such as ~/Pictures/lake.jpg or an https address. Eitr downloads it and keeps a copy on this computer.": [
       "walker/scripts/actions/style/own.py"
+    ],
+    "Only human accounts can be managed": [
+      "distro/lib/eitr_accounts.py"
     ],
     "Only {theme}": [
       "walker/scripts/actions/style/own.py"
@@ -8052,6 +8148,9 @@
       "distro/lib/eitr_ai_accounts.py",
       "distro/lib/eitr_assistants.py",
       "walker/scripts/actions/ai-assistant.py"
+    ],
+    "Press Enter to continue or Esc to cancel.": [
+      "walker/scripts/actions/system/users.py"
     ],
     "Press Enter to continue or Esc to cancel: ": [
       "walker/scripts/actions/system/mirrors.py"
@@ -8308,6 +8407,9 @@
     "Remove {name}.": [
       "walker/scripts/actions/install/software.py"
     ],
+    "Remove {username}: {home}.": [
+      "walker/scripts/actions/system/users.py"
+    ],
     "Remove: {value}": [
       "distro/lib/eitr_profile.py"
     ],
@@ -8322,6 +8424,9 @@
     ],
     "Renamed to {label}.": [
       "walker/scripts/menus/cloud/accounts.py"
+    ],
+    "Repeat new password": [
+      "walker/scripts/actions/system/users.py"
     ],
     "Repeat new password: ": [
       "walker/scripts/actions/system/security.py"
@@ -8595,6 +8700,9 @@
     ],
     "Set a Sunshine username and password in the local settings page before pairing any device.": [
       "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Set password for {username}.": [
+      "walker/scripts/actions/system/users.py"
     ],
     "Set up Ratatoskr?": [
       "distro/lib/eitr_local_assistant.py"
@@ -9100,7 +9208,8 @@
       "walker/scripts/actions/system/security.py"
     ],
     "The new passwords do not match.": [
-      "walker/scripts/actions/system/security.py"
+      "walker/scripts/actions/system/security.py",
+      "walker/scripts/actions/system/users.py"
     ],
     "The password could not be changed.": [
       "walker/scripts/actions/system/security.py"
@@ -9187,6 +9296,9 @@
     ],
     "The window manager found errors in its settings, so some shortcuts or layouts may not apply; undo recent changes to your own settings or report a problem.": [
       "distro/lib/eitr_selfcheck.py"
+    ],
+    "Their login keyring will keep its old password.": [
+      "walker/scripts/actions/system/users.py"
     ],
     "Theme": [
       "fastfetch/eitr.py"
@@ -9544,6 +9656,9 @@
     "Uptime": [
       "fastfetch/eitr.py"
     ],
+    "Use Change password for your own account": [
+      "distro/lib/eitr_accounts.py"
+    ],
     "Use a JPEG, PNG or WebP picture.": [
       "distro/lib/eitr_own_style.py"
     ],
@@ -9561,6 +9676,9 @@
     ],
     "Use an https address or a file on this computer.": [
       "distro/lib/eitr_own_style.py"
+    ],
+    "Use at least 8 characters, without line breaks.": [
+      "walker/scripts/actions/system/users.py"
     ],
     "Use at least 8 characters. Your input is hidden.": [
       "distro/lib/eitr_wizard.py"

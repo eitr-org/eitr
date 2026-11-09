@@ -36,7 +36,7 @@ ShellRoot {
  }
  Timer {
   interval: 180; running: true; repeat: true
-  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "windows", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "default-apps", "user", "security", "updates", "check-pc", "about"]
+  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "windows", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "default-apps", "user", "user/manage", "user/users", "security", "updates", "check-pc", "about"]
   property int current: 0
   property int phase: 0
   property bool saved: false
@@ -82,11 +82,33 @@ ShellRoot {
     system.updates = {status: "ready", data: {count: 7}};
     system.checks = [{group: "Updates", status: "info", message: "The cached package list is current."}, {group: "Storage", status: "warning", message: "Free disk space is low.", meaning: "Free some space before updating."}];
     const summary = pages[current] === "keybinds" ? [{group: "Launchers", title: "Open terminal", detail: "SUPER + Enter"}, {group: "Windows", title: "Close window", detail: "SUPER + Q"}] : pages[current] === "about" ? [{title: "Version", detail: "0.7.0"}, {title: "Codename", detail: "Huginn"}, {title: "Update Channel", detail: "Stable"}, {title: "Kernel", detail: "Linux"}, {title: "Licence", detail: "GPL-3.0-or-later"}] : pages[current] === "security" ? [{tab: "protection", title: "Firewall", detail: "Eitr firewall active.", actionMenu: "security"}, {tab: "sign-in", title: "Fingerprint", detail: "Review status and settings", menu: "fingerprint", controls: [{title: "Enable Fingerprint Authentication", detail: "Password fallback retained", actionMenu: "fingerprint"}, {title: "Enroll Fingerprint", detail: "Requires a supported reader", actionMenu: "fingerprint"}]}] : [{title: "Personal", detail: "Eitr Explorer · explorer@example.invalid · Default", menu: "git-accounts", provider: "git", providerTitle: "Git identities", account: "fixture", controls: [{title: "Make Default", detail: "Use this identity outside folder rules", gitAccount: "fixture"}, {title: "Remove Folder", detail: "Stop using this account in a folder", gitAccount: "fixture", options: ["~/Projects/example"]}]}, {title: "Work", detail: "Eitr Explorer · ~/Projects/work", menu: "git-accounts", provider: "git", providerTitle: "Git identities", account: "work", controls: [{title: "Test Connection", detail: "Check the SSH key with the host", gitAccount: "work"}]}, {title: "Example", detail: "example-profile", menu: "cloud", provider: "aws", providerTitle: "AWS", context: "example-profile", controls: [{title: "Rename", detail: "Example", command: []}]}, {title: "fixture", detail: "Example account", menu: "cloud", provider: "cloudflare", providerTitle: "Cloudflare", context: "fixture", controls: [{title: "Sign In", detail: "fixture", command: []}, {title: "Delete Account", detail: "Remove local sign-in; the remote account is kept.", cloudDelete: "fixture", provider: "cloudflare"}]}];
-    fixture.find(content, "settings-system-helper").summary = {items: pages[current] === "user" ? [{current: true, title: "Eitr Explorer", login: "explorer", detail: "Administrator", initial: "E", picture: ""}, {current: false, title: "Ana Lima", login: "ana", detail: "Standard", initial: "A", picture: ""}] : pages[current] === "assistants" ? [{title: "Example assistant", detail: "Installed", controls: [{title: "Default", detail: "Current", command: []}, {title: "Add Account…", detail: "Sign in to a separate account", command: []}]}, {title: "Ratatoskr (local, experimental)", detail: "Runs only on this PC; less reliable than cloud assistants", controls: [{title: "Set Up", detail: "Set up an assistant that runs only on this PC", command: []}]}] : summary,
+    fixture.find(content, "settings-system-helper").summary = {administrator: pages[current] !== "user/users", items: pages[current].split("/")[0] === "user" ? [{administrator: pages[current] !== "user/users", current: true, title: "Eitr Explorer", login: "explorer", detail: pages[current] === "user/users" ? "Standard" : "Administrator", initial: "E", picture: ""}, {current: false, title: "Ana Lima", login: "ana", detail: "Standard", initial: "A", picture: ""}] : pages[current] === "assistants" ? [{title: "Example assistant", detail: "Installed", controls: [{title: "Default", detail: "Current", command: []}, {title: "Add Account…", detail: "Sign in to a separate account", command: []}]}, {title: "Ratatoskr (local, experimental)", detail: "Runs only on this PC; less reliable than cloud assistants", controls: [{title: "Set Up", detail: "Set up an assistant that runs only on this PC", command: []}]}] : summary,
      choices: [{value: "codex", label: "Example assistant"}], current: "codex", access: "ask", collaboration: true,
      hardware: [{title: "CPU", name: "8 cores"}, {title: "RAM", name: "32 GiB"}, {title: "Storage", name: "Example SSD · NVMe SSD · 1.0 TB"}]};
     fixture.find(content, "settings-default-apps-helper").summary = {items: ["Web browser", "File manager", "Text editor", "Image viewer", "Video player", "Music player", "Mail", "PDF viewer", "Terminal"].map(label => ({kind: "fixture", label: label, current: "fixture.desktop", name: "Example app", choices: [{value: "fixture.desktop", label: "Example app"}, {value: "other.desktop", label: "Other app"}]}))};
    } else if (phase === 2) {
+    if (pages[current].split("/")[0] === "user") {
+     const tabs = fixture.find(content, "settings-user-tabs");
+     const manage = fixture.find(content, "settings-manage-users");
+     if (!tabs || !manage) throw new Error("Missing account controls");
+     if (tabs.visible !== (pages[current] !== "user/users")) throw new Error("Administrator tab visibility");
+     if (manage.visible !== (pages[current] === "user/manage")) throw new Error("Manage access");
+     if (manage.visible) {
+      let payload = null;
+      manage.sheet.confirmed.connect(arguments => { payload = arguments; });
+      manage.sheet.review("remove", {login: "ana"});
+      if (manage.sheet.deleteHome) throw new Error("Home deletion must be opt-in");
+      manage.sheet.submit();
+      if (JSON.stringify(payload) !== JSON.stringify(["remove", "ana"])) throw new Error("Keep home request");
+      manage.sheet.review("remove", {login: "ana"});
+      manage.sheet.deleteHome = true;
+      manage.sheet.submit();
+      if (JSON.stringify(payload) !== JSON.stringify(["remove", "ana", "--delete-home"])) throw new Error("Delete home request");
+      manage.sheet.review("set-type", {login: "ana", administrator: false});
+      manage.sheet.submit();
+      if (JSON.stringify(payload) !== JSON.stringify(["set-type", "ana", "--account-type", "administrator"])) throw new Error("Role request");
+     }
+    }
     if (pages[current] === "connections") {
      const wifi = fixture.find(content, "settings-wifi-page");
      if (!wifi || !wifi.visible || wifi.devices.length !== 1) throw new Error("Settings Wi-Fi missing");

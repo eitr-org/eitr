@@ -30,9 +30,13 @@ Leia [Recuperação e snapshots](handbook:recovery) antes de alterar a autentica
 
 ## Contas de usuário
 
-**Configurações > Usuários > Criar usuário…** cria um acesso separado. Informe o nome de usuário, nome completo opcional, tipo de conta e senha; revise os dados e pressione Enter para criar. Esc cancela antes de aplicar. Contas padrão não podem usar sudo; administradores entram no grupo wheel e recebem uma regra sudo protegida por senha. Contas existentes (UID 1000–65533) aparecem abaixo, em Usuários, como linhas somente para leitura.
+**Configurações > Usuários > Criar usuário…** cria um acesso separado. Informe o nome de usuário, nome completo opcional, tipo de conta e senha; revise os dados e pressione Enter para criar. Esc cancela antes de aplicar. Contas padrão não podem usar sudo; administradores entram no grupo wheel e recebem uma regra sudo protegida por senha.
 
-A nova pasta pessoal não contém arquivos da sua conta. No primeiro login no Hyprland pelo UWSM, o Eitr executa a configuração de desktop por usuário do instalador e adota a estrutura do pacote com a identidade do novo usuário. A configuração do shell pode precisar de internet. Se falhar, o marcador permanece para o próximo login; após o sucesso, não se repete. Falhas na criação deixam a conta incompleta bloqueada e expirada para revisão manual. A exclusão de usuários não é oferecida.
+A nova pasta pessoal não contém arquivos da sua conta. No primeiro login no Hyprland pelo UWSM, o Eitr executa a configuração de desktop por usuário do instalador e adota a estrutura do pacote com a identidade do novo usuário. A configuração do shell pode precisar de internet. Se falhar, o marcador permanece para o próximo login; após o sucesso, não se repete. Falhas na criação deixam a conta incompleta bloqueada e expirada para revisão manual.
+
+Administradores veem as abas **Usuários** e **Gerenciar** em Configurações > Usuários; contas padrão veem apenas a lista de usuários. Um Administrador pertence ao grupo wheel e tem uma regra sudo do Eitr; uma conta Padrão não tem nenhum dos dois. Gerenciar permite criar contas, mudar seu tipo, definir a senha de outra conta e remover contas. Cada ação abre uma folha de confirmação e depois um terminal de tarefa: Enter continua e Esc cancela. A redefinição pede a nova senha duas vezes no terminal; o chaveiro de login da outra conta não pode ser atualizado e mantém a senha antiga. Para sua própria conta, use Alterar senha em Usuários. A remoção mantém a pasta pessoal por padrão; escolha Excluir pasta pessoal para apagar seus arquivos. Você não pode remover sua própria conta, uma conta com sessão ativa ou o último administrador; este também não pode ser rebaixado. Apenas contas humanas (UID 1000–65533) podem ser gerenciadas. A lista é atualizada quando você retorna do terminal.
+
+Contas cujo grupo principal é wheel não podem ser rebaixadas aqui; altere primeiro o grupo principal pela administração manual.
 
 ## Fotos de perfil
 

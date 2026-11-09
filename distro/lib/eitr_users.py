@@ -24,6 +24,16 @@ def human_users():
                   key=lambda account: account.pw_name.casefold())
 
 
+def is_administrator(account):
+    """Recognize existing wheel administrators, including primary membership."""
+    import grp
+    try:
+        wheel = grp.getgrnam('wheel')
+    except KeyError:
+        return False
+    return account.pw_gid == wheel.gr_gid or account.pw_name in wheel.gr_mem
+
+
 def seed_first_login():
     if os.geteuid() == 0:
         raise ValueError("Desktop initialization must run as the account owner")

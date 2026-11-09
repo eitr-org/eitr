@@ -53,6 +53,10 @@ PNG, JPEG, WebP, GIF (première image) et BMP sont acceptés jusqu’à 40 Mo et
 
 Ouvrez Paramètres > Utilisateurs et choisissez Changer le mot de passe à côté de votre nom. Saisissez votre mot de passe actuel, puis deux fois le nouveau : Entrée passe au champ suivant et confirme sur le dernier ; Échap annule. Les règles de mot de passe du système décident de ce qui est accepté, et un mot de passe refusé affiche la raison. Eitr passe aussi le trousseau de connexion au nouveau mot de passe, pour que les mots de passe enregistrés continuent de se déverrouiller à la connexion. La phrase secrète de chiffrement du disque est distincte et reste la même. Walker > Paramètres > Sécurité > Mettre à jour le mot de passe fait la même chose dans un terminal.
 
+## Gérer les comptes
+
+Les administrateurs disposent des onglets **Utilisateurs** et **Gérer** dans Paramètres > Utilisateurs. Les comptes standard ne voient que la liste des utilisateurs. Gérer propose Créer un utilisateur…, Changer le type, Définir le mot de passe d’autres comptes et Supprimer avec un choix pour le dossier personnel. Confirmez dans la fenêtre, puis appuyez sur Entrée dans le terminal de tâche pour continuer ou Échap pour annuler ; saisissez les mots de passe uniquement dans ce terminal. Les dossiers personnels sont conservés par défaut. Consultez [Comptes utilisateur](handbook:security) pour les autorisations, les limites du trousseau et les protections de suppression.
+
 ## Utiliser Walker comme alternative
 
 **SUPER + F** ouvre Walker. Son menu Paramètres conserve des dossiers comme Style, Périphériques et saisie et Système. Ce sont des chemins Walker, pas des pages de l’application Paramètres.

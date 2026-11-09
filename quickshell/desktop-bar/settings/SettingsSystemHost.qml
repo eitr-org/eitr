@@ -1,5 +1,6 @@
 import ".."
 import QtQuick
+import QtQuick.Window
 import QtQuick.Controls.Basic
 import Quickshell
 import Quickshell.Io
@@ -25,6 +26,7 @@ Flickable {
     property var accountPicture: (DesktopData.topics["account.picture"] || {}).data || ({})
     property var updates: DesktopData.topics["updates.status"] || ({})
     function dismiss() {
+        if (page === "user" && pageLoader.item && pageLoader.item.managementSheet.opened) { pageLoader.item.managementSheet.close(); return true; }
         if (removeSheet && removeSheet.opened) { removeSheet.close(); return true; }
         if (!(pictureSheet && pictureSheet.opened))
             return false;
@@ -111,6 +113,12 @@ Flickable {
         if (live)
             Quickshell.execDetached(["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/menu-action.py"), menu, title]);
     }
+    Connections {
+        target: hostView.Window.window
+        function onActiveChanged() {
+            if (hostView.Window.window.active && hostView.page === "user") helper.refresh();
+        }
+    }
     SettingsHelper {
         id: helper
         objectName: "settings-system-helper"
@@ -196,7 +204,7 @@ Flickable {
             // One button for the whole Users page, beside its title rather than in a row.
             PanelButton {
                 objectName: "settings-create-user"
-                visible: hostView.page === "user"
+                visible: hostView.page === "user" && (hostView.tab !== "manage" || helper.summary.administrator !== true)
                 width: 160
                 foreground: hostView.foreground
                 text: Eitr.I18n.tr("Create User…")

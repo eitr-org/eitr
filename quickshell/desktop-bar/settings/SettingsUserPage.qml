@@ -4,8 +4,7 @@ import QtQuick.Controls.Basic
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-// Settings > Users: one row per login on this PC, yours first. Your picture changes when
-// clicked and the trash below it removes it after a confirmation; others are listed only.
+// Users keeps personal profile controls separate from administrator account management.
 Column {
     id: userPage
     required property var context
@@ -22,10 +21,32 @@ Column {
     property alias profileEditor: profileEditor
     property alias passwordSheet: passwordSheet
     property alias removeSheet: removeSheet
+    readonly property bool administrator: view.helper.summary.administrator === true
+    readonly property bool managing: administrator && view.tab === "manage"
+    TabStrip {
+        objectName: "settings-user-tabs"
+        width: parent.width
+        height: visible ? 42 : 0
+        visible: userPage.administrator
+        foreground: SettingsPalette.foreground
+        gold: SettingsPalette.gold
+        carved: true
+        choices: [{id: "users", label: Eitr.I18n.tr("Users")}, {id: "manage", label: Eitr.I18n.tr("Manage")}]
+        current: userPage.managing ? "manage" : "users"
+        onChosen: value => { userPage.view.tabRequested(value); userPage.view.contentY = 0; }
+    }
+    SettingsManageUsers {
+        id: management
+        visible: userPage.managing
+        width: parent.width
+        context: userPage.view
+        accounts: userPage.accounts
+    }
+    property alias managementSheet: management.sheet
     ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
         title: Eitr.I18n.tr("Users")
         foreground: view.foreground
-        visible: view.page === "user"
+        visible: view.page === "user" && !userPage.managing
         width: parent.width
         spacing: 16
         Repeater {

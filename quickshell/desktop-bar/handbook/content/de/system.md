@@ -51,6 +51,10 @@ Eitr korrigiert die Ausrichtung, entfernt Metadaten, speichert ein PNG mit 512×
 
 Öffne Einstellungen > Benutzer und wähle Passwort ändern neben deinem Namen. Gib dein aktuelles Passwort ein, dann zweimal das neue: Enter springt zum nächsten Feld und bestätigt im letzten; Escape bricht ab. Die Passwortregeln des Systems entscheiden, was angenommen wird, und ein abgelehntes Passwort zeigt den Grund. Eitr stellt auch den Anmelde-Schlüsselbund auf das neue Passwort um, damit gespeicherte Passwörter bei der Anmeldung weiter entsperrt werden. Eine Passphrase für die Festplattenverschlüsselung ist davon getrennt und bleibt gleich. Walker > Einstellungen > Sicherheit > Passwort ändern tut dasselbe in einem Terminal.
 
+## Konten verwalten
+
+Administratoren haben unter Einstellungen > Benutzer die Register **Benutzer** und **Verwalten**. Standardkonten sehen nur die Benutzerliste. Verwalten bietet Benutzer erstellen…, Typ ändern, Passwort setzen für andere Konten und Entfernen mit einer Auswahl für den persönlichen Ordner. Bestätige im Dialog und drücke dann im Aufgabenterminal Enter zum Fortfahren oder Esc zum Abbrechen; Passwörter werden nur dort eingegeben. Persönliche Ordner bleiben standardmäßig erhalten. [Benutzerkonten](handbook:security) erklärt Berechtigungen, Schlüsselbund-Einschränkungen und Schutzmaßnahmen beim Entfernen.
+
 ## Walker als Alternative verwenden
 
 **SUPER + F** öffnet Walker. Sein Einstellungsmenü enthält weiterhin Ordner wie Stil, Geräte und Eingabe sowie System. Das sind Walker-Pfade, keine Seiten der Einstellungs-App.

@@ -53,6 +53,10 @@ PNG, JPEG, WebP, GIF (primeiro quadro) e BMP são aceitos até 40 MB e 12000 pix
 
 Abra Configurações > Usuários e escolha Alterar senha ao lado do seu nome. Digite a senha atual e depois a nova duas vezes: Enter passa para o próximo campo e confirma no último; Esc cancela. As regras de senha do sistema decidem o que é aceito, e uma senha recusada mostra o motivo. O Eitr também muda o chaveiro de login para a nova senha, para que as senhas salvas continuem sendo desbloqueadas ao entrar. A frase de criptografia do disco é separada e continua a mesma. Walker > Configurações > Segurança > Atualizar senha faz o mesmo em um terminal.
 
+## Gerenciar contas
+
+Administradores têm as abas **Usuários** e **Gerenciar** em Configurações > Usuários. Contas padrão veem apenas a lista de usuários. Gerenciar oferece Criar usuário…, Alterar tipo, Definir senha de outras contas e Remover com uma opção para a pasta pessoal. Confirme na folha e depois pressione Enter no terminal de tarefa para continuar ou Esc para cancelar; digite senhas apenas nesse terminal. Pastas pessoais são mantidas por padrão. Veja [Contas de usuário](handbook:security) para permissões, limitações do chaveiro e proteções de remoção.
+
 ## Usar o Walker como alternativa
 
 **SUPER + F** abre o Walker. O menu Configurações mantém pastas como Estilo, Dispositivos e entrada e Sistema. Esses são caminhos do Walker, não páginas do aplicativo Configurações.

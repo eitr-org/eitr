@@ -229,14 +229,23 @@ msgstr "Account details"
 msgid "Account directories cannot be symbolic links"
 msgstr "Account directories cannot be symbolic links"
 
+msgid "Account has an active login session"
+msgstr "Account has an active login session"
+
 msgid "Account is in use"
 msgstr "Account is in use"
+
+msgid "Account management requires root"
+msgstr "Account management requires root"
 
 msgid "Account name"
 msgstr "Account name"
 
 msgid "Account password"
 msgstr "Account password"
+
+msgid "Account request is too large"
+msgstr "Account request is too large"
 
 msgid "Account summary"
 msgstr "Account summary"
@@ -568,14 +577,26 @@ msgstr "Cancelled; nothing was changed."
 msgid "Cannot change another user"
 msgstr "Cannot change another user"
 
+msgid "Cannot demote an account with wheel as its primary group"
+msgstr "Cannot demote an account with wheel as its primary group"
+
 msgid "Cannot inspect package dependency database {database}: {error}"
 msgstr "Cannot inspect package dependency database {database}: {error}"
+
+msgid "Cannot remove the last administrator"
+msgstr "Cannot remove the last administrator"
+
+msgid "Cannot remove your own account"
+msgstr "Cannot remove your own account"
 
 msgid "Cannot validate Flatpak additions (internet and flatpak required): {error}"
 msgstr "Cannot validate Flatpak additions (internet and flatpak required): {error}"
 
 msgid "Cannot validate Flatpak remote {remote}: {reason}"
 msgstr "Cannot validate Flatpak remote {remote}: {reason}"
+
+msgid "Cannot verify account login sessions"
+msgstr "Cannot verify account login sessions"
 
 msgid "Capture"
 msgstr "Capture"
@@ -591,6 +612,9 @@ msgstr "Catalog operation failed"
 
 msgid "Change this visual placement"
 msgstr "Change this visual placement"
+
+msgid "Change {username} to {account_type}."
+msgstr "Change {username} to {account_type}."
 
 msgid "Changed executable file: {path}"
 msgstr "Changed executable file: {path}"
@@ -1023,6 +1047,9 @@ msgstr "Default: {key}: {value}"
 
 msgid "Delete Account"
 msgstr "Delete Account"
+
+msgid "Delete home folder"
+msgstr "Delete home folder"
 
 msgid "Delete this lockscreen? Enter deletes, Esc keeps it."
 msgstr "Delete this lockscreen? Enter deletes, Esc keeps it."
@@ -1654,6 +1681,12 @@ msgstr "Invalid WiFi name"
 msgid "Invalid account or provider"
 msgstr "Invalid account or provider"
 
+msgid "Invalid account request"
+msgstr "Invalid account request"
+
+msgid "Invalid account type"
+msgstr "Invalid account type"
+
 msgid "Invalid anonymous identity"
 msgstr "Invalid anonymous identity"
 
@@ -1684,6 +1717,9 @@ msgstr "Invalid folder rule"
 msgid "Invalid font package"
 msgstr "Invalid font package"
 
+msgid "Invalid home folder choice"
+msgstr "Invalid home folder choice"
+
 msgid "Invalid hostname {hostname}"
 msgstr "Invalid hostname {hostname}"
 
@@ -1695,6 +1731,9 @@ msgstr "Invalid package archive: {value}"
 
 msgid "Invalid package name"
 msgstr "Invalid package name"
+
+msgid "Invalid password"
+msgstr "Invalid password"
 
 msgid "Invalid peer address."
 msgstr "Invalid peer address."
@@ -1735,6 +1774,9 @@ msgstr "Invalid subscription ID"
 msgid "Invalid tenant ID"
 msgstr "Invalid tenant ID"
 
+msgid "Invalid username"
+msgstr "Invalid username"
+
 msgid "Invalid username {username}"
 msgstr "Invalid username {username}"
 
@@ -1773,6 +1815,9 @@ msgstr "Keep at least one installed font family"
 
 msgid "Keep at least one keyboard layout"
 msgstr "Keep at least one keyboard layout"
+
+msgid "Keep home folder"
+msgstr "Keep home folder"
 
 msgid "Keep it"
 msgstr "Keep it"
@@ -2017,6 +2062,9 @@ msgstr "New name"
 msgid "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n"
 msgstr "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n"
 
+msgid "New password"
+msgstr "New password"
+
 msgid "New password: "
 msgstr "New password: "
 
@@ -2233,6 +2281,9 @@ msgstr "Ollama could not be installed. Your default assistant is unchanged."
 msgid "On"
 msgstr "On"
 
+msgid "Only administrators can manage accounts"
+msgstr "Only administrators can manage accounts"
+
 msgid "Only files in the home folders have snapshots."
 msgstr "Only files in the home folders have snapshots."
 
@@ -2241,6 +2292,9 @@ msgstr "Only firmware that exposes charge_control_end_threshold supports this."
 
 msgid "Only for Another picture: a file such as ~/Pictures/lake.jpg or an https address. Eitr downloads it and keeps a copy on this computer."
 msgstr "Only for Another picture: a file such as ~/Pictures/lake.jpg or an https address. Eitr downloads it and keeps a copy on this computer."
+
+msgid "Only human accounts can be managed"
+msgstr "Only human accounts can be managed"
 
 msgid "Only {theme}"
 msgstr "Only {theme}"
@@ -2466,6 +2520,9 @@ msgstr "Preparing the update…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Press Enter to confirm; Esc to cancel."
+
+msgid "Press Enter to continue or Esc to cancel."
+msgstr "Press Enter to continue or Esc to cancel."
 
 msgid "Press Enter to continue or Esc to cancel: "
 msgstr "Press Enter to continue or Esc to cancel: "
@@ -2716,6 +2773,9 @@ msgstr "Remove {label} and its folder rules? Keys stay on disk."
 msgid "Remove {name}."
 msgstr "Remove {name}."
 
+msgid "Remove {username}: {home}."
+msgstr "Remove {username}: {home}."
+
 msgid "Remove: {value}"
 msgstr "Remove: {value}"
 
@@ -2730,6 +2790,9 @@ msgstr "Rename {current}"
 
 msgid "Renamed to {label}."
 msgstr "Renamed to {label}."
+
+msgid "Repeat new password"
+msgstr "Repeat new password"
 
 msgid "Repeat new password: "
 msgstr "Repeat new password: "
@@ -3000,6 +3063,9 @@ msgstr "Set Sunshine’s password first. Enter the PIN shown by Moonlight only f
 
 msgid "Set a Sunshine username and password in the local settings page before pairing any device."
 msgstr "Set a Sunshine username and password in the local settings page before pairing any device."
+
+msgid "Set password for {username}."
+msgstr "Set password for {username}."
 
 msgid "Set up Ratatoskr?"
 msgstr "Set up Ratatoskr?"
@@ -3580,6 +3646,9 @@ msgstr "The user service could not be loaded."
 msgid "The window manager found errors in its settings, so some shortcuts or layouts may not apply; undo recent changes to your own settings or report a problem."
 msgstr "The window manager found errors in its settings, so some shortcuts or layouts may not apply; undo recent changes to your own settings or report a problem."
 
+msgid "Their login keyring will keep its old password."
+msgstr "Their login keyring will keep its old password."
+
 msgid "Theme"
 msgstr "Theme"
 
@@ -3934,6 +4003,9 @@ msgstr "Updates with snapshots (pass a 'before' number to see every package):\n"
 msgid "Uptime"
 msgstr "Uptime"
 
+msgid "Use Change password for your own account"
+msgstr "Use Change password for your own account"
+
 msgid "Use a JPEG, PNG or WebP picture."
 msgstr "Use a JPEG, PNG or WebP picture."
 
@@ -3951,6 +4023,9 @@ msgstr "Use an http or https address."
 
 msgid "Use an https address or a file on this computer."
 msgstr "Use an https address or a file on this computer."
+
+msgid "Use at least 8 characters, without line breaks."
+msgstr "Use at least 8 characters, without line breaks."
 
 msgid "Use at least 8 characters. Your input is hidden."
 msgstr "Use at least 8 characters. Your input is hidden."

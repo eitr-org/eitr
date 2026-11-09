@@ -26,7 +26,7 @@
       "reason": "One linear build script."
     },
     "distro/system/eitr-system.py": {
-      "lines": 1306,
+      "lines": 1311,
       "reason": "To improve (TODO): 79 functions across snapshots, boot, security and network; split by area behind the same CLI."
     },
     "distro/system/factory-reset.py": {

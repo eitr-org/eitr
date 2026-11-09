@@ -53,6 +53,10 @@ Se aceptan PNG, JPEG, WebP, GIF (primer fotograma) y BMP hasta 40 MB y 12000 pí
 
 Abre Configuración > Usuarios y elige Cambiar contraseña junto a tu nombre. Escribe tu contraseña actual y luego la nueva dos veces: Intro pasa al campo siguiente y confirma en el último; Escape cancela. Las reglas de contraseñas del sistema deciden qué se acepta, y una contraseña rechazada muestra el motivo. Eitr también cambia el llavero de inicio de sesión a la nueva contraseña, para que las contraseñas guardadas se sigan desbloqueando al iniciar sesión. La frase de cifrado del disco es independiente y no cambia. Walker > Configuración > Seguridad > Actualizar contraseña hace lo mismo en un terminal.
 
+## Administrar cuentas
+
+Los administradores tienen las pestañas **Usuarios** y **Administrar** en Configuración > Usuarios. Las cuentas estándar solo ven la lista de usuarios. Administrar ofrece Crear usuario…, Cambiar tipo, Establecer contraseña de otras cuentas y Eliminar con una opción para la carpeta personal. Confirma en la hoja y después pulsa Enter en el terminal de tareas para continuar o Esc para cancelar; introduce contraseñas solo en ese terminal. Las carpetas personales se conservan por defecto. Consulta [Cuentas de usuario](handbook:security) para conocer los permisos, las limitaciones del llavero y las protecciones de eliminación.
+
 ## Usar Walker como alternativa
 
 **SUPER + F** abre Walker. Su menú Configuración conserva carpetas como Estilo, Dispositivos y entrada y Sistema. Son rutas de Walker, no páginas de la aplicación Configuración.

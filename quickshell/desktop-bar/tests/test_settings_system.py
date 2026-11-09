@@ -152,8 +152,17 @@ class UsersPageTests(unittest.TestCase):
         with patch.object(eitr_users, 'human_users', return_value=accounts), \
                 patch.object(grp, 'getgrnam', return_value=SimpleNamespace(gr_mem=['explorer'], gr_gid=998)), \
                 patch('os.getuid', return_value=1000):
-            items = settings.users()['items']
+            summary = settings.users()
+            items = summary['items']
+            self.assertTrue(summary['administrator'])
         self.assertEqual([item['login'] for item in items], ['explorer', 'ana'])
         self.assertTrue(items[0]['current'])
         self.assertTrue(items[0]['administrator'])
         self.assertEqual((items[1]['title'], items[1]['initial'], items[1]['administrator']), ('Ana Lima', 'A', False))
+
+    def test_standard_account_has_no_management_access(self):
+        import eitr_users
+        account = SimpleNamespace(pw_name='standard', pw_uid=1000, pw_gid=1000, pw_gecos='Standard')
+        with patch.object(eitr_users, 'human_users', return_value=[account]), \
+                patch.object(eitr_users, 'is_administrator', return_value=False), patch('os.getuid', return_value=1000):
+            self.assertFalse(settings.users()['administrator'])

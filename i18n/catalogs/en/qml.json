@@ -761,5 +761,16 @@
   "Remove picture?": "Remove picture?",
   "Your initial shows instead, and the lockscreen and login screen show no picture.": "Your initial shows instead, and the lockscreen and login screen show no picture.",
   "fingerprint fido tpm firewall authentication": "fingerprint fido tpm firewall authentication",
-  "users login account accounts create profile picture display name password change": "users login account accounts create profile picture display name password change"
+  "users login account accounts create profile picture display name password change": "users login account accounts create profile picture display name password change",
+  "Administrator": "Administrator",
+  "Change to Administrator": "Change to Administrator",
+  "Change to Standard": "Change to Standard",
+  "Change type": "Change type",
+  "Delete home folder": "Delete home folder",
+  "Keep home folder": "Keep home folder",
+  "Manage": "Manage",
+  "Remove this account? Keeping the home folder preserves its files.": "Remove this account? Keeping the home folder preserves its files.",
+  "Set password": "Set password",
+  "Standard": "Standard",
+  "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal.": "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal."
 }

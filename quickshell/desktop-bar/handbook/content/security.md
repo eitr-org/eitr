@@ -55,9 +55,13 @@ prevent booting or even reaching firmware setup on some hardware.
 
 ## User accounts
 
-**Settings > Users > Create User…** creates a separate login. Enter a username, optional full name, account type and password, then review and press Enter to create it. Esc cancels before applying. Standard accounts cannot use sudo; Administrator accounts join wheel and receive a password-protected sudo rule. Existing human accounts (UID 1000–65533) appear below it in Users as read-only rows.
+**Settings > Users > Create User…** creates a separate login. Enter a username, optional full name, account type and password, then review and press Enter to create it. Esc cancels before applying. Standard accounts cannot use sudo; Administrator accounts join wheel and receive a password-protected sudo rule.
 
-The new home contains no files from your account. At its first Hyprland login through UWSM, Eitr runs the installer’s per-user desktop setup and adopts the package layout under the new user’s identity. Shell setup may require internet access. Failed setup keeps its pending marker for the next login; successful setup runs only once. Account creation failures leave an incomplete account locked and expired for manual review. User deletion is not offered.
+The new home contains no files from your account. At its first Hyprland login through UWSM, Eitr runs the installer’s per-user desktop setup and adopts the package layout under the new user’s identity. Shell setup may require internet access. Failed setup keeps its pending marker for the next login; successful setup runs only once. Account creation failures leave an incomplete account locked and expired for manual review.
+
+Administrators see **Users** and **Manage** tabs in Settings > Users; standard accounts see only the Users list. An Administrator belongs to wheel and has an Eitr sudo rule; a Standard account has neither. Manage can create accounts, change their type, set another account’s password, and remove accounts. Each action opens a confirmation sheet, then a task terminal: Enter continues and Esc cancels. Password resets ask for the new password twice in the terminal; the other account’s login keyring cannot be updated and keeps its old password. Use Change password on Users for your own account. Removal keeps the home folder by default; choose Delete home folder to delete its files. You cannot remove yourself, an account with an active login session, or the last administrator; the last administrator also cannot be demoted. Only human accounts (UID 1000–65533) can be managed. The list refreshes when you return from the terminal.
+
+Accounts whose primary group is wheel cannot be demoted here; change their primary group through manual administration first.
 
 ## Profile pictures
 

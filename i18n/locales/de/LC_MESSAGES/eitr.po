@@ -229,14 +229,23 @@ msgstr "Kontodetails"
 msgid "Account directories cannot be symbolic links"
 msgstr "Kontoverzeichnisse dürfen keine symbolischen Links sein"
 
+msgid "Account has an active login session"
+msgstr "Das Konto hat eine aktive Anmeldesitzung"
+
 msgid "Account is in use"
 msgstr "Konto wird verwendet"
+
+msgid "Account management requires root"
+msgstr "Die Kontoverwaltung benötigt root"
 
 msgid "Account name"
 msgstr "Kontoname"
 
 msgid "Account password"
 msgstr "Kontopasswort"
+
+msgid "Account request is too large"
+msgstr "Die Kontoanfrage ist zu groß"
 
 msgid "Account summary"
 msgstr "Kontoübersicht"
@@ -568,14 +577,26 @@ msgstr "Abgebrochen; nichts wurde geändert."
 msgid "Cannot change another user"
 msgstr "Ein anderer Benutzer darf nicht geändert werden"
 
+msgid "Cannot demote an account with wheel as its primary group"
+msgstr "Ein Konto mit wheel als primärer Gruppe kann nicht zum Standardkonto werden"
+
 msgid "Cannot inspect package dependency database {database}: {error}"
 msgstr "Abhängigkeitsdatenbank {database} kann nicht geprüft werden: {error}"
+
+msgid "Cannot remove the last administrator"
+msgstr "Der letzte Administrator kann nicht entfernt werden"
+
+msgid "Cannot remove your own account"
+msgstr "Dein eigenes Konto kann nicht entfernt werden"
 
 msgid "Cannot validate Flatpak additions (internet and flatpak required): {error}"
 msgstr "Flatpak-Ergänzungen können nicht geprüft werden (Internet und flatpak erforderlich): {error}"
 
 msgid "Cannot validate Flatpak remote {remote}: {reason}"
 msgstr "Flatpak-Quelle {remote} kann nicht geprüft werden: {reason}"
+
+msgid "Cannot verify account login sessions"
+msgstr "Die Anmeldesitzungen des Kontos können nicht geprüft werden"
 
 msgid "Capture"
 msgstr "Aufnahme"
@@ -591,6 +612,9 @@ msgstr "Katalogaktion fehlgeschlagen"
 
 msgid "Change this visual placement"
 msgstr "Platzierung dieser Komponente ändern"
+
+msgid "Change {username} to {account_type}."
+msgstr "{username} zu {account_type} ändern."
 
 msgid "Changed executable file: {path}"
 msgstr "Geänderte ausführbare Datei: {path}"
@@ -1023,6 +1047,9 @@ msgstr "Vorgabe: {key}: {value}"
 
 msgid "Delete Account"
 msgstr "Konto löschen"
+
+msgid "Delete home folder"
+msgstr "Persönlichen Ordner löschen"
 
 msgid "Delete this lockscreen? Enter deletes, Esc keeps it."
 msgstr "Diesen Sperrbildschirm löschen? Enter löscht, Esc behält ihn."
@@ -1654,6 +1681,12 @@ msgstr "Ungültiger WiFi-Name"
 msgid "Invalid account or provider"
 msgstr "Ungültiges Konto oder ungültiger Anbieter"
 
+msgid "Invalid account request"
+msgstr "Ungültige Kontoanfrage"
+
+msgid "Invalid account type"
+msgstr "Ungültiger Kontotyp"
+
 msgid "Invalid anonymous identity"
 msgstr "Ungültige anonyme Identität"
 
@@ -1684,6 +1717,9 @@ msgstr "Ungültige Ordnerregel"
 msgid "Invalid font package"
 msgstr "Invalid font package"
 
+msgid "Invalid home folder choice"
+msgstr "Ungültige Auswahl für den persönlichen Ordner"
+
 msgid "Invalid hostname {hostname}"
 msgstr "Ungültiger Hostname {hostname}"
 
@@ -1695,6 +1731,9 @@ msgstr "Ungültiges Paketarchiv: {value}"
 
 msgid "Invalid package name"
 msgstr "Ungültiger Paketname"
+
+msgid "Invalid password"
+msgstr "Ungültiges Passwort"
 
 msgid "Invalid peer address."
 msgstr "Ungültige Gegenstellenadresse."
@@ -1735,6 +1774,9 @@ msgstr "Ungültige Abonnement-ID"
 msgid "Invalid tenant ID"
 msgstr "Ungültige Mandanten-ID"
 
+msgid "Invalid username"
+msgstr "Ungültiger Benutzername"
+
 msgid "Invalid username {username}"
 msgstr "Ungültiger Benutzername {username}"
 
@@ -1773,6 +1815,9 @@ msgstr "Mindestens eine Schriftfamilie muss installiert bleiben"
 
 msgid "Keep at least one keyboard layout"
 msgstr "Mindestens eine Tastaturbelegung beibehalten"
+
+msgid "Keep home folder"
+msgstr "Persönlichen Ordner behalten"
 
 msgid "Keep it"
 msgstr "Behalten"
@@ -2017,6 +2062,9 @@ msgstr "Neuer Name"
 msgid "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n"
 msgstr "Neue Partitionen werden im freien Speicher von {path} angelegt.\nVorhandene Partitionen bleiben erhalten, sichern Sie aber zuerst wichtige Dateien.\n"
 
+msgid "New password"
+msgstr "Neues Passwort"
+
 msgid "New password: "
 msgstr "Neues Passwort: "
 
@@ -2233,6 +2281,9 @@ msgstr "Ollama konnte nicht installiert werden. Dein Standardassistent bleibt un
 msgid "On"
 msgstr "Ein"
 
+msgid "Only administrators can manage accounts"
+msgstr "Nur Administratoren können Konten verwalten"
+
 msgid "Only files in the home folders have snapshots."
 msgstr "Nur Dateien in persönlichen Ordnern haben Snapshots."
 
@@ -2241,6 +2292,9 @@ msgstr "Dies wird nur von Firmware mit charge_control_end_threshold unterstützt
 
 msgid "Only for Another picture: a file such as ~/Pictures/lake.jpg or an https address. Eitr downloads it and keeps a copy on this computer."
 msgstr "Nur für Anderes Bild: eine Datei wie ~/Pictures/lake.jpg oder eine https-Adresse. Eitr lädt sie herunter und behält eine Kopie auf diesem Computer."
+
+msgid "Only human accounts can be managed"
+msgstr "Nur menschliche Konten können verwaltet werden"
 
 msgid "Only {theme}"
 msgstr "Nur {theme}"
@@ -2466,6 +2520,9 @@ msgstr "Aktualisierung wird vorbereitet…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Enter bestätigt; Esc bricht ab."
+
+msgid "Press Enter to continue or Esc to cancel."
+msgstr "Enter zum Fortfahren oder Esc zum Abbrechen drücken."
 
 msgid "Press Enter to continue or Esc to cancel: "
 msgstr "Enter zum Fortfahren oder Esc zum Abbrechen drücken: "
@@ -2716,6 +2773,9 @@ msgstr "{label} und die zugehörigen Ordnerregeln entfernen? Schlüssel bleiben 
 msgid "Remove {name}."
 msgstr "{name} entfernen."
 
+msgid "Remove {username}: {home}."
+msgstr "{username} entfernen: {home}."
+
 msgid "Remove: {value}"
 msgstr "Entfernen: {value}"
 
@@ -2730,6 +2790,9 @@ msgstr "{current} umbenennen"
 
 msgid "Renamed to {label}."
 msgstr "In {label} umbenannt."
+
+msgid "Repeat new password"
+msgstr "Neues Passwort wiederholen"
 
 msgid "Repeat new password: "
 msgstr "Neues Passwort wiederholen: "
@@ -3000,6 +3063,9 @@ msgstr "Legen Sie zuerst das Sunshine-Passwort fest. Geben Sie die Moonlight-PIN
 
 msgid "Set a Sunshine username and password in the local settings page before pairing any device."
 msgstr "Legen Sie vor jeder Kopplung einen Sunshine-Benutzernamen und ein Passwort in den lokalen Einstellungen fest."
+
+msgid "Set password for {username}."
+msgstr "Passwort für {username} setzen."
 
 msgid "Set up Ratatoskr?"
 msgstr "Lokalen Assistenten einrichten?"
@@ -3580,6 +3646,9 @@ msgstr "Der Benutzerdienst konnte nicht geladen werden."
 msgid "The window manager found errors in its settings, so some shortcuts or layouts may not apply; undo recent changes to your own settings or report a problem."
 msgstr "Der Fenstermanager hat Fehler in seinen Einstellungen gefunden, daher gelten manche Tastenkürzel oder Layouts vielleicht nicht; mache eigene Änderungen rückgängig oder melde ein Problem."
 
+msgid "Their login keyring will keep its old password."
+msgstr "Der Anmelde-Schlüsselbund dieses Kontos behält sein altes Passwort."
+
 msgid "Theme"
 msgstr "Thema"
 
@@ -3934,6 +4003,9 @@ msgstr "Updates mit Snapshots (für alle Pakete eine 'before'-Nummer angeben):\n
 msgid "Uptime"
 msgstr "Laufzeit"
 
+msgid "Use Change password for your own account"
+msgstr "Nutze Passwort ändern für dein eigenes Konto"
+
 msgid "Use a JPEG, PNG or WebP picture."
 msgstr "Verwende ein JPEG-, PNG- oder WebP-Bild."
 
@@ -3951,6 +4023,9 @@ msgstr "Verwenden Sie eine http- oder https-Adresse."
 
 msgid "Use an https address or a file on this computer."
 msgstr "Verwende eine https-Adresse oder eine Datei auf diesem Computer."
+
+msgid "Use at least 8 characters, without line breaks."
+msgstr "Mindestens 8 Zeichen ohne Zeilenumbrüche verwenden."
 
 msgid "Use at least 8 characters. Your input is hidden."
 msgstr "Verwenden Sie mindestens 8 Zeichen. Die Eingabe bleibt verborgen."

@@ -163,6 +163,7 @@ function groupFor(page) { return groups.find(group => group.name === page.group)
 function entry(identifier) { return pages.find(page => page.id === resolve(identifier).page) || pages[0]; }
 
 var tabs = {
+    user: [{id: "users", label: "Users", keywords: "profile picture password"}, {id: "manage", label: "Manage", keywords: "account administrator standard remove set password type"}],
     displays: [{id: "displays", label: "Displays", keywords: "monitor resolution brightness rotation scale"}, {id: "nightlight", label: "Night Light", keywords: "night light schedule temperature"}],
     connections: [{id: "wifi", label: "Wi-Fi", keywords: "wifi network backend wireless"}, {id: "bluetooth", label: "Bluetooth", keywords: "bluetooth pairing"}],
     appearance: [{id: "theme", label: "Theme & Wallpaper", keywords: "theme wallpaper palette"}, {id: "fonts", label: "Fonts & Cursor", keywords: "fonts cursor typography"}, {id: "terminal", label: "Terminal", keywords: "terminal opacity blur fire"}],

@@ -222,3 +222,5 @@ SettingsWindowFigure figures/SettingsWindowFigure.qml
 LauncherFigure figures/LauncherFigure.qml
 WindowStyleFigure figures/WindowStyleFigure.qml
 PanelScrollBar components/PanelScrollBar.qml
+SettingsManageUsers settings/SettingsManageUsers.qml
+SettingsAccountSheet settings/SettingsAccountSheet.qml

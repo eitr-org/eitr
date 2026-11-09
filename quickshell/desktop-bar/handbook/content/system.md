@@ -51,6 +51,10 @@ It applies orientation, strips metadata and saves a 512×512 PNG at `~/.face`, t
 
 Open Settings > Users and choose Change password beside your name. Type your current password, then the new one twice: Enter moves to the next field and confirms on the last one; Escape cancels. The system's password rules decide what is accepted, and a refused password shows the reason. Eitr also moves the login keyring to the new password, so saved passwords keep unlocking when you sign in. A disk encryption passphrase is separate and stays the same. Walker > Settings > Security > Update Password does the same in a terminal.
 
+## Manage accounts
+
+Administrators have **Users** and **Manage** tabs in Settings > Users. Standard accounts see only the Users list. Manage offers Create User…, Change type, Set password for other accounts, and Remove with a home-folder choice. Confirm in the sheet, then press Enter in the task terminal to continue or Esc to cancel; enter passwords only in that terminal. Home folders are kept by default. See [User accounts](handbook:security) for permissions, keyring limitations and removal safeguards.
+
 ## Use Walker as an alternative
 
 **SUPER + F** opens Walker. Its Settings menu still has folders such as Style, Devices & Input and System. These are Walker paths, not pages in the Settings app.

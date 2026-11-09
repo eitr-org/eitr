@@ -1192,7 +1192,7 @@ READ_ONLY_ACTIONS = {"selfcheck-deeper", "snapshots-check", "bootloader-detect",
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["user-create", "mirrors-rank", "mirrors-restore", "mirrors-status", "mirrors-first-boot", "selfcheck-deeper",
+    parser.add_argument("action", choices=["user-set-type", "user-set-password", "user-remove", "user-create", "mirrors-rank", "mirrors-restore", "mirrors-status", "mirrors-first-boot", "selfcheck-deeper",
                                            "snapshots-check", "snapshots-setup", "snapshot-pre", "snapshot-post",
                                            "bootloader-detect", "snapshots-boot-status", "snapshots-boot-setup",
                                            "battery-limit", "battery-limit-apply", "battery-limit-status",
@@ -1218,6 +1218,11 @@ if __name__ == "__main__":
             if args.argument:
                 raise ValueError("Unexpected argument")
             create_user(sys.stdin)
+        elif args.action in ("user-set-type", "user-set-password", "user-remove"):
+            if args.argument:
+                raise ValueError("Unexpected argument")
+            from eitr_accounts import dispatch
+            dispatch(args.action, sys.stdin, run, atomic)
         elif args.action.startswith("mirrors-"):
             if args.argument:
                 raise ValueError("Unexpected argument")

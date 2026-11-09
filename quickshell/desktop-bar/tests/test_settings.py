@@ -305,7 +305,7 @@ QtObject {
                 for diagnostic in ('TypeError:', 'ReferenceError:', 'Unable to assign', 'Binding loop', 'Error:'):
                     self.assertNotIn(diagnostic, output)
                 for page in ('appearance', 'bar', 'windows', 'lockscreen', 'notifications', 'focus',
-                             'displays', 'sound', 'connections', 'input', 'keybinds', 'default-apps', 'user', 'security', 'assistants', 'updates', 'check-pc', 'about'):
+                             'displays', 'sound', 'connections', 'input', 'keybinds', 'default-apps', 'user', 'user-manage', 'user-users', 'security', 'assistants', 'updates', 'check-pc', 'about'):
                     self.assertTrue((output_folder / f'{theme}-{page}.png').is_file(), page)
 
     def test_user_picture_sheet_and_overview_avatar(self):

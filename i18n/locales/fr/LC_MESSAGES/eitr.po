@@ -229,14 +229,23 @@ msgstr "Détails du compte"
 msgid "Account directories cannot be symbolic links"
 msgstr "Les dossiers de comptes ne peuvent pas être des liens symboliques"
 
+msgid "Account has an active login session"
+msgstr "Le compte possède une session de connexion active"
+
 msgid "Account is in use"
 msgstr "Compte en cours d’utilisation"
+
+msgid "Account management requires root"
+msgstr "La gestion des comptes nécessite root"
 
 msgid "Account name"
 msgstr "Nom du compte"
 
 msgid "Account password"
 msgstr "Mot de passe du compte"
+
+msgid "Account request is too large"
+msgstr "La demande de compte est trop volumineuse"
 
 msgid "Account summary"
 msgstr "Résumé du compte"
@@ -568,14 +577,26 @@ msgstr "Annulé ; rien n’a été modifié."
 msgid "Cannot change another user"
 msgstr "Impossible de modifier un autre utilisateur"
 
+msgid "Cannot demote an account with wheel as its primary group"
+msgstr "Impossible de passer en standard un compte dont le groupe principal est wheel"
+
 msgid "Cannot inspect package dependency database {database}: {error}"
 msgstr "Impossible d’examiner la base de dépendances {database} : {error}"
+
+msgid "Cannot remove the last administrator"
+msgstr "Impossible de supprimer le dernier administrateur"
+
+msgid "Cannot remove your own account"
+msgstr "Impossible de supprimer votre propre compte"
 
 msgid "Cannot validate Flatpak additions (internet and flatpak required): {error}"
 msgstr "Impossible de valider les ajouts Flatpak (Internet et flatpak requis) : {error}"
 
 msgid "Cannot validate Flatpak remote {remote}: {reason}"
 msgstr "Impossible de valider le dépôt Flatpak {remote} : {reason}"
+
+msgid "Cannot verify account login sessions"
+msgstr "Impossible de vérifier les sessions de connexion du compte"
 
 msgid "Capture"
 msgstr "Capture"
@@ -591,6 +612,9 @@ msgstr "Échec de l’opération du catalogue"
 
 msgid "Change this visual placement"
 msgstr "Changer l’emplacement de cet élément"
+
+msgid "Change {username} to {account_type}."
+msgstr "Passer {username} en {account_type}."
 
 msgid "Changed executable file: {path}"
 msgstr "Fichier exécutable modifié : {path}"
@@ -1023,6 +1047,9 @@ msgstr "Valeur par défaut : {key} : {value}"
 
 msgid "Delete Account"
 msgstr "Supprimer le compte"
+
+msgid "Delete home folder"
+msgstr "Supprimer le dossier personnel"
 
 msgid "Delete this lockscreen? Enter deletes, Esc keeps it."
 msgstr "Supprimer cet écran de verrouillage ? Entrée supprime, Échap le garde."
@@ -1654,6 +1681,12 @@ msgstr "Nom WiFi invalide"
 msgid "Invalid account or provider"
 msgstr "Compte ou fournisseur invalide"
 
+msgid "Invalid account request"
+msgstr "Demande de compte invalide"
+
+msgid "Invalid account type"
+msgstr "Type de compte invalide"
+
 msgid "Invalid anonymous identity"
 msgstr "Identité anonyme invalide"
 
@@ -1684,6 +1717,9 @@ msgstr "Règle de dossier invalide"
 msgid "Invalid font package"
 msgstr "Invalid font package"
 
+msgid "Invalid home folder choice"
+msgstr "Choix de dossier personnel invalide"
+
 msgid "Invalid hostname {hostname}"
 msgstr "Nom d’hôte {hostname} invalide"
 
@@ -1695,6 +1731,9 @@ msgstr "Archive de paquet invalide : {value}"
 
 msgid "Invalid package name"
 msgstr "Nom de paquet invalide"
+
+msgid "Invalid password"
+msgstr "Mot de passe invalide"
 
 msgid "Invalid peer address."
 msgstr "Adresse d’appareil distant invalide."
@@ -1735,6 +1774,9 @@ msgstr "Identifiant d’abonnement invalide"
 msgid "Invalid tenant ID"
 msgstr "Identifiant de locataire invalide"
 
+msgid "Invalid username"
+msgstr "Nom d’utilisateur invalide"
+
 msgid "Invalid username {username}"
 msgstr "Nom d’utilisateur {username} invalide"
 
@@ -1773,6 +1815,9 @@ msgstr "Conservez au moins une famille de polices installée"
 
 msgid "Keep at least one keyboard layout"
 msgstr "Conservez au moins une disposition de clavier"
+
+msgid "Keep home folder"
+msgstr "Conserver le dossier personnel"
 
 msgid "Keep it"
 msgstr "Conserver"
@@ -2017,6 +2062,9 @@ msgstr "Nouveau nom"
 msgid "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n"
 msgstr "De nouvelles partitions sont ajoutées dans l’espace libre de {path}.\nLes partitions existantes sont conservées, mais sauvegardez d’abord les fichiers importants.\n"
 
+msgid "New password"
+msgstr "Nouveau mot de passe"
+
 msgid "New password: "
 msgstr "Nouveau mot de passe : "
 
@@ -2233,6 +2281,9 @@ msgstr "Ollama n’a pas pu être installé. Votre assistant par défaut reste i
 msgid "On"
 msgstr "Activé"
 
+msgid "Only administrators can manage accounts"
+msgstr "Seuls les administrateurs peuvent gérer les comptes"
+
 msgid "Only files in the home folders have snapshots."
 msgstr "Seuls les fichiers des dossiers personnels ont des instantanés."
 
@@ -2241,6 +2292,9 @@ msgstr "Seuls les micrologiciels exposant charge_control_end_threshold le permet
 
 msgid "Only for Another picture: a file such as ~/Pictures/lake.jpg or an https address. Eitr downloads it and keeps a copy on this computer."
 msgstr "Uniquement pour Autre image : un fichier comme ~/Pictures/lake.jpg ou une adresse https. Eitr la télécharge et en garde une copie sur cet ordinateur."
+
+msgid "Only human accounts can be managed"
+msgstr "Seuls les comptes humains peuvent être gérés"
 
 msgid "Only {theme}"
 msgstr "Seulement {theme}"
@@ -2466,6 +2520,9 @@ msgstr "Préparation de la mise à jour…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Entrée confirme ; Échap annule."
+
+msgid "Press Enter to continue or Esc to cancel."
+msgstr "Appuyez sur Entrée pour continuer ou Échap pour annuler."
 
 msgid "Press Enter to continue or Esc to cancel: "
 msgstr "Appuyez sur Enter pour continuer ou Esc pour annuler : "
@@ -2716,6 +2773,9 @@ msgstr "Supprimer {label} et ses règles de dossiers ? Les clés restent sur le 
 msgid "Remove {name}."
 msgstr "Supprimer {name}."
 
+msgid "Remove {username}: {home}."
+msgstr "Supprimer {username} : {home}."
+
 msgid "Remove: {value}"
 msgstr "Supprimer : {value}"
 
@@ -2730,6 +2790,9 @@ msgstr "Renommer {current}"
 
 msgid "Renamed to {label}."
 msgstr "Renommé en {label}."
+
+msgid "Repeat new password"
+msgstr "Répétez le nouveau mot de passe"
 
 msgid "Repeat new password: "
 msgstr "Répétez le nouveau mot de passe : "
@@ -3000,6 +3063,9 @@ msgstr "Définissez d’abord le mot de passe Sunshine. Saisissez le PIN Moonlig
 
 msgid "Set a Sunshine username and password in the local settings page before pairing any device."
 msgstr "Définissez un identifiant et un mot de passe Sunshine dans les réglages locaux avant toute association."
+
+msgid "Set password for {username}."
+msgstr "Définir le mot de passe de {username}."
 
 msgid "Set up Ratatoskr?"
 msgstr "Configurer Ratatoskr ?"
@@ -3580,6 +3646,9 @@ msgstr "Le service utilisateur n’a pas pu être chargé."
 msgid "The window manager found errors in its settings, so some shortcuts or layouts may not apply; undo recent changes to your own settings or report a problem."
 msgstr "Le gestionnaire de fenêtres a trouvé des erreurs dans ses réglages, certains raccourcis ou dispositions peuvent donc ne pas s’appliquer ; annulez vos modifications récentes ou signalez un problème."
 
+msgid "Their login keyring will keep its old password."
+msgstr "Le trousseau de connexion de ce compte conservera son ancien mot de passe."
+
 msgid "Theme"
 msgstr "Thème"
 
@@ -3934,6 +4003,9 @@ msgstr "Mises à jour avec instantanés (indiquez un numéro 'before' pour voir 
 msgid "Uptime"
 msgstr "Durée active"
 
+msgid "Use Change password for your own account"
+msgstr "Utilisez Changer le mot de passe pour votre propre compte"
+
 msgid "Use a JPEG, PNG or WebP picture."
 msgstr "Utilisez une image JPEG, PNG ou WebP."
 
@@ -3951,6 +4023,9 @@ msgstr "Utilisez une adresse http ou https."
 
 msgid "Use an https address or a file on this computer."
 msgstr "Utilisez une adresse https ou un fichier de cet ordinateur."
+
+msgid "Use at least 8 characters, without line breaks."
+msgstr "Utilisez au moins 8 caractères, sans saut de ligne."
 
 msgid "Use at least 8 characters. Your input is hidden."
 msgstr "Utilisez au moins 8 caractères. La saisie est masquée."
