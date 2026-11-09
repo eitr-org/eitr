@@ -106,7 +106,7 @@ Rectangle {
             id: systemPage
             onPageRequested: page => settings.navigate(page)
             anchors.fill: parent
-            visible: ["keybinds", "default-apps", "user", "git-cloud", "security", "assistant", "updates", "check-pc", "about"].includes(settings.page)
+            visible: ["keybinds", "default-apps", "user", "security", "assistant", "updates", "check-pc", "about"].includes(settings.page)
             page: settings.page; title: settings.current.title
             active: settings.opened && visible
             live: settings.live

@@ -44,7 +44,7 @@ Column {
         }
     }
     PanelButton {
-        visible: ["git-cloud", "security", "updates"].includes(view.page)
+        visible: ["security", "updates"].includes(view.page)
         width: 160
         text: Eitr.I18n.tr("Refresh")
         foreground: view.foreground

@@ -34,40 +34,6 @@ def shortcuts():
     return {'items': items}
 
 
-def git_cloud():
-    """One row per identity, profile or context, each tagged with the provider card it belongs to."""
-    git = module('settings_git', 'walker/scripts/actions/development/git-accounts.py')
-    contexts = module('settings_contexts', 'walker/scripts/menus/cloud/contexts.py')
-    accounts = module('settings_cloud_accounts', 'walker/scripts/menus/cloud/accounts.py')
-    providers = module('settings_providers', 'walker/scripts/menus/cloud/providers.py')
-    items = []
-    git_group = {'menu': 'git-accounts', 'provider': 'git', 'providerTitle': tr('Git identities')}
-    try:
-        model = git.load()
-        for identifier, account in model['accounts'].items():
-            folders = [rule['path'] for rule in model['folders'] if rule['account'] == identifier]
-            detail = ' · '.join(filter(None, [account.get('name'), account.get('email'),
-                                             'Default' if identifier == model.get('default') else '', *folders]))
-            items.append({**git_group, 'title': account['label'], 'detail': detail, 'account': identifier})
-    except (OSError, ValueError) as error:
-        items.append({**git_group, 'title': 'Git Accounts', 'detail': str(error)})
-    for choice in accounts.aws_choices():
-        label, _, profile = choice.partition('\t')
-        items.append({'title': label, 'detail': profile if profile and profile != label else '', 'menu': 'cloud',
-                      'provider': 'aws', 'providerTitle': 'AWS', 'context': profile or label})
-    for provider, title in [('gcp', 'Google Cloud'), ('azure', 'Azure')]:
-        for context in contexts.contexts(provider):
-            label, _, detail = contexts.title(context).partition(' — ')
-            items.append({'title': label, 'detail': detail, 'menu': 'cloud', 'provider': provider, 'providerTitle': title,
-                          'context': context.get('configuration') or context.get('subscription')})
-    for provider, definition in providers.PROVIDERS.items():
-        for name in providers.accounts(provider):
-            selected = providers.selection(provider, name)
-            items.append({'title': name, 'detail': ' · '.join(selected.values()), 'menu': 'cloud', 'provider': provider,
-                          'providerTitle': definition['name'], 'context': name})
-    return {'items': items}
-
-
 def security():
     import eitr_selfcheck
     context = eitr_selfcheck.Context()
@@ -86,6 +52,9 @@ def security():
     statuses['TPM Disk Unlock'] = tr('Enrollment status requires the existing disk-unlock flow')
     items = []
     for row in rows('security'):
+        # Settings > User changes the password; Walker keeps its Security row.
+        if row['text'] == 'Update Password':
+            continue
         items.append({'title': messages.get(row['text'], row['text']), 'actionTitle': row['text'],
                       'detail': statuses.get(row['text'], messages.get(row.get('subtext'), row.get('subtext')) if row.get('subtext') != '>' else tr('Review status and settings')),
                       'menu': row.get('submenu', ''), 'actionMenu': '' if row.get('submenu') else 'security'})
@@ -102,7 +71,8 @@ def about():
                       {'title': tr('Codename'), 'detail': release['codename']},
                       {'title': tr('Update Channel'), 'detail': about_source.update_channel() or tr('Unavailable')},
                       {'title': tr('Kernel'), 'detail': platform.release()},
-                      {'title': tr('Licence'), 'detail': 'GPL-3.0-or-later'}]}
+                      {'title': tr('Licence'), 'detail': 'GPL-3.0-or-later'}],
+            'hardware': module('settings_details', 'quickshell/desktop-bar/scripts/system-details.py').inventory()}
 
 
 def assistants():
@@ -144,7 +114,7 @@ def assistants():
 
 
 def summary(page):
-    return {'keybinds': shortcuts, 'git-cloud': git_cloud, 'security': security, 'about': about, 'assistants': assistants}[page]()
+    return {'keybinds': shortcuts, 'security': security, 'about': about, 'assistants': assistants}[page]()
 
 
 def terminal(script, *arguments):
@@ -177,39 +147,6 @@ def controls_summary(page):
                 item['controls'] = [{'title': 'Assistant Access', 'page': 'assistant'}]
             elif item['menu']:
                 item['controls'] = static_controls(item['menu'])
-    if page == 'git-cloud':
-        git = module('settings_git_controls', 'walker/scripts/actions/development/git-accounts.py')
-        model = git.load()
-        providers = module('settings_cloud_definitions', 'walker/scripts/menus/cloud/providers.py')
-        result['providers'] = [{'value': provider, 'label': title} for provider, title in [('aws', 'AWS'), ('gcp', 'Google Cloud'), ('azure', 'Azure')]] + [{'value': provider, 'label': definition['name']} for provider, definition in providers.PROVIDERS.items()]
-        for item in result['items']:
-            if item.get('account'):
-                identifier = item['account']
-                item['controls'] = []
-                for title in git.account_actions(model, identifier):
-                    options = []
-                    if title == 'Remove Folder':
-                        options = [git.short(git.Path(row['path'])) for row in model['folders'] if row['account'] == identifier]
-                    elif title == 'Set Existing SSH Key':
-                        options = [git.short(path.with_suffix('')) for path in (git.Path.home() / '.ssh').glob('*.pub') if path.with_suffix('').is_file()]
-                    item['controls'].append({'title': title, 'detail': git.ACTION_HINTS[title],
-                                             'gitAccount': identifier, 'options': options,
-                                             'confirmation': model['accounts'][identifier]['label'] + ' · ' + tr(git.ACTION_HINTS[title])})
-            elif item.get('menu') == 'cloud':
-                provider, context = item['provider'], item['context']
-                if provider in ('aws', 'gcp', 'azure'):
-                    item['controls'] = [{'title': 'Rename', 'detail': item['title'], 'command': terminal(
-                        'walker/scripts/menus/cloud/accounts.py', 'rename', provider, context)}]
-                else:
-                    item['controls'] = []
-                    for entry in providers.account_entries(provider, context):
-                        if entry['Text'] == tr('Delete Account'):
-                            continue
-                        arguments = shlex.split(entry['Actions']['open'])
-                        if arguments[0] == 'kitty':
-                            arguments[0] = str(code('walker/bin/menu-path/kitty'))
-                        item['controls'].append({'title': entry['Text'], 'detail': entry['Subtext'], 'command': arguments})
-                    item['controls'].append({'title': 'Delete Account', 'detail': tr('Remove local sign-in; the remote account is kept.'), 'cloudDelete': context, 'provider': provider, 'confirmation': item['title'] + ' · ' + tr('Remove local sign-in; the remote account is kept.')})
     messages = table('menus')
     for item in result['items']:
         if page == 'assistants':
@@ -221,25 +158,10 @@ def controls_summary(page):
     return result
 
 
-def git_action(identifier, title, selection, confirmed):
-    git = module('settings_git_action', 'walker/scripts/actions/development/git-accounts.py')
-    if title == 'Add Folder':
-        return subprocess.Popen(terminal('walker/scripts/actions/development/git-accounts.py', 'add-folder', identifier))
-    if title in git.TERMINAL_ACTIONS:
-        return subprocess.Popen(terminal('walker/scripts/actions/development/git-accounts.py', git.TERMINAL_ACTIONS[title], identifier))
-    if title != 'Test Connection' and not confirmed:
-        raise ValueError('Confirmation required')
-    def pick(options, prompt):
-        if selection not in options:
-            raise ValueError('Selection changed; refresh settings')
-        return selection
-    git.perform(identifier, title, confirmation=lambda question: confirmed, picker=pick)
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['summary', 'git-action', 'access', 'cloud-delete', 'default-assistant', 'collaboration'])
-    parser.add_argument('page', choices=['keybinds', 'git-cloud', 'security', 'about', 'assistants'])
+    parser.add_argument('action', choices=['summary', 'access', 'default-assistant', 'collaboration'])
+    parser.add_argument('page', choices=['keybinds', 'security', 'about', 'assistants'])
     parser.add_argument('arguments', nargs='*')
     options = parser.parse_args()
     if options.action == 'default-assistant':
@@ -253,15 +175,6 @@ def main():
     elif options.action == 'access':
         from eitr_assistants import set_access
         set_access(options.arguments[0])
-    elif options.action == 'cloud-delete':
-        provider, name, confirmed = options.arguments
-        if confirmed != 'confirmed':
-            raise ValueError('Confirmation required')
-        providers = module('settings_cloud_delete', 'walker/scripts/menus/cloud/providers.py')
-        providers.delete_account(provider, name, confirmation=lambda question: True)
-    elif options.action == 'git-action':
-        identifier, title, selection, confirmed = options.arguments
-        git_action(identifier, title, selection, confirmed == 'confirmed')
     else:
         print(json.dumps(controls_summary(options.page)))
 

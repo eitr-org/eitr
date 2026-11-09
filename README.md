@@ -169,8 +169,8 @@ the normal bar and effects, spreading windows two per workspace. See the
 The desktop bar offers Full, Centered, Tabs, Islands and Dynamic layouts. Dynamic has three independently expanding islands with a fixed, screen-centred clock; see [Desktop Bar](quickshell/desktop-bar/README.md).
 
 Settings (**SUPER + ,**) provides System, Desktop and Devices pages with shared
-inline controls, plus Keybinds, Default apps, Users, Git & Cloud, Security, Updates,
-Check This PC and About. Themes and Plugins share their own catalog window; it and the
+inline controls, plus Keybinds, Default apps, User (picture and password), Security,
+Updates, Check This PC and About; Git and cloud accounts stay in Walker. Themes and Plugins share their own catalog window; it and the
 Handbook use the Settings frame, sidebar, page header and cards. Default apps uses
 installed MIME handlers and the shared terminal preference; diagnostics run only
 on request. Account and privileged actions retain their existing guided flows. The Control Center

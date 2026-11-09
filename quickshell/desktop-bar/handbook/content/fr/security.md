@@ -6,7 +6,7 @@ Vingt secondes avant le verrouillage, les écrans compatibles réduisent leur lu
 
 ## Mot de passe et authentification alternative
 
-**Paramètres > Sécurité > Mettre à jour le mot de passe** change le mot de passe de votre compte. L’empreinte digitale et Clé de sécurité FIDO2 ont leurs propres procédures d’inscription et d’activation. Une clé de sécurité FIDO2 est un dispositif physique, pas le lecteur d’empreintes d’un portable. Inscrivez d’abord le dispositif, puis activez l’authentification. L’utilitaire sauvegarde les paramètres PAM ; gardez un mot de passe valide et un moyen d’accéder à un TTY.
+**Paramètres > Utilisateur > Changer le mot de passe** change le mot de passe de votre compte et garde le trousseau de connexion ouvert avec lui. L’empreinte digitale et Clé de sécurité FIDO2 ont leurs propres procédures d’inscription et d’activation. Une clé de sécurité FIDO2 est un dispositif physique, pas le lecteur d’empreintes d’un portable. Inscrivez d’abord le dispositif, puis activez l’authentification. L’utilitaire sauvegarde les paramètres PAM ; gardez un mot de passe valide et un moyen d’accéder à un TTY.
 
 Revenir à l’authentification par mot de passe rétablit l’accès uniquement par mot de passe. Ces changements concernent les services PAM de verrouillage, de connexion et de sudo pris en charge. Ils nécessitent du matériel compatible et les utilitaires installés. L’authentification par empreinte peut retarder brièvement la demande de mot de passe. Lire cette page ne modifie pas PAM.
 

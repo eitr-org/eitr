@@ -1,6 +1,6 @@
 # Git accounts
 
-Open Settings > Git & Cloud. Walker > Development > Git Accounts is an alternative. GitHub and GitLab accounts can be used
+Open Walker > Development > Git Accounts. GitHub and GitLab accounts can be used
 simultaneously, including several accounts on the same provider or enterprise
 hostname. GitHub CLI (`gh`) and GitLab CLI (`glab`) ship in new installations.
 Existing ISO images must be rebuilt to include changes.
@@ -89,5 +89,3 @@ EITR include blocks are refused instead of silently replaced.
 References: [Git conditional includes](https://git-scm.com/docs/git-config),
 [GitHub CLI profiles](https://cli.github.com/manual/gh_help_environment),
 [GitLab CLI profiles](https://docs.gitlab.com/cli/configuration/).
-
-Settings > Git & Cloud shows one card per provider with each identity, folder rule or cloud context as a row and its actions. The toolbar opens Git Accounts, Import Existing Setup and Add Account… for a cloud provider in the existing guided flows; viewing the page never switches CLI defaults.

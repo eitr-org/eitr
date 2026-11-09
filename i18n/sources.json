@@ -58,9 +58,6 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
-    "Add Account…": [
-      "quickshell/desktop-bar/settings/SettingsGitCloudPage.qml"
-    ],
     "Add Layout": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
@@ -273,7 +270,7 @@
       "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/TimePicker.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
-      "quickshell/desktop-bar/settings/SettingsSystemHost.qml",
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Cards": [
@@ -284,6 +281,10 @@
     ],
     "Centered": [
       "tools/choice-lists.json"
+    ],
+    "Change password": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml",
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "Change picture": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml",
@@ -397,9 +398,6 @@
     "Close pin": [
       "quickshell/desktop-bar/capture/ScreenshotPins.qml"
     ],
-    "Cloud provider": [
-      "quickshell/desktop-bar/settings/SettingsGitCloudPage.qml"
-    ],
     "Color Picker": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -417,8 +415,7 @@
     ],
     "Confirm": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Confirm removal": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
@@ -545,6 +542,9 @@
     ],
     "Current page": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
+    ],
+    "Current password": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
     ],
     "Current wallpaper": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
@@ -816,12 +816,6 @@
     "Girl · Pillow": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
-    "Git & Cloud": [
-      "quickshell/desktop-bar/settings/SettingsIndex.js"
-    ],
-    "Git Accounts": [
-      "quickshell/desktop-bar/settings/SettingsGitCloudPage.qml"
-    ],
     "HDR": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
@@ -875,9 +869,6 @@
     ],
     "Images unavailable": [
       "quickshell/desktop-bar/settings/SettingsAppearanceModel.qml"
-    ],
-    "Import Existing Setup": [
-      "quickshell/desktop-bar/settings/SettingsGitCloudPage.qml"
     ],
     "Input": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
@@ -1067,9 +1058,6 @@
     "Main display · others go around it": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
-    "Manage Git identities and cloud account tools.": [
-      "quickshell/desktop-bar/settings/SettingsIndex.js"
-    ],
     "Manual": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
@@ -1138,6 +1126,9 @@
     ],
     "New chat": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
+    ],
+    "New password": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
     ],
     "Next": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
@@ -1428,6 +1419,12 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
+    "Password changed.": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
+    ],
+    "Password changed. The login keyring kept its old password; change it in Passwords and Keys.": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
+    ],
     "Pause": [
       "quickshell/desktop-bar/media/MediaCard.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
@@ -1605,7 +1602,6 @@
     ],
     "Refresh": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
-      "quickshell/desktop-bar/settings/SettingsGitCloudPage.qml",
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "Refresh rate": [
@@ -1646,11 +1642,11 @@
     "Reopen to retry; disabled after 3 failures": [
       "quickshell/desktop-bar/plugins/PluginComponent.qml"
     ],
+    "Repeat new password": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
+    ],
     "Reply…": [
       "quickshell/desktop-bar/notifications/NotificationCard.qml"
-    ],
-    "Repository": [
-      "quickshell/desktop-bar/settings/SettingsAboutPage.qml"
     ],
     "Repository: {url}": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -2047,6 +2043,9 @@
     "The Eitr project": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "The current password is not correct.": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
+    ],
     "The file chooser is not available": [
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
@@ -2058,6 +2057,15 @@
     ],
     "The main display holds the bar, panels and notifications. Position only sets where a screen sits next to the others.": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "The new password was not accepted: {reason}": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
+    ],
+    "The new passwords do not match.": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
+    ],
+    "The password could not be changed.": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
     ],
     "The plugin and its files are deleted from this computer.": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -2236,6 +2244,9 @@
     "Use warmer screen colors.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "Used to sign in, unlock the screen and approve system changes. A disk encryption passphrase is separate and stays the same.": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
+    ],
     "User": [
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml",
@@ -2288,7 +2299,6 @@
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Website": [
-      "quickshell/desktop-bar/settings/SettingsAboutPage.qml",
       "tools/choice-lists.json"
     ],
     "Wi-Fi": [
@@ -2353,7 +2363,7 @@
     "Your last working configuration is still running.": [
       "quickshell/desktop-bar/components/ReloadErrorPopup.qml"
     ],
-    "Your profile picture and display name.": [
+    "Your profile picture, display name and password.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Your system at a glance.": [
@@ -2377,6 +2387,9 @@
     "browser terminal files file manager text editor image viewer video player music mail pdf mime": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "choose a stronger one": [
+      "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
+    ],
     "clock islands tabs workspaces dots glyph numbers runes layout position media dock auto-hide": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -2389,10 +2402,10 @@
     "ddd MMM dd hh:mm AP": [
       "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
-    "gaps corners rounded square shape animations effects": [
+    "fingerprint fido tpm firewall assistant access authentication": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
-    "github gitlab aws azure google identities folder rules accounts contexts": [
+    "gaps corners rounded square shape animations effects": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "good afternoon": [
@@ -2416,7 +2429,7 @@
     "lock idle": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
-    "login account profile picture display name": [
+    "login account profile picture display name password change": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "monitor refresh brightness rotation scale night light schedule temperature": [
@@ -2431,9 +2444,6 @@
     "password": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml",
       "quickshell/lockscreen/themes/girl-pillow/Main.qml"
-    ],
-    "password fingerprint fido tpm firewall assistant access authentication": [
-      "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "release version codename kernel licence license hardware website repository handbook": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -6453,6 +6463,9 @@
     "Current Disk Usage": [
       "walker/scripts/actions/system/cleanup.sh"
     ],
+    "Current password: ": [
+      "walker/scripts/actions/system/security.py"
+    ],
     "Current wallpaper": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -6535,7 +6548,6 @@
       "distro/lib/eitr_profile.py"
     ],
     "Delete Account": [
-      "quickshell/desktop-bar/scripts/settings-system.py",
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Delete this lockscreen? Enter deletes, Esc keeps it.": [
@@ -6956,9 +6968,6 @@
     ],
     "Git author and date: {author}": [
       "walker/scripts/actions/install/plugins.py"
-    ],
-    "Git identities": [
-      "quickshell/desktop-bar/scripts/settings-system.py"
     ],
     "Git will use": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -7557,6 +7566,9 @@
     "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n": [
       "distro/archinstall/installer-ui.py"
     ],
+    "New password: ": [
+      "walker/scripts/actions/system/security.py"
+    ],
     "Next, Eitr downloads the plugin without running it and shows its exact author and commit.": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -7894,6 +7906,12 @@
     "Password": [
       "distro/archinstall/installer-ui.py",
       "walker/scripts/actions/system/users.py"
+    ],
+    "Password changed.": [
+      "walker/scripts/actions/system/security.py"
+    ],
+    "Password changed. The login keyring kept its old password; change it in Passwords and Keys.": [
+      "walker/scripts/actions/system/security.py"
     ],
     "Passwords did not match": [
       "distro/lib/eitr_wizard.py"
@@ -8249,9 +8267,6 @@
     "Remove local sign-in": [
       "walker/scripts/menus/cloud/providers.py"
     ],
-    "Remove local sign-in; the remote account is kept.": [
-      "quickshell/desktop-bar/scripts/settings-system.py"
-    ],
     "Remove plugin {id} and its service?": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -8284,6 +8299,9 @@
     ],
     "Renamed to {label}.": [
       "walker/scripts/menus/cloud/accounts.py"
+    ],
+    "Repeat new password: ": [
+      "walker/scripts/actions/system/security.py"
     ],
     "Repeat the password.": [
       "distro/lib/eitr_wizard.py"
@@ -8996,6 +9014,9 @@
     "The collaboration state is invalid; settings were left unchanged.": [
       "distro/lib/eitr_collaboration.py"
     ],
+    "The current password is not correct.": [
+      "walker/scripts/actions/system/security.py"
+    ],
     "The default assistant changed. Start a new chat.": [
       "quickshell/desktop-bar/scripts/assistant-chat.py"
     ],
@@ -9047,6 +9068,15 @@
     "The name needs at least one letter or digit.": [
       "distro/lib/eitr_own_style.py",
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "The new password was not accepted: {reason}": [
+      "walker/scripts/actions/system/security.py"
+    ],
+    "The new passwords do not match.": [
+      "walker/scripts/actions/system/security.py"
+    ],
+    "The password could not be changed.": [
+      "walker/scripts/actions/system/security.py"
     ],
     "The payload has no pacman {version} package": [
       "distro/archinstall/eitr-guided-install"
@@ -9739,6 +9769,9 @@
     ],
     "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib.": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "choose a stronger one": [
+      "walker/scripts/actions/system/security.py"
     ],
     "consulting the Norns": [
       "distro/lib/spinner.sh"

@@ -36,7 +36,7 @@ ShellRoot {
  }
  Timer {
   interval: 180; running: true; repeat: true
-  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "windows", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "default-apps", "user", "git-cloud", "security", "updates", "check-pc", "about"]
+  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "windows", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "default-apps", "user", "security", "updates", "check-pc", "about"]
   property int current: 0
   property int phase: 0
   property bool saved: false
@@ -80,12 +80,11 @@ ShellRoot {
     }
     system.channel = "stable";
     system.updates = {status: "ready", data: {count: 7}};
-    system.hardware = {sections: [{title: "CPU", name: "8 cores"}, {title: "RAM", name: "32 GiB"}]};
     system.checks = [{group: "Updates", status: "info", message: "The cached package list is current."}, {group: "Storage", status: "warning", message: "Free disk space is low.", meaning: "Free some space before updating."}];
     const summary = pages[current] === "keybinds" ? [{group: "Launchers", title: "Open terminal", detail: "SUPER + Enter"}, {group: "Windows", title: "Close window", detail: "SUPER + Q"}] : pages[current] === "about" ? [{title: "Version", detail: "0.7.0"}, {title: "Codename", detail: "Huginn"}, {title: "Update Channel", detail: "Stable"}, {title: "Kernel", detail: "Linux"}, {title: "Licence", detail: "GPL-3.0-or-later"}] : pages[current] === "security" ? [{title: "Firewall", detail: "Eitr firewall active.", actionMenu: "security"}, {title: "Fingerprint", detail: "Review status and settings", menu: "fingerprint", controls: [{title: "Enable Fingerprint Authentication", detail: "Password fallback retained", actionMenu: "fingerprint"}, {title: "Enroll Fingerprint", detail: "Requires a supported reader", actionMenu: "fingerprint"}]}] : [{title: "Personal", detail: "Eitr Explorer · explorer@example.invalid · Default", menu: "git-accounts", provider: "git", providerTitle: "Git identities", account: "fixture", controls: [{title: "Make Default", detail: "Use this identity outside folder rules", gitAccount: "fixture"}, {title: "Remove Folder", detail: "Stop using this account in a folder", gitAccount: "fixture", options: ["~/Projects/example"]}]}, {title: "Work", detail: "Eitr Explorer · ~/Projects/work", menu: "git-accounts", provider: "git", providerTitle: "Git identities", account: "work", controls: [{title: "Test Connection", detail: "Check the SSH key with the host", gitAccount: "work"}]}, {title: "Example", detail: "example-profile", menu: "cloud", provider: "aws", providerTitle: "AWS", context: "example-profile", controls: [{title: "Rename", detail: "Example", command: []}]}, {title: "fixture", detail: "Example account", menu: "cloud", provider: "cloudflare", providerTitle: "Cloudflare", context: "fixture", controls: [{title: "Sign In", detail: "fixture", command: []}, {title: "Delete Account", detail: "Remove local sign-in; the remote account is kept.", cloudDelete: "fixture", provider: "cloudflare"}]}];
     fixture.find(content, "settings-system-helper").summary = {items: pages[current] === "assistants" ? [{title: "Example assistant", detail: "Installed", controls: [{title: "Default", detail: "Current", command: []}, {title: "Add Account…", detail: "Sign in to a separate account", command: []}]}, {title: "Ratatoskr (local, experimental)", detail: "Runs only on this PC; less reliable than cloud assistants", controls: [{title: "Set Up", detail: "Set up an assistant that runs only on this PC", command: []}]}] : summary,
      choices: [{value: "codex", label: "Example assistant"}], current: "codex", access: "ask", collaboration: true,
-     providers: [{value: "aws", label: "AWS"}, {value: "gcp", label: "Google Cloud"}, {value: "azure", label: "Azure"}, {value: "cloudflare", label: "Cloudflare"}]};
+     hardware: [{title: "CPU", name: "8 cores"}, {title: "RAM", name: "32 GiB"}, {title: "Storage", name: "Example SSD · NVMe SSD · 1.0 TB"}]};
     fixture.find(content, "settings-default-apps-helper").summary = {items: ["Web browser", "File manager", "Text editor", "Image viewer", "Video player", "Music player", "Mail", "PDF viewer", "Terminal"].map(label => ({kind: "fixture", label: label, current: "fixture.desktop", name: "Example app", choices: [{value: "fixture.desktop", label: "Example app"}, {value: "other.desktop", label: "Other app"}]}))};
    } else if (phase === 2) {
     if (pages[current] === "connections") {
@@ -102,10 +101,6 @@ ShellRoot {
      const assistant = fixture.find(content, "settings-default-assistant");
      const access = fixture.find(content, "settings-assistant-access");
      if (!assistant || assistant.current !== "codex" || !access || access.current !== "ask") throw new Error("AI Assistant choices");
-    }
-    if (pages[current] === "git-cloud") {
-     const toolbar = fixture.find(content, "settings-git-cloud-toolbar");
-     if (!toolbar || toolbar.height > 40) throw new Error("Git & Cloud toolbar wraps");
     }
     if (pages[current] === "streaming") {
      const streaming = fixture.find(content, "settings-streaming-page");
@@ -129,7 +124,7 @@ ShellRoot {
     const pageView = desktop.visible ? desktop : devices.visible ? devices : fixture.find(content, "settings-system-page");
     if (pageView) pageView.contentY = Math.max(0, pageView.contentHeight - pageView.height);
    } else if (phase === 4) {
-    if (["appearance", "bar", "windows", "lockscreen", "notifications", "focus", "connections", "sound", "displays", "input", "keybinds", "default-apps", "user", "git-cloud", "security", "assistants", "updates", "check-pc", "about"].includes(pages[current].split("/")[0])) {
+    if (["appearance", "bar", "windows", "lockscreen", "notifications", "focus", "connections", "sound", "displays", "input", "keybinds", "default-apps", "user", "security", "assistants", "updates", "check-pc", "about"].includes(pages[current].split("/")[0])) {
      saved = false;
      content.grabToImage(result => { if (!result.saveToFile("OUTPUT/PALETTE-" + pages[current].replace("/", "-") + "-bottom.png")) throw new Error("render save"); saved = true; });
     }

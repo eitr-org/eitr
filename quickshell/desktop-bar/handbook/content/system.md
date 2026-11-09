@@ -34,7 +34,6 @@ Use the page names below. See the linked chapters for instructions.
 | Keybinds | [Keybinds](handbook:shortcuts) |
 | Default apps | [Default apps](handbook:apps) |
 | User | [User](handbook:security) |
-| Git & Cloud | [Git & Cloud](handbook:git-accounts) |
 | Security | [Security](handbook:security) |
 | Updates | [Updates](handbook:maintenance) |
 | Check This PC | [Check This PC](handbook:troubleshooting) |
@@ -47,6 +46,10 @@ Open Settings > User (or click your picture on Settings' System overview) and ch
 Pictures appear as circles in Control Center, the lockscreen and the login screen. Control Center only displays the picture at the top of its navigation; without one it shows nothing there, and neither do the lockscreen and login screen. Settings shows your name’s initial on a theme-accent circle instead. Eitr accepts PNG, JPEG, WebP, GIF (first frame) and BMP up to 40 MB and 12000 pixels per side.
 
 It applies orientation, strips metadata and saves a 512×512 PNG at `~/.face`, then updates AccountsService for SDDM. If that update fails, the saved picture still works on the lockscreen; the sheet or CLI reports the login-screen error.
+
+## Change your password
+
+Open Settings > User and choose Change password. Type your current password, then the new one twice: Enter moves to the next field and confirms on the last one; Escape cancels. The system's password rules decide what is accepted, and a refused password shows the reason. Eitr also moves the login keyring to the new password, so saved passwords keep unlocking when you sign in. A disk encryption passphrase is separate and stays the same. Walker > Settings > Security > Update Password does the same in a terminal.
 
 ## Use Walker as an alternative
 

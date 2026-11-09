@@ -940,6 +940,9 @@ msgstr "Ctrl+B: ver archivo de compilación · Ctrl+O: abrir en el navegador"
 msgid "Current Disk Usage"
 msgstr "Uso actual del disco"
 
+msgid "Current password: "
+msgstr "Contraseña actual: "
+
 msgid "Current wallpaper"
 msgstr "Fondo de pantalla actual"
 
@@ -1431,9 +1434,6 @@ msgstr "Cuentas de Git"
 
 msgid "Git author and date: {author}"
 msgstr "Autor y fecha de Git: {author}"
-
-msgid "Git identities"
-msgstr "Identidades de Git"
 
 msgid "Git will use"
 msgstr "Git utilizará"
@@ -2014,6 +2014,9 @@ msgstr "Nuevo nombre"
 msgid "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n"
 msgstr "Se añaden particiones nuevas en el espacio libre de {path}.\nLas particiones existentes se conservan, pero haz antes una copia de seguridad de los archivos importantes.\n"
 
+msgid "New password: "
+msgstr "Contraseña nueva: "
+
 msgid "Next, Eitr downloads the plugin without running it and shows its exact author and commit."
 msgstr "Después, Eitr descarga el plugin sin ejecutarlo y muestra su autor y commit exactos."
 
@@ -2340,6 +2343,12 @@ msgstr "Parte del sistema se actualizó después de iniciar el PC; reinicia para
 
 msgid "Password"
 msgstr "Contraseña"
+
+msgid "Password changed."
+msgstr "Contraseña cambiada."
+
+msgid "Password changed. The login keyring kept its old password; change it in Passwords and Keys."
+msgstr "Contraseña cambiada. El llavero de inicio de sesión conserva su contraseña anterior; cámbiala en Contraseñas y claves."
 
 msgid "Passwords did not match"
 msgstr "Las contraseñas no coinciden"
@@ -2686,9 +2695,6 @@ msgstr "Eliminar elemento de la barra"
 msgid "Remove local sign-in"
 msgstr "Eliminar inicio de sesión local"
 
-msgid "Remove local sign-in; the remote account is kept."
-msgstr "Eliminar el inicio de sesión local; se conserva la cuenta remota."
-
 msgid "Remove plugin {id} and its service?"
 msgstr "¿Eliminar el plugin {id} y su servicio?"
 
@@ -2721,6 +2727,9 @@ msgstr "Renombrar {current}"
 
 msgid "Renamed to {label}."
 msgstr "Renombrado a {label}."
+
+msgid "Repeat new password: "
+msgstr "Repite la contraseña nueva: "
 
 msgid "Repeat the password."
 msgstr "Repite la contraseña."
@@ -3424,6 +3433,9 @@ msgstr "El reloj no está sincronizado, lo que puede romper sitios web seguros y
 msgid "The collaboration state is invalid; settings were left unchanged."
 msgstr "El estado de colaboración no es válido; los ajustes se dejaron sin cambios."
 
+msgid "The current password is not correct."
+msgstr "La contraseña actual no es correcta."
+
 msgid "The default assistant changed. Start a new chat."
 msgstr "El asistente predeterminado cambió. Inicia un nuevo chat."
 
@@ -3474,6 +3486,15 @@ msgstr "El nombre necesita al menos una letra o un número"
 
 msgid "The name needs at least one letter or digit."
 msgstr "El nombre necesita al menos una letra o un número."
+
+msgid "The new password was not accepted: {reason}"
+msgstr "No se aceptó la contraseña nueva: {reason}"
+
+msgid "The new passwords do not match."
+msgstr "Las contraseñas nuevas no coinciden."
+
+msgid "The password could not be changed."
+msgstr "No se pudo cambiar la contraseña."
 
 msgid "The payload has no pacman {version} package"
 msgstr "The payload has no pacman {version} package"
@@ -4152,6 +4173,9 @@ msgstr "revisando los drakkars"
 
 msgid "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib."
 msgstr "Se necesita checkupdates (pacman-contrib) para instalar de forma segura. Ejecuta Configuración → Sistema → Actualización del sistema y luego instala pacman-contrib."
+
+msgid "choose a stronger one"
+msgstr "elige una más segura"
 
 msgid "consulting the Norns"
 msgstr "consultando a las Nornas"

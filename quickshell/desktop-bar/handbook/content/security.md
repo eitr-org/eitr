@@ -10,7 +10,7 @@ Twenty seconds before locking, supported displays dim to about 30% of their prev
 
 ## Password and alternative authentication
 
-**Settings > Security > Update Password** changes your account password.
+**Settings > User > Change password** changes your account password and keeps the login keyring opening with it.
 Fingerprint and FIDO2 Security Key have their own enrollment/enable workflows. A FIDO2
 security key is a physical security device, not a laptop fingerprint reader.
 Enroll first, then enable authentication. The helper backs up PAM settings;

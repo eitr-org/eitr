@@ -1,6 +1,6 @@
 # Contas Git
 
-Abra Configurações > Git e nuvem. Walker > Desenvolvimento > Contas Git é uma alternativa. Você pode usar contas GitHub e GitLab simultaneamente, inclusive várias do mesmo provedor ou host empresarial. Novas instalações incluem GitHub CLI (`gh`) e GitLab CLI (`glab`); imagens ISO existentes precisam ser reconstruídas para incluir mudanças.
+Abra Walker > Desenvolvimento > Contas Git. Você pode usar contas GitHub e GitLab simultaneamente, inclusive várias do mesmo provedor ou host empresarial. Novas instalações incluem GitHub CLI (`gh`) e GitLab CLI (`glab`); imagens ISO existentes precisam ser reconstruídas para incluir mudanças.
 
 Cada conta mostra onde o Git a usa: **Padrão**, os nomes das pastas ou **Ainda não usada**. Enter abre suas ações; Shift+Backspace volta à lista.
 
@@ -41,5 +41,3 @@ A conta padrão ou da pasta escolhe `gh` ou `glab`. Os comandos normais dessas C
 As configurações versionadas ficam em `~/.config/eitr/git-accounts.json`. A cada alteração aplicada, é salva uma cópia do arquivo global do Git, da inclusão ativa e das configurações em `~/.local/state/eitr/git-account-backups/<id>`, com permissões privadas. `manifest.json` registra caminhos originais, nomes dos backups e permissões. Chaves e tokens de CLI nunca são copiados. Para recuperar manualmente, confira o manifesto e preserve alterações feitas desde o backup antes de restaurar. Blocos de inclusão do EITR editados ou inválidos são recusados, não substituídos silenciosamente.
 
 Referências: [inclusões condicionais do Git](https://git-scm.com/docs/git-config), [perfis da GitHub CLI](https://cli.github.com/manual/gh_help_environment), [perfis da GitLab CLI](https://docs.gitlab.com/cli/configuration/).
-
-Configurações > Git e nuvem mostra um cartão por provedor com cada identidade, regra de pasta ou contexto de nuvem como linha com suas ações. A barra de ferramentas abre Contas Git, Importar configuração existente e Adicionar conta… para um provedor de nuvem nos fluxos guiados existentes; visualizar a página não troca padrões das CLIs.

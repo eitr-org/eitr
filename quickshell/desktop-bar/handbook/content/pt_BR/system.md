@@ -34,7 +34,6 @@ Use os nomes de página abaixo. Os capítulos vinculados explicam os passos.
 | Atalhos de teclado | [Atalhos de teclado](handbook:shortcuts) |
 | Apps padrão | [Apps padrão](handbook:apps) |
 | Usuário | [Usuário](handbook:security) |
-| Git e nuvem | [Git e nuvem](handbook:git-accounts) |
 | Segurança | [Segurança](handbook:security) |
 | Atualizações | [Atualizações](handbook:maintenance) |
 | Verificar este PC | [Verificar este PC](handbook:troubleshooting) |
@@ -49,6 +48,10 @@ Salvar (ou Enter) aplica o recorte; Cancelar ou Esc fecha a folha sem aplicá-lo
 A foto aparece sempre como um círculo no Centro de Controle, no bloqueio e na tela de login. O Centro de Controle apenas exibe a foto no topo da navegação; sem foto, não mostra nada ali, assim como o bloqueio e a tela de login. As Configurações mostram em vez disso a inicial do seu nome sobre um círculo na cor de destaque.
 
 PNG, JPEG, WebP, GIF (primeiro quadro) e BMP são aceitos até 40 MB e 12000 pixels por lado. O Eitr aplica a orientação, remove metadados, salva um PNG de 512×512 em `~/.face` e atualiza o AccountsService para o SDDM. Se a atualização falhar, a foto salva continua funcionando no bloqueio; a interface ou CLI informa o erro da tela de login.
+
+## Alterar sua senha
+
+Abra Configurações > Usuário e escolha Alterar senha. Digite a senha atual e depois a nova duas vezes: Enter passa para o próximo campo e confirma no último; Esc cancela. As regras de senha do sistema decidem o que é aceito, e uma senha recusada mostra o motivo. O Eitr também muda o chaveiro de login para a nova senha, para que as senhas salvas continuem sendo desbloqueadas ao entrar. A frase de criptografia do disco é separada e continua a mesma. Walker > Configurações > Segurança > Atualizar senha faz o mesmo em um terminal.
 
 ## Usar o Walker como alternativa
 

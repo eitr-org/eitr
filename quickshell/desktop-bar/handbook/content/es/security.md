@@ -6,7 +6,7 @@ Veinte segundos antes del bloqueo, las pantallas compatibles atenúan su brillo 
 
 ## Contraseña y autenticación alternativa
 
-**Configuración > Seguridad > Actualizar contraseña** cambia la contraseña de tu cuenta. Huella digital y Llave de seguridad FIDO2 tienen procesos separados de registro y activación. Una llave FIDO2 es un dispositivo físico, no el lector de huellas del portátil. Regístrala primero y después activa la autenticación. El auxiliar guarda una copia de los ajustes PAM; conserva una contraseña válida y una forma de acceder a un TTY.
+**Configuración > Usuario > Cambiar contraseña** cambia la contraseña de tu cuenta y mantiene el llavero de inicio de sesión abriéndose con ella. Huella digital y Llave de seguridad FIDO2 tienen procesos separados de registro y activación. Una llave FIDO2 es un dispositivo físico, no el lector de huellas del portátil. Regístrala primero y después activa la autenticación. El auxiliar guarda una copia de los ajustes PAM; conserva una contraseña válida y una forma de acceder a un TTY.
 
 Volver a la autenticación por contraseña restaura el acceso solo mediante contraseña. Estos cambios afectan los servicios PAM compatibles de bloqueo, inicio de sesión y sudo; requieren hardware compatible y los auxiliares instalados. La autenticación por huella puede retrasar brevemente la solicitud de contraseña. Leer esta página no modifica PAM.
 

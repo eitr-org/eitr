@@ -34,7 +34,6 @@ Utilisez les noms de page ci-dessous. Les chapitres liés expliquent les étapes
 | Raccourcis clavier | [Raccourcis clavier](handbook:shortcuts) |
 | Applications par défaut | [Applications par défaut](handbook:apps) |
 | Utilisateur | [Utilisateur](handbook:security) |
-| Git et cloud | [Git et cloud](handbook:git-accounts) |
 | Sécurité | [Sécurité](handbook:security) |
 | Mises à jour | [Mises à jour](handbook:maintenance) |
 | Vérifier ce PC | [Vérifier ce PC](handbook:troubleshooting) |
@@ -49,6 +48,10 @@ Faites glisser l’aperçu rond pour déplacer l’image ; la molette, le curseu
 La photo reste circulaire dans le Centre de contrôle, le verrouillage et l’écran de connexion. Le Centre de contrôle se contente d’afficher la photo en haut de sa navigation ; sans photo, il n’y affiche rien, tout comme le verrouillage et l’écran de connexion. Les paramètres affichent à la place l’initiale de votre nom sur un cercle de la couleur d’accent.
 
 PNG, JPEG, WebP, GIF (première image) et BMP sont acceptés jusqu’à 40 Mo et 12000 pixels par côté. Eitr corrige l’orientation, retire les métadonnées, enregistre un PNG de 512×512 dans `~/.face`, puis actualise AccountsService pour SDDM. En cas d’échec, la photo enregistrée fonctionne toujours au verrouillage ; l’interface ou la CLI signale l’erreur de connexion.
+
+## Changer votre mot de passe
+
+Ouvrez Paramètres > Utilisateur et choisissez Changer le mot de passe. Saisissez votre mot de passe actuel, puis deux fois le nouveau : Entrée passe au champ suivant et confirme sur le dernier ; Échap annule. Les règles de mot de passe du système décident de ce qui est accepté, et un mot de passe refusé affiche la raison. Eitr passe aussi le trousseau de connexion au nouveau mot de passe, pour que les mots de passe enregistrés continuent de se déverrouiller à la connexion. La phrase secrète de chiffrement du disque est distincte et reste la même. Walker > Paramètres > Sécurité > Mettre à jour le mot de passe fait la même chose dans un terminal.
 
 ## Utiliser Walker comme alternative
 

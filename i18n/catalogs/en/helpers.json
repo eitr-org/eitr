@@ -1492,6 +1492,14 @@
   "Update Channel": "Update Channel",
   "Video player": "Video player",
   "Web browser": "Web browser",
-  "Remove local sign-in; the remote account is kept.": "Remove local sign-in; the remote account is kept.",
-  "Git identities": "Git identities"
+  "Current password: ": "Current password: ",
+  "New password: ": "New password: ",
+  "Password changed.": "Password changed.",
+  "Password changed. The login keyring kept its old password; change it in Passwords and Keys.": "Password changed. The login keyring kept its old password; change it in Passwords and Keys.",
+  "Repeat new password: ": "Repeat new password: ",
+  "The current password is not correct.": "The current password is not correct.",
+  "The new password was not accepted: {reason}": "The new password was not accepted: {reason}",
+  "The new passwords do not match.": "The new passwords do not match.",
+  "The password could not be changed.": "The password could not be changed.",
+  "choose a stronger one": "choose a stronger one"
 }

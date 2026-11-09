@@ -13,7 +13,7 @@ Column {
     spacing: 5
     SettingsText {
         visible: text !== ""
-        text: Eitr.I18n.tr(entry.item.detail || (entry.item.entries ? "" : "Unavailable"))
+        text: Eitr.I18n.tr(entry.item.detail || "Unavailable")
         color: Qt.alpha(entry.context.foreground, PanelStyle.secondaryTextOpacity)
         font.pixelSize: PanelStyle.captionSize
     }
@@ -44,7 +44,7 @@ Column {
                     text: Eitr.I18n.tr("Open")
                     foreground: entry.context.foreground
                     available: !entry.context.helper.busy && (!["Remove Folder", "Set Existing SSH Key"].includes(actionRow.modelData.title) || actionRow.selection !== "")
-                    onClicked: entry.context.runControl(actionRow.modelData, actionRow.selection, false)
+                    onClicked: entry.context.runControl(actionRow.modelData, actionRow.selection)
                 }
             }
         }

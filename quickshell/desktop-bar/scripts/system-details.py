@@ -150,6 +150,62 @@ def storage_usage(name, rows):
     return [{'title': 'Storage', 'name': name, 'usage': usage, 'rows': rows}]
 
 
+def installed_memory(memory=Path('/sys/devices/system/memory'), meminfo=Path('/proc/meminfo')):
+    """Installed RAM in GiB: the kernel's online memory blocks, else usable memory."""
+    try:
+        block = int((memory / 'block_size_bytes').read_text(), 16)
+        online = sum(1 for state in memory.glob('memory*/state') if state.read_text().strip() == 'online')
+        if block and online:
+            return online * block / 1024 ** 3
+    except (OSError, ValueError):
+        pass
+    total = next(int(line.split()[1]) for line in meminfo.read_text().splitlines() if line.startswith('MemTotal:'))
+    return total / 1024 ** 2
+
+
+def disk_size(size):
+    """Capacity in the decimal units printed on drives: 500 GB, 1.0 TB."""
+    return f'{size / 1e12:.1f} TB' if size >= 1e12 else f'{round(size / 1e9)} GB'
+
+
+def graphics_names(listing):
+    """Display controllers from `lspci -mm`: vendor and the bracketed product name."""
+    names = []
+    for row in csv.reader(io.StringIO(listing), delimiter=' '):
+        if len(row) > 3 and row[1] in ('VGA compatible controller', '3D controller', 'Display controller'):
+            vendor = row[2].replace(' Corporation', '').replace('Advanced Micro Devices, Inc. ', '')
+            product = row[3][row[3].find('[') + 1:row[3].rfind(']')] if '[' in row[3] else row[3]
+            names.append(f'{vendor} {product}'.strip())
+    return names
+
+
+def disks(devices):
+    """Every connected drive from `lsblk -J -d -b`, skipping RAM disks, loops and optical drives."""
+    result = []
+    for device in devices:
+        name = device.get('name', '')
+        if device.get('type') != 'disk' or name.startswith(('zram', 'loop', 'ram')):
+            continue
+        kind = 'HDD' if device.get('rota') else ('NVMe SSD' if name.startswith('nvme') else 'SSD')
+        if device.get('tran') == 'usb':
+            kind = 'USB ' + ('drive' if device.get('rota') else 'SSD')
+        model = (device.get('model') or name).strip()
+        result.append({'title': 'Storage', 'name': f'{model} · {kind} · {disk_size(int(device.get("size") or 0))}'})
+    return result
+
+
+def inventory():
+    """About's hardware lines: names and amounts that do not change while running."""
+    lines = [{'title': 'CPU', 'name': cpu_identity(Path('/proc/cpuinfo').read_text())['name']}]
+    lines += [{'title': 'GPU', 'name': name} for name in graphics_names(query(['lspci', '-mm']))]
+    lines.append({'title': 'RAM', 'name': f'{installed_memory():.0f} GiB'})
+    try:
+        devices = json.loads(query(['lsblk', '-J', '-d', '-b', '-o', 'NAME,TYPE,SIZE,MODEL,ROTA,TRAN']))['blockdevices']
+    except (ValueError, KeyError, TypeError):
+        devices = []
+    return lines + disks(devices)
+
+
 def snapshot(identity=None):
     if identity is None:
         identity = {}

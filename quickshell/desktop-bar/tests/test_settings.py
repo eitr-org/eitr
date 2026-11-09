@@ -73,7 +73,7 @@ ShellRoot {
         source = (BAR / 'settings/SettingsIndex.js').read_text().replace('.pragma library', '')
         script = source + '''
 const assert = require('node:assert/strict');
-assert.equal(pages.length, 21);
+assert.equal(pages.length, 20);
 assert(!pages.some(page => ["themes", "plugins"].includes(page.id)));
 assert(pages.every(page => page.rune && page.description));
 assert.equal(pages[0].id, 'system');
@@ -82,7 +82,7 @@ assert.equal(new Set(pages.map(page => page.id)).size, pages.length);
 assert.equal(filter('cpu', text => text)[0].id, 'system');
 assert.equal(filter('nothing matches', text => text).length, 0);
 assert.equal(filter('profile avatar', text => text)[0].id, 'system');
-for (const [keyword, page] of [['gaps', 'windows'], ['cursor', 'appearance'], ['dnd', 'notifications'], ['rotation', 'displays'], ['wifi', 'connections'], ['workspaces', 'bar'], ['pdf', 'default-apps'], ['kernel', 'about'], ['folder rules', 'git-cloud'], ['sunshine', 'streaming'], ['moonlight', 'streaming'], ['remote game', 'streaming'], ['fido', 'security']]) assert.equal(filter(keyword, text => text)[0].id, page);
+for (const [keyword, page] of [['gaps', 'windows'], ['cursor', 'appearance'], ['dnd', 'notifications'], ['rotation', 'displays'], ['wifi', 'connections'], ['workspaces', 'bar'], ['pdf', 'default-apps'], ['kernel', 'about'], ['password change', 'user'], ['sunshine', 'streaming'], ['moonlight', 'streaming'], ['remote game', 'streaming'], ['fido', 'security']]) assert.equal(filter(keyword, text => text)[0].id, page);
 assert.equal(resolve('network/bluetooth').page, 'connections');
 assert.equal(entry('network').id, 'connections');
 assert.equal(searchDestination('appearance', 'puntero', text => text === 'Cursor family' ? 'Familia del puntero' : text), 'appearance/fonts');
@@ -302,7 +302,7 @@ QtObject {
                 for diagnostic in ('TypeError:', 'ReferenceError:', 'Unable to assign', 'Binding loop', 'Error:'):
                     self.assertNotIn(diagnostic, output)
                 for page in ('appearance', 'bar', 'windows', 'lockscreen', 'notifications', 'focus',
-                             'displays', 'sound', 'connections', 'input', 'keybinds', 'default-apps', 'user', 'git-cloud', 'security', 'assistants', 'updates', 'check-pc', 'about'):
+                             'displays', 'sound', 'connections', 'input', 'keybinds', 'default-apps', 'user', 'security', 'assistants', 'updates', 'check-pc', 'about'):
                     self.assertTrue((output_folder / f'{theme}-{page}.png').is_file(), page)
 
     def test_user_picture_sheet_and_overview_avatar(self):

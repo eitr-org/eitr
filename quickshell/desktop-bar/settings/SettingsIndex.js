@@ -110,22 +110,15 @@ var pages = [
         "group": "Accounts & Security",
         "id": "user",
         "title": "User",
-        "description": "Your profile picture and display name.",
-        "keywords": "login account profile picture display name"
-    },
-    {
-        "group": "Accounts & Security",
-        "id": "git-cloud",
-        "title": "Git & Cloud",
-        "description": "Manage Git identities and cloud account tools.",
-        "keywords": "github gitlab aws azure google identities folder rules accounts contexts"
+        "description": "Your profile picture, display name and password.",
+        "keywords": "login account profile picture display name password change"
     },
     {
         "group": "Accounts & Security",
         "id": "security",
         "title": "Security",
         "description": "Authentication, firewall and security tools.",
-        "keywords": "password fingerprint fido tpm firewall assistant access authentication"
+        "keywords": "fingerprint fido tpm firewall assistant access authentication"
     },
     {
         "group": "System",

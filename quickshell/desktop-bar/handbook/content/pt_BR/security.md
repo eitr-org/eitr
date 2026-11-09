@@ -6,7 +6,7 @@ Vinte segundos antes do bloqueio, as telas compatíveis reduzem o brilho para ce
 
 ## Senha e autenticação alternativa
 
-**Configurações > Segurança > Atualizar senha** altera a senha da conta. Impressão digital e Chave de segurança FIDO2 têm etapas próprias de cadastro e ativação. Uma chave de segurança FIDO2 é um dispositivo físico, não o leitor de impressão digital do notebook. Cadastre primeiro e depois ative a autenticação. O auxiliar faz backup das configurações do PAM; mantenha uma senha que funcione e uma forma de acessar um TTY.
+**Configurações > Usuário > Alterar senha** altera a senha da conta e mantém o chaveiro de login abrindo com ela. Impressão digital e Chave de segurança FIDO2 têm etapas próprias de cadastro e ativação. Uma chave de segurança FIDO2 é um dispositivo físico, não o leitor de impressão digital do notebook. Cadastre primeiro e depois ative a autenticação. O auxiliar faz backup das configurações do PAM; mantenha uma senha que funcione e uma forma de acessar um TTY.
 
 Voltar à autenticação por senha restaura o acesso somente por senha. As mudanças afetam os serviços PAM compatíveis de bloqueio, login e sudo; exigem hardware compatível e os auxiliares instalados. A autenticação por impressão digital pode atrasar brevemente a solicitação de senha. Ler esta página não altera o PAM.
 

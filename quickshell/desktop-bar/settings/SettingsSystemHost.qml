@@ -21,10 +21,8 @@ Flickable {
     property string checkError: ""
     property string channel: ""
     property var accountPicture: (DesktopData.topics["account.picture"] || {}).data || ({})
-    property var hardware: (DesktopData.topics["hardware.details"] || {}).data || ({})
     property var updates: DesktopData.topics["updates.status"] || ({})
     function dismiss() {
-        if (pendingAction) { pendingAction = null; return true; }
         if (!(pictureSheet && pictureSheet.opened))
             return false;
         profileEditor.cancel();
@@ -77,8 +75,6 @@ Flickable {
             return;
         if (page === "user")
             DesktopData.observe("account.picture", hostView);
-        if (page === "about")
-            DesktopData.observe("hardware.details", hostView);
         if (page === "updates") {
             DesktopData.observe("updates.status", hostView);
             channelQuery.running = true;
@@ -90,33 +86,19 @@ Flickable {
             items: []
         };
         contentY = 0;
-        pendingAction = null;
         shortcutQuery = "";
         if ((pictureSheet && pictureSheet.opened))
             profileEditor.cancel();
         Qt.callLater(demand);
     }
     Component.onDestruction: DesktopData.releaseOwner(hostView)
-    property var pendingAction: null
     property string shortcutQuery: ""
     readonly property var pictureSheet: page === "user" && pageLoader.item ? pageLoader.item.pictureSheet : null
     readonly property var profileEditor: page === "user" && pageLoader.item ? pageLoader.item.profileEditor : null
     signal pageRequested(string page)
-    function terminal(script, arguments) {
-        const windowClass = script.includes("/cloud/") ? "eitr-cloud" : "eitr-git-accounts";
-        if (live) Quickshell.execDetached([Eitr.Paths.code("walker/bin/menu-path/kitty"), "--class", windowClass, "-e", "python3",
-            Eitr.Paths.code("walker/scripts/actions/task-terminal.py"), "python3", Eitr.Paths.code(script)].concat(arguments));
-    }
-    function runControl(entry, selection, confirmed) {
+    function runControl(entry, selection) {
         if (!live) return;
-        if (entry.gitAccount) {
-            const needsConfirmation = !["Test Connection", "Add Folder", "Show Public Key", "Create SSH Key", "Edit Name and Email", "Log In to CLI"].includes(entry.title);
-            if (needsConfirmation && !confirmed) { pendingAction = {entry: entry, selection: selection}; return; }
-            helper.change(["git-action", "git-cloud", entry.gitAccount, entry.title, selection, confirmed ? "confirmed" : ""]);
-        } else if (entry.cloudDelete) {
-            if (!confirmed) { pendingAction = {entry: entry, selection: ""}; return; }
-            helper.change(["cloud-delete", "git-cloud", entry.provider, entry.cloudDelete, "confirmed"]);
-        } else if (entry.command) Quickshell.execDetached(entry.command);
+        if (entry.command) Quickshell.execDetached(entry.command);
         else if (entry.page) pageRequested(entry.page);
         else action(entry.actionMenu, entry.actionTitle || entry.title);
     }
@@ -127,7 +109,7 @@ Flickable {
     SettingsHelper {
         id: helper
         objectName: "settings-system-helper"
-        active: hostView.active && ["keybinds", "git-cloud", "security", "assistant", "about"].includes(hostView.page)
+        active: hostView.active && ["keybinds", "security", "assistant", "about"].includes(hostView.page)
         live: hostView.live
         script: Eitr.Paths.code("quickshell/desktop-bar/scripts/settings-system.py")
         summaryArguments: [hostView.page === "assistant" ? "assistants" : hostView.page]
@@ -195,7 +177,6 @@ Flickable {
     Component { id: keybindsComponent; SettingsKeybindsPage { context: hostView } }
     Component { id: defaultappsComponent; SettingsDefaultAppsPage { context: hostView } }
     Component { id: userComponent; SettingsUserPage { context: hostView } }
-    Component { id: gitcloudComponent; SettingsGitCloudPage { context: hostView } }
     Component { id: securityComponent; SettingsSecurityPage { context: hostView } }
     Component { id: assistantsComponent; SettingsAssistantPage { context: hostView } }
     Component { id: updatesComponent; SettingsUpdatesPage { context: hostView } }
@@ -210,31 +191,7 @@ Flickable {
             id: pageLoader
             width: parent.width
             height: item ? item.implicitHeight : 0
-            sourceComponent: ({"keybinds": keybindsComponent, "default-apps": defaultappsComponent, "user": userComponent, "git-cloud": gitcloudComponent, "security": securityComponent, "assistant": assistantsComponent, "updates": updatesComponent, "check-pc": checkpcComponent, "about": aboutComponent})[hostView.page] || null
-        }
-        Popup {
-            parent: Overlay.overlay
-            anchors.centerIn: parent
-            width: Math.min(520, parent ? parent.width - 36 : 520)
-            padding: 0
-            modal: true
-            focus: true
-            visible: hostView.pendingAction !== null
-            closePolicy: Popup.NoAutoClose
-            contentItem: ControlCard {
-                title: hostView.pendingAction ? (hostView.pendingAction.entry.label || Eitr.I18n.tr(hostView.pendingAction.entry.title)) : ""
-                foreground: hostView.foreground
-                surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
-                Label { text: hostView.pendingAction ? hostView.pendingAction.entry.confirmation || Eitr.I18n.tr(hostView.pendingAction.entry.detail || "") : "" }
-                Row {
-                    spacing: 8
-                    PanelButton { width: 140; text: Eitr.I18n.tr("Cancel"); foreground: hostView.foreground; onClicked: hostView.pendingAction = null }
-                    PanelButton {
-                        width: 140; text: Eitr.I18n.tr("Confirm"); foreground: hostView.foreground
-                        onClicked: { const pending = hostView.pendingAction; hostView.pendingAction = null; hostView.runControl(pending.entry, pending.selection, true); }
-                    }
-                }
-            }
+            sourceComponent: ({"keybinds": keybindsComponent, "default-apps": defaultappsComponent, "user": userComponent, "security": securityComponent, "assistant": assistantsComponent, "updates": updatesComponent, "check-pc": checkpcComponent, "about": aboutComponent})[hostView.page] || null
         }
         Label {
             visible: helper.active && helper.error !== ""
@@ -250,7 +207,7 @@ Flickable {
             text: Eitr.I18n.tr("Learn more")
             foreground: hostView.foreground
             onClicked: if (hostView.live)
-                Quickshell.execDetached(["bash", Eitr.Paths.code("quickshell/desktop-bar/scripts/handbook.sh"), "open", hostView.page === "git-cloud" ? "git-accounts" : hostView.page === "keybinds" ? "shortcuts" : hostView.page === "security" || hostView.page === "user" ? "security" : hostView.page === "updates" || hostView.page === "check-pc" ? "maintenance" : hostView.page === "about" ? "information" : hostView.page === "assistant" ? "development" : "control-center"])
+                Quickshell.execDetached(["bash", Eitr.Paths.code("quickshell/desktop-bar/scripts/handbook.sh"), "open", hostView.page === "keybinds" ? "shortcuts" : hostView.page === "security" || hostView.page === "user" ? "security" : hostView.page === "updates" || hostView.page === "check-pc" ? "maintenance" : hostView.page === "about" ? "information" : hostView.page === "assistant" ? "development" : "control-center"])
         }
     }
 }

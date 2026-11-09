@@ -6,7 +6,7 @@ Zwanzig Sekunden vor dem Sperren werden unterstützte Bildschirme auf etwa 30 % 
 
 ## Passwort und alternative Authentifizierung
 
-**Einstellungen > Sicherheit > Passwort ändern** ändert dein Kontopasswort. Fingerabdruck und FIDO2 Sicherheitsschlüssel haben eigene Abläufe zur Registrierung und Aktivierung. Ein FIDO2-Sicherheitsschlüssel ist ein physisches Sicherheitsgerät, kein Fingerabdruckleser im Laptop. Registriere das Gerät zuerst und aktiviere dann die Authentifizierung. Das Hilfsprogramm sichert die PAM-Einstellungen; halte ein funktionierendes Passwort und einen Zugang zu einem TTY bereit.
+**Einstellungen > Benutzer > Passwort ändern** ändert dein Kontopasswort und lässt den Anmelde-Schlüsselbund weiter damit öffnen. Fingerabdruck und FIDO2 Sicherheitsschlüssel haben eigene Abläufe zur Registrierung und Aktivierung. Ein FIDO2-Sicherheitsschlüssel ist ein physisches Sicherheitsgerät, kein Fingerabdruckleser im Laptop. Registriere das Gerät zuerst und aktiviere dann die Authentifizierung. Das Hilfsprogramm sichert die PAM-Einstellungen; halte ein funktionierendes Passwort und einen Zugang zu einem TTY bereit.
 
 Zurück zur Passwortauthentifizierung stellt die Anmeldung ausschließlich per Passwort wieder her. Diese Änderungen betreffen die unterstützten PAM-Dienste für Sperrbildschirm, Anmeldung und sudo. Sie setzen geeignete Hardware und installierte Hilfsprogramme voraus. Die Fingerabdruckauthentifizierung kann die Passwortabfrage kurz verzögern. Das Lesen dieser Seite ändert PAM nicht.
 

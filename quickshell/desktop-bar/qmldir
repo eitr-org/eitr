@@ -184,8 +184,8 @@ SettingsFocusPage settings/SettingsFocusPage.qml
 SettingsText components/SettingsText.qml
 SettingsKeybindsPage settings/SettingsKeybindsPage.qml
 SettingsDefaultAppsPage settings/SettingsDefaultAppsPage.qml
+SettingsPasswordSheet settings/SettingsPasswordSheet.qml
 SettingsUserPage settings/SettingsUserPage.qml
-SettingsGitCloudPage settings/SettingsGitCloudPage.qml
 SettingsSecurityPage settings/SettingsSecurityPage.qml
 SettingsAssistantPage settings/SettingsAssistantPage.qml
 SettingsUpdatesPage settings/SettingsUpdatesPage.qml

@@ -34,7 +34,6 @@ Usa los siguientes nombres de página. Los capítulos enlazados explican los pas
 | Atajos de teclado | [Atajos de teclado](handbook:shortcuts) |
 | Apps predeterminadas | [Apps predeterminadas](handbook:apps) |
 | Usuario | [Usuario](handbook:security) |
-| Git y nube | [Git y nube](handbook:git-accounts) |
 | Seguridad | [Seguridad](handbook:security) |
 | Actualizaciones | [Actualizaciones](handbook:maintenance) |
 | Comprobar este PC | [Comprobar este PC](handbook:troubleshooting) |
@@ -49,6 +48,10 @@ Guardar (o Enter) aplica el recorte; Cancelar o Escape cierra la hoja sin aplica
 La foto siempre aparece como un círculo en el Centro de control, el bloqueo y el inicio de sesión. El Centro de control solo muestra la foto en la parte superior de su navegación; sin foto no muestra nada ahí, igual que el bloqueo y el inicio de sesión. Configuración muestra en su lugar la inicial de tu nombre sobre un círculo del color de acento.
 
 Se aceptan PNG, JPEG, WebP, GIF (primer fotograma) y BMP hasta 40 MB y 12000 píxeles por lado. Eitr aplica la orientación, elimina metadatos, guarda un PNG de 512×512 en `~/.face` y actualiza AccountsService para SDDM. Si falla la actualización, la foto guardada sigue funcionando en el bloqueo; la interfaz o CLI muestra el error del inicio de sesión.
+
+## Cambiar tu contraseña
+
+Abre Configuración > Usuario y elige Cambiar contraseña. Escribe tu contraseña actual y luego la nueva dos veces: Intro pasa al campo siguiente y confirma en el último; Escape cancela. Las reglas de contraseñas del sistema deciden qué se acepta, y una contraseña rechazada muestra el motivo. Eitr también cambia el llavero de inicio de sesión a la nueva contraseña, para que las contraseñas guardadas se sigan desbloqueando al iniciar sesión. La frase de cifrado del disco es independiente y no cambia. Walker > Configuración > Seguridad > Actualizar contraseña hace lo mismo en un terminal.
 
 ## Usar Walker como alternativa
 

@@ -5,6 +5,7 @@ import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
 Column {
+    id: userPage
     required property var context
     readonly property var view: context
     readonly property var chooser: context.chooser
@@ -12,6 +13,7 @@ Column {
     spacing: 12
     property alias pictureSheet: pictureSheet
     property alias profileEditor: profileEditor
+    property alias passwordSheet: passwordSheet
     ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
         title: Eitr.I18n.tr("User")
         foreground: view.foreground
@@ -62,6 +64,26 @@ Column {
                 }
             }
         }
+        Row {
+            spacing: 12
+            PanelButton {
+                objectName: "settings-change-password"
+                width: 170
+                foreground: view.foreground
+                text: Eitr.I18n.tr("Change password")
+                onClicked: passwordSheet.open()
+            }
+            SettingsText {
+                anchors.verticalCenter: parent.verticalCenter
+                visible: !passwordSheet.opened && passwordSheet.notice !== ""
+                text: passwordSheet.notice
+            }
+        }
+    }
+    SettingsPasswordSheet {
+        id: passwordSheet
+        view: userPage.view
+        live: userPage.view.live !== false
     }
     Popup {
         id: pictureSheet

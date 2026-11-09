@@ -113,6 +113,28 @@ def tpm_action(action):
     subprocess.run(["sudo", helper, "luks-tpm-enroll", device], check=True)
 
 
+def change_password():
+    """The same change as Settings > User: passwd, then the login keyring."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from account_password import change_password as change
+    current = getpass.getpass(tr('Current password: '))
+    new = getpass.getpass(tr('New password: '))
+    if getpass.getpass(tr('Repeat new password: ')) != new:
+        raise RuntimeError(tr('The new passwords do not match.'))
+    result = change(current, new)
+    if result["status"] == "wrong-current":
+        raise RuntimeError(tr('The current password is not correct.'))
+    if result["status"] == "rejected":
+        raise RuntimeError(tr('The new password was not accepted: {reason}',
+                              reason=result["detail"] or tr('choose a stronger one')))
+    if result["status"] != "changed":
+        raise RuntimeError(tr('The password could not be changed.'))
+    if result.get("keyring") == "kept":
+        print(tr('Password changed. The login keyring kept its old password; change it in Passwords and Keys.'))
+    else:
+        print(tr('Password changed.'))
+
+
 def authentication_summary(directory=Path("/etc/pam.d")):
     """Report active PAM modules without enrolling or changing authentication."""
     services = {}
@@ -134,7 +156,7 @@ def main(action):
     elif action in ("tpm-enroll", "tpm-remove", "tpm-status"):
         tpm_action(action)
     elif action == "password":
-        subprocess.run(["passwd"], check=True)
+        change_password()
     elif action == "fingerprint":
         subprocess.run(["fprintd-enroll"], check=True)
         print(tr('Fingerprint enrolled. Enable fingerprint authentication separately.'))

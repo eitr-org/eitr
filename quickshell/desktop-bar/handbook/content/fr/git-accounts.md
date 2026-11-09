@@ -1,6 +1,6 @@
 # Comptes Git
 
-Ouvrez Paramètres > Git et cloud. Walker > Développement > Comptes Git reste une alternative. Vous pouvez utiliser simultanément des comptes GitHub et GitLab, y compris plusieurs comptes du même fournisseur ou serveur d’entreprise. Les nouvelles installations incluent GitHub CLI (`gh`) et GitLab CLI (`glab`). Les ISO existantes doivent être reconstruites pour incorporer les changements.
+Ouvrez Walker > Développement > Comptes Git. Vous pouvez utiliser simultanément des comptes GitHub et GitLab, y compris plusieurs comptes du même fournisseur ou serveur d’entreprise. Les nouvelles installations incluent GitHub CLI (`gh`) et GitLab CLI (`glab`). Les ISO existantes doivent être reconstruites pour incorporer les changements.
 
 Chaque ligne indique où Git utilise le compte : **Par défaut**, ses dossiers ou **Pas encore utilisé**. Enter ouvre les actions ; Shift+Backspace revient à la liste.
 
@@ -41,5 +41,3 @@ Le compte par défaut ou de dossier sélectionne `gh` ou `glab`. Les commandes C
 Les réglages versionnés se trouvent dans `~/.config/eitr/git-accounts.json`. Chaque application des réglages sauvegarde le fichier global Git, l’inclusion active et les réglages sous `~/.local/state/eitr/git-account-backups/<id>`, avec des permissions privées. `manifest.json` indique chemins d’origine, noms de sauvegardes et permissions. Clés et tokens CLI ne sont jamais copiés. Pour restaurer manuellement, examinez le manifeste et conservez les changements faits depuis la sauvegarde avant de restaurer. Les inclusions EITR modifiées ou invalides sont refusées plutôt que remplacées silencieusement.
 
 Références : [inclusions conditionnelles Git](https://git-scm.com/docs/git-config), [profils GitHub CLI](https://cli.github.com/manual/gh_help_environment), [profils GitLab CLI](https://docs.gitlab.com/cli/configuration/).
-
-Paramètres > Git et cloud affiche une carte par fournisseur avec chaque identité, règle de dossier ou contexte cloud en ligne avec ses actions. La barre d’outils ouvre Comptes Git, Importer la configuration existante et Ajouter un compte… pour un fournisseur cloud dans les parcours guidés existants ; consulter la page ne change aucun réglage par défaut des CLI.

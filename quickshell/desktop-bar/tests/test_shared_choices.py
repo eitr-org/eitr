@@ -29,7 +29,7 @@ class SharedChoicesTests(unittest.TestCase):
         self.assertNotIn('visible: control.expanded', dropdown)
         call_sites = {'panels/AudioMenu.qml': 1, 'panels/DisplaySettingsEditor.qml': 5, 'panels/RecordingMenu.qml': 1,
                       'settings/SettingsAppearancePage.qml': 5, 'settings/SettingsBarPage.qml': 1, 'settings/SettingsDefaultAppsPage.qml': 1, 'components/SettingsSummaryEntry.qml': 1,
-                      'settings/SettingsGitCloudPage.qml': 1, 'settings/SettingsInputPage.qml': 1, 'settings/SettingsAssistantPage.qml': 2,
+                      'settings/SettingsInputPage.qml': 1, 'settings/SettingsAssistantPage.qml': 2,
                       'components/SettingsAudioDeviceCard.qml': 1, 'components/SettingsWifiCredentials.qml': 1}
         for path, count in call_sites.items():
             with self.subTest(call_site=path):

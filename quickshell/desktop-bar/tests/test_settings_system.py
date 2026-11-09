@@ -46,14 +46,6 @@ class SettingsSystemTests(unittest.TestCase):
             git.perform('fixture', 'Make Default', confirmation=lambda question: True)
             self.assertEqual(save.call_args.args[0]['default'], 'fixture')
 
-    def test_git_action_rejects_unconfirmed_changes_and_stale_choices(self):
-        helper = SimpleNamespace(TERMINAL_ACTIONS={}, perform=lambda *arguments, **options: options['picker'](['allowed'], 'Choose'))
-        with patch.object(settings, 'module', return_value=helper):
-            with self.assertRaisesRegex(ValueError, 'Confirmation required'):
-                settings.git_action('fixture', 'Remove Account', '', False)
-            with self.assertRaisesRegex(ValueError, 'Selection changed'):
-                settings.git_action('fixture', 'Remove Folder', 'stale', True)
-
     def test_security_leaf_actions_and_assistant_dropdown_survive_projection(self):
         items = [{'title': 'Firewall', 'menu': '', 'actionMenu': 'security'},
                  {'title': 'Fingerprint', 'menu': 'fingerprint'},
@@ -97,24 +89,6 @@ class SettingsSystemTests(unittest.TestCase):
         self.assertIn('setup-local', local[0]['command'])
         self.assertTrue(any('task-terminal.py' in argument for argument in local[0]['command']))
 
-    def test_cloud_controls_use_scoped_helpers_and_inline_delete(self):
-        git = SimpleNamespace(load=lambda: {'accounts': {}, 'folders': []})
-        providers = SimpleNamespace(PROVIDERS={'cloudflare': {'name': 'Cloudflare'}},
-            account_entries=lambda provider, context: [
-                {'Text': 'Sign In', 'Subtext': context, 'Actions': {'open': 'kitty --class eitr-cloud -e python3 helper.py cloudflare login fixture'}},
-                {'Text': 'Delete Account', 'Subtext': context, 'Actions': {'open': 'python3 helper.py cloudflare delete fixture'}}])
-        items = [{'title': 'fixture', 'detail': 'context', 'menu': 'cloud', 'provider': 'cloudflare', 'providerTitle': 'Cloudflare', 'context': 'fixture'},
-                 {'title': 'Example', 'detail': 'fixture', 'menu': 'cloud', 'provider': 'aws', 'providerTitle': 'AWS', 'context': 'fixture'}]
-        with patch.object(settings, 'summary', return_value={'items': items}), patch.object(settings, 'module', side_effect=lambda name, relative: git if name == 'settings_git_controls' else providers), patch.object(settings.subprocess, 'Popen', side_effect=AssertionError('Action during read')):
-            result = settings.controls_summary('git-cloud')
-        sign_in, delete = result['items'][0]['controls']
-        self.assertTrue(sign_in['command'][0].endswith('walker/bin/menu-path/kitty'))
-        self.assertEqual(delete['cloudDelete'], 'fixture')
-        self.assertNotIn('command', delete)
-        self.assertIn('fixture', delete['confirmation'])
-        self.assertIn('rename', result['items'][1]['controls'][0]['command'])
-        self.assertEqual(len(result['providers']), 4)
-
     def test_shortcuts_resolve_every_canonical_reference(self):
         reference = settings.shortcut_reference()
         result = settings.shortcuts()['items']
@@ -131,7 +105,9 @@ class SettingsSystemTests(unittest.TestCase):
                 patch.object(eitr_assistants, 'assistant_access', return_value='ask'), \
                 patch.object(eitr_selfcheck, 'check_security_firewall', return_value=('info', 'Firewall active', '', '')):
             result = settings.security()['items']
-        self.assertEqual([entry['title'] for entry in result], [entry['text'] for entry in settings.rows('security')])
+        # Settings > User changes the password, so Security leaves Walker's Update Password out.
+        self.assertEqual([entry['title'] for entry in result],
+                         [entry['text'] for entry in settings.rows('security') if entry['text'] != 'Update Password'])
         self.assertEqual(next(entry for entry in result if entry['title'] == 'Firewall')['detail'], 'Firewall active')
         for entry in result:
             self.assertTrue(entry['menu'] or entry['actionMenu'])
@@ -161,19 +137,3 @@ class SettingsSystemTests(unittest.TestCase):
             self.assertEqual(result['fido2']['services'], ['sudo'])
             self.assertEqual(result['fingerprint']['services'], [])
             self.assertTrue(result['fingerprint']['available'])
-
-    def test_git_and_cloud_reads_only_existing_metadata_helpers(self):
-        git = SimpleNamespace(load=lambda: {'accounts': {'fixture': {'label': 'Example', 'name': 'Explorer', 'email': 'explorer@example.invalid'}}, 'folders': [{'path': '/projects/example', 'account': 'fixture'}], 'default': 'fixture'})
-        accounts = SimpleNamespace(aws_choices=lambda: ['Example\tfixture'])
-        contexts = SimpleNamespace(contexts=lambda provider: [{'label': provider}], title=lambda context: context['label'])
-        providers = SimpleNamespace(PROVIDERS={'example': {'name': 'Example provider'}}, accounts=lambda provider: ['fixture'], selection=lambda provider, name: {'context': 'fixture-context'})
-        modules = {'settings_git': git, 'settings_contexts': contexts, 'settings_cloud_accounts': accounts, 'settings_providers': providers}
-        with patch.object(settings, 'module', side_effect=lambda name, relative: modules[name]):
-            result = settings.git_cloud()['items']
-        self.assertIn('explorer@example.invalid', result[0]['detail'])
-        self.assertIn('/projects/example', result[0]['detail'])
-        self.assertEqual((result[-1]['title'], result[-1]['detail']), ('fixture', 'fixture-context'))
-        self.assertEqual([(item['provider'], item['providerTitle']) for item in result],
-                         [('git', 'Git identities'), ('aws', 'AWS'), ('gcp', 'Google Cloud'), ('azure', 'Azure'), ('example', 'Example provider')])
-        self.assertEqual((result[1]['title'], result[1]['detail']), ('Example', 'fixture'))
-        self.assertEqual(len(result), 5)

@@ -34,7 +34,6 @@ Verwende die folgenden Seitennamen. Anleitungen stehen in den verlinkten Kapitel
 | Tastenbelegungen | [Tastenbelegungen](handbook:shortcuts) |
 | Standard-Apps | [Standard-Apps](handbook:apps) |
 | Benutzer | [Benutzer](handbook:security) |
-| Git und Cloud | [Git und Cloud](handbook:git-accounts) |
 | Sicherheit | [Sicherheit](handbook:security) |
 | Aktualisierungen | [Aktualisierungen](handbook:maintenance) |
 | Diesen PC prüfen | [Diesen PC prüfen](handbook:troubleshooting) |
@@ -47,6 +46,10 @@ Verwende die folgenden Seitennamen. Anleitungen stehen in den verlinkten Kapitel
 Das Bild erscheint im Kontrollzentrum, auf dem Sperrbildschirm und am Anmeldebildschirm immer rund. Das Kontrollzentrum zeigt das Bild oben in seiner Navigation nur an; ohne Bild zeigt es dort nichts, ebenso Sperr- und Anmeldebildschirm. Die Einstellungen zeigen stattdessen den Anfangsbuchstaben deines Namens auf einem Kreis in der Akzentfarbe. Unterstützt werden PNG, JPEG, WebP, GIF (erstes Bild) und BMP bis 40 MB und 12000 Pixel pro Seite.
 
 Eitr korrigiert die Ausrichtung, entfernt Metadaten, speichert ein PNG mit 512×512 Pixeln unter `~/.face` und aktualisiert AccountsService für SDDM. Bei einem Fehler bleibt das Bild für den Sperrbildschirm erhalten; Oberfläche oder CLI melden den Anmeldefehler.
+
+## Dein Passwort ändern
+
+Öffne Einstellungen > Benutzer und wähle Passwort ändern. Gib dein aktuelles Passwort ein, dann zweimal das neue: Enter springt zum nächsten Feld und bestätigt im letzten; Escape bricht ab. Die Passwortregeln des Systems entscheiden, was angenommen wird, und ein abgelehntes Passwort zeigt den Grund. Eitr stellt auch den Anmelde-Schlüsselbund auf das neue Passwort um, damit gespeicherte Passwörter bei der Anmeldung weiter entsperrt werden. Eine Passphrase für die Festplattenverschlüsselung ist davon getrennt und bleibt gleich. Walker > Einstellungen > Sicherheit > Passwort ändern tut dasselbe in einem Terminal.
 
 ## Walker als Alternative verwenden
 

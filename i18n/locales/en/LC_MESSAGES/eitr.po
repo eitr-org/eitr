@@ -940,6 +940,9 @@ msgstr "Ctrl+B: view build file · Ctrl+O: open in browser"
 msgid "Current Disk Usage"
 msgstr "Current Disk Usage"
 
+msgid "Current password: "
+msgstr "Current password: "
+
 msgid "Current wallpaper"
 msgstr "Current wallpaper"
 
@@ -1431,9 +1434,6 @@ msgstr "Git Accounts"
 
 msgid "Git author and date: {author}"
 msgstr "Git author and date: {author}"
-
-msgid "Git identities"
-msgstr "Git identities"
 
 msgid "Git will use"
 msgstr "Git will use"
@@ -2014,6 +2014,9 @@ msgstr "New name"
 msgid "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n"
 msgstr "New partitions are added in the free space of {path}.\nExisting partitions are kept, but back up important files first.\n"
 
+msgid "New password: "
+msgstr "New password: "
+
 msgid "Next, Eitr downloads the plugin without running it and shows its exact author and commit."
 msgstr "Next, Eitr downloads the plugin without running it and shows its exact author and commit."
 
@@ -2340,6 +2343,12 @@ msgstr "Part of the system was updated after the PC started; restart to start us
 
 msgid "Password"
 msgstr "Password"
+
+msgid "Password changed."
+msgstr "Password changed."
+
+msgid "Password changed. The login keyring kept its old password; change it in Passwords and Keys."
+msgstr "Password changed. The login keyring kept its old password; change it in Passwords and Keys."
 
 msgid "Passwords did not match"
 msgstr "Passwords did not match"
@@ -2686,9 +2695,6 @@ msgstr "Remove bar item"
 msgid "Remove local sign-in"
 msgstr "Remove local sign-in"
 
-msgid "Remove local sign-in; the remote account is kept."
-msgstr "Remove local sign-in; the remote account is kept."
-
 msgid "Remove plugin {id} and its service?"
 msgstr "Remove plugin {id} and its service?"
 
@@ -2721,6 +2727,9 @@ msgstr "Rename {current}"
 
 msgid "Renamed to {label}."
 msgstr "Renamed to {label}."
+
+msgid "Repeat new password: "
+msgstr "Repeat new password: "
 
 msgid "Repeat the password."
 msgstr "Repeat the password."
@@ -3424,6 +3433,9 @@ msgstr "The clock is not synchronized, which can break secure websites and updat
 msgid "The collaboration state is invalid; settings were left unchanged."
 msgstr "The collaboration state is invalid; settings were left unchanged."
 
+msgid "The current password is not correct."
+msgstr "The current password is not correct."
+
 msgid "The default assistant changed. Start a new chat."
 msgstr "The default assistant changed. Start a new chat."
 
@@ -3474,6 +3486,15 @@ msgstr "The name needs at least one letter or digit"
 
 msgid "The name needs at least one letter or digit."
 msgstr "The name needs at least one letter or digit."
+
+msgid "The new password was not accepted: {reason}"
+msgstr "The new password was not accepted: {reason}"
+
+msgid "The new passwords do not match."
+msgstr "The new passwords do not match."
+
+msgid "The password could not be changed."
+msgstr "The password could not be changed."
 
 msgid "The payload has no pacman {version} package"
 msgstr "The payload has no pacman {version} package"
@@ -4152,6 +4173,9 @@ msgstr "checking the longships"
 
 msgid "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib."
 msgstr "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib."
+
+msgid "choose a stronger one"
+msgstr "choose a stronger one"
 
 msgid "consulting the Norns"
 msgstr "consulting the Norns"
