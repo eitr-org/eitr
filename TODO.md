@@ -30,7 +30,7 @@ LAN.
 
 # 2. Catalog: what is left
 
-The Themes & Plugins catalog, the 12 extra themes in `eitr-org/eitr-themes`, the
+The Themes & Plugins catalog, the extra themes in `eitr-org/eitr-themes` (14 since Freyja and Skaði), the
 native install review and the community index `eitr-org/eitr-community` shipped to
 stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
 

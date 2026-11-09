@@ -64,7 +64,7 @@ Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offizi
 
 Enter bestätigt, Escape bricht ab. Installiert wird genau der geprüfte Commit; Community verwendet den im Index festgelegten Commit. Die Prüfung läuft nach 15 Minuten ab und wird beim Schließen verworfen. Installiert > Von einer Git-Adresse hinzufügen akzeptiert HTTPS oder SSH für Plugins und datenbasierte Themes, ohne Terminal.
 
-Die 13 integrierten Themes bleiben offline verfügbar. Die 12 zusätzlichen Themes werden aus dem offiziellen Katalog `eitr-org/eitr-themes` installiert. Bestehende Konten erhalten alle 12 im Hintergrund; bei Netzwerkfehlern wird es später erneut versucht. Das aktuelle Theme und das gespeicherte Hintergrundbild bleiben erhalten. Neue Konten erhalten nur die integrierten Themes.
+Die 13 integrierten Themes bleiben offline verfügbar. Die 14 zusätzlichen Themes, darunter die hellen Freyja und Skaði, werden aus dem offiziellen Katalog `eitr-org/eitr-themes` installiert. Bestehende Konten erhielten die ersten 12 im Hintergrund; bei Netzwerkfehlern wird es später erneut versucht. Das aktuelle Theme und das gespeicherte Hintergrundbild bleiben erhalten. Neue Konten erhalten nur die integrierten Themes.
 
 Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um die aktuelle Seite nach Name oder Beschreibung zu durchsuchen. Die Wörter können in beliebiger Reihenfolge stehen; Escape leert zuerst die Suche.
 

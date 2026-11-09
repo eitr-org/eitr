@@ -1,6 +1,6 @@
 # Wallpaper Collection
 
-The built-in collection spans 13 themes. The 12 extra themes and their artwork
+The built-in collection spans 13 themes. The 14 extra themes and their artwork
 are maintained in `eitr-org/eitr-themes`; their generation records here are
 marked removed with the official repository location. The Eitr theme combines procedural and generated illustration (see themes/eitr/artwork.md). Batches 01-03 originally generated 95 images and the Witcher batch four more, 99 in all. The owner's curation removes and reorders wallpapers; wallpaper names remain stable during review, and manifest entries for removed wallpapers are marked removed with their prompts kept as history.
 

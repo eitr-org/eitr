@@ -3,10 +3,10 @@
 Eitr Light adds the light Primordial Venom palette, local light Neovim and VS Code
 themes, and four still wallpapers led by Dusk Fjord. Eitr starts with Aurora
 Fjord, then Dusk Fjord, Rune Seal and the animated Runestone. The fjords use
-flat ink cel shading with separately generated panoramas. Eitr remains the default among 13 built-in themes. The 12 extra
+flat ink cel shading with separately generated panoramas. Eitr remains the default among 13 built-in themes. The 14 extra
 themes are official packages from `eitr-org/eitr-themes`: Catppuccin, Catppuccin
-Latte, Daylight, Gruvbox, Jade, Kanagawa, Moss, Nord, One Dark Pro, Rosé Pine,
-Stillwater and Wisteria. Existing accounts receive all 12 in the background,
+Latte, Daylight, Freyja, Gruvbox, Jade, Kanagawa, Moss, Nord, One Dark Pro, Rosé Pine,
+Skaði, Stillwater and Wisteria. Existing accounts received the first 12 in the background,
 current theme first; failed downloads retry on later logins without changing
 the current desktop or wallpaper. Fresh accounts receive only the built-ins.
 

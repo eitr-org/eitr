@@ -84,7 +84,7 @@ Eitr propose quatre fonds : Fjord des aurores (par défaut), Fjord au crépuscul
 
 Le rendu logiciel (par exemple, une VM sans accélération 3D) utilise le fond fixe sélectionné ; il en va de même si le moteur de rendu ne peut pas être détecté. Graphite a été retiré ; les sélections Graphite enregistrées passent à Eitr et à son fond par défaut.
 
-Les 13 thèmes intégrés restent disponibles hors ligne. Installez les 12 thèmes supplémentaires depuis le catalogue officiel `eitr-org/eitr-themes`. Les comptes existants reçoivent les 12 en arrière-plan, avec de nouvelles tentatives après un échec réseau, sans changer le thème actuel ni le fond enregistré. Les nouveaux comptes reçoivent seulement les thèmes intégrés.
+Les 13 thèmes intégrés restent disponibles hors ligne. Installez les 14 thèmes supplémentaires, dont les thèmes clairs Freyja et Skaði, depuis le catalogue officiel `eitr-org/eitr-themes`. Les comptes existants ont reçu les 12 premiers en arrière-plan, avec de nouvelles tentatives après un échec réseau, sans changer le thème actuel ni le fond enregistré. Les nouveaux comptes reçoivent seulement les thèmes intégrés.
 
 Les 13 thèmes fournis comprennent dix palettes sombres des royaumes : Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim et Vanaheim. Chaque thème des royaumes comprend de deux à cinq fonds originaux, dans des styles variés : encre, gouache, cel-shading et peinture, dans les deux formats. Le premier fond correspond généralement à l’aperçu du thème ; Svartalfheim conserve son aperçu indépendant.
 

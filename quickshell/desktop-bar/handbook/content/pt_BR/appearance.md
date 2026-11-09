@@ -81,7 +81,7 @@ O Eitr tem quatro papéis de parede: Fiorde da aurora (padrão), Fiorde ao entar
 
 A renderização por software (por exemplo, numa VM sem aceleração 3D) usa o papel de parede estático selecionado; o mesmo acontece se não for possível detectar o renderizador. Graphite foi removido; seleções salvas do Graphite mudam para Eitr e seu papel de parede padrão.
 
-Os 13 temas integrados ficam disponíveis offline. Instale os 12 temas extras pelo catálogo oficial `eitr-org/eitr-themes`. Contas existentes recebem todos os 12 em segundo plano, com novas tentativas após falhas de rede, sem mudar o tema atual nem o papel de parede salvo. Contas novas recebem apenas os integrados.
+Os 13 temas integrados ficam disponíveis offline. Instale os 14 temas extras, incluindo os claros Freyja e Skaði, pelo catálogo oficial `eitr-org/eitr-themes`. Contas existentes receberam os 12 primeiros em segundo plano, com novas tentativas após falhas de rede, sem mudar o tema atual nem o papel de parede salvo. Contas novas recebem apenas os integrados.
 
 Os 13 temas incluídos oferecem dez paletas escuras dos reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim e Vanaheim. Cada tema dos reinos tem de dois a cinco papéis de parede originais, com estilos variados de tinta, guache, cel shading e pintura, nas duas proporções. O primeiro papel de parede geralmente corresponde à prévia do tema; Svartalfheim mantém sua prévia independente.
 
