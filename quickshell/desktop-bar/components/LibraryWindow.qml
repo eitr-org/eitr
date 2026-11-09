@@ -20,8 +20,14 @@ FloatingWindow {
 
     function showWindow() {
         if (!opened) {
-            implicitWidth = Math.max(1, Math.min(defaultSize.width, screen ? screen.width - 32 : defaultSize.width));
-            implicitHeight = Math.max(1, Math.min(defaultSize.height, screen ? screen.height - 64 : defaultSize.height));
+            const width = Math.max(1, Math.min(defaultSize.width, screen ? screen.width - 32 : defaultSize.width));
+            const height = Math.max(1, Math.min(defaultSize.height, screen ? screen.height - 64 : defaultSize.height));
+            // A resize by the person changes the window, not these requested values, so
+            // assigning the same default again would change nothing: step off it first.
+            implicitWidth = width + 1;
+            implicitHeight = height + 1;
+            implicitWidth = width;
+            implicitHeight = height;
         }
         opened = true;
         minimized = false;
