@@ -649,7 +649,6 @@
   "Medium": "Mittel",
   "Medium (80%)": "Mittel (80%)",
   "Memory": "Arbeitsspeicher",
-  "Memory slot": "Speichersteckplatz",
   "Message queues": "Nachrichtenwarteschlangen",
   "Missing stick file: {name}": "Fehlende Datei auf dem Stick: {name}",
   "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed.": "{missing_files} fehlt. Installieren Sie zuerst die unter distro/bootloader/ aufgeführten Pakete für {loader}. Nichts wurde geändert.",

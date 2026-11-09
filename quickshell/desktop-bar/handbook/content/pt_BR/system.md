@@ -33,7 +33,7 @@ Use os nomes de página abaixo. Os capítulos vinculados explicam os passos.
 | Assistente de IA | [Assistente de IA](handbook:development) |
 | Atalhos de teclado | [Atalhos de teclado](handbook:shortcuts) |
 | Apps padrão | [Apps padrão](handbook:apps) |
-| Usuário | [Usuário](handbook:security) |
+| Usuários | [Usuários](handbook:security) |
 | Segurança | [Segurança](handbook:security) |
 | Atualizações | [Atualizações](handbook:maintenance) |
 | Verificar este PC | [Verificar este PC](handbook:troubleshooting) |
@@ -41,9 +41,9 @@ Use os nomes de página abaixo. Os capítulos vinculados explicam os passos.
 
 ## Alterar sua foto de perfil
 
-Abra Configurações > Usuário (ou clique na sua foto na visão geral Sistema das Configurações) e escolha Alterar foto. O seletor de arquivos do sistema abre flutuante, centralizado sobre as Configurações, mostrando só imagens; ao escolher uma, o editor de recorte abre em uma folha sobre as Configurações. Arraste a prévia circular para mover a imagem; use a roda, o controle deslizante ou +/− para ampliar de 1× a 4×, e as setas para mover.
+Abra Configurações > Usuários (ou clique na sua foto na visão geral Sistema das Configurações) e clique na sua foto. O seletor de arquivos do sistema abre flutuante, centralizado sobre as Configurações, mostrando só imagens; ao escolher uma, o editor de recorte abre em uma folha sobre as Configurações. Arraste a prévia circular para mover a imagem; use a roda, o controle deslizante ou +/− para ampliar de 1× a 4×, e as setas para mover.
 
-Salvar (ou Enter) aplica o recorte; Cancelar ou Esc fecha a folha sem aplicá-lo. Remover, ao lado de Alterar foto, apaga a foto.
+Salvar (ou Enter) aplica o recorte; Cancelar ou Esc fecha a folha sem aplicá-lo. O ícone de lixeira abaixo da sua foto a remove depois que você confirma.
 
 A foto aparece sempre como um círculo no Centro de Controle, no bloqueio e na tela de login. O Centro de Controle apenas exibe a foto no topo da navegação; sem foto, não mostra nada ali, assim como o bloqueio e a tela de login. As Configurações mostram em vez disso a inicial do seu nome sobre um círculo na cor de destaque.
 
@@ -51,7 +51,7 @@ PNG, JPEG, WebP, GIF (primeiro quadro) e BMP são aceitos até 40 MB e 12000 pix
 
 ## Alterar sua senha
 
-Abra Configurações > Usuário e escolha Alterar senha. Digite a senha atual e depois a nova duas vezes: Enter passa para o próximo campo e confirma no último; Esc cancela. As regras de senha do sistema decidem o que é aceito, e uma senha recusada mostra o motivo. O Eitr também muda o chaveiro de login para a nova senha, para que as senhas salvas continuem sendo desbloqueadas ao entrar. A frase de criptografia do disco é separada e continua a mesma. Walker > Configurações > Segurança > Atualizar senha faz o mesmo em um terminal.
+Abra Configurações > Usuários e escolha Alterar senha ao lado do seu nome. Digite a senha atual e depois a nova duas vezes: Enter passa para o próximo campo e confirma no último; Esc cancela. As regras de senha do sistema decidem o que é aceito, e uma senha recusada mostra o motivo. O Eitr também muda o chaveiro de login para a nova senha, para que as senhas salvas continuem sendo desbloqueadas ao entrar. A frase de criptografia do disco é separada e continua a mesma. Walker > Configurações > Segurança > Atualizar senha faz o mesmo em um terminal.
 
 ## Usar o Walker como alternativa
 

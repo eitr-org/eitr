@@ -51,6 +51,9 @@
     "Accounts & Security": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Accounts on this PC, your picture and your password.": [
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
     "Action and description": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
@@ -271,6 +274,7 @@
       "quickshell/desktop-bar/panels/TimePicker.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml",
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Cards": [
@@ -536,6 +540,9 @@
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
+    ],
+    "Create User…": [
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "Current": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1635,6 +1642,12 @@
     "Remove layout": [
       "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
     ],
+    "Remove picture": [
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
+    ],
+    "Remove picture?": [
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
+    ],
     "Rename": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
@@ -2251,8 +2264,6 @@
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
     ],
     "User": [
-      "quickshell/desktop-bar/settings/SettingsIndex.js",
-      "quickshell/desktop-bar/settings/SettingsUserPage.qml",
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Username": [
@@ -2260,7 +2271,8 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Users": [
-      "quickshell/desktop-bar/settings/SettingsSecurityPage.qml"
+      "quickshell/desktop-bar/settings/SettingsIndex.js",
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "View error details": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -2361,16 +2373,17 @@
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "You": [
-      "quickshell/desktop-bar/settings/SettingsOverview.qml"
+      "quickshell/desktop-bar/settings/SettingsOverview.qml",
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "Your desktop, at a glance": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
+    "Your initial shows instead, and the lockscreen and login screen show no picture.": [
+      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
+    ],
     "Your last working configuration is still running.": [
       "quickshell/desktop-bar/components/ReloadErrorPopup.qml"
-    ],
-    "Your profile picture, display name and password.": [
-      "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Your system at a glance.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -2408,7 +2421,7 @@
     "ddd MMM dd hh:mm AP": [
       "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
-    "fingerprint fido tpm firewall users authentication": [
+    "fingerprint fido tpm firewall authentication": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "gaps corners rounded square shape animations effects": [
@@ -2433,9 +2446,6 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "lock idle": [
-      "quickshell/desktop-bar/settings/SettingsIndex.js"
-    ],
-    "login account profile picture display name password change": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "monitor refresh brightness rotation scale night light schedule temperature": [
@@ -2478,6 +2488,9 @@
     "user": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml",
       "quickshell/lockscreen/themes/girl-pillow/Main.qml"
+    ],
+    "users login account accounts create profile picture display name password change": [
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "wrong password": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
@@ -5823,6 +5836,7 @@
       "walker/scripts/actions/install/webapps.py"
     ],
     "Administrator": [
+      "quickshell/desktop-bar/scripts/settings-system.py",
       "walker/scripts/actions/system/users.py"
     ],
     "Administrators can use sudo. Standard accounts cannot.": [
@@ -7503,9 +7517,6 @@
     "Memory": [
       "fastfetch/eitr.py"
     ],
-    "Memory slot": [
-      "quickshell/desktop-bar/scripts/settings-system.py"
-    ],
     "Message queues": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -8761,6 +8772,7 @@
       "quickshell/lockscreen/scripts/install-login.py"
     ],
     "Standard": [
+      "quickshell/desktop-bar/scripts/settings-system.py",
       "walker/scripts/actions/system/users.py"
     ],
     "Start and end times must differ": [

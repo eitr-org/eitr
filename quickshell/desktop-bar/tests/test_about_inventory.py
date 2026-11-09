@@ -41,7 +41,7 @@ class AboutInventoryTests(unittest.TestCase):
         self.assertEqual(system_details.graphics_names(listing),
                          ['Intel Iris Xe Graphics', 'NVIDIA GeForce RTX 3070 Lite Hash Rate'])
 
-    def test_memory_modules_name_their_brand_type_speed_and_slots(self):
+    def test_memory_line_names_type_speed_and_layout(self):
         properties = """MEMORY_ARRAY_LOCATION=System Board Or Motherboard
 MEMORY_DEVICE_0_PRESENT=0
 MEMORY_DEVICE_0_LOCATOR=ChannelA-DIMM0
@@ -62,9 +62,7 @@ MEMORY_DEVICE_3_MANUFACTURER=Example Memory Co.
 MEMORY_DEVICE_3_PART_NUMBER=Not Specified
 """
         self.assertEqual(system_details.memory_lines(properties, 32), [
-            {'title': 'RAM', 'name': '32 GiB · DDR4 · 2400 MT/s (rated 3200 MT/s) · 2 × 16 GiB'},
-            {'title': 'Memory slot', 'name': 'ChannelA-DIMM1 · Corsair CMK32GX4M2A2400C16 · 16 GiB'},
-            {'title': 'Memory slot', 'name': 'ChannelB-DIMM1 · Example Memory Co. · 16 GiB'}])
+            {'title': 'RAM', 'name': '32 GiB · DDR4 · 2400 MT/s (rated 3200 MT/s) · 2 × 16 GiB'}])
 
     def test_memory_without_firmware_details_shows_the_amount(self):
         self.assertEqual(system_details.memory_lines('', 16), [{'title': 'RAM', 'name': '16 GiB'}])

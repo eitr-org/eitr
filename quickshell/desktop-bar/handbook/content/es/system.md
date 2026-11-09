@@ -33,7 +33,7 @@ Usa los siguientes nombres de página. Los capítulos enlazados explican los pas
 | Asistente de IA | [Asistente de IA](handbook:development) |
 | Atajos de teclado | [Atajos de teclado](handbook:shortcuts) |
 | Apps predeterminadas | [Apps predeterminadas](handbook:apps) |
-| Usuario | [Usuario](handbook:security) |
+| Usuarios | [Usuarios](handbook:security) |
 | Seguridad | [Seguridad](handbook:security) |
 | Actualizaciones | [Actualizaciones](handbook:maintenance) |
 | Comprobar este PC | [Comprobar este PC](handbook:troubleshooting) |
@@ -41,9 +41,9 @@ Usa los siguientes nombres de página. Los capítulos enlazados explican los pas
 
 ## Cambiar tu foto de perfil
 
-Abre Configuración > Usuario (o pulsa tu foto en el resumen Sistema de Configuración) y elige Cambiar foto. El selector de archivos del sistema se abre flotante y centrado sobre Configuración, mostrando solo imágenes; al elegir una, el editor de recorte se abre en una hoja sobre Configuración. Arrastra la vista circular para mover la imagen; usa la rueda, el deslizador o +/− para ampliar de 1× a 4×, y las flechas para moverla.
+Abre Configuración > Usuarios (o pulsa tu foto en el resumen Sistema de Configuración) y pulsa tu foto. El selector de archivos del sistema se abre flotante y centrado sobre Configuración, mostrando solo imágenes; al elegir una, el editor de recorte se abre en una hoja sobre Configuración. Arrastra la vista circular para mover la imagen; usa la rueda, el deslizador o +/− para ampliar de 1× a 4×, y las flechas para moverla.
 
-Guardar (o Enter) aplica el recorte; Cancelar o Escape cierra la hoja sin aplicarlo. Eliminar, junto a Cambiar foto, elimina la foto.
+Guardar (o Enter) aplica el recorte; Cancelar o Escape cierra la hoja sin aplicarlo. El icono de papelera debajo de tu foto la quita después de confirmar.
 
 La foto siempre aparece como un círculo en el Centro de control, el bloqueo y el inicio de sesión. El Centro de control solo muestra la foto en la parte superior de su navegación; sin foto no muestra nada ahí, igual que el bloqueo y el inicio de sesión. Configuración muestra en su lugar la inicial de tu nombre sobre un círculo del color de acento.
 
@@ -51,7 +51,7 @@ Se aceptan PNG, JPEG, WebP, GIF (primer fotograma) y BMP hasta 40 MB y 12000 pí
 
 ## Cambiar tu contraseña
 
-Abre Configuración > Usuario y elige Cambiar contraseña. Escribe tu contraseña actual y luego la nueva dos veces: Intro pasa al campo siguiente y confirma en el último; Escape cancela. Las reglas de contraseñas del sistema deciden qué se acepta, y una contraseña rechazada muestra el motivo. Eitr también cambia el llavero de inicio de sesión a la nueva contraseña, para que las contraseñas guardadas se sigan desbloqueando al iniciar sesión. La frase de cifrado del disco es independiente y no cambia. Walker > Configuración > Seguridad > Actualizar contraseña hace lo mismo en un terminal.
+Abre Configuración > Usuarios y elige Cambiar contraseña junto a tu nombre. Escribe tu contraseña actual y luego la nueva dos veces: Intro pasa al campo siguiente y confirma en el último; Escape cancela. Las reglas de contraseñas del sistema deciden qué se acepta, y una contraseña rechazada muestra el motivo. Eitr también cambia el llavero de inicio de sesión a la nueva contraseña, para que las contraseñas guardadas se sigan desbloqueando al iniciar sesión. La frase de cifrado del disco es independiente y no cambia. Walker > Configuración > Seguridad > Actualizar contraseña hace lo mismo en un terminal.
 
 ## Usar Walker como alternativa
 

@@ -649,7 +649,6 @@
   "Medium": "Moyen",
   "Medium (80%)": "Moyen (80%)",
   "Memory": "Mémoire",
-  "Memory slot": "Emplacement mémoire",
   "Message queues": "Files de messages",
   "Missing stick file: {name}": "Fichier manquant sur la clé : {name}",
   "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed.": "Il manque {missing_files}. Installez d’abord les paquets {loader} indiqués dans distro/bootloader/. Aucune modification.",

@@ -109,16 +109,16 @@ var pages = [
     {
         "group": "Accounts & Security",
         "id": "user",
-        "title": "User",
-        "description": "Your profile picture, display name and password.",
-        "keywords": "login account profile picture display name password change"
+        "title": "Users",
+        "description": "Accounts on this PC, your picture and your password.",
+        "keywords": "users login account accounts create profile picture display name password change"
     },
     {
         "group": "Accounts & Security",
         "id": "security",
         "title": "Security",
         "description": "Authentication, firewall and security tools.",
-        "keywords": "fingerprint fido tpm firewall users authentication"
+        "keywords": "fingerprint fido tpm firewall authentication"
     },
     {
         "group": "System",
@@ -166,7 +166,7 @@ var tabs = {
     displays: [{id: "displays", label: "Displays", keywords: "monitor resolution brightness rotation scale"}, {id: "nightlight", label: "Night Light", keywords: "night light schedule temperature"}],
     connections: [{id: "wifi", label: "Wi-Fi", keywords: "wifi network backend wireless"}, {id: "bluetooth", label: "Bluetooth", keywords: "bluetooth pairing"}],
     appearance: [{id: "theme", label: "Theme & Wallpaper", keywords: "theme wallpaper palette"}, {id: "fonts", label: "Fonts & Cursor", keywords: "fonts cursor typography"}, {id: "terminal", label: "Terminal", keywords: "terminal opacity blur fire"}],
-    security: [{id: "sign-in", label: "Sign-in", keywords: "fingerprint fido security key authentication password-only"}, {id: "protection", label: "Protection", keywords: "firewall tpm disk unlock encryption"}, {id: "users", label: "Users", keywords: "users accounts create"}]
+    security: [{id: "sign-in", label: "Sign-in", keywords: "fingerprint fido security key authentication password-only"}, {id: "protection", label: "Protection", keywords: "firewall tpm disk unlock encryption"}]
 };
 function resolve(identifier) {
     const parts = String(identifier || "system").split("/");
@@ -185,7 +185,7 @@ function searchDestination(page, query, translate) {
         theme: ["Theme", "Wallpaper", "Settings colours"],
         fonts: ["Fonts", "Cursor family", "Cursor colour", "Cursor size", "Corners"],
         terminal: ["Terminal", "Opacity", "Padding", "Blur strength (shared)", "Cursor Fire"],
-        "sign-in": ["Fingerprint", "FIDO2 Security Key"], protection: ["Firewall", "TPM Disk Unlock"], users: ["Users"]
+        "sign-in": ["Fingerprint", "FIDO2 Security Key"], protection: ["Firewall", "TPM Disk Unlock"]
     };
     let match = null;
     let highest = 0;

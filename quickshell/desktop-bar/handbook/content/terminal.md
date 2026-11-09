@@ -209,4 +209,4 @@ desktop. Default-font integration is applied only where the app supports it.
 
 ## Profile pictures
 
-`eitr picture` (or `eitr picture show`) shows the current picture status as JSON. `eitr picture set FILE` saves the largest centred square; `eitr picture remove` removes it. Use Settings > User to adjust the crop.
+`eitr picture` (or `eitr picture show`) shows the current picture status as JSON. `eitr picture set FILE` saves the largest centred square; `eitr picture remove` removes it. Use Settings > Users to adjust the crop.

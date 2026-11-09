@@ -33,7 +33,7 @@ Utilisez les noms de page ci-dessous. Les chapitres liés expliquent les étapes
 | Assistant IA | [Assistant IA](handbook:development) |
 | Raccourcis clavier | [Raccourcis clavier](handbook:shortcuts) |
 | Applications par défaut | [Applications par défaut](handbook:apps) |
-| Utilisateur | [Utilisateur](handbook:security) |
+| Utilisateurs | [Utilisateurs](handbook:security) |
 | Sécurité | [Sécurité](handbook:security) |
 | Mises à jour | [Mises à jour](handbook:maintenance) |
 | Vérifier ce PC | [Vérifier ce PC](handbook:troubleshooting) |
@@ -41,9 +41,9 @@ Utilisez les noms de page ci-dessous. Les chapitres liés expliquent les étapes
 
 ## Changer votre photo de profil
 
-Ouvrez Paramètres > Utilisateur (ou cliquez sur votre photo dans la vue Système des paramètres) et choisissez Changer la photo. Le sélecteur de fichiers du système s’ouvre dans une fenêtre flottante centrée au-dessus des paramètres et n’affiche que des images ; une fois l’image choisie, l’éditeur de recadrage s’ouvre dans une feuille au-dessus des paramètres.
+Ouvrez Paramètres > Utilisateurs (ou cliquez sur votre photo dans la vue Système des paramètres) et cliquez sur votre photo. Le sélecteur de fichiers du système s’ouvre dans une fenêtre flottante centrée au-dessus des paramètres et n’affiche que des images ; une fois l’image choisie, l’éditeur de recadrage s’ouvre dans une feuille au-dessus des paramètres.
 
-Faites glisser l’aperçu rond pour déplacer l’image ; la molette, le curseur ou +/− zooment de 1× à 4×, et les flèches la déplacent. Enregistrer (ou Entrée) applique le recadrage ; Annuler ou Échap ferme la feuille sans l’appliquer. Supprimer, à côté de Changer la photo, retire la photo.
+Faites glisser l’aperçu rond pour déplacer l’image ; la molette, le curseur ou +/− zooment de 1× à 4×, et les flèches la déplacent. Enregistrer (ou Entrée) applique le recadrage ; Annuler ou Échap ferme la feuille sans l’appliquer. L’icône de corbeille sous votre photo la retire après confirmation.
 
 La photo reste circulaire dans le Centre de contrôle, le verrouillage et l’écran de connexion. Le Centre de contrôle se contente d’afficher la photo en haut de sa navigation ; sans photo, il n’y affiche rien, tout comme le verrouillage et l’écran de connexion. Les paramètres affichent à la place l’initiale de votre nom sur un cercle de la couleur d’accent.
 
@@ -51,7 +51,7 @@ PNG, JPEG, WebP, GIF (première image) et BMP sont acceptés jusqu’à 40 Mo et
 
 ## Changer votre mot de passe
 
-Ouvrez Paramètres > Utilisateur et choisissez Changer le mot de passe. Saisissez votre mot de passe actuel, puis deux fois le nouveau : Entrée passe au champ suivant et confirme sur le dernier ; Échap annule. Les règles de mot de passe du système décident de ce qui est accepté, et un mot de passe refusé affiche la raison. Eitr passe aussi le trousseau de connexion au nouveau mot de passe, pour que les mots de passe enregistrés continuent de se déverrouiller à la connexion. La phrase secrète de chiffrement du disque est distincte et reste la même. Walker > Paramètres > Sécurité > Mettre à jour le mot de passe fait la même chose dans un terminal.
+Ouvrez Paramètres > Utilisateurs et choisissez Changer le mot de passe à côté de votre nom. Saisissez votre mot de passe actuel, puis deux fois le nouveau : Entrée passe au champ suivant et confirme sur le dernier ; Échap annule. Les règles de mot de passe du système décident de ce qui est accepté, et un mot de passe refusé affiche la raison. Eitr passe aussi le trousseau de connexion au nouveau mot de passe, pour que les mots de passe enregistrés continuent de se déverrouiller à la connexion. La phrase secrète de chiffrement du disque est distincte et reste la même. Walker > Paramètres > Sécurité > Mettre à jour le mot de passe fait la même chose dans un terminal.
 
 ## Utiliser Walker comme alternative
 

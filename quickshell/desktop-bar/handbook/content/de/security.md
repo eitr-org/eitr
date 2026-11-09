@@ -30,10 +30,10 @@ Lies [Wiederherstellung und Snapshots](handbook:recovery), bevor du Authentifizi
 
 ## Benutzerkonten
 
-**Einstellungen > Sicherheit > Benutzer > Benutzer erstellen…** erstellt eine eigene Anmeldung. Gib Benutzername, optionalen vollständigen Namen, Kontotyp und Passwort ein, prüfe die Angaben und drücke Enter zum Erstellen. Esc bricht vor dem Anwenden ab. Standardkonten können sudo nicht verwenden; Administratorkonten treten wheel bei und erhalten eine passwortgeschützte sudo-Regel. Vorhandene Benutzerkonten (UID 1000–65533) erscheinen darunter in Benutzer als schreibgeschützte Zeilen.
+**Einstellungen > Benutzer > Benutzer erstellen…** erstellt eine eigene Anmeldung. Gib Benutzername, optionalen vollständigen Namen, Kontotyp und Passwort ein, prüfe die Angaben und drücke Enter zum Erstellen. Esc bricht vor dem Anwenden ab. Standardkonten können sudo nicht verwenden; Administratorkonten treten wheel bei und erhalten eine passwortgeschützte sudo-Regel. Vorhandene Benutzerkonten (UID 1000–65533) erscheinen darunter in Benutzer als schreibgeschützte Zeilen.
 
 Das neue Home enthält keine Dateien deines Kontos. Bei der ersten Hyprland-Anmeldung über UWSM führt Eitr die benutzerspezifische Desktop-Einrichtung des Installers aus und übernimmt das Paketlayout unter der Identität des neuen Benutzers. Die Shell-Einrichtung kann Internetzugang benötigen. Nach einem Fehler bleibt die Markierung für die nächste Anmeldung erhalten; nach Erfolg läuft die Einrichtung nicht erneut. Fehler beim Erstellen lassen ein unvollständiges Konto für die manuelle Prüfung gesperrt und abgelaufen zurück. Das Löschen von Benutzern wird nicht angeboten.
 
 ## Profilbilder
 
-Öffne Einstellungen > Benutzer, um dein Profilbild zu ändern oder zu entfernen. [Einstellungen](handbook:system) erklärt Bildauswahl und Zuschnitt. Das Kontrollzentrum zeigt dein Bild nur an.
+Einstellungen > Benutzer listet jedes Konto auf diesem PC. Klicke dort auf dein Bild, um es zu ändern, oder entferne es mit dem Papierkorbsymbol darunter. [Einstellungen](handbook:system) erklärt Bildauswahl und Zuschnitt. Das Kontrollzentrum zeigt dein Bild nur an.

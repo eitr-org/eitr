@@ -6,7 +6,7 @@ Vingt secondes avant le verrouillage, les écrans compatibles réduisent leur lu
 
 ## Mot de passe et authentification alternative
 
-**Paramètres > Utilisateur > Changer le mot de passe** change le mot de passe de votre compte et garde le trousseau de connexion ouvert avec lui. L’empreinte digitale et Clé de sécurité FIDO2 ont leurs propres procédures d’inscription et d’activation. Une clé de sécurité FIDO2 est un dispositif physique, pas le lecteur d’empreintes d’un portable. Inscrivez d’abord le dispositif, puis activez l’authentification. L’utilitaire sauvegarde les paramètres PAM ; gardez un mot de passe valide et un moyen d’accéder à un TTY.
+**Paramètres > Utilisateurs > Changer le mot de passe** change le mot de passe de votre compte et garde le trousseau de connexion ouvert avec lui. L’empreinte digitale et Clé de sécurité FIDO2 ont leurs propres procédures d’inscription et d’activation. Une clé de sécurité FIDO2 est un dispositif physique, pas le lecteur d’empreintes d’un portable. Inscrivez d’abord le dispositif, puis activez l’authentification. L’utilitaire sauvegarde les paramètres PAM ; gardez un mot de passe valide et un moyen d’accéder à un TTY.
 
 Revenir à l’authentification par mot de passe rétablit l’accès uniquement par mot de passe. Ces changements concernent les services PAM de verrouillage, de connexion et de sudo pris en charge. Ils nécessitent du matériel compatible et les utilitaires installés. L’authentification par empreinte peut retarder brièvement la demande de mot de passe. Lire cette page ne modifie pas PAM.
 
@@ -30,10 +30,10 @@ Lisez [Récupération et instantanés](handbook:recovery) avant de modifier l’
 
 ## Comptes utilisateur
 
-**Paramètres > Sécurité > Utilisateurs > Créer un utilisateur…** crée une connexion distincte. Saisissez le nom d’utilisateur, le nom complet facultatif, le type de compte et le mot de passe, puis vérifiez et appuyez sur Entrée pour créer le compte. Échap annule avant toute application. Les comptes standard ne peuvent pas utiliser sudo ; les administrateurs rejoignent wheel et reçoivent une règle sudo protégée par mot de passe. Les comptes existants (UID 1000–65533) figurent en dessous, dans Utilisateurs, en lecture seule.
+**Paramètres > Utilisateurs > Créer un utilisateur…** crée une connexion distincte. Saisissez le nom d’utilisateur, le nom complet facultatif, le type de compte et le mot de passe, puis vérifiez et appuyez sur Entrée pour créer le compte. Échap annule avant toute application. Les comptes standard ne peuvent pas utiliser sudo ; les administrateurs rejoignent wheel et reçoivent une règle sudo protégée par mot de passe. Les comptes existants (UID 1000–65533) figurent en dessous, dans Utilisateurs, en lecture seule.
 
 Le nouveau dossier personnel ne contient aucun fichier de votre compte. À la première connexion Hyprland via UWSM, Eitr exécute la configuration du bureau par utilisateur de l’installateur et adopte la structure du paquet sous l’identité du nouvel utilisateur. La configuration du shell peut nécessiter internet. Un échec conserve le marqueur pour la connexion suivante ; après réussite, elle ne se répète pas. Un échec de création laisse le compte incomplet verrouillé et expiré pour examen manuel. La suppression d’utilisateurs n’est pas proposée.
 
 ## Photos de profil
 
-Ouvrez Paramètres > Utilisateur pour changer ou supprimer votre photo. Voir [Paramètres](handbook:system) pour choisir une image et ajuster son cadrage. Le Centre de contrôle affiche seulement la photo.
+Paramètres > Utilisateurs liste chaque compte de ce PC. Cliquez-y sur votre photo pour la changer, ou utilisez l’icône de corbeille dessous pour la retirer. Voir [Paramètres](handbook:system) pour choisir une image et ajuster son cadrage. Le Centre de contrôle affiche seulement la photo.

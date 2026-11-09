@@ -105,12 +105,12 @@ class SettingsSystemTests(unittest.TestCase):
                 patch.object(eitr_assistants, 'assistant_access', return_value='ask'), \
                 patch.object(eitr_selfcheck, 'check_security_firewall', return_value=('info', 'Firewall active', '', '')):
             result = settings.security()['items']
-        # Settings > User changes the password and AI Assistant sets assistant access, so
-        # Security leaves those two Walker rows out; every other row belongs to a tab.
+        # Settings > Users lists the accounts and changes the password, and AI Assistant sets
+        # assistant access, so Security leaves those Walker rows out; the rest belong to a tab.
         self.assertEqual([entry['title'] for entry in result],
-                         [entry['text'] for entry in settings.rows('security') if entry['text'] not in ('Update Password', 'Assistant Access')])
+                         [entry['text'] for entry in settings.rows('security') if entry['text'] not in ('Update Password', 'Assistant Access', 'Users')])
         self.assertEqual({entry['title'] for entry in result}, set(settings.SECURITY_TABS))
-        self.assertEqual({entry['tab'] for entry in result}, {'sign-in', 'protection', 'users'})
+        self.assertEqual({entry['tab'] for entry in result}, {'sign-in', 'protection'})
         self.assertEqual(next(entry for entry in result if entry['title'] == 'Firewall')['detail'], 'Firewall active')
         for entry in result:
             self.assertTrue(entry['menu'] or entry['actionMenu'])
@@ -140,3 +140,20 @@ class SettingsSystemTests(unittest.TestCase):
             self.assertEqual(result['fido2']['services'], ['sudo'])
             self.assertEqual(result['fingerprint']['services'], [])
             self.assertTrue(result['fingerprint']['available'])
+
+
+class UsersPageTests(unittest.TestCase):
+    def test_every_login_is_listed_with_yours_first(self):
+        import grp
+        import pwd
+        accounts = [SimpleNamespace(pw_name='ana', pw_uid=1001, pw_gid=1001, pw_gecos='Ana Lima,,,'),
+                    SimpleNamespace(pw_name='explorer', pw_uid=1000, pw_gid=1000, pw_gecos='')]
+        import eitr_users
+        with patch.object(eitr_users, 'human_users', return_value=accounts), \
+                patch.object(grp, 'getgrnam', return_value=SimpleNamespace(gr_mem=['explorer'], gr_gid=998)), \
+                patch('os.getuid', return_value=1000):
+            items = settings.users()['items']
+        self.assertEqual([item['login'] for item in items], ['explorer', 'ana'])
+        self.assertTrue(items[0]['current'])
+        self.assertTrue(items[0]['administrator'])
+        self.assertEqual((items[1]['title'], items[1]['initial'], items[1]['administrator']), ('Ana Lima', 'A', False))

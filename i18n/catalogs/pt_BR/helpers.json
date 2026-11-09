@@ -649,7 +649,6 @@
   "Medium": "Médio",
   "Medium (80%)": "Médio (80%)",
   "Memory": "Memória",
-  "Memory slot": "Slot de memória",
   "Message queues": "Filas de mensagens",
   "Missing stick file: {name}": "Arquivo ausente no pendrive: {name}",
   "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed.": "Faltam {missing_files}. Instale primeiro os pacotes de {loader} listados em distro/bootloader/. Nada foi alterado.",

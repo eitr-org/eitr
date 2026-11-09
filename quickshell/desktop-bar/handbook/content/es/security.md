@@ -6,7 +6,7 @@ Veinte segundos antes del bloqueo, las pantallas compatibles atenúan su brillo 
 
 ## Contraseña y autenticación alternativa
 
-**Configuración > Usuario > Cambiar contraseña** cambia la contraseña de tu cuenta y mantiene el llavero de inicio de sesión abriéndose con ella. Huella digital y Llave de seguridad FIDO2 tienen procesos separados de registro y activación. Una llave FIDO2 es un dispositivo físico, no el lector de huellas del portátil. Regístrala primero y después activa la autenticación. El auxiliar guarda una copia de los ajustes PAM; conserva una contraseña válida y una forma de acceder a un TTY.
+**Configuración > Usuarios > Cambiar contraseña** cambia la contraseña de tu cuenta y mantiene el llavero de inicio de sesión abriéndose con ella. Huella digital y Llave de seguridad FIDO2 tienen procesos separados de registro y activación. Una llave FIDO2 es un dispositivo físico, no el lector de huellas del portátil. Regístrala primero y después activa la autenticación. El auxiliar guarda una copia de los ajustes PAM; conserva una contraseña válida y una forma de acceder a un TTY.
 
 Volver a la autenticación por contraseña restaura el acceso solo mediante contraseña. Estos cambios afectan los servicios PAM compatibles de bloqueo, inicio de sesión y sudo; requieren hardware compatible y los auxiliares instalados. La autenticación por huella puede retrasar brevemente la solicitud de contraseña. Leer esta página no modifica PAM.
 
@@ -30,10 +30,10 @@ Lee [Recuperación e instantáneas](handbook:recovery) antes de cambiar la auten
 
 ## Cuentas de usuario
 
-**Configuración > Seguridad > Usuarios > Crear usuario…** crea un acceso independiente. Introduce el nombre de usuario, el nombre completo opcional, el tipo de cuenta y la contraseña; revisa los datos y pulsa Enter para crearla. Esc cancela antes de aplicar. Las cuentas estándar no pueden usar sudo; las de administrador se añaden a wheel y reciben una regla de sudo protegida por contraseña. Las cuentas existentes (UID 1000–65533) aparecen debajo, en Usuarios, como filas de solo lectura.
+**Configuración > Usuarios > Crear usuario…** crea un acceso independiente. Introduce el nombre de usuario, el nombre completo opcional, el tipo de cuenta y la contraseña; revisa los datos y pulsa Enter para crearla. Esc cancela antes de aplicar. Las cuentas estándar no pueden usar sudo; las de administrador se añaden a wheel y reciben una regla de sudo protegida por contraseña. Las cuentas existentes (UID 1000–65533) aparecen debajo, en Usuarios, como filas de solo lectura.
 
 La carpeta personal nueva no contiene archivos de tu cuenta. En el primer inicio de Hyprland mediante UWSM, Eitr ejecuta la configuración de escritorio por usuario del instalador y adopta la estructura del paquete con la identidad del nuevo usuario. La configuración de la shell puede necesitar internet. Si falla, conserva el marcador para el siguiente inicio; si termina correctamente, no vuelve a ejecutarse. Los errores de creación dejan la cuenta incompleta bloqueada y caducada para su revisión manual. No se ofrece eliminar usuarios.
 
 ## Fotos de perfil
 
-Abre Configuración > Usuario para cambiar o quitar tu foto. Consulta [Configuración](handbook:system) para elegir una imagen y recortarla. El Centro de control solo muestra la foto.
+Configuración > Usuarios muestra cada cuenta de este PC. Pulsa allí tu foto para cambiarla, o usa el icono de papelera debajo para quitarla. Consulta [Configuración](handbook:system) para elegir una imagen y recortarla. El Centro de control solo muestra la foto.

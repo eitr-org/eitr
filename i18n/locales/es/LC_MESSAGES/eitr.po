@@ -1951,9 +1951,6 @@ msgstr "Medio (80%)"
 msgid "Memory"
 msgstr "Memoria"
 
-msgid "Memory slot"
-msgstr "Ranura de memoria"
-
 msgid "Message queues"
 msgstr "Colas de mensajes"
 

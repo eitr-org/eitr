@@ -381,7 +381,13 @@ ShellRoot {
    keyClick(Qt.Key_Return); wait(300);
    compare(Bar.DesktopData.actions[Bar.DesktopData.actions.length - 1], "save");
    verify(!editor.visible);
-   mouseClick(fixture.find(content, "settings-remove-picture")); wait(100);
+   const actionsBefore = Bar.DesktopData.actions.length;
+   mouseClick(fixture.find(content, "settings-remove-picture")); wait(200);
+   // The trash asks first: nothing is removed until the person confirms.
+   compare(Bar.DesktopData.actions.length, actionsBefore);
+   const confirm = fixture.find(content.Overlay.overlay, "settings-confirm-remove-picture");
+   verify(confirm && confirm.visible);
+   mouseClick(confirm); wait(200);
    compare(Bar.DesktopData.actions[Bar.DesktopData.actions.length - 1], "remove");
    window.closeSettings();
    console.log("USER_PICTURE_OK"); Qt.quit();

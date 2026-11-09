@@ -33,7 +33,7 @@ Use the page names below. See the linked chapters for instructions.
 | AI Assistant | [AI Assistant](handbook:development) |
 | Keybinds | [Keybinds](handbook:shortcuts) |
 | Default apps | [Default apps](handbook:apps) |
-| User | [User](handbook:security) |
+| Users | [Users](handbook:security) |
 | Security | [Security](handbook:security) |
 | Updates | [Updates](handbook:maintenance) |
 | Check This PC | [Check This PC](handbook:troubleshooting) |
@@ -41,7 +41,7 @@ Use the page names below. See the linked chapters for instructions.
 
 ## Change your profile picture
 
-Open Settings > User (or click your picture on Settings' System overview) and choose Change picture. The system file chooser floats centred above Settings, showing only images; pick one and the crop editor opens in a sheet over Settings. Drag the round preview to move the image; use the wheel, slider or +/− to zoom from 1× to 4×, and arrow keys to move. Save (or Enter) applies the crop; Cancel or Escape closes the sheet without applying it. Remove, beside Change picture, clears the picture.
+Open Settings > Users (or click your picture on Settings' System overview) and click your picture. The system file chooser floats centred above Settings, showing only images; pick one and the crop editor opens in a sheet over Settings. Drag the round preview to move the image; use the wheel, slider or +/− to zoom from 1× to 4×, and arrow keys to move. Save (or Enter) applies the crop; Cancel or Escape closes the sheet without applying it. The trash icon below your picture removes it after you confirm.
 
 Pictures appear as circles in Control Center, the lockscreen and the login screen. Control Center only displays the picture at the top of its navigation; without one it shows nothing there, and neither do the lockscreen and login screen. Settings shows your name’s initial on a theme-accent circle instead. Eitr accepts PNG, JPEG, WebP, GIF (first frame) and BMP up to 40 MB and 12000 pixels per side.
 
@@ -49,7 +49,7 @@ It applies orientation, strips metadata and saves a 512×512 PNG at `~/.face`, t
 
 ## Change your password
 
-Open Settings > User and choose Change password. Type your current password, then the new one twice: Enter moves to the next field and confirms on the last one; Escape cancels. The system's password rules decide what is accepted, and a refused password shows the reason. Eitr also moves the login keyring to the new password, so saved passwords keep unlocking when you sign in. A disk encryption passphrase is separate and stays the same. Walker > Settings > Security > Update Password does the same in a terminal.
+Open Settings > Users and choose Change password beside your name. Type your current password, then the new one twice: Enter moves to the next field and confirms on the last one; Escape cancels. The system's password rules decide what is accepted, and a refused password shows the reason. Eitr also moves the login keyring to the new password, so saved passwords keep unlocking when you sign in. A disk encryption passphrase is separate and stays the same. Walker > Settings > Security > Update Password does the same in a terminal.
 
 ## Use Walker as an alternative
 

@@ -41,7 +41,7 @@ Verwende die folgenden Seitennamen. Anleitungen stehen in den verlinkten Kapitel
 
 ## Dein Profilbild ändern
 
-Öffne Einstellungen > Benutzer (oder klicke in der System-Übersicht der Einstellungen auf dein Bild) und wähle „Bild ändern“. Die Dateiauswahl des Systems öffnet sich schwebend und zentriert über den Einstellungen und zeigt nur Bilder; nach der Auswahl öffnet sich der Zuschneide-Editor als Blatt über den Einstellungen. Ziehe die runde Vorschau zum Verschieben; Mausrad, Schieberegler oder +/− zoomen von 1× bis 4×, die Pfeiltasten verschieben. Speichern (oder Enter) übernimmt den Zuschnitt; Abbrechen oder Escape schließt das Blatt, ohne ihn anzuwenden. „Entfernen“ neben „Bild ändern“ löscht das Bild.
+Öffne Einstellungen > Benutzer (oder klicke in der System-Übersicht der Einstellungen auf dein Bild) und klicke auf dein Bild. Die Dateiauswahl des Systems öffnet sich schwebend und zentriert über den Einstellungen und zeigt nur Bilder; nach der Auswahl öffnet sich der Zuschneide-Editor als Blatt über den Einstellungen. Ziehe die runde Vorschau zum Verschieben; Mausrad, Schieberegler oder +/− zoomen von 1× bis 4×, die Pfeiltasten verschieben. Speichern (oder Enter) übernimmt den Zuschnitt; Abbrechen oder Escape schließt das Blatt, ohne ihn anzuwenden. Das Papierkorbsymbol unter deinem Bild entfernt es nach einer Bestätigung.
 
 Das Bild erscheint im Kontrollzentrum, auf dem Sperrbildschirm und am Anmeldebildschirm immer rund. Das Kontrollzentrum zeigt das Bild oben in seiner Navigation nur an; ohne Bild zeigt es dort nichts, ebenso Sperr- und Anmeldebildschirm. Die Einstellungen zeigen stattdessen den Anfangsbuchstaben deines Namens auf einem Kreis in der Akzentfarbe. Unterstützt werden PNG, JPEG, WebP, GIF (erstes Bild) und BMP bis 40 MB und 12000 Pixel pro Seite.
 
@@ -49,7 +49,7 @@ Eitr korrigiert die Ausrichtung, entfernt Metadaten, speichert ein PNG mit 512×
 
 ## Dein Passwort ändern
 
-Öffne Einstellungen > Benutzer und wähle Passwort ändern. Gib dein aktuelles Passwort ein, dann zweimal das neue: Enter springt zum nächsten Feld und bestätigt im letzten; Escape bricht ab. Die Passwortregeln des Systems entscheiden, was angenommen wird, und ein abgelehntes Passwort zeigt den Grund. Eitr stellt auch den Anmelde-Schlüsselbund auf das neue Passwort um, damit gespeicherte Passwörter bei der Anmeldung weiter entsperrt werden. Eine Passphrase für die Festplattenverschlüsselung ist davon getrennt und bleibt gleich. Walker > Einstellungen > Sicherheit > Passwort ändern tut dasselbe in einem Terminal.
+Öffne Einstellungen > Benutzer und wähle Passwort ändern neben deinem Namen. Gib dein aktuelles Passwort ein, dann zweimal das neue: Enter springt zum nächsten Feld und bestätigt im letzten; Escape bricht ab. Die Passwortregeln des Systems entscheiden, was angenommen wird, und ein abgelehntes Passwort zeigt den Grund. Eitr stellt auch den Anmelde-Schlüsselbund auf das neue Passwort um, damit gespeicherte Passwörter bei der Anmeldung weiter entsperrt werden. Eine Passphrase für die Festplattenverschlüsselung ist davon getrennt und bleibt gleich. Walker > Einstellungen > Sicherheit > Passwort ändern tut dasselbe in einem Terminal.
 
 ## Walker als Alternative verwenden
 

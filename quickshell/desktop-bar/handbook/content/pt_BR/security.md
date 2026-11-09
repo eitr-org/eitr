@@ -6,7 +6,7 @@ Vinte segundos antes do bloqueio, as telas compatíveis reduzem o brilho para ce
 
 ## Senha e autenticação alternativa
 
-**Configurações > Usuário > Alterar senha** altera a senha da conta e mantém o chaveiro de login abrindo com ela. Impressão digital e Chave de segurança FIDO2 têm etapas próprias de cadastro e ativação. Uma chave de segurança FIDO2 é um dispositivo físico, não o leitor de impressão digital do notebook. Cadastre primeiro e depois ative a autenticação. O auxiliar faz backup das configurações do PAM; mantenha uma senha que funcione e uma forma de acessar um TTY.
+**Configurações > Usuários > Alterar senha** altera a senha da conta e mantém o chaveiro de login abrindo com ela. Impressão digital e Chave de segurança FIDO2 têm etapas próprias de cadastro e ativação. Uma chave de segurança FIDO2 é um dispositivo físico, não o leitor de impressão digital do notebook. Cadastre primeiro e depois ative a autenticação. O auxiliar faz backup das configurações do PAM; mantenha uma senha que funcione e uma forma de acessar um TTY.
 
 Voltar à autenticação por senha restaura o acesso somente por senha. As mudanças afetam os serviços PAM compatíveis de bloqueio, login e sudo; exigem hardware compatível e os auxiliares instalados. A autenticação por impressão digital pode atrasar brevemente a solicitação de senha. Ler esta página não altera o PAM.
 
@@ -30,10 +30,10 @@ Leia [Recuperação e snapshots](handbook:recovery) antes de alterar a autentica
 
 ## Contas de usuário
 
-**Configurações > Segurança > Usuários > Criar usuário…** cria um acesso separado. Informe o nome de usuário, nome completo opcional, tipo de conta e senha; revise os dados e pressione Enter para criar. Esc cancela antes de aplicar. Contas padrão não podem usar sudo; administradores entram no grupo wheel e recebem uma regra sudo protegida por senha. Contas existentes (UID 1000–65533) aparecem abaixo, em Usuários, como linhas somente para leitura.
+**Configurações > Usuários > Criar usuário…** cria um acesso separado. Informe o nome de usuário, nome completo opcional, tipo de conta e senha; revise os dados e pressione Enter para criar. Esc cancela antes de aplicar. Contas padrão não podem usar sudo; administradores entram no grupo wheel e recebem uma regra sudo protegida por senha. Contas existentes (UID 1000–65533) aparecem abaixo, em Usuários, como linhas somente para leitura.
 
 A nova pasta pessoal não contém arquivos da sua conta. No primeiro login no Hyprland pelo UWSM, o Eitr executa a configuração de desktop por usuário do instalador e adota a estrutura do pacote com a identidade do novo usuário. A configuração do shell pode precisar de internet. Se falhar, o marcador permanece para o próximo login; após o sucesso, não se repete. Falhas na criação deixam a conta incompleta bloqueada e expirada para revisão manual. A exclusão de usuários não é oferecida.
 
 ## Fotos de perfil
 
-Abra Configurações > Usuário para alterar ou remover sua foto. Veja [Configurações](handbook:system) para escolher uma imagem e ajustar o recorte. A Central de controle apenas exibe a foto.
+Configurações > Usuários lista cada conta deste PC. Clique ali na sua foto para alterá-la, ou use o ícone de lixeira abaixo dela para removê-la. Veja [Configurações](handbook:system) para escolher uma imagem e ajustar o recorte. A Central de controle apenas exibe a foto.

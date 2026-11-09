@@ -751,11 +751,15 @@
   "The new passwords do not match.": "The new passwords do not match.",
   "The password could not be changed.": "The password could not be changed.",
   "Used to sign in, unlock the screen and approve system changes. A disk encryption passphrase is separate and stays the same.": "Used to sign in, unlock the screen and approve system changes. A disk encryption passphrase is separate and stays the same.",
-  "Your profile picture, display name and password.": "Your profile picture, display name and password.",
   "choose a stronger one": "choose a stronger one",
-  "login account profile picture display name password change": "login account profile picture display name password change",
-  "fingerprint fido tpm firewall users authentication": "fingerprint fido tpm firewall users authentication",
   "Protection": "Protection",
   "Sign-in": "Sign-in",
-  "Users": "Users"
+  "Users": "Users",
+  "Accounts on this PC, your picture and your password.": "Accounts on this PC, your picture and your password.",
+  "Create User…": "Create User…",
+  "Remove picture": "Remove picture",
+  "Remove picture?": "Remove picture?",
+  "Your initial shows instead, and the lockscreen and login screen show no picture.": "Your initial shows instead, and the lockscreen and login screen show no picture.",
+  "fingerprint fido tpm firewall authentication": "fingerprint fido tpm firewall authentication",
+  "users login account accounts create profile picture display name password change": "users login account accounts create profile picture display name password change"
 }

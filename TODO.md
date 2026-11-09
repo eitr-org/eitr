@@ -80,7 +80,7 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
     toggles, sliders, media, plugins and tools, with an "All settings" button.
     Walker's Settings rows will open the matching page. The frame, Overview, embedded
     separate Themes and Plugins pages and shortcut split are implemented.
-    Desktop and Devices reuse the existing inline controls. Keybinds, Default apps, User
+    Desktop and Devices reuse the existing inline controls. Keybinds, Default apps, Users
     (picture and password), Security, Updates, Check This PC and About are implemented with shared
     readers and existing confirmed actions. The Control Center is slimmed: its Style
     and Settings pages are gone, and its All settings button opens Settings. The

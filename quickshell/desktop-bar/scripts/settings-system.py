@@ -36,7 +36,7 @@ def shortcuts():
 
 # Settings > Security's tab for each Walker Security row.
 SECURITY_TABS = {'FIDO2 Security Key': 'sign-in', 'Fingerprint': 'sign-in', 'Return to Password Authentication': 'sign-in',
-                 'Firewall': 'protection', 'TPM Disk Unlock': 'protection', 'Users': 'users'}
+                 'Firewall': 'protection', 'TPM Disk Unlock': 'protection'}
 
 
 def security():
@@ -57,14 +57,38 @@ def security():
     statuses['TPM Disk Unlock'] = tr('Enrollment status requires the existing disk-unlock flow')
     items = []
     for row in rows('security'):
-        # Settings > User changes the password and the AI Assistant page sets assistant
-        # access; Walker keeps both rows in its Security menu.
-        if row['text'] in ('Update Password', 'Assistant Access'):
+        # Settings > Users changes the password and lists the accounts, and AI Assistant sets
+        # assistant access; Walker keeps these rows in its Security menu.
+        if row['text'] in ('Update Password', 'Assistant Access', 'Users'):
             continue
         items.append({'tab': SECURITY_TABS.get(row['text'], 'protection'), 'title': messages.get(row['text'], row['text']), 'actionTitle': row['text'],
                       'detail': statuses.get(row['text'], messages.get(row.get('subtext'), row.get('subtext')) if row.get('subtext') != '>' else tr('Review status and settings')),
                       'menu': row.get('submenu', ''), 'actionMenu': '' if row.get('submenu') else 'security'})
     return {'items': items}
+
+
+def users():
+    """Settings > Users: every login on this PC, yours first, with its picture and type."""
+    import grp
+    import os
+    from pathlib import Path
+    import pwd
+    from eitr_users import human_users
+    try:
+        wheel = grp.getgrnam('wheel')
+        administrators, wheel_id = set(wheel.gr_mem), wheel.gr_gid
+    except KeyError:
+        administrators, wheel_id = set(), None
+    items = []
+    for account in human_users():
+        picture = Path('/var/lib/AccountsService/icons') / account.pw_name
+        administrator = account.pw_name in administrators or account.pw_gid == wheel_id
+        name = account.pw_gecos.split(',')[0].strip() or account.pw_name
+        items.append({'title': name, 'login': account.pw_name, 'current': account.pw_uid == os.getuid(),
+                      'initial': name[:1].upper(), 'administrator': administrator,
+                      'detail': tr('Administrator') if administrator else tr('Standard'),
+                      'picture': str(picture) if picture.is_file() and os.access(picture, os.R_OK) else ''})
+    return {'items': sorted(items, key=lambda item: not item['current'])}
 
 
 def about():
@@ -73,7 +97,7 @@ def about():
     if not release_path.is_file():
         release_path = code('distro/release.json')
     release = json.loads(release_path.read_text())
-    titles = {'Storage': tr('Storage'), 'Memory slot': tr('Memory slot')}
+    titles = {'Storage': tr('Storage')}
     return {'items': [{'title': tr('Version'), 'detail': release['version']},
                       {'title': tr('Codename'), 'detail': release['codename']},
                       {'title': tr('Update Channel'), 'detail': about_source.update_channel() or tr('Unavailable')},
@@ -122,7 +146,7 @@ def assistants():
 
 
 def summary(page):
-    return {'keybinds': shortcuts, 'security': security, 'about': about, 'assistants': assistants}[page]()
+    return {'keybinds': shortcuts, 'security': security, 'about': about, 'assistants': assistants, 'user': users}[page]()
 
 
 def terminal(script, *arguments):
@@ -169,7 +193,7 @@ def controls_summary(page):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['summary', 'access', 'default-assistant', 'collaboration'])
-    parser.add_argument('page', choices=['keybinds', 'security', 'about', 'assistants'])
+    parser.add_argument('page', choices=['keybinds', 'security', 'about', 'assistants', 'user'])
     parser.add_argument('arguments', nargs='*')
     options = parser.parse_args()
     if options.action == 'default-assistant':

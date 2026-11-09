@@ -10,7 +10,7 @@ Twenty seconds before locking, supported displays dim to about 30% of their prev
 
 ## Password and alternative authentication
 
-**Settings > User > Change password** changes your account password and keeps the login keyring opening with it.
+**Settings > Users > Change password** changes your account password and keeps the login keyring opening with it.
 Fingerprint and FIDO2 Security Key have their own enrollment/enable workflows. A FIDO2
 security key is a physical security device, not a laptop fingerprint reader.
 Enroll first, then enable authentication. The helper backs up PAM settings;
@@ -55,10 +55,10 @@ prevent booting or even reaching firmware setup on some hardware.
 
 ## User accounts
 
-**Settings > Security > Users > Create User…** creates a separate login. Enter a username, optional full name, account type and password, then review and press Enter to create it. Esc cancels before applying. Standard accounts cannot use sudo; Administrator accounts join wheel and receive a password-protected sudo rule. Existing human accounts (UID 1000–65533) appear below it in Users as read-only rows.
+**Settings > Users > Create User…** creates a separate login. Enter a username, optional full name, account type and password, then review and press Enter to create it. Esc cancels before applying. Standard accounts cannot use sudo; Administrator accounts join wheel and receive a password-protected sudo rule. Existing human accounts (UID 1000–65533) appear below it in Users as read-only rows.
 
 The new home contains no files from your account. At its first Hyprland login through UWSM, Eitr runs the installer’s per-user desktop setup and adopts the package layout under the new user’s identity. Shell setup may require internet access. Failed setup keeps its pending marker for the next login; successful setup runs only once. Account creation failures leave an incomplete account locked and expired for manual review. User deletion is not offered.
 
 ## Profile pictures
 
-Open Settings > User to change or remove your profile picture. See [Settings](handbook:system) for choosing an image and adjusting its crop. The Control Center only displays your picture.
+Settings > Users lists every account on this PC. Click your picture there to change it, or use the trash icon below it to remove it. See [Settings](handbook:system) for choosing an image and adjusting its crop. The Control Center only displays your picture.

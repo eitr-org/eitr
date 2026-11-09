@@ -25,6 +25,7 @@ Flickable {
     property var accountPicture: (DesktopData.topics["account.picture"] || {}).data || ({})
     property var updates: DesktopData.topics["updates.status"] || ({})
     function dismiss() {
+        if (removeSheet && removeSheet.opened) { removeSheet.close(); return true; }
         if (!(pictureSheet && pictureSheet.opened))
             return false;
         profileEditor.cancel();
@@ -98,6 +99,7 @@ Flickable {
     property string shortcutQuery: ""
     readonly property var pictureSheet: page === "user" && pageLoader.item ? pageLoader.item.pictureSheet : null
     readonly property var profileEditor: page === "user" && pageLoader.item ? pageLoader.item.profileEditor : null
+    readonly property var removeSheet: page === "user" && pageLoader.item ? pageLoader.item.removeSheet : null
     signal pageRequested(string page)
     function runControl(entry, selection) {
         if (!live) return;
@@ -112,7 +114,7 @@ Flickable {
     SettingsHelper {
         id: helper
         objectName: "settings-system-helper"
-        active: hostView.active && ["keybinds", "security", "assistant", "about"].includes(hostView.page)
+        active: hostView.active && ["keybinds", "user", "security", "assistant", "about"].includes(hostView.page)
         live: hostView.live
         script: Eitr.Paths.code("quickshell/desktop-bar/scripts/settings-system.py")
         summaryArguments: [hostView.page === "assistant" ? "assistants" : hostView.page]

@@ -649,7 +649,6 @@
   "Medium": "Medio",
   "Medium (80%)": "Medio (80%)",
   "Memory": "Memoria",
-  "Memory slot": "Ranura de memoria",
   "Message queues": "Colas de mensajes",
   "Missing stick file: {name}": "Falta un archivo en la memoria: {name}",
   "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed.": "Falta {missing_files}. Instala primero los paquetes de {loader} indicados en distro/bootloader/. No se cambió nada.",

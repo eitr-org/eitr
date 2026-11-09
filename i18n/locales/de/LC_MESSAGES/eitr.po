@@ -1951,9 +1951,6 @@ msgstr "Mittel (80%)"
 msgid "Memory"
 msgstr "Arbeitsspeicher"
 
-msgid "Memory slot"
-msgstr "Speichersteckplatz"
-
 msgid "Message queues"
 msgstr "Nachrichtenwarteschlangen"
 

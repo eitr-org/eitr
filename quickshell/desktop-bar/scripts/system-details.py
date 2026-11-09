@@ -163,24 +163,6 @@ def installed_memory(memory=Path('/sys/devices/system/memory'), meminfo=Path('/p
     return total / 1024 ** 2
 
 
-# JEDEC manufacturer codes (bank, code) of common memory brands; others show the part number alone.
-MEMORY_BRANDS = {(1, 0x2C): 'Micron', (1, 0x98): 'Kingston', (1, 0xAD): 'SK hynix', (1, 0xCE): 'Samsung',
-                 (3, 0x9E): 'Corsair', (5, 0xCB): 'ADATA', (5, 0xCD): 'G.Skill', (5, 0xEF): 'Team Group',
-                 (6, 0x02): 'Patriot', (6, 0x9B): 'Crucial'}
-
-
-def memory_brand(module):
-    named = module.get('MANUFACTURER', '').strip()
-    if named and named != 'Not Specified' and not all(character in '0123456789ABCDEFabcdef' for character in named):
-        return named
-    identifier = module.get('MODULE_MANUFACTURER_ID', '')
-    try:
-        bank, code = identifier.replace('Bank', '').replace('Hex', '').split(',')
-        return MEMORY_BRANDS.get((int(bank), int(code, 16)), '')
-    except ValueError:
-        return ''
-
-
 def memory_modules(properties):
     """Installed modules from udev's DMI properties (`udevadm info -p /devices/virtual/dmi/id`)."""
     modules = {}
@@ -194,7 +176,7 @@ def memory_modules(properties):
 
 
 def memory_lines(properties, installed):
-    """About's RAM summary and one line per module, when the firmware describes them."""
+    """About's RAM line: amount, type, speed and module layout when the firmware describes them."""
     modules = memory_modules(properties)
     if not modules:
         return [{'title': 'RAM', 'name': f'{installed:.0f} GiB'}]
@@ -209,13 +191,7 @@ def memory_lines(properties, installed):
         speed = f'{rated[-1]} MT/s'
     layout = f'{len(modules)} × {sizes.pop() / 1024 ** 3:.0f} GiB' if len(sizes) == 1 else f'{len(modules)} modules'
     summary = ' · '.join(filter(None, [f'{installed:.0f} GiB', '/'.join(kinds), speed, layout]))
-    lines = [{'title': 'RAM', 'name': summary}]
-    for module in modules:
-        part = module.get('PART_NUMBER', '').strip()
-        product = ' '.join(filter(None, [memory_brand(module), part if part != 'Not Specified' else '']))
-        lines.append({'title': 'Memory slot', 'name': ' · '.join(filter(None, [
-            module.get('LOCATOR', '').strip(), product, f'{int(module["SIZE"]) / 1024 ** 3:.0f} GiB']))})
-    return lines
+    return [{'title': 'RAM', 'name': summary}]
 
 
 def disk_size(size):

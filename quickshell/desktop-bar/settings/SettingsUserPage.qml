@@ -4,86 +4,194 @@ import QtQuick.Controls.Basic
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
+// Settings > Users: one row per login on this PC, yours first. Your picture changes when
+// clicked and the trash below it removes it after a confirmation; others are listed only.
 Column {
     id: userPage
     required property var context
     readonly property var view: context
     readonly property var chooser: context.chooser
+    // The helper lists every account; until it answers, your own row comes from the
+    // live picture topic so the page never starts empty.
+    readonly property var accounts: (view.helper.summary.items || []).length
+        ? view.helper.summary.items
+        : [{current: true, title: view.accountPicture.name || "", detail: ""}]
     width: parent ? parent.width : 0
     spacing: 12
     property alias pictureSheet: pictureSheet
     property alias profileEditor: profileEditor
     property alias passwordSheet: passwordSheet
+    property alias removeSheet: removeSheet
     ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
-        title: Eitr.I18n.tr("User")
+        title: Eitr.I18n.tr("Users")
         foreground: view.foreground
         visible: view.page === "user"
         width: parent.width
-        spacing: 12
-        Row {
-            spacing: 18
-            Eitr.Avatar {
-                objectName: "settings-user-avatar"
-                size: 80
-                source: view.accountPicture.path ? "file://" + view.accountPicture.path + "?v=" + (view.accountPicture.version || 0) : ""
-                initial: view.accountPicture.initial || ""
-                accent: view.accent
-                background: view.background
-            }
-            Column {
-                anchors.verticalCenter: parent.verticalCenter
-                spacing: 10
-                SettingsText {
-                    text: view.accountPicture.name || Eitr.I18n.tr("Unavailable")
-                    font.pixelSize: PanelStyle.headingSize
+        spacing: 16
+        Repeater {
+            model: userPage.accounts
+            Row {
+                id: accountRow
+                required property var modelData
+                required property int index
+                readonly property bool own: !!modelData.current
+                spacing: 18
+                Column {
+                    spacing: 6
+                    Item {
+                        width: 80
+                        height: 80
+                        Eitr.Avatar {
+                            objectName: accountRow.own ? "settings-user-avatar" : ""
+                            anchors.fill: parent
+                            size: 80
+                            source: accountRow.own
+                                ? (userPage.view.accountPicture.path ? "file://" + userPage.view.accountPicture.path + "?v=" + (userPage.view.accountPicture.version || 0) : "")
+                                : (accountRow.modelData.picture ? "file://" + accountRow.modelData.picture : "")
+                            initial: accountRow.own ? (userPage.view.accountPicture.initial || "") : (accountRow.modelData.initial || "")
+                            accent: userPage.view.accent
+                            background: userPage.view.background
+                        }
+                        MouseArea {
+                            id: pictureMouse
+                            objectName: accountRow.own ? "settings-change-picture" : ""
+                            anchors.fill: parent
+                            visible: accountRow.own
+                            hoverEnabled: true
+                            enabled: !userPage.chooser.running && !profileEditor.busy
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: userPage.view.choosePicture()
+                        }
+                        Rectangle {
+                            anchors.fill: parent
+                            radius: width / 2
+                            visible: pictureMouse.containsMouse || userPage.chooser.running
+                            color: Qt.alpha("black", 0.35)
+                            Text {
+                                anchors.centerIn: parent
+                                text: "󰄀"
+                                color: "white"
+                                font.pixelSize: 24
+                            }
+                        }
+                        BarTooltip { target: pictureMouse; hovered: pictureMouse.containsMouse; text: Eitr.I18n.tr("Change picture"); foreground: userPage.view.foreground; background: userPage.view.background }
+                    }
+                    PanelButton {
+                        objectName: accountRow.own ? "settings-remove-picture" : ""
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: accountRow.own && !!userPage.view.accountPicture.path
+                        icon: true
+                        text: "󰆴"
+                        foreground: userPage.view.foreground
+                        available: !profileEditor.busy && !userPage.chooser.running
+                        Accessible.name: Eitr.I18n.tr("Remove picture")
+                        onClicked: removeSheet.open()
+                        HoverHandler { id: trashHover }
+                        BarTooltip { target: parent; hovered: trashHover.hovered; text: Eitr.I18n.tr("Remove picture"); foreground: userPage.view.foreground; background: userPage.view.background }
+                    }
                 }
-                Row {
+                Column {
+                    y: 12
+                    // Beside the 80 px picture column and the row's 18 px gap.
+                    width: Math.max(160, userPage.width - 140)
                     spacing: 8
-                    PanelButton {
-                        objectName: "settings-change-picture"
-                        width: 150
-                        foreground: view.foreground
-                        text: Eitr.I18n.tr("Change picture")
-                        loading: chooser.running
-                        available: !profileEditor.busy
-                        onClicked: view.choosePicture()
+                    SettingsText {
+                        text: (accountRow.own ? userPage.view.accountPicture.name : accountRow.modelData.title) || accountRow.modelData.title || Eitr.I18n.tr("Unavailable")
+                        font.pixelSize: PanelStyle.headingSize
                     }
-                    PanelButton {
-                        objectName: "settings-remove-picture"
-                        width: 110
-                        visible: !!view.accountPicture.path
-                        foreground: view.foreground
-                        text: Eitr.I18n.tr("Remove")
-                        available: !profileEditor.busy && !chooser.running
-                        onClicked: profileEditor.remove()
+                    SettingsText {
+                        visible: text !== ""
+                        text: [accountRow.modelData.login && accountRow.modelData.login !== accountRow.modelData.title ? accountRow.modelData.login : "",
+                               accountRow.modelData.detail || "", accountRow.own ? Eitr.I18n.tr("You") : ""].filter(part => part).join(" · ")
+                        color: Qt.alpha(userPage.view.foreground, PanelStyle.secondaryTextOpacity)
+                        font.pixelSize: PanelStyle.captionSize
                     }
-                }
-                SettingsText {
-                    visible: !pictureSheet.opened && profileEditor.error !== ""
-                    text: profileEditor.error
+                    Row {
+                        visible: accountRow.own
+                        spacing: 12
+                        PanelButton {
+                            objectName: "settings-change-password"
+                            width: 170
+                            foreground: userPage.view.foreground
+                            text: Eitr.I18n.tr("Change password")
+                            onClicked: passwordSheet.open()
+                        }
+                        SettingsText {
+                            anchors.verticalCenter: parent.verticalCenter
+                            visible: !passwordSheet.opened && passwordSheet.notice !== ""
+                            text: passwordSheet.notice
+                        }
+                    }
+                    SettingsText {
+                        visible: accountRow.own && !pictureSheet.opened && profileEditor.error !== ""
+                        text: profileEditor.error
+                    }
                 }
             }
         }
-        Row {
-            spacing: 12
-            PanelButton {
-                objectName: "settings-change-password"
-                width: 170
-                foreground: view.foreground
-                text: Eitr.I18n.tr("Change password")
-                onClicked: passwordSheet.open()
-            }
-            SettingsText {
-                anchors.verticalCenter: parent.verticalCenter
-                visible: !passwordSheet.opened && passwordSheet.notice !== ""
-                text: passwordSheet.notice
-            }
+        PanelButton {
+            objectName: "settings-create-user"
+            width: 170
+            foreground: view.foreground
+            text: Eitr.I18n.tr("Create User…")
+            onClicked: view.action("users", "Create User…")
         }
     }
     SettingsPasswordSheet {
         id: passwordSheet
         view: userPage.view
         live: userPage.view.live !== false
+    }
+    // Removing the picture asks first: it also leaves the lockscreen and login screen.
+    Popup {
+        id: removeSheet
+        objectName: "settings-remove-picture-sheet"
+        parent: Overlay.overlay
+        anchors.centerIn: parent
+        width: 320
+        padding: 24
+        modal: true
+        dim: true
+        focus: true
+        closePolicy: Popup.CloseOnEscape
+        Overlay.modal: Rectangle { color: Qt.alpha("black", 0.45) }
+        background: Rectangle {
+            radius: DesktopStyle.radius(12)
+            color: Qt.rgba(view.background.r, view.background.g, view.background.b, 1)
+            border.width: 1
+            border.color: Qt.alpha(SettingsInk.gold, 0.4)
+        }
+        onOpened: confirmRemove.forceActiveFocus()
+        contentItem: Column {
+            spacing: 14
+            Text {
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                text: Eitr.I18n.tr("Remove picture?")
+                color: view.foreground
+                font.family: SiteStyle.carved
+                font.pixelSize: PanelStyle.headingSize
+            }
+            SettingsText {
+                width: parent.width
+                wrapMode: Text.WordWrap
+                horizontalAlignment: Text.AlignHCenter
+                text: Eitr.I18n.tr("Your initial shows instead, and the lockscreen and login screen show no picture.")
+            }
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: 8
+                PanelButton { width: 110; foreground: view.foreground; text: Eitr.I18n.tr("Cancel"); onClicked: removeSheet.close() }
+                PanelButton {
+                    id: confirmRemove
+                    objectName: "settings-confirm-remove-picture"
+                    width: 110
+                    foreground: view.foreground
+                    text: Eitr.I18n.tr("Remove")
+                    onClicked: { removeSheet.close(); profileEditor.remove(); }
+                }
+            }
+        }
     }
     Popup {
         id: pictureSheet
