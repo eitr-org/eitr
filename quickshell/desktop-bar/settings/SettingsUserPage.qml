@@ -129,13 +129,6 @@ Column {
                 }
             }
         }
-        PanelButton {
-            objectName: "settings-create-user"
-            width: 170
-            foreground: view.foreground
-            text: Eitr.I18n.tr("Create User…")
-            onClicked: view.action("users", "Create User…")
-        }
     }
     SettingsPasswordSheet {
         id: passwordSheet

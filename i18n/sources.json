@@ -542,7 +542,7 @@
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Create User…": [
-      "quickshell/desktop-bar/settings/SettingsUserPage.qml"
+      "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "Current": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -7531,6 +7531,9 @@
     ],
     "Monthly": [
       "walker/scripts/actions/tools/reminders.py"
+    ],
+    "Motherboard": [
+      "quickshell/desktop-bar/scripts/settings-system.py"
     ],
     "Move and resize desktop widgets": [
       "walker/scripts/actions/install/plugins.py"

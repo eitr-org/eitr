@@ -191,7 +191,18 @@ Flickable {
         id: content
         width: hostView.width
         spacing: 12
-        SettingsPageHeader { page: hostView.page; foreground: hostView.foreground }
+        SettingsPageHeader {
+            page: hostView.page; foreground: hostView.foreground
+            // One button for the whole Users page, beside its title rather than in a row.
+            PanelButton {
+                objectName: "settings-create-user"
+                visible: hostView.page === "user"
+                width: 160
+                foreground: hostView.foreground
+                text: Eitr.I18n.tr("Create User…")
+                onClicked: hostView.action("users", "Create User…")
+            }
+        }
         Loader {
             id: pageLoader
             width: parent.width
