@@ -113,7 +113,7 @@ Exact prompts, hashes, sizes and framing: `themes/artwork-batch-09.json`.
 Masters and reproducible exports: `branding/sources/wallpapers/batch-09/`.
 All batch 09 wallpapers are removed from Eitr; their prompts and native
 masters remain as provenance.
-Runestone and its live layers are numbered 04; the independent preview is preserved.
+Runestone and its live layers are numbered 04.
 
 The ten realms, Eitr and Eitr Light use local Neovim and VS Code themes from the same contrast-corrected palette roles. Run `python3 themes/build-vscode-themes.py` and its `--check` after palette changes; VSIX archives use fixed timestamps and content-derived versions. Afterglow and Wisteria retain their existing VS Code integrations.
 
@@ -130,12 +130,6 @@ Masters and the reproducible JPEG exporter live in
 not imply native 4K detail. The optional Runestone is omitted because the
 existing renderer embeds rune lettering and a logo and has no compatible light
 mode. Eitr remains the default theme.
-
-Eitr Light's preview is an isolated offscreen capture of the production Calendar
-panel over Primordial Drop, rather than a live desktop capture. Reproduce with
-`EITR_PANEL_REVIEW_RENDERS=/tmp/eitr-light-review python3 quickshell/desktop-bar/tests/render_panel_motion.py --theme eitr-light --panels CalendarMenu --desktop-preview`.
-Copy the resulting `CalendarMenu-eitr-light.png` to its `preview.png`
-after visual inspection. The artwork exporter does not rewrite panel captures.
 
 ## Eitr and Eitr Light — Batch 12
 
@@ -155,7 +149,7 @@ filenames, native dimensions, hashes and subject-centred framing. The third-part
 and `export.py` live under `branding/sources/wallpapers/batch-12/`. Separate
 generated sideways extensions provide the panoramas. Shared Lanczos exports
 are 3840×2160 and 3440×1440, without stretching or padding; not native 4K detail.
-Independent theme previews remain unchanged; website cards use each theme's first wallpaper.
+Website cards use each theme's first wallpaper.
 
 ## Realm curation — Batch 13
 
