@@ -1966,6 +1966,9 @@ msgstr "Montag"
 msgid "Monthly"
 msgstr "Monatlich"
 
+msgid "Motherboard"
+msgstr "Mainboard"
+
 msgid "Move and resize desktop widgets"
 msgstr "Desktop-Widgets verschieben und skalieren"
 

@@ -67,6 +67,15 @@ MEMORY_DEVICE_3_PART_NUMBER=Not Specified
     def test_memory_without_firmware_details_shows_the_amount(self):
         self.assertEqual(system_details.memory_lines('', 16), [{'title': 'RAM', 'name': '16 GiB'}])
 
+    def test_motherboard_name_skips_firmware_placeholders(self):
+        with tempfile.TemporaryDirectory() as directory:
+            dmi = Path(directory)
+            self.assertIsNone(system_details.motherboard(dmi))
+            for value, expected in (('MPG Z490 GAMING EDGE WIFI (MS-7C79)\n', 'MPG Z490 GAMING EDGE WIFI (MS-7C79)'),
+                                    ('Default string\n', None), ('To be filled by O.E.M.\n', None), ('\n', None)):
+                (dmi / 'board_name').write_text(value)
+                self.assertEqual(system_details.motherboard(dmi), expected)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -4,7 +4,7 @@ Les cartes de notification affichent la date et l’heure locales d’arrivée s
 
 ## Consulter les informations système
 
-Ouvrez Paramètres > À propos pour la version d’Eitr, le nom de code, le canal, le noyau et la licence, ainsi que le processeur, la carte graphique, la mémoire installée et chaque disque connecté avec sa capacité. La vue Système montre votre profil et l’utilisation actuelle du matériel. Pour les détails matériels, l’utilisation de l’IA et la météo, cliquez sur les icônes de la barre ; Walker les trouve aussi par nom.
+Ouvrez Paramètres > À propos pour la version d’Eitr, le nom de code, le canal, le noyau et la licence, ainsi que le processeur, la carte graphique, la carte mère, la mémoire installée et chaque disque connecté avec sa capacité. La vue Système montre votre profil et l’utilisation actuelle du matériel. Pour les détails matériels, l’utilisation de l’IA et la météo, cliquez sur les icônes de la barre ; Walker les trouve aussi par nom.
 
 **Matériel** indique CPU, GPU, RAM et stockage du disque contenant `/`. Les autres disques ne sont pas additionnés à ce total. Les données manquantes des capteurs ou du GPU sont indiquées comme indisponibles.
 

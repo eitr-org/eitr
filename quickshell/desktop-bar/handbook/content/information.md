@@ -5,7 +5,7 @@ in both popups and notification history. Times are kept only for this session.
 
 ## Read system information
 
-Open Settings > About for the Eitr version, codename, update channel, kernel and licence, and this PC's processor, graphics, installed memory and every connected drive with its capacity. The System overview shows your profile and current hardware usage. For detailed hardware, AI Usage and weather, click their bar icons; Walker also finds them by name.
+Open Settings > About for the Eitr version, codename, update channel, kernel and licence, and this PC's processor, graphics, motherboard, installed memory and every connected drive with its capacity. The System overview shows your profile and current hardware usage. For detailed hardware, AI Usage and weather, click their bar icons; Walker also finds them by name.
 
 **Hardware** shows CPU, GPU,
 RAM and storage for the drive backing `/`; other disks are not combined into

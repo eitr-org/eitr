@@ -654,6 +654,7 @@
   "Missing {missing_files}. Install the {loader} packages listed in distro/bootloader/ first. Nothing was changed.": "{missing_files} fehlt. Installieren Sie zuerst die unter distro/bootloader/ aufgeführten Pakete für {loader}. Nichts wurde geändert.",
   "Monday": "Montag",
   "Monthly": "Monatlich",
+  "Motherboard": "Mainboard",
   "Move and resize desktop widgets": "Desktop-Widgets verschieben und skalieren",
   "Music player": "Musikplayer",
   "Mute this program": "Dieses Programm stummschalten",

@@ -1966,6 +1966,9 @@ msgstr "Lundi"
 msgid "Monthly"
 msgstr "Chaque mois"
 
+msgid "Motherboard"
+msgstr "Carte mère"
+
 msgid "Move and resize desktop widgets"
 msgstr "Déplacer et redimensionner les widgets du bureau"
 

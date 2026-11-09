@@ -97,7 +97,7 @@ def about():
     if not release_path.is_file():
         release_path = code('distro/release.json')
     release = json.loads(release_path.read_text())
-    titles = {'Storage': tr('Storage')}
+    titles = {'Storage': tr('Storage'), 'Motherboard': tr('Motherboard')}
     return {'items': [{'title': tr('Version'), 'detail': release['version']},
                       {'title': tr('Codename'), 'detail': release['codename']},
                       {'title': tr('Update Channel'), 'detail': about_source.update_channel() or tr('Unavailable')},

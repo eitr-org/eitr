@@ -225,10 +225,26 @@ def disks(devices):
     return result
 
 
+# Firmware fills unused DMI fields with placeholders instead of leaving them empty.
+DMI_PLACEHOLDERS = {'', 'default string', 'to be filled by o.e.m.', 'not specified', 'not applicable', 'none', 'system product name'}
+
+
+def motherboard(dmi=Path('/sys/devices/virtual/dmi/id')):
+    """The board's model name, or None when the firmware does not give a real one."""
+    try:
+        name = (dmi / 'board_name').read_text().strip()
+    except OSError:
+        return None
+    return None if name.casefold() in DMI_PLACEHOLDERS else name
+
+
 def inventory():
     """About's hardware lines: names and amounts that do not change while running."""
     lines = [{'title': 'CPU', 'name': cpu_identity(Path('/proc/cpuinfo').read_text())['name']}]
     lines += [{'title': 'GPU', 'name': name} for name in graphics_names(query(['lspci', '-mm']))]
+    board = motherboard()
+    if board:
+        lines.append({'title': 'Motherboard', 'name': board})
     lines += memory_lines(query(['udevadm', 'info', '-q', 'property', '-p', '/devices/virtual/dmi/id']), installed_memory())
     try:
         devices = json.loads(query(['lsblk', '-J', '-d', '-b', '-o', 'NAME,TYPE,SIZE,MODEL,ROTA,TRAN']))['blockdevices']
