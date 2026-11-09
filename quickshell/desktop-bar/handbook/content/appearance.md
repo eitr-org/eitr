@@ -29,7 +29,7 @@ normal theme workflow; a check marks the current theme.
 All, Dark and Light
 filter the gallery. Installed refreshes when the window opens and after actions. Opening the window
 also checks package metadata in the background; update pills appear when it
-finishes. There is no periodic network check. Update replaces a catalog theme. Reapply an updated
+finishes. There is no periodic network check. Update replaces a catalog theme; Update all, beside Add, updates every theme with an update pill in turn, and for plugins opens each update's review in turn. Reapply an updated
 active theme to refresh the desktop.
 
 Remove asks inside the window and refuses

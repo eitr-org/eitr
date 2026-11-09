@@ -38,6 +38,14 @@ def palette(root):
 OFFICIAL = 'github.com/eitr-org/eitr-themes'
 
 
+def versioned_uri(path):
+    """A file URL that changes with the file, so an updated picture is not served from Qt's image cache."""
+    try:
+        return path.as_uri() + '?v=' + str(path.stat().st_mtime_ns)
+    except OSError:
+        return path.as_uri()
+
+
 def official(url):
     return normalized_url(url) == OFFICIAL
 
@@ -427,11 +435,11 @@ class Themes:
                              light=(root / 'light.mode').exists(), kind=kind, source=source,
                              description=manifest(root)['description'] if (root / MANIFEST).is_file() else '',
                              palette=palette(root),
-                             wallpapers=[dict(path=asset.name, imageUrl=asset.as_uri(), size=asset.stat().st_size)
+                             wallpapers=[dict(path=asset.name, imageUrl=versioned_uri(asset), size=asset.stat().st_size)
                                          for asset in sorted((root / 'backgrounds').glob('*'))
                                          if asset.is_file() and not asset.is_symlink() and asset.suffix.lower() in {'.png', '.jpg'}],
                              size=sum(asset.stat().st_size for asset in root.rglob('*') if asset.is_file() and not asset.is_symlink()),
-                             previewUrl=(root / 'preview.png').as_uri(), current=theme_id == active_id or root.resolve() == active.resolve()))
+                             previewUrl=versioned_uri(root / 'preview.png'), current=theme_id == active_id or root.resolve() == active.resolve()))
         return rows
 
     def check(self):

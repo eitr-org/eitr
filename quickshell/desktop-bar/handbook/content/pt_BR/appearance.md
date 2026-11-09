@@ -21,7 +21,7 @@ O botão de fechar, Escape (após dispensar qualquer confirmação) ou o atalho 
 Seus numa galeria de prévias. Clique num tema instalado para aplicar pelo fluxo
 normal; uma marca indica o tema atual.
 
-Todos, Escuros e Claros filtram a galeria. Instalados atualiza ao abrir a janela e após cada ação. Ao abrir, os metadados são verificados em segundo plano e os indicadores de atualização aparecem ao terminar. Não há verificações periódicas de rede; Atualizar substitui um tema do catálogo. Reaplique
+Todos, Escuros e Claros filtram a galeria. Instalados atualiza ao abrir a janela e após cada ação. Ao abrir, os metadados são verificados em segundo plano e os indicadores de atualização aparecem ao terminar. Não há verificações periódicas de rede; Atualizar substitui um tema do catálogo; Atualizar tudo, ao lado de Adicionar, atualiza um por vez cada tema com indicador de atualização e, nos plugins, abre a revisão de cada atualização em sequência. Reaplique
 um tema ativo atualizado para renovar a área de trabalho.
 
 Remover pede confirmação

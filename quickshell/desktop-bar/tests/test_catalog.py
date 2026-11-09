@@ -300,6 +300,17 @@ ShellRoot {
       };
       panel.checkUpdates();
       if (checks !== 2 || panel.updates.afterglow !== 1) throw new Error("background update checks");
+      const installedThemes = panel.installed;
+      panel.transport = function(name, args, callback) { callback("", name === "update" ? {result:["afterglow"]} : {items:[]}); };
+      panel.act("update", {id:"afterglow"});
+      if (panel.updates.afterglow || panel.updateCache.themes.afterglow) throw new Error("an updated theme keeps its Update label");
+      const updated = [];
+      panel.installed = installedThemes; panel.updates = {afterglow:1, mine:2};
+      if (panel.pendingUpdates.join() !== "afterglow,mine") throw new Error("pending updates follow the check");
+      panel.transport = function(name, args, callback) { if (name === "update") updated.push(args.id); callback("", name === "update" ? {result:[args.id]} : {items:[]}); };
+      panel.updateAll();
+      if (updated.join() !== "afterglow,mine" || panel.pendingUpdates.length) throw new Error("Update all updates every theme in turn");
+      panel.installed = installedThemes; panel.updates = {afterglow:1}; panel.selected = ["moss"]; panel.busy = false;
       panel.live = true;
       panel.transport = function(name, args, callback) { callback("Preview unavailable", {}); };
       panel.preview({id:"missing"});
@@ -375,6 +386,7 @@ ShellRoot {
      } else if (sample.phase === 7) {
       panel.closeDetail(); panel.tab = "installed";
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"afterglow",name:"Afterglow",kind:"builtin",description:"Warm dusk",previewUrl:"PREVIEW3"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"}];
+      panel.updates = {nord:1};
       panel.forceActiveFocus(); keys.keyClick("n"); keys.keyClick("o"); keys.keyClick("r");
       if (panel.query !== "nor" || panel.locals.length !== 1 || panel.locals[0].id !== "nord") throw new Error("Typing searches installed themes: " + JSON.stringify(panel.query) + " " + panel.locals.length);
       panel.query = "northern BLUES";
@@ -486,7 +498,7 @@ ShellRoot {
       panel.nativeReview = {url: "https://example.invalid/plugins", choices: [{id: "clock", name: "Clock", description: "A clock", icon: "plugins/clock/icon.svg"}, {id: "notes", name: "Notes", description: "Notes", icon: "plugins/notes/icon.svg"}]};
       panel.gitSelected = []; panel.toggleGitTheme("clock"); panel.toggleGitTheme("notes");
       find(panel, "git-continue").clicked();
-      if (prepared.length !== 1 || prepared[0].id !== "clock" || panel.pluginQueue[0] !== "notes") throw new Error("plugins from an address are reviewed one by one: " + JSON.stringify(prepared));
+      if (prepared.length !== 1 || prepared[0].id !== "clock" || panel.pluginQueue[0].id !== "notes") throw new Error("plugins from an address are reviewed one by one: " + JSON.stringify(prepared));
       panel.busy = false; panel.nativeReview = {url: "https://example.invalid/plugins", token: "first"};
       panel.nativeConfirm();
       if (prepared.length !== 2 || prepared[1].id !== "notes" || panel.pluginQueue.length) throw new Error("the next chosen plugin follows a confirmed one");

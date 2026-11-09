@@ -276,7 +276,11 @@ class ThemePackagesTest(unittest.TestCase):
             for key in ('background', 'foreground', 'accent', *(f'color{number}' for number in range(16)))})
         self.assertTrue(rows['alpha']['current'])
         self.assertFalse(rows['builtin']['current'])
-        self.assertEqual(rows['alpha']['previewUrl'], (self.backend.folder / 'alpha/preview.png').as_uri())
+        preview = self.backend.folder / 'alpha/preview.png'
+        self.assertEqual(rows['alpha']['previewUrl'], preview.as_uri() + '?v=' + str(preview.stat().st_mtime_ns))
+        os.utime(preview, ns=(1, 1))
+        changed = {row['id']: row for row in self.backend.installed()}['alpha']['previewUrl']
+        self.assertNotEqual(changed, rows['alpha']['previewUrl'], 'a changed preview gets a new address')
         self.assertEqual(rows['alpha']['description'], manifest(self.backend.folder / 'alpha')['description'])
         self.assertEqual(rows['mine']['description'], '')
         with patch('eitr_theme_packages.official', return_value=True):

@@ -2275,6 +2275,9 @@
     "Update Plugins": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
+    "Update all (%1)": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Update available": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],

@@ -798,7 +798,8 @@ var qml = {
     "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal.": "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal.",
     "%1 themes": "%1 themes",
     "1 theme": "1 theme",
-    "Review & install": "Review & install"
+    "Review & install": "Review & install",
+    "Update all (%1)": "Update all (%1)"
   },
   "pt_BR": {
     "%1 Hz": "%1 Hz",
@@ -1482,6 +1483,7 @@ var qml = {
     "Update": "Atualizar",
     "Update Channel": "Canal de atualização",
     "Update Plugins": "Atualizar plugins",
+    "Update all (%1)": "Atualizar tudo (%1)",
     "Update available": "Atualização disponível",
     "Update channel: %1": "Canal de atualização: %1",
     "Updates": "Atualizações",
@@ -2259,6 +2261,7 @@ var qml = {
     "Update": "Actualizar",
     "Update Channel": "Canal de actualizaciones",
     "Update Plugins": "Actualizar plugins",
+    "Update all (%1)": "Actualizar todo (%1)",
     "Update available": "Actualización disponible",
     "Update channel: %1": "Canal de actualización: %1",
     "Updates": "Actualizaciones",
@@ -3036,6 +3039,7 @@ var qml = {
     "Update": "Aktualisieren",
     "Update Channel": "Aktualisierungskanal",
     "Update Plugins": "Plugins aktualisieren",
+    "Update all (%1)": "Alle aktualisieren (%1)",
     "Update available": "Aktualisierung verfügbar",
     "Update channel: %1": "Update-Kanal: %1",
     "Updates": "Aktualisierungen",
@@ -3813,6 +3817,7 @@ var qml = {
     "Update": "Mettre à jour",
     "Update Channel": "Canal de mise à jour",
     "Update Plugins": "Mettre à jour les plugins",
+    "Update all (%1)": "Tout mettre à jour (%1)",
     "Update available": "Mise à jour disponible",
     "Update channel: %1": "Canal de mise à jour : %1",
     "Updates": "Mises à jour",

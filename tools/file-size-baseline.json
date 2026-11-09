@@ -18,7 +18,7 @@
       "reason": "Every eitr check probe in one read-only module."
     },
     "distro/lib/eitr_theme_packages.py": {
-      "lines": 471,
+      "lines": 479,
       "reason": "One theme package transaction."
     },
     "distro/payload/build-payload.py": {
@@ -50,7 +50,7 @@
       "reason": "Barely over the limit; one panel."
     },
     "quickshell/desktop-bar/panels/CatalogContent.qml": {
-      "lines": 925,
+      "lines": 955,
       "reason": "To improve (TODO): cards, detail and review sheets and the Git address flow in one file."
     },
     "quickshell/desktop-bar/scripts/bar-data.py": {

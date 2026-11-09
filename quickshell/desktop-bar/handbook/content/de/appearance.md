@@ -23,7 +23,7 @@ Eigene in einer Vorschaugalerie. Ein Klick auf ein installiertes Theme wendet es
 über den normalen Ablauf an; ein Häkchen markiert das aktuelle Theme. Alle, Dunkel
 und Hell filtern die Galerie.
 
-Installiert wird beim Öffnen und nach Aktionen aktualisiert. Beim Öffnen werden Metadaten im Hintergrund geprüft; danach erscheinen Update-Markierungen. Es gibt keine regelmäßige Netzwerkprüfung; Update ersetzt ein Katalog-Theme. Wende ein aktualisiertes aktives Theme
+Installiert wird beim Öffnen und nach Aktionen aktualisiert. Beim Öffnen werden Metadaten im Hintergrund geprüft; danach erscheinen Update-Markierungen. Es gibt keine regelmäßige Netzwerkprüfung; Update ersetzt ein Katalog-Theme; Alle aktualisieren neben Hinzufügen aktualisiert nacheinander jedes Theme mit Update-Markierung und öffnet bei Plugins nacheinander jede Update-Prüfung. Wende ein aktualisiertes aktives Theme
 erneut an, um den Desktop zu erneuern. Entfernen fragt im Fenster nach und verweigert
 das aktive Theme: wende zuerst ein anderes an.
 

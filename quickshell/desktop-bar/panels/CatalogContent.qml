@@ -100,8 +100,22 @@ Item {
     }
     function reviewChosenPlugins() {
         pluginQueueUrl = nativeReview.url; pluginQueueTotal = gitSelected.length;
-        pluginQueue = gitSelected.slice(1);
+        pluginQueue = gitSelected.slice(1).map(id => ({url: pluginQueueUrl, id: id}));
         prepareReview({url: pluginQueueUrl, id: gitSelected[0]}, true);
+    }
+    // Installed packages with newer commits, as found by the background check.
+    readonly property var pendingUpdates: installed.filter(item => (updates[item.id] || 0) > 0).map(item => item.id)
+    // Themes are data and update one after another; plugins still show each review first.
+    function updateAll() {
+        const ids = pendingUpdates;
+        if (!ids.length || busy) return;
+        if (kind === "themes") { updateThemes(ids); return; }
+        pluginQueueTotal = ids.length;
+        pluginQueue = ids.slice(1).map(id => ({id: id, updating: true}));
+        prepareReview({id: ids[0], updating: true}, true);
+    }
+    function updateThemes(ids) {
+        if (ids.length) act("update", {id: ids[0]}, () => updateThemes(ids.slice(1)));
     }
     function prepareReview(args, queued) {
         if (!args.ids && !queued) { gitSelected = []; gitArtwork = ({}); pluginQueue = []; pluginQueueTotal = 0; }
@@ -305,7 +319,13 @@ Item {
             }, updateOwner);
         }
     }
-    function act(name, args) {
+    function forgetUpdate(id) {
+        const remaining = Object.assign({}, updates);
+        delete remaining[id];
+        updates = remaining;
+        updateCache = Object.assign({}, updateCache, {[kind]: remaining});
+    }
+    function act(name, args, done) {
         if (busy) return;
         busy = true; error = "";
         progress = Eitr.I18n.tr("Applying changes…");
@@ -313,12 +333,14 @@ Item {
             busy = false; confirmingReview = false; progress = ""; error = failure;
             if (name === "confirm" && failure) nativeReview = null;
             if (!failure) { nativeReview = null; nativeReviewing = false; selected = []; reviewing = false; reviewIds = null; removing = null; }
+            if (!failure && name === "update") forgetUpdate(args.id);
             refreshInstalled();
             if (!failure && name === "confirm" && pluginQueue.length) {
                 const next = pluginQueue[0];
                 pluginQueue = pluginQueue.slice(1);
-                prepareReview({url: pluginQueueUrl, id: next}, true);
+                prepareReview(next, true);
             }
+            if (!failure && done) done();
         });
     }
 
@@ -603,13 +625,21 @@ Item {
             // All themes by default, or only the light or the dark ones.
             ChoiceSegmented {
                 visible: catalog.kind === "themes" && !catalog.communityEmpty
-                width: Math.min(300, parent.width - (addButton.visible ? addButton.width + 12 : 0))
+                width: Math.min(300, parent.width - (addButton.visible ? addButton.width + 12 : 0) - (updateAllButton.visible ? updateAllButton.width + 12 : 0))
                 foreground: catalog.foreground; background: catalog.background; gold: catalog.gold
                 available: !catalog.busy
                 choices: [{id: "all", label: Eitr.I18n.tr("All")}, {id: "light", label: Eitr.I18n.tr("Light")}, {id: "dark", label: Eitr.I18n.tr("Dark")}]
                 current: catalog.tone
                 onChosen: value => { catalog.tone = value; catalog.cursor = -1; catalog.forceActiveFocus(); }
             }
+            // Narrow windows keep the filter readable and show Update all as its icon.
+            ActionButton { id: updateAllButton; objectName: "update-all"; anchors.right: addButton.left; anchors.rightMargin: 12; height: PanelStyle.selectionRowHeight
+                readonly property bool compact: parent.width < 300 + addButton.width + updateAllLabel.advanceWidth + 32 + 24
+                width: compact ? height : Math.max(130, updateAllLabel.advanceWidth + 32); icon: compact; text: compact ? "\u{F06B0}" : updateAllLabel.text
+                Accessible.name: updateAllLabel.text
+                visible: catalog.tab === "installed" && catalog.pendingUpdates.length > 0; available: !catalog.busy; onClicked: catalog.updateAll()
+                BarTooltip { target: updateAllButton; hovered: updateAllButton.compact && updateAllButton.hovered; text: updateAllLabel.text; foreground: catalog.foreground; background: catalog.raised } }
+            TextMetrics { id: updateAllLabel; font.family: DesktopFonts.family; font.pixelSize: 13; text: Eitr.I18n.tr("Update all (%1)").arg(catalog.pendingUpdates.length) }
             ActionButton { id: addButton; anchors.right: parent.right; width: 110; height: PanelStyle.selectionRowHeight; visible: catalog.tab === "installed"; available: !catalog.busy; leadingIcon: ""; text: Eitr.I18n.tr("Add"); Accessible.name: Eitr.I18n.tr("Add from a Git address"); onClicked: { catalog.addingAddress = true; catalog.error = ""; addressInput.forceActiveFocus(); } }
         }
         Label { width: parent.width; visible: text !== ""; text: (!catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }

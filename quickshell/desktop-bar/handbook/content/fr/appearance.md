@@ -24,7 +24,7 @@ SUPER + F2 la ferme si elle est active. Son bouton de fermeture, Échap (après 
 avec le fonctionnement habituel ; une coche indique le thème actuel.
 
 Tous, Sombres
-et Clairs filtrent la galerie. Installés se rafraîchit à l’ouverture et après chaque action. L’ouverture vérifie les métadonnées en arrière-plan et affiche ensuite les indicateurs de mise à jour. Aucune vérification réseau périodique ; Mettre à jour remplace un thème du catalogue. Réappliquez un thème actif mis à jour pour actualiser le bureau.
+et Clairs filtrent la galerie. Installés se rafraîchit à l’ouverture et après chaque action. L’ouverture vérifie les métadonnées en arrière-plan et affiche ensuite les indicateurs de mise à jour. Aucune vérification réseau périodique ; Mettre à jour remplace un thème du catalogue ; Tout mettre à jour, à côté d’Ajouter, met à jour tour à tour chaque thème signalé et, pour les extensions, ouvre la revue de chaque mise à jour l’une après l’autre. Réappliquez un thème actif mis à jour pour actualiser le bureau.
 
 Supprimer demande
 confirmation dans la fenêtre et refuse le thème actif : appliquez-en un autre d’abord. Les thèmes intégrés et personnels sont conservés.

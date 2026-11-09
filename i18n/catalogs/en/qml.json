@@ -773,5 +773,6 @@
   "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal.": "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal.",
   "%1 themes": "%1 themes",
   "1 theme": "1 theme",
-  "Review & install": "Review & install"
+  "Review & install": "Review & install",
+  "Update all (%1)": "Update all (%1)"
 }

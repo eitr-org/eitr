@@ -23,7 +23,7 @@ SUPER + F2 la cierra si tiene el foco. También se cierra con su botón, Escape 
 galería de vistas previas. Pulsa un tema instalado para aplicarlo con el flujo
 habitual; una marca indica el actual.
 
-Todos, Oscuros y Claros filtran la galería. Instalados se actualiza al abrir la ventana y después de cada acción. Al abrir se comprueban los metadatos en segundo plano y aparecen indicadores de actualización. No hay comprobaciones periódicas de red; Actualizar reemplaza un tema del catálogo. Vuelve a aplicar un tema
+Todos, Oscuros y Claros filtran la galería. Instalados se actualiza al abrir la ventana y después de cada acción. Al abrir se comprueban los metadatos en segundo plano y aparecen indicadores de actualización. No hay comprobaciones periódicas de red; Actualizar reemplaza un tema del catálogo; Actualizar todo, junto a Añadir, actualiza uno tras otro cada tema con indicador de actualización y, en los plugins, abre la revisión de cada actualización por turno. Vuelve a aplicar un tema
 activo actualizado para refrescar el escritorio.
 
 Eliminar pide confirmación en
