@@ -2,9 +2,9 @@ import ".."
 import QtQuick
 import "../PanelStyle.js" as PanelStyle
 
-// A glyph that can spin in place. The text is centred in a square box and the box turns
-// around its own centre, so the icon never drifts up and down while it spins (a Text
-// item turns around its line box, which is taller than the glyph).
+// A glyph that can spin in place. Icon fonts draw a glyph off the centre of its line box,
+// so the text is placed by its drawn shape (the font's tight bounding box) at the centre of
+// a square, and the square turns: the icon stays put instead of circling while it spins.
 Item {
     id: spinner
     property string glyph: ""
@@ -13,22 +13,31 @@ Item {
     property bool spinning: false
     width: size + 2
     height: width
-    Text {
-        id: glyphText
-        anchors.fill: parent
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
+    TextMetrics {
+        id: ink
         text: spinner.glyph
-        color: spinner.color
-        font.family: PanelStyle.fontFamily
-        font.pixelSize: spinner.size
+        font: glyphText.font
+    }
+    Item {
+        id: turner
+        anchors.fill: parent
+        Text {
+            id: glyphText
+            // tightBoundingRect is measured from the baseline origin of the glyph.
+            x: turner.width / 2 - (ink.tightBoundingRect.x + ink.tightBoundingRect.width / 2)
+            y: turner.height / 2 - (baselineOffset + ink.tightBoundingRect.y + ink.tightBoundingRect.height / 2)
+            text: spinner.glyph
+            color: spinner.color
+            font.family: PanelStyle.fontFamily
+            font.pixelSize: spinner.size
+        }
         RotationAnimator on rotation {
             from: 0
             to: 360
             duration: 900
             loops: Animation.Infinite
             running: !DesktopStyle.reduceMotion && spinner.visible && spinner.spinning
-            onStopped: glyphText.rotation = 0
+            onStopped: turner.rotation = 0
         }
     }
 }

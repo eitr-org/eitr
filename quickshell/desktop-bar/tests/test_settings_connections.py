@@ -33,11 +33,40 @@ assert.equal(batteryText({batteryAvailable: true, battery: 0.456}), '46%');
         subprocess.run(['node', '-e', script], check=True, capture_output=True)
 
     def test_spinning_icons_turn_around_their_own_centre(self):
-        # A Text turns around its line box, taller than the glyph, so the icon bobbed.
-        spinner = (BAR / 'components/SpinningGlyph.qml').read_text()
-        self.assertIn('height: width', spinner)
-        self.assertIn('anchors.fill: parent', spinner)
-        self.assertIn('verticalAlignment: Text.AlignVCenter', spinner)
+        # Icon fonts draw glyphs off the centre of their line box; measure the drawn icon at
+        # four angles and require it to stay in place, so it never circles while spinning.
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            copy_runtime(folder)
+            output = folder / 'spin.png'
+            (folder / 'scene.qml').write_text("""import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {
+ FloatingWindow { visible: true; implicitWidth: 400; implicitHeight: 120; color: "black"
+  Row { id: row; x: 10; y: 10; spacing: 20
+   Repeater { model: [0, 90, 180, 270]
+    Rectangle { id: cell; required property int modelData; width: 60; height: 60; color: "black"
+     Bar.SpinningGlyph { id: spinner; anchors.centerIn: parent; glyph: "\\uF021"; size: 40; color: "white"
+      Component.onCompleted: spinner.children[0].rotation = cell.modelData }
+    }
+   }
+  }
+  Timer { interval: 500; running: true; onTriggered: row.grabToImage(result => { result.saveToFile("OUTPUT"); Qt.quit(); }) }
+ }
+}
+""".replace('OUTPUT', str(output)))
+            render(folder / 'scene.qml', render_environment(folder), 15)
+            image = Image.open(output).convert('L')
+        centres = []
+        for index in range(4):
+            box = image.crop((index * 80, 0, index * 80 + 60, 60)).point(lambda value: 255 if value > 60 else 0).getbbox()
+            self.assertIsNotNone(box)
+            centres.append(((box[0] + box[2]) / 2, (box[1] + box[3]) / 2))
+        for axis in (0, 1):
+            spread = max(centre[axis] for centre in centres) - min(centre[axis] for centre in centres)
+            self.assertLessEqual(spread, 1.5, centres)
         for name in ('components/PanelButton.qml', 'components/ConnectionRow.qml'):
             source = (BAR / name).read_text()
             self.assertIn('SpinningGlyph {', source)
