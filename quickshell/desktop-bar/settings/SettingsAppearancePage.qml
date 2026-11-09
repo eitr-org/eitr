@@ -24,14 +24,19 @@ Column {
         title: Eitr.I18n.tr("Settings colours")
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "theme"
-        PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
-            themeBackground: SettingsPalette.themeBackground
-            themeForeground: SettingsPalette.themeForeground
-            themeAccent: SettingsPalette.themeAccent
-            kind: "palette"
-            choices: [{id: "theme", label: Eitr.I18n.tr("Theme colours")}, {id: "website", label: Eitr.I18n.tr("Eitr website")}]
-            current: SettingsPalette.palette
-            onChosen: value => SettingsPalette.select(value, view.live)
+        SettingsChoiceSection {
+            text: Eitr.I18n.tr("Settings colours")
+            description: Eitr.I18n.tr("Choose the colours used by Settings.")
+            foreground: view.foreground
+            PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
+                themeBackground: SettingsPalette.themeBackground
+                themeForeground: SettingsPalette.themeForeground
+                themeAccent: SettingsPalette.themeAccent
+                kind: "palette"
+                choices: [{id: "theme", label: Eitr.I18n.tr("Theme colours")}, {id: "website", label: Eitr.I18n.tr("Eitr website")}]
+                current: SettingsPalette.palette
+                onChosen: value => SettingsPalette.select(value, view.live)
+            }
         }
     }
     ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;

@@ -13,18 +13,23 @@ Column {
         title: Eitr.I18n.tr("About logo")
         foreground: view.foreground
         width: parent.width
-        PictureChoices {
-            foreground: SettingsPalette.foreground; background: SettingsPalette.background
-            accent: SettingsPalette.accent; gold: SettingsPalette.gold
-            raised: SettingsPalette.raised; surface: SettingsPalette.surface
-            line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true
-            themeAccent: SettingsPalette.themeAccent; themeBackground: SettingsPalette.themeBackground
-            kind: "about-logo"
-            SettingsTarget { objectName: "setting-about-logo" }
-            choices: view.helper.summary.aboutLogos || []
-            current: view.helper.summary.aboutLogo || "emblem"
-            available: !view.helper.busy
-            onChosen: value => view.helper.change(["about-logo", "about", value])
+        SettingsChoiceSection {
+            text: Eitr.I18n.tr("About logo")
+            description: Eitr.I18n.tr("Choose the logo shown on the About page.")
+            foreground: view.foreground
+            PictureChoices {
+                foreground: SettingsPalette.foreground; background: SettingsPalette.background
+                accent: SettingsPalette.accent; gold: SettingsPalette.gold
+                raised: SettingsPalette.raised; surface: SettingsPalette.surface
+                line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true
+                themeAccent: SettingsPalette.themeAccent; themeBackground: SettingsPalette.themeBackground
+                kind: "about-logo"
+                SettingsTarget { objectName: "setting-about-logo" }
+                choices: view.helper.summary.aboutLogos || []
+                current: view.helper.summary.aboutLogo || "emblem"
+                available: !view.helper.busy
+                onChosen: value => view.helper.change(["about-logo", "about", value])
+            }
         }
     }
     SettingsSummaryCards { context: pageBody.context }

@@ -14,42 +14,65 @@ Column {
         title: Eitr.I18n.tr("Window layout")
         surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
         foreground: view.foreground
-        ChoiceDropdown {
-            objectName: "windowLayoutChoice"
-            SettingsTarget { objectName: "setting-windows-layout" }
-            foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
-            label: Eitr.I18n.tr("Window layout")
-            choices: ChoiceLists.windowLayouts
-            current: DesktopStyle.windowLayout.layout
-            onChosen: value => { if (view.live) DesktopStyle.selectLayout("layout", value); }
+        ControlRow {
+            text: Eitr.I18n.tr("Window layout")
+            description: Eitr.I18n.tr((ChoiceLists.windowLayouts.find(choice => choice.id === DesktopStyle.windowLayout.layout) || {}).description || "")
+            foreground: view.foreground
+            ChoiceSegmented {
+                objectName: "windowLayoutChoice"
+                SettingsTarget { objectName: "setting-windows-layout" }
+                foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
+
+                choices: ChoiceLists.windowLayouts
+                current: DesktopStyle.windowLayout.layout
+                onChosen: value => { if (view.live) DesktopStyle.selectLayout("layout", value); }
+            }
         }
         Column {
             objectName: "scrollingOptions"
             width: parent.width; spacing: 8
             visible: DesktopStyle.windowLayout.layout === "scrolling"
-            ChoiceDropdown {
-                foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
-                label: Eitr.I18n.tr("Direction")
-                SettingsTarget { objectName: "setting-windows-scroll-direction" }
-                choices: ChoiceLists.scrollingDirections
-                current: DesktopStyle.windowLayout.scrollDirection
-                onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollDirection", value); }
+            ControlRow {
+                text: Eitr.I18n.tr("Direction")
+                description: Eitr.I18n.tr((ChoiceLists.scrollingDirections.find(choice => choice.id === DesktopStyle.windowLayout.scrollDirection) || {}).description || "")
+                foreground: view.foreground
+                ChoiceDropdown {
+                    foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
+                    objectName: "scrollDirectionChoice"
+                    accessibleName: Eitr.I18n.tr("Direction")
+                    SettingsTarget { objectName: "setting-windows-scroll-direction" }
+                    choices: ChoiceLists.scrollingDirections
+                    current: DesktopStyle.windowLayout.scrollDirection
+                    onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollDirection", value); }
+                }
             }
-            ChoiceDropdown {
-                foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
-                label: Eitr.I18n.tr("Default column width")
-                SettingsTarget { objectName: "setting-windows-column-width" }
-                choices: ChoiceLists.scrollingWidths.map(choice => ({id: choice.id, label: choice.label}))
-                current: DesktopStyle.windowLayout.scrollWidth
-                onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollWidth", value); }
+            ControlRow {
+                text: Eitr.I18n.tr("Default column width")
+                description: Eitr.I18n.tr((ChoiceLists.scrollingWidths.find(choice => choice.id === DesktopStyle.windowLayout.scrollWidth) || {}).description || "")
+                foreground: view.foreground
+                ChoiceDropdown {
+                    foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
+                    objectName: "scrollWidthChoice"
+                    accessibleName: Eitr.I18n.tr("Default column width")
+                    SettingsTarget { objectName: "setting-windows-column-width" }
+                    choices: ChoiceLists.scrollingWidths.map(choice => ({id: choice.id, label: choice.label}))
+                    current: DesktopStyle.windowLayout.scrollWidth
+                    onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollWidth", value); }
+                }
             }
-            ChoiceDropdown {
-                foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
-                label: Eitr.I18n.tr("Focus fit")
-                SettingsTarget { objectName: "setting-windows-focus-fit" }
-                choices: ChoiceLists.scrollingFocusFit.map(choice => ({id: choice.id, label: choice.label}))
-                current: DesktopStyle.windowLayout.scrollFocusFit
-                onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollFocusFit", value); }
+            ControlRow {
+                text: Eitr.I18n.tr("Focus fit")
+                description: Eitr.I18n.tr((ChoiceLists.scrollingFocusFit.find(choice => choice.id === DesktopStyle.windowLayout.scrollFocusFit) || {}).description || "")
+                foreground: view.foreground
+                ChoiceDropdown {
+                    foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
+                    objectName: "scrollFocusFitChoice"
+                    accessibleName: Eitr.I18n.tr("Focus fit")
+                    SettingsTarget { objectName: "setting-windows-focus-fit" }
+                    choices: ChoiceLists.scrollingFocusFit.map(choice => ({id: choice.id, label: choice.label}))
+                    current: DesktopStyle.windowLayout.scrollFocusFit
+                    onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollFocusFit", value); }
+                }
             }
             ToggleRow {
                 text: Eitr.I18n.tr("Follow focus")
@@ -73,11 +96,11 @@ Column {
         title: Eitr.I18n.tr("Window shape")
         foreground: view.foreground
         visible: view.page === "windows"
-        Column {
+        SettingsChoiceSection {
             SettingsTarget { objectName: "setting-windows-window-gaps" }
-            width: parent.width
-            spacing: 8
-            SettingsText { text: Eitr.I18n.tr("Window gaps"); color: SettingsInk.gold }
+            text: Eitr.I18n.tr("Window gaps")
+            description: Eitr.I18n.tr((ChoiceLists.windowGaps.find(choice => choice.id === DesktopStyle.gaps) || {}).description || "")
+            foreground: view.foreground
             PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
                 kind: "gaps"
                 edge: styleModel.barPosition
@@ -92,11 +115,11 @@ Column {
                 }
             }
         }
-        Column {
+        SettingsChoiceSection {
             SettingsTarget { objectName: "setting-windows-corners" }
-            width: parent.width
-            spacing: 8
-            SettingsText { text: Eitr.I18n.tr("Corners"); color: SettingsInk.gold }
+            text: Eitr.I18n.tr("Corners")
+            description: Eitr.I18n.tr("Choose the shape of desktop corners.")
+            foreground: view.foreground
             PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
                 kind: "corners"
                 edge: styleModel.barPosition

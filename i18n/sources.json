@@ -84,6 +84,9 @@
     "Add a chapter marker": [
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
+    "Add another keyboard layout to your list.": [
+      "quickshell/desktop-bar/settings/SettingsInputPage.qml"
+    ],
     "Add from a Git address": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -102,6 +105,12 @@
     ],
     "Adjust the pointer size in pixels.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Adjust the volume for this application.": [
+      "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
+    ],
+    "Adjust the volume or mute this device.": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
     ],
     "Administrator": [
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
@@ -176,6 +185,9 @@
     "Audio/Mic": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
+    ],
+    "Authentication": [
+      "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
     ],
     "Authentication server domain": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -392,14 +404,35 @@
     "Choose the app used for this file or link type.": [
       "quickshell/desktop-bar/settings/SettingsDefaultAppsPage.qml"
     ],
+    "Choose the appearance of the locked screen.": [
+      "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
+    ],
     "Choose the apps used to open files and links.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Choose the colours used across your desktop.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
+    "Choose the colours used by Settings.": [
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Choose the logo shown on the About page.": [
+      "quickshell/desktop-bar/settings/SettingsAboutPage.qml"
+    ],
+    "Choose the microphone used to record sound.": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
+    ],
     "Choose the pointer shape.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Choose the screen edge for the bar.": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+    ],
+    "Choose the shape of desktop corners.": [
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
+    "Choose the shape of the playing indicator.": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Choose the time format.": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
@@ -409,6 +442,9 @@
     ],
     "Choose user · Ctrl+Left / Ctrl+Right": [
       "quickshell/lockscreen/imports/LockscreenComponents/UserPicker.qml"
+    ],
+    "Choose where sound is played.": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
     ],
     "Choose which displays show a bar.": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
@@ -1111,6 +1147,9 @@
     ],
     "Keep these settings? Reverting in {seconds} seconds": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+    ],
+    "Keep this many workspace markers visible.": [
+      "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
     ],
     "Kernel": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -2086,6 +2125,9 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
+    "See how much sound the microphone picks up.": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
+    ],
     "Select, reorder or remove your keyboard layouts.": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
@@ -2129,6 +2171,9 @@
     ],
     "Set the space around terminal text.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Set the total number of numbered workspaces.": [
+      "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
     ],
     "Settings": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
@@ -2583,6 +2628,9 @@
     ],
     "Use the certificate and server domain supplied by your network administrator. Certificate validation is required.": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
+    ],
+    "Use the method required by your network.": [
+      "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
     ],
     "Use warmer screen colors.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"

@@ -12,11 +12,11 @@ Column {
         title: Eitr.I18n.tr("Lockscreen")
         foreground: view.foreground
         visible: view.page === "lockscreen"
-        Column {
+        SettingsChoiceSection {
             SettingsTarget { objectName: "setting-lockscreen-design" }
-            width: parent.width
-            spacing: 8
-            SettingsText { text: Eitr.I18n.tr("Design"); color: SettingsInk.gold }
+            text: Eitr.I18n.tr("Design")
+            description: Eitr.I18n.tr("Choose the appearance of the locked screen.")
+            foreground: view.foreground
             PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
                 kind: "lockscreen"
                 edge: styleModel.barPosition

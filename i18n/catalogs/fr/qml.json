@@ -843,5 +843,21 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  maintenant",
   "󰂚  No notifications": "󰂚  Aucune notification",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
+  "Set the total number of numbered workspaces.": "Définir le nombre total d’espaces numérotés.",
+  "Keep this many workspace markers visible.": "Garder ce nombre de repères d’espaces visibles.",
+  "Add another keyboard layout to your list.": "Ajouter une disposition de clavier à la liste.",
+  "Choose the shape of desktop corners.": "Choisir la forme des coins du bureau.",
+  "Choose the screen edge for the bar.": "Choisir le bord de l’écran pour la barre.",
+  "Choose the shape of the playing indicator.": "Choisir la forme de l’indicateur de lecture.",
+  "Choose the microphone used to record sound.": "Choisir le microphone pour enregistrer le son.",
+  "Choose where sound is played.": "Choisir où le son est diffusé.",
+  "Adjust the volume or mute this device.": "Régler le volume ou couper le son de cet appareil.",
+  "See how much sound the microphone picks up.": "Voir le niveau de son capté par le microphone.",
+  "Adjust the volume for this application.": "Régler le volume de cette application.",
+  "Choose the colours used by Settings.": "Choisir les couleurs des Paramètres.",
+  "Choose the appearance of the locked screen.": "Choisir l’apparence de l’écran verrouillé.",
+  "Choose the logo shown on the About page.": "Choisir le logo de la page À propos.",
+  "Use the method required by your network.": "Utiliser la méthode requise par le réseau.",
+  "Authentication": "Authentification"
 }

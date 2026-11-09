@@ -11,32 +11,40 @@ ControlCard {
     function numbers(first, last) {
         return Array.from({length: last - first + 1}, (unused, index) => ({id: String(first + index), label: String(first + index)}));
     }
-    ChoiceDropdown {
-        SettingsTarget { objectName: "setting-windows-workspace-monitors" }
-        foreground: card.foreground; background: SettingsInk.background; gold: SettingsInk.gold
-        label: Eitr.I18n.tr("Monitors")
-        choices: ChoiceLists.workspaceModes
-        current: DesktopStyle.workspaceMode
-        onChosen: value => { if (card.live) DesktopStyle.selectWorkspace("workspaceMode", value); }
+    ControlRow {
+        controlWidth: Math.min(440, width * 0.55)
+        text: Eitr.I18n.tr("Monitors")
+        description: Eitr.I18n.tr((ChoiceLists.workspaceModes.find(choice => choice.id === DesktopStyle.workspaceMode) || {}).description || "")
+        foreground: card.foreground
+        ChoiceSegmented {
+            SettingsTarget { objectName: "setting-windows-workspace-monitors" }
+            foreground: card.foreground; background: SettingsInk.background; gold: SettingsInk.gold
+
+            choices: ChoiceLists.workspaceModes
+            current: DesktopStyle.workspaceMode
+            onChosen: value => { if (card.live) DesktopStyle.selectWorkspace("workspaceMode", value); }
+        }
     }
-    Column {
-        width: parent.width; spacing: 4
+    ControlRow {
+        text: Eitr.I18n.tr("Number of workspaces")
+        description: Eitr.I18n.tr("Set the total number of numbered workspaces.")
+        foreground: card.foreground
         SettingsTarget { objectName: "setting-windows-workspace-count" }
-        SettingsText { text: Eitr.I18n.tr("Number of workspaces"); color: card.foreground }
-        ChoiceLevel {
-            foreground: card.foreground; accent: SettingsInk.gold
+        ChoiceDropdown {
+            foreground: card.foreground; gold: SettingsInk.gold; background: SettingsInk.background
             accessibleName: Eitr.I18n.tr("Number of workspaces")
             choices: card.numbers(5, 10)
             current: String(DesktopStyle.workspaceCount)
             onChosen: value => { if (card.live) DesktopStyle.selectWorkspace("workspaceCount", value); }
         }
     }
-    Column {
-        width: parent.width; spacing: 4
+    ControlRow {
+        text: Eitr.I18n.tr("Always show")
+        description: Eitr.I18n.tr("Keep this many workspace markers visible.")
+        foreground: card.foreground
         SettingsTarget { objectName: "setting-windows-workspace-always-show" }
-        SettingsText { text: Eitr.I18n.tr("Always show"); color: card.foreground }
-        ChoiceLevel {
-            foreground: card.foreground; accent: SettingsInk.gold
+        ChoiceDropdown {
+            foreground: card.foreground; gold: SettingsInk.gold; background: SettingsInk.background
             accessibleName: Eitr.I18n.tr("Always show")
             choices: card.numbers(2, DesktopStyle.workspaceCount)
             current: String(DesktopStyle.workspaceAlwaysShow)

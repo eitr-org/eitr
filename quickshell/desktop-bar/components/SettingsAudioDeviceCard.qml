@@ -17,26 +17,32 @@ ControlCard {
     property PwNode renaming: null
     title: microphone ? Eitr.I18n.tr("Input") : Eitr.I18n.tr("Output")
     surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
-    ChoiceDropdown {
-        SettingsTarget { objectName: card.microphone ? "setting-sound-input-device" : "setting-sound-output-device" }
-        SettingsTarget { objectName: card.microphone ? "setting-sound-input-rename" : "setting-sound-output-rename" }
-        width: parent.width
+    ControlRow {
+        text: card.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
+        description: card.microphone ? Eitr.I18n.tr("Choose the microphone used to record sound.") : Eitr.I18n.tr("Choose where sound is played.")
+        foreground: card.foreground
         visible: !card.renaming
-        foreground: card.foreground; background: card.background; gold: SettingsInk.gold
-        label: card.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
-        choices: card.devices.map(node => ({value: String(node.id), label: AudioDevices.label(node), glyph: AudioDevices.glyph(node, card.microphone)}))
-        current: card.currentNode ? String(card.currentNode.id) : ""
-        actionGlyph: "\u{F03EB}"; actionName: Eitr.I18n.tr("Rename")
-        onChosen: value => {
-            if (!card.live) return;
-            const node = card.devices.find(device => String(device.id) === value);
-            if (card.microphone) Pipewire.preferredDefaultAudioSource = node;
-            else Pipewire.preferredDefaultAudioSink = node;
-        }
-        onActionTriggered: value => {
-            card.renaming = card.devices.find(device => String(device.id) === value);
-            nameInput.text = AudioDevices.label(card.renaming);
-            nameInput.forceActiveFocus(); nameInput.selectAll();
+        ChoiceDropdown {
+            SettingsTarget { objectName: card.microphone ? "setting-sound-input-device" : "setting-sound-output-device" }
+            SettingsTarget { objectName: card.microphone ? "setting-sound-input-rename" : "setting-sound-output-rename" }
+            width: parent.width
+            visible: !card.renaming
+            foreground: card.foreground; background: card.background; gold: SettingsInk.gold
+            accessibleName: card.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
+            choices: card.devices.map(node => ({value: String(node.id), label: AudioDevices.label(node), glyph: AudioDevices.glyph(node, card.microphone)}))
+            current: card.currentNode ? String(card.currentNode.id) : ""
+            actionGlyph: "\u{F03EB}"; actionName: Eitr.I18n.tr("Rename")
+            onChosen: value => {
+                if (!card.live) return;
+                const node = card.devices.find(device => String(device.id) === value);
+                if (card.microphone) Pipewire.preferredDefaultAudioSource = node;
+                else Pipewire.preferredDefaultAudioSink = node;
+            }
+            onActionTriggered: value => {
+                card.renaming = card.devices.find(device => String(device.id) === value);
+                nameInput.text = AudioDevices.label(card.renaming);
+                nameInput.forceActiveFocus(); nameInput.selectAll();
+            }
         }
     }
     TextField {
@@ -52,7 +58,7 @@ ControlCard {
         SettingsTarget { objectName: card.microphone ? "setting-sound-input-volume" : "setting-sound-output-volume" }
         SettingsTarget { objectName: card.microphone ? "setting-sound-input-mute" : "setting-sound-output-mute" }
         text: Eitr.I18n.tr("Volume")
-        description: ""
+        description: Eitr.I18n.tr("Adjust the volume or mute this device.")
         foreground: card.foreground
         controlWidth: Math.min(460, width * 0.65)
         AudioLevelControl {
@@ -70,7 +76,7 @@ ControlCard {
     ControlRow {
         visible: card.microphone
         text: Eitr.I18n.tr("Input level")
-        description: ""
+        description: Eitr.I18n.tr("See how much sound the microphone picks up.")
         foreground: card.foreground
         controlWidth: Math.min(360, width * 0.5)
         MicrophoneMeter {

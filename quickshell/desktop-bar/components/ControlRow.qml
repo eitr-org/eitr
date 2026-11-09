@@ -28,7 +28,7 @@ Rectangle {
             text: row.text
             color: row.foreground
             font.family: DesktopFonts.family
-            font.pixelSize: 13
+            font.pixelSize: 11
             wrapMode: Text.WordWrap
         }
         Text {
@@ -38,7 +38,7 @@ Rectangle {
             color: row.foreground
             opacity: PanelStyle.secondaryTextOpacity
             font.family: DesktopFonts.family
-            font.pixelSize: 11
+            font.pixelSize: 13
             wrapMode: Text.WordWrap
         }
     }

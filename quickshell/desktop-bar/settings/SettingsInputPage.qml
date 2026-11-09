@@ -79,18 +79,23 @@ Column {
         }
     }
     // Choosing a layout from the floating list adds it; the catalog loads with the page.
-    ChoiceDropdown {
-        SettingsTarget { objectName: "setting-input-add-layout" }
-
-        objectName: "settings-add-layout"
-        width: view.listWidth
-        gold: SettingsInk.gold; background: SettingsInk.background
+    ControlRow {
+        text: Eitr.I18n.tr("Add Layout")
+        description: Eitr.I18n.tr("Add another keyboard layout to your list.")
         foreground: view.foreground
-        label: Eitr.I18n.tr("Add Layout")
-        placeholder: view.catalog.length ? "" : Eitr.I18n.tr("Loading...")
-        available: view.layouts.length < 4 && !operation.running
-        choices: view.catalog.map(layout => ({value: layout.layout + "|" + layout.variant, label: layout.label}))
-        onChosen: value => { const parts = value.split("|"); view.change(["add", parts[0], parts[1]]); }
+        ChoiceDropdown {
+            SettingsTarget { objectName: "setting-input-add-layout" }
+
+            objectName: "settings-add-layout"
+            width: parent.width
+            gold: SettingsInk.gold; background: SettingsInk.background
+            foreground: view.foreground
+            accessibleName: Eitr.I18n.tr("Add Layout")
+            placeholder: view.catalog.length ? "" : Eitr.I18n.tr("Loading...")
+            available: view.layouts.length < 4 && !operation.running
+            choices: view.catalog.map(layout => ({value: layout.layout + "|" + layout.variant, label: layout.label}))
+            onChosen: value => { const parts = value.split("|"); view.change(["add", parts[0], parts[1]]); }
+        }
     }
     Text { width: parent.width; visible: view.error !== ""; text: view.error; wrapMode: Text.WordWrap; color: view.foreground; font.pixelSize: PanelStyle.captionSize }
 }

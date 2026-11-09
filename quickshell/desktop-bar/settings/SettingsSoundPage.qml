@@ -36,7 +36,7 @@ Column {
                 id: appRow
                 required property PwNode modelData
                 text: modelData.properties["application.name"] || AudioDevices.label(modelData)
-                description: ""
+                description: Eitr.I18n.tr("Adjust the volume for this application.")
                 foreground: page.foreground
                 controlWidth: Math.min(460, width * 0.65)
                 AudioLevelControl {

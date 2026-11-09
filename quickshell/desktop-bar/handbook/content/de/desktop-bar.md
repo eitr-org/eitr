@@ -4,6 +4,8 @@
 
 Die volle Leiste. Das Eitr-Logo öffnet das Kontrollzentrum; danach folgen Übersicht, Arbeitsflächenmarkierungen, KI-Nutzung, Hardware und automatische Sperre. Datum und Uhrzeit bleiben mittig, die Medien davor und das Wetter dahinter. **Symbole anzeigen** blendet die Statussymbole rechts ein oder aus; die Benachrichtigungen stehen ganz am Ende.
 
+Unter Einstellungen > Fenster verwenden Fensterlayout und Monitore jeweils zwei Schaltflächen. Arbeitsflächenanzahl und Immer anzeigen verwenden Auswahllisten; Immer anzeigen bietet 2 bis zur aktuellen Anzahl an. Beschreibungen unter den Einstellungen erklären ihre Wirkung, auch für das gewählte Fensterlayout und die Scrolloptionen.
+
 ## Aktualisierungen
 
 Das Updatesymbol vor Benachrichtigungen prüft kurz nach der Anmeldung und alle sechs Stunden. Klicken startet die Systemaktualisierung, Rechtsklick prüft erneut. Nach erfolgreicher Systemaktualisierung gilt es bis zur nächsten Prüfung als aktuell, ohne sofort erneut zu prüfen. Offline oder bei Fehlern wird ein nicht verfügbarer Zustand angezeigt, niemals fälschlich „aktuell“. Die Prüfung verwendet eine private Paketdatenbank und aktualisiert keine Pakete.

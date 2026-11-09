@@ -14,11 +14,11 @@ Column {
         title: Eitr.I18n.tr("Bar")
         foreground: view.foreground
         visible: view.page === "bar"
-        Column {
+        SettingsChoiceSection {
             SettingsTarget { objectName: "setting-bar-layout" }
-            width: parent.width
-            spacing: 8
-            SettingsText { text: Eitr.I18n.tr("Layout"); color: SettingsInk.gold }
+            text: Eitr.I18n.tr("Layout")
+            description: Eitr.I18n.tr((ChoiceLists.barLayouts.find(choice => choice.id === styleModel.layout) || {}).description || "")
+            foreground: view.foreground
             PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
                 kind: "layout"
                 edge: styleModel.barPosition
@@ -33,11 +33,11 @@ Column {
                 }
             }
         }
-        Column {
+        SettingsChoiceSection {
             SettingsTarget { objectName: "setting-bar-position" }
-            width: parent.width
-            spacing: 8
-            SettingsText { text: Eitr.I18n.tr("Position"); color: SettingsInk.gold }
+            text: Eitr.I18n.tr("Position")
+            description: Eitr.I18n.tr("Choose the screen edge for the bar.")
+            foreground: view.foreground
             PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
                 kind: "position"
                 edge: styleModel.barPosition
@@ -69,11 +69,11 @@ Column {
                 }
             }
         }
-        Column {
+        SettingsChoiceSection {
             SettingsTarget { objectName: "setting-bar-appearance" }
-            width: parent.width
-            spacing: 8
-            SettingsText { text: Eitr.I18n.tr("Appearance"); color: SettingsInk.gold }
+            text: Eitr.I18n.tr("Appearance")
+            description: Eitr.I18n.tr((ChoiceLists.barAppearances.find(choice => choice.id === styleModel.appearance) || {}).description || "")
+            foreground: view.foreground
             PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
                 kind: "appearance"
                 edge: styleModel.barPosition
@@ -138,11 +138,11 @@ Column {
                 }
             }
         }
-        Column {
+        SettingsChoiceSection {
             SettingsTarget { objectName: "setting-bar-media-style" }
-            width: parent.width
-            spacing: 8
-            SettingsText { text: Eitr.I18n.tr("Media style"); color: SettingsInk.gold }
+            text: Eitr.I18n.tr("Media style")
+            description: Eitr.I18n.tr("Choose the shape of the playing indicator.")
+            foreground: view.foreground
             PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
                 kind: "media"
                 edge: styleModel.barPosition

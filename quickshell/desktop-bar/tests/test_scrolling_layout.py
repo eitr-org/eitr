@@ -153,7 +153,7 @@ import Quickshell
 import "." as Bar
 ShellRoot {
  FloatingWindow {
-  id: window; visible: true; implicitWidth: 760; implicitHeight: 1080
+  id: window; visible: true; implicitWidth: 760; implicitHeight: 1600
   color: Bar.SettingsPalette.background
   QtObject {
    id: context
@@ -185,7 +185,7 @@ ShellRoot {
    verify(options.visible);
    verify(page.height < window.height - 24);
    compare(find(page, "windowLayoutChoice").current, "scrolling");
-   const dropdowns = options.children.filter(child => child.current !== undefined);
+   const dropdowns = [find(page, "scrollDirectionChoice"), find(page, "scrollWidthChoice"), find(page, "scrollFocusFitChoice")];
    compare(dropdowns.length, 3);
    compare(dropdowns[1].currentIndex, 1);
    compare(dropdowns[2].currentIndex, 1);
@@ -209,5 +209,5 @@ ShellRoot {
                 for image in [tiling, scrolling]:
                     self.assertTrue(image.is_file(), output)
                     with Image.open(image) as captured:
-                        self.assertEqual(captured.size, (760, 1080))
+                        self.assertEqual(captured.size, (760, 1600))
                         self.assertEqual(captured.getpixel((0, 0))[:3], (245, 243, 238) if theme == 'light' else (25, 27, 37))

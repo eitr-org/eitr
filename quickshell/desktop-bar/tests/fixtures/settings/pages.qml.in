@@ -36,7 +36,7 @@ ShellRoot {
  }
  Timer {
   interval: 180; running: true; repeat: true
-  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "windows", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "default-apps", "user", "user/manage", "user/users", "security", "updates", "check-pc", "about"]
+  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "windows", "windows/scrolling", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "default-apps", "user", "user/manage", "user/users", "security", "updates", "check-pc", "about"]
   property int current: 0
   property int phase: 0
   property bool saved: false
@@ -45,6 +45,7 @@ ShellRoot {
    if (phase === 0) {
     Bar.SiteStyle.light = "PALETTE" === "light";
     Bar.SettingsPalette.select("PALETTE" === "website" ? "website" : "theme", false);
+    Bar.DesktopStyle.windowLayout = {layout: pages[current] === "windows/scrolling" ? "scrolling" : "dwindle", scrollDirection: "right", scrollWidth: "half", scrollFocusFit: "center", scrollFollowFocus: "yes", scrollFullscreen: "yes"};
     window.show(pages[current]);
     window.implicitWidth = 1100; window.implicitHeight = 800;
    } else if (phase === 1) {
@@ -87,6 +88,18 @@ ShellRoot {
      hardware: [{title: "CPU", name: "8 cores"}, {title: "RAM", name: "32 GiB"}, {title: "Storage", name: "Example SSD · NVMe SSD · 1.0 TB"}]};
     fixture.find(content, "settings-default-apps-helper").summary = {items: ["Web browser", "File manager", "Text editor", "Image viewer", "Video player", "Music player", "Mail", "PDF viewer", "Terminal"].map(label => ({kind: "fixture", label: label, current: "fixture.desktop", name: "Example app", choices: [{value: "fixture.desktop", label: "Example app"}, {value: "other.desktop", label: "Other app"}]}))};
    } else if (phase === 2) {
+    const desktopPage = fixture.find(content, "settings-desktop-page");
+    if (desktopPage.visible) {
+     const layoutChoice = fixture.find(content, "windowLayoutChoice");
+     if (pages[current].split("/")[0] === "windows" && (!layoutChoice || layoutChoice.width <= 0 || layoutChoice.height <= 0)) throw new Error("Empty Windows page");
+    }
+    const targets = function(item) {
+     let count = item.visible && item.objectName && item.objectName.startsWith("setting-") ? 1 : 0;
+     for (const child of item.children || []) count += targets(child);
+     return count;
+    };
+    if (["appearance", "appearance/fonts", "appearance/terminal", "bar", "windows", "windows/scrolling", "sound", "input"].includes(pages[current]) && targets(content) === 0) throw new Error("Empty Settings page: " + pages[current]);
+
     if (pages[current].split("/")[0] === "user") {
      const tabs = fixture.find(content, "settings-user-tabs");
      const manage = fixture.find(content, "settings-manage-users");
@@ -146,7 +159,7 @@ ShellRoot {
     const pageView = desktop.visible ? desktop : devices.visible ? devices : fixture.find(content, "settings-system-page");
     if (pageView) pageView.contentY = Math.max(0, pageView.contentHeight - pageView.height);
    } else if (phase === 4) {
-    if (["appearance", "bar", "windows", "lockscreen", "notifications", "focus", "connections", "sound", "displays", "input", "keybinds", "default-apps", "user", "security", "assistants", "updates", "check-pc", "about"].includes(pages[current].split("/")[0])) {
+    if (["appearance", "bar", "windows", "windows/scrolling", "lockscreen", "notifications", "focus", "connections", "sound", "displays", "input", "keybinds", "default-apps", "user", "security", "assistants", "updates", "check-pc", "about"].includes(pages[current].split("/")[0])) {
      saved = false;
      content.grabToImage(result => { if (!result.saveToFile("OUTPUT/PALETTE-" + pages[current].replace("/", "-") + "-bottom.png")) throw new Error("render save"); saved = true; });
     }

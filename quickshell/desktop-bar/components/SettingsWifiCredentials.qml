@@ -16,14 +16,20 @@ ControlCard {
     surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
     onNetworkChanged: { password.text = ""; identity.text = ""; anonymous.text = ""; domain.text = ""; certificate.text = ""; }
     SettingsText { visible: form.network && form.network.type === "unsupported"; text: Eitr.I18n.tr("This network needs advanced security configuration.") }
-    ChoiceDropdown {
-        id: method
+    ControlRow {
+        text: Eitr.I18n.tr("Authentication")
+        description: Eitr.I18n.tr("Use the method required by your network.")
+        foreground: form.foreground
         visible: form.enterprise
-        width: Math.min(320, parent.width)
-        foreground: form.foreground; background: form.background; gold: SettingsInk.gold
-        choices: [{value: "peap", label: "PEAP / MSCHAPv2"}, {value: "ttls", label: "TTLS / PAP"}]
-        current: "peap"
-        onChosen: value => current = value
+        ChoiceDropdown {
+            id: method
+            visible: form.enterprise
+            width: parent.width
+            foreground: form.foreground; background: form.background; gold: SettingsInk.gold
+            choices: [{value: "peap", label: "PEAP / MSCHAPv2"}, {value: "ttls", label: "TTLS / PAP"}]
+            current: "peap"
+            onChosen: value => current = value
+        }
     }
     PanelTextField { id: identity; foreground: form.foreground; accent: form.accent; visible: form.enterprise; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("Username") }
     PanelTextField { id: anonymous; foreground: form.foreground; accent: form.accent; visible: form.enterprise; width: Math.min(320, parent.width); placeholderText: Eitr.I18n.tr("Anonymous identity (optional)") }

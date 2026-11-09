@@ -14,6 +14,8 @@ Les intervalles laissent passer les clics. Les zones vides acceptent les gestes 
 
 Les icônes d’état gardent leur bouton manuel d’affichage/masquage.
 
+Dans Paramètres > Fenêtres, la disposition et les moniteurs se choisissent avec deux boutons. Le nombre d’espaces et Toujours afficher utilisent des listes déroulantes ; Toujours afficher propose de 2 au nombre actuel d’espaces. Les descriptions expliquent chaque réglage, y compris la disposition choisie et les options de défilement.
+
 ## Mises à jour
 
 L’icône des mises à jour, avant Notifications, vérifie peu après la connexion et toutes les six heures. Cliquez pour mettre à jour le système ; un clic droit relance la vérification. Une mise à jour réussie indique un système à jour jusqu’à la prochaine vérification, sans en lancer une aussitôt. Hors ligne ou en cas d’échec, l’état est indisponible, jamais faussement « à jour ». La vérification utilise une base privée et ne met aucun paquet à jour.

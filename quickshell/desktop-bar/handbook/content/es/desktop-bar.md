@@ -12,6 +12,8 @@ Los huecos dejan pasar los clics. El espacio vacío de cada superficie admite lo
 
 Los iconos de estado conservan el botón manual para mostrar u ocultar.
 
+En Configuración > Ventanas, la disposición y los monitores usan dos botones. El número de espacios y Siempre mostrar usan listas desplegables; Siempre mostrar ofrece de 2 al número actual de espacios. Las descripciones explican el efecto de cada ajuste, incluida la disposición elegida y las opciones de desplazamiento.
+
 ## Actualizaciones
 
 El icono de actualizaciones, antes de Notificaciones, comprueba poco después de iniciar sesión y cada seis horas. Púlsalo para actualizar el sistema; el clic derecho vuelve a comprobar. Una actualización correcta lo marca como actualizado hasta la próxima comprobación, sin iniciar otra inmediatamente. Sin conexión o si falla, indica que el estado no está disponible, nunca un falso «actualizado». La comprobación usa una base de paquetes privada y no actualiza paquetes.

@@ -12,6 +12,8 @@ Abrir um painel faz crescer um cartão a partir da sua ilha (para o lado livre: 
 
 Os ícones de estado mantêm o botão manual de mostrar/ocultar.
 
+Em Configurações > Janelas, o layout e os monitores usam escolhas com dois botões. O número de áreas de trabalho e Sempre mostrar usam listas suspensas; Sempre mostrar oferece de 2 até a quantidade atual. As descrições explicam cada ajuste, incluindo o layout selecionado e as opções de rolagem.
+
 ## Atualizações
 
 O ícone de atualizações, antes de Notificações, verifica pouco depois do login e a cada seis horas. Clique para atualizar o sistema; o botão direito verifica novamente. Uma Atualização do sistema bem-sucedida o marca como atualizado até a próxima verificação, sem iniciar outra imediatamente. Sem conexão ou em caso de falha, o estado fica indisponível, nunca falsamente “atualizado”. A verificação usa uma base privada e não atualiza pacotes.

@@ -843,5 +843,21 @@
   "Shared numbers": "Shared numbers",
   "Split across monitors": "Split across monitors",
   "A lone column fills the screen.": "A lone column fills the screen.",
-  "Scroll to the window that gets focus.": "Scroll to the window that gets focus."
+  "Scroll to the window that gets focus.": "Scroll to the window that gets focus.",
+  "Add another keyboard layout to your list.": "Add another keyboard layout to your list.",
+  "Adjust the volume for this application.": "Adjust the volume for this application.",
+  "Adjust the volume or mute this device.": "Adjust the volume or mute this device.",
+  "Choose the appearance of the locked screen.": "Choose the appearance of the locked screen.",
+  "Choose the colours used by Settings.": "Choose the colours used by Settings.",
+  "Choose the microphone used to record sound.": "Choose the microphone used to record sound.",
+  "Choose the screen edge for the bar.": "Choose the screen edge for the bar.",
+  "Choose the shape of desktop corners.": "Choose the shape of desktop corners.",
+  "Choose the shape of the playing indicator.": "Choose the shape of the playing indicator.",
+  "Choose where sound is played.": "Choose where sound is played.",
+  "Keep this many workspace markers visible.": "Keep this many workspace markers visible.",
+  "See how much sound the microphone picks up.": "See how much sound the microphone picks up.",
+  "Set the total number of numbered workspaces.": "Set the total number of numbered workspaces.",
+  "Authentication": "Authentication",
+  "Choose the logo shown on the About page.": "Choose the logo shown on the About page.",
+  "Use the method required by your network.": "Use the method required by your network."
 }

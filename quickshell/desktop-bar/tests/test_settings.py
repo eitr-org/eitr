@@ -307,7 +307,7 @@ QtObject {
                 code, output = render(folder / 'fixture.qml', render_environment(folder, (1280, 960)), 30)
                 self.assertEqual(code, 0, output)
                 self.assertIn('PAGES_OK', output)
-                for diagnostic in ('TypeError:', 'ReferenceError:', 'Unable to assign', 'Binding loop', 'Error:'):
+                for diagnostic in ('TypeError:', 'ReferenceError:', 'Unable to assign', 'Binding loop', 'Error:', 'Required property'):
                     self.assertNotIn(diagnostic, output)
                 for page in ('appearance', 'bar', 'windows', 'lockscreen', 'notifications', 'focus',
                              'displays', 'sound', 'connections', 'input', 'keybinds', 'default-apps', 'user', 'user-manage', 'user-users', 'security', 'assistants', 'updates', 'check-pc', 'about'):
@@ -694,7 +694,7 @@ ShellRoot {
             code, output = render(folder / 'fixture.qml', render_environment(folder, (1280, 960)), 12)
             self.assertEqual(code, 0, output)
             self.assertIn('PICTURES_OK', output)
-            for diagnostic in ('FAIL!', 'TypeError:', 'ReferenceError:', 'Unable to assign', 'Binding loop', 'Error:'):
+            for diagnostic in ('FAIL!', 'TypeError:', 'ReferenceError:', 'Unable to assign', 'Binding loop', 'Error:', 'Required property'):
                 self.assertNotIn(diagnostic, output)
             self.assertEqual(json.loads((folder / 'eitr/settings-app.json').read_text()), {'version': 1, 'palette': 'website'})
             self.assertTrue((output_folder / 'previews.png').is_file())

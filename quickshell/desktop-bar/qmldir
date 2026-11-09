@@ -181,6 +181,7 @@ SettingsWindowsPage settings/SettingsWindowsPage.qml
 SettingsLockscreenPage settings/SettingsLockscreenPage.qml
 SettingsNotificationsPage settings/SettingsNotificationsPage.qml
 SettingsFocusPage settings/SettingsFocusPage.qml
+SettingsChoiceSection components/SettingsChoiceSection.qml
 SettingsText components/SettingsText.qml
 SettingsKeybindsPage settings/SettingsKeybindsPage.qml
 SettingsDefaultAppsPage settings/SettingsDefaultAppsPage.qml

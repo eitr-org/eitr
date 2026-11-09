@@ -4,6 +4,8 @@
 
 The Full bar. The Eitr logo opens Control Center; Overview, the workspace markers, AI Usage, Hardware and Idle Lock follow it. The date and time stay centered, with media before them and the weather after them. **Show Icons** reveals or hides the status icons on the right; Notifications come last.
 
+In Settings > Windows, Window layout and Monitors use two-button choices. Number of workspaces and Always show use dropdown lists; Always show offers 2 up to the current workspace count. Descriptions below each setting explain its effect, including the selected window layout and scrolling options.
+
 ## Updates
 
 The updates icon, before Notifications, checks shortly after login and every six hours. Click it to run System Update; right-click to check again. A successful System Update marks it up to date until the next check, without starting another check immediately. Offline or failed checks show an unavailable state, never a false “up to date”. The check uses a private package database and does not upgrade packages.
