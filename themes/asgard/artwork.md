@@ -16,8 +16,7 @@ with the built-in image tool and no reference images. Artwork license: CC-BY-4.0
 
 - `01-radiant-citadel.jpg`: luminous fantasy oil painting, visible brushwork ([Batch 07](../artwork-batch-07.json)).
 - `02-bifrost-hall.jpg`: Norse ink illustration ([Batch 05](../artwork-batch-05.json)).
-- `03-cloud-fortress.jpg`: painterly environment ([Batch 06](../artwork-batch-06.json)).
-- `04-storm-bridge.jpg`: moody gouache illustration, simplified shapes ([Batch 07](../artwork-batch-07.json)).
+- `03-storm-bridge.jpg`: moody gouache illustration, simplified shapes ([Batch 07](../artwork-batch-07.json)).
 
 Batches 06 and 07 use scenic backgrounds and varied painted or drawn media at the owner's
 explicit request, an exception to the default ink screenprint direction.

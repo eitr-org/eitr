@@ -142,24 +142,7 @@
       "source": "branding/sources/wallpapers/batch-05/asgard-01-bifrost-hall.png"
     },
     {
-      "file": "themes/asgard/backgrounds/03-cloud-fortress.jpg",
-      "source": "branding/sources/wallpapers/batch-06/asgard-02-cloud-fortress.png",
-      "source_size": [
-        1672,
-        941
-      ],
-      "source_sha256": "32fe3dfd81591d64c275a74bddbdf8210453873c9b828783fd18c8281cb59f15",
-      "centering": [
-        0.5,
-        0.5
-      ],
-      "output_size": [
-        3840,
-        2160
-      ]
-    },
-    {
-      "file": "themes/asgard/backgrounds/04-storm-bridge.jpg",
+      "file": "themes/asgard/backgrounds/03-storm-bridge.jpg",
       "source": "branding/sources/wallpapers/batch-07/asgard-04-storm-bridge.png",
       "source_size": [
         1672,
@@ -617,13 +600,13 @@
       ]
     },
     {
-      "file": "themes/svartalfheim/backgrounds/01-cavern-city.jpg",
-      "source": "branding/sources/wallpapers/batch-07/svartalfheim-03-cavern-city.png",
+      "file": "themes/svartalfheim/backgrounds/01-feasting-hall.jpg",
+      "source": "branding/sources/wallpapers/batch-13/svartalfheim-01-feasting-hall.png",
       "source_size": [
         1672,
         941
       ],
-      "source_sha256": "fcdb568babeeebee1939f6300cc19e24f6fe67571348747264f52db9a7aca25c",
+      "source_sha256": "e36162a53b24e4329aa4ff94df38be28514f5c5d165971ca211d3400928ea226",
       "centering": [
         0.5,
         0.5

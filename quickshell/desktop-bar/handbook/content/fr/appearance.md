@@ -86,7 +86,7 @@ Le rendu logiciel (par exemple, une VM sans accélération 3D) utilise le fond f
 
 Les 13 thèmes intégrés restent disponibles hors ligne. Installez les 12 thèmes supplémentaires depuis le catalogue officiel `eitr-org/eitr-themes`. Les comptes existants reçoivent les 12 en arrière-plan, avec de nouvelles tentatives après un échec réseau, sans changer le thème actuel ni le fond enregistré. Les nouveaux comptes reçoivent seulement les thèmes intégrés.
 
-Les 13 thèmes fournis comprennent dix palettes sombres des royaumes : Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim et Vanaheim. Chaque thème des royaumes comprend de deux à cinq fonds originaux, dans des styles variés : encre, gouache, cel-shading et peinture, dans les deux formats. Le premier fond sert d’aperçu du thème.
+Les 13 thèmes fournis comprennent dix palettes sombres des royaumes : Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim et Vanaheim. Chaque thème des royaumes comprend de deux à cinq fonds originaux, dans des styles variés : encre, gouache, cel-shading et peinture, dans les deux formats. Le premier fond correspond généralement à l’aperçu du thème ; Svartalfheim conserve son aperçu indépendant.
 
 Eitr Light est la variante claire de Primordial Venom, avec des surfaces vert pâle, du texte vert foncé, des accents jaune-vert de venin et des touches de jade/émeraude. Ses quatre fonds fixes sont Fjord au crépuscule (par défaut), The Gates of Yggdrasil, Rune Seal et Primordial Drop, chacun avec une composition panoramique distincte. Choisissez-le dans la catégorie Claire ; Eitr reste le thème par défaut. Fond du thème utilise l’image fixe sélectionnée sur l’écran de verrouillage.
 

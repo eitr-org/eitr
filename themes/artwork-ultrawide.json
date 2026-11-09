@@ -102,20 +102,8 @@
       ]
     },
     {
-      "file": "themes/asgard/backgrounds-ultrawide/03-cloud-fortress.jpg",
-      "wallpaper": "themes/asgard/backgrounds/03-cloud-fortress.jpg",
-      "source": {
-        "file": "branding/sources/wallpapers/batch-06/asgard-02-cloud-fortress-ultrawide.png"
-      },
-      "framing": "crop",
-      "centering": [
-        0.5,
-        0.5
-      ]
-    },
-    {
-      "file": "themes/asgard/backgrounds-ultrawide/04-storm-bridge.jpg",
-      "wallpaper": "themes/asgard/backgrounds/04-storm-bridge.jpg",
+      "file": "themes/asgard/backgrounds-ultrawide/03-storm-bridge.jpg",
+      "wallpaper": "themes/asgard/backgrounds/03-storm-bridge.jpg",
       "source": {
         "file": "branding/sources/wallpapers/batch-07/asgard-04-storm-bridge-ultrawide.png"
       },
@@ -440,15 +428,15 @@
       }
     },
     {
-      "file": "themes/svartalfheim/backgrounds-ultrawide/01-cavern-city.jpg",
-      "wallpaper": "themes/svartalfheim/backgrounds/01-cavern-city.jpg",
+      "file": "themes/svartalfheim/backgrounds-ultrawide/01-feasting-hall.jpg",
+      "wallpaper": "themes/svartalfheim/backgrounds/01-feasting-hall.jpg",
       "source": {
-        "file": "branding/sources/wallpapers/batch-07/svartalfheim-03-cavern-city.png"
+        "file": "branding/sources/wallpapers/batch-13/svartalfheim-01-feasting-hall-ultrawide.png"
       },
       "framing": "crop",
       "centering": [
         0.5,
-        0
+        0.5
       ]
     },
     {

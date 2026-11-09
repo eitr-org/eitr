@@ -117,7 +117,7 @@ The 13 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
 Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
 Each realm theme has two to five original wallpapers in varied ink,
 gouache, cel-shaded and painted styles, in both aspect ratios. The first
-wallpaper is the theme's preview.
+wallpaper usually matches the theme's preview; Svartalfheim keeps its independent preview.
 
 If Hyprpaper cannot display the selected wallpaper, the bar draws the same still image on each affected screen, including ultrawide variants. Wallpaper and theme choices still apply in Focus mode; the fallback switches without the wallpaper reveal animation.
 

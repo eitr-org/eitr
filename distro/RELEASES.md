@@ -128,7 +128,9 @@ Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
 Each has two to four original wallpapers chosen by the owner, from hand-inked
 Norse illustrations to oil, gouache, cel-shaded, ink-wash, graphic and painted
 environments, in 4K and ultrawide formats with retained native sources and
-reproducible exports. The first wallpaper is each theme's preview. Approved palette roles
+reproducible exports. Svartalfheim now starts with the ink cel-shaded Feasting Hall;
+Cavern City and Asgard’s Cloud Fortress are retired, and Storm Bridge is Asgard 03.
+Independent previews are preserved. Approved palette roles
 include separate panel surfaces and alerts; dark crimson accents retain readable
 text shades.
 

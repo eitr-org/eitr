@@ -9,12 +9,12 @@ Neovim and VS Code use Eitr's own themes from this palette.
 ## Wallpapers
 
 Each wallpaper ships as 3840×2160 and 3440×1440 JPEGs, in the owner's chosen order. The preview
-is a resized copy of `01`. Exact prompts, native sources, sizes, hashes and framing are recorded in
+remains the independent owner-approved image. Exact prompts, native sources, sizes, hashes and framing are recorded in
 the batch manifest named for each image; reproducible exports live in
-`branding/sources/wallpapers/batch-NN/export.py`. All are original, generated from written briefs
-with the built-in image tool and no reference images. Artwork license: CC-BY-4.0.
+`branding/sources/wallpapers/batch-NN/export.py`. All are original, generated with the built-in image tool. Batch 13 uses the
+owner-approved Eitr dusk fjord as a style input; older images use written briefs only. Artwork license: CC-BY-4.0.
 
-- `01-cavern-city.jpg`: dark atmospheric painting ([Batch 07](../artwork-batch-07.json)).
+- `01-feasting-hall.jpg`: ink cel-shaded vector ([Batch 13](../artwork-batch-13.json)).
 - `02-hammer-warriors.jpg`: graphic-novel illustration, bold ink outlines and flat shading ([Batch 07](../artwork-batch-07.json)).
 - `03-forge-canyon.jpg`: painterly environment ([Batch 06](../artwork-batch-06.json)).
 

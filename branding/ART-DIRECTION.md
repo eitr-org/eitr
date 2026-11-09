@@ -137,3 +137,20 @@ and `export.py` live under `branding/sources/wallpapers/batch-12/`. Separate
 generated sideways extensions provide the panoramas. Shared Lanczos exports
 are 3840×2160 and 3440×1440, without stretching or padding; not native 4K detail.
 Independent theme previews remain unchanged; website cards use each theme's first wallpaper.
+
+## Realm curation — Batch 13
+
+Svartalfheim starts with Feasting Hall, followed by Hammer Warriors and Forge
+Canyon. The owner-approved hall uses the fjords' ink cel-shaded vector style,
+bold contours, flat warm colours and a scenic carved interior. Its independent
+preview remains unchanged. Asgard retains Radiant Citadel, Bifrost Hall and
+Storm Bridge (now 03); Cloud Fortress and Cavern City are retired.
+
+`themes/artwork-batch-13.json` records the three supplied prompts verbatim,
+the original dwarfs-b.png edit input (provenance only, not distributed), and
+style-fjord-c.png as the owner-approved batch 12 Eitr dusk fjord master.
+Two native PNGs and the shared-pipeline exporter live in
+`branding/sources/wallpapers/batch-13/`. Centred Lanczos exports preserve the
+table and round door at 3840×2160 and 3440×1440, using the separately generated
+panorama without stretching or padding; these are not native 4K detail.
+Retired records retain their prompts and hashes; unused native sources are removed.

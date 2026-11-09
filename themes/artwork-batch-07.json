@@ -47,10 +47,10 @@
     },
     {
       "theme": "asgard",
-      "name": "04-storm-bridge",
+      "name": "03-storm-bridge",
       "rendering_style": "moody gouache illustration, simplified shapes",
-      "file": "themes/asgard/backgrounds/04-storm-bridge.jpg",
-      "ultrawide_file": "themes/asgard/backgrounds-ultrawide/04-storm-bridge.jpg",
+      "file": "themes/asgard/backgrounds/03-storm-bridge.jpg",
+      "ultrawide_file": "themes/asgard/backgrounds-ultrawide/03-storm-bridge.jpg",
       "prompt": "Original hand-painted GOUACHE BOOK ILLUSTRATION wallpaper, 16:9. Night; a dark spired fortress silhouette on a high cliff, a glowing prismatic bridge running toward it over waterfalls, a lightning bolt in storm clouds, a tiny cloaked figure on a rock in the foreground seen from behind. RENDERING IS CRITICAL: large flat opaque colour shapes, a deliberately limited palette of six colours, no fine architectural detail, no realistic lighting, no photographic textures. Graphic simplified silhouette fortress, broad visibly dry brushed gouache marks on paper, chunky waterfall ribbons. Read as a painted children's book illustration at tiny thumbnail size. Dark slate, black, muted ivory, small gold and prismatic bridge colours. Calm dark top 10%. Fit entire fortress below 20% image height, small complete figure above bottom 18%, broad horizontal scene for later ultrawide crop. No lettering, runes, symbols, logos, signature or watermark. Entirely original written-brief composition; no reference images.",
       "status": "selected after visual inspection; awaiting owner review",
       "centering": [
@@ -275,7 +275,7 @@
       "file": "themes/svartalfheim/backgrounds/01-cavern-city.jpg",
       "ultrawide_file": "themes/svartalfheim/backgrounds-ultrawide/01-cavern-city.jpg",
       "prompt": "DARK ATMOSPHERIC OIL PAINTING, clearly hand-painted, broad broken bristle strokes throughout, simplified masses, loose edges, do not resolve tiny details, no photographic surfaces or 3D render. Original Norse fantasy underground city carved into a cavern: plain blocky towers with orange window dabs, stalactites, stone bridges and stairs over a chasm. Deep purple-blue gloom against sparse orange lamplight. Painterly texture plainly visible at thumbnail size, large dark shapes, subtle mist depth. Quiet dark rock upper 12%, city towers entirely below 20% height. Empty city, NO people, statues, banners, flags, inscriptions, carvings, symbols, text or runes. Wide 16:9 wallpaper requested 3840x2160. No logos, signatures or watermarks. Written brief only, no references.",
-      "status": "selected after visual inspection; awaiting owner review",
+      "status": "removed",
       "centering": [
         0.5,
         0.5
@@ -290,7 +290,8 @@
       "native_size": [
         1672,
         941
-      ]
+      ],
+      "retirement": "Owner realm curation: replaced by Feasting Hall. Removed in batch 13; provenance retained as history."
     },
     {
       "theme": "svartalfheim",

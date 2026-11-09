@@ -12,6 +12,8 @@ const approvedArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-
 
 const curatedArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-12.json", import.meta.url), "utf8"));
 
+const realmArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-13.json", import.meta.url), "utf8"));
+
 const eitr = {
   mimir: "../assets/norse/03-mimir-well-of-wisdom.jpg",
   valkyrie: "../assets/norse/05-valkyrie.jpg",
@@ -39,7 +41,7 @@ for (const entry of (await readdir(themes, { withFileTypes: true })).filter((ite
   const colors = palette(await readFile(new URL("colors.toml", directory), "utf8"));
   const name = (await readFile(new URL("display-name", directory), "utf8")).trim();
   const light = await readFile(new URL("light.mode", directory)).then(() => true, () => false);
-  const selectedArtwork = curatedArtwork.images.find((image) => image.theme === entry.name && image.name.startsWith("01-"))?.file
+  const selectedArtwork = [...curatedArtwork.images, ...realmArtwork.images].find((image) => image.theme === entry.name && image.name.startsWith("01-"))?.file
     ?? approvedArtwork.previews[entry.name];
   const previewSource = selectedArtwork
     ? new URL(`../../${selectedArtwork}`, import.meta.url).pathname

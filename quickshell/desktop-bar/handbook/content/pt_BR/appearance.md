@@ -83,7 +83,7 @@ A renderização por software (por exemplo, numa VM sem aceleração 3D) usa o p
 
 Os 13 temas integrados ficam disponíveis offline. Instale os 12 temas extras pelo catálogo oficial `eitr-org/eitr-themes`. Contas existentes recebem todos os 12 em segundo plano, com novas tentativas após falhas de rede, sem mudar o tema atual nem o papel de parede salvo. Contas novas recebem apenas os integrados.
 
-Os 13 temas incluídos oferecem dez paletas escuras dos reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim e Vanaheim. Cada tema dos reinos tem de dois a cinco papéis de parede originais, com estilos variados de tinta, guache, cel shading e pintura, nas duas proporções. O primeiro papel de parede é a prévia do tema.
+Os 13 temas incluídos oferecem dez paletas escuras dos reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim e Vanaheim. Cada tema dos reinos tem de dois a cinco papéis de parede originais, com estilos variados de tinta, guache, cel shading e pintura, nas duas proporções. O primeiro papel de parede geralmente corresponde à prévia do tema; Svartalfheim mantém sua prévia independente.
 
 Eitr Light é a versão clara de Primordial Venom, com superfícies verde-claras, texto verde-escuro, detalhes em amarelo-esverdeado de veneno e realces de jade/esmeralda. Seus quatro papéis de parede estáticos são Fiorde ao entardecer (padrão), The Gates of Yggdrasil, Rune Seal e Primordial Drop, cada um com uma composição panorâmica própria. Selecione-o na categoria Clara; Eitr continua sendo o padrão. Papel de parede do tema usa a imagem estática selecionada na tela de bloqueio.
 

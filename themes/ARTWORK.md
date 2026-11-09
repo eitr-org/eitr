@@ -15,6 +15,7 @@ marked removed with the official repository location. The Eitr theme combines pr
 - `artwork-batch-05.json`: the ten approved realm illustrations and their native sources, exact prompts and preview selections.
 - `artwork-batch-06.json`: the ten second realm wallpapers, using owner-requested scenic painterly environments, with native sources, exact prompts and framing.
 - `artwork-batch-07.json`: realm wallpapers with individually recorded rendering styles, written prompts, native sources and framing; Ragnarök excluded.
+- `artwork-batch-13.json`: owner-approved Svartalfheim Feasting Hall, verbatim generation/edit prompts, style input, native sources and export hashes.
 - `artwork-batch-12.json`: owner-approved Aurora and Dusk Fjords, verbatim prompts, image input filenames, native sources and export hashes.
 - `artwork-batch-11.json`: active rune seals and light Gates; removed dark Gates retained as provenance.
 - `artwork-batch-08.json`: three owner-approved Ragnarök selections with separate panoramic compositions, exact written prompts and native provenance.
@@ -155,3 +156,20 @@ and `export.py` live under `branding/sources/wallpapers/batch-12/`. Separate
 generated sideways extensions provide the panoramas. Shared Lanczos exports
 are 3840×2160 and 3440×1440, without stretching or padding; not native 4K detail.
 Independent theme previews remain unchanged; website cards use each theme's first wallpaper.
+
+## Realm curation — Batch 13
+
+Svartalfheim starts with Feasting Hall, followed by Hammer Warriors and Forge
+Canyon. The owner-approved hall uses the fjords' ink cel-shaded vector style,
+bold contours, flat warm colours and a scenic carved interior. Its independent
+preview remains unchanged. Asgard retains Radiant Citadel, Bifrost Hall and
+Storm Bridge (now 03); Cloud Fortress and Cavern City are retired.
+
+`themes/artwork-batch-13.json` records the three supplied prompts verbatim,
+the original dwarfs-b.png edit input (provenance only, not distributed), and
+style-fjord-c.png as the owner-approved batch 12 Eitr dusk fjord master.
+Two native PNGs and the shared-pipeline exporter live in
+`branding/sources/wallpapers/batch-13/`. Centred Lanczos exports preserve the
+table and round door at 3840×2160 and 3440×1440, using the separately generated
+panorama without stretching or padding; these are not native 4K detail.
+Retired records retain their prompts and hashes; unused native sources are removed.

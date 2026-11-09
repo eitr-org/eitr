@@ -20,7 +20,7 @@
       "file": "themes/asgard/backgrounds/03-cloud-fortress.jpg",
       "ultrawide_file": "themes/asgard/backgrounds-ultrawide/03-cloud-fortress.jpg",
       "prompt": "Use case: stylized-concept. Original Norse fantasy environment desktop wallpaper, requested 3840x2160 landscape 16:9. Asgard: monumental golden fortress-city crowning sheer cliffs above a sea of clouds, a slender rainbow bridge of light at dawn. Original stepped stone terraces and asymmetrical halls, no borrowed landmark. Rich painterly concept art lighting, vast exploratory scale, weathered carved stone, luminous atmospheric depth. Palette from theme: near-black #0a0a0b, ivory #d8d8d4, gold #ddbd7e, emerald #3fe39a, slate #8a98a8. Top 6% calm low-contrast sky. Compose all key landmarks within middle 65% of height so a 21:9 center crop preserves the complete scene. No characters, people, gods, heroes, creatures, text, readable runes, logos, UI, signatures, watermarks. Written brief only, no reference images. Entirely original architecture and composition.",
-      "status": "selected after visual inspection",
+      "status": "removed",
       "centering": [
         0.5,
         0.5
@@ -42,7 +42,8 @@
         812
       ],
       "ultrawide_prompt": "Use case: stylized-concept. Original Norse fantasy environment desktop wallpaper, requested 3840x2160 landscape 16:9. Asgard: monumental golden fortress-city crowning sheer cliffs above a sea of clouds, a slender rainbow bridge of light at dawn. Original stepped stone terraces and asymmetrical halls, no borrowed landmark. Rich painterly concept art lighting, vast exploratory scale, weathered carved stone, luminous atmospheric depth. Palette from theme: near-black #0a0a0b, ivory #d8d8d4, gold #ddbd7e, emerald #3fe39a, slate #8a98a8. Top 6% calm low-contrast sky. Compose all key landmarks within middle 65% of height so a 21:9 center crop preserves the complete scene. No characters, people, gods, heroes, creatures, text, readable runes, logos, UI, signatures, watermarks. Written brief only, no reference images. Entirely original architecture and composition. PANORAMIC RECOMPOSITION: true 2.39:1 aspect ratio, requested 3440x1440. Keep full fortress top and bridge within frame with sky margin above. Spread cliffs horizontally; no cropping, stretching or padding.",
-      "ultrawide_note": "Separately composed panoramic environment from a written brief, preserving complete main landmarks."
+      "ultrawide_note": "Separately composed panoramic environment from a written brief, preserving complete main landmarks.",
+      "retirement": "Owner realm curation: Cloud Fortress retired. Removed in batch 13; provenance retained as history."
     },
     {
       "theme": "alfheim",

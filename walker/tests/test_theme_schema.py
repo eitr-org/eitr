@@ -34,7 +34,7 @@ def theme_dirs():
 
 
 # The owner's curated wallpaper count per realm theme.
-REALM_WALLPAPERS = {"alfheim": 3, "asgard": 4, "helheim": 3, "jotunheim": 3, "midgard": 2,
+REALM_WALLPAPERS = {"alfheim": 3, "asgard": 3, "helheim": 3, "jotunheim": 3, "midgard": 2,
                     "muspelheim": 3, "niflheim": 3, "ragnarok": 5, "svartalfheim": 3, "vanaheim": 3}
 
 

@@ -1,0 +1,70 @@
+{
+  "batch": "2026-11-original-13",
+  "generator": "Codex image generation",
+  "status": "owner-approved",
+  "resolution": [
+    3840,
+    2160
+  ],
+  "ultrawide_resolution": [
+    3440,
+    1440
+  ],
+  "processing": "Subject-centred Lanczos crop-to-fill; separate generated panoramic image inputs for ultrawide. Never stretched or padded; exports are not native 4K detail.",
+  "images": [
+    {
+      "theme": "svartalfheim",
+      "name": "01-feasting-hall",
+      "rendering_style": "Ink cel-shaded vector",
+      "status": "owner-approved",
+      "file": "themes/svartalfheim/backgrounds/01-feasting-hall.jpg",
+      "ultrawide_file": "themes/svartalfheim/backgrounds-ultrawide/01-feasting-hall.jpg",
+      "prompt": "Use your image generation/editing tool to edit the attached image dwarfs-b.png and save the result as dwarfs-b2.png in this folder (/home/erick/Development/personal/eitr-testing/ideas/svartalfheim-wallpapers). Landscape 16:9, the highest resolution the tool supports. Do not write code; afterwards report the file name and its actual pixel size.\n\nKeep the picture the same: the same composition, hall, carved pillars, hanging lanterns, round door with the starry mountain valley, side forge with the smith on the left, hearth with the roast on the right, the drummer, the long feasting table and its food, the colours, the bold black ink outlines and the flat cel-shaded style. Fix only these mistakes so every dwarf looks natural:\n\n1. Seating: every dwarf at the table must clearly sit on a wooden bench. Put a long bench along the far side of the table for the dwarfs behind it (now they float with nothing under them) and make the dwarfs in front of the table (the blonde-braided one and the green-hooded one seen from behind) sit on the near bench facing the table, their backs to us. Nobody floats, kneels on nothing or stands inside furniture.\n2. Hands and arms: every dwarf has exactly two hands with a normal number of fingers, each attached to its own arm. No extra, missing or detached hands; no hand coming out of nowhere. Each dwarf holds at most one tankard (raised in a toast, or resting on the table).\n3. Tankards: each tankard is held by a hand or rests on the table; none floats in the air.\n4. Keep the drummer sitting on his barrel with both hands on the drum and sticks, the singing dwarf beside him with two hands, the smith with one hammer hand and one holding tongs, and the cook turning the spit with both hands.\n\nNo text, logos, signatures or watermarks.\n",
+      "prompt_file": "brief-dwarfs-b-fix.md",
+      "input_images": [
+        "dwarfs-b.png"
+      ],
+      "input_role": "Codex image-generation edit of the earlier draft; original prompt and owner-approved style input recorded below.",
+      "prompt_history": [
+        {
+          "file": "brief-dwarfs.md",
+          "prompt": "Use your image generation tool to create two NEW desktop wallpapers and save them in this folder (/home/erick/Development/personal/eitr-testing/ideas/svartalfheim-wallpapers) as dwarfs-a.png and dwarfs-b.png. Landscape 16:9, the highest resolution the tool supports. Do not write code. Afterwards report each file name and its actual pixel size.\n\nThe attached style-fjord-c.png is the STYLE reference only (an owner-approved wallpaper from the same desktop). Match its art style closely: a clean flat vector / cel-shaded illustration with bold black ink outlines, flat colour planes with one or two shading steps, angular faceted rock, chunky simple shapes, friendly and handcrafted like an animated-series background. Do not copy its scene.\n\nThe theme is \"Svartalfheim\", the Norse realm of the dwarfs, for a desktop whose colours are dark umber (#191715, #29231f), warm parchment (#ede5db), forge amber (#d49a65), gold (#e0bd78), soft teal (#8ab7ad), moss green (#9dbb89) and a warm red (#e17f72). Use these as the palette: warm firelight glowing against deep brown-black rock, with cool teal for crystals, mist or distant shadows.\n\nBoth pictures show dwarfs at home in their underground realm, busy and happy, small enough in the frame that the scene stays calm behind desktop windows: keep the top strip and the centre fairly quiet, put the liveliest details lower and to the sides. Dwarfs have big braided beards, helmets or hoods, sturdy boots; give them warm, cheerful expressions. No text, logos, signatures or watermarks.\n\n1. dwarfs-a.png: a vast cavern workshop city. In the foreground a great forge with an anvil where a dwarf hammers a glowing blade while sparks fly; others push a mine cart of gems along rails, one carries a lantern, two clink tankards at a table outside a carved stone tavern door. In the background, terraced stone halls and arched bridges carved into the cavern walls, warm windows, glowing teal crystals in the ceiling, a waterfall of molten gold light from a distant furnace.\n2. dwarfs-b.png: a great carved feasting hall deep in the mountain at evening. A long table with dwarfs laughing, singing and raising tankards; one plays a small drum, one roasts meat over a hearth; a smith works at a side forge; huge stone pillars carved with simple runes, hanging lanterns, a big round door opening onto a starry glimpse of a mountain valley far away. Warm and cosy.\n",
+          "input_images": [
+            "style-fjord-c.png"
+          ],
+          "input_role": "Owner-approved Eitr dusk fjord master used as style reference only.",
+          "input_source": "branding/sources/wallpapers/batch-12/eitr-02-dusk-fjord.png"
+        }
+      ],
+      "ultrawide_prompt": "Use your image generation/editing tool to make an ultrawide version of the attached wallpaper dwarfs-b2.png and save it in this folder (/home/erick/Development/personal/eitr-testing/ideas/svartalfheim-wallpapers) as dwarfs-b2-ultrawide.png. It must be a 21:9 landscape image at the highest resolution the tool supports. Do not write code; afterwards report the file name and its actual pixel size.\n\nExtend the picture sideways (outpaint left and right) so it fills 21:9. Keep everything already in the picture exactly as it is: the same art style (bold black ink outlines, flat cel-shaded colour planes), the same colours, the hall, pillars, lanterns, round door with the mountain valley, the forge and smith on the left, the hearth and cook on the right, the drummer and every dwarf at the table, at the same size and in the same place relative to each other. Every dwarf keeps two natural hands and stays seated on a bench. Only add new matching scenery at the sides (more of the carved hall: rock walls, a shelf of tankards, barrels, a weapon rack, a lantern). Never stretch, squash or pad with flat colour, and add no text, logos or watermarks.\n",
+      "ultrawide_prompt_file": "brief-uw-dwarfs.md",
+      "ultrawide_input_images": [
+        "dwarfs-b2.png"
+      ],
+      "ultrawide_input_role": "Separate generated panoramic sideways extension of the approved master.",
+      "centering": [
+        0.5,
+        0.5
+      ],
+      "ultrawide_centering": [
+        0.5,
+        0.5
+      ],
+      "framing": "Subject-centred Lanczos crop to fill; the table of dwarfs and round door remain in frame. No stretching or padding.",
+      "native_source": "branding/sources/wallpapers/batch-13/svartalfheim-01-feasting-hall.png",
+      "native_sha256": "e36162a53b24e4329aa4ff94df38be28514f5c5d165971ca211d3400928ea226",
+      "native_size": [
+        1672,
+        941
+      ],
+      "ultrawide_native_source": "branding/sources/wallpapers/batch-13/svartalfheim-01-feasting-hall-ultrawide.png",
+      "ultrawide_native_sha256": "6a5cae8670f7d3f2ed5b8582a34d376a89596a6d3d62e3c56177e48428a243d8",
+      "ultrawide_native_size": [
+        1914,
+        822
+      ],
+      "file_sha256": "2ee90b0fb84be5f597dbc394116c64d2dbb5ed78f103046ac1ef573cb2ce65cd",
+      "ultrawide_file_sha256": "c835a070e3d76229a19f0b8ad426c8861c1f3768bc0437323b16ff8340a46f8b"
+    }
+  ]
+}
