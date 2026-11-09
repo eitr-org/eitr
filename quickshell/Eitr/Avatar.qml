@@ -38,9 +38,11 @@ Item {
             if (current.toString() !== "") unloadImage(current);
             current = url;
             loaded = false;
-            if (url.toString() === "") requestPaint();
-            else if (isImageLoaded(url)) imageLoaded();
-            else loadImage(url);
+            if (url.toString() === "") { requestPaint(); return; }
+            // Canvas images are shared: when another avatar already loaded this picture,
+            // loadImage() finds it cached and never signals, so check again afterwards.
+            if (!isImageLoaded(url)) loadImage(url);
+            if (isImageLoaded(url)) imageLoaded();
         }
         onImageLoaded: {
             loaded = current.toString() !== "" && isImageLoaded(current) && !isImageError(current);
