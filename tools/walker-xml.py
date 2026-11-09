@@ -23,7 +23,7 @@ def layouts(root):
     if not providers or not SINGLE_LINE_MENUS <= providers:
         raise ValueError('Menu sources missing or single-line menu classification is stale')
     result = {f'item_menus-{name}.xml': 'item.xml' if name in SINGLE_LINE_MENUS | COMPATIBILITY_MENUS
-              else 'item_menus-main.xml' for name in (providers | COMPATIBILITY_MENUS) - {'workspaces'}}
+              else 'item_menus-main.xml' for name in (providers | COMPATIBILITY_MENUS) - {'workspace-style'}}
     result.update({f'item_{name}.xml': 'item.xml' for name in NATIVE_PROVIDERS})
     return result
 
@@ -41,10 +41,10 @@ def generate(root=ROOT, check=False):
                 errors.append(f'{name}: missing or differs from {template}')
             else:
                 target.write_bytes(templates[template])
-    if not (directory / 'item_menus-workspaces.xml').is_file():
-        errors.append('item_menus-workspaces.xml: missing custom workspace layout')
+    if not (directory / 'item_menus-workspace-style.xml').is_file():
+        errors.append('item_menus-workspace-style.xml: missing custom workspace layout')
     actual = {path.name for path in directory.glob('item*.xml')}
-    for name in sorted(actual - (set(expected) | set(templates) | {'item_menus-workspaces.xml'})):
+    for name in sorted(actual - (set(expected) | set(templates) | {'item_menus-workspace-style.xml'})):
         errors.append(f'{name}: unexpected row layout; classify its provider')
     return errors
 

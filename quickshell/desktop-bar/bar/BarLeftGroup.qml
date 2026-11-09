@@ -56,13 +56,13 @@ RowLayout {
             spacing: host.workspaceItemSpacing
             anchors.verticalCenter: parent.verticalCenter
             Repeater {
-                model: host.workspaceCount
+                model: host.workspaceRows(barWindow.screen).length
 
                 BarButton {
 
                     host: group.host
                     text: host.workspaceLabel(index, barWindow.screen)
-                    tooltip: active ? "" : host.workspaceApps(index + 1)
+                    tooltip: active ? "" : host.workspaceApps(host.workspaceEntry(index, barWindow.screen).id)
                     visualStyle: host.workspaceStyle
                     active: host.workspaceActive(index + 1, barWindow.screen)
                     width: host.workspaceItemSize
@@ -71,7 +71,7 @@ RowLayout {
                     fontSize: 14
                     cornerRadius: 6
                     textOffsetY: 0
-                    onClicked: host.focusWorkspace(index + 1)
+                    onClicked: host.focusWorkspace(host.workspaceEntry(index, barWindow.screen).number, barWindow.screen)
                     onRightClicked: barWindow.togglePanel(styleMenu)
                 }
 

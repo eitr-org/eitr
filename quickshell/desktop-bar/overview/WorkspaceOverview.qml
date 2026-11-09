@@ -15,11 +15,14 @@ PanelWindow {
     required property color foreground
     required property color background
     required property color accent
+    property var workspaceRows: []
+    property string monitorName: ""
+    property string workspaceScript: Quickshell.shellDir + "/scripts/workspaces.py"
     property bool opened: false
     property int selectedIndex: 0
     property real revealProgress: opened ? 1 : 0
     property real entranceElapsed: 0
-    readonly property var workspaces: WorkspaceModel.occupied(Hyprland.toplevels.values)
+    readonly property var workspaces: WorkspaceModel.occupied(Hyprland.toplevels.values, workspaceRows)
     visible: opened
     color: "transparent"
     anchors { top: true; bottom: true; left: true; right: true }
@@ -53,9 +56,15 @@ PanelWindow {
     Timer { id: refreshAfterEntrance; interval: DesktopStyle.motionDuration(755); onTriggered: if (overview.opened) Hyprland.refreshToplevels() }
     Timer { interval: 1000; repeat: true; running: overview.opened; onTriggered: Hyprland.refreshToplevels() }
     function choose(id) {
-        if (id < 1 || id > 10) return;
+        var row = workspaceRows.find(entry => entry.id === id);
+        if (!row) return;
         opened = false;
-        Quickshell.execDetached(WorkspaceModel.focusCommand(id));
+        Quickshell.execDetached(WorkspaceModel.navigationCommand(row.number, row.monitor, workspaceScript));
+    }
+    function chooseNumber(number) {
+        var row = workspaceRows.find(entry => entry.number === number && entry.monitor === monitorName)
+            || workspaceRows.find(entry => entry.number === number);
+        if (row) choose(row.id);
     }
     IpcHandler {
         enabled: overview.ipcEnabled
@@ -87,8 +96,8 @@ PanelWindow {
                     } else if (event.key === Qt.Key_Tab) {
                         overview.selectedIndex = (overview.selectedIndex + 1) % Math.max(1, overview.workspaces.length);
                         event.accepted = true;
-                    } else if (event.key >= Qt.Key_1 && event.key <= Qt.Key_9) { overview.choose(event.key - Qt.Key_0); event.accepted = true; }
-                    else if (event.key === Qt.Key_0) { overview.choose(10); event.accepted = true; }
+                    } else if (event.key >= Qt.Key_1 && event.key <= Qt.Key_9) { overview.chooseNumber(event.key - Qt.Key_0); event.accepted = true; }
+                    else if (event.key === Qt.Key_0) { overview.chooseNumber(10); event.accepted = true; }
                 }
                 MouseArea { anchors.fill: parent; onClicked: overview.opened = false }
                 Column {
@@ -124,6 +133,7 @@ PanelWindow {
                                     WorkspaceOverviewTile {
                                         anchors.fill: parent
                                         workspace: cell.modelData
+                                        showMonitor: overview.workspaceRows.filter(row => row.number === cell.modelData.number).length > 1
                                         foreground: overview.foreground; background: overview.background; accent: overview.accent
                                         capturing: overview.visible
                                         selected: overview.selectedIndex === cell.index

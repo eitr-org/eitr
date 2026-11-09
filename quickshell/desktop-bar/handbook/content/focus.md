@@ -61,3 +61,5 @@ Run
 reload reapplies the saved preset and gathers new windows without dismantling
 existing splits; divider sizes and the two-pane orientation reset on reload. If a command fails, it reports the error; retry `eitr focus off` after Hyprland
 is reachable. Closing a pane lets the native layout expand the remaining panes.
+
+When the assigned range is full, additional windows share its last workspace. The Workspaces monitor mode and count also apply when leaving Focus.

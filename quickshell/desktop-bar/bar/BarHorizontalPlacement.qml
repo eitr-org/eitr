@@ -77,6 +77,7 @@ BarSection {
             Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
         }
         WorkspaceStyleMenu {
+            workspaceNumbers: host.workspaceRows(barHost.screen).map(workspace => workspace.number)
             id: workspaceMenu
             surfaceColor: host.barBackground()
             target: host.verticalBar ? barHost.verticalWorkspaces : leftGroup.workspaces

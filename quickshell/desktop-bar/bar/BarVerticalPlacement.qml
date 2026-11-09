@@ -75,16 +75,16 @@ BarSection {
             Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing + barHost.islandSurfaces.afterLogo : 0; visible: barHost.islandsLayout }
             VerticalBarIcon { host: verticalSurface.host; id: verticalOverviewIcon; icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true; onClicked: barHost.toggleOverview() }
             Repeater {
-                model: host.workspaceCount
+                model: host.workspaceRows(barHost.screen).length
                 BarButton {
                     host: verticalSurface.host
                     text: host.workspaceLabel(index, barHost.screen)
-                    tooltip: active ? "" : host.workspaceApps(index + 1)
+                    tooltip: active ? "" : host.workspaceApps(host.workspaceEntry(index, barHost.screen).id)
                     visualStyle: host.workspaceStyle
                     active: host.workspaceActive(index + 1, barHost.screen)
                     width: host.workspaceItemSize; buttonHeight: host.workspaceItemSize; fontSize: 14; cornerRadius: 6; textOffsetY: 0
                     anchors.horizontalCenter: parent.horizontalCenter
-                    onClicked: host.focusWorkspace(index + 1)
+                    onClicked: host.focusWorkspace(host.workspaceEntry(index, barHost.screen).number, barHost.screen)
                     onRightClicked: barHost.togglePanel(barHost.workspaceMenu)
                 }
             }

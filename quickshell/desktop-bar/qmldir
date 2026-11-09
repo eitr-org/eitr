@@ -226,3 +226,4 @@ SettingsManageUsers settings/SettingsManageUsers.qml
 SettingsAccountSheet settings/SettingsAccountSheet.qml
 AboutLogoPreview components/AboutLogoPreview.qml
 SettingsTarget settings/SettingsTarget.qml
+SettingsWorkspacesCard 1.0 settings/SettingsWorkspacesCard.qml

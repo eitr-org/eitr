@@ -64,3 +64,5 @@ divisiones; se restablecen los tamaños de los divisores y la orientación de do
 Hyprland sea accesible.
 
 Cerrar un panel permite ampliar los restantes.
+
+Al salir de Focus se respetan el modo de monitores y el total de espacios. Si el rango está lleno, las ventanas adicionales comparten el último espacio.

@@ -3121,6 +3121,9 @@ msgstr "Setup steps"
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 
+msgid "Shared numbers"
+msgstr "Shared numbers"
+
 msgid "Sharing could not start: {reason}"
 msgstr "Sharing could not start: {reason}"
 
@@ -3264,6 +3267,9 @@ msgstr "Some installed plugins are blocked and do not run; review them in Instal
 
 msgid "Some programs crashed in the last week; report a problem if one keeps crashing."
 msgstr "Some programs crashed in the last week; report a problem if one keeps crashing."
+
+msgid "Split across monitors"
+msgstr "Split across monitors"
 
 msgid "Stable"
 msgstr "Stable"

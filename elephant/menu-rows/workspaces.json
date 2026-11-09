@@ -1,0 +1,26 @@
+[
+  {
+    "text": "Always show",
+    "subtext": ">",
+    "icon": "󰍹",
+    "submenu": "workspace-always-show"
+  },
+  {
+    "text": "Monitors",
+    "subtext": ">",
+    "icon": "󰍹",
+    "submenu": "workspace-monitors"
+  },
+  {
+    "text": "Number of workspaces",
+    "subtext": ">",
+    "icon": "󰍹",
+    "submenu": "workspace-count"
+  },
+  {
+    "text": "Workspace style",
+    "subtext": ">",
+    "icon": "󰍹",
+    "submenu": "workspace-style"
+  }
+]

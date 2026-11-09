@@ -46,14 +46,14 @@ class WalkerXmlTests(unittest.TestCase):
         self.assertEqual(before, {path.name: path.read_bytes() for path in self.directory.glob('*.xml')})
 
     def test_both_templates_propagate_and_custom_layout_is_preserved(self):
-        custom = (self.directory / 'item_menus-workspaces.xml').read_bytes()
+        custom = (self.directory / 'item_menus-workspace-style.xml').read_bytes()
         for template in ('item.xml', 'item_menus-main.xml'):
             path = self.directory / template
             path.write_bytes(path.read_bytes() + b'\n')
         self.assertEqual(walker_xml.generate(self.root), [])
         for name, template in walker_xml.layouts(self.root).items():
             self.assertEqual((self.directory / name).read_bytes(), (self.directory / template).read_bytes())
-        self.assertEqual((self.directory / 'item_menus-workspaces.xml').read_bytes(), custom)
+        self.assertEqual((self.directory / 'item_menus-workspace-style.xml').read_bytes(), custom)
 
     def test_description_and_submenu_widgets_remain_in_canonical_menu_row(self):
         tree = ET.parse(self.directory / 'item_menus-main.xml')
@@ -61,6 +61,6 @@ class WalkerXmlTests(unittest.TestCase):
         self.assertTrue({'ItemText', 'ItemSubtext', 'SubmenuMarker'} <= identifiers)
         marker = tree.find(".//object[@id='SubmenuMarker']/property[@name='label']")
         self.assertEqual(marker.text, '>')
-        (self.directory / 'item_menus-workspaces.xml').unlink()
-        self.assertIn('item_menus-workspaces.xml: missing custom workspace layout',
+        (self.directory / 'item_menus-workspace-style.xml').unlink()
+        self.assertIn('item_menus-workspace-style.xml: missing custom workspace layout',
                       walker_xml.generate(self.root, check=True))

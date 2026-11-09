@@ -43,7 +43,9 @@ Choisissez une disposition dans Paramètres > Barre de bureau. Les cinq fonction
 
 ## Espaces de travail
 
-La barre commence à 1–5 et s’étend jusqu’à l’espace courant ou au plus grand occupé, au maximum 10. Les marqueurs supérieurs vides disparaissent lorsqu’ils ne servent plus. Un clic droit sur un marqueur propose Points, Glyphe, Nombres ou Runes, avec exemples en direct. Runes est le choix par défaut et représente 1 à 10 par les dix premières runes du Futhark ancien (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ).
+Dans Paramètres > Fenêtres > Espaces de travail (aussi Walker > Paramètres > Style > Espaces de travail), choisissez **Moniteurs**, **Nombre d’espaces de travail** (5–10, 10 par défaut) et **Toujours afficher** (2 jusqu’au total, 5 par défaut). **Numéros partagés** donne à chaque moniteur ses propres espaces 1…N : SUPER+k change tous les moniteurs ensemble ; SUPER+Maj+k déplace la fenêtre sur son moniteur actuel. **Répartir entre les moniteurs** partage N également, écran principal en premier, auquel va d’abord le reste ; les autres suivent de gauche à droite puis par nom. SUPER+k active le moniteur concerné. Les touches au-delà de N sont inactives. Le minimum visible est relatif à la plage de chaque moniteur ; les marqueurs supérieurs apparaissent jusqu’à l’espace actuel ou occupé le plus élevé, puis disparaissent. Brancher, retirer ou changer l’écran principal recalcule la répartition sans perdre de fenêtres : elles rejoignent le numéro valide le plus proche sur leur moniteur. Avec un moniteur, les deux modes sont identiques.
+
+Un clic droit sur un marqueur propose Points, Glyphe, Nombres ou Runes, avec exemples en direct. Runes est le choix par défaut et représente 1 à 10 par les dix premières runes du Futhark ancien (ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ).
 
 Le marqueur actif affiche le symbole dans la couleur d’accent, sans fond rempli. Les quatre choix tiennent dans le menu sur chaque bord de la barre, sans défilement.
 

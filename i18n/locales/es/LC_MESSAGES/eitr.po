@@ -3121,6 +3121,9 @@ msgstr "Pasos de configuración"
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Hay varios gestores de arranque configurados ({listing}). Elimina los archivos obsoletos o configura manualmente las entradas de instantáneas. No se cambió nada."
 
+msgid "Shared numbers"
+msgstr "Números compartidos"
+
 msgid "Sharing could not start: {reason}"
 msgstr "No se pudo iniciar el uso compartido: {reason}"
 
@@ -3264,6 +3267,9 @@ msgstr "Algunos plugins instalados están bloqueados y no se ejecutan; revísalo
 
 msgid "Some programs crashed in the last week; report a problem if one keeps crashing."
 msgstr "Algunos programas se cerraron por un fallo en la última semana; informa de un problema si alguno sigue fallando."
+
+msgid "Split across monitors"
+msgstr "Repartir entre monitores"
 
 msgid "Stable"
 msgstr "Estable"

@@ -15,8 +15,9 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 from eitr_paths import code, config as user_config, read_settings, write_settings
 from eitr_i18n import tr
+from eitr_workspaces import preferences as workspace_preferences, DEFAULTS as WORKSPACE_DEFAULTS
 from eitr_choice_lists import (WINDOW_GAPS, WINDOW_LAYOUTS, SCROLLING_DIRECTIONS,
-                               SCROLLING_WIDTHS, SCROLLING_FOCUS_FIT)
+                               SCROLLING_WIDTHS, SCROLLING_FOCUS_FIT, WORKSPACE_MODES)
 import subprocess
 
 SETTINGS = user_config("eitr/style.json")
@@ -103,9 +104,18 @@ def select(value, key="corners"):
     options = definitions()[1] if key == "corners" else {choice["id"] for choice in WINDOW_GAPS}
     if key in LAYOUT_DEFAULTS:
         options = {choice["id"] for choice in LAYOUT_CHOICES[key]} if key in LAYOUT_CHOICES else {"yes", "no"}
-    if key not in ("corners", "gaps", *LAYOUT_DEFAULTS) or value not in options:
+    if key in WORKSPACE_DEFAULTS:
+        if key == "workspaceMode":
+            options = {choice["id"] for choice in WORKSPACE_MODES}
+        else:
+            value = int(value)
+            options = range(5, 11) if key == "workspaceCount" else range(2, workspace_preferences(read_settings(SETTINGS))["workspaceCount"] + 1)
+    if key not in ("corners", "gaps", *LAYOUT_DEFAULTS, *WORKSPACE_DEFAULTS) or value not in options:
         raise ValueError('Unknown desktop style')
-    write_settings(SETTINGS, {**read_settings(SETTINGS), key: value, "version": 1})
+    updated = {**read_settings(SETTINGS), key: value, "version": 1}
+    if key == "workspaceCount":
+        updated["workspaceAlwaysShow"] = min(workspace_preferences(read_settings(SETTINGS))["workspaceAlwaysShow"], value)
+    write_settings(SETTINGS, updated)
     generate_gaps()
     generate_layout()
     commands = [["hyprctl", "reload"],
@@ -121,6 +131,14 @@ def select(value, key="corners"):
 
 
 def main():
+    if len(sys.argv) >= 3 and sys.argv[2] in WORKSPACE_DEFAULTS:
+        key = sys.argv[2]
+        if len(sys.argv) == 4 and sys.argv[1] == "set":
+            select(sys.argv[3], key)
+        elif sys.argv[1:] != ["get", key]:
+            raise ValueError("Usage: desktop-style.py get KEY | set KEY VALUE")
+        print(workspace_preferences(read_settings(SETTINGS))[key])
+        return
     if sys.argv[1:2] == ["scroll"]:
         scroll_action(sys.argv[2:])
         return
@@ -151,7 +169,7 @@ def main():
         select(arguments[1])
         print(current())
     elif arguments == ["summary"]:
-        print(json.dumps({"current": current(), "gaps": current_gaps(), "gapChoices": WINDOW_GAPS, **current_layout(), "available": True,
+        print(json.dumps({"current": current(), "gaps": current_gaps(), "gapChoices": WINDOW_GAPS, **current_layout(), **workspace_preferences(read_settings(SETTINGS)), "available": True,
                           "choices": [{"value": value, "label": details["label"], "available": True}
                                       for value, details in definitions()[1].items()]}))
     elif arguments == ["get"]:

@@ -177,6 +177,8 @@ PanelWindow {
         background: host.barBackground()
     }
     WorkspaceOverview {
+        workspaceRows: host.workspaceAssignments
+        monitorName: bar.screen ? bar.screen.name : host.primaryDisplay
         id: overview
         ipcEnabled: bar.isMainBar
         screen: bar.screen

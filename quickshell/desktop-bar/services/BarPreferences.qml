@@ -33,7 +33,7 @@ Scope {
     IpcHandler {
         target: "bar"
         function idleLock(enabled: bool): void { host.idleLockEnabled = enabled; }
-        function workspaces(): string { return JSON.stringify({count: host.workspaceCount, limit: 10}); }
+        function workspaces(): string { return JSON.stringify({count: host.workspaceCount, limit: DesktopStyle.workspaceCount}); }
         function visibility(): void { host.barVisible = !host.barVisible; }
         function update(key: string, value: string): void { preferences.updateBarSetting(key, value) }
         function toggle(kind: string): void {

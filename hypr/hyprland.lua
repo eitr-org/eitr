@@ -106,6 +106,7 @@ local appLaunch = shellQuote(paths.code("walker/bin/app-launch")) .. " "
 local terminal = appLaunch .. "--terminal"
 local fileManager = appLaunch .. "dolphin"
 local mainMod = "SUPER"
+local workspace_action = dofile(paths.code("hypr/workspaces.lua"))(paths, shellQuote)
 
 local scriptsDir = paths.code("walker/scripts")
 local menusDir = scriptsDir .. "/menus"
@@ -271,11 +272,10 @@ hl.config({
 
 -- Focus mode has tabs instead of workspace gestures.
 if not focus_bindings then
-hl.gesture({
-	fingers = 3,
-	direction = "horizontal",
-	action = "workspace",
-})
+    for _, swipe in ipairs({{direction = "left", step = 1}, {direction = "right", step = -1}}) do
+        hl.gesture({fingers = 3, direction = swipe.direction,
+            action = function() hl.dispatch(workspace_action("step", swipe.step)) end})
+    end
 end
 
 -- hl.gesture({
@@ -361,23 +361,23 @@ hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc c
 hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show calendar"))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show wifi"))
 hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show display"))
--- Workspaces 1-10. The bar starts at 1-5 and expands sequentially on demand.
+-- Numbered navigation uses the saved monitor mode, count and marker floor.
 for i = 1, 10 do
 	local key = tostring(i % 10)
-	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+	hl.bind(mainMod .. " + " .. key, workspace_action("focus", i))
+	hl.bind(mainMod .. " + SHIFT + " .. key, workspace_action("move", i))
 end
 
 -- Special workspace
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-hl.bind(mainMod .. " + CTRL + S", hl.dsp.window.move({ workspace = 1 }))
+hl.bind(mainMod .. " + CTRL + S", workspace_action("move", 1))
 
 -- Scroll through existing workspaces
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
-hl.bind(mainMod .. " + ALT + h", hl.dsp.focus({ workspace = "e-1" }))
-hl.bind(mainMod .. " + ALT + l", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + mouse_down", workspace_action("step", 1))
+hl.bind(mainMod .. " + mouse_up", workspace_action("step", -1))
+hl.bind(mainMod .. " + ALT + h", workspace_action("step", -1))
+hl.bind(mainMod .. " + ALT + l", workspace_action("step", 1))
 
 -- Walker menus and scripts
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menusDir .. "/search.sh"))
@@ -460,10 +460,6 @@ hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 ----------------------------
 -- Windows And Workspaces --
 ----------------------------
-
--- Optional test workspace for the new scrolling layout + scroll_move gesture.
--- Uncomment this together with the 4-finger scroll_move gesture above.
--- hl.workspace_rule({ workspace = "7", layout = "scrolling" })
 
 local function floating_window_rule(name, class, size, move)
 	local rule = {

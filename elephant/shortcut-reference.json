@@ -215,102 +215,102 @@
   {
     "key": "SUPER + 1",
     "description": "Go to workspace 1",
-    "command": "hyprctl dispatch workspace 1"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 1"
   },
   {
     "key": "SUPER + 2",
     "description": "Go to workspace 2",
-    "command": "hyprctl dispatch workspace 2"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 2"
   },
   {
     "key": "SUPER + 3",
     "description": "Go to workspace 3",
-    "command": "hyprctl dispatch workspace 3"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 3"
   },
   {
     "key": "SUPER + 4",
     "description": "Go to workspace 4",
-    "command": "hyprctl dispatch workspace 4"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 4"
   },
   {
     "key": "SUPER + 5",
     "description": "Go to workspace 5",
-    "command": "hyprctl dispatch workspace 5"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 5"
   },
   {
     "key": "SUPER + 6",
     "description": "Go to workspace 6",
-    "command": "hyprctl dispatch workspace 6"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 6"
   },
   {
     "key": "SUPER + 7",
     "description": "Go to workspace 7",
-    "command": "hyprctl dispatch workspace 7"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 7"
   },
   {
     "key": "SUPER + 8",
     "description": "Go to workspace 8",
-    "command": "hyprctl dispatch workspace 8"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 8"
   },
   {
     "key": "SUPER + 9",
     "description": "Go to workspace 9",
-    "command": "hyprctl dispatch workspace 9"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 9"
   },
   {
     "key": "SUPER + 0",
     "description": "Go to workspace 10",
-    "command": "hyprctl dispatch workspace 10"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 10"
   },
   {
     "key": "SUPER + Shift + 1",
     "description": "Move window to workspace 1",
-    "command": "hyprctl dispatch movetoworkspace 1"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 1"
   },
   {
     "key": "SUPER + Shift + 2",
     "description": "Move window to workspace 2",
-    "command": "hyprctl dispatch movetoworkspace 2"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 2"
   },
   {
     "key": "SUPER + Shift + 3",
     "description": "Move window to workspace 3",
-    "command": "hyprctl dispatch movetoworkspace 3"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 3"
   },
   {
     "key": "SUPER + Shift + 4",
     "description": "Move window to workspace 4",
-    "command": "hyprctl dispatch movetoworkspace 4"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 4"
   },
   {
     "key": "SUPER + Shift + 5",
     "description": "Move window to workspace 5",
-    "command": "hyprctl dispatch movetoworkspace 5"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 5"
   },
   {
     "key": "SUPER + Shift + 6",
     "description": "Move window to workspace 6",
-    "command": "hyprctl dispatch movetoworkspace 6"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 6"
   },
   {
     "key": "SUPER + Shift + 7",
     "description": "Move window to workspace 7",
-    "command": "hyprctl dispatch movetoworkspace 7"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 7"
   },
   {
     "key": "SUPER + Shift + 8",
     "description": "Move window to workspace 8",
-    "command": "hyprctl dispatch movetoworkspace 8"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 8"
   },
   {
     "key": "SUPER + Shift + 9",
     "description": "Move window to workspace 9",
-    "command": "hyprctl dispatch movetoworkspace 9"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 9"
   },
   {
     "key": "SUPER + Shift + 0",
     "description": "Move window to workspace 10",
-    "command": "hyprctl dispatch movetoworkspace 10"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 10"
   },
   {
     "key": "SUPER + S",
@@ -325,27 +325,27 @@
   {
     "key": "SUPER + Ctrl + S",
     "description": "Move window to workspace 1",
-    "command": "hyprctl dispatch movetoworkspace 1"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 1"
   },
   {
     "key": "SUPER + Mouse Wheel Down",
     "description": "Next existing workspace",
-    "command": "hyprctl dispatch workspace e+1"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py step 1"
   },
   {
     "key": "SUPER + Mouse Wheel Up",
     "description": "Previous existing workspace",
-    "command": "hyprctl dispatch workspace e-1"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py step -1"
   },
   {
     "key": "SUPER + Alt + H",
     "description": "Previous existing workspace",
-    "command": "hyprctl dispatch workspace e-1"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py step -1"
   },
   {
     "key": "SUPER + Alt + L",
     "description": "Next existing workspace",
-    "command": "hyprctl dispatch workspace e+1"
+    "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py step 1"
   },
   {
     "heading": "  Capture And Desktop"

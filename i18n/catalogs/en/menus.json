@@ -756,5 +756,14 @@
   "SUPER + ALT + Right": "SUPER + ALT + Right",
   "SUPER + ALT + SHIFT + Left": "SUPER + ALT + SHIFT + Left",
   "SUPER + ALT + SHIFT + Right": "SUPER + ALT + SHIFT + Right",
-  "SUPER + ALT + Up": "SUPER + ALT + Up"
+  "SUPER + ALT + Up": "SUPER + ALT + Up",
+  "Always show": "Always show",
+  "Choose workspace count": "Choose workspace count",
+  "Monitors": "Monitors",
+  "Number of workspaces": "Number of workspaces",
+  "Divide numbered workspaces between monitors": "Divide numbered workspaces between monitors",
+  "Shared numbers": "Shared numbers",
+  "Split across monitors": "Split across monitors",
+  "Switch every monitor to its own numbered workspace": "Switch every monitor to its own numbered workspace",
+  "Workspace style": "Workspace style"
 }

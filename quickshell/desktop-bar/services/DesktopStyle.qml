@@ -26,6 +26,17 @@ QtObject {
             if (options.includes(preference[key])) defaults[key] = preference[key];
         }
         windowLayout = defaults;
+        workspaceMode = preference.workspaceMode === "split" ? "split" : "shared";
+        workspaceCount = Number.isInteger(preference.workspaceCount) && preference.workspaceCount >= 5 && preference.workspaceCount <= 10 ? preference.workspaceCount : 10;
+        workspaceAlwaysShow = Number.isInteger(preference.workspaceAlwaysShow) && preference.workspaceAlwaysShow >= 2 && preference.workspaceAlwaysShow <= workspaceCount ? preference.workspaceAlwaysShow : 5;
+    }
+    property string workspaceMode: "shared"
+    property int workspaceCount: 10
+    property int workspaceAlwaysShow: 5
+    function selectWorkspace(key, value) {
+        if (save.running) return;
+        save.command = ["python3", Quickshell.shellDir + "/scripts/desktop-style.py", "set", key, String(value)];
+        save.running = true;
     }
     property string gaps: "default"
     function selectGaps(value) {

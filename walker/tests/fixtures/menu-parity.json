@@ -3095,6 +3095,32 @@
         "icon": "󰍹",
         "submenu": "scrolling-direction"
       }
+    ],
+    "workspaces": [
+      {
+        "text": "Always show",
+        "subtext": ">",
+        "icon": "󰍹",
+        "submenu": "workspace-always-show"
+      },
+      {
+        "text": "Monitors",
+        "subtext": ">",
+        "icon": "󰍹",
+        "submenu": "workspace-monitors"
+      },
+      {
+        "text": "Number of workspaces",
+        "subtext": ">",
+        "icon": "󰍹",
+        "submenu": "workspace-count"
+      },
+      {
+        "text": "Workspace style",
+        "subtext": ">",
+        "icon": "󰍹",
+        "submenu": "workspace-style"
+      }
     ]
   },
   "parents": {
@@ -3302,7 +3328,11 @@
     "webapps": "install",
     "window-gaps": "style",
     "window-layout": "style",
-    "workspaces": "style"
+    "workspaces": "style",
+    "workspace-style": "workspaces",
+    "workspace-always-show": "workspaces",
+    "workspace-count": "workspaces",
+    "workspace-monitors": "workspaces"
   },
   "shortcuts": [
     {
@@ -3324,7 +3354,7 @@
       "key": "SUPER + Space",
       "description": "Search apps",
       "line": "  SUPER + Space             Search apps",
-      "command": "\"$MENUS_DIR/search.sh\""
+      "command": "/usr/share/eitr/walker/scripts/menus/search.sh"
     },
     {
       "key": "SUPER + /",
@@ -3342,7 +3372,7 @@
       "key": "SUPER + E",
       "description": "Open file manager",
       "line": "  SUPER + E                 Open file manager",
-      "command": "\"$EITR_CODE_ROOT/walker/bin/app-launch\" dolphin --new-window &"
+      "command": "/usr/share/eitr/walker/bin/app-launch dolphin --new-window &"
     },
     {
       "key": "SUPER + F",
@@ -3380,7 +3410,7 @@
       "key": "SUPER + G",
       "description": "Search Google",
       "line": "  SUPER + G                 Search Google",
-      "command": "\"$ACTIONS_DIR/search/google.sh\""
+      "command": "/usr/share/eitr/walker/scripts/actions/search/google.sh"
     },
     {
       "key": "SUPER + C",
@@ -3404,7 +3434,7 @@
       "key": "SUPER + Ctrl + V",
       "description": "Paste clipboard history",
       "line": "  SUPER + Ctrl + V          Paste clipboard history",
-      "command": "\"$EITR_CODE_ROOT/walker/bin/walker\" --provider menus:clipboard --width 850"
+      "command": "/usr/share/eitr/walker/bin/walker --provider menus:clipboard --width 850"
     },
     {
       "key": "SUPER + P",
@@ -3461,7 +3491,7 @@
       "key": "SUPER + A",
       "description": "Open default AI assistant (Development)",
       "line": "  SUPER + A                 Open default AI assistant (Development)",
-      "command": "python3 \"$EITR_CODE_ROOT/walker/scripts/actions/ai-assistant.py\" open"
+      "command": "python3 /usr/share/eitr/walker/scripts/actions/ai-assistant.py open"
     },
     {
       "key": "SUPER + R",
@@ -3572,121 +3602,121 @@
       "key": "SUPER + 1",
       "description": "Go to workspace 1",
       "line": "  SUPER + 1                 Go to workspace 1",
-      "command": "hyprctl dispatch workspace 1"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 1"
     },
     {
       "key": "SUPER + 2",
       "description": "Go to workspace 2",
       "line": "  SUPER + 2                 Go to workspace 2",
-      "command": "hyprctl dispatch workspace 2"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 2"
     },
     {
       "key": "SUPER + 3",
       "description": "Go to workspace 3",
       "line": "  SUPER + 3                 Go to workspace 3",
-      "command": "hyprctl dispatch workspace 3"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 3"
     },
     {
       "key": "SUPER + 4",
       "description": "Go to workspace 4",
       "line": "  SUPER + 4                 Go to workspace 4",
-      "command": "hyprctl dispatch workspace 4"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 4"
     },
     {
       "key": "SUPER + 5",
       "description": "Go to workspace 5",
       "line": "  SUPER + 5                 Go to workspace 5",
-      "command": "hyprctl dispatch workspace 5"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 5"
     },
     {
       "key": "SUPER + 6",
       "description": "Go to workspace 6",
       "line": "  SUPER + 6                 Go to workspace 6",
-      "command": "hyprctl dispatch workspace 6"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 6"
     },
     {
       "key": "SUPER + 7",
       "description": "Go to workspace 7",
       "line": "  SUPER + 7                 Go to workspace 7",
-      "command": "hyprctl dispatch workspace 7"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 7"
     },
     {
       "key": "SUPER + 8",
       "description": "Go to workspace 8",
       "line": "  SUPER + 8                 Go to workspace 8",
-      "command": "hyprctl dispatch workspace 8"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 8"
     },
     {
       "key": "SUPER + 9",
       "description": "Go to workspace 9",
       "line": "  SUPER + 9                 Go to workspace 9",
-      "command": "hyprctl dispatch workspace 9"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 9"
     },
     {
       "key": "SUPER + 0",
       "description": "Go to workspace 10",
       "line": "  SUPER + 0                 Go to workspace 10",
-      "command": "hyprctl dispatch workspace 10"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py focus 10"
     },
     {
       "key": "SUPER + Shift + 1",
       "description": "Move window to workspace 1",
       "line": "  SUPER + Shift + 1         Move window to workspace 1",
-      "command": "hyprctl dispatch movetoworkspace 1"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 1"
     },
     {
       "key": "SUPER + Shift + 2",
       "description": "Move window to workspace 2",
       "line": "  SUPER + Shift + 2         Move window to workspace 2",
-      "command": "hyprctl dispatch movetoworkspace 2"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 2"
     },
     {
       "key": "SUPER + Shift + 3",
       "description": "Move window to workspace 3",
       "line": "  SUPER + Shift + 3         Move window to workspace 3",
-      "command": "hyprctl dispatch movetoworkspace 3"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 3"
     },
     {
       "key": "SUPER + Shift + 4",
       "description": "Move window to workspace 4",
       "line": "  SUPER + Shift + 4         Move window to workspace 4",
-      "command": "hyprctl dispatch movetoworkspace 4"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 4"
     },
     {
       "key": "SUPER + Shift + 5",
       "description": "Move window to workspace 5",
       "line": "  SUPER + Shift + 5         Move window to workspace 5",
-      "command": "hyprctl dispatch movetoworkspace 5"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 5"
     },
     {
       "key": "SUPER + Shift + 6",
       "description": "Move window to workspace 6",
       "line": "  SUPER + Shift + 6         Move window to workspace 6",
-      "command": "hyprctl dispatch movetoworkspace 6"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 6"
     },
     {
       "key": "SUPER + Shift + 7",
       "description": "Move window to workspace 7",
       "line": "  SUPER + Shift + 7         Move window to workspace 7",
-      "command": "hyprctl dispatch movetoworkspace 7"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 7"
     },
     {
       "key": "SUPER + Shift + 8",
       "description": "Move window to workspace 8",
       "line": "  SUPER + Shift + 8         Move window to workspace 8",
-      "command": "hyprctl dispatch movetoworkspace 8"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 8"
     },
     {
       "key": "SUPER + Shift + 9",
       "description": "Move window to workspace 9",
       "line": "  SUPER + Shift + 9         Move window to workspace 9",
-      "command": "hyprctl dispatch movetoworkspace 9"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 9"
     },
     {
       "key": "SUPER + Shift + 0",
       "description": "Move window to workspace 10",
       "line": "  SUPER + Shift + 0         Move window to workspace 10",
-      "command": "hyprctl dispatch movetoworkspace 10"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 10"
     },
     {
       "key": "SUPER + S",
@@ -3704,31 +3734,31 @@
       "key": "SUPER + Ctrl + S",
       "description": "Move window to workspace 1",
       "line": "  SUPER + Ctrl + S          Move window to workspace 1",
-      "command": "hyprctl dispatch movetoworkspace 1"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py move 1"
     },
     {
       "key": "SUPER + Mouse Wheel Down",
       "description": "Next existing workspace",
       "line": "  SUPER + Mouse Wheel Down  Next existing workspace",
-      "command": "hyprctl dispatch workspace e+1"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py step 1"
     },
     {
       "key": "SUPER + Mouse Wheel Up",
       "description": "Previous existing workspace",
       "line": "  SUPER + Mouse Wheel Up    Previous existing workspace",
-      "command": "hyprctl dispatch workspace e-1"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py step -1"
     },
     {
       "key": "SUPER + Alt + H",
       "description": "Previous existing workspace",
       "line": "  SUPER + Alt + H           Previous existing workspace",
-      "command": "hyprctl dispatch workspace e-1"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py step -1"
     },
     {
       "key": "SUPER + Alt + L",
       "description": "Next existing workspace",
       "line": "  SUPER + Alt + L           Next existing workspace",
-      "command": "hyprctl dispatch workspace e+1"
+      "command": "python3 /usr/share/eitr/quickshell/desktop-bar/scripts/workspaces.py step 1"
     },
     {
       "heading": "  Capture And Desktop"
@@ -3737,13 +3767,13 @@
       "key": "Print",
       "description": "Full screenshot (floating editor)",
       "line": "  Print                     Full screenshot (floating editor)",
-      "command": "\"$ACTIONS_DIR/capture/screenshot-full.sh\""
+      "command": "/usr/share/eitr/walker/scripts/actions/capture/screenshot-full.sh"
     },
     {
       "key": "SUPER + Print",
       "description": "Frozen selection (floating editor)",
       "line": "  SUPER + Print             Frozen selection (floating editor)",
-      "command": "\"$ACTIONS_DIR/capture/screenshot-selection.sh\""
+      "command": "/usr/share/eitr/walker/scripts/actions/capture/screenshot-selection.sh"
     },
     {
       "key": "SUPER + Shift + Print",
@@ -3767,25 +3797,25 @@
       "key": "SUPER + Shift + N",
       "description": "Next wallpaper",
       "line": "  SUPER + Shift + N         Next wallpaper",
-      "command": "\"$ACTIONS_DIR/wallpaper/next.sh\""
+      "command": "/usr/share/eitr/walker/scripts/actions/wallpaper/next.sh"
     },
     {
       "key": "SUPER + Ctrl + N",
       "description": "Wallpaper picker",
       "line": "  SUPER + Ctrl + N          Wallpaper picker",
-      "command": "bash \"$EITR_CODE_ROOT/quickshell/desktop-bar/scripts/appearance-picker.sh\" wallpaper"
+      "command": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/appearance-picker.sh wallpaper"
     },
     {
       "key": "SUPER + Ctrl + Shift + N",
       "description": "Theme picker",
       "line": "  SUPER + Ctrl + Shift + N  Theme picker",
-      "command": "bash \"$EITR_CODE_ROOT/quickshell/desktop-bar/scripts/appearance-picker.sh\" theme"
+      "command": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/appearance-picker.sh theme"
     },
     {
       "key": "SUPER + Shift + Space",
       "description": "Bar auto-hide on/off, or show a hidden bar",
       "line": "  SUPER + Shift + Space     Bar auto-hide on/off, or show a hidden bar",
-      "command": "\"$ACTIONS_DIR/toggle/desktop-bar.sh\" autohide"
+      "command": "/usr/share/eitr/walker/scripts/actions/toggle/desktop-bar.sh autohide"
     },
     {
       "key": "SUPER + N",
@@ -3851,13 +3881,13 @@
       "key": "SUPER + M",
       "description": "Lock screen",
       "line": "  SUPER + M                 Lock screen",
-      "command": "\"$EITR_CODE_ROOT/hypr/scripts/manual-lock.sh\""
+      "command": "/usr/share/eitr/hypr/scripts/manual-lock.sh"
     },
     {
       "key": "SUPER + ;",
       "description": "Emoji picker",
       "line": "  SUPER + ;                 Emoji picker",
-      "command": "\"$ACTIONS_DIR/emoji-picker.sh\""
+      "command": "/usr/share/eitr/walker/scripts/actions/emoji-picker.sh"
     },
     {
       "description": "Focus left (scrolling only)",
@@ -10454,6 +10484,82 @@
         "main"
       ],
       "submenu": "scrolling-direction"
+    },
+    {
+      "key": "abb646151c77eae62ea58a4ad9cc707551766eb7b0fd212cb74bc6a1bb22dc89",
+      "provider": "menus:workspaces",
+      "identifier": "workspaces:0",
+      "text": "Always show",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "Always show",
+        "Always show"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "workspace-always-show"
+    },
+    {
+      "key": "4b3ac5f8890896854204678cfbd490d7cf6352b6b819edcc41431143e6eb4cf2",
+      "provider": "menus:workspaces",
+      "identifier": "workspaces:1",
+      "text": "Monitors",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "Monitors",
+        "Monitors"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "workspace-monitors"
+    },
+    {
+      "key": "321bad79a82d82b5d1fa3390248d88283789ba5d47519188d348cc758f55887e",
+      "provider": "menus:workspaces",
+      "identifier": "workspaces:2",
+      "text": "Number of workspaces",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "Number of workspaces",
+        "Number of workspaces"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "workspace-count"
+    },
+    {
+      "key": "a92bc81b3b068023324b045f3c6d9affc7ac82f53766652edc613397c30f10a1",
+      "provider": "menus:workspaces",
+      "identifier": "workspaces:3",
+      "text": "Workspace style",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "Workspace style",
+        "Workspace style"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "workspace-style"
     }
   ]
 }

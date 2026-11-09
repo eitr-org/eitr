@@ -38,8 +38,8 @@
       "reason": "One compositor configuration, including preference-backed layout options and bindings; machine-specific settings live in local.lua."
     },
     "quickshell/desktop-bar/bar/BarWindow.qml": {
-      "lines": 429,
-      "reason": "Barely over the limit; the bar window host."
+      "lines": 431,
+      "reason": "One bar window host, including monitor-scoped workspace Overview context."
     },
     "quickshell/desktop-bar/panels/BrightnessMenu.qml": {
       "lines": 616,

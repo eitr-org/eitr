@@ -87,7 +87,7 @@ for _,window in ipairs(windows) do
 end
 local monitors={}
 for _,monitor in ipairs(state.monitors) do
-    table.insert(monitors,'{"id":'..monitor.id..',"name":'..quote(monitor.name)..',"activeWorkspace":{"name":'..quote(monitor.activeWorkspace.name)..'}}')
+    table.insert(monitors,'{"id":'..monitor.id..',"name":'..quote(monitor.name)..',"width":1920,"height":1080,"activeWorkspace":{"name":'..quote(monitor.activeWorkspace.name)..'}}')
 end
 print('{"clients":['..table.concat(rows,",")..'],"active":'..quote(state.active)..',"monitor":'..state.monitor..
     ',"monitors":['..table.concat(monitors,",")..']}')
@@ -110,7 +110,7 @@ class NativeFakeHypr(Hypr):
                                       workspace={'name': str(number)}, grouped=[], hidden=False)
                                   for number in range(1, 9)],
                       'active': '0x1', 'monitor': 1,
-                      'monitors': [{'id': index, 'name': 'Test-' + str(index), 'activeWorkspace': {'name': str(index+1)}}
+                      'monitors': [{'id': index, 'name': 'Test-' + str(index), 'width': 1920, 'height': 1080, 'activeWorkspace': {'name': str(index+1)}}
                                    for index in (0, 1)]}
 
     def ensure_bar(self):

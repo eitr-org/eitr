@@ -62,3 +62,5 @@ bestehende Teilungen aufzulösen; Teilergrößen und die Ausrichtung zweier Bere
 werden zurückgesetzt. Fehlgeschlagene Befehle zeigen den Fehler. Wiederhole
 `eitr focus off`, sobald Hyprland erreichbar ist. Beim Schließen eines Bereichs
 werden die übrigen Bereiche vergrößert.
+
+Beim Verlassen von Focus gelten Monitormodus und Anzahl der Arbeitsflächen. Ist der Bereich voll, teilen weitere Fenster die letzte Arbeitsfläche.

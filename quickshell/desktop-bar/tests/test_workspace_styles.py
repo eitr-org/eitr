@@ -115,7 +115,7 @@ class WorkspaceStyleTests(unittest.TestCase):
                                     env={**os.environ, "HOME": home, "XDG_CONFIG_HOME": home + "/.config"},
                                     capture_output=True, text=True, check=True)
         self.assertEqual(result.stdout.strip(), "Runes")
-        self.assertIn('local current = "Runes"', (ROOT / "elephant/menus/workspaces.lua").read_text())
+        self.assertIn('local current = "Runes"', (ROOT / "elephant/menus/workspace-style.lua").read_text())
         self.assertIn('property string workspaceStyle: "Runes"', (BAR / "shell.qml").read_text())
 
 

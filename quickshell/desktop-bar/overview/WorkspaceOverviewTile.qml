@@ -9,6 +9,7 @@ import "../WorkspaceModel.js" as WorkspaceModel
 
 Rectangle {
     id: tile
+    property bool showMonitor: false
     required property var workspace
     required property color foreground
     required property color background
@@ -99,7 +100,7 @@ Rectangle {
         Text {
             id: numberLabel
             anchors.centerIn: parent
-            text: String(tile.workspace.id).padStart(2, "0")
+            text: String((tile.workspace.number || tile.workspace.id)).padStart(2, "0") + (tile.showMonitor ? " · " + tile.workspace.monitorName : "")
             color: tile.foreground
             font.family: DesktopFonts.family; font.pixelSize: PanelStyle.headingSize; font.bold: true
         }

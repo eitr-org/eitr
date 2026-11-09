@@ -26,6 +26,7 @@ Flow {
     // Pictures alone (the bar's workspace popup): no name under them, so the cards are short;
     // the outline marks the current choice and screen readers still hear the name.
     property bool showLabels: true
+    property var workspaceNumbers: Array.from({length: DesktopStyle.workspaceAlwaysShow}, (unused, index) => index + 1)
     readonly property bool barPictures: ["layout", "position", "appearance"].indexOf(kind) !== -1
     readonly property bool aboutPictures: kind === "about-logo"
     readonly property bool smallCards: compact && !barPictures
@@ -59,8 +60,8 @@ Flow {
                 Component { id: aboutPicture; AboutLogoPreview { value: card.value; foreground: control.themeAccent; background: control.themeBackground } }
                 Component { id: workspacePicture; Item {
                     Row { anchors.centerIn: parent; spacing: 4
-                        Repeater { model: 5
-                            WorkspaceMarker { required property int index; style: card.value; label: String(index + 1); active: index === 1; width: Math.min(23, (card.width - 32) / 5); foreground: control.foreground; accent: control.accent; selectedForeground: control.background }
+                        Repeater { model: control.workspaceNumbers
+                            WorkspaceMarker { required property int index; required property var modelData; style: card.value; label: String(modelData); active: index === Math.min(1, control.workspaceNumbers.length - 1); width: Math.min(23, (card.width - 32 - 4 * (control.workspaceNumbers.length - 1)) / control.workspaceNumbers.length); foreground: control.foreground; accent: control.accent; selectedForeground: control.background }
                         }
                     }
                 } }

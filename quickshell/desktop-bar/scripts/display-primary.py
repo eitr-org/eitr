@@ -117,6 +117,7 @@ def set_primary(name):
         if os.path.exists(temp_name):
             os.unlink(temp_name)
     refresh_walker()
+    subprocess.run(["python3", str(Path(__file__).with_name("workspaces.py")), "reconcile"], check=True, timeout=30)
     return status()
 
 

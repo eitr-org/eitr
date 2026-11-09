@@ -32,3 +32,7 @@
   background: @accent_bg_color;
   box-shadow: none;
 }
+
+.workspace-preview-1 .workspace-example > :nth-child(n+2),
+.workspace-preview-2 .workspace-example > :nth-child(n+3),
+.workspace-preview-3 .workspace-example > :nth-child(n+4) { opacity: 0; }

@@ -9,6 +9,7 @@ Column {
     readonly property var styleModel: context.styleState
     width: parent ? parent.width : 0
     spacing: 18
+    SettingsWorkspacesCard { foreground: view.foreground; live: view.live }
     ControlCard {
         title: Eitr.I18n.tr("Window layout")
         surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true

@@ -304,7 +304,7 @@ The Eitr logo comes first and toggles Control Center beside the bar, using the
 same left-side panel placement as Hardware. Centered bars keep panels centered
 beside the bar. The Overview icon follows the logo and precedes the workspace
 markers on every bar edge. It opens a screen-centered overview of occupied
-workspaces only, across monitors, numbered 1–10. Window captures stay in memory and refresh once per second while open;
+workspaces only, across monitors, labelled with their visible workspace numbers. Window captures stay in memory and refresh once per second while open;
 they are never saved to disk. The workspace layout updates without switching
 through desktops. Unsupported captures fall back to application labels. Click
 a tile or press 1–9/0 to switch; arrows select a tile and Enter switches to it.
@@ -324,13 +324,11 @@ Capture uses Quickshell's
 [ScreencopyView](https://quickshell.org/docs/v0.3.0/types/Quickshell.Wayland/ScreencopyView/)
 and the compositor's window-export protocol, without additional screenshot tools.
 
-The bar starts with workspaces 1–5. Visiting a higher workspace expands the
-sequence through that number, capped at 10: visiting 7 shows 1, 2, 3, 4, 5, 6, 7.
-Extra markers disappear when leaving an empty higher workspace: the sequence
-ends at the current workspace or highest occupied workspace, with 1–5 always
-present. The compositor's existing SUPER+1–9/0 bindings and
-monitor assignments remain unchanged. Named/special workspaces are not included
-in the numbered overview; external compositor commands can still create them.
+Settings > Windows > Workspaces (also Walker > Settings > Style > Workspaces) selects **Monitors**, **Number of workspaces** (5–10, default 10) and **Always show** (2 up to the count, default 5). **Shared numbers**, the default, gives every monitor its own 1…N: SUPER+k switches all monitors together, and SUPER+Shift+k moves the window on its current monitor. **Split across monitors** divides N evenly, with the main display first and the remainder assigned there first; other displays follow left to right, then by name. SUPER+k focuses the owning display. Keys above N do nothing. The marker floor is relative to each monitor’s range; higher markers appear through the current or highest occupied workspace, then disappear when no longer needed. Connecting or removing displays and changing Main display recomputes assignments without losing windows; windows move to the nearest valid number on their current display. One monitor keeps the same behavior in both modes.
+
+With the default settings, visiting 7 shows markers 1–7 on that monitor.
+Leaving an empty higher workspace removes its extra markers. Named/special
+workspaces remain separate from the numbered overview.
 
 Right-click a workspace to choose Dots, Glyph, Numbers or Runes (the default), or use Walker's
 Settings > Style > Workspaces menu. Both selectors share the same saved preference.

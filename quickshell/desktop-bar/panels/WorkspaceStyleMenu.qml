@@ -6,12 +6,13 @@ import "../ChoiceLists.js" as ChoiceLists
 
 ThemedPopup {
     id: menu
+    property var workspaceNumbers: Array.from({length: DesktopStyle.workspaceAlwaysShow}, (unused, index) => index + 1)
     required property string currentStyle
     required property color selectedForeground
     signal selected(string style)
 
-    // Two picture cards per row; five markers fit each card at the 296 px minimum.
-    readonly property real rowWidth: 2 * (5 * 22 + 4 * 4 + 16) + 8
+    // Two picture cards per row, sized for this monitor’s visible workspace range.
+    readonly property real rowWidth: 2 * (workspaceNumbers.length * 22 + Math.max(0, workspaceNumbers.length - 1) * 4 + 16) + 8
     implicitWidth: Math.max(296, rowWidth + horizontalContentInset)
     implicitHeight: pictures.implicitHeight + verticalContentInset
     // Without the join insets, which depend on edge contact.
@@ -28,6 +29,7 @@ ThemedPopup {
             compact: true
             showLabels: false
             kind: "workspace"
+            workspaceNumbers: menu.workspaceNumbers
             choices: menu.styles
             current: menu.currentStyle
             foreground: menu.foreground; background: menu.background; accent: menu.accent

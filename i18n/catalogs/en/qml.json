@@ -836,5 +836,10 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  now",
   "󰂚  No notifications": "󰂚  No notifications",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications",
+  "Always show": "Always show",
+  "Monitors": "Monitors",
+  "Number of workspaces": "Number of workspaces",
+  "Shared numbers": "Shared numbers",
+  "Split across monitors": "Split across monitors"
 }

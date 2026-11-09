@@ -12,6 +12,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 from eitr_paths import code, config as user_config, read_settings, write_settings
 from eitr_i18n import tr
+from eitr_workspaces import preview_count
 
 STYLES = ('Dots', 'Glyph', 'Numbers', 'Runes')
 STATE = user_config("quickshell/desktop-bar/workspace-style.json")
@@ -24,7 +25,7 @@ def current():
 
 
 if sys.argv[1:] == ['summary']:
-    print(json.dumps({"current": current(), "available": True,
+    print(json.dumps({"current": current(), "previewCount": preview_count(), "available": True,
                       "choices": [{"value": value, "label": value, "available": True} for value in STYLES]}))
     raise SystemExit(0)
 

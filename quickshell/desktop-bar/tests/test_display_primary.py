@@ -74,7 +74,8 @@ class DisplayPrimaryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory, \
                 patch.object(display_primary, "PREFERENCE", Path(directory) / "primary-display"), \
                 patch.object(display_primary, "PREFERRED_OUTPUTS", Path(directory) / "preferred-outputs"), \
-                patch.object(display_primary, "active_monitors", return_value=self.monitors):
+                patch.object(display_primary, "active_monitors", return_value=self.monitors), \
+                patch.object(display_primary.subprocess, "run") as apply:
             self.assertEqual(display_primary.status()["primary"], "DP-3")
             (Path(directory) / "preferred-outputs").write_text("HDMI-A-1\n")
             result = display_primary.status()
@@ -101,13 +102,15 @@ class DisplayPrimaryTests(unittest.TestCase):
                 patch.object(display_primary, "CONFIG_DIR", Path(directory)), \
                 patch.object(display_primary, "PREFERENCE", Path(directory) / "primary-display"), \
                 patch.object(display_primary, "PREFERRED_OUTPUTS", Path(directory) / "preferred-outputs"), \
-                patch.object(display_primary, "active_monitors", return_value=self.monitors):
+                patch.object(display_primary, "active_monitors", return_value=self.monitors), \
+                patch.object(display_primary.subprocess, "run") as apply:
             with self.assertRaisesRegex(ValueError, "not connected"):
                 display_primary.set_primary("DP-9")
             self.assertFalse(display_primary.PREFERENCE.exists())
             result = display_primary.set_primary("DP-3")
             self.assertEqual(result["primary"], "DP-3")
             self.refresh_walker.assert_called_once()
+            self.assertIn("reconcile", apply.call_args.args[0])
             self.assertEqual(display_primary.PREFERENCE.read_text(), "DP-3\n")
 
 

@@ -1,6 +1,9 @@
 .pragma library
 
 var settings = [
+    {"id": "windows-workspace-monitors", "label": "Monitors", "page": "windows", "tab": "", "keywords": "workspaces shared numbers split monitors"},
+    {"id": "windows-workspace-count", "label": "Number of workspaces", "page": "windows", "tab": "", "keywords": "workspace count number"},
+    {"id": "windows-workspace-always-show", "label": "Always show", "page": "windows", "tab": "", "keywords": "workspaces markers always show"},
     {"id": "appearance-theme", "label": "Theme", "page": "appearance", "tab": "theme", "keywords": "theme"},
     {"id": "appearance-more-themes", "label": "More themes", "page": "appearance", "tab": "theme", "keywords": "more themes"},
     {"id": "appearance-fonts", "label": "Fonts", "page": "appearance", "tab": "fonts", "keywords": "fonts"},

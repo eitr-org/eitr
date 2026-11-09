@@ -66,3 +66,5 @@ réinitialisées.
 
 Un échec affiche son erreur ; réessayez `eitr focus off` quand
 Hyprland est accessible. Fermer un volet agrandit les volets restants.
+
+À la sortie de Focus, le mode des moniteurs et le nombre d’espaces sont respectés. Si la plage est pleine, les fenêtres supplémentaires partagent le dernier espace.

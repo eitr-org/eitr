@@ -121,6 +121,10 @@
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
     ],
+    "Always show": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
+      "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
+    ],
     "Anonymous identity (optional)": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -1273,6 +1277,10 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Monitors": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
+      "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
+    ],
     "More actions": [
       "quickshell/desktop-bar/components/PanelMoreButton.qml"
     ],
@@ -1461,6 +1469,10 @@
       "quickshell/desktop-bar/notifications/NotificationList.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
+    ],
+    "Number of workspaces": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
+      "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
     ],
     "OBS Controls": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -2139,6 +2151,9 @@
     "Share this PC with Sunshine or connect with Moonlight.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Shared numbers": [
+      "tools/choice-lists.json"
+    ],
     "Sharing Settings": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -2226,6 +2241,9 @@
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Split across monitors": [
+      "tools/choice-lists.json"
     ],
     "Stable": [
       "tools/choice-lists.json"
@@ -2688,7 +2706,8 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Workspaces": [
-      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml"
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
+      "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
     ],
     "YEAR": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -2970,6 +2989,10 @@
     "Already added": [
       "elephant/keyboard-catalog.lua"
     ],
+    "Always show": [
+      "elephant/menu-rows/workspaces.json",
+      "elephant/menus/workspace-always-show.lua"
+    ],
     "Always visible": [
       "elephant/menus/bar-autohide.lua"
     ],
@@ -3175,6 +3198,10 @@
     ],
     "Choose the round picture shown on the lockscreen and login screen": [
       "elephant/menu-rows/users.json"
+    ],
+    "Choose workspace count": [
+      "elephant/menus/workspace-always-show.lua",
+      "elephant/menus/workspace-count.lua"
     ],
     "Classic consoles · NES to Dreamcast, PS1, N64, DS and PSP": [
       "elephant/menu-rows/gaming.json"
@@ -3478,6 +3505,9 @@
     ],
     "Distribution details": [
       "elephant/menus/aws-cloudfront-distribution-details-1.lua"
+    ],
+    "Divide numbered workspaces between monitors": [
+      "tools/choice-lists.json"
     ],
     "Do Not Disturb": [
       "elephant/menu-rows/toggle.json"
@@ -4006,6 +4036,10 @@
       "elephant/menus/monitoring-tools.lua",
       "elephant/menus/monitoring.lua"
     ],
+    "Monitors": [
+      "elephant/menu-rows/workspaces.json",
+      "elephant/menus/workspace-monitors.lua"
+    ],
     "Moonlight": [
       "elephant/menu-rows/gaming.json"
     ],
@@ -4118,6 +4152,10 @@
     ],
     "Notification Center": [
       "elephant/menu-rows/shortcuts.json"
+    ],
+    "Number of workspaces": [
+      "elephant/menu-rows/workspaces.json",
+      "elephant/menus/workspace-count.lua"
     ],
     "OCR Text": [
       "elephant/menu-rows/capture.json"
@@ -4841,6 +4879,9 @@
       "elephant/menu-rows/remote-access.json",
       "elephant/menus/remote-share.lua"
     ],
+    "Shared numbers": [
+      "tools/choice-lists.json"
+    ],
     "Sharing Settings": [
       "elephant/menu-rows/remote-share-setup.json"
     ],
@@ -4933,6 +4974,9 @@
     ],
     "Solid (100%)": [
       "elephant/menus/terminal-opacity.lua"
+    ],
+    "Split across monitors": [
+      "tools/choice-lists.json"
     ],
     "Split side by side": [
       "distro/lib/eitr_focus.py"
@@ -5031,6 +5075,9 @@
     ],
     "Suspend": [
       "elephant/menu-rows/power.json"
+    ],
+    "Switch every monitor to its own numbered workspace": [
+      "tools/choice-lists.json"
     ],
     "Switch to this layout": [
       "elephant/menus/keyboard.lua"
@@ -5215,7 +5262,7 @@
       "tools/choice-lists.json"
     ],
     "Use these workspace markers": [
-      "elephant/menus/workspaces.lua"
+      "elephant/menus/workspace-style.lua"
     ],
     "Use this folder": [
       "elephant/menus/choose-folder.lua"
@@ -5330,6 +5377,10 @@
     ],
     "Workspace details": [
       "elephant/menus/aws-grafana-workspace-details-1.lua"
+    ],
+    "Workspace style": [
+      "elephant/menu-rows/workspaces.json",
+      "elephant/menus/workspace-style.lua"
     ],
     "Workspaces": [
       "elephant/menu-rows/style.json",
@@ -9211,6 +9262,9 @@
     "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
+    "Shared numbers": [
+      "tools/choice-lists.json"
+    ],
     "Sharing could not start: {reason}": [
       "walker/scripts/actions/system/remote-access.py"
     ],
@@ -9355,6 +9409,9 @@
     ],
     "Some programs crashed in the last week; report a problem if one keeps crashing.": [
       "distro/lib/eitr_selfcheck.py"
+    ],
+    "Split across monitors": [
+      "tools/choice-lists.json"
     ],
     "Stable": [
       "tools/choice-lists.json"

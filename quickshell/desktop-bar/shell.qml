@@ -83,8 +83,17 @@ ShellRoot {
     property string primaryDisplay: DisplayService.topology.primary
     property var preferredOutputs: DisplayService.topology.preferred
     property string workspaceStyle: "Runes"
-    readonly property int workspaceCount: WorkspaceModel.ceiling(WorkspaceModel.occupied(Hyprland.toplevels.values),
-        Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : 0)
+    readonly property var workspaceAssignments: WorkspaceModel.assignments(DisplayService.topology.monitors || [], primaryDisplay,
+        DesktopStyle.workspaceMode, DesktopStyle.workspaceCount)
+    readonly property int workspaceCount: workspaceRows(targetScreens()[0]).length
+    function workspaceRows(screen) {
+        var monitor = screen ? Hyprland.monitorFor(screen) : Hyprland.focusedMonitor;
+        var name = monitor ? monitor.name : primaryDisplay;
+        var active = monitor && monitor.activeWorkspace ? monitor.activeWorkspace.id : 1;
+        return WorkspaceModel.visibleRows(workspaceAssignments, name, DesktopStyle.workspaceAlwaysShow,
+            WorkspaceModel.occupied(Hyprland.toplevels.values, workspaceAssignments).map(workspace => workspace.id), active);
+    }
+    function workspaceEntry(index, screen) { return workspaceRows(screen)[index] || {id: index + 1, number: index + 1}; }
     readonly property int workspaceItemSize: 24
     readonly property int workspaceItemSpacing: 4
     property string barAppearance: "solid"
@@ -169,23 +178,19 @@ ShellRoot {
         onCatalogRequested: tone => shell.showThemes(tone)
     }
 
-    function focusWorkspace(id) {
-        var command = WorkspaceModel.focusCommand(id);
+    function focusWorkspace(number, screen) {
+        var command = WorkspaceModel.navigationCommand(number, screen ? screen.name : "", Quickshell.shellDir + "/scripts/workspaces.py");
         if (command.length) Quickshell.execDetached(command);
     }
 
-    // With a bar on every display, each bar marks the workspace shown on its own display.
     function workspaceActive(index, screen) {
-        if (barScreens === "all" && screen) {
-            var monitor = Hyprland.monitorFor(screen);
-            return !!(monitor && monitor.activeWorkspace && monitor.activeWorkspace.id === index);
-        }
-        return Hyprland.focusedWorkspace && Hyprland.focusedWorkspace.id === index;
+        var monitor = screen ? Hyprland.monitorFor(screen) : Hyprland.focusedMonitor;
+        return !!(monitor && monitor.activeWorkspace && monitor.activeWorkspace.id === workspaceEntry(index - 1, screen).id);
     }
 
     function workspaceLabel(index, screen) {
         if (workspaceStyle === "Glyph") return workspaceActive(index + 1, screen) ? "✦" : "✧";
-        return String(index + 1);
+        return String(workspaceEntry(index, screen).number);
     }
 
     function workspaceApps(workspaceId) {

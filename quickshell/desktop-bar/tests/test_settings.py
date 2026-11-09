@@ -87,7 +87,7 @@ assert.equal(new Set(pages.map(page => page.id)).size, pages.length);
 assert.equal(filter('cpu', text => text)[0].id, 'system');
 assert.equal(filter('nothing matches', text => text).length, 0);
 assert.equal(filter('profile avatar', text => text)[0].id, 'system');
-for (const [keyword, page] of [['gaps', 'windows'], ['cursor', 'appearance'], ['dnd', 'notifications'], ['rotation', 'displays'], ['wifi', 'connections'], ['workspaces', 'bar'], ['pdf', 'default-apps'], ['kernel', 'about'], ['password change', 'user'], ['sunshine', 'streaming'], ['moonlight', 'streaming'], ['remote game', 'streaming'], ['fido', 'security']]) assert.equal(filter(keyword, text => text)[0].id, page);
+for (const [keyword, page] of [['gaps', 'windows'], ['cursor', 'appearance'], ['dnd', 'notifications'], ['rotation', 'displays'], ['wifi', 'connections'], ['workspaces', 'windows'], ['pdf', 'default-apps'], ['kernel', 'about'], ['password change', 'user'], ['sunshine', 'streaming'], ['moonlight', 'streaming'], ['remote game', 'streaming'], ['fido', 'security']]) assert.equal(filter(keyword, text => text)[0].id, page);
 assert.equal(resolve('network/bluetooth').page, 'connections');
 assert.equal(entry('network').id, 'connections');
 assert.equal(searchDestination('appearance', 'puntero', text => text === 'Cursor family' ? 'Familia del puntero' : text), 'appearance/fonts');

@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / 'tools/choice-lists.json'
 # Ordered groups: their order is the menu and double-click cycle order.
 ORDERED = {
+    'workspace_modes': {'id', 'label', 'description'},
     'window_layouts': {'id', 'label', 'description'},
     'scrolling_directions': {'id', 'label', 'description'},
     'scrolling_widths': {'id', 'label', 'description', 'value'},
@@ -87,7 +88,7 @@ def lua_value(value, indent='    '):
 
 def modules(catalog):
     """Whole generated files for the ordered groups, keyed by repository path."""
-    groups = {'aboutLogos': 'about_logos', 'windowLayouts': 'window_layouts', 'scrollingDirections': 'scrolling_directions', 'scrollingWidths': 'scrolling_widths', 'scrollingFocusFit': 'scrolling_focus_fit', 'workspaceStyles': 'workspace_styles', 'windowGaps': 'window_gaps', 'barLayouts': 'bar_layouts', 'barAppearances': 'bar_appearances', 'updateChannels': 'update_channels'}
+    groups = {'workspaceModes': 'workspace_modes', 'aboutLogos': 'about_logos', 'windowLayouts': 'window_layouts', 'scrollingDirections': 'scrolling_directions', 'scrollingWidths': 'scrolling_widths', 'scrollingFocusFit': 'scrolling_focus_fit', 'workspaceStyles': 'workspace_styles', 'windowGaps': 'window_gaps', 'barLayouts': 'bar_layouts', 'barAppearances': 'bar_appearances', 'updateChannels': 'update_channels'}
     javascript = ['.pragma library', f'// {GENERATED_NOTICE}', '']
     for name, group in groups.items():
         # ASCII escapes keep editors from dropping the icon glyphs.
@@ -139,7 +140,7 @@ def projections(catalog):
     names = {row['id']: row['label'] for row in catalog['lockscreen_designs']}
     bar = 'quickshell/desktop-bar/'
     yield bar + 'handbook-controls-preview.qml', r'model: \[[^\]\n]*\]', 'model: ' + json.dumps(styles)
-    yield 'elephant/menus/workspaces.lua', r'local choices = \{[^\n]*\}', 'local choices = {' + ', '.join(json.dumps(style) for style in styles) + '}'
+    yield 'elephant/menus/workspace-style.lua', r'local choices = \{[^\n]*\}', 'local choices = {' + ', '.join(json.dumps(style) for style in styles) + '}'
     yield bar + 'scripts/workspace-style.py', r'^STYLES = [^\n]*$', 'STYLES = ' + repr(tuple(styles))
     yield bar + 'scripts/workspace-color.py', r'^if style not in [^\n]*:$', 'if style not in ' + repr(tuple(styles)) + ':'
     yield 'quickshell/lockscreen/scripts/settings.py', r'^NAMES = \{.*?^\}', 'NAMES = {\n' + ''.join(f'    {identifier!r}: {label!r},\n' for identifier, label in names.items()) + '}'

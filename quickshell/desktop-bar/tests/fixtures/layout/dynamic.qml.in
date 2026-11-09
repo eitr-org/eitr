@@ -16,6 +16,8 @@ ShellRoot {
     property color activeBg: "#70ba9a"
     property color activeFg: "#111111"
     property color hoverBg: "#404040"
+    function workspaceRows(screen) { return Array.from({length: workspaceCount}, (unused, index) => ({id:index+1, number:index+1})); }
+    function workspaceEntry(index, screen) { return workspaceRows(screen)[index]; }
     function workspaceLabel(index, screen) { return ["ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ"][index]; }
     function workspaceApps(index) { return ""; }
     function workspaceActive(index, screen) { return index === 1; }

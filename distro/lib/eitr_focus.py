@@ -154,14 +154,20 @@ def clients_by_monitor(clients):
     return monitors
 
 
-def spread_plan(clients):
-    """Two windows per normal workspace, with distinct workspaces per monitor."""
+def spread_plan(clients, rows=None):
+    """Two windows per workspace, bounded by each monitor's assigned range."""
+    from eitr_workspaces import assignments, preferences
+    grouped = clients_by_monitor(clients)
+    if rows is None:
+        monitors = [dict(id=identifier, name=str(identifier), x=identifier) for identifier in grouped]
+        rows = assignments(monitors, monitors[0]['name'] if monitors else '', preferences())
     plan = []
-    workspace = 1
-    for monitor, windows in clients_by_monitor(clients).items():
+    for monitor, windows in grouped.items():
+        local = [row for row in rows if row.get('monitorId') == monitor or row['monitor'] == str(monitor)]
+        if not local:
+            continue
         for index, window in enumerate(windows):
-            plan.append((window['address'], monitor, workspace + index // 2))
-        workspace += max(1, (len(windows) + 1) // 2)
+            plan.append((window['address'], monitor, local[min(index // 2, len(local) - 1)]['id']))
     return plan
 
 
@@ -216,15 +222,23 @@ def gather(hypr):
 def spread(hypr):
     clients = hypr.query('clients')
     hypr.evaluate('hl.config({group={group_on_movetoworkspace=false}})')
-    for address, monitor, workspace in spread_plan(clients):
+    import importlib.util
+    specification = importlib.util.spec_from_file_location('focus_workspaces', code('quickshell/desktop-bar/scripts/workspaces.py'))
+    controller = importlib.util.module_from_spec(specification)
+    specification.loader.exec_module(controller)
+    monitors, rows, preference = controller.plan(hypr)
+    monitor_ids = {monitor['name']: monitor['id'] for monitor in monitors}
+    rows = [{**row, 'monitorId': monitor_ids[row['monitor']]} for row in rows]
+    destinations = spread_plan(clients, rows)
+    for address, monitor, workspace in destinations:
         hypr.window(address, 'if window.group then window.group:remove(window) end; '
                     'hl.dispatch(hl.dsp.window.fullscreen_state({window=window, internal=0, client=0})); '
                     'hl.dispatch(hl.dsp.window.move({window=window, workspace=' + str(workspace) + ', follow=false}))')
         hypr.evaluate('hl.dispatch(hl.dsp.workspace.move({workspace=' + str(workspace)
                       + ', monitor=' + str(monitor) + '}))')
     for monitor in hypr.query('monitors'):
-        destination = next((workspace for _, monitor_id, workspace in spread_plan(clients)
-                            if monitor_id == monitor['id']), monitor['id'] + 1)
+        destination = next((workspace for _, monitor_id, workspace in destinations
+                            if monitor_id == monitor['id']), next((row['id'] for row in rows if row['monitorId'] == monitor['id']), 1))
         hypr.evaluate('hl.dispatch(hl.dsp.focus({monitor=' + lua(monitor['name']) + '})); '
                       'hl.dispatch(hl.dsp.focus({workspace=' + str(destination) + '}))')
 

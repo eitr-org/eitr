@@ -31,8 +31,8 @@ class FakeHypr:
         if kind == 'activewindow':
             return copy.deepcopy(self.active)
         if kind == 'monitors':
-            return [{'id': 0, 'name': 'Test-0', 'activeWorkspace': {'name': 'eitr-focus-0'}},
-                    {'id': 1, 'name': 'Test-1', 'activeWorkspace': {'name': 'eitr-focus-1'}}]
+            return [{'id': 0, 'name': 'Test-0', 'width': 1920, 'height': 1080, 'activeWorkspace': {'name': 'eitr-focus-0'}},
+                    {'id': 1, 'name': 'Test-1', 'width': 1920, 'height': 1080, 'activeWorkspace': {'name': 'eitr-focus-1'}}]
         raise AssertionError(kind)
 
     def run(self, *arguments):

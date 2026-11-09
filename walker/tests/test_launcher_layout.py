@@ -86,10 +86,10 @@ class LauncherLayoutTests(unittest.TestCase):
         self.assertIn('border: none;', surfaces)
 
     def test_every_workspace_style_has_its_own_preview(self):
-        menu = (ROOT / 'elephant/menus/workspaces.lua').read_text()
+        menu = (ROOT / 'elephant/menus/workspace-style.lua').read_text()
         styles = re.search(r'local choices = \{(.*?)\}', menu).group(1)
         names = [name.lower() for name in re.findall(r'"(\w+)"', styles)]
-        layout = ET.parse(ROOT / 'walker/themes/current/item_menus-workspaces.xml')
+        layout = ET.parse(ROOT / 'walker/themes/current/item_menus-workspace-style.xml')
         examples = {style.get('name') for style in layout.iter('class') if style.get('name', '').startswith('example-')}
         css = (ROOT / 'walker/themes/current/workspace-examples.css').read_text()
         for name in names:

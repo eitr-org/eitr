@@ -62,8 +62,9 @@ local function check_shared_shortcuts()
 end
 check_shared_shortcuts()
 if not mode then
-    assert(gestures == 1 and provider == nil)
-    assert(keys["super + 1"].kind == "dsp.focus")
+    assert(gestures == 2 and provider == nil)
+    -- Numbered workspace keys dispatch in Lua from the generated plan, without a process.
+    assert(type(keys["super + 1"]) == "function")
     assert(options.general.gaps_in == 6)
     print("NORMAL_LUA_OK")
     return

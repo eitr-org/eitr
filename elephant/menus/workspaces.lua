@@ -5,29 +5,5 @@ NamePretty = i18n.tr("Workspaces")
 Parent = "style"
 Icon = "󰍹"
 FixedOrder = true
-
-local script = paths.code("quickshell/desktop-bar/scripts/workspace-style.py")
-local quote = dofile(paths.code("elephant/shell-quote.lua"))
-
-function GetEntries()
-    local current = "Runes"
-    local reader = io.popen("python3 " .. quote(script) .. " current")
-    if reader then current = reader:read("*l") or current; reader:close() end
-    local choices = {"Dots", "Glyph", "Numbers", "Runes"}
-    local entries = {}
-    for _, choice in ipairs(choices) do
-        local state = {"workspace-" .. choice:lower()}
-        if choice == current then table.insert(state, "current") end
-        table.insert(entries, {
-            Text = choice, Subtext = i18n.mark("Use these workspace markers"), Value = choice,
-            Icon = choice == current and "\239\128\140" or "󰍹",
-            State = state,
-            Actions = {open = "python3 " .. quote(script) .. " " .. quote(choice)},
-        })
-    end
-    return entries
-end
-
-dofile(paths.code("walker/scripts/menus/alphabetical.lua"))
-
-GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, GetEntries)
+local load = dofile(paths.code("elephant/scoped-menu.lua"))("workspaces")
+GetEntries = dofile(paths.code("elephant/live-menu.lua"))(Name, load, dofile(paths.code("elephant/workspace-context.lua")))

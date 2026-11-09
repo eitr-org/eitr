@@ -12,7 +12,7 @@ for (const vertical of [false, true]) {
         const panelSurface = {leftPadding: 24, rightPadding: 24, vertical,
             leadingBodyInset: 0, trailingBodyInset: detached ? 0 : 14};
         const horizontalContentInset = vm.runInNewContext(inset, {panelSurface, verticalAttachment: vertical, navigationBand: 0});
-        const rowWidth = vm.runInNewContext(row, {});
+        const rowWidth = vm.runInNewContext(row, {workspaceNumbers: [1, 2, 3, 4, 5]});
         const contentWidth = vm.runInNewContext(width, {horizontalContentInset, rowWidth}) - horizontalContentInset;
         // Two cards per row (8 px apart); each card's picture keeps 16 px of padding.
         const card = Math.floor((contentWidth - 8) / 2);

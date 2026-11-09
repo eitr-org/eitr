@@ -266,5 +266,17 @@
       "id": "runes",
       "label": "Runes"
     }
+  ],
+  "workspace_modes": [
+    {
+      "id": "shared",
+      "label": "Shared numbers",
+      "description": "Switch every monitor to its own numbered workspace"
+    },
+    {
+      "id": "split",
+      "label": "Split across monitors",
+      "description": "Divide numbered workspaces between monitors"
+    }
   ]
 }

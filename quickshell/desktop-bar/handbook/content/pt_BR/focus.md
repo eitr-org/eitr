@@ -67,3 +67,5 @@ voltam ao padrão. Uma falha de comando mostra o erro; tente `eitr focus off`
 novamente quando o Hyprland estiver acessível.
 
 Fechar um painel expande os restantes.
+
+Ao sair do Focus, o modo de monitores e o total de áreas são respeitados. Se a faixa estiver cheia, janelas adicionais compartilham a última área.
