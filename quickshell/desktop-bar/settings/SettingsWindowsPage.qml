@@ -53,6 +53,7 @@ Column {
             }
             ToggleRow {
                 text: Eitr.I18n.tr("Follow focus")
+                description: Eitr.I18n.tr("Scroll to the window that gets focus.")
                 SettingsTarget { objectName: "setting-windows-follow-focus" }
                 foreground: view.foreground; accent: view.accent
                 checked: DesktopStyle.windowLayout.scrollFollowFocus === "yes"
@@ -60,6 +61,7 @@ Column {
             }
             ToggleRow {
                 text: Eitr.I18n.tr("Fullscreen when one column")
+                description: Eitr.I18n.tr("A lone column fills the screen.")
                 SettingsTarget { objectName: "setting-windows-fullscreen-one-column" }
                 foreground: view.foreground; accent: view.accent
                 checked: DesktopStyle.windowLayout.scrollFullscreen === "yes"

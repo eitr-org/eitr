@@ -841,5 +841,7 @@
   "Monitors": "Monitors",
   "Number of workspaces": "Number of workspaces",
   "Shared numbers": "Shared numbers",
-  "Split across monitors": "Split across monitors"
+  "Split across monitors": "Split across monitors",
+  "A lone column fills the screen.": "A lone column fills the screen.",
+  "Scroll to the window that gets focus.": "Scroll to the window that gets focus."
 }

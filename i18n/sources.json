@@ -18,6 +18,9 @@
     "1 theme": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "A lone column fills the screen.": [
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
     "A quiet desktop with tabs and panes.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -2044,6 +2047,9 @@
     ],
     "Screenshots": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
+    ],
+    "Scroll to the window that gets focus.": [
+      "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Scrolling": [
       "tools/choice-lists.json"
