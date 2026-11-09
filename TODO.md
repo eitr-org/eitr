@@ -13,6 +13,14 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
+- **Walker > Settings follows the Settings app's groups (asked 2026-11-09).** Use the
+  app's six groups and names in Walker so a setting lives in the same place in both:
+  Devices (today's Connectivity, Devices & Input and Language), Desktop (today's Style;
+  its quick choice lists such as theme, wallpaper and cursor stay as submenus), Apps &
+  Keys (keybinds, default apps), Accounts & Security (drop the Users and Update Password
+  rows the Settings Security page no longer has), System. Control Center and Dotfiles
+  stay at the bottom. Keep every row's action, parents for Shift+Backspace, search and
+  Learn entries; follow `walker/MENU-DEFINITIONS.md`.
 - **Keybinds and window rules editors.** Settings > Keybinds only lists shortcuts today:
   rebind one by pressing the new keys, with clash warnings, reset to default and the
   change kept in the person's own config. Window rules: pick an app and choose
