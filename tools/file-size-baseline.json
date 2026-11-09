@@ -50,7 +50,7 @@
       "reason": "Barely over the limit; one panel."
     },
     "quickshell/desktop-bar/panels/CatalogContent.qml": {
-      "lines": 912,
+      "lines": 925,
       "reason": "To improve (TODO): cards, detail and review sheets and the Git address flow in one file."
     },
     "quickshell/desktop-bar/scripts/bar-data.py": {

@@ -39,11 +39,11 @@ um clique fora fecha os detalhes e devolve o foco ao cartão. Imagens remotas
 completas só são baixadas ao abrir; imagens instaladas são lidas localmente.
 
 O botão Instalar no cartão alterna a seleção e mostra Selecionado com uma marca. Cartões instalados mostram Instalado e, quando aplicável, Atual. Selecione vários
-temas e use Instalar na barra inferior para revisar prévias, origens e tamanho
+temas e use Revisar e instalar no pop-up abaixo dos cartões para revisar prévias, origens e tamanho
 total; Limpar desfaz a seleção. Setas navegam, Espaço alterna a seleção e Enter
 abre detalhes em Oficial ou Comunidade.
 
-Use Tab até Instalar na barra inferior e
+Use Tab até Revisar e instalar nesse pop-up e
 Enter para revisar. Em Instalados, Enter continua aplicando o tema; numa revisão,
 confirma a instalação. Instalar nos detalhes revisa somente aquele tema; depois
 oferece Aplicar, ou Atual se já ativo. Escape cancela a revisão antes de fechar

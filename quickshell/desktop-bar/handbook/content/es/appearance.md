@@ -41,12 +41,12 @@ el foco a la tarjeta. Los fondos remotos completos solo se descargan al abrirlos
 las imágenes instaladas se leen localmente.
 
 Instalar en la tarjeta alterna la selección y muestra Seleccionado con una marca. Las tarjetas instaladas muestran Instalado y Actual cuando corresponde. Selecciona
-varios temas y usa Instalar en la barra inferior para revisar vistas previas,
+varios temas y usa Revisar e instalar en la ventana emergente bajo las tarjetas para revisar vistas previas,
 orígenes y tamaño total; Limpiar borra la selección. Las flechas navegan, Espacio
 alterna la selección y Enter abre detalles en Oficial o Comunidad.
 
 Usa Tab hasta
-Instalar en la barra inferior y Enter para revisar. Enter sigue aplicando temas
+Revisar e instalar en esa ventana emergente y Enter para revisar. Enter sigue aplicando temas
 en Instalados y confirma una revisión abierta. Instalar en los detalles revisa
 solo ese tema; después ofrece Aplicar, o Actual si está activo. Escape cancela la
 revisión antes de cerrar detalles o ventana. Descargas, progreso y errores quedan

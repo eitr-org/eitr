@@ -616,7 +616,7 @@ Item {
         Flickable {
             id: scroll
             objectName: "catalog-scroll"
-            width: parent.width; height: Math.max(1, catalog.height - contentLayout.y - y - PanelStyle.padding - (selectionBar.visible ? selectionBar.height + 12 : 0))
+            width: parent.width; height: Math.max(1, catalog.height - contentLayout.y - y - PanelStyle.padding - (selectionBar.shown ? selectionBar.height + 16 : 0))
             contentWidth: width; contentHeight: sections.height; clip: true; boundsBehavior: Flickable.StopAtBounds
             function more() { if (contentY + height > contentHeight - 600 && catalog.shown < catalog.navigable.length) catalog.shown += catalog.pageSize; }
             onContentYChanged: more()
@@ -644,12 +644,30 @@ Item {
                 }
             }
         }
-        Rectangle {
-            id: selectionBar; visible: catalog.getMore && catalog.chosen.length > 0 && catalog.kind === "themes"; width: parent.width; height: 48
-            radius: DesktopStyle.radius(8); color: catalog.raised
-            ActionButton { objectName: "review-selection"; x: 8; anchors.verticalCenter: parent.verticalCenter; width: parent.width - 108; primary: true; textAlignment: Text.AlignLeft; flat: true; text: catalog.chosen.length === 1 ? Eitr.I18n.tr("Install 1 theme · %1").arg(catalog.sizeText(catalog.totalSize)) : Eitr.I18n.tr("Install %1 themes · %2").arg(catalog.chosen.length).arg(catalog.sizeText(catalog.totalSize)); foreground: catalog.foreground; onClicked: { catalog.reviewing = true; catalog.forceActiveFocus(); } }
-            ActionButton { anchors.right: parent.right; anchors.rightMargin: 8; anchors.verticalCenter: parent.verticalCenter; width: 80; flat: true; text: Eitr.I18n.tr("Clear"); foreground: catalog.foreground; onClicked: catalog.selected = [] }
+    }
+    // Chosen themes float in a pop-up below the cards (which end above it) until reviewed or cleared.
+    Rectangle {
+        id: selectionBar
+        readonly property bool shown: catalog.getMore && catalog.chosen.length > 0 && catalog.kind === "themes" && !catalog.reviewing
+        visible: opacity > 0
+        opacity: shown ? 1 : 0
+        z: 2
+        x: contentLayout.x + (contentLayout.width - width) / 2
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: PanelStyle.padding + (shown ? 0 : -12)
+        width: Math.min(scroll.width - 24, 540); height: 56
+        radius: DesktopStyle.radius(12); color: Qt.rgba(catalog.raised.r, catalog.raised.g, catalog.raised.b, 1)
+        border.width: 1; border.color: catalog.lineStrong
+        Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(160) } }
+        Behavior on anchors.bottomMargin { NumberAnimation { duration: DesktopStyle.motionDuration(160) } }
+        Column {
+            x: 16; anchors.verticalCenter: parent.verticalCenter; width: clearSelection.x - x - 12; spacing: 1
+            Label { width: parent.width; wrapMode: Text.NoWrap; elide: Text.ElideRight; text: catalog.chosen.length === 1 ? Eitr.I18n.tr("1 theme") : Eitr.I18n.tr("%1 themes").arg(catalog.chosen.length) }
+            Label { width: parent.width; wrapMode: Text.NoWrap; elide: Text.ElideRight; color: catalog.muted; font.pixelSize: PanelStyle.captionSize; text: catalog.sizeText(catalog.totalSize) }
         }
+        ActionButton { id: clearSelection; anchors.right: reviewSelection.left; anchors.rightMargin: 8; anchors.verticalCenter: parent.verticalCenter; width: 80; text: Eitr.I18n.tr("Clear"); onClicked: catalog.selected = [] }
+        TextMetrics { id: reviewLabel; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize; text: Eitr.I18n.tr("Review & install") }
+        ActionButton { id: reviewSelection; objectName: "review-selection"; anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter; width: Math.max(150, reviewLabel.advanceWidth + 32); primary: true; text: Eitr.I18n.tr("Review & install"); onClicked: { catalog.reviewing = true; catalog.forceActiveFocus(); } }
     }
     Rectangle {
         id: detailSheet

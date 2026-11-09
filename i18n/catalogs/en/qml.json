@@ -236,8 +236,6 @@
   "Input level": "Input level",
   "Input level · muted": "Input level · muted",
   "Install": "Install",
-  "Install %1 themes · %2": "Install %1 themes · %2",
-  "Install 1 theme · %1": "Install 1 theme · %1",
   "Install the Eitr network helper first; see distro/NETWORKING.md": "Install the Eitr network helper first; see distro/NETWORKING.md",
   "Installed": "Installed",
   "Installed assistants and collaboration preferences.": "Installed assistants and collaboration preferences.",
@@ -772,5 +770,8 @@
   "Remove this account? Keeping the home folder preserves its files.": "Remove this account? Keeping the home folder preserves its files.",
   "Set password": "Set password",
   "Standard": "Standard",
-  "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal.": "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal."
+  "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal.": "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal.",
+  "%1 themes": "%1 themes",
+  "1 theme": "1 theme",
+  "Review & install": "Review & install"
 }

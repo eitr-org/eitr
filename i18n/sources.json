@@ -6,11 +6,17 @@
     "%1 h %2 min": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
+    "%1 themes": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "01 / TAPE": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "02 / NEO ORBITAL": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
+    ],
+    "1 theme": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "A quiet desktop with tabs and panes.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -915,12 +921,6 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
-    "Install %1 themes · %2": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
-    "Install 1 theme · %1": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
     "Install an AI Assistant": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
@@ -1723,6 +1723,9 @@
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Review": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Review & install": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Review plugin %1 of %2": [

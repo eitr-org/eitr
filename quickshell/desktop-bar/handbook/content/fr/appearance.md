@@ -41,11 +41,11 @@ et rend le focus à la carte. Les fonds distants complets sont téléchargés se
 à l’ouverture ; les images installées sont lues localement.
 
 Installer sur la carte bascule la sélection et affiche Sélectionné avec une coche. Les cartes installées affichent Installé et Actuel si nécessaire. Sélectionnez
-plusieurs thèmes, puis utilisez Installer dans la barre inférieure pour vérifier
+plusieurs thèmes, puis utilisez Vérifier et installer dans la fenêtre contextuelle sous les cartes pour vérifier
 aperçus, sources et taille totale ; Effacer vide la sélection. Les flèches naviguent,
 Espace bascule la sélection et Entrée ouvre les détails dans Officiel ou Communauté.
 
-Avec Tab, atteignez Installer dans la barre inférieure, puis Entrée ouvre la
+Avec Tab, atteignez Vérifier et installer dans cette fenêtre contextuelle, puis Entrée ouvre la
 vérification. Entrée applique toujours un thème dans Installés et confirme une
 vérification ouverte. Installer dans les détails vérifie uniquement ce thème ;
 après installation, Appliquer ou Actuel apparaît. Échap annule d’abord la

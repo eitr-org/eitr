@@ -40,11 +40,11 @@ und gibt den Fokus an die Karte zurück. Vollständige entfernte Bilder werden e
 beim Öffnen geladen, installierte Bilder lokal gelesen.
 
 Installieren auf der Karte schaltet die Auswahl um und zeigt Ausgewählt mit Haken. Installierte Karten zeigen Installiert und gegebenenfalls Aktuell. Wähle mehrere
-Themes und öffne mit Installieren in der unteren Leiste die Prüfung mit Vorschauen,
+Themes und öffne mit Prüfen und installieren im Pop-up unter den Karten die Prüfung mit Vorschauen,
 Quellen und Gesamtgröße; Leeren hebt die Auswahl auf. Pfeiltasten navigieren,
 Leertaste schaltet die Auswahl um, Enter öffnet Details in Offiziell oder Community.
 
-Mit Tab zu Installieren in der unteren Leiste und Enter öffnet sich die Prüfung. In Installiert wendet Enter weiterhin ein Theme an; eine offene Prüfung wird
+Mit Tab zu Prüfen und installieren in diesem Pop-up und Enter öffnet sich die Prüfung. In Installiert wendet Enter weiterhin ein Theme an; eine offene Prüfung wird
 bestätigt. Installieren in den Details prüft nur dieses Theme; danach erscheint
 Anwenden oder Aktuell. Escape schließt zuerst die Prüfung, dann Details oder Fenster. Downloads, Fortschritt und Fehler bleiben im Fenster.
 

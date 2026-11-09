@@ -45,12 +45,12 @@ and returns focus to the card. Full remote wallpapers download only when opened;
 installed artwork is read locally.
 
 A card's Install button toggles its download selection and shows Selected with a
-check. Installed cards show Installed and retain Current where appropriate. Select several themes, then use the bottom Install button to review their previews,
+check. Installed cards show Installed and retain Current where appropriate. Select several themes, then use Review & install in the pop-up that appears below the cards to review their previews,
 sources and total size; Clear removes the selection. Arrows move between cards,
 Space toggles selection, and Enter opens details on Official or Community.
 
 Tab to
-the bottom Install button and press Enter to review the selection. Enter still
+Review & install in that pop-up and press Enter to review the selection. Enter still
 applies a theme on Installed and confirms an open review. The detail sheet's
 Install reviews just that theme; after installation it offers Apply, or Current
 when active. Escape cancels a review before closing details or the window.
