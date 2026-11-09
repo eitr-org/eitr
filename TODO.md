@@ -95,6 +95,14 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
     Live hardware acceptance across bar layouts remains pending.
 
 - **Light themes.** The owner has ideas for more light themes; create them later.
+- **Scrolling window layout (asked 2026-11-09).** Hyprland 0.57 ships a native `scrolling`
+  layout beside today's `dwindle` (`general:layout`). Offer it in Settings > Style > Windows
+  and Walker's Style menu, saved machine-locally and kept across theme reloads, with its
+  options: direction (`scrolling:direction`, right/left/up/down), default column width
+  (`column_width`), preset widths to cycle (`explicit_column_widths`), how focus brings a
+  column into view (`focus_fit_method`, `follow_focus`) and one column fullscreen
+  (`fullscreen_on_one_column`). Shortcuts to move and resize columns only while it is on;
+  Learn, Handbook and the Overview/workspace previews must still match.
 - **hyprpaper crash without a GPU: follow upstream.** hyprpaper segfaults in VMs
   without 3D acceleration (hyprwm/hyprtoolkit#144); the bar now draws the still
   wallpaper on any screen hyprpaper does not answer for. Drop the note once a fixed
@@ -175,6 +183,13 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
 - **The Eitr logo drawn with runes.** Previews of the emblem filled with Elder
   Futhark runes are ready and kept outside the repository; the owner likes the
   36-row versions and will decide later where (if anywhere) to use them.
+
+- **Choose Hyprland or niri (owner's idea, 2026-11-09).** Let a person pick the
+  compositor at install time and in Settings, with niri as a supported second session.
+  Needs first: a list of everything that talks to Hyprland (Lua config, `hyprctl` and
+  its IPC in the bar, Overview, workspaces, window rules, hypridle/hyprlock, screenshots,
+  Focus groups) and an adapter so the bar and helpers ask one Eitr interface instead.
+  Decide what niri does not offer, then VM-test both sessions before any release.
 
 # 5. 0.8 release candidate and 1.0.0
 
