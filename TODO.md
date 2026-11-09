@@ -89,12 +89,7 @@ stable on 2026-11-04 (`distro/THEMES.md`, `distro/COMMUNITY.md`).
     panels reserve navigation space, and shared sidebars support Square corners.
     Next: refine individual-setting search. Network throughput needs a shared
     data topic; theme artwork currently uses the wallpaper.
-  - **Window gaps preference implemented.** None, Small, Default (6 px inner,
-    12 px outer) and Large share the local corner preference and survive theme
-    changes and reloads. Settings and Walker use one catalog.
-    Live hardware acceptance across bar layouts remains pending.
 
-- **Light themes.** The owner has ideas for more light themes; create them later.
 - **Scrolling window layout (asked 2026-11-09).** Hyprland 0.57 ships a native `scrolling`
   layout beside today's `dwindle` (`general:layout`). Offer it in Settings > Style > Windows
   and Walker's Style menu, saved machine-locally and kept across theme reloads, with its
