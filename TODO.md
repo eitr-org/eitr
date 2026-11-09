@@ -210,7 +210,6 @@ promises below. The roadmap table in `distro/RELEASES.md` has the wording.
 Assistant sessions use full access by default; Settings > AI Assistant > Assistant Access restores permission prompts. Not planned: the rest of the "Not planned now"
 list in `distro/RELEASES.md`.
 
-- [x] Handbook revision with live illustrations: Settings app paths and tabs, Control Center shortcuts, profile pictures and update status are current. Task-first chapters and cross-links keep the settings workflow in one place; German, Spanish, French and Brazilian Portuguese follow the same revision. The six live figures cover bar anatomy and layouts, Control Center, Settings, Walker and window style.
 - [ ] Git & Cloud for many companies (Walker; Settings no longer has the page): group each company's cloud profiles and contexts with its Git identity and folder rules.
 - [ ] Create a separate `eitr-store` repository and app for themes, plugins and other add-ons: catalog index, submissions and listings; replace the built-in catalog window later.
 - [ ] **VPN plugins and Tailscale out of the default install (agreed 2026-11-09, after Users).**
