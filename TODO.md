@@ -17,10 +17,6 @@ item says what decides the next step. Remove an item when it ships;
   opens the right page or tab from keywords. Each setting becomes a result ("Cursor
   size · Appearance › Fonts & Cursor"); choosing it opens the page and tab, scrolls to
   the control and highlights it briefly.
-- **Rune logo choice for About (in progress, 2026-11-09).** System > About (Fastfetch)
-  can show the current emblem or the emblem drawn with Elder Futhark runes, chosen in
-  Settings and remembered per machine. Drafts and generator:
-  `eitr-testing/ideas/rune-logo/` (20-row versions fit About's width).
 - **Keybinds and window rules editors.** Settings > Keybinds only lists shortcuts today:
   rebind one by pressing the new keys, with clash warnings, reset to default and the
   change kept in the person's own config. Window rules: pick an app and choose

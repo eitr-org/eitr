@@ -256,5 +256,15 @@
       "description": "Bring the focused column into view",
       "value": "1"
     }
+  ],
+  "about_logos": [
+    {
+      "id": "emblem",
+      "label": "Emblem"
+    },
+    {
+      "id": "runes",
+      "label": "Runes"
+    }
   ]
 }

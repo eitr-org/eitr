@@ -27,6 +27,7 @@ import time
 import unicodedata
 from datetime import datetime
 from eitr_i18n import tr
+from eitr_about_logo import current as about_logo
 
 
 def cell_ratio():
@@ -136,8 +137,13 @@ def build_config(config_home, cache_home, image=True):
 
     logo = code("fastfetch/assets/eitr-logo.png")
     logo_source = terminal_logo(logo) if image and logo.exists() else None
-    # Leave room for the existing 34-cell logo and its six cells of padding.
-    width = min(76, max(38, shutil.get_terminal_size((120, 40)).columns - (40 if logo_source else 0)))
+    if image and about_logo(config_home) == "runes":
+        try:
+            logo_source = "$1" + code("fastfetch/assets/eitr-runes.txt").read_text().rstrip("\n")
+        except OSError:
+            pass
+    logo_width = max((cell_width(line.removeprefix("$1")) for line in logo_source.splitlines()), default=0) if logo_source else 0
+    width = min(76, max(38, shutil.get_terminal_size((120, 40)).columns - (logo_width + 6 if logo_source else 0)))
     hardware = color("color2", accent)
     software = color("color4", accent)
     clock = color("color3", accent)

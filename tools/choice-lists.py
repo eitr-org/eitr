@@ -18,6 +18,7 @@ ORDERED = {
     'scrolling_directions': {'id', 'label', 'description'},
     'scrolling_widths': {'id', 'label', 'description', 'value'},
     'scrolling_focus_fit': {'id', 'label', 'description', 'value'},
+    'about_logos': {'id', 'label'},
     'window_gaps': {'id', 'label', 'description', 'inner', 'outer'},
     'bar_layouts': {'id', 'label', 'icon', 'description'},
     'bar_appearances': {'id', 'label', 'icon', 'description'},
@@ -86,7 +87,7 @@ def lua_value(value, indent='    '):
 
 def modules(catalog):
     """Whole generated files for the ordered groups, keyed by repository path."""
-    groups = {'windowLayouts': 'window_layouts', 'scrollingDirections': 'scrolling_directions', 'scrollingWidths': 'scrolling_widths', 'scrollingFocusFit': 'scrolling_focus_fit', 'workspaceStyles': 'workspace_styles', 'windowGaps': 'window_gaps', 'barLayouts': 'bar_layouts', 'barAppearances': 'bar_appearances', 'updateChannels': 'update_channels'}
+    groups = {'aboutLogos': 'about_logos', 'windowLayouts': 'window_layouts', 'scrollingDirections': 'scrolling_directions', 'scrollingWidths': 'scrolling_widths', 'scrollingFocusFit': 'scrolling_focus_fit', 'workspaceStyles': 'workspace_styles', 'windowGaps': 'window_gaps', 'barLayouts': 'bar_layouts', 'barAppearances': 'bar_appearances', 'updateChannels': 'update_channels'}
     javascript = ['.pragma library', f'// {GENERATED_NOTICE}', '']
     for name, group in groups.items():
         # ASCII escapes keep editors from dropping the icon glyphs.

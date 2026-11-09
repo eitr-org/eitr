@@ -8,6 +8,9 @@ Abra Configurações > Sobre para ver versão do Eitr, codinome, canal, kernel e
 
 **Hardware** mostra CPU, GPU, RAM e armazenamento da unidade que contém `/`; outros discos não entram nesse total. Dados de sensores ou GPU ausentes aparecem como indisponíveis.
 
+Em Configurações > Sobre, escolha Emblema ou Runas em «Logo do Sobre» para alterar a página Sobre no terminal. A escolha fica salva neste computador e usa Emblema por padrão; ambos seguem a cor de destaque do tema atual.
+
+
 **Uso de IA** detecta clientes instalados ou configurados. O uso em cache aparece primeiro; atualizar não inicia login nem conversas. São mostrados os limites de cada conta; os percentuais indicam a parte do limite já utilizada.
 
 Cada provedor detectado tem sua própria seção com plano, limites e erros. Clique no título para recolher ou expandir somente essa seção. Ao entrar, todas começam recolhidas e mantêm o estado durante a sessão. Listas longas rolam dentro da tela.

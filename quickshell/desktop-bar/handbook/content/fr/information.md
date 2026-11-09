@@ -8,6 +8,9 @@ Ouvrez Paramètres > À propos pour la version d’Eitr, le nom de code, le cana
 
 **Matériel** indique CPU, GPU, RAM et stockage du disque contenant `/`. Les autres disques ne sont pas additionnés à ce total. Les données manquantes des capteurs ou du GPU sont indiquées comme indisponibles.
 
+Dans Paramètres > À propos, choisissez Emblème ou Runes sous « Logo À propos » pour modifier la page À propos du terminal. Le choix est enregistré sur cet ordinateur et utilise Emblème par défaut ; les deux suivent la couleur d’accent du thème actuel.
+
+
 **Utilisation de l’IA** détecte les clients installés ou configurés. L’usage en cache apparaît d’abord ; actualiser ne lance ni connexion ni conversation. Les limites de chaque compte sont affichées ; les pourcentages indiquent la part d’une limite déjà utilisée.
 
 Chaque fournisseur détecté possède sa propre section avec son forfait, ses limites et ses erreurs. Cliquez sur un titre pour replier ou déplier cette seule section. À la connexion, toutes sont repliées ; leur état est conservé pendant la session. Les longues listes défilent dans les limites de l’écran.

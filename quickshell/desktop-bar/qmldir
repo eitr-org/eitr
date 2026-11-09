@@ -224,3 +224,4 @@ WindowStyleFigure figures/WindowStyleFigure.qml
 PanelScrollBar components/PanelScrollBar.qml
 SettingsManageUsers settings/SettingsManageUsers.qml
 SettingsAccountSheet settings/SettingsAccountSheet.qml
+AboutLogoPreview components/AboutLogoPreview.qml

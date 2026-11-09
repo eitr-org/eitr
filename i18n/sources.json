@@ -45,6 +45,9 @@
       "quickshell/desktop-bar/settings/SettingsAboutPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "About logo": [
+      "quickshell/desktop-bar/settings/SettingsAboutPage.qml"
+    ],
     "Above": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
@@ -774,6 +777,9 @@
     ],
     "Eitr website": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Emblem": [
+      "tools/choice-lists.json"
     ],
     "Enable plugin": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -1781,6 +1787,9 @@
     ],
     "Rune groups": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
+    ],
+    "Runes": [
+      "tools/choice-lists.json"
     ],
     "Runs on this PC; nothing is saved": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"

@@ -24,7 +24,7 @@ If unavailable, it uses the earliest valid timestamp in `/var/log/pacman.log`.
 Filesystem recreation or log rotation can make this an estimate of installation
 age; missing or future timestamps show Unavailable. No elevated access is needed.
 
-The logo is rendered from its transparent alpha mask using Pillow and terminal
+The default emblem is rendered from its transparent alpha mask using Pillow and terminal
 half-blocks; no image protocol dependency, altered source image or stale cache.
 
 The shared wordmark asset is still used by task-terminal banners and setup wizards;
@@ -34,3 +34,8 @@ render the wordmark.
 Dependencies: Fastfetch, Python 3.11+, Pillow, and Kitty for the Walker action.
 `--config-only` prints the generated Fastfetch JSON (before final row fitting);
 `--no-logo` hides the logo. Headless captures use the same modules and layout.
+
+Settings > About offers Emblem (default) and Runes under About logo. The selection
+is saved as `aboutLogo` in machine-local `eitr/style.json`. The 20-row, 38-column
+rune asset uses the same theme accent and padding. Regenerate its text and
+transparent Settings preview with `python3 branding/scripts/export-rune-logo.py`.

@@ -92,7 +92,10 @@ def about():
         release_path = code('distro/release.json')
     release = json.loads(release_path.read_text())
     titles = {'Storage': tr('Storage'), 'Motherboard': tr('Motherboard')}
-    return {'items': [{'title': tr('Version'), 'detail': release['version']},
+    from eitr_about_logo import current
+    from eitr_choice_lists import ABOUT_LOGOS
+    return {'aboutLogo': current(), 'aboutLogos': ABOUT_LOGOS,
+            'items': [{'title': tr('Version'), 'detail': release['version']},
                       {'title': tr('Codename'), 'detail': release['codename']},
                       {'title': tr('Update Channel'), 'detail': about_source.update_channel() or tr('Unavailable')},
                       {'title': tr('Kernel'), 'detail': platform.release()},
@@ -186,11 +189,14 @@ def controls_summary(page):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['summary', 'access', 'default-assistant', 'collaboration'])
+    parser.add_argument('action', choices=['summary', 'access', 'default-assistant', 'collaboration', 'about-logo'])
     parser.add_argument('page', choices=['keybinds', 'security', 'about', 'assistants', 'user'])
     parser.add_argument('arguments', nargs='*')
     options = parser.parse_args()
-    if options.action == 'default-assistant':
+    if options.action == 'about-logo':
+        from eitr_about_logo import select
+        select(options.arguments[0])
+    elif options.action == 'default-assistant':
         from eitr_assistants import set_default
         set_default(options.arguments[0])
     elif options.action == 'collaboration':

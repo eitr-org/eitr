@@ -8,6 +8,9 @@ Abre Configuración > Acerca de para ver versión de Eitr, nombre en clave, cana
 
 **Hardware** muestra CPU, GPU, RAM y almacenamiento de la unidad que contiene `/`; otros discos no se suman al total. Los datos de sensores o GPU que faltan aparecen como no disponibles.
 
+En Configuración > Acerca de, elija Emblema o Runas en «Logotipo de Acerca de» para cambiar la página Acerca de del terminal. La elección se guarda en este equipo y usa Emblema de forma predeterminada; ambos siguen el color de acento del tema actual.
+
+
 **Uso de IA** detecta clientes instalados o configurados. Primero aparece el uso en caché; actualizar no inicia sesiones ni conversaciones. Muestra los límites de cada cuenta; los porcentajes indican la parte del límite ya consumida.
 
 Cada proveedor detectado tiene su propia sección con plan, límites y errores. Haz clic en el título para plegar o desplegar solo esa sección. Al iniciar sesión todas empiezan plegadas y conservan su estado durante la sesión. Las listas largas se desplazan dentro de la pantalla.

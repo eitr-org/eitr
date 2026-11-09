@@ -8,6 +8,9 @@ Benachrichtigungskarten zeigen unter dem Titel das lokale Eingangsdatum und die 
 
 **Hardware** zeigt CPU, GPU, RAM und den Speicher des Laufwerks, auf dem `/` liegt. Andere Laufwerke werden nicht in diese Summe einbezogen. Fehlende Sensor- oder GPU-Daten werden als nicht verfügbar gekennzeichnet.
 
+Unter Einstellungen > Über können Sie unter „Über-Logo“ Emblem oder Runen für die Über-Seite im Terminal wählen. Die Auswahl bleibt auf diesem Rechner gespeichert; standardmäßig wird Emblem verwendet. Beide folgen der Akzentfarbe des aktuellen Designs.
+
+
 **KI-Nutzung** erkennt installierte oder konfigurierte Clients. Zuerst erscheint die zwischengespeicherte Nutzung; Aktualisieren startet weder Anmeldung noch Gespräche. Die Grenzen jedes Kontos werden angezeigt. Prozentwerte geben den bereits verbrauchten Anteil eines Limits an.
 
 Jeder erkannte Anbieter hat einen eigenen Abschnitt mit Tarif, Limits und Fehlern. Klicke auf eine Überschrift, um nur diesen Abschnitt ein- oder auszuklappen. Nach der Anmeldung sind alle eingeklappt; der Zustand bleibt für die Sitzung erhalten. Lange Listen lassen sich innerhalb des Bildschirms scrollen.
