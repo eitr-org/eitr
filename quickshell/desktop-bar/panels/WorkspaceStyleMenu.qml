@@ -10,20 +10,14 @@ ThemedPopup {
     required property color selectedForeground
     signal selected(string style)
 
-    readonly property real rowWidth: PanelStyle.selectionTextInset + labelMetrics.advanceWidth + 12 + 5 * 23 + 4 * 4 + 10
+    // Two picture cards per row; five markers fit each card at the 296 px minimum.
+    readonly property real rowWidth: 2 * (5 * 22 + 4 * 4 + 16) + 8
     implicitWidth: Math.max(296, rowWidth + horizontalContentInset)
     implicitHeight: pictures.implicitHeight + verticalContentInset
     // Without the join insets, which depend on edge contact.
     edgeContactWidth: Math.max(296, rowWidth + (contentGaps[1] + contentGaps[3]) * PanelStyle.contentGapMultiplier)
     leftAligned: true
     readonly property var styles: ChoiceLists.workspaceStyles
-
-    TextMetrics {
-        id: labelMetrics
-        text: Eitr.I18n.tr("Numbers")
-        font.family: DesktopFonts.family
-        font.pixelSize: PanelStyle.bodySize
-    }
 
     // The panel's content column, like every side panel's: picture cards with the real markers.
     Column {
@@ -32,6 +26,7 @@ ThemedPopup {
             id: pictures
             width: parent.width
             compact: true
+            showLabels: false
             kind: "workspace"
             choices: menu.styles
             current: menu.currentStyle

@@ -1270,9 +1270,6 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
-    "Numbers": [
-      "quickshell/desktop-bar/panels/WorkspaceStyleMenu.qml"
-    ],
     "OBS Controls": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],

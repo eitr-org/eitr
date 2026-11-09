@@ -6,19 +6,18 @@ const popup = fs.readFileSync(`${__dirname}/../components/ThemedPopup.qml`, 'utf
 const row = menu.match(/readonly property real rowWidth: (.*)\n/)[1];
 const width = menu.match(/implicitWidth: ([\s\S]*?)\n    implicitHeight:/)[1];
 const inset = popup.match(/readonly property real horizontalContentInset: ([\s\S]*?)\n    property Item/)[1];
+assert.match(menu, /showLabels: false/, 'The popup shows the examples without their names');
 for (const vertical of [false, true]) {
     for (const detached of [false, true]) {
-        for (const advanceWidth of [59, 84, 110]) {
-            const panelSurface = {leftPadding: 24, rightPadding: 24, vertical,
-                leadingBodyInset: 0, trailingBodyInset: detached ? 0 : 14};
-            const horizontalContentInset = vm.runInNewContext(inset, {panelSurface, verticalAttachment: vertical, navigationBand: 0});
-            const rowWidth = vm.runInNewContext(row, {PanelStyle: {selectionTextInset: 36}, labelMetrics: {advanceWidth}});
-            const actual = vm.runInNewContext(width, {horizontalContentInset, rowWidth});
-            const contentWidth = actual - horizontalContentInset;
-            const examplesLeft = contentWidth - 10 - (5 * 23 + 4 * 4);
-            assert.ok(examplesLeft - (36 + advanceWidth) >= 12,
-                'Workspace labels need a 12 px gap before examples in every layout');
-        }
+        const panelSurface = {leftPadding: 24, rightPadding: 24, vertical,
+            leadingBodyInset: 0, trailingBodyInset: detached ? 0 : 14};
+        const horizontalContentInset = vm.runInNewContext(inset, {panelSurface, verticalAttachment: vertical, navigationBand: 0});
+        const rowWidth = vm.runInNewContext(row, {});
+        const contentWidth = vm.runInNewContext(width, {horizontalContentInset, rowWidth}) - horizontalContentInset;
+        // Two cards per row (8 px apart); each card's picture keeps 16 px of padding.
+        const card = Math.floor((contentWidth - 8) / 2);
+        const marker = Math.min(23, (card - 32) / 5);
+        assert.ok(marker >= 20, `Five workspace markers fit each card in every layout (marker ${marker} px)`);
     }
 }
-console.log('Workspace style label spacing passed for attached and centered panels');
+console.log('Workspace style cards fit five markers in attached and centered panels');
