@@ -2749,6 +2749,9 @@
       "elephant/menus/azure-account.lua",
       "elephant/menus/azure-contexts.lua"
     ],
+    "Back": [
+      "elephant/menus/choose-folder.lua"
+    ],
     "Back to the first login, files too": [
       "elephant/menu-rows/factory-reset.json"
     ],
@@ -3308,7 +3311,8 @@
       "distro/lib/eitr_focus.py"
     ],
     "Folder": [
-      "elephant/menu-rows/share.json"
+      "elephant/menu-rows/share.json",
+      "elephant/menus/choose-folder.lua"
     ],
     "Folders: {folders}": [
       "elephant/menus/git-accounts.lua"
@@ -3392,6 +3396,9 @@
     ],
     "Give trusted devices control of this desktop": [
       "elephant/menu-rows/remote-share.json"
+    ],
+    "Go up one folder": [
+      "elephant/menus/choose-folder.lua"
     ],
     "Google Cloud": [
       "elephant/menu-rows/cloud.json",
@@ -3793,6 +3800,9 @@
     "Open Development": [
       "elephant/project-entries.lua"
     ],
+    "Open Home": [
+      "elephant/menus/choose-folder.lua"
+    ],
     "Open Moonlight to stream another PC": [
       "elephant/menu-rows/remote-access.json"
     ],
@@ -3838,6 +3848,9 @@
     ],
     "Open your development folder": [
       "elephant/project-entries.lua"
+    ],
+    "Open {folder}": [
+      "elephant/menus/choose-folder.lua"
     ],
     "OpenCode": [
       "elephant/menus/ai-opencode.lua"
@@ -4140,6 +4153,9 @@
     ],
     "Return to Password Authentication": [
       "elephant/menu-rows/security.json"
+    ],
+    "Return to the menu": [
+      "elephant/menus/choose-folder.lua"
     ],
     "Reveal open apps at the opposite edge": [
       "elephant/menus/bar-dock.lua"
@@ -4803,6 +4819,9 @@
     ],
     "Use these workspace markers": [
       "elephant/menus/workspaces.lua"
+    ],
+    "Use this folder": [
+      "elephant/menus/choose-folder.lua"
     ],
     "Use this font throughout the desktop": [
       "elephant/menus/fonts.lua"

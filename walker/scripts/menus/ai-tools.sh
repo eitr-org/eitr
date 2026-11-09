@@ -114,12 +114,12 @@ case "${1:-}" in
   opencode-*|pi-*|agy-*|claude-*|codex-*|gemini-*|grok-*|copilot-*) parent="menus:ai-${1%%-*}" ;;
   *) parent="" ;;
 esac
-status=0
-repo_path="$("$EITR_CODE_ROOT/walker/scripts/menus/choose-folder.sh" "AI project" "")" || status=$?
-if [ "$status" -eq 2 ] && [ -n "$parent" ]; then
-  exec "$EITR_CODE_ROOT/walker/bin/walker" --provider "$parent"
+# The folder step is its own Walker menu; it runs this script again with the folder.
+if [ -z "${EITR_CHOSEN_FOLDER:-}" ]; then
+  exec python3 "$EITR_CODE_ROOT/walker/scripts/menus/choose-folder.py" start --icon "" --back "$parent" -- "$0" "$@"
 fi
-[ "$status" -eq 0 ] || exit 0
+repo_path="$EITR_CHOSEN_FOLDER"
+unset EITR_CHOSEN_FOLDER
 
 if [[ -f "$EITR_LIBRARY_ROOT/i18n.sh" ]]; then source "$EITR_LIBRARY_ROOT/i18n.sh";
 else source "$EITR_CODE_ROOT/distro/lib/i18n.sh"; fi

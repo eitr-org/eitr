@@ -44,7 +44,7 @@ Antigravity CLI ofrece **Continuar última** y **Reanudar por ID**, sin opción 
 
 Los campos de nombre/ID vacíos cancelan. Se conservan los submenús de cuentas.
 
-Abrir un proyecto en LazyVim o VS Code pide primero una carpeta, empezando en tu carpeta personal (sin carpetas ocultas): entra en carpetas para profundizar, usa Abrir para elegir la actual y Atrás para subir un nivel o volver al menú desde el nivel superior. Al escribir se buscan todas las carpetas bajo la actual, hasta seis niveles, sin `node_modules`, `target`, `build`, `dist`, `venv` ni `__pycache__`; el paso de carpeta de los menús de IA funciona igual.
+Abrir un proyecto en LazyVim o VS Code pide primero una carpeta, empezando en tu carpeta personal (sin carpetas ocultas): entra en carpetas para profundizar, usa Abrir para elegir la actual y Atrás para subir un nivel o volver al menú desde el nivel superior. Al escribir se buscan todas las carpetas bajo la actual, hasta seis niveles, sin `node_modules`, `target`, `build`, `dist`, `venv` ni `__pycache__`, con primero las carpetas de ese nombre exacto y las más cercanas antes que las profundas; el paso de carpeta de los menús de IA funciona igual.
 
 También puedes iniciar Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode y Pi por comando. Si falta la herramienta, Eitr explica su función y ofrece la misma instalación que Instalar > CLI de IA. Enter confirma la instalación; Esc cancela. Sin terminal interactivo, el comando termina con instrucciones de instalación. Los binarios instalados tienen prioridad sobre estos lanzadores. Inicia sesión desde cada herramienta; Eitr no incluye binarios de asistentes ni credenciales.
 

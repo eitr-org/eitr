@@ -708,5 +708,11 @@
   "Window gaps": "Window gaps",
   "Browse installed and official themes and plugins": "Browse installed and official themes and plugins",
   "Themes & Plugins": "Themes & Plugins",
-  "Open quick toggles, media and tools": "Open quick toggles, media and tools"
+  "Open quick toggles, media and tools": "Open quick toggles, media and tools",
+  "Back": "Back",
+  "Go up one folder": "Go up one folder",
+  "Open Home": "Open Home",
+  "Open {folder}": "Open {folder}",
+  "Return to the menu": "Return to the menu",
+  "Use this folder": "Use this folder"
 }

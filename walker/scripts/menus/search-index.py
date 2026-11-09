@@ -29,7 +29,7 @@ from eitr_menu import definitions, row_files, effective_files, parents as menu_p
 RUNTIME = Path(os.environ.get('XDG_RUNTIME_DIR', f'/run/user/{os.getuid()}')) / 'eitr-search'
 INDEX = RUNTIME / 'index.json'
 MAX_AGE = 60
-EXCLUDED = {'clipboard', 'search-index', 'plugin-actions', 'plugin-visuals'}
+EXCLUDED = {'clipboard', 'search-index', 'plugin-actions', 'plugin-visuals', 'choose-folder'}
 CLOUD_MENUS = code('walker/scripts/menus/cloud/navigation-menus.json')
 
 

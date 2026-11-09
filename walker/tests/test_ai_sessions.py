@@ -53,7 +53,6 @@ class SessionMenuTests(unittest.TestCase):
             (code / folder).mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / 'walker/scripts/menus/ai-tools.sh', code / 'walker/scripts/menus/ai-tools.sh')
         scripts = {
-            'walker/scripts/menus/choose-folder.sh': '#!/bin/bash\nprintf "%s\\n" "$HOME"\n',
             'walker/bin/walker-dmenu': '#!/bin/bash\nprintf "%s\\n" "$TEST_VALUE"\n',
             'distro/lib/i18n.sh': 'eitr_gettext() { printf "%s" "$1"; }\n',
             'walker/bin/menu-path/kitty': '#!/bin/bash\n[[ "$1" == --directory ]] || exit 9\ncd -- "$2" || exit 9\nshift 2\nexec "$@"\n',
@@ -70,6 +69,7 @@ class SessionMenuTests(unittest.TestCase):
             path.chmod(0o755)
         result = subprocess.run(['bash', str(code / 'walker/scripts/menus/ai-tools.sh'), assistant + '-' + action],
                                 env={**os.environ, 'HOME': str(home), 'EITR_CODE_ROOT': str(code),
+                                     'EITR_CHOSEN_FOLDER': str(home),
                                      'EITR_LIBRARY_ROOT': str(code / 'distro/lib'), 'TEST_VALUE': value,
                                      'PATH': str(code / 'walker/bin') + ':/usr/bin:/bin'},
                                 capture_output=True, text=True, timeout=10)

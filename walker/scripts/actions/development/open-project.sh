@@ -34,12 +34,13 @@ if ! command -v "$command_name" >/dev/null 2>&1; then
   exit 0
 fi
 
-status=0
-folder="$("$EITR_CODE_ROOT/walker/scripts/menus/choose-folder.sh" "Open project" "$app_icon")" || status=$?
-if [ "$status" -eq 2 ]; then
-  exec "$EITR_CODE_ROOT/walker/bin/walker" --provider menus:development
+# The folder step is its own Walker menu; it runs this script again with the folder.
+if [ -z "${EITR_CHOSEN_FOLDER:-}" ]; then
+  exec python3 "$EITR_CODE_ROOT/walker/scripts/menus/choose-folder.py" start --icon "$app_icon" \
+    --back menus:development -- "$0" "$@"
 fi
-[ "$status" -eq 0 ] || exit 0
+folder="$EITR_CHOSEN_FOLDER"
+unset EITR_CHOSEN_FOLDER
 
 if [ "$tool" = "nvim" ]; then
   EITR_TERMINAL_STYLE=window "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/bin/menu-path/kitty" --directory "$folder" -e nvim . >/dev/null 2>&1 &
