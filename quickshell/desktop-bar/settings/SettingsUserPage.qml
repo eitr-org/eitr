@@ -75,6 +75,8 @@ Column {
                         }
                         MouseArea {
                             id: pictureMouse
+                            SettingsTarget { objectName: "setting-user-change-picture" }
+
                             objectName: accountRow.own ? "settings-change-picture" : ""
                             anchors.fill: parent
                             visible: accountRow.own
@@ -106,6 +108,7 @@ Column {
                         foreground: userPage.view.foreground
                         available: !profileEditor.busy && !userPage.chooser.running
                         Accessible.name: Eitr.I18n.tr("Remove picture")
+                        SettingsTarget { objectName: "setting-user-remove-picture" }
                         onClicked: removeSheet.open()
                         HoverHandler { id: trashHover }
                         BarTooltip { target: parent; hovered: trashHover.hovered; text: Eitr.I18n.tr("Remove picture"); foreground: userPage.view.foreground; background: userPage.view.background }
@@ -131,6 +134,7 @@ Column {
                         visible: accountRow.own
                         spacing: 12
                         PanelButton {
+                            SettingsTarget { objectName: "setting-user-change-password" }
                             objectName: "settings-change-password"
                             width: 170
                             foreground: userPage.view.foreground

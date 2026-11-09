@@ -1,6 +1,8 @@
 # Encontrar uma configuração
 
-Pressione **SUPER + ,** para abrir Configurações. Digite na busca lateral para encontrar uma página; a aba correspondente abre diretamente. Sistema é a visão geral, não uma pasta com todas as configurações.
+Pressione **SUPER + ,** para abrir Configurações. Sistema é a visão geral, não uma pasta com todas as configurações.
+
+Pesquise uma configuração individual, como **Tamanho do ponteiro**, ou uma página na barra lateral de Configurações. Os resultados mostram a página e a aba abaixo do nome. Use Cima/Baixo e Enter, ou clique, para abrir a aba, rolar até o controle e destacá-lo brevemente. Esc limpa a pesquisa primeiro. Com movimento reduzido, o destaque aparece e desaparece sem transição.
 
 <!-- eitr-figure: settings-window -->
 

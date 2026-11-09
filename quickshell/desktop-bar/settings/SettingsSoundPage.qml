@@ -27,6 +27,7 @@ Column {
     }
     ControlCard {
         title: Eitr.I18n.tr("Applications")
+        SettingsTarget { objectName: "setting-sound-applications" }
         foreground: page.foreground
         surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
         Repeater {

@@ -18,6 +18,8 @@ ControlCard {
     title: microphone ? Eitr.I18n.tr("Input") : Eitr.I18n.tr("Output")
     surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
     ChoiceDropdown {
+        SettingsTarget { objectName: card.microphone ? "setting-sound-input-device" : "setting-sound-output-device" }
+        SettingsTarget { objectName: card.microphone ? "setting-sound-input-rename" : "setting-sound-output-rename" }
         width: parent.width
         visible: !card.renaming
         foreground: card.foreground; background: card.background; gold: SettingsInk.gold
@@ -47,6 +49,8 @@ ControlCard {
         Keys.onEscapePressed: card.renaming = null
     }
     ControlRow {
+        SettingsTarget { objectName: card.microphone ? "setting-sound-input-volume" : "setting-sound-output-volume" }
+        SettingsTarget { objectName: card.microphone ? "setting-sound-input-mute" : "setting-sound-output-mute" }
         text: Eitr.I18n.tr("Volume")
         description: ""
         foreground: card.foreground

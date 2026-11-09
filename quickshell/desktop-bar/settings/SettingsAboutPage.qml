@@ -20,6 +20,7 @@ Column {
             line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true
             themeAccent: SettingsPalette.themeAccent; themeBackground: SettingsPalette.themeBackground
             kind: "about-logo"
+            SettingsTarget { objectName: "setting-about-logo" }
             choices: view.helper.summary.aboutLogos || []
             current: view.helper.summary.aboutLogo || "emblem"
             available: !view.helper.busy

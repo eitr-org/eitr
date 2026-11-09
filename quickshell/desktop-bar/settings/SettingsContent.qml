@@ -11,6 +11,7 @@ Rectangle {
     required property color background
     required property color accent
     property bool opened: false
+    onOpenedChanged: if (!opened) reveal.stop()
     property bool live: true
     property var networkService: null
     property var notifications: null
@@ -37,9 +38,34 @@ Rectangle {
         page = route.page;
         tab = route.tab;
         query = "";
+        reveal.setting = route.setting;
+        reveal.attempts = 0;
+        reveal.restart();
+    }
+    Timer {
+        id: reveal
+        property string setting: ""
+        property int attempts: 0
+        interval: 50
+        repeat: true
+        function findTarget(item) {
+            if (item.revealSearchSetting && item.visible) item.revealSearchSetting(setting);
+            if (item.objectName === "setting-" + setting && item.visible) return item;
+            for (const child of item.children || []) {
+                const found = findTarget(child);
+                if (found) return found;
+            }
+            return null;
+        }
+        onTriggered: {
+            if (!setting || ++attempts > 620) { stop(); return; }
+            const target = findTarget(body);
+            if (target) { target.reveal(); stop(); }
+        }
     }
     FamilySidebar {
         id: sidebar
+        objectName: "settings-sidebar"
         width: Math.min(260, settings.width * 0.31)
         anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom
         anchors.margins: PanelStyle.padding
@@ -51,12 +77,20 @@ Rectangle {
         currentId: settings.page
         entries: settings.results.map(page => {
             const group = SettingsIndex.groupFor(page);
-            return {id: page.id, title: Eitr.I18n.tr(page.title), rune: page.rune, group: Eitr.I18n.tr(group.name), groupRune: group.rune, destination: page.destinationId};
+            return {id: page.settingId || page.id, caption: page.location || "", title: Eitr.I18n.tr(page.title), rune: page.rune, group: Eitr.I18n.tr(group.name), groupRune: group.rune, destination: page.destinationId};
         })
         onChosen: entry => settings.navigate(entry.destination)
         onCloseRequested: settings.closeRequested()
-        onSearchEdited: text => settings.query = text
-        onSearchAccepted: if (settings.results.length) settings.navigate(settings.results[0].destinationId)
+        onSearchEdited: text => { reveal.stop(); settings.query = text; highlighted = -1; }
+        onSearchKey: event => {
+            if (event.key === Qt.Key_Down || event.key === Qt.Key_Up) {
+                highlighted = Math.max(0, Math.min(entries.length - 1, highlighted + (event.key === Qt.Key_Down ? 1 : -1)));
+                event.accepted = true;
+            } else if (event.key === Qt.Key_Escape && settings.query) {
+                settings.query = ""; highlighted = -1; event.accepted = true;
+            }
+        }
+        onSearchAccepted: if (settings.results.length) settings.navigate(settings.results[Math.max(0, highlighted)].destinationId)
     }
     Rectangle { x: sidebar.x + sidebar.width + PanelStyle.padding; width: 1; height: parent.height; color: Qt.alpha(settings.foreground, PanelStyle.dividerAlpha) }
     Item {
@@ -77,7 +111,7 @@ Rectangle {
             anchors.fill: parent
             visible: ["appearance", "bar", "windows", "lockscreen", "notifications", "focus"].includes(settings.page)
             page: settings.page; title: settings.current.title; tab: settings.tab
-            onTabRequested: value => settings.tab = value
+            onTabRequested: value => { reveal.stop(); settings.tab = value; }
             active: settings.opened && visible
             live: settings.live
             notifications: settings.notifications; idleEnabled: settings.idleEnabled
@@ -90,7 +124,7 @@ Rectangle {
             anchors.fill: parent
             visible: ["displays", "sound", "connections", "input"].includes(settings.page)
             page: settings.page; title: settings.current.title; tab: settings.tab
-            onTabRequested: value => settings.tab = value
+            onTabRequested: value => { reveal.stop(); settings.tab = value; }
             active: settings.opened && visible
             live: settings.live; networkService: settings.networkService
             foreground: settings.foreground; background: settings.background; accent: settings.accent
@@ -108,7 +142,7 @@ Rectangle {
             anchors.fill: parent
             visible: ["keybinds", "default-apps", "user", "security", "assistant", "updates", "check-pc", "about"].includes(settings.page)
             page: settings.page; title: settings.current.title; tab: settings.tab
-            onTabRequested: value => settings.tab = value
+            onTabRequested: value => { reveal.stop(); settings.tab = value; }
             active: settings.opened && visible
             live: settings.live
             foreground: settings.foreground; background: settings.background; accent: settings.accent

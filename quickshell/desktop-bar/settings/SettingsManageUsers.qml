@@ -12,6 +12,7 @@ Column {
     width: parent ? parent.width : 0
     spacing: 12
     PanelButton {
+        SettingsTarget { objectName: "setting-user-create-user" }
         objectName: "settings-manage-create-user"
         width: 180
         text: Eitr.I18n.tr("Create User…")
@@ -51,6 +52,7 @@ Column {
                 width: parent.width
                 spacing: 8
                 PanelButton {
+                    SettingsTarget { objectName: "setting-user-change-type" }
                     width: 150
                     text: Eitr.I18n.tr("Change type")
                     foreground: management.context.foreground
@@ -58,6 +60,7 @@ Column {
                     onClicked: confirmation.review("set-type", accountCard.modelData)
                 }
                 PanelButton {
+                    SettingsTarget { objectName: "setting-user-set-password" }
                     width: 150
                     visible: !accountCard.modelData.current
                     text: Eitr.I18n.tr("Set password")
@@ -66,6 +69,7 @@ Column {
                     onClicked: confirmation.review("set-password", accountCard.modelData)
                 }
                 PanelButton {
+                    SettingsTarget { objectName: "setting-user-remove" }
                     width: 110
                     visible: !accountCard.modelData.current
                     text: Eitr.I18n.tr("Remove")

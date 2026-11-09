@@ -28,6 +28,7 @@ Column {
     BluetoothConnector { id: bluetoothConnector; adapter: page.adapter; live: page.live }
     BluetoothDiscovery { id: discovery; adapter: page.adapter }
     ToggleRow {
+        SettingsTarget { objectName: "setting-connections-bluetooth" }
         objectName: "settings-bluetooth-power"
         text: Eitr.I18n.tr("Bluetooth")
         description: page.adapter ? Eitr.I18n.tr("Turn Bluetooth on or off") + (page.adapter.name ? " · " + page.adapter.name : "") : Eitr.I18n.tr("No Bluetooth adapter")
@@ -85,6 +86,7 @@ Column {
             opacity: PanelStyle.secondaryTextOpacity
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-connections-show-unnamed-devices" }
             objectName: "settings-bluetooth-unnamed"
             visible: page.groups.unnamed.length > 0
             text: Eitr.I18n.tr("Show unnamed devices")

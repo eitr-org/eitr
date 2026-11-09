@@ -100,7 +100,7 @@ ColumnLayout {
                         id: row
                         readonly property bool selected: sidebar.currentId === entry.modelData.id
                         readonly property bool picked: sidebar.highlighted === entry.index
-                        width: parent.width; height: PanelStyle.selectionRowHeight
+                        width: parent.width; height: entry.modelData.caption ? 52 : PanelStyle.selectionRowHeight
                         radius: DesktopStyle.radius(PanelStyle.controlRadius)
                         color: Qt.alpha(sidebar.foreground, !selected && (pointer.containsMouse || picked) ? 0.07 : 0)
                         Rectangle {
@@ -134,7 +134,8 @@ ColumnLayout {
                             else if (position + height > navigationScroll.contentY + navigationScroll.height)
                                 navigationScroll.contentY = position + height - navigationScroll.height;
                         }
-                        Text { x: PanelStyle.selectionInset + 2; width: parent.width - x - 32; anchors.verticalCenter: parent.verticalCenter; text: entry.modelData.title; color: sidebar.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; elide: Text.ElideRight }
+                        Text { x: PanelStyle.selectionInset + 2; width: parent.width - x - 32; y: entry.modelData.caption ? 6 : (parent.height - height) / 2; text: entry.modelData.title; color: sidebar.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; elide: Text.ElideRight }
+                        Text { x: PanelStyle.selectionInset + 2; y: 28; width: parent.width - x - 10; visible: !!entry.modelData.caption; text: entry.modelData.caption || ""; color: Qt.alpha(sidebar.foreground, PanelStyle.secondaryTextOpacity); font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; elide: Text.ElideRight }
                         Text { anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter; text: entry.modelData.rune; color: row.selected ? sidebar.gold : Qt.alpha(sidebar.foreground, 0.28); font.family: SettingsInk.runes; font.pixelSize: 15 }
                         MouseArea { id: pointer; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: sidebar.chosen(entry.modelData) }
                     }

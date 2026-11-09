@@ -111,6 +111,7 @@ Column {
     }
 
     Rectangle {
+        SettingsTarget { objectName: "setting-displays-main-display" }
         width: parent.width; height: PanelStyle.selectionRowHeight
         radius: DesktopStyle.radius(PanelStyle.controlRadius)
         color: Qt.alpha(editor.foreground, 0.04)
@@ -137,6 +138,7 @@ Column {
         }
     }
     Column {
+        SettingsTarget { objectName: "setting-displays-hdr" }
         visible: !!editor.monitor.hdr_capable
         width: parent.width
         spacing: 6
@@ -168,6 +170,7 @@ Column {
             }
         }
         Column {
+            SettingsTarget { objectName: "setting-displays-sdr-content-brightness" }
             visible: !!editor.monitor.hdr
             width: parent.width
             spacing: 2
@@ -191,11 +194,12 @@ Column {
             }
         }
     }
-    ChoiceDropdown { background: editor.background; gold: editor.accent; label: Eitr.I18n.tr("Resolution"); width: parent.width; foreground: editor.foreground; choices: editor.resolutions.map(resolution => ({id: resolution, label: resolution.replace("x", "×")})); current: editor.currentResolution; available: !editor.busy; onChosen: value => editor.choose("mode", editor.modes.filter(mode => mode.split("@")[0] === value).sort((first, second) => Number(second.split("@")[1]) - Number(first.split("@")[1]))[0]) }
-    ChoiceDropdown { background: editor.background; gold: editor.accent; label: Eitr.I18n.tr("Refresh rate"); width: parent.width; foreground: editor.foreground; choices: editor.rates.map(rate => ({id: rate, label: Eitr.I18n.tr("{rate} Hz", {rate: Math.round(Number(rate))})})); current: String(editor.rates.find(rate => Math.abs(Number(rate) - editor.currentRate) < 0.01) || ""); available: !editor.busy; onChosen: value => editor.choose("mode", editor.currentResolution + "@" + value) }
-    ChoiceDropdown { background: editor.background; gold: editor.accent; label: Eitr.I18n.tr("Scale"); width: parent.width; foreground: editor.foreground; choices: editor.scales.map(scale => ({id: scale, label: Math.round(Number(scale) * 100) + "%"})); current: String(editor.monitor.scale || 1); available: !editor.busy; onChosen: value => editor.choose("scale", value) }
-    ChoiceDropdown { background: editor.background; gold: editor.accent; label: Eitr.I18n.tr("Rotation"); width: parent.width; foreground: editor.foreground; choices: editor.rotations; current: editor.rotation; available: !editor.busy; onChosen: value => editor.choose("rotation", value) }
+    ChoiceDropdown { SettingsTarget { objectName: "setting-displays-resolution" } background: editor.background; gold: editor.accent; label: Eitr.I18n.tr("Resolution"); width: parent.width; foreground: editor.foreground; choices: editor.resolutions.map(resolution => ({id: resolution, label: resolution.replace("x", "×")})); current: editor.currentResolution; available: !editor.busy; onChosen: value => editor.choose("mode", editor.modes.filter(mode => mode.split("@")[0] === value).sort((first, second) => Number(second.split("@")[1]) - Number(first.split("@")[1]))[0]) }
+    ChoiceDropdown { SettingsTarget { objectName: "setting-displays-refresh-rate" } background: editor.background; gold: editor.accent; label: Eitr.I18n.tr("Refresh rate"); width: parent.width; foreground: editor.foreground; choices: editor.rates.map(rate => ({id: rate, label: Eitr.I18n.tr("{rate} Hz", {rate: Math.round(Number(rate))})})); current: String(editor.rates.find(rate => Math.abs(Number(rate) - editor.currentRate) < 0.01) || ""); available: !editor.busy; onChosen: value => editor.choose("mode", editor.currentResolution + "@" + value) }
+    ChoiceDropdown { SettingsTarget { objectName: "setting-displays-scale" } background: editor.background; gold: editor.accent; label: Eitr.I18n.tr("Scale"); width: parent.width; foreground: editor.foreground; choices: editor.scales.map(scale => ({id: scale, label: Math.round(Number(scale) * 100) + "%"})); current: String(editor.monitor.scale || 1); available: !editor.busy; onChosen: value => editor.choose("scale", value) }
+    ChoiceDropdown { SettingsTarget { objectName: "setting-displays-rotation" } background: editor.background; gold: editor.accent; label: Eitr.I18n.tr("Rotation"); width: parent.width; foreground: editor.foreground; choices: editor.rotations; current: editor.rotation; available: !editor.busy; onChosen: value => editor.choose("rotation", value) }
     SettingRow {
+        SettingsTarget { objectName: "setting-displays-position" }
         visible: editor.others.length > 0
         label: Eitr.I18n.tr("Position"); value: editor.positionValue
         tint: editor.foreground; chevron: editor.accent
@@ -220,5 +224,5 @@ Column {
         Caption { color: editor.foreground; visible: !!editor.anchor; text: Eitr.I18n.tr("Align with %1", [editor.anchor ? editor.anchor.of : ""]) }
         ChoiceSegmented { visible: !!editor.anchor; width: parent.width; foreground: editor.foreground; choices: editor.aligns; current: editor.anchor ? editor.anchor.align : ""; available: !editor.busy; onChosen: value => editor.choose("position", editor.anchor.side + ":" + editor.anchor.of + ":" + value) }
     }
-    ChoiceDropdown { background: editor.background; gold: editor.accent; visible: editor.others.length > 0; label: Eitr.I18n.tr("Mirror"); width: parent.width; foreground: editor.foreground; choices: [{id: "none", label: Eitr.I18n.tr("Off")}].concat(editor.others.map(name => ({id: name, label: name}))); current: editor.monitor.mirror || "none"; available: !editor.busy; onChosen: value => editor.choose("mirror", value) }
+    ChoiceDropdown { SettingsTarget { objectName: "setting-displays-mirror" } background: editor.background; gold: editor.accent; visible: editor.others.length > 0; label: Eitr.I18n.tr("Mirror"); width: parent.width; foreground: editor.foreground; choices: [{id: "none", label: Eitr.I18n.tr("Off")}].concat(editor.others.map(name => ({id: name, label: name}))); current: editor.monitor.mirror || "none"; available: !editor.busy; onChosen: value => editor.choose("mirror", value) }
 }

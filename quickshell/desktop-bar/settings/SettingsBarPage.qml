@@ -15,6 +15,7 @@ Column {
         foreground: view.foreground
         visible: view.page === "bar"
         Column {
+            SettingsTarget { objectName: "setting-bar-layout" }
             width: parent.width
             spacing: 8
             SettingsText { text: Eitr.I18n.tr("Layout"); color: SettingsInk.gold }
@@ -33,6 +34,7 @@ Column {
             }
         }
         Column {
+            SettingsTarget { objectName: "setting-bar-position" }
             width: parent.width
             spacing: 8
             SettingsText { text: Eitr.I18n.tr("Position"); color: SettingsInk.gold }
@@ -68,6 +70,7 @@ Column {
             }
         }
         Column {
+            SettingsTarget { objectName: "setting-bar-appearance" }
             width: parent.width
             spacing: 8
             SettingsText { text: Eitr.I18n.tr("Appearance"); color: SettingsInk.gold }
@@ -86,6 +89,7 @@ Column {
             }
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-bar-show-on" }
             text: Eitr.I18n.tr("Show on")
             description: Eitr.I18n.tr("Choose which displays show a bar.")
             foreground: view.foreground
@@ -110,6 +114,7 @@ Column {
             }
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-bar-clock" }
             text: Eitr.I18n.tr("Clock")
             description: Eitr.I18n.tr("Choose the time format.")
             foreground: view.foreground
@@ -134,6 +139,7 @@ Column {
             }
         }
         Column {
+            SettingsTarget { objectName: "setting-bar-media-style" }
             width: parent.width
             spacing: 8
             SettingsText { text: Eitr.I18n.tr("Media style"); color: SettingsInk.gold }
@@ -161,6 +167,7 @@ Column {
             }
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-bar-blur-strength-shared" }
             text: Eitr.I18n.tr("Blur strength (shared)")
             description: Eitr.I18n.tr("Adjust blur across the desktop.")
             foreground: view.foreground
@@ -174,6 +181,7 @@ Column {
             }
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-bar-workspace-style" }
             text: Eitr.I18n.tr("Workspace style")
             description: Eitr.I18n.tr("Choose how workspaces appear in the bar.")
             foreground: view.foreground
@@ -194,6 +202,7 @@ Column {
         foreground: view.foreground
         visible: view.page === "bar"
         ToggleRow {
+            SettingsTarget { objectName: "setting-bar-auto-hide" }
             text: Eitr.I18n.tr("Auto-hide")
             description: Eitr.I18n.tr("Hide the bar until you reach its screen edge.")
             foreground: view.foreground
@@ -206,6 +215,7 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-bar-dock" }
             text: Eitr.I18n.tr("Dock")
             description: Eitr.I18n.tr("Show the application dock.")
             foreground: view.foreground
@@ -218,6 +228,7 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-bar-reduce-motion" }
             text: Eitr.I18n.tr("Reduce motion")
             description: Eitr.I18n.tr("Minimise decorative movement.")
             foreground: view.foreground
@@ -230,6 +241,7 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-bar-keep-expanded" }
             text: Eitr.I18n.tr("Keep expanded")
             description: Eitr.I18n.tr("Keep the centered bar expanded.")
             foreground: view.foreground

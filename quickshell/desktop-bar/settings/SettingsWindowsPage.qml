@@ -15,6 +15,7 @@ Column {
         foreground: view.foreground
         ChoiceDropdown {
             objectName: "windowLayoutChoice"
+            SettingsTarget { objectName: "setting-windows-layout" }
             foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
             label: Eitr.I18n.tr("Window layout")
             choices: ChoiceLists.windowLayouts
@@ -28,6 +29,7 @@ Column {
             ChoiceDropdown {
                 foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
                 label: Eitr.I18n.tr("Direction")
+                SettingsTarget { objectName: "setting-windows-scroll-direction" }
                 choices: ChoiceLists.scrollingDirections
                 current: DesktopStyle.windowLayout.scrollDirection
                 onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollDirection", value); }
@@ -35,6 +37,7 @@ Column {
             ChoiceDropdown {
                 foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
                 label: Eitr.I18n.tr("Default column width")
+                SettingsTarget { objectName: "setting-windows-column-width" }
                 choices: ChoiceLists.scrollingWidths.map(choice => ({id: choice.id, label: choice.label}))
                 current: DesktopStyle.windowLayout.scrollWidth
                 onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollWidth", value); }
@@ -42,18 +45,21 @@ Column {
             ChoiceDropdown {
                 foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
                 label: Eitr.I18n.tr("Focus fit")
+                SettingsTarget { objectName: "setting-windows-focus-fit" }
                 choices: ChoiceLists.scrollingFocusFit.map(choice => ({id: choice.id, label: choice.label}))
                 current: DesktopStyle.windowLayout.scrollFocusFit
                 onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollFocusFit", value); }
             }
             ToggleRow {
                 text: Eitr.I18n.tr("Follow focus")
+                SettingsTarget { objectName: "setting-windows-follow-focus" }
                 foreground: view.foreground; accent: view.accent
                 checked: DesktopStyle.windowLayout.scrollFollowFocus === "yes"
                 onToggled: checked => { if (view.live) DesktopStyle.selectLayout("scrollFollowFocus", checked ? "yes" : "no"); }
             }
             ToggleRow {
                 text: Eitr.I18n.tr("Fullscreen when one column")
+                SettingsTarget { objectName: "setting-windows-fullscreen-one-column" }
                 foreground: view.foreground; accent: view.accent
                 checked: DesktopStyle.windowLayout.scrollFullscreen === "yes"
                 onToggled: checked => { if (view.live) DesktopStyle.selectLayout("scrollFullscreen", checked ? "yes" : "no"); }
@@ -65,6 +71,7 @@ Column {
         foreground: view.foreground
         visible: view.page === "windows"
         Column {
+            SettingsTarget { objectName: "setting-windows-window-gaps" }
             width: parent.width
             spacing: 8
             SettingsText { text: Eitr.I18n.tr("Window gaps"); color: SettingsInk.gold }
@@ -83,6 +90,7 @@ Column {
             }
         }
         Column {
+            SettingsTarget { objectName: "setting-windows-corners" }
             width: parent.width
             spacing: 8
             SettingsText { text: Eitr.I18n.tr("Corners"); color: SettingsInk.gold }
@@ -101,6 +109,7 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-windows-reduce-motion" }
             text: Eitr.I18n.tr("Reduce motion")
             description: Eitr.I18n.tr("Minimise decorative movement.")
             foreground: view.foreground

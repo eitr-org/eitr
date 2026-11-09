@@ -16,6 +16,7 @@ Column {
         width: parent.width
         spacing: 12
         PanelButton {
+            SettingsTarget { objectName: "setting-check-pc-check-this-pc" }
             width: 200
             text: Eitr.I18n.tr("Check This PC")
             foreground: view.foreground

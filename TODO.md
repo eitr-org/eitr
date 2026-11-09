@@ -13,10 +13,6 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
-- **Settings search finds individual settings (in progress, 2026-11-09).** Today search
-  opens the right page or tab from keywords. Each setting becomes a result ("Cursor
-  size · Appearance › Fonts & Cursor"); choosing it opens the page and tab, scrolls to
-  the control and highlights it briefly.
 - **Keybinds and window rules editors.** Settings > Keybinds only lists shortcuts today:
   rebind one by pressing the new keys, with clash warnings, reset to default and the
   change kept in the person's own config. Window rules: pick an app and choose
@@ -96,6 +92,10 @@ item says what decides the next step. Remove an item when it ships;
   and away from home through Tailscale (2026-10-21) work with a MacBook. Next: fix what
   those tests find, then call remote access ready in the Handbook and on the website.
   Afterwards, each separately: headless use, access before login, wake on LAN.
+- **Scrolling layout, Settings search and the About logo (shipped to testing 2026-11-09).**
+  Scrolling with real windows and its shortcuts; searching for a setting with the
+  keyboard, including controls that need hardware or an account; the rune logo in a real
+  System > About terminal.
 - **Themes & Plugins Update all.** Shipped untested: it appears only when an installed
   theme or plugin has an update. Try it the next time one does.
 - **The Eitr logo drawn with runes elsewhere.** The owner likes the 36-row versions;

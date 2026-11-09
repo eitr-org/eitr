@@ -241,6 +241,7 @@ class AutoHideLayoutTests(unittest.TestCase):
         start = source.rfind("        ToggleRow {", 0, control)
         end = source.index("\n        }", control) + len("\n        }")
         row = source[start:end].replace("ToggleRow {", "Bar.ToggleRow {\n            id: settingRow; width: 380", 1)
+        row = row.replace("SettingsTarget {", "Bar.SettingsTarget {")
         for old, new in (("view.foreground", "center.foreground"), ("view.accent", "center.accent"), ("view.live", "true"),
                          ("styleModel.settingRequested", "center.settingRequested"), ("styleModel.barDock", "center.barAutoHide"),
                          ("styleModel.barAutoHide", "center.barAutoHide"), ("DesktopStyle.reduceMotion", "center.barAutoHide")):

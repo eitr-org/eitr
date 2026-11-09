@@ -1,6 +1,8 @@
 # Encontrar un ajuste
 
-Pulsa **SUPER + ,** para abrir Configuración. Escribe en la búsqueda lateral para encontrar una página; la pestaña correspondiente se abre directamente. Sistema es la vista general, no una carpeta con todos los ajustes.
+Pulsa **SUPER + ,** para abrir Configuración. Sistema es la vista general, no una carpeta con todos los ajustes.
+
+Busca un ajuste individual, como **Tamaño del puntero**, o una página en la barra lateral de Ajustes. Los resultados muestran la página y la pestaña debajo del nombre. Usa Arriba/Abajo y Entrar, o haz clic, para abrir la pestaña, desplazar hasta el control y resaltarlo brevemente. Escape borra primero la búsqueda. Con movimiento reducido, el resaltado aparece y desaparece sin fundido.
 
 <!-- eitr-figure: settings-window -->
 

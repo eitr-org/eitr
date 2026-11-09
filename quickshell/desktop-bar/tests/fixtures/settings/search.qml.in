@@ -1,0 +1,56 @@
+import QtQuick
+import QtTest
+import Quickshell
+import "." as Bar
+ShellRoot {
+ FloatingWindow { id: window; visible: true; implicitWidth: 1100; implicitHeight: 800
+  Bar.SettingsContent { id: content; property int testHeight: 800; width: parent.width; height: testHeight; live: false; opened: true; foreground: "#eee8da"; background: "#17191e"; accent: "#a38961" }
+ }
+ TestCase { name: "SearchReveal"; when: window.visible
+ function find(item, name) { if (item.objectName === name) return item; for (const child of item.children || []) { const result = find(child, name); if(result) return result; } return null; }
+ function capture(name) { let saved = false; content.grabToImage(result => { saved = result.saveToFile("OUTPUT/" + name + ".png"); }); tryVerify(() => saved, 3000); }
+ function equal(actual, expected) { if (actual !== expected) console.log("COMPARE FAIL", actual, expected); compare(actual, expected); }
+ function check(value) { if (!value) console.log("VERIFY FAIL"); verify(value); }
+ function test_search() {
+  for (const light of [false, true]) {
+   Bar.SettingsPalette.select("theme", false);
+   Bar.SiteStyle.light = light;
+   content.foreground = light ? "#292722" : "#eee8da"; content.background = light ? "#f4efe4" : "#17191e";
+   Bar.SettingsPalette.themeBackground = content.background; Bar.SettingsPalette.themeForeground = content.foreground; Bar.SettingsPalette.themeAccent = content.accent;
+   content.navigate("appearance/fonts"); wait(200);
+   const state = find(content, "settings-style-state");
+   find(content, "settings-font-helper").summary = {current: "JetBrainsMono Nerd Font", choices: [{value: "JetBrainsMono Nerd Font", label: "JetBrainsMono Nerd Font", available: true}]};
+   state.cursorChoices = {family: [{id: "bibata", label: "Bibata", selected: true}], color: [{id: "auto", label: "Auto", selected: true}], size: [{id: "24", label: "24", selected: true}, {id: "32", label: "32"}]};
+   content.query = "cursor"; wait(200); capture("search-" + (light ? "light" : "dark"));
+   content.navigate("appearance/fonts#appearance-cursor-size"); wait(100);
+   const target = find(content, "setting-appearance-cursor-size"); check(target !== null); check(target.opacity > 0); capture("highlight-" + (light ? "light" : "dark"));
+   wait(1600); equal(target.opacity, 0);
+   Bar.DesktopStyle.reduceMotion = true;
+   target.reveal(); equal(target.opacity, 1); wait(100); equal(target.opacity, 1); wait(1500); equal(target.opacity, 0);
+   Bar.DesktopStyle.reduceMotion = false;
+  }
+  const sidebar = find(content, "settings-sidebar");
+  content.query = "cursor"; wait(50); sidebar.searchField.forceActiveFocus();
+  keyClick(Qt.Key_Down); equal(sidebar.highlighted, 0);
+  keyClick(Qt.Key_Down); equal(sidebar.highlighted, 1);
+  keyClick(Qt.Key_Up); equal(sidebar.highlighted, 0);
+  keyClick(Qt.Key_Escape); equal(content.query, ""); check(content.opened);
+  content.query = "cursor size"; wait(50); keyClick(Qt.Key_Return); wait(100);
+  equal(content.page, "appearance"); equal(content.tab, "fonts"); equal(content.query, "");
+  content.navigate("security/sign-in#security-enroll-fingerprint"); wait(100);
+  find(content, "settings-system-helper").summary = {items: [{tab: "sign-in", title: "Fingerprint", detail: "Not enabled", controls: [{title: "Enroll Fingerprint", label: "Enroll Fingerprint", detail: "Requires a supported fingerprint reader"}]}]};
+  wait(150); check(find(content, "setting-security-enroll-fingerprint").opacity > 0);
+  content.navigate("default-apps#default-apps-browser"); wait(100);
+  find(content, "settings-default-apps-helper").summary = {items: [{kind: "browser", label: "Web browser", current: "browser.desktop", choices: [{value: "browser.desktop", label: "Example browser"}]}]};
+  wait(150); check(find(content, "setting-default-apps-browser").opacity > 0);
+  content.navigate("appearance/fonts"); wait(100);
+  content.testHeight = 400; wait(100);
+  content.navigate("appearance/fonts#appearance-cursor-size"); wait(100);
+  const host = find(content, "settings-desktop-page"); check(host.contentY > 0);
+  const target = find(content, "setting-appearance-cursor-size");
+  const position = target.mapToItem(host, 0, 0).y;
+  check(position >= 0 && position + target.parent.height <= host.height);
+  console.log("SEARCH_RENDER_OK"); Qt.quit();
+ }
+ }
+}

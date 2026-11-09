@@ -19,7 +19,8 @@ Column {
         current: view.tab
         onChosen: value => { view.tabRequested(value); view.contentY = 0; }
     }
-    ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
+    ControlCard {
+        SettingsTarget { objectName: "setting-appearance-settings-colours" } surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
         title: Eitr.I18n.tr("Settings colours")
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "theme"
@@ -38,6 +39,7 @@ Column {
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "theme"
         ControlRow {
+            SettingsTarget { objectName: "setting-appearance-theme" }
             text: Eitr.I18n.tr("Theme")
             description: Eitr.I18n.tr("Choose the colours used across your desktop.")
             foreground: view.foreground
@@ -54,6 +56,7 @@ Column {
             }
         }
         PanelButton {
+            SettingsTarget { objectName: "setting-appearance-more-themes" }
             width: 180
             text: Eitr.I18n.tr("More themes")
             foreground: view.foreground
@@ -69,6 +72,8 @@ Column {
             font.pixelSize: 11
         }
         Flow {
+            SettingsTarget { objectName: "setting-appearance-wallpaper" }
+
             width: parent.width
             spacing: 6
             Repeater {
@@ -105,6 +110,7 @@ Column {
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "fonts"
         ControlRow {
+            SettingsTarget { objectName: "setting-appearance-fonts" }
             text: Eitr.I18n.tr("Fonts")
             description: Eitr.I18n.tr("Set the font used by desktop text.")
             foreground: view.foreground
@@ -125,6 +131,7 @@ Column {
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "fonts"
         ControlRow {
+            SettingsTarget { objectName: "setting-appearance-cursor-family" }
             text: Eitr.I18n.tr("Cursor family")
             description: Eitr.I18n.tr("Choose the pointer shape.")
             foreground: view.foreground
@@ -156,6 +163,7 @@ Column {
             }
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-appearance-cursor-colour" }
             text: Eitr.I18n.tr("Cursor colour")
             description: Eitr.I18n.tr("Follow the theme or choose a fixed colour.")
             foreground: view.foreground
@@ -171,6 +179,7 @@ Column {
             }
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-appearance-cursor-size" }
             text: Eitr.I18n.tr("Cursor size")
             description: Eitr.I18n.tr("Adjust the pointer size in pixels.")
             foreground: view.foreground
@@ -190,6 +199,7 @@ Column {
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "terminal"
         ControlRow {
+            SettingsTarget { objectName: "setting-appearance-terminal" }
             text: Eitr.I18n.tr("Terminal")
             description: Eitr.I18n.tr("Choose the app opened by the terminal shortcut.")
             foreground: view.foreground
@@ -205,6 +215,7 @@ Column {
             }
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-appearance-opacity" }
             text: Eitr.I18n.tr("Opacity")
             description: Eitr.I18n.tr("Adjust how much of the desktop shows through.")
             foreground: view.foreground
@@ -219,6 +230,7 @@ Column {
             }
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-appearance-padding" }
             text: Eitr.I18n.tr("Padding")
             description: Eitr.I18n.tr("Set the space around terminal text.")
             foreground: view.foreground
@@ -233,6 +245,7 @@ Column {
             }
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-appearance-blur-strength-shared" }
             text: Eitr.I18n.tr("Blur strength (shared)")
             description: Eitr.I18n.tr("Adjust blur across the desktop.")
             foreground: view.foreground
@@ -247,6 +260,7 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-appearance-blur" }
             text: Eitr.I18n.tr("Blur")
             description: Eitr.I18n.tr("Soften the desktop behind terminal windows.")
             foreground: view.foreground
@@ -259,6 +273,7 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-appearance-cursor-fire" }
             text: Eitr.I18n.tr("Cursor Fire")
             description: Eitr.I18n.tr("Show a blazing trail behind the Kitty cursor.")
             foreground: view.foreground

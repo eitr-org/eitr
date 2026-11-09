@@ -1,4 +1,5 @@
 .pragma library
+.import "SettingsCatalog.js" as Catalog
 
 var pages = [
     {
@@ -143,10 +144,31 @@ var pages = [
     }
 ];
 
+function score(label, keywords, query) {
+    const text = label.toLocaleLowerCase();
+    const needle = query.trim().toLocaleLowerCase();
+    const words = needle.split(/\s+/);
+    if (text === needle) return 400;
+    if (text.startsWith(needle)) return 300;
+    if (words.every(word => text.includes(word))) return 200;
+    if (words.every(word => (text + " " + keywords.toLocaleLowerCase()).includes(word))) return 100;
+    return 0;
+}
 function filter(query, translate) {
-    const words = query.trim().toLocaleLowerCase().split(/\s+/).filter(word => word);
-    return pages.filter(page => words.every(word =>
-        [page.id, translate(page.title), translate(page.description), translate(page.keywords)].join(" ").toLocaleLowerCase().includes(word))).map(page => Object.assign({}, page, {destinationId: searchDestination(page.id, query, translate)}));
+    if (!query.trim()) return pages.map(page => Object.assign({}, page, {destinationId: page.id}));
+    const results = pages.map(page => Object.assign({}, page, {
+        score: score(translate(page.title), [page.id, translate(page.description), translate(page.keywords)].join(" "), query),
+        destinationId: searchDestination(page.id, query, translate)
+    }));
+    for (const setting of Catalog.settings) {
+        const page = entry(setting.page);
+        const tab = (tabs[setting.page] || []).find(candidate => candidate.id === setting.tab);
+        results.push(Object.assign({}, page, {title: setting.label, settingId: setting.id,
+            location: translate(page.title) + (tab ? " › " + translate(tab.label) : ""),
+            score: score(translate(setting.label), setting.keywords, query),
+            destinationId: setting.page + (setting.tab ? "/" + setting.tab : "") + "#" + setting.id}));
+    }
+    return results.filter(result => result.score > 0).sort((first, second) => second.score - first.score || translate(first.title).localeCompare(translate(second.title)));
 }
 
 var groups = [
@@ -170,28 +192,20 @@ var tabs = {
     security: [{id: "sign-in", label: "Sign-in", keywords: "fingerprint fido security key authentication password-only"}, {id: "protection", label: "Protection", keywords: "firewall tpm disk unlock encryption"}]
 };
 function resolve(identifier) {
-    const parts = String(identifier || "system").split("/");
+    const parts = String(identifier || "system").split("#")[0].split("/");
     const aliases = {assistants: "assistant", network: "connections", you: "system", "desktop-bar": "bar"};
     const page = aliases[parts[0]] || parts[0];
     const choices = tabs[page] || [];
-    return {page: pages.some(entry => entry.id === page) ? page : "system",
+    return {setting: String(identifier || "").split("#")[1] || "", page: pages.some(entry => entry.id === page) ? page : "system",
         tab: (choices.find(choice => choice.id === parts[1]) || choices[0] || {}).id || ""};
 }
 function searchDestination(page, query, translate) {
     const candidates = tabs[page] || [];
     const words = query.trim().toLocaleLowerCase().split(/\s+/);
-    const labels = {
-        wifi: ["WiFi", "WiFi backend"], bluetooth: ["Bluetooth"],
-        displays: ["Displays", "Brightness", "Resolution", "Scale"], nightlight: ["Night Light", "Edit schedule"],
-        theme: ["Theme", "Wallpaper", "Settings colours"],
-        fonts: ["Fonts", "Cursor family", "Cursor colour", "Cursor size", "Corners"],
-        terminal: ["Terminal", "Opacity", "Padding", "Blur strength (shared)", "Cursor Fire"],
-        "sign-in": ["Fingerprint", "FIDO2 Security Key"], protection: ["Firewall", "TPM Disk Unlock"]
-    };
     let match = null;
     let highest = 0;
     for (const tab of candidates) {
-        const text = [translate(tab.label), tab.keywords].concat((labels[tab.id] || []).map(label => translate(label))).join(" ").toLocaleLowerCase();
+        const text = [translate(tab.label), tab.keywords].concat(Catalog.settings.filter(setting => setting.page === page && setting.tab === tab.id).map(setting => translate(setting.label))).join(" ").toLocaleLowerCase();
         const score = words.filter(word => word && text.includes(word)).length;
         if (score > highest) { match = tab; highest = score; }
     }

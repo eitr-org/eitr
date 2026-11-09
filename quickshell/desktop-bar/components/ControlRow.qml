@@ -44,6 +44,7 @@ Rectangle {
     }
     Item {
         id: controlSlot
+        readonly property var settingTargetOwner: row
         width: row.controlWidth
         height: childrenRect.height
         anchors.right: parent.right

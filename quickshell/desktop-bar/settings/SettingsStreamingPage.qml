@@ -53,6 +53,7 @@ Flickable {
             foreground: view.foreground
             surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
             ControlRow {
+                SettingsTarget { objectName: "setting-streaming-connect-to-another-pc" }
                 text: Eitr.I18n.tr("Connect to another PC")
                 description: view.streaming.moonlightInstalled === undefined ? Eitr.I18n.tr("Status unavailable") : view.streaming.moonlightInstalled ? Eitr.I18n.tr("Installed") : Eitr.I18n.tr("Not installed")
                 foreground: view.foreground

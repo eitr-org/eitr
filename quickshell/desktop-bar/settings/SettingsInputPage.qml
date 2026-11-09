@@ -58,6 +58,7 @@ Column {
         onExited: function(code) { view.error = code ? errors.text.trim() : ""; view.refresh(); }
     }
     Text { text: Eitr.I18n.tr("Select, reorder or remove your keyboard layouts."); color: view.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+    SettingsTarget { objectName: "setting-input-keyboard-layout" }
     Repeater {
         model: view.layouts
         KeyboardLayoutRow {
@@ -79,6 +80,8 @@ Column {
     }
     // Choosing a layout from the floating list adds it; the catalog loads with the page.
     ChoiceDropdown {
+        SettingsTarget { objectName: "setting-input-add-layout" }
+
         objectName: "settings-add-layout"
         width: view.listWidth
         gold: SettingsInk.gold; background: SettingsInk.background

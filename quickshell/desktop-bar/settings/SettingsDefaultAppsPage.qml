@@ -19,6 +19,7 @@ Column {
             title: Eitr.I18n.tr(modelData.label)
             foreground: view.foreground
             ControlRow {
+                SettingsTarget { objectName: "setting-default-apps-" + appCard.modelData.kind }
                 text: Eitr.I18n.tr(appCard.modelData.label)
                 description: Eitr.I18n.tr("Choose the app used for this file or link type.")
                 foreground: view.foreground

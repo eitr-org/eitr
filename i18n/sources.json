@@ -46,7 +46,8 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "About logo": [
-      "quickshell/desktop-bar/settings/SettingsAboutPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAboutPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Above": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -71,6 +72,7 @@
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Add Layout": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
     "Add Plugins": [
@@ -123,12 +125,17 @@
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
+    "Antigravity CLI": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Appearance": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Applications": [
       "quickshell/desktop-bar/panels/AudioMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
     ],
     "Applies after reboot; saved profiles are kept.": [
@@ -153,7 +160,8 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Assistant Access": [
-      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "At %1": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -169,10 +177,12 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Auto": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Auto-hide": [
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Automatic · {start} - {end}": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -224,6 +234,7 @@
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
     ],
     "Bluetooth is off": [
@@ -232,17 +243,22 @@
     ],
     "Blur": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "tools/choice-lists.json"
     ],
     "Blur strength (shared)": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Bottom": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Brightness": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Brightness unavailable": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -301,10 +317,12 @@
       "tools/choice-lists.json"
     ],
     "Change password": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "Change picture": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsOverview.qml",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
@@ -316,18 +334,21 @@
     ],
     "Change type": [
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
     "Channel": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Charger sounds": [
-      "quickshell/desktop-bar/settings/EventSoundSettings.qml"
+      "quickshell/desktop-bar/settings/EventSoundSettings.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Chat with %1": [
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
     ],
     "Check This PC": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsCheckPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -386,7 +407,8 @@
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Claude Code": [
-      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Clear": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -396,7 +418,8 @@
     ],
     "Clock": [
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Clockwork Neo Orbital": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -426,6 +449,12 @@
     "Close pin": [
       "quickshell/desktop-bar/capture/ScreenshotPins.qml"
     ],
+    "Codename": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Codex": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Color Picker": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -454,6 +483,7 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Connect to another PC": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
     "Connected": [
@@ -513,6 +543,7 @@
     "Corners": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/figures/WindowStyleFigure.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Could not change Cursor Fire": [
@@ -564,9 +595,11 @@
     "Crash Notifications": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Create User…": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml",
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
@@ -586,19 +619,23 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Cursor Fire": [
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Cursor colour": [
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Cursor family": [
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Cursor preview": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Cursor size": [
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "DEVICES": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
@@ -618,12 +655,14 @@
       "tools/choice-lists.json"
     ],
     "Default Assistant": [
-      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Default apps": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Default column width": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Delete": [
@@ -642,6 +681,7 @@
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Design": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
     "Desktop": [
@@ -655,6 +695,9 @@
     ],
     "Desktop theme": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Detailed Status": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Detecting configured AI clients…": [
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
@@ -680,6 +723,7 @@
       "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
     "Direction": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Disable effects and popups; use the performance profile.": [
@@ -693,6 +737,7 @@
     "Disconnect": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Display": [
@@ -711,10 +756,12 @@
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/notifications/NotificationList.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Dock": [
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Done": [
       "quickshell/desktop-bar/plugins/PluginWidget.qml"
@@ -755,7 +802,8 @@
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Edit schedule": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Edit widgets": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -781,6 +829,12 @@
     "Emblem": [
       "tools/choice-lists.json"
     ],
+    "Enable FIDO2 Authentication": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Enable Fingerprint Authentication": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Enable plugin": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
@@ -788,7 +842,17 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "End": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Enroll Fingerprint": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Enroll Security Key": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Enroll TPM Unlock": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Enter password": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
@@ -809,20 +873,35 @@
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
     ],
+    "FIDO2 Security Key": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "File manager": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Files": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Fingerprint": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Firewall": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Fit": [
       "tools/choice-lists.json"
     ],
     "Focus": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Focus fit": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Follow focus": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Follow the theme or choose a fixed colour.": [
@@ -830,13 +909,15 @@
     ],
     "Fonts": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Fonts & Cursor": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Forget": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Forget network?": [
@@ -858,6 +939,7 @@
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Fullscreen when one column": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Game Mode": [
@@ -865,6 +947,9 @@
     ],
     "Gateway": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Gemini CLI (Gemini API key or Google Cloud/company account)": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "General": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
@@ -876,8 +961,15 @@
     "Girl · Pillow": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
+    "GitHub Copilot CLI": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Grok Build": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "HDR": [
-      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "HTTPS or SSH Git address": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -922,6 +1014,7 @@
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
     "Idle Lock: Off": [
@@ -929,6 +1022,9 @@
     ],
     "Idle Lock: On": [
       "quickshell/desktop-bar/shell.qml"
+    ],
+    "Image viewer": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Images unavailable": [
       "quickshell/desktop-bar/settings/SettingsAppearanceModel.qml"
@@ -939,7 +1035,8 @@
     ],
     "Input device": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
-      "quickshell/desktop-bar/panels/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Input level": [
       "quickshell/desktop-bar/components/MicrophoneMeter.qml",
@@ -947,6 +1044,9 @@
     ],
     "Input level · muted": [
       "quickshell/desktop-bar/components/MicrophoneMeter.qml"
+    ],
+    "Input volume": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Install": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
@@ -984,7 +1084,8 @@
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Keep expanded": [
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Keep home folder": [
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
@@ -1004,6 +1105,9 @@
     "Keep these settings? Reverting in {seconds} seconds": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
+    "Kernel": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Keybinds": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -1013,6 +1117,7 @@
     ],
     "Keyboard Layout": [
       "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
     ],
     "Keyboard layouts, mouse and touchpad.": [
@@ -1044,7 +1149,8 @@
       "tools/choice-lists.json"
     ],
     "Layout": [
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Layout, position and desktop bar controls.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -1066,7 +1172,11 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Let assistants work together": [
-      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Licence": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Light": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
@@ -1108,12 +1218,16 @@
     "MAC address": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
+    "Mail": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Main": [
       "quickshell/desktop-bar/components/MonitorMap.qml",
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Main display": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "Main display · others go around it": [
@@ -1137,7 +1251,8 @@
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml"
     ],
     "Media style": [
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Messages go to %1; nothing is saved": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -1155,13 +1270,15 @@
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Mirror": [
-      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "More actions": [
       "quickshell/desktop-bar/components/PanelMoreButton.qml"
     ],
     "More themes": [
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "More to read": [
       "quickshell/desktop-bar/welcome/WelcomeMore.qml"
@@ -1172,9 +1289,18 @@
     "Move up": [
       "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
     ],
+    "Music player": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Mute": [
       "quickshell/desktop-bar/components/AudioLevelControl.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Mute microphone": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Mute output": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "NO ADAPTER": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -1214,6 +1340,7 @@
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/BrightnessMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
     ],
     "No Bluetooth adapter": [
@@ -1325,7 +1452,8 @@
     ],
     "Notification sounds": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
-      "quickshell/desktop-bar/settings/EventSoundSettings.qml"
+      "quickshell/desktop-bar/settings/EventSoundSettings.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Notifications": [
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
@@ -1378,7 +1506,8 @@
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Opacity": [
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Open": [
       "quickshell/desktop-bar/components/SettingsSummaryEntry.qml",
@@ -1387,7 +1516,8 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Open AI Usage": [
-      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Open OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
@@ -1407,6 +1537,9 @@
     "Open your configuration folder in an editor": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
+    "OpenCode": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Other devices": [
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
@@ -1423,7 +1556,11 @@
     ],
     "Output device": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
-      "quickshell/desktop-bar/panels/AudioMenu.qml"
+      "quickshell/desktop-bar/panels/AudioMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Output volume": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Output, input and event sounds.": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
@@ -1445,6 +1582,9 @@
     "PAUSED · {size}": [
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
+    "PDF viewer": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "PEAP / MSCHAPv2": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
@@ -1458,13 +1598,17 @@
     ],
     "Padding": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Page header": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
     "Pages": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml"
+    ],
+    "Pair a Device": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Paired": [
       "quickshell/desktop-bar/components/BluetoothConnector.qml"
@@ -1510,6 +1654,9 @@
     "PgUp/PgDn to scroll · Escape or × to close": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
+    "Pi": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Pin bar open": [
       "quickshell/desktop-bar/bar/BarHorizontalCenter.qml",
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml"
@@ -1554,7 +1701,8 @@
     ],
     "Position": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Power": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
@@ -1627,6 +1775,9 @@
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
+    "Ratatoskr (local, experimental)": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Re-enable": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
@@ -1665,6 +1816,7 @@
     ],
     "Reduce motion": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Refresh": [
@@ -1672,7 +1824,8 @@
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "Refresh rate": [
-      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Reminders & Sharing": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -1686,6 +1839,7 @@
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml",
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
@@ -1694,6 +1848,9 @@
     ],
     "Remove %1?": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "Remove TPM Unlock": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Remove from Dock": [
       "quickshell/desktop-bar/dock/EdgeDock.qml"
@@ -1705,6 +1862,7 @@
       "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
     ],
     "Remove picture": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "Remove picture?": [
@@ -1716,6 +1874,12 @@
     "Rename": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
+    ],
+    "Rename input device": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Rename output device": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Reopen to retry; disabled after 3 failures": [
       "quickshell/desktop-bar/plugins/PluginComponent.qml"
@@ -1730,7 +1894,8 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Resolution": [
-      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Resolution, position and more": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -1742,7 +1907,11 @@
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Restore Original Network Configuration": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Restore Sharing Setup": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Results": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -1753,6 +1922,9 @@
     ],
     "Retry": [
       "quickshell/desktop-bar/components/CatalogEmptyState.qml"
+    ],
+    "Return to Password Authentication": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Revert": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -1783,7 +1955,8 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Rotation": [
-      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Rune groups": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
@@ -1801,7 +1974,8 @@
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "SDR content brightness": [
-      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "SESSION": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml",
@@ -1834,12 +2008,14 @@
       "quickshell/desktop-bar/capture/BeautifyWindow.qml"
     ],
     "Scale": [
-      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+      "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Scan": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Scanning": [
@@ -1878,6 +2054,7 @@
       "quickshell/desktop-bar/settings/SettingsContent.qml"
     ],
     "Search shortcuts": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml"
     ],
     "Search the handbook…": [
@@ -1921,8 +2098,12 @@
     "Set": [
       "quickshell/desktop-bar/panels/TimePicker.qml"
     ],
+    "Set Up Sharing": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Set password": [
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
     "Set the font used by desktop text.": [
@@ -1937,7 +2118,8 @@
       "quickshell/desktop-bar/settings/SettingsWindow.qml"
     ],
     "Settings colours": [
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Shadow": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml"
@@ -1956,6 +2138,15 @@
     ],
     "Share this PC with Sunshine or connect with Moonlight.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Sharing Settings": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Sharing Status": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Show Disk Unlock Methods": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Show QR": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -1980,7 +2171,8 @@
       "quickshell/desktop-bar/welcome/WelcomeMore.qml"
     ],
     "Show on": [
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Show the application dock.": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
@@ -1990,7 +2182,8 @@
     ],
     "Show unnamed devices": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
-      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Shows the desktop in HDR. Games can use HDR even when this is off.": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -2041,13 +2234,15 @@
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
     "Start": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Start Screensaver": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Start at login": [
-      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Start recording": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
@@ -2090,6 +2285,7 @@
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Style": [
@@ -2115,6 +2311,7 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "System Update": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "System information": [
@@ -2123,6 +2320,9 @@
     "System updates and the update channel.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "TPM Disk Unlock": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "TTLS / PAP": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
@@ -2130,13 +2330,17 @@
       "tools/choice-lists.json"
     ],
     "Terminal": [
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Testing": [
       "tools/choice-lists.json"
     ],
     "Text & Color": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
+    ],
+    "Text editor": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "The Eitr project": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -2177,7 +2381,8 @@
     "Theme": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Theme & Wallpaper": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -2321,6 +2526,7 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Update Channel": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "Update Plugins": [
@@ -2371,6 +2577,12 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
+    "Version": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Video player": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "View error details": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
@@ -2396,7 +2608,8 @@
     ],
     "Wallpaper": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
-      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Wallpapers": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -2409,6 +2622,9 @@
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/panels/WeatherMenu.qml"
     ],
+    "Web browser": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Webcam": [
       "quickshell/desktop-bar/panels/ObsMenu.qml",
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
@@ -2417,6 +2633,7 @@
       "tools/choice-lists.json"
     ],
     "Wi-Fi": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -2435,6 +2652,7 @@
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "WiFi backend": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "WiFi password": [
@@ -2449,9 +2667,11 @@
     ],
     "Window gaps": [
       "quickshell/desktop-bar/figures/WindowStyleFigure.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Window layout": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Window layout, gaps, corners and motion.": [
@@ -2464,7 +2684,8 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Workspace style": [
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Workspaces": [
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml"

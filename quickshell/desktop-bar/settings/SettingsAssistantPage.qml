@@ -36,6 +36,7 @@ Column {
             onClicked: if (pageBody.view.live) { pageBody.helper.refresh(); DesktopData.refresh("ai.usage"); }
         }
         PanelButton {
+            SettingsTarget { objectName: "setting-assistant-open-ai-usage" }
             width: 150; text: Eitr.I18n.tr("Open AI Usage"); foreground: pageBody.view.foreground
             onClicked: if (pageBody.view.live) Quickshell.execDetached(["eitr-shell", "desktop-bar", "ipc", "call", "--", "panels", "show", "ai"])
         }
@@ -45,6 +46,7 @@ Column {
         foreground: pageBody.view.foreground
         surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
         ControlRow {
+            SettingsTarget { objectName: "setting-assistant-default-assistant" }
             text: Eitr.I18n.tr("Default Assistant")
             description: Eitr.I18n.tr("Open with the assistant shortcut")
             foreground: pageBody.view.foreground
@@ -61,6 +63,7 @@ Column {
             }
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-assistant-assistant-access" }
             text: Eitr.I18n.tr("Assistant Access")
             description: Eitr.I18n.tr("Full access skips the assistant's permission prompts; Ask keeps them.")
             foreground: pageBody.view.foreground
@@ -76,6 +79,7 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-assistant-let-assistants-work-together" }
             text: Eitr.I18n.tr("Let assistants work together")
             description: Eitr.I18n.tr("Read-only help from your connected assistants. Turning it on explains what is shared and asks first.")
             foreground: pageBody.view.foreground; accent: pageBody.view.accent

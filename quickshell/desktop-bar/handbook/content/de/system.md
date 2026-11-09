@@ -1,6 +1,8 @@
 # Eine Einstellung finden
 
-**SUPER + ,** öffnet Einstellungen. Tippe in die Suche der Seitenleiste, um eine Seite zu finden; ein passender Tab öffnet sich direkt. System ist die Übersicht, kein Ordner für alle Einstellungen.
+**SUPER + ,** öffnet Einstellungen. System ist die Übersicht, kein Ordner für alle Einstellungen.
+
+Suche in der Seitenleiste der Einstellungen nach einer einzelnen Einstellung, etwa **Zeigergröße**, oder einer Seite. Unter dem Namen stehen Seite und Reiter. Wähle mit Auf/Ab und Eingabe oder per Klick ein Ergebnis: Der Reiter öffnet sich, das Bedienelement wird sichtbar und kurz hervorgehoben. Escape leert zuerst die Suche. Bei reduzierter Bewegung erscheint und verschwindet die Hervorhebung ohne Überblendung.
 
 <!-- eitr-figure: settings-window -->
 

@@ -2,6 +2,7 @@ import ".."
 import QtQuick
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
+import "../settings/SettingsCatalog.js" as Catalog
 
 // One helper item on a System page: its detail line, then a row per action with the
 // action's button (and its choice list, when it needs one) at the row's right edge.
@@ -20,6 +21,12 @@ Column {
     Repeater {
         model: entry.item.controls || (entry.item.actionMenu ? [entry.item] : [])
         ControlRow {
+            SettingsTarget {
+                objectName: {
+                    const setting = Catalog.settings.find(candidate => candidate.page === entry.context.page && candidate.label === actionRow.modelData.title);
+                    return setting ? "setting-" + setting.id : "";
+                }
+            }
             id: actionRow
             required property var modelData
             readonly property bool picks: (modelData.options || []).length > 0

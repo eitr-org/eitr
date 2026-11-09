@@ -10,6 +10,9 @@ from layout_render import BAR, copy_runtime, render_environment, render, capture
 
 
 class SettingsTests(unittest.TestCase):
+    def test_individual_settings_catalog_and_ranking(self):
+        subprocess.run(['node', str(BAR / 'tests/test_settings_search.js')], check=True, capture_output=True)
+
     def test_footer_routes_and_settings_have_no_launcher(self):
         routes = {"WifiMenu": "connections/wifi", "KeyboardLayoutMenu": "input", "RemoteAccessMenu": "streaming", "AiUsageMenu": "assistants"}
         for panel, destination in routes.items():
@@ -70,7 +73,9 @@ ShellRoot {
             self.assertNotIn('FAIL!', output)
 
     def test_search_index(self):
-        source = (BAR / 'settings/SettingsIndex.js').read_text().replace('.pragma library', '')
+        source = (BAR / 'settings/SettingsIndex.js').read_text().replace('.pragma library', '').replace('.import "SettingsCatalog.js" as Catalog', '')
+        catalog = (BAR / 'settings/SettingsCatalog.js').read_text().replace('.pragma library', '')
+        source = catalog.replace('var settings =', 'var Catalog = {settings:').replace('];', ']};') + source
         script = source + '''
 const assert = require('node:assert/strict');
 assert.equal(pages.length, 20);
@@ -88,11 +93,11 @@ assert.equal(entry('network').id, 'connections');
 assert.equal(searchDestination('appearance', 'puntero', text => text === 'Cursor family' ? 'Familia del puntero' : text), 'appearance/fonts');
 assert.equal(resolve('connections/bluetooth').tab, 'bluetooth');
 assert.equal(resolve('connections/unknown').tab, 'wifi');
-assert.equal(filter('bluetooth', text => text)[0].destinationId, 'connections/bluetooth');
-assert.equal(filter('cursor', text => text)[0].destinationId, 'appearance/fonts');
-assert.equal(filter('night light', text => text)[0].destinationId, 'displays/nightlight');
-assert.equal(filter('firewall', text => text)[0].destinationId, 'security/protection');
-assert.equal(filter('fingerprint', text => text)[0].destinationId, 'security/sign-in');
+assert.equal(filter('bluetooth', text => text)[0].destinationId.split('#')[0], 'connections/bluetooth');
+assert.equal(filter('cursor', text => text)[0].destinationId.split('#')[0], 'appearance/fonts');
+assert.equal(filter('night light', text => text)[0].destinationId.split('#')[0], 'displays/nightlight');
+assert.equal(filter('firewall', text => text)[0].destinationId.split('#')[0], 'security/protection');
+assert.equal(filter('fingerprint', text => text)[0].destinationId.split('#')[0], 'security/sign-in');
 assert.equal(resolve('security').tab, 'sign-in');
 assert.equal(filter('traduit', text => text === 'Displays' ? 'traduit' : text)[0].id, 'displays');
 '''

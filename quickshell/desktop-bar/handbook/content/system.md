@@ -1,6 +1,8 @@
 # Find a setting
 
-Press **SUPER + ,** to open Settings. Start typing in its sidebar search to find a page; a matching tab opens directly. System is the overview, not a folder containing every setting.
+Press **SUPER + ,** to open Settings. System is the overview, not a folder containing every setting.
+
+Search the Settings sidebar for an individual setting, such as **Cursor size**, or a page. Results show the page and tab beneath the setting name. Use Up/Down and Enter, or click a result, to open its tab, scroll to the control and briefly highlight it. Escape clears the search first. With Reduce motion, the highlight appears and disappears without fading.
 
 <!-- eitr-figure: settings-window -->
 

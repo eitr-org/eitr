@@ -11,6 +11,7 @@ Column {
     width: parent ? parent.width : 0
     spacing: 12
     TextField {
+        SettingsTarget { objectName: "setting-keybinds-search-shortcuts" }
         onTextChanged: view.shortcutQuery = text
         visible: view.page === "keybinds"
         width: parent.width

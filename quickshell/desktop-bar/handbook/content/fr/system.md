@@ -1,6 +1,8 @@
 # Trouver un réglage
 
-Appuyez sur **SUPER + ,** pour ouvrir Paramètres. Saisissez du texte dans la recherche latérale pour trouver une page ; l’onglet correspondant s’ouvre directement. Système est la vue d’ensemble, pas un dossier contenant tous les réglages.
+Appuyez sur **SUPER + ,** pour ouvrir Paramètres. Système est la vue d’ensemble, pas un dossier contenant tous les réglages.
+
+Recherchez un réglage précis, comme **Taille du pointeur**, ou une page dans la barre latérale des paramètres. La page et l’onglet figurent sous le nom. Utilisez Haut/Bas et Entrée, ou cliquez, pour ouvrir l’onglet, faire défiler jusqu’au contrôle et le mettre brièvement en évidence. Échap efface d’abord la recherche. Avec les animations réduites, la mise en évidence apparaît et disparaît sans fondu.
 
 <!-- eitr-figure: settings-window -->
 

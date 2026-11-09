@@ -12,6 +12,7 @@ Column {
         foreground: view.foreground
         visible: view.page === "focus"
         ToggleRow {
+            SettingsTarget { objectName: "setting-focus-focus" }
             text: Eitr.I18n.tr("Focus")
             description: Eitr.I18n.tr("Use tabs and panes for a quiet desktop.")
             foreground: view.foreground

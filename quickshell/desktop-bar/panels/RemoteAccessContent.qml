@@ -2,6 +2,7 @@ import ".."
 import QtQuick
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
+import "../settings/SettingsCatalog.js" as Catalog
 
 // Tailscale and Streaming share this layout: the main state is a header switch
 // (connected, sharing), details sit below, the everyday actions stay visible and
@@ -34,6 +35,10 @@ Column {
     signal settingsRequested()
     spacing: 14
 
+    function settingTarget(source) {
+        const setting = Catalog.settings.find(candidate => candidate.page === "streaming" && candidate.label === source);
+        return settingsMode && setting ? "setting-" + setting.id : "";
+    }
     function action(source) { return actions.find(entry => entry.source === source) || null; }
     function run(source) {
         const entry = action(source);
@@ -71,6 +76,7 @@ Column {
             }
             PanelButton {
                 id: firstStepButton
+                SettingsTarget { objectName: content.settingTarget(content.setupSource) }
                 anchors.verticalCenter: parent.verticalCenter
                 visible: content.firstStepAction !== null
                 width: Math.max(68, firstStepLabel.width + 24); height: 30
@@ -80,6 +86,7 @@ Column {
                 TextMetrics { id: firstStepLabel; text: firstStepButton.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
             }
             PanelSwitch {
+                SettingsTarget { objectName: "setting-streaming-streaming" }
                 anchors.verticalCenter: parent.verticalCenter
                 visible: content.firstStep === "" && content.installed
                 checked: content.tailscale ? !!content.detail.connected : !!content.detail.running
@@ -129,6 +136,7 @@ Column {
         Text {
             anchors.verticalCenter: parent.verticalCenter
             text: Eitr.I18n.tr("Start at login")
+            SettingsTarget { objectName: "setting-streaming-start-at-login" }
             color: content.foreground
             font.family: DesktopFonts.family
             font.pixelSize: PanelStyle.bodySize
@@ -209,6 +217,7 @@ Column {
             model: content.visibleSources.map(source => content.action(source)).filter(entry => entry !== null)
             PanelButton {
                 required property var modelData
+                SettingsTarget { objectName: content.settingTarget(modelData.source) }
                 width: content.settingsMode ? everyday.width : (everyday.width - everyday.spacing) / 2; height: 34
                 text: modelData.title; leadingIcon: modelData.icon || ""
                 textSize: PanelStyle.bodySize; iconSize: 16; textAlignment: Text.AlignLeft
@@ -222,6 +231,7 @@ Column {
     Repeater {
         model: content.settingsMode ? content.moreActions : []
         ControlRow {
+            SettingsTarget { objectName: content.settingTarget(modelData.source) }
             required property var modelData
             text: modelData.title
             description: modelData.description

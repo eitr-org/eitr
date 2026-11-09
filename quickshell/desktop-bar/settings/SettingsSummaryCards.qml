@@ -2,6 +2,7 @@ import ".."
 import QtQuick
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
+import "SettingsCatalog.js" as Catalog
 
 // The cards of the helper-backed System pages: one card per item.
 Column {
@@ -16,6 +17,12 @@ Column {
             id: summaryCard
             required property var modelData
             required property int index
+            SettingsTarget {
+                objectName: {
+                    const setting = Catalog.settings.find(candidate => candidate.page === summary.view.page && (candidate.label === summaryCard.modelData.title || Eitr.I18n.tr(candidate.label) === summaryCard.modelData.title));
+                    return setting ? "setting-" + setting.id : "";
+                }
+            }
             title: Eitr.I18n.tr(modelData.title)
             foreground: summary.view.foreground
             surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true

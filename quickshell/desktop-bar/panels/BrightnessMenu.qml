@@ -8,6 +8,10 @@ import Quickshell.Io
 
 ThemedPopup {
     id: menu
+    function revealSearchSetting(identifier) {
+        if (identifier.indexOf("displays-schedule-") === 0) editingSchedule = true;
+        if (settingsSection !== "nightlight" && monitors.length && !settingsFor) settingsFor = monitors[0].name;
+    }
     implicitWidth: 428
     property string settingsSection: "all"
     property color mapHighlight: accent
@@ -309,6 +313,7 @@ ThemedPopup {
                     Text { width: 30; height: 30; text: "󰃟"; verticalAlignment: Text.AlignVCenter; horizontalAlignment: Text.AlignHCenter; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: 18 }
                     PanelSlider {
                         id: slider
+                        SettingsTarget { objectName: "setting-displays-brightness" }
                         accent: menu.accent
                         foreground: menu.foreground
                         width: parent.width - 100
@@ -357,6 +362,7 @@ ThemedPopup {
                         }
                         PanelButton {
                             id: editButton
+                            SettingsTarget { objectName: "setting-displays-edit-schedule" }
                             icon: true
                             width: 28
                             height: 28
@@ -377,6 +383,7 @@ ThemedPopup {
                         PanelSwitch {
                             anchors.verticalCenter: parent.verticalCenter
                             checked: menu.nightlight.enabled
+                            SettingsTarget { objectName: "setting-displays-night-light" }
                             enabled: menu.nightlight.available && !nightOperation.running
                             foreground: menu.foreground
                             accent: menu.accent
@@ -402,6 +409,7 @@ ThemedPopup {
                             spacing: 8
                             Controls.TextField {
                                 id: startField
+                                SettingsTarget { objectName: "setting-displays-schedule-start" }
                                 width: (parent.width - 68) / 2
                                 height: parent.height
                                 color: menu.foreground
@@ -414,6 +422,7 @@ ThemedPopup {
                             }
                             Controls.TextField {
                                 id: endField
+                                SettingsTarget { objectName: "setting-displays-schedule-end" }
                                 width: (parent.width - 68) / 2
                                 height: parent.height
                                 color: menu.foreground
@@ -427,6 +436,7 @@ ThemedPopup {
                             PanelSwitch {
                                 anchors.verticalCenter: parent.verticalCenter
                                 checked: menu.nightlight.mode === "auto"
+                                SettingsTarget { objectName: "setting-displays-schedule-auto" }
                                 enabled: menu.nightlight.available && !nightOperation.running
                                 foreground: menu.foreground
                                 accent: menu.accent

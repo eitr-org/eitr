@@ -6,6 +6,7 @@ Column {
     id: sounds
     required property color foreground
     required property color accent
+    property string searchPage: "sound"
     property bool live: true
     property real controlInset: 0
     property bool hasBattery: false
@@ -15,6 +16,7 @@ Column {
         model: [{setting: "notifications", label: Eitr.I18n.tr("Notification sounds")},
                 {setting: "charger", label: Eitr.I18n.tr("Charger sounds"), battery: true}]
         ToggleRow {
+            SettingsTarget { objectName: "setting-" + sounds.searchPage + "-" + modelData.setting }
             required property var modelData
             controlInset: sounds.controlInset
             visible: !modelData.battery || sounds.hasBattery

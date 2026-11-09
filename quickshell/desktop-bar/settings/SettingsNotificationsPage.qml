@@ -13,6 +13,7 @@ Column {
         foreground: view.foreground
         visible: view.page === "notifications"
         ToggleRow {
+            SettingsTarget { objectName: "setting-notifications-do-not-disturb" }
             text: Eitr.I18n.tr("Do Not Disturb")
             description: Eitr.I18n.tr("Pause notification popups.")
             foreground: view.foreground
@@ -26,6 +27,7 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-notifications-crash-notifications" }
             text: Eitr.I18n.tr("Crash Notifications")
             description: Eitr.I18n.tr("Show help notifications when a program crashes.")
             foreground: view.foreground
@@ -39,6 +41,7 @@ Column {
             }
         }
         EventSoundSettings {
+            searchPage: "notifications"
             width: parent.width
             foreground: view.foreground
             accent: view.accent

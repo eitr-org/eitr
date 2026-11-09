@@ -91,6 +91,7 @@ Column {
         if (live) Quickshell.execDetached(["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/menu-action.py"), "network-backend", title]);
     }
     ToggleRow {
+        SettingsTarget { objectName: "setting-connections-wi-fi" }
         objectName: "settings-wifi-power"
         text: Eitr.I18n.tr("Wi-Fi")
         description: !page.device ? Eitr.I18n.tr("No WiFi adapter")
@@ -120,6 +121,7 @@ Column {
                 wrapMode: Text.NoWrap
             }
             PanelButton {
+                SettingsTarget { objectName: "setting-connections-disconnect" }
                 id: disconnectButton
                 visible: !!page.connected
                 anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
@@ -171,6 +173,7 @@ Column {
             surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
             spacing: PanelStyle.selectionRowGap
             headerActions: PanelButton {
+                SettingsTarget { objectName: "setting-connections-scan" }
                 objectName: "settings-wifi-scan"
                 visible: !group.modelData.known
                 width: 84; height: 26
@@ -197,6 +200,7 @@ Column {
                     foreground: page.foreground
                     onActivated: page.choose(modelData)
                     PanelButton {
+                        SettingsTarget { objectName: "setting-connections-forget" }
                         visible: !!networkRow.modelData.known
                         width: 80; height: 28; foreground: page.foreground
                         text: Eitr.I18n.tr("Forget"); available: !page.busy && !!networkRow.modelData.knownPath
@@ -239,6 +243,7 @@ Column {
         foreground: page.foreground
         surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
         ControlRow {
+            SettingsTarget { objectName: "setting-connections-wifi-backend" }
             text: Eitr.I18n.tr("WiFi backend")
             description: Eitr.I18n.tr("Applies after reboot; saved profiles are kept.")
             foreground: page.foreground
@@ -251,6 +256,7 @@ Column {
             }
         }
         PanelButton {
+            SettingsTarget { objectName: "setting-connections-restore-original-network-configuration" }
             width: Math.min(parent.width, 320)
             text: Eitr.I18n.tr("Restore Original Network Configuration")
             foreground: page.foreground

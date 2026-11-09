@@ -50,6 +50,7 @@ Rectangle {
     }
     Column {
         id: contents
+        readonly property var settingTargetOwner: card
         x: 16
         y: 52
         width: parent.width - 32

@@ -13,6 +13,7 @@ Column {
         foreground: view.foreground
         visible: view.page === "lockscreen"
         Column {
+            SettingsTarget { objectName: "setting-lockscreen-design" }
             width: parent.width
             spacing: 8
             SettingsText { text: Eitr.I18n.tr("Design"); color: SettingsInk.gold }
@@ -31,6 +32,7 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-lockscreen-idle-lock" }
             text: Eitr.I18n.tr("Idle Lock")
             description: Eitr.I18n.tr("Dim and lock automatically while idle.")
             foreground: view.foreground

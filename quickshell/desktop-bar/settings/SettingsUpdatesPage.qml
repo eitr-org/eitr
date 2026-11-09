@@ -20,6 +20,7 @@ Column {
             text: Eitr.I18n.tr("Update Channel")
         }
         ControlRow {
+            SettingsTarget { objectName: "setting-updates-update-channel" }
             text: Eitr.I18n.tr("Update Channel")
             description: Eitr.I18n.tr("Choose stable builds or try new builds first.")
             foreground: view.foreground
@@ -37,6 +38,7 @@ Column {
             text: view.updates.status === "ready" && !view.updates.inFlight ? Eitr.I18n.tr("Pending updates: %1", [(view.updates.data || {}).count]) : view.updates.status === "loading" || view.updates.inFlight ? Eitr.I18n.tr("Checking for updates…") : Eitr.I18n.tr("Pending updates unavailable")
         }
         PanelButton {
+            SettingsTarget { objectName: "setting-updates-system-update" }
             width: 200
             foreground: view.foreground
             text: Eitr.I18n.tr("System Update")

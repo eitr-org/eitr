@@ -54,6 +54,12 @@ def extract(root=ROOT):
         for page in pages:
             for field in ("title", "description", "group", "keywords"):
                 add("qml", page[field], settings_index)
+    settings_catalog = root / "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    if settings_catalog.is_file():
+        catalog_text = settings_catalog.read_text().split("var settings = ", 1)[1]
+        settings, _ = json.JSONDecoder().raw_decode(catalog_text)
+        for setting in settings:
+            add("qml", setting["label"], settings_catalog)
     for path in sorted((root / "elephant/menu-rows").glob("*.json")):
         for row in json.loads(path.read_text()):
             for field in ("text", "subtext"):
