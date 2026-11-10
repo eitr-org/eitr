@@ -169,7 +169,7 @@ press **Delete**, then Enter to confirm or Escape to keep it.
 
 Window gaps and Corners as **Settings > Windows** shows them, with your current choices checked. Default gaps are 6 px between windows and 12 px at the screen edges.
 
-Use **Settings > Windows > Window gaps** or **Walker > Settings > Style > Window gaps** to choose None, Small, Default or Large. The choice is saved locally with Corners and survives theme changes and reloads.
+Use **Settings > Windows > Window gaps** or **Walker > Settings > Style > Window gaps** to choose None, Small, Medium (the default) or Large. The choice is saved locally with Corners and survives theme changes and reloads.
 
 ## Change fonts
 

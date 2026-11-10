@@ -37,7 +37,7 @@ return {
     window_gaps = {
         {id = "none", label = "None", description = "No space between windows", inner = "0", outer = "0"},
         {id = "small", label = "Small", description = "Compact window spacing", inner = "3", outer = "6"},
-        {id = "default", label = "Default", description = "Standard window spacing", inner = "6", outer = "12"},
+        {id = "default", label = "Medium", description = "Standard window spacing (the default)", inner = "6", outer = "12"},
         {id = "large", label = "Large", description = "Generous window spacing", inner = "12", outer = "24"},
     },
     bar_layouts = {

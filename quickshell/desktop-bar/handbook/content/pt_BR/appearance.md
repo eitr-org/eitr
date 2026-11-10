@@ -114,7 +114,7 @@ Suas imagens, temas e telas de bloqueio ficam neste computador, em `~/.local/sha
 
 Espaçamento das janelas e Cantos como **Configurações > Janelas** os mostra, com suas escolhas atuais marcadas. Por padrão, há 6 px entre janelas e 12 px nas bordas da tela.
 
-Em **Configurações > Janelas > Espaçamento das janelas** ou **Walker > Configurações > Estilo > Espaçamento das janelas**, escolha Nenhum, Pequeno, Padrão ou Grande. A preferência local permanece após trocas de tema e recarregamentos.
+Em **Configurações > Janelas > Espaçamento das janelas** ou **Walker > Configurações > Estilo > Espaçamento das janelas**, escolha Nenhum, Pequeno, Médio (padrão) ou Grande. A preferência local permanece após trocas de tema e recarregamentos.
 
 ## Alterar fontes
 

@@ -117,7 +117,7 @@ Vos images, thèmes et écrans de verrouillage restent sur cet ordinateur, dans 
 
 Espacement des fenêtres et Coins tels que **Paramètres > Fenêtres** les montre, avec vos choix actuels cochés. Par défaut, 6 px séparent les fenêtres et 12 px les bords de l’écran.
 
-Dans **Paramètres > Fenêtres > Espacement des fenêtres** ou **Walker > Paramètres > Style > Espacement des fenêtres**, choisissez Aucun, Petit, Par défaut ou Grand. Le choix local résiste aux changements de thème et aux rechargements.
+Dans **Paramètres > Fenêtres > Espacement des fenêtres** ou **Walker > Paramètres > Style > Espacement des fenêtres**, choisissez Aucun, Petit, Moyen (par défaut) ou Grand. Le choix local résiste aux changements de thème et aux rechargements.
 
 ## Changer les polices
 

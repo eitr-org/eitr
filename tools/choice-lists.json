@@ -170,8 +170,8 @@
     },
     {
       "id": "default",
-      "label": "Default",
-      "description": "Standard window spacing",
+      "label": "Medium",
+      "description": "Standard window spacing (the default)",
       "inner": "6",
       "outer": "12"
     },

@@ -186,7 +186,6 @@
   "DNS": "DNS",
   "Dark": "Dark",
   "Data-only themes · Review selected sources": "Data-only themes · Review selected sources",
-  "Default": "Default",
   "Default Assistant": "Default Assistant",
   "Default apps": "Default apps",
   "Default column width": "Default column width",
@@ -859,5 +858,6 @@
   "Set the total number of numbered workspaces.": "Set the total number of numbered workspaces.",
   "Authentication": "Authentication",
   "Choose the logo shown on the About page.": "Choose the logo shown on the About page.",
-  "Use the method required by your network.": "Use the method required by your network."
+  "Use the method required by your network.": "Use the method required by your network.",
+  "Medium": "Medium"
 }

@@ -79,7 +79,9 @@ Column {
         }
     }
     // Choosing a layout from the floating list adds it; the catalog loads with the page.
+    // Close to the layout list's width, so the menu sits beside its label in a full-screen window.
     ControlRow {
+        width: Math.min(parent.width, Math.max(view.listWidth, 640))
         text: Eitr.I18n.tr("Add Layout")
         description: Eitr.I18n.tr("Add another keyboard layout to your list.")
         foreground: view.foreground

@@ -704,7 +704,6 @@
   "Generous window spacing": "Generous window spacing",
   "Large": "Large",
   "No space between windows": "No space between windows",
-  "Standard window spacing": "Standard window spacing",
   "Window gaps": "Window gaps",
   "Browse installed and official themes and plugins": "Browse installed and official themes and plugins",
   "Themes & Plugins": "Themes & Plugins",
@@ -765,5 +764,6 @@
   "Shared numbers": "Shared numbers",
   "Split across monitors": "Split across monitors",
   "Switch every monitor to its own numbered workspace": "Switch every monitor to its own numbered workspace",
-  "Workspace style": "Workspace style"
+  "Workspace style": "Workspace style",
+  "Standard window spacing (the default)": "Standard window spacing (the default)"
 }

@@ -107,7 +107,7 @@ Eigene Bilder, Designs und Sperrbildschirme bleiben auf diesem Computer, in `~/.
 
 Fensterabstände und Ecken, wie **Einstellungen > Fenster** sie zeigt, mit deiner aktuellen Auswahl markiert. Standardmäßig liegen 6 px zwischen Fenstern und 12 px an den Bildschirmrändern.
 
-Unter **Einstellungen > Fenster > Fensterabstände** oder **Walker > Einstellungen > Stil > Fensterabstände** stehen Keine, Klein, Standard und Groß zur Wahl. Die lokale Auswahl bleibt bei Themewechseln und Neuladen erhalten.
+Unter **Einstellungen > Fenster > Fensterabstände** oder **Walker > Einstellungen > Stil > Fensterabstände** stehen Keine, Klein, Mittel (Standard) und Groß zur Wahl. Die lokale Auswahl bleibt bei Themewechseln und Neuladen erhalten.
 
 ## Schrift ändern
 

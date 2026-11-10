@@ -115,7 +115,7 @@ Tus imágenes, temas y pantallas de bloqueo se quedan en este equipo, en `~/.loc
 
 Espaciado de ventanas y Esquinas tal como los muestra **Configuración > Ventanas**, con tu elección actual marcada. Por defecto hay 6 px entre ventanas y 12 px en los bordes de la pantalla.
 
-En **Configuración > Ventanas > Espaciado de ventanas** o **Walker > Configuración > Estilo > Espaciado de ventanas** puedes elegir Ninguno, Pequeño, Predeterminado o Grande. La selección local se conserva al cambiar el tema o recargar.
+En **Configuración > Ventanas > Espaciado de ventanas** o **Walker > Configuración > Estilo > Espaciado de ventanas** puedes elegir Ninguno, Pequeño, Mediano (predeterminado) o Grande. La selección local se conserva al cambiar el tema o recargar.
 
 ## Cambiar fuentes
 

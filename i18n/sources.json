@@ -694,9 +694,6 @@
     "Data-only themes · Review selected sources": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
-    "Default": [
-      "tools/choice-lists.json"
-    ],
     "Default Assistant": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -1299,6 +1296,9 @@
     "Media style": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Medium": [
+      "tools/choice-lists.json"
     ],
     "Messages go to %1; nothing is saved": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -3463,8 +3463,7 @@
       "elephant/menus/databases.lua"
     ],
     "Default": [
-      "elephant/menus/git-accounts.lua",
-      "tools/choice-lists.json"
+      "elephant/menus/git-accounts.lua"
     ],
     "Default (75%)": [
       "elephant/menus/terminal-opacity.lua"
@@ -4074,7 +4073,8 @@
     ],
     "Medium": [
       "elephant/menus/bar-blur-strength.lua",
-      "elephant/menus/terminal-blur-strength.lua"
+      "elephant/menus/terminal-blur-strength.lua",
+      "tools/choice-lists.json"
     ],
     "Medium (80%)": [
       "elephant/menus/terminal-opacity.lua"
@@ -5044,7 +5044,7 @@
     "Stable": [
       "tools/choice-lists.json"
     ],
-    "Standard window spacing": [
+    "Standard window spacing (the default)": [
       "tools/choice-lists.json"
     ],
     "Start Screensaver": [
@@ -7180,7 +7180,6 @@
     ],
     "Default": [
       "distro/lib/eitr_ai_accounts.py",
-      "tools/choice-lists.json",
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Default (75%)": [
@@ -8175,7 +8174,8 @@
       "distro/lib/eitr_plugin_install.py"
     ],
     "Medium": [
-      "distro/lib/eitr_appearance.py"
+      "distro/lib/eitr_appearance.py",
+      "tools/choice-lists.json"
     ],
     "Medium (80%)": [
       "distro/lib/eitr_appearance.py"
