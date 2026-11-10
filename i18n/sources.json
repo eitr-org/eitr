@@ -2092,6 +2092,7 @@
     ],
     "Rotation": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/plugins/PluginWidget.qml",
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
