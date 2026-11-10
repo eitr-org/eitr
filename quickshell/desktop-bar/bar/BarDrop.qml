@@ -37,6 +37,21 @@ Item {
     // The time fades in over the second half of the swell, once the pill can hold it.
     readonly property real contentOpacity: Math.max(0, swell * 2 - 1)
     // Like Dynamic's islands, the pill grows into its dashboard card while it is open.
+    // A closing card's size, kept while the bar hides, so the card shrinks straight into
+    // the drop as it retracts rather than settling back into the pill first.
+    property real cardExtent: 0
+    property real cardDepth: 0
+    readonly property bool retracting: cardExtent > 0
+    Connections {
+        target: barHost.dropDashboard
+        function onOpenedChanged() {
+            if (barHost.dropDashboard.opened || !host.barAutoHide) return;
+            drop.cardExtent = pill.extent; drop.cardDepth = pill.depth;
+            barHost.autoHideRef.hideNow();
+            if (drop.reveal >= 1 && barHost.autoHideRef.shown) Qt.callLater(() => { if (barHost.autoHideRef.shown) drop.cardExtent = 0; });
+        }
+    }
+    onRevealChanged: if (retracting && (reveal <= 0 || (reveal >= 1 && !barHost.dropDashboard.opened && barHost.autoHideRef.shown))) cardExtent = 0
     function islandFor(panel) { return panel === barHost.dropDashboard ? pill : null; }
     function openPanel() {
         const dashboard = barHost.dropDashboard;
@@ -52,9 +67,9 @@ Item {
     DynamicIsland {
         id: pill
         host: drop.host; barHost: drop.barHost
-        restingExtent: drop.dropAcross + (drop.pillExtent - drop.dropAcross) * drop.swell
+        restingExtent: drop.dropAcross + ((drop.retracting ? drop.cardExtent : drop.pillExtent) - drop.dropAcross) * drop.swell
         fullExtent: restingExtent
-        restingDepth: drop.dropDepth + (thickness - drop.dropDepth) * drop.swell
+        restingDepth: drop.dropDepth + ((drop.retracting ? drop.cardDepth : thickness) - drop.dropDepth) * drop.swell
         // The auto-hide fall follows the slide exactly; growing into the dashboard eases.
         eased: drop.reveal >= 1
         visible: drop.reveal > 0

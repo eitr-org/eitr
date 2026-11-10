@@ -16,6 +16,11 @@ Item {
             revealed = true;
         } else hideDelay.restart();
     }
+    // Hides at once, skipping the delay, when nothing keeps the bar out (Drop's dashboard
+    // closing with the pointer elsewhere retracts together with its card).
+    function hideNow() {
+        if (autoHide && !pointerInside && !held) { hideDelay.stop(); revealed = false; }
+    }
     onAutoHideChanged: reconsider()
     onPointerInsideChanged: reconsider()
     onHeldChanged: reconsider()
