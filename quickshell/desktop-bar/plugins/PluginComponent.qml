@@ -59,9 +59,11 @@ Item {
                 if (!entry || typeof entry.id !== "string" || !/^[a-z0-9-]{1,64}$/.test(entry.id)
                     || ids.indexOf(entry.id) !== -1 || typeof entry.text !== "string" || !entry.text.trim()
                     || entry.text.length > 72 || /[\x00-\x1f\x7f]/.test(entry.text)
-                    || (entry.checked !== undefined && typeof entry.checked !== "boolean")) return;
+                    || (entry.checked !== undefined && typeof entry.checked !== "boolean")
+                    || (entry.group !== undefined && (typeof entry.group !== "string" || !entry.group.trim()
+                        || entry.group.length > 32 || /[\x00-\x1f\x7f]/.test(entry.group)))) return;
                 ids.push(entry.id);
-                result.push({id: entry.id, text: entry.text, checked: entry.checked === true});
+                result.push({id: entry.id, text: entry.text, checked: entry.checked === true, group: entry.group || ""});
             }
             menuEntries = result;
         }

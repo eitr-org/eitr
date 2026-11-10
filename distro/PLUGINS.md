@@ -438,7 +438,9 @@ unsnapped motion; release snaps and atomically saves.
 Widgets may call `api.setMenu([{id: "wave", text: "Wave", checked: true}])`.
 At most 20 entries are accepted, with unique lowercase alphanumeric/hyphen IDs
 (up to 64 characters), nonblank single-line text (up to 72 characters), and an
-optional boolean `checked`. Invalid lists leave the previous menu intact.
+optional boolean `checked`, and an optional `group` label (single line, up to 32 characters):
+entries sharing a group show as one labelled row of choices, ungrouped ones under Style.
+Invalid lists leave the previous menu intact.
 Handle `api.menuTriggered(id)` through a QML `Connections` object; call `setMenu`
 again to update checkmarks. These actions run only in the loaded widget instance,
 so each monitor can keep independent state. Menus do not execute shell strings.

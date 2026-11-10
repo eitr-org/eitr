@@ -33,8 +33,17 @@ Column {
             choices.push({value: placement.monitor, label: placement.monitor});
         return choices;
     }
+    // A plugin's options, one row per `group` it names (ungrouped ones under Style).
+    readonly property var optionGroups: {
+        const names = [];
+        for (const option of options) {
+            const name = typeof option.group === "string" ? option.group : "";
+            if (!names.includes(name)) names.push(name);
+        }
+        return names.map(name => ({label: name || Eitr.I18n.tr("Style"), options: options.filter(option => (typeof option.group === "string" ? option.group : "") === name)}));
+    }
     readonly property var labels: [Eitr.I18n.tr("Size"), Eitr.I18n.tr("Rotation"), Eitr.I18n.tr("Display"),
-        Eitr.I18n.tr("Background"), Eitr.I18n.tr("Style")]
+        Eitr.I18n.tr("Background")].concat(optionGroups.map(group => group.label))
     // The label column fits the longest label in the current language.
     readonly property real labelWidth: Math.min(width * 0.42, Math.ceil(Math.max(...labels.map(text => bodyMetrics.advanceWidth(text)))) + 38)
     // Each setting sits in a bordered row, like WiFi's network rows.
@@ -218,14 +227,16 @@ Column {
             onChosen: value => controls.change("surface", {surface: value})
         }
     }
-    Setting {
-        visible: controls.options.length > 0
-        glyph: String.fromCodePoint(0xF062E); text: Eitr.I18n.tr("Style")
-        Flow {
-            id: optionFlow
+    Repeater {
+        model: controls.optionGroups
+        Setting {
+            id: optionRow
+            required property var modelData
+            glyph: String.fromCodePoint(0xF062E); text: modelData.label
+            Flow {
             width: parent.width; spacing: PanelStyle.selectionActionGap
             Repeater {
-                model: controls.options
+                model: optionRow.modelData.options
                 FitButton {
                     required property var modelData
                     text: modelData.text; selected: !!modelData.checked; outlined: !modelData.checked
@@ -233,6 +244,7 @@ Column {
                     Accessible.checked: selected
                     onClicked: PluginRegistry.widgetAction(controls.entry.plugin, controls.entry.id, controls.instance, modelData.id, true)
                 }
+            }
             }
         }
     }
