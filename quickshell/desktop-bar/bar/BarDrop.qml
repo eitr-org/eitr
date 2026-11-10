@@ -36,13 +36,48 @@ Item {
     readonly property real dropDepth: dotSize * 1.4
     // The time fades in over the second half of the swell, once the pill can hold it.
     readonly property real contentOpacity: Math.max(0, swell * 2 - 1)
+    // Hover, after a short delay so a passing pointer does not open it, grows the pill
+    // into the glance strip: [left icons and workspaces] [media][capture] time+date
+    // [weather] [status and notifications]. The middle stays centred as a group.
+    readonly property bool glance: pill.expanded && reveal >= 1
+    readonly property bool captureShown: vertical ? barHost.verticalCapture.shown : barHost.barCapture.shown
+    readonly property real captureLength: captureShown ? (vertical ? barHost.verticalCapture.height + 3 : barHost.barCapture.width + 6) : 0
+    readonly property bool mediaAvailable: barHost.mediaStrip.present
+    readonly property real mediaLength: mediaAvailable ? (vertical ? barHost.verticalMedia.implicitHeight + 3 : barHost.mediaStrip.width + 12) : 0
+    readonly property real weatherExtent: vertical ? barHost.verticalWeatherIcon.height : barHost.barWeather.width
+    readonly property real weatherLength: host.workspaceItemSpacing + weatherExtent
+    readonly property real middleExtent: clockExtent + 8 + captureLength + mediaLength + weatherLength
+    readonly property real leadingExtent: vertical ? barHost.verticalStart.height : barHost.leftGroup.implicitWidth
+    readonly property real trailingExtent: vertical ? barHost.verticalEnd.height : barHost.rightSide.width + host.workspaceItemSpacing + barHost.notificationIcon.width
+    readonly property real sideExtent: Math.max(leadingExtent, trailingExtent) + 2 * host.workspaceItemSpacing + 4
+    readonly property real glanceExtent: Math.min(length - 2 * barHost.islandGap, middleExtent + 2 * sideExtent)
+    property real clockShift: glance ? (captureLength + mediaLength - weatherLength) / 2 : captureLength / 2
+    Behavior on clockShift { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+    property real weatherReveal: glance ? weatherLength : 0
+    Behavior on weatherReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+    property real sideOpacity: glance ? 1 : 0
+    Behavior on sideOpacity { NumberAnimation { duration: DesktopStyle.motionDuration(220) } }
+    HoverHandler {
+        id: pointer
+        onHoveredChanged: Qt.callLater(drop.updateHover)
+    }
+    readonly property point pointerPosition: pointer.point.position
+    onPointerPositionChanged: Qt.callLater(updateHover)
+    function updateHover() {
+        const inside = pointer.hovered && pointerPosition.x >= pill.x && pointerPosition.x < pill.x + pill.width
+            && pointerPosition.y >= pill.y && pointerPosition.y < pill.y + pill.height;
+        if (!inside) { hoverDelay.stop(); pill.hovered = false; }
+        else if (!pill.hovered && !hoverDelay.running) hoverDelay.start();
+    }
+    Timer { id: hoverDelay; interval: 180; onTriggered: pill.hovered = drop.reveal >= 1 }
     DynamicIsland {
         id: pill
         host: drop.host; barHost: drop.barHost
         restingExtent: drop.dropAcross + (drop.pillExtent - drop.dropAcross) * drop.swell
-        fullExtent: restingExtent
+        fullExtent: drop.glanceExtent
         restingDepth: drop.dropDepth + (thickness - drop.dropDepth) * drop.swell
-        eased: false
+        // The auto-hide fall follows the slide exactly; the glance strip eases on its own.
+        eased: drop.reveal >= 1
         visible: drop.reveal > 0
         x: vertical ? depthOffset : (drop.length - width) / 2
         y: vertical ? (drop.length - height) / 2 : depthOffset
@@ -89,27 +124,28 @@ Item {
         x: vertical ? (pill.farEdge ? drop.width - width : 0) : (drop.width - width) / 2
         y: vertical ? (drop.height - height) / 2 : (pill.farEdge ? drop.height - height : 0)
     }
-    // Only the time shows: workspaces, status, media, capture and weather stay hidden
-    // until the glance strip brings them back.
+    // At rest only the time (and the capture dot while recording) shows; the glance strip
+    // brings the side groups, media, date and weather in. Plain parent changes, as in Dynamic.
     states: [
         State {
             name: "horizontal"; when: drop.holding && !drop.vertical
             PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity; enabled: drop.reveal >= 1 }
-            PropertyChanges { target: barHost.centerInfo; timeOnly: true }
-            PropertyChanges { target: barHost.leftGroup; opacity: 0; enabled: false }
-            PropertyChanges { target: barHost.rightSide; opacity: 0; enabled: false }
-            PropertyChanges { target: barHost.notificationIcon; opacity: 0; enabled: false }
-            PropertyChanges { target: barHost.barCapture; opacity: 0; enabled: false }
-            PropertyChanges { target: barHost.mediaStrip; opacity: 0; enabled: false; audioEnabled: false }
+            PropertyChanges { target: barHost.centerInfo; timeOnly: !drop.glance; anchors.horizontalCenterOffset: drop.clockShift }
+            PropertyChanges { target: barHost.leftGroup; parent: pill.content; x: 4 + host.workspaceItemSpacing; y: (pill.thickness - barHost.leftGroup.height) / 2 }
+            PropertyChanges { target: barHost.leftGroup; width: barHost.leftGroup.implicitWidth; opacity: drop.sideOpacity; enabled: drop.glance }
+            PropertyChanges { target: barHost.rightSide; parent: pill.content; opacity: drop.sideOpacity; enabled: drop.glance }
+            PropertyChanges { target: barHost.notificationIcon; parent: pill.content }
+            PropertyChanges { target: barHost.notificationIcon; anchors.rightMargin: 4 + host.workspaceItemSpacing; opacity: drop.sideOpacity; enabled: drop.glance }
+            PropertyChanges { target: barHost.mediaStrip; availableWidth: 280; opacity: drop.glance ? 1 : 0; enabled: drop.glance }
         },
         State {
             name: "vertical"; when: drop.holding && drop.vertical
+            PropertyChanges { target: barHost.verticalStart; parent: pill.content; y: 4; opacity: drop.sideOpacity; enabled: drop.glance }
             PropertyChanges { target: barHost.verticalMiddle; parent: pill.content; opacity: drop.contentOpacity; enabled: drop.reveal >= 1 }
-            PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: true }
-            PropertyChanges { target: barHost.verticalStart; opacity: 0; enabled: false }
-            PropertyChanges { target: barHost.verticalEnd; opacity: 0; enabled: false }
-            PropertyChanges { target: barHost.verticalCapture; opacity: 0; enabled: false }
-            PropertyChanges { target: barHost.verticalMedia; visible: false }
+            PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: !drop.glance; anchors.verticalCenterOffset: drop.clockShift }
+            PropertyChanges { target: barHost.verticalEnd; parent: pill.content }
+            PropertyChanges { target: barHost.verticalEnd; anchors.bottomMargin: 4; opacity: drop.sideOpacity; enabled: drop.glance }
+            PropertyChanges { target: barHost.verticalMedia; visible: drop.mediaAvailable && drop.glance }
         }
     ]
 }

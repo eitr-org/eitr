@@ -113,7 +113,7 @@ Item {
         anchors.topMargin: barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width
-        height: barHost.dropLayout ? 0 : barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
+        height: barHost.dropLayout ? barHost.dropSurfaces.weatherReveal : barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
         clip: barHost.dropLayout || barHost.notchLayout || barHost.dynamicLayout
         WeatherWidget {
             host: verticalMiddle.host
