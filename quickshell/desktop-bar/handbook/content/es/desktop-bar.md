@@ -21,7 +21,7 @@ El icono de actualizaciones, antes de Notificaciones, comprueba poco después de
 ## Cambiar la disposición de la barra
 
 - Haz doble clic izquierdo en el **espacio vacío de la barra** para recorrer Color del tema → Desenfoque → Sitio web; las instalaciones nuevas comienzan con Color del tema. Sitio web usa los colores del sitio de Eitr, claros u oscuros según el tema.
-- Haz doble clic derecho en el espacio vacío para recorrer Completa → Centrada → Pestañas → Islas → Dinámico → Completa.
+- Haz doble clic derecho en el espacio vacío para recorrer Completa → Centrada → Pestañas → Islas → Dinámico → Gota → Completa.
 - Arrastra el espacio vacío hacia arriba, abajo, izquierda o derecha para mover la barra. A izquierda y derecha la barra es tan estrecha como arriba y abajo: el reloj muestra la hora sobre los minutos con un icono de calendario y el tiempo solo su icono; pasa el puntero para ver la fecha y la temperatura.
 - **Reloj** en Configuración > Barra del escritorio muestra la hora en formato de 12 horas con AM/PM (predeterminado) o de 24 horas, en cualquier borde.
 - Las mismas opciones están en **Configuración > Barra del escritorio**, en sus pestañas Distribución, Apariencia y Comportamiento.
@@ -29,9 +29,9 @@ El icono de actualizaciones, antes de Notificaciones, comprueba poco después de
 
 <!-- eitr-figure: bar-layouts -->
 
-Los cinco diseños en el orden en que los recorre el doble clic derecho. En reposo, Centrada muestra solo el reloj y Dinámico tres pequeñas islas; ambos se despliegan al pasar el puntero.
+Los seis diseños en el orden en que los recorre el doble clic derecho. En reposo, Centrada muestra solo el reloj, Dinámico tres pequeñas islas y Gota una sola cápsula con la hora; Centrada y Dinámico se despliegan al pasar el puntero.
 
-Elige una disposición en Configuración > Barra del escritorio. Las cinco funcionan en cualquier borde.
+Elige una disposición en Configuración > Barra del escritorio. Las seis funcionan en cualquier borde.
 
 | Disposición | Funcionamiento |
 | :--- | :--- |
@@ -40,6 +40,7 @@ Elige una disposición en Configuración > Barra del escritorio. Las cinco funci
 | Pestañas | Pestañas une tres pestañas con una franja fina. Los iconos de estado quedan visibles; pasa el puntero por la central para ver el tiempo. |
 | Islas | Islas da a cada grupo su propia cápsula y muestra siempre todos los iconos de estado. Abrir un panel amplía su isla y aparta los grupos vecinos. |
 | Dinámico | Dinámico empieza con tres islas: logotipo, reloj y red/batería. Pasa el puntero para ampliar una; un panel crece desde esa misma isla. |
+| Gota | Gota muestra solo la hora en una cápsula en el centro del borde; haz clic para ver el calendario. Con la ocultación automática, un pequeño punto luminoso queda en el borde y vuelve a crecer hasta la cápsula cuando aparece la barra. |
 
 ## Espacios de trabajo
 
@@ -61,7 +62,7 @@ El fondo de los botones de icono aparece al pasar el puntero; los paneles se act
 
 **Visualizador de música** abre cava con los colores del tema. Haz clic derecho en el ecualizador multimedia para abrirlo; el clic izquierdo sigue abriendo los detalles multimedia. Pulsa **q** o **Esc** para cerrarlo. Si falta cava, se instala primero.
 
-**Ocultar automáticamente**, en Configuración > Barra del escritorio, retrae la barra tras un breve retraso cuando sales de ella con el puntero. Lleva el puntero al borde de la pantalla para mostrarla. Funciona en los cuatro bordes con los modos Completa, Centrada, Pestañas e Islas y Dinámico. Los paneles y menús abiertos, así como arrastrar la barra, la mantienen visible; después vuelve a ocultarse.
+**Ocultar automáticamente**, en Configuración > Barra del escritorio, retrae la barra tras un breve retraso cuando sales de ella con el puntero. Lleva el puntero al borde de la pantalla para mostrarla. Funciona en los cuatro bordes con los modos Completa, Centrada, Pestañas, Islas, Dinámico y Gota; Gota deja un pequeño punto luminoso en el borde en lugar de retirarse. Los paneles y menús abiertos, así como arrastrar la barra, la mantienen visible; después vuelve a ocultarse.
 
 Mientras está activado, la barra no reserva espacio para las ventanas: se desliza sobre ellas en vez de moverlas. La preferencia se guarda por separado del anclaje del modo centrado y viene desactivada en instalaciones nuevas. Las notificaciones aparecen sin mostrarla.
 

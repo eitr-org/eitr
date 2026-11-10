@@ -258,7 +258,7 @@ Double-left-click empty bar space to cycle the opaque theme color, the transpare
 background with blur, and Website: the Eitr website's palette (`SiteStyle`, light or
 dark by the theme) for the bar, panels and popups, with the site's gold on heading
 runes and Control Center labels. Double-right-click empty space to switch
-through Full, Centered, Tabs, Islands and Dynamic layouts. Both cycles, the Control Center buttons and
+through Full, Centered, Tabs, Islands, Dynamic and Drop layouts. Both cycles, the Control Center buttons and
 Walker's menus read the layout and appearance lists from `tools/choice-lists.json`,
 through the generated `ChoiceLists.js` (and its Python and Lua twins). Centered mode shows only the clock
 until hovered, then unfolds both icon groups in their existing order. Centered meets the screen edge with square edge ends and the same softly rounded 45° slopes as Tabs on both sides. These slopes rotate with the bar on all four edges and ignore the corner preference; its detached panels still follow that preference. Each side
@@ -275,9 +275,11 @@ centered strip pass clicks through. Old split preferences migrate to centered.
 
 Islands gives the logo, Overview/workspaces, AI Usage/Hardware/Idle Lock, clock, weather and status controls separate content-sized pills, preserving their order and Full’s icon spacing. Media and capture indicators get pills only while active. The clock stays exactly screen-centred; weather has its own pill beside it. Pills are always fully rounded, whatever the corner preference, and follow the bar colour/transparency and blur. Pills sit half of Hyprland’s live outer gap from the screen edge, with the full gap between neighbouring pills, on all four edges. The reserved window space includes the pill depth and that half gap; auto-hide reserves none. Gaps and rounded corners pass clicks through. Empty space on each pill supports the usual double-click and drag gestures. Opening a panel grows a card out of its pill (from the pill's free side: weather to the right, media and capture to the left, status toward the centre, the clock both ways), pushing the neighbouring pills aside; the pill hides under the card until it has shrunk back. Every status icon is always shown; Islands has no show/hide toggle.
 
-Tabs uses a continuous 7 px strip and three content-sized tabs for the left, centre and right groups. Each inner tab end starts right at its outermost item, including when media is hidden; the centre tab is symmetric around the clock when media and weather are hidden. Weather is hidden until the centre tab is hovered, then slides out after the fixed clock in 320 ms; it retracts after a short hover delay and stays visible while its panel is open. Only the trailing side grows, along the bar axis on every edge, ending right at the last visible item. Tabs retain the full bar depth (30 px horizontally), fixed trapezoid joins with straight 45° slopes outside the tab padding. The clock stays exactly screen-centred, including with media visible. Panels float beside the bar on detached rounded surfaces, aligned left, centre or right like Full and inset from screen edges by the outer gap, with the live Hyprland inter-window gap and the same 320 ms reveal as Centered. Gaps pass clicks through; the full tab depth is reserved for windows. Double-right-click cycles Full → Centered → Tabs → Islands → Dynamic → Full. The slopes have subtly softened bends and do not follow the corner preference; screen-edge ends stay square and filled. Tabs always shows all right-side controls without a show/hide arrow.
+Tabs uses a continuous 7 px strip and three content-sized tabs for the left, centre and right groups. Each inner tab end starts right at its outermost item, including when media is hidden; the centre tab is symmetric around the clock when media and weather are hidden. Weather is hidden until the centre tab is hovered, then slides out after the fixed clock in 320 ms; it retracts after a short hover delay and stays visible while its panel is open. Only the trailing side grows, along the bar axis on every edge, ending right at the last visible item. Tabs retain the full bar depth (30 px horizontally), fixed trapezoid joins with straight 45° slopes outside the tab padding. The clock stays exactly screen-centred, including with media visible. Panels float beside the bar on detached rounded surfaces, aligned left, centre or right like Full and inset from screen edges by the outer gap, with the live Hyprland inter-window gap and the same 320 ms reveal as Centered. Gaps pass clicks through; the full tab depth is reserved for windows. Double-right-click cycles Full → Centered → Tabs → Islands → Dynamic → Drop → Full. The slopes have subtly softened bends and do not follow the corner preference; screen-edge ends stay square and filled. Tabs always shows all right-side controls without a show/hide arrow.
 
 Dynamic gathers the bar into three islands side by side at the screen centre, always fully rounded whatever the corner preference. At rest they show the Eitr logo, the time (hours and minutes only) exactly screen-centred, and network/battery status. Hover expands only that island: the left reveals Overview, workspaces, AI Usage, Hardware and Idle Lock; the middle shows the full date, AM/PM when the 12-hour clock is used, and the weather, staying centred as a whole; the right reveals media, capture and every status control without a manual toggle. Opening a panel from an island grows that island into the panel itself, and the other islands slide aside; closing shrinks it back into its pill. Islands grow in 320 ms, instantly with Reduce motion, and collapse 350 ms after the pointer leaves; an open panel or dragging keeps them expanded. All four edges and appearances are supported. Islands float half the live outer gap off the edge and reserve their resting depth plus that gap; empty space passes clicks through. On short edges, scroll inside an expanded island to reach controls that do not fit. ‹ and › on the card step through that island's panels.
+
+Drop (`bar/BarDrop.qml`) shows one full pill with only the time, exactly centred on the bar's edge on all four edges, in the bar colour/transparency and blur; it reuses Dynamic's island and ignores the corner preference. Clicking the time opens the calendar, which floats detached at the centre like Dynamic's panels. The pill floats half the live outer gap off the edge and reserves its depth plus that gap; only the pill takes clicks. With auto-hide, the rest of the bar does not slide: the pill follows the auto-hide progress instead, shrinking into a 10 px accent dot with a soft glow at the edge centre and growing back into the pill when the bar reveals (320 ms, instant with Reduce motion). The dot and a small target around it stay in the input region, so reaching them reveals the bar like the edge sensor. The glance strip on hover and the dashboard card on click are the next steps (`TODO.md`).
 
 Drag empty bar space toward top, bottom, left, or right to change its edge; a
 preview highlights the destination. The choices persist in `bar-settings.json`.
@@ -296,7 +298,7 @@ The `clock` setting in `bar-settings.json` (`12h`, the default, or `24h`), under
 Settings > Desktop > Desktop Bar > Clock and the Settings window's Desktop Bar page, picks the time format
 for every edge.
 AI Usage, Hardware and Idle Lock sit together after the workspaces; right-hand controls
-retain their manual show/hide toggle in Full only. Centered, Tabs, Islands and Dynamic keep them visible without a toggle. Both side groups share 24 px icon slots
+retain their manual show/hide toggle in Full only. Centered, Tabs, Islands and Dynamic keep them visible without a toggle; Drop does not show them yet. Both side groups share 24 px icon slots
 and 4 px spacing, with centered alignment on every bar edge. Active workspace
 glyphs use the accent color without a filled background in every style; the
 style menus show the same markers.
@@ -769,7 +771,7 @@ options in the Plugins page while click-through.
 Plugin appearance belongs to its author. Widgets and panels default to no host surface; panel surfaces and theme helpers are opt-in. Tiles default to the Eitr row, with `look: "custom"` providing a full-slot canvas. See `distro/PLUGINS.md`.
 
 Auto-hide is optional in Settings > Desktop > Desktop Bar and the Settings window's Desktop Bar page. The
-strip slides out in 320 ms, retaining a one-pixel edge input region. Panels,
+strip slides out in 320 ms, retaining a one-pixel edge input region; Drop instead shrinks its pill into the glowing edge dot. Panels,
 pending popups, Overview and dragging hold it open (notification toasts do not); a 350 ms leave delay precedes
 hiding. A hidden bar reserves no space. The preference is separate from the
 Centered pin and applies independently to each displayed bar.
@@ -825,7 +827,7 @@ unfold animates from the current size over the remaining reveal time, so both
 finish together. Ordinary size changes after opening retain the 320 ms resize.
 Native QObject lists compare identities rather than serializing service objects.
 
-Every entry below **needs live check** on all four edges, Full/Centered/Tabs/Islands/Dynamic,
+Every entry below **needs live check** on all four edges, Full/Centered/Tabs/Islands/Dynamic/Drop,
 both palettes, cold/warm cache and slow providers. Offscreen checks cannot prove
 compositor blur, D-Bus, GPU capture, DDC or real hardware performance.
 

@@ -36,6 +36,7 @@ ShellRoot {
   id: window; visible: true; implicitWidth: 1280; implicitHeight: 1000; color: "#191b25"
   property var choicePopups: []
   property bool dynamicLayout: false
+  property bool dropLayout: false
   property bool centeredLayout: false
   property bool notchLayout: false
   property bool islandsLayout: false
@@ -81,12 +82,14 @@ ShellRoot {
    property bool centeredLayout: window.centeredLayout
    property bool islandsLayout: window.islandsLayout
    property bool dynamicLayout: window.dynamicLayout
+   property bool dropLayout: window.dropLayout
    property string barEdge: "top"
    property var autoHideRef: ({progress: 0})
    property var contentItem: canvas
    property var choicePopups: window.choicePopups
    property var islandSurfaces: ({children: []})
    property var dynamicSurfaces: ({surfaces: []})
+   property var dropSurfaces: ({surfaces: []})
    property var centeredOutline: strip
    property real normalThickness: 30
    property real tabBendRound: 3
@@ -146,9 +149,10 @@ ShellRoot {
    keyClick(Qt.Key_Escape); check(!dropdown.expanded);
   }
   function test_02_popupGeometry() {
-   for (const layout of ["unified", "centered", "notch", "islands", "dynamic"]) {
+   for (const layout of ["unified", "centered", "notch", "islands", "dynamic", "drop"]) {
     window.centeredLayout = layout === "centered"; window.notchLayout = layout === "notch";
     window.islandsLayout = layout === "islands"; window.dynamicLayout = layout === "dynamic";
+    window.dropLayout = layout === "drop";
     for (const edge of ["top", "bottom", "left", "right"]) {
      panel.y = edge === "bottom" ? 780 : 80;
      panel.x = edge === "right" ? 880 : 440;

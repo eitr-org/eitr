@@ -122,9 +122,9 @@ Item {
     readonly property real desiredWidth: implicitWidth + (verticalAttachment ? navigationBand : 0)
     readonly property real desiredHeight: implicitHeight + (verticalAttachment ? 0 : navigationBand)
     readonly property var hostWindow: attachmentTarget ? attachmentTarget.QsWindow.window : null
-    readonly property bool detached: !!hostWindow && (!!hostWindow.centeredLayout || !!hostWindow.notchLayout || !!hostWindow.islandsLayout || !!hostWindow.dynamicLayout)
-    // Centered and Dynamic gather the bar at the centre, so their panels open there too.
-    readonly property bool centeredPlacement: !!hostWindow && (!!hostWindow.centeredLayout || !!hostWindow.dynamicLayout)
+    readonly property bool detached: !!hostWindow && (!!hostWindow.centeredLayout || !!hostWindow.notchLayout || !!hostWindow.islandsLayout || !!hostWindow.dynamicLayout || !!hostWindow.dropLayout)
+    // Centered, Dynamic and Drop gather the bar at the centre, so their panels open there too.
+    readonly property bool centeredPlacement: !!hostWindow && (!!hostWindow.centeredLayout || !!hostWindow.dynamicLayout || !!hostWindow.dropLayout)
     readonly property var edgeInsets: detached ? (!centeredPlacement && hostWindow.outerGaps ? hostWindow.outerGaps : [12, 12, 12, 12]) : [0, 0, 0, 0]
     readonly property real attachmentGap: detached ? hostWindow.panelGap : 0
     readonly property var focusWindows: hostWindow ? (hostWindow.panelFocusWindows || [hostWindow]) : []
@@ -163,8 +163,8 @@ Item {
     // kept a stale window when the bar's screen was unplugged, and Qt crashed on it.
     parent: inlineParent || (hostWindow && (opened || revealProgress > 0) ? hostWindow.contentItem : null)
     z: 100
-    width: detached && parent && strip ? Math.min(desiredWidth, parent.width - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "left" ? edgeInsets[1] : edgeInsets[3]) : edgeInsets[1] + edgeInsets[3])) : desiredWidth
-    height: detached && parent && strip ? Math.min(desiredHeight, parent.height - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "top" ? edgeInsets[2] : edgeInsets[0]) : edgeInsets[0] + edgeInsets[2])) : desiredHeight
+    width: detached && parent && strip ? Math.min(desiredWidth, parent.width - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout || hostWindow.dropLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "left" ? edgeInsets[1] : edgeInsets[3]) : edgeInsets[1] + edgeInsets[3])) : desiredWidth
+    height: detached && parent && strip ? Math.min(desiredHeight, parent.height - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout || hostWindow.dropLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "top" ? edgeInsets[2] : edgeInsets[0]) : edgeInsets[0] + edgeInsets[2])) : desiredHeight
     PanelSizeBehavior on width { ownerPanel: panel }
     PanelSizeBehavior on height { ownerPanel: panel }
     x: {

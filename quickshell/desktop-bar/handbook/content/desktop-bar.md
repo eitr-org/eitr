@@ -15,7 +15,7 @@ The updates icon, before Notifications, checks shortly after login and every six
 - Double-left-click **empty bar space** to cycle Theme Color → Blur → Website (new
   installations start with Theme Color). Website uses the Eitr website's colors,
   light or dark with the theme.
-- Double-right-click empty space to cycle Full → Centered → Tabs → Islands → Dynamic → Full.
+- Double-right-click empty space to cycle Full → Centered → Tabs → Islands → Dynamic → Drop → Full.
 - Drag empty space toward the top, bottom, left or right to move the bar. Left and right bars are as thin as top and bottom ones: the clock shows the hour over the minutes with a calendar icon, and the weather shows its icon; hover them for the date and temperature.
 - **Clock** under Settings > Desktop Bar shows 12-hour time with AM/PM (the default) or 24-hour time, on every bar edge.
 - The same settings are under **Settings > Desktop Bar**, in its Layout, Look and Behaviour tabs.
@@ -27,9 +27,9 @@ The updates icon, before Notifications, checks shortly after login and every six
 
 <!-- eitr-figure: bar-layouts -->
 
-The five layouts in the order double-right-click cycles them. At rest, Centered shows only the clock and Dynamic three small islands; both unfold on hover.
+The six layouts in the order double-right-click cycles them. At rest, Centered shows only the clock, Dynamic three small islands and Drop a single time pill; Centered and Dynamic unfold on hover.
 
-Choose a layout in Settings > Desktop Bar. All five work on every screen edge.
+Choose a layout in Settings > Desktop Bar. All six work on every screen edge.
 
 | Layout | What to expect |
 | :--- | :--- |
@@ -38,6 +38,7 @@ Choose a layout in Settings > Desktop Bar. All five work on every screen edge.
 | Tabs | Tabs uses three tabs joined by a thin strip. Status icons stay visible; hover the middle tab for weather. |
 | Islands | Islands gives each group its own pill, with every status icon always shown. Opening a panel expands its pill and moves neighbouring groups aside. |
 | Dynamic | Dynamic starts with three islands: logo, clock and network/battery. Hover one to expand it; opening a panel grows that island into the panel. |
+| Drop | Drop shows only the time in one pill at the centre of the edge; click it for the calendar. With auto-hide, a small glowing dot stays at the edge and grows back into the pill when the bar reveals. |
 
 ## Workspaces
 
@@ -63,7 +64,7 @@ The Audio/Mic control opens one panel with separate output and microphone sectio
 
 **Music Visualizer** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.
 
-**Auto-hide**, under Settings > Desktop Bar, slides the bar away after a short pointer-leave delay. Touch its screen edge to reveal it. It works on all four edges with Full, Centered, Tabs, Islands and Dynamic layouts. Open panels and popups, and dragging the bar, keep it visible; it hides again afterwards. While auto-hide is on, the bar reserves no window space: it slides over windows instead of moving them. The setting is saved independently of the centered-layout pin and is off by default on new installations. Notifications appear without revealing it.
+**Auto-hide**, under Settings > Desktop Bar, slides the bar away after a short pointer-leave delay. Touch its screen edge to reveal it. It works on all four edges with Full, Centered, Tabs, Islands, Dynamic and Drop layouts; Drop keeps a small glowing dot at the edge instead of sliding away. Open panels and popups, and dragging the bar, keep it visible; it hides again afterwards. While auto-hide is on, the bar reserves no window space: it slides over windows instead of moving them. The setting is saved independently of the centered-layout pin and is off by default on new installations. Notifications appear without revealing it.
 
 **Reduce motion**, under Settings > Desktop Bar, makes panel unfolding and folding, Overview entrances, notification transitions and decorative bar animations instant. It is off by default and saved in `bar-settings.json`. Timers that refresh data, dismiss notifications or delay auto-hide keep their normal behavior.
 

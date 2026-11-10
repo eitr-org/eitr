@@ -42,6 +42,7 @@ ShellRoot {
         implicitWidth: shell.verticalBar ? 240 : 1920
         implicitHeight: shell.verticalBar ? 1920 : 240
         property bool dynamicLayout: true
+        property bool dropLayout: false
         property bool centeredLayout: false
         property bool notchLayout: false
         property bool islandsLayout: false
@@ -60,6 +61,7 @@ ShellRoot {
             function toggleControlCenter() { control.visible = !control.visible; }
             function toggleOverview() { overviewOpen = !overviewOpen; }
             property bool dynamicLayout: true
+            property bool dropLayout: false
             property real normalThickness: 30
             property real islandGap: 6
             property bool floatingIslands: dynamicLayout

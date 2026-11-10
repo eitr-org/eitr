@@ -18,15 +18,18 @@ Rectangle {
     property var panel: null
     readonly property bool morphed: !!panel
     readonly property real thickness: barHost.normalThickness
+    // Drop shrinks its resting pill into the auto-hide dot by following the slide itself.
+    property real restingDepth: thickness
+    property bool eased: true
     readonly property real targetExtent: morphed ? Math.max(restingExtent, host.verticalBar ? panel.height : panel.width)
         : expanded ? fullExtent : restingExtent
-    readonly property real targetDepth: morphed ? Math.max(thickness, host.verticalBar ? panel.width : panel.height) : thickness
+    readonly property real targetDepth: morphed ? Math.max(thickness, host.verticalBar ? panel.width : panel.height) : restingDepth
     property real extent: targetExtent
     property real depth: targetDepth
     // An open panel animates its own resizes; the island follows them exactly instead of
     // easing behind them, which left the panel's content outside the card.
     readonly property bool followsPanel: morphed && panel.opened && panel.revealProgress >= 1
-    Behavior on depth { enabled: !island.followsPanel; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+    Behavior on depth { enabled: island.eased && !island.followsPanel; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     // Bottom and right bars grow the card back toward the screen centre.
     readonly property bool farEdge: host.barEdge === "bottom" || host.barEdge === "right"
     readonly property real depthOffset: farEdge ? thickness - depth : 0
@@ -37,7 +40,7 @@ Rectangle {
     // Islands are always full pills, whatever the corner preference; a card keeps 20 px corners.
     radius: Math.min(width, height, depth > thickness + 0.5 ? 40 : Infinity) / 2
     color: host.barBackground()
-    Behavior on extent { enabled: !island.followsPanel; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+    Behavior on extent { enabled: island.eased && !island.followsPanel; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     onExpandedChanged: {
         if (expanded) return;
         viewport.cancelFlick();

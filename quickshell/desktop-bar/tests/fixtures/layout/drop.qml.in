@@ -1,0 +1,200 @@
+import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {
+    id: shell
+    property string barEdge: EDGE
+    property bool verticalBar: barEdge === "left" || barEdge === "right"
+    property bool barPointerHeld: false
+    property bool barAutoHide: false
+    property string barClock: "24h"
+    property string dragCandidate: ""
+    property real workspaceItemSize: 24
+    property real workspaceItemSpacing: 4
+    property var screenGaps: [12, 12, 12, 12]
+    property color activeBg: "#70ba9a"
+    property color fg: LIGHT ? "#252936" : "#e9eef1"
+    property color workspaceMenuBg: LIGHT ? "#f5f0e7" : "#18212b"
+    function barBackground() { return workspaceMenuBg; }
+    function barDoubleClick(button) {}
+    function updateBarSetting(key, value) {}
+    FloatingWindow {
+        id: window
+        visible: true
+        implicitWidth: shell.verticalBar ? 240 : 1920
+        implicitHeight: shell.verticalBar ? 1080 : 240
+        property bool dropLayout: true
+        property bool dynamicLayout: false
+        property bool centeredLayout: false
+        property bool notchLayout: false
+        property bool islandsLayout: false
+        property var outerGaps: shell.screenGaps
+        property real panelGap: 12
+        property real islandGap: 6
+        property Item stripItem: strip
+        color: LIGHT ? "#e2ddcf" : "#0c1119"
+        Item {
+            id: bar
+            anchors.fill: parent
+            property bool dropLayout: true
+            property real normalThickness: 30
+            property real islandGap: 6
+            property bool floatingIslands: dropLayout
+            property bool centeredLayout: false
+            property real thinThickness: normalThickness
+            property real reservedThickness: RESERVED
+            property var pendingPanel: null
+            property var screen: ({width: window.width, height: window.height})
+            property var contentItem: window.contentItem
+            property alias autoHideRef: autoHide
+            property var leftGroup: left
+            property var barHorizontalCenter: center
+            property var rightSide: right
+            property var notificationIcon: notification
+            property var mediaStrip: media
+            property var barCapture: capture
+            property var centerInfo: clock
+            property var verticalStart: leftVertical
+            property var verticalMiddle: centerVertical
+            property var verticalEnd: rightVertical
+            property var verticalMedia: mediaVertical
+            property var verticalCapture: captureVertical
+            property var verticalCalendarIcon: clockVertical
+            Rectangle { anchors.fill: parent; color: window.color }
+            Bar.BarAutoHide { id: autoHide; autoHide: shell.barAutoHide }
+            component Slot: Item {
+                property string label: ""
+                width: 24; height: 24
+                Text { anchors.centerIn: parent; text: parent.label; color: shell.fg; font.family: Bar.DesktopFonts.family; font.pixelSize: 14 }
+            }
+            Item {
+                id: strip
+                GEOMETRY
+                Item {
+                    visible: !shell.verticalBar
+                    anchors.fill: parent
+                    Row { id: left; x: 12; anchors.verticalCenter: parent.verticalCenter; spacing: 4
+                        Repeater { model: ["󰕮", "ᚠ", "ᚢ", "ᚦ"]; Slot { required property string modelData; label: modelData } }
+                    }
+                    Item { id: center; anchors.fill: parent
+                        Bar.ClockButton { id: clock; host: shell; anchors.centerIn: parent; now: new Date(2026, 10, 10, 9, 41) }
+                        Slot { id: capture; label: "󰑋"; anchors.right: clock.left; anchors.verticalCenter: parent.verticalCenter }
+                        Slot { id: media; property bool audioEnabled: true; label: "󰐊"; anchors.right: capture.left; anchors.verticalCenter: parent.verticalCenter }
+                    }
+                    Slot { id: notification; label: "󰂚"; anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter }
+                    Row { id: right; anchors.right: notification.left; anchors.verticalCenter: parent.verticalCenter; spacing: 4
+                        Repeater { model: ["󰤨", "󰂯", "󰕾"]; Slot { required property string modelData; label: modelData } }
+                    }
+                }
+                Item {
+                    visible: shell.verticalBar
+                    anchors.fill: parent
+                    Column { id: leftVertical; anchors.horizontalCenter: parent.horizontalCenter; spacing: 4
+                        Repeater { model: ["󰕮", "ᚠ", "ᚢ"]; Slot { required property string modelData; label: modelData } }
+                    }
+                    Item { id: centerVertical; anchors.centerIn: parent; width: parent.width; height: 40
+                        Bar.ClockButton { id: clockVertical; host: shell; compact: true; anchors.centerIn: parent; now: new Date(2026, 10, 10, 9, 41) }
+                        Slot { id: captureVertical; label: "󰑋"; anchors.bottom: clockVertical.top; anchors.horizontalCenter: parent.horizontalCenter }
+                        Slot { id: mediaVertical; label: "󰐊"; anchors.bottom: captureVertical.top; anchors.horizontalCenter: parent.horizontalCenter }
+                    }
+                    Column { id: rightVertical; anchors.bottom: parent.bottom; anchors.horizontalCenter: parent.horizontalCenter; spacing: 4
+                        Repeater { model: ["󰤨", "󰂯", "󰂚"]; Slot { required property string modelData; label: modelData } }
+                    }
+                }
+                Bar.BarDrop { id: drop; host: shell; barHost: bar }
+            }
+            Bar.DockPanel {
+                id: panel
+                parent: window.contentItem
+                attachmentTarget: shell.verticalBar ? clockVertical : clock
+                attachmentEdge: shell.barEdge
+                implicitWidth: 330; implicitHeight: 250
+            }
+            Bar.IslandMask { id: mask; surfaces: drop.surfaces }
+            function near(actual, expected, what) { if (Math.abs(actual - expected) > 0.01) throw new Error(what + ": " + actual + " vs " + expected); }
+            function along(point) { return shell.verticalBar ? point.y : point.x; }
+            // The pill's depth sits half the outer gap off the screen edge, its middle on the edge's centre.
+            function checkCentred(item, depth) {
+                const middle = item.mapToItem(bar, item.width / 2, item.height / 2);
+                near(along(middle), (shell.verticalBar ? bar.height : bar.width) / 2, "Not centred on the edge");
+                const outer = item.mapToItem(bar, 0, 0);
+                const offset = { top: outer.y, left: outer.x, bottom: bar.height - outer.y - item.height, right: bar.width - outer.x - item.width }[shell.barEdge];
+                near(offset, bar.islandGap, "Not half the outer gap off the edge");
+                near(shell.verticalBar ? item.width : item.height, depth, "Wrong depth");
+            }
+            function checkRest() {
+                const pill = drop.pillSurface;
+                const clockItem = shell.verticalBar ? clockVertical : clock;
+                checkCentred(pill, 30);
+                near(pill.radius, Math.min(pill.width, pill.height) / 2, "Pill is not fully rounded");
+                const time = clockItem.mapToItem(bar, clockItem.width / 2, clockItem.height / 2);
+                near(along(time), (shell.verticalBar ? bar.height : bar.width) / 2, "Time not centred");
+                if (!clockItem.timeOnly) throw new Error("Resting pill must show only the time");
+                if (drop.contentOpacity !== 1) throw new Error("Time hidden at rest");
+                for (const hidden of shell.verticalBar ? [leftVertical, rightVertical, captureVertical] : [left, right, notification, capture, media])
+                    if (hidden.opacity !== 0 || hidden.enabled) throw new Error("Only the time may show at rest");
+                if (shell.verticalBar ? mediaVertical.visible : media.audioEnabled) throw new Error("Media must stay off");
+                if (!panel.detached || !panel.centeredPlacement) throw new Error("Panels must open at the centre");
+                if (reservedThickness !== 36) throw new Error("Reserved depth must be the pill plus half the gap");
+                const regions = mask.regions.filter(region => region.item);
+                if (regions.length !== 1 || regions[0].item !== pill)
+                    throw new Error("Input must cover only the pill");
+            }
+            function checkDot() {
+                const pill = drop.pillSurface;
+                checkCentred(pill, drop.dotSize);
+                near(pill.width, drop.dotSize, "Dot width");
+                near(pill.height, drop.dotSize, "Dot height");
+                near(pill.radius, drop.dotSize / 2, "Dot is not round");
+                const dot = bar.find(pill, "dropDot");
+                if (!dot || !dot.visible || dot.opacity !== 1) throw new Error("Glowing dot missing");
+                if (drop.contentOpacity !== 0) throw new Error("Time shows on the dot");
+                const reach = drop.surfaces[1];
+                if (!reach.visible) throw new Error("The dot keeps no hover target");
+                const reachMiddle = reach.mapToItem(bar, reach.width / 2, reach.height / 2);
+                near(along(reachMiddle), (shell.verticalBar ? bar.height : bar.width) / 2, "Hover target off centre");
+                if (mask.regions.filter(region => region.item).length !== 2) throw new Error("Dot input must be the dot and its target");
+            }
+            function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+            property int stage: 0
+            function shoot(name, next) { bar.grabToImage(function(result) { result.saveToFile(CAPTURE + "-" + name + ".png"); next(); }); }
+            Timer {
+                id: steps
+                interval: 400; running: true
+                onTriggered: {
+                    try {
+                        const stage = bar.stage++;
+                        if (stage === 0) { bar.checkRest(); bar.shoot("rest", () => steps.restart()); return; }
+                        if (stage === 1) { Bar.DesktopStyle.reduceMotion = false; shell.barAutoHide = true; steps.interval = 1200; }
+                        else if (stage === 2) {
+                            if (autoHide.progress !== 0) throw new Error("Auto-hide did not hide");
+                            bar.checkDot();
+                            bar.shoot("dot", () => { autoHide.pointerInside = true; steps.interval = 120; steps.restart(); });
+                            return;
+                        } else if (stage === 3) {
+                            const pill = drop.pillSurface;
+                            const extent = shell.verticalBar ? pill.height : pill.width;
+                            if (!(autoHide.progress > 0 && autoHide.progress < 1)) throw new Error("Reveal did not animate");
+                            if (!(extent > drop.dotSize && extent < drop.pillExtent)) throw new Error("Dot did not grow gradually: " + extent);
+                            bar.shoot("grow", () => { steps.interval = 600; steps.restart(); });
+                            return;
+                        } else if (stage === 4) {
+                            if (autoHide.progress !== 1) throw new Error("Reveal did not settle");
+                            bar.checkRest();
+                            Bar.DesktopStyle.reduceMotion = true;
+                            autoHide.pointerInside = false; steps.interval = 450;
+                        } else if (stage === 5) {
+                            if (autoHide.progress !== 0) throw new Error("Reduce motion must hide instantly");
+                            bar.checkDot();
+                            autoHide.pointerInside = true;
+                            if (autoHide.progress !== 1) throw new Error("Reduce motion must reveal instantly");
+                            bar.checkRest();
+                            console.log("DROP_OK"); Qt.quit(); return;
+                        }
+                        steps.restart();
+                    } catch (error) { console.error(error); Qt.exit(1); }
+                }
+            }
+        }
+    }
+}

@@ -21,7 +21,7 @@ O ícone de atualizações, antes de Notificações, verifica pouco depois do lo
 ## Alterar o layout da barra
 
 - Dê dois cliques com o botão esquerdo no **espaço vazio da barra** para alternar entre Cor do tema → Desfoque → Site; novas instalações começam com Cor do tema. Site usa as cores do site do Eitr, claras ou escuras conforme o tema.
-- Dê dois cliques com o botão direito no espaço vazio para alternar Completa → Centralizada → Abas → Ilhas → Dinâmico → Completa.
+- Dê dois cliques com o botão direito no espaço vazio para alternar Completa → Centralizada → Abas → Ilhas → Dinâmico → Gota → Completa.
 - Arraste um espaço vazio para cima, baixo, esquerda ou direita para mover a barra. À esquerda e à direita, a barra é tão fina quanto em cima e embaixo: o relógio mostra a hora acima dos minutos com um ícone de calendário, e o clima só o ícone; passe o ponteiro para ver a data e a temperatura.
 - **Relógio** em Configurações > Barra da área de trabalho mostra a hora no formato de 12 horas com AM/PM (padrão) ou de 24 horas, em qualquer borda.
 - As mesmas opções ficam em **Configurações > Barra da área de trabalho**, nas abas Layout, Aparência e Comportamento.
@@ -29,9 +29,9 @@ O ícone de atualizações, antes de Notificações, verifica pouco depois do lo
 
 <!-- eitr-figure: bar-layouts -->
 
-Os cinco layouts na ordem em que o clique duplo direito os alterna. Em repouso, Centralizada mostra só o relógio e Dinâmico três pequenas ilhas; ambos se expandem ao passar o ponteiro.
+Os seis layouts na ordem em que o clique duplo direito os alterna. Em repouso, Centralizada mostra só o relógio, Dinâmico três pequenas ilhas e Gota uma única cápsula com a hora; Centralizada e Dinâmico se expandem ao passar o ponteiro.
 
-Escolha um layout em Configurações > Barra da área de trabalho. Os cinco funcionam em qualquer borda.
+Escolha um layout em Configurações > Barra da área de trabalho. Os seis funcionam em qualquer borda.
 
 | Layout | Comportamento |
 | :--- | :--- |
@@ -40,6 +40,7 @@ Escolha um layout em Configurações > Barra da área de trabalho. Os cinco func
 | Abas | Abas une três abas por uma faixa fina. Os ícones de estado ficam visíveis; passe o ponteiro no centro para ver o clima. |
 | Ilhas | Ilhas dá a cada grupo sua própria cápsula e mostra sempre todos os ícones de status. Abrir um painel amplia sua ilha e afasta os grupos vizinhos. |
 | Dinâmico | Dinâmico começa com três ilhas: logo, relógio e rede/bateria. Passe o ponteiro para ampliar uma; um painel cresce a partir dessa mesma ilha. |
+| Gota | Gota mostra só a hora em uma cápsula no centro da borda; clique nela para ver o calendário. Com a ocultação automática, um pequeno ponto luminoso fica na borda e volta a crescer até a cápsula quando a barra aparece. |
 
 ## Espaços de trabalho
 
@@ -61,7 +62,7 @@ O fundo dos botões de ícone aparece quando você passa o ponteiro sobre eles; 
 
 **Visualizador de música** abre o cava com as cores do tema. Clique com o botão direito no equalizador de mídia para abrir o mesmo visualizador; o botão esquerdo continua abrindo os detalhes da mídia. Pressione **q** ou **Esc** para fechar. Se o cava não estiver instalado, ele será instalado primeiro.
 
-**Ocultar automaticamente**, em Configurações > Barra da área de trabalho, recolhe a barra após um breve atraso quando o ponteiro sai. Encoste o ponteiro na borda da tela para mostrá-la. Funciona nas quatro bordas com os modos Completa, Centralizada, Abas e Ilhas e Dinâmico. Painéis e menus abertos, assim como arrastar a barra, mantêm a barra visível; depois ela volta a se ocultar.
+**Ocultar automaticamente**, em Configurações > Barra da área de trabalho, recolhe a barra após um breve atraso quando o ponteiro sai. Encoste o ponteiro na borda da tela para mostrá-la. Funciona nas quatro bordas com os modos Completa, Centralizada, Abas, Ilhas, Dinâmico e Gota; Gota deixa um pequeno ponto luminoso na borda em vez de se recolher. Painéis e menus abertos, assim como arrastar a barra, mantêm a barra visível; depois ela volta a se ocultar.
 
 Enquanto estiver ativado, a barra não reserva espaço das janelas: ela desliza sobre elas em vez de movê-las. A preferência é salva separadamente do alfinete do modo centralizado e vem desativada em novas instalações. As notificações aparecem sem mostrá-la.
 

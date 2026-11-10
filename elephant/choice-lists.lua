@@ -46,6 +46,7 @@ return {
         {id = "notch", label = "Tabs", description = "Show three compact edge tabs", icon = "\243\176\141\156"},
         {id = "islands", label = "Islands", description = "Show separate floating pills", icon = "\243\176\141\156"},
         {id = "dynamic", label = "Dynamic", description = "Expand three floating islands on hover", icon = "\243\176\141\156"},
+        {id = "drop", label = "Drop", description = "Show only the time; it grows when you need it", icon = "\243\176\150\140"},
     },
     bar_appearances = {
         {id = "solid", label = "Theme Color", description = "Use the current theme colour", icon = "\243\176\143\152"},

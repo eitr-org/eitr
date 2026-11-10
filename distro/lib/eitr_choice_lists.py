@@ -46,6 +46,7 @@ BAR_LAYOUTS = (
     {'id': 'notch', 'label': 'Tabs', 'description': 'Show three compact edge tabs', 'icon': '\U000f035c'},
     {'id': 'islands', 'label': 'Islands', 'description': 'Show separate floating pills', 'icon': '\U000f035c'},
     {'id': 'dynamic', 'label': 'Dynamic', 'description': 'Expand three floating islands on hover', 'icon': '\U000f035c'},
+    {'id': 'drop', 'label': 'Drop', 'description': 'Show only the time; it grows when you need it', 'icon': '\U000f058c'},
 )
 BAR_APPEARANCES = (
     {'id': 'solid', 'label': 'Theme Color', 'description': 'Use the current theme colour', 'icon': '\U000f03d8'},

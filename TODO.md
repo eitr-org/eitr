@@ -32,6 +32,8 @@ item says what decides the next step. Remove an item when it ships;
   - Reuse the existing panels' data and DesktopData domains; no new readers. Build in steps
     the owner sees on their bar: resting pill and auto-hide dot, then the glance strip, then
     the dashboard tabs.
+  - Status (2026-11-10): step 1 built (resting time pill, auto-hide dot, Settings and
+    Walker entries via the choice lists); the glance strip and the dashboard card are next.
 - **Keybinds and window rules editors.** Settings > Keybinds only lists shortcuts today:
   rebind one by pressing the new keys, with clash warnings, reset to default and the
   change kept in the person's own config. Window rules: pick an app and choose

@@ -46,7 +46,8 @@ var barLayouts = [
     {"id": "centered", "label": "Centered", "description": "Show the clock and expand on hover", "keywords": ["Centered"], "icon": "\udb81\udd70"},
     {"id": "notch", "label": "Tabs", "description": "Show three compact edge tabs", "icon": "\udb80\udf5c"},
     {"id": "islands", "label": "Islands", "description": "Show separate floating pills", "icon": "\udb80\udf5c"},
-    {"id": "dynamic", "label": "Dynamic", "description": "Expand three floating islands on hover", "icon": "\udb80\udf5c"}
+    {"id": "dynamic", "label": "Dynamic", "description": "Expand three floating islands on hover", "icon": "\udb80\udf5c"},
+    {"id": "drop", "label": "Drop", "description": "Show only the time; it grows when you need it", "icon": "\udb81\udd8c"}
 ];
 var barAppearances = [
     {"id": "solid", "label": "Theme Color", "description": "Use the current theme colour", "icon": "\udb80\udfd8"},

@@ -13,7 +13,7 @@ Das Updatesymbol vor Benachrichtigungen prüft kurz nach der Anmeldung und alle 
 ## Das Leistenlayout ändern
 
 - Doppelklicke mit links auf **leere Leistenfläche**, um Designfarbe → Unschärfe → Website zu durchlaufen; Neuinstallationen beginnen mit Designfarbe. Website verwendet die Farben der Eitr-Website, hell oder dunkel passend zum Thema.
-- Ein rechter Doppelklick auf leere Fläche wechselt Voll → Zentriert → Laschen → Inseln → Dynamisch → Voll.
+- Ein rechter Doppelklick auf leere Fläche wechselt Voll → Zentriert → Laschen → Inseln → Dynamisch → Tropfen → Voll.
 - Ziehe leere Fläche nach oben, unten, links oder rechts, um die Leiste zu verschieben. Links und rechts ist die Leiste so schmal wie oben und unten: Die Uhr zeigt Stunde über Minuten mit einem Kalendersymbol, das Wetter nur sein Symbol; Datum und Temperatur erscheinen beim Darüberfahren.
 - **Uhr** unter Einstellungen > Desktopleiste zeigt die Zeit im 12-Stunden-Format mit AM/PM (Standard) oder im 24-Stunden-Format, an jedem Leistenrand.
 - Dieselben Einstellungen findest du unter **Einstellungen > Desktopleiste**, in den Reitern Layout, Aussehen und Verhalten.
@@ -21,9 +21,9 @@ Das Updatesymbol vor Benachrichtigungen prüft kurz nach der Anmeldung und alle 
 
 <!-- eitr-figure: bar-layouts -->
 
-Die fünf Layouts in der Reihenfolge, in der ein rechter Doppelklick sie durchläuft. In Ruhe zeigt Zentriert nur die Uhr und Dynamisch drei kleine Inseln; beide klappen beim Darüberfahren auf.
+Die sechs Layouts in der Reihenfolge, in der ein rechter Doppelklick sie durchläuft. In Ruhe zeigt Zentriert nur die Uhr, Dynamisch drei kleine Inseln und Tropfen eine einzelne Uhrzeit-Fläche; Zentriert und Dynamisch klappen beim Darüberfahren auf.
 
-Wähle ein Layout unter Einstellungen > Desktopleiste. Alle fünf funktionieren an jedem Bildschirmrand.
+Wähle ein Layout unter Einstellungen > Desktopleiste. Alle sechs funktionieren an jedem Bildschirmrand.
 
 | Layout | Verhalten |
 | :--- | :--- |
@@ -32,6 +32,7 @@ Wähle ein Layout unter Einstellungen > Desktopleiste. Alle fünf funktionieren 
 | Laschen | Laschen verbindet drei Tabs mit einem dünnen Streifen. Statussymbole bleiben sichtbar; über dem mittleren Tab erscheint das Wetter. |
 | Inseln | Inseln gibt jeder Gruppe eine eigene Fläche; alle Statussymbole bleiben sichtbar. Ein Panel erweitert seine Insel und schiebt Nachbargruppen beiseite. |
 | Dynamisch | Dynamisch beginnt mit drei Inseln: Logo, Uhr sowie Netzwerk/Akku. Darüberfahren erweitert eine; ein Panel wächst direkt aus ihr. |
+| Tropfen | Tropfen zeigt nur die Uhrzeit in einer Fläche in der Mitte des Rands; ein Klick öffnet den Kalender. Mit automatischem Ausblenden bleibt ein kleiner leuchtender Punkt am Rand, der beim Einblenden wieder zur Fläche wächst. |
 
 ## Arbeitsflächen
 
@@ -49,7 +50,7 @@ Audio/Mikro öffnet ein gemeinsames Panel mit getrennten Bereichen für Audioaus
 
 **Musikvisualisierer** öffnet cava in den Theme-Farben. Ein Rechtsklick auf den Medien-Equalizer öffnet denselben Visualisierer; ein Linksklick öffnet weiterhin die Mediendetails. **q** oder **Esc** schließt ihn. Auf bestehenden Desktops wird cava bei Bedarf zuerst installiert.
 
-**Automatisch ausblenden** unter Einstellungen > Desktopleiste zieht die Leiste nach einer kurzen Verzögerung ein, wenn du den Zeiger wegbewegst. Bewege ihn an den Bildschirmrand, um sie einzublenden. Das funktioniert an allen vier Rändern mit den Layouts Voll, Zentriert, Laschen und Inseln sowie Dynamisch. Offene Panels und Menüs sowie das Verschieben der Leiste halten sie sichtbar; danach blendet sie sich wieder aus.
+**Automatisch ausblenden** unter Einstellungen > Desktopleiste zieht die Leiste nach einer kurzen Verzögerung ein, wenn du den Zeiger wegbewegst. Bewege ihn an den Bildschirmrand, um sie einzublenden. Das funktioniert an allen vier Rändern mit den Layouts Voll, Zentriert, Laschen, Inseln, Dynamisch und Tropfen; Tropfen lässt statt der Leiste einen kleinen leuchtenden Punkt am Rand. Offene Panels und Menüs sowie das Verschieben der Leiste halten sie sichtbar; danach blendet sie sich wieder aus.
 
 Solange Automatisch ausblenden aktiv ist, reserviert die Leiste keinen Platz für Fenster: Sie gleitet über die Fenster, statt sie zu verschieben. Die Einstellung wird unabhängig von der Stecknadel des zentrierten Layouts gespeichert und ist bei Neuinstallationen ausgeschaltet. Benachrichtigungen erscheinen, ohne sie einzublenden.
 

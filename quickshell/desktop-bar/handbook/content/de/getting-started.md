@@ -41,7 +41,7 @@ Das Handbuch führt nie Befehle aus. Codeblöcke sind Beispiele zum bewussten Le
 <!-- eitr-overview -->
 ## Was Eitr bietet
 
-Eitr verbindet Arch Linux und Hyprland mit durchsuchbaren Walker-Menüs und einer Quickshell-Leiste. Wählen Sie Full, Centered, Tabs, Islands oder Dynamic; die Panels bündeln Verbindungen, Audio, Bildschirme, Hardware, Benachrichtigungen, Wetter und Arbeitsflächen. Themes gestalten den Desktop einheitlich; eigene Themes sind ebenfalls möglich.
+Eitr verbindet Arch Linux und Hyprland mit durchsuchbaren Walker-Menüs und einer Quickshell-Leiste. Wählen Sie Full, Centered, Tabs, Islands, Dynamic oder Drop; die Panels bündeln Verbindungen, Audio, Bildschirme, Hardware, Benachrichtigungen, Wetter und Arbeitsflächen. Themes gestalten den Desktop einheitlich; eigene Themes sind ebenfalls möglich.
 
 System Update aktualisiert offizielle, AUR- und Flatpak-Pakete mit Snapshots auf unterstützten Distributionsinstallationen. Der Boot Guard kann fehlgeschlagene Updates vor der Anmeldung zurücksetzen. Das Zurücksetzen auf Werkseinstellungen erfordert eine unterstützte Installation, ihren Ausgangszustand, Warnungen und eine eingetippte Bestätigung. Der Installer unterstützt einen Offline-Paketvorrat; Installation und Wiederherstellung hängen von den dokumentierten Datenträgerlayouts ab.
 

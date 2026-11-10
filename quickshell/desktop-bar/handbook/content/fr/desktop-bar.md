@@ -23,7 +23,7 @@ L’icône des mises à jour, avant Notifications, vérifie peu après la connex
 ## Changer la disposition de la barre
 
 - Double-cliquez à gauche sur un **espace vide de la barre** pour passer de Couleur du thème à Flou puis à Site web ; les nouvelles installations démarrent avec Couleur du thème. Site web utilise les couleurs du site d’Eitr, claires ou sombres selon le thème.
-- Double-cliquez à droite sur un espace vide pour faire défiler Complète → Centrée → Onglets → Îlots → Dynamique → Complète.
+- Double-cliquez à droite sur un espace vide pour faire défiler Complète → Centrée → Onglets → Îlots → Dynamique → Goutte → Complète.
 - Faites glisser un espace vide vers le haut, le bas, la gauche ou la droite pour déplacer la barre. À gauche et à droite, la barre est aussi fine qu’en haut et en bas : l’horloge affiche l’heure au-dessus des minutes avec une icône de calendrier, et la météo seulement son icône ; survolez-les pour la date et la température.
 - **Horloge** dans Paramètres > Barre de bureau affiche l’heure sur 12 heures avec AM/PM (par défaut) ou sur 24 heures, sur chaque bord.
 - Les mêmes réglages figurent dans **Paramètres > Barre de bureau**, dans ses onglets Disposition, Aspect et Comportement.
@@ -31,9 +31,9 @@ L’icône des mises à jour, avant Notifications, vérifie peu après la connex
 
 <!-- eitr-figure: bar-layouts -->
 
-Les cinq dispositions dans l’ordre où le double clic droit les fait défiler. Au repos, Centrée n’affiche que l’horloge et Dynamique trois petits îlots ; les deux se déplient au survol.
+Les six dispositions dans l’ordre où le double clic droit les fait défiler. Au repos, Centrée n’affiche que l’horloge, Dynamique trois petits îlots et Goutte une seule capsule avec l’heure ; Centrée et Dynamique se déplient au survol.
 
-Choisissez une disposition dans Paramètres > Barre de bureau. Les cinq fonctionnent sur chaque bord.
+Choisissez une disposition dans Paramètres > Barre de bureau. Les six fonctionnent sur chaque bord.
 
 | Disposition | Comportement |
 | :--- | :--- |
@@ -42,6 +42,7 @@ Choisissez une disposition dans Paramètres > Barre de bureau. Les cinq fonction
 | Onglets | Onglets relie trois onglets par une fine bande. Les icônes d’état restent visibles ; survolez le centre pour la météo. |
 | Îlots | Îlots donne une capsule à chaque groupe et affiche toujours toutes les icônes d’état. Ouvrir un panneau agrandit son îlot et écarte les groupes voisins. |
 | Dynamique | Dynamique commence par trois îlots : logo, horloge et réseau/batterie. Survolez-en un pour le déplier ; le panneau grandit depuis ce même îlot. |
+| Goutte | Goutte n’affiche que l’heure dans une capsule au centre du bord ; cliquez dessus pour le calendrier. Avec le masquage automatique, un petit point lumineux reste au bord et redevient la capsule quand la barre apparaît. |
 
 ## Espaces de travail
 
@@ -63,7 +64,7 @@ Le fond des boutons d’icône apparaît au survol ; les panneaux s’actualisen
 
 **Visualiseur de musique** ouvre cava avec les couleurs du thème. Un clic droit sur l’égaliseur multimédia ouvre ce visualiseur ; le clic gauche ouvre toujours les détails multimédias. Appuyez sur **q** ou **Échap** pour le fermer. Si cava manque, il est installé au préalable.
 
-**Masquage automatique**, dans Paramètres > Barre de bureau, rétracte la barre après un bref délai lorsque vous éloignez le pointeur. Placez-le au bord de l’écran pour la faire apparaître. Cela fonctionne sur les quatre bords avec les dispositions Complète, Centrée, Onglets et Îlots et Dynamique. Les panneaux et menus ouverts, ainsi que le déplacement de la barre, la gardent visible ; elle se masque à nouveau ensuite.
+**Masquage automatique**, dans Paramètres > Barre de bureau, rétracte la barre après un bref délai lorsque vous éloignez le pointeur. Placez-le au bord de l’écran pour la faire apparaître. Cela fonctionne sur les quatre bords avec les dispositions Complète, Centrée, Onglets, Îlots, Dynamique et Goutte ; Goutte laisse un petit point lumineux au bord au lieu de se retirer. Les panneaux et menus ouverts, ainsi que le déplacement de la barre, la gardent visible ; elle se masque à nouveau ensuite.
 
 Tant que l’option est active, la barre ne réserve aucun espace aux fenêtres : elle glisse par-dessus au lieu de les déplacer. Ce réglage est enregistré indépendamment de l’épingle de la disposition centrée et reste désactivé à l’installation. Les notifications s’affichent sans la faire apparaître.
 

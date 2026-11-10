@@ -23,7 +23,7 @@ assert.match(shell, /else if \(button === Qt.RightButton\) updateBarSetting\("la
 const choices = {};
 vm.createContext(choices);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../ChoiceLists.js'), 'utf8').replace(/^\.pragma library\s*/, ''), choices);
-for (const [barLayout, expected] of [['unified', 'centered'], ['centered', 'notch'], ['notch', 'islands'], ['islands', 'dynamic'], ['dynamic', 'unified']]) {
+for (const [barLayout, expected] of [['unified', 'centered'], ['centered', 'notch'], ['notch', 'islands'], ['islands', 'dynamic'], ['dynamic', 'drop'], ['drop', 'unified']]) {
     assert.equal(choices.next(choices.barLayouts, barLayout), expected);
 }
 

@@ -32,7 +32,7 @@ class SettingsRegressionTests(unittest.TestCase):
                 for family in ('Settings', 'Handbook', 'ThemesPlugins'):
                     with Image.open(output / f'sidebar-{corner}-{family}.png') as picture:
                         self.assertEqual(picture.convert('RGB').getpixel((24, 190)), (25, 27, 37))
-            for layout in ('unified', 'centered', 'notch', 'islands', 'dynamic'):
+            for layout in ('unified', 'centered', 'notch', 'islands', 'dynamic', 'drop'):
                 for edge in ('top', 'bottom', 'left', 'right'):
                     self.assertTrue((output / f'dropdown-{layout}-{edge}.png').is_file())
             for panel in range(4):

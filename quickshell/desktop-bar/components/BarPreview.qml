@@ -34,12 +34,12 @@ Item {
         readonly property real depth: compactVertical ? 18 : 22
         readonly property real clockSize: picture.vertical ? (compactVertical ? 26 : 34) : 48
         readonly property real gap: 6
-        readonly property real inset: picture.layout === "islands" || picture.layout === "dynamic" ? 4 : 0
+        readonly property real inset: picture.layout === "islands" || picture.layout === "dynamic" || picture.layout === "drop" ? 4 : 0
         readonly property real across: picture.edge === "bottom" ? height - depth - inset : picture.edge === "right" ? width - depth - inset : inset
         // Slots describe both the silhouette and the content; the clock owns the midpoint.
         readonly property var slots: {
             const center = (length - clockSize) / 2;
-            if (picture.layout === "centered") return [{kind: "clock", start: center, extent: clockSize}];
+            if (picture.layout === "centered" || picture.layout === "drop") return [{kind: "clock", start: center, extent: clockSize}];
             if (picture.layout === "dynamic") return [
                 {kind: "logo", start: center - gap - depth, extent: depth},
                 {kind: "clock", start: center, extent: clockSize},

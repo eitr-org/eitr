@@ -41,7 +41,7 @@ El manual nunca ejecuta comandos. Los bloques de código son ejemplos para leer 
 <!-- eitr-overview -->
 ## Qué incluye Eitr
 
-Eitr combina Arch Linux y Hyprland con los menús buscables de Walker y una barra Quickshell. Elige Full, Centered, Tabs, Islands o Dynamic; los paneles reúnen conectividad, audio, pantallas, hardware, notificaciones, tiempo y espacios de trabajo. Los temas coordinan el escritorio y puedes crear tus propios temas.
+Eitr combina Arch Linux y Hyprland con los menús buscables de Walker y una barra Quickshell. Elige Full, Centered, Tabs, Islands, Dynamic o Drop; los paneles reúnen conectividad, audio, pantallas, hardware, notificaciones, tiempo y espacios de trabajo. Los temas coordinan el escritorio y puedes crear tus propios temas.
 
 System Update actualiza paquetes oficiales, AUR y Flatpak, con instantáneas en instalaciones compatibles de la distribución. El boot guard puede recuperar una actualización fallida antes del inicio de sesión. El restablecimiento de fábrica requiere una instalación compatible, su estado inicial, advertencias y confirmación escrita. El instalador admite paquetes sin conexión; instalación y recuperación dependen de las distribuciones de disco documentadas.
 

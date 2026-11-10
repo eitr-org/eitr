@@ -298,7 +298,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   inside the popup. Growing content must stay within the usable screen.
 - Empty-bar double-left-click cycles Theme Color, Blur and Website (the site palette
   with its gold labels), double-right-click cycles
-  the Full, Centered, Tabs, Islands and Dynamic layouts, and left drag changes the screen edge. These settings
+  the Full, Centered, Tabs, Islands, Dynamic and Drop layouts, and left drag changes the screen edge. These settings
   persist in `bar-settings.json` and also appear under Settings > Desktop > Desktop Bar.
   Centered mode shows only the clock until hovered or pinned. Expansion preserves
   icon order and the clock's exact screen center on all four edges; pin sits
@@ -340,6 +340,13 @@ existing design and workflows rather than replacing them with upstream defaults.
   Reduce motion, collapse after 350 ms. Opening a panel grows its island into the panel
   (no separate surface) and the other islands slide aside. Reserve resting depth plus
   half the outer gap; empty space passes clicks through.
+- Drop: one full pill with only the time, exactly centred on the bar's edge (always
+  fully rounded, theme colour and blur), reusing Dynamic's island; clicking it opens
+  the calendar, whose panel floats detached at the centre. With auto-hide the pill
+  shrinks into a small glowing accent dot at the edge centre and grows back from it
+  on reveal, following the auto-hide slide (instant with Reduce motion); the dot keeps
+  a small hover target. Reserve pill depth plus half the outer gap; only the pill
+  takes clicks. The glance strip and dashboard card come next (see `TODO.md`).
 - Keep calendar height fixed with six week rows. Weather city choices are
   session-only; the city close button restores the default geolocation.
 - Media is hidden when no eligible player exists; meetings are excluded. Keep

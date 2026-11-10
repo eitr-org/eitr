@@ -184,6 +184,7 @@
     {"pattern": "quickshell/desktop-bar/bar/BarHorizontalPlacement.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/bar/BarIslands.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/bar/BarDynamic.qml", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/bar/BarDrop.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/bar/DynamicIsland.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/bar/BarCenteredOutline.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/bar/BarPanels.qml", "class": "C", "runtime": true},

@@ -43,7 +43,6 @@
   "Focus right": "Focus right",
   "Focus up": "Focus up",
   "Frozen selection (floating editor)": "Frozen selection (floating editor)",
-  "Full / Centered / Tabs / Islands / Dynamic": "Full / Centered / Tabs / Islands / Dynamic",
   "Full screenshot (floating editor)": "Full screenshot (floating editor)",
   "Fuzzy-find files": "Fuzzy-find files",
   "Fuzzy-find text": "Fuzzy-find text",
@@ -217,5 +216,6 @@
   "Move column left (scrolling only)": "Move column left (scrolling only)",
   "Move column right (scrolling only)": "Move column right (scrolling only)",
   "Next column width (scrolling only)": "Next column width (scrolling only)",
-  "Previous column width (scrolling only)": "Previous column width (scrolling only)"
+  "Previous column width (scrolling only)": "Previous column width (scrolling only)",
+  "Full / Centered / Tabs / Islands / Dynamic / Drop": "Full / Centered / Tabs / Islands / Dynamic / Drop"
 }

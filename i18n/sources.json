@@ -859,6 +859,9 @@
     "Drag to any angle, or turn by 45°.": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
+    "Drop": [
+      "tools/choice-lists.json"
+    ],
     "Duplicate": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
@@ -3735,6 +3738,9 @@
     "Down": [
       "tools/choice-lists.json"
     ],
+    "Drop": [
+      "tools/choice-lists.json"
+    ],
     "Dynamic": [
       "tools/choice-lists.json"
     ],
@@ -5165,6 +5171,9 @@
     "Show occupied workspaces": [
       "elephant/menus/system-shortcuts.lua"
     ],
+    "Show only the time; it grows when you need it": [
+      "tools/choice-lists.json"
+    ],
     "Show or hide the desktop bar": [
       "elephant/menu-rows/toggle.json"
     ],
@@ -5813,7 +5822,7 @@
     "Frozen selection (floating editor)": [
       "tools/handbook-build.py"
     ],
-    "Full / Centered / Tabs / Islands / Dynamic": [
+    "Full / Centered / Tabs / Islands / Dynamic / Drop": [
       "tools/handbook-build.py"
     ],
     "Full screenshot (floating editor)": [

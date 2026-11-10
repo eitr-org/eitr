@@ -920,7 +920,8 @@ var qml = {
     "Stays on top of open apps.": "Stays on top of open apps.",
     "The screen that shows this copy.": "The screen that shows this copy.",
     "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot": "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot",
-    "Already up to date.": "Already up to date."
+    "Already up to date.": "Already up to date.",
+    "Drop": "Drop"
   },
   "pt_BR": {
     "%1 Hz": "%1 Hz",
@@ -1169,6 +1170,7 @@ var qml = {
     "Dotfiles": "Arquivos de configuração",
     "Down": "Baixo",
     "Drag to any angle, or turn by 45°.": "Arraste para qualquer ângulo ou gire 45°.",
+    "Drop": "Gota",
     "Duplicate": "Duplicar",
     "Dynamic": "Dinâmico",
     "E I T R  /  CLOCKWORK": "E I T R / CLOCKWORK",
@@ -2068,6 +2070,7 @@ var qml = {
     "Dotfiles": "Archivos de configuración",
     "Down": "Abajo",
     "Drag to any angle, or turn by 45°.": "Arrastra a cualquier ángulo o gira 45°.",
+    "Drop": "Gota",
     "Duplicate": "Duplicar",
     "Dynamic": "Dinámico",
     "E I T R  /  CLOCKWORK": "E I T R / CLOCKWORK",
@@ -2967,6 +2970,7 @@ var qml = {
     "Dotfiles": "Konfigurationsdateien",
     "Down": "Unten",
     "Drag to any angle, or turn by 45°.": "Auf jeden Winkel ziehen oder um 45° drehen.",
+    "Drop": "Tropfen",
     "Duplicate": "Duplizieren",
     "Dynamic": "Dynamisch",
     "E I T R  /  CLOCKWORK": "E I T R / CLOCKWORK",
@@ -3866,6 +3870,7 @@ var qml = {
     "Dotfiles": "Fichiers de configuration",
     "Down": "Bas",
     "Drag to any angle, or turn by 45°.": "Faites glisser vers n’importe quel angle ou tournez de 45°.",
+    "Drop": "Goutte",
     "Duplicate": "Dupliquer",
     "Dynamic": "Dynamique",
     "E I T R  /  CLOCKWORK": "E I T R / CLOCKWORK",

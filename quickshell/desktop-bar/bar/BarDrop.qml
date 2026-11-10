@@ -1,0 +1,99 @@
+// qmllint disable Quick.property-changes-parsed
+import ".."
+import QtQuick
+
+// Drop: one full pill with only the time, centred on the bar's edge. With auto-hide the
+// pill shrinks into a small glowing accent dot that stays at the edge, and grows back
+// out of it when the bar reveals. The glance strip and the dashboard card come later.
+Item {
+    id: drop
+    required property var host
+    required property var barHost
+    anchors.fill: parent
+    z: 1
+    visible: barHost.dropLayout && !FocusMode.enabled
+    readonly property var surfaces: [pill, dotReach]
+    readonly property alias pillSurface: pill
+    readonly property bool vertical: host.verticalBar
+    readonly property real length: vertical ? height : width
+    // The auto-hide slide drives the morph: 0 is the dot, 1 the pill. Its animation
+    // already follows Reduce motion, so the pill follows it without easing of its own.
+    readonly property real reveal: barHost.autoHideRef.progress
+    readonly property real dotSize: 10
+    readonly property real clockExtent: vertical ? barHost.verticalCalendarIcon.height : barHost.centerInfo.width
+    readonly property real pillExtent: clockExtent + 8
+    // The time fades in over the second half of the growth, once the pill can hold it.
+    readonly property real contentOpacity: Math.max(0, reveal * 2 - 1)
+    DynamicIsland {
+        id: pill
+        host: drop.host; barHost: drop.barHost
+        restingExtent: drop.dotSize + (drop.pillExtent - drop.dotSize) * drop.reveal
+        fullExtent: restingExtent
+        restingDepth: drop.dotSize + (thickness - drop.dotSize) * drop.reveal
+        eased: false
+        x: vertical ? depthOffset : (drop.length - width) / 2
+        y: vertical ? (drop.length - height) / 2 : depthOffset
+        // The dot: the accent colour with a soft halo, fading into the pill as it grows.
+        Item {
+            id: dot
+            objectName: "dropDot"
+            anchors.fill: parent
+            opacity: Math.max(0, 1 - drop.reveal * 2)
+            visible: opacity > 0
+            Canvas {
+                id: halo
+                readonly property color accent: host.activeBg
+                anchors.centerIn: parent
+                width: drop.dotSize * 2.6; height: width
+                onAccentChanged: requestPaint()
+                onPaint: {
+                    const context = getContext("2d");
+                    context.reset();
+                    const middle = width / 2;
+                    const glow = context.createRadialGradient(middle, middle, 0, middle, middle, middle);
+                    glow.addColorStop(0, Qt.alpha(accent, 0.55));
+                    glow.addColorStop(0.45, Qt.alpha(accent, 0.3));
+                    glow.addColorStop(1, Qt.alpha(accent, 0));
+                    context.fillStyle = glow;
+                    context.fillRect(0, 0, width, height);
+                }
+            }
+            Rectangle { anchors.fill: parent; radius: pill.radius; color: host.activeBg }
+        }
+    }
+    // A slightly larger target around the dot, from the bar's edge, so the pointer finds
+    // it easily; reaching it reveals the bar like the edge sensor does.
+    Item {
+        id: dotReach
+        visible: drop.visible && host.barAutoHide && drop.reveal < 1
+        readonly property real along: 28
+        readonly property real across: drop.dotSize + 8
+        width: vertical ? across : along
+        height: vertical ? along : across
+        x: vertical ? (pill.farEdge ? drop.width - width : 0) : (drop.width - width) / 2
+        y: vertical ? (drop.height - height) / 2 : (pill.farEdge ? drop.height - height : 0)
+    }
+    // Only the time shows: workspaces, status, media, capture and weather stay hidden
+    // until the glance strip brings them back.
+    states: [
+        State {
+            name: "horizontal"; when: drop.visible && !drop.vertical
+            PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity; enabled: drop.reveal >= 1 }
+            PropertyChanges { target: barHost.centerInfo; timeOnly: true }
+            PropertyChanges { target: barHost.leftGroup; opacity: 0; enabled: false }
+            PropertyChanges { target: barHost.rightSide; opacity: 0; enabled: false }
+            PropertyChanges { target: barHost.notificationIcon; opacity: 0; enabled: false }
+            PropertyChanges { target: barHost.barCapture; opacity: 0; enabled: false }
+            PropertyChanges { target: barHost.mediaStrip; opacity: 0; enabled: false; audioEnabled: false }
+        },
+        State {
+            name: "vertical"; when: drop.visible && drop.vertical
+            PropertyChanges { target: barHost.verticalMiddle; parent: pill.content; opacity: drop.contentOpacity; enabled: drop.reveal >= 1 }
+            PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: true }
+            PropertyChanges { target: barHost.verticalStart; opacity: 0; enabled: false }
+            PropertyChanges { target: barHost.verticalEnd; opacity: 0; enabled: false }
+            PropertyChanges { target: barHost.verticalCapture; opacity: 0; enabled: false }
+            PropertyChanges { target: barHost.verticalMedia; visible: false }
+        }
+    ]
+}

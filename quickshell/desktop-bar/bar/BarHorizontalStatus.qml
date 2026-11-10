@@ -55,7 +55,7 @@ Row {
 
         host: rightSide.host
         id: statusToggle
-        visible: !barHost.centeredLayout && !rightSide.host.notchLayout && !barHost.dynamicLayout && !barHost.islandsLayout
+        visible: !barHost.centeredLayout && !rightSide.host.notchLayout && !barHost.dynamicLayout && !barHost.dropLayout && !barHost.islandsLayout
         tooltip: rightSide.host.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
 
         icon: rightSide.host.statusOpen ? "›" : "‹"

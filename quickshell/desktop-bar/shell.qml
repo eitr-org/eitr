@@ -113,13 +113,14 @@ ShellRoot {
     property var windowGaps: DisplayService.topology.windowGaps
     property var screenGaps: DisplayService.topology.screenGaps
     readonly property bool dynamicLayout: barLayout === "dynamic"
+    readonly property bool dropLayout: barLayout === "drop"
     readonly property bool islandsLayout: barLayout === "islands"
     readonly property bool notchLayout: barLayout === "notch"
     readonly property real tabStripThickness: 7
     // Radius of the four bends on each Tabs slope.
     readonly property real tabBendRound: 6
     readonly property bool centeredLayout: barLayout === "centered"
-    readonly property bool iconsOpen: centeredLayout || notchLayout || dynamicLayout || islandsLayout || statusOpen
+    readonly property bool iconsOpen: centeredLayout || notchLayout || dynamicLayout || dropLayout || islandsLayout || statusOpen
     property string barEdge: "top"
     property bool settingsDirty: false
     property string dragCandidate: ""

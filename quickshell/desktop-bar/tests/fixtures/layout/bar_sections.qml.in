@@ -7,6 +7,7 @@ ShellRoot {
     property bool notchLayout: false
     property bool centeredLayout: false
     property bool dynamicLayout: false
+    property bool dropLayout: false
     property bool floatingIslands: islandsLayout
     property bool islandsLayout: false
     property bool iconsOpen: true
@@ -45,6 +46,7 @@ ShellRoot {
             id: bar; anchors.fill: parent
             property bool centeredLayout: shell.centeredLayout
             property bool dynamicLayout: false
+            property bool dropLayout: false
             property var islandSurfaces: ({afterLogo: 0, afterWorkspaces: 0, aroundClock: 0})
             property bool floatingIslands: islandsLayout
             property bool islandsLayout: shell.islandsLayout

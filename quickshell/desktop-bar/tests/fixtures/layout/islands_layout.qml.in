@@ -6,6 +6,7 @@ ShellRoot {
     property string barEdge: EDGE
     property bool verticalBar: barEdge === "left" || barEdge === "right"
     property bool dynamicLayout: false
+    property bool dropLayout: false
     property bool floatingIslands: islandsLayout
     property bool islandsLayout: true
     property bool barVisible: true
@@ -21,6 +22,7 @@ ShellRoot {
         visible: true; implicitWidth: shell.verticalBar ? 300 : 1920; implicitHeight: shell.verticalBar ? 1920 : 300
         color: "black"
         property bool dynamicLayout: false
+        property bool dropLayout: false
         property bool floatingIslands: islandsLayout
         property bool islandsLayout: true
         property bool centeredLayout: false

@@ -115,6 +115,12 @@
       "label": "Dynamic",
       "icon": "F035C",
       "description": "Expand three floating islands on hover"
+    },
+    {
+      "id": "drop",
+      "label": "Drop",
+      "icon": "F058C",
+      "description": "Show only the time; it grows when you need it"
     }
   ],
   "bar_appearances": [

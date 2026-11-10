@@ -87,8 +87,10 @@ PanelWindow {
     readonly property bool centeredLayout: host.centeredLayout
     readonly property bool islandsLayout: host.islandsLayout
     readonly property bool dynamicLayout: host.dynamicLayout
-    readonly property bool floatingIslands: islandsLayout || dynamicLayout
+    readonly property bool dropLayout: host.dropLayout
+    readonly property bool floatingIslands: islandsLayout || dynamicLayout || dropLayout
     readonly property alias dynamicSurfaces: barDynamic
+    readonly property alias dropSurfaces: barDrop
     // Islands float half the outer gap off the screen edge; pills keep the full gap between them.
     readonly property real islandGap: outerGaps[({top: 0, right: 1, bottom: 2, left: 3})[host.barEdge]] / 2
     readonly property real islandSpacing: islandGap * 2 + 8
@@ -353,8 +355,10 @@ PanelWindow {
         id: barContents
         visible: !FocusMode.enabled
         transform: Translate {
-            x: host.verticalBar ? (host.barEdge === "left" ? -1 : 1) * (bar.normalThickness + (bar.floatingIslands ? bar.islandGap : 0)) * (1 - autoHide.progress) : 0
-            y: !host.verticalBar ? (host.barEdge === "top" ? -1 : 1) * (bar.normalThickness + (bar.floatingIslands ? bar.islandGap : 0)) * (1 - autoHide.progress) : 0
+            // Drop stays in place: its pill shrinks into the auto-hide dot instead of sliding.
+            readonly property real distance: bar.dropLayout ? 0 : (bar.normalThickness + (bar.floatingIslands ? bar.islandGap : 0)) * (1 - autoHide.progress)
+            x: host.verticalBar ? (host.barEdge === "left" ? -1 : 1) * distance : 0
+            y: !host.verticalBar ? (host.barEdge === "top" ? -1 : 1) * distance : 0
         }
         width: host.verticalBar ? bar.thinThickness : (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.width)
         height: host.verticalBar ? (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.height) : bar.thinThickness
@@ -411,6 +415,12 @@ PanelWindow {
 
     BarDynamic {
         id: barDynamic
+        host: bar.host
+        barHost: bar
+    }
+
+    BarDrop {
+        id: barDrop
         host: bar.host
         barHost: bar
     }

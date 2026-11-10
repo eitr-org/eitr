@@ -18,13 +18,13 @@ class BarPreviewTests(unittest.TestCase):
             shots = []
             for theme in ('dark', 'light'):
                 for edge in ('top', 'bottom', 'left', 'right'):
-                    for layout in ('unified', 'centered', 'notch', 'islands', 'dynamic'):
+                    for layout in ('unified', 'centered', 'notch', 'islands', 'dynamic', 'drop'):
                         shots.append(dict(theme=theme, edge=edge, layout=layout, mode='large'))
                         if edge in ('left', 'right'):
                             shots.append(dict(theme=theme, edge=edge, layout=layout, mode='compact'))
                     for mode in ('settings', 'narrow', 'figure'):
                         shots.append(dict(theme=theme, edge=edge, layout='unified', mode=mode))
-                    for layout in ('unified', 'centered', 'notch', 'islands', 'dynamic'):
+                    for layout in ('unified', 'centered', 'notch', 'islands', 'dynamic', 'drop'):
                         shots.append(dict(theme=theme, edge=edge, layout=layout, mode='welcome'))
                 shots.append(dict(theme=theme, edge='top', layout='unified', mode='anatomy'))
             fixture = r'''import QtQuick

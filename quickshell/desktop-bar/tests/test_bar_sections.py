@@ -67,7 +67,7 @@ class BarSectionTests(unittest.TestCase):
 class ExtractedComponentLoadTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
     def test_production_sections_compile_with_the_registered_dependencies(self):
-        names = ['BarInputMask', 'BarTabs', 'BarIslands', 'BarDynamic', 'DynamicIsland',
+        names = ['BarInputMask', 'BarTabs', 'BarIslands', 'BarDynamic', 'BarDrop', 'DynamicIsland',
                  'BarCenteredOutline', 'BarVerticalPlacement', 'BarHorizontalPlacement',
                  'ControlCenter', 'ControlCenterNavigation', 'ControlCenterConnectivity',
                  'ControlCenterSliders', 'FamilyWindow', 'FamilySidebar', 'FamilyPageHeader',

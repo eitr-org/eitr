@@ -20,10 +20,11 @@ Region {
     Region { item: barHost.autoHideRef.progress === 0 || barHost.autoHideRef.progress === 1 ? slideSettledRef : null }
     Region { item: edgeSensorRef.visible && !FocusMode.enabled ? edgeSensorRef : null }
     Region { item: host.barPointerHeld && !FocusMode.enabled ? barHost.contentItem : null }
-    Region { item: FocusMode.enabled ? null : host.notchLayout ? tabStripRef : host.centeredLayout || host.islandsLayout || host.dynamicLayout ? null : barContentsRef }
+    Region { item: FocusMode.enabled ? null : host.notchLayout ? tabStripRef : host.centeredLayout || host.islandsLayout || host.dynamicLayout || host.dropLayout ? null : barContentsRef }
     IslandMask { surfaces: barHost.choicePopups || [] }
     IslandMask { surfaces: barHost.islandSurfaces.children }
     IslandMask { surfaces: barHost.dynamicSurfaces.surfaces }
+    IslandMask { surfaces: barHost.dropSurfaces.surfaces }
     CenteredBarMask { surface: barHost.centeredOutline; edge: host.barEdge; depth: barHost.normalThickness; bendRound: host.tabBendRound }
     Region { item: host.notchLayout && !FocusMode.enabled ? leadingTabRef : null }
     Region { item: host.notchLayout && !FocusMode.enabled ? notchTabRef : null }
