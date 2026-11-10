@@ -1,6 +1,6 @@
 # Capture and sharing
 
-Capture tools are under Main > Tools > Capture and Control Center > Tools.
+Screenshots and recording are under Main > Tools > Capture; Color, OCR Text, QR Code and Transcode sit directly in Main > Tools. Control Center > Tools offers the same actions.
 
 ## Screenshots and extraction
 

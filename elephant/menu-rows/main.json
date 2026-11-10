@@ -1,16 +1,5 @@
 [
   {
-    "text": "Development",
-    "subtext": ">",
-    "keywords": [
-      "dev",
-      "projects",
-      "code"
-    ],
-    "icon": "󰅩",
-    "submenu": "development"
-  },
-  {
     "text": "Apps",
     "subtext": ">",
     "keywords": [
@@ -22,16 +11,15 @@
     "submenu": "apps"
   },
   {
-    "text": "Quick Actions",
+    "text": "Development",
     "subtext": ">",
     "keywords": [
-      "switch",
-      "enable",
-      "disable",
-      "toggle"
+      "dev",
+      "projects",
+      "code"
     ],
-    "icon": "󰔎",
-    "submenu": "toggle"
+    "icon": "󰅩",
+    "submenu": "development"
   },
   {
     "text": "Tools",
@@ -50,6 +38,30 @@
     "submenu": "tools"
   },
   {
+    "text": "Quick Actions",
+    "subtext": ">",
+    "keywords": [
+      "switch",
+      "enable",
+      "disable",
+      "toggle"
+    ],
+    "icon": "󰔎",
+    "submenu": "toggle"
+  },
+  {
+    "text": "Install",
+    "subtext": ">",
+    "icon": "󰏖",
+    "submenu": "install"
+  },
+  {
+    "text": "Gaming",
+    "subtext": ">",
+    "icon": "󰊴",
+    "submenu": "gaming"
+  },
+  {
     "text": "Learn",
     "subtext": ">",
     "keywords": [
@@ -61,24 +73,6 @@
     ],
     "icon": "󰧑",
     "submenu": "learn"
-  },
-  {
-    "text": "Install",
-    "subtext": ">",
-    "icon": "󰏖",
-    "submenu": "install"
-  },
-  {
-    "text": "Plugins",
-    "subtext": ">",
-    "icon": "󰏖",
-    "submenu": "plugins"
-  },
-  {
-    "text": "Gaming",
-    "subtext": ">",
-    "icon": "󰊴",
-    "submenu": "gaming"
   },
   {
     "text": "Settings",

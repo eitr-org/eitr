@@ -6,7 +6,7 @@ Use **Settings > Displays**, **Settings > Sound** and **Settings > Input** for t
 
 Open Settings > Displays, Sound or Input. The corresponding bar panels and Control Center provide quick controls too.
 
-Walker > Settings > Devices & Input > Lighting controls OpenRGB devices. It starts off; Follow Theme lets theme changes recolour supported devices.
+Walker > Settings > Devices > Input > Lighting controls OpenRGB devices. It starts off; Follow Theme lets theme changes recolour supported devices.
 
 ## Change sound and microphone
 

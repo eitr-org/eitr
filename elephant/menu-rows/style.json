@@ -1,30 +1,17 @@
 [
   {
-    "text": "Corners",
+    "text": "Appearance",
     "subtext": ">",
     "keywords": [
-      "square",
-      "rounded",
-      "apple",
-      "radius",
-      "style"
+      "theme",
+      "wallpaper",
+      "fonts",
+      "cursor",
+      "terminal",
+      "corners"
     ],
-    "icon": "󰕰",
-    "submenu": "corners"
-  },
-  {
-    "text": "Cursor",
-    "subtext": ">",
-    "keywords": [
-      "mouse",
-      "pointer",
-      "bibata",
-      "breeze",
-      "dmz",
-      "cursor"
-    ],
-    "icon": "󰇀",
-    "submenu": "cursor"
+    "icon": "󰸌",
+    "submenu": "appearance"
   },
   {
     "text": "Desktop Bar",
@@ -52,19 +39,6 @@
     "submenu": "focus"
   },
   {
-    "text": "Fonts",
-    "subtext": ">",
-    "keywords": [
-      "font",
-      "typeface",
-      "ligatures",
-      "default",
-      "Default Font"
-    ],
-    "icon": "󰛖",
-    "submenu": "fonts"
-  },
-  {
     "text": "Lockscreen",
     "subtext": ">",
     "keywords": [
@@ -76,66 +50,17 @@
     "submenu": "lockscreen"
   },
   {
-    "text": "Terminal",
+    "text": "Windows",
     "subtext": ">",
     "keywords": [
-      "kitty",
-      "ghostty",
-      "typing",
-      "fire",
-      "cursor",
-      "trail"
-    ],
-    "icon": "󰆍",
-    "submenu": "terminal"
-  },
-  {
-    "text": "Theme",
-    "subtext": ">",
-    "keywords": [
-      "colors",
-      "appearance"
-    ],
-    "icon": "󰸌",
-    "submenu": "theme"
-  },
-  {
-    "text": "Wallpaper",
-    "subtext": ">",
-    "keywords": [
-      "background"
-    ],
-    "icon": "🖻",
-    "submenu": "wallpaper"
-  },
-  {
-    "text": "Window gaps",
-    "subtext": ">",
-    "keywords": [
-      "windows",
-      "spacing",
-      "gaps"
+      "window layout",
+      "gaps",
+      "workspaces",
+      "tiling",
+      "scrolling"
     ],
     "icon": "󰍹",
-    "submenu": "window-gaps"
-  },
-  {
-    "text": "Window layout",
-    "subtext": ">",
-    "icon": "󰍹",
-    "submenu": "window-layout"
-  },
-  {
-    "text": "Workspaces",
-    "subtext": ">",
-    "keywords": [
-      "numbers",
-      "glyph",
-      "dots",
-      "bar"
-    ],
-    "icon": "󰍹",
-    "submenu": "workspaces"
+    "submenu": "windows"
   },
   {
     "text": "Themes & Plugins",

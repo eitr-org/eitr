@@ -1,6 +1,6 @@
 # Capture et partage
 
-Les outils de capture se trouvent dans Principal > Outils > Capture et Centre de contrôle > Outils.
+Les captures d’écran et enregistrements se trouvent dans Principal > Outils > Capture ; Couleur, Reconnaissance de texte, Code QR et Transcoder sont directement dans Principal > Outils. Centre de contrôle > Outils propose les mêmes actions.
 
 ## Captures d’écran et extraction
 

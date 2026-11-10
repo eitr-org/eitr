@@ -499,8 +499,8 @@ msgstr "Menu de boot: o Eitr inicia primeiro e inclui o Windows quando encontrad
 msgid "Bootable snapshots are not supported with {loader}. {reason} Nothing was changed."
 msgstr "Snapshots inicializáveis não são compatíveis com {loader}. {reason} Nada foi alterado."
 
-msgid "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot"
-msgstr "Os dois backends de rede estão ativos; escolha um em Sistema > Conectividade > Backend de rede e reinicie"
+msgid "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot"
+msgstr "Os dois backends de rede estão ativos; escolha um em Configurações > Dispositivos > Conexões > Infraestrutura de rede e reinicie"
 
 msgid "Browse bucket"
 msgstr "Explorar bucket"
@@ -2653,8 +2653,8 @@ msgstr "Ratatoskr não conseguiu concluir o pedido."
 msgid "Ratatoskr is not set up."
 msgstr "Ratatoskr não está configurado."
 
-msgid "Ratatoskr is not set up. Choose it in Development > Default Assistant."
-msgstr "Ratatoskr não está configurado. Escolha-o em Desenvolvimento > Assistente padrão."
+msgid "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant."
+msgstr "Ratatoskr não está configurado. Escolha-o em Desenvolvimento > IA > Assistente padrão."
 
 msgid "Ratatoskr is ready and is now your default assistant."
 msgstr "Ratatoskr está pronto e agora é seu assistente padrão."
@@ -3070,8 +3070,8 @@ msgstr "Selecionar uma conta"
 msgid "Select at least one package"
 msgstr "Selecione pelo menos um pacote"
 
-msgid "Select it in Style > Lockscreen; Ctrl+P previews it."
-msgstr "Selecione em Estilo > Tela de bloqueio; Ctrl+P mostra uma prévia."
+msgid "Select it in Desktop > Lockscreen; Ctrl+P previews it."
+msgstr "Selecione em Área de trabalho > Tela de bloqueio; Ctrl+P mostra uma prévia."
 
 msgid "Select plugins"
 msgstr "Selecionar plugins"
@@ -4171,8 +4171,8 @@ msgstr "VPCs"
 msgid "VPN operation failed. Configuration details are hidden."
 msgstr "A operação VPN falhou. Detalhes da configuração estão ocultos."
 
-msgid "VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot."
-msgstr "Perfis VPN precisam do NetworkManager. Escolha-o em Sistema > Conectividade > Backend de rede e reinicie."
+msgid "VPN profiles need NetworkManager. Choose it in Settings > Devices > Connections > Network Backend, then reboot."
+msgstr "Perfis VPN precisam do NetworkManager. Escolha-o em Configurações > Dispositivos > Conexões > Infraestrutura de rede e reinicie."
 
 msgid "Version"
 msgstr "Versão"
@@ -4264,8 +4264,8 @@ msgstr "Amarelo"
 msgid "Yes"
 msgstr "Sim"
 
-msgid "You can remove it later from Development > Default Assistant."
-msgstr "Você pode removê-lo depois em Desenvolvimento > Assistente padrão."
+msgid "You can remove it later from Development > AI > Default Assistant."
+msgstr "Você pode removê-lo depois em Desenvolvimento > IA > Assistente padrão."
 
 msgid "You can run more commands here manually."
 msgstr "Você pode executar outros comandos aqui manualmente."
@@ -4591,11 +4591,11 @@ msgstr "{name} de {snapshot_date} está em {target}"
 msgid "{name} is already installed."
 msgstr "{name} já está instalado."
 
+msgid "{name} is in Desktop > Appearance > Wallpaper and the wallpaper carousel."
+msgstr "{name} está em Área de trabalho > Aparência > Papel de parede e no carrossel de papéis de parede."
+
 msgid "{name} is in Development > Monitoring."
 msgstr "{name} está em Desenvolvimento > Monitoramento."
-
-msgid "{name} is in Style > Wallpaper and the wallpaper carousel."
-msgstr "{name} está em Estilo > Papel de parede e no carrossel de papéis de parede."
 
 msgid "{name} is not installed."
 msgstr "{name} não está instalado."

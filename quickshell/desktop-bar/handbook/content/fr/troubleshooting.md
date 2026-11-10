@@ -2,7 +2,7 @@
 
 ## Vérifier ce PC
 
-Ouvrez Paramètres > Vérifier ce PC et appuyez sur Vérifier ce PC pour des résultats en lecture seule. Rien n’est réparé ni redémarré. Pour le rapport interactif, les vérifications approfondies et la copie décrits ci-dessous, lancez `eitr check` ou utilisez Walker > Paramètres > Système > Entretien > Vérifier ce PC. Les listes de mises à jour en cache ne sont pas renouvelées ; DNS utilise le réseau. `eitr check --json` affiche les preuves techniques sans question.
+Ouvrez Paramètres > Vérifier ce PC et appuyez sur Vérifier ce PC pour des résultats en lecture seule. Rien n’est réparé ni redémarré. Pour le rapport interactif, les vérifications approfondies et la copie décrits ci-dessous, lancez `eitr check` ou utilisez Walker > Paramètres > Système > Vérifier ce PC. Les listes de mises à jour en cache ne sont pas renouvelées ; DNS utilise le réseau. `eitr check --json` affiche les preuves techniques sans question.
 
 En plus des redémarrages, de l’espace disque, des mises à jour, de la récupération, des services, de la mémoire, du réseau et de la sécurité, il vérifie les écrans (un écran en dessous de la meilleure fréquence de rafraîchissement pour sa résolution), le graphisme (un pilote pour chaque carte graphique et l’accélération matérielle) et l’audio (le système audio, une sortie, le volume et le micro).
 
@@ -68,7 +68,7 @@ Sauvegardez les autres disques avant d’installer sur un SSD séparé et vérif
 
 ## Signaler un problème
 
-**Walker > Paramètres > Système > Informations > Signaler un problème** recueille versions d’EITR et des paquets, matériel graphique, erreurs Hyprland, services défaillants, avertissements récents, plantages de la dernière semaine, erreurs du démarrage précédent, journal d’installation et changements de paquets dans `~/Documents/eitr-problem-report-<time>.txt`, lisible uniquement par vous. Il retire nom d’utilisateur, nom du PC, chemin personnel, e-mail, IP et MAC. Les journaux peuvent encore citer applications ou fichiers : lisez le rapport avant envoi.
+**Walker > Paramètres > Système > Signaler un problème** recueille versions d’EITR et des paquets, matériel graphique, erreurs Hyprland, services défaillants, avertissements récents, plantages de la dernière semaine, erreurs du démarrage précédent, journal d’installation et changements de paquets dans `~/Documents/eitr-problem-report-<time>.txt`, lisible uniquement par vous. Il retire nom d’utilisateur, nom du PC, chemin personnel, e-mail, IP et MAC. Les journaux peuvent encore citer applications ou fichiers : lisez le rapport avant envoi.
 
 Rien n’est envoyé automatiquement. Le terminal indique seulement où le rapport est enregistré et propose de l’envoyer ou de le lire d’abord :
 

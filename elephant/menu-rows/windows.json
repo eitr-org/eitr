@@ -1,0 +1,31 @@
+[
+  {
+    "text": "Window gaps",
+    "subtext": ">",
+    "keywords": [
+      "windows",
+      "spacing",
+      "gaps"
+    ],
+    "icon": "󰍹",
+    "submenu": "window-gaps"
+  },
+  {
+    "text": "Window layout",
+    "subtext": ">",
+    "icon": "󰍹",
+    "submenu": "window-layout"
+  },
+  {
+    "text": "Workspaces",
+    "subtext": ">",
+    "keywords": [
+      "numbers",
+      "glyph",
+      "dots",
+      "bar"
+    ],
+    "icon": "󰍹",
+    "submenu": "workspaces"
+  }
+]

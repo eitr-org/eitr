@@ -20,11 +20,10 @@ Item {
         return menu.y + rows.y + above + (index < submenus ? 16 : 22);
     }
     readonly property var entries: [
-        {text: Eitr.I18n.tr("Connectivity"), icon: "\u{F05A9}"},
-        {text: Eitr.I18n.tr("Devices & Input"), icon: "\u{F0379}"},
-        {text: Eitr.I18n.tr("Language"), icon: "\u{F05CA}"},
-        {text: Eitr.I18n.tr("Security"), icon: "\u{F0483}"},
-        {text: Eitr.I18n.tr("Style"), icon: "\u{EBCF}"},
+        {text: Eitr.I18n.tr("Devices"), icon: "\u{F0379}"},
+        {text: Eitr.I18n.tr("Desktop"), icon: "\u{EBCF}"},
+        {text: Eitr.I18n.tr("Apps & Keys"), icon: "\u{F030C}"},
+        {text: Eitr.I18n.tr("Accounts & Security"), icon: "\u{F0483}"},
         {text: Eitr.I18n.tr("System"), icon: "\u{F013}"},
         {text: Eitr.I18n.tr("Control Center"), icon: "\u{F0493}", description: Eitr.I18n.tr("Open quick toggles, media and tools")},
         {text: Eitr.I18n.tr("Dotfiles"), icon: "\u{E5FC}", description: Eitr.I18n.tr("Open your configuration folder in an editor")}

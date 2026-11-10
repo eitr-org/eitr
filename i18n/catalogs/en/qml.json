@@ -75,7 +75,6 @@
   "Bluetooth is off": "Bluetooth is off",
   "Blur": "Blur",
   "Blur strength (shared)": "Blur strength (shared)",
-  "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot",
   "Bottom": "Bottom",
   "Brightness": "Brightness",
   "Brightness unavailable": "Brightness unavailable",
@@ -218,7 +217,6 @@
   "Detailed Status": "Detailed Status",
   "Detecting configured AI clients…": "Detecting configured AI clients…",
   "Devices": "Devices",
-  "Devices & Input": "Devices & Input",
   "Devices without a name: %1": "Devices without a name: %1",
   "Diagnostics and checks for this computer.": "Diagnostics and checks for this computer.",
   "Dictating": "Dictating",
@@ -348,7 +346,6 @@
   "LIVE": "LIVE",
   "LOCAL / TIME": "LOCAL / TIME",
   "LOGIN": "LOGIN",
-  "Language": "Language",
   "Large": "Large",
   "Layout": "Layout",
   "Layout, position and desktop bar controls.": "Layout, position and desktop bar controls.",
@@ -896,5 +893,6 @@
   "Drag to any angle, or turn by 45°.": "Drag to any angle, or turn by 45°.",
   "Shrink, grow or fill the screen width.": "Shrink, grow or fill the screen width.",
   "Stays on top of open apps.": "Stays on top of open apps.",
-  "The screen that shows this copy.": "The screen that shows this copy."
+  "The screen that shows this copy.": "The screen that shows this copy.",
+  "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot": "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot"
 }

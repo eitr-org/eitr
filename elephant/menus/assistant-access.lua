@@ -3,7 +3,7 @@ local i18n = dofile(paths.code("elephant/i18n.lua"))
 local choices = dofile(paths.code("elephant/choice-entries.lua"))
 Name = "assistant-access"
 NamePretty = i18n.tr("Assistant Access")
-Parent = "security"
+Parent = "ai-tools"
 Icon = "󰒃"
 FixedOrder = true
 function GetEntries()

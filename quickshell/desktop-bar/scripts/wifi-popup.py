@@ -32,7 +32,7 @@ def active_backend():
                              Gio.DBusCallFlags.NONE, 2000, None).unpack()[0]
     nm, iwd = owns("org.freedesktop.NetworkManager"), owns(SERVICE)
     if nm and iwd:
-        raise RuntimeError(tr('Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot'))
+        raise RuntimeError(tr('Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot'))
     if nm:
         return "networkmanager"
     if iwd:
@@ -280,7 +280,7 @@ def main():
 def action_error(error):
     """Return only stable codes and approved source messages to the broker."""
     messages = (
-        'Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot',
+        'Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot',
         'No WiFi backend is running',
         'Install the Eitr network helper first; see distro/NETWORKING.md',
         'CA certificate is too large',

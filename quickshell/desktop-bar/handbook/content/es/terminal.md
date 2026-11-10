@@ -12,7 +12,7 @@ Requiere Kitty 0.49+ y `shader-slang`, incluidos en las dependencias de Eitr. Ac
 
 ## Elegir terminal
 
-Elige Kitty o Ghostty en Configuración > Apariencia > Terminal. Walker > Configuración > Estilo > Terminal es una alternativa. El campo local `terminal` de
+Elige Kitty o Ghostty en Configuración > Apariencia > Terminal. Walker > Configuración > Escritorio > Apariencia > Terminal es una alternativa. El campo local `terminal` de
 `~/.config/eitr/terminal.json` controla Super+Enter, tmux, las sesiones de usuario,
 los terminales de IA/proyectos y las acciones de Walker para abrir en un terminal.
 Si falta Ghostty, elegirlo abre el flujo normal de instalación del paquete oficial:
@@ -43,7 +43,7 @@ Elegir Ghostty no los cambia.
 
 ## Apariencia del terminal y desenfoque compartido
 
-Walker > Configuración > Estilo > Terminal y Configuración > Apariencia > Terminal aplican
+Walker > Configuración > Escritorio > Apariencia > Terminal y Configuración > Apariencia > Terminal aplican
 opacidad, relleno y desenfoque a Kitty y Ghostty. La opacidad ofrece Sólido (100%),
 Ligero (90%), Medio (80%), Predeterminado (75%) y Fuerte (70%). El relleno ofrece
 Ninguno, Pequeño (4 puntos) y Cómodo (8 puntos). Los valores predeterminados conservan

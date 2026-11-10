@@ -107,6 +107,8 @@ the Flutter SDK just to run it. Developer tools remain optional.
 Use [Updates & Cleanup](handbook:maintenance) for upgrading; installing one
 package is not the same as the snapshot-protected System Update workflow.
 
+Main > Tools > Fun holds Music Visualizer and Rune Rain.
+
 **Music Visualizer** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.
 
 **Rune Rain** fills the screen with Elder Futhark runes falling in the theme's colours, now and then spelling ᛖᛁᛏᚱ. Any key closes it. In a terminal, `eitr matrix` runs it in place; `--speed slow|normal|fast` and `--seconds N` change its pace and length.
@@ -121,9 +123,9 @@ Browsers use HDR only when desktop HDR is on for their monitor; they never switc
 
 ## Voice reminders
 
-Hold **SUPER + Shift + D**, speak and release, or open Main > Tools > Reminders > Tell the assistant… to type. Eitr transcribes locally using the same offline model as dictation, then asks your Development > Default Assistant to interpret the request. Only the transcript and reminder context go to that assistant's provider; audio stays local and is deleted after transcription.
+Hold **SUPER + Shift + D**, speak and release, or open Main > Tools > Reminders > Tell the assistant… to type. Eitr transcribes locally using the same offline model as dictation, then asks your Development > AI > Default Assistant to interpret the request. Only the transcript and reminder context go to that assistant's provider; audio stays local and is deleted after transcription.
 
-The assistant runs headless through Eitr's read-only path; Eitr validates its JSON and executes reminder actions itself, without giving the assistant tools to change anything. With Ratatoskr (Development > Default Assistant), the transcript never leaves this PC.
+The assistant runs headless through Eitr's read-only path; Eitr validates its JSON and executes reminder actions itself, without giving the assistant tools to change anything. With Ratatoskr (Development > AI > Default Assistant), the transcript never leaves this PC.
 
 Say “Remind me tomorrow at 15:00 to call” or “Dentist on October 30 at 15:00, alert 30 minutes before”. Appointments alert one hour before by default (or your chosen lead) and at the event; plain reminders alert at their time. A date without a time opens the clock, with any assistant. Other missing details or ambiguity open a terminal with full numbered choices. Type a number or your own answer, or dictate it with SUPER + D; Esc cancels. A notification reports the result. Ask to list or cancel reminders as well.
 
@@ -139,7 +141,7 @@ Only the next occurrence has timers; after downtime, one missed occurrence is sh
 
 Reminder notifications, including missed alerts, offer **Snooze 5 min**, **Snooze 10 min**, **Snooze 1 hour** and **Dismiss** in the popup and notification history. Snoozing schedules a separate one-time reminder with the same text from the time you click; repeating reminders keep their schedule. Dismiss closes the alert. Actions remain available for up to 24 hours, then the notification expires.
 
-**Main > Tools > Calendar Sources > Add Calendar…** shows a Google, Outlook or other iCal calendar in the calendar panel, read-only and without signing in. Choose the provider: Google and Outlook open their settings in the browser. In Google, copy Settings for my calendars > Integrate calendar > Secret address in iCal format; in Outlook, publish a calendar under Settings > Calendar > Shared calendars and copy its ICS link.
+**Main > Tools > Reminders > Calendar Sources > Add Calendar…** shows a Google, Outlook or other iCal calendar in the calendar panel, read-only and without signing in. Choose the provider: Google and Outlook open their settings in the browser. In Google, copy Settings for my calendars > Integrate calendar > Secret address in iCal format; in Outlook, publish a calendar under Settings > Calendar > Shared calendars and copy its ICS link.
 
 Paste the address (`https://` or `webcal://`), then name the calendar. Anyone with that address can read the calendar, so Eitr keeps it in a private file and never shows it in menus, notifications or logs; reset the secret address at the provider if it leaks. Calendars refresh at login, every 15 minutes and when you open the calendar panel (at most once a minute).
 
@@ -155,11 +157,11 @@ Eitr has not reviewed its code; the code belongs to its author, not to Eitr, and
 
 Plugins may declare `packages`: up to 32 unique plain package names from enabled official Arch repositories or `[eitr]`, never AUR, URLs or local files. The review lists packages already installed and those missing; unknown packages refuse installation. After approval, Eitr requests the administrator password through the system polkit dialog and installs only missing packages. Updates adding packages require review too. Removal offers optional cleanup of packages installed for the plugin, only while they remain unused dependencies; packages installed explicitly or needed by another plugin are kept.
 
-Main > Plugins > Add Plugins asks for an HTTPS Git URL, or an SSH one such as `git@github.com:you/plugin.git` for a private repository (it uses your SSH keys through the agent). Adding takes two confirmations, and both default to No. First, before anything is downloaded, a safety page explains these risks; press Enter to download the plugin for review.
+Main > Install > Plugins > Add Plugins asks for an HTTPS Git URL, or an SSH one such as `git@github.com:you/plugin.git` for a private repository (it uses your SSH keys through the agent). Adding takes two confirmations, and both default to No. First, before anything is downloaded, a safety page explains these risks; press Enter to download the plugin for review.
 
 Then the review starts with the trust warning and any warnings (a background service that starts at every login, binary files), followed by the manifest author, repository, exact commit, Git author and date, version, the number of executable files and the rows. Press Enter to install; Esc cancels at either step.
 
-Nothing from the plugin runs before approval. `eitr plugin add URL` asks the same two questions (Enter continues, Esc cancels) and refuses to run without a terminal. Main > Plugins > Installed Plugins lists installed plugin folders; each installed plugin has a folder for its actions, visuals, removal and available updates.
+Nothing from the plugin runs before approval. `eitr plugin add URL` asks the same two questions (Enter continues, Esc cancels) and refuses to run without a terminal. Main > Install > Plugins > Installed Plugins lists installed plugin folders; each installed plugin has a folder for its actions, visuals, removal and available updates.
 
 In the install review, press A to ask your default assistant to check a temporary copy of the repository as text, without tools. Ratatoskr and Claude can check plugins; an unsupported default is named in the review. Claude sends the text to its provider; Ratatoskr keeps it on this PC.
 

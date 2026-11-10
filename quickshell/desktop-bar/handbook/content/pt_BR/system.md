@@ -61,10 +61,10 @@ Administradores têm as abas **Usuários** e **Gerenciar** em Configurações > 
 
 ## Usar o Walker como alternativa
 
-**SUPER + F** abre o Walker. O menu Configurações mantém pastas como Estilo, Dispositivos e entrada e Sistema. Esses são caminhos do Walker, não páginas do aplicativo Configurações.
+**SUPER + F** abre o Walker. O menu Configurações segue os grupos do aplicativo Configurações: Dispositivos, Área de trabalho, Apps e teclas, Contas e segurança e Sistema, com Central de controle e Dotfiles no fim. Apps e teclas abre as páginas Apps padrão e Atalhos de teclado do aplicativo Configurações.
 
 <!-- eitr-figure: launcher -->
 
 O menu Configurações do Walker é uma alternativa com suas próprias pastas. > abre um submenu; a descrição abaixo de uma ação explica o que ela faz.
 
-O Walker mostra pastas antes das ações. Digite para buscar, pressione Enter para abrir e Shift + Backspace para voltar. O idioma continua em Walker > Configurações > Idioma; veja [Idioma](handbook:language).
+O Walker mostra pastas antes das ações. Digite para buscar, pressione Enter para abrir e Shift + Backspace para voltar. O idioma continua em Walker > Configurações > Dispositivos > Idioma; veja [Idioma](handbook:language).

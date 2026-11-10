@@ -1,6 +1,6 @@
 # Captura e compartilhamento
 
-As ferramentas de captura ficam em Principal > Ferramentas > Captura e Central de controle > Ferramentas.
+Capturas de tela e gravações ficam em Principal > Ferramentas > Capturar; Cor, Reconhecer texto, Código QR e Transcodificar ficam direto em Principal > Ferramentas. Central de controle > Ferramentas oferece as mesmas ações.
 
 ## Capturas de tela e extração
 

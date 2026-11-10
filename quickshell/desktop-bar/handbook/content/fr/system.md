@@ -61,10 +61,10 @@ Les administrateurs disposent des onglets **Utilisateurs** et **Gérer** dans Pa
 
 ## Utiliser Walker comme alternative
 
-**SUPER + F** ouvre Walker. Son menu Paramètres conserve des dossiers comme Style, Périphériques et saisie et Système. Ce sont des chemins Walker, pas des pages de l’application Paramètres.
+**SUPER + F** ouvre Walker. Son menu Paramètres suit les groupes de l’application Paramètres : Périphériques, Bureau, Applications et touches, Comptes et sécurité et Système, avec Centre de contrôle et Dotfiles en bas. Applications et touches ouvre les pages Applications par défaut et Raccourcis clavier de l’application Paramètres.
 
 <!-- eitr-figure: launcher -->
 
 Le menu Paramètres de Walker est une alternative avec ses propres dossiers. > ouvre un sous-menu ; la description sous une action explique son effet.
 
-Walker affiche les dossiers avant les actions. Tapez pour chercher, appuyez sur Entrée pour ouvrir et Shift + Backspace pour revenir. La langue se choisit dans Walker > Paramètres > Langue ; voir [Langue](handbook:language).
+Walker affiche les dossiers avant les actions. Tapez pour chercher, appuyez sur Entrée pour ouvrir et Shift + Backspace pour revenir. La langue se choisit dans Walker > Paramètres > Périphériques > Langue ; voir [Langue](handbook:language).

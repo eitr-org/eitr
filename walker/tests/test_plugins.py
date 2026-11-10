@@ -652,13 +652,15 @@ class PluginTests(unittest.TestCase):
             self.manager.add(self.url, lambda url: True, lambda *details: True)
 
     def test_menu_parents_and_scoped_search(self):
-        for name, parent in [('plugins', 'main'), ('plugins-install', 'plugins'), ('plugin-actions', 'plugins-install')]:
+        for name, parent in [('plugins', 'install'), ('plugins-install', 'plugins'), ('plugin-actions', 'plugins-install')]:
             self.assertIn('Parent = "' + parent + '"', (ROOT / 'elephant/menus' / (name + '.lua')).read_text())
             self.assertEqual((ROOT / 'walker/themes/current' / ('item_menus-' + name + '.xml')).read_bytes(),
                              (ROOT / 'walker/themes/current/item_menus-main.xml').read_bytes())
-        for name in ('tools', 'install'):
+        for name in ('tools', 'main'):
             rows = json.loads((ROOT / 'elephant/menu-rows' / (name + '.json')).read_text())
             self.assertFalse(any(row['text'] == 'Plugins' for row in rows))
+        install = json.loads((ROOT / 'elephant/menu-rows/install.json').read_text())
+        self.assertEqual([row.get('submenu') for row in install if row['text'] == 'Plugins'], ['plugins'])
 
     def test_declared_service_and_script_do_not_run_before_approval(self):
         marker = self.home / 'plugin-ran'

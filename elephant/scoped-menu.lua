@@ -18,7 +18,7 @@ return function(name, configure)
         handle:close()
         local ok, rows = pcall(jsonDecode, raw)
         local entries = {}
-        local battery = (name == "system-devices" or name == "battery-limit") and dofile(paths.code("elephant/battery-state.lua"))() or {}
+        local battery = (name == "input" or name == "battery-limit") and dofile(paths.code("elephant/battery-state.lua"))() or {}
         for _, row in ipairs(ok and rows or {}) do
             if (row.submenu ~= "battery-limit" and name ~= "battery-limit") or battery.available then
                 local entry = row_entry(row)
@@ -34,7 +34,7 @@ return function(name, configure)
         for _, entry in ipairs(entries) do
             if entry.Text == "New" and name:match("^ai%-") then new_entry = entry end
         end
-        entries = i18n.entries(entries, name == "main")
+        entries = i18n.entries(entries, name == "main" or name == "settings")
         if new_entry then
             for index, entry in ipairs(entries) do
                 if entry == new_entry then

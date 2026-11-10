@@ -1,13 +1,13 @@
 # Accès à distance
 
-Ouvrez Paramètres > Streaming pour Sunshine et Moonlight, ou Walker > Paramètres > Connectivité > Accès à distance pour les menus d’accès distant. Le partage reste désactivé jusqu’à
+Ouvrez Paramètres > Streaming pour Sunshine et Moonlight, ou Walker > Paramètres > Périphériques > Streaming pour les mêmes actions. Le partage reste désactivé jusqu’à
 son activation. Cette étape contrôle le bureau Eitr connecté et éveillé.
 Le fonctionnement sans écran, avant connexion et wake on LAN viendront plus tard.
 Si cet ordinateur se verrouille pendant le partage, l’écran distant affiche
 l’écran de verrouillage : la personne connectée le voit et peut saisir le mot de
 passe. Arrêtez le partage avant de vous absenter si la confidentialité compte.
 
-Configuration regroupe les réglages. Partager ce PC > Configuration contient Configurer le partage, Paramètres de partage, Démarrer à la connexion, Désactiver le démarrage à la connexion, État détaillé et Restaurer la configuration du partage. Accéder à ce PC à distance > Configuration contient Se connecter, Configurer l’accès distant, Restaurer la configuration d’accès distant, État détaillé et Tester un pair par ping. Les actions courantes restent directement dans leur menu parent.
+Les dossiers de configuration regroupent les réglages. Streaming > Configuration du partage contient Configurer le partage, Paramètres de partage, Démarrer à la connexion, Désactiver le démarrage à la connexion, État détaillé et Restaurer la configuration du partage. Accéder à ce PC à distance > Configuration contient Se connecter, Configurer l’accès distant, Restaurer la configuration d’accès distant, État détaillé et Tester un pair par ping. Les actions de partage courantes (Démarrer le partage, Arrêter le partage, Associer un appareil, État du partage et Se connecter à un autre PC) restent directement dans Streaming, et Connecter et Déconnecter dans Accéder à ce PC à distance.
 
 État détaillé ouvre un terminal de diagnostic qui reste ouvert jusqu’à un appui sur Esc.
 

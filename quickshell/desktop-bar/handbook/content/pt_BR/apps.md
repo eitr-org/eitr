@@ -55,6 +55,8 @@ O pacote do LocalSend inclui seus requisitos de execução: não é preciso inst
 
 Consulte [Atualizações e limpeza](handbook:maintenance) para atualizar; instalar um pacote não equivale ao fluxo de Atualização do sistema protegido por snapshots.
 
+Principal > Ferramentas > Diversão contém Visualizador de música e Chuva de Runas.
+
 **Visualizador de música** abre o cava com as cores do tema. Clique com o botão direito no equalizador de mídia para abrir o mesmo visualizador; o botão esquerdo continua abrindo os detalhes da mídia. Pressione **q** ou **Esc** para fechar. Se o cava não estiver instalado, ele será instalado primeiro.
 
 **Chuva de Runas** enche a tela com runas do futhark antigo caindo nas cores do tema, às vezes formando ᛖᛁᛏᚱ. Qualquer tecla fecha. No terminal, `eitr matrix` roda no próprio terminal; `--speed slow|normal|fast` e `--seconds N` mudam o ritmo e a duração.
@@ -71,9 +73,9 @@ A reprodução HDR no navegador também depende do suporte e das configurações
 
 ## Lembretes por voz
 
-Segure **SUPER + Shift + D**, fale e solte, ou digite em Principal > Ferramentas > Lembretes > Fale com o assistente…. O Eitr transcreve localmente com o mesmo modelo offline do ditado e consulta o assistente escolhido em Desenvolvimento > Assistente padrão. Só a transcrição e o contexto dos lembretes vão ao provedor; o áudio fica local e é apagado após a transcrição.
+Segure **SUPER + Shift + D**, fale e solte, ou digite em Principal > Ferramentas > Lembretes > Fale com o assistente…. O Eitr transcreve localmente com o mesmo modelo offline do ditado e consulta o assistente escolhido em Desenvolvimento > IA > Assistente padrão. Só a transcrição e o contexto dos lembretes vão ao provedor; o áudio fica local e é apagado após a transcrição.
 
-O assistente roda sem janela pelo caminho somente leitura do Eitr. O Eitr valida o JSON e executa as ações; o assistente não recebe ferramentas para alterar nada. Com Ratatoskr (Desenvolvimento > Assistente padrão), a transcrição nunca sai deste PC.
+O assistente roda sem janela pelo caminho somente leitura do Eitr. O Eitr valida o JSON e executa as ações; o assistente não recebe ferramentas para alterar nada. Com Ratatoskr (Desenvolvimento > IA > Assistente padrão), a transcrição nunca sai deste PC.
 
 Diga “Me lembre de ligar amanhã às 15h” ou “Dentista em 30 de outubro às 15h, avise 30 minutos antes”. Compromissos avisam uma hora antes por padrão (ou com a antecedência pedida) e no horário; lembretes simples só no horário. Dados ausentes ou ambiguidade abrem um terminal com opções numeradas completas. Digite o número ou sua própria resposta, ou dite com SUPER + D; Esc cancela. Uma data sem horário abre o relógio com qualquer assistente. Uma notificação informa o resultado. Você também pode pedir para listar ou cancelar lembretes.
 
@@ -89,7 +91,7 @@ A lista mostra o próximo horário e a regra. Cancele uma ocorrência ou todas a
 
 As notificações de lembretes, incluindo alertas perdidos, oferecem **Adiar 5 min**, **Adiar 10 min**, **Adiar 1 hora** e **Dispensar** no popup e no histórico de notificações. Adiar agenda um lembrete separado, sem repetição e com o mesmo texto, a partir do clique; lembretes recorrentes mantêm sua programação. Dispensar fecha o alerta. As ações ficam disponíveis por até 24 horas; depois, a notificação expira.
 
-**Principal > Ferramentas > Fontes de calendários > Adicionar calendário…** mostra um calendário do Google, do Outlook ou outro calendário iCal no painel do calendário, somente leitura e sem login. Escolha o provedor: Google e Outlook abrem as configurações no navegador. No Google, copie Configurações das minhas agendas > Integrar agenda > Endereço secreto no formato iCal; no Outlook, publique um calendário em Configurações > Calendário > Calendários compartilhados e copie o link ICS.
+**Principal > Ferramentas > Lembretes > Fontes de calendários > Adicionar calendário…** mostra um calendário do Google, do Outlook ou outro calendário iCal no painel do calendário, somente leitura e sem login. Escolha o provedor: Google e Outlook abrem as configurações no navegador. No Google, copie Configurações das minhas agendas > Integrar agenda > Endereço secreto no formato iCal; no Outlook, publique um calendário em Configurações > Calendário > Calendários compartilhados e copie o link ICS.
 
 Cole o endereço (`https://` ou `webcal://`) e dê um nome ao calendário. Qualquer pessoa com esse endereço pode ler o calendário, então o Eitr o guarda em um arquivo privado e nunca o mostra em menus, notificações ou registros; redefina o endereço secreto no provedor se ele vazar. Os calendários são atualizados no login, a cada 15 minutos e ao abrir o painel do calendário (no máximo uma vez por minuto).
 
@@ -105,11 +107,11 @@ O Eitr não revisou o código; o código é do autor, não do Eitr, e cada item 
 
 Plugins podem declarar `packages`: até 32 nomes simples e únicos de pacotes dos repositórios oficiais do Arch habilitados ou `[eitr]`, nunca AUR, URLs ou arquivos locais. A revisão lista os pacotes instalados e os que faltam; pacotes desconhecidos impedem a instalação. Após a aprovação, o Eitr pede a senha de administrador pelo diálogo do sistema polkit e instala apenas os pacotes ausentes. Atualizações que adicionam pacotes também exigem revisão. A remoção oferece excluir os pacotes instalados pelo plugin somente enquanto forem dependências sem uso; pacotes instalados explicitamente ou necessários para outro plugin são mantidos.
 
-Principal > Plugins > Adicionar plugins pede uma URL Git HTTPS ou, para um repositório privado, uma SSH como `git@github.com:you/plugin.git` (usa suas chaves SSH pelo agente). Adicionar exige duas confirmações, ambas com Não como padrão. Primeiro, antes de baixar qualquer coisa, uma página de segurança explica esses riscos; pressione Enter para baixar o plugin para revisão.
+Principal > Instalar > Plugins > Adicionar plugins pede uma URL Git HTTPS ou, para um repositório privado, uma SSH como `git@github.com:you/plugin.git` (usa suas chaves SSH pelo agente). Adicionar exige duas confirmações, ambas com Não como padrão. Primeiro, antes de baixar qualquer coisa, uma página de segurança explica esses riscos; pressione Enter para baixar o plugin para revisão.
 
 Depois, a revisão começa com o aviso de confiança e eventuais avisos (um serviço em segundo plano que inicia a cada login, arquivos binários), seguidos de autor do manifesto, repositório, commit exato, autor e data do Git, versão, número de arquivos executáveis e itens. Pressione Enter para instalar; Esc cancela em qualquer uma das etapas.
 
-Nada do plugin é executado antes da aprovação. `eitr plugin add URL` faz as mesmas duas perguntas (Enter continua, Esc cancela) e se recusa a rodar sem terminal. Principal > Plugins > Plugins instalados lista suas ações; cada plugin instalado tem uma pasta com suas ações. O menu vazio mostra Nenhum plugin instalado.
+Nada do plugin é executado antes da aprovação. `eitr plugin add URL` faz as mesmas duas perguntas (Enter continua, Esc cancela) e se recusa a rodar sem terminal. Principal > Instalar > Plugins > Plugins instalados lista suas ações; cada plugin instalado tem uma pasta com suas ações. O menu vazio mostra Nenhum plugin instalado.
 
 O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e Comunidade abrem detalhes com imagens, vídeos e componentes. Vídeos começam sem som e param ao fechar. Instalar e Atualizar mostram fonte, commit completo, autor, arquivos, comandos, avisos e alterações; a verificação opcional por IA aparece como texto.
 

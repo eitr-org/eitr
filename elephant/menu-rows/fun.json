@@ -1,0 +1,28 @@
+[
+  {
+    "text": "Music Visualizer",
+    "subtext": "Watch music dance in a theme-coloured terminal",
+    "keywords": [
+      "cava",
+      "audio",
+      "music"
+    ],
+    "icon": "󰎆",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/tools/music-visualizer.sh"
+    }
+  },
+  {
+    "text": "Rune Rain",
+    "subtext": "Runes falling in the theme's colours; any key stops them",
+    "keywords": [
+      "matrix",
+      "runes",
+      "screensaver"
+    ],
+    "icon": "󰖖",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/tools/rune-rain.sh"
+    }
+  }
+]

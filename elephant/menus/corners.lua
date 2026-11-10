@@ -3,7 +3,7 @@ local i18n = dofile(paths.code("elephant/i18n.lua"))
 -- The styles come from quickshell/desktop-bar/corner-styles.json; the current one is checked.
 Name = "corners"
 NamePretty = i18n.tr("Corners")
-Parent = "style"
+Parent = "appearance"
 Icon = "󰕰"
 FixedOrder = true
 

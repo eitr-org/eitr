@@ -29,10 +29,10 @@ Column {
     ControlCenterFold { centerRef: section.centerRef;
     title: Eitr.I18n.tr("Text & Color")
     GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
-        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("OCR Text"); glyph: "󰴑"; onClicked: section.centerRef.menuAction("capture", "OCR Text") }
-        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("QR Code"); glyph: "󰐲"; onClicked: section.centerRef.menuAction("capture", "QR Code") }
-        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Color Picker"); glyph: "󰈊"; onClicked: section.centerRef.menuAction("capture", "Color") }
-        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Transcode"); glyph: "󰈫"; onClicked: section.centerRef.menuAction("capture", "Transcode") }
+        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("OCR Text"); glyph: "󰴑"; onClicked: section.centerRef.menuAction("tools", "OCR Text") }
+        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("QR Code"); glyph: "󰐲"; onClicked: section.centerRef.menuAction("tools", "QR Code") }
+        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Color Picker"); glyph: "󰈊"; onClicked: section.centerRef.menuAction("tools", "Color") }
+        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Transcode"); glyph: "󰈫"; onClicked: section.centerRef.menuAction("tools", "Transcode") }
     }
     }
     ControlCenterFold { centerRef: section.centerRef;

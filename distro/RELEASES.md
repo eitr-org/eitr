@@ -106,6 +106,18 @@ GPUs or a real Windows/BitLocker disk, waits for the public preview and lands in
 Later codenames are planned, not promised: a release may move to the next row
 when its milestone changes. Patch releases (0.3.1) keep their minor's codename.
 
+## Walker follows the Settings app (unreleased)
+
+Walker's Main menu reads Apps, Development, Tools, Quick Actions, Install, Gaming,
+Learn, Settings and Power. Its Settings menu uses the Settings app's groups in their
+order: Devices (Connections, Input, Language, Streaming, Display, Audio and
+Microphone), Desktop (Appearance, Desktop Bar, Windows, Lockscreen and Focus), Apps
+& Keys (Default Apps and Keybinds open their Settings pages), Accounts & Security
+and System. Plugins moved into Install, and Install > VPN is gone. Tools gathers
+Capture, Share, Reminders with Calendar Sources, Fun (Music Visualizer and Rune
+Rain) and the one-step capture actions. Development > AI holds Default Assistant
+and Assistant Access. Hardware, Weather and AI Usage open from their bar icons only.
+
 ## Web app browser profiles (unreleased)
 
 Creating a web app in a terminal offers a browser profile when several exist,

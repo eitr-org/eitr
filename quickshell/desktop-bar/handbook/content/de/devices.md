@@ -6,7 +6,7 @@ Unter **Einstellungen > Bildschirme**, **Einstellungen > Ton** und **Einstellung
 
 Öffne Einstellungen > Bildschirme, Ton oder Eingabe. Die passenden Leistenpanels und das Kontrollzentrum bieten ebenfalls Schnellsteuerungen.
 
-Walker > Einstellungen > Geräte und Eingabe > Beleuchtung steuert OpenRGB-Geräte. Sie ist anfangs aus; Thema folgen färbt unterstützte Geräte bei Designwechseln neu.
+Walker > Einstellungen > Geräte > Eingabe > Beleuchtung steuert OpenRGB-Geräte. Sie ist anfangs aus; Thema folgen färbt unterstützte Geräte bei Designwechseln neu.
 
 ## Ton und Mikrofon einstellen
 

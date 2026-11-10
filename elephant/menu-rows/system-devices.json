@@ -1,41 +1,49 @@
 [
   {
-    "text": "Battery Charge Limit",
-    "keywords": [
-      "battery",
-      "charge",
-      "threshold",
-      "laptop"
-    ],
+    "text": "Connections",
     "subtext": ">",
-    "icon": "󰂄",
-    "submenu": "battery-limit"
+    "keywords": [
+      "network",
+      "wifi",
+      "bluetooth",
+      "Connectivity"
+    ],
+    "icon": "󰖩",
+    "submenu": "system-connectivity"
   },
   {
-    "text": "Keyboard",
+    "text": "Input",
     "subtext": ">",
     "keywords": [
-      "layout",
-      "language",
-      "input",
-      "alt shift"
+      "keyboard",
+      "lighting",
+      "battery"
     ],
     "icon": "󰌌",
-    "submenu": "keyboard"
+    "submenu": "input"
   },
   {
-    "text": "Lighting",
-    "keywords": [
-      "rgb",
-      "openrgb",
-      "fans",
-      "keyboard",
-      "leds",
-      "theme colour"
-    ],
+    "text": "Language",
+    "icon": "󰗊",
     "subtext": ">",
-    "icon": "󰌵",
-    "submenu": "lighting"
+    "submenu": "language",
+    "keywords": [
+      "language",
+      "locale",
+      "translation"
+    ]
+  },
+  {
+    "text": "Streaming",
+    "subtext": ">",
+    "icon": "󰢹",
+    "submenu": "remote-access",
+    "keywords": [
+      "Remote Access",
+      "Share This PC",
+      "sunshine",
+      "moonlight"
+    ]
   },
   {
     "text": "Audio",

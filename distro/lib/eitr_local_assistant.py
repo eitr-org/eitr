@@ -160,7 +160,7 @@ def launch(arguments):
     executable = binary()
     try:
         if not installed():
-            raise ValueError(tr('Ratatoskr is not set up. Choose it in Development > Default Assistant.'))
+            raise ValueError(tr('Ratatoskr is not set up. Choose it in Development > AI > Default Assistant.'))
         ensure_running()
     except ValueError as error:
         print(error, file=sys.stderr)
@@ -184,7 +184,7 @@ def explain():
     for line in (tr('It downloads Ollama (Arch package ollama, about 15 MB) and a language model ({model}, about 2.5 GB) once.', model=MODEL),
                  tr('It runs only on this PC: your requests never leave it, and no account is needed.'),
                  tr('It is noticeably less reliable than the cloud assistants, especially with unusual phrasing.'),
-                 tr('You can remove it later from Development > Default Assistant.')):
+                 tr('You can remove it later from Development > AI > Default Assistant.')):
         print('  • ' + line)
     print()
 

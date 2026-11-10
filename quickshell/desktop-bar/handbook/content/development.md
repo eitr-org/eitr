@@ -70,7 +70,7 @@ same way.
 
 Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode and Pi can also be started by command. If a tool is missing, Eitr explains it and offers the same installation as Install > AI CLIs. Enter confirms installation; Esc cancels. Without an interactive terminal, the command exits with installation instructions. Installed binaries take precedence over these launchers. Sign in through each tool’s own workflow; no assistant binaries or credentials are bundled.
 
-Development > Default Assistant selects one installed assistant for this computer. **SUPER + A** opens it in a terminal; without a default, it opens the chooser. The SUPER + A assistant opens with full access by default: it can change files and run commands without asking. Assistants opened from Development > AI keep their normal permission prompts.
+Development > AI > Default Assistant selects one installed assistant for this computer. **SUPER + A** opens it in a terminal; without a default, it opens the chooser. The SUPER + A assistant opens with full access by default: it can change files and run commands without asking. Assistants opened from Development > AI keep their normal permission prompts.
 
 Choose **Settings > AI Assistant > Assistant Access > Ask before changes** to restore normal permission prompts. The preference is stored only on this PC in `eitr/ai.json`. Organization restrictions force permission prompts. Sudo still requires your password. Headless collaboration and voice reminders remain read-only.
 
@@ -88,7 +88,7 @@ The packaged **Eitr** skill teaches safe desktop changes and points to this offl
 
 ### Ratatoskr (local, experimental)
 
-Development > Default Assistant always offers **Ratatoskr (local, experimental)**, which needs no account or subscription. The first time, a terminal explains the one-time downloads before anything changes: the Arch package `ollama` (about 15 MB) and the language model `qwen3:4b` (about 2.5 GB, Apache-2.0 licence). One confirmation (Enter confirms; Esc cancels) installs the package, creates the user service `eitr-ollama.service`, downloads the model with visible progress and makes it the default. If a step fails, its output stays on screen and the previous default is kept.
+Development > AI > Default Assistant always offers **Ratatoskr (local, experimental)**, which needs no account or subscription. The first time, a terminal explains the one-time downloads before anything changes: the Arch package `ollama` (about 15 MB) and the language model `qwen3:4b` (about 2.5 GB, Apache-2.0 licence). One confirmation (Enter confirms; Esc cancels) installs the package, creates the user service `eitr-ollama.service`, downloads the model with visible progress and makes it the default. If a step fails, its output stays on screen and the previous default is kept.
 
 Everything stays on this PC: the service listens only on `127.0.0.1:11434`, starts when needed and keeps its models in `~/.local/share/eitr/ollama`. It is noticeably less reliable than the cloud assistants, especially with unusual phrasing, and slower on the processor. Voice reminders check its answers like any other assistant's, so a wrong answer changes nothing. **SUPER + A** opens a chat with the model; `/bye` closes it. It is never a helper for assistants working together and has no AI Usage entry.
 

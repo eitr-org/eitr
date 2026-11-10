@@ -54,6 +54,6 @@ Une nouvelle installation programme une tentative en arrière-plan deux minutes 
 
 État en lecture seule : `/usr/lib/eitr/eitr-system mirrors-status` affiche du JSON avec `last_ranking_time` (UTC, ou null avant réussite), `mirror_count`, `shipped_fallback` et `backup_available`. Il lit les fichiers locaux sans réseau ni sudo.
 
-La mise à jour du système vérifie les nouveaux commits des plugins à la fin sans changer les versions approuvées. Révisez-les et installez-les séparément dans **Centre de contrôle > Plugins > Mettre à jour les plugins**, **Plugins > Mettre à jour les plugins** ou avec `eitr plugin update`. Les erreurs réseau sont ignorées silencieusement ; les hooks after-update restent inchangés.
+La mise à jour du système vérifie les nouveaux commits des plugins à la fin sans changer les versions approuvées. Révisez-les et installez-les séparément dans **Centre de contrôle > Plugins > Mettre à jour les plugins**, **Installer > Plugins > Mettre à jour les plugins** ou avec `eitr plugin update`. Les erreurs réseau sont ignorées silencieusement ; les hooks after-update restent inchangés.
 
 Paramètres > Mises à jour affiche les paquets en attente et permet de renouveler la liste. Pour les vérifications en lecture seule, voir [Dépannage](handbook:troubleshooting).

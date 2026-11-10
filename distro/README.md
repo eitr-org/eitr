@@ -104,7 +104,7 @@ entries. Validate the actual boot, shutdown and unlock in a VM before release.
   Secure Boot is documentation only: [SECURE-BOOT.md](SECURE-BOOT.md) (sbctl,
   Option ROM risks, GRUB/Limine snapshot entries, undo), bundled in
   Walker → Learn → EITR Handbook → Secure Boot.
-- Laptops: Walker → Settings → Devices & Input → Battery Charge Limit runs
+- Laptops: Walker → Settings → Devices → Input → Battery Charge Limit runs
   `eitr-system battery-limit <60-100|off>`, which writes
   `charge_control_end_threshold` and installs `eitr-battery-limit.service` to
   restore it at boot and after resume. Desktops have no threshold and are refused.

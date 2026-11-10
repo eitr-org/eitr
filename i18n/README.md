@@ -20,7 +20,7 @@ No machine locale configuration is bundled.
 - Menus: `elephant/i18n.lua` selects the generated table from the environment without
   launching subprocesses, preserves English and translated search keywords,
   and sorts translated folders
-  before actions using accent-insensitive sort keys. Callers explicitly preserve Main's and Apps' ordering.
+  before actions using accent-insensitive sort keys. Callers explicitly preserve Main's, Settings' and Apps' ordering.
 - Python: `distro/lib/eitr_i18n.py` owns locale lookup and the `eitr` gettext
   domain. Metadata and locale selections are cached. Direct entrypoints use
   the one `eitr_bootstrap.py` owner, exposed by source-tree links; session

@@ -284,12 +284,12 @@ class FlowTests(unittest.TestCase):
 
 
 class MenuTests(unittest.TestCase):
-    def test_calendars_menu_lives_under_tools(self):
+    def test_calendars_menu_lives_under_reminders(self):
         menu = load_menu('calendars')
-        self.assertEqual(menu['parent'], 'tools')
+        self.assertEqual(menu['parent'], 'reminders')
         self.assertEqual([entry['text'] for entry in menu['entries']], ['Add Calendar…'])
         self.assertTrue(menu['entries'][0]['actions']['open'].endswith('tools/calendars.py add'))
-        row = next(entry for entry in load_menu('tools')['entries'] if entry['text'] == 'Calendar Sources')
+        row = next(entry for entry in load_menu('reminders')['entries'] if entry['text'] == 'Calendar Sources')
         self.assertEqual((row['subtext'], row['submenu']), ('>', 'calendars'))
         lua = (ROOT / 'elephant/menus/calendars.lua').read_text()
         self.assertIn('" rows")', lua)

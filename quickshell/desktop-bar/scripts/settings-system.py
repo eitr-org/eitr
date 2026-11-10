@@ -34,7 +34,7 @@ def shortcuts():
     return {'items': items}
 
 
-# Settings > Security's tab for each Walker Security row.
+# Settings > Security's tab for each row of Walker's Accounts & Security menu.
 SECURITY_TABS = {'FIDO2 Security Key': 'sign-in', 'Fingerprint': 'sign-in', 'Return to Password Authentication': 'sign-in',
                  'Firewall': 'protection', 'TPM Disk Unlock': 'protection'}
 
@@ -57,9 +57,9 @@ def security():
     statuses['TPM Disk Unlock'] = tr('Enrollment status requires the existing disk-unlock flow')
     items = []
     for row in rows('security'):
-        # Settings > Users changes the password and lists the accounts, and AI Assistant sets
-        # assistant access; Walker keeps these rows in its Security menu.
-        if row['text'] in ('Update Password', 'Assistant Access', 'Users'):
+        # Settings > Users changes the password and lists the accounts; Walker keeps them
+        # in the Users folder of its Accounts & Security menu.
+        if row['text'] == 'Users':
             continue
         items.append({'tab': SECURITY_TABS.get(row['text'], 'protection'), 'title': messages.get(row['text'], row['text']), 'actionTitle': row['text'],
                       'detail': statuses.get(row['text'], messages.get(row.get('subtext'), row.get('subtext')) if row.get('subtext') != '>' else tr('Review status and settings')),

@@ -26,12 +26,12 @@ from eitr_terminal import read_key
 HELPER = '/usr/lib/eitr/eitr-system'
 UPDATE = 'Settings > System > System Update'
 RECOVERY = 'eitr handbook recovery'
-REPORT = 'Settings > System > Information > Report a Problem'
+REPORT = 'Settings > System > Report a Problem'
 RESTART = 'Main > Power > Reboot'
 CLEANUP = 'Settings > System > Maintenance > Cleanup'
-FIREWALL = 'Settings > Security > Firewall'
-DISPLAY = 'Settings > Devices & Input > Display'
-AUDIO = 'Settings > Devices & Input > Audio'
+FIREWALL = 'Settings > Accounts & Security > Firewall'
+DISPLAY = 'Settings > Devices > Display'
+AUDIO = 'Settings > Devices > Audio'
 
 
 class Unavailable(Exception):
@@ -643,7 +643,7 @@ def check_plugins(context):
     context.read(context.state / 'eitr/plugins.json')
     blocked = Plugins().blocked()
     if blocked:
-        return result('warning', f'{len(blocked)} installed plugin' + (' is' if len(blocked) == 1 else 's are') + ' blocked.', 'Plugins > Installed Plugins',
+        return result('warning', f'{len(blocked)} installed plugin' + (' is' if len(blocked) == 1 else 's are') + ' blocked.', 'Install > Plugins > Installed Plugins',
                       tr('Some installed plugins are blocked and do not run; review them in Installed Plugins.'))
     return result('ok', 'No installed plugins are blocked.')
 
@@ -652,7 +652,7 @@ def check_plugin_hooks(context):
     lines = context.read(context.state / 'eitr/plugin-hooks.log').splitlines()[-100:]
     failures = [line for line in lines if re.search(r'^[a-z0-9][a-z0-9-]* (after-update|login|theme-changed|wallpaper-changed): ', line)]
     if failures:
-        return result('warning', f'{len(failures)} hook failures in last 100 log lines; log has no timestamps, age unknown.', 'Plugins > Installed Plugins',
+        return result('warning', f'{len(failures)} hook failures in last 100 log lines; log has no timestamps, age unknown.', 'Install > Plugins > Installed Plugins',
                       tr('A plugin reported errors; review it in Installed Plugins.'))
     return result('ok', 'No hook failure records in last 100 log lines; age unknown.')
 

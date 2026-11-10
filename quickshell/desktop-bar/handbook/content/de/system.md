@@ -59,10 +59,10 @@ Administratoren haben unter Einstellungen > Benutzer die Register **Benutzer** u
 
 ## Walker als Alternative verwenden
 
-**SUPER + F** öffnet Walker. Sein Einstellungsmenü enthält weiterhin Ordner wie Stil, Geräte und Eingabe sowie System. Das sind Walker-Pfade, keine Seiten der Einstellungs-App.
+**SUPER + F** öffnet Walker. Sein Einstellungsmenü folgt den Gruppen der Einstellungs-App: Geräte, Desktop, Apps und Tasten, Konten und Sicherheit sowie System, darunter Kontrollzentrum und Dotfiles. Apps und Tasten öffnet die Seiten Standard-Apps und Tastenbelegungen der Einstellungs-App.
 
 <!-- eitr-figure: launcher -->
 
 Walkers Einstellungsmenü ist eine Alternative mit eigenen Ordnern. > öffnet ein Untermenü; die Beschreibung unter einer Aktion erklärt ihre Wirkung.
 
-Walker zeigt Ordner vor Aktionen. Tippe zum Suchen, drücke Enter zum Öffnen und Shift + Backspace für Zurück. Die Sprachwahl bleibt unter Walker > Einstellungen > Sprache; siehe [Sprache](handbook:language).
+Walker zeigt Ordner vor Aktionen. Tippe zum Suchen, drücke Enter zum Öffnen und Shift + Backspace für Zurück. Die Sprachwahl bleibt unter Walker > Einstellungen > Geräte > Sprache; siehe [Sprache](handbook:language).

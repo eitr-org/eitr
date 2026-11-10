@@ -6,7 +6,7 @@ Utilisez **Paramètres > Écrans**, **Paramètres > Son** et **Paramètres > Sai
 
 Ouvrez Paramètres > Écrans, Son ou Saisie. Les panneaux correspondants de la barre et le Centre de contrôle proposent aussi des commandes rapides.
 
-Walker > Paramètres > Périphériques et saisie > Éclairage contrôle les appareils OpenRGB. Il est désactivé au départ ; Suivre le thème recolore les appareils compatibles lors des changements de thème.
+Walker > Paramètres > Périphériques > Saisie > Éclairage contrôle les appareils OpenRGB. Il est désactivé au départ ; Suivre le thème recolore les appareils compatibles lors des changements de thème.
 
 ## Régler le son et le microphone
 

@@ -1,0 +1,40 @@
+[
+  {
+    "text": "Battery Charge Limit",
+    "keywords": [
+      "battery",
+      "charge",
+      "threshold",
+      "laptop"
+    ],
+    "subtext": ">",
+    "icon": "󰂄",
+    "submenu": "battery-limit"
+  },
+  {
+    "text": "Keyboard",
+    "subtext": ">",
+    "keywords": [
+      "layout",
+      "language",
+      "input",
+      "alt shift"
+    ],
+    "icon": "󰌌",
+    "submenu": "keyboard"
+  },
+  {
+    "text": "Lighting",
+    "keywords": [
+      "rgb",
+      "openrgb",
+      "fans",
+      "keyboard",
+      "leds",
+      "theme colour"
+    ],
+    "subtext": ">",
+    "icon": "󰌵",
+    "submenu": "lighting"
+  }
+]

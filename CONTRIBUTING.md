@@ -6,7 +6,7 @@ contributions that are easy to review land fastest.
 ## Before you start
 
 - **Bugs:** open an issue with the [problem report](https://github.com/eitr-org/eitr/issues/new?template=problem.md)
-  and attach the report from Settings > System > Information > Report a Problem.
+  and attach the report from Settings > System > Report a Problem.
 - **Security problems:** do not open an issue; see [SECURITY.md](SECURITY.md).
 - **Bigger changes or new features:** open an issue first to agree on the idea and
   where it belongs, before writing a lot of code.

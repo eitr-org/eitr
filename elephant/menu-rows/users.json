@@ -14,5 +14,13 @@
     "actions": {
       "open": "eitr-shell desktop-bar ipc call -- settings show user"
     }
+  },
+  {
+    "text": "Update Password",
+    "subtext": "Change your account's password",
+    "icon": "󰌾",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py password"
+    }
   }
 ]

@@ -55,6 +55,8 @@ LocalSends Paket enthält seine Laufzeitvoraussetzungen; zum Ausführen ist kein
 
 Für Aktualisierungen siehe [Updates und Bereinigung](handbook:maintenance); ein einzelnes Paket zu installieren ist nicht dasselbe wie die Snapshot-geschützte Systemaktualisierung.
 
+Hauptmenü > Werkzeuge > Spaß enthält Musikvisualisierer und Runenregen.
+
 **Musikvisualisierer** öffnet cava in den Theme-Farben. Ein Rechtsklick auf den Medien-Equalizer öffnet denselben Visualisierer; ein Linksklick öffnet weiterhin die Mediendetails. **q** oder **Esc** schließt ihn. Auf bestehenden Desktops wird cava bei Bedarf zuerst installiert.
 
 **Runenregen** füllt den Bildschirm mit fallenden Runen des älteren Futhark in den Theme-Farben, die ab und zu ᛖᛁᛏᚱ bilden. Jede Taste schließt ihn. Im Terminal startet `eitr matrix` ihn direkt; `--speed slow|normal|fast` und `--seconds N` ändern Tempo und Dauer.
@@ -67,9 +69,9 @@ Verlieren helle Bereiche Details, senke den Spitzenwert; wirkt das Bild matt, er
 
 ## Erinnerungen per Sprache
 
-Halte **SUPER + Shift + D**, sprich und lasse los, oder tippe unter Hauptmenü > Werkzeuge > Erinnerungen > Dem Assistenten etwas sagen…. Eitr transkribiert lokal mit dem Offline-Modell der Diktierfunktion und fragt den unter Entwicklung > Standardassistent gewählten Assistenten. Nur Transkript und Erinnerungskontext gehen an dessen Anbieter; Audio bleibt lokal und wird nach der Transkription gelöscht.
+Halte **SUPER + Shift + D**, sprich und lasse los, oder tippe unter Hauptmenü > Werkzeuge > Erinnerungen > Dem Assistenten etwas sagen…. Eitr transkribiert lokal mit dem Offline-Modell der Diktierfunktion und fragt den unter Entwicklung > KI > Standardassistent gewählten Assistenten. Nur Transkript und Erinnerungskontext gehen an dessen Anbieter; Audio bleibt lokal und wird nach der Transkription gelöscht.
 
-Der Assistent läuft ohne Fenster über Eitrs schreibgeschützten Aufruf. Eitr prüft dessen JSON und führt Erinnerungsaktionen selbst aus; der Assistent erhält keine Werkzeuge zum Ändern von Daten. Mit Ratatoskr (Entwicklung > Standardassistent) verlässt das Transkript diesen PC nie.
+Der Assistent läuft ohne Fenster über Eitrs schreibgeschützten Aufruf. Eitr prüft dessen JSON und führt Erinnerungsaktionen selbst aus; der Assistent erhält keine Werkzeuge zum Ändern von Daten. Mit Ratatoskr (Entwicklung > KI > Standardassistent) verlässt das Transkript diesen PC nie.
 
 Sage etwa „Erinnere mich morgen um 15 Uhr an einen Anruf“ oder „Zahnarzt am 30. Oktober um 15 Uhr, 30 Minuten vorher erinnern“. Termine melden sich standardmäßig eine Stunde vorher (oder mit dem gewünschten Vorlauf) und zur Terminzeit; einfache Erinnerungen nur zur angegebenen Zeit. Bei fehlenden Angaben oder Mehrdeutigkeit erscheint ein Terminal mit vollständig ausgeschriebenen nummerierten Optionen.
 
@@ -85,7 +87,7 @@ Die Liste zeigt nächste Zeit und Regel. Einzeltermin oder Serie löschen: `eitr
 
 Erinnerungsbenachrichtigungen, auch verpasste Hinweise, bieten **5 Min. schlummern**, **10 Min. schlummern**, **1 Stunde schlummern** und **Schließen** im Popup und im Benachrichtigungsverlauf. Schlummern plant ab dem Klick eine separate einmalige Erinnerung mit demselben Text; wiederkehrende Erinnerungen behalten ihren Zeitplan. Schließen schließt den Hinweis. Die Aktionen bleiben bis zu 24 Stunden verfügbar, danach läuft die Benachrichtigung ab.
 
-**Hauptmenü > Werkzeuge > Kalenderquellen > Kalender hinzufügen…** zeigt einen Google-, Outlook- oder anderen iCal-Kalender im Kalender-Panel an, schreibgeschützt und ohne Anmeldung. Wähle den Anbieter: Google und Outlook öffnen ihre Einstellungen im Browser. Kopiere bei Google unter Einstellungen für meine Kalender > Kalender integrieren die Privatadresse im iCal-Format; veröffentliche bei Outlook unter Einstellungen > Kalender > Freigegebene Kalender einen Kalender und kopiere seinen ICS-Link.
+**Hauptmenü > Werkzeuge > Erinnerungen > Kalenderquellen > Kalender hinzufügen…** zeigt einen Google-, Outlook- oder anderen iCal-Kalender im Kalender-Panel an, schreibgeschützt und ohne Anmeldung. Wähle den Anbieter: Google und Outlook öffnen ihre Einstellungen im Browser. Kopiere bei Google unter Einstellungen für meine Kalender > Kalender integrieren die Privatadresse im iCal-Format; veröffentliche bei Outlook unter Einstellungen > Kalender > Freigegebene Kalender einen Kalender und kopiere seinen ICS-Link.
 
 Füge die Adresse ein (`https://` oder `webcal://`) und benenne den Kalender. Wer diese Adresse kennt, kann den Kalender lesen; Eitr speichert sie daher in einer privaten Datei und zeigt sie nie in Menüs, Benachrichtigungen oder Protokollen. Setze die Adresse beim Anbieter zurück, falls sie bekannt wird. Kalender werden bei der Anmeldung, alle 15 Minuten und beim Öffnen des Kalenderpanels (höchstens einmal pro Minute) aktualisiert.
 
@@ -99,11 +101,11 @@ Ein Plugin ist ein Git-Repository mit Skripten, Walker-Einträgen, optionalen vi
 
 Plugins können `packages` angeben: bis zu 32 eindeutige einfache Paketnamen aus aktivierten offiziellen Arch-Repositories oder `[eitr]`, niemals AUR, URLs oder lokale Dateien. Die Prüfung zeigt installierte und fehlende Pakete; unbekannte Pakete verhindern die Installation. Nach der Bestätigung fragt Eitr im Polkit-Systemdialog nach dem Administratorpasswort und installiert nur fehlende Pakete. Updates mit neuen Paketen erfordern ebenfalls eine Prüfung. Beim Entfernen können für das Plugin installierte Pakete optional entfernt werden, sofern sie ungenutzte Abhängigkeiten bleiben. Explizit installierte oder von anderen Plugins benötigte Pakete bleiben erhalten.
 
-Hauptmenü > Plugins > Plugins hinzufügen fragt nach einer HTTPS-Git-URL oder, für ein privates Repository, nach einer SSH-URL wie `git@github.com:you/plugin.git` (sie nutzt deine SSH-Schlüssel über den Agenten). Das Hinzufügen braucht zwei Bestätigungen, beide mit Nein als Vorgabe. Zuerst, bevor etwas heruntergeladen wird, erklärt eine Sicherheitsseite diese Risiken; drücke Enter, um das Plugin zur Prüfung herunterzuladen.
+Hauptmenü > Installieren > Plugins > Plugins hinzufügen fragt nach einer HTTPS-Git-URL oder, für ein privates Repository, nach einer SSH-URL wie `git@github.com:you/plugin.git` (sie nutzt deine SSH-Schlüssel über den Agenten). Das Hinzufügen braucht zwei Bestätigungen, beide mit Nein als Vorgabe. Zuerst, bevor etwas heruntergeladen wird, erklärt eine Sicherheitsseite diese Risiken; drücke Enter, um das Plugin zur Prüfung herunterzuladen.
 
 Danach beginnt die Prüfung mit der Vertrauenswarnung und etwaigen Warnungen (ein Hintergrunddienst, der bei jeder Anmeldung startet, Binärdateien), gefolgt von Manifest-Autor, Repository, genauem Commit, Git-Autor und Datum, Version, der Zahl ausführbarer Dateien und den Einträgen. Drücke Enter zum Installieren; Esc bricht in beiden Schritten ab. Vor der Bestätigung läuft kein Plugin-Code.
 
-`eitr plugin add URL` stellt dieselben zwei Fragen (Enter fährt fort, Esc bricht ab) und verweigert den Start ohne Terminal. Hauptmenü > Plugins > Installierte Plugins zeigt die Aktionen; die Suche in Werkzeuge findet sie ebenfalls. Das leere Menü zeigt Keine Plugins installiert.
+`eitr plugin add URL` stellt dieselben zwei Fragen (Enter fährt fort, Esc bricht ab) und verweigert den Start ohne Terminal. Hauptmenü > Installieren > Plugins > Installierte Plugins zeigt die Aktionen; die Suche in Werkzeuge findet sie ebenfalls. Das leere Menü zeigt Keine Plugins installiert.
 
 Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offiziell und Community öffnen Details mit Bildern, Videos und Komponenten. Videos starten stumm und stoppen beim Schließen. Installieren und Update zeigen Quelle, vollständigen Commit, Autor, Dateien, Befehle, Warnungen und Änderungen; die optionale KI-Prüfung erscheint als Text. Plugins haben alle Berechtigungen deines Kontos.
 

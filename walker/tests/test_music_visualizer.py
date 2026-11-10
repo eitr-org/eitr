@@ -23,7 +23,7 @@ class MusicVisualizerTests(unittest.TestCase):
         self.assertEqual(cava.generate(palette, result), result)
 
     def test_menu_and_package(self):
-        rows = json.loads((ROOT / 'elephant/menu-rows/tools.json').read_text())
+        rows = json.loads((ROOT / 'elephant/menu-rows/fun.json').read_text())
         row = next(row for row in rows if row['text'] == 'Music Visualizer')
         self.assertLessEqual(len(row['subtext']), 72)
         self.assertIn('music-visualizer.sh', row['actions']['open'])

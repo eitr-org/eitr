@@ -1,6 +1,6 @@
 # Aufnahme und Teilen
 
-Aufnahmewerkzeuge liegen unter Hauptmenü > Werkzeuge > Aufnahme sowie Kontrollzentrum > Werkzeuge.
+Bildschirmfotos und Aufnahmen liegen unter Hauptmenü > Werkzeuge > Einfangen; Farbe, Texterkennung, QR-Code und Transkodieren stehen direkt in Hauptmenü > Werkzeuge. Kontrollzentrum > Werkzeuge bietet dieselben Aktionen.
 
 ## Screenshots und Texterkennung
 

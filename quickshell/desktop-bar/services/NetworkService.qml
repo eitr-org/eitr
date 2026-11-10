@@ -31,7 +31,7 @@ Item {
 
     function actionMessage(source) {
         switch (source) {
-        case "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": return Eitr.I18n.tr("Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot");
+        case "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot": return Eitr.I18n.tr("Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot");
         case "No WiFi backend is running": return Eitr.I18n.tr("No WiFi backend is running");
         case "Install the Eitr network helper first; see distro/NETWORKING.md": return Eitr.I18n.tr("Install the Eitr network helper first; see distro/NETWORKING.md");
         case "CA certificate is too large": return Eitr.I18n.tr("CA certificate is too large");

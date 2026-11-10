@@ -25,7 +25,7 @@ cell. Fonts, themes and personal config files remain intact.
 
 ## Choosing your terminal
 
-Use Settings > Appearance > Terminal to choose Kitty or Ghostty. Walker > Settings > Style > Terminal is an alternative. The machine-local `terminal` field in
+Use Settings > Appearance > Terminal to choose Kitty or Ghostty. Walker > Settings > Desktop > Appearance > Terminal is an alternative. The machine-local `terminal` field in
 `~/.config/eitr/terminal.json` controls Super+Enter, tmux, user terminal sessions,
 AI/project terminals and Walker's open-in-terminal actions. If Ghostty is missing,
 choosing it opens the normal official-package Install flow: Enter installs,
@@ -55,7 +55,7 @@ change when selecting Ghostty.
 
 ## Terminal appearance and shared blur
 
-Walker > Settings > Style > Terminal and Settings > Appearance > Terminal apply opacity,
+Walker > Settings > Desktop > Appearance > Terminal and Settings > Appearance > Terminal apply opacity,
 padding and blur presets to both Kitty and Ghostty. Opacity offers Solid (100%),
 Light (90%), Medium (80%), Default (75%) and Strong (70%). Padding offers None,
 Small (4 points) and Comfortable (8 points). Defaults preserve 75% opacity, no

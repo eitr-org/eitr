@@ -13,14 +13,6 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
-- **Walker > Settings follows the Settings app's groups (asked 2026-11-09).** Use the
-  app's six groups and names in Walker so a setting lives in the same place in both:
-  Devices (today's Connectivity, Devices & Input and Language), Desktop (today's Style;
-  its quick choice lists such as theme, wallpaper and cursor stay as submenus), Apps &
-  Keys (keybinds, default apps), Accounts & Security (drop the Users and Update Password
-  rows the Settings Security page no longer has), System. Control Center and Dotfiles
-  stay at the bottom. Keep every row's action, parents for Shift+Backspace, search and
-  Learn entries; follow `walker/MENU-DEFINITIONS.md`.
 - **Keybinds and window rules editors.** Settings > Keybinds only lists shortcuts today:
   rebind one by pressing the new keys, with clash warnings, reset to default and the
   change kept in the person's own config. Window rules: pick an app and choose
@@ -44,7 +36,9 @@ item says what decides the next step. Remove an item when it ships;
     Tailscale plugin (pinned, reviewed) on desktops that already have Tailscale, with a
     notification; Tailscale is never uninstalled automatically. New installs no longer
     include it.
-  - Remove the Tailscale rows from Walker; keep Install > VPN.
+  - Remove the Tailscale rows from Walker (Settings > Devices > Streaming > Access This PC
+    Remotely) once the plugin panel has their functions. Install > VPN is gone from Walker;
+    `walker/scripts/actions/install/vpn.py` and `eitr_vpn` stay for the plugins.
   - Order: plugin `packages` field (VM-tested), the three plugins, then remove Tailscale
     from the core and ship the update step after the plugin passes a VM test.
   - Status (2026-11-10): Tailscale is official (`eitr-org/eitr-plugins`) with its bar icon,
@@ -62,7 +56,7 @@ item says what decides the next step. Remove an item when it ships;
   reviewed version; there is no community or third-party source, since a design runs
   on the screen that reads the password. The design in use shows no trash icon.
   Uninstalling uses the catalog's usual confirmation sheet; when some of your own
-  lockscreens (Walker > Style) are built on that design, the sheet says so, and they
+  lockscreens (Walker > Settings > Desktop > Lockscreen) are built on that design, the sheet says so, and they
   are hidden rather than deleted, coming back if the design is reinstalled.
   Open question (paused 2026-11-04): designs also draw the SDDM login screen, which
   runs as its own user and reads only system files (`/usr/share/sddm/themes/
@@ -84,7 +78,7 @@ item says what decides the next step. Remove an item when it ships;
   the wallpaper/theme carousel growing out of the clock island. Islands arrows (‹ ›)
   like Dynamic if the owner wants them.
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
-  done (Tools > Calendar Sources). Creating or editing provider events needs account
+  done (Tools > Reminders > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).
 - **Song recognition, as a plugin (owner's idea, 2026-11-10).** "What's playing?" for audio
   on the desktop (a video, a stream, a game): capture a few seconds from PipeWire's monitor

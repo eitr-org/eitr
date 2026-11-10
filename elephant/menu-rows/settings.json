@@ -1,35 +1,12 @@
 [
   {
-    "text": "Connectivity",
-    "icon": "󰖩",
-    "subtext": ">",
-    "submenu": "system-connectivity"
-  },
-  {
-    "text": "Devices & Input",
+    "text": "Devices",
     "icon": "󰍹",
     "subtext": ">",
     "submenu": "system-devices"
   },
   {
-    "text": "Language",
-    "icon": "󰗊",
-    "subtext": ">",
-    "submenu": "language",
-    "keywords": [
-      "language",
-      "locale",
-      "translation"
-    ]
-  },
-  {
-    "text": "Security",
-    "subtext": ">",
-    "icon": "󰒃",
-    "submenu": "security"
-  },
-  {
-    "text": "Style",
+    "text": "Desktop",
     "subtext": ">",
     "keywords": [
       "theme",
@@ -38,6 +15,23 @@
     ],
     "icon": "",
     "submenu": "style"
+  },
+  {
+    "text": "Apps & Keys",
+    "subtext": ">",
+    "keywords": [
+      "default apps",
+      "keybinds",
+      "shortcuts"
+    ],
+    "icon": "󰌌",
+    "submenu": "apps-keys"
+  },
+  {
+    "text": "Accounts & Security",
+    "subtext": ">",
+    "icon": "󰒃",
+    "submenu": "security"
   },
   {
     "text": "System",

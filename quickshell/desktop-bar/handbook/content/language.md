@@ -1,6 +1,6 @@
 # Language
 
-Eitr follows the system's message locale. **Walker > Settings > Language**
+Eitr follows the system's message locale. **Walker > Settings > Devices > Language**
 lists the available languages with the current one checked. Choose a language or **System default**,
 then sign out and back in. Eitr never signs you out automatically.
 

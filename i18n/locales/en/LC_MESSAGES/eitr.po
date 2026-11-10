@@ -499,8 +499,8 @@ msgstr "Boot menu: Eitr starts first and lists Windows when it is found"
 msgid "Bootable snapshots are not supported with {loader}. {reason} Nothing was changed."
 msgstr "Bootable snapshots are not supported with {loader}. {reason} Nothing was changed."
 
-msgid "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot"
-msgstr "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot"
+msgid "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot"
+msgstr "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot"
 
 msgid "Browse bucket"
 msgstr "Browse bucket"
@@ -2653,8 +2653,8 @@ msgstr "Ratatoskr could not complete the request."
 msgid "Ratatoskr is not set up."
 msgstr "Ratatoskr is not set up."
 
-msgid "Ratatoskr is not set up. Choose it in Development > Default Assistant."
-msgstr "Ratatoskr is not set up. Choose it in Development > Default Assistant."
+msgid "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant."
+msgstr "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant."
 
 msgid "Ratatoskr is ready and is now your default assistant."
 msgstr "Ratatoskr is ready and is now your default assistant."
@@ -3070,8 +3070,8 @@ msgstr "Select an account"
 msgid "Select at least one package"
 msgstr "Select at least one package"
 
-msgid "Select it in Style > Lockscreen; Ctrl+P previews it."
-msgstr "Select it in Style > Lockscreen; Ctrl+P previews it."
+msgid "Select it in Desktop > Lockscreen; Ctrl+P previews it."
+msgstr "Select it in Desktop > Lockscreen; Ctrl+P previews it."
 
 msgid "Select plugins"
 msgstr "Select plugins"
@@ -4171,8 +4171,8 @@ msgstr "VPCs"
 msgid "VPN operation failed. Configuration details are hidden."
 msgstr "VPN operation failed. Configuration details are hidden."
 
-msgid "VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot."
-msgstr "VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot."
+msgid "VPN profiles need NetworkManager. Choose it in Settings > Devices > Connections > Network Backend, then reboot."
+msgstr "VPN profiles need NetworkManager. Choose it in Settings > Devices > Connections > Network Backend, then reboot."
 
 msgid "Version"
 msgstr "Version"
@@ -4264,8 +4264,8 @@ msgstr "Yellow"
 msgid "Yes"
 msgstr "Yes"
 
-msgid "You can remove it later from Development > Default Assistant."
-msgstr "You can remove it later from Development > Default Assistant."
+msgid "You can remove it later from Development > AI > Default Assistant."
+msgstr "You can remove it later from Development > AI > Default Assistant."
 
 msgid "You can run more commands here manually."
 msgstr "You can run more commands here manually."
@@ -4591,11 +4591,11 @@ msgstr "{name} from {snapshot_date} is at {target}"
 msgid "{name} is already installed."
 msgstr "{name} is already installed."
 
+msgid "{name} is in Desktop > Appearance > Wallpaper and the wallpaper carousel."
+msgstr "{name} is in Desktop > Appearance > Wallpaper and the wallpaper carousel."
+
 msgid "{name} is in Development > Monitoring."
 msgstr "{name} is in Development > Monitoring."
-
-msgid "{name} is in Style > Wallpaper and the wallpaper carousel."
-msgstr "{name} is in Style > Wallpaper and the wallpaper carousel."
 
 msgid "{name} is not installed."
 msgstr "{name} is not installed."

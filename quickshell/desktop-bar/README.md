@@ -281,7 +281,7 @@ Dynamic gathers the bar into three islands side by side at the screen centre, al
 
 Drag empty bar space toward top, bottom, left, or right to change its edge; a
 preview highlights the destination. The choices persist in `bar-settings.json`.
-Walker exposes the same settings under Settings > Style > Desktop Bar > Appearance,
+Walker exposes the same settings under Settings > Desktop > Desktop Bar > Appearance,
 Displays, Layout, and Position. Appearance offers Blur, Theme Color and Website. Displays
 shows the bar on the main display only (default) or on every display; then the
 focused display's bar answers IPC and shortcuts, each bar highlights its own
@@ -293,7 +293,7 @@ over the minutes (with AM/PM for 12-hour time) above a calendar glyph (the date 
 in its tooltip), the weather
 shows only its icon (the temperature is in its tooltip), and popups open inward.
 The `clock` setting in `bar-settings.json` (`12h`, the default, or `24h`), under
-Settings > Style > Desktop Bar > Clock and the Settings window's Desktop Bar page, picks the time format
+Settings > Desktop > Desktop Bar > Clock and the Settings window's Desktop Bar page, picks the time format
 for every edge.
 AI Usage, Hardware and Idle Lock sit together after the workspaces; right-hand controls
 retain their manual show/hide toggle in Full only. Centered, Tabs, Islands and Dynamic keep them visible without a toggle. Both side groups share 24 px icon slots
@@ -332,14 +332,14 @@ Capture uses Quickshell's
 [ScreencopyView](https://quickshell.org/docs/v0.3.0/types/Quickshell.Wayland/ScreencopyView/)
 and the compositor's window-export protocol, without additional screenshot tools.
 
-Settings > Windows > Workspaces (also Walker > Settings > Style > Workspaces) selects **Monitors**, **Number of workspaces** (5–10, default 10) and **Always show** (2 up to the count, default 5). **Shared numbers**, the default, gives every monitor its own 1…N: SUPER+k switches all monitors together, and SUPER+Shift+k moves the window on its current monitor. **Split across monitors** divides N evenly, with the main display first and the remainder assigned there first; other displays follow left to right, then by name. SUPER+k focuses the owning display. Keys above N do nothing. The marker floor is relative to each monitor’s range; higher markers appear through the current or highest occupied workspace, then disappear when no longer needed. Connecting or removing displays and changing Main display recomputes assignments without losing windows; windows move to the nearest valid number on their current display. One monitor keeps the same behavior in both modes.
+Settings > Windows > Workspaces (also Walker > Settings > Desktop > Windows > Workspaces) selects **Monitors**, **Number of workspaces** (5–10, default 10) and **Always show** (2 up to the count, default 5). **Shared numbers**, the default, gives every monitor its own 1…N: SUPER+k switches all monitors together, and SUPER+Shift+k moves the window on its current monitor. **Split across monitors** divides N evenly, with the main display first and the remainder assigned there first; other displays follow left to right, then by name. SUPER+k focuses the owning display. Keys above N do nothing. The marker floor is relative to each monitor’s range; higher markers appear through the current or highest occupied workspace, then disappear when no longer needed. Connecting or removing displays and changing Main display recomputes assignments without losing windows; windows move to the nearest valid number on their current display. One monitor keeps the same behavior in both modes.
 
 With the default settings, visiting 7 shows markers 1–7 on that monitor.
 Leaving an empty higher workspace removes its extra markers. Named/special
 workspaces remain separate from the numbered overview.
 
 Right-click a workspace to choose Dots, Glyph, Numbers or Runes (the default), or use Walker's
-Settings > Style > Workspaces menu. Both selectors share the same saved preference.
+Settings > Desktop > Windows > Workspaces menu. Both selectors share the same saved preference.
 The menu includes examples; the checkmark identifies the current selection.
 The choice is saved in `workspace-style.json`. Selected workspace colors follow
 the current theme's accent.
@@ -465,12 +465,12 @@ Walker System entries use show-panel.sh to open these same bar popups, including
 audio, microphone, keyboard, display, calendar, weather, hardware, and AI usage.
 Its allowlist accepts exactly the `panels show` kinds; a test keeps them in sync. Hidden
 status icons remain hidden; their popups anchor beside the notification icon.
-Walker's Settings > Devices & Input > Keyboard menu is the only place to add or
+Walker's Settings > Devices > Input > Keyboard menu is the only place to add or
 remove layouts: Add Layout lists the installed XKB languages and variants, and
 Delete removes the selected layout. Added layouts persist in
 hypr/keyboard-layouts.lua and retain Alt+Shift switching.
 Up to four layouts can be configured; duplicate and unknown layouts are rejected.
-WiFi defaults to iwd and supports NetworkManager through Settings > Connectivity > Network Backend.
+WiFi defaults to iwd and supports NetworkManager through Settings > Devices > Connections > Network Backend.
 Selection applies after reboot; the panel uses the running backend's D-Bus API for adapter power,
 scanning, connection, and disconnection. The compact panel separates remembered
 networks from other networks and shows ping, the current WiFi band, IP address
@@ -643,7 +643,7 @@ eitr-shell desktop-bar kill
 
 ## Panel Style
 
-The Settings window's Appearance page and Walker > Settings > Style > Corners select Square,
+The Settings window's Appearance page and Walker > Settings > Desktop > Appearance > Corners select Square,
 Rounded (1.5× the base radii, halfway to Extra Rounded) or Extra Rounded. The machine-local preference is
 `~/.config/eitr/style.json`. The styles, their radius scale and Hyprland window
 rounding are defined once in `corner-styles.json`, which `desktop-style.py`,
@@ -768,7 +768,7 @@ options in the Plugins page while click-through.
 
 Plugin appearance belongs to its author. Widgets and panels default to no host surface; panel surfaces and theme helpers are opt-in. Tiles default to the Eitr row, with `look: "custom"` providing a full-slot canvas. See `distro/PLUGINS.md`.
 
-Auto-hide is optional in Settings > Style > Desktop Bar and the Settings window's Desktop Bar page. The
+Auto-hide is optional in Settings > Desktop > Desktop Bar and the Settings window's Desktop Bar page. The
 strip slides out in 320 ms, retaining a one-pixel edge input region. Panels,
 pending popups, Overview and dragging hold it open (notification toasts do not); a 350 ms leave delay precedes
 hiding. A hidden bar reserves no space. The preference is separate from the
@@ -780,7 +780,7 @@ Touch the screen edge opposite the bar to reveal the application dock. It unfold
 
 The dock shows pinned apps first, followed by other open applications in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback; Eitr’s own task and menu terminals share one Eitr logo icon. Dots below an icon count its windows, up to three, and dim when none is on the current workspace of that screen. Hover for its name and window count. Click to focus its most recently used window (including switching workspace); click again to move to its next window. Middle-click closes the most recent window. Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
 
-**Dock** in **Settings > Style > Desktop Bar** and the Settings window's **Desktop Bar** page turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
+**Dock** in **Settings > Desktop > Desktop Bar** and the Settings window's **Desktop Bar** page turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
 
 Pinned apps stay at full opacity with no dots when closed; click one to launch it in its own application scope. Right-click an icon for Keep in Dock / Remove from Dock, New Window (when a desktop entry is available), and Close or Close All Windows. Escape or a click outside dismisses the menu. Apps without a desktop entry cannot be pinned.
 
@@ -791,7 +791,7 @@ Pins are desktop-entry IDs stored in order in the machine-local `quickshell/desk
 
 ## Motion and panel smoothness audit
 
-Reduce motion is off by default. Settings > Style > Desktop Bar > Reduce motion and
+Reduce motion is off by default. Settings > Desktop > Desktop Bar > Reduce motion and
 the Settings window's Desktop Bar page share `bar-settings.json` (`reduceMotion: yes/no`).
 `DesktopStyle.motionDuration()` owns the policy: normal durations/easing are
 unchanged, reduced durations are zero. DockPanel unfold/fold/resize, notification
@@ -911,7 +911,7 @@ measurements, not live provider/hardware latency claims.
 
 ## Focus preset
 
-Settings > Style > Focus, the Settings window's Focus page and `eitr focus on|off|status`
+Settings > Desktop > Focus, the Settings window's Focus page and `eitr focus on|off|status`
 share a machine-local preference. Focus uses native Hyprland groups with up to
 four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the
@@ -1197,7 +1197,7 @@ generates `eitr/window-gaps.lua`, read by Hyprland on reload.
 Window layout uses the same preference, generation and reload path through
 `eitr/window-layout.lua`. Tiling (dwindle) is the default; Scrolling exposes direction,
 column width, focus fit, follow focus and single-column fullscreen on Settings > Windows.
-Walker > Settings > Style > Window layout also offers direction and width submenus.
+Walker > Settings > Desktop > Windows > Window layout also offers direction and width submenus.
 The scrolling-only SUPER+ALT+arrows focus windows; add Shift with Left/Right to swap
 columns. SUPER+ALT+Equal/Minus cycle the configured widths. Their helper checks the
 active layout before dispatching a native layout message.

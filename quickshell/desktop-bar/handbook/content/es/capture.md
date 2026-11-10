@@ -1,6 +1,6 @@
 # Captura y uso compartido
 
-Las herramientas de captura están en Principal > Herramientas > Captura y Centro de control > Herramientas.
+Las capturas de pantalla y grabaciones están en Principal > Herramientas > Captura; Color, Reconocer texto, Código QR y Transcodificar están directamente en Principal > Herramientas. Centro de control > Herramientas ofrece las mismas acciones.
 
 ## Capturas de pantalla y extracción
 

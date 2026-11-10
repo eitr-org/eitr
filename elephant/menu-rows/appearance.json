@@ -1,0 +1,75 @@
+[
+  {
+    "text": "Corners",
+    "subtext": ">",
+    "keywords": [
+      "square",
+      "rounded",
+      "apple",
+      "radius",
+      "style"
+    ],
+    "icon": "󰕰",
+    "submenu": "corners"
+  },
+  {
+    "text": "Cursor",
+    "subtext": ">",
+    "keywords": [
+      "mouse",
+      "pointer",
+      "bibata",
+      "breeze",
+      "dmz",
+      "cursor"
+    ],
+    "icon": "󰇀",
+    "submenu": "cursor"
+  },
+  {
+    "text": "Fonts",
+    "subtext": ">",
+    "keywords": [
+      "font",
+      "typeface",
+      "ligatures",
+      "default",
+      "Default Font"
+    ],
+    "icon": "󰛖",
+    "submenu": "fonts"
+  },
+  {
+    "text": "Terminal",
+    "subtext": ">",
+    "keywords": [
+      "kitty",
+      "ghostty",
+      "typing",
+      "fire",
+      "cursor",
+      "trail"
+    ],
+    "icon": "󰆍",
+    "submenu": "terminal"
+  },
+  {
+    "text": "Theme",
+    "subtext": ">",
+    "keywords": [
+      "colors",
+      "appearance"
+    ],
+    "icon": "󰸌",
+    "submenu": "theme"
+  },
+  {
+    "text": "Wallpaper",
+    "subtext": ">",
+    "keywords": [
+      "background"
+    ],
+    "icon": "🖻",
+    "submenu": "wallpaper"
+  }
+]

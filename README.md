@@ -42,7 +42,7 @@ privately through [SECURITY.md](SECURITY.md).
 - Tools: screenshots, screen recording, OCR, QR codes, color picker, LocalSend
   sharing, reminders, a calculator and offline dictation (hold `Super + D`).
 - The EITR Handbook: an offline guide to everything, opened with `Super + F1`.
-- Kitty (default) or optional Ghostty via Settings > Style > Terminal, Zsh, Neovim/LazyVim, Lazygit and Lazydocker; optional installs for
+- Kitty (default) or optional Ghostty via Settings > Desktop > Appearance > Terminal, Zsh, Neovim/LazyVim, Lazygit and Lazydocker; optional installs for
   languages, databases, developer apps, browsers and AI coding assistants.
 
 ## Safety and recovery
@@ -72,7 +72,7 @@ account state are never part of the installation.
 chooser and a crop editor (the avatar on Settings' System overview opens that page).
 
 `eitr about` opens or focuses the About window, and `eitr matrix` rains runes in
-the theme's colours until a key is pressed (Walker > Tools > Rune Rain).
+the theme's colours until a key is pressed (Walker > Tools > Fun > Rune Rain).
 
 ## Everyday shortcuts
 
@@ -160,7 +160,7 @@ docker run --rm --platform linux/amd64 -v "$PWD":/repo:ro archlinux:latest bash 
 
 ## Focus preset
 
-Settings > Style > Focus, the Settings window's Focus page and `eitr focus on|off|toggle|status`
+Settings > Desktop > Focus, the Settings window's Focus page and `eitr focus on|off|toggle|status`
 share a machine-local preference. Focus uses native Hyprland groups with up to
 four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the

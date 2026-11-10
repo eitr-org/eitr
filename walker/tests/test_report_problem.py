@@ -73,9 +73,9 @@ class ReportProblemTests(unittest.TestCase):
                         'Errors (user journal, previous boot)', 'Installation', 'Recent package changes'):
             self.assertIn(section, source)
 
-    def test_menu_entry_lives_under_information_in_order(self):
-        menu = {"entries": json.loads((ROOT / 'elephant/menu-rows/system-information.json').read_text())}
-        names = [entry['text'] for entry in menu['entries']]
+    def test_menu_entry_lives_under_system_in_order(self):
+        menu = {"entries": json.loads((ROOT / 'elephant/menu-rows/system.json').read_text())}
+        names = [entry['text'] for entry in menu['entries'] if entry['subtext'] != '>']
         self.assertIn('Report a Problem', names)
         self.assertEqual(names, sorted(names, key=str.casefold))
         entry = next(entry for entry in menu['entries'] if entry['text'] == 'Report a Problem')

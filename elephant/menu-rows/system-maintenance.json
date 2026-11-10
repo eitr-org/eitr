@@ -18,21 +18,6 @@
     "submenu": "snapshots"
   },
   {
-    "text": "Check This PC",
-    "subtext": "Read-only checks with suggested fixes; copy a redacted report",
-    "keywords": [
-      "diagnostics",
-      "health",
-      "troubleshoot",
-      "self-check",
-      "Check This PC"
-    ],
-    "icon": "󰒓",
-    "actions": {
-      "open": "kitty --class system-check -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py eitr check"
-    }
-  },
-  {
     "text": "Choose Fastest Mirrors",
     "subtext": "Rank recent HTTPS package mirrors",
     "icon": "󰒍",

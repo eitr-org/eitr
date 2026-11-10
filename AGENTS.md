@@ -146,7 +146,7 @@ existing design and workflows rather than replacing them with upstream defaults.
 - Keep Walker menus organized: group related setup/actions into named submenus.
   List submenus first, like folders, then the rows that open something, each
   group sorted alphabetically (case-insensitive). Main retains its custom order,
-  and Apps retains its existing behavior.
+  Settings the Settings app's group order, and Apps its existing behavior.
   instead of crowding their parent. Set each submenu's parent to its actual
   location so Shift+Backspace returns correctly. A menu with submenus is a Lua
   menu on `elephant/scoped-menu.lua` with its rows in `elephant/menu-rows/<name>.json`,
@@ -198,11 +198,13 @@ existing design and workflows rather than replacing them with upstream defaults.
   (`NotificationLogic.js`); visible images are never evicted and history is not shortened.
 - Walker system actions should open the same native panels as bar clicks. Use
   the existing `panels` IPC interface, including `call -- panels show <kind>`.
-- Settings groups Connectivity, Devices & Input, Language, Security, Style and System,
-  with Control Center and Dotfiles rows. System groups Information, Maintenance
-  and Update Channel, with About and System Update rows. Calendar and Workspace
-  Overview remain searchable through the hidden system-shortcuts provider and
-  accessible from the bar, without adding rows to Settings.
+- Walker's Settings follows the Settings app's groups and their order (Devices, Desktop,
+  Apps & Keys, Accounts & Security, System), with Control Center and Dotfiles rows
+  last. System holds Maintenance and Update Channel, with About, Check This PC, Report
+  a Problem and System Update rows. Hardware, Weather and AI Usage open from their
+  bar icons and have no Walker rows. Calendar and Workspace Overview remain
+  searchable through the hidden system-shortcuts provider and accessible from the
+  bar, without adding rows to Settings.
 - Existing cloud CLI configurations belong to the owner and may hold work
   accounts. Never run commands against, edit, reformat or write to a profile,
   account or config file (`~/.aws/config`, `~/.aws/credentials`, gcloud or Azure
@@ -297,7 +299,7 @@ existing design and workflows rather than replacing them with upstream defaults.
 - Empty-bar double-left-click cycles Theme Color, Blur and Website (the site palette
   with its gold labels), double-right-click cycles
   the Full, Centered, Tabs, Islands and Dynamic layouts, and left drag changes the screen edge. These settings
-  persist in `bar-settings.json` and also appear under Settings > Style > Desktop Bar.
+  persist in `bar-settings.json` and also appear under Settings > Desktop > Desktop Bar.
   Centered mode shows only the clock until hovered or pinned. Expansion preserves
   icon order and the clock's exact screen center on all four edges; pin sits
   between media and clock. Keep it expanded during panel use/dragging. Its panels
@@ -315,7 +317,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   without the toggle.
   Preserve the existing arrow direction and icon order.
 - Focus is a separate Style preset, controlled by `eitr focus on|off|toggle|status`,
-  Walker's Settings > Style > Focus and the Settings window's Focus page. Its machine-local preference preserves
+  Walker's Settings > Desktop > Focus and the Settings window's Focus page. Its machine-local preference preserves
   normal bar settings; native groups provide tabs and up to four panes per monitor.
   Focus strips have square edges and show only tabs, clock and network/battery status.
 - Tabs: a thin edge strip with three content-sized tabs (left, centre, right)

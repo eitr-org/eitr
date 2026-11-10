@@ -4,7 +4,7 @@ local catalog = dofile(paths.code("elephant/choice-lists.lua"))
 local choices = dofile(paths.code("elephant/choice-entries.lua"))
 Name = "window-gaps"
 NamePretty = i18n.tr("Window gaps")
-Parent = "style"
+Parent = "windows"
 Icon = "󰍹"
 FixedOrder = true
 function GetEntries()

@@ -16,10 +16,13 @@
     "submenu": "main"
   },
   {
-    "text": "Remote Access",
+    "text": "Streaming",
     "subtext": ">",
     "icon": "󰖩",
-    "submenu": "remote-access"
+    "submenu": "remote-access",
+    "keywords": [
+      "Remote Access"
+    ]
   },
   {
     "text": "Audio Panel",

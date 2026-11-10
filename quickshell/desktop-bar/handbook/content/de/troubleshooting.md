@@ -2,7 +2,7 @@
 
 ## Diesen PC prüfen
 
-Öffne Einstellungen > Diesen PC prüfen und drücke Diesen PC prüfen für schreibgeschützte Befunde. Dabei wird nichts repariert oder neu gestartet. Für den interaktiven Bericht, tiefere Prüfungen und Kopieren wie unten beschrieben nutze `eitr check` oder Walker > Einstellungen > System > Instandhaltung > Diesen PC prüfen. Gespeicherte Updatelisten werden nicht erneuert; DNS nutzt das Netzwerk. `eitr check --json` zeigt technische Belege ohne Rückfragen.
+Öffne Einstellungen > Diesen PC prüfen und drücke Diesen PC prüfen für schreibgeschützte Befunde. Dabei wird nichts repariert oder neu gestartet. Für den interaktiven Bericht, tiefere Prüfungen und Kopieren wie unten beschrieben nutze `eitr check` oder Walker > Einstellungen > System > Diesen PC prüfen. Gespeicherte Updatelisten werden nicht erneuert; DNS nutzt das Netzwerk. `eitr check --json` zeigt technische Belege ohne Rückfragen.
 
 Neben Neustarts, Speicherplatz, Updates, Wiederherstellung, Diensten, Arbeitsspeicher, Netzwerk und Sicherheit prüft es Bildschirme (ein Bildschirm unter der besten Bildwiederholrate für seine Auflösung), Grafik (ein Treiber für jede Grafikkarte und Hardwarebeschleunigung) und Audio (Soundsystem, Ausgabegerät, Lautstärke und Mikrofon). Jede Warnung und jedes Problem beginnt mit einem einfachen Satz, was es bedeutet und was Sie versuchen können, gefolgt von **Details:** mit den technischen Angaben und wo es sich beheben lässt.
 
@@ -61,7 +61,7 @@ Sichere vor der Installation auf einer separaten SSD deine anderen Laufwerke und
 
 ## Ein Problem melden
 
-**Walker > Einstellungen > System > Informationen > Problem melden** sammelt EITR- und Paketversionen, Grafikhardware, Hyprland-Fehler, fehlgeschlagene Dienste, aktuelle Warnungen, Abstürze der letzten Woche, Fehler des vorherigen Starts, Installationsprotokoll und letzte Paketänderungen in `~/Documents/eitr-problem-report-<time>.txt`. Nur du kannst die Datei lesen. Benutzername, Rechnername, persönlicher Pfad, E-Mail-, IP- und MAC-Adressen werden entfernt; Protokolle können weiterhin Anwendungen oder Dateinamen nennen. Lies den Bericht vor dem Senden.
+**Walker > Einstellungen > System > Problem melden** sammelt EITR- und Paketversionen, Grafikhardware, Hyprland-Fehler, fehlgeschlagene Dienste, aktuelle Warnungen, Abstürze der letzten Woche, Fehler des vorherigen Starts, Installationsprotokoll und letzte Paketänderungen in `~/Documents/eitr-problem-report-<time>.txt`. Nur du kannst die Datei lesen. Benutzername, Rechnername, persönlicher Pfad, E-Mail-, IP- und MAC-Adressen werden entfernt; Protokolle können weiterhin Anwendungen oder Dateinamen nennen. Lies den Bericht vor dem Senden.
 
 Nichts wird automatisch versendet. Das Terminal zeigt nur den Speicherort und bietet Versand oder vorheriges Lesen an:
 

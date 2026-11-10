@@ -16,28 +16,42 @@ def menu(name):
 class MenuStructureTests(unittest.TestCase):
     def test_approved_main_order_and_settings_command(self):
         self.assertEqual([row["text"] for row in menu("main")["entries"]],
-                         ["Development", "Apps", "Quick Actions", "Tools", "Learn", "Install", "Plugins", "Gaming", "Settings", "Power"])
+                         ["Apps", "Development", "Tools", "Quick Actions", "Install", "Gaming", "Learn", "Settings", "Power"])
         settings = next(row for row in menu("main")["entries"] if row["text"] == "Settings")
         self.assertTrue({"system", "settings", "preferences"}.issubset(settings["keywords"]))
         control = next(row for row in menu("settings")["entries"] if row["text"] == "Control Center")
         self.assertIn(control["actions"]["open"], (ROOT / "hypr/hyprland.lua").read_text())
-        for name in ("style", "language", "security", "system"):
+        for name in ("system-devices", "style", "apps-keys", "security", "system"):
             self.assertEqual(menu(name)["parent"], "settings")
+        self.assertEqual(menu("language")["parent"], "system-devices")
 
     def test_remote_setup_folders_keep_daily_actions_direct(self):
-        for name, titles in [("remote-share", ["Setup", "Pair a Device", "Sharing Status", "Start Sharing", "Stop Sharing"]),
-                             ("remote-away", ["Setup", "Connect", "Disconnect"])]:
-            self.assertEqual([row["text"] for row in menu(name)["entries"]], titles)
-            self.assertEqual(menu(name + "-setup")["parent"], name)
+        # Streaming (remote-access) holds Sunshine's daily actions directly; Tailscale's
+        # Access This PC Remotely folder stays there until its plugin panel covers it.
+        self.assertEqual([row["text"] for row in menu("remote-access")["entries"]],
+                         ["Access This PC Remotely", "Sharing Setup", "Connect to another PC", "Pair a Device",
+                          "Sharing Status", "Start Sharing", "Stop Sharing"])
+        self.assertEqual(menu("remote-access")["parent"], "system-devices")
+        self.assertEqual(menu("remote-share-setup")["parent"], "remote-access")
+        self.assertFalse((MENUS / "remote-share.lua").exists())
+        self.assertEqual([row["text"] for row in menu("remote-away")["entries"]], ["Setup", "Connect", "Disconnect"])
+        self.assertEqual(menu("remote-away")["parent"], "remote-access")
+        self.assertEqual(menu("remote-away-setup")["parent"], "remote-away")
         sharing = {row["text"] for row in menu("remote-share-setup")["entries"]}
         self.assertEqual(sharing, {"Set Up Sharing", "Sharing Settings", "Start at Login", "Turn Off Start at Login", "Detailed Status", "Restore Sharing Setup"})
         away = {row["text"] for row in menu("remote-away-setup")["entries"]}
         self.assertEqual(away, {"Sign In", "Set Up Away Access", "Restore Away Access Setup", "Detailed Status", "Ping a Peer"})
 
-    def test_tools_contains_calendars_before_other_submenus(self):
-        submenus = [entry["submenu"] for entry in menu("tools")["entries"] if entry.get("submenu")]
-        self.assertEqual(submenus, ["calendars", "capture", "reminders", "share"])
-        self.assertFalse(any(entry.get("submenu") == "calendars" for entry in menu("reminders")["entries"]))
+    def test_tools_groups_capture_fun_and_calendar_sources(self):
+        entries = menu("tools")["entries"]
+        self.assertEqual([entry["text"] for entry in entries],
+                         ["Capture", "Fun", "Reminders", "Share", "Color", "OCR Text", "QR Code", "Transcode"])
+        self.assertEqual([entry["text"] for entry in menu("capture")["entries"]], ["Screen Recording", "Screenshot"])
+        self.assertEqual([entry["text"] for entry in menu("fun")["entries"]], ["Music Visualizer", "Rune Rain"])
+        self.assertEqual(menu("fun")["parent"], "tools")
+        calendars = next(entry for entry in menu("reminders")["entries"] if entry.get("submenu") == "calendars")
+        self.assertEqual(calendars["text"], "Calendar Sources")
+        self.assertEqual(menu("calendars")["parent"], "reminders")
 
     def test_rows_that_open_something_say_what_it_does(self):
         # Submenu rows carry only the ">" marker; every other row has a description.
@@ -69,9 +83,10 @@ class MenuStructureTests(unittest.TestCase):
 
     def test_submenus_are_alphabetical(self):
         for name, data in menu_data.static_menus().items():
-            if name == "main":
+            if name in ("main", "settings"):
                 continue
             # Submenus first, then alphabetical actions; assistant menus keep New first.
+            # Main keeps its custom order and Settings the Settings app's group order.
             entries = data.get("entries", [])
             names = [entry["text"] for entry in entries]
             expected = [entry["text"] for entry in sorted(
@@ -90,13 +105,23 @@ class MenuStructureTests(unittest.TestCase):
         self.assertEqual((ROOT / "walker/themes/current/item_menus-bar-dock.xml").read_text(),
                          (ROOT / "walker/themes/current/item_menus-main.xml").read_text())
 
-    def test_system_contains_updates_and_information(self):
+    def test_system_contains_updates_checks_and_reports(self):
         entries = menu("system")["entries"]
         self.assertEqual([entry["text"] for entry in entries],
-                         ["Information", "Maintenance", "Update Channel", "About", "System Update"])
+                         ["Maintenance", "Update Channel", "About", "Check This PC", "Report a Problem", "System Update"])
         self.assertEqual(menu("update-channel")["parent"], "system")
         self.assertFalse((MENUS / "update.lua").exists())
         self.assertTrue(entries[-1]["actions"]["open"].endswith("update.sh system"))
+        self.assertEqual([entry["text"] for entry in menu("system-maintenance")["entries"]],
+                         ["Factory Reset", "Snapshots", "Choose Fastest Mirrors", "Cleanup"])
+
+    def test_bar_panels_are_not_walker_rows(self):
+        # The bar icons open Hardware, Weather and AI Usage; Walker has no rows for them.
+        self.assertFalse((MENUS / "system-information.lua").exists())
+        for name, data in menu_data.static_menus().items():
+            for entry in data.get("entries", []):
+                with self.subTest(menu=name, row=entry["text"]):
+                    self.assertNotIn(entry["text"], ("Hardware", "Weather", "AI Usage"))
 
     def test_security_groups_authentication_methods(self):
         entries = menu("security")["entries"]
@@ -258,12 +283,12 @@ class MenuStructureTests(unittest.TestCase):
                                 check=True)
         return [line.split("|") for line in result.stdout.splitlines()]
 
-    def test_default_assistant_is_directly_under_development(self):
+    def test_default_assistant_and_access_live_under_ai(self):
         rows = json.loads((ROOT / 'elephant/menu-rows/development.json').read_text())
-        default = next(row for row in rows if row['text'] == 'Default Assistant')
-        self.assertEqual(default['submenu'], 'ai-default')
-        self.assertEqual(default['subtext'], '>')
-        self.assertIn('Parent = "development"', (ROOT / 'elephant/menus/ai-default.lua').read_text())
+        self.assertNotIn('Default Assistant', [row['text'] for row in rows])
+        self.assertNotIn('assistant-access', [row.get('submenu') for row in menu('security')['entries']])
+        for name in ('ai-default', 'assistant-access'):
+            self.assertIn('Parent = "ai-tools"', (ROOT / f'elephant/menus/{name}.lua').read_text())
 
     def default_menu(self, installed, local_state, current=""):
         """Run elephant/menus/ai-default.lua with ai-assistant.py's answers replaced."""
@@ -324,7 +349,7 @@ class MenuStructureTests(unittest.TestCase):
             assert(entries[1].Icon == '\239\128\140')
             assert(entries[2].Actions.open:find(' set access full'))
             assert(entries[1].Actions.open:find(' set access ask'))
-            assert(Parent == 'security')
+            assert(Parent == 'ai-tools')
         """
         environment = dict(os.environ, EITR_LIBRARY_ROOT=str(ROOT / 'distro/lib'), EITR_CODE_ROOT=str(ROOT))
         subprocess.run(['lua', '-e', harness], cwd=ROOT, env=environment, check=True)
@@ -335,9 +360,11 @@ class MenuStructureTests(unittest.TestCase):
         for identifier, label in (("opencode", "OpenCode"), ("pi", "Pi")):
             self.assertIn([label, "ai-" + identifier], self.ai_menu({identifier}))
             self.assertTrue(any(row[1] == identifier for row in self.default_menu([identifier], "none")))
-        self.assertEqual(self.ai_menu({"claude", "codex"}), [["Claude", "ai-claude"], ["Codex", "ai-codex"], ["Let assistants work together", ""]])
-        self.assertEqual(self.ai_menu({"grok"}), [["Grok", "ai-grok"], ["Let assistants work together", ""]])
-        self.assertEqual(self.ai_menu(set()), [["Install an AI Assistant", ""], ["Let assistants work together", ""]])
+        settings = [["Assistant Access", "assistant-access"], ["Default Assistant", "ai-default"]]
+        self.assertEqual(self.ai_menu({"claude", "codex"}), [settings[0], ["Claude", "ai-claude"], ["Codex", "ai-codex"], settings[1],
+                                                             ["Let assistants work together", ""]])
+        self.assertEqual(self.ai_menu({"grok"}), [*settings, ["Grok", "ai-grok"], ["Let assistants work together", ""]])
+        self.assertEqual(self.ai_menu(set()), [*settings, ["Install an AI Assistant", ""], ["Let assistants work together", ""]])
         for name in ("agy", "claude", "codex", "copilot", "gemini", "grok", "opencode", "pi"):
             self.assertEqual(menu(f"ai-{name}")["parent"], "ai-tools")
         script = (ROOT / "walker/scripts/menus/ai-tools.sh").read_text()
@@ -349,10 +376,13 @@ class MenuStructureTests(unittest.TestCase):
 
     def test_gaming_has_only_app_entries(self):
         self.assertEqual([entry["text"] for entry in menu("gaming")["entries"]], ["GeForce NOW", "Moonlight", "RetroArch", "Steam"])
-    def test_install_and_gaming_follow_learn(self):
+    def test_install_holds_plugins_and_no_vpn(self):
         names = [entry["text"] for entry in menu("main")["entries"]]
-        start = names.index("Learn")
-        self.assertEqual(names[start:start + 4], ["Learn", "Install", "Plugins", "Gaming"])
+        self.assertNotIn("Plugins", names)
+        install = {entry["text"]: entry.get("submenu") for entry in menu("install")["entries"]}
+        self.assertEqual(install["Plugins"], "plugins")
+        self.assertNotIn("VPN", install)
+        self.assertEqual(menu("plugins")["parent"], "install")
 
     def test_optional_runtimes_belong_to_install(self):
         development = [entry.get("submenu") for entry in menu("development")["entries"]]
@@ -371,10 +401,10 @@ class MenuStructureTests(unittest.TestCase):
         entries = menu("security")["entries"]
         entry = next(entry for entry in entries if entry.get("submenu") == "users")
         self.assertEqual(entry.get("subtext"), ">")
-        self.assertFalse(any("Create User" in item["text"] for item in entries))
+        self.assertFalse(any("Create User" in item["text"] or item["text"] == "Update Password" for item in entries))
         users = menu("users")
         self.assertEqual(users["parent"], "security")
-        self.assertEqual([item["text"] for item in users["entries"]], ["Create User…", "Profile Picture"])
+        self.assertEqual([item["text"] for item in users["entries"]], ["Create User…", "Profile Picture", "Update Password"])
         self.assertIn("users.py", users["entries"][0]["actions"]["open"])
         layout = ROOT / "walker/themes/current"
         self.assertEqual((layout / "item_menus-users.xml").read_text(), (layout / "item_menus-security.xml").read_text())
@@ -393,26 +423,50 @@ class MenuStructureTests(unittest.TestCase):
         for item in menu("tpm-unlock")["entries"]:
             self.assertIn("security.py tpm-", item["actions"]["open"])
 
-    def test_battery_limit_lives_under_devices(self):
-        entry = next(entry for entry in menu("system-devices")["entries"] if entry.get("submenu") == "battery-limit")
+    def test_battery_limit_lives_under_input(self):
+        entry = next(entry for entry in menu("input")["entries"] if entry.get("submenu") == "battery-limit")
         self.assertEqual(entry.get("subtext"), ">")
-        self.assertEqual(menu("battery-limit")["parent"], "system-devices")
+        self.assertEqual(menu("battery-limit")["parent"], "input")
+        self.assertEqual([entry["text"] for entry in menu("input")["entries"]], ["Battery Charge Limit", "Keyboard", "Lighting"])
+        self.assertIn('(name == "input" or name == "battery-limit")', (ROOT / "elephant/scoped-menu.lua").read_text())
 
     def test_system_groups_have_matching_layouts_and_back_navigation(self):
+        # Settings follows the Settings app's groups (SettingsIndex.js), in its order.
         self.assertEqual([entry["text"] for entry in menu("settings")["entries"]],
-                         ["Connectivity", "Devices & Input", "Language", "Security", "Style", "System", "Control Center", "Dotfiles"])
-        language = next(entry for entry in menu("settings")["entries"] if entry["text"] == "Language")
-        self.assertEqual((language.get("subtext"), language.get("submenu")), (">", "language"), "Language is a folder")
+                         ["Devices", "Desktop", "Apps & Keys", "Accounts & Security", "System", "Control Center", "Dotfiles"])
+        self.assertIn('name == "main" or name == "settings"', (ROOT / "elephant/scoped-menu.lua").read_text())
+        index = (ROOT / "quickshell/desktop-bar/settings/SettingsIndex.js").read_text()
+        groups = [entry["text"] for entry in menu("settings")["entries"] if entry.get("submenu")]
+        positions = [index.index(f'"group": "{group}"') for group in groups]
+        self.assertEqual(positions, sorted(positions))
+        devices = {entry["text"]: entry for entry in menu("system-devices")["entries"]}
+        self.assertEqual((devices["Language"].get("subtext"), devices["Language"].get("submenu")), (">", "language"), "Language is a folder")
         layout = ROOT / "walker/themes/current"
-        for group in ("system-connectivity", "system-devices", "system-information", "system-maintenance"):
-            self.assertEqual(menu(group)["parent"], "settings" if group in ("system-connectivity", "system-devices") else "system")
+        for group, parent in (("system-devices", "settings"), ("system-connectivity", "system-devices"), ("input", "system-devices"),
+                              ("remote-access", "system-devices"), ("style", "settings"), ("appearance", "style"),
+                              ("windows", "style"), ("apps-keys", "settings"), ("system-maintenance", "system")):
+            self.assertEqual(menu(group)["parent"], parent)
             self.assertEqual((layout / f"item_menus-{group}.xml").read_text(),
                              (layout / "item_menus-system.xml").read_text())
             for entry in menu(group)["entries"]:
                 if "submenu" in entry:
                     self.assertEqual(entry["subtext"], ">")
                     self.assertEqual(menu(entry["submenu"])["parent"], group)
-        self.assertIn('Parent = "system-devices"', (MENUS / "keyboard.lua").read_text())
+        self.assertIn('Parent = "input"', (MENUS / "keyboard.lua").read_text())
+
+    def test_apps_and_keys_open_settings_pages(self):
+        index = (ROOT / "quickshell/desktop-bar/settings/SettingsIndex.js").read_text()
+        for entry in menu("apps-keys")["entries"]:
+            prefix = "eitr-shell desktop-bar ipc call -- settings show "
+            self.assertTrue(entry["actions"]["open"].startswith(prefix), entry["text"])
+            self.assertIn(f'"id": "{entry["actions"]["open"].removeprefix(prefix)}"', index)
+
+    def test_desktop_mirrors_the_settings_app_pages(self):
+        self.assertEqual([entry["text"] for entry in menu("style")["entries"]],
+                         ["Appearance", "Desktop Bar", "Focus", "Lockscreen", "Windows", "Themes & Plugins"])
+        self.assertEqual([entry["text"] for entry in menu("appearance")["entries"]],
+                         ["Corners", "Cursor", "Fonts", "Terminal", "Theme", "Wallpaper"])
+        self.assertEqual([entry["text"] for entry in menu("windows")["entries"]], ["Window gaps", "Window layout", "Workspaces"])
 
     def test_calendar_and_overview_remain_in_the_search_catalog(self):
         source = (MENUS / "system-shortcuts.lua").read_text()

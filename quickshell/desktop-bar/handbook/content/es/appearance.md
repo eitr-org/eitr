@@ -4,7 +4,7 @@ Configuración (**SUPER + ,**) incluye los controles de Apariencia; **Más temas
 
 ## Distribución de ventanas
 
-Elige **Mosaico** (predeterminado, dwindle de Hyprland) o **Desplazamiento** en **Configuración > Ventanas > Distribución de ventanas** o **Walker > Configuración > Estilo > Distribución de ventanas**. Desplazamiento organiza las ventanas en columnas sobre una cinta móvil. La selección se guarda localmente y persiste tras cambios de tema, recargas y reinicios; los cambios recargan la configuración del compositor sin reiniciar la sesión.
+Elige **Mosaico** (predeterminado, dwindle de Hyprland) o **Desplazamiento** en **Configuración > Ventanas > Distribución de ventanas** o **Walker > Configuración > Escritorio > Ventanas > Distribución de ventanas**. Desplazamiento organiza las ventanas en columnas sobre una cinta móvil. La selección se guarda localmente y persiste tras cambios de tema, recargas y reinicios; los cambios recargan la configuración del compositor sin reiniciar la sesión.
 
 Desplazamiento muestra Dirección (Derecha, Izquierda, Abajo, Arriba), Anchura predeterminada de columna (Un tercio, Mitad, Dos tercios, Completa) y Ajuste del foco. Centrar centra la columna enfocada; Ajustar la muestra con el mínimo movimiento. Seguir el foco permite mover la cinta al cambiar el foco, incluidos los clics. Pantalla completa con una columna permite que una columna única ocupe la pantalla, sin activar la pantalla completa de la aplicación. Valores predeterminados: Derecha, Mitad, Ajustar y ambos interruptores activados. Las opciones se conservan al volver a Mosaico. Walker también ofrece submenús de dirección y anchura.
 
@@ -81,7 +81,7 @@ Escribe en cualquier parte del catálogo, o pulsa Ctrl+F o /, para buscar en la 
 
 ## Elegir tema y fondo
 
-Elige tema y fondo en Configuración > Apariencia > Tema y fondo de pantalla. Para los menús Oscuro/Claro de Walker, usa **Walker > Configuración > Estilo > Tema** o **SUPER + Ctrl + Shift + N**. Un doble clic derecho en el escritorio vacío abre el carrusel. El Sol filtra temas claros y la Luna oscuros; pulsa otra vez el filtro activo para ver todos.
+Elige tema y fondo en Configuración > Apariencia > Tema y fondo de pantalla. Para los menús Oscuro/Claro de Walker, usa **Walker > Configuración > Escritorio > Apariencia > Tema** o **SUPER + Ctrl + Shift + N**. Un doble clic derecho en el escritorio vacío abre el carrusel. El Sol filtra temas claros y la Luna oscuros; pulsa otra vez el filtro activo para ver todos.
 
 El + abre el catálogo separado con el mismo filtro. Ctrl+Tab recorre filtros, escribir busca, flechas/Tab mueven y Enter aplica. Backspace edita la búsqueda o cierra si está vacía; Escape la borra antes de cerrar.
 
@@ -103,9 +103,9 @@ Si Hyprpaper no puede mostrar el fondo seleccionado, la barra dibuja la misma im
 
 Tus imágenes, temas y pantallas de bloqueo se quedan en este equipo, en `~/.local/share/eitr/` (`wallpapers`, `themes` y `lockscreens`). Eitr nunca los sube ni los comparte, y las actualizaciones nunca los cambian. Aparecen junto a los distribuidos, marcados como **Tuyo**, y solo ellos se pueden eliminar: selecciona uno, pulsa **Supr** y después Enter para confirmar o Escape para conservarlo.
 
-- **Walker > Configuración > Estilo > Fondo de pantalla > Añadir mi fondo de pantalla** acepta un archivo de imagen o una dirección https. Las descargas se detienen en 50 MB y Eitr guarda una copia solo tras comprobar que el archivo es una imagen JPEG, PNG o WebP. La dirección de una página web sirve si la página ofrece una imagen principal; si no, copia la dirección de la propia imagen. La imagen se aplica al momento y aparece en la lista de fondos, en el carrusel y con SUPER + Mayús + N. Eliminar el fondo en uso cambia antes al primer fondo del tema. Elige si tu fondo aparece con todos los temas o solo con el tema actual.
-- **Walker > Configuración > Estilo > Tema > Crear tema** pide una imagen (el fondo actual, uno tuyo, uno del tema u otro archivo o dirección https), claro u oscuro (Automático sigue el brillo de la imagen) y un nombre. Tras el resumen, Eitr crea una paleta completa a partir de la imagen, manteniendo el texto bien legible sobre el fondo, y aplica el tema a la barra, el terminal, el lanzador, las apps y los iconos. Después aparece una lista de colores: elige Acento, Fondo, Texto o uno de los seis colores del terminal, escribe seis dígitos hexadecimales y el cambio se aplica al momento; Escape termina. **Ctrl + E** sobre uno de tus temas vuelve a abrir la lista. Eliminar el tema en uso vuelve antes al tema que usabas antes de crearlo.
-- **Walker > Configuración > Estilo > Pantalla de bloqueo > Crear pantalla de bloqueo** usa el diseño Theme Wallpaper o Material con tu imagen, un color de acento opcional y un saludo opcional bajo el reloj, y después muestra una vista previa. Se selecciona como cualquier diseño. La pantalla de inicio de sesión no puede leer tu carpeta personal: muestra el mismo diseño, con tu imagen en Theme Wallpaper y la imagen propia del diseño en Material. Eliminar la pantalla de bloqueo en uso selecciona antes su diseño.
+- **Walker > Configuración > Escritorio > Apariencia > Fondo de pantalla > Añadir mi fondo de pantalla** acepta un archivo de imagen o una dirección https. Las descargas se detienen en 50 MB y Eitr guarda una copia solo tras comprobar que el archivo es una imagen JPEG, PNG o WebP. La dirección de una página web sirve si la página ofrece una imagen principal; si no, copia la dirección de la propia imagen. La imagen se aplica al momento y aparece en la lista de fondos, en el carrusel y con SUPER + Mayús + N. Eliminar el fondo en uso cambia antes al primer fondo del tema. Elige si tu fondo aparece con todos los temas o solo con el tema actual.
+- **Walker > Configuración > Escritorio > Apariencia > Tema > Crear tema** pide una imagen (el fondo actual, uno tuyo, uno del tema u otro archivo o dirección https), claro u oscuro (Automático sigue el brillo de la imagen) y un nombre. Tras el resumen, Eitr crea una paleta completa a partir de la imagen, manteniendo el texto bien legible sobre el fondo, y aplica el tema a la barra, el terminal, el lanzador, las apps y los iconos. Después aparece una lista de colores: elige Acento, Fondo, Texto o uno de los seis colores del terminal, escribe seis dígitos hexadecimales y el cambio se aplica al momento; Escape termina. **Ctrl + E** sobre uno de tus temas vuelve a abrir la lista. Eliminar el tema en uso vuelve antes al tema que usabas antes de crearlo.
+- **Walker > Configuración > Escritorio > Pantalla de bloqueo > Crear pantalla de bloqueo** usa el diseño Theme Wallpaper o Material con tu imagen, un color de acento opcional y un saludo opcional bajo el reloj, y después muestra una vista previa. Se selecciona como cualquier diseño. La pantalla de inicio de sesión no puede leer tu carpeta personal: muestra el mismo diseño, con tu imagen en Theme Wallpaper y la imagen propia del diseño en Material. Eliminar la pantalla de bloqueo en uso selecciona antes su diseño.
 
 ## Cambiar la disposición de la barra
 
@@ -115,11 +115,11 @@ Tus imágenes, temas y pantallas de bloqueo se quedan en este equipo, en `~/.loc
 
 Espaciado de ventanas y Esquinas tal como los muestra **Configuración > Ventanas**, con tu elección actual marcada. Por defecto hay 6 px entre ventanas y 12 px en los bordes de la pantalla.
 
-En **Configuración > Ventanas > Espaciado de ventanas** o **Walker > Configuración > Estilo > Espaciado de ventanas** puedes elegir Ninguno, Pequeño, Mediano (predeterminado) o Grande. La selección local se conserva al cambiar el tema o recargar.
+En **Configuración > Ventanas > Espaciado de ventanas** o **Walker > Configuración > Escritorio > Ventanas > Espaciado de ventanas** puedes elegir Ninguno, Pequeño, Mediano (predeterminado) o Grande. La selección local se conserva al cambiar el tema o recargar.
 
 ## Cambiar fuentes
 
-Elige una fuente instalada en Configuración > Apariencia > Fuentes y cursor. JetBrainsMono Nerd Font es la predeterminada. La elección actualiza las apps compatibles; algunas mantienen su propia fuente. Para eliminar una familia, usa Walker > Configuración > Estilo > Fuentes y revisa sus paquetes. No se puede eliminar la última familia utilizable.
+Elige una fuente instalada en Configuración > Apariencia > Fuentes y cursor. JetBrainsMono Nerd Font es la predeterminada. La elección actualiza las apps compatibles; algunas mantienen su propia fuente. Para eliminar una familia, usa Walker > Configuración > Escritorio > Apariencia > Fuentes y revisa sus paquetes. No se puede eliminar la última familia utilizable.
 
 ## Cambiar el puntero
 
@@ -155,7 +155,7 @@ El menú de arranque de Limine usa los colores del tema actual, el título EITR 
 
 ## Vistas previas y asignaciones de fondos
 
-En Ajustes > Apariencia > Tema y fondo, pulsa una imagen para previsualizar su fotograma fijo en el escritorio. Aplicar la guarda; Cancelar vista previa, cambiar de página o cerrar restaura la elección guardada. La paleta no cambia. Walker > Ajustes > Estilo > Fondo abre el carrusel en la imagen seleccionada. Las flechas previsualizan; Intro aplica; Escape o pulsar fuera cancela.
+En Ajustes > Apariencia > Tema y fondo, pulsa una imagen para previsualizar su fotograma fijo en el escritorio. Aplicar la guarda; Cancelar vista previa, cambiar de página o cerrar restaura la elección guardada. La paleta no cambia. Walker > Ajustes > Escritorio > Apariencia > Fondo abre el carrusel en la imagen seleccionada. Las flechas previsualizan; Intro aplica; Escape o pulsar fuera cancela.
 
 Fondo por pantalla en Configuración > Apariencia > Tema y fondo está desactivado de forma predeterminada: elegir o previsualizar un fondo cambia todas las pantallas. Actívalo para cambiar solo la pantalla que usas al elegir la imagen. Las pantallas sin selección propia usan el fondo global.
 

@@ -97,7 +97,7 @@ io.popen = function(command)
     local current = command:find("scrollWidth", 1, true) and "half" or command:find("scrollDirection", 1, true) and "right" or "scrolling"
     return {read=function() return current end, close=function() end}
 end
-for _, spec in ipairs({{"window-layout", "style", "scrolling", 4}, {"scrolling-width", "window-layout", "half", 4}, {"scrolling-direction", "window-layout", "right", 4}}) do
+for _, spec in ipairs({{"window-layout", "windows", "scrolling", 4}, {"scrolling-width", "window-layout", "half", 4}, {"scrolling-direction", "window-layout", "right", 4}}) do
     dofile(root .. "/elephant/menus/" .. spec[1] .. ".lua")
     assert(Parent == spec[2])
     local entries = GetEntries("")

@@ -1,5 +1,19 @@
 [
   {
+    "text": "Calendar Sources",
+    "subtext": ">",
+    "keywords": [
+      "google",
+      "outlook",
+      "ical",
+      "ics",
+      "subscribe",
+      "Calendars"
+    ],
+    "icon": "󰃭",
+    "submenu": "calendars"
+  },
+  {
     "text": "New Reminder",
     "subtext": "A one-time or repeating notification",
     "keywords": [

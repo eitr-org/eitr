@@ -3,7 +3,7 @@
 Fixed rows belong in `elephant/menu-rows/<menu>.json`. Keep title (`text`),
 description (`subtext`), icon, keywords, submenu and actions together. Provider
 metadata and Parent remain in `elephant/menus/<menu>.lua`; shortcut links do not
-change a destination's Parent. Main retains its custom order; other menus sort
+change a destination's Parent. Main and Settings retain their custom order; other menus sort
 folders before actions through the existing translation adapter.
 
 `elephant/row-entry.lua` owns the common browse/search presentation, including

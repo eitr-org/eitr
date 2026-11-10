@@ -59,10 +59,10 @@ Administrators have **Users** and **Manage** tabs in Settings > Users. Standard 
 
 ## Use Walker as an alternative
 
-**SUPER + F** opens Walker. Its Settings menu still has folders such as Style, Devices & Input and System. These are Walker paths, not pages in the Settings app.
+**SUPER + F** opens Walker. Its Settings menu follows the Settings app's groups: Devices, Desktop, Apps & Keys, Accounts & Security and System, with Control Center and Dotfiles at the bottom. Apps & Keys opens the Default Apps and Keybinds pages of the Settings app.
 
 <!-- eitr-figure: launcher -->
 
 Walker’s Settings menu is an alternative with its own folders. The > marker opens a submenu; the description below an action explains what it does.
 
-Walker lists folders before actions. Type to search, Enter to open and Shift + Backspace to go back. Language selection remains in Walker > Settings > Language; see [Language](handbook:language).
+Walker lists folders before actions. Type to search, Enter to open and Shift + Backspace to go back. Language selection remains in Walker > Settings > Devices > Language; see [Language](handbook:language).

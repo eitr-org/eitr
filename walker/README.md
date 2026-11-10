@@ -31,14 +31,14 @@ freshness window). Clipboard contents are excluded; open Clipboard History to
 search those. Selections are validated against the original provider before
 running its existing action. No action commands or clipboard data are cached.
 
-Settings > Style > Fonts searches installed main font families, grouping weight/style
+Settings > Desktop > Appearance > Fonts searches installed main font families, grouping weight/style
 aliases and Nerd Font editions into one entry. Enter selects the desktop
 default (JetBrainsMono Nerd Font initially); Delete asks for confirmation.
 User-installed font files go to Trash. Package-owned fonts open a terminal to
 remove the owning package with normal dependency checks, never recursive removal.
 The active default and system icon font are protected, including when bundled
 with another family. Removing the last font or keyboard layout is forbidden.
-Settings > Devices & Input > Keyboard supports Delete for a layout; keyboard panel rows have the same
+Settings > Devices > Input > Keyboard supports Delete for a layout; keyboard panel rows have the same
 guarded removal control.
 The picker hides document and icon-only families and keeps one main Noto and
 Adwaita choice. Their fallback/script/variant fonts remain installed. A hidden
@@ -117,7 +117,7 @@ snapshots enabled only on distro installs. Settings > System also offers Update 
 Terminal commands `eitr update pacman`, `eitr update aur` and `eitr update full`
 remain available without automatic snapshots.
 No PAM or snapshot setup runs at login.
-Settings → Devices & Input → Battery Charge Limit sets 60/80/90% or removes the limit after a typed
+Settings → Devices → Input → Battery Charge Limit sets 60/80/90% or removes the limit after a typed
 `yes`, through `eitr-system battery-limit`. It needs a laptop battery whose
 firmware exposes `charge_control_end_threshold`; elsewhere it explains that no
 control exists. The limit is restored at boot and after resume.

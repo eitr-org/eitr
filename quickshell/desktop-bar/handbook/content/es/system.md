@@ -61,10 +61,10 @@ Los administradores tienen las pestañas **Usuarios** y **Administrar** en Confi
 
 ## Usar Walker como alternativa
 
-**SUPER + F** abre Walker. Su menú Configuración conserva carpetas como Estilo, Dispositivos y entrada y Sistema. Son rutas de Walker, no páginas de la aplicación Configuración.
+**SUPER + F** abre Walker. Su menú Configuración sigue los grupos de la aplicación Configuración: Dispositivos, Escritorio, Apps y teclas, Cuentas y seguridad y Sistema, con Centro de control y Dotfiles al final. Apps y teclas abre las páginas Apps predeterminadas y Atajos de teclado de la aplicación Configuración.
 
 <!-- eitr-figure: launcher -->
 
 El menú Configuración de Walker es una alternativa con sus propias carpetas. > abre un submenú; la descripción bajo una acción explica qué hace.
 
-Walker muestra carpetas antes que acciones. Escribe para buscar, pulsa Enter para abrir y Shift + Backspace para volver. El idioma se elige en Walker > Configuración > Idioma; consulta [Idioma](handbook:language).
+Walker muestra carpetas antes que acciones. Escribe para buscar, pulsa Enter para abrir y Shift + Backspace para volver. El idioma se elige en Walker > Configuración > Dispositivos > Idioma; consulta [Idioma](handbook:language).

@@ -21,7 +21,7 @@ class HandbookTests(unittest.TestCase):
         sys.path.insert(0, str(ROOT / "walker/tests"))
         import menu_data
         text = "\n".join(chapter["markdown"] for chapter in json.loads(builder.build())["chapters"]).casefold()
-        for name in ("system", "system-connectivity", "system-devices", "system-information", "system-maintenance", "security"):
+        for name in ("system", "system-connectivity", "system-devices", "input", "remote-access", "apps-keys", "system-maintenance", "security", "users"):
             menu = menu_data.load(name)
             for entry in menu["entries"]:
                 self.assertIn(entry["text"].casefold(), text)

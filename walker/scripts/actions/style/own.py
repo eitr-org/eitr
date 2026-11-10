@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Your own wallpapers, themes and lockscreens, from Walker > Style.
+"""Your own wallpapers, themes and lockscreens, from Walker > Settings > Desktop.
 
   own.py wallpaper add [SOURCE]     copy a picture (file or https address) into your wallpapers
   own.py wallpaper delete PATH      confirm, then delete one of your wallpapers
@@ -131,7 +131,7 @@ def add_wallpaper(source=None):
     path = own.add_wallpaper(source, theme=theme)
     subprocess.run([sys.executable, str(code("walker/scripts/actions/wallpaper/assignments.py")), "apply", "--path", str(path)],
                    check=False)
-    notify(tr('Wallpaper added'), tr('{name} is in Style > Wallpaper and the wallpaper carousel.', name=path.name))
+    notify(tr('Wallpaper added'), tr('{name} is in Desktop > Appearance > Wallpaper and the wallpaper carousel.', name=path.name))
     return 0
 
 
@@ -290,7 +290,7 @@ def create_lockscreen():
     answers, source = ask(tr('Create a lockscreen with your own picture. It stays on this computer.'), steps)
     print(tr('Creating the lockscreen…'), flush=True)
     value = own.create_lockscreen(answers['name'], answers['design'], source, answers['accent'], answers['greeting'])
-    notify(tr('Lockscreen created'), tr('Select it in Style > Lockscreen; Ctrl+P previews it.'))
+    notify(tr('Lockscreen created'), tr('Select it in Desktop > Lockscreen; Ctrl+P previews it.'))
     subprocess.Popen(["bash", str(code("quickshell/lockscreen/scripts/preview.sh")), value],
                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
     return 0

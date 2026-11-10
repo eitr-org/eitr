@@ -1,11 +1,5 @@
 [
   {
-    "text": "Assistant Access",
-    "subtext": ">",
-    "icon": "󰒃",
-    "submenu": "assistant-access"
-  },
-  {
     "text": "FIDO2 Security Key",
     "subtext": ">",
     "icon": "󰌆",
@@ -56,14 +50,6 @@
     "icon": "󰌾",
     "actions": {
       "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py password-only"
-    }
-  },
-  {
-    "text": "Update Password",
-    "subtext": "Change your account's password",
-    "icon": "󰌾",
-    "actions": {
-      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py password"
     }
   }
 ]

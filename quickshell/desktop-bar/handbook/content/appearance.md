@@ -5,7 +5,7 @@ the separate Themes & Plugins catalog window (**SUPER + F2**).
 
 ## Window layout
 
-Choose **Tiling** (the default, Hyprland dwindle) or **Scrolling** in **Settings > Windows > Window layout** or **Walker > Settings > Style > Window layout**. Scrolling places windows in columns on a moving tape. Choices are saved locally and survive theme changes, config reloads and reboots; selection reloads the compositor configuration without restarting the session.
+Choose **Tiling** (the default, Hyprland dwindle) or **Scrolling** in **Settings > Windows > Window layout** or **Walker > Settings > Desktop > Windows > Window layout**. Scrolling places windows in columns on a moving tape. Choices are saved locally and survive theme changes, config reloads and reboots; selection reloads the compositor configuration without restarting the session.
 
 Scrolling reveals Direction (Right, Left, Down, Up), Default column width (One third, Half, Two thirds, Full), and Focus fit. Center centres the focused column; Fit brings it into view with minimal movement. Follow focus allows the tape to move when focus changes, including clicks. Fullscreen when one column lets a lone column fill the screen; it does not put the application into fullscreen. Defaults are Right, Half, Fit, and both switches on. These options stay saved when returning to Tiling. Walker also offers direction and width submenus.
 
@@ -100,7 +100,7 @@ name or description. Words can appear in any order; Escape clears the search fir
 
 ## Choose a theme and wallpaper
 
-Choose your theme and wallpaper in Settings > Appearance > Theme & Wallpaper. For Walker’s Dark/Light theme menus, use **Walker > Settings > Style > Theme** or **SUPER + Ctrl + Shift + N**. Double-right-click empty desktop space to open the theme carousel. The Sun filters light themes, the Moon dark themes; click the active filter again for all themes. The + opens the separate catalog with the same filter. Ctrl+Tab cycles filters, typing searches, arrows/Tab move and Enter applies. Backspace edits search or closes when empty; Escape clears search before closing.
+Choose your theme and wallpaper in Settings > Appearance > Theme & Wallpaper. For Walker’s Dark/Light theme menus, use **Walker > Settings > Desktop > Appearance > Theme** or **SUPER + Ctrl + Shift + N**. Double-right-click empty desktop space to open the theme carousel. The Sun filters light themes, the Moon dark themes; click the active filter again for all themes. The + opens the separate catalog with the same filter. Ctrl+Tab cycles filters, typing searches, arrows/Tab move and Enter applies. Backspace edits search or closes when empty; Escape clears search before closing.
 
 **SUPER + Ctrl + N** opens wallpapers, and **SUPER + Shift + N** advances to
 the next one. A checkmark marks the active choice in Walker. Theme/wallpaper
@@ -138,14 +138,14 @@ uploads or shares them, and updates never change them. They appear beside the
 shipped ones, marked **Yours**, and only they can be deleted: select one and
 press **Delete**, then Enter to confirm or Escape to keep it.
 
-- **Walker > Settings > Style > Wallpaper > Add My Own Wallpaper** takes a picture file or an https
+- **Walker > Settings > Desktop > Appearance > Wallpaper > Add My Own Wallpaper** takes a picture file or an https
   address. Downloads stop at 50 MB, and Eitr keeps a copy only after checking
   that the file is a JPEG, PNG or WebP picture. A web page's address works when
   the page offers a main picture; otherwise copy the image's own address. The
   picture is applied right away and appears in the wallpaper list, the carousel
   and SUPER + Shift + N. Deleting the wallpaper in
   use first switches to the theme's first wallpaper. Choose whether your wallpaper appears with all themes or only the current theme.
-- **Walker > Settings > Style > Theme > Create Theme** asks for a picture (the current wallpaper,
+- **Walker > Settings > Desktop > Appearance > Theme > Create Theme** asks for a picture (the current wallpaper,
   one of yours, the theme's, or another file or https address), light or dark
   (Automatic follows the picture's brightness), and a name. After the review,
   Eitr builds a full palette from the picture, keeping text clearly readable on
@@ -154,7 +154,7 @@ press **Delete**, then Enter to confirm or Escape to keep it.
   terminal colors, type six hex digits, and the change applies at once; Escape
   finishes. **Ctrl + E** on one of your themes opens the list again. Deleting the
   theme in use first returns to the theme you used before creating it.
-- **Walker > Settings > Style > Lockscreen > Create Lockscreen** uses the Theme Wallpaper or
+- **Walker > Settings > Desktop > Lockscreen > Create Lockscreen** uses the Theme Wallpaper or
   Material design with your picture, an optional accent color and an optional
   greeting under the clock, then shows a preview. Select it like any design.
   The login screen cannot read your home folder: it shows the same design, with
@@ -169,11 +169,11 @@ press **Delete**, then Enter to confirm or Escape to keep it.
 
 Window gaps and Corners as **Settings > Windows** shows them, with your current choices checked. Default gaps are 6 px between windows and 12 px at the screen edges.
 
-Use **Settings > Windows > Window gaps** or **Walker > Settings > Style > Window gaps** to choose None, Small, Medium (the default) or Large. The choice is saved locally with Corners and survives theme changes and reloads.
+Use **Settings > Windows > Window gaps** or **Walker > Settings > Desktop > Windows > Window gaps** to choose None, Small, Medium (the default) or Large. The choice is saved locally with Corners and survives theme changes and reloads.
 
 ## Change fonts
 
-Choose an installed font in Settings > Appearance > Fonts & Cursor. JetBrainsMono Nerd Font is the default. The choice updates supported desktop apps; some apps keep their own font settings. To remove an installed font family, use Walker > Settings > Style > Fonts and review the packages it belongs to. The last usable family cannot be deleted.
+Choose an installed font in Settings > Appearance > Fonts & Cursor. JetBrainsMono Nerd Font is the default. The choice updates supported desktop apps; some apps keep their own font settings. To remove an installed font family, use Walker > Settings > Desktop > Appearance > Fonts and review the packages it belongs to. The last usable family cannot be deleted.
 
 ## Change the pointer
 
@@ -233,7 +233,7 @@ system booting after an edit.
 
 ## Wallpaper previews and assignments
 
-In Settings > Appearance > Theme & Wallpaper, click an image to preview its still frame on the desktop. Apply saves it; Cancel preview, leaving the page, or closing Settings restores the saved choice. The palette does not change. Walker > Settings > Style > Wallpaper opens the same desktop carousel at the selected image. Arrows preview; Enter applies; Escape or clicking outside cancels.
+In Settings > Appearance > Theme & Wallpaper, click an image to preview its still frame on the desktop. Apply saves it; Cancel preview, leaving the page, or closing Settings restores the saved choice. The palette does not change. Walker > Settings > Desktop > Appearance > Wallpaper opens the same desktop carousel at the selected image. Arrows preview; Enter applies; Escape or clicking outside cancels.
 
 Wallpaper per display in Settings > Appearance > Theme & Wallpaper is off by default: choosing or previewing a wallpaper changes all displays. Turn it on to change only the display you are using when you choose the image. A display without its own choice uses the global wallpaper.
 

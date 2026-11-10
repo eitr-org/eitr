@@ -6,7 +6,7 @@ Usa **Configuración > Pantallas**, **Configuración > Sonido** e **Configuraci�
 
 Abre Configuración > Pantallas, Sonido o Entrada. Los paneles correspondientes de la barra y el Centro de control también ofrecen controles rápidos.
 
-Walker > Configuración > Dispositivos y entrada > Iluminación controla dispositivos OpenRGB. Empieza desactivada; Seguir el tema recolorea los dispositivos compatibles al cambiar de tema.
+Walker > Configuración > Dispositivos > Entrada > Iluminación controla dispositivos OpenRGB. Empieza desactivada; Seguir el tema recolorea los dispositivos compatibles al cambiar de tema.
 
 ## Ajustar sonido y micrófono
 

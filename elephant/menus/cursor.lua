@@ -3,7 +3,7 @@ local i18n = dofile(paths.code("elephant/i18n.lua"))
 -- Rows: elephant/menu-rows/cursor.json. Typing also searches the menus below this one.
 Name = "cursor"
 NamePretty = i18n.tr("Cursor")
-Parent = "style"
+Parent = "appearance"
 Icon = "󰇀"
 FixedOrder = true
 GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("cursor")

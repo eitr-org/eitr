@@ -14,11 +14,11 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 class VPNTests(unittest.TestCase):
-    def test_menu(self):
-        rows = json.loads((ROOT / 'elephant/menu-rows/vpn.json').read_text())
-        self.assertEqual([row['text'] for row in rows], ['NetworkManager VPN', 'Tailscale', 'WireGuard'])
-        self.assertTrue(all(row['subtext'] for row in rows))
-        self.assertTrue(all('task-terminal.py' in row['actions']['open'] for row in rows))
+    def test_install_has_no_vpn_menu(self):
+        # VPN setup moved to plugins; Install no longer lists a VPN folder.
+        rows = json.loads((ROOT / 'elephant/menu-rows/install.json').read_text())
+        self.assertNotIn('vpn', [row.get('submenu') for row in rows])
+        self.assertFalse((ROOT / 'elephant/menus/vpn.lua').exists())
 
     def test_packages(self):
         catalog = json.loads((ROOT / 'distro/software.json').read_text())['vpn']

@@ -12,7 +12,7 @@ L’effet nécessite Kitty 0.49+ et `shader-slang`, inclus dans les dépendances
 
 ## Choisir son terminal
 
-Choisissez Kitty ou Ghostty dans Paramètres > Apparence > Terminal. Walker > Paramètres > Style > Terminal reste une alternative. Le champ local `terminal` de
+Choisissez Kitty ou Ghostty dans Paramètres > Apparence > Terminal. Walker > Paramètres > Bureau > Apparence > Terminal reste une alternative. Le champ local `terminal` de
 `~/.config/eitr/terminal.json` contrôle Super+Entrée, tmux, les sessions utilisateur,
 les terminaux IA/projets et les actions Walker pour ouvrir dans un terminal.
 Si Ghostty manque, le sélectionner ouvre le processus habituel d’installation du
@@ -45,7 +45,7 @@ de Kitty. Choisir Ghostty ne les modifie pas.
 
 ## Apparence du terminal et flou partagé
 
-Walker > Paramètres > Style > Terminal et Paramètres > Apparence > Terminal règlent
+Walker > Paramètres > Bureau > Apparence > Terminal et Paramètres > Apparence > Terminal règlent
 l’opacité, les marges internes et le flou de Kitty et Ghostty. L’opacité propose
 Opaque (100%), Léger (90%), Moyen (80%), Par défaut (75%) et Fort (70%). Les marges
 proposent Aucune, Petites (4 points) et Confortables (8 points). Les valeurs par

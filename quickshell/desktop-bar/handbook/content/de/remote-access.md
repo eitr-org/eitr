@@ -1,13 +1,13 @@
 # Fernzugriff
 
-Öffnen Sie Einstellungen > Streaming für Sunshine und Moonlight oder Walker > Einstellungen > Verbindungen > Fernzugriff für die Fernzugriffsmenüs. Die Freigabe bleibt bis zur
+Öffnen Sie Einstellungen > Streaming für Sunshine und Moonlight oder Walker > Einstellungen > Geräte > Streaming für dieselben Aktionen. Die Freigabe bleibt bis zur
 Aktivierung ausgeschaltet. Unterstützt wird der angemeldete, wache Eitr-Desktop.
 Betrieb ohne Monitor, Zugriff vor der Anmeldung und wake on LAN folgen später.
 Sperrt sich dieser PC während der Freigabe, zeigt der entfernte Bildschirm den
 Sperrbildschirm; wer verbunden ist, sieht ihn und kann das Passwort eingeben.
 Beenden Sie die Freigabe, bevor Sie weggehen, wenn Vertraulichkeit wichtig ist.
 
-Einrichtung bündelt die Konfiguration. Unter Diesen PC freigeben > Einrichtung stehen Freigabe einrichten, Freigabeeinstellungen, Beim Anmelden starten, Start beim Anmelden ausschalten, Detaillierter Status und Freigabeeinrichtung wiederherstellen. Remotezugriff auf diesen PC > Einrichtung enthält Anmelden, Fernzugriff einrichten, Fernzugriffseinrichtung wiederherstellen, Detaillierter Status und Peer anpingen. Tägliche Freigabe- und Verbindungsaktionen bleiben direkt im übergeordneten Menü.
+Einrichtungsordner bündeln die Konfiguration. Unter Streaming > Freigabe-Einrichtung stehen Freigabe einrichten, Freigabeeinstellungen, Beim Anmelden starten, Start beim Anmelden ausschalten, Detaillierter Status und Freigabeeinrichtung wiederherstellen. Remotezugriff auf diesen PC > Einrichtung enthält Anmelden, Fernzugriff einrichten, Fernzugriffseinrichtung wiederherstellen, Detaillierter Status und Peer anpingen. Tägliche Freigabeaktionen (Freigabe starten, Freigabe beenden, Gerät koppeln, Freigabestatus und Mit anderem PC verbinden) bleiben direkt in Streaming, Verbinden und Trennen in Remotezugriff auf diesen PC.
 
 Detaillierter Status öffnet ein Diagnoseterminal, das bis zum Drücken von Esc geöffnet bleibt.
 

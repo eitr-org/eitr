@@ -4,7 +4,7 @@ Configurações (**SUPER + ,**) inclui os controles de Aparência; **Mais temas*
 
 ## Layout das janelas
 
-Escolha **Ladrilhos** (padrão, dwindle do Hyprland) ou **Rolagem** em **Configurações > Janelas > Layout das janelas** ou **Walker > Configurações > Estilo > Layout das janelas**. Rolagem organiza as janelas em colunas sobre uma faixa móvel. A escolha é salva localmente e permanece após trocas de tema, recargas e reinicializações; a seleção recarrega a configuração do compositor sem reiniciar a sessão.
+Escolha **Ladrilhos** (padrão, dwindle do Hyprland) ou **Rolagem** em **Configurações > Janelas > Layout das janelas** ou **Walker > Configurações > Área de trabalho > Janelas > Layout das janelas**. Rolagem organiza as janelas em colunas sobre uma faixa móvel. A escolha é salva localmente e permanece após trocas de tema, recargas e reinicializações; a seleção recarrega a configuração do compositor sem reiniciar a sessão.
 
 Rolagem mostra Direção (Direita, Esquerda, Baixo, Cima), Largura padrão da coluna (Um terço, Metade, Dois terços, Inteira) e Ajuste do foco. Centralizar centraliza a coluna em foco; Ajustar a traz para a tela com o mínimo de movimento. Seguir o foco permite mover a faixa quando o foco muda, inclusive por cliques. Tela cheia com uma coluna permite que uma única coluna preencha a tela sem ativar o modo de tela cheia do aplicativo. Os padrões são Direita, Metade, Ajustar e os dois interruptores ligados. As opções continuam salvas ao voltar para Ladrilhos. O Walker também oferece submenus de direção e largura.
 
@@ -80,7 +80,7 @@ Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar 
 
 ## Escolher tema e papel de parede
 
-Escolha tema e papel de parede em Configurações > Aparência > Tema e papel de parede. Para os menus Escuro/Claro do Walker, use **Walker > Configurações > Estilo > Tema** ou **SUPER + Ctrl + Shift + N**. Um clique duplo direito no desktop vazio abre o carrossel. O Sol filtra temas claros e a Lua escuros; clique de novo no filtro ativo para mostrar todos.
+Escolha tema e papel de parede em Configurações > Aparência > Tema e papel de parede. Para os menus Escuro/Claro do Walker, use **Walker > Configurações > Área de trabalho > Aparência > Tema** ou **SUPER + Ctrl + Shift + N**. Um clique duplo direito no desktop vazio abre o carrossel. O Sol filtra temas claros e a Lua escuros; clique de novo no filtro ativo para mostrar todos.
 
 O + abre o catálogo separado com o mesmo filtro. Ctrl+Tab alterna filtros, digitar busca, setas/Tab movem e Enter aplica. Backspace edita a busca ou fecha se estiver vazia; Esc limpa antes de fechar.
 
@@ -102,9 +102,9 @@ Se o Hyprpaper não conseguir exibir o papel de parede selecionado, a barra dese
 
 Suas imagens, temas e telas de bloqueio ficam neste computador, em `~/.local/share/eitr/` (`wallpapers`, `themes` e `lockscreens`). O Eitr nunca os envia nem compartilha, e as atualizações nunca os alteram. Eles aparecem ao lado dos distribuídos, marcados como **Seu**, e só eles podem ser excluídos: selecione um, pressione **Delete** e depois Enter para confirmar ou Esc para mantê-lo.
 
-- **Walker > Configurações > Estilo > Papel de parede > Adicionar meu papel de parede** aceita um arquivo de imagem ou um endereço https. Downloads param em 50 MB, e o Eitr só guarda uma cópia depois de verificar que o arquivo é uma imagem JPEG, PNG ou WebP. O endereço de uma página funciona quando a página oferece uma imagem principal; senão, copie o endereço da própria imagem. A imagem é aplicada na hora e aparece na lista de papéis de parede, no carrossel e com SUPER + Shift + N. Excluir o papel de parede em uso muda antes para o primeiro papel de parede do tema. Escolha se o papel de parede aparece com todos os temas ou só com o tema atual.
-- **Walker > Configurações > Estilo > Tema > Criar tema** pede uma imagem (o papel de parede atual, um seu, um do tema ou outro arquivo ou endereço https), claro ou escuro (Automático segue o brilho da imagem) e um nome. Depois da revisão, o Eitr cria uma paleta completa a partir da imagem, mantendo o texto bem legível sobre o fundo, e aplica o tema à barra, ao terminal, ao lançador, aos apps e aos ícones. Em seguida vem uma lista de cores: escolha Destaque, Fundo, Texto ou uma das seis cores do terminal, digite seis dígitos hexadecimais e a alteração é aplicada na hora; Esc conclui. **Ctrl + E** em um dos seus temas abre a lista de novo. Excluir o tema em uso volta antes ao tema usado antes de criá-lo.
-- **Walker > Configurações > Estilo > Tela de bloqueio > Criar tela de bloqueio** usa o desenho Theme Wallpaper ou Material com sua imagem, uma cor de destaque opcional e uma saudação opcional abaixo do relógio, e depois mostra uma prévia. Ela é selecionada como qualquer desenho. A tela de login não consegue ler sua pasta pessoal: mostra o mesmo desenho, com sua imagem no Theme Wallpaper e a imagem do próprio desenho no Material. Excluir a tela de bloqueio em uso seleciona antes o desenho dela.
+- **Walker > Configurações > Área de trabalho > Aparência > Papel de parede > Adicionar meu papel de parede** aceita um arquivo de imagem ou um endereço https. Downloads param em 50 MB, e o Eitr só guarda uma cópia depois de verificar que o arquivo é uma imagem JPEG, PNG ou WebP. O endereço de uma página funciona quando a página oferece uma imagem principal; senão, copie o endereço da própria imagem. A imagem é aplicada na hora e aparece na lista de papéis de parede, no carrossel e com SUPER + Shift + N. Excluir o papel de parede em uso muda antes para o primeiro papel de parede do tema. Escolha se o papel de parede aparece com todos os temas ou só com o tema atual.
+- **Walker > Configurações > Área de trabalho > Aparência > Tema > Criar tema** pede uma imagem (o papel de parede atual, um seu, um do tema ou outro arquivo ou endereço https), claro ou escuro (Automático segue o brilho da imagem) e um nome. Depois da revisão, o Eitr cria uma paleta completa a partir da imagem, mantendo o texto bem legível sobre o fundo, e aplica o tema à barra, ao terminal, ao lançador, aos apps e aos ícones. Em seguida vem uma lista de cores: escolha Destaque, Fundo, Texto ou uma das seis cores do terminal, digite seis dígitos hexadecimais e a alteração é aplicada na hora; Esc conclui. **Ctrl + E** em um dos seus temas abre a lista de novo. Excluir o tema em uso volta antes ao tema usado antes de criá-lo.
+- **Walker > Configurações > Área de trabalho > Tela de bloqueio > Criar tela de bloqueio** usa o desenho Theme Wallpaper ou Material com sua imagem, uma cor de destaque opcional e uma saudação opcional abaixo do relógio, e depois mostra uma prévia. Ela é selecionada como qualquer desenho. A tela de login não consegue ler sua pasta pessoal: mostra o mesmo desenho, com sua imagem no Theme Wallpaper e a imagem do próprio desenho no Material. Excluir a tela de bloqueio em uso seleciona antes o desenho dela.
 
 ## Alterar o layout da barra
 
@@ -114,11 +114,11 @@ Suas imagens, temas e telas de bloqueio ficam neste computador, em `~/.local/sha
 
 Espaçamento das janelas e Cantos como **Configurações > Janelas** os mostra, com suas escolhas atuais marcadas. Por padrão, há 6 px entre janelas e 12 px nas bordas da tela.
 
-Em **Configurações > Janelas > Espaçamento das janelas** ou **Walker > Configurações > Estilo > Espaçamento das janelas**, escolha Nenhum, Pequeno, Médio (padrão) ou Grande. A preferência local permanece após trocas de tema e recarregamentos.
+Em **Configurações > Janelas > Espaçamento das janelas** ou **Walker > Configurações > Área de trabalho > Janelas > Espaçamento das janelas**, escolha Nenhum, Pequeno, Médio (padrão) ou Grande. A preferência local permanece após trocas de tema e recarregamentos.
 
 ## Alterar fontes
 
-Escolha uma fonte instalada em Configurações > Aparência > Fontes e cursor. JetBrainsMono Nerd Font é o padrão. A escolha atualiza os apps compatíveis; alguns mantêm sua própria fonte. Para remover uma família, use Walker > Configurações > Estilo > Fontes e revise seus pacotes. A última família utilizável não pode ser removida.
+Escolha uma fonte instalada em Configurações > Aparência > Fontes e cursor. JetBrainsMono Nerd Font é o padrão. A escolha atualiza os apps compatíveis; alguns mantêm sua própria fonte. Para remover uma família, use Walker > Configurações > Área de trabalho > Aparência > Fontes e revise seus pacotes. A última família utilizável não pode ser removida.
 
 ## Alterar o ponteiro
 
@@ -152,7 +152,7 @@ O menu de inicialização do Limine usa as cores do tema atual, o título EITR e
 
 ## Prévias e atribuições de papéis de parede
 
-Em Configurações > Aparência > Tema e papel de parede, clique em uma imagem para visualizar seu quadro estático na área de trabalho. Aplicar salva; Cancelar prévia, sair da página ou fechar restaura a escolha salva. A paleta não muda. Walker > Configurações > Estilo > Papel de parede abre o carrossel na imagem selecionada. As setas mostram a prévia; Enter aplica; Escape ou clicar fora cancela.
+Em Configurações > Aparência > Tema e papel de parede, clique em uma imagem para visualizar seu quadro estático na área de trabalho. Aplicar salva; Cancelar prévia, sair da página ou fechar restaura a escolha salva. A paleta não muda. Walker > Configurações > Área de trabalho > Aparência > Papel de parede abre o carrossel na imagem selecionada. As setas mostram a prévia; Enter aplica; Escape ou clicar fora cancela.
 
 Papel de parede por tela em Configurações > Aparência > Tema e papel de parede vem desligado: escolher ou visualizar um papel de parede muda todas as telas. Ligue para mudar apenas a tela que você está usando ao escolher a imagem. Uma tela sem escolha própria usa o papel de parede global.
 

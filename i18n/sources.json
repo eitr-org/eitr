@@ -71,6 +71,7 @@
       "quickshell/desktop-bar/capture/BeautifyWindow.qml"
     ],
     "Accounts & Security": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Accounts on this PC, your picture and your password.": [
@@ -180,6 +181,7 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Apps & Keys": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Ask anything…": [
@@ -295,7 +297,7 @@
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
-    "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": [
+    "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Bottom": [
@@ -592,7 +594,6 @@
     ],
     "Connectivity": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
-      "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Continue": [
@@ -761,6 +762,7 @@
       "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
     "Desktop": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Desktop Bar": [
@@ -779,11 +781,9 @@
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "Devices": [
+      "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
-    ],
-    "Devices & Input": [
-      "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
     "Devices without a name: %1": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
@@ -1231,9 +1231,6 @@
     ],
     "LOGIN": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
-    ],
-    "Language": [
-      "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
     "Large": [
       "tools/choice-lists.json"
@@ -2205,7 +2202,6 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Security": [
-      "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -2450,7 +2446,6 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Style": [
-      "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Submenu": [
@@ -3077,9 +3072,6 @@
       "elephant/menu-rows/install.json",
       "elephant/menus/ai-install.lua"
     ],
-    "AI Usage": [
-      "elephant/menu-rows/system-information.json"
-    ],
     "AWS": [
       "elephant/menu-rows/cloud.json",
       "elephant/menus/aws-account.lua",
@@ -3109,6 +3101,10 @@
       "elephant/menus/ai-grok-accounts.lua",
       "elephant/menus/ai-opencode-accounts.lua",
       "elephant/menus/ai-pi-accounts.lua"
+    ],
+    "Accounts & Security": [
+      "elephant/menu-rows/settings.json",
+      "elephant/menus/security.lua"
     ],
     "Activity Logs": [
       "elephant/menus/azure-logs-minutes.lua"
@@ -3142,7 +3138,7 @@
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
-    "Add plugins from Main > Plugins": [
+    "Add plugins from Install > Plugins": [
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -3186,6 +3182,8 @@
     ],
     "Appearance": [
       "elephant/menu-rows/bar.json",
+      "elephant/menu-rows/style.json",
+      "elephant/menus/appearance.lua",
       "elephant/menus/bar-appearance.lua"
     ],
     "Apply or preview this theme": [
@@ -3198,6 +3196,10 @@
       "elephant/menu-rows/main.json",
       "elephant/menus/apps.lua"
     ],
+    "Apps & Keys": [
+      "elephant/menu-rows/settings.json",
+      "elephant/menus/apps-keys.lua"
+    ],
     "Arrange windows in scrolling columns": [
       "tools/choice-lists.json"
     ],
@@ -3205,7 +3207,7 @@
       "elephant/menus/assistant-access.lua"
     ],
     "Assistant Access": [
-      "elephant/menu-rows/security.json",
+      "elephant/menus/ai-tools.lua",
       "elephant/menus/assistant-access.lua"
     ],
     "Audio": [
@@ -3236,7 +3238,7 @@
       "elephant/menus/bar-media.lua"
     ],
     "Battery Charge Limit": [
-      "elephant/menu-rows/system-devices.json",
+      "elephant/menu-rows/input.json",
       "elephant/menus/battery-limit.lua"
     ],
     "Blocked by Eitr for your safety · select to remove": [
@@ -3274,12 +3276,12 @@
     "Browse installed and official themes and plugins": [
       "elephant/menu-rows/style.json"
     ],
+    "Browse the keyboard and mouse shortcuts": [
+      "elephant/menu-rows/apps-keys.json"
+    ],
     "Browsers": [
       "elephant/menu-rows/install.json",
       "elephant/menus/browsers.lua"
-    ],
-    "CPU, GPU, memory and storage use": [
-      "elephant/menu-rows/system-information.json"
     ],
     "Calendar": [
       "elephant/menus/system-shortcuts.lua"
@@ -3288,7 +3290,7 @@
       "elephant/menu-rows/shortcuts.json"
     ],
     "Calendar Sources": [
-      "elephant/menu-rows/tools.json",
+      "elephant/menu-rows/reminders.json",
       "elephant/menus/calendars.lua"
     ],
     "Capture": [
@@ -3326,7 +3328,7 @@
       "tools/choice-lists.json"
     ],
     "Change your account's password": [
-      "elephant/menu-rows/security.json"
+      "elephant/menu-rows/users.json"
     ],
     "Charge Limit 60%": [
       "elephant/menu-rows/battery-limit.json"
@@ -3341,7 +3343,7 @@
       "elephant/menu-rows/battery-limit.json"
     ],
     "Check This PC": [
-      "elephant/menu-rows/system-maintenance.json"
+      "elephant/menu-rows/system.json"
     ],
     "Check that the provider accepts the key": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -3372,6 +3374,9 @@
     "Choose and join networks": [
       "elephant/menu-rows/system-connectivity.json"
     ],
+    "Choose the apps that open files and links": [
+      "elephant/menu-rows/apps-keys.json"
+    ],
     "Choose the round picture shown on the lockscreen and login screen": [
       "elephant/menu-rows/users.json"
     ],
@@ -3384,9 +3389,6 @@
     ],
     "Claude": [
       "elephant/menus/ai-claude.lua"
-    ],
-    "Claude and Codex usage limits": [
-      "elephant/menu-rows/system-information.json"
     ],
     "Cleanup": [
       "elephant/menu-rows/system-maintenance.json"
@@ -3436,11 +3438,11 @@
       "elephant/menus/aws-cognito.lua"
     ],
     "Collect a report and send it by email or GitHub": [
-      "elephant/menu-rows/system-information.json"
+      "elephant/menu-rows/system.json"
     ],
     "Color": [
-      "elephant/menu-rows/capture.json",
-      "elephant/menu-rows/cursor.json"
+      "elephant/menu-rows/cursor.json",
+      "elephant/menu-rows/tools.json"
     ],
     "Color Picker": [
       "elephant/menu-rows/shortcuts.json"
@@ -3466,8 +3468,8 @@
     "Connect to another PC": [
       "elephant/menu-rows/remote-access.json"
     ],
-    "Connectivity": [
-      "elephant/menu-rows/settings.json",
+    "Connections": [
+      "elephant/menu-rows/system-devices.json",
       "elephant/menus/system-connectivity.lua"
     ],
     "Continue Last": [
@@ -3508,13 +3510,13 @@
       "elephant/menu-rows/settings.json"
     ],
     "Convert an image or video to another format": [
-      "elephant/menu-rows/capture.json"
+      "elephant/menu-rows/tools.json"
     ],
     "Copy the text inside a selected area": [
-      "elephant/menu-rows/capture.json"
+      "elephant/menu-rows/tools.json"
     ],
     "Corners": [
-      "elephant/menu-rows/style.json",
+      "elephant/menu-rows/appearance.json",
       "elephant/menus/corners.lua"
     ],
     "Crash Notifications": [
@@ -3557,7 +3559,7 @@
       "elephant/menus/keyboard.lua"
     ],
     "Cursor": [
-      "elephant/menu-rows/style.json",
+      "elephant/menu-rows/appearance.json",
       "elephant/menus/cursor.lua"
     ],
     "Cursor Color": [
@@ -3587,10 +3589,13 @@
     "Default (75%)": [
       "elephant/menus/terminal-opacity.lua"
     ],
+    "Default Apps": [
+      "elephant/menu-rows/apps-keys.json"
+    ],
     "Default Assistant": [
-      "elephant/menu-rows/development.json",
       "elephant/menu-rows/shortcuts.json",
-      "elephant/menus/ai-default.lua"
+      "elephant/menus/ai-default.lua",
+      "elephant/menus/ai-tools.lua"
     ],
     "Default column width": [
       "elephant/menu-rows/window-layout.json",
@@ -3611,6 +3616,10 @@
     "Deployments": [
       "elephant/menus/aws-ecs-deployments-1.lua",
       "elephant/menus/aws-ecs-deployments-2.lua"
+    ],
+    "Desktop": [
+      "elephant/menu-rows/settings.json",
+      "elephant/menus/style.lua"
     ],
     "Desktop Bar": [
       "elephant/menu-rows/style.json",
@@ -3636,7 +3645,7 @@
       "elephant/menu-rows/install.json",
       "elephant/menus/languages.lua"
     ],
-    "Devices & Input": [
+    "Devices": [
       "elephant/menu-rows/settings.json",
       "elephant/menus/system-devices.lua"
     ],
@@ -3756,7 +3765,7 @@
       "elephant/menu-rows/tpm-unlock.json"
     ],
     "Enter the trusted Moonlight device PIN": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-access.json"
     ],
     "Erase Everything": [
       "elephant/menu-rows/factory-reset.json"
@@ -3839,11 +3848,8 @@
       "elephant/menus/language.lua"
     ],
     "Fonts": [
-      "elephant/menu-rows/style.json",
+      "elephant/menu-rows/appearance.json",
       "elephant/menus/fonts.lua"
-    ],
-    "Forecast for your location": [
-      "elephant/menu-rows/system-information.json"
     ],
     "From a picture, with colors you can adjust; kept on this computer": [
       "elephant/menu-rows/theme.json"
@@ -3862,6 +3868,10 @@
     ],
     "Full motion": [
       "elephant/menus/bar-motion.lua"
+    ],
+    "Fun": [
+      "elephant/menu-rows/tools.json",
+      "elephant/menus/fun.lua"
     ],
     "Function config": [
       "elephant/menus/aws-lambda-function-config-1.lua"
@@ -3910,7 +3920,7 @@
       "elephant/menus/ai-copilot.lua"
     ],
     "Give trusted devices control of this desktop": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-access.json"
     ],
     "Go up one folder": [
       "elephant/menus/choose-folder.lua"
@@ -3932,9 +3942,6 @@
     ],
     "Half": [
       "tools/choice-lists.json"
-    ],
-    "Hardware": [
-      "elephant/menu-rows/system-information.json"
     ],
     "Hetzner Cloud": [
       "elephant/menu-rows/cloud.json",
@@ -3974,9 +3981,9 @@
     "Import Existing Setup": [
       "elephant/menus/git-accounts.lua"
     ],
-    "Information": [
-      "elephant/menu-rows/system.json",
-      "elephant/menus/system-information.lua"
+    "Input": [
+      "elephant/menu-rows/system-devices.json",
+      "elephant/menus/input.lua"
     ],
     "Input device and level": [
       "elephant/menu-rows/system-devices.json"
@@ -3987,12 +3994,6 @@
     ],
     "Install Packages": [
       "elephant/menu-rows/shortcuts.json"
-    ],
-    "Install VPN plugins and import a VPN file": [
-      "elephant/menu-rows/vpn.json"
-    ],
-    "Install WireGuard and import a configuration": [
-      "elephant/menu-rows/vpn.json"
     ],
     "Install an AI Assistant": [
       "elephant/menus/ai-default.lua",
@@ -4039,8 +4040,11 @@
     "Keep the normal fast cursor trail": [
       "elephant/menus/terminal-cursor-fire.lua"
     ],
+    "Keybinds": [
+      "elephant/menu-rows/apps-keys.json"
+    ],
     "Keyboard": [
-      "elephant/menu-rows/system-devices.json",
+      "elephant/menu-rows/input.json",
       "elephant/menus/keyboard.lua"
     ],
     "Keys for the LazyVim editor": [
@@ -4065,7 +4069,7 @@
       "elephant/menus/aws-lambda.lua"
     ],
     "Language": [
-      "elephant/menu-rows/settings.json",
+      "elephant/menu-rows/system-devices.json",
       "elephant/menus/language.lua"
     ],
     "Laptops only": [
@@ -4116,7 +4120,7 @@
       "elephant/menus/terminal-opacity.lua"
     ],
     "Lighting": [
-      "elephant/menu-rows/system-devices.json",
+      "elephant/menu-rows/input.json",
       "elephant/menus/lighting.lua"
     ],
     "Lightsail": [
@@ -4226,7 +4230,7 @@
       "elephant/menu-rows/shortcuts.json"
     ],
     "Music Visualizer": [
-      "elephant/menu-rows/tools.json"
+      "elephant/menu-rows/fun.json"
     ],
     "Name a site and its address": [
       "elephant/menus/webapps.lua"
@@ -4254,9 +4258,6 @@
     ],
     "NetworkManager": [
       "elephant/menu-rows/network-backend.json"
-    ],
-    "NetworkManager VPN": [
-      "elephant/menu-rows/vpn.json"
     ],
     "New": [
       "elephant/menu-rows/ai-agy.json",
@@ -4331,7 +4332,7 @@
       "elephant/menus/workspace-count.lua"
     ],
     "OCR Text": [
-      "elephant/menu-rows/capture.json"
+      "elephant/menu-rows/tools.json"
     ],
     "Off": [
       "elephant/menus/focus.lua",
@@ -4435,7 +4436,7 @@
       "elephant/menus/terminal-padding.lua"
     ],
     "Pair a Device": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-access.json"
     ],
     "Pair and connect devices": [
       "elephant/menu-rows/system-connectivity.json"
@@ -4453,7 +4454,7 @@
       "elephant/menus/ai-pi.lua"
     ],
     "Pick a color on screen and copy its code": [
-      "elephant/menu-rows/capture.json"
+      "elephant/menu-rows/tools.json"
     ],
     "Ping a Peer": [
       "elephant/menu-rows/remote-away-setup.json"
@@ -4474,7 +4475,7 @@
       "elephant/menus/plugin-actions.lua"
     ],
     "Plugins": [
-      "elephant/menu-rows/main.json",
+      "elephant/menu-rows/install.json",
       "elephant/menus/plugin-actions.lua",
       "elephant/menus/plugins.lua",
       "walker/scripts/actions/install/plugins.py"
@@ -4507,7 +4508,7 @@
       "elephant/menu-rows/users.json"
     ],
     "QR Code": [
-      "elephant/menu-rows/capture.json"
+      "elephant/menu-rows/tools.json"
     ],
     "Quick Actions": [
       "elephant/menu-rows/main.json",
@@ -4523,10 +4524,10 @@
       "elephant/menus/ai-default.lua"
     ],
     "Read a QR code in a selected area and copy it": [
-      "elephant/menu-rows/capture.json"
+      "elephant/menu-rows/tools.json"
     ],
     "Read-only checks with suggested fixes; copy a redacted report": [
-      "elephant/menu-rows/system-maintenance.json"
+      "elephant/menu-rows/system.json"
     ],
     "Read-only from {host} · Enter refreshes, Delete removes": [
       "elephant/menus/calendars.lua"
@@ -4593,11 +4594,6 @@
       "elephant/menu-rows/tools.json",
       "elephant/menus/reminders.lua"
     ],
-    "Remote Access": [
-      "elephant/menu-rows/shortcuts.json",
-      "elephant/menu-rows/system-connectivity.json",
-      "elephant/menus/remote-access.lua"
-    ],
     "Remove": [
       "elephant/menu-rows/plugin-actions.json",
       "elephant/plugin-entries.lua",
@@ -4621,7 +4617,7 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Report a Problem": [
-      "elephant/menu-rows/system-information.json"
+      "elephant/menu-rows/system.json"
     ],
     "Repositories inside it use this account": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -4748,10 +4744,10 @@
       "elephant/menus/aws-vpc-route-tables-1.lua"
     ],
     "Rune Rain": [
-      "elephant/menu-rows/tools.json"
+      "elephant/menu-rows/fun.json"
     ],
     "Runes falling in the theme's colours; any key stops them": [
-      "elephant/menu-rows/tools.json"
+      "elephant/menu-rows/fun.json"
     ],
     "Running tasks": [
       "elephant/menus/aws-ecs-running-tasks-1.lua",
@@ -4919,10 +4915,6 @@
       "elephant/menus/aws-cloudwatch-search-word-1.lua",
       "elephant/menus/aws-cloudwatch-search-word-2.lua"
     ],
-    "Security": [
-      "elephant/menu-rows/settings.json",
-      "elephant/menus/security.lua"
-    ],
     "See or cancel the reminders still to come": [
       "elephant/menu-rows/reminders.json"
     ],
@@ -5024,9 +5016,6 @@
     "Set the cursor size": [
       "walker/scripts/actions/style/cursor.py"
     ],
-    "Set up access away from home": [
-      "elephant/menu-rows/vpn.json"
-    ],
     "Set up an assistant that runs only on this PC": [
       "elephant/menus/ai-default.lua"
     ],
@@ -5037,9 +5026,7 @@
     ],
     "Setup": [
       "elephant/menu-rows/remote-away.json",
-      "elephant/menu-rows/remote-share.json",
-      "elephant/menus/remote-away-setup.lua",
-      "elephant/menus/remote-share-setup.lua"
+      "elephant/menus/remote-away-setup.lua"
     ],
     "Seven audio spectrum bars": [
       "elephant/menus/bar-media.lua"
@@ -5048,18 +5035,18 @@
       "elephant/menu-rows/tools.json",
       "elephant/menus/share.lua"
     ],
-    "Share This PC": [
-      "elephant/menu-rows/remote-access.json",
-      "elephant/menus/remote-share.lua"
-    ],
     "Shared numbers": [
       "tools/choice-lists.json"
     ],
     "Sharing Settings": [
       "elephant/menu-rows/remote-share-setup.json"
     ],
+    "Sharing Setup": [
+      "elephant/menu-rows/remote-access.json",
+      "elephant/menus/remote-share-setup.lua"
+    ],
     "Sharing Status": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-access.json"
     ],
     "Shortcuts": [
       "elephant/menu-rows/learn.json",
@@ -5105,7 +5092,7 @@
       "tools/choice-lists.json"
     ],
     "Show whether Sunshine is running": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-access.json"
     ],
     "Shutdown": [
       "elephant/menu-rows/power.json"
@@ -5167,7 +5154,7 @@
       "elephant/menu-rows/toggle.json"
     ],
     "Start Sharing": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-access.json"
     ],
     "Start a Claude Code session in a project": [
       "elephant/menu-rows/ai-claude.json"
@@ -5208,10 +5195,10 @@
       "elephant/menu-rows/screenrecord.json"
     ],
     "Stop Sharing": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-access.json"
     ],
     "Stop Sunshine and close its streaming ports": [
-      "elephant/menu-rows/remote-share.json"
+      "elephant/menu-rows/remote-access.json"
     ],
     "Stop Using as Default": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -5229,16 +5216,17 @@
     "Stream games and desktops from another PC": [
       "elephant/menu-rows/gaming.json"
     ],
+    "Streaming": [
+      "elephant/menu-rows/shortcuts.json",
+      "elephant/menu-rows/system-devices.json",
+      "elephant/menus/remote-access.lua"
+    ],
     "Strong": [
       "elephant/menus/bar-blur-strength.lua",
       "elephant/menus/terminal-blur-strength.lua"
     ],
     "Strong (70%)": [
       "elephant/menus/terminal-opacity.lua"
-    ],
-    "Style": [
-      "elephant/menu-rows/settings.json",
-      "elephant/menus/style.lua"
     ],
     "Subnets": [
       "elephant/menus/aws-vpc-subnets-1.lua"
@@ -5278,14 +5266,11 @@
     "Tabs": [
       "tools/choice-lists.json"
     ],
-    "Tailscale": [
-      "elephant/menu-rows/vpn.json"
-    ],
     "Tell the assistant…": [
       "elephant/menu-rows/reminders.json"
     ],
     "Terminal": [
-      "elephant/menu-rows/style.json",
+      "elephant/menu-rows/appearance.json",
       "elephant/menus/terminal.lua"
     ],
     "Test Connection": [
@@ -5301,7 +5286,7 @@
       "elephant/menu-rows/snapshots.json"
     ],
     "Theme": [
-      "elephant/menu-rows/style.json",
+      "elephant/menu-rows/appearance.json",
       "elephant/menus/theme.lua"
     ],
     "Theme Color": [
@@ -5348,7 +5333,7 @@
       "elephant/menus/tools.lua"
     ],
     "Transcode": [
-      "elephant/menu-rows/capture.json"
+      "elephant/menu-rows/tools.json"
     ],
     "Turn Off Start at Login": [
       "elephant/menu-rows/remote-share-setup.json"
@@ -5393,7 +5378,7 @@
       "elephant/menus/update-channel.lua"
     ],
     "Update Password": [
-      "elephant/menu-rows/security.json"
+      "elephant/menu-rows/users.json"
     ],
     "Update Plugins": [
       "elephant/plugin-entries.lua"
@@ -5459,10 +5444,6 @@
     "VPC endpoints": [
       "elephant/menus/aws-vpc-vpc-endpoints-1.lua"
     ],
-    "VPN": [
-      "elephant/menu-rows/install.json",
-      "elephant/menus/vpn.lua"
-    ],
     "VS Code Projects": [
       "elephant/menu-rows/development.json",
       "elephant/menus/projects-vscode.lua"
@@ -5482,7 +5463,7 @@
       "elephant/menus/aws-cloudwatch-warn-logs-2.lua"
     ],
     "Wallpaper": [
-      "elephant/menu-rows/style.json",
+      "elephant/menu-rows/appearance.json",
       "elephant/menus/wallpaper.lua"
     ],
     "Wallpaper Picker": [
@@ -5492,10 +5473,7 @@
       "elephant/menu-rows/toggle.json"
     ],
     "Watch music dance in a theme-coloured terminal": [
-      "elephant/menu-rows/tools.json"
-    ],
-    "Weather": [
-      "elephant/menu-rows/system-information.json"
+      "elephant/menu-rows/fun.json"
     ],
     "Web Apps": [
       "elephant/menu-rows/install.json",
@@ -5529,18 +5507,19 @@
       "elephant/menu-rows/screenshot.json"
     ],
     "Window gaps": [
-      "elephant/menu-rows/style.json",
+      "elephant/menu-rows/windows.json",
       "elephant/menus/window-gaps.lua"
     ],
     "Window layout": [
-      "elephant/menu-rows/style.json",
+      "elephant/menu-rows/windows.json",
       "elephant/menus/window-layout.lua"
     ],
     "Window: Copy": [
       "elephant/menu-rows/screenshot.json"
     ],
-    "WireGuard": [
-      "elephant/menu-rows/vpn.json"
+    "Windows": [
+      "elephant/menu-rows/style.json",
+      "elephant/menus/windows.lua"
     ],
     "Workspace Overview": [
       "elephant/menus/system-shortcuts.lua"
@@ -5553,7 +5532,7 @@
       "elephant/menus/workspace-style.lua"
     ],
     "Workspaces": [
-      "elephant/menu-rows/style.json",
+      "elephant/menu-rows/windows.json",
       "elephant/menus/workspaces.lua"
     ],
     "Yay (AUR)": [
@@ -6745,7 +6724,7 @@
     "Bootable snapshots are not supported with {loader}. {reason} Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
-    "Both network backends are running; select one in Settings > Connectivity > Network Backend and reboot": [
+    "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot": [
       "quickshell/desktop-bar/scripts/wifi-popup.py"
     ],
     "Browse bucket": [
@@ -8960,7 +8939,7 @@
     "Ratatoskr is not set up.": [
       "distro/lib/eitr_local_assistant.py"
     ],
-    "Ratatoskr is not set up. Choose it in Development > Default Assistant.": [
+    "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant.": [
       "distro/lib/eitr_local_assistant.py"
     ],
     "Ratatoskr is ready and is now your default assistant.": [
@@ -9384,7 +9363,7 @@
     "Select at least one package": [
       "walker/scripts/actions/install/software.py"
     ],
-    "Select it in Style > Lockscreen; Ctrl+P previews it.": [
+    "Select it in Desktop > Lockscreen; Ctrl+P previews it.": [
       "walker/scripts/actions/style/own.py"
     ],
     "Select plugins": [
@@ -10504,7 +10483,7 @@
     "VPN operation failed. Configuration details are hidden.": [
       "walker/scripts/actions/install/vpn.py"
     ],
-    "VPN profiles need NetworkManager. Choose it in Settings > Connectivity > Network Backend, then reboot.": [
+    "VPN profiles need NetworkManager. Choose it in Settings > Devices > Connections > Network Backend, then reboot.": [
       "walker/scripts/actions/install/vpn.py"
     ],
     "Version": [
@@ -10601,7 +10580,7 @@
       "walker/scripts/actions/install/plugins.py",
       "walker/scripts/actions/install/vpn.py"
     ],
-    "You can remove it later from Development > Default Assistant.": [
+    "You can remove it later from Development > AI > Default Assistant.": [
       "distro/lib/eitr_local_assistant.py"
     ],
     "You can run more commands here manually.": [
@@ -10930,11 +10909,11 @@
     "{name} is already installed.": [
       "walker/scripts/actions/install/software.py"
     ],
+    "{name} is in Desktop > Appearance > Wallpaper and the wallpaper carousel.": [
+      "walker/scripts/actions/style/own.py"
+    ],
     "{name} is in Development > Monitoring.": [
       "walker/scripts/actions/development/monitoring.py"
-    ],
-    "{name} is in Style > Wallpaper and the wallpaper carousel.": [
-      "walker/scripts/actions/style/own.py"
     ],
     "{name} is not installed.": [
       "walker/scripts/actions/install/software.py"

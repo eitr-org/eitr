@@ -481,7 +481,7 @@ if apps:
 for app in apps:
     subprocess.run(['flatpak', 'info', '--user', app], check=True)
 if profile.get('policies', {{}}).get('remote_access') is False:
-    rows = json.load(open('/usr/share/eitr/elephant/menu-rows/system-connectivity.json'))
+    rows = json.load(open('/usr/share/eitr/elephant/menu-rows/system-devices.json'))
     assert all(not row_allowed(row) for row in rows if row.get('submenu') == 'remote-access')
     result = subprocess.run(['python3', '/usr/share/eitr/walker/scripts/actions/system/remote-access.py', 'host', 'start'], capture_output=True, text=True)
     assert result.returncode != 0 and 'policy' in result.stderr

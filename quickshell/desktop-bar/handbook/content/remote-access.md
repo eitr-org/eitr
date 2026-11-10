@@ -1,12 +1,12 @@
 # Remote access
 
-Open Settings > Streaming for Sunshine and Moonlight, or Walker > Settings > Connectivity > Remote Access for the remote-access menus. Hosting is off until you enable it.
+Open Settings > Streaming for Sunshine and Moonlight, or Walker > Settings > Devices > Streaming for the same actions. Hosting is off until you enable it.
 This milestone controls your signed-in, awake Eitr desktop. Headless use, access
 before login and wake on LAN are separate future work. While sharing, the remote
 screen shows the lockscreen when this PC locks; anyone connected sees it and can
 type the password, so stop sharing before stepping away when privacy matters.
 
-Setup groups the configuration actions. Share This PC > Setup contains Set Up Sharing, Sharing Settings, Start at Login, Turn Off Start at Login, Detailed Status and Restore Sharing Setup. Access This PC Remotely > Setup contains Sign In, Set Up Away Access, Restore Away Access Setup, Detailed Status and Ping a Peer. Everyday sharing and connection actions stay directly in their parent menus.
+Setup folders group the configuration actions. Streaming > Sharing Setup contains Set Up Sharing, Sharing Settings, Start at Login, Turn Off Start at Login, Detailed Status and Restore Sharing Setup. Access This PC Remotely > Setup contains Sign In, Set Up Away Access, Restore Away Access Setup, Detailed Status and Ping a Peer. Everyday sharing actions (Start Sharing, Stop Sharing, Pair a Device, Sharing Status and Connect to another PC) stay directly in Streaming, and Connect and Disconnect in Access This PC Remotely.
 
 Detailed Status opens a diagnostic terminal that stays open until you press Esc.
 

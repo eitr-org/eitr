@@ -1,8 +1,9 @@
 local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .. "/paths.lua")
 local i18n = dofile(paths.code("elephant/i18n.lua"))
--- Only the assistants installed for this user (distro/software.json "ai" recipes,
+-- The assistants installed for this user (distro/software.json "ai" recipes,
 -- checked by software.py), each opening its own menu; none installed offers the
--- AI CLIs install menu instead.
+-- AI CLIs install menu instead. Default Assistant, Assistant Access and the
+-- collaboration switch follow for every user.
 Name = "ai-tools"
 NamePretty = i18n.tr("AI")
 Parent = "development"
@@ -44,6 +45,9 @@ function GetEntries()
             Subtext = "Choose a terminal assistant to install",
             Actions = {open = quote(paths.code("walker/bin/walker")) .. " --provider menus:ai-install"}})
     end
+    table.insert(entries, {Text = "Default Assistant", Icon = "󱜙", State = {"submenu"},
+        Keywords = {"assistant", "default"}, SubMenu = "ai-default"})
+    table.insert(entries, {Text = "Assistant Access", Icon = "󰒃", State = {"submenu"}, SubMenu = "assistant-access"})
     local bridge = paths.code("walker/scripts/actions/assistant-collaboration.py")
     local status = io.popen("python3 " .. quote(bridge) .. " get")
     local collaborating = false

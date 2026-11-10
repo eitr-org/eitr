@@ -51,16 +51,16 @@
     "submenu": "packages"
   },
   {
+    "text": "Plugins",
+    "subtext": ">",
+    "icon": "󰏖",
+    "submenu": "plugins"
+  },
+  {
     "text": "Productivity",
     "subtext": ">",
     "icon": "󰃖",
     "submenu": "productivity"
-  },
-  {
-    "text": "VPN",
-    "subtext": ">",
-    "icon": "󰖂",
-    "submenu": "vpn"
   },
   {
     "text": "Web Apps",

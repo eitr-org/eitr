@@ -1,0 +1,29 @@
+[
+  {
+    "text": "Default Apps",
+    "subtext": "Choose the apps that open files and links",
+    "keywords": [
+      "browser",
+      "file manager",
+      "editor",
+      "mime"
+    ],
+    "icon": "󰀻",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- settings show default-apps"
+    }
+  },
+  {
+    "text": "Keybinds",
+    "subtext": "Browse the keyboard and mouse shortcuts",
+    "keywords": [
+      "shortcuts",
+      "bindings",
+      "keys"
+    ],
+    "icon": "󰌌",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- settings show keybinds"
+    }
+  }
+]

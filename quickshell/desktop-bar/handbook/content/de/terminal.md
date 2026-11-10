@@ -12,7 +12,7 @@ Erforderlich sind Kitty 0.49+ und `shader-slang` aus Eitrs Desktop-Abhängigkeit
 
 ## Terminal auswählen
 
-Wähle Kitty oder Ghostty unter Einstellungen > Erscheinungsbild > Terminal. Walker > Einstellungen > Stil > Terminal ist eine Alternative. Das lokale Feld `terminal` in
+Wähle Kitty oder Ghostty unter Einstellungen > Erscheinungsbild > Terminal. Walker > Einstellungen > Desktop > Erscheinungsbild > Terminal ist eine Alternative. Das lokale Feld `terminal` in
 `~/.config/eitr/terminal.json` steuert Super+Enter, tmux, eigene Terminals,
 KI-/Projektterminals und Walkers Aktionen zum Öffnen im Terminal. Fehlt Ghostty,
 öffnet die Auswahl den normalen Installationsablauf für das offizielle Paket:
@@ -42,7 +42,7 @@ Die Ghostty-Auswahl ändert sie nicht.
 
 ## Terminaldarstellung und gemeinsame Unschärfe
 
-Walker > Einstellungen > Stil > Terminal und Einstellungen > Erscheinungsbild > Terminal stellen
+Walker > Einstellungen > Desktop > Erscheinungsbild > Terminal und Einstellungen > Erscheinungsbild > Terminal stellen
 Deckkraft, Innenabstand und Unschärfe für Kitty und Ghostty ein. Die Deckkraft bietet
 Undurchsichtig (100%), Sanft (90%), Mittel (80%), Standard (75%) und Stark (70%).
 Innenabstand bietet Keiner, Klein (4 Punkt) und Komfortabel (8 Punkt). Standard

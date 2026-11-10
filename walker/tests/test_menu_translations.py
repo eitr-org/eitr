@@ -28,9 +28,9 @@ class MenuTranslationTests(unittest.TestCase):
     def test_plugin_authored_labels_remain_literal(self):
         script = r'''
 local i18n = dofile(os.getenv("EITR_CODE_ROOT") .. "/elephant/i18n.lua")
-local rows = i18n.entries({{Text="About", Subtext="Weather", Translate=false}, {Text="About", Subtext="Weather"}}, true)
-assert(rows[1].Text == "About" and rows[1].Subtext == "Weather")
-assert(rows[2].Text ~= "About" and rows[2].Subtext ~= "Weather")
+local rows = i18n.entries({{Text="About", Subtext="Display", Translate=false}, {Text="About", Subtext="Display"}}, true)
+assert(rows[1].Text == "About" and rows[1].Subtext == "Display")
+assert(rows[2].Text ~= "About" and rows[2].Subtext ~= "Display")
 '''
         environment = dict(os.environ, EITR_CODE_ROOT=str(ROOT), EITR_LIBRARY_ROOT=str(ROOT / "distro/lib"), LC_ALL="de_DE.UTF-8")
         result = subprocess.run(["lua", "-"], input=script, text=True, capture_output=True, env=environment)

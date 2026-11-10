@@ -2,7 +2,7 @@
 
 ## Comprobar este PC
 
-Abre Configuración > Comprobar este PC y pulsa Comprobar este PC para ver resultados de solo lectura. Nunca repara ni reinicia nada. Para el informe interactivo, las comprobaciones más profundas y la acción de copiar descritos abajo, ejecuta `eitr check` o usa Walker > Configuración > Sistema > Mantenimiento > Comprobar este PC. No se actualizan las listas guardadas; DNS usa la red. `eitr check --json` muestra pruebas técnicas sin preguntas.
+Abre Configuración > Comprobar este PC y pulsa Comprobar este PC para ver resultados de solo lectura. Nunca repara ni reinicia nada. Para el informe interactivo, las comprobaciones más profundas y la acción de copiar descritos abajo, ejecuta `eitr check` o usa Walker > Configuración > Sistema > Comprobar este PC. No se actualizan las listas guardadas; DNS usa la red. `eitr check --json` muestra pruebas técnicas sin preguntas.
 
 Además de reinicios, espacio en disco, actualizaciones, recuperación, servicios, memoria, red y seguridad, comprueba las pantallas (una pantalla por debajo de la mejor frecuencia de actualización para su resolución), los gráficos (un controlador para cada tarjeta gráfica y la aceleración por hardware) y el audio (el sistema de sonido, un dispositivo de salida, el volumen y el micrófono). Cada advertencia y cada problema empieza con una frase sencilla sobre qué significa y qué probar, seguida de **Details:** con los datos técnicos y dónde corregirlo.
 
@@ -67,7 +67,7 @@ Guarda copias de tus otros discos antes de instalar en un SSD separado y comprue
 
 ## Informar de un problema
 
-**Walker > Configuración > Sistema > Información > Informar de un problema** recoge versiones de EITR y paquetes, hardware gráfico, errores de Hyprland, servicios fallidos, avisos recientes, fallos de la última semana, errores del arranque anterior, registro de instalación y cambios recientes de paquetes en `~/Documents/eitr-problem-report-<time>.txt`, legible solo por ti. Elimina usuario, nombre del equipo, ruta personal, correo, IP y MAC; los registros aún pueden mencionar aplicaciones o archivos. Léelo antes de enviarlo.
+**Walker > Configuración > Sistema > Informar de un problema** recoge versiones de EITR y paquetes, hardware gráfico, errores de Hyprland, servicios fallidos, avisos recientes, fallos de la última semana, errores del arranque anterior, registro de instalación y cambios recientes de paquetes en `~/Documents/eitr-problem-report-<time>.txt`, legible solo por ti. Elimina usuario, nombre del equipo, ruta personal, correo, IP y MAC; los registros aún pueden mencionar aplicaciones o archivos. Léelo antes de enviarlo.
 
 Nada se envía automáticamente. El terminal muestra solo dónde se guardó y ofrece enviarlo o leerlo primero:
 

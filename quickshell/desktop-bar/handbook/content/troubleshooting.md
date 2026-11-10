@@ -2,7 +2,7 @@
 
 ## Check This PC
 
-Open Settings > Check This PC and press Check This PC for read-only findings. It never repairs or restarts anything. For the interactive report, deeper checks and copy action described below, run `eitr check` or use Walker > Settings > System > Maintenance > Check This PC. Cached update lists are not refreshed; DNS resolution uses the network. `eitr check --json` prints technical evidence without prompts.
+Open Settings > Check This PC and press Check This PC for read-only findings. It never repairs or restarts anything. For the interactive report, deeper checks and copy action described below, run `eitr check` or use Walker > Settings > System > Check This PC. Cached update lists are not refreshed; DNS resolution uses the network. `eitr check --json` prints technical evidence without prompts.
 
 Besides restarts, disk space, updates, recovery, services, memory, network and security, it checks displays (a screen running below the best refresh rate for its resolution), graphics (a driver for each graphics card and hardware acceleration) and audio (the sound system, an output device, the volume and the microphone). Each warning and problem starts with one plain sentence on what it means and what to try, followed by **Details:** with the technical evidence and where to fix it.
 
@@ -84,7 +84,7 @@ independent backup. Start with [Recovery & Snapshots](handbook:recovery).
 
 ## Reporting a problem
 
-**Walker > Settings > System > Information > Report a Problem** collects the EITR and package
+**Walker > Settings > System > Report a Problem** collects the EITR and package
 versions, graphics hardware, Hyprland errors, failed services, recent warnings,
 crashes of the last week, errors from the previous start, the installation log
 and recent package changes into `~/Documents/eitr-problem-report-<time>.txt`,

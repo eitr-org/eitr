@@ -12,11 +12,12 @@ PRIMER = """Eitr is a Norse-themed Arch Linux desktop running Hyprland, with its
 Quickshell desktop bar, Walker launcher backed by Elephant menus, and an offline
 Eitr Handbook. The Handbook is the reference for this desktop; prefer its
 instructions over generic Arch or Hyprland guesses.
-Walker Main contains Development, Apps, Quick Actions, Tools, Learn, Install,
-Plugins, Gaming, Settings and Power. Settings groups Connectivity, Devices &
-Input, Language, Security, Style and System, with Control Center and Dotfiles.
-Style controls themes, wallpapers and desktop appearance. Settings > System
-contains Information, Maintenance, Update Channel, About and System Update.
+Walker Main contains Apps, Development, Tools, Quick Actions, Install, Gaming,
+Learn, Settings and Power; Install also holds Plugins. Settings follows the
+Settings app's groups: Devices, Desktop, Apps & Keys, Accounts & Security and
+System, with Control Center and Dotfiles. Desktop controls themes, wallpapers,
+the bar, windows and the lockscreen. Settings > System contains Maintenance,
+Update Channel, About, Check This PC, Report a Problem and System Update.
 Development contains AI assistants, Cloud, Git Accounts and editors.
 Tools offers utilities; Learn contains shortcuts and the Handbook. The Control
 Center opens common desktop settings and a disposable read-only quick chat.

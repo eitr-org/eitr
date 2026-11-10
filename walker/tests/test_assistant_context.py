@@ -71,8 +71,9 @@ class ContextTests(unittest.TestCase):
 
     def test_primer_menu_and_channel_references_match_sources(self):
         for menu, labels in (
-                ('main', ['Apps', 'Install', 'Plugins', 'Settings', 'Development', 'Tools', 'Learn']),
-                ('settings', ['Connectivity', 'Devices & Input', 'Style', 'System', 'Security', 'Dotfiles'])):
+                ('main', ['Apps', 'Install', 'Settings', 'Development', 'Tools', 'Learn']),
+                ('settings', ['Devices', 'Desktop', 'Apps & Keys', 'Accounts & Security', 'System', 'Dotfiles']),
+                ('install', ['Plugins'])):
             rows = json.loads(context.code('elephant/menu-rows/' + menu + '.json').read_text())
             names = {row['text'] for row in rows}
             for label in labels:

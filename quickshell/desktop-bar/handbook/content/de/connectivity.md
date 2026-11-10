@@ -10,7 +10,7 @@ Oben stehen Netzwerkstatus, Ping, WiFi-Band, IP-Adresse und Gateway. QR-Freigabe
 
 Für Unternehmensnetzwerke werden PEAP/MSCHAPv2 und TTLS/PAP unterstützt. Frage den Administrator nach Benutzername, CA-Zertifikat und Domäne des Authentifizierungsservers. Deaktiviere die Zertifikatsprüfung nicht. Andere Verfahren brauchen eine erweiterte Einrichtung. Siehe [Netzwerkdienste](handbook:network-backends).
 
-Den WiFi-Dienst wählst du unter Einstellungen > Verbindungen > Wi-Fi > WiFi-Backend; Walker > Einstellungen > Verbindungen > Netzwerk-Backend ist eine Alternative. Lies vor dem Wechsel [Netzwerkdienste](handbook:network-backends). Die Auswahl gilt nach dem Neustart und lässt die aktuelle Verbindung bestehen.
+Den WiFi-Dienst wählst du unter Einstellungen > Verbindungen > Wi-Fi > WiFi-Backend; Walker > Einstellungen > Geräte > Verbindungen > Netzwerk-Backend ist eine Alternative. Lies vor dem Wechsel [Netzwerkdienste](handbook:network-backends). Die Auswahl gilt nach dem Neustart und lässt die aktuelle Verbindung bestehen.
 
 ## Ein Bluetooth-Gerät koppeln
 
@@ -24,10 +24,4 @@ Kontrollzentrum > Allgemein blockiert WiFi und Bluetooth mit rfkill. Ausschalten
 
 ## VPN
 
-Unter Install > VPN finden Sie Tailscale, WireGuard und NetworkManager VPN. Tailscales Fernzugriffspanel und Einrichtung bleiben erhalten.
-
-WireGuard installiert das offizielle Paket `wireguard-tools` mit der normalen Prüfung ausstehender Updates. Wählen Sie den Konfigurationsimport, geben Sie Profilnamen und vollständigen Pfad einer `.conf`-Datei an und prüfen Sie Name, Endpunkte und Peer-Anzahl. Schlüssel werden nie angezeigt. Ausführbare Hooks und SaveConfig sind verboten. Mit NetworkManager wird das Profil dort importiert; mit iwd wird es vertraulich unter `/etc/wireguard` für wg-quick gespeichert. Vorhandene Profile werden nicht überschrieben.
-
-NetworkManager VPN installiert `networkmanager-openvpn` und `networkmanager-openconnect`. WireGuard ist bereits in NetworkManager enthalten. Unter iwd erklärt der Ablauf die Voraussetzung und öffnet die vorhandene Dienstauswahl, ohne selbst umzuschalten. Siehe [Netzwerkdienste](handbook:network-backends). Der VPN-Dateiimport akzeptiert `.ovpn` für OpenVPN sowie vom OpenConnect-Importer unterstützte Anbieterdateien. Fehler zeigen keine Dateiinhalte.
-
-Importe bleiben getrennt, sofern Sie das Verbinden nach dem Import nicht ausdrücklich wählen. Automatisches Verbinden beim Start ist deaktiviert. Öffnen Sie den Eintrag erneut und wählen Sie Verbinden oder Trennen mit dem gespeicherten Profilnamen. Es gibt keinen VPN-Schalter im Kontrollzentrum. Tests verwenden Nachbildungen; echte VPN-Verbindungen wurden nicht auf Hardware geprüft.
+Walker hat kein VPN-Menü. WireGuard und NetworkManager VPN sind als Plugins geplant (Installieren > Plugins). Die Tailscale-Einträge liegen unter Walker > Einstellungen > Geräte > Streaming > Remotezugriff auf diesen PC; siehe [Fernzugriff](handbook:remote-access).

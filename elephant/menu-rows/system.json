@@ -1,11 +1,5 @@
 [
   {
-    "text": "Information",
-    "icon": "",
-    "subtext": ">",
-    "submenu": "system-information"
-  },
-  {
     "text": "Maintenance",
     "icon": "󰃢",
     "subtext": ">",
@@ -30,6 +24,37 @@
     "icon": "",
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/actions/about.sh"
+    }
+  },
+  {
+    "text": "Check This PC",
+    "subtext": "Read-only checks with suggested fixes; copy a redacted report",
+    "keywords": [
+      "diagnostics",
+      "health",
+      "troubleshoot",
+      "self-check",
+      "Check This PC"
+    ],
+    "icon": "󰒓",
+    "actions": {
+      "open": "kitty --class system-check -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py eitr check"
+    }
+  },
+  {
+    "text": "Report a Problem",
+    "subtext": "Collect a report and send it by email or GitHub",
+    "keywords": [
+      "bug",
+      "issue",
+      "diagnostics",
+      "logs",
+      "support",
+      "crash"
+    ],
+    "icon": "󰃤",
+    "actions": {
+      "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/report-problem.py"
     }
   },
   {

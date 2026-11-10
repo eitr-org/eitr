@@ -1,13 +1,13 @@
 # Acceso remoto
 
-Abra Configuración > Streaming para Sunshine y Moonlight, o Walker > Configuración > Conectividad > Acceso remoto para los menús de acceso remoto. Compartir permanece desactivado hasta
+Abra Configuración > Streaming para Sunshine y Moonlight, o Walker > Configuración > Dispositivos > Streaming para las mismas acciones. Compartir permanece desactivado hasta
 que lo active. Se controla la sesión de Eitr iniciada y despierta. El uso sin
 monitor, antes del inicio de sesión y wake on LAN quedan para después. Si este equipo
 se bloquea mientras comparte, la pantalla remota muestra la pantalla de bloqueo:
 quien esté conectado la ve y puede escribir la contraseña. Deje de compartir
 antes de ausentarse si necesita privacidad.
 
-Configuración inicial agrupa la configuración. Compartir este PC > Configuración inicial contiene Configurar uso compartido, Ajustes de uso compartido, Iniciar al entrar, Desactivar inicio al entrar, Estado detallado y Restaurar configuración de uso compartido. Acceder a este PC en remoto > Configuración inicial contiene Iniciar sesión, Configurar acceso remoto, Restaurar configuración de acceso remoto, Estado detallado y Hacer ping a un par. Las acciones habituales siguen directamente en sus menús superiores.
+Las carpetas de configuración agrupan los ajustes. Streaming > Configuración para compartir contiene Configurar uso compartido, Ajustes de uso compartido, Iniciar al entrar, Desactivar inicio al entrar, Estado detallado y Restaurar configuración de uso compartido. Acceder a este PC en remoto > Configuración inicial contiene Iniciar sesión, Configurar acceso remoto, Restaurar configuración de acceso remoto, Estado detallado y Hacer ping a un par. Las acciones habituales de uso compartido (Iniciar uso compartido, Detener uso compartido, Emparejar un dispositivo, Estado del uso compartido y Conectar a otro PC) siguen directamente en Streaming, y Conectar y Desconectar en Acceder a este PC en remoto.
 
 Estado detallado abre un terminal de diagnóstico que permanece abierto hasta que pulses Esc.
 

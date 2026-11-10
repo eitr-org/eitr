@@ -50,7 +50,7 @@ Ouvrir un projet LazyVim ou VS Code demande d’abord un dossier, en partant de 
 
 Vous pouvez aussi lancer Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode et Pi par commande. Si l’outil manque, Eitr présente son rôle et propose la même installation que Installer > CLI IA. Entrée confirme l’installation ; Échap annule. Sans terminal interactif, la commande se termine avec des instructions d’installation. Les exécutables installés ont priorité sur ces lanceurs. Connectez-vous depuis chaque outil ; Eitr ne fournit ni exécutables d’assistants ni identifiants.
 
-Développement > Assistant par défaut sélectionne un assistant installé sur cet ordinateur. **SUPER + A** l’ouvre dans un terminal ; sans choix par défaut, le sélecteur s’ouvre. L’assistant de SUPER + A a un accès complet par défaut : il peut modifier les fichiers et exécuter des commandes sans demander.
+Développement > IA > Assistant par défaut sélectionne un assistant installé sur cet ordinateur. **SUPER + A** l’ouvre dans un terminal ; sans choix par défaut, le sélecteur s’ouvre. L’assistant de SUPER + A a un accès complet par défaut : il peut modifier les fichiers et exécuter des commandes sans demander.
 
 Les assistants ouverts depuis Développement > IA gardent leurs demandes d’autorisation habituelles. Choisissez **Paramètres > Assistant IA > Accès des assistants > Demander avant les modifications** pour rétablir les autorisations habituelles. Ce choix reste sur ce PC dans `eitr/ai.json`. Les restrictions de l’organisation imposent les demandes. Sudo exige toujours votre mot de passe.
 
@@ -70,7 +70,7 @@ La compétence **Eitr** fournie explique comment modifier le bureau sans danger 
 
 ### Ratatoskr
 
-Développement > Assistant par défaut propose toujours **Ratatoskr (local, expérimental)**, sans compte ni abonnement. La première fois, un terminal explique les téléchargements uniques avant toute modification : le paquet Arch `ollama` (environ 15 Mo) et le modèle de langage `qwen3:4b` (environ 2,5 Go, licence Apache-2.0). Une seule confirmation (Entrée confirme ; Échap annule) installe le paquet, crée le service utilisateur `eitr-ollama.service`, télécharge le modèle en affichant la progression et le définit par défaut. Si une étape échoue, sa sortie reste à l’écran et l’assistant par défaut précédent est conservé.
+Développement > IA > Assistant par défaut propose toujours **Ratatoskr (local, expérimental)**, sans compte ni abonnement. La première fois, un terminal explique les téléchargements uniques avant toute modification : le paquet Arch `ollama` (environ 15 Mo) et le modèle de langage `qwen3:4b` (environ 2,5 Go, licence Apache-2.0). Une seule confirmation (Entrée confirme ; Échap annule) installe le paquet, crée le service utilisateur `eitr-ollama.service`, télécharge le modèle en affichant la progression et le définit par défaut. Si une étape échoue, sa sortie reste à l’écran et l’assistant par défaut précédent est conservé.
 
 Tout reste sur ce PC : le service n’écoute que sur `127.0.0.1:11434`, démarre au besoin et garde ses modèles dans `~/.local/share/eitr/ollama`. Il est nettement moins fiable que les assistants cloud, surtout avec des formulations inhabituelles, et plus lent sur le processeur. Les rappels vocaux vérifient ses réponses comme celles de tout autre assistant : une mauvaise réponse ne change rien. **SUPER + A** ouvre une discussion avec le modèle ; `/bye` la ferme. Il n’est jamais proposé comme aide aux assistants qui travaillent ensemble et n’a pas d’entrée dans Utilisation de l’IA.
 

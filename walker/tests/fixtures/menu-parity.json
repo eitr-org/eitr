@@ -433,6 +433,110 @@
         }
       }
     ],
+    "appearance": [
+      {
+        "text": "Corners",
+        "subtext": ">",
+        "keywords": [
+          "square",
+          "rounded",
+          "apple",
+          "radius",
+          "style"
+        ],
+        "icon": "󰕰",
+        "submenu": "corners"
+      },
+      {
+        "text": "Cursor",
+        "subtext": ">",
+        "keywords": [
+          "mouse",
+          "pointer",
+          "bibata",
+          "breeze",
+          "dmz",
+          "cursor"
+        ],
+        "icon": "󰇀",
+        "submenu": "cursor"
+      },
+      {
+        "text": "Fonts",
+        "subtext": ">",
+        "keywords": [
+          "font",
+          "typeface",
+          "ligatures",
+          "default",
+          "Default Font"
+        ],
+        "icon": "󰛖",
+        "submenu": "fonts"
+      },
+      {
+        "text": "Terminal",
+        "subtext": ">",
+        "keywords": [
+          "kitty",
+          "ghostty",
+          "typing",
+          "fire",
+          "cursor",
+          "trail"
+        ],
+        "icon": "󰆍",
+        "submenu": "terminal"
+      },
+      {
+        "text": "Theme",
+        "subtext": ">",
+        "keywords": [
+          "colors",
+          "appearance"
+        ],
+        "icon": "󰸌",
+        "submenu": "theme"
+      },
+      {
+        "text": "Wallpaper",
+        "subtext": ">",
+        "keywords": [
+          "background"
+        ],
+        "icon": "🖻",
+        "submenu": "wallpaper"
+      }
+    ],
+    "apps-keys": [
+      {
+        "text": "Default Apps",
+        "subtext": "Choose the apps that open files and links",
+        "keywords": [
+          "browser",
+          "file manager",
+          "editor",
+          "mime"
+        ],
+        "icon": "󰀻",
+        "actions": {
+          "open": "eitr-shell desktop-bar ipc call -- settings show default-apps"
+        }
+      },
+      {
+        "text": "Keybinds",
+        "subtext": "Browse the keyboard and mouse shortcuts",
+        "keywords": [
+          "shortcuts",
+          "bindings",
+          "keys"
+        ],
+        "icon": "󰌌",
+        "actions": {
+          "open": "eitr-shell desktop-bar ipc call -- settings show keybinds"
+        }
+      }
+    ],
     "bar": [
       {
         "text": "Appearance",
@@ -632,57 +736,6 @@
         "subtext": ">",
         "icon": "󰄀",
         "submenu": "screenshot"
-      },
-      {
-        "text": "Color",
-        "subtext": "Pick a color on screen and copy its code",
-        "keywords": [
-          "picker",
-          "hyprpicker"
-        ],
-        "icon": "󰈊",
-        "actions": {
-          "open": "sh -c 'sleep 0.2 && hyprpicker -a'"
-        }
-      },
-      {
-        "text": "OCR Text",
-        "subtext": "Copy the text inside a selected area",
-        "keywords": [
-          "text",
-          "ocr",
-          "tesseract"
-        ],
-        "icon": "󰴑",
-        "actions": {
-          "open": "/usr/share/eitr/walker/scripts/actions/capture/text.sh"
-        }
-      },
-      {
-        "text": "QR Code",
-        "subtext": "Read a QR code in a selected area and copy it",
-        "keywords": [
-          "qr",
-          "barcode"
-        ],
-        "icon": "󰐲",
-        "actions": {
-          "open": "/usr/share/eitr/walker/scripts/actions/capture/qr.sh"
-        }
-      },
-      {
-        "text": "Transcode",
-        "subtext": "Convert an image or video to another format",
-        "keywords": [
-          "convert",
-          "compress",
-          "image",
-          "video"
-        ],
-        "icon": "󰑕",
-        "actions": {
-          "open": "/usr/share/eitr/walker/scripts/actions/capture/transcode.sh"
-        }
       }
     ],
     "cloud": [
@@ -794,16 +847,6 @@
         ],
         "icon": "",
         "submenu": "cloud"
-      },
-      {
-        "text": "Default Assistant",
-        "subtext": ">",
-        "keywords": [
-          "assistant",
-          "default"
-        ],
-        "icon": "󱜙",
-        "submenu": "ai-default"
       },
       {
         "text": "Git Accounts",
@@ -943,6 +986,34 @@
         }
       }
     ],
+    "fun": [
+      {
+        "text": "Music Visualizer",
+        "subtext": "Watch music dance in a theme-coloured terminal",
+        "keywords": [
+          "cava",
+          "audio",
+          "music"
+        ],
+        "icon": "󰎆",
+        "actions": {
+          "open": "/usr/share/eitr/walker/scripts/actions/tools/music-visualizer.sh"
+        }
+      },
+      {
+        "text": "Rune Rain",
+        "subtext": "Runes falling in the theme's colours; any key stops them",
+        "keywords": [
+          "matrix",
+          "runes",
+          "screensaver"
+        ],
+        "icon": "󰖖",
+        "actions": {
+          "open": "/usr/share/eitr/walker/scripts/actions/tools/rune-rain.sh"
+        }
+      }
+    ],
     "gaming": [
       {
         "text": "GeForce NOW",
@@ -975,6 +1046,46 @@
         "actions": {
           "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py gaming steam"
         }
+      }
+    ],
+    "input": [
+      {
+        "text": "Battery Charge Limit",
+        "keywords": [
+          "battery",
+          "charge",
+          "threshold",
+          "laptop"
+        ],
+        "subtext": ">",
+        "icon": "󰂄",
+        "submenu": "battery-limit"
+      },
+      {
+        "text": "Keyboard",
+        "subtext": ">",
+        "keywords": [
+          "layout",
+          "language",
+          "input",
+          "alt shift"
+        ],
+        "icon": "󰌌",
+        "submenu": "keyboard"
+      },
+      {
+        "text": "Lighting",
+        "keywords": [
+          "rgb",
+          "openrgb",
+          "fans",
+          "keyboard",
+          "leds",
+          "theme colour"
+        ],
+        "subtext": ">",
+        "icon": "󰌵",
+        "submenu": "lighting"
       }
     ],
     "install": [
@@ -1030,16 +1141,16 @@
         "submenu": "packages"
       },
       {
+        "text": "Plugins",
+        "subtext": ">",
+        "icon": "󰏖",
+        "submenu": "plugins"
+      },
+      {
         "text": "Productivity",
         "subtext": ">",
         "icon": "󰃖",
         "submenu": "productivity"
-      },
-      {
-        "text": "VPN",
-        "subtext": ">",
-        "icon": "󰖂",
-        "submenu": "vpn"
       },
       {
         "text": "Web Apps",
@@ -1145,17 +1256,6 @@
     ],
     "main": [
       {
-        "text": "Development",
-        "subtext": ">",
-        "keywords": [
-          "dev",
-          "projects",
-          "code"
-        ],
-        "icon": "󰅩",
-        "submenu": "development"
-      },
-      {
         "text": "Apps",
         "subtext": ">",
         "keywords": [
@@ -1167,16 +1267,15 @@
         "submenu": "apps"
       },
       {
-        "text": "Quick Actions",
+        "text": "Development",
         "subtext": ">",
         "keywords": [
-          "switch",
-          "enable",
-          "disable",
-          "toggle"
+          "dev",
+          "projects",
+          "code"
         ],
-        "icon": "󰔎",
-        "submenu": "toggle"
+        "icon": "󰅩",
+        "submenu": "development"
       },
       {
         "text": "Tools",
@@ -1195,6 +1294,30 @@
         "submenu": "tools"
       },
       {
+        "text": "Quick Actions",
+        "subtext": ">",
+        "keywords": [
+          "switch",
+          "enable",
+          "disable",
+          "toggle"
+        ],
+        "icon": "󰔎",
+        "submenu": "toggle"
+      },
+      {
+        "text": "Install",
+        "subtext": ">",
+        "icon": "󰏖",
+        "submenu": "install"
+      },
+      {
+        "text": "Gaming",
+        "subtext": ">",
+        "icon": "󰊴",
+        "submenu": "gaming"
+      },
+      {
         "text": "Learn",
         "subtext": ">",
         "keywords": [
@@ -1206,24 +1329,6 @@
         ],
         "icon": "󰧑",
         "submenu": "learn"
-      },
-      {
-        "text": "Install",
-        "subtext": ">",
-        "icon": "󰏖",
-        "submenu": "install"
-      },
-      {
-        "text": "Plugins",
-        "subtext": ">",
-        "icon": "󰏖",
-        "submenu": "plugins"
-      },
-      {
-        "text": "Gaming",
-        "subtext": ">",
-        "icon": "󰊴",
-        "submenu": "gaming"
       },
       {
         "text": "Settings",
@@ -1388,6 +1493,20 @@
     ],
     "reminders": [
       {
+        "text": "Calendar Sources",
+        "subtext": ">",
+        "keywords": [
+          "google",
+          "outlook",
+          "ical",
+          "ics",
+          "subscribe",
+          "Calendars"
+        ],
+        "icon": "󰃭",
+        "submenu": "calendars"
+      },
+      {
         "text": "New Reminder",
         "subtext": "A one-time or repeating notification",
         "keywords": [
@@ -1441,13 +1560,10 @@
         ]
       },
       {
-        "text": "Share This PC",
+        "text": "Sharing Setup",
         "subtext": ">",
-        "icon": "󱒃",
-        "submenu": "remote-share",
-        "keywords": [
-          "Share This PC"
-        ]
+        "icon": "",
+        "submenu": "remote-share-setup"
       },
       {
         "text": "Connect to another PC",
@@ -1455,6 +1571,38 @@
         "icon": "󰖔",
         "actions": {
           "open": "python3 /usr/share/eitr/walker/scripts/actions/install/software.py gaming moonlight"
+        }
+      },
+      {
+        "text": "Pair a Device",
+        "subtext": "Enter the trusted Moonlight device PIN",
+        "icon": "󰌹",
+        "actions": {
+          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host pair"
+        }
+      },
+      {
+        "text": "Sharing Status",
+        "subtext": "Show whether Sunshine is running",
+        "icon": "󰋽",
+        "actions": {
+          "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh streaming"
+        }
+      },
+      {
+        "text": "Start Sharing",
+        "subtext": "Give trusted devices control of this desktop",
+        "icon": "󰐊",
+        "actions": {
+          "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host start"
+        }
+      },
+      {
+        "text": "Stop Sharing",
+        "subtext": "Stop Sunshine and close its streaming ports",
+        "icon": "󰓛",
+        "actions": {
+          "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host stop"
         }
       }
     ],
@@ -1577,46 +1725,6 @@
         }
       }
     ],
-    "remote-share": [
-      {
-        "text": "Setup",
-        "subtext": ">",
-        "icon": "",
-        "submenu": "remote-share-setup"
-      },
-      {
-        "text": "Pair a Device",
-        "subtext": "Enter the trusted Moonlight device PIN",
-        "icon": "󰌹",
-        "actions": {
-          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host pair"
-        }
-      },
-      {
-        "text": "Sharing Status",
-        "subtext": "Show whether Sunshine is running",
-        "icon": "󰋽",
-        "actions": {
-          "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh streaming"
-        }
-      },
-      {
-        "text": "Start Sharing",
-        "subtext": "Give trusted devices control of this desktop",
-        "icon": "󰐊",
-        "actions": {
-          "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host start"
-        }
-      },
-      {
-        "text": "Stop Sharing",
-        "subtext": "Stop Sunshine and close its streaming ports",
-        "icon": "󰓛",
-        "actions": {
-          "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host stop"
-        }
-      }
-    ],
     "screenrecord": [
       {
         "text": "Open OBS",
@@ -1727,12 +1835,6 @@
     ],
     "security": [
       {
-        "text": "Assistant Access",
-        "subtext": ">",
-        "icon": "󰒃",
-        "submenu": "assistant-access"
-      },
-      {
         "text": "FIDO2 Security Key",
         "subtext": ">",
         "icon": "󰌆",
@@ -1784,48 +1886,17 @@
         "actions": {
           "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py password-only"
         }
-      },
-      {
-        "text": "Update Password",
-        "subtext": "Change your account's password",
-        "icon": "󰌾",
-        "actions": {
-          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py password"
-        }
       }
     ],
     "settings": [
       {
-        "text": "Connectivity",
-        "icon": "󰖩",
-        "subtext": ">",
-        "submenu": "system-connectivity"
-      },
-      {
-        "text": "Devices & Input",
+        "text": "Devices",
         "icon": "󰍹",
         "subtext": ">",
         "submenu": "system-devices"
       },
       {
-        "text": "Language",
-        "icon": "󰗊",
-        "subtext": ">",
-        "submenu": "language",
-        "keywords": [
-          "language",
-          "locale",
-          "translation"
-        ]
-      },
-      {
-        "text": "Security",
-        "subtext": ">",
-        "icon": "󰒃",
-        "submenu": "security"
-      },
-      {
-        "text": "Style",
+        "text": "Desktop",
         "subtext": ">",
         "keywords": [
           "theme",
@@ -1834,6 +1905,23 @@
         ],
         "icon": "",
         "submenu": "style"
+      },
+      {
+        "text": "Apps & Keys",
+        "subtext": ">",
+        "keywords": [
+          "default apps",
+          "keybinds",
+          "shortcuts"
+        ],
+        "icon": "󰌌",
+        "submenu": "apps-keys"
+      },
+      {
+        "text": "Accounts & Security",
+        "subtext": ">",
+        "icon": "󰒃",
+        "submenu": "security"
       },
       {
         "text": "System",
@@ -1915,10 +2003,13 @@
         "submenu": "main"
       },
       {
-        "text": "Remote Access",
+        "text": "Streaming",
         "subtext": ">",
         "icon": "󰖩",
-        "submenu": "remote-access"
+        "submenu": "remote-access",
+        "keywords": [
+          "Remote Access"
+        ]
       },
       {
         "text": "Audio Panel",
@@ -2346,31 +2437,18 @@
     ],
     "style": [
       {
-        "text": "Corners",
+        "text": "Appearance",
         "subtext": ">",
         "keywords": [
-          "square",
-          "rounded",
-          "apple",
-          "radius",
-          "style"
+          "theme",
+          "wallpaper",
+          "fonts",
+          "cursor",
+          "terminal",
+          "corners"
         ],
-        "icon": "󰕰",
-        "submenu": "corners"
-      },
-      {
-        "text": "Cursor",
-        "subtext": ">",
-        "keywords": [
-          "mouse",
-          "pointer",
-          "bibata",
-          "breeze",
-          "dmz",
-          "cursor"
-        ],
-        "icon": "󰇀",
-        "submenu": "cursor"
+        "icon": "󰸌",
+        "submenu": "appearance"
       },
       {
         "text": "Desktop Bar",
@@ -2398,19 +2476,6 @@
         "submenu": "focus"
       },
       {
-        "text": "Fonts",
-        "subtext": ">",
-        "keywords": [
-          "font",
-          "typeface",
-          "ligatures",
-          "default",
-          "Default Font"
-        ],
-        "icon": "󰛖",
-        "submenu": "fonts"
-      },
-      {
         "text": "Lockscreen",
         "subtext": ">",
         "keywords": [
@@ -2422,66 +2487,17 @@
         "submenu": "lockscreen"
       },
       {
-        "text": "Terminal",
+        "text": "Windows",
         "subtext": ">",
         "keywords": [
-          "kitty",
-          "ghostty",
-          "typing",
-          "fire",
-          "cursor",
-          "trail"
-        ],
-        "icon": "󰆍",
-        "submenu": "terminal"
-      },
-      {
-        "text": "Theme",
-        "subtext": ">",
-        "keywords": [
-          "colors",
-          "appearance"
-        ],
-        "icon": "󰸌",
-        "submenu": "theme"
-      },
-      {
-        "text": "Wallpaper",
-        "subtext": ">",
-        "keywords": [
-          "background"
-        ],
-        "icon": "🖻",
-        "submenu": "wallpaper"
-      },
-      {
-        "text": "Window gaps",
-        "subtext": ">",
-        "keywords": [
-          "windows",
-          "spacing",
-          "gaps"
+          "window layout",
+          "gaps",
+          "workspaces",
+          "tiling",
+          "scrolling"
         ],
         "icon": "󰍹",
-        "submenu": "window-gaps"
-      },
-      {
-        "text": "Window layout",
-        "subtext": ">",
-        "icon": "󰍹",
-        "submenu": "window-layout"
-      },
-      {
-        "text": "Workspaces",
-        "subtext": ">",
-        "keywords": [
-          "numbers",
-          "glyph",
-          "dots",
-          "bar"
-        ],
-        "icon": "󰍹",
-        "submenu": "workspaces"
+        "submenu": "windows"
       },
       {
         "text": "Themes & Plugins",
@@ -2503,12 +2519,6 @@
         "icon": "󰌗",
         "subtext": ">",
         "submenu": "network-backend"
-      },
-      {
-        "text": "Remote Access",
-        "subtext": ">",
-        "icon": "󰢹",
-        "submenu": "remote-access"
       },
       {
         "text": "Bluetooth",
@@ -2533,42 +2543,50 @@
     ],
     "system-devices": [
       {
-        "text": "Battery Charge Limit",
-        "keywords": [
-          "battery",
-          "charge",
-          "threshold",
-          "laptop"
-        ],
+        "text": "Connections",
         "subtext": ">",
-        "icon": "󰂄",
-        "submenu": "battery-limit"
+        "keywords": [
+          "network",
+          "wifi",
+          "bluetooth",
+          "Connectivity"
+        ],
+        "icon": "󰖩",
+        "submenu": "system-connectivity"
       },
       {
-        "text": "Keyboard",
+        "text": "Input",
         "subtext": ">",
         "keywords": [
-          "layout",
-          "language",
-          "input",
-          "alt shift"
+          "keyboard",
+          "lighting",
+          "battery"
         ],
         "icon": "󰌌",
-        "submenu": "keyboard"
+        "submenu": "input"
       },
       {
-        "text": "Lighting",
-        "keywords": [
-          "rgb",
-          "openrgb",
-          "fans",
-          "keyboard",
-          "leds",
-          "theme colour"
-        ],
+        "text": "Language",
+        "icon": "󰗊",
         "subtext": ">",
-        "icon": "󰌵",
-        "submenu": "lighting"
+        "submenu": "language",
+        "keywords": [
+          "language",
+          "locale",
+          "translation"
+        ]
+      },
+      {
+        "text": "Streaming",
+        "subtext": ">",
+        "icon": "󰢹",
+        "submenu": "remote-access",
+        "keywords": [
+          "Remote Access",
+          "Share This PC",
+          "sunshine",
+          "moonlight"
+        ]
       },
       {
         "text": "Audio",
@@ -2611,61 +2629,6 @@
         }
       }
     ],
-    "system-information": [
-      {
-        "text": "AI Usage",
-        "subtext": "Claude and Codex usage limits",
-        "keywords": [
-          "claude",
-          "codex",
-          "limits",
-          "tokens"
-        ],
-        "icon": "󱜙",
-        "actions": {
-          "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh ai"
-        }
-      },
-      {
-        "text": "Hardware",
-        "subtext": "CPU, GPU, memory and storage use",
-        "keywords": [
-          "gpu",
-          "cpu",
-          "ram",
-          "memory",
-          "monitor"
-        ],
-        "icon": "󰍛",
-        "actions": {
-          "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh hardware"
-        }
-      },
-      {
-        "text": "Report a Problem",
-        "subtext": "Collect a report and send it by email or GitHub",
-        "keywords": [
-          "bug",
-          "issue",
-          "diagnostics",
-          "logs",
-          "support",
-          "crash"
-        ],
-        "icon": "󰃤",
-        "actions": {
-          "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/report-problem.py"
-        }
-      },
-      {
-        "text": "Weather",
-        "subtext": "Forecast for your location",
-        "icon": "󰖐",
-        "actions": {
-          "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh weather"
-        }
-      }
-    ],
     "system-maintenance": [
       {
         "text": "Factory Reset",
@@ -2684,21 +2647,6 @@
         "subtext": ">",
         "icon": "󰋊",
         "submenu": "snapshots"
-      },
-      {
-        "text": "Check This PC",
-        "subtext": "Read-only checks with suggested fixes; copy a redacted report",
-        "keywords": [
-          "diagnostics",
-          "health",
-          "troubleshoot",
-          "self-check",
-          "Check This PC"
-        ],
-        "icon": "󰒓",
-        "actions": {
-          "open": "kitty --class system-check -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py eitr check"
-        }
       },
       {
         "text": "Choose Fastest Mirrors",
@@ -2729,12 +2677,6 @@
     ],
     "system": [
       {
-        "text": "Information",
-        "icon": "",
-        "subtext": ">",
-        "submenu": "system-information"
-      },
-      {
         "text": "Maintenance",
         "icon": "󰃢",
         "subtext": ">",
@@ -2759,6 +2701,37 @@
         "icon": "",
         "actions": {
           "open": "/usr/share/eitr/walker/scripts/actions/about.sh"
+        }
+      },
+      {
+        "text": "Check This PC",
+        "subtext": "Read-only checks with suggested fixes; copy a redacted report",
+        "keywords": [
+          "diagnostics",
+          "health",
+          "troubleshoot",
+          "self-check",
+          "Check This PC"
+        ],
+        "icon": "󰒓",
+        "actions": {
+          "open": "kitty --class system-check -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py eitr check"
+        }
+      },
+      {
+        "text": "Report a Problem",
+        "subtext": "Collect a report and send it by email or GitHub",
+        "keywords": [
+          "bug",
+          "issue",
+          "diagnostics",
+          "logs",
+          "support",
+          "crash"
+        ],
+        "icon": "󰃤",
+        "actions": {
+          "open": "kitty --hold -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/report-problem.py"
         }
       },
       {
@@ -2930,20 +2903,6 @@
     ],
     "tools": [
       {
-        "text": "Calendar Sources",
-        "subtext": ">",
-        "keywords": [
-          "google",
-          "outlook",
-          "ical",
-          "ics",
-          "subscribe",
-          "Calendars"
-        ],
-        "icon": "󰃭",
-        "submenu": "calendars"
-      },
-      {
         "text": "Capture",
         "subtext": ">",
         "keywords": [
@@ -2953,6 +2912,17 @@
         ],
         "icon": "",
         "submenu": "capture"
+      },
+      {
+        "text": "Fun",
+        "subtext": ">",
+        "keywords": [
+          "games",
+          "toys",
+          "screensaver"
+        ],
+        "icon": "󰖖",
+        "submenu": "fun"
       },
       {
         "text": "Reminders",
@@ -2978,29 +2948,54 @@
         "submenu": "share"
       },
       {
-        "text": "Music Visualizer",
-        "subtext": "Watch music dance in a theme-coloured terminal",
+        "text": "Color",
+        "subtext": "Pick a color on screen and copy its code",
         "keywords": [
-          "cava",
-          "audio",
-          "music"
+          "picker",
+          "hyprpicker"
         ],
-        "icon": "󰎆",
+        "icon": "󰈊",
         "actions": {
-          "open": "/usr/share/eitr/walker/scripts/actions/tools/music-visualizer.sh"
+          "open": "sh -c 'sleep 0.2 && hyprpicker -a'"
         }
       },
       {
-        "text": "Rune Rain",
-        "subtext": "Runes falling in the theme's colours; any key stops them",
+        "text": "OCR Text",
+        "subtext": "Copy the text inside a selected area",
         "keywords": [
-          "matrix",
-          "runes",
-          "screensaver"
+          "text",
+          "ocr",
+          "tesseract"
         ],
-        "icon": "󰖖",
+        "icon": "󰴑",
         "actions": {
-          "open": "/usr/share/eitr/walker/scripts/actions/tools/rune-rain.sh"
+          "open": "/usr/share/eitr/walker/scripts/actions/capture/text.sh"
+        }
+      },
+      {
+        "text": "QR Code",
+        "subtext": "Read a QR code in a selected area and copy it",
+        "keywords": [
+          "qr",
+          "barcode"
+        ],
+        "icon": "󰐲",
+        "actions": {
+          "open": "/usr/share/eitr/walker/scripts/actions/capture/qr.sh"
+        }
+      },
+      {
+        "text": "Transcode",
+        "subtext": "Convert an image or video to another format",
+        "keywords": [
+          "convert",
+          "compress",
+          "image",
+          "video"
+        ],
+        "icon": "󰑕",
+        "actions": {
+          "open": "/usr/share/eitr/walker/scripts/actions/capture/transcode.sh"
         }
       }
     ],
@@ -3046,31 +3041,13 @@
         "actions": {
           "open": "eitr-shell desktop-bar ipc call -- settings show user"
         }
-      }
-    ],
-    "vpn": [
-      {
-        "text": "NetworkManager VPN",
-        "subtext": "Install VPN plugins and import a VPN file",
-        "icon": "󰖂",
-        "actions": {
-          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/install/vpn.py networkmanager"
-        }
       },
       {
-        "text": "Tailscale",
-        "subtext": "Set up access away from home",
-        "icon": "󰖂",
+        "text": "Update Password",
+        "subtext": "Change your account's password",
+        "icon": "󰌾",
         "actions": {
-          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away setup"
-        }
-      },
-      {
-        "text": "WireGuard",
-        "subtext": "Install WireGuard and import a configuration",
-        "icon": "󰖂",
-        "actions": {
-          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/install/vpn.py wireguard"
+          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/security.py password"
         }
       }
     ],
@@ -3086,6 +3063,37 @@
         "subtext": ">",
         "icon": "󰍹",
         "submenu": "scrolling-direction"
+      }
+    ],
+    "windows": [
+      {
+        "text": "Window gaps",
+        "subtext": ">",
+        "keywords": [
+          "windows",
+          "spacing",
+          "gaps"
+        ],
+        "icon": "󰍹",
+        "submenu": "window-gaps"
+      },
+      {
+        "text": "Window layout",
+        "subtext": ">",
+        "icon": "󰍹",
+        "submenu": "window-layout"
+      },
+      {
+        "text": "Workspaces",
+        "subtext": ">",
+        "keywords": [
+          "numbers",
+          "glyph",
+          "dots",
+          "bar"
+        ],
+        "icon": "󰍹",
+        "submenu": "workspaces"
       }
     ],
     "workspaces": [
@@ -3124,7 +3132,7 @@
     "ai-codex": "ai-tools",
     "ai-copilot-accounts": "ai-copilot",
     "ai-copilot": "ai-tools",
-    "ai-default": "development",
+    "ai-default": "ai-tools",
     "ai-gemini-accounts": "ai-gemini",
     "ai-gemini": "ai-tools",
     "ai-grok-accounts": "ai-grok",
@@ -3135,8 +3143,10 @@
     "ai-pi-accounts": "ai-pi",
     "ai-pi": "ai-tools",
     "ai-tools": "development",
+    "appearance": "style",
+    "apps-keys": "settings",
     "apps": "main",
-    "assistant-access": "security",
+    "assistant-access": "ai-tools",
     "aws-account": "aws-profiles",
     "aws-cloudfront-distribution-details-1": "aws-cloudfront",
     "aws-cloudfront-invalidations-1": "aws-cloudfront",
@@ -3220,18 +3230,18 @@
     "bar-position": "bar",
     "bar-screens": "bar",
     "bar": "style",
-    "battery-limit": "system-devices",
+    "battery-limit": "input",
     "browsers": "install",
-    "calendars": "tools",
+    "calendars": "reminders",
     "capture": "tools",
     "cloud": "development",
     "cloudflare-account": "cloudflare-contexts",
     "cloudflare-contexts": "cloud",
-    "corners": "style",
+    "corners": "appearance",
     "cursor-color": "cursor",
     "cursor-family": "cursor",
     "cursor-size": "cursor",
-    "cursor": "style",
+    "cursor": "appearance",
     "databases": "install",
     "developer-apps": "install",
     "development": "main",
@@ -3241,7 +3251,8 @@
     "fido2": "security",
     "fingerprint": "security",
     "focus": "style",
-    "fonts": "style",
+    "fonts": "appearance",
+    "fun": "tools",
     "gaming": "main",
     "gcp-account": "gcp-contexts",
     "gcp-contexts": "cloud",
@@ -3253,14 +3264,15 @@
     "hetzner-contexts": "cloud",
     "ibm-account": "ibm-contexts",
     "ibm-contexts": "cloud",
+    "input": "system-devices",
     "install": "main",
     "javascript-tools": "install",
     "keyboard-add": "keyboard",
-    "keyboard": "system-devices",
-    "language": "settings",
+    "keyboard": "input",
+    "language": "system-devices",
     "languages": "install",
     "learn": "main",
-    "lighting": "system-devices",
+    "lighting": "input",
     "lockscreen": "style",
     "monitoring-tools": "monitoring",
     "monitoring": "development",
@@ -3273,17 +3285,16 @@
     "plugin-actions": "plugins-install",
     "plugin-visuals": "plugin-actions",
     "plugins-install": "plugins",
-    "plugins": "main",
+    "plugins": "install",
     "power": "main",
     "productivity": "install",
     "projects-nvim": "development",
     "projects-vscode": "development",
     "reminders": "tools",
-    "remote-access": "system-connectivity",
+    "remote-access": "system-devices",
     "remote-away-setup": "remote-away",
     "remote-away": "remote-access",
-    "remote-share-setup": "remote-share",
-    "remote-share": "remote-access",
+    "remote-share-setup": "remote-access",
     "screenrecord": "capture",
     "screenshot": "capture",
     "scrolling-direction": "window-layout",
@@ -3294,9 +3305,8 @@
     "shortcuts": "learn",
     "snapshots": "system-maintenance",
     "style": "settings",
-    "system-connectivity": "settings",
+    "system-connectivity": "system-devices",
     "system-devices": "settings",
-    "system-information": "system",
     "system-maintenance": "system",
     "system": "settings",
     "terminal-blur-strength": "terminal",
@@ -3304,10 +3314,10 @@
     "terminal-cursor-fire": "terminal",
     "terminal-opacity": "terminal",
     "terminal-padding": "terminal",
-    "terminal": "style",
+    "terminal": "appearance",
     "theme-dark": "theme",
     "theme-light": "theme",
-    "theme": "style",
+    "theme": "appearance",
     "toggle": "main",
     "tools": "main",
     "tpm-unlock": "security",
@@ -3315,16 +3325,16 @@
     "users": "security",
     "vercel-account": "vercel-contexts",
     "vercel-contexts": "cloud",
-    "vpn": "install",
-    "wallpaper": "style",
+    "wallpaper": "appearance",
     "webapps": "install",
-    "window-gaps": "style",
-    "window-layout": "style",
-    "workspaces": "style",
-    "workspace-style": "workspaces",
+    "window-gaps": "windows",
+    "window-layout": "windows",
+    "windows": "style",
     "workspace-always-show": "workspaces",
     "workspace-count": "workspaces",
-    "workspace-monitors": "workspaces"
+    "workspace-monitors": "workspaces",
+    "workspace-style": "workspaces",
+    "workspaces": "windows"
   },
   "shortcuts": [
     {
@@ -4871,6 +4881,192 @@
       ]
     },
     {
+      "key": "5effccd3b175a957ecbbc24c0e273c09033cefc735bca751bba2245115908559",
+      "provider": "menus:appearance",
+      "identifier": "appearance:0",
+      "text": "Corners",
+      "subtext": ">",
+      "icon": "󰕰",
+      "actions": [],
+      "keywords": [
+        "square",
+        "rounded",
+        "apple",
+        "radius",
+        "style",
+        "Corners",
+        "Corners"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "corners"
+    },
+    {
+      "key": "86fb62f021a221de735d083d63f0700e7bb288e1d92e76e570b064f73ec23d59",
+      "provider": "menus:appearance",
+      "identifier": "appearance:1",
+      "text": "Cursor",
+      "subtext": ">",
+      "icon": "󰇀",
+      "actions": [],
+      "keywords": [
+        "mouse",
+        "pointer",
+        "bibata",
+        "breeze",
+        "dmz",
+        "cursor",
+        "Cursor",
+        "Cursor"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "cursor"
+    },
+    {
+      "key": "38f95c336655e5676ea9019632f8a81c0cd5d606b6de5f56b5187a1846419db3",
+      "provider": "menus:appearance",
+      "identifier": "appearance:2",
+      "text": "Fonts",
+      "subtext": ">",
+      "icon": "󰛖",
+      "actions": [],
+      "keywords": [
+        "font",
+        "typeface",
+        "ligatures",
+        "default",
+        "Default Font",
+        "Fonts",
+        "Fonts"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "fonts"
+    },
+    {
+      "key": "dfffbd1332efdb7f96bead124745307bf787a0afc90c8ce4fbffd7b42b569377",
+      "provider": "menus:appearance",
+      "identifier": "appearance:3",
+      "text": "Terminal",
+      "subtext": ">",
+      "icon": "󰆍",
+      "actions": [],
+      "keywords": [
+        "kitty",
+        "ghostty",
+        "typing",
+        "fire",
+        "cursor",
+        "trail",
+        "Terminal",
+        "Terminal"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "terminal"
+    },
+    {
+      "key": "5ae02b0a921159a928aefda06c6a4a805620c05fec159f226b2cf0f11d939ccd",
+      "provider": "menus:appearance",
+      "identifier": "appearance:4",
+      "text": "Theme",
+      "subtext": ">",
+      "icon": "󰸌",
+      "actions": [],
+      "keywords": [
+        "colors",
+        "appearance",
+        "Theme",
+        "Theme"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "theme"
+    },
+    {
+      "key": "6413ad25087575ef328fa51780ecf638f4f8a97fd5dd884530194315621af982",
+      "provider": "menus:appearance",
+      "identifier": "appearance:5",
+      "text": "Wallpaper",
+      "subtext": ">",
+      "icon": "🖻",
+      "actions": [],
+      "keywords": [
+        "background",
+        "Wallpaper",
+        "Wallpaper"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "wallpaper"
+    },
+    {
+      "key": "7be3109789d237ef896bf74e5998ad4196bc6c8f23c40be8034dfdf748dd2199",
+      "provider": "menus:apps-keys",
+      "identifier": "apps-keys:0",
+      "text": "Default Apps",
+      "subtext": "Choose the apps that open files and links",
+      "icon": "󰀻",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "browser",
+        "file manager",
+        "editor",
+        "mime",
+        "Default Apps",
+        "Default Apps",
+        "Choose the apps that open files and links"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "70b9fa7291c30a96199dad0b930b04d25e4594f147739b604e57c9a33cf1d99b",
+      "provider": "menus:apps-keys",
+      "identifier": "apps-keys:1",
+      "text": "Keybinds",
+      "subtext": "Browse the keyboard and mouse shortcuts",
+      "icon": "󰌌",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "shortcuts",
+        "bindings",
+        "keys",
+        "Keybinds",
+        "Keybinds",
+        "Browse the keyboard and mouse shortcuts"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ]
+    },
+    {
       "key": "1aa2ecfd828c04510bc6f3daac7be2aa94bed82a7b6f26a9b47b920617255440",
       "provider": "menus:bar",
       "identifier": "bar:0",
@@ -5116,6 +5312,7 @@
         "Longest battery lifespan · laptops only"
       ],
       "menus": [
+        "input",
         "system-devices",
         "settings",
         "main"
@@ -5137,6 +5334,7 @@
         "Recommended when usually plugged in · laptops only"
       ],
       "menus": [
+        "input",
         "system-devices",
         "settings",
         "main"
@@ -5158,6 +5356,7 @@
         "Laptops only"
       ],
       "menus": [
+        "input",
         "system-devices",
         "settings",
         "main"
@@ -5179,6 +5378,7 @@
         "Show the charge limit in use"
       ],
       "menus": [
+        "input",
         "system-devices",
         "settings",
         "main"
@@ -5200,6 +5400,7 @@
         "Charge to 100%"
       ],
       "menus": [
+        "input",
         "system-devices",
         "settings",
         "main"
@@ -5228,6 +5429,7 @@
         "Show a Google, Outlook or iCal calendar beside your reminders"
       ],
       "menus": [
+        "reminders",
         "tools",
         "main"
       ]
@@ -5269,97 +5471,6 @@
         "main"
       ],
       "submenu": "screenshot"
-    },
-    {
-      "key": "d8806317fda7286754a60ef897ae46a9852315dcfd44ac136d8768b20ea1e824",
-      "provider": "menus:capture",
-      "identifier": "capture:2",
-      "text": "Color",
-      "subtext": "Pick a color on screen and copy its code",
-      "icon": "󰈊",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "picker",
-        "hyprpicker",
-        "Color",
-        "Color",
-        "Pick a color on screen and copy its code"
-      ],
-      "menus": [
-        "tools",
-        "main"
-      ]
-    },
-    {
-      "key": "5445354d21b6d6d60640e37c70639f61a8986f3270a12a563ad1be579ebe3ba0",
-      "provider": "menus:capture",
-      "identifier": "capture:3",
-      "text": "OCR Text",
-      "subtext": "Copy the text inside a selected area",
-      "icon": "󰴑",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "text",
-        "ocr",
-        "tesseract",
-        "OCR Text",
-        "OCR Text",
-        "Copy the text inside a selected area"
-      ],
-      "menus": [
-        "tools",
-        "main"
-      ]
-    },
-    {
-      "key": "121a9b0f8682789d2ab40b72493f9db61a9098c8df680630d5c6b546d4115961",
-      "provider": "menus:capture",
-      "identifier": "capture:4",
-      "text": "QR Code",
-      "subtext": "Read a QR code in a selected area and copy it",
-      "icon": "󰐲",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "qr",
-        "barcode",
-        "QR Code",
-        "QR Code",
-        "Read a QR code in a selected area and copy it"
-      ],
-      "menus": [
-        "tools",
-        "main"
-      ]
-    },
-    {
-      "key": "4878c2a2901aa71d88701fc271571bb9010b72af63bb71561eb1764c58e96f82",
-      "provider": "menus:capture",
-      "identifier": "capture:5",
-      "text": "Transcode",
-      "subtext": "Convert an image or video to another format",
-      "icon": "󰑕",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "convert",
-        "compress",
-        "image",
-        "video",
-        "Transcode",
-        "Transcode",
-        "Convert an image or video to another format"
-      ],
-      "menus": [
-        "tools",
-        "main"
-      ]
     },
     {
       "key": "2dadfca83be4eec92f6ef7eca116ed5e03ba630d11bef7ab633e5bfdf1d71afc",
@@ -5557,6 +5668,7 @@
         "Color"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -5576,6 +5688,7 @@
         "Family"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -5595,6 +5708,7 @@
         "Size"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -5644,25 +5758,6 @@
       "key": "26257dea86b77ba10c66897e4b14b5e285e76d941e8b38ed80479124f2615e0e",
       "provider": "menus:development",
       "identifier": "development:2",
-      "text": "Default Assistant",
-      "subtext": ">",
-      "icon": "󱜙",
-      "actions": [],
-      "keywords": [
-        "assistant",
-        "default",
-        "Default Assistant",
-        "Default Assistant"
-      ],
-      "menus": [
-        "main"
-      ],
-      "submenu": "ai-default"
-    },
-    {
-      "key": "edd103851d6cf1ace922513500d7988a0587c2f2ab4f528c23320547d5b5db41",
-      "provider": "menus:development",
-      "identifier": "development:3",
       "text": "Git Accounts",
       "subtext": ">",
       "icon": "󰊢",
@@ -5683,9 +5778,9 @@
       "submenu": "git-accounts"
     },
     {
-      "key": "3ba2597ae460982e1d17aeb19512247cc71a847a3408bae35278dda616f85244",
+      "key": "edd103851d6cf1ace922513500d7988a0587c2f2ab4f528c23320547d5b5db41",
       "provider": "menus:development",
-      "identifier": "development:4",
+      "identifier": "development:3",
       "text": "LazyVim Projects",
       "subtext": ">",
       "icon": "",
@@ -5705,9 +5800,9 @@
       ]
     },
     {
-      "key": "a68617252f91f2e9e8cc25187ebf350c9cdc1de366136b32f9e3c08e664ed047",
+      "key": "3ba2597ae460982e1d17aeb19512247cc71a847a3408bae35278dda616f85244",
       "provider": "menus:development",
-      "identifier": "development:5",
+      "identifier": "development:4",
       "text": "Monitoring",
       "subtext": ">",
       "icon": "󰨇",
@@ -5731,9 +5826,9 @@
       "submenu": "monitoring"
     },
     {
-      "key": "5b69556551ca28dc592dbf08818e570f7fffedaa58835b92ae55c670a97914de",
+      "key": "a68617252f91f2e9e8cc25187ebf350c9cdc1de366136b32f9e3c08e664ed047",
       "provider": "menus:development",
-      "identifier": "development:6",
+      "identifier": "development:5",
       "text": "VS Code Projects",
       "subtext": ">",
       "icon": "",
@@ -5913,6 +6008,52 @@
       ]
     },
     {
+      "key": "3355501ce4679ed6559999ff0011fbb2d7f998a3176d77240ab22e0f42389e30",
+      "provider": "menus:fun",
+      "identifier": "fun:0",
+      "text": "Music Visualizer",
+      "subtext": "Watch music dance in a theme-coloured terminal",
+      "icon": "󰎆",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "cava",
+        "audio",
+        "music",
+        "Music Visualizer",
+        "Music Visualizer",
+        "Watch music dance in a theme-coloured terminal"
+      ],
+      "menus": [
+        "tools",
+        "main"
+      ]
+    },
+    {
+      "key": "7165d0d22352aacf0b275b1ba819c218ce18977f7a17fde20bafbbe82510301b",
+      "provider": "menus:fun",
+      "identifier": "fun:1",
+      "text": "Rune Rain",
+      "subtext": "Runes falling in the theme's colours; any key stops them",
+      "icon": "󰖖",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "matrix",
+        "runes",
+        "screensaver",
+        "Rune Rain",
+        "Rune Rain",
+        "Runes falling in the theme's colours; any key stops them"
+      ],
+      "menus": [
+        "tools",
+        "main"
+      ]
+    },
+    {
       "key": "79bf45075a20753d8a76621dc9ea7ae3f66ca0f1fde190d0109e5d2cbad56cb3",
       "provider": "menus:gaming",
       "identifier": "gaming:0",
@@ -5987,6 +6128,77 @@
       "menus": [
         "main"
       ]
+    },
+    {
+      "key": "6496cfe2bf303c71d0419baf98ce4485c7b5405bef8534d94681d032db314b73",
+      "provider": "menus:input",
+      "identifier": "input:0",
+      "text": "Battery Charge Limit",
+      "subtext": ">",
+      "icon": "󰂄",
+      "actions": [],
+      "keywords": [
+        "battery",
+        "charge",
+        "threshold",
+        "laptop",
+        "Battery Charge Limit",
+        "Battery Charge Limit"
+      ],
+      "menus": [
+        "system-devices",
+        "settings",
+        "main"
+      ],
+      "submenu": "battery-limit"
+    },
+    {
+      "key": "793b7819b1292893289fb487d04ab1e29e7ba8b045d1eae490d16f51a04a51e2",
+      "provider": "menus:input",
+      "identifier": "input:1",
+      "text": "Keyboard",
+      "subtext": ">",
+      "icon": "󰌌",
+      "actions": [],
+      "keywords": [
+        "layout",
+        "language",
+        "input",
+        "alt shift",
+        "Keyboard",
+        "Keyboard"
+      ],
+      "menus": [
+        "system-devices",
+        "settings",
+        "main"
+      ],
+      "submenu": "keyboard"
+    },
+    {
+      "key": "e7cccb1e3b562cf080c5cb2602a36ffb436a5a47209adfbf0222972e53203ac8",
+      "provider": "menus:input",
+      "identifier": "input:2",
+      "text": "Lighting",
+      "subtext": ">",
+      "icon": "󰌵",
+      "actions": [],
+      "keywords": [
+        "rgb",
+        "openrgb",
+        "fans",
+        "keyboard",
+        "leds",
+        "theme colour",
+        "Lighting",
+        "Lighting"
+      ],
+      "menus": [
+        "system-devices",
+        "settings",
+        "main"
+      ],
+      "submenu": "lighting"
     },
     {
       "key": "fba354437c0841cd0e3bde6017bd08ba5800a39a0728f0e0e72af74e4f261630",
@@ -6118,6 +6330,23 @@
       "key": "1d6cd760a2d0acec038d139254b1019989e3bbc49f1c1698a94f83e327929b4c",
       "provider": "menus:install",
       "identifier": "install:7",
+      "text": "Plugins",
+      "subtext": ">",
+      "icon": "󰏖",
+      "actions": [],
+      "keywords": [
+        "Plugins",
+        "Plugins"
+      ],
+      "menus": [
+        "main"
+      ],
+      "submenu": "plugins"
+    },
+    {
+      "key": "455090fb48585d78e97be1fe49cb8ad4ac170da524717ea305df118a8fd2050a",
+      "provider": "menus:install",
+      "identifier": "install:8",
       "text": "Productivity",
       "subtext": ">",
       "icon": "󰃖",
@@ -6130,23 +6359,6 @@
         "main"
       ],
       "submenu": "productivity"
-    },
-    {
-      "key": "455090fb48585d78e97be1fe49cb8ad4ac170da524717ea305df118a8fd2050a",
-      "provider": "menus:install",
-      "identifier": "install:8",
-      "text": "VPN",
-      "subtext": ">",
-      "icon": "󰖂",
-      "actions": [],
-      "keywords": [
-        "VPN",
-        "VPN"
-      ],
-      "menus": [
-        "main"
-      ],
-      "submenu": "vpn"
     },
     {
       "key": "2cf78fc4438268217c694fbbd58b85da9258cc3047f6f05f363ba9517a2caf28",
@@ -6316,24 +6528,6 @@
       "key": "f937d509b156ec606b03ef1396ffabb9ba6e8dc57d42f36e4019cca7c7c26834",
       "provider": "menus:main",
       "identifier": "main:0",
-      "text": "Development",
-      "subtext": ">",
-      "icon": "󰅩",
-      "actions": [],
-      "keywords": [
-        "dev",
-        "projects",
-        "code",
-        "Development",
-        "Development"
-      ],
-      "menus": [],
-      "submenu": "development"
-    },
-    {
-      "key": "37af26d2eec77fff5b27ccbe51c65c525cfe38878b0a4fb1802ababab7cc614a",
-      "provider": "menus:main",
-      "identifier": "main:1",
       "text": "Apps",
       "subtext": ">",
       "icon": "󰣇",
@@ -6349,28 +6543,27 @@
       "submenu": "apps"
     },
     {
+      "key": "37af26d2eec77fff5b27ccbe51c65c525cfe38878b0a4fb1802ababab7cc614a",
+      "provider": "menus:main",
+      "identifier": "main:1",
+      "text": "Development",
+      "subtext": ">",
+      "icon": "󰅩",
+      "actions": [],
+      "keywords": [
+        "dev",
+        "projects",
+        "code",
+        "Development",
+        "Development"
+      ],
+      "menus": [],
+      "submenu": "development"
+    },
+    {
       "key": "807c2d88eeeb9bc8e103066ba6bc56ead9537cb7bfd87ac54b7726c7b1df29b6",
       "provider": "menus:main",
       "identifier": "main:2",
-      "text": "Quick Actions",
-      "subtext": ">",
-      "icon": "󰔎",
-      "actions": [],
-      "keywords": [
-        "switch",
-        "enable",
-        "disable",
-        "toggle",
-        "Quick Actions",
-        "Quick Actions"
-      ],
-      "menus": [],
-      "submenu": "toggle"
-    },
-    {
-      "key": "08acec7da3331a65e4b443c30a3fff897ae6354d7cf2718a99969847a5212085",
-      "provider": "menus:main",
-      "identifier": "main:3",
       "text": "Tools",
       "subtext": ">",
       "icon": "󱁤",
@@ -6391,9 +6584,58 @@
       "submenu": "tools"
     },
     {
+      "key": "08acec7da3331a65e4b443c30a3fff897ae6354d7cf2718a99969847a5212085",
+      "provider": "menus:main",
+      "identifier": "main:3",
+      "text": "Quick Actions",
+      "subtext": ">",
+      "icon": "󰔎",
+      "actions": [],
+      "keywords": [
+        "switch",
+        "enable",
+        "disable",
+        "toggle",
+        "Quick Actions",
+        "Quick Actions"
+      ],
+      "menus": [],
+      "submenu": "toggle"
+    },
+    {
       "key": "c4256f62550c77ba637b739cbc083a467335d1f5f830cd2139eac89f4732d50c",
       "provider": "menus:main",
       "identifier": "main:4",
+      "text": "Install",
+      "subtext": ">",
+      "icon": "󰏖",
+      "actions": [],
+      "keywords": [
+        "Install",
+        "Install"
+      ],
+      "menus": [],
+      "submenu": "install"
+    },
+    {
+      "key": "7e4ceb6eea114575a853a15db01ff472ba986145ddb332acd37116f37c8955e5",
+      "provider": "menus:main",
+      "identifier": "main:5",
+      "text": "Gaming",
+      "subtext": ">",
+      "icon": "󰊴",
+      "actions": [],
+      "keywords": [
+        "Gaming",
+        "Gaming"
+      ],
+      "menus": [],
+      "submenu": "gaming"
+    },
+    {
+      "key": "1235d3b20c5dd82c315c75301e9c358d8a449923f89d4b2700d3408ef747a8e2",
+      "provider": "menus:main",
+      "identifier": "main:6",
       "text": "Learn",
       "subtext": ">",
       "icon": "󰧑",
@@ -6411,54 +6653,9 @@
       "submenu": "learn"
     },
     {
-      "key": "7e4ceb6eea114575a853a15db01ff472ba986145ddb332acd37116f37c8955e5",
-      "provider": "menus:main",
-      "identifier": "main:5",
-      "text": "Install",
-      "subtext": ">",
-      "icon": "󰏖",
-      "actions": [],
-      "keywords": [
-        "Install",
-        "Install"
-      ],
-      "menus": [],
-      "submenu": "install"
-    },
-    {
-      "key": "1235d3b20c5dd82c315c75301e9c358d8a449923f89d4b2700d3408ef747a8e2",
-      "provider": "menus:main",
-      "identifier": "main:6",
-      "text": "Plugins",
-      "subtext": ">",
-      "icon": "󰏖",
-      "actions": [],
-      "keywords": [
-        "Plugins",
-        "Plugins"
-      ],
-      "menus": [],
-      "submenu": "plugins"
-    },
-    {
       "key": "d65140c6f80f9809b21bbfb10f29183a4ee295146ef370638f607201e0254c20",
       "provider": "menus:main",
       "identifier": "main:7",
-      "text": "Gaming",
-      "subtext": ">",
-      "icon": "󰊴",
-      "actions": [],
-      "keywords": [
-        "Gaming",
-        "Gaming"
-      ],
-      "menus": [],
-      "submenu": "gaming"
-    },
-    {
-      "key": "077033ebb1d7849d8645c0ef5e155ddb6ba9b8f181bef3fec5c1b9ca98fd7c4c",
-      "provider": "menus:main",
-      "identifier": "main:8",
       "text": "Settings",
       "subtext": ">",
       "icon": "",
@@ -6474,9 +6671,9 @@
       "submenu": "settings"
     },
     {
-      "key": "a580ab5aafca2a8a97161d348fec4bbf3e10a52f648b99aa225b130ffc30a79d",
+      "key": "077033ebb1d7849d8645c0ef5e155ddb6ba9b8f181bef3fec5c1b9ca98fd7c4c",
       "provider": "menus:main",
-      "identifier": "main:9",
+      "identifier": "main:8",
       "text": "Power",
       "subtext": ">",
       "icon": "⏻",
@@ -6509,6 +6706,7 @@
       ],
       "menus": [
         "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -6530,6 +6728,7 @@
       ],
       "menus": [
         "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -6551,6 +6750,7 @@
       ],
       "menus": [
         "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -6617,6 +6817,7 @@
         "Installed Plugins"
       ],
       "menus": [
+        "install",
         "main"
       ],
       "submenu": "plugins-install"
@@ -6741,6 +6942,30 @@
       "key": "e37511fe75f8ad8d3efbf1a677a551e5dcad381fa7f8a4594bd63694e527d85d",
       "provider": "menus:reminders",
       "identifier": "reminders:0",
+      "text": "Calendar Sources",
+      "subtext": ">",
+      "icon": "󰃭",
+      "actions": [],
+      "keywords": [
+        "google",
+        "outlook",
+        "ical",
+        "ics",
+        "subscribe",
+        "Calendars",
+        "Calendar Sources",
+        "Calendar Sources"
+      ],
+      "menus": [
+        "tools",
+        "main"
+      ],
+      "submenu": "calendars"
+    },
+    {
+      "key": "e7e5fb533e7d4e964b0854eb6d3a0196369f513040f7caebd79e0462ba780ec6",
+      "provider": "menus:reminders",
+      "identifier": "reminders:1",
       "text": "New Reminder",
       "subtext": "A one-time or repeating notification",
       "icon": "󰀠",
@@ -6763,9 +6988,9 @@
       ]
     },
     {
-      "key": "e7e5fb533e7d4e964b0854eb6d3a0196369f513040f7caebd79e0462ba780ec6",
+      "key": "179bdec5d64fbbf179c3e55427a753d46d96ac62d10f01cf52c27c45cdba3c74",
       "provider": "menus:reminders",
-      "identifier": "reminders:1",
+      "identifier": "reminders:2",
       "text": "Tell the assistant…",
       "subtext": "Create, find or cancel reminders with your default assistant",
       "icon": "󰍬",
@@ -6786,9 +7011,9 @@
       ]
     },
     {
-      "key": "179bdec5d64fbbf179c3e55427a753d46d96ac62d10f01cf52c27c45cdba3c74",
+      "key": "5f7e93755aca5e70df14ad6f118474b1365e30549d8bd2402380f8c532647281",
       "provider": "menus:reminders",
-      "identifier": "reminders:2",
+      "identifier": "reminders:3",
       "text": "Upcoming Reminders",
       "subtext": "See or cancel the reminders still to come",
       "icon": "󰂚",
@@ -6823,7 +7048,7 @@
         "Access This PC Remotely"
       ],
       "menus": [
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ],
@@ -6833,21 +7058,20 @@
       "key": "97dec78efa910f3f55c0fde8f0f9c291d4b1f187965fd0e5461f67564938798b",
       "provider": "menus:remote-access",
       "identifier": "remote-access:1",
-      "text": "Share This PC",
+      "text": "Sharing Setup",
       "subtext": ">",
-      "icon": "󱒃",
+      "icon": "",
       "actions": [],
       "keywords": [
-        "Share This PC",
-        "Share This PC",
-        "Share This PC"
+        "Sharing Setup",
+        "Sharing Setup"
       ],
       "menus": [
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ],
-      "submenu": "remote-share"
+      "submenu": "remote-share-setup"
     },
     {
       "key": "2a478b8a6542898084c84f278669c4fd35f70d7e0b88d961de4e8cfba3e4e841",
@@ -6865,7 +7089,91 @@
         "Open Moonlight to stream another PC"
       ],
       "menus": [
-        "system-connectivity",
+        "system-devices",
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "bb6b641442527d0604ba8e3f5d4c405aa975b0c35166ecf71db09e86a2e56543",
+      "provider": "menus:remote-access",
+      "identifier": "remote-access:3",
+      "text": "Pair a Device",
+      "subtext": "Enter the trusted Moonlight device PIN",
+      "icon": "󰌹",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Pair a Device",
+        "Pair a Device",
+        "Enter the trusted Moonlight device PIN"
+      ],
+      "menus": [
+        "system-devices",
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "c818bd78aaa6f32612b980d7bcaaa4c8d2b05e0b0d99cb5df487eda2c7a41ca8",
+      "provider": "menus:remote-access",
+      "identifier": "remote-access:4",
+      "text": "Sharing Status",
+      "subtext": "Show whether Sunshine is running",
+      "icon": "󰋽",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Sharing Status",
+        "Sharing Status",
+        "Show whether Sunshine is running"
+      ],
+      "menus": [
+        "system-devices",
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "1a638d79617c7593c8911ab783df888bda1ae496b33db503e7b5000ae153c692",
+      "provider": "menus:remote-access",
+      "identifier": "remote-access:5",
+      "text": "Start Sharing",
+      "subtext": "Give trusted devices control of this desktop",
+      "icon": "󰐊",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Start Sharing",
+        "Start Sharing",
+        "Give trusted devices control of this desktop"
+      ],
+      "menus": [
+        "system-devices",
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "1b331e55d00685723a029ff73f6f90a12a6c007cdbccefaa1812cd0463bf1cdf",
+      "provider": "menus:remote-access",
+      "identifier": "remote-access:6",
+      "text": "Stop Sharing",
+      "subtext": "Stop Sunshine and close its streaming ports",
+      "icon": "󰓛",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Stop Sharing",
+        "Stop Sharing",
+        "Stop Sunshine and close its streaming ports"
+      ],
+      "menus": [
+        "system-devices",
         "settings",
         "main"
       ]
@@ -6888,7 +7196,7 @@
       "menus": [
         "remote-away",
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -6911,7 +7219,7 @@
       "menus": [
         "remote-away",
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -6934,7 +7242,7 @@
       "menus": [
         "remote-away",
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -6957,7 +7265,7 @@
       "menus": [
         "remote-away",
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -6980,7 +7288,7 @@
       "menus": [
         "remote-away",
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -6999,7 +7307,7 @@
       ],
       "menus": [
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ],
@@ -7022,7 +7330,7 @@
       ],
       "menus": [
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -7044,7 +7352,7 @@
       ],
       "menus": [
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -7065,9 +7373,8 @@
         "Open the diagnostic report in a terminal"
       ],
       "menus": [
-        "remote-share",
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -7088,9 +7395,8 @@
         "Undo capture and virtual input permissions"
       ],
       "menus": [
-        "remote-share",
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -7111,9 +7417,8 @@
         "Review screen capture and input permissions"
       ],
       "menus": [
-        "remote-share",
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -7135,9 +7440,8 @@
         "Set the Sunshine password and configure streaming"
       ],
       "menus": [
-        "remote-share",
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -7158,9 +7462,8 @@
         "Enable sharing when you sign in"
       ],
       "menus": [
-        "remote-share",
         "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -7181,117 +7484,8 @@
         "Keep sharing manual"
       ],
       "menus": [
-        "remote-share",
         "remote-access",
-        "system-connectivity",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "74b90337e6969384f871dc24aaaaee5d845f149d3a5787eab364b0e7b66e3c2d",
-      "provider": "menus:remote-share",
-      "identifier": "remote-share:0",
-      "text": "Setup",
-      "subtext": ">",
-      "icon": "",
-      "actions": [],
-      "keywords": [
-        "Setup",
-        "Setup"
-      ],
-      "menus": [
-        "remote-access",
-        "system-connectivity",
-        "settings",
-        "main"
-      ],
-      "submenu": "remote-share-setup"
-    },
-    {
-      "key": "e8f62ba4c188655a58431975e2645a7b540120296746d08157c5d7d408a48dca",
-      "provider": "menus:remote-share",
-      "identifier": "remote-share:1",
-      "text": "Pair a Device",
-      "subtext": "Enter the trusted Moonlight device PIN",
-      "icon": "󰌹",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Pair a Device",
-        "Pair a Device",
-        "Enter the trusted Moonlight device PIN"
-      ],
-      "menus": [
-        "remote-access",
-        "system-connectivity",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "6cbd3952786d7a95dab25206a68bed4b7fe562e49f0dee688d143b407c46f182",
-      "provider": "menus:remote-share",
-      "identifier": "remote-share:2",
-      "text": "Sharing Status",
-      "subtext": "Show whether Sunshine is running",
-      "icon": "󰋽",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Sharing Status",
-        "Sharing Status",
-        "Show whether Sunshine is running"
-      ],
-      "menus": [
-        "remote-access",
-        "system-connectivity",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "eaf1aa72ea5772ee0e5de3fac5bbfa8ea8c118ca769427119aaa276bdec143d6",
-      "provider": "menus:remote-share",
-      "identifier": "remote-share:3",
-      "text": "Start Sharing",
-      "subtext": "Give trusted devices control of this desktop",
-      "icon": "󰐊",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Start Sharing",
-        "Start Sharing",
-        "Give trusted devices control of this desktop"
-      ],
-      "menus": [
-        "remote-access",
-        "system-connectivity",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "3015807e0d232302cde7696d7eb2e6ba77dbc6c5db791020c0a6d696987ff5ab",
-      "provider": "menus:remote-share",
-      "identifier": "remote-share:4",
-      "text": "Stop Sharing",
-      "subtext": "Stop Sunshine and close its streaming ports",
-      "icon": "󰓛",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Stop Sharing",
-        "Stop Sharing",
-        "Stop Sunshine and close its streaming ports"
-      ],
-      "menus": [
-        "remote-access",
-        "system-connectivity",
+        "system-devices",
         "settings",
         "main"
       ]
@@ -7573,24 +7767,6 @@
       "key": "77e759884fca70f843f919c05e28bd13621434509ad0b207876092fcb1ec7d67",
       "provider": "menus:security",
       "identifier": "security:0",
-      "text": "Assistant Access",
-      "subtext": ">",
-      "icon": "󰒃",
-      "actions": [],
-      "keywords": [
-        "Assistant Access",
-        "Assistant Access"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ],
-      "submenu": "assistant-access"
-    },
-    {
-      "key": "c4ef2ba20e97704cdd85092512859d9b686f35d3989fc4c332f4ae9864ed7806",
-      "provider": "menus:security",
-      "identifier": "security:1",
       "text": "FIDO2 Security Key",
       "subtext": ">",
       "icon": "󰌆",
@@ -7606,9 +7782,9 @@
       "submenu": "fido2"
     },
     {
-      "key": "35a8a637bbc1a508de480c4f57fcf86ae6ae62614aa035fdd0b2b23379167d9f",
+      "key": "c4ef2ba20e97704cdd85092512859d9b686f35d3989fc4c332f4ae9864ed7806",
       "provider": "menus:security",
-      "identifier": "security:2",
+      "identifier": "security:1",
       "text": "Fingerprint",
       "subtext": ">",
       "icon": "󰈷",
@@ -7624,9 +7800,9 @@
       "submenu": "fingerprint"
     },
     {
-      "key": "739c912109eed37a580c8c4ed5208e310ffbbda04eb9b455a3f07b4ac861c0cb",
+      "key": "35a8a637bbc1a508de480c4f57fcf86ae6ae62614aa035fdd0b2b23379167d9f",
       "provider": "menus:security",
-      "identifier": "security:3",
+      "identifier": "security:2",
       "text": "TPM Disk Unlock",
       "subtext": ">",
       "icon": "󰌾",
@@ -7646,9 +7822,9 @@
       "submenu": "tpm-unlock"
     },
     {
-      "key": "6a0f1bca2a8d78a665dd4c41301f955cf5d63f2b7e1ea9ebfd982ca26db1ed43",
+      "key": "739c912109eed37a580c8c4ed5208e310ffbbda04eb9b455a3f07b4ac861c0cb",
       "provider": "menus:security",
-      "identifier": "security:4",
+      "identifier": "security:3",
       "text": "Users",
       "subtext": ">",
       "icon": "󰀄",
@@ -7664,9 +7840,9 @@
       "submenu": "users"
     },
     {
-      "key": "b96ccc71e9fd9a8e1e8e81b7488d42255bf33e5803d3151424591fff8346e858",
+      "key": "6a0f1bca2a8d78a665dd4c41301f955cf5d63f2b7e1ea9ebfd982ca26db1ed43",
       "provider": "menus:security",
-      "identifier": "security:5",
+      "identifier": "security:4",
       "text": "Firewall",
       "subtext": "Turn the firewall on or off and see its status",
       "icon": "󰕥",
@@ -7689,9 +7865,9 @@
       ]
     },
     {
-      "key": "e2315314c6ac251d7214324da0f956c9e8f83b07721154ae8ceeac3e9aa4fa41",
+      "key": "b96ccc71e9fd9a8e1e8e81b7488d42255bf33e5803d3151424591fff8346e858",
       "provider": "menus:security",
-      "identifier": "security:6",
+      "identifier": "security:5",
       "text": "Return to Password Authentication",
       "subtext": "Turn off fingerprint and security key sign-in",
       "icon": "󰌾",
@@ -7709,53 +7885,16 @@
       ]
     },
     {
-      "key": "d7fa93dc4d8d9f72510d65b9729073e66875e563130fc5a3be89e005880c9711",
-      "provider": "menus:security",
-      "identifier": "security:7",
-      "text": "Update Password",
-      "subtext": "Change your account's password",
-      "icon": "󰌾",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Update Password",
-        "Update Password",
-        "Change your account's password"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ]
-    },
-    {
       "key": "b7ee0e91db2448e31fb76034e47cd6cb50db2de6a70b891d221a91b66ee839a1",
       "provider": "menus:settings",
       "identifier": "settings:0",
-      "text": "Connectivity",
-      "subtext": ">",
-      "icon": "󰖩",
-      "actions": [],
-      "keywords": [
-        "Connectivity",
-        "Connectivity"
-      ],
-      "menus": [
-        "main"
-      ],
-      "submenu": "system-connectivity"
-    },
-    {
-      "key": "45f3e4e40d1c3d0236b32930630ad8ec3f72b4affbbb8342af9a9bae59a796e9",
-      "provider": "menus:settings",
-      "identifier": "settings:1",
-      "text": "Devices & Input",
+      "text": "Devices",
       "subtext": ">",
       "icon": "󰍹",
       "actions": [],
       "keywords": [
-        "Devices & Input",
-        "Devices & Input"
+        "Devices",
+        "Devices"
       ],
       "menus": [
         "main"
@@ -7763,36 +7902,56 @@
       "submenu": "system-devices"
     },
     {
-      "key": "24e92def81bd8bcd1082cc05226fec3b87b42a7deda8c146d156873a43ed270c",
+      "key": "45f3e4e40d1c3d0236b32930630ad8ec3f72b4affbbb8342af9a9bae59a796e9",
       "provider": "menus:settings",
-      "identifier": "settings:2",
-      "text": "Language",
+      "identifier": "settings:1",
+      "text": "Desktop",
       "subtext": ">",
-      "icon": "󰗊",
+      "icon": "",
       "actions": [],
       "keywords": [
-        "language",
-        "locale",
-        "translation",
-        "Language",
-        "Language"
+        "theme",
+        "wallpaper",
+        "appearance",
+        "Desktop",
+        "Desktop"
       ],
       "menus": [
         "main"
       ],
-      "submenu": "language"
+      "submenu": "style"
+    },
+    {
+      "key": "24e92def81bd8bcd1082cc05226fec3b87b42a7deda8c146d156873a43ed270c",
+      "provider": "menus:settings",
+      "identifier": "settings:2",
+      "text": "Apps & Keys",
+      "subtext": ">",
+      "icon": "󰌌",
+      "actions": [],
+      "keywords": [
+        "default apps",
+        "keybinds",
+        "shortcuts",
+        "Apps & Keys",
+        "Apps & Keys"
+      ],
+      "menus": [
+        "main"
+      ],
+      "submenu": "apps-keys"
     },
     {
       "key": "21d889437228f336814b15533589779ce03048725de7db16f8e64673ec388ac1",
       "provider": "menus:settings",
       "identifier": "settings:3",
-      "text": "Security",
+      "text": "Accounts & Security",
       "subtext": ">",
       "icon": "󰒃",
       "actions": [],
       "keywords": [
-        "Security",
-        "Security"
+        "Accounts & Security",
+        "Accounts & Security"
       ],
       "menus": [
         "main"
@@ -7803,26 +7962,6 @@
       "key": "736a2ebee4359a5644f25d341af329b6e3f7aa1963740a7ebae92e910c16b3ad",
       "provider": "menus:settings",
       "identifier": "settings:4",
-      "text": "Style",
-      "subtext": ">",
-      "icon": "",
-      "actions": [],
-      "keywords": [
-        "theme",
-        "wallpaper",
-        "appearance",
-        "Style",
-        "Style"
-      ],
-      "menus": [
-        "main"
-      ],
-      "submenu": "style"
-    },
-    {
-      "key": "ac3a185ff503b305dcfb22119b7c38e44bd37e07f30df7e520d087d944441436",
-      "provider": "menus:settings",
-      "identifier": "settings:5",
       "text": "System",
       "subtext": ">",
       "icon": "",
@@ -7837,9 +7976,9 @@
       "submenu": "system"
     },
     {
-      "key": "86f848923dec9aafb6480913af782c336ee57b93edae422e91f6cc034722adf4",
+      "key": "ac3a185ff503b305dcfb22119b7c38e44bd37e07f30df7e520d087d944441436",
       "provider": "menus:settings",
-      "identifier": "settings:6",
+      "identifier": "settings:5",
       "text": "Control Center",
       "subtext": "Open quick toggles, media and tools",
       "icon": "󰒓",
@@ -7856,9 +7995,9 @@
       ]
     },
     {
-      "key": "7ff30b5aab59226262f9a682ac76178d9d3896ede686ebd2e8e8fe82975fabeb",
+      "key": "86f848923dec9aafb6480913af782c336ee57b93edae422e91f6cc034722adf4",
       "provider": "menus:settings",
-      "identifier": "settings:7",
+      "identifier": "settings:6",
       "text": "Dotfiles",
       "subtext": "Open your configuration folder in an editor",
       "icon": "",
@@ -7981,13 +8120,14 @@
       "key": "549b4d8f3cf5814ecc96e8145edebb542616eedc03e735b197746a1164ba2908",
       "provider": "menus:shortcuts",
       "identifier": "shortcuts:2",
-      "text": "Remote Access",
+      "text": "Streaming",
       "subtext": ">",
       "icon": "󰖩",
       "actions": [],
       "keywords": [
         "Remote Access",
-        "Remote Access"
+        "Streaming",
+        "Streaming"
       ],
       "menus": [
         "learn",
@@ -8998,53 +9138,30 @@
       "key": "7ded816cd62af218013fcf7c49fa4d3f783f13446265d6fc70da179d39f11858",
       "provider": "menus:style",
       "identifier": "style:0",
-      "text": "Corners",
+      "text": "Appearance",
       "subtext": ">",
-      "icon": "󰕰",
+      "icon": "󰸌",
       "actions": [],
       "keywords": [
-        "square",
-        "rounded",
-        "apple",
-        "radius",
-        "style",
-        "Corners",
-        "Corners"
+        "theme",
+        "wallpaper",
+        "fonts",
+        "cursor",
+        "terminal",
+        "corners",
+        "Appearance",
+        "Appearance"
       ],
       "menus": [
         "settings",
         "main"
       ],
-      "submenu": "corners"
+      "submenu": "appearance"
     },
     {
       "key": "866b5853feb5504ce78df49b50e841a961314c7e2f23be1887b4fb45ffb76f0f",
       "provider": "menus:style",
       "identifier": "style:1",
-      "text": "Cursor",
-      "subtext": ">",
-      "icon": "󰇀",
-      "actions": [],
-      "keywords": [
-        "mouse",
-        "pointer",
-        "bibata",
-        "breeze",
-        "dmz",
-        "cursor",
-        "Cursor",
-        "Cursor"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ],
-      "submenu": "cursor"
-    },
-    {
-      "key": "02339a72b160cabfa3660308d42b8e860e29dce8f4319efe6e2eda18a76e5c2f",
-      "provider": "menus:style",
-      "identifier": "style:2",
       "text": "Desktop Bar",
       "subtext": ">",
       "icon": "󰍜",
@@ -9066,9 +9183,9 @@
       "submenu": "bar"
     },
     {
-      "key": "8730711259ee9f53249e0cffde6dc3210b5e41b94f920ca6491c09b6cbc32b01",
+      "key": "02339a72b160cabfa3660308d42b8e860e29dce8f4319efe6e2eda18a76e5c2f",
       "provider": "menus:style",
-      "identifier": "style:3",
+      "identifier": "style:2",
       "text": "Focus",
       "subtext": ">",
       "icon": "󰍹",
@@ -9087,32 +9204,9 @@
       "submenu": "focus"
     },
     {
-      "key": "9759c89765b9090024bb1a995e38490b6dec438cd2ae2f802bc60fcef4595b76",
+      "key": "8730711259ee9f53249e0cffde6dc3210b5e41b94f920ca6491c09b6cbc32b01",
       "provider": "menus:style",
-      "identifier": "style:4",
-      "text": "Fonts",
-      "subtext": ">",
-      "icon": "󰛖",
-      "actions": [],
-      "keywords": [
-        "font",
-        "typeface",
-        "ligatures",
-        "default",
-        "Default Font",
-        "Fonts",
-        "Fonts"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ],
-      "submenu": "fonts"
-    },
-    {
-      "key": "a0509ac3a7a6e81fcbe51e6e6d16d66d6018dd28cb3c8fff0fc5a70c80ac9589",
-      "provider": "menus:style",
-      "identifier": "style:5",
+      "identifier": "style:3",
       "text": "Lockscreen",
       "subtext": ">",
       "icon": "󰌾",
@@ -9131,133 +9225,32 @@
       "submenu": "lockscreen"
     },
     {
-      "key": "9acfba9dd68576126807142dc4da7848b24a8e4cc88c3093f3a9bc6bbcb56295",
+      "key": "9759c89765b9090024bb1a995e38490b6dec438cd2ae2f802bc60fcef4595b76",
       "provider": "menus:style",
-      "identifier": "style:6",
-      "text": "Terminal",
-      "subtext": ">",
-      "icon": "󰆍",
-      "actions": [],
-      "keywords": [
-        "kitty",
-        "ghostty",
-        "typing",
-        "fire",
-        "cursor",
-        "trail",
-        "Terminal",
-        "Terminal"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ],
-      "submenu": "terminal"
-    },
-    {
-      "key": "bec2a8ab362c6eebbcb534c60f9ea9f7d792c5ac746f6c62f4fa1e7552d2168a",
-      "provider": "menus:style",
-      "identifier": "style:7",
-      "text": "Theme",
-      "subtext": ">",
-      "icon": "󰸌",
-      "actions": [],
-      "keywords": [
-        "colors",
-        "appearance",
-        "Theme",
-        "Theme"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ],
-      "submenu": "theme"
-    },
-    {
-      "key": "1922b3723d488ee4e130207fedb950dc8c57947e3e199366a9f729db30428eb2",
-      "provider": "menus:style",
-      "identifier": "style:8",
-      "text": "Wallpaper",
-      "subtext": ">",
-      "icon": "🖻",
-      "actions": [],
-      "keywords": [
-        "background",
-        "Wallpaper",
-        "Wallpaper"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ],
-      "submenu": "wallpaper"
-    },
-    {
-      "key": "0088b08638e48ad15e38a2084da00afae7af7b92e24d31b30c416000c388239c",
-      "provider": "menus:style",
-      "identifier": "style:9",
-      "text": "Window gaps",
+      "identifier": "style:4",
+      "text": "Windows",
       "subtext": ">",
       "icon": "󰍹",
       "actions": [],
       "keywords": [
-        "windows",
-        "spacing",
+        "window layout",
         "gaps",
-        "Window gaps",
-        "Window gaps"
+        "workspaces",
+        "tiling",
+        "scrolling",
+        "Windows",
+        "Windows"
       ],
       "menus": [
         "settings",
         "main"
       ],
-      "submenu": "window-gaps"
+      "submenu": "windows"
     },
     {
-      "key": "59a3cafea575680fd37eab2733609f52ee9d7365a20172847c58561ad125bf86",
+      "key": "a0509ac3a7a6e81fcbe51e6e6d16d66d6018dd28cb3c8fff0fc5a70c80ac9589",
       "provider": "menus:style",
-      "identifier": "style:10",
-      "text": "Window layout",
-      "subtext": ">",
-      "icon": "󰍹",
-      "actions": [],
-      "keywords": [
-        "Window layout",
-        "Window layout"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ],
-      "submenu": "window-layout"
-    },
-    {
-      "key": "1db91a564243e617e6e4b53303f3e36aa34bcc0ca8f450836402e251dfd866b0",
-      "provider": "menus:style",
-      "identifier": "style:11",
-      "text": "Workspaces",
-      "subtext": ">",
-      "icon": "󰍹",
-      "actions": [],
-      "keywords": [
-        "numbers",
-        "glyph",
-        "dots",
-        "bar",
-        "Workspaces",
-        "Workspaces"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ],
-      "submenu": "workspaces"
-    },
-    {
-      "key": "d62387b562b4014cca4c276e1de5420eff0f3c13b357365cd19f6260a259bfd7",
-      "provider": "menus:style",
-      "identifier": "style:12",
+      "identifier": "style:5",
       "text": "Themes & Plugins",
       "subtext": "Browse installed and official themes and plugins",
       "icon": "󰸌",
@@ -9290,6 +9283,7 @@
         "Network Backend"
       ],
       "menus": [
+        "system-devices",
         "settings",
         "main"
       ],
@@ -9299,24 +9293,6 @@
       "key": "a61fb342418702a48d058e4df2d0a66f71c327e8688b944973de57191cdad114",
       "provider": "menus:system-connectivity",
       "identifier": "system-connectivity:1",
-      "text": "Remote Access",
-      "subtext": ">",
-      "icon": "󰢹",
-      "actions": [],
-      "keywords": [
-        "Remote Access",
-        "Remote Access"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ],
-      "submenu": "remote-access"
-    },
-    {
-      "key": "1aebcb3796615a70533d61329d316b91646f9bf4fc3c8c9ec63a1f11b03c5b73",
-      "provider": "menus:system-connectivity",
-      "identifier": "system-connectivity:2",
       "text": "Bluetooth",
       "subtext": "Pair and connect devices",
       "icon": "",
@@ -9329,14 +9305,15 @@
         "Pair and connect devices"
       ],
       "menus": [
+        "system-devices",
         "settings",
         "main"
       ]
     },
     {
-      "key": "2ef96efda4c8202cbc5d698179e08df5027087d5b0b058ec77753368e5170837",
+      "key": "1aebcb3796615a70533d61329d316b91646f9bf4fc3c8c9ec63a1f11b03c5b73",
       "provider": "menus:system-connectivity",
-      "identifier": "system-connectivity:3",
+      "identifier": "system-connectivity:2",
       "text": "WiFi",
       "subtext": "Choose and join networks",
       "icon": "",
@@ -9351,6 +9328,7 @@
         "Choose and join networks"
       ],
       "menus": [
+        "system-devices",
         "settings",
         "main"
       ]
@@ -9359,74 +9337,92 @@
       "key": "cfdbae668fc391c85b1ccb365005ba975bbc5ae022fe96ff651c15108a36f868",
       "provider": "menus:system-devices",
       "identifier": "system-devices:0",
-      "text": "Battery Charge Limit",
+      "text": "Connections",
       "subtext": ">",
-      "icon": "󰂄",
+      "icon": "󰖩",
       "actions": [],
       "keywords": [
-        "battery",
-        "charge",
-        "threshold",
-        "laptop",
-        "Battery Charge Limit",
-        "Battery Charge Limit"
+        "network",
+        "wifi",
+        "bluetooth",
+        "Connectivity",
+        "Connections",
+        "Connections"
       ],
       "menus": [
         "settings",
         "main"
       ],
-      "submenu": "battery-limit"
+      "submenu": "system-connectivity"
     },
     {
       "key": "59237012489185674aa4cb5de2ac4183c3f5d59832a76cb141a8d55f1b7a1785",
       "provider": "menus:system-devices",
       "identifier": "system-devices:1",
-      "text": "Keyboard",
+      "text": "Input",
       "subtext": ">",
       "icon": "󰌌",
       "actions": [],
       "keywords": [
-        "layout",
-        "language",
-        "input",
-        "alt shift",
-        "Keyboard",
-        "Keyboard"
+        "keyboard",
+        "lighting",
+        "battery",
+        "Input",
+        "Input"
       ],
       "menus": [
         "settings",
         "main"
       ],
-      "submenu": "keyboard"
+      "submenu": "input"
     },
     {
       "key": "98d1795f6c2031715df9aa86e6ffbcaa6741f7538f2eef8823e8d7f09c7b09ce",
       "provider": "menus:system-devices",
       "identifier": "system-devices:2",
-      "text": "Lighting",
+      "text": "Language",
       "subtext": ">",
-      "icon": "󰌵",
+      "icon": "󰗊",
       "actions": [],
       "keywords": [
-        "rgb",
-        "openrgb",
-        "fans",
-        "keyboard",
-        "leds",
-        "theme colour",
-        "Lighting",
-        "Lighting"
+        "language",
+        "locale",
+        "translation",
+        "Language",
+        "Language"
       ],
       "menus": [
         "settings",
         "main"
       ],
-      "submenu": "lighting"
+      "submenu": "language"
     },
     {
       "key": "a90ec408993f9509f0f8c7f0665406a32c5182026fff9759ce4ae295f967ee1a",
       "provider": "menus:system-devices",
       "identifier": "system-devices:3",
+      "text": "Streaming",
+      "subtext": ">",
+      "icon": "󰢹",
+      "actions": [],
+      "keywords": [
+        "Remote Access",
+        "Share This PC",
+        "sunshine",
+        "moonlight",
+        "Streaming",
+        "Streaming"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ],
+      "submenu": "remote-access"
+    },
+    {
+      "key": "53e20c4ca5ca7d6eef673facf7a461cae6f893b5845a21cbf27f76e75aecc402",
+      "provider": "menus:system-devices",
+      "identifier": "system-devices:4",
       "text": "Audio",
       "subtext": "Output device and app volumes",
       "icon": "",
@@ -9444,9 +9440,9 @@
       ]
     },
     {
-      "key": "53e20c4ca5ca7d6eef673facf7a461cae6f893b5845a21cbf27f76e75aecc402",
+      "key": "58f31bbb193396fd094cda93c4a973be41a71c489b45a44b03f35f5afb06aeb3",
       "provider": "menus:system-devices",
-      "identifier": "system-devices:4",
+      "identifier": "system-devices:5",
       "text": "Display",
       "subtext": "Brightness, Night Light, resolution, refresh rate and scale",
       "icon": "󰍹",
@@ -9478,9 +9474,9 @@
       ]
     },
     {
-      "key": "58f31bbb193396fd094cda93c4a973be41a71c489b45a44b03f35f5afb06aeb3",
+      "key": "234c570a866054baaa6b6ab39adc83f3b2da4d4675baeab9fd41c88d2c2392c7",
       "provider": "menus:system-devices",
-      "identifier": "system-devices:5",
+      "identifier": "system-devices:6",
       "text": "Microphone",
       "subtext": "Input device and level",
       "icon": "󰍬",
@@ -9493,105 +9489,6 @@
         "Input device and level"
       ],
       "menus": [
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "052e11fcfeaabe6fc6f289df28da63fec1ad5b0163beb5fece2ca847a008fcee",
-      "provider": "menus:system-information",
-      "identifier": "system-information:0",
-      "text": "AI Usage",
-      "subtext": "Claude and Codex usage limits",
-      "icon": "󱜙",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "claude",
-        "codex",
-        "limits",
-        "tokens",
-        "AI Usage",
-        "AI Usage",
-        "Claude and Codex usage limits"
-      ],
-      "menus": [
-        "system",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "c9e39f42adaff87cf3e734339dd89e0cdda37eda1fd5dbb1d89d12f82427cd73",
-      "provider": "menus:system-information",
-      "identifier": "system-information:1",
-      "text": "Hardware",
-      "subtext": "CPU, GPU, memory and storage use",
-      "icon": "󰍛",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "gpu",
-        "cpu",
-        "ram",
-        "memory",
-        "monitor",
-        "Hardware",
-        "Hardware",
-        "CPU, GPU, memory and storage use"
-      ],
-      "menus": [
-        "system",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "bbec310ec08ab038389be05e775f6eca6845ccba442b19fd7d7ba4a0f0ac7fe8",
-      "provider": "menus:system-information",
-      "identifier": "system-information:2",
-      "text": "Report a Problem",
-      "subtext": "Collect a report and send it by email or GitHub",
-      "icon": "󰃤",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "bug",
-        "issue",
-        "diagnostics",
-        "logs",
-        "support",
-        "crash",
-        "Report a Problem",
-        "Report a Problem",
-        "Collect a report and send it by email or GitHub"
-      ],
-      "menus": [
-        "system",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "7bf038f0c031f6c0daa239f1b2c5006ddeefb1c05690d57fc1a08f8a6347fae1",
-      "provider": "menus:system-information",
-      "identifier": "system-information:3",
-      "text": "Weather",
-      "subtext": "Forecast for your location",
-      "icon": "󰖐",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Weather",
-        "Weather",
-        "Forecast for your location"
-      ],
-      "menus": [
-        "system",
         "settings",
         "main"
       ]
@@ -9642,32 +9539,6 @@
       "key": "6b6e9f681ea22e8edda80f33497663c58364ee79c22d1e4fad0924ac5b7c4ddf",
       "provider": "menus:system-maintenance",
       "identifier": "system-maintenance:2",
-      "text": "Check This PC",
-      "subtext": "Read-only checks with suggested fixes; copy a redacted report",
-      "icon": "󰒓",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "diagnostics",
-        "health",
-        "troubleshoot",
-        "self-check",
-        "Check This PC",
-        "Check This PC",
-        "Check This PC",
-        "Read-only checks with suggested fixes; copy a redacted report"
-      ],
-      "menus": [
-        "system",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "29a0ebcd8a55dc90f6512503cd5db5a41a874b399ab577c7dc3d952c3ee6b37f",
-      "provider": "menus:system-maintenance",
-      "identifier": "system-maintenance:3",
       "text": "Choose Fastest Mirrors",
       "subtext": "Rank recent HTTPS package mirrors",
       "icon": "󰒍",
@@ -9687,9 +9558,9 @@
       ]
     },
     {
-      "key": "df3e01a546c51e73d61c5a6007b4e94fb70a3131b6e7856976725e5e0f2405ef",
+      "key": "29a0ebcd8a55dc90f6512503cd5db5a41a874b399ab577c7dc3d952c3ee6b37f",
       "provider": "menus:system-maintenance",
-      "identifier": "system-maintenance:4",
+      "identifier": "system-maintenance:3",
       "text": "Cleanup",
       "subtext": "See what takes space and clear caches, one question at a time",
       "icon": "󰃢",
@@ -9716,24 +9587,6 @@
       "key": "99a2c838ef61fa47e6643ccab3bbc308ff84dc4522e1b9fa4487bf5fed5d9a5d",
       "provider": "menus:system",
       "identifier": "system:0",
-      "text": "Information",
-      "subtext": ">",
-      "icon": "",
-      "actions": [],
-      "keywords": [
-        "Information",
-        "Information"
-      ],
-      "menus": [
-        "settings",
-        "main"
-      ],
-      "submenu": "system-information"
-    },
-    {
-      "key": "0b406370dbc67054f7aefda348bf6517d2f9ecee0277d12c6c647cf97be06fd5",
-      "provider": "menus:system",
-      "identifier": "system:1",
       "text": "Maintenance",
       "subtext": ">",
       "icon": "󰃢",
@@ -9749,9 +9602,9 @@
       "submenu": "system-maintenance"
     },
     {
-      "key": "47f436fff0895d71348090d0be641641ef06e8e0463dfeccf0268f90248c6b7b",
+      "key": "0b406370dbc67054f7aefda348bf6517d2f9ecee0277d12c6c647cf97be06fd5",
       "provider": "menus:system",
-      "identifier": "system:2",
+      "identifier": "system:1",
       "text": "Update Channel",
       "subtext": ">",
       "icon": "󰚰",
@@ -9772,9 +9625,9 @@
       "submenu": "update-channel"
     },
     {
-      "key": "884bbea8bd618410c3a772fa5d46086b73cd22c0a05f36a805644c9078650a82",
+      "key": "47f436fff0895d71348090d0be641641ef06e8e0463dfeccf0268f90248c6b7b",
       "provider": "menus:system",
-      "identifier": "system:3",
+      "identifier": "system:2",
       "text": "About",
       "subtext": "Eitr version, hardware and system details",
       "icon": "",
@@ -9792,9 +9645,60 @@
       ]
     },
     {
+      "key": "884bbea8bd618410c3a772fa5d46086b73cd22c0a05f36a805644c9078650a82",
+      "provider": "menus:system",
+      "identifier": "system:3",
+      "text": "Check This PC",
+      "subtext": "Read-only checks with suggested fixes; copy a redacted report",
+      "icon": "󰒓",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "diagnostics",
+        "health",
+        "troubleshoot",
+        "self-check",
+        "Check This PC",
+        "Check This PC",
+        "Check This PC",
+        "Read-only checks with suggested fixes; copy a redacted report"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ]
+    },
+    {
       "key": "b8e6d0bef865e4f8451088558a01394f9e8db4b6c6f1c6d868873dd63fdc019c",
       "provider": "menus:system",
       "identifier": "system:4",
+      "text": "Report a Problem",
+      "subtext": "Collect a report and send it by email or GitHub",
+      "icon": "󰃤",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "bug",
+        "issue",
+        "diagnostics",
+        "logs",
+        "support",
+        "crash",
+        "Report a Problem",
+        "Report a Problem",
+        "Collect a report and send it by email or GitHub"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "cb1740393666ef9bbe62a2812a8ad4f13dacee4f468d32c2208ddb916cdd435f",
+      "provider": "menus:system",
+      "identifier": "system:5",
       "text": "System Update",
       "subtext": "Snapshot, then update Arch, AUR, Flatpak and Eitr",
       "icon": "󰜉",
@@ -9826,6 +9730,7 @@
         "Blur"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -9847,6 +9752,7 @@
         "Blur strength"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -9871,6 +9777,7 @@
         "Cursor Fire"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -9892,6 +9799,7 @@
         "Opacity"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -9913,6 +9821,7 @@
         "Padding"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -9932,6 +9841,7 @@
         "Dark"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -9951,6 +9861,7 @@
         "Light"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -9978,6 +9889,7 @@
         "From a picture, with colors you can adjust; kept on this computer"
       ],
       "menus": [
+        "appearance",
         "style",
         "settings",
         "main"
@@ -10128,29 +10040,6 @@
       "key": "fbb1b5ad7437502e5756706935f911239f5d686c932b83e0fa20c1f17e021861",
       "provider": "menus:tools",
       "identifier": "tools:0",
-      "text": "Calendar Sources",
-      "subtext": ">",
-      "icon": "󰃭",
-      "actions": [],
-      "keywords": [
-        "google",
-        "outlook",
-        "ical",
-        "ics",
-        "subscribe",
-        "Calendars",
-        "Calendar Sources",
-        "Calendar Sources"
-      ],
-      "menus": [
-        "main"
-      ],
-      "submenu": "calendars"
-    },
-    {
-      "key": "79fb0d95659bf3b3591df2c0a7d3c766760a3a57cc200a2df8853c52bf4dc773",
-      "provider": "menus:tools",
-      "identifier": "tools:1",
       "text": "Capture",
       "subtext": ">",
       "icon": "",
@@ -10166,6 +10055,26 @@
         "main"
       ],
       "submenu": "capture"
+    },
+    {
+      "key": "79fb0d95659bf3b3591df2c0a7d3c766760a3a57cc200a2df8853c52bf4dc773",
+      "provider": "menus:tools",
+      "identifier": "tools:1",
+      "text": "Fun",
+      "subtext": ">",
+      "icon": "󰖖",
+      "actions": [],
+      "keywords": [
+        "games",
+        "toys",
+        "screensaver",
+        "Fun",
+        "Fun"
+      ],
+      "menus": [
+        "main"
+      ],
+      "submenu": "fun"
     },
     {
       "key": "713aa34481381e08f629bd101274508adaf5619142b266f9f38ebeac33411010",
@@ -10212,19 +10121,18 @@
       "key": "49498bea6024939e8e3a9a8f0b45ac61fd16b29754051c8f3173143f0e96af62",
       "provider": "menus:tools",
       "identifier": "tools:4",
-      "text": "Music Visualizer",
-      "subtext": "Watch music dance in a theme-coloured terminal",
-      "icon": "󰎆",
+      "text": "Color",
+      "subtext": "Pick a color on screen and copy its code",
+      "icon": "󰈊",
       "actions": [
         "open"
       ],
       "keywords": [
-        "cava",
-        "audio",
-        "music",
-        "Music Visualizer",
-        "Music Visualizer",
-        "Watch music dance in a theme-coloured terminal"
+        "picker",
+        "hyprpicker",
+        "Color",
+        "Color",
+        "Pick a color on screen and copy its code"
       ],
       "menus": [
         "main"
@@ -10234,19 +10142,63 @@
       "key": "bef1ab9e7ff488c2cbaa2d0963a1af4885de94616661fcbc8578966c84c5c0e1",
       "provider": "menus:tools",
       "identifier": "tools:5",
-      "text": "Rune Rain",
-      "subtext": "Runes falling in the theme's colours; any key stops them",
-      "icon": "󰖖",
+      "text": "OCR Text",
+      "subtext": "Copy the text inside a selected area",
+      "icon": "󰴑",
       "actions": [
         "open"
       ],
       "keywords": [
-        "matrix",
-        "runes",
-        "screensaver",
-        "Rune Rain",
-        "Rune Rain",
-        "Runes falling in the theme's colours; any key stops them"
+        "text",
+        "ocr",
+        "tesseract",
+        "OCR Text",
+        "OCR Text",
+        "Copy the text inside a selected area"
+      ],
+      "menus": [
+        "main"
+      ]
+    },
+    {
+      "key": "b75c9c1a4c5d965fed89becda0813573fd74b21c3a0d302a74466246be691169",
+      "provider": "menus:tools",
+      "identifier": "tools:6",
+      "text": "QR Code",
+      "subtext": "Read a QR code in a selected area and copy it",
+      "icon": "󰐲",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "qr",
+        "barcode",
+        "QR Code",
+        "QR Code",
+        "Read a QR code in a selected area and copy it"
+      ],
+      "menus": [
+        "main"
+      ]
+    },
+    {
+      "key": "f40d8114c4d80847aeed52efa19eb51d3a8c76617111097388cc08afc844977c",
+      "provider": "menus:tools",
+      "identifier": "tools:7",
+      "text": "Transcode",
+      "subtext": "Convert an image or video to another format",
+      "icon": "󰑕",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "convert",
+        "compress",
+        "image",
+        "video",
+        "Transcode",
+        "Transcode",
+        "Convert an image or video to another format"
       ],
       "menus": [
         "main"
@@ -10358,62 +10310,23 @@
       ]
     },
     {
-      "key": "5bd964106c629f10becf4f3e404f6b0fa7067cb0a515355b866b2a4ed85dfb57",
-      "provider": "menus:vpn",
-      "identifier": "vpn:0",
-      "text": "NetworkManager VPN",
-      "subtext": "Install VPN plugins and import a VPN file",
-      "icon": "󰖂",
+      "key": "79f8386eeec02590c2ee0c301f88c63af61a49b6a09ac855944aff23014998e0",
+      "provider": "menus:users",
+      "identifier": "users:2",
+      "text": "Update Password",
+      "subtext": "Change your account's password",
+      "icon": "󰌾",
       "actions": [
         "open"
       ],
       "keywords": [
-        "NetworkManager VPN",
-        "NetworkManager VPN",
-        "Install VPN plugins and import a VPN file"
+        "Update Password",
+        "Update Password",
+        "Change your account's password"
       ],
       "menus": [
-        "install",
-        "main"
-      ]
-    },
-    {
-      "key": "27218d9703f24ca402d8078a8da50f63bc032b5cdaba8947b535275dbe65d1c5",
-      "provider": "menus:vpn",
-      "identifier": "vpn:1",
-      "text": "Tailscale",
-      "subtext": "Set up access away from home",
-      "icon": "󰖂",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Tailscale",
-        "Tailscale",
-        "Set up access away from home"
-      ],
-      "menus": [
-        "install",
-        "main"
-      ]
-    },
-    {
-      "key": "f6557fb1e553d9a8ef1eda5f5a055650bca5aecd8a59aaeca0e42f8a6c4ee32c",
-      "provider": "menus:vpn",
-      "identifier": "vpn:2",
-      "text": "WireGuard",
-      "subtext": "Install WireGuard and import a configuration",
-      "icon": "󰖂",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "WireGuard",
-        "WireGuard",
-        "Install WireGuard and import a configuration"
-      ],
-      "menus": [
-        "install",
+        "security",
+        "settings",
         "main"
       ]
     },
@@ -10430,6 +10343,7 @@
         "Default column width"
       ],
       "menus": [
+        "windows",
         "style",
         "settings",
         "main"
@@ -10449,11 +10363,76 @@
         "Direction"
       ],
       "menus": [
+        "windows",
         "style",
         "settings",
         "main"
       ],
       "submenu": "scrolling-direction"
+    },
+    {
+      "key": "81b5d665863a4476b009c7eaf4e6deea3f13d024afbd65261cfaf6bf8fe536a2",
+      "provider": "menus:windows",
+      "identifier": "windows:0",
+      "text": "Window gaps",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "windows",
+        "spacing",
+        "gaps",
+        "Window gaps",
+        "Window gaps"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "window-gaps"
+    },
+    {
+      "key": "5f1d03e39bc4b5ccb2aa6d9400d863358102f8e92496de922ea4639eaca12df0",
+      "provider": "menus:windows",
+      "identifier": "windows:1",
+      "text": "Window layout",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "Window layout",
+        "Window layout"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "window-layout"
+    },
+    {
+      "key": "0edae8c24d1763fd2353a1bb638cea43863a5334ad5ffe75a8b5e2cc6a7a9cf7",
+      "provider": "menus:windows",
+      "identifier": "windows:2",
+      "text": "Workspaces",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "numbers",
+        "glyph",
+        "dots",
+        "bar",
+        "Workspaces",
+        "Workspaces"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "workspaces"
     },
     {
       "key": "abb646151c77eae62ea58a4ad9cc707551766eb7b0fd212cb74bc6a1bb22dc89",
@@ -10468,6 +10447,7 @@
         "Always show"
       ],
       "menus": [
+        "windows",
         "style",
         "settings",
         "main"
@@ -10487,6 +10467,7 @@
         "Monitors"
       ],
       "menus": [
+        "windows",
         "style",
         "settings",
         "main"
@@ -10506,6 +10487,7 @@
         "Number of workspaces"
       ],
       "menus": [
+        "windows",
         "style",
         "settings",
         "main"
@@ -10525,6 +10507,7 @@
         "Workspace style"
       ],
       "menus": [
+        "windows",
         "style",
         "settings",
         "main"

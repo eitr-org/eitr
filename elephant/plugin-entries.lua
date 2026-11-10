@@ -67,7 +67,7 @@ return function(kind)
         end
         if #entries == 0 then
             table.insert(entries, {Text = i18n.tr("No plugins installed"),
-                Subtext = i18n.tr("Add plugins from Main > Plugins"), Icon = "󰏖"})
+                Subtext = i18n.tr("Add plugins from Install > Plugins"), Icon = "󰏖"})
         end
         table.sort(entries, function(first, second)
             local firstMenu = first.SubMenu ~= nil

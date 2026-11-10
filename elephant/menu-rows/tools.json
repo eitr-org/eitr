@@ -1,19 +1,5 @@
 [
   {
-    "text": "Calendar Sources",
-    "subtext": ">",
-    "keywords": [
-      "google",
-      "outlook",
-      "ical",
-      "ics",
-      "subscribe",
-      "Calendars"
-    ],
-    "icon": "󰃭",
-    "submenu": "calendars"
-  },
-  {
     "text": "Capture",
     "subtext": ">",
     "keywords": [
@@ -23,6 +9,17 @@
     ],
     "icon": "",
     "submenu": "capture"
+  },
+  {
+    "text": "Fun",
+    "subtext": ">",
+    "keywords": [
+      "games",
+      "toys",
+      "screensaver"
+    ],
+    "icon": "󰖖",
+    "submenu": "fun"
   },
   {
     "text": "Reminders",
@@ -48,29 +45,54 @@
     "submenu": "share"
   },
   {
-    "text": "Music Visualizer",
-    "subtext": "Watch music dance in a theme-coloured terminal",
+    "text": "Color",
+    "subtext": "Pick a color on screen and copy its code",
     "keywords": [
-      "cava",
-      "audio",
-      "music"
+      "picker",
+      "hyprpicker"
     ],
-    "icon": "󰎆",
+    "icon": "󰈊",
     "actions": {
-      "open": "/usr/share/eitr/walker/scripts/actions/tools/music-visualizer.sh"
+      "open": "sh -c 'sleep 0.2 && hyprpicker -a'"
     }
   },
   {
-    "text": "Rune Rain",
-    "subtext": "Runes falling in the theme's colours; any key stops them",
+    "text": "OCR Text",
+    "subtext": "Copy the text inside a selected area",
     "keywords": [
-      "matrix",
-      "runes",
-      "screensaver"
+      "text",
+      "ocr",
+      "tesseract"
     ],
-    "icon": "󰖖",
+    "icon": "󰴑",
     "actions": {
-      "open": "/usr/share/eitr/walker/scripts/actions/tools/rune-rain.sh"
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/text.sh"
+    }
+  },
+  {
+    "text": "QR Code",
+    "subtext": "Read a QR code in a selected area and copy it",
+    "keywords": [
+      "qr",
+      "barcode"
+    ],
+    "icon": "󰐲",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/qr.sh"
+    }
+  },
+  {
+    "text": "Transcode",
+    "subtext": "Convert an image or video to another format",
+    "keywords": [
+      "convert",
+      "compress",
+      "image",
+      "video"
+    ],
+    "icon": "󰑕",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/capture/transcode.sh"
     }
   }
 ]

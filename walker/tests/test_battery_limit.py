@@ -48,7 +48,7 @@ jsonDecode = function(raw)
 end
 io.popen = function() return {read=function() return "battery" end, close=function() end} end
 local root = os.getenv("EITR_CODE_ROOT")
-dofile(root .. "/elephant/menus/system-devices.lua")
+dofile(root .. "/elephant/menus/input.lua")
 local found = false
 for _, entry in ipairs(GetEntries("")) do
     if entry.SubMenu == "battery-limit" then found = true end

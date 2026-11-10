@@ -1,13 +1,13 @@
 # Acesso remoto
 
-Abra Configurações > Streaming para Sunshine e Moonlight, ou Walker > Configurações > Conectividade > Acesso remoto para os menus de acesso remoto. O compartilhamento fica desligado até
+Abra Configurações > Streaming para Sunshine e Moonlight, ou Walker > Configurações > Dispositivos > Streaming para as mesmas ações. O compartilhamento fica desligado até
 você ativá-lo. Esta etapa controla a sessão do Eitr já iniciada e acordada. Uso sem
 monitor, acesso antes do login e wake on LAN ficam para depois. Se este computador
 bloquear durante o compartilhamento, a tela remota mostra a tela de bloqueio:
 quem estiver conectado a vê e pode digitar a senha. Pare o compartilhamento antes
 de se ausentar quando a privacidade for importante.
 
-Configuração inicial agrupa os ajustes. Compartilhar este PC > Configuração inicial contém Configurar compartilhamento, Configurações de compartilhamento, Iniciar ao entrar, Desativar início ao entrar, Status detalhado e Restaurar configuração de compartilhamento. Acessar este PC remotamente > Configuração inicial contém Entrar, Configurar acesso remoto, Restaurar configuração de acesso remoto, Status detalhado e Testar um par com ping. As ações do dia a dia continuam diretamente nos menus superiores.
+As pastas de configuração agrupam os ajustes. Streaming > Configuração do compartilhamento contém Configurar compartilhamento, Configurações de compartilhamento, Iniciar ao entrar, Desativar início ao entrar, Status detalhado e Restaurar configuração de compartilhamento. Acessar este PC remotamente > Configuração inicial contém Entrar, Configurar acesso remoto, Restaurar configuração de acesso remoto, Status detalhado e Testar um par com ping. As ações de compartilhamento do dia a dia (Iniciar compartilhamento, Parar compartilhamento, Parear um dispositivo, Estado do compartilhamento e Conectar a outro PC) continuam diretamente em Streaming, e Conectar e Desconectar em Acessar este PC remotamente.
 
 Status detalhado abre um terminal de diagnóstico que permanece aberto até você pressionar Esc.
 

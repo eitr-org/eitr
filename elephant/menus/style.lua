@@ -2,7 +2,7 @@ local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .
 local i18n = dofile(paths.code("elephant/i18n.lua"))
 -- Rows: elephant/menu-rows/style.json. Typing also searches the menus below this one.
 Name = "style"
-NamePretty = i18n.tr("Style")
+NamePretty = i18n.tr("Desktop")
 Parent = "settings"
 Icon = ""
 FixedOrder = true

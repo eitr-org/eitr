@@ -13,12 +13,15 @@ def query(arguments):
     return subprocess.run(arguments, capture_output=True, text=True, timeout=3, check=False)
 
 
+# Each menu's setup folder; Streaming (remote-access) holds Sunshine's rows directly.
+SETUP_MENUS = {'remote-away': 'remote-away-setup', 'remote-access': 'remote-share-setup'}
+
+
 def menu_actions(menu):
     messages = table('menus')
-    setup = menu + '-setup'
     sources = [(menu, row) for row in rows(menu)]
-    if menu in ('remote-away', 'remote-share'):
-        sources += [(setup, row) for row in rows(setup)]
+    if menu in SETUP_MENUS:
+        sources += [(SETUP_MENUS[menu], row) for row in rows(SETUP_MENUS[menu])]
     return [{'menu': owner, 'source': row['text'], 'title': messages.get(row['text'], row['text']),
              'description': messages.get(row.get('subtext', ''), row.get('subtext', '')),
              'icon': row.get('icon', '')}
@@ -88,8 +91,7 @@ def status():
     if not allowed('remote_access'):
         return {'allowed': False, 'tailscale': {}, 'streaming': {}}
     return {'allowed': True, 'tailscale': {**tailscale_status(), 'actions': menu_actions('remote-away')},
-            'streaming': {**streaming_status(), 'actions': menu_actions('remote-share')
-                          + [row for row in menu_actions('remote-access') if row['source'] == 'Connect to another PC']}}
+            'streaming': {**streaming_status(), 'actions': menu_actions('remote-access')}}
 
 
 if __name__ == '__main__':

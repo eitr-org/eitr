@@ -48,6 +48,6 @@ Neue Installationen planen zwei Minuten nach jedem Start einen Hintergrundversuc
 
 Nur lesender Status: `/usr/lib/eitr/eitr-system mirrors-status` gibt JSON mit `last_ranking_time` (UTC oder null vor dem ersten Erfolg), `mirror_count`, `shipped_fallback` und `backup_available` aus. Dabei werden lokale Dateien ohne Netzwerkzugriff oder sudo gelesen.
 
-Die Systemaktualisierung prüft am Ende auf neue Plugin-Commits, ohne bestätigte Versionen zu ändern. Prüfe und installiere sie separat unter **Kontrollzentrum > Plugins > Plugins aktualisieren**, **Plugins > Plugins aktualisieren** oder mit `eitr plugin update`. Netzwerkfehler werden still ignoriert; after-update-Hooks bleiben unverändert.
+Die Systemaktualisierung prüft am Ende auf neue Plugin-Commits, ohne bestätigte Versionen zu ändern. Prüfe und installiere sie separat unter **Kontrollzentrum > Plugins > Plugins aktualisieren**, **Installieren > Plugins > Plugins aktualisieren** oder mit `eitr plugin update`. Netzwerkfehler werden still ignoriert; after-update-Hooks bleiben unverändert.
 
 Einstellungen > Aktualisierungen zeigt ausstehende Pakete und kann die Liste erneuern. Schreibgeschützte Zustandsprüfungen erklärt [Fehlerbehebung](handbook:troubleshooting).
