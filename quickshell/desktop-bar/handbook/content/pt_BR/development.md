@@ -26,6 +26,8 @@ Abra Configurações > Assistente de IA para escolher o padrão, gerenciar conta
 
 **SUPER + A** abre o assistente na sua pasta pessoal, confia nessa pasta quando há suporte seguro e passa orientações sobre o Manual pelas opções de instruções adicionais compatíveis. Desenvolvimento > IA pede uma pasta, começando na sua pasta pessoal, e abre o assistente nela como o próprio comando dele. As limitações estão em distro/ASSISTANT-STARTUP.md. O chat rápido somente leitura inclui uma introdução ao Eitr e trechos relevantes do Manual traduzido; ele avisa quando a pergunta não está coberta.
 
+[herdr](https://herdr.dev), um terminal para rodar agentes de programação com IA lado a lado, vem com o Eitr: no primeiro login (e em desktops existentes no próximo login) o Eitr executa em segundo plano o instalador oficial do herdr, que verifica o download e coloca `herdr` em `~/.local/bin`. Sem conexão, ele tenta de novo em um login posterior. Depois de instalado nunca é reinstalado, então se você o remover ele continua removido. Atualize-o com `herdr update`.
+
 Cada assistente na nuvem tem um submenu Contas em Desenvolvimento > IA. Padrão usa a configuração e o login existentes sem mover arquivos. Adicionar conta… solicita um nome, mostra uma revisão e abre o login da própria CLI com uma janela privada do navegador quando compatível (navegadores desconhecidos usam a abertura normal).
 
 Enter confirma; Esc cancela. Selecione uma conta para alternar manualmente as próximas sessões interativas, Pergunte à IA e os auxiliares somente leitura; sessões em execução mantêm sua conta. Delete remove uma conta adicionada e sua configuração local após confirmação; Padrão não pode ser removida. Remover a conta selecionada retorna a Padrão sem encerrar o login de outra conta.

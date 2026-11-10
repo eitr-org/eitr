@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """At login: refresh package-backed layout links, run pending settings
 migrations, regenerate theme output after a package upgrade, restore the
-user's appearance caches and make sure Hyprpaper shows the saved wallpaper."""
+user's appearance caches, make sure Hyprpaper shows the saved wallpaper and
+install default per-user tools in the background."""
 from pathlib import Path
 import subprocess
 import sys
@@ -14,6 +15,7 @@ from eitr_paths import code
 from generated import refresh_after_upgrade, walker_view
 from migrations import run_pending
 from eitr_theme_migration import current_theme, pending, start_retry, THEMES
+import eitr_user_tools
 
 walker_view()
 # Settings migrations first: regenerated theme output reads the migrated preferences.
@@ -27,3 +29,5 @@ subprocess.Popen(['python3', str(code('walker/scripts/actions/wallpaper/transiti
 
 # Network work starts after login settings are ready and never blocks the session.
 start_retry()
+# Default per-user tools (herdr) install once with their official installers.
+eitr_user_tools.start()

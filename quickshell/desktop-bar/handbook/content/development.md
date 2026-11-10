@@ -45,6 +45,8 @@ Open Settings > AI Assistant to select your default, manage accounts and Assista
 
 **SUPER + A** opens the assistant in your home folder, trusts that folder where safely supported and passes Handbook guidance through supported extra instruction options. Development > AI asks for a folder, starting in your home folder, and opens the assistant there as its own command would. CLI limitations are listed in distro/ASSISTANT-STARTUP.md. Read-only quick chat includes an Eitr primer and relevant localized Handbook excerpts; it says when the Handbook does not cover a question.
 
+[herdr](https://herdr.dev), a terminal for running AI coding agents side by side, comes with Eitr: at first login (and on existing desktops at the next login) Eitr runs herdr's official installer in the background, which verifies the download and places `herdr` in `~/.local/bin`. Without a connection it tries again at a later login. Once installed it is never reinstalled, so removing it keeps it removed. Update it with `herdr update`.
+
 Each cloud assistant has an Accounts submenu under Development > AI. Default uses the existing configuration and login without moving files. Add Account… asks for a label, shows a review, then opens the CLI’s own sign-in with a private browser window where supported (unknown browsers use their normal opener). Enter confirms; Esc cancels.
 
 Select an account to switch future interactive sessions, Ask the AI and read-only helpers manually; running sessions keep their account. Delete removes an added account and its local configuration after confirmation; Default cannot be removed. Removing the selected account returns to Default and never logs another account out. Antigravity offers only Default because its CLI has no supported config-folder override.

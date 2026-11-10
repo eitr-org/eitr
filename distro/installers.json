@@ -8,5 +8,6 @@
   "claude": "https://claude.ai/install.sh",
   "grok": "https://x.ai/cli/install.sh",
   "oracle": "https://raw.githubusercontent.com/oracle/oci-cli/master/scripts/install/install.sh",
-  "ibm": "https://clis.cloud.ibm.com/install/linux"
+  "ibm": "https://clis.cloud.ibm.com/install/linux",
+  "herdr": "https://herdr.dev/install.sh"
 }

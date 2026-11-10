@@ -191,8 +191,11 @@ end
                 patch('subprocess.Popen') as launched:
             runpy.run_path(str(ROOT / 'distro/bin/eitr-session'), run_name='session_test')
         refresh.assert_not_called()
-        self.assertEqual(launched.call_count, 2)
-        self.assertEqual(launched.call_args.args[0][-1], str(ROOT / 'distro/lib/eitr_theme_migration.py'))
+        # Wallpaper restore, the theme retry, then default per-user tools (herdr).
+        self.assertEqual(launched.call_count, 3)
+        started = [call.args[0][-1] for call in launched.call_args_list]
+        self.assertIn(str(ROOT / 'distro/lib/eitr_theme_migration.py'), started)
+        self.assertEqual(started[-1], str(ROOT / 'distro/lib/eitr_user_tools.py'))
         self.assert_appearance_unchanged()
 
     def test_offline_fetch_fails_fast_and_keeps_retry_state(self):
