@@ -46,7 +46,7 @@
       "reason": "Barely over the limit; one panel."
     },
     "quickshell/desktop-bar/panels/CatalogContent.qml": {
-      "lines": 980,
+      "lines": 987,
       "reason": "Catalog cards and review sheets, including package review and optional removal cleanup."
     },
     "quickshell/desktop-bar/scripts/bar-data.py": {
@@ -54,7 +54,7 @@
       "reason": "The bar data broker: one event loop owning every topic."
     },
     "quickshell/desktop-bar/scripts/catalog-domain.py": {
-      "lines": 555,
+      "lines": 561,
       "reason": "One catalog transport and backend dispatcher, including reviewed package cleanup."
     },
     "quickshell/desktop-bar/scripts/display-settings.py": {

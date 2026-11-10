@@ -506,12 +506,18 @@ def worker(name, args):
             row = next((row for row in index['plugins'] if row['id'] == item_id and
                         normalized_url(record['url']) == normalized_url(row['repository']) and
                         record.get('path', '') == row['folder']), None)
-            if row is not None:
-                review = backend.prepare_review(plugin_id=item_id, folder=row['folder'], revision=row['commit'], updating=True)
-                return {'review': dict(review, license=row['license'], maintainer=row['maintainer'])}
-            if args.get('channel') == 'community':
-                raise ValueError('Community source differs from installed plugin')
-            return {'review': backend.prepare_review(plugin_id=item_id, updating=True)}
+            try:
+                if row is not None:
+                    review = backend.prepare_review(plugin_id=item_id, folder=row['folder'], revision=row['commit'], updating=True)
+                    return {'review': dict(review, license=row['license'], maintainer=row['maintainer'])}
+                if args.get('channel') == 'community':
+                    raise ValueError('Community source differs from installed plugin')
+                return {'review': backend.prepare_review(plugin_id=item_id, updating=True)}
+            except ValueError as error:
+                # Nothing newer than the installed commit: not an error, just up to date.
+                if str(error) == 'No plugin changes to review':
+                    return {'upToDate': True}
+                raise
         channel = args.get('channel', 'official')
         rows = json.loads(cache('eitr/catalog-previews/plugins' + ('-community' if channel == 'community' else '') + '.json').read_text())
         row = next(row for row in rows if row['id'] == item_id)

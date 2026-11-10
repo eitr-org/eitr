@@ -122,7 +122,14 @@ Item {
         nativeReviewing = true; nativeReview = null; reviewSourcePath = ""; reviewSourceText = ""; addingAddress = false; advice = ""; error = ""; busy = true;
         request("prepare", args, function(failure, data) {
             if (!nativeReviewing) return;
-            busy = false; error = failure; nativeReview = failure ? null : data.review;
+            busy = false;
+            // An update with nothing newer closes the review and clears the stale mark.
+            if (!failure && data.upToDate) {
+                nativeReviewing = false; nativeReview = null; forgetUpdate(args.id);
+                progress = Eitr.I18n.tr("Already up to date."); forceActiveFocus();
+                return;
+            }
+            error = failure; nativeReview = failure ? null : data.review;
         });
         forceActiveFocus();
     }

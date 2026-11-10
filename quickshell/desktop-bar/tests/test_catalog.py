@@ -440,6 +440,12 @@ ShellRoot {
       if (!player || !player.source.toString().endsWith("clip.webm") || !player.muted || player.loops !== -1) throw new Error("video state/source/muted/loop");
      } else if (sample.phase === 14) {
       panel.mediaIndex = 0;
+      // An update with nothing newer is "already up to date", not an empty review.
+      panel.updates = {gallery: 2};
+      panel.transport = function(name,args,callback) { callback("", name === "prepare" ? {upToDate:true} : {}); };
+      panel.prepareReview({id:"gallery", updating:true});
+      if (panel.nativeReviewing || panel.busy || panel.updates.gallery !== undefined || panel.progress === "") throw new Error("up to date update");
+      panel.progress = "";
       panel.transport = function(name,args,callback) {
        if (name === "prepare") callback("",{review:{token:"fixture-token",packages:[{name:"tailscale",installed:true},{name:"wireguard-tools",installed:false}],spec:{name:"Gallery plugin",author:"Example author",version:"1.2",rows:[{title:"Open notes",run:"notes.sh"}],ui:{widgets:[{title:"Desktop notes",qml:"Notes.qml"}]}},url:"https://github.com/eitr-org/eitr-plugins",folder:"plugins/gallery",commit:"0123456789abcdef0123456789abcdef01234567",official:true,author:"Example author · 2026-11-03",files:["eitr-plugin.json","Notes.qml","notes.sh"],flags:[]}});
        else callback("",{});

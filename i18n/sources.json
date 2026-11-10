@@ -149,6 +149,9 @@
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
     ],
+    "Already up to date.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Always show": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"

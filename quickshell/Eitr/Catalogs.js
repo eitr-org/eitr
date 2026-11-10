@@ -919,7 +919,8 @@ var qml = {
     "Shrink, grow or fill the screen width.": "Shrink, grow or fill the screen width.",
     "Stays on top of open apps.": "Stays on top of open apps.",
     "The screen that shows this copy.": "The screen that shows this copy.",
-    "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot": "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot"
+    "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot": "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot",
+    "Already up to date.": "Already up to date."
   },
   "pt_BR": {
     "%1 Hz": "%1 Hz",
@@ -967,6 +968,7 @@ var qml = {
     "All": "Todas",
     "All day": "Dia inteiro",
     "All settings": "Todas as configurações",
+    "Already up to date.": "Já está atualizado.",
     "Always show": "Sempre mostrar",
     "Anonymous identity (optional)": "Identidade anônima (opcional)",
     "Antigravity CLI": "Antigravity CLI",
@@ -1865,6 +1867,7 @@ var qml = {
     "All": "Todas",
     "All day": "Todo el día",
     "All settings": "Todos los ajustes",
+    "Already up to date.": "Ya está actualizado.",
     "Always show": "Mostrar siempre",
     "Anonymous identity (optional)": "Identidad anónima (opcional)",
     "Antigravity CLI": "Antigravity CLI",
@@ -2763,6 +2766,7 @@ var qml = {
     "All": "Alle",
     "All day": "Ganztägig",
     "All settings": "Alle Einstellungen",
+    "Already up to date.": "Bereits aktuell.",
     "Always show": "Immer anzeigen",
     "Anonymous identity (optional)": "Anonyme Identität (optional)",
     "Antigravity CLI": "Antigravity CLI",
@@ -3661,6 +3665,7 @@ var qml = {
     "All": "Toutes",
     "All day": "Toute la journée",
     "All settings": "Tous les paramètres",
+    "Already up to date.": "Déjà à jour.",
     "Always show": "Toujours afficher",
     "Anonymous identity (optional)": "Identité anonyme (facultative)",
     "Antigravity CLI": "Antigravity CLI",
