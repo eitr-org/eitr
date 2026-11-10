@@ -45,9 +45,10 @@ Controls.Slider {
                 anchors.verticalCenter: parent.verticalCenter
                 // Contrast with the part of the track each dot sits on.
                 readonly property bool filled: position <= slider.visualPosition + 0.0001
-                width: 3
-                height: 3
-                radius: 1.5
+                // As tall as the rail, so each dot sits exactly on its centre line.
+                width: 4
+                height: 4
+                radius: 2
                 color: filled ? (slider.accent.hslLightness > 0.55 ? Qt.rgba(0, 0, 0, 0.55) : Qt.rgba(1, 1, 1, 0.8)) : Qt.alpha(slider.foreground, 0.75)
             }
         }

@@ -6,6 +6,7 @@ import Quickshell.Io
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 import "../ChoiceLists.js" as ChoiceLists
+import "../JsonState.js" as JsonState
 
 Flickable {
     id: overview
@@ -23,6 +24,10 @@ Flickable {
     property bool sourceRelease: false
     property string channel: ""
     property real uptimeSeconds: 0
+    property string lockscreenName: ""
+    property string fontFamily: ""
+    // When the root filesystem was created, as About's OS age reads it.
+    property real installedAt: 0
     property url artSource: ""
     property var tokens: []
     readonly property var monitor: DisplayService.topology.monitors.find(display => display.name === DisplayService.topology.primary) || DisplayService.topology.monitors[0] || ({})
@@ -34,7 +39,8 @@ Flickable {
         if (!observing) { paletteReload.stop(); return; }
         tokens = [DesktopData.observe("hardware.details", overview), DesktopData.observe("account.picture", overview)];
         if (live) {
-            uptime.reload(); release.reload(); appearance.reload();
+            uptime.reload(); release.reload(); appearance.reload(); font.reload();
+            lockscreenQuery.running = true; installQuery.running = true;
             paletteReload.restart(); channelQuery.running = true;
         }
     }
@@ -54,6 +60,31 @@ Flickable {
         onLoaded: overview.uptimeSeconds = Number(text().trim().split(/\s+/)[0]) || 0
     }
     Timer { interval: 30000; running: overview.observing; repeat: true; onTriggered: uptime.reload() }
+    FileView {
+        id: font
+        path: overview.observing && overview.live ? Eitr.Paths.config("eitr/font.json") : ""
+        printErrors: false
+        onLoaded: {
+            const data = JsonState.parse(text(), 0, {family: "string"});
+            overview.fontFamily = data.ok ? data.data.family : "";
+        }
+    }
+    Process {
+        id: lockscreenQuery
+        command: ["python3", Eitr.Paths.code("quickshell/lockscreen/scripts/settings.py"), "summary"]
+        stdout: StdioCollector { id: lockscreenOutput }
+        onExited: function(code) {
+            const data = JsonState.parse(lockscreenOutput.text, code, {choices: [{value: "string", label: "string"}], current: "string"});
+            const choice = data.ok ? data.data.choices.find(item => item.value === data.data.current) : null;
+            overview.lockscreenName = choice ? choice.label : "";
+        }
+    }
+    Process {
+        id: installQuery
+        command: ["stat", "-c", "%W", "/"]
+        stdout: StdioCollector { id: installOutput }
+        onExited: function(code) { overview.installedAt = code === 0 ? Number(installOutput.text.trim()) || 0 : 0; }
+    }
     FileView {
         id: release
         onLoadFailed: if (!overview.sourceRelease) overview.sourceRelease = true
@@ -195,6 +226,21 @@ Flickable {
                 Caption { text: Eitr.I18n.tr("Main display") }
                 Heading { text: overview.monitor.width ? overview.monitor.width + " × " + overview.monitor.height : overview.unavailable }
                 Caption { text: overview.monitor.refreshRate ? Eitr.I18n.tr("%1 Hz", [Number(overview.monitor.refreshRate).toFixed(1)]) : overview.unavailable }
+            }
+            ColumnLayout {
+                Layout.fillWidth: true; spacing: 6
+                Caption { text: Eitr.I18n.tr("Lockscreen") }
+                Heading { text: overview.lockscreenName || overview.unavailable }
+            }
+            ColumnLayout {
+                Layout.fillWidth: true; spacing: 6
+                Caption { text: Eitr.I18n.tr("Font") }
+                Heading { text: overview.fontFamily || overview.unavailable }
+            }
+            ColumnLayout {
+                Layout.fillWidth: true; spacing: 6
+                Caption { text: Eitr.I18n.tr("OS age") }
+                Heading { text: overview.installedAt > 0 ? Eitr.I18n.tr("%1 days", [Math.max(0, Math.floor((Date.now() / 1000 - overview.installedAt) / 86400))]) : overview.unavailable }
             }
             ColumnLayout {
                 Layout.fillWidth: true; spacing: 6

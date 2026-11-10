@@ -3,6 +3,9 @@
     "%1 Hz": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
+    "%1 days": [
+      "quickshell/desktop-bar/settings/SettingsOverview.qml"
+    ],
     "%1 h %2 min": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
@@ -950,6 +953,9 @@
     "Follow the theme or choose a fixed colour.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
+    "Font": [
+      "quickshell/desktop-bar/settings/SettingsOverview.qml"
+    ],
     "Fonts": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
@@ -1254,7 +1260,8 @@
     ],
     "Lockscreen": [
       "quickshell/desktop-bar/settings/SettingsIndex.js",
-      "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
+      "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml",
+      "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "Lockscreen design and idle settings.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -1542,6 +1549,9 @@
     ],
     "OCR Text": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
+    ],
+    "OS age": [
+      "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "OTHER NETWORKS": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -8212,6 +8222,7 @@
       "walker/scripts/actions/tools/reminders.py"
     ],
     "Motherboard": [
+      "fastfetch/eitr.py",
       "quickshell/desktop-bar/scripts/settings-system.py"
     ],
     "Move and resize desktop widgets": [
@@ -8588,9 +8599,6 @@
     ],
     "Outside folder rules: your existing Git configuration": [
       "walker/scripts/actions/development/git-accounts.py"
-    ],
-    "PC": [
-      "fastfetch/eitr.py"
     ],
     "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment.": [
       "distro/system/eitr-system.py"

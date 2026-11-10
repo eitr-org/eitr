@@ -2395,9 +2395,6 @@ msgstr "Outlook: Configurações > Calendário > Calendários compartilhados > P
 msgid "Outside folder rules: your existing Git configuration"
 msgstr "Fora das regras de pasta: sua configuração atual do Git"
 
-msgid "PC"
-msgstr "PC"
-
 msgid "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment."
 msgstr "Política PCR: {TPM_PCRS} (estado do Secure Boot). Mudanças no firmware ou nas chaves do Secure Boot exigem a senha uma vez e depois um novo cadastro."
 

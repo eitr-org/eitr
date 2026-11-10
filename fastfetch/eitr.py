@@ -153,7 +153,8 @@ def build_config(config_home, cache_home, image=True):
         font = None
     modules = [
         border(tr("Hardware"), "󰍛", hardware),
-        row("host", "󰌢", tr("PC"), hardware, "{vendor} {name}", branch=""),
+        # The board's model name, as Settings > About shows it.
+        row("board", "󰌢", tr("Motherboard"), hardware, "{name}", branch=""),
         row("cpu", "", "CPU", hardware, "{name}"),
         row("gpu", "󰢮", "GPU", hardware, "{name}"),
         row("memory", "", tr("Memory"), hardware, "{used} / {total} ({percentage})"),

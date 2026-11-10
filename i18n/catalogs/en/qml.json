@@ -863,5 +863,8 @@
   "Behaviour": "Behaviour",
   "Look": "Look",
   "Assistants": "Assistants",
-  "Usage": "Usage"
+  "Usage": "Usage",
+  "%1 days": "%1 days",
+  "Font": "Font",
+  "OS age": "OS age"
 }

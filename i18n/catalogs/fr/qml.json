@@ -1,5 +1,6 @@
 {
   "%1 Hz": "%1 Hz",
+  "%1 days": "%1 jours",
   "%1 h %2 min": "%1 h %2 min",
   "%1 themes": "%1 thèmes",
   "01 / TAPE": "01 / TAPE",
@@ -275,6 +276,7 @@
   "Focus fit": "Ajustement du focus",
   "Follow focus": "Suivre le focus",
   "Follow the theme or choose a fixed colour.": "Suivre le thème ou choisir une couleur fixe.",
+  "Font": "Police",
   "Fonts": "Police par défaut",
   "Fonts & Cursor": "Polices et curseur",
   "Forget": "Oublier",
@@ -448,6 +450,7 @@
   "OBS command failed": "Échec de la commande OBS",
   "OBS status unavailable": "État d’OBS indisponible",
   "OCR Text": "Reconnaissance de texte",
+  "OS age": "Âge du système",
   "OTHER NETWORKS": "AUTRES RÉSEAUX",
   "Off": "Désactivé",
   "Offer to report problems when something breaks": "Proposer de signaler les problèmes en cas de panne",

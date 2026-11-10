@@ -797,7 +797,6 @@
   "Outlook": "Outlook",
   "Outlook: Settings > Calendar > Shared calendars > Publish a calendar > copy the ICS link, not the HTML one.": "Outlook: Einstellungen > Kalender > Freigegebene Kalender > Kalender veröffentlichen > den ICS-Link kopieren, nicht den HTML-Link.",
   "Outside folder rules: your existing Git configuration": "Außerhalb der Ordnerregeln: Ihre bisherige Git-Konfiguration",
-  "PC": "PC",
   "PCR policy: {TPM_PCRS} (Secure Boot state). Firmware or Secure Boot key changes require the passphrase once, then re-enrollment.": "PCR-Richtlinie: {TPM_PCRS} (Secure-Boot-Zustand). Nach Firmware- oder Secure-Boot-Schlüsseländerungen ist einmal die Passphrase und danach eine neue Registrierung nötig.",
   "PDF viewer": "PDF-Betrachter",
   "Package actions require a terminal.": "Paketaktionen erfordern ein Terminal.",
