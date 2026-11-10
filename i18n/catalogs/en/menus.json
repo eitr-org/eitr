@@ -781,5 +781,10 @@
   "The centered bar expands while hovered": "The centered bar expands while hovered",
   "Wallpaper per display": "Wallpaper per display",
   "Herdr Commands": "Herdr Commands",
-  "Keys for herdr, the workspace for AI coding agents": "Keys for herdr, the workspace for AI coding agents"
+  "Keys for herdr, the workspace for AI coding agents": "Keys for herdr, the workspace for AI coding agents",
+  "Agent Workspaces": "Agent Workspaces",
+  "Cmux": "Cmux",
+  "Herdr": "Herdr",
+  "Run AI coding agents side by side and see who needs you": "Run AI coding agents side by side and see who needs you",
+  "Terminal workspaces with panes, tabs and a browser": "Terminal workspaces with panes, tabs and a browser"
 }

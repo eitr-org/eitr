@@ -42,6 +42,14 @@ class MenuStructureTests(unittest.TestCase):
         away = {row["text"] for row in menu("remote-away-setup")["entries"]}
         self.assertEqual(away, {"Sign In", "Set Up Away Access", "Restore Away Access Setup", "Detailed Status", "Ping a Peer"})
 
+    def test_agent_workspaces_open_herdr_and_cmux(self):
+        workspaces = menu("agent-workspaces")
+        self.assertEqual(workspaces["parent"], "development")
+        self.assertEqual([entry["text"] for entry in workspaces["entries"]], ["Cmux", "Herdr"])
+        for entry in workspaces["entries"]:
+            self.assertEqual(entry["actions"]["open"], "/usr/share/eitr/walker/scripts/actions/development/agent-workspace.sh " + entry["text"].lower())
+        self.assertIn("Agent Workspaces", [entry["text"] for entry in menu("development")["entries"]])
+
     def test_tools_groups_capture_fun_and_calendar_sources(self):
         entries = menu("tools")["entries"]
         self.assertEqual([entry["text"] for entry in entries],

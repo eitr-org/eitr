@@ -1,5 +1,37 @@
 {
   "rows": {
+    "agent-workspaces": [
+      {
+        "text": "Cmux",
+        "subtext": "Terminal workspaces with panes, tabs and a browser",
+        "keywords": [
+          "cmux",
+          "agents",
+          "terminal",
+          "multiplexer",
+          "workspace"
+        ],
+        "icon": "",
+        "actions": {
+          "open": "/usr/share/eitr/walker/scripts/actions/development/agent-workspace.sh cmux"
+        }
+      },
+      {
+        "text": "Herdr",
+        "subtext": "Run AI coding agents side by side and see who needs you",
+        "keywords": [
+          "herdr",
+          "agents",
+          "claude",
+          "codex",
+          "workspace"
+        ],
+        "icon": "󱚝",
+        "actions": {
+          "open": "/usr/share/eitr/walker/scripts/actions/development/agent-workspace.sh herdr"
+        }
+      }
+    ],
     "ai-agy": [
       {
         "text": "Accounts",
@@ -863,6 +895,19 @@
       }
     ],
     "development": [
+      {
+        "text": "Agent Workspaces",
+        "subtext": ">",
+        "keywords": [
+          "herdr",
+          "cmux",
+          "agents",
+          "claude",
+          "codex"
+        ],
+        "icon": "󱚝",
+        "submenu": "agent-workspaces"
+      },
       {
         "text": "AI",
         "subtext": ">",
@@ -3244,6 +3289,7 @@
     ]
   },
   "parents": {
+    "agent-workspaces": "development",
     "ai-agy-accounts": "ai-agy",
     "ai-agy": "ai-tools",
     "ai-claude-accounts": "ai-claude",
@@ -4146,6 +4192,56 @@
     }
   ],
   "search": [
+    {
+      "key": "82f24a4d317b7e9564ece85d286c9f9ab6e2590a7b7ec64cbfae2f3f7dada870",
+      "provider": "menus:agent-workspaces",
+      "identifier": "agent-workspaces:0",
+      "text": "Cmux",
+      "subtext": "Terminal workspaces with panes, tabs and a browser",
+      "icon": "",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "cmux",
+        "agents",
+        "terminal",
+        "multiplexer",
+        "workspace",
+        "Cmux",
+        "Cmux",
+        "Terminal workspaces with panes, tabs and a browser"
+      ],
+      "menus": [
+        "development",
+        "main"
+      ]
+    },
+    {
+      "key": "0a4201dd4a28567e6763fa3b82edf62a582fdf3baf9cb5085ab90a10026c4d40",
+      "provider": "menus:agent-workspaces",
+      "identifier": "agent-workspaces:1",
+      "text": "Herdr",
+      "subtext": "Run AI coding agents side by side and see who needs you",
+      "icon": "󱚝",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "herdr",
+        "agents",
+        "claude",
+        "codex",
+        "workspace",
+        "Herdr",
+        "Herdr",
+        "Run AI coding agents side by side and see who needs you"
+      ],
+      "menus": [
+        "development",
+        "main"
+      ]
+    },
     {
       "key": "39a2f9ea6bdfaab3c82d0efbc37c29d682a252658395c59e4075f26096ad2a99",
       "provider": "menus:ai-agy",
@@ -5916,6 +6012,28 @@
       "key": "4d92b4bc2ae61b66088c159b9c4e5702c851a6fdf5cff0fb76ed9e8497bb85ab",
       "provider": "menus:development",
       "identifier": "development:0",
+      "text": "Agent Workspaces",
+      "subtext": ">",
+      "icon": "󱚝",
+      "actions": [],
+      "keywords": [
+        "herdr",
+        "cmux",
+        "agents",
+        "claude",
+        "codex",
+        "Agent Workspaces",
+        "Agent Workspaces"
+      ],
+      "menus": [
+        "main"
+      ],
+      "submenu": "agent-workspaces"
+    },
+    {
+      "key": "19b3518876fe4207e7fa7a922ab3ebb00d6314b67dc28d2a1972308df3a8b396",
+      "provider": "menus:development",
+      "identifier": "development:1",
       "text": "AI",
       "subtext": ">",
       "icon": "󱜙",
@@ -5932,9 +6050,9 @@
       "submenu": "ai-tools"
     },
     {
-      "key": "19b3518876fe4207e7fa7a922ab3ebb00d6314b67dc28d2a1972308df3a8b396",
+      "key": "26257dea86b77ba10c66897e4b14b5e285e76d941e8b38ed80479124f2615e0e",
       "provider": "menus:development",
-      "identifier": "development:1",
+      "identifier": "development:2",
       "text": "Cloud",
       "subtext": ">",
       "icon": "",
@@ -5952,9 +6070,9 @@
       "submenu": "cloud"
     },
     {
-      "key": "26257dea86b77ba10c66897e4b14b5e285e76d941e8b38ed80479124f2615e0e",
+      "key": "edd103851d6cf1ace922513500d7988a0587c2f2ab4f528c23320547d5b5db41",
       "provider": "menus:development",
-      "identifier": "development:2",
+      "identifier": "development:3",
       "text": "Git Accounts",
       "subtext": ">",
       "icon": "󰊢",
@@ -5975,9 +6093,9 @@
       "submenu": "git-accounts"
     },
     {
-      "key": "edd103851d6cf1ace922513500d7988a0587c2f2ab4f528c23320547d5b5db41",
+      "key": "3ba2597ae460982e1d17aeb19512247cc71a847a3408bae35278dda616f85244",
       "provider": "menus:development",
-      "identifier": "development:3",
+      "identifier": "development:4",
       "text": "LazyVim Projects",
       "subtext": ">",
       "icon": "",
@@ -5997,9 +6115,9 @@
       ]
     },
     {
-      "key": "3ba2597ae460982e1d17aeb19512247cc71a847a3408bae35278dda616f85244",
+      "key": "a68617252f91f2e9e8cc25187ebf350c9cdc1de366136b32f9e3c08e664ed047",
       "provider": "menus:development",
-      "identifier": "development:4",
+      "identifier": "development:5",
       "text": "Monitoring",
       "subtext": ">",
       "icon": "󰨇",
@@ -6023,9 +6141,9 @@
       "submenu": "monitoring"
     },
     {
-      "key": "a68617252f91f2e9e8cc25187ebf350c9cdc1de366136b32f9e3c08e664ed047",
+      "key": "5b69556551ca28dc592dbf08818e570f7fffedaa58835b92ae55c670a97914de",
       "provider": "menus:development",
-      "identifier": "development:5",
+      "identifier": "development:6",
       "text": "VS Code Projects",
       "subtext": ">",
       "icon": "",

@@ -1,0 +1,32 @@
+[
+  {
+    "text": "Cmux",
+    "subtext": "Terminal workspaces with panes, tabs and a browser",
+    "keywords": [
+      "cmux",
+      "agents",
+      "terminal",
+      "multiplexer",
+      "workspace"
+    ],
+    "icon": "",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/development/agent-workspace.sh cmux"
+    }
+  },
+  {
+    "text": "Herdr",
+    "subtext": "Run AI coding agents side by side and see who needs you",
+    "keywords": [
+      "herdr",
+      "agents",
+      "claude",
+      "codex",
+      "workspace"
+    ],
+    "icon": "󱚝",
+    "actions": {
+      "open": "/usr/share/eitr/walker/scripts/actions/development/agent-workspace.sh herdr"
+    }
+  }
+]

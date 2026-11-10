@@ -3166,6 +3166,10 @@
     "After enrollment · password fallback retained": [
       "elephant/menu-rows/fido2.json"
     ],
+    "Agent Workspaces": [
+      "elephant/menu-rows/development.json",
+      "elephant/menus/agent-workspaces.lua"
+    ],
     "All logs": [
       "elephant/menus/aws-cloudwatch-all-logs-1.lua",
       "elephant/menus/aws-cloudwatch-all-logs-2.lua"
@@ -3449,6 +3453,9 @@
     ],
     "Cluster details": [
       "elephant/menus/aws-docdb-cluster-details-1.lua"
+    ],
+    "Cmux": [
+      "elephant/menu-rows/agent-workspaces.json"
     ],
     "Cmux Commands": [
       "elephant/menu-rows/learn.json"
@@ -3980,6 +3987,9 @@
     ],
     "Half": [
       "tools/choice-lists.json"
+    ],
+    "Herdr": [
+      "elephant/menu-rows/agent-workspaces.json"
     ],
     "Herdr Commands": [
       "elephant/menu-rows/learn.json"
@@ -4825,6 +4835,9 @@
     "Route tables": [
       "elephant/menus/aws-vpc-route-tables-1.lua"
     ],
+    "Run AI coding agents side by side and see who needs you": [
+      "elephant/menu-rows/agent-workspaces.json"
+    ],
     "Rune Rain": [
       "elephant/menu-rows/fun.json"
     ],
@@ -5360,6 +5373,9 @@
     "Terminal": [
       "elephant/menu-rows/appearance.json",
       "elephant/menus/terminal.lua"
+    ],
+    "Terminal workspaces with panes, tabs and a browser": [
+      "elephant/menu-rows/agent-workspaces.json"
     ],
     "Test Connection": [
       "walker/scripts/actions/development/git-accounts.py"

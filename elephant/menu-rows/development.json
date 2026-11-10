@@ -1,5 +1,18 @@
 [
   {
+    "text": "Agent Workspaces",
+    "subtext": ">",
+    "keywords": [
+      "herdr",
+      "cmux",
+      "agents",
+      "claude",
+      "codex"
+    ],
+    "icon": "󱚝",
+    "submenu": "agent-workspaces"
+  },
+  {
     "text": "AI",
     "subtext": ">",
     "keywords": [
