@@ -36,7 +36,7 @@ Los juegos HDR en pantalla completa siguen cambiando automáticamente cuando el 
 
 ## Cambiar distribuciones del teclado
 
-Abre Configuración > Entrada. Usa Añadir distribución para buscar idiomas y variantes, las flechas para ordenar y el botón de quitar para eliminar una distribución. Se admiten hasta cuatro, sin duplicados, y debe quedar al menos una. **Alt + Shift** las recorre. Con dos o más, pulsa el código de la barra para cambiar. La distribución y el idioma del escritorio son independientes; consulta [Idioma](handbook:language).
+Abre Configuración > Entrada. Elige un idioma o variante en Añadir distribución y pulsa Añadir; usa las flechas para ordenar y el botón de quitar para eliminar una distribución tras confirmarlo. Se admiten hasta cuatro, sin duplicados, y debe quedar al menos una. **Alt + Shift** las recorre. Con dos o más, pulsa el código de la barra para cambiar. La distribución y el idioma del escritorio son independientes; consulta [Idioma](handbook:language).
 
 El escritorio comienza con el teclado elegido en el instalador. Elegir US incluye US y US International: basta Alt + Shift para acceder a los acentos.
 

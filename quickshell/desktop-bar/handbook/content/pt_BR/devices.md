@@ -36,7 +36,7 @@ Jogos HDR em tela cheia continuam alternando automaticamente quando o HDR da ár
 
 ## Alterar layouts do teclado
 
-Abra Configurações > Entrada. Use Adicionar layout para buscar idiomas e variantes, as setas para ordenar e o botão de remover para excluir um layout. São aceitos até quatro, sem duplicatas, e pelo menos um deve permanecer. **Alt + Shift** alterna os layouts. Com dois ou mais, clique no código da barra para trocar. Layout e idioma da área de trabalho são independentes; veja [Idioma](handbook:language).
+Abra Configurações > Entrada. Escolha um idioma ou variante em Adicionar layout e pressione Adicionar; use as setas para ordenar e o botão de remover para excluir um layout após confirmar. São aceitos até quatro, sem duplicatas, e pelo menos um deve permanecer. **Alt + Shift** alterna os layouts. Com dois ou mais, clique no código da barra para trocar. Layout e idioma da área de trabalho são independentes; veja [Idioma](handbook:language).
 
 A área de trabalho começa com o teclado escolhido no instalador. A opção US inclui US e US International; basta Alt + Shift para acessar os acentos.
 

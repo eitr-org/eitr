@@ -161,55 +161,14 @@ Column {
         live: userPage.view.live !== false
     }
     // Removing the picture asks first: it also leaves the lockscreen and login screen.
-    Popup {
+    SettingsConfirmSheet {
         id: removeSheet
         objectName: "settings-remove-picture-sheet"
-        parent: Overlay.overlay
-        anchors.centerIn: parent
-        width: 320
-        padding: 24
-        modal: true
-        dim: true
-        focus: true
-        closePolicy: Popup.CloseOnEscape
-        Overlay.modal: Rectangle { color: Qt.alpha("black", 0.45) }
-        background: Rectangle {
-            radius: DesktopStyle.radius(12)
-            color: Qt.rgba(view.background.r, view.background.g, view.background.b, 1)
-            border.width: 1
-            border.color: Qt.alpha(SettingsInk.gold, 0.4)
-        }
-        onOpened: confirmRemove.forceActiveFocus()
-        contentItem: Column {
-            spacing: 14
-            Text {
-                width: parent.width
-                horizontalAlignment: Text.AlignHCenter
-                text: Eitr.I18n.tr("Remove picture?")
-                color: view.foreground
-                font.family: SiteStyle.carved
-                font.pixelSize: PanelStyle.headingSize
-            }
-            SettingsText {
-                width: parent.width
-                wrapMode: Text.WordWrap
-                horizontalAlignment: Text.AlignHCenter
-                text: Eitr.I18n.tr("Your initial shows instead, and the lockscreen and login screen show no picture.")
-            }
-            Row {
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 8
-                PanelButton { width: 110; foreground: view.foreground; text: Eitr.I18n.tr("Cancel"); onClicked: removeSheet.close() }
-                PanelButton {
-                    id: confirmRemove
-                    objectName: "settings-confirm-remove-picture"
-                    width: 110
-                    foreground: view.foreground
-                    text: Eitr.I18n.tr("Remove")
-                    onClicked: { removeSheet.close(); profileEditor.remove(); }
-                }
-            }
-        }
+        confirmName: "settings-confirm-remove-picture"
+        foreground: view.foreground; surfaceColor: view.background
+        title: Eitr.I18n.tr("Remove picture?")
+        message: Eitr.I18n.tr("Your initial shows instead, and the lockscreen and login screen show no picture.")
+        onConfirmed: profileEditor.remove()
     }
     Popup {
         id: pictureSheet

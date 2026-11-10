@@ -184,6 +184,7 @@ SettingsFocusPage settings/SettingsFocusPage.qml
 OutlinedFrame components/OutlinedFrame.qml
 OutlinedTextField components/OutlinedTextField.qml
 SettingsChoiceSection components/SettingsChoiceSection.qml
+SettingsConfirmSheet components/SettingsConfirmSheet.qml
 SettingsText components/SettingsText.qml
 SettingsKeybindsPage settings/SettingsKeybindsPage.qml
 SettingsDefaultAppsPage settings/SettingsDefaultAppsPage.qml

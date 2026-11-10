@@ -70,7 +70,7 @@ Browser HDR playback also depends on browser support and settings.
 
 ## Change keyboard layouts
 
-Open Settings > Input. Use Add Layout to search languages and variants, the arrows to reorder layouts and the remove button to delete one. Up to four layouts are supported; duplicates are refused and at least one must remain. **Alt + Shift** cycles layouts. With two or more, click the layout code in the bar to switch. Layouts and the desktop language are separate; see [Language](handbook:language).
+Open Settings > Input. Choose a language or variant in Add Layout and press Add; use the arrows to reorder layouts and the remove button to delete one after confirming. Up to four layouts are supported; duplicates are refused and at least one must remain. **Alt + Shift** cycles layouts. With two or more, click the layout code in the bar to switch. Layouts and the desktop language are separate; see [Language](handbook:language).
 
 The desktop starts with the keyboard you chose in the installer. Choosing US
 gives both US and US International, so accents are one Alt + Shift away.

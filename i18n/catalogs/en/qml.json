@@ -840,7 +840,6 @@
   "Split across monitors": "Split across monitors",
   "A lone column fills the screen.": "A lone column fills the screen.",
   "Scroll to the window that gets focus.": "Scroll to the window that gets focus.",
-  "Add another keyboard layout to your list.": "Add another keyboard layout to your list.",
   "Adjust the volume for this application.": "Adjust the volume for this application.",
   "Adjust the volume or mute this device.": "Adjust the volume or mute this device.",
   "Choose the appearance of the locked screen.": "Choose the appearance of the locked screen.",
@@ -866,5 +865,8 @@
   "Usage": "Usage",
   "%1 days": "%1 days",
   "Font": "Font",
-  "OS age": "OS age"
+  "OS age": "OS age",
+  "%1 leaves your keyboard layouts. You can add it again later.": "%1 leaves your keyboard layouts. You can add it again later.",
+  "Choose a keyboard layout, then add it to your list.": "Choose a keyboard layout, then add it to your list.",
+  "Remove layout?": "Remove layout?"
 }

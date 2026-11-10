@@ -36,7 +36,7 @@ Die HDR-Wiedergabe im Browser hängt außerdem von dessen Unterstützung und Ein
 
 ## Tastaturbelegungen ändern
 
-Öffne Einstellungen > Eingabe. Suche mit Layout hinzufügen nach Sprachen und Varianten, ordne Belegungen mit den Pfeilen und entferne sie mit der Entfernen-Schaltfläche. Bis zu vier sind erlaubt, ohne Duplikate; mindestens eine muss bleiben. **Alt + Shift** wechselt die Belegung. Ab zwei Belegungen kannst du das Kürzel in der Leiste anklicken. Belegung und Desktopsprache sind unabhängig; siehe [Sprache](handbook:language).
+Öffne Einstellungen > Eingabe. Wähle unter Layout hinzufügen eine Sprache oder Variante und drücke Hinzufügen; ordne Belegungen mit den Pfeilen und entferne eine nach Bestätigung mit der Entfernen-Schaltfläche. Bis zu vier sind erlaubt, ohne Duplikate; mindestens eine muss bleiben. **Alt + Shift** wechselt die Belegung. Ab zwei Belegungen kannst du das Kürzel in der Leiste anklicken. Belegung und Desktopsprache sind unabhängig; siehe [Sprache](handbook:language).
 
 Der Desktop startet mit der im Installationsprogramm gewählten Tastatur. US richtet US und US International ein; Akzente sind damit über Alt + Shift erreichbar.
 

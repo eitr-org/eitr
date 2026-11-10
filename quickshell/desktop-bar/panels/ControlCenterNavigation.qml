@@ -50,7 +50,16 @@ Column {
             BarTooltip { target: tab; hovered: tabHover.hovered; text: Eitr.I18n.tr(tab.modelData.name); foreground: navigation.centerRef.foreground; background: navigation.centerRef.background }
         }
     }
-    // Appearance, devices and system settings live in the Settings window.
+    PanelButton {
+        id: chatButton
+        visible: !!navigation.centerRef.chatAssistant.identifier && navigation.centerRef.organizationPolicy.development !== false && navigation.centerRef.organizationPolicy.assistants_together !== false
+        width: 34; height: 34; icon: true; text: "󰭻"
+        foreground: navigation.centerRef.foreground; selected: navigation.centerRef.chatOpen
+        onClicked: navigation.chatRequested()
+        HoverHandler { id: chatHover }
+        BarTooltip { target: chatButton; hovered: chatHover.hovered; text: Eitr.I18n.tr("Chat with %1", [navigation.centerRef.chatAssistant.name || ""]); foreground: navigation.centerRef.foreground; background: navigation.centerRef.background }
+    }
+    // Appearance, devices and system settings live in the Settings window; always the last button.
     PanelButton {
         id: settingsButton
         objectName: "allSettingsButton"
@@ -60,14 +69,5 @@ Column {
         onClicked: navigation.settingsRequested()
         HoverHandler { id: settingsHover }
         BarTooltip { target: settingsButton; hovered: settingsHover.hovered; text: Eitr.I18n.tr("All settings"); foreground: navigation.centerRef.foreground; background: navigation.centerRef.background }
-    }
-    PanelButton {
-        id: chatButton
-        visible: !!navigation.centerRef.chatAssistant.identifier && navigation.centerRef.organizationPolicy.development !== false && navigation.centerRef.organizationPolicy.assistants_together !== false
-        width: 34; height: 34; icon: true; text: "󰭻"
-        foreground: navigation.centerRef.foreground; selected: navigation.centerRef.chatOpen
-        onClicked: navigation.chatRequested()
-        HoverHandler { id: chatHover }
-        BarTooltip { target: chatButton; hovered: chatHover.hovered; text: Eitr.I18n.tr("Chat with %1", [navigation.centerRef.chatAssistant.name || ""]); foreground: navigation.centerRef.foreground; background: navigation.centerRef.background }
     }
 }

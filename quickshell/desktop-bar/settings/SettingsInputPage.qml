@@ -18,6 +18,10 @@ Column {
     property var layouts: []
     property var catalog: []
     property int selected: -1
+    // The layout chosen in Add Layout, added only when the Add button is pressed.
+    property string pendingLayout: ""
+    // The layout the remove confirmation is about.
+    property var removing: null
     property string error: ""
     readonly property string helper: Eitr.Paths.code("quickshell/desktop-bar/scripts/keyboard-layout.py")
     spacing: PanelStyle.selectionRowGap
@@ -74,24 +78,53 @@ Column {
             canMoveUp: index > 0
             canMoveDown: index < view.layouts.length - 1
             onActivated: view.change(["select", String(modelData.index)])
-            onRemoveRequested: view.change(["remove", String(modelData.index)])
+            onRemoveRequested: { view.removing = modelData; removeSheet.open(); }
             onMoveRequested: direction => view.change(["move", String(index), String(index + direction)])
         }
     }
-    // Choosing a layout from the floating list adds it; the catalog loads with the page.
-    // The field is as wide as the layout list above it.
-    ChoiceDropdown {
-        SettingsTarget { objectName: "setting-input-add-layout" }
-        objectName: "settings-add-layout"
+    // Choosing a layout selects it; Add puts it in the list. The catalog loads with the page.
+    Row {
         width: view.listWidth
-        floatingLabel: Eitr.I18n.tr("Add Layout")
-        helperText: Eitr.I18n.tr("Add another keyboard layout to your list.")
-        gold: SettingsInk.gold; background: SettingsInk.background
-        foreground: view.foreground
-        placeholder: view.catalog.length ? "" : Eitr.I18n.tr("Loading...")
-        available: view.layouts.length < 4 && !operation.running
-        choices: view.catalog.map(layout => ({value: layout.layout + "|" + layout.variant, label: layout.label}))
-        onChosen: value => { const parts = value.split("|"); view.change(["add", parts[0], parts[1]]); }
+        spacing: 8
+        ChoiceDropdown {
+            id: addLayout
+            SettingsTarget { objectName: "setting-input-add-layout" }
+            objectName: "settings-add-layout"
+            width: parent.width - addButton.width - parent.spacing
+            floatingLabel: Eitr.I18n.tr("Add Layout")
+            helperText: Eitr.I18n.tr("Choose a keyboard layout, then add it to your list.")
+            gold: SettingsInk.gold; background: SettingsInk.background
+            foreground: view.foreground
+            placeholder: view.catalog.length ? "" : Eitr.I18n.tr("Loading...")
+            available: view.layouts.length < 4 && !operation.running
+            choices: view.catalog.map(layout => ({value: layout.layout + "|" + layout.variant, label: layout.label}))
+            current: view.pendingLayout
+            onChosen: value => view.pendingLayout = value
+        }
+        PanelButton {
+            id: addButton
+            objectName: "settings-add-layout-confirm"
+            y: addLayout.labelRoom
+            width: 92; height: 48
+            foreground: view.foreground
+            text: Eitr.I18n.tr("Add")
+            available: view.pendingLayout !== "" && view.layouts.length < 4 && !operation.running
+            onClicked: {
+                const parts = view.pendingLayout.split("|");
+                view.pendingLayout = "";
+                view.change(["add", parts[0], parts[1]]);
+            }
+        }
+    }
+    SettingsConfirmSheet {
+        id: removeSheet
+        objectName: "settings-remove-layout-sheet"
+        confirmName: "settings-confirm-remove-layout"
+        foreground: view.foreground; surfaceColor: view.background
+        title: Eitr.I18n.tr("Remove layout?")
+        message: view.removing ? Eitr.I18n.tr("%1 leaves your keyboard layouts. You can add it again later.", [view.removing.label]) : ""
+        onConfirmed: if (view.removing) view.change(["remove", String(view.removing.index)])
+        onClosed: view.removing = null
     }
     Text { width: parent.width; visible: view.error !== ""; text: view.error; wrapMode: Text.WordWrap; color: view.foreground; font.pixelSize: PanelStyle.captionSize }
 }

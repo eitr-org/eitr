@@ -38,7 +38,7 @@ Les navigateurs utilisent HDR uniquement lorsque le HDR du bureau est activé po
 
 ## Changer les dispositions du clavier
 
-Ouvrez Paramètres > Saisie. Utilisez Ajouter une disposition pour chercher langues et variantes, les flèches pour réordonner et le bouton de suppression pour retirer une disposition. Quatre au maximum sont acceptées, sans doublons ; une au moins doit rester. **Alt + Shift** les parcourt. À partir de deux, cliquez sur le code dans la barre pour changer. Disposition et langue du bureau sont distinctes ; voir [Langue](handbook:language).
+Ouvrez Paramètres > Saisie. Choisissez une langue ou une variante dans Ajouter une disposition puis appuyez sur Ajouter ; utilisez les flèches pour réordonner et le bouton de suppression pour retirer une disposition après confirmation. Quatre au maximum sont acceptées, sans doublons ; une au moins doit rester. **Alt + Shift** les parcourt. À partir de deux, cliquez sur le code dans la barre pour changer. Disposition et langue du bureau sont distinctes ; voir [Langue](handbook:language).
 
 Le bureau démarre avec le clavier choisi dans l’installateur. Le choix US inclut US et US International ; Alt + Shift suffit pour accéder aux accents.
 
