@@ -1,7 +1,7 @@
 {
-  "version": "0.7.2",
-  "file": "eitr-0.7.2.iso",
-  "url": "https://download.eitr.info/eitr-0.7.2.iso",
-  "checksum_url": "https://download.eitr.info/eitr-0.7.2.iso.sha256",
-  "sha256": "cf64fb642b5cc87e9d55a0c64a44c02e1d5c439cfb7599520d290261c7be2c35"
+  "version": "0.7.3",
+  "file": "eitr-0.7.3.iso",
+  "url": "https://download.eitr.info/eitr-0.7.3.iso",
+  "checksum_url": "https://download.eitr.info/eitr-0.7.3.iso.sha256",
+  "sha256": "0e23f89d51731bb1f6e3ede914f21a9b55f175e3212955832ea781dbc6ec0685"
 }
