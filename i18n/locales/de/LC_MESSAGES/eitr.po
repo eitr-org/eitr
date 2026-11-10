@@ -1765,6 +1765,9 @@ msgstr "Ungültige Gegenstellenadresse."
 msgid "Invalid plugin hooks; unknown event"
 msgstr "Ungültige Plugin-Hooks; unbekanntes Ereignis"
 
+msgid "Invalid plugin package list"
+msgstr "Ungültige Plugin-Paketliste"
+
 msgid "Invalid plugin schemaVersion; expected 1 or 2"
 msgstr "Ungültige Plugin-schemaVersion; erwartet 1 oder 2"
 
@@ -2025,6 +2028,9 @@ msgstr "Arbeitsspeicher"
 
 msgid "Message queues"
 msgstr "Nachrichtenwarteschlangen"
+
+msgid "Missing packages require the administrator password."
+msgstr "Fehlende Pakete benötigen das Administratorpasswort."
 
 msgid "Missing stick file: {name}"
 msgstr "Fehlende Datei auf dem Stick: {name}"
@@ -2410,6 +2416,9 @@ msgstr "PDF-Betrachter"
 msgid "Package actions require a terminal."
 msgstr "Paketaktionen erfordern ein Terminal."
 
+msgid "Package is unavailable in official Arch or Eitr repositories: {name}"
+msgstr "Paket in offiziellen Arch- oder Eitr-Repositories nicht verfügbar: {name}"
+
 msgid "Package picker failed"
 msgstr "Paketauswahl fehlgeschlagen"
 
@@ -2790,6 +2799,9 @@ msgstr "Web-App {label} entfernen?"
 
 msgid "Remove this account and its local configuration?"
 msgstr "Dieses Konto und seine lokale Konfiguration entfernen?"
+
+msgid "Remove unused plugin-installed packages: {packages}?"
+msgstr "Ungenutzte, vom Plugin installierte Pakete entfernen: {packages}?"
 
 msgid "Remove widget · {monitor}"
 msgstr "Widget entfernen · {monitor}"
@@ -3387,6 +3399,15 @@ msgstr "Symlinks are not allowed in login designs"
 
 msgid "System Update did not finish, so nothing was installed."
 msgstr "Die Systemaktualisierung wurde nicht abgeschlossen, daher wurde nichts installiert."
+
+msgid "System package operation failed or was cancelled."
+msgstr "Der Systempaketvorgang ist fehlgeschlagen oder wurde abgebrochen."
+
+msgid "System packages"
+msgstr "Systempakete"
+
+msgid "System packages added: {packages}"
+msgstr "Systempakete hinzugefügt: {packages}"
 
 msgid "TPM2 devices: {devices}"
 msgstr "TPM2-Geräte: {devices}"
@@ -4578,6 +4599,12 @@ msgstr "{name} ist nicht installiert."
 
 msgid "{name} starts charging at {charge_percent}%; choose a limit above that. Nothing was changed."
 msgstr "{name} beginnt bei {charge_percent} % zu laden; wählen Sie ein höheres Limit. Nichts wurde geändert."
+
+msgid "{name} · already installed"
+msgstr "{name} · bereits installiert"
+
+msgid "{name} · will be installed"
+msgstr "{name} · wird installiert"
 
 msgid "{name}: stops charging at {charge_percent}%"
 msgstr "{name}: beendet das Laden bei {charge_percent} %"

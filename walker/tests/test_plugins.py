@@ -24,6 +24,68 @@ from eitr_paths import config, state
 
 
 class PluginTests(unittest.TestCase):
+    def test_package_review_install_update_and_removal(self):
+        package_owner = install_owner.eitr_plugin_packages
+        spec = self.spec()
+        spec['packages'] = ['wireguard-tools']
+        self.publish(spec)
+        facts = [dict(name='wireguard-tools', repository='extra', installed=False)]
+        with patch.object(package_owner, 'review', return_value=facts), patch.object(package_owner, 'root') as root:
+            review = self.manager.prepare_review(self.url)
+            self.assertEqual(review['packages'], facts)
+            root.assert_not_called()
+            self.assertTrue(self.manager.confirm_review(review['token']))
+            root.assert_called_once_with('install', ['wireguard-tools'])
+        self.assertEqual(self.manager.records()['example']['packages'], ['wireguard-tools'])
+        spec['packages'].append('openvpn')
+        self.publish(spec)
+        with patch.object(package_owner, 'review', return_value=[dict(name='openvpn', installed=False)]), patch.object(package_owner, 'root') as root:
+            review = self.manager.prepare_review(plugin_id='example', updating=True)
+            self.assertTrue(any('openvpn' in flag for flag in review['changes']['flags']))
+            root.assert_not_called()
+            self.assertTrue(self.manager.confirm_review(review['token']))
+        self.assertEqual(self.manager.records()['example']['packages'], ['wireguard-tools', 'openvpn'])
+        with patch.object(package_owner, 'removable', return_value=['openvpn']), patch.object(package_owner, 'root') as root:
+            self.assertFalse(self.manager.remove('example', lambda record: False, lambda packages: True))
+            root.assert_not_called()
+            self.assertTrue(self.manager.remove('example', lambda record: True, lambda packages: packages == ['openvpn']))
+            root.assert_called_once_with('remove', ['openvpn'])
+
+    def test_package_provenance_survives_plugin_transaction_failure(self):
+        package_owner = install_owner.eitr_plugin_packages
+        spec = self.spec()
+        spec['packages'] = ['wireguard-tools']
+        spec['service'] = {'run': 'notify.sh'}
+        self.publish(spec)
+        facts = [dict(name='wireguard-tools', installed=False)]
+        with patch.object(package_owner, 'review', return_value=facts), patch.object(package_owner, 'root'), patch.object(self.manager, 'service', side_effect=OSError('service failed')):
+            review = self.manager.prepare_review(self.url)
+            with self.assertRaises(OSError):
+                self.manager.confirm_review(review['token'])
+        self.assertFalse(self.manager.records())
+        self.assertEqual(package_owner.owned('example'), ['wireguard-tools'])
+
+    def test_shared_package_provenance_transfers_on_removal(self):
+        self.install()
+        records = self.manager.records()
+        records['example']['packages'] = ['wireguard-tools']
+        records['other'] = dict(records['example'], id='other', packages=[])
+        self.manager.save(records)
+        with patch.object(self.manager, 'spec', return_value={'packages': ['wireguard-tools']}), patch.object(install_owner.eitr_plugin_packages, 'removable', return_value=[]):
+            self.assertTrue(self.manager.remove('example', lambda record: True))
+        self.assertEqual(self.manager.records()['other']['packages'], ['wireguard-tools'])
+
+    def test_manifest_package_declarations(self):
+        spec = self.spec()
+        spec['packages'] = ['wireguard-tools']
+        self.write_spec(spec)
+        self.assertEqual(plugins.manifest(self.source)['packages'], ['wireguard-tools'])
+        for value in ('wireguard-tools', ['aur/package'], ['https://example.invalid/pkg'], ['--flag'], ['a', 'a']):
+            spec['packages'] = value
+            self.write_spec(spec)
+            with self.assertRaises(ValueError):
+                plugins.manifest(self.source)
+
     def test_native_review_pins_commit_and_is_single_use(self):
         review = self.manager.prepare_review(self.url)
         self.assertFalse(self.manager.records())

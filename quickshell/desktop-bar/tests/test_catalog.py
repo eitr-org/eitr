@@ -424,7 +424,7 @@ ShellRoot {
       panel.sidebarFocus = false; panel.cursor = 0;
       keys.keyClick(Qt.Key_Down);
       if (panel.cursor !== Math.min(panel.columns, panel.locals.length - 1)) throw new Error("plugin grid Down");
-      panel.removing = panel.installed[0];
+      panel.removing = Object.assign({}, panel.installed[0], {removablePackages:["wireguard-tools", "openvpn"]});
      } else if (sample.phase === 11) {
       panel.cancelSheet(); panel.tab = "official"; panel.installed = [];
       panel.availableItems = [{id:"gallery",name:"Gallery plugin",kind:"official",author:"Example author",version:"1.2",description:"A plugin with pictures and video",repository:"https://example.invalid/plugins",folder:"plugins/gallery",preview:"preview.png",previewUrl:"PREVIEW",components:{rows:[{title:"Open notes",run:"notes.sh"}],ui:{widgets:[{title:"Desktop notes",qml:"Notes.qml"}]}},media:[{type:"image",path:"picture.png",caption:"Desktop picture"},{type:"video",path:"clip.webm",caption:"A short demonstration"}]}];
@@ -441,7 +441,7 @@ ShellRoot {
      } else if (sample.phase === 14) {
       panel.mediaIndex = 0;
       panel.transport = function(name,args,callback) {
-       if (name === "prepare") callback("",{review:{token:"fixture-token",spec:{name:"Gallery plugin",author:"Example author",version:"1.2",rows:[{title:"Open notes",run:"notes.sh"}],ui:{widgets:[{title:"Desktop notes",qml:"Notes.qml"}]}},url:"https://github.com/eitr-org/eitr-plugins",folder:"plugins/gallery",commit:"0123456789abcdef0123456789abcdef01234567",official:true,author:"Example author · 2026-11-03",files:["eitr-plugin.json","Notes.qml","notes.sh"],flags:[]}});
+       if (name === "prepare") callback("",{review:{token:"fixture-token",packages:[{name:"tailscale",installed:true},{name:"wireguard-tools",installed:false}],spec:{name:"Gallery plugin",author:"Example author",version:"1.2",rows:[{title:"Open notes",run:"notes.sh"}],ui:{widgets:[{title:"Desktop notes",qml:"Notes.qml"}]}},url:"https://github.com/eitr-org/eitr-plugins",folder:"plugins/gallery",commit:"0123456789abcdef0123456789abcdef01234567",official:true,author:"Example author · 2026-11-03",files:["eitr-plugin.json","Notes.qml","notes.sh"],flags:[]}});
        else callback("",{});
       };
       panel.prepareReview({id:"gallery"});

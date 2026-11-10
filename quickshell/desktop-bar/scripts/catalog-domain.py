@@ -39,6 +39,9 @@ def validate(name, args):
             not isinstance(theme_id, str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', theme_id) or len(theme_id) > 64 for theme_id in ids):
         raise ValueError('invalid-id')
 
+    if 'removePackages' in args:
+        from eitr_plugin_packages import names
+        names(args['removePackages'], limit=4096)
     if name == 'detail' and args['kind'] == 'themes' and args.get('channel') != 'community':
         raise ValueError('invalid-detail-request')
     if name in {'confirm', 'advice', 'source'} and (not isinstance(args.get('token'), str) or len(args['token']) > 128):
@@ -465,7 +468,8 @@ def worker(name, args):
     if name == 'check':
         return {'updates': backend.check_updates()}
     if name == 'remove':
-        return {'result': backend.remove(args['id'], lambda record: True)}
+        return {'result': backend.remove(args['id'], lambda record: True,
+                                           lambda packages: [name for name in packages if name in args.get('removePackages', [])])}
     if name == 'discard':
         backend.discard_reviews()
         return {}

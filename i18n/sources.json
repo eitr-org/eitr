@@ -1354,6 +1354,9 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Missing packages require the administrator password.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Monitors": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
@@ -1969,6 +1972,9 @@
     "Remove this account? Keeping the home folder preserves its files.": [
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
     ],
+    "Remove unused plugin-installed packages: {packages}?": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Rename": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
@@ -2429,6 +2435,9 @@
     ],
     "System information": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
+    ],
+    "System packages": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "System updates and the update channel.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -2955,6 +2964,12 @@
     ],
     "{day} · WEEK {week} · {year}": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
+    ],
+    "{name} · already installed": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "{name} · will be installed": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "{percent}% used": [
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
@@ -7976,6 +7991,9 @@
     "Invalid plugin hooks; unknown event": [
       "distro/lib/eitr_plugin_manifest.py"
     ],
+    "Invalid plugin package list": [
+      "distro/lib/eitr_plugin_packages.py"
+    ],
     "Invalid plugin schemaVersion; expected 1 or 2": [
       "distro/lib/eitr_plugin_manifest.py"
     ],
@@ -8245,6 +8263,9 @@
     ],
     "Message queues": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Missing packages require the administrator password.": [
+      "distro/lib/eitr_plugin_packages.py"
     ],
     "Missing stick file: {name}": [
       "distro/lib/eitr_profile.py"
@@ -8648,6 +8669,9 @@
       "distro/bin/eitr",
       "walker/scripts/actions/install/software.py"
     ],
+    "Package is unavailable in official Arch or Eitr repositories: {name}": [
+      "distro/lib/eitr_plugin_packages.py"
+    ],
     "Package picker failed": [
       "walker/scripts/actions/install/software.py"
     ],
@@ -9038,6 +9062,9 @@
     ],
     "Remove this account and its local configuration?": [
       "distro/lib/eitr_ai_accounts.py"
+    ],
+    "Remove unused plugin-installed packages: {packages}?": [
+      "walker/scripts/actions/install/plugins.py"
     ],
     "Remove widget · {monitor}": [
       "walker/scripts/actions/install/plugins.py"
@@ -9640,6 +9667,15 @@
     ],
     "System Update did not finish, so nothing was installed.": [
       "walker/scripts/actions/install/software.py"
+    ],
+    "System package operation failed or was cancelled.": [
+      "distro/lib/eitr_plugin_packages.py"
+    ],
+    "System packages": [
+      "distro/lib/eitr_plugin_packages.py"
+    ],
+    "System packages added: {packages}": [
+      "distro/lib/eitr_plugin_install.py"
     ],
     "TPM2 devices: {devices}": [
       "distro/system/eitr-system.py"
@@ -10854,6 +10890,12 @@
     ],
     "{name} starts charging at {charge_percent}%; choose a limit above that. Nothing was changed.": [
       "distro/system/eitr-system.py"
+    ],
+    "{name} · already installed": [
+      "distro/lib/eitr_plugin_packages.py"
+    ],
+    "{name} · will be installed": [
+      "distro/lib/eitr_plugin_packages.py"
     ],
     "{name}: stops charging at {charge_percent}%": [
       "distro/system/eitr-system.py"

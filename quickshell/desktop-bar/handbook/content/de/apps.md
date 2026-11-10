@@ -97,7 +97,7 @@ Im Menü Kalenderquellen aktualisiert Enter einen Kalender sofort, und Entf entf
 
 Ein Plugin ist ein Git-Repository mit Skripten, Walker-Einträgen, optionalen visuellen Elementen (Kacheln, Panels, Desktop-Widgets und Leistenelemente) und optional einem Benutzerdienst; ein Repository kann mehrere Plugins enthalten. Ein Plugin läuft als du, mit allen Berechtigungen deines Kontos: Es kann deine Dateien, SSH-Schlüssel und Browserdaten lesen, sie überallhin senden und sich am Laufen halten. Eitr hat seinen Code nicht geprüft; der Code gehört seinem Autor, nicht Eitr, und jeder Plugin-Eintrag sagt das, zum Beispiel Plugin von Ada · nicht von Eitr geprüft. Füge nur Plugins von Personen und Repositorys hinzu, denen du vertraust.
 
-Eitr fragt nach deinem Passwort nur in einem Terminal, das es für einen von dir gestarteten Schritt geöffnet hat, etwa die Systemaktualisierung, nie in einem Pop-up-Fenster. Fragt ein Plugin nach deinem Passwort, ist es nicht Eitr: Gib es nicht ein.
+Plugins können `packages` angeben: bis zu 32 eindeutige einfache Paketnamen aus aktivierten offiziellen Arch-Repositories oder `[eitr]`, niemals AUR, URLs oder lokale Dateien. Die Prüfung zeigt installierte und fehlende Pakete; unbekannte Pakete verhindern die Installation. Nach der Bestätigung fragt Eitr im Polkit-Systemdialog nach dem Administratorpasswort und installiert nur fehlende Pakete. Updates mit neuen Paketen erfordern ebenfalls eine Prüfung. Beim Entfernen können für das Plugin installierte Pakete optional entfernt werden, sofern sie ungenutzte Abhängigkeiten bleiben. Explizit installierte oder von anderen Plugins benötigte Pakete bleiben erhalten.
 
 Hauptmenü > Plugins > Plugins hinzufügen fragt nach einer HTTPS-Git-URL oder, für ein privates Repository, nach einer SSH-URL wie `git@github.com:you/plugin.git` (sie nutzt deine SSH-Schlüssel über den Agenten). Das Hinzufügen braucht zwei Bestätigungen, beide mit Nein als Vorgabe. Zuerst, bevor etwas heruntergeladen wird, erklärt eine Sicherheitsseite diese Risiken; drücke Enter, um das Plugin zur Prüfung herunterzuladen.
 
@@ -131,7 +131,7 @@ Plugins liegen nur unter `$XDG_DATA_HOME/eitr/plugins/<id>/` (Standard `~/.local
 
 ### Manifest-Referenz
 
-Version 1: Im Stamm liegt `eitr-plugin.json`. Nur diese Schlüssel sind erlaubt: `id` (Kleinbuchstaben und Ziffern, getrennt durch einzelne Bindestriche), `name`, `description` (höchstens 72 Zeichen), `author`, `version`, `rows` (1–20; 0–20 mit `ui`) und optional `service`, `schemaVersion` und `hooks`. Jeder Eintrag benötigt `title`, `description` (beide höchstens 72 Zeichen) und `run`; optional sind `icon` und `arguments` (Liste fester Zeichenketten).
+Version 1: Im Stamm liegt `eitr-plugin.json`. Nur diese Schlüssel sind erlaubt: `id` (Kleinbuchstaben und Ziffern, getrennt durch einzelne Bindestriche), `name`, `description` (höchstens 72 Zeichen), `author`, `version`, `rows` (1–20; 0–20 mit `ui`) und optional `service`, `schemaVersion`, `packages` und `hooks`. Jeder Eintrag benötigt `title`, `description` (beide höchstens 72 Zeichen) und `run`; optional sind `icon` und `arguments` (Liste fester Zeichenketten).
 
 Ein Dienst akzeptiert nur `run` und optional `arguments`. Befehle verwenden argv, niemals Shell-Zeichenketten. `run` muss eine ausführbare Datei im Repository bezeichnen: Absolute Pfade und `..` werden abgelehnt, ebenso jeder Symlink irgendwo im Plugin. Unbekannte oder doppelte JSON-Schlüssel werden abgelehnt. Submodule werden nicht initialisiert.
 

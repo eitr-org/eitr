@@ -165,7 +165,9 @@ def manifest(root):
         raise ValueError(tr('Invalid plugin schemaVersion; expected 1 or 2'))
     if version > 2:
         raise ValueError(tr('This plugin needs a newer Eitr'))
-    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks', 'icon', 'preview', 'homepage', 'media') + (('ui', 'capabilities') if version == 2 else ()))
+    object_keys(value, ('id', 'name', 'description', 'author', 'version', 'rows'), ('service', 'schemaVersion', 'hooks', 'icon', 'preview', 'homepage', 'media', 'packages') + (('ui', 'capabilities') if version == 2 else ()))
+    from eitr_plugin_packages import names
+    names(value.get('packages', []))
     for field in ('icon', 'preview'):
         if field in value:
             image_asset(root, value[field], preview=field == 'preview')

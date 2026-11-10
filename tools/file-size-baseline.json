@@ -2,8 +2,8 @@
   "limit": 400,
   "files": {
     "distro/lib/eitr_plugin_install.py": {
-      "lines": 983,
-      "reason": "One reviewed plugin install transaction, kept together for review."
+      "lines": 1012,
+      "reason": "One approved plugin transaction, including package provenance and shared ownership transfer."
     },
     "distro/lib/eitr_profile.py": {
       "lines": 414,
@@ -22,8 +22,8 @@
       "reason": "One linear build script."
     },
     "distro/system/eitr-system.py": {
-      "lines": 1311,
-      "reason": "To improve (TODO): 79 functions across snapshots, boot, security and network; split by area behind the same CLI."
+      "lines": 1316,
+      "reason": "System action dispatcher; package transactions delegate to their narrow root module."
     },
     "distro/system/factory-reset.py": {
       "lines": 453,
@@ -46,16 +46,16 @@
       "reason": "Barely over the limit; one panel."
     },
     "quickshell/desktop-bar/panels/CatalogContent.qml": {
-      "lines": 955,
-      "reason": "To improve (TODO): cards, detail and review sheets and the Git address flow in one file."
+      "lines": 967,
+      "reason": "Catalog cards and review sheets, including package review and optional removal cleanup."
     },
     "quickshell/desktop-bar/scripts/bar-data.py": {
       "lines": 910,
       "reason": "The bar data broker: one event loop owning every topic."
     },
     "quickshell/desktop-bar/scripts/catalog-domain.py": {
-      "lines": 551,
-      "reason": "One catalog domain for the bar data broker."
+      "lines": 555,
+      "reason": "One catalog transport and backend dispatcher, including reviewed package cleanup."
     },
     "quickshell/desktop-bar/scripts/display-settings.py": {
       "lines": 466,
@@ -82,8 +82,8 @@
       "reason": "To improve (TODO): account model and its apply/CLI layer in one file."
     },
     "walker/scripts/actions/install/plugins.py": {
-      "lines": 547,
-      "reason": "One plugin review and install flow."
+      "lines": 550,
+      "reason": "One terminal plugin review flow, sharing package facts with the native review."
     },
     "walker/scripts/actions/install/software.py": {
       "lines": 830,

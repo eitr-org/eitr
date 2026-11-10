@@ -19,6 +19,7 @@ for parent in Path(__file__).resolve().parents:
         break
 
 import eitr_policy
+import eitr_plugin_packages
 import eitr_plugin_review
 import eitr_plugins
 from eitr_forms import Terminal
@@ -67,7 +68,8 @@ def safety_lines(url):
 
 
 def live_review_lines(spec):
-    lines = [field + ': ' + printable(spec[field]) for field in ('icon', 'preview', 'homepage') if field in spec]
+    lines = eitr_plugin_packages.review_lines(spec)
+    lines += [field + ': ' + printable(spec[field]) for field in ('icon', 'preview', 'homepage') if field in spec]
     if not spec.get('icon'):
         lines.append(tr('No plugin icon; a generic icon will be shown.'))
     if 'audio-spectrum' in spec.get('capabilities', []):
@@ -432,7 +434,8 @@ def remove(manager, plugin_id):
     blocked = manager.blocked().get(plugin_id)
     if blocked:
         print(tr('This plugin is blocked: {reason}', reason=blocked[1]))
-    return manager.remove(plugin_id, lambda record: confirm(tr('Remove plugin {id} and its service?', id=record['id'])))
+    return manager.remove(plugin_id, lambda record: confirm(tr('Remove plugin {id} and its service?', id=record['id'])),
+                          lambda packages: confirm(tr('Remove unused plugin-installed packages: {packages}?', packages=', '.join(packages))))
 
 
 def visual_rows(manager, plugin_id, monitors):

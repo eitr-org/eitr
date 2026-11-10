@@ -112,7 +112,7 @@ def prompt(records, selected):
             'no #, **, backticks or tables; short paragraphs, and lines starting with "- " for lists. '
             'Give a plain-language report in the user language '
             'identified by locale ' + select_locale() + '. Explain what it does; commands it runs, including login hooks '
-            'and services; files it reads and writes; network destinations and access; permissions; '
+            'and services; declared system packages and their purpose; files it reads and writes; network destinations and access; permissions; '
             'obfuscated or unusual behavior. Identify binaries and other limits you cannot inspect. '
             'Focus on the selected plugin folder, considering the rest of the repository as context. '
             'Distinguish evidence from guesses and cite relative filenames. AI can miss things: this is advice, '

@@ -111,7 +111,7 @@ Un plugin est un dépôt Git contenant des scripts, des entrées Walker, des él
 
 Eitr n’a pas vérifié son code ; le code appartient à son auteur, pas à Eitr, et chaque entrée de plugin l’indique, par exemple Plugin de Ada · non vérifié par Eitr. N’ajoutez que des plugins de personnes et de dépôts de confiance.
 
-Eitr ne demande votre mot de passe que dans un terminal qu’il a ouvert pour une étape que vous avez lancée, comme Mise à jour du système, jamais dans une fenêtre surgissante. Si un plugin vous demande votre mot de passe, ce n’est pas Eitr : ne le saisissez pas.
+Les plugins peuvent déclarer `packages` : jusqu’à 32 noms de paquets simples et uniques des dépôts officiels Arch activés ou de `[eitr]`, jamais AUR, des URL ou des fichiers locaux. La vérification indique les paquets installés et manquants ; les paquets inconnus empêchent l’installation. Après approbation, Eitr demande le mot de passe administrateur dans la boîte de dialogue système polkit et installe uniquement les paquets manquants. Les mises à jour ajoutant des paquets exigent aussi une vérification. La suppression propose de retirer les paquets installés pour le plugin s’ils restent des dépendances inutilisées ; les paquets installés explicitement ou nécessaires à un autre plugin sont conservés.
 
 Principal > Plugins > Ajouter des plugins demande une URL Git HTTPS ou, pour un dépôt privé, une URL SSH comme `git@github.com:you/plugin.git` (elle utilise vos clés SSH via l’agent). L’ajout demande deux confirmations, toutes deux à Non par défaut. D’abord, avant tout téléchargement, une page de sécurité explique ces risques ; appuyez sur Entrée pour télécharger le plugin et le vérifier.
 
@@ -149,7 +149,7 @@ Les plugins résident uniquement dans `$XDG_DATA_HOME/eitr/plugins/<id>/` (par d
 
 ### Référence du manifeste
 
-Version 1 : La racine contient `eitr-plugin.json`. Seules ces clés sont admises : `id` (minuscules et chiffres séparés par des tirets simples), `name`, `description` (72 caractères maximum), `author`, `version`, `rows` (1–20 ; 0–20 avec `ui`) et les champs facultatifs `service`, `schemaVersion` et `hooks`. Chaque entrée exige `title`, `description` (72 caractères maximum chacun) et `run` ; `icon` et `arguments` (liste de chaînes fixes) sont facultatifs.
+Version 1 : La racine contient `eitr-plugin.json`. Seules ces clés sont admises : `id` (minuscules et chiffres séparés par des tirets simples), `name`, `description` (72 caractères maximum), `author`, `version`, `rows` (1–20 ; 0–20 avec `ui`) et les champs facultatifs `service`, `schemaVersion`, `packages` et `hooks`. Chaque entrée exige `title`, `description` (72 caractères maximum chacun) et `run` ; `icon` et `arguments` (liste de chaînes fixes) sont facultatifs.
 
 Un service accepte seulement `run` et éventuellement `arguments`. Les commandes utilisent argv, jamais des chaînes de shell. `run` doit désigner un exécutable interne au dépôt : chemins absolus et `..` sont refusés, tout comme un lien symbolique n’importe où dans le plugin. Les clés JSON inconnues ou dupliquées sont refusées.
 

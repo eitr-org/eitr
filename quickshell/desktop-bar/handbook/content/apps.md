@@ -153,7 +153,7 @@ A plugin is a Git repository containing scripts, Walker rows, optional visual pi
 
 Eitr has not reviewed its code; the code belongs to its author, not to Eitr, and every plugin row says so, for example Plugin by Ada · not reviewed by Eitr. Only add plugins from people and repositories you trust.
 
-Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.
+Plugins may declare `packages`: up to 32 unique plain package names from enabled official Arch repositories or `[eitr]`, never AUR, URLs or local files. The review lists packages already installed and those missing; unknown packages refuse installation. After approval, Eitr requests the administrator password through the system polkit dialog and installs only missing packages. Updates adding packages require review too. Removal offers optional cleanup of packages installed for the plugin, only while they remain unused dependencies; packages installed explicitly or needed by another plugin are kept.
 
 Main > Plugins > Add Plugins asks for an HTTPS Git URL, or an SSH one such as `git@github.com:you/plugin.git` for a private repository (it uses your SSH keys through the agent). Adding takes two confirmations, and both default to No. First, before anything is downloaded, a safety page explains these risks; press Enter to download the plugin for review.
 
@@ -194,7 +194,7 @@ Plugins live only in `$XDG_DATA_HOME/eitr/plugins/<id>/` (default `~/.local/shar
 
 ### Manifest reference
 
-Version 1: The repository root contains `eitr-plugin.json`. Only these keys are accepted: `id` (lowercase letters/digits separated by single hyphens), `name`, `description` (up to 72 characters), `author`, `version`, `rows` (1–20; 0–20 when it declares `ui`), and optional `service`, `schemaVersion` and `hooks`. Each row requires `title`, `description` (both up to 72 characters) and `run`; optional keys are `icon` and `arguments` (an array of fixed strings).
+Version 1: The repository root contains `eitr-plugin.json`. Only these keys are accepted: `id` (lowercase letters/digits separated by single hyphens), `name`, `description` (up to 72 characters), `author`, `version`, `rows` (1–20; 0–20 when it declares `ui`), and optional `service`, `schemaVersion`, `packages` and `hooks`. Each row requires `title`, `description` (both up to 72 characters) and `run`; optional keys are `icon` and `arguments` (an array of fixed strings).
 
 A service accepts only `run` and optional `arguments`. Commands use argv, never shell strings. `run` must name an executable inside the repository: absolute paths and `..` are refused, and so is a symlink anywhere in the plugin. Unknown or duplicate JSON keys are refused. Submodules are not initialized.
 

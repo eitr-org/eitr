@@ -14,6 +14,7 @@ import secrets
 import time
 from urllib.parse import urlsplit
 
+import eitr_plugin_packages
 import eitr_policy
 from eitr_i18n import mark, tr
 from eitr_paths import cache, config, data, state
@@ -166,6 +167,9 @@ def add_flags(root, spec):
 
 def live_flags(spec, previous=None):
     flags = []
+    added_packages = set(spec.get('packages', [])) - set((previous or {}).get('packages', []))
+    if added_packages:
+        flags.append(tr('System packages added: {packages}', packages=', '.join(sorted(added_packages))))
     if 'audio-spectrum' in spec.get('capabilities', []) and 'audio-spectrum' not in (previous or {}).get('capabilities', []):
         flags.append(tr('Reads the system audio spectrum (levels only, no audio is recorded or sent)'))
     for kind, entries in spec.get('ui', {}).items():
@@ -307,7 +311,8 @@ class PluginInstall:
             raise ValueError('Invalid plugin state')
         for plugin_id, record in value.items():
             identifier(plugin_id)
-            object_keys(record, ('url', 'id', 'commit', 'installed'), ('enabled', 'path'))
+            object_keys(record, ('url', 'id', 'commit', 'installed'), ('enabled', 'path', 'packages'))
+            eitr_plugin_packages.names(record.get('packages', []), limit=4096)
             if 'path' in record:
                 relative = record['path']
                 if not isinstance(relative, str) or not relative or PurePosixPath(relative).is_absolute() or '..' in PurePosixPath(relative).parts or '\\' in relative or str(PurePosixPath(relative)) != relative:
@@ -531,6 +536,7 @@ class PluginInstall:
             self.check(url, approved, plugin_id)
             if not approve(candidate, spec, url):
                 return False
+            caused = eitr_plugin_packages.install(spec)
             verify_tree(candidate, approved)
             self.folder.mkdir(parents=True, exist_ok=True)
             try:
@@ -541,7 +547,7 @@ class PluginInstall:
                 if 'service' in spec:
                     self.service(plugin_id, spec)
                 records[plugin_id] = dict(url=url, id=plugin_id, commit=approved,
-                                         installed=datetime.datetime.now(datetime.timezone.utc).isoformat())
+                                         installed=datetime.datetime.now(datetime.timezone.utc).isoformat(), packages=caused)
                 self.save(records)
             except BaseException:
                 if self.unit(plugin_id).exists():
@@ -579,13 +585,14 @@ class PluginInstall:
                 self.check(url, revision, plugin_id)
                 if not approve(candidate / entry['path'], spec, url):
                     continue
+                caused = eitr_plugin_packages.install(spec)
                 verify_tree(candidate, revision)
                 snapshot = self.keep_snapshot(candidate, url, revision)
                 root = snapshot / entry['path']
                 if manifest(root) != spec:
                     raise ValueError('Plugin manifest changed after approval')
                 record = dict(url=url, id=plugin_id, commit=revision, path=entry['path'],
-                              installed=datetime.datetime.now(datetime.timezone.utc).isoformat())
+                              installed=datetime.datetime.now(datetime.timezone.utc).isoformat(), packages=caused)
                 try:
                     if 'service' in spec:
                         self.service(plugin_id, spec, root=root)
@@ -630,6 +637,7 @@ class PluginInstall:
             changes['official'] = official(record['url'])
             if not approve(changes):
                 return False
+            caused = eitr_plugin_packages.install(spec, record.get('packages', []))
             verify_tree(candidate, changes['new'])
             snapshot = self.keep_snapshot(candidate, record['url'], revision)
             root = snapshot / entry['path']
@@ -638,7 +646,7 @@ class PluginInstall:
                     raise ValueError('Plugin manifest changed after approval')
                 if 'service' in spec or 'service' in old_spec:
                     self.service(plugin_id, spec if record.get('enabled', True) else None, root=root)
-                self.save({**records, plugin_id: {**record, 'commit': revision}})
+                self.save({**records, plugin_id: {**record, 'commit': revision, 'packages': caused}})
             except BaseException:
                 if 'service' in spec or 'service' in old_spec:
                     with contextlib.suppress(OSError, subprocess.SubprocessError):
@@ -683,6 +691,7 @@ class PluginInstall:
             changes['official'] = official(record['url'])
             if not approve(changes):
                 return False
+            caused = eitr_plugin_packages.install(spec, record.get('packages', []))
             verify_tree(candidate, changes['new'])
             replacement = self.folder / ('.' + plugin_id + '-new')
             backup = self.folder / ('.' + plugin_id + '-previous')
@@ -699,7 +708,7 @@ class PluginInstall:
                 replacement.rename(target)
                 if 'service' in spec or 'service' in old_spec:
                     self.service(plugin_id, spec if record.get('enabled', True) else None)
-                self.save({**records, plugin_id: {**record, 'commit': new_commit}})
+                self.save({**records, plugin_id: {**record, 'commit': new_commit, 'packages': caused}})
             except BaseException:
                 if backup.exists():
                     if self.unit(plugin_id).exists():
@@ -737,7 +746,7 @@ class PluginInstall:
         try:
             shutil.copytree(repository, Path(stage.name) / 'candidate')
             import eitr_plugin_review
-            facts = dict(spec=spec, url=url, folder=selected, commit=approved,
+            facts = dict(packages=eitr_plugin_packages.review(spec), spec=spec, url=url, folder=selected, commit=approved,
                          official=official(url), author=git(root, 'show', '-s', '--format=%an <%ae> · %aI', approved),
                          files=sorted(str(path.relative_to(root)) for path in plugin_files(root)),
                          flags=add_flags(root, spec), assistant=eitr_plugin_review.available(),
@@ -898,13 +907,24 @@ class PluginInstall:
             self.prepare = original_prepare
             review['stage'].cleanup()
 
-    def remove(self, plugin_id, approve):
+    def remove(self, plugin_id, approve, remove_packages=None):
         identifier(plugin_id)
         with self.lock():
             records = self.records()
-            record = records[plugin_id]
+            record = dict(records[plugin_id])
+            record['packages'] = eitr_plugin_packages.owned(plugin_id, record.get('packages', []))
+            retained = {name for other_id in records if other_id != plugin_id
+                        for name in (self.spec(other_id) or {}).get('packages', [])}
+            candidates = eitr_plugin_packages.removable(record.get('packages', []), retained)
             if not approve(record):
                 return False
+            if candidates and remove_packages:
+                selected = remove_packages(candidates)
+                selected = candidates if selected is True else selected if isinstance(selected, list) else []
+                if set(selected) - set(candidates):
+                    raise ValueError('Invalid package cleanup selection')
+                if selected:
+                    eitr_plugin_packages.root('remove', selected)
             target = self.root(plugin_id)
             if target.is_symlink():
                 raise ValueError('Plugin folder must not be a symlink')
@@ -912,9 +932,15 @@ class PluginInstall:
                 self.service(plugin_id)
             if target.exists() and not record.get('path'):
                 shutil.rmtree(target)
+            for other_id, other in records.items():
+                if other_id != plugin_id:
+                    shared = set(record.get('packages', [])) & set((self.spec(other_id) or {}).get('packages', []))
+                    if shared:
+                        other['packages'] = list(dict.fromkeys([*other.get('packages', []), *sorted(shared)]))
             del records[plugin_id]
             self.save(records)
             self.clean_snapshots()
+            eitr_plugin_packages.forget(plugin_id)
             return True
 
     def set_enabled(self, plugin_id, enabled):
@@ -970,6 +996,9 @@ class PluginInstall:
             checked = updates.get(plugin_id, {})
             count = checked.get('count', 0) if checked.get('commit') == record['commit'] else 0
             rows.append(dict(id=plugin_id, updateCount=count, official=official(record['url']),
+                             removablePackages=eitr_plugin_packages.removable(eitr_plugin_packages.owned(plugin_id, record.get('packages', [])),
+                                 {name for other_id in self.records() if other_id != plugin_id
+                                  for name in (self.spec(other_id) or {}).get('packages', [])}),
                              name=printable(spec['name']) if spec else plugin_id,
                              author=printable(spec['author']) if spec else '?', blocked=blocked.get(plugin_id, ('',))[0],
                              repository=printable(record['url']), repositoryPath=record.get('path', ''),

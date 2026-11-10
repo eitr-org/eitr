@@ -358,7 +358,7 @@ Item {
     function confirm() {
         if (busy) return;
         if (reviewing) act("install", {ids: chosen.map(item => item.id)});
-        else if (removing) act("remove", {id: removing.id});
+        else if (removing) act("remove", {id: removing.id, removePackages: removePackagesChoice.checked ? removing.removablePackages || [] : []});
     }
     onTabChanged: switchView()
     onKindChanged: switchView()
@@ -865,6 +865,17 @@ Item {
                 anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 24; spacing: 18
                 Label { width: parent.width; font.family: SiteStyle.carved; font.pixelSize: PanelStyle.headingSize; font.weight: Font.Medium; text: catalog.reviewing ? Eitr.I18n.tr("Review theme installation") : Eitr.I18n.tr("Remove %1?").arg(catalog.removing ? catalog.removing.name : "") }
                 Label { width: parent.width; text: catalog.reviewing ? Eitr.I18n.tr("Data-only themes · Review selected sources") : catalog.kind === "plugins" ? Eitr.I18n.tr("The plugin and its files are deleted from this computer.") : Eitr.I18n.tr("The theme is deleted from this computer."); color: catalog.muted }
+                Row {
+                    visible: catalog.kind === "plugins" && !!catalog.removing && (catalog.removing.removablePackages || []).length > 0
+                    width: parent.width; spacing: 10
+                    onVisibleChanged: removePackagesChoice.checked = false
+                    PanelSwitch { id: removePackagesChoice; anchors.verticalCenter: parent.verticalCenter; foreground: catalog.foreground; accent: catalog.accent; checked: false }
+                    Label {
+                        width: parent.width - removePackagesChoice.width - parent.spacing; anchors.verticalCenter: parent.verticalCenter; wrapMode: Text.WordWrap
+                        text: Eitr.I18n.tr("Remove unused plugin-installed packages: {packages}?").replace("{packages}", catalog.removing ? (catalog.removing.removablePackages || []).join(", ") : "")
+                        MouseArea { anchors.fill: parent; onClicked: removePackagesChoice.checked = !removePackagesChoice.checked }
+                    }
+                }
                 ListView {
                     visible: catalog.reviewing
                     width: parent.width; height: 190; orientation: ListView.Horizontal; spacing: 12; clip: true
@@ -923,6 +934,8 @@ Item {
                             }
                         }
                         Label { width: parent.width; visible: text !== ""; text: catalog.componentsText(reviewColumn.facts.spec || {}); wrapMode: Text.WrapAnywhere }
+                        Label { width: parent.width; text: Eitr.I18n.tr("System packages"); font.bold: true; visible: (reviewColumn.facts.packages || []).length > 0 }
+                        Label { width: parent.width; visible: (reviewColumn.facts.packages || []).length > 0; color: catalog.muted; text: Eitr.I18n.tr("Missing packages require the administrator password.") + "\n" + (reviewColumn.facts.packages || []).map(package => package.installed ? Eitr.I18n.tr("{name} · already installed").replace("{name}", package.name) : Eitr.I18n.tr("{name} · will be installed").replace("{name}", package.name)).join("\n"); wrapMode: Text.WrapAnywhere }
                         Label { width: parent.width; visible: text !== ""; text: (reviewColumn.facts.flags || []).join("\n"); color: catalog.accent; wrapMode: Text.WrapAnywhere }
                         Label { width: parent.width; text: Eitr.I18n.tr("Files"); font.bold: true; visible: (reviewColumn.facts.files || []).length > 0 }
                         Label { width: parent.width; visible: text !== ""; text: (reviewColumn.facts.files || []).join("\n"); wrapMode: Text.WrapAnywhere; color: catalog.muted }

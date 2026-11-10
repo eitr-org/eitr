@@ -33,7 +33,7 @@ item says what decides the next step. Remove an item when it ships;
     root helper to the plugin's own reviewed step), WireGuard (import a config,
     connect/disconnect, status) and NetworkManager VPN (OpenVPN/OpenConnect profiles;
     explains the NetworkManager backend when on iwd).
-  - Plugin format gains an optional `packages` field: official Arch/Eitr repositories
+  - Plugin format now has an optional `packages` field (implementation ready; VM test pending): official Arch/Eitr repositories
     only. The install review lists them; after approval they install with the
     administrator password, ideally inside the Themes & Plugins session, otherwise a
     terminal that returns to it. Packages already installed are detected and not

@@ -22,7 +22,7 @@ keys. Required fields:
   optional `arguments` is an array of at most 64 fixed strings, each at most 4096
   characters. Empty arguments are allowed; control characters are refused.
 
-Optional fields are `schemaVersion`, `service` and `hooks`. Display text rejects
+Optional fields are `schemaVersion`, `service`, `packages` and `hooks`. Display text rejects
 control characters. `run` names an executable file inside the repository, never
 an absolute path or a path containing `..`. Symlinks anywhere in a plugin are
 refused. Submodules are not initialized.
@@ -502,3 +502,27 @@ Installed > Add from a Git address accepts HTTPS or SSH, then opens the same
 review. An indexed address offers a choice of one available plugin per review. Theme Git
 addresses use the data-only theme package validation and their own review.
 Official status always follows the address, never the author field.
+
+## System packages
+
+Optional `packages` is an array of at most 32 unique plain pacman package names
+(up to 128 characters each), for example `"packages": ["wireguard-tools"]`.
+Only enabled official Arch (`core`, `extra`, `multilib`) and `[eitr]` repositories
+are accepted. AUR packages, repository prefixes, versions, URLs and local paths
+are refused. Unknown names refuse the review, even if installed locally.
+
+Both native and terminal reviews list installed and missing packages. Confirming
+allows Eitr's root-owned helper to request the administrator password through
+polkit and install only missing packages as dependencies. Existing packages are
+not reinstalled or marked as dependencies. The helper validates names and sync
+availability again and excludes other repositories from dependency resolution.
+Updates adding packages require the same explicit review.
+
+Approval records keep the declared package names installed for each plugin. A small
+`plugin-package-installs.json` state journal preserves ownership if package installation
+succeeds but the subsequent plugin transaction fails; retry and removal reconcile it. Removal offers
+an optional cleanup of those packages only when no installed package requires or
+optionally uses them, no other plugin declares them, and their install reason
+remains dependency. Explicitly installed packages are kept. Shared ownership moves
+to another declaring plugin on removal. Cleanup rechecks eligibility as root and
+uses nonrecursive removal; declining cleanup keeps the system packages.

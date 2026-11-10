@@ -1192,7 +1192,7 @@ READ_ONLY_ACTIONS = {"selfcheck-deeper", "snapshots-check", "bootloader-detect",
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["user-set-type", "user-set-password", "user-remove", "user-create", "mirrors-rank", "mirrors-restore", "mirrors-status", "mirrors-first-boot", "selfcheck-deeper",
+    parser.add_argument("action", choices=["plugin-packages-install", "plugin-packages-remove", "user-set-type", "user-set-password", "user-remove", "user-create", "mirrors-rank", "mirrors-restore", "mirrors-status", "mirrors-first-boot", "selfcheck-deeper",
                                            "snapshots-check", "snapshots-setup", "snapshot-pre", "snapshot-post",
                                            "bootloader-detect", "snapshots-boot-status", "snapshots-boot-setup",
                                            "battery-limit", "battery-limit-apply", "battery-limit-status",
@@ -1214,7 +1214,12 @@ if __name__ == "__main__":
     try:
         if args.profile_user and args.action != "profile-install":
             raise ValueError("Unexpected desktop user argument")
-        if args.action == "user-create":
+        if args.action.startswith("plugin-packages-"):
+            if args.argument:
+                raise ValueError("Unexpected argument")
+            from eitr_plugin_packages_root import dispatch
+            dispatch(args.action.removeprefix("plugin-packages-"), sys.stdin)
+        elif args.action == "user-create":
             if args.argument:
                 raise ValueError("Unexpected argument")
             create_user(sys.stdin)
