@@ -65,9 +65,13 @@ def set_per_display(enabled):
 
 
 def clear_assignments():
+    """Forget every display's pick. Files are written only when something changes, since
+    the bar redraws wallpapers on every write."""
     with locked():
-        save({})
-        write_settings(runtime() / 'preview.json', {'path': ''})
+        if read_settings(settings()).get('assignments'):
+            save({})
+        if read_settings(runtime() / 'preview.json').get('path'):
+            write_settings(runtime() / 'preview.json', {'path': ''})
 
 
 def available(path):
