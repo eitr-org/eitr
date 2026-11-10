@@ -138,6 +138,7 @@ Column {
             width: parent.width
             spacing: 14
             ChoiceDropdown {
+                id: cursorFamily
                 SettingsTarget { objectName: "setting-appearance-cursor-family" }
                 floatingLabel: Eitr.I18n.tr("Cursor family")
                 helperText: Eitr.I18n.tr("Choose the pointer shape.")
@@ -154,7 +155,8 @@ Column {
             }
             Image {
                 id: cursorSample
-                y: (48 - height) / 2
+                // Centred on the field itself, below the room kept for its raised label.
+                y: cursorFamily.labelRoom + (48 - height) / 2
                 visible: source.toString() !== ""
                 width: Number((styleModel.cursorChoices.size.find(choice => choice.selected) || {}).id || 24)
                 height: width

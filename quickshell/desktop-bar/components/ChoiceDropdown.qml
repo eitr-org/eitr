@@ -13,7 +13,8 @@ Item {
     required property color foreground
     property color background: "#20242c"
     property color gold: foreground
-    // Each choice is {value|id|key|name, label, glyph?, available?} or a plain string.
+    // Each choice is {value|id|key|name, label, glyph?, palette?, available?} or a plain string;
+    // a palette is a list of colours shown as small filled circles beside the label.
     property var choices: []
     property string current: ""
     property bool available: true
@@ -106,6 +107,23 @@ Item {
     function valueOf(choice) { return String(choice.value ?? choice.id ?? choice.key ?? choice.name ?? choice); }
     function labelOf(choice) { return Eitr.I18n.tr(String(choice.label ?? choice.name ?? choice)); }
     function glyphOf(choice) { return choice && choice.glyph ? String(choice.glyph) : ""; }
+    // List rows receive choices through the list model, which turns arrays into Qt lists.
+    function paletteOf(choice) { return choice && choice.palette && choice.palette.length !== undefined ? Array.from(choice.palette) : []; }
+    component Swatches: Row {
+        id: swatchRow
+        property var colors: []
+        spacing: 3
+        Repeater {
+            model: swatchRow.colors
+            Rectangle {
+                required property string modelData
+                width: 10; height: 10; radius: 5
+                color: modelData
+                border.width: 1
+                border.color: Qt.alpha(control.foreground, 0.25)
+            }
+        }
+    }
     function move(delta) {
         expanded = true;
         keyboardHighlight = true;
@@ -163,6 +181,11 @@ Item {
         }
         // One chevron, centred on its drawn shape, turned over while the list is open; two
         // different glyphs sat at different heights and the arrow jumped.
+        Swatches {
+            visible: control.outlined
+            anchors.right: chevron.left; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter
+            colors: control.paletteOf(button.currentChoice)
+        }
         Item {
             id: chevron
             anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter
@@ -301,6 +324,12 @@ Item {
                         }
                         if (hovered) control.pointerPosition = position;
                     }
+                }
+                Swatches {
+                    anchors.right: rowAction.visible ? rowAction.left : parent.right
+                    anchors.rightMargin: PanelStyle.selectionInset
+                    anchors.verticalCenter: parent.verticalCenter
+                    colors: control.paletteOf(row.modelData)
                 }
                 PanelButton {
                     id: rowAction
