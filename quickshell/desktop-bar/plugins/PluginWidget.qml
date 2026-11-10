@@ -132,6 +132,7 @@ Item {
         }
     }
     Rectangle {
+        id: resizeGrip
         visible: widget.editing; width: 28; height: 28
         anchors.right: parent.right; anchors.bottom: parent.bottom
         color: widget.accent; radius: DesktopStyle.radius(PanelStyle.controlRadius)
@@ -150,10 +151,15 @@ Item {
             onCanceled: widget.finished()
         }
     }
+    // Beside the resize grip, solid in the accent so it reads on any wallpaper.
     PanelButton {
+        id: doneButton
         visible: widget.editing
-        anchors.bottom: parent.bottom; anchors.left: parent.left
-        text: Eitr.I18n.tr("Done"); foreground: widget.foreground
+        anchors.bottom: parent.bottom; anchors.right: resizeGrip.left; anchors.rightMargin: 6
+        width: Math.max(64, doneMetrics.advanceWidth + 28); height: 28
+        color: widget.accent
+        text: Eitr.I18n.tr("Done"); foreground: PanelStyle.readableInk(widget.accent, widget.foreground, widget.background)
         onClicked: PluginRegistry.editing = false
+        TextMetrics { id: doneMetrics; text: doneButton.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
     }
 }
