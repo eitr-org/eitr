@@ -27,6 +27,9 @@
     "A lone column fills the screen.": [
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
+    "A panel behind the widget, or nothing.": [
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
+    ],
     "A quiet desktop with tabs and panes.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -849,6 +852,9 @@
     ],
     "Down": [
       "tools/choice-lists.json"
+    ],
+    "Drag to any angle, or turn by 45°.": [
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Duplicate": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
@@ -2333,6 +2339,9 @@
     "Shows the desktop in HDR. Games can use HDR even when this is off.": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
+    "Shrink, grow or fill the screen width.": [
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
+    ],
     "Shut Down": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
@@ -2407,6 +2416,9 @@
     "Status unavailable": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
+    ],
+    "Stays on top of open apps.": [
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Step %1": [
       "quickshell/desktop-bar/welcome/WelcomeTour.qml"
@@ -2526,6 +2538,9 @@
     ],
     "The plugin and its files are deleted from this computer.": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
+    "The screen that shows this copy.": [
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "The theme is deleted from this computer.": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"

@@ -411,7 +411,7 @@ ShellRoot {
     }
     FloatingWindow {
         id: bar
-        visible: true; implicitWidth: 1280; implicitHeight: 800
+        visible: true; implicitWidth: 1280; implicitHeight: 1000
         property real normalThickness: 30
         property real tabLeadingEnd: 220
         property real tabCenterStart: 552
@@ -457,7 +457,7 @@ ShellRoot {
             }
             Rectangle {
                 visible: MANAGEMENT
-                x: 380; y: 50; width: 520; height: 700
+                x: 380; y: 50; width: 520; height: 900
                 color: "BACKGROUND"; radius: 12
                 Column {
                     x: 24; y: 20; width: parent.width - 48; spacing: 16
@@ -476,7 +476,7 @@ ShellRoot {
                         throw new Error("Clock moved off screen centre");
                     if (items.width !== 24) throw new Error("Plugin slot changed width");
                     if (MANAGEMENT) {
-                        if (area.height <= 0 || area.height > 640) throw new Error("Management missing or clipped: " + area.height);
+                        if (area.height <= 0 || area.height > 840) throw new Error("Management missing or clipped: " + area.height);
                         if (Bar.PluginRegistry.placements.widgets.length !== 1 || Bar.PluginRegistry.placements.barItems.length !== 1) throw new Error("Management lost placements before capture");
                     }
                     sample.grabToImage(function(result) {

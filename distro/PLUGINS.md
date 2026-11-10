@@ -423,7 +423,7 @@ shows the outline, title handle, resize grip and Done control.
 Right-click a behind-window widget, or any widget while editing, for the copy's
 settings card: **Edit position**, **Duplicate**, **Size** − / + (90% / 110%,
 preserving aspect and centre where bounds permit) and **Full width**, **Rotation**
-(a 0–359° slider snapping within 3° of quarter turns, 90° turns and **Reset**),
+(a 0–359° slider snapping within 3° of quarter turns, 45° turns and **Reset**),
 **Display**, **Background**, **Show above windows**, plugin options and **Remove from
 desktop**. Each copy's card in Control Center shows the same controls. Size is limited by declared minimums
 and the monitor's usable area; fitting the screen takes precedence over minimums.

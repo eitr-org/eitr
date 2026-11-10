@@ -891,5 +891,10 @@
   "Duplicate": "Duplicate",
   "Reset": "Reset",
   "Turn left": "Turn left",
-  "Turn right": "Turn right"
+  "Turn right": "Turn right",
+  "A panel behind the widget, or nothing.": "A panel behind the widget, or nothing.",
+  "Drag to any angle, or turn by 45°.": "Drag to any angle, or turn by 45°.",
+  "Shrink, grow or fill the screen width.": "Shrink, grow or fill the screen width.",
+  "Stays on top of open apps.": "Stays on top of open apps.",
+  "The screen that shows this copy.": "The screen that shows this copy."
 }

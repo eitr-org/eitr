@@ -42,13 +42,9 @@ Column {
         }
         return names.map(name => ({label: name || Eitr.I18n.tr("Style"), options: options.filter(option => (typeof option.group === "string" ? option.group : "") === name)}));
     }
-    readonly property var labels: [Eitr.I18n.tr("Size"), Eitr.I18n.tr("Rotation"), Eitr.I18n.tr("Display"),
-        Eitr.I18n.tr("Background")].concat(optionGroups.map(group => group.label))
-    // The label column fits the longest label in the current language.
-    readonly property real labelWidth: Math.min(width * 0.42, Math.ceil(Math.max(...labels.map(text => bodyMetrics.advanceWidth(text)))) + 38)
     // Each setting sits in a bordered row, like WiFi's network rows.
     readonly property real rowPadding: 6
-    readonly property real controlWidth: width - labelWidth - 2 * rowPadding
+    readonly property real controlWidth: width - 2 * rowPadding
     spacing: PanelStyle.selectionRowGap
 
     function change(action, settings) {
@@ -77,38 +73,51 @@ Column {
         return Math.ceil(controlMetrics.advanceWidth(text)) + (glyph ? 34 : 8) + 10;
     }
 
-    FontMetrics { id: bodyMetrics; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
     FontMetrics { id: controlMetrics; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
 
-    // A setting's glyph and name in the label column; its control fills the rest of the row.
+    // A setting stacked in its bordered row: glyph and name, then its control across the
+    // whole row, then a one-line description.
     component Setting: Rectangle {
         id: setting
         property string glyph: ""
         property string text: ""
+        property string description: ""
         default property alias control: slot.data
         width: controls.width
-        height: Math.max(PanelStyle.selectionRowHeight, slot.childrenRect.height + 2 * controls.rowPadding)
+        height: stack.implicitHeight + 2 * controls.rowPadding
         radius: DesktopStyle.radius(PanelStyle.controlRadius)
         color: Qt.alpha(controls.foreground, PanelStyle.selectionAlpha(false, false))
         border.width: PanelStyle.selectionBorderWidth(false)
         border.color: Qt.alpha(controls.foreground, PanelStyle.selectionBorderAlpha)
-        Text {
-            id: settingGlyph
-            x: controls.rowPadding
-            width: 20; anchors.verticalCenter: parent.verticalCenter
-            text: setting.glyph; color: controls.foreground; opacity: 0.8
-            horizontalAlignment: Text.AlignHCenter
-            font.family: PanelStyle.fontFamily; font.pixelSize: 15
-        }
-        Text {
-            x: controls.rowPadding + 26; width: controls.labelWidth - 30; anchors.verticalCenter: parent.verticalCenter
-            text: setting.text; textFormat: Text.PlainText; elide: Text.ElideRight
-            color: controls.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
-        }
-        Item {
-            id: slot
-            x: controls.labelWidth + controls.rowPadding; width: controls.controlWidth
-            height: childrenRect.height; anchors.verticalCenter: parent.verticalCenter
+        Column {
+            id: stack
+            x: controls.rowPadding; y: controls.rowPadding
+            width: controls.controlWidth; spacing: 6
+            Item {
+                visible: setting.text !== ""
+                width: parent.width; height: 20
+                Text {
+                    width: 20; anchors.verticalCenter: parent.verticalCenter
+                    text: setting.glyph; color: controls.foreground; opacity: 0.8
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: PanelStyle.fontFamily; font.pixelSize: 15
+                }
+                Text {
+                    x: 26; width: parent.width - x; anchors.verticalCenter: parent.verticalCenter
+                    text: setting.text; textFormat: Text.PlainText; elide: Text.ElideRight
+                    color: controls.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+                }
+            }
+            Item {
+                id: slot
+                width: parent.width; height: childrenRect.height
+            }
+            Text {
+                visible: setting.description !== ""
+                width: parent.width; wrapMode: Text.Wrap; textFormat: Text.PlainText
+                text: setting.description; color: controls.foreground; opacity: PanelStyle.secondaryTextOpacity
+                font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+            }
         }
     }
     // A text button as wide as its label (and glyph), so translations are never cut.
@@ -147,6 +156,7 @@ Column {
     Divider {}
     Setting {
         glyph: String.fromCodePoint(0xF0A68); text: Eitr.I18n.tr("Size")
+        description: Eitr.I18n.tr("Shrink, grow or fill the screen width.")
         Row {
             spacing: PanelStyle.selectionActionGap
             FitButton { width: 36; text: "−"; Accessible.name: Eitr.I18n.tr("Smaller"); onClicked: controls.act("smaller") }
@@ -156,13 +166,14 @@ Column {
     }
     Setting {
         glyph: String.fromCodePoint(0xF0467); text: Eitr.I18n.tr("Rotation")
+        description: Eitr.I18n.tr("Drag to any angle, or turn by 45°.")
         Column {
-            width: parent.width; spacing: 2
+            width: parent.width; spacing: 4
             Item {
                 width: parent.width; height: 30
                 PanelSlider {
                     id: rotationSlider
-                    width: parent.width - degrees.width - 4
+                    width: parent.width
                     from: 0; to: 359; stepSize: 1; live: true
                     foreground: controls.foreground; accent: controls.accent
                     Accessible.name: Eitr.I18n.tr("Rotation")
@@ -179,12 +190,12 @@ Column {
                     onPressedChanged: if (!pressed) controls.rotate(value)
                     Timer { id: keyboardCommit; interval: 400; onTriggered: controls.rotate(rotationSlider.value) }
                 }
-                Text {
-                    id: degrees
-                    anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
-                    width: Math.ceil(controlMetrics.advanceWidth("359°")) + 2; horizontalAlignment: Text.AlignRight
-                    text: controls.rotation + "°"; color: controls.foreground
-                    font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize; font.features: PanelStyle.tabularFigures
+                // The angle shows while the slider is hovered or held.
+                HoverHandler { id: rotationHover }
+                BarTooltip {
+                    target: rotationSlider; hovered: rotationHover.hovered || rotationSlider.pressed
+                    text: Math.round(rotationSlider.value) + "°"
+                    foreground: controls.foreground; background: controls.background
                 }
             }
             Row {
@@ -192,12 +203,12 @@ Column {
                 FitButton {
                     width: 36; text: String.fromCodePoint(0xF0465); textSize: 16; textAlignment: Text.AlignHCenter
                     Accessible.name: Eitr.I18n.tr("Turn left")
-                    onClicked: controls.rotate(Math.round(controls.rotation / 90) * 90 - 90)
+                    onClicked: controls.rotate(Math.round(controls.rotation / 45) * 45 - 45)
                 }
                 FitButton {
                     width: 36; text: String.fromCodePoint(0xF0467); textSize: 16; textAlignment: Text.AlignHCenter
                     Accessible.name: Eitr.I18n.tr("Turn right")
-                    onClicked: controls.rotate(Math.round(controls.rotation / 90) * 90 + 90)
+                    onClicked: controls.rotate(Math.round(controls.rotation / 45) * 45 + 45)
                 }
                 FitButton {
                     text: Eitr.I18n.tr("Reset"); available: controls.rotation !== 0
@@ -208,9 +219,11 @@ Column {
     }
     Setting {
         visible: controls.displayChoices.length > 1
-        glyph: String.fromCodePoint(0xF0379); text: Eitr.I18n.tr("Display")
+        // The outlined dropdown carries its own floating label and helper line, as in Settings.
         ChoiceDropdown {
             width: parent.width
+            floatingLabel: Eitr.I18n.tr("Display")
+            helperText: Eitr.I18n.tr("The screen that shows this copy.")
             foreground: controls.foreground; background: controls.background; gold: controls.accent
             accessibleName: Eitr.I18n.tr("Display")
             choices: controls.displayChoices
@@ -220,6 +233,7 @@ Column {
     }
     Setting {
         glyph: String.fromCodePoint(0xF013A); text: Eitr.I18n.tr("Background")
+        description: Eitr.I18n.tr("A panel behind the widget, or nothing.")
         ChoiceSegmented {
             width: parent.width; foreground: controls.foreground
             choices: [{id: "panel", label: Eitr.I18n.tr("Panel")}, {id: "none", label: Eitr.I18n.tr("Transparent")}]
@@ -249,7 +263,7 @@ Column {
         }
     }
     Rectangle {
-        width: controls.width; height: Math.max(PanelStyle.selectionRowHeight, layerLabel.implicitHeight + 8)
+        width: controls.width; height: Math.max(PanelStyle.selectionRowHeight, layerLabel.implicitHeight + 2 * controls.rowPadding + 4)
         radius: DesktopStyle.radius(PanelStyle.controlRadius)
         color: Qt.alpha(controls.foreground, PanelStyle.selectionAlpha(false, false))
         border.width: PanelStyle.selectionBorderWidth(false)
@@ -261,11 +275,19 @@ Column {
             horizontalAlignment: Text.AlignHCenter
             font.family: PanelStyle.fontFamily; font.pixelSize: 15
         }
-        Text {
+        Column {
             id: layerLabel
             x: controls.rowPadding + 26; width: layerSwitch.x - x - 8; anchors.verticalCenter: parent.verticalCenter
-            text: Eitr.I18n.tr("Show above windows"); textFormat: Text.PlainText; wrapMode: Text.Wrap
-            color: controls.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+            spacing: 2
+            Text {
+                width: parent.width; text: Eitr.I18n.tr("Show above windows"); textFormat: Text.PlainText; wrapMode: Text.Wrap
+                color: controls.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+            }
+            Text {
+                width: parent.width; text: Eitr.I18n.tr("Stays on top of open apps."); textFormat: Text.PlainText; wrapMode: Text.Wrap
+                color: controls.foreground; opacity: PanelStyle.secondaryTextOpacity
+                font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+            }
         }
         PanelSwitch {
             id: layerSwitch
