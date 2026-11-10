@@ -49,11 +49,6 @@ Column {
         open: true; clickable: true
         onClicked: verticalEnd.host.statusOpen = !verticalEnd.host.statusOpen
     }
-    PluginBarItems {
-        foreground: verticalEnd.host.fg; background: verticalEnd.host.barBackground(); accent: verticalEnd.host.activeBg
-        vertical: true; open: verticalEnd.host.iconsOpen; slotSize: verticalEnd.host.workspaceItemSize; slotSpacing: verticalEnd.host.workspaceItemSpacing
-        onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
-    }
     StatusCommand {
         host: verticalEnd.host
         id: verticalWifiIcon
@@ -71,6 +66,12 @@ Column {
     VerticalBarIcon { host: verticalEnd.host; id: verticalStreamingIcon; visible: remoteAccessServiceRef.allowed; icon: "󰢹"; tooltip: Eitr.I18n.tr("Streaming"); open: verticalEnd.host.iconsOpen; clickable: true; onClicked: barHost.togglePanel(streamingMenuRef); onOpenChanged: if (!open) streamingMenuRef.opened = false }
     VerticalBarIcon { host: verticalEnd.host; id: verticalObsIcon; icon: obsMenuRef.obsState.recording ? (obsMenuRef.obsState.paused ? "󰏤" : "󰑋") : "󰻂"; iconSize: obsMenuRef.obsState.recording && !obsMenuRef.obsState.paused ? 22 : 16; tooltip: obsMenuRef.obsState.recording ? (obsMenuRef.obsState.paused ? Eitr.I18n.tr("Recording paused") : Eitr.I18n.tr("Recording")) : Eitr.I18n.tr("OBS Studio"); open: verticalEnd.host.iconsOpen; clickable: true; onClicked: barHost.togglePanel(obsMenuRef); onOpenChanged: if (!open) obsMenuRef.opened = false }
     VerticalBarIcon { host: verticalEnd.host; id: verticalKeyboardIcon; icon: keyboardMenuRef.activeCode || "󰌌"; iconSize: 11; tooltip: keyboardMenuRef.activeLabel ? Eitr.I18n.tr("Keyboard · {layout}", {layout: keyboardMenuRef.activeLabel}) : Eitr.I18n.tr("Keyboard"); open: verticalEnd.host.iconsOpen && keyboardMenuRef.layouts.length > 1; clickable: true; onClicked: barHost.togglePanel(keyboardMenuRef); onOpenChanged: if (!open) keyboardMenuRef.opened = false }
+    // Plugin icons sit just above Updates, ahead of the notifications at the end.
+    PluginBarItems {
+        foreground: verticalEnd.host.fg; background: verticalEnd.host.barBackground(); accent: verticalEnd.host.activeBg
+        vertical: true; open: verticalEnd.host.iconsOpen; slotSize: verticalEnd.host.workspaceItemSize; slotSpacing: verticalEnd.host.workspaceItemSpacing
+        onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
+    }
     VerticalBarIcon {
         host: verticalEnd.host
         id: verticalUpdatesIcon

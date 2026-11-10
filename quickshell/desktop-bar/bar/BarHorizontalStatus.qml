@@ -69,12 +69,6 @@ Row {
         onClicked: rightSide.host.statusOpen = !rightSide.host.statusOpen
     }
 
-    PluginBarItems {
-        foreground: rightSide.host.fg; background: rightSide.host.barBackground(); accent: rightSide.host.activeBg
-        open: rightSide.host.iconsOpen; slotSize: rightSide.host.workspaceItemSize; slotSpacing: rightSide.host.workspaceItemSpacing
-        onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
-    }
-
     StatusCommand {
 
         host: rightSide.host
@@ -256,6 +250,13 @@ Row {
         accent: rightSide.host.activeBg
         foreground: rightSide.host.fg
         background: rightSide.host.workspaceMenuBg
+    }
+
+    // Plugin icons sit just left of Updates, ahead of the notifications at the end.
+    PluginBarItems {
+        foreground: rightSide.host.fg; background: rightSide.host.barBackground(); accent: rightSide.host.activeBg
+        open: rightSide.host.iconsOpen; slotSize: rightSide.host.workspaceItemSize; slotSpacing: rightSide.host.workspaceItemSpacing
+        onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
     }
 
     StatusIcon {

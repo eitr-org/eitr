@@ -285,7 +285,7 @@ or updating a plugin preserves preferences, so a later matching declaration can
 restore the placement. Removing a widget from a missing monitor is available in
 both management interfaces. Edit mode is session-only.
 
-Bar items occupy fixed icon slots in the existing right-side group, with its
+Bar items occupy fixed icon slots in the existing right-side group, just before Updates, with its
 normal hidden/show toggle (always shown in Tabs). They have no hover fill and
 use short themed tooltips. Their content is clipped to the slot. Declared panels
 use the same attached Full or detached Centered/Tabs geometry, Escape and
