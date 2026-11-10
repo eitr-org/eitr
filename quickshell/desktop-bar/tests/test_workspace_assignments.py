@@ -98,7 +98,12 @@ for (const mode of ['shared', 'split']) {
                 self.assertIn('monitor="A"', hypr.evaluate.call_args.args[0])
                 hypr.reset_mock()
                 controller.navigate(hypr, 'move', 2)
-                self.assertIn('workspace=' + ('12' if mode == 'shared' else '2'), hypr.evaluate.call_args.args[0])
+                moves = [call.args[0] for call in hypr.evaluate.call_args_list]
+                self.assertIn('workspace=' + ('12' if mode == 'shared' else '2'), moves[0])
+                # Shared numbers: every monitor then follows, the window's monitor last.
+                self.assertEqual(len(moves), 3 if mode == 'shared' else 1)
+                if mode == 'shared':
+                    self.assertIn('monitor="B"', moves[-1])
                 hypr.reset_mock()
                 controller.navigate(hypr, 'step', 1)
                 self.assertEqual(hypr.evaluate.call_count, 2 if mode == 'shared' else 1)
@@ -214,6 +219,12 @@ end
 dispatched = {}
 action("move", 1)()
 assert(dispatched[1] == (mode == "shared" and "move 11" or "move 1"), tostring(dispatched[1]))
+if mode == "shared" then
+    -- The other monitors follow to the same number; the active monitor (A) switches last.
+    assert(table.concat(dispatched, ",") == "move 11,focus B,focus 11,focus A,focus 1", table.concat(dispatched, ","))
+else
+    assert(#dispatched == 1)
+end
 dispatched = {}
 action("focus", 8)()
 assert(#dispatched == 0)

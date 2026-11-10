@@ -106,9 +106,12 @@ def navigate(hypr, action, value, monitor_name=''):
     if action == 'move':
         target = next((row for row in (local if preference['workspaceMode'] == 'shared' else rows)
                        if row['number'] == value), None)
-        if target:
-            hypr.evaluate('hl.dispatch(hl.dsp.window.move({workspace=' + str(target['id']) + '}))')
-        return
+        if not target:
+            return
+        hypr.evaluate('hl.dispatch(hl.dsp.window.move({workspace=' + str(target['id']) + '}))')
+        # In Shared numbers the other monitors follow to the same number too.
+        if preference['workspaceMode'] != 'shared':
+            return
     targets = [row for row in rows if row['number'] == value]
     # Restore the original monitor after switching each Shared workspace.
     targets.sort(key=lambda row: row['monitor'] == monitor_name)

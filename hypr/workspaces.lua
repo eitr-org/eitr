@@ -60,7 +60,12 @@ return function(paths, quote)
         local name = monitor_name(window and window.monitor or hl.get_active_monitor())
         local candidates = plan.mode == "shared" and rows_on(name) or plan.rows
         for _, row in ipairs(candidates) do
-            if row.number == number then return hl.dispatch(hl.dsp.window.move({workspace = row.id})) end
+            if row.number == number then
+                hl.dispatch(hl.dsp.window.move({workspace = row.id}))
+                -- In Shared numbers the other monitors follow to the same number too.
+                if plan.mode == "shared" then focus(number) end
+                return
+            end
         end
     end
 
