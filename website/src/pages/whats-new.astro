@@ -1,18 +1,18 @@
 ---
 import { translator } from '../i18n';
 const t = translator(Astro.url.pathname, 'whatsnew');
-const gallery = translator(Astro.url.pathname, 'gallery');
 import Layout from '../layouts/Layout.astro';
 import { sitePages } from '../data/site-pages';
 import release from '../data/release.json';
 import download from '../data/download.json';
 
-// One section per headline change of the current release, each beside its real screenshot.
+// Each highlight uses the same translated heading, introduction and point list.
 const highlights = [
-  { id: 'settings', shot: 'settings-bar', size: [1152, 852], alt: 'settings_alt', points: ['settings_point_pages', 'settings_point_connections', 'settings_point_previews', 'settings_point_controls'] },
-  { id: 'catalog', shot: 'catalog', size: [1152, 852], alt: 'catalog_alt', points: ['catalog_point_sources', 'catalog_point_filter', 'catalog_point_community'] },
-  { id: 'handbook', shot: 'handbook', size: [1152, 852], alt: 'the_eitr_handbook_open_on_the_desktop', points: ['handbook_point_tour', 'handbook_point_setup', 'handbook_point_figures', 'handbook_point_web'] },
-  { id: 'wallpapers', shot: 'eitr-seal', alt: 'eitr_seal_alt', second: { shot: 'eitr-gates', alt: 'eitr_gates_alt' }, points: ['wallpapers_point_seal', 'wallpapers_point_gates', 'wallpapers_point_light'] },
+  { id: 'windows', points: ['windows_point_options', 'windows_point_shortcuts', 'windows_point_workspaces', 'windows_point_displays'] },
+  { id: 'settings', points: ['settings_point_fields', 'settings_point_tabs', 'settings_point_controls', 'settings_point_hardware'] },
+  { id: 'apps', points: ['apps_point_folders', 'apps_point_logo', 'apps_point_users', 'apps_point_music'] },
+  { id: 'themes', points: ['themes_point_previews', 'themes_point_updates'] },
+  { id: 'fixes', points: ['fixes_point_gap', 'fixes_point_updates', 'fixes_point_input', 'fixes_point_polish'] },
 ];
 ---
 <Layout {...sitePages.whatsnew}>
@@ -22,31 +22,15 @@ const highlights = [
     <p class="lead">{t('lead')}</p>
     <nav class="info-links" aria-label={t('sections')}>
       {highlights.map(item => <a class="text-link" href={`#${item.id}`}>{t(`${item.id}_eyebrow`)}</a>)}
-      <a class="text-link" href="#details">{t('details_eyebrow')}</a>
     </nav>
   </section>
   <div class="wrap info-body">
     {highlights.map(item => <section class="info-section release-highlight" id={item.id} aria-labelledby={`whatsnew-${item.id}`}>
       <p class="eyebrow">{t(`${item.id}_eyebrow`)}</p>
       <h2 id={`whatsnew-${item.id}`}>{t(`${item.id}_title`)}<br /><em>{t(`${item.id}_title_em`)}</em></h2>
-      <div class:list={['release-shots', { pair: item.second }]}>
-        <a class="release-shot" href={`/shots/${item.shot}.webp`}><img src={`/shots/${item.shot}.webp`} alt={gallery(item.alt)} width={item.size?.[0] ?? 1920} height={item.size?.[1] ?? 1080} loading="lazy" /></a>
-        {item.second && <a class="release-shot" href={`/shots/${item.second.shot}.webp`}><img src={`/shots/${item.second.shot}.webp`} alt={gallery(item.second.alt)} width="1920" height="1080" loading="lazy" /></a>}
-      </div>
       <p>{t(`${item.id}_text`)}</p>
       <ul>{item.points.map(point => <li>{t(point)}</li>)}</ul>
     </section>)}
-    <section class="info-section" id="details" aria-labelledby="whatsnew-details">
-      <p class="eyebrow">{t('details_eyebrow')}</p>
-      <h2 id="whatsnew-details">{t('details_title')}<br /><em>{t('details_title_em')}</em></h2>
-      <ul>
-        <li>{t('details_control_center')}</li>
-        <li>{t('details_bluetooth')}</li>
-        <li>{t('details_keyboard')}</li>
-        <li>{t('details_display')}</li>
-        <li>{t('details_updates')}</li>
-      </ul>
-    </section>
     <section class="info-section" aria-labelledby="whatsnew-get">
       <p class="eyebrow">{t('get_eyebrow')}</p>
       <h2 id="whatsnew-get">{t('get_title')}<br /><em>{t('get_title_em')}</em></h2>
