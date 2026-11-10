@@ -37,7 +37,9 @@ Column {
         Eitr.I18n.tr("Background"), Eitr.I18n.tr("Style")]
     // The label column fits the longest label in the current language.
     readonly property real labelWidth: Math.min(width * 0.42, Math.ceil(Math.max(...labels.map(text => bodyMetrics.advanceWidth(text)))) + 38)
-    readonly property real controlWidth: width - labelWidth
+    // Each setting sits in a bordered row, like WiFi's network rows.
+    readonly property real rowPadding: 6
+    readonly property real controlWidth: width - labelWidth - 2 * rowPadding
     spacing: PanelStyle.selectionRowGap
 
     function change(action, settings) {
@@ -70,28 +72,33 @@ Column {
     FontMetrics { id: controlMetrics; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
 
     // A setting's glyph and name in the label column; its control fills the rest of the row.
-    component Setting: Item {
+    component Setting: Rectangle {
         id: setting
         property string glyph: ""
         property string text: ""
         default property alias control: slot.data
         width: controls.width
-        height: Math.max(PanelStyle.selectionRowHeight, slot.childrenRect.height)
+        height: Math.max(PanelStyle.selectionRowHeight, slot.childrenRect.height + 2 * controls.rowPadding)
+        radius: DesktopStyle.radius(PanelStyle.controlRadius)
+        color: Qt.alpha(controls.foreground, PanelStyle.selectionAlpha(false, false))
+        border.width: PanelStyle.selectionBorderWidth(false)
+        border.color: Qt.alpha(controls.foreground, PanelStyle.selectionBorderAlpha)
         Text {
             id: settingGlyph
+            x: controls.rowPadding
             width: 20; anchors.verticalCenter: parent.verticalCenter
             text: setting.glyph; color: controls.foreground; opacity: 0.8
             horizontalAlignment: Text.AlignHCenter
             font.family: PanelStyle.fontFamily; font.pixelSize: 15
         }
         Text {
-            x: 26; width: controls.labelWidth - x - 4; anchors.verticalCenter: parent.verticalCenter
+            x: controls.rowPadding + 26; width: controls.labelWidth - 30; anchors.verticalCenter: parent.verticalCenter
             text: setting.text; textFormat: Text.PlainText; elide: Text.ElideRight
             color: controls.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
         }
         Item {
             id: slot
-            x: controls.labelWidth; width: controls.controlWidth
+            x: controls.labelWidth + controls.rowPadding; width: controls.controlWidth
             height: childrenRect.height; anchors.verticalCenter: parent.verticalCenter
         }
     }
@@ -229,9 +236,14 @@ Column {
             }
         }
     }
-    Item {
+    Rectangle {
         width: controls.width; height: Math.max(PanelStyle.selectionRowHeight, layerLabel.implicitHeight + 8)
+        radius: DesktopStyle.radius(PanelStyle.controlRadius)
+        color: Qt.alpha(controls.foreground, PanelStyle.selectionAlpha(false, false))
+        border.width: PanelStyle.selectionBorderWidth(false)
+        border.color: Qt.alpha(controls.foreground, PanelStyle.selectionBorderAlpha)
         Text {
+            x: controls.rowPadding
             width: 20; anchors.verticalCenter: parent.verticalCenter
             text: String.fromCodePoint(0xF0328); color: controls.foreground; opacity: 0.8
             horizontalAlignment: Text.AlignHCenter
@@ -239,13 +251,13 @@ Column {
         }
         Text {
             id: layerLabel
-            x: 26; width: layerSwitch.x - x - 8; anchors.verticalCenter: parent.verticalCenter
+            x: controls.rowPadding + 26; width: layerSwitch.x - x - 8; anchors.verticalCenter: parent.verticalCenter
             text: Eitr.I18n.tr("Show above windows"); textFormat: Text.PlainText; wrapMode: Text.Wrap
             color: controls.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
         }
         PanelSwitch {
             id: layerSwitch
-            anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right; anchors.rightMargin: controls.rowPadding; anchors.verticalCenter: parent.verticalCenter
             foreground: controls.foreground; accent: controls.accent
             checked: !!controls.placement && !!controls.placement.aboveWindows
             Accessible.name: Eitr.I18n.tr("Show above windows")

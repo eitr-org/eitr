@@ -26,27 +26,34 @@ Scope {
             readonly property bool fullscreen: !!(liveMonitor && liveMonitor.activeWorkspace && liveMonitor.activeWorkspace.hasFullscreen)
             readonly property var reserved: monitor && monitor.reserved ? monitor.reserved : [0, 0, 0, 0]
             readonly property var bounds: ({x: reserved[0], y: reserved[1], width: modelData.width - reserved[0] - reserved[2], height: modelData.height - reserved[1] - reserved[3]})
+            // Keyed by copy, not by the placement objects: a settings change then updates the
+            // existing window (and keeps its open menu) instead of rebuilding it.
+            readonly property var copies: PluginRegistry.placed("widgets", display.modelData.name)
             Variants {
-                model: PluginRegistry.placed("widgets", display.modelData.name)
+                model: display.copies.map(copy => copy.plugin + "/" + copy.id + "/" + copy.geometry.instance)
                 PanelWindow {
                     id: window
-                    required property var modelData
-                    readonly property var placement: modelData.geometry
+                    required property string modelData
+                    readonly property var entry: display.copies.find(copy => copy.plugin + "/" + copy.id + "/" + copy.geometry.instance === modelData) || window.lastEntry
+                    // The last known copy, while Variants removes a window whose copy is gone.
+                    property var lastEntry: ({geometry: {}})
+                    onEntryChanged: if (entry !== lastEntry) lastEntry = entry
+                    readonly property var placement: entry.geometry
                     property var draft: Object.assign({}, placement)
                     property bool gesturing: false
                     property var gestureStart: null
-                    readonly property var fitted: Geometry.fit(draft, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, 1)
+                    readonly property var fitted: Geometry.fit(draft, display.bounds, window.entry.minWidth || 96, window.entry.minHeight || 96, 1)
                     // A rotated widget's surface is its bounding box, so no corner is clipped.
                     readonly property int angle: PluginRegistry.rotation(placement)
                     readonly property var box: Geometry.rotatedBox(fitted, angle, display.bounds)
                     function save() {
-                        draft = Geometry.fit(draft, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, desktop.grid);
+                        draft = Geometry.fit(draft, display.bounds, window.entry.minWidth || 96, window.entry.minHeight || 96, desktop.grid);
                         gesturing = false;
-                        PluginRegistry.change("place", modelData, {instance: placement.instance, geometry: draft});
+                        PluginRegistry.change("place", window.entry, {instance: placement.instance, geometry: draft});
                     }
                     function size(factor) {
-                        draft = Geometry.scale(fitted, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, factor);
-                        PluginRegistry.change("place", modelData, {instance: placement.instance, geometry: draft});
+                        draft = Geometry.scale(fitted, display.bounds, window.entry.minWidth || 96, window.entry.minHeight || 96, factor);
+                        PluginRegistry.change("place", window.entry, {instance: placement.instance, geometry: draft});
                     }
                     onPlacementChanged: if (!gesturing) draft = Object.assign({}, placement)
                     screen: display.modelData
@@ -70,7 +77,7 @@ Scope {
                     Connections {
                         target: PluginRegistry
                         function onWidgetAction(plugin, id, instance, action, custom) {
-                            if (plugin !== window.modelData.plugin || id !== window.modelData.id || instance !== window.placement.instance) return;
+                            if (plugin !== window.entry.plugin || id !== window.entry.id || instance !== window.placement.instance) return;
                             if (custom) content.selectMenu(action);
                             else content.menuAction(action);
                         }
@@ -80,12 +87,12 @@ Scope {
                         x: hitBox.x + (window.box.width - width) / 2; y: hitBox.y + (window.box.height - height) / 2
                         width: window.fitted.width; height: window.fitted.height
                         rotation: window.angle
-                        entry: window.modelData
+                        entry: window.entry
                         originX: window.fitted.x; originY: window.fitted.y
                         onMenuEntriesChanged: PluginRegistry.setMenu(window.placement, menuEntries)
                         Component.onCompleted: PluginRegistry.setMenu(window.placement, menuEntries)
                         active: window.visible
-                        surface: PluginRegistry.widgetSurface(window.modelData)
+                        surface: PluginRegistry.widgetSurface(window.entry)
                         aboveWindows: window.aboveWindows
                         onSizeRequested: factor => window.size(factor)
                         foreground: desktop.foreground; background: desktop.background; accent: desktop.accent

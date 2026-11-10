@@ -869,7 +869,7 @@ import "BAR" as Bar
 import "GEOMETRY" as Geometry
 ShellRoot {
     FloatingWindow {
-        visible: true; implicitWidth: 1180; implicitHeight: 1100
+        visible: true; implicitWidth: 1180; implicitHeight: 1240
         Rectangle {
             id: sample; anchors.fill: parent; color: "BACKGROUND"
             Component.onCompleted: {
