@@ -13,6 +13,25 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
+- **Drop, a sixth bar layout (agreed 2026-11-10).** Named after the drop of eitr in Norse
+  myth. Joins the double-right-click cycle and `tools/choice-lists.json`; Dynamic stays.
+  - At rest: one fully rounded pill with only the time, centred on the bar's edge, theme
+    colour and blur.
+  - Hover (after a short delay so passing the pointer does not trigger it): the pill grows
+    along the edge into a glance strip with date and weather, the song playing with
+    play/pause, battery and network, a notification count (opens the notification
+    center), the capture dot, and the workspaces as dots. It shrinks back on leave with
+    Dynamic's 320 ms motion.
+  - Click: the pill grows into a dashboard card with tabs: Dashboard (large time and date,
+    weather, month calendar, media, uptime and profile picture, quick toggles for WiFi,
+    Bluetooth and volume, shortcuts to Control Center and Settings), Media (cover, controls,
+    player) and Performance (CPU, GPU, RAM and storage rings from the hardware domain). Esc
+    or an outside click closes it.
+  - With auto-hide: only a small glowing dot stays at the edge; on reveal it grows into the
+    time pill, then hover and click work as above. Reduce motion makes every step instant.
+  - Reuse the existing panels' data and DesktopData domains; no new readers. Build in steps
+    the owner sees on their bar: resting pill and auto-hide dot, then the glance strip, then
+    the dashboard tabs.
 - **Keybinds and window rules editors.** Settings > Keybinds only lists shortcuts today:
   rebind one by pressing the new keys, with clash warnings, reset to default and the
   change kept in the person's own config. Window rules: pick an app and choose
