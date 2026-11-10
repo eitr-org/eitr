@@ -33,8 +33,9 @@ item says what decides the next step. Remove an item when it ships;
     root helper to the plugin's own reviewed step), WireGuard (import a config,
     connect/disconnect, status) and NetworkManager VPN (OpenVPN/OpenConnect profiles;
     explains the NetworkManager backend when on iwd).
-  - Plugin format now has an optional `packages` field (implementation ready; VM test pending): official Arch/Eitr repositories
-    only. The install review lists them; after approval they install with the
+  - Plugin format has an optional `packages` field (on testing since 2026-11-10; a real
+    install and removal with the administrator password still needs a VM test): official
+    Arch/Eitr repositories only. The install review lists them; after approval they install with the
     administrator password, ideally inside the Themes & Plugins session, otherwise a
     terminal that returns to it. Packages already installed are detected and not
     reinstalled. Removing the plugin offers to remove only the packages it installed
@@ -46,6 +47,9 @@ item says what decides the next step. Remove an item when it ships;
   - Remove the Tailscale rows from Walker; keep Install > VPN.
   - Order: plugin `packages` field (VM-tested), the three plugins, then remove Tailscale
     from the core and ship the update step after the plugin passes a VM test.
+  - Status (2026-11-10): WireGuard, NetworkManager VPN and a Taildrop-only Tailscale plugin
+    are on the unpushed local `vpn-plugins` branch of `eitr-plugins` for the owner's review.
+    Files are typed as paths, not chosen; the core Tailscale icon and panel have not moved.
 - **Lockscreens tab in the catalog (decided 2026-11-04).** A Lockscreens tab in
   Themes & Plugins, working like themes and plugins. Eitr and Theme Wallpaper are
   permanent (no trash icon). The other designs shipped today move to an official
@@ -94,6 +98,10 @@ item says what decides the next step. Remove an item when it ships;
 
 # 2. To test with the owner
 
+- **Wallpaper preview and per display/workspace wallpapers (testing, 2026-11-10).** Checked
+  on the owner's two displays through the command line (preview, cancel, apply and clear
+  for one workspace); not yet tried by hand: clicking pictures in Settings, the carousel's
+  scope choice, hotplug, login restore and fast workspace switches.
 - **Remote access.** Moonlight, Sunshine and Tailscale are built and inactive until set
   up (`distro/REMOTE-ACCESS.md`). Home network (2026-10-21/22, one and two monitors)
   and away from home through Tailscale (2026-10-21) work with a MacBook. Next: fix what
