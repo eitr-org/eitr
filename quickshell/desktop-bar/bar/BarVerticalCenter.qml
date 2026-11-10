@@ -106,7 +106,7 @@ Item {
         id: verticalCalendarIcon
         anchors.centerIn: parent
         compact: true
-        onClicked: barHost.togglePanel(calendarMenuRef)
+        onClicked: barHost.togglePanel(barHost.dropLayout ? barHost.dropDashboard : calendarMenuRef)
     }
     Item {
         anchors.top: verticalCalendarIcon.bottom

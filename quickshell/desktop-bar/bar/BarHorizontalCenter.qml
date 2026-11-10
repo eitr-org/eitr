@@ -29,7 +29,8 @@ Item {
         anchors.centerIn: parent
         anchors.horizontalCenterOffset: barHost.centeredLayout ? (barHost.leadingReveal - barHost.trailingReveal) / 2 : 0
         anchors.verticalCenterOffset: 0
-        onClicked: barHost.togglePanel(calendarMenu)
+        // Drop opens its dashboard; every other layout the calendar.
+        onClicked: barHost.togglePanel(barHost.dropLayout ? barHost.dropDashboard : calendarMenu)
     }
 
     CaptureIndicator {

@@ -36,6 +36,7 @@ PanelWindow {
     readonly property alias batteryMenu: barPanels.batteryMenuItem
     readonly property alias controlCenter: barPanels.controlCenterItem
     readonly property alias mediaMenu: barPanels.mediaMenuItem
+    readonly property alias dropDashboard: barPanels.dropDashboardItem
     readonly property alias notificationCenter: barPanels.notificationCenterItem
     readonly property alias notificationPopups: barPanels.notificationPopupsItem
     readonly property alias panelIpc: barPanels.panelIpcItem
@@ -135,7 +136,7 @@ PanelWindow {
         onTriggered: bar.hoverExpanded = false
     }
     readonly property var dockPanels: [wifiMenu, bluetoothMenu, brightnessMenu, volumeMenu, streamingMenu,
-        keyboardMenu, calendarMenu, weatherMenu, hardwareMenu, aiMenu, obsMenu, recordingMenu, workspaceMenu, notificationCenter, controlCenter, mediaMenu, batteryMenu, pluginPanel]
+        keyboardMenu, calendarMenu, weatherMenu, hardwareMenu, aiMenu, obsMenu, recordingMenu, workspaceMenu, notificationCenter, controlCenter, mediaMenu, dropDashboard, batteryMenu, pluginPanel]
     readonly property bool panelOpen: dockPanels.some(panel => panel.visible)
     readonly property var panelFocusWindows: notificationPopups.visible ? [bar, notificationPopups] : [bar]
     property var pendingPanel: null

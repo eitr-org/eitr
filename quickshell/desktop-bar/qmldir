@@ -91,6 +91,7 @@ PluginWidgetMenuHost 1.0 plugins/PluginWidgetMenuHost.qml
 PluginWidgetControls 1.0 plugins/PluginWidgetControls.qml
 PluginDetails 1.0 plugins/PluginDetails.qml
 CatalogPluginSheet 1.0 panels/CatalogPluginSheet.qml
+DropDashboard 1.0 panels/DropDashboard.qml
 BarAutoHide 1.0 bar/BarAutoHide.qml
 MediaIndicator 1.0 media/MediaIndicator.qml
 CenteredBarMask bar/CenteredBarMask.qml

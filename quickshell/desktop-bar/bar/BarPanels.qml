@@ -10,6 +10,7 @@ Item {
     readonly property alias batteryMenuItem: batteryMenu
     readonly property alias controlCenterItem: controlCenter
     readonly property alias mediaMenuItem: mediaMenu
+    readonly property alias dropDashboardItem: dropDashboard
     readonly property alias notificationCenterItem: notificationCenter
     readonly property alias notificationPopupsItem: notificationPopups
     readonly property alias panelIpcItem: panelIpc
@@ -70,6 +71,15 @@ Item {
     MediaMenu {
         id: mediaMenu
         target: host.verticalBar ? barHost.verticalCalendarIcon : barHost.mediaStrip
+        barEdge: host.barEdge; surfaceColor: host.barBackground()
+        foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
+        player: barHost.mediaStrip.player
+        hold: barHost.mediaStrip.between
+    }
+    DropDashboard {
+        id: dropDashboard
+        barHost: panels.barHost
+        target: host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo
         barEdge: host.barEdge; surfaceColor: host.barBackground()
         foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
         player: barHost.mediaStrip.player
