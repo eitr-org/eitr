@@ -117,6 +117,14 @@ QtObject {
     property bool editing: false
     // {plugin, id, instance} of the copy being edited, or null to edit every widget.
     property var editTarget: null
+    // The widget copy whose right-click menu is open: {plugin, id, instance, monitor, x, y},
+    // with x and y in that display's coordinates. PluginWidgetMenuHost draws it.
+    property var menuTarget: null
+    function openWidgetMenu(placement, x, y) {
+        menuTarget = {plugin: placement.plugin, id: placement.id, instance: placement.instance, monitor: placement.monitor, x: x, y: y};
+    }
+    function closeWidgetMenu() { menuTarget = null; }
+    onReviewStarted: closeWidgetMenu()
     function editingCopy(placement) {
         return editing && editTarget !== null && editTarget.plugin === placement.plugin
             && editTarget.id === placement.id && editTarget.instance === placement.instance;

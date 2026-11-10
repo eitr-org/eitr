@@ -87,6 +87,7 @@ SpectrumConsumer components/SpectrumConsumer.qml
 PluginManager 1.0 plugins/PluginManager.qml
 PluginWidgetMenu 1.0 plugins/PluginWidgetMenu.qml
 PluginWidgetCard 1.0 plugins/PluginWidgetCard.qml
+PluginWidgetMenuHost 1.0 plugins/PluginWidgetMenuHost.qml
 PluginWidgetControls 1.0 plugins/PluginWidgetControls.qml
 PluginDetails 1.0 plugins/PluginDetails.qml
 CatalogPluginSheet 1.0 panels/CatalogPluginSheet.qml

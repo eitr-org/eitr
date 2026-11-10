@@ -16,6 +16,7 @@ Scope {
     readonly property bool observing: Quickshell.screens.some(screen => PluginRegistry.placed("widgets", screen.name).length > 0)
     property var monitors: DisplayService.topology.monitors
     function refresh() { DisplayService.refresh(); }
+    PluginWidgetMenuHost { foreground: desktop.foreground; background: desktop.background; accent: desktop.accent }
     Variants {
         model: Quickshell.screens
         Scope {
@@ -95,6 +96,9 @@ Scope {
                         surface: PluginRegistry.widgetSurface(window.entry)
                         aboveWindows: window.aboveWindows
                         onSizeRequested: factor => window.size(factor)
+                        // The menu opens in its own window, in display coordinates.
+                        onMenuRequested: position => PluginRegistry.openWidgetMenu(window.placement,
+                            position.x + (content.editing ? 0 : window.box.x), position.y + (content.editing ? 0 : window.box.y))
                         foreground: desktop.foreground; background: desktop.background; accent: desktop.accent
                         editing: PluginRegistry.editing && (!PluginRegistry.editTarget || PluginRegistry.editingCopy(window.placement))
                         onBegun: { window.gestureStart = Object.assign({}, window.fitted); window.gesturing = true; }

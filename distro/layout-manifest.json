@@ -235,6 +235,7 @@
     {"pattern": "quickshell/desktop-bar/plugins/PluginManager.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/plugins/PluginWidgetCard.qml", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/plugins/PluginWidgetMenuHost.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/plugins/PluginWidgetControls.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/plugins/PluginDetails.qml", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_plugin_stream.py", "class": "C", "runtime": true},

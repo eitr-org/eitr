@@ -999,22 +999,18 @@ ShellRoot {
                     canvas.draft = Geometry.fit(canvas.draft, canvas.bounds, 96, 96, 6);
                     Bar.PluginRegistry.change("place", entry, {instance: "0a1b2c3d", geometry: canvas.draft});
                 }
+                property int menuRequests: 0
+                onMenuRequested: position => menuRequests++
             }
             Timer {
                 interval: 500; running: true; repeat: true
                 property int stage: 0
                 onTriggered: {
                     if (stage === 0) {
-                        const grab = assertions.findChild(widget, "pluginMenuGrab");
-                        if (!grab || grab.active) throw new Error("New widget grabbed input with its menu closed");
+                        // The menu itself opens in PluginWidgetMenuHost's own window.
                         pointer.mouseClick(widget, 180, 80, Qt.RightButton, Qt.NoModifier, 1);
-                        if (!widget.menuOpen) throw new Error("Right-click did not open menu");
+                        if (widget.menuRequests !== 1) throw new Error("Right-click did not request the menu");
                     } else if (stage === 1) {
-                        if (!widget.menuOpen) throw new Error("Menu dismissed after right-click release");
-                        widget.forceActiveFocus();
-                        pointer.keyClick(Qt.Key_Escape, Qt.NoModifier, 1);
-                        if (widget.menuOpen) throw new Error("Escape did not close menu");
-                        if (assertions.findChild(widget, "pluginMenuGrab").active) throw new Error("Closed menu retained its grab");
                         pointer.mousePress(widget, 80, 12, Qt.LeftButton, Qt.NoModifier, 1);
                         for (let step = 0; step < 20; step++) pointer.mouseMove(widget, 81, 12, 1, Qt.LeftButton, Qt.NoModifier);
                         pointer.mouseRelease(widget, 80, 12, Qt.LeftButton, Qt.NoModifier, 1);

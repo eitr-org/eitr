@@ -21,14 +21,11 @@ Item {
         return area.mapToGlobal(mouse.x, mouse.y);
     }
     function selectMenu(id) { component.menuSelect(id); }
-    property bool menuOpen: false
-    property bool menuGrabReady: false
-    onActiveChanged: if (!active) menuOpen = false
-    onVisibleChanged: if (!visible) menuOpen = false
-    property point menuPoint: Qt.point(0, 0)
     // The saved placement of this copy (entry.geometry on the desktop).
     readonly property var placement: entry.geometry || null
     signal sizeRequested(real factor)
+    // A right-click, at the pointer's place in this widget's unrotated parent.
+    signal menuRequested(point position)
     property bool active: true
     property bool editing: false
     signal begun()
@@ -45,7 +42,7 @@ Item {
         foreground: widget.foreground; background: widget.background; accent: widget.accent
     }
     focus: editing
-    Keys.onEscapePressed: { menuOpen = false; PluginRegistry.editing = false; }
+    Keys.onEscapePressed: PluginRegistry.editing = false
     onEditingChanged: if (editing) forceActiveFocus()
     // Size steps need the display's bounds, so the desktop surface applies them.
     function menuAction(action) {
@@ -53,55 +50,12 @@ Item {
         else if (action === "larger") sizeRequested(1.1);
         else if (action === "full") sizeRequested(0);
     }
-    Connections {
-        target: PluginRegistry
-        function onReviewStarted() { widget.menuOpen = false; }
-    }
     MouseArea {
         anchors.fill: parent; z: 3
         acceptedButtons: Qt.RightButton
         enabled: !widget.aboveWindows || widget.editing
-        // The menu anchors to the unrotated parent, at the pointer's place there.
         onClicked: function(mouse) {
-            widget.menuPoint = widget.parent ? mapToItem(widget.parent, mouse.x, mouse.y) : Qt.point(mouse.x, mouse.y);
-            widget.menuOpen = true;
-        }
-    }
-    PopupWindow {
-        id: context
-        visible: widget.menuOpen
-        color: "transparent"
-        implicitWidth: options.implicitWidth
-        implicitHeight: Math.min(options.implicitHeight, screen ? screen.height - 40 : 720)
-        anchor.item: widget.parent || widget
-        anchor.rect.x: widget.menuPoint.x; anchor.rect.y: widget.menuPoint.y
-        anchor.edges: Edges.Top | Edges.Left
-        anchor.gravity: Edges.Bottom | Edges.Right
-        // Near a screen edge the menu opens the other way, then slides to stay on screen.
-        anchor.adjustment: PopupAdjustment.Flip | PopupAdjustment.Slide
-        onVisibleChanged: {
-            if (visible) menuGrabDelay.restart();
-            else { menuGrabDelay.stop(); widget.menuGrabReady = false; }
-        }
-        Timer {
-            id: menuGrabDelay
-            interval: 100
-            onTriggered: if (widget.menuOpen) { options.forceActiveFocus(); widget.menuGrabReady = true; }
-        }
-        HyprlandFocusGrab { id: menuGrab; objectName: "pluginMenuGrab"; active: widget.menuGrabReady && widget.menuOpen && context.visible && widget.active && widget.visible; windows: [context]; onCleared: widget.menuOpen = false }
-        Flickable {
-            anchors.fill: parent
-            contentHeight: options.implicitHeight; clip: true
-            boundsBehavior: Flickable.StopAtBounds
-            interactive: contentHeight > height
-            PluginWidgetMenu {
-                id: options
-                width: context.implicitWidth
-                entry: widget.entry; placement: widget.placement
-                foreground: widget.foreground; background: widget.background; accent: widget.accent
-                focus: widget.menuOpen
-                onCloseRequested: widget.menuOpen = false
-            }
+            widget.menuRequested(widget.parent ? mapToItem(widget.parent, mouse.x, mouse.y) : Qt.point(mouse.x, mouse.y));
         }
     }
     Rectangle {
