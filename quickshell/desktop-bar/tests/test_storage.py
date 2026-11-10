@@ -44,7 +44,8 @@ class IdentityCacheTests(unittest.TestCase):
     def test_cached_identity_skips_topology_and_unsupported_gpu_queries(self):
         identity = {'cpu': {'name': 'Cached processor', 'cores': '4 / 8'},
                     'storage': {'name': 'Cached SSD', 'rows': [['Capacity', '100 GiB']]},
-                    'gpu': {'available': False, 'name': 'GPU telemetry unavailable'}}
+                    'gpu': {'available': False, 'name': 'GPU telemetry unavailable'},
+                    'memory': {'name': 'Cached memory'}}
         stats = SimpleNamespace(total=100, used=40, free=60)
         with patch.object(system_details, 'query', return_value='') as query, \
                 patch.object(system_details, 'cpu_identity', side_effect=AssertionError('CPU rediscovery')), \
@@ -55,6 +56,7 @@ class IdentityCacheTests(unittest.TestCase):
         self.assertEqual(result['identity'], identity)
         self.assertEqual(result['sections'][0]['name'], 'Cached processor')
         self.assertEqual(result['sections'][3]['name'], 'Cached SSD')
+        self.assertEqual(result['sections'][2]['name'], 'Cached memory')
         self.assertEqual(result['sections'][3]['usage'], 40)
         query.assert_called_once_with(['sensors', '-j'])
         self.assertEqual(identity['storage']['rows'], [['Capacity', '100 GiB']])

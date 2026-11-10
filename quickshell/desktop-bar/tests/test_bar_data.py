@@ -1009,6 +1009,7 @@ class HardwareBrokerTests(unittest.IsolatedAsyncioTestCase):
             adapter = domain.adapter
             with patch.object(adapter, "cpu_identity", return_value={"name": "CPU", "cores": "4 / 8"}) as cpu_identity, \
                     patch.object(adapter, "storage_identity", return_value={"name": "Root", "rows": []}) as storage_identity, \
+                    patch.object(adapter, "memory_identity", return_value={"name": "RAM"}) as memory_identity, \
                     patch.object(adapter, "query", return_value="") as query, \
                     patch.object(adapter, "cpu", side_effect=[OSError("fixture"), {"title": "CPU"}, {"title": "CPU"}]), \
                     patch.object(adapter, "memory", return_value={"title": "RAM"}), \
@@ -1020,6 +1021,7 @@ class HardwareBrokerTests(unittest.IsolatedAsyncioTestCase):
                     broker.request(dict(v=1, op="unsubscribe", topic="hardware.details", token=token))
                 cpu_identity.assert_called_once()
                 storage_identity.assert_called_once()
+                memory_identity.assert_called_once()
                 query.assert_called_once()
                 self.assertFalse(domain.identity["gpu"]["available"])
         finally:

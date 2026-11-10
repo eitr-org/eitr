@@ -68,14 +68,14 @@ def gib(kib):
     return f'{kib / 1024 / 1024:.1f} GiB'
 
 
-def memory():
+def memory(identity=None):
     values = {key: int(value.split()[0]) for key, value in
               (line.split(':', 1) for line in Path('/proc/meminfo').read_text().splitlines())}
     total = values['MemTotal']
     available = values['MemAvailable']
     used = total - available
     swap = values['SwapTotal']
-    return {'title': 'RAM', 'name': 'System memory', 'usage': round(100 * used / total),
+    return {'title': 'RAM', 'name': (identity or memory_identity())['name'], 'usage': round(100 * used / total),
             'rows': [['Used / total', f'{gib(used)} / {gib(total)}'],
                      ['Available', gib(available)],
                      ['Swap used / total', f'{gib(swap - values["SwapFree"])} / {gib(swap)}']]}
@@ -175,23 +175,36 @@ def memory_modules(properties):
             and int(module['SIZE']) > 0]
 
 
-def memory_lines(properties, installed):
-    """About's RAM line: amount, type, speed and module layout when the firmware describes them."""
+def memory_summary(properties, installed, *, brief=False):
+    """Amount, type and speed of the installed RAM; the full form adds rated speed and modules."""
     modules = memory_modules(properties)
     if not modules:
-        return [{'title': 'RAM', 'name': f'{installed:.0f} GiB'}]
+        return f'{installed:.0f} GiB'
     sizes = {int(module['SIZE']) for module in modules}
     kinds = sorted({module.get('TYPE') for module in modules if module.get('TYPE') not in (None, 'Unknown', 'Other')})
     running = sorted({int(module['CONFIGURED_SPEED_MTS']) for module in modules if module.get('CONFIGURED_SPEED_MTS', '').isdigit()})
     rated = sorted({int(module['SPEED_MTS']) for module in modules if module.get('SPEED_MTS', '').isdigit()})
     speed = ''
     if running:
-        speed = f'{running[0]} MT/s' + (f' (rated {rated[-1]} MT/s)' if rated and rated[-1] > running[0] else '')
+        speed = f'{running[0]} MT/s' + (f' (rated {rated[-1]} MT/s)' if rated and rated[-1] > running[0] and not brief else '')
     elif rated:
         speed = f'{rated[-1]} MT/s'
-    layout = f'{len(modules)} × {sizes.pop() / 1024 ** 3:.0f} GiB' if len(sizes) == 1 else f'{len(modules)} modules'
-    summary = ' · '.join(filter(None, [f'{installed:.0f} GiB', '/'.join(kinds), speed, layout]))
-    return [{'title': 'RAM', 'name': summary}]
+    layout = '' if brief else f'{len(modules)} × {sizes.pop() / 1024 ** 3:.0f} GiB' if len(sizes) == 1 else f'{len(modules)} modules'
+    return ' · '.join(filter(None, [f'{installed:.0f} GiB', '/'.join(kinds), speed, layout]))
+
+
+def memory_lines(properties, installed):
+    """About's RAM line: amount, type, speed and module layout when the firmware describes them."""
+    return [{'title': 'RAM', 'name': memory_summary(properties, installed)}]
+
+
+def memory_identity():
+    """The RAM card's caption, kept with the identity: installed memory does not change while running."""
+    try:
+        return {'name': memory_summary(query(['udevadm', 'info', '-q', 'property', '-p', '/devices/virtual/dmi/id']),
+                                       installed_memory(), brief=True)}
+    except (OSError, ValueError):
+        return {'name': 'System memory'}
 
 
 def disk_size(size):
@@ -260,13 +273,15 @@ def snapshot(identity=None):
         identity['cpu'] = cpu_identity(Path('/proc/cpuinfo').read_text())
     if 'storage' not in identity:
         identity['storage'] = storage_identity()
+    if 'memory' not in identity:
+        identity['memory'] = memory_identity()
     if 'gpu' not in identity:
         graphics = gpu()
         identity['gpu'] = {'available': graphics['usage'] is not None or bool(graphics['rows']),
                            'name': graphics['name']}
     else:
         graphics = gpu(identity['gpu'])
-    return {'identity': identity, 'sections': [cpu(identity['cpu']), graphics, memory(), *storage(identity['storage'])]}
+    return {'identity': identity, 'sections': [cpu(identity['cpu']), graphics, memory(identity['memory']), *storage(identity['storage'])]}
 
 
 if __name__ == '__main__':

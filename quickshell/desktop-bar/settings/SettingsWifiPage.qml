@@ -129,32 +129,51 @@ Column {
                 onClicked: page.act("disconnect", page.device.path)
             }
         }
-        Grid {
+        // Two details per line, each line ruled off so labels and values read as pairs.
+        Column {
             id: detailsGrid
             objectName: "settings-wifi-details"
             width: parent.width
-            columns: 2
-            columnSpacing: 24
-            rowSpacing: 8
+            readonly property real columnSpacing: 24
             Repeater {
-                model: page.fields
-                Row {
-                    required property var modelData
-                    width: (detailsGrid.width - detailsGrid.columnSpacing) / 2
-                    spacing: 12
-                    SettingsText {
-                        width: 116
-                        text: parent.modelData.label
-                        font.pixelSize: PanelStyle.captionSize
-                        opacity: PanelStyle.secondaryTextOpacity
-                        wrapMode: Text.NoWrap
-                        elide: Text.ElideRight
+                model: Math.ceil(page.fields.length / 2)
+                Item {
+                    id: detailLine
+                    required property int index
+                    readonly property var pair: page.fields.slice(index * 2, index * 2 + 2)
+                    width: detailsGrid.width
+                    height: Math.max(cells.count > 0 && cells.itemAt(0) ? cells.itemAt(0).implicitHeight : 0, cells.count > 1 && cells.itemAt(1) ? cells.itemAt(1).implicitHeight : 0) + 16
+                    Repeater {
+                        id: cells
+                        model: detailLine.pair
+                        Row {
+                            required property var modelData
+                            required property int index
+                            x: index * (detailsGrid.width + detailsGrid.columnSpacing) / 2
+                            y: 8
+                            width: (detailsGrid.width - detailsGrid.columnSpacing) / 2
+                            spacing: 12
+                            SettingsText {
+                                width: 116
+                                text: parent.modelData.label
+                                font.pixelSize: PanelStyle.captionSize
+                                opacity: PanelStyle.secondaryTextOpacity
+                                wrapMode: Text.NoWrap
+                                elide: Text.ElideRight
+                            }
+                            SettingsText {
+                                width: parent.width - 128
+                                text: String(parent.modelData.value)
+                                textFormat: Text.PlainText
+                                wrapMode: Text.WrapAnywhere
+                            }
+                        }
                     }
-                    SettingsText {
-                        width: parent.width - 128
-                        text: String(parent.modelData.value)
-                        textFormat: Text.PlainText
-                        wrapMode: Text.WrapAnywhere
+                    Rectangle {
+                        anchors.bottom: parent.bottom
+                        width: parent.width; height: 1
+                        visible: detailLine.index < Math.ceil(page.fields.length / 2) - 1
+                        color: Qt.alpha(page.foreground, 0.08)
                     }
                 }
             }
