@@ -61,6 +61,7 @@ xdg-desktop-portal-gtk
 xdg-utils
 xdg-user-dirs
 polkit-kde-agent
+qqc2-desktop-style
 swayosd
 pipewire
 pipewire-alsa

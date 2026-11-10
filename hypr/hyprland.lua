@@ -119,7 +119,9 @@ local hyprScriptsDir = paths.code("hypr/scripts")
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
-	hl.exec_cmd("/usr/lib/polkit-kde-authentication-agent-1")
+	-- The agent draws its dialog with Qt Quick, which cannot use the Kvantum widget style;
+	-- the KDE desktop style renders through it instead.
+	hl.exec_cmd("env QT_QUICK_CONTROLS_STYLE=org.kde.desktop /usr/lib/polkit-kde-authentication-agent-1")
 	hl.exec_cmd("bash " .. hyprScriptsDir .. "/session-start.sh")
 	hl.exec_cmd("eitr-hypridle")
 end)
