@@ -111,6 +111,8 @@ Scope {
                             window.draft = Geometry.delta(window.gestureStart, deltaX, deltaY, true);
                         }
                         onFinished: window.save()
+                        onRotating: degrees => PluginRegistry.previewRotation(window.placement, degrees)
+                        onRotationFinished: degrees => PluginRegistry.change("rotate", window.entry, {instance: window.placement.instance, rotation: degrees})
                     }
                 }
             }

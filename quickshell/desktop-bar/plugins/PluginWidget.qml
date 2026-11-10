@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Hyprland
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
+import "../PluginGeometry.js" as Geometry
 
 Item {
     id: widget
@@ -32,6 +33,9 @@ Item {
     signal moved(real deltaX, real deltaY)
     signal resized(real deltaX, real deltaY)
     signal finished()
+    // The title bar's rotate handle: the angle while dragging, then the one to keep.
+    signal rotating(int degrees)
+    signal rotationFinished(int degrees)
     Rectangle { visible: widget.surface !== "none"; anchors.fill: parent; color: widget.background; radius: DesktopStyle.radius(PanelStyle.controlRadius) }
     PluginComponent {
         id: component
@@ -69,8 +73,9 @@ Item {
         visible: widget.editing; width: parent.width; height: 28
         color: widget.background; radius: DesktopStyle.radius(PanelStyle.controlRadius)
         Text {
-            anchors.centerIn: parent; text: "⠿ " + widget.entry.title; textFormat: Text.PlainText
-            width: parent.width - 12; elide: Text.ElideRight
+            x: rotateHandle.x + rotateHandle.width + 6; anchors.verticalCenter: parent.verticalCenter
+            text: widget.entry.title; textFormat: Text.PlainText
+            width: parent.width - x - 8; elide: Text.ElideRight
             color: widget.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
         }
         MouseArea {
@@ -85,6 +90,42 @@ Item {
             }
             onReleased: widget.finished()
             onCanceled: widget.finished()
+        }
+        // Drag around the widget's centre to turn it; quarter turns snap as on the slider.
+        Rectangle {
+            id: rotateHandle
+            x: 4; anchors.verticalCenter: parent.verticalCenter
+            width: 22; height: 22; radius: DesktopStyle.radius(PanelStyle.controlRadius)
+            color: rotateArea.containsMouse || rotateArea.pressed ? Qt.alpha(widget.foreground, 0.16) : "transparent"
+            Text {
+                anchors.centerIn: parent; text: String.fromCodePoint(0xF0467)
+                color: widget.foreground; font.family: PanelStyle.fontFamily; font.pixelSize: 15
+            }
+            MouseArea {
+                id: rotateArea
+                anchors.fill: parent; hoverEnabled: true; preventStealing: true
+                cursorShape: pressed ? Qt.ClosedHandCursor : Qt.PointingHandCursor
+                Accessible.role: Accessible.Button
+                Accessible.name: Eitr.I18n.tr("Rotation")
+                property point centre
+                property real startAngle: 0
+                property int startRotation: 0
+                property int current: 0
+                function angleTo(point) { return Math.atan2(point.y - centre.y, point.x - centre.x) * 180 / Math.PI; }
+                onPressed: function(mouse) {
+                    centre = widget.mapToGlobal(widget.width / 2, widget.height / 2);
+                    startAngle = angleTo(widget.pointerPosition(rotateArea, mouse));
+                    startRotation = Math.round(widget.rotation);
+                    current = startRotation;
+                }
+                onPositionChanged: function(mouse) {
+                    if (!pressed) return;
+                    current = Geometry.snapRotation(startRotation + angleTo(widget.pointerPosition(rotateArea, mouse)) - startAngle);
+                    widget.rotating(current);
+                }
+                onReleased: if (current !== startRotation) widget.rotationFinished(current)
+                onCanceled: widget.rotating(startRotation)
+            }
         }
     }
     Rectangle {
