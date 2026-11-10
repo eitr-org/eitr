@@ -1825,6 +1825,9 @@ msgstr "Se ejecuta solo en este PC: tus solicitudes nunca salen de él y no nece
 msgid "It shows at the next boot and follows your theme from then on. Your boot entries were not changed."
 msgstr "Se mostrará en el próximo arranque y seguirá tu tema desde entonces. Tus entradas de arranque no se han modificado."
 
+msgid "Its icon and panel come from the official Tailscale plugin. Hide or remove it in Control Center > Plugins."
+msgstr "Su icono y su panel vienen del plugin oficial de Tailscale. Ocúltalo o quítalo en Centro de control > Plugins."
+
 msgid "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 msgstr "CONSERVAR MIS ARCHIVOS devuelve el sistema, las aplicaciones y los ajustes al estado del primer inicio de sesión y conserva los archivos de tu carpeta personal."
 
@@ -3429,6 +3432,9 @@ msgstr "Tailscale no pudo cambiar de estado."
 
 msgid "Tailscale is not installed."
 msgstr "Tailscale no está instalado."
+
+msgid "Tailscale is now a plugin"
+msgstr "Tailscale ahora es un plugin"
 
 msgid "Tailscale needs your administrator password once to let this account switch it."
 msgstr "Tailscale necesita tu contraseña de administrador una vez para que esta cuenta pueda activarlo y desactivarlo."

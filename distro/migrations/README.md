@@ -34,3 +34,13 @@ Each retry removes already installed package IDs from the pending list before
 fetching; installation validates all remaining themes before publishing any.
 After the first full success the list is deleted. Neither later removals nor
 new logins recreate it.
+
+## Tailscale plugin
+
+`20261110190000-tailscale-plugin.py` queues the official Tailscale plugin, which now
+draws Tailscale's bar icon and panel; fresh installs queue it from `install.sh`. After
+login settings are ready, `eitr-session` starts `eitr_tailscale_migration.py` in the
+background. It installs only on desktops with the `tailscale` command and without a
+plugin of that ID, from `eitr-org/eitr-plugins` at the pinned reviewed commit, through
+the normal validated install (its bar icon is placed, its receive service enabled) and
+then notifies. Network failures keep the queue for the next login without notifications.

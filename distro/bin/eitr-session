@@ -15,6 +15,7 @@ from eitr_paths import code
 from generated import refresh_after_upgrade, walker_view
 from migrations import run_pending
 from eitr_theme_migration import current_theme, pending, start_retry, THEMES
+import eitr_tailscale_migration
 import eitr_user_tools
 
 walker_view()
@@ -29,5 +30,7 @@ subprocess.Popen(['python3', str(code('walker/scripts/actions/wallpaper/transiti
 
 # Network work starts after login settings are ready and never blocks the session.
 start_retry()
+# Desktops with Tailscale get the official plugin that now draws its icon and panel.
+eitr_tailscale_migration.start_retry()
 # Default per-user tools (herdr) install once with their official installers.
 eitr_user_tools.start()

@@ -8068,6 +8068,9 @@
     "It shows at the next boot and follows your theme from then on. Your boot entries were not changed.": [
       "distro/system/eitr-system.py"
     ],
+    "Its icon and panel come from the official Tailscale plugin. Hide or remove it in Control Center > Plugins.": [
+      "distro/lib/eitr_tailscale_migration.py"
+    ],
     "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder.": [
       "walker/scripts/actions/system/factory-reset.py"
     ],
@@ -9710,6 +9713,9 @@
     ],
     "Tailscale is not installed.": [
       "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
+    "Tailscale is now a plugin": [
+      "distro/lib/eitr_tailscale_migration.py"
     ],
     "Tailscale needs your administrator password once to let this account switch it.": [
       "walker/scripts/actions/system/remote-access.py"

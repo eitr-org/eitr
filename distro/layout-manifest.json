@@ -106,6 +106,7 @@
     {"pattern": "distro/tests/test_avatar.py", "class": "C", "runtime": false},
     {"pattern": "distro/lib/eitr_avatar.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_theme_migration.py", "class": "C", "runtime": true},
+    {"pattern": "distro/lib/eitr_tailscale_migration.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_user_tools.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_choice_lists.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_matrix.py", "class": "C", "runtime": true},

@@ -232,6 +232,8 @@ seed_user() {
   fi || printf 'Some theme styles failed; choose a theme in Walker to retry.\n' >&2
   # A new home already has the current settings shape.
   python3 /usr/share/eitr/lib/migrations.py --mark-all
+  # Tailscale's icon and panel are the official plugin; it installs at the first online login.
+  python3 /usr/share/eitr/lib/eitr_tailscale_migration.py --enqueue
   # Packaged icons and desktop entries are indexed by pacman hooks; only user
   # directories that exist (the themed Codex icon, user entries) need a refresh.
   if [[ -d "$HOME/.local/share/icons/hicolor" ]] && command -v gtk-update-icon-cache >/dev/null; then
