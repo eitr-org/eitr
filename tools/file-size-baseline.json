@@ -1,10 +1,6 @@
 {
   "limit": 400,
   "files": {
-    "distro/lib/eitr_own_style.py": {
-      "lines": 607,
-      "reason": "To improve (TODO): picture import and theme building in one file."
-    },
     "distro/lib/eitr_plugin_install.py": {
       "lines": 983,
       "reason": "One reviewed plugin install transaction, kept together for review."

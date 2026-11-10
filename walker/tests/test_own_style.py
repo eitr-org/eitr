@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "distro/lib"))
 import eitr_own_style as own_style  # noqa: E402
 import eitr_paths  # noqa: E402
+import eitr_own_pictures  # noqa: E402
 
 
 def picture(path, color=(30, 90, 160), size=(160, 100), kind="PNG"):
@@ -121,7 +122,7 @@ class PictureTests(SandboxTest):
         self.assertEqual(stored.parent, eitr_paths.data("eitr/wallpapers"))
         with self.assertRaisesRegex(ValueError, "50 MB"):
             own_style.download("https://example.com/a.png", FakeOpener(data, length=own_style.MAX_BYTES + 1))
-        with patch.object(own_style, "MAX_BYTES", 10), self.assertRaisesRegex(ValueError, "50 MB"):
+        with patch.object(eitr_own_pictures, "MAX_BYTES", 10), self.assertRaisesRegex(ValueError, "50 MB"):
             own_style.download("https://example.com/a.png", FakeOpener(data, length=0))
         with self.assertRaises(ValueError):
             own_style.add_wallpaper("https://example.com/a.png", opener=FakeOpener(b"<html>not a picture</html>"))

@@ -6286,7 +6286,7 @@
       "distro/lib/eitr_selfcheck.py"
     ],
     "A lockscreen named {name} already exists.": [
-      "distro/lib/eitr_own_style.py",
+      "distro/lib/eitr_own_lockscreens.py",
       "walker/scripts/actions/style/own.py"
     ],
     "A maximum of four layouts can be active at once": [
@@ -6318,7 +6318,7 @@
       "quickshell/desktop-bar/scripts/appearance-state.py"
     ],
     "A theme named {name} already exists.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_themes.py"
     ],
     "A web app named {name} already exists. Remove it first from Install > Web Apps.": [
       "walker/scripts/actions/install/webapps.py"
@@ -6862,7 +6862,7 @@
       "walker/scripts/actions/tools/reminders.py"
     ],
     "Choose one of the listed designs.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_lockscreens.py"
     ],
     "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks.": [
       "walker/scripts/actions/system/mirrors.py"
@@ -7085,7 +7085,7 @@
       "walker/scripts/actions/style/own.py"
     ],
     "Could not download the picture: {error}": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "Could not launch OBS in the background": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -7310,7 +7310,7 @@
       "distro/archinstall/installer-ui.py"
     ],
     "Do not put login credentials in the address.": [
-      "distro/lib/eitr_own_style.py",
+      "distro/lib/eitr_own_pictures.py",
       "walker/scripts/actions/install/webapps.py"
     ],
     "DocumentDB": [
@@ -7431,7 +7431,8 @@
       "quickshell/desktop-bar/scripts/settings-system.py"
     ],
     "Enter a color as six hex digits, for example #2bb87a.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_lockscreens.py",
+      "distro/lib/eitr_own_themes.py"
     ],
     "Enter a hostname, not a URL, port or shell option": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -8032,7 +8033,7 @@
       "walker/scripts/actions/tools/reminders.py"
     ],
     "Keep the greeting under 80 characters.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_lockscreens.py"
     ],
     "Kept user layout link override: {target}": [
       "distro/lib/generated.py"
@@ -8361,7 +8362,7 @@
       "walker/scripts/actions/install/software.py"
     ],
     "No palette-driven theme integration is installed.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_themes.py"
     ],
     "No passphrase or recovery key slot found; refusing to rely on the TPM alone.": [
       "distro/system/eitr-system.py"
@@ -8370,7 +8371,7 @@
       "distro/system/eitr-system.py"
     ],
     "No picture file at {path}.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "No plugin icon; a generic icon will be shown.": [
       "walker/scripts/actions/install/plugins.py"
@@ -8427,13 +8428,14 @@
       "quickshell/desktop-bar/scripts/settings-system.py"
     ],
     "Not one of your lockscreens": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_lockscreens.py"
     ],
     "Not one of your themes": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py",
+      "distro/lib/eitr_own_themes.py"
     ],
     "Not one of your wallpapers": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "Nothing changed.": [
       "distro/lib/eitr_local_assistant.py",
@@ -8548,7 +8550,7 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Open the picture itself, right-click it, choose Copy image address and paste that.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "Open the web console": [
       "walker/scripts/menus/cloud/providers.py"
@@ -9690,13 +9692,13 @@
       "quickshell/desktop-bar/scripts/default-apps.py"
     ],
     "Text would be hard to read: foreground and background need more contrast.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_themes.py"
     ],
     "That OBS scene no longer exists": [
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
     "That address is a web page, not a picture. {hint}": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "That dashboard is no longer saved.": [
       "walker/scripts/actions/development/monitoring.py"
@@ -9723,7 +9725,7 @@
       "walker/scripts/actions/install/webapps.py"
     ],
     "The address redirected away from https.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "The answers need a password": [
       "distro/archinstall/eitr-guided-install"
@@ -9823,7 +9825,7 @@
       "walker/scripts/menus/cloud/accounts.py"
     ],
     "The name needs at least one letter or digit.": [
-      "distro/lib/eitr_own_style.py",
+      "distro/lib/eitr_own_pictures.py",
       "walker/scripts/actions/install/webapps.py"
     ],
     "The new password was not accepted: {reason}": [
@@ -9840,13 +9842,13 @@
       "distro/archinstall/eitr-guided-install"
     ],
     "The picture has too many pixels.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "The picture is larger than 50 MB.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "The picture is too small.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "The plugin blocklist could not be read; plugins are refused until it is fixed.": [
       "distro/lib/eitr_plugin_install.py"
@@ -9890,7 +9892,7 @@
       "distro/lib/eitr_profile_apply.py"
     ],
     "The site refused the download (HTTP {code}). {hint}": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "The sound system is not running, so no app can play sound; log out and back in, and report a problem if it continues.": [
       "distro/lib/eitr_selfcheck.py"
@@ -9959,7 +9961,7 @@
       "walker/scripts/actions/system/network-backend.py"
     ],
     "This color cannot be changed here.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_themes.py"
     ],
     "This computer has no factory reset point. Only computers installed with the Eitr ISO have one.": [
       "distro/system/factory-reset.py"
@@ -9986,7 +9988,7 @@
       "walker/scripts/actions/install/software.py"
     ],
     "This is not a picture Eitr can read.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "This keyboard layout could not be loaded": [
       "quickshell/desktop-bar/scripts/keyboard-layout.py"
@@ -10291,10 +10293,10 @@
       "distro/lib/eitr_accounts.py"
     ],
     "Use a JPEG, PNG or WebP picture.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "Use a name of 1 to 40 characters.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "Use a name of 1 to 60 characters": [
       "walker/scripts/menus/cloud/accounts.py"
@@ -10306,7 +10308,7 @@
       "walker/scripts/actions/install/webapps.py"
     ],
     "Use an https address or a file on this computer.": [
-      "distro/lib/eitr_own_style.py"
+      "distro/lib/eitr_own_pictures.py"
     ],
     "Use at least 8 characters, without line breaks.": [
       "walker/scripts/actions/system/users.py"
