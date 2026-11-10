@@ -62,6 +62,11 @@ item says what decides the next step. Remove an item when it ships;
   desktop-lockscreen-*`, staged by `install-login.py`). Per-user installs like themes
   could not reach it, so designs would likely become signed packages in Eitr's
   repository, installed and removed with one password prompt, for every account.
+- **Bar glow (parked on the local `bar-glow` branch, 2026-11-10).** An off-by-default glow in
+  the theme accent around the bar's surfaces in every layout. Parked because the glow is
+  drawn behind the bar and shows through Transparent and Blur bars; it must be cut out of
+  the bar's own shape so it only shows outside. The owner liked the strength at opacity
+  0.34 / blur 13.
 - **Settings Overview leftovers.** Network throughput needs a shared data topic; each
   theme's Overview illustration is still to be drawn (the wallpaper until then).
 - **Git & Cloud for many companies** (Walker; Settings no longer has the page): group
