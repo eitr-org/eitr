@@ -3,7 +3,7 @@ import ".."
 import QtQuick
 
 // Drop: one full pill with only the time, centred on the bar's edge. With auto-hide nothing
-// stays on screen; revealing drops a small accent drop out of the edge, which falls into
+// stays on screen; revealing drops a small drop in the bar's colour out of the edge, which falls into
 // place and swells into the time island (hiding plays it backwards). The glance strip
 // and the dashboard card come later.
 Item {
@@ -49,7 +49,7 @@ Item {
         // Falls out of the bar's edge: before the fall it sits just beyond the screen.
         readonly property real travel: (1 - drop.fall) * (thickness + drop.dropDepth) * (farEdge ? 1 : -1)
         transform: Translate { x: drop.vertical ? pill.travel : 0; y: drop.vertical ? 0 : pill.travel }
-        // The dot: the accent colour with a soft halo, fading into the pill as it grows.
+        // The drop: the bar's colour with a soft halo, becoming the pill as it swells.
         Item {
             id: dot
             objectName: "dropDot"
@@ -58,7 +58,7 @@ Item {
             visible: opacity > 0
             Canvas {
                 id: halo
-                readonly property color accent: host.activeBg
+                readonly property color accent: pill.color
                 anchors.centerIn: parent
                 width: drop.dotSize * 2.6; height: width
                 onAccentChanged: requestPaint()
@@ -74,7 +74,7 @@ Item {
                     context.fillRect(0, 0, width, height);
                 }
             }
-            Rectangle { anchors.fill: parent; radius: pill.radius; color: host.activeBg }
+            Rectangle { anchors.fill: parent; radius: pill.radius; color: pill.color }
         }
     }
     // A slightly larger target around the dot, from the bar's edge, so the pointer finds
