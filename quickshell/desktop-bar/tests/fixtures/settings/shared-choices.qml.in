@@ -83,7 +83,7 @@ ShellRoot {
     else if (name === "DisplaySettingsEditor") {
      editor.visible = true; frame.height = 764;
      canvas.Overlay.overlay.parent = canvas;
-     const rotation = editor.children.find(child => child.label === "Rotation");
+     const rotation = editor.children.find(child => child.floatingLabel === "Rotation");
      const height = editor.implicitHeight;
      rotation.expanded = true;
      if (!rotation.popup.opened || editor.implicitHeight !== height) throw new Error("the Display editor's list must float");

@@ -18,18 +18,17 @@ Column {
             width: content.width
             title: Eitr.I18n.tr(modelData.label)
             foreground: view.foreground
-            ControlRow {
+            ChoiceDropdown {
                 SettingsTarget { objectName: "setting-default-apps-" + appCard.modelData.kind }
-                text: Eitr.I18n.tr(appCard.modelData.label)
-                description: Eitr.I18n.tr("Choose the app used for this file or link type.")
+                floatingLabel: Eitr.I18n.tr(appCard.modelData.label)
+                helperText: Eitr.I18n.tr("Choose the app used for this file or link type.")
+                width: Math.min(parent.width, 460)
+                gold: SettingsInk.gold; background: SettingsInk.background;
                 foreground: view.foreground
-                ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
-                    foreground: view.foreground
-                    choices: appCard.modelData.choices
-                    current: appCard.modelData.current
-                    available: !defaults.busy
-                    onChosen: value => defaults.change(["set", appCard.modelData.kind, value])
-                }
+                choices: appCard.modelData.choices
+                current: appCard.modelData.current
+                available: !defaults.busy
+                onChosen: value => defaults.change(["set", appCard.modelData.kind, value])
             }
         }
     }

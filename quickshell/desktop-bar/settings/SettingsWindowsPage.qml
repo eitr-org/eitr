@@ -32,43 +32,39 @@ Column {
             objectName: "scrollingOptions"
             width: parent.width; spacing: 8
             visible: DesktopStyle.windowLayout.layout === "scrolling"
-            ControlRow {
-                text: Eitr.I18n.tr("Direction")
-                description: Eitr.I18n.tr((ChoiceLists.scrollingDirections.find(choice => choice.id === DesktopStyle.windowLayout.scrollDirection) || {}).description || "")
-                foreground: view.foreground
+            // The three scrolling choices sit side by side, each describing its current value.
+            Row {
+                width: parent.width
+                spacing: 16
                 ChoiceDropdown {
-                    foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
-                    objectName: "scrollDirectionChoice"
-                    accessibleName: Eitr.I18n.tr("Direction")
                     SettingsTarget { objectName: "setting-windows-scroll-direction" }
+                    objectName: "scrollDirectionChoice"
+                    width: (parent.width - 2 * parent.spacing) / 3
+                    floatingLabel: Eitr.I18n.tr("Direction")
+                    helperText: Eitr.I18n.tr((ChoiceLists.scrollingDirections.find(choice => choice.id === DesktopStyle.windowLayout.scrollDirection) || {}).description || "")
+                    foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
                     choices: ChoiceLists.scrollingDirections
                     current: DesktopStyle.windowLayout.scrollDirection
                     onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollDirection", value); }
                 }
-            }
-            ControlRow {
-                text: Eitr.I18n.tr("Default column width")
-                description: Eitr.I18n.tr((ChoiceLists.scrollingWidths.find(choice => choice.id === DesktopStyle.windowLayout.scrollWidth) || {}).description || "")
-                foreground: view.foreground
                 ChoiceDropdown {
-                    foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
-                    objectName: "scrollWidthChoice"
-                    accessibleName: Eitr.I18n.tr("Default column width")
                     SettingsTarget { objectName: "setting-windows-column-width" }
+                    objectName: "scrollWidthChoice"
+                    width: (parent.width - 2 * parent.spacing) / 3
+                    floatingLabel: Eitr.I18n.tr("Default column width")
+                    helperText: Eitr.I18n.tr((ChoiceLists.scrollingWidths.find(choice => choice.id === DesktopStyle.windowLayout.scrollWidth) || {}).description || "")
+                    foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
                     choices: ChoiceLists.scrollingWidths.map(choice => ({id: choice.id, label: choice.label}))
                     current: DesktopStyle.windowLayout.scrollWidth
                     onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollWidth", value); }
                 }
-            }
-            ControlRow {
-                text: Eitr.I18n.tr("Focus fit")
-                description: Eitr.I18n.tr((ChoiceLists.scrollingFocusFit.find(choice => choice.id === DesktopStyle.windowLayout.scrollFocusFit) || {}).description || "")
-                foreground: view.foreground
                 ChoiceDropdown {
-                    foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
-                    objectName: "scrollFocusFitChoice"
-                    accessibleName: Eitr.I18n.tr("Focus fit")
                     SettingsTarget { objectName: "setting-windows-focus-fit" }
+                    objectName: "scrollFocusFitChoice"
+                    width: (parent.width - 2 * parent.spacing) / 3
+                    floatingLabel: Eitr.I18n.tr("Focus fit")
+                    helperText: Eitr.I18n.tr((ChoiceLists.scrollingFocusFit.find(choice => choice.id === DesktopStyle.windowLayout.scrollFocusFit) || {}).description || "")
+                    foreground: view.foreground; background: SettingsInk.background; gold: SettingsInk.gold
                     choices: ChoiceLists.scrollingFocusFit.map(choice => ({id: choice.id, label: choice.label}))
                     current: DesktopStyle.windowLayout.scrollFocusFit
                     onChosen: value => { if (view.live) DesktopStyle.selectLayout("scrollFocusFit", value); }

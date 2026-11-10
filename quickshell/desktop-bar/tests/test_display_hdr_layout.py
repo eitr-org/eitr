@@ -31,7 +31,7 @@ import "." as Bar
 ShellRoot {
     FloatingWindow {
         visible: true
-        implicitWidth: 420; implicitHeight: 420
+        implicitWidth: 420; implicitHeight: 560
         Rectangle {
             id: sample
             anchors.fill: parent; color: "BACKGROUND"

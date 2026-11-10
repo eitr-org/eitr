@@ -570,7 +570,6 @@
   "Runes": "Runes",
   "Runs on this PC; nothing is saved": "Runs on this PC; nothing is saved",
   "SCANNED DEVICES": "SCANNED DEVICES",
-  "SCENE": "SCENE",
   "SDR content brightness": "SDR content brightness",
   "SESSION": "SESSION",
   "SHUT DOWN": "SHUT DOWN",
@@ -859,5 +858,8 @@
   "Authentication": "Authentication",
   "Choose the logo shown on the About page.": "Choose the logo shown on the About page.",
   "Use the method required by your network.": "Use the method required by your network.",
-  "Medium": "Medium"
+  "Medium": "Medium",
+  "Enter saves the new name; Esc cancels.": "Enter saves the new name; Esc cancels.",
+  "Name": "Name",
+  "Scene": "Scene"
 }

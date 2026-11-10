@@ -88,7 +88,7 @@ ThemedPopup {
             visible: section.renaming === null
             width: parent.width
             foreground: section.foreground; background: section.background; gold: section.accent
-            accessibleName: section.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
+            floatingLabel: section.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
             placeholder: Eitr.I18n.tr("No device available")
             choices: section.devices.map(node => ({value: String(node.id), label: AudioDevices.label(node), glyph: AudioDevices.glyph(node, section.microphone)}))
             current: section.currentNode ? String(section.currentNode.id) : ""

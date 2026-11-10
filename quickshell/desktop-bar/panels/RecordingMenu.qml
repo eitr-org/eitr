@@ -163,15 +163,7 @@ ThemedPopup {
                 PanelSwitch { anchors.verticalCenter: parent.verticalCenter; foreground: menu.foreground; accent: menu.accent; checked: menu.camera.enabled; enabled: menu.controller.controlsReady && !menu.controller.busy; Accessible.name: Eitr.I18n.tr("Webcam"); onClicked: menu.controller.run(checked ? "camera-on" : "camera-off") }
             }
         }
-        Text {
-            visible: menu.scenes.length > 1
-            text: Eitr.I18n.tr("SCENE")
-            color: menu.foreground
-            opacity: PanelStyle.secondaryTextOpacity
-            font.family: DesktopFonts.family
-            font.pixelSize: PanelStyle.captionSize
-        }
-        ChoiceDropdown { background: menu.background; gold: menu.accent; visible: menu.scenes.length > 1; width: parent.width; foreground: menu.foreground; choices: menu.scenes; current: menu.details.scene || ""; available: menu.controller.controlsReady && menu.controller.pendingAction !== "scene"; onChosen: value => menu.controller.run("scene", value) }
+        ChoiceDropdown { floatingLabel: Eitr.I18n.tr("Scene"); background: menu.background; gold: menu.accent; visible: menu.scenes.length > 1; width: parent.width; foreground: menu.foreground; choices: menu.scenes; current: menu.details.scene || ""; available: menu.controller.controlsReady && menu.controller.pendingAction !== "scene"; onChosen: value => menu.controller.run("scene", value) }
         Text {
             visible: menu.controller.actionError !== ""
             width: parent.width

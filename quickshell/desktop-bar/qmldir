@@ -181,6 +181,8 @@ SettingsWindowsPage settings/SettingsWindowsPage.qml
 SettingsLockscreenPage settings/SettingsLockscreenPage.qml
 SettingsNotificationsPage settings/SettingsNotificationsPage.qml
 SettingsFocusPage settings/SettingsFocusPage.qml
+OutlinedFrame components/OutlinedFrame.qml
+OutlinedTextField components/OutlinedTextField.qml
 SettingsChoiceSection components/SettingsChoiceSection.qml
 SettingsText components/SettingsText.qml
 SettingsKeybindsPage settings/SettingsKeybindsPage.qml

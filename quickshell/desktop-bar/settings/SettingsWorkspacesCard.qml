@@ -25,27 +25,26 @@ ControlCard {
             onChosen: value => { if (card.live) DesktopStyle.selectWorkspace("workspaceMode", value); }
         }
     }
-    ControlRow {
-        text: Eitr.I18n.tr("Number of workspaces")
-        description: Eitr.I18n.tr("Set the total number of numbered workspaces.")
-        foreground: card.foreground
-        SettingsTarget { objectName: "setting-windows-workspace-count" }
+    // The two counts sit side by side as outlined fields, each described underneath.
+    Row {
+        width: parent.width
+        spacing: 16
         ChoiceDropdown {
+            SettingsTarget { objectName: "setting-windows-workspace-count" }
+            width: Math.min(260, (parent.width - parent.spacing) / 2)
+            floatingLabel: Eitr.I18n.tr("Number of workspaces")
+            helperText: Eitr.I18n.tr("Set the total number of numbered workspaces.")
             foreground: card.foreground; gold: SettingsInk.gold; background: SettingsInk.background
-            accessibleName: Eitr.I18n.tr("Number of workspaces")
             choices: card.numbers(5, 10)
             current: String(DesktopStyle.workspaceCount)
             onChosen: value => { if (card.live) DesktopStyle.selectWorkspace("workspaceCount", value); }
         }
-    }
-    ControlRow {
-        text: Eitr.I18n.tr("Always show")
-        description: Eitr.I18n.tr("Keep this many workspace markers visible.")
-        foreground: card.foreground
-        SettingsTarget { objectName: "setting-windows-workspace-always-show" }
         ChoiceDropdown {
+            SettingsTarget { objectName: "setting-windows-workspace-always-show" }
+            width: Math.min(260, (parent.width - parent.spacing) / 2)
+            floatingLabel: Eitr.I18n.tr("Always show")
+            helperText: Eitr.I18n.tr("Keep this many workspace markers visible.")
             foreground: card.foreground; gold: SettingsInk.gold; background: SettingsInk.background
-            accessibleName: Eitr.I18n.tr("Always show")
             choices: card.numbers(2, DesktopStyle.workspaceCount)
             current: String(DesktopStyle.workspaceAlwaysShow)
             onChosen: value => { if (card.live) DesktopStyle.selectWorkspace("workspaceAlwaysShow", value); }

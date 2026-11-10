@@ -45,38 +45,32 @@ Column {
         title: Eitr.I18n.tr("Preferences")
         foreground: pageBody.view.foreground
         surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
-        ControlRow {
+        ChoiceDropdown {
             SettingsTarget { objectName: "setting-assistant-default-assistant" }
-            text: Eitr.I18n.tr("Default Assistant")
-            description: Eitr.I18n.tr("Open with the assistant shortcut")
-            foreground: pageBody.view.foreground
-            ChoiceDropdown {
-                objectName: "settings-default-assistant"
-                width: parent.width
-                foreground: pageBody.view.foreground; background: pageBody.view.background; gold: SettingsInk.gold
-                accessibleName: Eitr.I18n.tr("Default Assistant")
-                placeholder: (pageBody.helper.summary.choices || []).length ? Eitr.I18n.tr("Choose an installed assistant.") : Eitr.I18n.tr("Install an AI Assistant")
-                choices: pageBody.helper.summary.choices || []
-                current: pageBody.helper.summary.current || ""
-                available: !pageBody.helper.busy && (pageBody.helper.summary.choices || []).length > 0
-                onChosen: value => pageBody.helper.change(["default-assistant", "assistants", value])
-            }
+            floatingLabel: Eitr.I18n.tr("Default Assistant")
+            helperText: Eitr.I18n.tr("Open with the assistant shortcut")
+            width: Math.min(parent.width, 460)
+            objectName: "settings-default-assistant"
+            foreground: pageBody.view.foreground; background: pageBody.view.background; gold: SettingsInk.gold
+            accessibleName: Eitr.I18n.tr("Default Assistant")
+            placeholder: (pageBody.helper.summary.choices || []).length ? Eitr.I18n.tr("Choose an installed assistant.") : Eitr.I18n.tr("Install an AI Assistant")
+            choices: pageBody.helper.summary.choices || []
+            current: pageBody.helper.summary.current || ""
+            available: !pageBody.helper.busy && (pageBody.helper.summary.choices || []).length > 0
+            onChosen: value => pageBody.helper.change(["default-assistant", "assistants", value])
         }
-        ControlRow {
+        ChoiceDropdown {
             SettingsTarget { objectName: "setting-assistant-assistant-access" }
-            text: Eitr.I18n.tr("Assistant Access")
-            description: Eitr.I18n.tr("Full access skips the assistant's permission prompts; Ask keeps them.")
-            foreground: pageBody.view.foreground
-            ChoiceDropdown {
-                objectName: "settings-assistant-access"
-                width: parent.width
-                foreground: pageBody.view.foreground; background: pageBody.view.background; gold: SettingsInk.gold
-                accessibleName: Eitr.I18n.tr("Assistant Access")
-                choices: [{value: "full", label: Eitr.I18n.tr("Full access (default)")}, {value: "ask", label: Eitr.I18n.tr("Ask before changes")}]
-                current: pageBody.helper.summary.access || "full"
-                available: !pageBody.helper.busy
-                onChosen: value => pageBody.helper.change(["access", "assistants", value])
-            }
+            floatingLabel: Eitr.I18n.tr("Assistant Access")
+            helperText: Eitr.I18n.tr("Full access skips the assistant's permission prompts; Ask keeps them.")
+            width: Math.min(parent.width, 460)
+            objectName: "settings-assistant-access"
+            foreground: pageBody.view.foreground; background: pageBody.view.background; gold: SettingsInk.gold
+            accessibleName: Eitr.I18n.tr("Assistant Access")
+            choices: [{value: "full", label: Eitr.I18n.tr("Full access (default)")}, {value: "ask", label: Eitr.I18n.tr("Ask before changes")}]
+            current: pageBody.helper.summary.access || "full"
+            available: !pageBody.helper.busy
+            onChosen: value => pageBody.helper.change(["access", "assistants", value])
         }
         ToggleRow {
             SettingsTarget { objectName: "setting-assistant-let-assistants-work-together" }

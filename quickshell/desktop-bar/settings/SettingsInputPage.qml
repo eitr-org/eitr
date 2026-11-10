@@ -79,25 +79,19 @@ Column {
         }
     }
     // Choosing a layout from the floating list adds it; the catalog loads with the page.
-    // Close to the layout list's width, so the menu sits beside its label in a full-screen window.
-    ControlRow {
-        width: Math.min(parent.width, Math.max(view.listWidth, 640))
-        text: Eitr.I18n.tr("Add Layout")
-        description: Eitr.I18n.tr("Add another keyboard layout to your list.")
+    // The field is as wide as the layout list above it.
+    ChoiceDropdown {
+        SettingsTarget { objectName: "setting-input-add-layout" }
+        objectName: "settings-add-layout"
+        width: view.listWidth
+        floatingLabel: Eitr.I18n.tr("Add Layout")
+        helperText: Eitr.I18n.tr("Add another keyboard layout to your list.")
+        gold: SettingsInk.gold; background: SettingsInk.background
         foreground: view.foreground
-        ChoiceDropdown {
-            SettingsTarget { objectName: "setting-input-add-layout" }
-
-            objectName: "settings-add-layout"
-            width: parent.width
-            gold: SettingsInk.gold; background: SettingsInk.background
-            foreground: view.foreground
-            accessibleName: Eitr.I18n.tr("Add Layout")
-            placeholder: view.catalog.length ? "" : Eitr.I18n.tr("Loading...")
-            available: view.layouts.length < 4 && !operation.running
-            choices: view.catalog.map(layout => ({value: layout.layout + "|" + layout.variant, label: layout.label}))
-            onChosen: value => { const parts = value.split("|"); view.change(["add", parts[0], parts[1]]); }
-        }
+        placeholder: view.catalog.length ? "" : Eitr.I18n.tr("Loading...")
+        available: view.layouts.length < 4 && !operation.running
+        choices: view.catalog.map(layout => ({value: layout.layout + "|" + layout.variant, label: layout.label}))
+        onChosen: value => { const parts = value.split("|"); view.change(["add", parts[0], parts[1]]); }
     }
     Text { width: parent.width; visible: view.error !== ""; text: view.error; wrapMode: Text.WordWrap; color: view.foreground; font.pixelSize: PanelStyle.captionSize }
 }

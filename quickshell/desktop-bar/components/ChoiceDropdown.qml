@@ -21,6 +21,14 @@ Item {
     // With a label, the closed control is a settings row: the label on the left and the
     // current choice on the right, so the row itself is the selector.
     property string label: ""
+    // Outlined field: the label sits inside the empty field and moves into its top border
+    // once a choice is shown or the list opens; the helper text describes it underneath.
+    property string floatingLabel: ""
+    property string helperText: ""
+    readonly property bool outlined: floatingLabel !== ""
+    readonly property bool labelRaised: expanded || currentIndex >= 0
+    // Room above the field for the raised label, so stacked fields never touch.
+    readonly property real labelRoom: outlined ? 8 : 0
     // Shown when no choice matches current.
     property string placeholder: Eitr.I18n.tr("Unavailable")
     // An optional per-row action (for example Rename), shown on the hovered or highlighted row.
@@ -77,7 +85,7 @@ Item {
     signal chosen(string value)
     signal actionTriggered(string value)
     width: parent ? parent.width : 220
-    implicitHeight: button.height
+    implicitHeight: labelRoom + button.height + (outlined && helperText !== "" ? 4 + helperLine.implicitHeight + 4 : 0)
     height: implicitHeight
     activeFocusOnTab: true
     onActiveFocusChanged: if (activeFocus) button.forceActiveFocus()
@@ -123,17 +131,23 @@ Item {
     function bounds() { return control.Window.contentItem; }
     PanelButton {
         id: button
+        y: control.labelRoom
         width: parent.width
-        height: PanelStyle.selectionRowHeight
+        height: control.outlined ? 48 : PanelStyle.selectionRowHeight
         foreground: control.foreground
         textAlignment: Text.AlignLeft
-        selected: control.expanded
+        flat: control.outlined
+        // The value lines up with the floating label above it.
+        textInset: control.outlined ? 14 : 8
+        // Focus shows as the gold border, so a chosen field is not left filled.
+        focusFill: !control.outlined
+        selected: control.expanded && !control.outlined
         readonly property var currentChoice: control.currentIndex >= 0 ? control.choices[control.currentIndex] : null
         readonly property string currentText: currentChoice ? control.labelOf(currentChoice) : control.placeholder
         readonly property string currentGlyph: control.glyphOf(currentChoice)
         leadingIcon: control.label === "" ? currentGlyph : ""
-        text: control.label || currentText
-        Accessible.name: control.accessibleName || control.label || text
+        text: control.outlined ? (control.currentIndex >= 0 ? currentText : "") : control.label || currentText
+        Accessible.name: control.accessibleName || control.floatingLabel || control.label || text
         Accessible.role: Accessible.ComboBox
         activeFocusOnTab: true
         Keys.onPressed: event => control.typeAhead(event)
@@ -147,7 +161,23 @@ Item {
             else if (control.keyboardHighlight) control.commit(control.highlightedIndex);
             else control.expanded = false;
         }
-        Text { id: chevron; anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter; text: control.expanded ? "⌃" : "⌄"; color: control.foreground }
+        // One chevron, centred on its drawn shape, turned over while the list is open; two
+        // different glyphs sat at different heights and the arrow jumped.
+        Item {
+            id: chevron
+            anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter
+            width: 14; height: 14
+            rotation: control.expanded ? 180 : 0
+            Behavior on rotation { NumberAnimation { duration: DesktopStyle.motionDuration(120) } }
+            TextMetrics { id: chevronInk; text: chevronGlyph.text; font: chevronGlyph.font }
+            Text {
+                id: chevronGlyph
+                x: parent.width / 2 - (chevronInk.tightBoundingRect.x + chevronInk.tightBoundingRect.width / 2)
+                y: parent.height / 2 - (baselineOffset + chevronInk.tightBoundingRect.y + chevronInk.tightBoundingRect.height / 2)
+                text: "⌄"; color: control.foreground
+                font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+            }
+        }
         Text {
             visible: control.label !== ""
             anchors.right: chevron.left; anchors.rightMargin: 8; anchors.verticalCenter: parent.verticalCenter
@@ -156,6 +186,30 @@ Item {
             text: button.currentText; color: control.foreground; opacity: 0.75
             font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
         }
+    }
+    // The outlined field's border and floating label; neither takes input.
+    OutlinedFrame {
+        visible: control.outlined
+        y: button.y
+        width: button.width; height: button.height
+        label: control.floatingLabel
+        raised: control.labelRaised
+        active: control.expanded || button.activeFocus
+        foreground: control.foreground
+        accent: control.gold
+    }
+    Text {
+        id: helperLine
+        visible: control.outlined && text !== ""
+        y: button.y + button.height + 4
+        x: 14
+        width: parent.width - 28
+        text: control.helperText
+        color: control.foreground
+        opacity: PanelStyle.secondaryTextOpacity
+        font.family: DesktopFonts.family
+        font.pixelSize: 11
+        wrapMode: Text.WordWrap
     }
     Popup {
         id: menu
@@ -178,7 +232,7 @@ Item {
             room = Math.max(PanelStyle.selectionRowHeight + topPadding + bottomPadding, Math.min(wanted, upward ? above : below));
         }
         x: 0
-        y: upward ? -height - gap : button.height + gap
+        y: upward ? button.y - height - gap : button.y + button.height + gap
         width: control.width
         height: Math.min(rowsHeight + topPadding + bottomPadding, room)
         padding: 4
@@ -222,7 +276,10 @@ Item {
                 border.color: Qt.alpha(control.foreground, PanelStyle.selectionBorderAlpha)
                 textAlignment: Text.AlignLeft
                 leadingIcon: control.glyphOf(modelData)
-                text: (control.glyphOf(modelData) !== "" ? "" : selected ? "✓  " : "    ") + control.labelOf(modelData)
+                // The selected row is marked by its background alone.
+                text: control.labelOf(modelData)
+                // Outlined fields line their rows up with the value (list padding 4 + 10).
+                textInset: control.outlined ? 10 : 8
                 selected: control.currentIndex === index
                 available: modelData.available !== false
                 activeFocusOnTab: false
@@ -244,14 +301,6 @@ Item {
                         }
                         if (hovered) control.pointerPosition = position;
                     }
-                }
-                Text {
-                    visible: row.selected && control.glyphOf(row.modelData) !== ""
-                    anchors.right: rowAction.visible ? rowAction.left : parent.right
-                    anchors.rightMargin: PanelStyle.selectionInset
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: "✓"; color: control.gold
-                    font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
                 }
                 PanelButton {
                     id: rowAction

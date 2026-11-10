@@ -24,7 +24,11 @@ Rectangle {
     // An SVG shown instead of the leading glyph, tinted with the foreground.
     property url leadingImage: ""
     property int textAlignment: Text.AlignHCenter
-    readonly property color fillColor: Qt.rgba(foreground.r, foreground.g, foreground.b, selected ? 0.18 : mouse.containsMouse || activeFocus ? 0.16 : icon || outlined || flat ? 0 : 0.08)
+    // Left inset of left-aligned text without a leading icon.
+    property real textInset: 8
+    // Off where another cue shows focus (an outlined field's border): only hover fills it then.
+    property bool focusFill: true
+    readonly property color fillColor: Qt.rgba(foreground.r, foreground.g, foreground.b, selected ? 0.18 : mouse.containsMouse || (focusFill && activeFocus) ? 0.16 : icon || outlined || flat ? 0 : 0.08)
     signal clicked()
     activeFocusOnTab: true
     enabled: available && !loading
@@ -51,7 +55,7 @@ Rectangle {
     Text {
         id: label
         visible: !button.loading || button.icon
-        x: button.icon ? (button.width - ink.tightBoundingRect.width) / 2 - ink.tightBoundingRect.x + button.iconOffsetX : button.leadingIcon !== "" || button.leadingImage != "" ? 34 : 8
+        x: button.icon ? (button.width - ink.tightBoundingRect.width) / 2 - ink.tightBoundingRect.x + button.iconOffsetX : button.leadingIcon !== "" || button.leadingImage != "" ? 34 : button.textInset
         y: button.icon ? button.height / 2 - (baselineOffset + ink.tightBoundingRect.y + ink.tightBoundingRect.height / 2) : 0
         width: button.icon ? implicitWidth : parent.width - x - 8
         height: button.icon ? implicitHeight : parent.height

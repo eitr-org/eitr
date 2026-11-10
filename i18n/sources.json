@@ -897,6 +897,9 @@
     "Enter password": [
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
+    "Enter saves the new name; Esc cancels.": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
+    ],
     "Enter the WiFi password": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
@@ -1354,6 +1357,9 @@
     ],
     "NO ADAPTER": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
+    ],
+    "Name": [
+      "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
     ],
     "Network Settings…": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -2024,9 +2030,6 @@
     "SCANNED DEVICES": [
       "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
-    "SCENE": [
-      "quickshell/desktop-bar/panels/RecordingMenu.qml"
-    ],
     "SDR content brightness": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -2080,6 +2083,9 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Scene": [
+      "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Scheduled": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"

@@ -180,19 +180,18 @@ Column {
                 onChosen: value => styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "blur-strength", value])
             }
         }
-        ControlRow {
+        ChoiceDropdown {
             SettingsTarget { objectName: "setting-bar-workspace-style" }
-            text: Eitr.I18n.tr("Workspace style")
-            description: Eitr.I18n.tr("Choose how workspaces appear in the bar.")
+            floatingLabel: Eitr.I18n.tr("Workspace style")
+            helperText: Eitr.I18n.tr("Choose how workspaces appear in the bar.")
+            width: Math.min(parent.width, 460)
+            gold: SettingsInk.gold; background: SettingsInk.background;
             foreground: view.foreground
-            ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
-                foreground: view.foreground
-                choices: workspaceHelper.summary.choices || []
-                current: styleModel.workspaceStyle
-                onChosen: value => {
-                    if (view.live) {
-                        styleModel.workspaceStyleRequested(value);
-                    }
+            choices: workspaceHelper.summary.choices || []
+            current: styleModel.workspaceStyle
+            onChosen: value => {
+                if (view.live) {
+                    styleModel.workspaceStyleRequested(value);
                 }
             }
         }

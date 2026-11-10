@@ -17,42 +17,39 @@ ControlCard {
     property PwNode renaming: null
     title: microphone ? Eitr.I18n.tr("Input") : Eitr.I18n.tr("Output")
     surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
-    ControlRow {
-        text: card.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
-        description: card.microphone ? Eitr.I18n.tr("Choose the microphone used to record sound.") : Eitr.I18n.tr("Choose where sound is played.")
-        foreground: card.foreground
+    ChoiceDropdown {
+        floatingLabel: card.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
+        helperText: card.microphone ? Eitr.I18n.tr("Choose the microphone used to record sound.") : Eitr.I18n.tr("Choose where sound is played.")
+        width: Math.min(parent.width, 460)
+        SettingsTarget { objectName: card.microphone ? "setting-sound-input-device" : "setting-sound-output-device" }
+        SettingsTarget { objectName: card.microphone ? "setting-sound-input-rename" : "setting-sound-output-rename" }
         visible: !card.renaming
-        ChoiceDropdown {
-            SettingsTarget { objectName: card.microphone ? "setting-sound-input-device" : "setting-sound-output-device" }
-            SettingsTarget { objectName: card.microphone ? "setting-sound-input-rename" : "setting-sound-output-rename" }
-            width: parent.width
-            visible: !card.renaming
-            foreground: card.foreground; background: card.background; gold: SettingsInk.gold
-            accessibleName: card.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
-            choices: card.devices.map(node => ({value: String(node.id), label: AudioDevices.label(node), glyph: AudioDevices.glyph(node, card.microphone)}))
-            current: card.currentNode ? String(card.currentNode.id) : ""
-            actionGlyph: "\u{F03EB}"; actionName: Eitr.I18n.tr("Rename")
-            onChosen: value => {
-                if (!card.live) return;
-                const node = card.devices.find(device => String(device.id) === value);
-                if (card.microphone) Pipewire.preferredDefaultAudioSource = node;
-                else Pipewire.preferredDefaultAudioSink = node;
-            }
-            onActionTriggered: value => {
-                card.renaming = card.devices.find(device => String(device.id) === value);
-                nameInput.text = AudioDevices.label(card.renaming);
-                nameInput.forceActiveFocus(); nameInput.selectAll();
-            }
+        foreground: card.foreground; background: card.background; gold: SettingsInk.gold
+        accessibleName: card.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
+        choices: card.devices.map(node => ({value: String(node.id), label: AudioDevices.label(node), glyph: AudioDevices.glyph(node, card.microphone)}))
+        current: card.currentNode ? String(card.currentNode.id) : ""
+        actionGlyph: "\u{F03EB}"; actionName: Eitr.I18n.tr("Rename")
+        onChosen: value => {
+            if (!card.live) return;
+            const node = card.devices.find(device => String(device.id) === value);
+            if (card.microphone) Pipewire.preferredDefaultAudioSource = node;
+            else Pipewire.preferredDefaultAudioSink = node;
+        }
+        onActionTriggered: value => {
+            card.renaming = card.devices.find(device => String(device.id) === value);
+            nameInput.text = AudioDevices.label(card.renaming);
+            nameInput.forceActiveFocus(); nameInput.selectAll();
         }
     }
-    TextField {
+    OutlinedTextField {
         id: nameInput
         visible: !!card.renaming
-        width: Math.min(320, parent.width)
-        color: card.foreground
-        Accessible.name: Eitr.I18n.tr("Rename")
+        width: Math.min(parent.width, 460)
+        foreground: card.foreground; accent: SettingsInk.gold
+        label: Eitr.I18n.tr("Name")
+        helperText: Eitr.I18n.tr("Enter saves the new name; Esc cancels.")
         onAccepted: { if (card.live && card.renaming) AudioDevices.rename(card.renaming, text); card.renaming = null; }
-        Keys.onEscapePressed: card.renaming = null
+        onCancelled: card.renaming = null
     }
     ControlRow {
         SettingsTarget { objectName: card.microphone ? "setting-sound-input-volume" : "setting-sound-output-volume" }

@@ -24,7 +24,7 @@ class SharedChoicesTests(unittest.TestCase):
         # Lists float in the window overlay and register their surface for bar input.
         # Every inline selector uses this dropdown without resizing its host.
         for contract in ('Popup {', 'Popup.CloseOnPressOutsideParent', 'control.registerPopup(true)',
-                         'control.Window.contentItem', 'implicitHeight: button.height', 'upward = below < wanted'):
+                         'control.Window.contentItem', 'implicitHeight: labelRoom + button.height', 'upward = below < wanted'):
             self.assertIn(contract, dropdown)
         self.assertNotIn('visible: control.expanded', dropdown)
         call_sites = {'panels/AudioMenu.qml': 1, 'panels/DisplaySettingsEditor.qml': 5, 'panels/RecordingMenu.qml': 1,

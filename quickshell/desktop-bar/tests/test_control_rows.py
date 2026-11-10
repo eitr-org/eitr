@@ -43,7 +43,6 @@ BARE_EXCEPTIONS = {
     ('SettingsKeybindsPage.qml', 'TextField'): (1, 'Shortcut search'),
     ('SettingsAccountSheet.qml', 'ChoiceSegmented'): (1, 'Destructive review with its own explanation'),
     ('SettingsPasswordSheet.qml', 'PanelTextField'): (3, 'Labelled password confirmation form'),
-    ('SettingsAudioDeviceCard.qml', 'TextField'): (1, 'Temporary device rename editor'),
     ('SettingsWifiCredentials.qml', 'PanelTextField'): (5, 'Labelled network credential form'),
 }
 CONTROLS = {
@@ -69,10 +68,16 @@ def source_blocks(text):
     return result
 
 
+def self_described(kind, body):
+    """An outlined dropdown carries its own label and helper text."""
+    own = own_properties(body)
+    return kind == 'ChoiceDropdown' and re.search(r'\bfloatingLabel\s*:', own) and re.search(r'\bhelperText\s*:', own)
+
+
 def bare_controls(text):
     blocks = source_blocks(text)
     return [(kind, start, body) for kind, start, end, body in blocks
-            if kind in CONTROLS and not any(
+            if kind in CONTROLS and not self_described(kind, body) and not any(
                 owner in DESCRIBED and first < start and last >= end
                 for owner, first, last, unused in blocks)]
 
@@ -99,6 +104,8 @@ class SettingsControlCoverageTests(unittest.TestCase):
         self.assertEqual(bare_controls('ControlRow { description: "Help"; Row { ChoiceDropdown {} } }'), [])
         self.assertEqual(bare_controls('ToggleRow { description: "Help"; PanelSwitch {} }'), [])
         self.assertEqual(bare_controls('SettingsChoiceSection { description: "Help"; PictureChoices {} }'), [])
+        self.assertEqual(bare_controls('Column { ChoiceDropdown { floatingLabel: "Theme"; helperText: "Help" } }'), [])
+        self.assertEqual(len(bare_controls('Column { ChoiceDropdown { floatingLabel: "Theme" } }')), 1)
 
     def test_settings_descriptions_are_not_empty_literals(self):
         bar = ROOT / 'quickshell/desktop-bar'

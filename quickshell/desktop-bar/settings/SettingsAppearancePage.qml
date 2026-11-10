@@ -43,20 +43,19 @@ Column {
         title: Eitr.I18n.tr("Theme & Wallpaper")
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "theme"
-        ControlRow {
+        ChoiceDropdown {
             SettingsTarget { objectName: "setting-appearance-theme" }
-            text: Eitr.I18n.tr("Theme")
-            description: Eitr.I18n.tr("Choose the colours used across your desktop.")
+            floatingLabel: Eitr.I18n.tr("Theme")
+            helperText: Eitr.I18n.tr("Choose the colours used across your desktop.")
+            width: Math.min(parent.width, 460)
+            gold: SettingsInk.gold; background: SettingsInk.background;
             foreground: view.foreground
-            ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
-                foreground: view.foreground
-                choices: themeModel.items
-                current: (themeModel.items.find(item => item.current) || {}).value || ""
-                onChosen: value => {
-                    if (view.live) {
-                        themeModel.selectedIndex = themeModel.items.findIndex(item => item.value === value);
-                        themeModel.apply();
-                    }
+            choices: themeModel.items
+            current: (themeModel.items.find(item => item.current) || {}).value || ""
+            onChosen: value => {
+                if (view.live) {
+                    themeModel.selectedIndex = themeModel.items.findIndex(item => item.value === value);
+                    themeModel.apply();
                 }
             }
         }
@@ -114,19 +113,18 @@ Column {
         title: Eitr.I18n.tr("Typography")
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "fonts"
-        ControlRow {
+        ChoiceDropdown {
             SettingsTarget { objectName: "setting-appearance-fonts" }
-            text: Eitr.I18n.tr("Fonts")
-            description: Eitr.I18n.tr("Set the font used by desktop text.")
+            floatingLabel: Eitr.I18n.tr("Fonts")
+            helperText: Eitr.I18n.tr("Set the font used by desktop text.")
+            width: Math.min(parent.width, 460)
+            gold: SettingsInk.gold; background: SettingsInk.background;
             foreground: view.foreground
-            ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
-                foreground: view.foreground
-                choices: fontHelper.summary.choices || []
-                current: fontHelper.summary.current || ""
-                onChosen: value => {
-                    if (view.live) {
-                        fontHelper.change(["select", value]);
-                    }
+            choices: fontHelper.summary.choices || []
+            current: fontHelper.summary.current || ""
+            onChosen: value => {
+                if (view.live) {
+                    fontHelper.change(["select", value]);
                 }
             }
         }
@@ -135,51 +133,48 @@ Column {
         title: Eitr.I18n.tr("Cursor")
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "fonts"
-        ControlRow {
-            SettingsTarget { objectName: "setting-appearance-cursor-family" }
-            text: Eitr.I18n.tr("Cursor family")
-            description: Eitr.I18n.tr("Choose the pointer shape.")
-            foreground: view.foreground
-            Row {
-                width: parent.width
-                spacing: 10
-                Image {
-                    id: cursorSample
-                    anchors.verticalCenter: parent.verticalCenter
-                    visible: source.toString() !== ""
-                    width: Number((styleModel.cursorChoices.size.find(choice => choice.selected) || {}).id || 24)
-                    height: width
-                    source: styleModel.cursorPreview ? "file://" + styleModel.cursorPreview : ""
-                    fillMode: Image.PreserveAspectFit
-                    Accessible.name: Eitr.I18n.tr("Cursor preview")
-                }
-                ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
-                    width: parent.width - (cursorSample.visible ? cursorSample.width + 10 : 0)
-                    anchors.verticalCenter: parent.verticalCenter
-                    foreground: view.foreground
-                    choices: styleModel.cursorChoices.family
-                    current: (styleModel.cursorChoices.family.find(choice => choice.selected) || {}).id || ""
-                    onChosen: value => {
-                        if (view.live) {
-                            styleModel.run(styleModel.cursorWriteRef, ["python3", styleModel.cursorScript, "set", "family", value]);
-                        }
+        // The outlined field with the pointer's preview beside it.
+        Row {
+            width: parent.width
+            spacing: 14
+            ChoiceDropdown {
+                SettingsTarget { objectName: "setting-appearance-cursor-family" }
+                floatingLabel: Eitr.I18n.tr("Cursor family")
+                helperText: Eitr.I18n.tr("Choose the pointer shape.")
+                width: Math.min(parent.width - (cursorSample.visible ? cursorSample.width + parent.spacing : 0), 460)
+                gold: SettingsInk.gold; background: SettingsInk.background
+                foreground: view.foreground
+                choices: styleModel.cursorChoices.family
+                current: (styleModel.cursorChoices.family.find(choice => choice.selected) || {}).id || ""
+                onChosen: value => {
+                    if (view.live) {
+                        styleModel.run(styleModel.cursorWriteRef, ["python3", styleModel.cursorScript, "set", "family", value]);
                     }
                 }
             }
+            Image {
+                id: cursorSample
+                y: (48 - height) / 2
+                visible: source.toString() !== ""
+                width: Number((styleModel.cursorChoices.size.find(choice => choice.selected) || {}).id || 24)
+                height: width
+                source: styleModel.cursorPreview ? "file://" + styleModel.cursorPreview : ""
+                fillMode: Image.PreserveAspectFit
+                Accessible.name: Eitr.I18n.tr("Cursor preview")
+            }
         }
-        ControlRow {
+        ChoiceDropdown {
             SettingsTarget { objectName: "setting-appearance-cursor-colour" }
-            text: Eitr.I18n.tr("Cursor colour")
-            description: Eitr.I18n.tr("Follow the theme or choose a fixed colour.")
+            floatingLabel: Eitr.I18n.tr("Cursor colour")
+            helperText: Eitr.I18n.tr("Follow the theme or choose a fixed colour.")
+            width: Math.min(parent.width, 460)
+            gold: SettingsInk.gold; background: SettingsInk.background;
             foreground: view.foreground
-            ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
-                foreground: view.foreground
-                choices: styleModel.cursorChoices.color
-                current: (styleModel.cursorChoices.color.find(choice => choice.selected) || {}).id || ""
-                onChosen: value => {
-                    if (view.live) {
-                        styleModel.run(styleModel.cursorWriteRef, ["python3", styleModel.cursorScript, "set", "color", value]);
-                    }
+            choices: styleModel.cursorChoices.color
+            current: (styleModel.cursorChoices.color.find(choice => choice.selected) || {}).id || ""
+            onChosen: value => {
+                if (view.live) {
+                    styleModel.run(styleModel.cursorWriteRef, ["python3", styleModel.cursorScript, "set", "color", value]);
                 }
             }
         }
@@ -203,19 +198,18 @@ Column {
         title: Eitr.I18n.tr("Terminal")
         foreground: view.foreground
         visible: view.page === "appearance" && view.tab === "terminal"
-        ControlRow {
+        ChoiceDropdown {
             SettingsTarget { objectName: "setting-appearance-terminal" }
-            text: Eitr.I18n.tr("Terminal")
-            description: Eitr.I18n.tr("Choose the app opened by the terminal shortcut.")
+            floatingLabel: Eitr.I18n.tr("Terminal")
+            helperText: Eitr.I18n.tr("Choose the app opened by the terminal shortcut.")
+            width: Math.min(parent.width, 460)
+            gold: SettingsInk.gold; background: SettingsInk.background;
             foreground: view.foreground
-            ChoiceDropdown { gold: SettingsInk.gold; background: SettingsInk.background;
-                foreground: view.foreground
-                choices: styleModel.terminalChoices
-                current: styleModel.terminalChoice
-                onChosen: value => {
-                    if (view.live) {
-                        styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "terminal", value]);
-                    }
+            choices: styleModel.terminalChoices
+            current: styleModel.terminalChoice
+            onChosen: value => {
+                if (view.live) {
+                    styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "terminal", value]);
                 }
             }
         }
