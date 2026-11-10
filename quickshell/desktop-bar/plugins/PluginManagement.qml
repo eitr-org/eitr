@@ -112,8 +112,11 @@ Column {
                     }
                     PanelButton {
                         width: 24; height: 24; icon: true; foreground: management.foreground
-                        text: visual.entry.disabled ? "󰑐" : visual.modelData.placed ? "󰅖" : "+"
-                        readonly property string label: visual.entry.disabled ? Eitr.I18n.tr("Re-enable") : visual.modelData.placed ? Eitr.I18n.tr("Remove") : Eitr.I18n.tr("Add")
+                        readonly property bool barItem: visual.entry.kind === "barItems"
+                        text: visual.entry.disabled ? "󰑐" : barItem ? (visual.modelData.placed ? "\u{F0209}" : "\u{F0208}") : visual.modelData.placed ? "󰅖" : "+"
+                        readonly property string label: visual.entry.disabled ? Eitr.I18n.tr("Re-enable")
+                            : barItem ? (visual.modelData.placed ? Eitr.I18n.tr("Hide from the bar") : Eitr.I18n.tr("Show on the bar"))
+                            : visual.modelData.placed ? Eitr.I18n.tr("Remove") : Eitr.I18n.tr("Add")
                         Accessible.name: label
                         available: visual.entry.disabled || visual.modelData.placed || visual.entry.kind !== "widgets" || visual.availableMonitors.length > 0
                         onClicked: {

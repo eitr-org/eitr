@@ -149,7 +149,7 @@ Plugins podem declarar hooks `theme-changed`, `wallpaper-changed`, `after-update
 
 ### Plugins visuais
 
-O esquema versão 2 pode adicionar blocos em **Central de controle > Geral > Plugins** e painéis abertos por esses blocos. Eles podem seguir cores, fontes e cantos do Eitr; widgets e itens da barra aparecem apenas depois que você os adiciona. A revisão lista todos os arquivos QML e seu código completo antes da instalação.
+O esquema versão 2 pode adicionar blocos em **Central de controle > Geral > Plugins** e painéis abertos por esses blocos. Eles podem seguir cores, fontes e cantos do Eitr; itens da barra entram na barra ao instalar o plugin, e widgets aparecem depois que você os adiciona. A revisão lista todos os arquivos QML e seu código completo antes da instalação.
 
 Atualizações mostram um diff rolável e o QML candidato antes da aprovação; alterações QML geram avisos RISK. QML não é uma sandbox: executa dentro da barra com suas permissões completas. Confie no autor; o carregador não isola loops nem falhas nativas.
 
@@ -169,7 +169,7 @@ Detalhes de autoria estão em `distro/PLUGINS.md`.
 
 **Central de controle > Plugins** lista cada plugin instalado com ícone, autor, versão, descrição e estado. Expanda Prévia para ver sua imagem. Ativar/Desativar preserva posições e interrompe ou restaura serviços, itens do Walker, hooks e elementos visuais; use `eitr plugin enable ID` ou `eitr plugin disable ID`. Adicionar plugins, Atualizar e Remover abrem os fluxos revisados no terminal; remover pede confirmação. Geral mantém apenas os blocos de plugins. Falhas visuais têm uma ação independente para reativar.
 
-Adicione widgets por monitor e itens da barra em cada plugin. Editar posição eleva temporariamente o widget acima das janelas: arraste o título ou a alça de tamanho, depois Concluído ou Esc. O movimento é contínuo; ao soltar, a posição se ajusta ao espaçamento e é salva. Clique direito em um widget atrás das janelas, ou em qualquer widget durante a edição, para tamanho (90% / 110%, mantendo proporção e centro dentro da tela), Largura total, fundo Painel/Transparente, Mostrar acima das janelas, opções do plugin e Remover da área de trabalho.
+Adicione widgets por monitor em cada plugin; Remover oculta um item da barra, e as atualizações o mantêm oculto. Editar posição eleva temporariamente o widget acima das janelas: arraste o título ou a alça de tamanho, depois Concluído ou Esc. O movimento é contínuo; ao soltar, a posição se ajusta ao espaçamento e é salva. Clique direito em um widget atrás das janelas, ou em qualquer widget durante a edição, para tamanho (90% / 110%, mantendo proporção e centro dentro da tela), Largura total, fundo Painel/Transparente, Mostrar acima das janelas, opções do plugin e Remover da área de trabalho.
 
 Largura total usa o maior tamanho proporcional que cabe. Widgets acima das janelas deixam passar cliques; suas opções ficam na página Plugins. Editar widgets nessa página ou no Walker torna todos interativos até Concluído ou Esc (`plugin-widgets edit` / `done` via IPC). Monitores desconectados mantêm suas posições.
 

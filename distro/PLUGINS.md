@@ -260,7 +260,8 @@ its status panel. It is never installed automatically.
 
 ### Desktop widgets and bar items
 
-Nothing in `widgets` or `barItems` appears until the user places it from
+A newly installed plugin's `barItems` are placed on the bar; removing one keeps it
+hidden across updates. Nothing in `widgets` appears until the user places it from
 **Control Center > Plugins** or **Plugins > Installed Plugins > plugin > Visuals**.
 Widgets require a monitor choice. Each widget supports optional integer
 `minWidth`, `minHeight` (default 96), `defaultWidth`, `defaultHeight` (default 192),

@@ -1071,6 +1071,9 @@
     "Hide Bar": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "Hide from the bar": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
     "Hide icons": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
@@ -2299,6 +2302,9 @@
     "Show on": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Show on the bar": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Show the application dock.": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"

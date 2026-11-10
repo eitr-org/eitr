@@ -208,7 +208,7 @@ Plugins can declare `theme-changed`, `wallpaper-changed`, `after-update` and `lo
 
 Schema version 2 can add tiles to **Control Center > General > Plugins** and
 panels opened from those tiles. They may follow Eitr’s colors, fonts and corners;
-widgets and bar items appear only after you add them. Review lists every QML file and its full source before
+bar items go on the bar when the plugin is installed, and widgets appear after you add them. Review lists every QML file and its full source before
 installation. Updates show a scrollable diff and the candidate QML before
 approval; QML changes raise RISK flags. QML is not a sandbox: it runs inside the
 bar with your full permissions. Trust the author; a loop or native crash cannot
@@ -233,7 +233,7 @@ unchanged. Authoring details and the narrow style/data API are in
 
 **Control Center > Plugins** lists every installed plugin with its icon, author, version, description and enabled status. Expand Preview for its screenshot. Enable/Disable preserves placements and stops or restores services, Walker rows, hooks and visuals; the CLI is `eitr plugin enable ID` or `eitr plugin disable ID`. Add Plugins, Update and Remove open the reviewed terminal flows; removal asks for confirmation. General keeps only plugin tiles. Visual failures have an independent Re-enable action.
 
-Place widgets per monitor and bar items under each plugin. Edit position temporarily raises the widget above windows: drag its title or resize grip, then Done or Escape. Motion is continuous; release snaps to the desktop gap and saves. Right-click a behind-window widget, or any widget in edit mode, for size steps (90% / 110%, preserving aspect and centre within screen limits), Full width, Panel/Transparent background, Show above windows, plugin options and Remove from desktop.
+Place widgets per monitor under each plugin; Remove hides a bar item, and updates keep it hidden. Edit position temporarily raises the widget above windows: drag its title or resize grip, then Done or Escape. Motion is continuous; release snaps to the desktop gap and saves. Right-click a behind-window widget, or any widget in edit mode, for size steps (90% / 110%, preserving aspect and centre within screen limits), Full width, Panel/Transparent background, Show above windows, plugin options and Remove from desktop.
 
 Full width fits the largest size with the same aspect ratio. Above-window widgets are click-through; use their options in the Plugins page. Edit widgets in that page or Walker Visuals toggles all widgets interactive until Done or Escape (`plugin-widgets edit` / `done` IPC). Missing monitors keep their saved placements.
 

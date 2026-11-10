@@ -163,7 +163,7 @@ Les plugins peuvent déclarer les hooks `theme-changed`, `wallpaper-changed`, `a
 
 ### Plugins visuels
 
-Le schéma version 2 peut ajouter des tuiles dans **Centre de contrôle > Général > Plugins** et des panneaux ouverts depuis ces tuiles. Ils peuvent suivre les couleurs, polices et angles d’Eitr ; les widgets et éléments de barre apparaissent seulement après leur ajout. La révision liste chaque fichier QML et son code complet avant l’installation.
+Le schéma version 2 peut ajouter des tuiles dans **Centre de contrôle > Général > Plugins** et des panneaux ouverts depuis ces tuiles. Ils peuvent suivre les couleurs, polices et angles d’Eitr ; les éléments de barre sont placés sur la barre à l’installation, et les widgets apparaissent après leur ajout. La révision liste chaque fichier QML et son code complet avant l’installation.
 
 Les mises à jour montrent un diff défilant et le QML candidat avant approbation ; les changements QML génèrent des avertissements RISK. QML n’est pas un bac à sable : il s’exécute dans la barre avec tous vos droits. Faites confiance à l’auteur ; le chargeur ne peut isoler les boucles ni les plantages natifs.
 
@@ -183,7 +183,7 @@ Les détails pour les auteurs figurent dans `distro/PLUGINS.md`.
 
 **Centre de contrôle > Plugins** affiche chaque plugin installé avec icône, auteur, version, description et état. Dépliez Aperçu pour voir sa capture. Activer/Désactiver conserve les positions et arrête ou rétablit services, lignes Walker, hooks et composants visuels ; utilisez `eitr plugin enable ID` ou `eitr plugin disable ID`. Ajouter des plugins, Mettre à jour et Supprimer ouvrent les parcours de vérification du terminal ; la suppression demande confirmation. Général conserve uniquement les tuiles. Les erreurs visuelles ont une action indépendante de réactivation.
 
-Ajoutez les widgets par écran et les éléments de barre sous chaque plugin. Modifier la position élève temporairement le widget au-dessus des fenêtres : faites glisser le titre ou la poignée de taille, puis Terminé ou Échap. Le mouvement est continu ; au relâchement, la position s’aligne sur l’espacement et s’enregistre.
+Ajoutez les widgets par écran sous chaque plugin ; Retirer masque un élément de barre, et les mises à jour le laissent masqué. Modifier la position élève temporairement le widget au-dessus des fenêtres : faites glisser le titre ou la poignée de taille, puis Terminé ou Échap. Le mouvement est continu ; au relâchement, la position s’aligne sur l’espacement et s’enregistre.
 
 Un clic droit derrière les fenêtres ou pendant l’édition ouvre la taille (90 % / 110 %, proportions et centre conservés dans les limites de l’écran), Pleine largeur, fond Panneau/Transparent, Afficher au-dessus des fenêtres, options du plugin et Retirer du bureau. Pleine largeur utilise la plus grande taille proportionnelle possible.
 

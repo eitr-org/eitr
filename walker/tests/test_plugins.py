@@ -1372,7 +1372,8 @@ class VisualPluginTests(unittest.TestCase):
     def test_explicit_placements_persist_when_monitor_disappears(self):
         self.publish(self.visual())
         self.install()
-        self.assertEqual(self.manager.placements(), dict(version=2, widgets=[], barItems=[]))
+        # A new plugin's bar item starts on the bar; widgets wait for a monitor choice.
+        self.assertEqual(self.manager.placements(), dict(version=2, widgets=[], barItems=[dict(plugin='example', id='dot')]))
         self.manager.place('example', 'clock', 'DP-test')
         self.manager.place('example', 'dot')
         geometry = dict(x=60, y=90, width=300, height=180)
@@ -1390,6 +1391,16 @@ class VisualPluginTests(unittest.TestCase):
         self.manager.place('example', 'clock', 'DP-test', remove=True)
         self.manager.place('example', 'dot', remove=True)
         self.assertEqual(self.manager.placements(), dict(version=2, widgets=[], barItems=[]))
+
+    def test_hidden_bar_item_stays_hidden_after_update(self):
+        self.publish(self.visual())
+        self.install()
+        self.manager.place('example', 'dot', remove=True)
+        spec = self.visual()
+        spec['version'] = '9.9.9'
+        self.publish(spec)
+        self.assertTrue(self.manager.update('example', lambda changes: True))
+        self.assertEqual(self.manager.placements()['barItems'], [])
 
     def test_placement_validation_and_visual_menu_reenable(self):
         self.publish(self.visual())

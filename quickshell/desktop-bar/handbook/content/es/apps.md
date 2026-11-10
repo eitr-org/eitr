@@ -153,7 +153,7 @@ Los plugins pueden declarar hooks `theme-changed`, `wallpaper-changed`, `after-u
 
 ### Plugins visuales
 
-El esquema versión 2 puede añadir mosaicos a **Centro de control > General > Plugins** y paneles abiertos desde ellos. Pueden seguir los colores, fuentes y esquinas de Eitr; los widgets y elementos de barra aparecen solo cuando los añades. La revisión enumera todos los archivos QML y su código completo antes de instalar.
+El esquema versión 2 puede añadir mosaicos a **Centro de control > General > Plugins** y paneles abiertos desde ellos. Pueden seguir los colores, fuentes y esquinas de Eitr; los elementos de barra se colocan en la barra al instalar el plugin, y los widgets aparecen cuando los añades. La revisión enumera todos los archivos QML y su código completo antes de instalar.
 
 Las actualizaciones muestran un diff desplazable y el QML candidato antes de aprobar; los cambios QML generan avisos RISK. QML no es un entorno aislado: se ejecuta dentro de la barra con todos tus permisos. Confía en el autor; el cargador no aísla bucles ni fallos nativos.
 
@@ -173,7 +173,7 @@ Los detalles para autores están en `distro/PLUGINS.md`.
 
 **Centro de control > Plugins** muestra cada plugin instalado con icono, autor, versión, descripción y estado. Expande Vista previa para ver su imagen. Activar/Desactivar conserva posiciones y detiene o restaura servicios, filas de Walker, hooks y elementos visuales; usa `eitr plugin enable ID` o `eitr plugin disable ID`. Añadir plugins, Actualizar y Eliminar abren los flujos revisados del terminal; eliminar pide confirmación. General conserva solo los bloques de plugins. Los fallos visuales tienen una acción independiente para reactivar.
 
-Añade widgets por monitor y elementos de barra bajo cada plugin. Editar posición eleva temporalmente el widget sobre las ventanas: arrastra el título o el tirador de tamaño, después Listo o Esc. El movimiento es continuo; al soltar se ajusta al espacio del escritorio y se guarda. Haz clic derecho en un widget detrás de ventanas, o en cualquiera durante la edición, para tamaño (90% / 110%, manteniendo proporción y centro dentro de la pantalla), Ancho completo, fondo Panel/Transparente, Mostrar sobre ventanas, opciones del plugin y Quitar del escritorio.
+Añade widgets por monitor bajo cada plugin; Quitar oculta un elemento de barra y las actualizaciones lo mantienen oculto. Editar posición eleva temporalmente el widget sobre las ventanas: arrastra el título o el tirador de tamaño, después Listo o Esc. El movimiento es continuo; al soltar se ajusta al espacio del escritorio y se guarda. Haz clic derecho en un widget detrás de ventanas, o en cualquiera durante la edición, para tamaño (90% / 110%, manteniendo proporción y centro dentro de la pantalla), Ancho completo, fondo Panel/Transparente, Mostrar sobre ventanas, opciones del plugin y Quitar del escritorio.
 
 Ancho completo usa el mayor tamaño proporcional que cabe. Los widgets sobre ventanas dejan pasar clics; sus opciones están en Plugins. Editar widgets en esa página o Walker hace todos interactivos hasta Listo o Esc (`plugin-widgets edit` / `done` por IPC). Los monitores desconectados conservan sus posiciones.
 

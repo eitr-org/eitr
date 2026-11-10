@@ -902,10 +902,21 @@ class PluginInstall:
             self.prepare = prepared
             if review['updating']:
                 return self._update(review['id'], lambda changes: approve(changes['root'], changes['spec'], review['url']))
-            return self._add(review['url'], lambda source: True, approve, lambda entries: [review['id']])
+            installed = self._add(review['url'], lambda source: True, approve, lambda entries: [review['id']])
         finally:
             self.prepare = original_prepare
             review['stage'].cleanup()
+        if installed:
+            self.show_bar_items(review['id'], review['spec'])
+        return installed
+
+    def show_bar_items(self, plugin_id, spec):
+        """A new plugin's bar items start on the bar; hiding one is kept across updates."""
+        for item in spec.get('ui', {}).get('barItems', []):
+            try:
+                self.place(plugin_id, item['id'])
+            except (OSError, ValueError):
+                continue
 
     def remove(self, plugin_id, approve, remove_packages=None):
         identifier(plugin_id)

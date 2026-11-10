@@ -884,5 +884,7 @@
   "Authenticating as {user}": "Authenticating as {user}",
   "Authentication required": "Authentication required",
   "That password was not accepted. Try again.": "That password was not accepted. Try again.",
-  "Request details": "Request details"
+  "Request details": "Request details",
+  "Hide from the bar": "Hide from the bar",
+  "Show on the bar": "Show on the bar"
 }
