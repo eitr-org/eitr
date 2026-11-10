@@ -217,7 +217,11 @@ PanelWindow {
     color: "transparent"
     exclusionMode: ExclusionMode.Normal
     // Auto-hide reserves no space, so revealing the bar slides it over windows instead of re-tiling them.
-    exclusiveZone: !FocusMode.enabled && host.barVisible && !host.barAutoHide ? bar.reservedThickness : 0
+    // Nothing is reserved during the first second: the saved auto-hide preference loads just after
+    // the bar starts, and a zone changed that early could stay stuck at its first value in Hyprland
+    // (windows kept a bar-high gap). Changes after that apply normally.
+    exclusiveZone: zoneReady.done && !FocusMode.enabled && host.barVisible && !host.barAutoHide ? bar.reservedThickness : 0
+    Timer { id: zoneReady; property bool done: false; interval: 1000; running: true; onTriggered: done = true }
     WlrLayershell.namespace: "desktop-bar"
     // Notification popups must have a strictly higher layer than
     // panels, rather than depending on same-layer mapping order.

@@ -27,6 +27,8 @@ ShellRoot {
         property real normalThickness: shell.verticalBar ? 60 : 30
         property real reservedThickness: normalThickness + (islandsLayout ? islandGap : 0)
         property real exclusiveZone: EXCLUSION
+        // The bar reserves space only after its startup delay; the fixture starts after it.
+        readonly property QtObject zoneReady: QtObject { readonly property bool done: true }
         property real thinThickness: normalThickness
         property real islandGap: 6
         property real islandSpacing: islandGap * 2 + 8
