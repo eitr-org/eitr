@@ -14,7 +14,7 @@ Scope {
     function nextAppearance(current) { return ChoiceLists.next(ChoiceLists.barAppearances, current); }
     function nextLayout(current) { return ChoiceLists.next(ChoiceLists.barLayouts, current); }
     function updateBarSetting(key, value) {
-        var choices = {appearance: ChoiceLists.ids(ChoiceLists.barAppearances), layout: ChoiceLists.ids(ChoiceLists.barLayouts), edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], glow: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"]};
+        var choices = {appearance: ChoiceLists.ids(ChoiceLists.barAppearances), layout: ChoiceLists.ids(ChoiceLists.barLayouts), edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") host.barAppearance = value;
         else if (key === "layout") host.barLayout = value;
@@ -23,7 +23,6 @@ Scope {
         else if (key === "clock") host.barClock = value;
         else if (key === "screens") host.barScreens = value;
         else if (key === "reduceMotion") DesktopStyle.reduceMotion = value === "yes";
-        else if (key === "glow") host.barGlow = value === "yes";
         else if (key === "dock") host.barDock = value === "yes";
         else if (key === "autohide") host.barAutoHide = value === "yes";
         else host.barEdge = value;
@@ -66,7 +65,6 @@ Scope {
                 host.barScreens = settings.screens || "main";
                 host.barAutoHide = settings.autohide === "yes";
                 host.barDock = settings.dock !== "no";
-                host.barGlow = settings.glow === "yes";
                 DesktopStyle.reduceMotion = settings.reduceMotion === "yes";
             } catch (e) {}
         }
@@ -95,7 +93,7 @@ Scope {
         if (saveBarSettings.running) return;
         host.settingsDirty = false;
         saveBarSettings.command = ["python3", Quickshell.shellDir + "/scripts/bar-settings.py",
-            "set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock, host.barGlow ? "yes" : "no"];
+            "set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock];
         saveBarSettings.running = true;
     }
 

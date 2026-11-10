@@ -141,7 +141,7 @@ class BarSettingsTests(unittest.TestCase):
             self.assertEqual(bar_settings.read_settings(), {**bar_settings.DEFAULTS, 'version': 1})
             bar_settings.save_settings({"appearance": "solid", "edge": "left"})
             self.assertEqual(bar_settings.read_settings(), {
-                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "glow": "no", "blur-strength": "medium", "version": 1
+                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium", "version": 1
             })
             bar_settings.save_settings({"layout": "centered"})
             self.assertEqual(bar_settings.read_settings()["appearance"], "solid")
@@ -156,7 +156,7 @@ class BarSettingsTests(unittest.TestCase):
                 bar_settings.save_settings({"screens": "some"})
         shell = ((Path(__file__).parents[1] / "shell.qml").read_text() + frame_source(Path(__file__).parents[1]))
         preferences = (Path(__file__).parents[1] / "services/BarPreferences.qml").read_text()
-        self.assertIn('"set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock, host.barGlow ? "yes" : "no"]', preferences)
+        self.assertIn('"set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock]', preferences)
         self.assertIn("enabled: bar.isMainBar", shell, "only the main bar receives shortcuts")
         self.assertIn("shell.activeBar(bar).showKind(kind)", shell, "and hands them to the bar of the display in use")
         self.assertIn("shown: bar.isMainBar", shell, "notifications pop up on the main display only")

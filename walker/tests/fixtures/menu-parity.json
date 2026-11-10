@@ -506,16 +506,6 @@
         "submenu": "bar-dock"
       },
       {
-        "text": "Glow",
-        "subtext": ">",
-        "icon": "󰍜",
-        "keywords": [
-          "accent",
-          "light"
-        ],
-        "submenu": "bar-glow"
-      },
-      {
         "text": "Layout",
         "subtext": ">",
         "icon": "󰕰",
@@ -3342,8 +3332,7 @@
     "workspace-style": "workspaces",
     "workspace-always-show": "workspaces",
     "workspace-count": "workspaces",
-    "workspace-monitors": "workspaces",
-    "bar-glow": "bar"
+    "workspace-monitors": "workspaces"
   },
   "shortcuts": [
     {
@@ -5030,27 +5019,6 @@
       "key": "838235f99b2d426995f4faadd2b0b9038c11e37d07cf0bcec5ac32f1a0b2c30e",
       "provider": "menus:bar",
       "identifier": "bar:6",
-      "text": "Glow",
-      "subtext": ">",
-      "icon": "󰍜",
-      "actions": [],
-      "keywords": [
-        "accent",
-        "light",
-        "Glow",
-        "Glow"
-      ],
-      "menus": [
-        "style",
-        "settings",
-        "main"
-      ],
-      "submenu": "bar-glow"
-    },
-    {
-      "key": "56983b251b1cc27cf4e01d52e4dde09c5ac233c9ac17f55cf5c07e4e613ee947",
-      "provider": "menus:bar",
-      "identifier": "bar:7",
       "text": "Layout",
       "subtext": ">",
       "icon": "󰕰",
@@ -5073,9 +5041,9 @@
       "submenu": "bar-layout"
     },
     {
-      "key": "83db68e2ed19b519813505f5df88663aa6de81d1b6417248f7db465741bd818e",
+      "key": "56983b251b1cc27cf4e01d52e4dde09c5ac233c9ac17f55cf5c07e4e613ee947",
       "provider": "menus:bar",
-      "identifier": "bar:8",
+      "identifier": "bar:7",
       "text": "Media style",
       "subtext": ">",
       "icon": "󰍜",
@@ -5096,9 +5064,9 @@
       "submenu": "bar-media"
     },
     {
-      "key": "fc95814ddcee8c946ae099852acaa629762493f46ba6e819967c60ea5ceb5887",
+      "key": "83db68e2ed19b519813505f5df88663aa6de81d1b6417248f7db465741bd818e",
       "provider": "menus:bar",
-      "identifier": "bar:9",
+      "identifier": "bar:8",
       "text": "Position",
       "subtext": ">",
       "icon": "󰆾",
@@ -5120,9 +5088,9 @@
       "submenu": "bar-position"
     },
     {
-      "key": "b2ef19521b5573ab850c2103fd1b89b595d3f219bb1abc2883fd9b57a01d1e08",
+      "key": "fc95814ddcee8c946ae099852acaa629762493f46ba6e819967c60ea5ceb5887",
       "provider": "menus:bar",
-      "identifier": "bar:10",
+      "identifier": "bar:9",
       "text": "Reduce motion",
       "subtext": ">",
       "icon": "󰍜",

@@ -29,8 +29,6 @@ L’icône des mises à jour, avant Notifications, vérifie peu après la connex
 - Les mêmes réglages figurent dans **Paramètres > Barre de bureau**, dans ses onglets Disposition, Aspect et Comportement.
 - **Écrans** (Afficher sur) place la barre uniquement sur l’écran principal, par défaut, ou sur tous. Avec plusieurs barres, chacune indique l’espace de travail de son écran ; les raccourcis comme SUPER + I s’ouvrent sur l’écran utilisé et les notifications apparaissent uniquement sur le principal. Choisissez celui-ci dans le panneau Écran.
 
-**Lueur**, dans Paramètres > Barre de bureau > Apparence, ajoute une douce lueur extérieure dans la couleur d’accent du thème. Cette option est désactivée par défaut et fonctionne avec les cinq dispositions sur tous les bords de l’écran.
-
 <!-- eitr-figure: bar-layouts -->
 
 Les cinq dispositions dans l’ordre où le double clic droit les fait défiler. Au repos, Centrée n’affiche que l’horloge et Dynamique trois petits îlots ; les deux se déplient au survol.

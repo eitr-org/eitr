@@ -17,9 +17,6 @@ def frame_source(directory):
         for alias, target in exports.items():
             source = source.replace(instance_id + '.' + alias, target)
         child = re.sub(r'^    (?:required property var|readonly property alias) .*\n', '', child, flags=re.M)
-        # Fragments copied without the frame's auto-hide count as fully revealed for the glow.
-        child = child.replace('barHost.autoHideRef ? barHost.autoHideRef.progress : 1',
-                              "(typeof autoHide !== 'undefined' ? autoHide.progress : 1)")
         child = child.replace('barHost.stripItem', 'barContents').replace('barHost.autoHideRef', 'autoHide')
         child = child.replace('host: verticalSurface.host', 'host: bar.host').replace('host: surface.host', 'host: bar.host')
         child = child.replace('barHost: verticalSurface.barHost', 'barHost: bar').replace('barHost: surface.barHost', 'barHost: bar')

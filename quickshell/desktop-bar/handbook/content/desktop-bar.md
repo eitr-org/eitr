@@ -25,8 +25,6 @@ The updates icon, before Notifications, checks shortly after login and every six
   are using, and notifications pop up on the main display only. Choose the
   main display in the Display panel.
 
-**Glow**, under Settings > Desktop Bar > Look, adds a soft outer glow in the theme accent colour. It is off by default and works with all five layouts on every screen edge.
-
 <!-- eitr-figure: bar-layouts -->
 
 The five layouts in the order double-right-click cycles them. At rest, Centered shows only the clock and Dynamic three small islands; both unfold on hover.

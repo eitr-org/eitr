@@ -19,8 +19,6 @@ Das Updatesymbol vor Benachrichtigungen prüft kurz nach der Anmeldung und alle 
 - Dieselben Einstellungen findest du unter **Einstellungen > Desktopleiste**, in den Reitern Layout, Aussehen und Verhalten.
 - **Bildschirme** (Anzeigen auf) zeigt die Leiste standardmäßig nur auf dem Hauptbildschirm oder auf allen Bildschirmen. Bei mehreren Leisten markiert jede die Arbeitsfläche ihres Bildschirms; Kürzel wie SUPER + I öffnen auf dem gerade genutzten Bildschirm, Benachrichtigungen erscheinen nur auf dem Hauptbildschirm. Wähle diesen im Bildschirm-Panel.
 
-**Leuchten** unter Einstellungen > Desktop-Leiste > Aussehen fügt einen sanften äußeren Schein in der Akzentfarbe des Themas hinzu. Die Option ist standardmäßig ausgeschaltet und funktioniert bei allen fünf Layouts an jeder Bildschirmkante.
-
 <!-- eitr-figure: bar-layouts -->
 
 Die fünf Layouts in der Reihenfolge, in der ein rechter Doppelklick sie durchläuft. In Ruhe zeigt Zentriert nur die Uhr und Dynamisch drei kleine Inseln; beide klappen beim Darüberfahren auf.

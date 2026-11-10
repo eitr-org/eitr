@@ -100,7 +100,6 @@ ShellRoot {
     property string barLayout: "unified"
     property bool barPinned: false
     property bool barAutoHide: false
-    property bool barGlow: false
     property bool barDock: true
     DockClients { id: dockClients; observing: shell.barDock && !FocusMode.enabled }
     property string barMediaStyle: "bars"

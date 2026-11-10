@@ -82,7 +82,6 @@ Item {
         // Pills are always fully rounded, whatever the corner preference.
         radius: Math.min(width, height) / 2
         color: host.barBackground()
-        BarGlow { visible: host.barGlow === true; revealProgress: barHost.autoHideRef ? barHost.autoHideRef.progress : 1; accent: host.activeBg; cornerRadius: parent.radius }
         BarGestureArea {
             anchors.fill: parent
             hostWindow: barHost

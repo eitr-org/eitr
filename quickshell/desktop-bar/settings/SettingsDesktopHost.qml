@@ -57,7 +57,6 @@ Flickable {
         property string clockFormat: bar.clock || "12h"
         property string mediaStyle: bar.mediaStyle || "bars"
         property bool barAutoHide: bar.autohide === "yes"
-        property bool barGlow: bar.glow === "yes"
         property bool barDock: bar.dock !== "no"
         property string workspaceStyle: workspaceHelper.summary.current
         function settingRequested(key, value) {

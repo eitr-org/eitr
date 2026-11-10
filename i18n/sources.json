@@ -30,9 +30,6 @@
     "A quiet desktop with tabs and panes.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
-    "A soft glow in the theme colour around the bar.": [
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
-    ],
     "ACCESS DENIED": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
@@ -1019,10 +1016,6 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "GitHub Copilot CLI": [
-      "quickshell/desktop-bar/settings/SettingsCatalog.js"
-    ],
-    "Glow": [
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Grok Build": [
@@ -2984,9 +2977,6 @@
     "A simple audio spectrum wave": [
       "elephant/menus/bar-media.lua"
     ],
-    "A soft glow in the theme colour around the bar.": [
-      "elephant/menus/bar-glow.lua"
-    ],
     "AI": [
       "elephant/menu-rows/development.json",
       "elephant/menus/ai-tools.lua"
@@ -3572,7 +3562,6 @@
     ],
     "Disabled": [
       "elephant/menus/bar-dock.lua",
-      "elephant/menus/bar-glow.lua",
       "elephant/menus/terminal-cursor-fire.lua"
     ],
     "Disconnect": [
@@ -3833,10 +3822,6 @@
     ],
     "Give trusted devices control of this desktop": [
       "elephant/menu-rows/remote-share.json"
-    ],
-    "Glow": [
-      "elephant/menu-rows/bar.json",
-      "elephant/menus/bar-glow.lua"
     ],
     "Go up one folder": [
       "elephant/menus/choose-folder.lua"

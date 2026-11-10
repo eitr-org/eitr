@@ -37,7 +37,6 @@ Rectangle {
     // Islands are always full pills, whatever the corner preference; a card keeps 20 px corners.
     radius: Math.min(width, height, depth > thickness + 0.5 ? 40 : Infinity) / 2
     color: host.barBackground()
-    BarGlow { visible: host.barGlow === true; revealProgress: barHost.autoHideRef ? barHost.autoHideRef.progress : 1; accent: host.activeBg; cornerRadius: parent.radius }
     Behavior on extent { enabled: !island.followsPanel; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     onExpandedChanged: {
         if (expanded) return;
