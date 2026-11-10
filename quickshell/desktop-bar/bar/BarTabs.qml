@@ -41,11 +41,12 @@ Item {
         anchors.fill: parent
         visible: host.notchLayout
         antialiasing: true
+        BarGlow { visible: host.barGlow === true; revealProgress: barHost.autoHideRef ? barHost.autoHideRef.progress : 1; accent: host.activeBg; outline: glowPath.path }
         // One alpha silhouette also defines Hyprland's blur coverage.
         ShapePath {
             strokeWidth: -1
             fillColor: host.barBackground()
-            PathSvg { path: {
+            PathSvg { id: glowPath; path: {
                 return EdgeSlopes.outline(host.barEdge,
                     host.verticalBar ? tabsOutline.height : tabsOutline.width,
                     barHost.normalThickness, host.tabStripThickness, host.tabBendRound,

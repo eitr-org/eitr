@@ -22,6 +22,7 @@ var settings = [
     {"id": "bar-blur-strength-shared", "label": "Blur strength (shared)", "page": "bar", "tab": "look", "keywords": "blur strength (shared)"},
     {"id": "bar-workspace-style", "label": "Workspace style", "page": "bar", "tab": "look", "keywords": "workspace style"},
     {"id": "bar-auto-hide", "label": "Auto-hide", "page": "bar", "tab": "behaviour", "keywords": "auto-hide"},
+    {"id": "bar-glow", "label": "Glow", "page": "bar", "tab": "look", "keywords": "glow accent light"},
     {"id": "bar-dock", "label": "Dock", "page": "bar", "tab": "behaviour", "keywords": "dock"},
     {"id": "bar-reduce-motion", "label": "Reduce motion", "page": "bar", "tab": "behaviour", "keywords": "reduce motion"},
     {"id": "bar-keep-expanded", "label": "Keep expanded", "page": "bar", "tab": "behaviour", "keywords": "keep expanded"},

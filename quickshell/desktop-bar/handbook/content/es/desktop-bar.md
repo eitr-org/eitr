@@ -27,6 +27,8 @@ El icono de actualizaciones, antes de Notificaciones, comprueba poco después de
 - Las mismas opciones están en **Configuración > Barra del escritorio**, en sus pestañas Distribución, Apariencia y Comportamiento.
 - **Pantallas** (Mostrar en) coloca la barra solo en la principal, por defecto, o en todas. En todas, cada barra marca el espacio de trabajo de su pantalla; atajos como SUPER + I se abren en la pantalla en uso y las notificaciones aparecen solo en la principal. Elige la principal en el panel Pantalla.
 
+**Resplandor**, en Ajustes > Barra de escritorio > Aspecto, añade un suave brillo exterior con el color de acento del tema. Está desactivado de forma predeterminada y funciona con los cinco diseños en cualquier borde de la pantalla.
+
 <!-- eitr-figure: bar-layouts -->
 
 Los cinco diseños en el orden en que los recorre el doble clic derecho. En reposo, Centrada muestra solo el reloj y Dinámico tres pequeñas islas; ambos se despliegan al pasar el puntero.

@@ -765,5 +765,7 @@
   "Split across monitors": "Split across monitors",
   "Switch every monitor to its own numbered workspace": "Switch every monitor to its own numbered workspace",
   "Workspace style": "Workspace style",
-  "Standard window spacing (the default)": "Standard window spacing (the default)"
+  "Standard window spacing (the default)": "Standard window spacing (the default)",
+  "A soft glow in the theme colour around the bar.": "A soft glow in the theme colour around the bar.",
+  "Glow": "Glow"
 }

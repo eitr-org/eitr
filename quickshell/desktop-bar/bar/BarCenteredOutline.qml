@@ -25,10 +25,11 @@ Shape {
         onDropped: function(edge) { host.updateBarSetting("edge", edge) }
     }
     antialiasing: true
+    BarGlow { visible: host.barGlow === true; revealProgress: barHost.autoHideRef ? barHost.autoHideRef.progress : 1; accent: host.activeBg; outline: glowPath.path }
     ShapePath {
         strokeWidth: -1
         fillColor: host.barBackground()
-        PathSvg { path: EdgeSlopes.outline(host.barEdge,
+        PathSvg { id: glowPath; path: EdgeSlopes.outline(host.barEdge,
             host.verticalBar ? centeredOutline.height : centeredOutline.width,
             barHost.normalThickness, 0, host.tabBendRound,
             [[centeredOutline.slope, (host.verticalBar ? centeredOutline.height : centeredOutline.width) - centeredOutline.slope]]) }

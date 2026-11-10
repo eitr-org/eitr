@@ -27,6 +27,8 @@ O ícone de atualizações, antes de Notificações, verifica pouco depois do lo
 - As mesmas opções ficam em **Configurações > Barra da área de trabalho**, nas abas Layout, Aparência e Comportamento.
 - **Telas** (Mostrar em) coloca a barra apenas no monitor principal, por padrão, ou em todos os monitores. Em todos, cada barra marca o espaço de trabalho de sua própria tela; atalhos como SUPER + I abrem na tela em uso e as notificações aparecem apenas na principal. Escolha a principal no painel de Tela.
 
+**Brilho**, em Configurações > Barra da área de trabalho > Aparência, adiciona um brilho externo suave na cor de destaque do tema. A opção vem desativada e funciona nos cinco layouts em todas as bordas da tela.
+
 <!-- eitr-figure: bar-layouts -->
 
 Os cinco layouts na ordem em que o clique duplo direito os alterna. Em repouso, Centralizada mostra só o relógio e Dinâmico três pequenas ilhas; ambos se expandem ao passar o ponteiro.

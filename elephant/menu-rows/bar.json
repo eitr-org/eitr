@@ -71,6 +71,16 @@
     "submenu": "bar-dock"
   },
   {
+    "text": "Glow",
+    "subtext": ">",
+    "icon": "󰍜",
+    "keywords": [
+      "accent",
+      "light"
+    ],
+    "submenu": "bar-glow"
+  },
+  {
     "text": "Layout",
     "subtext": ">",
     "icon": "󰕰",

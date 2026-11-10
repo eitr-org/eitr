@@ -66,6 +66,8 @@ import Quickshell
 import "." as Bar
 ShellRoot {
     id: shell
+    property bool barGlow: false
+    property color activeBg: "#a878dc"
     property string barEdge: "top"
     property bool verticalBar: barEdge === "left" || barEdge === "right"
     property bool barPointerHeld: false

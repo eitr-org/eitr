@@ -140,6 +140,17 @@ Column {
                 onChosen: value => styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "blur-strength", value])
             }
         }
+        ToggleRow {
+            SettingsTarget { objectName: "setting-bar-glow" }
+            text: Eitr.I18n.tr("Glow")
+            description: Eitr.I18n.tr("A soft glow in the theme colour around the bar.")
+            foreground: view.foreground
+            accent: view.accent
+            checked: styleModel.barGlow
+            onToggled: checked => {
+                if (view.live) styleModel.settingRequested("glow", checked ? "yes" : "no");
+            }
+        }
         ChoiceDropdown {
             SettingsTarget { objectName: "setting-bar-workspace-style" }
             floatingLabel: Eitr.I18n.tr("Workspace style")

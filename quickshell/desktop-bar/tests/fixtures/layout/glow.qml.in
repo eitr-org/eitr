@@ -1,0 +1,123 @@
+import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {
+    id: shell
+    property bool barGlow: false
+    property bool verticalBar: barEdge === "left" || barEdge === "right"
+    property string barEdge: EDGE
+    property bool barPointerHeld: false
+    property string dragCandidate: ""
+    property color activeBg: LIGHT ? "#8751a0" : "#a878dc"
+    property bool centeredLayout: LAYOUT === "centered"
+    property bool notchLayout: LAYOUT === "tabs"
+    property real tabStripThickness: 7
+    property real tabBendRound: 3
+    function barBackground() { return LIGHT ? "#ece5f0" : "#24202b"; }
+    function barDoubleClick(button) {}
+    function updateBarSetting(key, value) {}
+    FloatingWindow {
+        id: window
+        visible: true
+        implicitWidth: shell.verticalBar ? 140 : 900
+        implicitHeight: shell.verticalBar ? 900 : 140
+        color: LIGHT ? "#faf6fc" : "#100d15"
+        Bar.BarAutoHide { id: slide }
+        Rectangle {
+            id: scene
+            anchors.fill: parent
+            color: window.color
+            Item {
+                id: strip
+                property bool floatingIslands: LAYOUT === "islands" || LAYOUT === "dynamic"
+                property real islandGap: 6
+                SLIDE_TRANSFORM
+                width: shell.verticalBar ? 30 : 900; height: shell.verticalBar ? 900 : 30
+                x: shell.barEdge === "right" ? scene.width - width : 0
+                y: shell.barEdge === "bottom" ? scene.height - height : 0
+                property Item stripItem: strip
+                property real normalThickness: 30
+                property real tabLeadingEnd: 240
+                property real tabCenterStart: 390
+                property real tabCenterEnd: 510
+                property real tabTrailingStart: 720
+                property var autoHideRef: slide
+                property bool islandsLayout: LAYOUT === "islands"
+                property var dockPanels: []
+                property var pendingPanel: null
+                property Item verticalControlCenterLogo: logo
+                property Item verticalOverviewIcon: workspaces
+                property Item verticalWorkspaces: workspaces
+                property Item verticalHardware: hardware
+                property Item verticalCalendarIcon: clock
+                property Item verticalWeatherIcon: weather
+                property Item verticalMedia: media
+                property Item verticalCapture: capture
+                property Item verticalEnd: status
+                property var leftGroup: ({controlCenterLogo: logo, overviewIcon: workspaces, workspaceButtonRow: workspaces, hardwareStatus: hardware})
+                property Item centerInfo: clock
+                property Item barWeather: weather
+                property Item mediaStrip: media
+                property Item barCapture: capture
+                property Item rightSide: status
+                property Item notificationIcon: status
+                Item { id: logo; x: shell.verticalBar ? 0 : 12; y: shell.verticalBar ? 12 : 0; width: shell.verticalBar ? 30 : 24; height: shell.verticalBar ? 24 : 30 }
+                Item { id: workspaces; x: shell.verticalBar ? 0 : 60; y: shell.verticalBar ? 60 : 0; width: shell.verticalBar ? 30 : 120; height: shell.verticalBar ? 120 : 30 }
+                Item { id: hardware; x: shell.verticalBar ? 0 : 208; y: shell.verticalBar ? 208 : 0; width: shell.verticalBar ? 30 : 72; height: shell.verticalBar ? 72 : 30 }
+                Item { id: clock; x: shell.verticalBar ? 0 : 390; y: shell.verticalBar ? 390 : 0; width: shell.verticalBar ? 30 : 120; height: shell.verticalBar ? 120 : 30 }
+                Item { id: weather; x: shell.verticalBar ? 0 : 540; y: shell.verticalBar ? 540 : 0; width: shell.verticalBar ? 30 : 70; height: shell.verticalBar ? 70 : 30 }
+                Item { id: media; visible: false; width: 0; height: 30 }
+                Item { id: capture; visible: false; property bool shown: false; width: 0; height: 30 }
+                Item { id: status; x: shell.verticalBar ? 0 : 720; y: shell.verticalBar ? 720 : 0; width: shell.verticalBar ? 30 : 166; height: shell.verticalBar ? 166 : 30 }
+                Bar.BarSection {
+                    visible: LAYOUT === "full"
+                    width: strip.width; height: strip.height; radius: 0
+                    edge: shell.barEdge; background: shell.barBackground()
+                    glow: shell.barGlow; glowProgress: slide.progress; glowAccent: shell.activeBg
+                }
+                Bar.BarCenteredOutline { host: shell; barHost: centered; parent: scene }
+                Item {
+                    id: centered
+                    property real normalThickness: 30
+                    property var autoHideRef: slide
+                    property Item stripItem: centeredStrip
+                    Item { id: centeredStrip; x: shell.verticalBar ? strip.x : 390; y: shell.verticalBar ? 390 : strip.y; width: shell.verticalBar ? 30 : 120; height: shell.verticalBar ? 120 : 30 }
+                }
+                Bar.BarTabs { host: shell; barHost: strip }
+                Item {
+                    x: shell.verticalBar ? (shell.barEdge === "right" ? -6 : 6) : 0
+                    y: !shell.verticalBar ? (shell.barEdge === "bottom" ? -6 : 6) : 0
+                    width: strip.width; height: strip.height
+                    Bar.BarIslands { host: shell; barHost: strip }
+                    Repeater {
+                        model: LAYOUT === "dynamic" ? 3 : 0
+                        Bar.DynamicIsland {
+                            required property int index
+                            host: shell; barHost: strip
+                            x: shell.verticalBar ? 0 : 390 + (index - 1) * 100
+                            y: shell.verticalBar ? 390 + (index - 1) * 100 : 0
+                            restingExtent: 72; fullExtent: 160
+                        }
+                    }
+                }
+            }
+        }
+        property int stage: 0
+        Timer {
+            interval: 400; running: true; repeat: true
+            onTriggered: {
+                const name = ["default", "off", "on", "sliding", "hidden"][window.stage];
+                scene.grabToImage(function(result) {
+                    result.saveToFile(CAPTURE + "-" + name + ".png");
+                    window.stage++;
+                    if (window.stage === 5) Qt.quit();
+                    else if (window.stage < 3) shell.barGlow = window.stage === 2;
+                    else {
+                        Bar.DesktopStyle.reduceMotion = true;
+                        slide.progress = window.stage === 3 ? 0.5 : 0;
+                    }
+                });
+            }
+        }
+    }
+}

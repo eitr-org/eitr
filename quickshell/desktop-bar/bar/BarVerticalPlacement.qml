@@ -38,6 +38,9 @@ BarSection {
     visible: host.verticalBar
     edge: host.barEdge
     background: host.notchLayout || host.centeredLayout || host.islandsLayout || host.dynamicLayout ? "transparent" : host.barBackground()
+    glow: host.barGlow === true && !host.notchLayout && !host.centeredLayout && !host.islandsLayout && !host.dynamicLayout
+    glowProgress: barHost.autoHideRef ? barHost.autoHideRef.progress : 1
+    glowAccent: host.activeBg
     radius: 0
 
     BarGestureArea {

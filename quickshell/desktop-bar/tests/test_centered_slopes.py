@@ -23,6 +23,7 @@ class CenteredSlopesTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='eitr-centered-slopes-') as directory:
             folder = Path(directory)
             shutil.copy(BAR / 'EdgeSlopes.js', folder)
+            (folder / 'BarGlow.qml').write_text((BAR / 'components/BarGlow.qml').read_text().replace('import ".."\n', ''))
             (folder / Path('bar/CenteredBarMask.qml').name).write_text((BAR / 'bar/CenteredBarMask.qml').read_text().replace('import ".."\n', '').replace('"../', '"'))
             (folder / Path('bar/BarGestureArea.qml').name).write_text((BAR / 'bar/BarGestureArea.qml').read_text().replace('import ".."\n', '').replace('"../', '"'))
             shutil.copy(BAR / 'BarGeometry.js', folder)
@@ -40,6 +41,8 @@ import Quickshell
 import "EdgeSlopes.js" as EdgeSlopes
 ShellRoot {
     id: shell
+    property bool barGlow: false
+    property color activeBg: "#a878dc"
     property bool centeredLayout: true
     property bool verticalBar: VERTICAL
     property string barEdge: EDGE
