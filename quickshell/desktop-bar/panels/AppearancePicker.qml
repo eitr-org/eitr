@@ -5,20 +5,26 @@ import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 import QtQuick.Effects
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
 
 SettingsAppearanceModel {
     id: picker
     onLoaded: Qt.callLater(function() { content.forceActiveFocus(); })
+    // Shortcuts and Walker open the carousel on the display in use, like a desktop double-click.
+    function focusedScreen() {
+        const monitor = Hyprland.focusedMonitor;
+        return Quickshell.screens.find(screen => monitor && screen.name === monitor.name) || picker.defaultScreen || Quickshell.screens[0];
+    }
     IpcHandler {
         target: "appearance"
         function show(kind: string): void {
-            picker.open(kind.startsWith("theme") ? kind : "wallpaper", picker.defaultScreen || Quickshell.screens[0]);
+            picker.open(kind.startsWith("theme") ? kind : "wallpaper", picker.focusedScreen());
         }
         function wallpaper(path: string): void {
             picker.preferredPath = path;
-            picker.open("wallpaper", picker.defaultScreen || Quickshell.screens[0]);
+            picker.open("wallpaper", picker.focusedScreen());
         }
         function close(): void { picker.opened = false; }
         function next(): void { picker.navigate(1); }
