@@ -703,6 +703,7 @@
     "Updates served from download.eitr.info": "Atualizações servidas por download.eitr.info",
     "Real-desktop screenshots on the site and smaller downloads": "Capturas reais do desktop no site e downloads menores",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "Plugins, o tema Eitr com cores próprias para Neovim e VS Code, o modo Focus e o layout de barra Islands",
+    "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "Um layout de janelas com rolagem, áreas de trabalho compartilhadas ou divididas entre monitores, uma busca nas Configurações que encontra qualquer ajuste, campos com contorno, abas, controles deslizantes e chaves Material nas Configurações, e herdr para agentes de programação com IA",
     "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "O app de Configurações, a janela de Temas e Plugins, um Manual que abre com um tour de boas-vindas, Wi-Fi e Bluetooth em Conexões e novos papéis de parede do Eitr liderados pelo Rune Seal"
   },
   "client": {
