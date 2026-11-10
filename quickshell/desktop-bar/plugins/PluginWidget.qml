@@ -104,7 +104,8 @@ Item {
             MouseArea {
                 id: rotateArea
                 anchors.fill: parent; hoverEnabled: true; preventStealing: true
-                cursorShape: pressed ? Qt.ClosedHandCursor : Qt.PointingHandCursor
+                // There is no system rotate cursor, so the handle hides it and draws one.
+                cursorShape: Qt.BlankCursor
                 Accessible.role: Accessible.Button
                 Accessible.name: Eitr.I18n.tr("Rotation")
                 property point centre
@@ -125,6 +126,13 @@ Item {
                 }
                 onReleased: if (current !== startRotation) widget.rotationFinished(current)
                 onCanceled: widget.rotating(startRotation)
+                Text {
+                    visible: rotateArea.containsMouse || rotateArea.pressed
+                    x: rotateArea.mouseX - width / 2; y: rotateArea.mouseY - height / 2
+                    text: String.fromCodePoint(0xF0467); color: widget.accent
+                    style: Text.Outline; styleColor: widget.background
+                    font.family: PanelStyle.fontFamily; font.pixelSize: 22
+                }
             }
         }
     }
