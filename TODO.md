@@ -100,10 +100,6 @@ item says what decides the next step. Remove an item when it ships;
   and away from home through Tailscale (2026-10-21) work with a MacBook. Next: fix what
   those tests find, then call remote access ready in the Handbook and on the website.
   Afterwards, each separately: headless use, access before login, wake on LAN.
-- **Scrolling layout, Settings search and the About logo (shipped to testing 2026-11-09).**
-  Scrolling with real windows and its shortcuts; searching for a setting with the
-  keyboard, including controls that need hardware or an account; the rune logo in a real
-  System > About terminal.
 - **Themes & Plugins Update all.** Shipped untested: it appears only when an installed
   theme or plugin has an update. Try it the next time one does.
 - **The Eitr logo drawn with runes elsewhere.** The owner likes the 36-row versions;
@@ -113,7 +109,9 @@ item says what decides the next step. Remove an item when it ships;
 
 - **hyprpaper crash without a GPU.** hyprpaper segfaults in VMs without 3D
   acceleration (hyprwm/hyprtoolkit#144); the bar draws the still wallpaper on any
-  screen hyprpaper does not answer for. Drop the note once a fixed hyprtoolkit ships.
+  screen hyprpaper does not answer for. A contributor turned the owner's diagnosis into
+  hyprwm/hyprtoolkit#149 (2026-11-09); a bot closed it under the vouching policy, so it
+  waits for a maintainer. Drop the note once a fixed hyprtoolkit ships.
 - **Search indexing.** eitr.info is verified in Google Search Console and Bing
   Webmaster Tools. Bing reads the sitemap (2026-10-29); Google's sitemap entry was
   stuck on "Couldn't fetch" and the owner resubmitted it (2026-10-29): check it reads
