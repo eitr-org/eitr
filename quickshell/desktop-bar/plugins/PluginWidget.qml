@@ -50,8 +50,10 @@ Item {
         else if (action === "larger") sizeRequested(1.1);
         else if (action === "full") sizeRequested(0);
     }
+    // Above the plugin's own content, but under the edit chrome while editing: a MouseArea
+    // sets the arrow cursor wherever it lies on top, even for buttons it does not take.
     MouseArea {
-        anchors.fill: parent; z: 3
+        anchors.fill: parent; z: widget.editing ? 0 : 3
         acceptedButtons: Qt.RightButton
         enabled: !widget.aboveWindows || widget.editing
         onClicked: function(mouse) {
@@ -73,7 +75,7 @@ Item {
         }
         MouseArea {
             id: moveHandle
-            anchors.fill: parent; cursorShape: Qt.SizeAllCursor; preventStealing: true
+            anchors.fill: parent; cursorShape: pressed ? Qt.ClosedHandCursor : Qt.OpenHandCursor; preventStealing: true
             property point start
             onPressed: function(mouse) { start = widget.pointerPosition(moveHandle, mouse); widget.begun(); }
             onPositionChanged: function(mouse) {
