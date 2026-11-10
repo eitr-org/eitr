@@ -116,7 +116,9 @@ def saved_wallpaper_status(publish=None):
     import eitr_wallpapers as choices
     defaults = transition['wallpapers'](config('theme/current/backgrounds'))
     wallpaper = choices.saved_global(str(defaults[0]) if defaults else '')
-    images, active, failures = choices.reconcile(transition, wallpaper)
+    # During a theme switch the saved file is gone until the switch's own transition
+    # commits the new wallpaper; redrawing here first would flash the new one early.
+    images, active, failures = choices.reconcile(transition, wallpaper, write=choices.saved_global_available())
     temporary = choices.preview()
     assignments = choices.prune()
     motions = {}

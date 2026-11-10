@@ -95,6 +95,19 @@ class AssignmentTests(unittest.TestCase):
             self.assertEqual(command.call_count, 1)
             self.assertIn('DP-1,' + self.images[0], command.call_args.args[0])
 
+    def test_theme_switch_leaves_outputs_to_its_transition(self):
+        from eitr_paths import config, write_settings
+        # The theme swap removed the saved file: the bar only reports, it does not redraw.
+        write_settings(config('eitr/appearance.json'), {'wallpaper': str(self.root / 'replaced.png')})
+        self.assertFalse(choices.saved_global_available())
+        adapter = {'for_monitor': lambda path, monitor: path, 'active_wallpapers': lambda: {'DP-1': self.images[1]}}
+        with patch.object(choices, 'query', return_value=[self.monitor]), patch.object(choices.subprocess, 'run') as command:
+            selected, _, _ = choices.reconcile(adapter, self.images[0], write=choices.saved_global_available())
+            command.assert_not_called()
+        self.assertEqual(selected['DP-1'], self.images[0])
+        write_settings(config('eitr/appearance.json'), {'wallpaper': self.images[1]})
+        self.assertTrue(choices.saved_global_available())
+
     def test_global_preview_overrides_every_output_without_changing_assignments(self):
         choices.change('apply', 'DP-1', self.images[2], 'owner')
         choices.set_per_display(False)

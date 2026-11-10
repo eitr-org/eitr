@@ -161,15 +161,22 @@ def images(transition, default, monitors=None, temporary=None, global_override=F
     return result
 
 
-def reconcile(transition, default='', monitors=None, output=''):
+def saved_global_available():
+    """False while a theme switch has replaced the saved wallpaper's file and its own
+    transition is about to commit the new one."""
+    return saved_global() != ''
+
+
+def reconcile(transition, default='', monitors=None, output='', write=True):
     """Serialize output changes, read current monitors after acquiring the lock,
-    and touch only outputs whose effective image changed. Never restart Hyprpaper."""
+    and touch only outputs whose effective image changed. Never restart Hyprpaper.
+    write=False only reports what each output would show."""
     with locked():
         monitors = query('monitors') if monitors is None else monitors
         selected = images(transition, default, monitors)
         active = None if os.environ.get('EITR_NO_SESSION') == '1' else transition['active_wallpapers']()
         failures = []
-        if active is not None:
+        if active is not None and write:
             for name, path in selected.items():
                 if name == '*' or (output and name != output) or active.get(name) == path:
                     continue
