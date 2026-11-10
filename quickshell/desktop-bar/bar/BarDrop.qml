@@ -36,14 +36,29 @@ Item {
     readonly property real dropDepth: dotSize * 1.4
     // The time fades in over the second half of the swell, once the pill can hold it.
     readonly property real contentOpacity: Math.max(0, swell * 2 - 1)
+    // Like Dynamic's islands, the pill grows into its dashboard card while it is open.
+    function islandFor(panel) { return panel === barHost.dropDashboard ? pill : null; }
+    function openPanel() {
+        const dashboard = barHost.dropDashboard;
+        return dashboard && (dashboard.opened || dashboard === barHost.pendingPanel) ? dashboard : null;
+    }
+    function panelOrigin(panel, stripX, stripY) {
+        if (!islandFor(panel) || !panel.parent) return Qt.point(stripX, stripY);
+        const origin = drop.mapToItem(panel.parent, 0, 0);
+        const start = (drop.length - pill.targetExtent) / 2;
+        const offset = pill.farEdge ? pill.thickness - pill.targetDepth : 0;
+        return vertical ? Qt.point(origin.x + offset, origin.y + start) : Qt.point(origin.x + start, origin.y + offset);
+    }
     DynamicIsland {
         id: pill
         host: drop.host; barHost: drop.barHost
         restingExtent: drop.dropAcross + (drop.pillExtent - drop.dropAcross) * drop.swell
         fullExtent: restingExtent
         restingDepth: drop.dropDepth + (thickness - drop.dropDepth) * drop.swell
-        eased: false
+        // The auto-hide fall follows the slide exactly; growing into the dashboard eases.
+        eased: drop.reveal >= 1
         visible: drop.reveal > 0
+        panel: drop.openPanel()
         x: vertical ? depthOffset : (drop.length - width) / 2
         y: vertical ? (drop.length - height) / 2 : depthOffset
         // Falls out of the bar's edge: before the fall it sits just beyond the screen.

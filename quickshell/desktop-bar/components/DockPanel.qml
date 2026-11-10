@@ -100,7 +100,8 @@ Item {
         }
     }
     // Placement inputs exclude any trailing join that edge contact itself removes.
-    readonly property real navigationBand: morphIsland ? 40 : 0
+    // Dynamic's cards keep a band for the previous/next arrows; Drop's single card has none.
+    readonly property real navigationBand: morphIsland && hostWindow.dynamicLayout ? 40 : 0
     property real edgeContactWidth: desiredWidth
     property real edgeContactHeight: desiredHeight
     readonly property bool verticalAttachment: attachmentEdge === "left" || attachmentEdge === "right"
@@ -129,10 +130,11 @@ Item {
     readonly property real attachmentGap: detached ? hostWindow.panelGap : 0
     readonly property var focusWindows: hostWindow ? (hostWindow.panelFocusWindows || [hostWindow]) : []
     readonly property Item strip: hostWindow ? hostWindow.stripItem : null
-    // Dynamic: the owning island grows into this panel, which then draws no surface of its own.
-    readonly property Item morphIsland: hostWindow && hostWindow.dynamicLayout && !FocusMode.enabled && hostWindow.dynamicSurfaces
-        ? hostWindow.dynamicSurfaces.islandFor(panel) : null
-    readonly property point morphOrigin: morphIsland && strip ? hostWindow.dynamicSurfaces.panelOrigin(panel, strip.x, strip.y) : Qt.point(0, 0)
+    // Dynamic and Drop: the owning island grows into this panel, which then draws no surface of its own.
+    readonly property var morphSurfaces: !hostWindow || FocusMode.enabled ? null
+        : hostWindow.dynamicLayout ? hostWindow.dynamicSurfaces : hostWindow.dropLayout ? hostWindow.dropSurfaces : null
+    readonly property Item morphIsland: morphSurfaces ? morphSurfaces.islandFor(panel) : null
+    readonly property point morphOrigin: morphIsland && strip ? morphSurfaces.panelOrigin(panel, strip.x, strip.y) : Qt.point(0, 0)
     // Islands: a card grows out of the pill holding this panel's icon, from the pill's
     // edge toward the panel's usual side, covering the bar row while open.
     readonly property bool islandsActive: !!hostWindow && !!hostWindow.islandsLayout && !FocusMode.enabled && !!hostWindow.islandSurfaces

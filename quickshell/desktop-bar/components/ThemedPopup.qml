@@ -83,7 +83,7 @@ DockPanel {
             id: islandNavigation
             anchors.fill: parent
             z: 1
-            readonly property var islands: popup.morphIsland && popup.hostWindow ? popup.hostWindow.dynamicSurfaces : null
+            readonly property var islands: popup.morphIsland && popup.hostWindow && popup.hostWindow.dynamicLayout ? popup.hostWindow.dynamicSurfaces : null
             visible: !!islands && popup.opened && popup.revealProgress > 0.5
             opacity: Math.max(0, popup.revealProgress * 2 - 1)
             readonly property bool sideways: popup.verticalAttachment
