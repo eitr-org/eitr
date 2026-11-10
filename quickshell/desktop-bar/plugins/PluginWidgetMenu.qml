@@ -13,7 +13,7 @@ Rectangle {
     required property color foreground
     required property color background
     required property color accent
-    // Asks the host to close the menu (after edit, display or remove, or Escape).
+    // Asks the host to close the menu (after edit, duplicate, display or remove, or Escape).
     signal closeRequested()
     readonly property alias controls: controls
     readonly property real inset: PanelStyle.surfaceInset
@@ -65,9 +65,9 @@ Rectangle {
             width: parent.width
             entry: menu.entry; placement: menu.placement
             foreground: menu.foreground; background: menu.background; accent: menu.accent
-            // The menu stays open for settings and Duplicate; only actions that leave this
-            // copy's spot close it: editing its position, moving it to another display or removing it.
-            onActed: action => { if (["edit", "display", "remove"].includes(action)) menu.closeRequested(); }
+            // The menu stays open while settings change; actions that leave this copy close it:
+            // editing its position, a new copy, another display or removing it.
+            onActed: action => { if (["edit", "duplicate", "display", "remove"].includes(action)) menu.closeRequested(); }
         }
     }
 }

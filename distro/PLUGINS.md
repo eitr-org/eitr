@@ -292,7 +292,7 @@ both management interfaces. Edit mode is session-only.
 
 The helper changes one copy at a time: `plugins.py place PLUGIN WIDGET --monitor M --new`
 adds a copy and prints its instance; `duplicate --instance I [--geometry JSON]` copies
-one beside the original; `move --instance I --monitor M [--geometry JSON]`, `rotate
+one (Eitr's controls place it at the display's top left); `move --instance I --monitor M [--geometry JSON]`, `rotate
 --instance I --rotation DEGREES`, `surface`, `toggle-layer`, `place --geometry` and
 `unplace` take `--instance`. Without `--instance`, `--monitor` still names that
 display's first copy, as a bar started before version 3 asks.

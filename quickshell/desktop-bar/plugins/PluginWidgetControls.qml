@@ -56,10 +56,10 @@ Column {
     }
     function act(action) { PluginRegistry.widgetAction(entry.plugin, entry.id, instance, action, false); }
     function screenOf(name) { return monitors.find(monitor => monitor.name === name) || null; }
+    // A copy starts at the display's top left, so it reads as a new widget; the desktop
+    // keeps it below the bar and inside the screen.
     function duplicate() {
-        const screen = screenOf(placement.monitor);
-        const geometry = {x: placement.x, y: placement.y, width: placement.width, height: placement.height};
-        change("duplicate", screen ? {geometry: Geometry.beside(geometry, screen.width, screen.height, 24)} : {});
+        change("duplicate", {geometry: {x: 24, y: 24, width: placement.width, height: placement.height}});
         acted("duplicate");
     }
     function moveTo(name) {

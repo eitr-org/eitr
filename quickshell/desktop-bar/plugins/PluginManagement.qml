@@ -27,15 +27,20 @@ Column {
     readonly property bool visualsDisabled: entries.some(entry => entry.disabled)
     readonly property var widgets: entries.filter(entry => !entry.disabled && entry.kind === "widgets")
     readonly property var barItems: entries.filter(entry => !entry.disabled && entry.kind === "barItems")
+    // Which copies are open, by instance; kept here because the cards are rebuilt on every
+    // saved change. A single copy is open unless folded.
+    property var openCopies: ({})
+    function isOpen(placement, count) {
+        return openCopies[placement.instance] !== undefined ? openCopies[placement.instance] : count === 1;
+    }
+    function setOpen(placement, open) {
+        const next = Object.assign({}, openCopies);
+        next[placement.instance] = open;
+        openCopies = next;
+    }
     function placed(entry) {
         return (PluginRegistry.placements[entry.kind] || []).filter(placement => placement.plugin === entry.plugin && placement.id === entry.id);
     }
-    // Several copies on one display are numbered in the order they were added.
-    function copyLabel(placements, placement) {
-        const same = placements.filter(other => other.monitor === placement.monitor);
-        return monitorName(placement.monitor) + (same.length > 1 ? " · " + (same.indexOf(placement) + 1) : "");
-    }
-
     component SectionLabel: Text {
         width: management.width; topPadding: 6
         textFormat: Text.PlainText; color: management.foreground; opacity: PanelStyle.secondaryTextOpacity
@@ -81,9 +86,13 @@ Column {
                 model: widget.placements
                 PluginWidgetCard {
                     required property var modelData
+                    required property int index
                     width: widget.width
+                    number: index + 1
+                    expanded: management.isOpen(modelData, widget.placements.length)
+                    onToggled: open => management.setOpen(modelData, open)
                     entry: widget.modelData; placement: modelData
-                    monitorLabel: management.copyLabel(widget.placements, modelData)
+                    monitorLabel: management.monitorName(modelData.monitor)
                     monitors: management.monitors
                     foreground: management.foreground; background: management.background; accent: management.accent
                 }

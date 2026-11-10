@@ -54,10 +54,3 @@ function clampToScreen(geometry, screenWidth, screenHeight) {
         y: Math.round(Math.max(0, Math.min(screenHeight - height, geometry.y))),
         width: Math.round(width), height: Math.round(height)};
 }
-
-// A copy's place: offset down and right, or up and left where that would leave the screen.
-function beside(geometry, screenWidth, screenHeight, offset) {
-    const x = geometry.x + offset + geometry.width > screenWidth ? geometry.x - offset : geometry.x + offset;
-    const y = geometry.y + offset + geometry.height > screenHeight ? geometry.y - offset : geometry.y + offset;
-    return clampToScreen({x: x, y: y, width: geometry.width, height: geometry.height}, screenWidth, screenHeight);
-}

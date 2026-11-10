@@ -99,6 +99,4 @@ for (const [angle, snapped] of [[0, 0], [2, 0], [3, 0], [4, 4], [87, 90], [93, 9
     assert.equal(context.snapRotation(angle), snapped);
 assert.equal(JSON.stringify(context.clampToScreen({x: 1800, y: 900, width: 300, height: 200}, 1280, 720)), JSON.stringify({x: 980, y: 520, width: 300, height: 200}));
 assert.equal(JSON.stringify(context.clampToScreen({x: 10, y: 10, width: 4000, height: 200}, 1280, 720)), JSON.stringify({x: 0, y: 10, width: 1280, height: 200}));
-assert.equal(JSON.stringify(context.beside({x: 24, y: 24, width: 300, height: 200}, 1920, 1080, 24)), JSON.stringify({x: 48, y: 48, width: 300, height: 200}));
-assert.equal(JSON.stringify(context.beside({x: 1620, y: 880, width: 300, height: 200}, 1920, 1080, 24)), JSON.stringify({x: 1596, y: 856, width: 300, height: 200}));
 console.log('Plugin widget rotation, snapping and copies passed');
