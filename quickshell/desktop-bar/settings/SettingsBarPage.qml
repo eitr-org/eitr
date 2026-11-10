@@ -10,10 +10,18 @@ Column {
     readonly property var workspaceHelper: context.workspaceHelper
     width: parent ? parent.width : 0
     spacing: 18
-    ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
-        title: Eitr.I18n.tr("Bar")
-        foreground: view.foreground
+    TabStrip { foreground: SettingsPalette.foreground; gold: SettingsPalette.gold; carved: true;
+        width: parent.width
         visible: view.page === "bar"
+        height: visible ? 42 : 0
+        choices: [{id: "layout", label: Eitr.I18n.tr("Layout")}, {id: "look", label: Eitr.I18n.tr("Look")}, {id: "behaviour", label: Eitr.I18n.tr("Behaviour")}]
+        current: view.tab || "layout"
+        onChosen: value => { view.tabRequested(value); view.contentY = 0; }
+    }
+    ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
+        title: Eitr.I18n.tr("Layout")
+        foreground: view.foreground
+        visible: view.page === "bar" && view.tab === "layout"
         SettingsChoiceSection {
             SettingsTarget { objectName: "setting-bar-layout" }
             text: Eitr.I18n.tr("Layout")
@@ -69,25 +77,6 @@ Column {
                 }
             }
         }
-        SettingsChoiceSection {
-            SettingsTarget { objectName: "setting-bar-appearance" }
-            text: Eitr.I18n.tr("Appearance")
-            description: Eitr.I18n.tr((ChoiceLists.barAppearances.find(choice => choice.id === styleModel.appearance) || {}).description || "")
-            foreground: view.foreground
-            PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
-                kind: "appearance"
-                edge: styleModel.barPosition
-                appearance: styleModel.appearance
-                compact: true
-                choices: ChoiceLists.barAppearances
-                current: styleModel.appearance
-                onChosen: value => {
-                    if (view.live) {
-                        styleModel.settingRequested("appearance", value);
-                    }
-                }
-            }
-        }
         ControlRow {
             SettingsTarget { objectName: "setting-bar-show-on" }
             text: Eitr.I18n.tr("Show on")
@@ -113,28 +102,77 @@ Column {
                 }
             }
         }
-        ControlRow {
-            SettingsTarget { objectName: "setting-bar-clock" }
-            text: Eitr.I18n.tr("Clock")
-            description: Eitr.I18n.tr("Choose the time format.")
+    }
+    ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
+        title: Eitr.I18n.tr("Look")
+        foreground: view.foreground
+        visible: view.page === "bar" && view.tab === "look"
+        SettingsChoiceSection {
+            SettingsTarget { objectName: "setting-bar-appearance" }
+            text: Eitr.I18n.tr("Appearance")
+            description: Eitr.I18n.tr((ChoiceLists.barAppearances.find(choice => choice.id === styleModel.appearance) || {}).description || "")
             foreground: view.foreground
-            ChoiceSegmented { gold: SettingsInk.gold; background: SettingsInk.background;
-                foreground: view.foreground
-                choices: [
-                    {
-                        id: "12h",
-                        label: "12-hour"
-                    },
-                    {
-                        id: "24h",
-                        label: "24-hour"
-                    }
-                ]
-                current: styleModel.clockFormat
+            PictureChoices { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent; gold: SettingsPalette.gold; raised: SettingsPalette.raised; surface: SettingsPalette.surface; line: SettingsPalette.line; muted: SettingsPalette.muted; carved: true;
+                kind: "appearance"
+                edge: styleModel.barPosition
+                appearance: styleModel.appearance
+                compact: true
+                choices: ChoiceLists.barAppearances
+                current: styleModel.appearance
                 onChosen: value => {
                     if (view.live) {
-                        styleModel.settingRequested("clock", value);
+                        styleModel.settingRequested("appearance", value);
                     }
+                }
+            }
+        }
+        ControlRow {
+            SettingsTarget { objectName: "setting-bar-blur-strength-shared" }
+            text: Eitr.I18n.tr("Blur strength (shared)")
+            description: Eitr.I18n.tr("Adjust blur across the desktop.")
+            foreground: view.foreground
+            ChoiceLevel {
+                foreground: view.foreground
+                accent: view.accent
+                choices: styleModel.terminalAppearanceChoices["blur-strength"] || []
+                current: styleModel.terminalAppearance["blur-strength"] || ""
+                accessibleName: Eitr.I18n.tr("Blur strength (shared)")
+                onChosen: value => styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "blur-strength", value])
+            }
+        }
+        ChoiceDropdown {
+            SettingsTarget { objectName: "setting-bar-workspace-style" }
+            floatingLabel: Eitr.I18n.tr("Workspace style")
+            helperText: Eitr.I18n.tr("Choose how workspaces appear in the bar.")
+            width: Math.min(parent.width, 460)
+            gold: SettingsInk.gold; background: SettingsInk.background;
+            foreground: view.foreground
+            choices: workspaceHelper.summary.choices || []
+            current: styleModel.workspaceStyle
+            // Each style shows the first four workspaces as the bar draws them, the first one current.
+            preview: Component {
+                Row {
+                    readonly property var choice: parent ? parent.choice : null
+                    readonly property string style: choice ? String(choice.value ?? choice.id ?? choice) : ""
+                    spacing: 4
+                    Repeater {
+                        model: 4
+                        WorkspaceMarker {
+                            required property int index
+                            width: 20; height: 20
+                            style: parent.style
+                            label: String(index + 1)
+                            active: index === 0
+                            foreground: view.foreground
+                            accent: SettingsInk.gold
+                            selectedForeground: SettingsInk.background
+                        }
+                    }
+                }
+            }
+            onChosen: value => {
+                if (view.live) {
+                    styleModel.workspaceStyleRequested(value);
                 }
             }
         }
@@ -167,39 +205,35 @@ Column {
             }
         }
         ControlRow {
-            SettingsTarget { objectName: "setting-bar-blur-strength-shared" }
-            text: Eitr.I18n.tr("Blur strength (shared)")
-            description: Eitr.I18n.tr("Adjust blur across the desktop.")
+            SettingsTarget { objectName: "setting-bar-clock" }
+            text: Eitr.I18n.tr("Clock")
+            description: Eitr.I18n.tr("Choose the time format.")
             foreground: view.foreground
-            ChoiceLevel {
+            ChoiceSegmented { gold: SettingsInk.gold; background: SettingsInk.background;
                 foreground: view.foreground
-                accent: view.accent
-                choices: styleModel.terminalAppearanceChoices["blur-strength"] || []
-                current: styleModel.terminalAppearance["blur-strength"] || ""
-                accessibleName: Eitr.I18n.tr("Blur strength (shared)")
-                onChosen: value => styleModel.run(styleModel.terminalWriteRef, ["python3", styleModel.terminalScript, "set", "blur-strength", value])
-            }
-        }
-        ChoiceDropdown {
-            SettingsTarget { objectName: "setting-bar-workspace-style" }
-            floatingLabel: Eitr.I18n.tr("Workspace style")
-            helperText: Eitr.I18n.tr("Choose how workspaces appear in the bar.")
-            width: Math.min(parent.width, 460)
-            gold: SettingsInk.gold; background: SettingsInk.background;
-            foreground: view.foreground
-            choices: workspaceHelper.summary.choices || []
-            current: styleModel.workspaceStyle
-            onChosen: value => {
-                if (view.live) {
-                    styleModel.workspaceStyleRequested(value);
+                choices: [
+                    {
+                        id: "12h",
+                        label: "12-hour"
+                    },
+                    {
+                        id: "24h",
+                        label: "24-hour"
+                    }
+                ]
+                current: styleModel.clockFormat
+                onChosen: value => {
+                    if (view.live) {
+                        styleModel.settingRequested("clock", value);
+                    }
                 }
             }
         }
     }
     ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
-        title: Eitr.I18n.tr("Behavior")
+        title: Eitr.I18n.tr("Behaviour")
         foreground: view.foreground
-        visible: view.page === "bar"
+        visible: view.page === "bar" && view.tab === "behaviour"
         ToggleRow {
             SettingsTarget { objectName: "setting-bar-auto-hide" }
             text: Eitr.I18n.tr("Auto-hide")

@@ -108,6 +108,9 @@ Item {
     function labelOf(choice) { return Eitr.I18n.tr(String(choice.label ?? choice.name ?? choice)); }
     function glyphOf(choice) { return choice && choice.glyph ? String(choice.glyph) : ""; }
     // List rows receive choices through the list model, which turns arrays into Qt lists.
+    // A small picture of each choice (for example workspace markers), drawn beside its label
+    // in the list and beside the value in an outlined field. Its root reads parent.choice.
+    property Component preview: null
     function paletteOf(choice) { return choice && choice.palette && choice.palette.length !== undefined ? Array.from(choice.palette) : []; }
     component Swatches: Row {
         id: swatchRow
@@ -185,6 +188,12 @@ Item {
             visible: control.outlined
             anchors.right: chevron.left; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter
             colors: control.paletteOf(button.currentChoice)
+        }
+        Loader {
+            readonly property var choice: button.currentChoice
+            active: control.outlined && control.preview !== null && choice !== null
+            sourceComponent: control.preview
+            anchors.right: chevron.left; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter
         }
         Item {
             id: chevron
@@ -330,6 +339,14 @@ Item {
                     anchors.rightMargin: PanelStyle.selectionInset
                     anchors.verticalCenter: parent.verticalCenter
                     colors: control.paletteOf(row.modelData)
+                }
+                Loader {
+                    readonly property var choice: row.modelData
+                    active: control.preview !== null
+                    sourceComponent: control.preview
+                    anchors.right: rowAction.visible ? rowAction.left : parent.right
+                    anchors.rightMargin: PanelStyle.selectionInset
+                    anchors.verticalCenter: parent.verticalCenter
                 }
                 PanelButton {
                     id: rowAction

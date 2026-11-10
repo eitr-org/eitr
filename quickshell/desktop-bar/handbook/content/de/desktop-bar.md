@@ -16,7 +16,7 @@ Das Updatesymbol vor Benachrichtigungen prüft kurz nach der Anmeldung und alle 
 - Ein rechter Doppelklick auf leere Fläche wechselt Voll → Zentriert → Laschen → Inseln → Dynamisch → Voll.
 - Ziehe leere Fläche nach oben, unten, links oder rechts, um die Leiste zu verschieben. Links und rechts ist die Leiste so schmal wie oben und unten: Die Uhr zeigt Stunde über Minuten mit einem Kalendersymbol, das Wetter nur sein Symbol; Datum und Temperatur erscheinen beim Darüberfahren.
 - **Uhr** unter Einstellungen > Desktopleiste zeigt die Zeit im 12-Stunden-Format mit AM/PM (Standard) oder im 24-Stunden-Format, an jedem Leistenrand.
-- Dieselben Einstellungen findest du unter **Einstellungen > Desktopleiste**.
+- Dieselben Einstellungen findest du unter **Einstellungen > Desktopleiste**, in den Reitern Layout, Aussehen und Verhalten.
 - **Bildschirme** (Anzeigen auf) zeigt die Leiste standardmäßig nur auf dem Hauptbildschirm oder auf allen Bildschirmen. Bei mehreren Leisten markiert jede die Arbeitsfläche ihres Bildschirms; Kürzel wie SUPER + I öffnen auf dem gerade genutzten Bildschirm, Benachrichtigungen erscheinen nur auf dem Hauptbildschirm. Wähle diesen im Bildschirm-Panel.
 
 <!-- eitr-figure: bar-layouts -->

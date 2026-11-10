@@ -179,6 +179,9 @@
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Assistants": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+    ],
     "At %1": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
@@ -222,9 +225,6 @@
     "Background: Transparent": [
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
-    "Bar": [
-      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
-    ],
     "Battery & Power": [
       "quickshell/desktop-bar/panels/BatteryMenu.qml"
     ],
@@ -234,7 +234,7 @@
     "Beautify screenshot": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml"
     ],
-    "Behavior": [
+    "Behaviour": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Below": [
@@ -996,7 +996,8 @@
     ],
     "General": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
-      "quickshell/desktop-bar/panels/ControlCenter.qml"
+      "quickshell/desktop-bar/panels/ControlCenter.qml",
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Girl · Coffee": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -1260,6 +1261,9 @@
     ],
     "Logout": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
+    ],
+    "Look": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "MAC address": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
@@ -2628,6 +2632,9 @@
     ],
     "Uptime": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
+    ],
+    "Usage": [
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Use tabs and panes for a quiet desktop.": [
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml"

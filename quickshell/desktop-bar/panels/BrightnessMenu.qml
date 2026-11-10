@@ -488,7 +488,11 @@ ThemedPopup {
                     gold: menu.mapHighlight
                     onSelectedMonitor: name => { menu.settingsFor = name; menu.refreshDisplaySettings(); }
                 }
-                Column {
+                // One display per row, or two side by side when Settings is wide.
+                Flow {
+                id: displayList
+                readonly property int columns: content.width >= 1100 ? 2 : 1
+                readonly property real entryWidth: (content.width - (columns - 1) * spacing) / columns
                 visible: menu.settingsSection !== "nightlight"
                 width: content.width; spacing: PanelStyle.selectionRowGap
                 Repeater {
@@ -501,7 +505,7 @@ ThemedPopup {
                     readonly property bool isMain: modelData.name === menu.primaryDisplay
                     // An open display sits on its own card, so it is clear which one the settings belong to.
                     readonly property real cardInset: editing ? 8 : 0
-                    width: content.width
+                    width: displayList.entryWidth
                     height: entryColumn.implicitHeight + cardInset * 2
                     Rectangle {
                         anchors.fill: parent

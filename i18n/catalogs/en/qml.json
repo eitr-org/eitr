@@ -58,11 +58,9 @@
   "Background service": "Background service",
   "Background: Panel": "Background: Panel",
   "Background: Transparent": "Background: Transparent",
-  "Bar": "Bar",
   "Battery & Power": "Battery & Power",
   "Battery health: {percent}%": "Battery health: {percent}%",
   "Beautify screenshot": "Beautify screenshot",
-  "Behavior": "Behavior",
   "Below": "Below",
   "Beside %1": "Beside %1",
   "Blocked": "Blocked",
@@ -861,5 +859,9 @@
   "Medium": "Medium",
   "Enter saves the new name; Esc cancels.": "Enter saves the new name; Esc cancels.",
   "Name": "Name",
-  "Scene": "Scene"
+  "Scene": "Scene",
+  "Behaviour": "Behaviour",
+  "Look": "Look",
+  "Assistants": "Assistants",
+  "Usage": "Usage"
 }

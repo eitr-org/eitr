@@ -4,13 +4,15 @@ import Quickshell
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-// AI Assistant: the default assistant, Assistant Access and collaboration from Walker's AI
-// menus, the accounts the AI Usage panel tracks, then each assistant's own actions.
+// AI Assistant, in three tabs: General (the default assistant, Assistant Access and
+// collaboration from Walker's AI menus), Assistants (each assistant's own actions) and Usage
+// (the accounts the AI Usage panel tracks).
 Column {
     id: pageBody
     required property var context
     readonly property var view: context
     readonly property var helper: context.helper
+    readonly property string tab: view.tab || "general"
     readonly property var usage: (DesktopData.topics["ai.usage"] || {}).data || ({providers: []})
     readonly property var usageAccounts: (usage.providers || []).reduce((rows, provider) =>
         rows.concat((provider.accounts || []).map(account => Object.assign({provider: provider.name}, account))), [])
@@ -28,7 +30,15 @@ Column {
     Component.onDestruction: DesktopData.releaseOwner(pageBody)
     Connections { target: pageBody.view; function onActiveChanged() { pageBody.demand(); } }
     PreferenceWatch { path: pageBody.view.live && pageBody.view.active ? Eitr.Paths.config("eitr/ai.json") : ""; onChanged: pageBody.helper.refresh() }
+    TabStrip { foreground: SettingsPalette.foreground; gold: SettingsPalette.gold; carved: true;
+        width: parent.width
+        height: 42
+        choices: [{id: "general", label: Eitr.I18n.tr("General")}, {id: "assistants", label: Eitr.I18n.tr("Assistants")}, {id: "usage", label: Eitr.I18n.tr("Usage")}]
+        current: pageBody.tab
+        onChosen: value => { pageBody.view.tabRequested(value); pageBody.view.contentY = 0; }
+    }
     Flow {
+        visible: pageBody.tab === "usage"
         width: parent.width
         spacing: 8
         PanelButton {
@@ -43,6 +53,7 @@ Column {
     }
     ControlCard {
         title: Eitr.I18n.tr("Preferences")
+        visible: pageBody.tab === "general"
         foreground: pageBody.view.foreground
         surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
         ChoiceDropdown {
@@ -84,6 +95,7 @@ Column {
     }
     ControlCard {
         title: Eitr.I18n.tr("AI Usage")
+        visible: pageBody.tab === "usage"
         foreground: pageBody.view.foreground
         surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
         Repeater {
@@ -110,5 +122,5 @@ Column {
             opacity: PanelStyle.secondaryTextOpacity
         }
     }
-    SettingsSummaryCards { context: pageBody.context }
+    SettingsSummaryCards { context: pageBody.context; visible: pageBody.tab === "assistants" }
 }
