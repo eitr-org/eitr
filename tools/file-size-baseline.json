@@ -82,7 +82,7 @@
       "reason": "To improve (TODO): account model and its apply/CLI layer in one file."
     },
     "walker/scripts/actions/install/plugins.py": {
-      "lines": 550,
+      "lines": 566,
       "reason": "One terminal plugin review flow, sharing package facts with the native review."
     },
     "walker/scripts/actions/install/software.py": {

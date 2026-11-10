@@ -452,19 +452,24 @@ def visual_rows(manager, plugin_id, monitors):
         if kind not in ('widgets', 'barItems'):
             continue
         saved = [placement for placement in placements[kind] if placement['plugin'] == plugin_id and placement['id'] == entry['id']]
-        targets = sorted(set(monitors) | {placement['monitor'] for placement in saved}) if kind == 'widgets' else ['']
-        for monitor in targets:
-            installed = any(kind != 'widgets' or placement['monitor'] == monitor for placement in saved)
-            label = (tr('Remove widget · {monitor}', monitor=monitor) if installed else tr('Add widget · {monitor}', monitor=monitor)) if kind == 'widgets' else (tr('Remove bar item') if installed else tr('Add bar item'))
-            args = base + ['unplace' if installed else 'place', plugin_id, entry['id']]
-            if monitor:
-                args += ['--monitor', monitor]
-            row(label + ' · ' + entry['title'], tr('Change this visual placement'), args)
-            if installed and kind == 'widgets':
-                placement = next(placement for placement in saved if placement['monitor'] == monitor)
-                layer_label = tr('Show behind windows') if placement.get('aboveWindows') else tr('Show above windows')
-                row(layer_label + ' · ' + entry['title'] + ' · ' + monitor,
-                    tr('Change this visual placement'), base + ['toggle-layer', plugin_id, entry['id'], '--monitor', monitor])
+        if kind == 'barItems':
+            row((tr('Remove bar item') if saved else tr('Add bar item')) + ' · ' + entry['title'], tr('Change this visual placement'),
+                base + ['unplace' if saved else 'place', plugin_id, entry['id']])
+            continue
+        # A widget can be on a display several times: each copy gets its own rows.
+        for monitor in monitors:
+            row(tr('Add widget · {monitor}', monitor=monitor) + ' · ' + entry['title'], tr('Change this visual placement'),
+                base + ['place', plugin_id, entry['id'], '--monitor', monitor, '--new'])
+        for placement in saved:
+            monitor = placement['monitor']
+            same = [copy for copy in saved if copy['monitor'] == monitor]
+            suffix = f' · {same.index(placement) + 1}' if len(same) > 1 else ''
+            target = [plugin_id, entry['id'], '--instance', placement['instance']]
+            row(tr('Remove widget · {monitor}', monitor=monitor) + ' · ' + entry['title'] + suffix,
+                tr('Change this visual placement'), base + ['unplace'] + target)
+            layer_label = tr('Show behind windows') if placement.get('aboveWindows') else tr('Show above windows')
+            row(layer_label + ' · ' + entry['title'] + ' · ' + monitor + suffix,
+                tr('Change this visual placement'), base + ['toggle-layer'] + target)
     if any(entry['kind'] == 'widgets' for entry in entries):
         row(tr('Edit widgets'), tr('Move and resize desktop widgets'), ['eitr-shell', 'desktop-bar', 'ipc', 'call', '--', 'plugin-widgets', 'edit'])
     if any(entry['disabled'] for entry in entries):
@@ -474,12 +479,15 @@ def visual_rows(manager, plugin_id, monitors):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['check', 'list', 'add', 'update', 'remove', 'enable', 'disable', 'surface', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'ui-stream', 'toggle-layer', 'placements', 'place', 'unplace', 'visual-rows'])
+    parser.add_argument('action', choices=['check', 'list', 'add', 'update', 'remove', 'enable', 'disable', 'surface', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'ui-stream', 'toggle-layer', 'placements', 'place', 'unplace', 'duplicate', 'move', 'rotate', 'visual-rows'])
     parser.add_argument('value', nargs='?')
     parser.add_argument('index', nargs='?')
     parser.add_argument('--monitor')
     parser.add_argument('--geometry')
     parser.add_argument('--surface', choices=('panel', 'none'))
+    parser.add_argument('--instance', help='the widget copy to change')
+    parser.add_argument('--new', action='store_true', help='place another copy of the widget')
+    parser.add_argument('--rotation', type=int, help='widget rotation in degrees, 0-359')
     arguments = parser.parse_args(argv)
     manager = Plugins(notify=notify_blocked)
     if arguments.action == 'check':
@@ -491,9 +499,17 @@ def main(argv=None):
         print(json.dumps(visual_rows(manager, arguments.value, [monitor['name'] for monitor in monitors])))
     elif arguments.action == 'placements':
         print(json.dumps(manager.placements()))
-    elif arguments.action in ('place', 'unplace', 'toggle-layer', 'surface'):
-        manager.place(arguments.value, arguments.index, arguments.monitor, remove=arguments.action == 'unplace',
-                      geometry=json.loads(arguments.geometry) if arguments.geometry else None, toggle_layer=arguments.action == 'toggle-layer', surface=arguments.surface)
+    elif arguments.action in ('place', 'unplace', 'toggle-layer', 'surface', 'duplicate', 'move', 'rotate'):
+        if arguments.action in ('duplicate', 'move', 'rotate') and not arguments.instance:
+            parser.error(arguments.action + ' requires --instance')
+        if (arguments.action == 'move' and not arguments.monitor) or (arguments.action == 'rotate' and arguments.rotation is None):
+            parser.error(arguments.action + ' requires ' + ('--monitor' if arguments.action == 'move' else '--rotation'))
+        instance = manager.place(arguments.value, arguments.index, arguments.monitor, instance=arguments.instance, new=arguments.new,
+                                 remove=arguments.action == 'unplace', duplicate=arguments.action == 'duplicate',
+                                 geometry=json.loads(arguments.geometry) if arguments.geometry else None,
+                                 toggle_layer=arguments.action == 'toggle-layer', surface=arguments.surface, rotation=arguments.rotation)
+        if instance and arguments.action in ('place', 'duplicate'):
+            print(instance)
     elif arguments.action == 'ui':
         print(json.dumps(manager.ui()))
     elif arguments.action == 'ui-failure':

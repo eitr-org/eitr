@@ -93,6 +93,9 @@
     "Add a chapter marker": [
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
+    "Add another copy": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
     "Add from a Git address": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -103,9 +106,6 @@
       "quickshell/desktop-bar/panels/AppearancePicker.qml"
     ],
     "Add to a display": [
-      "quickshell/desktop-bar/plugins/PluginManagement.qml"
-    ],
-    "Add to another display": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Adjust blur across the desktop.": [
@@ -242,16 +242,10 @@
       "quickshell/desktop-bar/plugins/PluginPanel.qml"
     ],
     "Background": [
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Background service": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
-    "Background: Panel": [
-      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
-    ],
-    "Background: Transparent": [
-      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Battery & Power": [
       "quickshell/desktop-bar/panels/BatteryMenu.qml"
@@ -778,9 +772,6 @@
     "Detailed Status": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
-    "Details": [
-      "quickshell/desktop-bar/plugins/PluginDetails.qml"
-    ],
     "Detecting configured AI clients…": [
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
@@ -826,7 +817,8 @@
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
       "quickshell/desktop-bar/panels/BrightnessMenu.qml",
-      "quickshell/desktop-bar/panels/ControlCenterSliders.qml"
+      "quickshell/desktop-bar/panels/ControlCenterSliders.qml",
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Displays": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml",
@@ -847,7 +839,7 @@
     ],
     "Done": [
       "quickshell/desktop-bar/plugins/PluginWidget.qml",
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Done editing widgets": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -857,6 +849,9 @@
     ],
     "Down": [
       "tools/choice-lists.json"
+    ],
+    "Duplicate": [
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Dynamic": [
       "tools/choice-lists.json"
@@ -880,8 +875,7 @@
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Edit position": [
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml",
-      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Edit schedule": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml",
@@ -1022,8 +1016,7 @@
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Full width": [
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml",
-      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Fullscreen when one column": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -1240,7 +1233,7 @@
       "tools/choice-lists.json"
     ],
     "Larger": [
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Layout": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
@@ -1751,7 +1744,7 @@
       "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
     "Panel": [
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Password": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
@@ -1984,8 +1977,7 @@
       "quickshell/desktop-bar/dock/EdgeDock.qml"
     ],
     "Remove from desktop": [
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml",
-      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Remove layout": [
       "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
@@ -2025,11 +2017,11 @@
     "Reply…": [
       "quickshell/desktop-bar/notifications/NotificationCard.qml"
     ],
-    "Repository: {url}": [
-      "quickshell/desktop-bar/plugins/PluginDetails.qml"
-    ],
     "Request details": [
       "quickshell/desktop-bar/panels/PolkitDialog.qml"
+    ],
+    "Reset": [
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Resolution": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
@@ -2094,6 +2086,7 @@
     ],
     "Rotation": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Rune groups": [
@@ -2305,8 +2298,7 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Show above windows": [
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml",
-      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Show help notifications when a program crashes.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
@@ -2357,16 +2349,10 @@
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Size": [
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Size unavailable": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
-    "Size: Larger": [
-      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
-    ],
-    "Size: Smaller": [
-      "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Skip this occurrence": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -2375,7 +2361,7 @@
       "tools/choice-lists.json"
     ],
     "Smaller": [
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Soften the desktop behind terminal windows.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -2452,7 +2438,7 @@
     ],
     "Style": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml",
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Submenu": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
@@ -2630,13 +2616,19 @@
       "quickshell/desktop-bar/bar/CaptureIndicator.qml"
     ],
     "Transparent": [
-      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Turn Bluetooth on or off": [
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
     "Turn Wi-Fi on or off": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Turn left": [
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
+    ],
+    "Turn right": [
+      "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Turned left": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"

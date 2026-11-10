@@ -278,12 +278,31 @@ Positions are stored in logical monitor-local coordinates. Disconnecting a monit
 hides its widgets and keeps their placements; reconnecting restores them.
 
 `$XDG_CONFIG_HOME/eitr/plugin-placements.json` is machine-local and never shipped:
-`{"version":2,"widgets":[{"plugin":"example","id":"clock","monitor":"DP-1",
-"x":24,"y":48,"width":240,"height":144,"aboveWindows":false}],"barItems":[{"plugin":"example",
-"id":"status-dot"}]}`. Edits use the manager's lock and atomic writer. Removing
+`{"version":3,"widgets":[{"plugin":"example","id":"clock","instance":"3f9a0c12","monitor":"DP-1",
+"x":24,"y":48,"width":240,"height":144,"aboveWindows":false,"rotation":90}],"barItems":[{"plugin":"example",
+"id":"status-dot"}]}`. A widget can be placed any number of times, also several times on
+one display: each copy is named by `instance` (eight lowercase hex digits), and
+`monitor`, geometry, `rotation` (whole degrees 0–359, left out when 0), `surface` and
+`aboveWindows` belong to that copy. Versions 1 and 2 had one copy per display; they are
+read with an instance derived from the display name and written as version 3 on the
+next change. Edits use the manager's lock and atomic writer. Removing
 or updating a plugin preserves preferences, so a later matching declaration can
 restore the placement. Removing a widget from a missing monitor is available in
 both management interfaces. Edit mode is session-only.
+
+The helper changes one copy at a time: `plugins.py place PLUGIN WIDGET --monitor M --new`
+adds a copy and prints its instance; `duplicate --instance I [--geometry JSON]` copies
+one beside the original; `move --instance I --monitor M [--geometry JSON]`, `rotate
+--instance I --rotation DEGREES`, `surface`, `toggle-layer`, `place --geometry` and
+`unplace` take `--instance`. Without `--instance`, `--monitor` still names that
+display's first copy, as a bar started before version 3 asks.
+
+A rotated copy turns about its centre. Its layer surface is the rotated bounding box,
+moved inside the usable area when it would cross an edge, and its input region is that
+box, so no corner is clipped. Edit-mode moves follow the pointer on screen; the resize
+grip still sizes the unrotated widget. Duplicate offsets the copy by 24 px, back up and
+left where it would leave the screen; moving to another display keeps size and settings
+and clamps the position to that display.
 
 Bar items occupy fixed icon slots in the existing right-side group, just before Updates, with its
 normal hidden/show toggle (always shown in Tabs). They have no hover fill and
@@ -401,10 +420,12 @@ sets `none`: the host draws no color, border or blur. Transparent widgets use
 Plugin QML may draw any colours, images, shaders or animation, including its own opaque background. Edit mode always
 shows the outline, title handle, resize grip and Done control.
 
-Right-click a behind-window widget, or any widget while editing, for **Edit
-position**, **Size: Smaller / Larger** (90% / 110%, preserving aspect and centre
-where bounds permit), **Full width**, **Background**, **Show above windows**,
-plugin options and **Remove from desktop**. Size is limited by declared minimums
+Right-click a behind-window widget, or any widget while editing, for the copy's
+settings card: **Edit position**, **Duplicate**, **Size** − / + (90% / 110%,
+preserving aspect and centre where bounds permit) and **Full width**, **Rotation**
+(a 0–359° slider snapping within 3° of quarter turns, 90° turns and **Reset**),
+**Display**, **Background**, **Show above windows**, plugin options and **Remove from
+desktop**. Each copy's card in Control Center shows the same controls. Size is limited by declared minimums
 and the monitor's usable area; fitting the screen takes precedence over minimums.
 Full width uses the largest aspect-preserving size that fits the usable screen.
 Above-window widgets stay click-through: their options are in **Control Center >

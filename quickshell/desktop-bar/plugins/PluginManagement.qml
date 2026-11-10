@@ -2,6 +2,7 @@ import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
+import Quickshell.Hyprland
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
@@ -13,7 +14,11 @@ Column {
     required property color foreground
     required property color background
     required property color accent
-    property var monitors: Quickshell.screens.map(screen => ({name: screen.name, description: screen.model || screen.description || screen.name}))
+    property var monitors: Quickshell.screens.map(screen => ({name: screen.name, description: screen.model || screen.description || screen.name,
+        width: screen.width, height: screen.height}))
+    // The focused display comes first when choosing where to add a widget.
+    readonly property string focusedMonitor: Hyprland.focusedMonitor ? Hyprland.focusedMonitor.name : ""
+    readonly property var addChoices: monitors.slice().sort((first, second) => (second.name === focusedMonitor) - (first.name === focusedMonitor))
     spacing: PanelStyle.selectionRowGap
     function monitorName(name) {
         const monitor = monitors.find(monitor => monitor.name === name);
@@ -24,6 +29,11 @@ Column {
     readonly property var barItems: entries.filter(entry => !entry.disabled && entry.kind === "barItems")
     function placed(entry) {
         return (PluginRegistry.placements[entry.kind] || []).filter(placement => placement.plugin === entry.plugin && placement.id === entry.id);
+    }
+    // Several copies on one display are numbered in the order they were added.
+    function copyLabel(placements, placement) {
+        const same = placements.filter(other => other.monitor === placement.monitor);
+        return monitorName(placement.monitor) + (same.length > 1 ? " · " + (same.indexOf(placement) + 1) : "");
     }
 
     component SectionLabel: Text {
@@ -44,7 +54,7 @@ Column {
             id: reenable
             width: Math.max(68, reenableMetrics.advanceWidth + 24)
             text: Eitr.I18n.tr("Re-enable"); foreground: management.foreground
-            onClicked: PluginRegistry.change("enable-ui", management.entries.find(entry => entry.disabled), "", null)
+            onClicked: PluginRegistry.change("enable-ui", management.entries.find(entry => entry.disabled))
             TextMetrics { id: reenableMetrics; text: reenable.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
         }
     }
@@ -55,7 +65,6 @@ Column {
             id: widget
             required property var modelData
             readonly property var placements: management.placed(modelData)
-            readonly property var availableMonitors: management.monitors.filter(monitor => !placements.some(placement => placement.monitor === monitor.name))
             property bool choosing: false
             width: management.width; spacing: PanelStyle.selectionRowGap
             SectionLabel {
@@ -73,31 +82,32 @@ Column {
                 PluginWidgetCard {
                     required property var modelData
                     width: widget.width
-                    entry: widget.modelData; monitor: modelData.monitor
-                    monitorLabel: management.monitorName(modelData.monitor)
+                    entry: widget.modelData; placement: modelData
+                    monitorLabel: management.copyLabel(widget.placements, modelData)
+                    monitors: management.monitors
                     foreground: management.foreground; background: management.background; accent: management.accent
                 }
             }
             PanelButton {
                 id: addButton
-                visible: widget.availableMonitors.length > 0
+                visible: management.monitors.length > 0
                 width: Math.max(68, addMetrics.advanceWidth + 52)
                 leadingIcon: "+"; textAlignment: Text.AlignLeft; outlined: true
-                text: widget.placements.length ? Eitr.I18n.tr("Add to another display") : Eitr.I18n.tr("Add to a display")
+                text: widget.placements.length ? Eitr.I18n.tr("Add another copy") : Eitr.I18n.tr("Add to a display")
                 foreground: management.foreground
                 onClicked: {
-                    if (widget.availableMonitors.length > 1) widget.choosing = !widget.choosing;
-                    else PluginRegistry.change("place", widget.modelData, widget.availableMonitors[0].name, null);
+                    if (management.monitors.length > 1) widget.choosing = !widget.choosing;
+                    else PluginRegistry.change("place", widget.modelData, {monitor: management.monitors[0].name, isNew: true});
                 }
                 TextMetrics { id: addMetrics; text: addButton.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
             }
             Repeater {
-                model: widget.choosing ? widget.availableMonitors : []
+                model: widget.choosing ? management.addChoices : []
                 PanelButton {
                     required property var modelData
                     width: widget.width; height: PanelStyle.selectionRowHeight; foreground: management.foreground
                     leadingIcon: "󰍹"; text: modelData.description; textAlignment: Text.AlignLeft
-                    onClicked: { PluginRegistry.change("place", widget.modelData, modelData.name, null); widget.choosing = false; }
+                    onClicked: { PluginRegistry.change("place", widget.modelData, {monitor: modelData.name, isNew: true}); widget.choosing = false; }
                 }
             }
         }
@@ -116,7 +126,7 @@ Column {
             description: Eitr.I18n.tr("Show on the bar")
             foreground: management.foreground; accent: management.accent
             checked: management.placed(modelData).length > 0
-            onToggled: checked => PluginRegistry.change(checked ? "place" : "unplace", modelData, "", null)
+            onToggled: checked => PluginRegistry.change(checked ? "place" : "unplace", modelData)
         }
     }
 }

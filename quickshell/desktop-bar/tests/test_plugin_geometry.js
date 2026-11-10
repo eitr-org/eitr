@@ -82,3 +82,23 @@ for (const offset of [1, 2, 19, 8000, 18, -8000, 0]) {
     assert.equal(result.x, Math.max(usable.x, Math.min(usable.width - 240, 120 + offset)));
     assert.equal(pressGeometry.x, 120);
 }
+
+// A rotated widget's surface is the bounding box of the turned rectangle, kept on screen.
+const screen = {x: 0, y: 30, width: 1920, height: 1050};
+const upright = {x: 400, y: 300, width: 300, height: 100};
+assert.equal(JSON.stringify(context.rotatedBox(upright, 0, screen)), JSON.stringify(upright));
+assert.equal(JSON.stringify(context.rotatedBox(upright, 90, screen)), JSON.stringify({x: 500, y: 200, width: 100, height: 300}));
+assert.equal(JSON.stringify(context.rotatedBox(upright, 180, screen)), JSON.stringify(upright));
+const diagonal = context.rotatedBox(upright, 45, screen);
+assert.equal(diagonal.width, Math.ceil(400 * Math.SQRT1_2));
+assert.equal(diagonal.width, diagonal.height);
+assert.ok(Math.abs(diagonal.x + diagonal.width / 2 - 550) <= 1 && Math.abs(diagonal.y + diagonal.height / 2 - 350) <= 1);
+const cornered = context.rotatedBox({x: 0, y: 30, width: 400, height: 100}, 90, screen);
+assert.ok(cornered.x >= screen.x && cornered.y >= screen.y);
+for (const [angle, snapped] of [[0, 0], [2, 0], [3, 0], [4, 4], [87, 90], [93, 90], [94, 94], [183, 180], [268, 270], [357, 0], [359, 0], [360, 0], [-90, 270], [45.4, 45]])
+    assert.equal(context.snapRotation(angle), snapped);
+assert.equal(JSON.stringify(context.clampToScreen({x: 1800, y: 900, width: 300, height: 200}, 1280, 720)), JSON.stringify({x: 980, y: 520, width: 300, height: 200}));
+assert.equal(JSON.stringify(context.clampToScreen({x: 10, y: 10, width: 4000, height: 200}, 1280, 720)), JSON.stringify({x: 0, y: 10, width: 1280, height: 200}));
+assert.equal(JSON.stringify(context.beside({x: 24, y: 24, width: 300, height: 200}, 1920, 1080, 24)), JSON.stringify({x: 48, y: 48, width: 300, height: 200}));
+assert.equal(JSON.stringify(context.beside({x: 1620, y: 880, width: 300, height: 200}, 1920, 1080, 24)), JSON.stringify({x: 1596, y: 856, width: 300, height: 200}));
+console.log('Plugin widget rotation, snapping and copies passed');

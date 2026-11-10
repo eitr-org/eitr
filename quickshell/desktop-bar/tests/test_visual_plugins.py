@@ -760,16 +760,11 @@ ShellRoot {
                 entry: ENTRY; surface: "none"; editing: EDIT
                 foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#7ee0b5"
             }
-            Rectangle {
-                visible: MENU; x: 294; y: 308; width: 300; height: options.implicitHeight + 20
-                color: "BACKGROUND"; radius: 6
-                border.width: 1; border.color: Qt.alpha("FOREGROUND", .15)
-                Bar.PluginWidgetMenu {
-                    id: options; x: 10; y: 10; width: parent.width - 20
-                    foreground: "FOREGROUND"; background: "BACKGROUND"
-                    surface: "none"; entries: widget.menuEntries
-                    onSelected: id => widget.selectMenu(id)
-                }
+            Bar.PluginWidgetMenu {
+                id: options; visible: MENU; x: 290; y: 300; width: implicitWidth
+                entry: ENTRY
+                placement: ({plugin: "visualizer", id: "spectrum", instance: "0a1b2c3d", monitor: "test", x: 96, y: 100, width: 460, height: 200})
+                foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#7ee0b5"
             }
             Timer {
                 interval: 700; running: true; repeat: true
@@ -800,6 +795,7 @@ ShellRoot {
                         if (widget.menuEntries.length !== 2) throw new Error("Menu API missing");
                         widget.selectMenu("terminal");
                         if (!widget.menuEntries[1].checked || widget.menuEntries[0].checked) throw new Error("Menu API signal failed");
+                        Bar.PluginRegistry.setMenu(options.placement, widget.menuEntries);
                     }
                     manager.visible = !MANAGER; manager.visible = MANAGER;
                     sample.grabToImage(function(result) {
@@ -826,6 +822,135 @@ ShellRoot {
                 self.assertNotIn('TypeError', result.stdout + result.stderr)
                 self.assertTrue(capture.is_file())
 
+
+    def test_widget_copies_card_and_menu_without_cut_labels(self):
+        """Two copies on two displays, one rotated, in the card and the right-click menu."""
+        with tempfile.TemporaryDirectory(prefix='eitr-widget-copies-') as directory:
+            folder = Path(directory)
+            plugin = folder / 'Bars.qml'
+            plugin.write_text("""import QtQuick
+Item {
+    id: view
+    required property var api
+    Row {
+        anchors.centerIn: parent; spacing: 5; height: parent.height - 40
+        Repeater {
+            model: 24
+            Rectangle {
+                required property int index
+                width: 7; height: 8 + (Math.sin(index * .5) + 1) * 30
+                anchors.bottom: parent.bottom; radius: 2; color: view.api.accent
+            }
+        }
+    }
+}""")
+            entry = dict(plugin='visualizer', pluginName='Music Visualizer', kind='widgets', id='spectrum', title='Audio visualizer',
+                         qml=plugin.name, source=plugin.as_uri(), commit='a' * 40, disabled=False, surface='none')
+            copies = [dict(plugin='visualizer', id='spectrum', instance='0a1b2c3d', monitor='DP-1', x=96, y=80, width=460, height=200,
+                           aboveWindows=False, surface='panel'),
+                      dict(plugin='visualizer', id='spectrum', instance='4e5f6a7b', monitor='HDMI-A-1', x=400, y=300, width=320, height=160,
+                           aboveWindows=True, rotation=30)]
+            monitors = [dict(name='DP-1', description='Dell U2720Q', width=2560, height=1440),
+                        dict(name='HDMI-A-1', description='LG HDR 4K', width=1920, height=1080)]
+            # The registry reads placements through the real helper, from this folder.
+            (folder / 'eitr').mkdir()
+            (folder / 'eitr/plugin-placements.json').write_text(json.dumps(dict(version=3, widgets=copies, barItems=[])))
+            captures = Path(os.environ.get('EITR_PLUGIN_REVIEW_RENDERS', directory))
+            captures.mkdir(parents=True, exist_ok=True)
+            for mode, locale in (('copies-dark', 'en_US.UTF-8'), ('copies-light', 'en_US.UTF-8'),
+                                 ('copies-de-dark', 'de_DE.UTF-8'), ('copies-fr-light', 'fr_FR.UTF-8')):
+                capture = captures / (mode + '.png')
+                light = mode.endswith('light')
+                foreground, background = ('#252936', '#f5f0e7') if light else ('#e9eef1', '#18212b')
+                fixture = folder / 'shell.qml'
+                fixture.write_text("""import QtQuick
+import Quickshell
+import "BAR" as Bar
+import "GEOMETRY" as Geometry
+ShellRoot {
+    FloatingWindow {
+        visible: true; implicitWidth: 1180; implicitHeight: 1100
+        Rectangle {
+            id: sample; anchors.fill: parent; color: "BACKGROUND"
+            Component.onCompleted: {
+                Bar.PluginRegistry.entries = [ENTRY];
+                Bar.PluginRegistry.placements = {version: 3, widgets: COPIES, barItems: []};
+                for (const copy of COPIES)
+                    Bar.PluginRegistry.setMenu(copy, [{id: "wave", text: "Wave", checked: true}, {id: "terminal", text: "Terminal", checked: false}]);
+            }
+            Text { x: 24; y: 20; text: "Control Center · Plugins"; color: "FOREGROUND"; font.pixelSize: 16 }
+            Bar.PluginManagement {
+                id: management; x: 24; y: 56; width: 380
+                entries: [ENTRY]; monitors: MONITORS
+                foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#7ee0b5"
+            }
+            // A desktop corner: the rotated copy inside its layer surface (dashed outline).
+            Rectangle {
+                id: desk; x: 440; y: 56; width: 716; height: 330
+                color: Qt.alpha("FOREGROUND", .04); radius: 6
+                readonly property var fitted: ({x: 40, y: 80, width: 320, height: 160})
+                readonly property var box: Geometry.rotatedBox(fitted, 30, {x: 0, y: 0, width: width, height: height})
+                Rectangle {
+                    x: desk.box.x; y: desk.box.y; width: desk.box.width; height: desk.box.height
+                    color: "transparent"; border.width: 1; border.color: Qt.alpha("FOREGROUND", .35)
+                    Bar.PluginWidget {
+                        id: rotated
+                        x: (parent.width - width) / 2; y: (parent.height - height) / 2
+                        width: desk.fitted.width; height: desk.fitted.height; rotation: 30
+                        entry: Object.assign({}, ENTRY, {geometry: COPIES[1]}); surface: "panel"
+                        foreground: "FOREGROUND"; background: Qt.darker("BACKGROUND", 1.1); accent: "#7ee0b5"
+                    }
+                }
+            }
+            Bar.PluginWidgetMenu {
+                id: menu; x: 784; y: 410; width: implicitWidth
+                entry: ENTRY; placement: COPIES[1]
+                foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#7ee0b5"
+                Component.onCompleted: menu.controls.monitors = MONITORS
+            }
+            function cutLabels(item, found) {
+                for (const child of item.children) {
+                    if (!child.visible) continue;
+                    if (child.truncated === true) found.push(child.text + " (" + Math.round(child.width) + "/" + Math.round(child.implicitWidth) + ")");
+                    cutLabels(child, found);
+                }
+                return found;
+            }
+            Timer {
+                interval: 900; running: true; repeat: true
+                onTriggered: try {
+                    if (!Bar.PluginRegistry.placements.widgets.length) return;
+                    running = false;
+                    if (management.placed(ENTRY).length !== 2) throw new Error("Both copies need a card");
+                    const cards = sample.cutLabels(management, []).concat(sample.cutLabels(menu, []));
+                    if (cards.length) throw new Error("Cut labels: " + cards.join(", "));
+                    if (management.height > sample.height - 70) throw new Error("Management clipped: " + management.height);
+                    if (menu.y + menu.height > sample.height) throw new Error("Menu clipped: " + menu.height);
+                    if (desk.box.width <= desk.fitted.width || desk.box.height <= desk.fitted.height) throw new Error("Rotated box too small");
+                    sample.grabToImage(function(result) {
+                        if (!result.saveToFile("CAPTURE")) throw new Error("Capture failed");
+                        console.log("WIDGET_COPY_RENDER_OK"); Qt.quit();
+                    });
+                } catch (error) { console.log("FIXTURE_FAILED " + error); Qt.exit(1); }
+            }
+        }
+    }
+}""".replace('BAR', BAR.as_uri()).replace('GEOMETRY', (BAR / 'PluginGeometry.js').as_uri())
+                    .replace('BACKGROUND', background).replace('FOREGROUND', foreground)
+                    .replace('ENTRY', json.dumps(entry)).replace('COPIES', json.dumps(copies))
+                    .replace('MONITORS', json.dumps(monitors)).replace('CAPTURE', str(capture)))
+                environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                                   QML_IMPORT_PATH=str(ROOT / 'quickshell'), EITR_CODE_ROOT=str(ROOT),
+                                   XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,
+                                   XDG_CACHE_HOME=directory, XDG_RUNTIME_DIR=directory, LC_ALL=locale, LANG=locale,
+                                   DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='')
+                result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment, text=True, capture_output=True, timeout=15)
+                with self.subTest(mode=mode):
+                    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                    self.assertIn('WIDGET_COPY_RENDER_OK', result.stdout + result.stderr)
+                    self.assertNotIn('ReferenceError', result.stdout + result.stderr)
+                    self.assertNotIn('TypeError', result.stdout + result.stderr)
+                    self.assertTrue(capture.is_file())
 
     def test_pointer_handles_reach_geometry_save(self):
         with tempfile.TemporaryDirectory(prefix='eitr-widget-input-') as directory:
@@ -872,7 +997,7 @@ ShellRoot {
                 onResized: function(dx, dy) { canvas.draft = Geometry.fit(Geometry.delta(canvas.gestureStart, dx, dy, true), canvas.bounds, 96, 96, 1); }
                 onFinished: {
                     canvas.draft = Geometry.fit(canvas.draft, canvas.bounds, 96, 96, 6);
-                    Bar.PluginRegistry.change("place", entry, "test-monitor", canvas.draft);
+                    Bar.PluginRegistry.change("place", entry, {instance: "0a1b2c3d", geometry: canvas.draft});
                 }
             }
             Timer {

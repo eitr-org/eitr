@@ -5,7 +5,7 @@ import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
 // One installed plugin: name, author and switch, its desktop widgets and bar icons with
-// their settings, Details, Update and Remove. Control Center's Plugins page and the
+// their settings, Update and Remove. Control Center's Plugins page and the
 // Themes & Plugins window both show it.
 Rectangle {
     id: card
@@ -22,8 +22,7 @@ Rectangle {
     // Without a frame inside a host that already draws its own card.
     property bool framed: true
     property bool showErrors: false
-    property bool showDetails: false
-    onModelDataChanged: { showPreview = false; showErrors = false; showDetails = false; }
+    onModelDataChanged: { showPreview = false; showErrors = false; }
     height: body.implicitHeight + (framed ? 20 : 0)
     color: framed ? Qt.alpha(card.foreground, PanelStyle.selectionAlpha(false, false)) : "transparent"
     border.color: Qt.alpha(card.foreground, PanelStyle.selectionBorderAlpha); border.width: framed ? 1 : 0
@@ -113,21 +112,6 @@ Rectangle {
             width: parent.width
             entries: card.entries.filter(entry => entry.plugin === card.modelData.id)
             foreground: card.foreground; background: card.background; accent: card.accent
-        }
-        PanelButton {
-            id: detailsButton
-            width: parent.width; flat: true; textAlignment: Text.AlignLeft
-            leadingIcon: card.showDetails ? "󰅀" : "󰅂"
-            text: Eitr.I18n.tr("Details"); foreground: card.foreground
-            onClicked: card.showDetails = !card.showDetails
-        }
-        Text {
-            visible: card.showDetails
-            width: parent.width; wrapMode: Text.WrapAnywhere; textFormat: Text.PlainText
-            text: Eitr.I18n.tr("Repository: {url}", {url: card.modelData.repository || ""})
-                + (card.modelData.repositoryPath ? "\n" + card.modelData.repositoryPath : "")
-            color: card.foreground; opacity: PanelStyle.secondaryTextOpacity
-            font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
         }
         PanelDivider { width: parent.width; foreground: card.foreground }
         // Everyday actions on the left; Remove, with its confirmation, apart on the right.

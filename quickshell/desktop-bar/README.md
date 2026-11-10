@@ -735,13 +735,13 @@ manifest, API contract, review behavior and runtime limitations.
 PluginRegistry prefetches approved declarations and opt-in placements once, using
 JsonState to avoid rebuilding unchanged entries. PluginArea, PluginDesktop and
 PluginBarItems share it. The dedicated Plugins page groups management controls by plugin. PluginManagement uses shared 36 px rows
-with inset 24 px actions, declared titles and plugin/monitor display names. It exposes monitor-specific widget actions,
+with inset 24 px actions, declared titles and plugin/monitor display names. It exposes per-copy widget settings,
 bar placement and failure reset. PluginDesktop maps each placed widget to a
 Bottom-layer window by default, or an opt-in click-through Top-layer window; PluginWidget
 adds explicit edit handles. PluginGeometry snaps and clamps logical geometry to
 Hyprland's monitor reserved area. Missing monitors retain their saved entries.
-`eitr/plugin-placements.json` is an ignored machine-local preference, version 2 (version 1 migrates on read),
-with widgets keyed by plugin/id/monitor and bar items by plugin/id. Edit mode is
+`eitr/plugin-placements.json` is an ignored machine-local preference, version 3 (versions 1 and 2 migrate on read),
+with widget copies keyed by plugin/id/instance (each with its own monitor and rotation) and bar items by plugin/id. Edit mode is
 session-only. PluginBarItems uses fixed 24 px slots and 4 px spacing supplied by
 the shell's shared metrics, inside the right group on every edge. PluginPanel
 uses ThemedPopup/DockPanel for attached or detached surfaces and dismissal.
@@ -756,7 +756,9 @@ monitors. See distro/PLUGINS.md for API limits and trust boundaries.
 The Plugins page prefetches installed metadata through PluginRegistry and
 JsonState alongside declarations and placements. It offers enable/disable,
 reviewed Add/Update/Remove, icon/preview cards and per-plugin visual controls.
-Widget options are shared by the page and right-click popup (PluginWidgetMenu).
+Widget copy settings live in one component, PluginWidgetControls, shown by the page's
+PluginWidgetCard and the right-click PluginWidgetMenu. A rotated copy's surface and input
+region are its rotated bounding box (PluginGeometry.rotatedBox).
 PluginWidget uses monitor-local pointer coordinates; PluginDesktop keeps motion
 unsnapped until release, raises edit surfaces, and saves fitted geometry through
 the locked placement helper. Transparent widgets use a separate unblurred layer

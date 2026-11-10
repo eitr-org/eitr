@@ -8,7 +8,7 @@ import subprocess
 import tempfile
 
 import eitr_policy
-from eitr_paths import config, state
+from eitr_paths import state
 from eitr_plugin_install import (
     PluginInstall as _PluginInstall,
     commit,
@@ -23,9 +23,8 @@ from eitr_plugin_manifest import (
     object_keys,
     plugin_files,
     printable,
-    string,
-    unique_object,
 )
+from eitr_plugin_placements import PluginPlacements
 
 
 HOOK_TIMEOUT = 30
@@ -152,81 +151,6 @@ class PluginRuntime:
                 continue
         return result
 
-    def placements(self):
-        try:
-            value = json.loads(config('eitr/plugin-placements.json').read_text(), object_pairs_hook=unique_object)
-        except FileNotFoundError:
-            return dict(version=2, widgets=[], barItems=[])
-        object_keys(value, ('version', 'widgets', 'barItems'))
-        if type(value['version']) is not int or value['version'] not in (1, 2):
-            raise ValueError('Invalid plugin placement version')
-        seen = set()
-        for kind in ('widgets', 'barItems'):
-            if not isinstance(value[kind], list) or len(value[kind]) > 256:
-                raise ValueError('Invalid plugin placements')
-            for placement in value[kind]:
-                object_keys(placement, ('plugin', 'id') + (('monitor', 'x', 'y', 'width', 'height') if kind == 'widgets' else ()), ('aboveWindows', 'surface') if kind == 'widgets' else ())
-                identifier(placement['plugin'])
-                identifier(placement['id'])
-                key = (kind, placement['plugin'], placement['id'], placement.get('monitor'))
-                if key in seen:
-                    raise ValueError('Duplicate plugin placement')
-                seen.add(key)
-                if kind == 'widgets':
-                    if 'aboveWindows' in placement and (value['version'] == 1 or type(placement['aboveWindows']) is not bool):
-                        raise ValueError('Invalid widget layer')
-                    if 'surface' in placement and placement['surface'] not in ('panel', 'none'):
-                        raise ValueError('Invalid widget surface')
-                    placement.setdefault('aboveWindows', False)
-                    string(placement['monitor'])
-                    for field in ('x', 'y', 'width', 'height'):
-                        if type(placement[field]) is not int or not 0 <= placement[field] <= 65536 or (field in ('width', 'height') and placement[field] < 24):
-                            raise ValueError('Invalid widget geometry')
-        value['version'] = 2
-        return value
-
-    def place(self, plugin_id, entry_id, monitor=None, *, remove=False, geometry=None, toggle_layer=False, surface=None):
-        identifier(plugin_id)
-        identifier(entry_id)
-        with self.lock():
-            values = self.placements()
-            entry = next((entry for entry in self.ui() if entry['plugin'] == plugin_id and entry['id'] == entry_id and entry['kind'] in ('widgets', 'barItems')), None)
-            if not entry and not remove:
-                raise ValueError('Unknown plugin visual')
-            kind = entry['kind'] if entry else ('widgets' if monitor is not None else 'barItems')
-            if kind == 'widgets':
-                string(monitor)
-            def matches(placement):
-                return placement['plugin'] == plugin_id and placement['id'] == entry_id and (kind != 'widgets' or placement['monitor'] == monitor)
-            previous = next((placement for placement in values[kind] if matches(placement)), None)
-            if toggle_layer and (kind != 'widgets' or previous is None):
-                raise ValueError('Widget must be placed before changing layer')
-            values[kind] = [placement for placement in values[kind] if not matches(placement)]
-            if not remove:
-                placement = dict(plugin=plugin_id, id=entry_id)
-                if kind == 'widgets':
-                    placement.update(previous or dict(monitor=monitor, aboveWindows=False, x=24, y=24, width=entry.get('defaultWidth', 192), height=entry.get('defaultHeight', 192)))
-                    if surface is not None:
-                        if surface not in ('panel', 'none'):
-                            raise ValueError('Invalid widget surface')
-                        placement['surface'] = surface
-                    if toggle_layer:
-                        placement['aboveWindows'] = not placement['aboveWindows']
-                    if geometry is not None:
-                        object_keys(geometry, ('x', 'y', 'width', 'height'))
-                        for field, number in geometry.items():
-                            if type(number) is not int or not 0 <= number <= 65536:
-                                raise ValueError('Invalid widget geometry')
-                        if geometry['width'] < 24 or geometry['height'] < 24:
-                            raise ValueError('Widget geometry must be at least 24 pixels')
-                        placement.update(geometry)
-                values[kind].append(placement)
-            if len(values[kind]) > 256:
-                raise ValueError('Too many plugin placements')
-            path = config('eitr/plugin-placements.json')
-            path.parent.mkdir(parents=True, exist_ok=True)
-            self.write(path, values)
-
     def ui_data(self, plugin_id, entry_id):
         entry = next((entry for entry in self.ui() if entry['plugin'] == plugin_id and entry['id'] == entry_id), None)
         if not entry or entry['disabled'] or 'dataCommand' not in entry:
@@ -317,7 +241,7 @@ class PluginRuntime:
         subprocess.Popen(command(root, spec['rows'][index]), cwd=root, start_new_session=True)
 
 
-class Plugins(_PluginInstall, PluginRuntime):
+class Plugins(_PluginInstall, PluginRuntime, PluginPlacements):
     """Per-user approved installations and their runtime operations."""
 
 

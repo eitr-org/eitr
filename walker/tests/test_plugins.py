@@ -1374,13 +1374,13 @@ class VisualPluginTests(unittest.TestCase):
         self.publish(self.visual())
         self.install()
         # A new plugin's bar item starts on the bar; widgets wait for a monitor choice.
-        self.assertEqual(self.manager.placements(), dict(version=2, widgets=[], barItems=[dict(plugin='example', id='dot')]))
-        self.manager.place('example', 'clock', 'DP-test')
+        self.assertEqual(self.manager.placements(), dict(version=3, widgets=[], barItems=[dict(plugin='example', id='dot')]))
+        instance = self.manager.place('example', 'clock', 'DP-test', new=True)
         self.manager.place('example', 'dot')
         geometry = dict(x=60, y=90, width=300, height=180)
-        self.manager.place('example', 'clock', 'DP-test', geometry=geometry)
+        self.manager.place('example', 'clock', instance=instance, geometry=geometry)
         saved = self.manager.placements()
-        self.assertEqual(saved['widgets'][0], dict(plugin='example', id='clock', monitor='DP-test', aboveWindows=False, **geometry))
+        self.assertEqual(saved['widgets'][0], dict(plugin='example', id='clock', monitor='DP-test', instance=instance, aboveWindows=False, **geometry))
         self.assertEqual(plugins.Plugins().placements(), saved)
         # Querying or disabling declarations never rewrites user placements.
         for _ in range(3):
@@ -1389,9 +1389,95 @@ class VisualPluginTests(unittest.TestCase):
         self.assertEqual(self.manager.placements(), saved)
         self.manager.enable_ui('example')
         self.assertEqual(self.manager.placements(), saved)
-        self.manager.place('example', 'clock', 'DP-test', remove=True)
+        self.manager.place('example', 'clock', instance=instance, remove=True)
         self.manager.place('example', 'dot', remove=True)
-        self.assertEqual(self.manager.placements(), dict(version=2, widgets=[], barItems=[]))
+        self.assertEqual(self.manager.placements(), dict(version=3, widgets=[], barItems=[]))
+
+    def test_widget_copies_duplicate_move_rotate_and_unplace(self):
+        self.publish(self.visual())
+        self.install()
+        first = self.manager.place('example', 'clock', 'DP-1', new=True)
+        second = self.manager.place('example', 'clock', 'DP-1', new=True)
+        self.assertNotEqual(first, second)
+        self.assertEqual([placement['instance'] for placement in self.manager.placements()['widgets']], [first, second])
+        self.manager.place('example', 'clock', instance=first, surface='panel', toggle_layer=True,
+                           geometry=dict(x=100, y=60, width=240, height=144))
+        beside = self.manager.place('example', 'clock', instance=first, duplicate=True)
+        saved = {placement['instance']: placement for placement in self.manager.placements()['widgets']}
+        # A duplicate keeps every setting of its original, beside it.
+        self.assertEqual(saved[beside], dict(saved[first], instance=beside, x=124, y=84))
+        placed = self.manager.place('example', 'clock', instance=first, duplicate=True, geometry=dict(x=0, y=0, width=240, height=144))
+        self.assertEqual((self.manager.placements()['widgets'][-1]['x'], placed != beside), (0, True))
+        self.manager.place('example', 'clock', 'HDMI-A-1', instance=second, geometry=dict(x=12, y=18, width=300, height=200))
+        self.manager.place('example', 'clock', instance=second, rotation=90)
+        saved = {placement['instance']: placement for placement in self.manager.placements()['widgets']}
+        self.assertEqual((saved[second]['monitor'], saved[second]['rotation'], saved[second]['x']), ('HDMI-A-1', 90, 12))
+        self.assertEqual(saved[first]['monitor'], 'DP-1')
+        # Rotation 0 is the default and is left out of the file.
+        self.manager.place('example', 'clock', instance=second, rotation=0)
+        self.assertNotIn('rotation', next(placement for placement in self.manager.placements()['widgets'] if placement['instance'] == second))
+        for invalid in (360, -1, 1.5, True, '90'):
+            with self.assertRaises(ValueError):
+                self.manager.place('example', 'clock', instance=second, rotation=invalid)
+        for invalid in ('DP-1', 'ABCDEF12', '1234567', '../x'):
+            with self.assertRaises(ValueError):
+                self.manager.place('example', 'clock', instance=invalid)
+        with self.assertRaises(ValueError):
+            self.manager.place('example', 'clock', instance='0badc0de')
+        with self.assertRaises(ValueError):
+            self.manager.place('example', 'dot', instance=first)
+        self.manager.place('example', 'clock', instance=first, remove=True)
+        remaining = [placement['instance'] for placement in self.manager.placements()['widgets']]
+        self.assertEqual(remaining, [second, beside, placed])
+        # The command line names copies the same way.
+        cli = self.cli()
+        with patch.object(cli, 'Plugins', return_value=self.manager), patch('sys.stdout', new_callable=io.StringIO) as output:
+            cli.main(['duplicate', 'example', 'clock', '--instance', second, '--geometry', json.dumps(dict(x=30, y=30, width=300, height=200))])
+            cli.main(['rotate', 'example', 'clock', '--instance', second, '--rotation', '270'])
+            cli.main(['move', 'example', 'clock', '--instance', second, '--monitor', 'DP-1'])
+            cli.main(['unplace', 'example', 'clock', '--instance', beside])
+        duplicated = output.getvalue().strip()
+        saved = {placement['instance']: placement for placement in self.manager.placements()['widgets']}
+        self.assertEqual((saved[second]['rotation'], saved[second]['monitor'], saved[duplicated]['monitor']), (270, 'DP-1', 'HDMI-A-1'))
+        self.assertNotIn(beside, saved)
+        with self.assertRaises(SystemExit), patch('sys.stderr', new_callable=io.StringIO):
+            cli.main(['rotate', 'example', 'clock', '--rotation', '90'])
+        rows = cli.visual_rows(self.manager, 'example', ['DP-1'])
+        removes = [row['text'] for row in rows if row['text'].startswith('Remove widget · DP-1')]
+        self.assertEqual(sorted(removes), ['Remove widget · DP-1 · Clock · 1', 'Remove widget · DP-1 · Clock · 2'])
+        self.assertTrue(any(row['text'] == 'Add widget · DP-1 · Clock' and '--new' in row['actions']['open'] for row in rows))
+
+    def test_version_two_widgets_migrate_to_copies(self):
+        self.publish(self.visual())
+        self.install()
+        path = config('eitr/plugin-placements.json')
+        path.parent.mkdir(parents=True, exist_ok=True)
+        widgets = [dict(plugin='example', id='clock', monitor=monitor, x=24, y=24, width=240, height=144, aboveWindows=False)
+                   for monitor in ('DP-1', 'HDMI-A-1')]
+        old = dict(version=2, widgets=widgets, barItems=[])
+        path.write_text(json.dumps(old))
+        migrated = self.manager.placements()
+        instances = [placement['instance'] for placement in migrated['widgets']]
+        self.assertEqual(len(set(instances)), 2)
+        self.assertEqual(self.manager.placements(), migrated)
+        self.assertEqual(json.loads(path.read_text()), old)
+        # A bar started before the update still names a copy by its display.
+        self.manager.place('example', 'clock', 'HDMI-A-1', geometry=dict(x=48, y=48, width=240, height=144))
+        written = json.loads(path.read_text())
+        self.assertEqual(written['version'], 3)
+        self.assertEqual([placement['instance'] for placement in written['widgets']], instances)
+        self.assertEqual(written['widgets'][1]['x'], 48)
+        for invalid in (dict(version=2, widgets=[dict(widgets[0], instance=instances[0])], barItems=[]),
+                        dict(version=3, widgets=[widgets[0]], barItems=[]),
+                        dict(version=3, widgets=[dict(widgets[0], instance=instances[0])] * 2, barItems=[]),
+                        dict(version=3, widgets=[dict(widgets[0], instance=instances[0], rotation=400)], barItems=[]),
+                        dict(version=4, widgets=[], barItems=[])):
+            path.write_text(json.dumps(invalid))
+            with self.assertRaises(ValueError):
+                self.manager.placements()
+        two = dict(version=3, widgets=[dict(widgets[0], instance=instances[0]), dict(widgets[0], instance=instances[1], rotation=45)], barItems=[])
+        path.write_text(json.dumps(two))
+        self.assertEqual([placement['monitor'] for placement in self.manager.placements()['widgets']], ['DP-1', 'DP-1'])
 
     def test_hidden_bar_item_stays_hidden_after_update(self):
         self.publish(self.visual())
@@ -1410,7 +1496,7 @@ class VisualPluginTests(unittest.TestCase):
             self.manager.place('example', 'clock', 'DP-test', geometry=dict(x=0, y=0, width=2, height=2))
         with self.assertRaises(ValueError):
             self.manager.place('example', 'unknown')
-        self.manager.place('example', 'clock', 'missing-monitor')
+        self.manager.place('example', 'clock', 'missing-monitor', new=True)
         for _ in range(3):
             self.manager.ui_failure('example', approved)
         rows = self.cli().visual_rows(self.manager, 'example', ['connected-monitor'])
@@ -1646,7 +1732,7 @@ class LivePluginTests(unittest.TestCase):
         old = dict(version=1, widgets=[dict(plugin='example', id='clock', monitor='test', x=24, y=24, width=240, height=144)], barItems=[])
         path.write_text(json.dumps(old))
         migrated = self.manager.placements()
-        self.assertEqual(migrated['version'], 2)
+        self.assertEqual(migrated['version'], 3)
         self.assertFalse(migrated['widgets'][0]['aboveWindows'])
         self.assertEqual(json.loads(path.read_text()), old)
         self.manager.place('example', 'clock', 'test', toggle_layer=True)

@@ -24,3 +24,40 @@ function delta(geometry, dx, dy, resize) {
     return {x: geometry.x + (resize ? 0 : dx), y: geometry.y + (resize ? 0 : dy),
         width: geometry.width + (resize ? dx : 0), height: geometry.height + (resize ? dy : 0)};
 }
+
+// The screen-aligned box a widget rotated about its centre covers, moved inside bounds
+// when it would cross them, so its layer surface never clips the rotated content.
+function rotatedBox(geometry, degrees, bounds) {
+    const radians = (degrees || 0) * Math.PI / 180;
+    const cosine = Math.abs(Math.cos(radians)), sine = Math.abs(Math.sin(radians));
+    const width = Math.ceil(geometry.width * cosine + geometry.height * sine - 1e-9);
+    const height = Math.ceil(geometry.width * sine + geometry.height * cosine - 1e-9);
+    const centerX = geometry.x + geometry.width / 2, centerY = geometry.y + geometry.height / 2;
+    function inside(start, size, low, room) { return size >= room ? low : Math.max(low, Math.min(low + room - size, start)); }
+    return {x: Math.round(inside(centerX - width / 2, width, bounds.x, bounds.width)),
+        y: Math.round(inside(centerY - height / 2, height, bounds.y, bounds.height)),
+        width: width, height: height};
+}
+
+// Whole degrees 0-359; within 3 degrees of a quarter turn the angle snaps to it.
+function snapRotation(degrees) {
+    const value = ((Math.round(degrees) % 360) + 360) % 360;
+    for (const quarter of [0, 90, 180, 270, 360])
+        if (Math.abs(value - quarter) <= 3) return quarter % 360;
+    return value;
+}
+
+// Keeps the size and moves the box inside a screen of the given size (logical pixels).
+function clampToScreen(geometry, screenWidth, screenHeight) {
+    const width = Math.max(24, Math.min(geometry.width, screenWidth)), height = Math.max(24, Math.min(geometry.height, screenHeight));
+    return {x: Math.round(Math.max(0, Math.min(screenWidth - width, geometry.x))),
+        y: Math.round(Math.max(0, Math.min(screenHeight - height, geometry.y))),
+        width: Math.round(width), height: Math.round(height)};
+}
+
+// A copy's place: offset down and right, or up and left where that would leave the screen.
+function beside(geometry, screenWidth, screenHeight, offset) {
+    const x = geometry.x + offset + geometry.width > screenWidth ? geometry.x - offset : geometry.x + offset;
+    const y = geometry.y + offset + geometry.height > screenHeight ? geometry.y - offset : geometry.y + offset;
+    return clampToScreen({x: x, y: y, width: geometry.width, height: geometry.height}, screenWidth, screenHeight);
+}

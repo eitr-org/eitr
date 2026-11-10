@@ -31,57 +31,65 @@ Scope {
                 PanelWindow {
                     id: window
                     required property var modelData
-                    property var draft: Object.assign({}, modelData.geometry)
+                    readonly property var placement: modelData.geometry
+                    property var draft: Object.assign({}, placement)
                     property bool gesturing: false
                     property var gestureStart: null
                     readonly property var fitted: Geometry.fit(draft, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, 1)
+                    // A rotated widget's surface is its bounding box, so no corner is clipped.
+                    readonly property int angle: PluginRegistry.rotation(placement)
+                    readonly property var box: Geometry.rotatedBox(fitted, angle, display.bounds)
                     function save() {
                         draft = Geometry.fit(draft, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, desktop.grid);
                         gesturing = false;
-                        PluginRegistry.change("place", modelData, display.modelData.name, draft);
+                        PluginRegistry.change("place", modelData, {instance: placement.instance, geometry: draft});
                     }
                     function size(factor) {
                         draft = Geometry.scale(fitted, display.bounds, modelData.minWidth || 96, modelData.minHeight || 96, factor);
-                        PluginRegistry.change("place", modelData, display.modelData.name, draft);
+                        PluginRegistry.change("place", modelData, {instance: placement.instance, geometry: draft});
                     }
-                    onModelDataChanged: if (!gesturing) draft = Object.assign({}, modelData.geometry)
+                    onPlacementChanged: if (!gesturing) draft = Object.assign({}, placement)
                     screen: display.modelData
                     anchors { top: true; left: true; right: content.editing; bottom: content.editing }
-                    margins.left: content.editing ? 0 : fitted.x; margins.top: content.editing ? 0 : fitted.y
-                    implicitWidth: fitted.width; implicitHeight: fitted.height
+                    margins.left: content.editing ? 0 : box.x; margins.top: content.editing ? 0 : box.y
+                    implicitWidth: box.width; implicitHeight: box.height
                     color: "transparent"
                     exclusionMode: ExclusionMode.Ignore
                     WlrLayershell.namespace: content.surface === "none" ? "eitr-plugin-transparent" : "eitr-plugin-widget"
-                    readonly property bool aboveWindows: !!modelData.geometry.aboveWindows
+                    readonly property bool aboveWindows: !!placement.aboveWindows
                     visible: content.editing || !aboveWindows || !display.fullscreen
                     WlrLayershell.layer: content.editing ? WlrLayer.Overlay : aboveWindows ? WlrLayer.Top : WlrLayer.Bottom
                     WlrLayershell.keyboardFocus: content.editing ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
-                    mask: Region { item: !window.aboveWindows || content.editing ? content : null }
+                    // Input follows the rotated bounding box; above-window widgets pass clicks through.
+                    mask: Region { item: !window.aboveWindows || content.editing ? hitBox : null }
+                    Item {
+                        id: hitBox
+                        x: content.editing ? window.box.x : 0; y: content.editing ? window.box.y : 0
+                        width: window.box.width; height: window.box.height
+                    }
                     Connections {
                         target: PluginRegistry
-                        function onWidgetAction(plugin, id, monitor, action, custom) {
-                            if (plugin !== window.modelData.plugin || id !== window.modelData.id || monitor !== display.modelData.name) return;
+                        function onWidgetAction(plugin, id, instance, action, custom) {
+                            if (plugin !== window.modelData.plugin || id !== window.modelData.id || instance !== window.placement.instance) return;
                             if (custom) content.selectMenu(action);
                             else content.menuAction(action);
                         }
                     }
                     PluginWidget {
                         id: content
-                        x: editing ? window.fitted.x : 0; y: editing ? window.fitted.y : 0
+                        x: hitBox.x + (window.box.width - width) / 2; y: hitBox.y + (window.box.height - height) / 2
                         width: window.fitted.width; height: window.fitted.height
+                        rotation: window.angle
                         entry: window.modelData
                         originX: window.fitted.x; originY: window.fitted.y
-                        onMenuEntriesChanged: PluginRegistry.setMenu(window.modelData, display.modelData.name, menuEntries)
-                        Component.onCompleted: PluginRegistry.setMenu(window.modelData, display.modelData.name, menuEntries)
+                        onMenuEntriesChanged: PluginRegistry.setMenu(window.placement, menuEntries)
+                        Component.onCompleted: PluginRegistry.setMenu(window.placement, menuEntries)
                         active: window.visible
                         surface: PluginRegistry.widgetSurface(window.modelData)
                         aboveWindows: window.aboveWindows
                         onSizeRequested: factor => window.size(factor)
-                        onSurfaceRequested: surface => PluginRegistry.change("surface", window.modelData, display.modelData.name, null, surface)
-                        onLayerRequested: PluginRegistry.change("toggle-layer", window.modelData, display.modelData.name, null)
-                        onRemoveRequested: PluginRegistry.change("unplace", window.modelData, display.modelData.name, null)
                         foreground: desktop.foreground; background: desktop.background; accent: desktop.accent
-                        editing: PluginRegistry.editing && (!PluginRegistry.editTarget || (PluginRegistry.editTarget.plugin === window.modelData.plugin && PluginRegistry.editTarget.id === window.modelData.id && PluginRegistry.editTarget.monitor === display.modelData.name))
+                        editing: PluginRegistry.editing && (!PluginRegistry.editTarget || PluginRegistry.editingCopy(window.placement))
                         onBegun: { window.gestureStart = Object.assign({}, window.fitted); window.gesturing = true; }
                         onMoved: function(deltaX, deltaY) {
                             window.gesturing = true;

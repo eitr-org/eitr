@@ -102,16 +102,40 @@ QtObject {
     }
     property var widgetMenus: ({})
     signal reviewStarted()
-    signal widgetAction(string plugin, string id, string monitor, string action, bool custom)
-    function menuKey(entry, monitor) { return entry.plugin + "/" + entry.id + "/" + monitor; }
-    function setMenu(entry, monitor, entries) {
+    // Each placed copy of a widget is named by its plugin, widget id and instance.
+    signal widgetAction(string plugin, string id, string instance, string action, bool custom)
+    function widgetKey(placement) { return placement.plugin + "/" + placement.id + "/" + placement.instance; }
+    function setMenu(placement, entries) {
         const next = Object.assign({}, widgetMenus);
-        next[menuKey(entry, monitor)] = entries;
+        next[widgetKey(placement)] = entries;
         widgetMenus = next;
     }
-    property var placements: ({version: 2, widgets: [], barItems: []})
+    property var placements: ({version: 3, widgets: [], barItems: []})
+    function copies(entry) {
+        return (placements.widgets || []).filter(placement => placement.plugin === entry.plugin && placement.id === entry.id);
+    }
     property bool editing: false
+    // {plugin, id, instance} of the copy being edited, or null to edit every widget.
     property var editTarget: null
+    function editingCopy(placement) {
+        return editing && editTarget !== null && editTarget.plugin === placement.plugin
+            && editTarget.id === placement.id && editTarget.instance === placement.instance;
+    }
+    function editCopy(placement, start) {
+        editTarget = {plugin: placement.plugin, id: placement.id, instance: placement.instance};
+        editing = start;
+    }
+    // Angles shown while the rotation slider is dragged, before the saved file catches up.
+    property var rotationDrafts: ({})
+    function previewRotation(placement, degrees) {
+        const next = Object.assign({}, rotationDrafts);
+        next[widgetKey(placement)] = degrees;
+        rotationDrafts = next;
+    }
+    function rotation(placement) {
+        const draft = rotationDrafts[widgetKey(placement)];
+        return draft !== undefined ? draft : placement.rotation || 0;
+    }
     property bool pending: false
     property bool installedPending: false
     property bool placementPending: false
@@ -135,11 +159,16 @@ QtObject {
         else placementQuery.running = true;
     }
     function refresh() { refreshEntries(); refreshPlacements(); if (installedQuery.running) installedPending = true; else installedQuery.running = true; }
-    function change(action, entry, monitor, geometry, surface) {
+    // options: {instance, monitor, isNew, geometry, surface, rotation}, each optional.
+    function change(action, entry, options) {
+        const settings = options || {};
         let args = ["python3", helper, action, entry.plugin, entry.id];
-        if (monitor) args = args.concat(["--monitor", monitor]);
-        if (geometry) args = args.concat(["--geometry", JSON.stringify(geometry)]);
-        if (surface) args = args.concat(["--surface", surface]);
+        if (settings.instance) args = args.concat(["--instance", settings.instance]);
+        if (settings.monitor) args = args.concat(["--monitor", settings.monitor]);
+        if (settings.isNew) args.push("--new");
+        if (settings.geometry) args = args.concat(["--geometry", JSON.stringify(settings.geometry)]);
+        if (settings.surface) args = args.concat(["--surface", settings.surface]);
+        if (settings.rotation !== undefined) args = args.concat(["--rotation", String(settings.rotation)]);
         Quickshell.execDetached(args);
     }
     function setEnabled(plugin, enabled) {
@@ -202,6 +231,7 @@ QtObject {
                 const next = JSON.parse(placementOutput.text);
                 if (JsonState.changed(registry.placements, next)) registry.placements = next;
             } catch (error) { console.warn("Plugin placements:", error); }
+            registry.rotationDrafts = ({});
         }
     }
     property IpcHandler ipc: IpcHandler {
