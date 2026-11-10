@@ -1,12 +1,11 @@
-"""Machine-local wallpaper scopes and temporary, owner-scoped desktop previews."""
+"""Machine-local display wallpapers and temporary, owner-scoped desktop previews."""
 import fcntl
 import json
 import os
 from pathlib import Path
 import subprocess
 from contextlib import contextmanager
-from eitr_paths import config, cache, state, read_settings, write_settings, theme_paths
-from eitr_workspaces import preferences
+from eitr_paths import config, cache, read_settings, write_settings, theme_paths
 from eitr_i18n import tr
 
 
@@ -37,25 +36,38 @@ def query(kind):
         return []
 
 
-def workspace_number(monitor):
-    identifier = monitor.get('activeWorkspace', {}).get('id', 0)
-    if identifier < 1:
-        return 0
-    plan = read_settings(state('eitr/workspaces.json')).get('rows', [])
-    row = next((row for row in plan if row.get('id') == identifier and row.get('monitor') == monitor['name']), None)
-    if row:
-        return row['number']
-    return (identifier - 1) % 10 + 1 if preferences()['workspaceMode'] == 'shared' else identifier
+def per_display():
+    return read_settings(settings()).get('perDisplay') is True
 
 
-def key(scope, monitor='', number=0):
-    if scope == 'global':
-        return 'global'
-    if scope not in ('monitor', 'workspace') or not monitor:
+def focused_monitor():
+    return next((monitor['name'] for monitor in query('monitors') if monitor.get('focused')), '')
+
+
+def target():
+    if not per_display():
+        return ''
+    monitor = focused_monitor()
+    if not monitor:
         raise ValueError(tr('A connected display is required'))
-    if scope == 'workspace' and not 1 <= number <= 10:
-        raise ValueError(tr('A numbered workspace is required'))
-    return json.dumps([monitor, number if scope == 'workspace' else 0], ensure_ascii=False)
+    return monitor
+
+
+def save(assignments, enabled=None):
+    write_settings(settings(), {'perDisplay': per_display() if enabled is None else enabled,
+                                'assignments': assignments})
+
+
+def set_per_display(enabled):
+    with locked():
+        save(prune(), enabled)
+        write_settings(runtime() / 'preview.json', {'path': ''})
+
+
+def clear_assignments():
+    with locked():
+        save({})
+        write_settings(runtime() / 'preview.json', {'path': ''})
 
 
 def available(path):
@@ -91,9 +103,20 @@ def canonical(path):
 
 def prune():
     data = read_settings(settings()).get('assignments', {})
-    clean = {scope: path for scope, path in data.items() if available(path)}
+    clean = {}
+    for monitor, path in data.items():
+        # Read old display keys, silently discard old workspace/global entries.
+        if monitor.startswith('['):
+            try:
+                monitor, number = json.loads(monitor)
+                if number != 0 or not isinstance(monitor, str):
+                    continue
+            except (ValueError, TypeError):
+                continue
+        if monitor and monitor != 'global' and available(path):
+            clean[monitor] = path
     if clean != data:
-        write_settings(settings(), {'assignments': clean})
+        save(clean)
     return clean
 
 
@@ -103,16 +126,21 @@ def preview():
                     and Path('/proc/' + str(data.get('pid', 0))).exists()) else {}
 
 
+def previewing(owner, path):
+    """Whether this owner's preview already shows path on every display."""
+    current = preview()
+    return bool(owner) and current.get('owner') == owner and not current.get('monitor') \
+        and Path(current.get('path', '')).resolve() == Path(path).resolve()
+
+
 def resolve(monitor, default, assignments=None, temporary=None):
     assignments = prune() if assignments is None else assignments
     temporary = preview() if temporary is None else temporary
-    scopes = [key('workspace', monitor['name'], workspace_number(monitor))] if workspace_number(monitor) else []
-    scopes += [key('monitor', monitor['name']), 'global']
-    # A preview represents the candidate at its chosen scope, preserving precedence.
-    choices = dict(assignments)
-    if temporary:
-        choices[temporary['scope']] = temporary['path']
-    return next((choices[scope] for scope in scopes if available(choices.get(scope))), default)
+    enabled = per_display()
+    if temporary and temporary.get('monitor', '') == (monitor['name'] if enabled else ''):
+        return temporary['path']
+    selected = assignments.get(monitor['name']) if enabled else None
+    return selected if available(selected) else default
 
 
 def images(transition, default, monitors=None, temporary=None, global_override=False):
@@ -129,8 +157,8 @@ def images(transition, default, monitors=None, temporary=None, global_override=F
     return result
 
 
-def reconcile(transition, default='', monitors=None):
-    """Serialize output changes, read current workspaces after acquiring the lock,
+def reconcile(transition, default='', monitors=None, output=''):
+    """Serialize output changes, read current monitors after acquiring the lock,
     and touch only outputs whose effective image changed. Never restart Hyprpaper."""
     with locked():
         monitors = query('monitors') if monitors is None else monitors
@@ -139,7 +167,7 @@ def reconcile(transition, default='', monitors=None):
         failures = []
         if active is not None:
             for name, path in selected.items():
-                if name == '*' or active.get(name) == path:
+                if name == '*' or (output and name != output) or active.get(name) == path:
                     continue
                 try:
                     result = subprocess.run(['hyprctl', 'hyprpaper', 'wallpaper', name + ',' + path],
@@ -151,42 +179,26 @@ def reconcile(transition, default='', monitors=None):
         return selected, active, failures
 
 
-def change(action, scope, path, owner):
+def change(action, monitor, path, owner):
     with locked():
         if action == 'preview':
             if not available(path):
                 raise ValueError(tr('Wallpaper file not found'))
-            write_settings(runtime() / 'preview.json', dict(scope=scope, path=path, owner=owner, pid=os.getppid()))
+            write_settings(runtime() / 'preview.json', dict(monitor=monitor, path=path, owner=owner, pid=os.getppid()))
         elif action == 'cancel':
             current = read_settings(runtime() / 'preview.json')
             if current.get('owner') == owner or owner == 'startup':
                 write_settings(runtime() / 'preview.json', dict(path=''))
-        else:
+        elif action == 'apply':
+            if not available(path):
+                raise ValueError(tr('Wallpaper file not found'))
             data = prune()
-            if action == 'clear':
-                data.pop(scope, None)
-            else:
-                if not available(path):
-                    raise ValueError(tr('Wallpaper file not found'))
-                data[scope] = canonical(path)
-            write_settings(settings(), {'assignments': data})
+            data[monitor] = canonical(path)
+            save(data)
             if read_settings(runtime() / 'preview.json').get('owner') == owner:
                 write_settings(runtime() / 'preview.json', dict(path=''))
 
 
-def summary(monitor_name=''):
-    monitors = query('monitors')
-    monitor = next((monitor for monitor in monitors if monitor['name'] == monitor_name), None)
-    monitor = monitor or next((monitor for monitor in monitors if monitor.get('focused')), monitors[0] if monitors else {})
-    name = monitor.get('name', '')
-    number = workspace_number(monitor) if name else 0
-    entries = []
-    for scope, path in prune().items():
-        if scope == 'global':
-            continue
-        try:
-            display, workspace = json.loads(scope)
-        except (ValueError, TypeError):
-            continue
-        entries.append(dict(key=scope, monitor=display, number=workspace, path=path))
-    return dict(monitor=name, number=number, assignments=entries)
+def summary():
+    return dict(monitor=focused_monitor(), perDisplay=per_display(),
+                assignments=[dict(monitor=monitor, path=path) for monitor, path in prune().items()])

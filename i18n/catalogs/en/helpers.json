@@ -46,7 +46,6 @@
   "A lockscreen named {name} already exists.": "A lockscreen named {name} already exists.",
   "A maximum of four layouts can be active at once": "A maximum of four layouts can be active at once",
   "A network service is masked; review your custom configuration before switching.": "A network service is masked; review your custom configuration before switching.",
-  "A numbered workspace is required": "A numbered workspace is required",
   "A package signing key is missing or expired, so updates may be refused; run System Update.": "A package signing key is missing or expired, so updates may be refused; run System Update.",
   "A plugin reported errors; review it in Installed Plugins.": "A plugin reported errors; review it in Installed Plugins.",
   "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.",

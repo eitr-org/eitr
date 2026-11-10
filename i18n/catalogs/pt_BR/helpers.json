@@ -46,7 +46,6 @@
   "A lockscreen named {name} already exists.": "Já existe uma tela de bloqueio chamada {name}.",
   "A maximum of four layouts can be active at once": "No máximo quatro layouts podem ficar ativos ao mesmo tempo",
   "A network service is masked; review your custom configuration before switching.": "Um serviço de rede está mascarado; revise sua configuração personalizada antes de trocar.",
-  "A numbered workspace is required": "É necessária uma área de trabalho numerada",
   "A package signing key is missing or expired, so updates may be refused; run System Update.": "Uma chave de assinatura de pacotes está faltando ou expirou, então atualizações podem ser recusadas; execute a Atualização do sistema.",
   "A plugin reported errors; review it in Installed Plugins.": "Um plugin relatou erros; confira em Plugins instalados.",
   "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": "Um plugin é executado como você, com todas as permissões da sua conta. Ele pode ler seus arquivos, chaves SSH e dados do navegador, enviá-los para qualquer lugar e continuar rodando em segundo plano.",

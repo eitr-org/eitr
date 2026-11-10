@@ -98,10 +98,10 @@ item says what decides the next step. Remove an item when it ships;
 
 # 2. To test with the owner
 
-- **Wallpaper preview and per display/workspace wallpapers (testing, 2026-11-10).** Checked
-  on the owner's two displays through the command line (preview, cancel, apply and clear
-  for one workspace); not yet tried by hand: clicking pictures in Settings, the carousel's
-  scope choice, hotplug, login restore and fast workspace switches.
+- **Wallpaper preview and per display wallpapers (testing, 2026-11-10).** Still
+  to test with the owner: the Settings switch, Apply / Cancel preview, carousel,
+  Walker and next-wallpaper selection on the focused display, toggling saved picks,
+  theme resets, hotplug and login restore.
 - **Remote access.** Moonlight, Sunshine and Tailscale are built and inactive until set
   up (`distro/REMOTE-ACCESS.md`). Home network (2026-10-21/22, one and two monitors)
   and away from home through Tailscale (2026-10-21) work with a MacBook. Next: fix what

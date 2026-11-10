@@ -129,7 +129,7 @@ def add_wallpaper(source=None):
         theme = answers['theme']
         print(tr('Adding the picture…'), flush=True)
     path = own.add_wallpaper(source, theme=theme)
-    subprocess.run([sys.executable, str(code("walker/scripts/actions/wallpaper/transition.py")), "apply", str(path)],
+    subprocess.run([sys.executable, str(code("walker/scripts/actions/wallpaper/assignments.py")), "apply", "--path", str(path)],
                    check=False)
     notify(tr('Wallpaper added'), tr('{name} is in Style > Wallpaper and the wallpaper carousel.', name=path.name))
     return 0

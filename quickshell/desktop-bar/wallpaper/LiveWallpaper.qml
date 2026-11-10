@@ -71,11 +71,11 @@ Scope {
     Connections {
         target: Hyprland
         function onRawEvent(event) {
-            if (/^(workspace|focusedmon|monitoradded|monitorremoved|destroyworkspace|moveworkspace|configreloaded)/.test(event.name))
-                workspaceCheck.restart();
+            if (/^(monitoradded|monitorremoved|configreloaded)/.test(event.name))
+                monitorCheck.restart();
         }
     }
-    Timer { id: workspaceCheck; interval: 80; onTriggered: live.checkWallpaper() }
+    Timer { id: monitorCheck; interval: 80; onTriggered: live.checkWallpaper() }
     PreferenceWatch {
         path: (Quickshell.env("XDG_RUNTIME_DIR") || Quickshell.env("XDG_CACHE_HOME") || Quickshell.env("HOME") + "/.cache") + "/eitr-wallpaper/preview.json"
         onChanged: live.checkWallpaper()

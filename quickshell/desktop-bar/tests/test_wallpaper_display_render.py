@@ -7,7 +7,7 @@ from layout_render import copy_runtime, render_environment, render
 
 
 class WallpaperRenderTests(unittest.TestCase):
-    def test_wallpaper_scope_controls(self):
+    def test_wallpaper_per_display_switch(self):
         output = Path(os.environ.get('EITR_WALLPAPER_RENDERS', '/tmp/eitr-wallpaper-renders'))
         output.mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory() as directory:
@@ -30,18 +30,18 @@ ShellRoot {
     foreground: root.light ? "#203b30" : "#e6f1e9"
     surface: root.light ? "#e6eee3" : "#19382b"
     gold: root.light ? "#32644c" : "#68aa87"
-    Bar.WallpaperScopeControls {
+    Bar.ToggleRow {
      width: parent.width
+     text: "Wallpaper per display"
+     description: "When on, a new wallpaper changes only the display you are using."
      foreground: root.light ? "#203b30" : "#e6f1e9"
-     background: root.light ? "#e6eee3" : "#19382b"
-     gold: root.light ? "#32644c" : "#68aa87"
-     live: false
-     model: QtObject {
-      property string scope: "workspace"
-      property string monitorName: "Display-1"
-      property int workspaceNumber: 3
-      property var assignments: [{key:"display",monitor:"Display-1",number:0,path:"/art/aurora-fjord.jpg"}, {key:"workspace",monitor:"Display-1",number:3,path:"/art/runestone.jpg"}]
-     }
+     accent: root.light ? "#32644c" : "#68aa87"
+     checked: !root.light
+    }
+    Text {
+     width: parent.width; wrapMode: Text.Wrap
+     text: "Click a picture to preview it, then Apply or Cancel preview."
+     color: root.light ? "#203b30" : "#e6f1e9"
     }
     Row {
      spacing: 8

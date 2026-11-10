@@ -79,7 +79,8 @@ if mode.startswith("theme"):
                                 "palette": swatches(directory),
                                 "current": directory.name == current})
 else:
-    current = read_current("current-wallpaper")
+    import eitr_wallpapers as choices
+    current = choices.resolve({"name": choices.focused_monitor()}, choices.saved_global(), temporary={})
     directory = config / "theme/current/backgrounds"
     import re
     def natural(path):
@@ -90,7 +91,7 @@ else:
     for image in images:
         if image.is_file() and image.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}:
             entries.append({"name": image.name, "value": str(image),
-                            "image": preview_url(image), "current": str(image) == current})
+                            "image": preview_url(image), "current": choices.canonical(str(image)) == choices.canonical(current) if current else False})
 try:
     palette = tomllib.loads((config / "theme/current/colors.toml").read_text())
 except (OSError, ValueError):

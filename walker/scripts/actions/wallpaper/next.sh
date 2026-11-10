@@ -8,7 +8,6 @@ set -euo pipefail
 
 WALLPAPER_DIR="$EITR_CODE_ROOT/walker/scripts/actions/wallpaper"
 BACKGROUND_DIR="$HOME/.config/theme/current/backgrounds"
-CACHE_PATH="$HOME/.cache/current-wallpaper"
 
 mapfile -t WALLPAPERS < <(python3 "$WALLPAPER_DIR/transition.py" list "$BACKGROUND_DIR")
 # The user's own wallpapers follow the theme's, without pictures the theme already shows.
@@ -21,11 +20,7 @@ if (( TOTAL == 0 )); then
   exit 1
 fi
 
-CURRENT_WALLPAPER=""
-
-if [[ -f "$CACHE_PATH" ]]; then
-  CURRENT_WALLPAPER="$(cat "$CACHE_PATH")"
-fi
+CURRENT_WALLPAPER="$(python3 "$WALLPAPER_DIR/assignments.py" current)"
 
 CURRENT_INDEX=-1
 

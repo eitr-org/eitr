@@ -13,4 +13,4 @@ if [ -z "$wallpaper" ] || [ ! -f "$wallpaper" ]; then
   exit 1
 fi
 
-exec python3 "$EITR_CODE_ROOT/walker/scripts/actions/wallpaper/transition.py" apply "$wallpaper"
+exec python3 "$EITR_CODE_ROOT/walker/scripts/actions/wallpaper/assignments.py" apply --path "$wallpaper"

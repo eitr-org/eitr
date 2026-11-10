@@ -75,14 +75,19 @@ Column {
             text: Eitr.I18n.tr("Choose an image for your desktop.")
             font.pixelSize: 11
         }
-        WallpaperScopeControls {
-            width: Math.min(parent.width, 460)
-            model: wallpaperModel
-            live: view.live
+        ToggleRow {
+            width: parent.width
+            text: Eitr.I18n.tr("Wallpaper per display")
+            description: Eitr.I18n.tr("When on, a new wallpaper changes only the display you are using.")
             foreground: view.foreground
-            background: SettingsInk.background
-            gold: SettingsInk.gold
-            helperText: Eitr.I18n.tr("Click a picture to preview it, then Apply or Cancel preview.")
+            accent: view.accent
+            checked: wallpaperModel.perDisplay
+            available: !wallpaperModel.busy
+            onToggled: checked => { if (view.live) wallpaperModel.setPerDisplay(checked); }
+        }
+        SettingsText {
+            text: Eitr.I18n.tr("Click a picture to preview it, then Apply or Cancel preview.")
+            font.pixelSize: 11
         }
         Row {
             spacing: 8

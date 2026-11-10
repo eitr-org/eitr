@@ -65,6 +65,8 @@ if [[ "${EITR_NO_SESSION:-}" != 1 ]]; then
   nohup "$THEME_SCRIPTS_DIR/rgb.sh" >"$LOG_DIR/eitr-rgb.log" 2>&1 &
 fi
 
+python3 "$EITR_CODE_ROOT/walker/scripts/actions/wallpaper/assignments.py" clear >/dev/null
+
 mapfile -t wallpapers < <(python3 "$WALLPAPER_HELPER" list "$CURRENT_DIR/backgrounds")
 FIRST_WALLPAPER="${wallpapers[0]:-}"
 if [[ -n "$FIRST_WALLPAPER" ]]; then

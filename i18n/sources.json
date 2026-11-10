@@ -15,9 +15,6 @@
     "%1 themes": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
-    "%1, workspace %2": [
-      "quickshell/desktop-bar/components/WallpaperScopeControls.qml"
-    ],
     "01 / TAPE": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
@@ -136,9 +133,6 @@
     "All day": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
-    "All displays": [
-      "quickshell/desktop-bar/components/WallpaperScopeControls.qml"
-    ],
     "All settings": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
@@ -170,9 +164,6 @@
     "Apply": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
-    ],
-    "Apply wallpaper to": [
-      "quickshell/desktop-bar/components/WallpaperScopeControls.qml"
     ],
     "Applying changes…": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -474,7 +465,6 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Clear": [
-      "quickshell/desktop-bar/components/WallpaperScopeControls.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Clear all": [
@@ -2548,9 +2538,6 @@
     "This WiFi security type requires advanced network configuration": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
-    "This display": [
-      "quickshell/desktop-bar/components/WallpaperScopeControls.qml"
-    ],
     "This network needs advanced security configuration.": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
     ],
@@ -2562,9 +2549,6 @@
     ],
     "This welcome": [
       "quickshell/desktop-bar/welcome/WelcomePage.qml"
-    ],
-    "This workspace": [
-      "quickshell/desktop-bar/components/WallpaperScopeControls.qml"
     ],
     "Tiling": [
       "tools/choice-lists.json"
@@ -2745,6 +2729,9 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Wallpaper per display": [
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
     "Wallpapers": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -2765,6 +2752,9 @@
     ],
     "Website": [
       "tools/choice-lists.json"
+    ],
+    "When on, a new wallpaper changes only the display you are using.": [
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Wi-Fi": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -6335,9 +6325,6 @@
     ],
     "A network service is masked; review your custom configuration before switching.": [
       "distro/system/network-backend.py"
-    ],
-    "A numbered workspace is required": [
-      "distro/lib/eitr_wallpapers.py"
     ],
     "A package signing key is missing or expired, so updates may be refused; run System Update.": [
       "distro/lib/eitr_selfcheck.py"

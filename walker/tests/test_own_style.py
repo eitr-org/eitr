@@ -283,7 +283,8 @@ class CommandTests(SandboxTest):
     def test_an_added_wallpaper_is_applied_right_away(self):
         with patch.object(self.cli.subprocess, "run") as run, patch.object(self.cli, "notify"):
             self.assertEqual(self.cli.add_wallpaper(str(picture(self.pictures / "lake.png"))), 0)
-        self.assertEqual(run.call_args.args[0][-2:], ["apply", str(own_style.wallpapers()[0])])
+        self.assertTrue(run.call_args.args[0][1].endswith("wallpaper/assignments.py"))
+        self.assertEqual(run.call_args.args[0][-3:], ["apply", "--path", str(own_style.wallpapers()[0])])
 
     def test_deleting_the_current_wallpaper_falls_back_to_the_theme_first(self):
         path = own_style.add_wallpaper(str(picture(self.pictures / "lake.png")))

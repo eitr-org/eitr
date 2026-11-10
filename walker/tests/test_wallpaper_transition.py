@@ -251,7 +251,9 @@ class WallpaperTests(unittest.TestCase):
             self.assertEqual(transition.wallpapers(root / "missing"), [])
 
     def test_every_existing_wallpaper_entrypoint_uses_shared_helper(self):
-        for filename in ("walker/scripts/actions/wallpaper/apply.sh", "walker/scripts/actions/style/apply.sh"):
-            self.assertIn("transition.py", (ROOT / filename).read_text())
+        self.assertIn("assignments.py\" apply --path", (ROOT / "walker/scripts/actions/wallpaper/apply.sh").read_text())
+        theme_apply = (ROOT / "walker/scripts/actions/style/apply.sh").read_text()
+        self.assertIn("transition.py", theme_apply)
+        self.assertLess(theme_apply.index('assignments.py" clear'), theme_apply.index('"$WALLPAPER_HELPER" apply'))
         for filename in ("walker/scripts/actions/wallpaper/next.sh",):
             self.assertIn("/wallpaper/apply.sh", (ROOT / filename).read_text())

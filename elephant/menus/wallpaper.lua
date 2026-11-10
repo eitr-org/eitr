@@ -33,7 +33,7 @@ function GetEntries()
         Actions = {open = "kitty --class eitr-menu-terminal -e python3 " .. shell_quote(presenter) .. " python3 " .. shell_quote(own) .. " wallpaper add"},
     }}
     local current = ""
-    local current_file = io.open(home .. "/.cache/current-wallpaper", "r")
+    local current_file = io.popen("python3 " .. shell_quote(paths.code("walker/scripts/actions/wallpaper/assignments.py")) .. " current 2>/dev/null")
     if current_file then
         current = current_file:read("*a"):match("^%s*(.-)%s*$")
         current_file:close()

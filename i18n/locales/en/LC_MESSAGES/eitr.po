@@ -142,9 +142,6 @@ msgstr "A maximum of four layouts can be active at once"
 msgid "A network service is masked; review your custom configuration before switching."
 msgstr "A network service is masked; review your custom configuration before switching."
 
-msgid "A numbered workspace is required"
-msgstr "A numbered workspace is required"
-
 msgid "A package signing key is missing or expired, so updates may be refused; run System Update."
 msgstr "A package signing key is missing or expired, so updates may be refused; run System Update."
 

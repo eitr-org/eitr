@@ -29,9 +29,8 @@ Item {
     // Settings: a thumbnail was clicked and its preview waits for Apply or Cancel.
     property bool previewing: false
     property string preferredPath: ""
-    property string scope: "global"
+    property bool perDisplay: false
     property string monitorName: ""
-    property int workspaceNumber: 0
     property var assignments: []
     property string previewOwner: Date.now().toString() + "-" + Math.random().toString(36).slice(2)
     property var pendingCommands: []
@@ -40,7 +39,7 @@ Item {
 
     function wallpaperAction(action, extra) {
         const command = ["python3", Eitr.Paths.code("walker/scripts/actions/wallpaper/assignments.py"), action,
-            "--scope", scope, "--monitor", monitorName, "--number", workspaceNumber.toString(), "--owner", previewOwner].concat(extra || []);
+            "--owner", previewOwner].concat(extra || []);
         // A single queue preserves preview/apply/cancel ordering across rapid clicks.
         if (action === "preview") pendingCommands = pendingCommands.filter(entry => entry.action !== "preview");
         pendingCommands = pendingCommands.concat([{action: action, command: command}]);
@@ -60,7 +59,7 @@ Item {
     }
     function cancelPreview() { if (mode === "wallpaper") wallpaperAction("cancel"); }
     onSelectedIndexChanged: previewSelection()
-    onScopeChanged: { cancelPreview(); previewSelection(); }
+    function setPerDisplay(enabled) { wallpaperAction("per-display", [enabled ? "on" : "off"]); }
     onOpenedChanged: if (!opened) { previewing = false; cancelPreview(); }
     Component.onDestruction: {
         if (mode === "wallpaper") Quickshell.execDetached(["python3", Eitr.Paths.code("walker/scripts/actions/wallpaper/assignments.py"), "cancel", "--owner", previewOwner]);
@@ -76,10 +75,12 @@ Item {
         const cached = catalogs[mode] || [];
         if (JsonState.changed(items, cached)) items = cached;
         if (JsonState.changed(allItems, cached)) allItems = cached;
+        const current = cached.findIndex(item => item.current);
+        if (current >= 0) selectedIndex = current;
         searchText = "";
         error = "";
         opened = true;
-        if (mode === "wallpaper") wallpaperAction("summary", ["--monitor", screen ? screen.name : ""]);
+        if (mode === "wallpaper") wallpaperAction("summary");
         loader.command = ["python3", Quickshell.shellDir + "/scripts/appearance-items.py", mode];
         loader.running = true;
     }
@@ -103,7 +104,10 @@ Item {
             return;
         if (mode === "wallpaper") {
             if (!contextReady) return;
-            wallpaperAction("apply", ["--path", items[selectedIndex].value]);
+            const chosen = items[selectedIndex].value;
+            wallpaperAction("apply", ["--path", chosen]);
+            // The next open starts on the new wallpaper instead of the old one.
+            catalogs[mode] = (catalogs[mode] || []).map(item => Object.assign({}, item, {current: item.value === chosen}));
             opened = false;
             return;
         }
@@ -133,11 +137,13 @@ Item {
                 model.accent = data.accent;
                 model.foreground = data.foreground;
                 model.background = data.background;
-                model.selectedIndex = 0;
+                // One assignment: an intermediate index would preview the wrong picture.
+                var chosen = 0;
                 for (var index = 0; index < data.items.length; index++) {
                     if (preferredPath ? data.items[index].value === preferredPath : data.items[index].current)
-                        model.selectedIndex = index;
+                        chosen = index;
                 }
+                model.selectedIndex = chosen;
                 model.preferredPath = "";
                 if (model.searchText) model.search(model.searchText);
                 model.error = data.items.length ? "" : Eitr.I18n.tr("No images found");
@@ -164,13 +170,14 @@ Item {
                     const result = JSON.parse(wallpaperOutput.text);
                     if (action === "summary") {
                         model.monitorName = result.monitor;
-                        model.workspaceNumber = result.number;
                         model.contextReady = true;
                         Qt.callLater(model.previewSelection);
                     }
+                    model.perDisplay = result.perDisplay;
                     model.assignments = result.assignments;
+                    if (action === "per-display" && model.previewing) model.previewSelection();
                 } catch (error) { model.error = Eitr.I18n.tr("Images unavailable"); }
-                if (action === "apply" || action === "clear") model.applied();
+                if (action === "apply") model.applied();
             }
             Qt.callLater(model.pumpCommands);
         }

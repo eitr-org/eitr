@@ -142,9 +142,6 @@ msgstr "Höchstens vier Tastaturbelegungen können gleichzeitig aktiv sein"
 msgid "A network service is masked; review your custom configuration before switching."
 msgstr "Ein Netzwerkdienst ist maskiert; prüfen Sie vor dem Wechsel Ihre eigene Konfiguration."
 
-msgid "A numbered workspace is required"
-msgstr "Ein nummerierter Arbeitsbereich ist erforderlich"
-
 msgid "A package signing key is missing or expired, so updates may be refused; run System Update."
 msgstr "Ein Paket-Signaturschlüssel fehlt oder ist abgelaufen, daher werden Updates vielleicht abgelehnt; führe die Systemaktualisierung aus."
 

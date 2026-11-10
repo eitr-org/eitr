@@ -122,11 +122,8 @@ def saved_wallpaper_status(publish=None):
     motions = {}
     for monitor in choices.query('monitors'):
         selected = choices.resolve(monitor, wallpaper, assignments, temporary)
-        scopes = ['global', choices.key('monitor', monitor['name'])]
-        number = choices.workspace_number(monitor)
-        if number:
-            scopes.append(choices.key('workspace', monitor['name'], number))
-        previewing = temporary.get('scope') in scopes and selected == temporary.get('path')
+        previewing = (bool(temporary) and selected == temporary.get('path')
+                      and temporary.get('monitor', '') == (monitor['name'] if choices.per_display() else ''))
         motions[monitor['name']] = '' if previewing else motion_folder(selected)
     return dict(images={name: Path(path).as_uri() for name, path in images.items()},
                 healthy={name: active is not None and name in active and name not in failures

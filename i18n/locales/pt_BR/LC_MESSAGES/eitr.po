@@ -142,9 +142,6 @@ msgstr "No máximo quatro layouts podem ficar ativos ao mesmo tempo"
 msgid "A network service is masked; review your custom configuration before switching."
 msgstr "Um serviço de rede está mascarado; revise sua configuração personalizada antes de trocar."
 
-msgid "A numbered workspace is required"
-msgstr "É necessária uma área de trabalho numerada"
-
 msgid "A package signing key is missing or expired, so updates may be refused; run System Update."
 msgstr "Uma chave de assinatura de pacotes está faltando ou expirou, então atualizações podem ser recusadas; execute a Atualização do sistema."
 
