@@ -33,6 +33,23 @@
     }
   },
   {
+    "text": "Herdr Commands",
+    "subtext": "Keys for herdr, the workspace for AI coding agents",
+    "keywords": [
+      "herdr",
+      "agents",
+      "terminal",
+      "workspace",
+      "panes",
+      "claude",
+      "codex"
+    ],
+    "icon": "󱚝",
+    "actions": {
+      "open": "bash /usr/share/eitr/walker/scripts/menus/herdr.sh"
+    }
+  },
+  {
     "text": "LazyVim Commands",
     "subtext": "Keys for the LazyVim editor",
     "keywords": [

@@ -779,5 +779,7 @@
   "Scroll to the window that gets focus": "Scroll to the window that gets focus",
   "Settings Colours": "Settings Colours",
   "The centered bar expands while hovered": "The centered bar expands while hovered",
-  "Wallpaper per display": "Wallpaper per display"
+  "Wallpaper per display": "Wallpaper per display",
+  "Herdr Commands": "Herdr Commands",
+  "Keys for herdr, the workspace for AI coding agents": "Keys for herdr, the workspace for AI coding agents"
 }

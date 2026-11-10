@@ -1254,6 +1254,23 @@
         }
       },
       {
+        "text": "Herdr Commands",
+        "subtext": "Keys for herdr, the workspace for AI coding agents",
+        "keywords": [
+          "herdr",
+          "agents",
+          "terminal",
+          "workspace",
+          "panes",
+          "claude",
+          "codex"
+        ],
+        "icon": "󱚝",
+        "actions": {
+          "open": "bash /usr/share/eitr/walker/scripts/menus/herdr.sh"
+        }
+      },
+      {
         "text": "LazyVim Commands",
         "subtext": "Keys for the LazyVim editor",
         "keywords": [
@@ -6656,6 +6673,32 @@
       "key": "55e034ff82fb9fbb49a6eaa7e5e8d8b4007cd89eb8b71329cc7e61b6765c2def",
       "provider": "menus:learn",
       "identifier": "learn:2",
+      "text": "Herdr Commands",
+      "subtext": "Keys for herdr, the workspace for AI coding agents",
+      "icon": "󱚝",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "herdr",
+        "agents",
+        "terminal",
+        "workspace",
+        "panes",
+        "claude",
+        "codex",
+        "Herdr Commands",
+        "Herdr Commands",
+        "Keys for herdr, the workspace for AI coding agents"
+      ],
+      "menus": [
+        "main"
+      ]
+    },
+    {
+      "key": "6586c1d2867422557dc0fcaf0da2dec2278a1b5fd525b7116729384384b1fbc0",
+      "provider": "menus:learn",
+      "identifier": "learn:3",
       "text": "LazyVim Commands",
       "subtext": "Keys for the LazyVim editor",
       "icon": "",
@@ -6677,9 +6720,9 @@
       ]
     },
     {
-      "key": "6586c1d2867422557dc0fcaf0da2dec2278a1b5fd525b7116729384384b1fbc0",
+      "key": "7953bfe9dd5c685e7ca2f03ccf8432add4a036519c98cb0ef80c9771c782861a",
       "provider": "menus:learn",
-      "identifier": "learn:3",
+      "identifier": "learn:4",
       "text": "Mouse Gestures",
       "subtext": "What each mouse gesture does",
       "icon": "󰍽",
@@ -6703,9 +6746,9 @@
       ]
     },
     {
-      "key": "7953bfe9dd5c685e7ca2f03ccf8432add4a036519c98cb0ef80c9771c782861a",
+      "key": "8aa9aff6a72a855f09275b3995009f860915b9253e7d22a376b81c06bf0207ff",
       "provider": "menus:learn",
-      "identifier": "learn:4",
+      "identifier": "learn:5",
       "text": "Shortcuts",
       "subtext": "Every keyboard shortcut, and run one from the list",
       "icon": "󰌌",
@@ -6725,9 +6768,9 @@
       ]
     },
     {
-      "key": "8aa9aff6a72a855f09275b3995009f860915b9253e7d22a376b81c06bf0207ff",
+      "key": "e02a572cefc21908639af013c449112835946a34e776a4a40e281b0a02fe0a26",
       "provider": "menus:learn",
-      "identifier": "learn:5",
+      "identifier": "learn:6",
       "text": "Tmux Commands",
       "subtext": "Keys for the tmux terminal multiplexer",
       "icon": "",

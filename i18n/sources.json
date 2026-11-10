@@ -3981,6 +3981,9 @@
     "Half": [
       "tools/choice-lists.json"
     ],
+    "Herdr Commands": [
+      "elephant/menu-rows/learn.json"
+    ],
     "Hetzner Cloud": [
       "elephant/menu-rows/cloud.json",
       "elephant/menus/hetzner-account.lua",
@@ -4094,6 +4097,9 @@
     "Keyboard": [
       "elephant/menu-rows/input.json",
       "elephant/menus/keyboard.lua"
+    ],
+    "Keys for herdr, the workspace for AI coding agents": [
+      "elephant/menu-rows/learn.json"
     ],
     "Keys for the LazyVim editor": [
       "elephant/menu-rows/learn.json"
