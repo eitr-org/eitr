@@ -2,9 +2,10 @@
 import ".."
 import QtQuick
 
-// Drop: one full pill with only the time, centred on the bar's edge. With auto-hide the
-// pill shrinks into a small glowing accent dot that stays at the edge, and grows back
-// out of it when the bar reveals. The glance strip and the dashboard card come later.
+// Drop: one full pill with only the time, centred on the bar's edge. With auto-hide nothing
+// stays on screen; revealing drops a small accent drop out of the edge, which falls into
+// place and swells into the time island (hiding plays it backwards). The glance strip
+// and the dashboard card come later.
 Item {
     id: drop
     required property var host
@@ -27,23 +28,33 @@ Item {
     readonly property real dotSize: 10
     readonly property real clockExtent: vertical ? barHost.verticalCalendarIcon.height : barHost.centerInfo.width
     readonly property real pillExtent: clockExtent + 8
-    // The time fades in over the second half of the growth, once the pill can hold it.
-    readonly property real contentOpacity: Math.max(0, reveal * 2 - 1)
+    // The first 40% of the reveal is the fall out of the edge, the rest the swell.
+    readonly property real fall: Math.min(1, reveal / 0.4)
+    readonly property real swell: Math.max(0, (reveal - 0.4) / 0.6)
+    // Falling, the drop is a little longer than wide; swelling, it becomes the pill.
+    readonly property real dropAcross: dotSize * 0.8
+    readonly property real dropDepth: dotSize * 1.4
+    // The time fades in over the second half of the swell, once the pill can hold it.
+    readonly property real contentOpacity: Math.max(0, swell * 2 - 1)
     DynamicIsland {
         id: pill
         host: drop.host; barHost: drop.barHost
-        restingExtent: drop.dotSize + (drop.pillExtent - drop.dotSize) * drop.reveal
+        restingExtent: drop.dropAcross + (drop.pillExtent - drop.dropAcross) * drop.swell
         fullExtent: restingExtent
-        restingDepth: drop.dotSize + (thickness - drop.dotSize) * drop.reveal
+        restingDepth: drop.dropDepth + (thickness - drop.dropDepth) * drop.swell
         eased: false
+        visible: drop.reveal > 0
         x: vertical ? depthOffset : (drop.length - width) / 2
         y: vertical ? (drop.length - height) / 2 : depthOffset
+        // Falls out of the bar's edge: before the fall it sits just beyond the screen.
+        readonly property real travel: (1 - drop.fall) * (thickness + drop.dropDepth) * (farEdge ? 1 : -1)
+        transform: Translate { x: drop.vertical ? pill.travel : 0; y: drop.vertical ? 0 : pill.travel }
         // The dot: the accent colour with a soft halo, fading into the pill as it grows.
         Item {
             id: dot
             objectName: "dropDot"
             anchors.fill: parent
-            opacity: Math.max(0, 1 - drop.reveal * 2)
+            opacity: Math.max(0, 1 - drop.swell * 1.6)
             visible: opacity > 0
             Canvas {
                 id: halo
