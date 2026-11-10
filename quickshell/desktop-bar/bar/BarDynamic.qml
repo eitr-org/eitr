@@ -9,6 +9,11 @@ Item {
     anchors.fill: parent
     z: 1
     visible: barHost.dynamicLayout && !FocusMode.enabled
+    // Takes the bar's pieces one beat after becoming visible, so a layout switching away
+    // (Dynamic and Drop move the same clock) has always given them back first.
+    property bool holding: false
+    onVisibleChanged: if (!visible) holding = false; else Qt.callLater(() => { dynamic.holding = dynamic.visible; })
+    Component.onCompleted: holding = visible
     readonly property var surfaces: [leading, middle, trailing]
     readonly property alias leadingIsland: leading
     readonly property alias middleIsland: middle
@@ -215,7 +220,7 @@ Item {
     // would write their entry geometry back as fixed values on leaving, freezing their sizes.
     states: [
         State {
-            name: "horizontal"; when: dynamic.visible && !dynamic.vertical
+            name: "horizontal"; when: dynamic.holding && !dynamic.vertical
             PropertyChanges { target: barHost.leftGroup; parent: leading.content; x: 4; y: (leading.thickness - barHost.leftGroup.height) / 2 }
             PropertyChanges { target: barHost.leftGroup; width: barHost.leftGroup.implicitWidth }
             PropertyChanges { target: barHost.barHorizontalCenter; parent: middle.content }
@@ -227,7 +232,7 @@ Item {
             PropertyChanges { target: barHost.mediaStrip; availableWidth: 280; opacity: middle.expanded ? 1 : 0; enabled: middle.expanded }
         },
         State {
-            name: "vertical"; when: dynamic.visible && dynamic.vertical
+            name: "vertical"; when: dynamic.holding && dynamic.vertical
             PropertyChanges { target: barHost.verticalStart; parent: leading.content; y: 4 }
             PropertyChanges { target: barHost.verticalMiddle; parent: middle.content }
             PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: !middle.expanded; anchors.verticalCenterOffset: dynamic.clockShift }

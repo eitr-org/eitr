@@ -12,6 +12,11 @@ Item {
     anchors.fill: parent
     z: 1
     visible: barHost.dropLayout && !FocusMode.enabled
+    // Takes the bar's pieces one beat after becoming visible, so a layout switching away
+    // (Dynamic and Drop move the same clock) has always given them back first.
+    property bool holding: false
+    onVisibleChanged: if (!visible) holding = false; else Qt.callLater(() => { drop.holding = drop.visible; })
+    Component.onCompleted: holding = visible
     readonly property var surfaces: [pill, dotReach]
     readonly property alias pillSurface: pill
     readonly property bool vertical: host.verticalBar
@@ -77,7 +82,7 @@ Item {
     // until the glance strip brings them back.
     states: [
         State {
-            name: "horizontal"; when: drop.visible && !drop.vertical
+            name: "horizontal"; when: drop.holding && !drop.vertical
             PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity; enabled: drop.reveal >= 1 }
             PropertyChanges { target: barHost.centerInfo; timeOnly: true }
             PropertyChanges { target: barHost.leftGroup; opacity: 0; enabled: false }
@@ -87,7 +92,7 @@ Item {
             PropertyChanges { target: barHost.mediaStrip; opacity: 0; enabled: false; audioEnabled: false }
         },
         State {
-            name: "vertical"; when: drop.visible && drop.vertical
+            name: "vertical"; when: drop.holding && drop.vertical
             PropertyChanges { target: barHost.verticalMiddle; parent: pill.content; opacity: drop.contentOpacity; enabled: drop.reveal >= 1 }
             PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: true }
             PropertyChanges { target: barHost.verticalStart; opacity: 0; enabled: false }
