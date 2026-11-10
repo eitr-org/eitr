@@ -108,7 +108,7 @@ Item {
             mic: barHost.volumeMenu, streaming: barHost.streamingMenu, keyboard: barHost.keyboardMenu, calendar: barHost.calendarMenu,
             weather: barHost.weatherMenu, hardware: barHost.hardwareMenu, ai: barHost.aiMenu, obs: barHost.obsMenu,
             workspace: barHost.workspaceMenu, recording: barHost.recordingMenu, notifications: notificationCenter,
-            center: controlCenter, media: mediaMenu, battery: batteryMenu};
+            center: controlCenter, media: mediaMenu, battery: batteryMenu, dashboard: barHost.dropDashboard};
         if (kind === "catalog") { host.showCatalog(); return; }
         if (kind === "overview") { barHost.toggleOverview(); return; }
         if (!panels[kind]) return;

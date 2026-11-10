@@ -15,6 +15,12 @@ Item {
     readonly property bool detached: !!hostWindow.detached
     // A Dynamic island draws this panel's surface; content appears once it has grown.
     readonly property bool morphed: !!hostWindow.morphIsland || !!hostWindow.morphPill
+    // Drop's card: the content shows only once the card has nearly reached the panel's size,
+    // and fades in place as it shrinks, so it never sits outside the card.
+    readonly property var dropIsland: hostWindow.morphIsland && hostWindow.hostWindow && hostWindow.hostWindow.dropLayout ? hostWindow.morphIsland : null
+    readonly property real dropGrowth: !dropIsland ? 0 : Math.max(0, Math.min(1,
+        (dropIsland.depth - dropIsland.thickness) / Math.max(1, (vertical ? hostWindow.width : hostWindow.height) - dropIsland.thickness)))
+    readonly property real morphOpacity: dropIsland ? Math.max(0, (dropGrowth - 0.8) / 0.2) : Math.max(0, progress * 2 - 1)
     readonly property bool flushLeading: hostWindow.touchesLeadingEdge !== undefined
         ? hostWindow.touchesLeadingEdge : vertical ? hostWindow.y <= 0 : hostWindow.x <= 0
     readonly property bool flushTrailing: hostWindow.touchesTrailingEdge !== undefined
@@ -111,7 +117,7 @@ Item {
         Item {
             anchors.fill: parent
             visible: !!surface.backdrop
-            opacity: surface.morphed ? Math.max(0, surface.progress * 2 - 1) : 1
+            opacity: surface.morphed ? surface.morphOpacity : 1
             layer.enabled: visible
             layer.effect: MultiEffect { maskEnabled: true; maskSource: backdropMask; maskThresholdMin: 0.5; maskSpreadAtMin: 1 }
             Item {
@@ -129,7 +135,7 @@ Item {
             height: Math.max(0, surface.height - surface.topPadding - surface.bottomPadding - (surface.vertical ? surface.leadingBodyInset + surface.trailingBodyInset : 0))
             x: surface.leftPadding + (surface.vertical ? 0 : surface.leadingBodyInset) + (surface.edge === "right" ? reveal.width - surface.width : 0)
             y: surface.topPadding + (surface.vertical ? surface.leadingBodyInset : 0) + (surface.edge === "bottom" ? reveal.height - surface.height : 0)
-            opacity: surface.morphed ? Math.max(0, surface.progress * 2 - 1) : Math.min(1, surface.progress * 2)
+            opacity: surface.morphed ? surface.morphOpacity : Math.min(1, surface.progress * 2)
         }
     }]
 }

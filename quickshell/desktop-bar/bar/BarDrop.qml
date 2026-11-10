@@ -37,31 +37,40 @@ Item {
     // The time fades in over the second half of the swell, once the pill can hold it.
     readonly property real contentOpacity: Math.max(0, swell * 2 - 1)
     // Like Dynamic's islands, the pill grows into its dashboard card while it is open.
-    // A closing card's size, kept while the bar hides, so the card shrinks straight into
-    // the drop as it retracts rather than settling back into the pill first.
+    // The card follows the dashboard one beat behind: on closing, the island's easing is back
+    // on before its size changes, so the card shrinks instead of snapping to the pill. With
+    // auto-hide it keeps its size as the bar hides, shrinking straight into the drop rather
+    // than settling back into the pill first.
+    property bool cardOpen: false
     property real cardExtent: 0
     property real cardDepth: 0
     readonly property bool retracting: cardExtent > 0
     Connections {
         target: barHost.dropDashboard
         function onOpenedChanged() {
-            if (barHost.dropDashboard.opened || !host.barAutoHide) return;
-            drop.cardExtent = pill.extent; drop.cardDepth = pill.depth;
-            barHost.autoHideRef.hideNow();
-            if (drop.reveal >= 1 && barHost.autoHideRef.shown) Qt.callLater(() => { if (barHost.autoHideRef.shown) drop.cardExtent = 0; });
+            if (barHost.dropDashboard.opened) { drop.cardOpen = true; return; }
+            if (host.barAutoHide) {
+                drop.cardExtent = pill.extent; drop.cardDepth = pill.depth;
+                barHost.autoHideRef.hideNow();
+            }
+            Qt.callLater(() => {
+                drop.cardOpen = false;
+                if (drop.reveal >= 1 && barHost.autoHideRef.shown) drop.cardExtent = 0;
+            });
         }
     }
     onRevealChanged: if (retracting && (reveal <= 0 || (reveal >= 1 && !barHost.dropDashboard.opened && barHost.autoHideRef.shown))) cardExtent = 0
     function islandFor(panel) { return panel === barHost.dropDashboard ? pill : null; }
     function openPanel() {
         const dashboard = barHost.dropDashboard;
-        return dashboard && (dashboard.opened || dashboard === barHost.pendingPanel) ? dashboard : null;
+        return dashboard && (drop.cardOpen || dashboard === barHost.pendingPanel) ? dashboard : null;
     }
+    // The dashboard stays centred where it opened while the card grows or shrinks under it.
     function panelOrigin(panel, stripX, stripY) {
         if (!islandFor(panel) || !panel.parent) return Qt.point(stripX, stripY);
         const origin = drop.mapToItem(panel.parent, 0, 0);
-        const start = (drop.length - pill.targetExtent) / 2;
-        const offset = pill.farEdge ? pill.thickness - pill.targetDepth : 0;
+        const start = (drop.length - (vertical ? panel.height : panel.width)) / 2;
+        const offset = pill.farEdge ? pill.thickness - (vertical ? panel.width : panel.height) : 0;
         return vertical ? Qt.point(origin.x + offset, origin.y + start) : Qt.point(origin.x + start, origin.y + offset);
     }
     DynamicIsland {
