@@ -87,7 +87,7 @@ Item {
         anchors.left: centerInfo.right
         anchors.leftMargin: barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0
         anchors.verticalCenter: centerInfo.verticalCenter
-        width: barHost.dropLayout ? barHost.dropSurfaces.weatherReveal : barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
+        width: barHost.dropLayout ? 0 : barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
         height: barWeather.height
         clip: barHost.dropLayout || barHost.notchLayout || barHost.dynamicLayout
         WeatherWidget {
