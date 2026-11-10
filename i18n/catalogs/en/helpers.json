@@ -1542,5 +1542,8 @@
   "Two thirds": "Two thirds",
   "Up": "Up",
   "Shared numbers": "Shared numbers",
-  "Split across monitors": "Split across monitors"
+  "Split across monitors": "Split across monitors",
+  "A connected display is required": "A connected display is required",
+  "A numbered workspace is required": "A numbered workspace is required",
+  "Wallpaper file not found": "Wallpaper file not found"
 }

@@ -115,6 +115,9 @@ msgstr "Un certificat d’AC au format PEM est requis"
 msgid "A background service failed, so a feature may not work; restart the PC, and report a problem if it fails again."
 msgstr "Un service en arrière-plan a échoué, une fonction peut donc ne pas marcher ; redémarrez le PC et signalez un problème s’il échoue à nouveau."
 
+msgid "A connected display is required"
+msgstr "Un écran connecté est nécessaire"
+
 msgid "A desktop component is not running, so menus or the bar may not work; log out and back in, and report a problem if it continues."
 msgstr "Un composant du bureau ne tourne pas, les menus ou la barre peuvent donc ne pas marcher ; déconnectez-vous puis reconnectez-vous, et signalez un problème si cela continue."
 
@@ -138,6 +141,9 @@ msgstr "Quatre dispositions au maximum peuvent être actives à la fois"
 
 msgid "A network service is masked; review your custom configuration before switching."
 msgstr "Un service réseau est masqué ; vérifiez votre configuration personnalisée avant de changer."
+
+msgid "A numbered workspace is required"
+msgstr "Un espace de travail numéroté est nécessaire"
 
 msgid "A package signing key is missing or expired, so updates may be refused; run System Update."
 msgstr "Une clé de signature des paquets manque ou a expiré, les mises à jour peuvent donc être refusées ; lancez la Mise à jour du système."
@@ -4170,6 +4176,9 @@ msgstr "Journaux WARN"
 
 msgid "Wallpaper added"
 msgstr "Fond d’écran ajouté"
+
+msgid "Wallpaper file not found"
+msgstr "Fichier de fond introuvable"
 
 msgid "Wallpaper must be PNG, JPEG or WebP"
 msgstr "Le fond d’écran doit être PNG, JPEG ou WebP"

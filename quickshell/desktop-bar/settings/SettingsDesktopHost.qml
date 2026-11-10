@@ -24,9 +24,11 @@ Flickable {
     clip: true
     boundsBehavior: Flickable.StopAtBounds
     onPageChanged: {
+        wallpaperModel.opened = false;
         contentY = 0;
         Qt.callLater(refreshPage);
     }
+    onTabChanged: if (tab !== "theme") wallpaperModel.opened = false
     function refreshPage() {
         if (!active || !live)
             return;
@@ -103,7 +105,7 @@ Flickable {
         onApplied: if (hostView.active && hostView.live)
             open("wallpaper", null)
     }
-    onActiveChanged: if (active && live && page === "appearance") {
+    onActiveChanged: if (!active) wallpaperModel.opened = false; else if (live && page === "appearance") {
         themeModel.open("theme", null);
         wallpaperModel.open("wallpaper", null);
     }

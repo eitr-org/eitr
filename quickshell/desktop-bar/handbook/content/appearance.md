@@ -230,3 +230,11 @@ are used if yours cannot be read. Boot entries are never changed, and
 `limine.conf` is backed up before each change. The style is skipped while
 Secure Boot is enabled, because an enrolled Limine config hash would stop the
 system booting after an edit.
+
+## Wallpaper previews and assignments
+
+In Settings > Appearance > Theme & Wallpaper, click an image to preview its still frame on the desktop. Apply saves it; Cancel preview, leaving the page, or closing Settings restores the saved choice. The palette does not change. Walker > Settings > Style > Wallpaper opens the same desktop carousel at the selected image. Arrows preview; Enter applies; Escape or clicking outside cancels.
+
+Apply wallpaper to offers All displays, This display and This workspace. The latter two show the display name; workspace choices also show the visible workspace number in Shared numbers or Split across monitors mode. The target is captured when opening the picker. A workspace assignment wins over a display assignment, then the global choice, then the theme default. A more specific assignment can therefore hide a global preview. Clear removes the listed assignment and restores that precedence.
+
+Assignments stay on this machine. Login, display reconnects and workspace changes restore each output independently. Removed workspaces restore the remaining choice; their assignments remain available when the same numbered workspace returns. Unavailable image files are pruned on theme changes. Available images keep their assignments. Runestone animation resumes after preview ends, and software rendering uses the same selected still image.

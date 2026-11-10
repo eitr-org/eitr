@@ -152,3 +152,11 @@ Solo aparece si hay varias cuentas elegibles y SDDM permite el cambio. Las vista
 ## Notas técnicas
 
 El menú de arranque de Limine usa los colores del tema actual, el título EITR y una fuente mayor. Las instalaciones nuevas lo configuran; tras cambiar de tema se actualiza al apagar. Si no se puede leer tu tema, usa los colores predeterminados. Nunca se cambian las entradas de arranque y se guarda una copia de `limine.conf` antes de cada cambio. No se aplica el estilo con Secure Boot activo: modificar una configuración de Limine cuyo hash esté registrado impediría arrancar.
+
+## Vistas previas y asignaciones de fondos
+
+En Ajustes > Apariencia > Tema y fondo, pulsa una imagen para previsualizar su fotograma fijo en el escritorio. Aplicar la guarda; Cancelar vista previa, cambiar de página o cerrar restaura la elección guardada. La paleta no cambia. Walker > Ajustes > Estilo > Fondo abre el carrusel en la imagen seleccionada. Las flechas previsualizan; Intro aplica; Escape o pulsar fuera cancela.
+
+Puedes elegir Todas las pantallas, Esta pantalla o Este espacio de trabajo. El destino se fija al abrir el selector y muestra la pantalla y el número visible del espacio, tanto con números compartidos como repartidos. El espacio tiene prioridad sobre la pantalla, la elección global y el fondo predeterminado del tema. Una asignación específica puede ocultar una vista previa global. Borrar elimina una asignación.
+
+Las asignaciones son locales. El inicio de sesión, la reconexión y los cambios de espacio restauran cada salida por separado. Al desaparecer un espacio se muestra la siguiente elección; su asignación vuelve cuando regresa el mismo número. Al cambiar de tema se eliminan las imágenes no disponibles y se conservan las existentes. Runestone reanuda su animación al terminar la vista previa; el renderizado por software usa la misma imagen fija.

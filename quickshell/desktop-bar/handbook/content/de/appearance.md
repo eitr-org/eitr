@@ -144,3 +144,11 @@ Integrierte Themen gehören zu Eitr und können nicht entfernt werden. Der Papie
 ## Technische Hinweise
 
 Das Limine-Startmenü verwendet die aktuellen Designfarben, einen EITR-Titel und eine größere Schrift. Neue Installationen richten das ein; nach einem Designwechsel folgt das Menü beim nächsten Herunterfahren. Ist dein Design nicht lesbar, werden Standardfarben verwendet. Starteinträge bleiben unverändert und `limine.conf` wird vor jeder Änderung gesichert. Bei aktiviertem Secure Boot wird die Gestaltung übersprungen: Eine Änderung der Limine-Konfiguration würde bei registriertem Konfigurationshash den Start verhindern.
+
+## Hintergrundvorschau und Zuweisungen
+
+Unter Einstellungen > Erscheinungsbild > Thema & Hintergrund zeigt ein Klick auf ein Bild dessen Standbild auf dem Desktop. Anwenden speichert es; Vorschau abbrechen, Seitenwechsel oder Schließen stellt die gespeicherte Auswahl wieder her. Die Palette bleibt gleich. Walker > Einstellungen > Stil > Hintergrund öffnet das Karussell beim gewählten Bild. Pfeile zeigen die Vorschau, Eingabe wendet an, Escape oder ein Klick außerhalb bricht ab.
+
+Zur Auswahl stehen Alle Bildschirme, Dieser Bildschirm und Dieser Arbeitsbereich. Das Ziel wird beim Öffnen festgehalten und mit Bildschirmname und sichtbarer Arbeitsbereichsnummer angezeigt, sowohl bei gemeinsamen als auch bei aufgeteilten Nummern. Der Arbeitsbereich hat Vorrang vor dem Bildschirm, der globalen Auswahl und dem Themenstandard. Eine spezifische Zuweisung kann eine globale Vorschau verdecken. Löschen entfernt eine Zuweisung.
+
+Zuweisungen bleiben lokal. Anmeldung, erneuter Bildschirmanschluss und Arbeitsbereichswechsel stellen jeden Ausgang unabhängig wieder her. Entfernte Arbeitsbereiche zeigen die verbleibende Auswahl; ihre Zuweisung gilt wieder, wenn die Nummer zurückkehrt. Nicht mehr vorhandene Bilder werden beim Themenwechsel entfernt, vorhandene bleiben zugewiesen. Runestones Animation setzt nach der Vorschau wieder ein; Softwarerendering zeigt dasselbe Standbild.

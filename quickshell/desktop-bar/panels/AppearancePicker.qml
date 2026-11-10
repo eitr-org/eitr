@@ -16,6 +16,10 @@ SettingsAppearanceModel {
         function show(kind: string): void {
             picker.open(kind.startsWith("theme") ? kind : "wallpaper", picker.defaultScreen || Quickshell.screens[0]);
         }
+        function wallpaper(path: string): void {
+            picker.preferredPath = path;
+            picker.open("wallpaper", picker.defaultScreen || Quickshell.screens[0]);
+        }
         function close(): void { picker.opened = false; }
         function next(): void { picker.navigate(1); }
     }
@@ -227,6 +231,23 @@ SettingsAppearanceModel {
                 }
             }
 
+            Rectangle {
+                visible: picker.mode === "wallpaper"
+                anchors.horizontalCenter: parent.horizontalCenter
+                y: (content.height + content.previewHeight) / 2
+                width: Math.min(520, parent.width - 36)
+                height: scopeControls.implicitHeight + 24
+                radius: DesktopStyle.radius(PanelStyle.controlRadius)
+                color: picker.background
+                WallpaperScopeControls {
+                    id: scopeControls
+                    x: 12; y: 12; width: parent.width - 24
+                    model: picker
+                    foreground: picker.foreground
+                    background: picker.background
+                    gold: picker.accent
+                }
+            }
             Text {
                 visible: picker.mode !== "wallpaper" || !picker.items[picker.selectedIndex]
                 anchors.horizontalCenter: parent.horizontalCenter

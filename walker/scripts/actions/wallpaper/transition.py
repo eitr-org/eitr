@@ -17,6 +17,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
 from eitr_paths import code, config as user_config, cache as cache_dir, write_settings
 from eitr_plugins import dispatch_hooks
 from eitr_i18n import tr
+import eitr_wallpapers as choices
 import re
 import shutil
 import subprocess
@@ -90,9 +91,7 @@ def monitor_images(path):
         monitors = json.loads(subprocess.check_output(["hyprctl", "monitors", "-j"], text=True))
     except (OSError, subprocess.SubprocessError, ValueError):
         monitors = []
-    images = {monitor.get("name", "?"): for_monitor(path, monitor) for monitor in monitors}
-    images["*"] = str(path)
-    return images
+    return choices.images(globals(), str(path), monitors, temporary={}, global_override=True)
 
 
 # Monitors at least this much wider than tall show a theme's 21:9 version of the
@@ -119,8 +118,9 @@ def write_monitor_wallpapers(path, monitors):
     version at login instead of switching to it once restore() runs.
     """
     entries = []
+    assignments = choices.prune()
     for monitor in monitors:
-        image = for_monitor(path, monitor)
+        image = for_monitor(choices.resolve(monitor, str(path), assignments, {}), monitor)
         if image != str(path):
             entries.append(f"wallpaper {{\n    monitor = {monitor.get('name', '?')}\n"
                            f"    path = {image}\n    fit_mode = cover\n}}\n")
@@ -171,7 +171,7 @@ def commit(path):
     for monitor in monitors:
         name = monitor.get("name", "?")
         try:
-            subprocess.run(["hyprctl", "hyprpaper", "wallpaper", name + "," + for_monitor(path, monitor)], check=True)
+            subprocess.run(["hyprctl", "hyprpaper", "wallpaper", name + "," + for_monitor(choices.resolve(monitor, path, temporary={}), monitor)], check=True)
         except (OSError, subprocess.SubprocessError):
             failed.append(name)
     if failed:
@@ -227,7 +227,7 @@ def restore(attempts=40, delay=0.25):
         monitors = []
     link = cache_dir() / "current-wallpaper-image"
     showing = monitors and all(active.get(monitor.get("name")) and
-                               Path(active[monitor.get("name")]).resolve() == Path(for_monitor(saved, monitor)).resolve()
+                               Path(active[monitor.get("name")]).resolve() == Path(for_monitor(choices.resolve(monitor, saved, temporary={}), monitor)).resolve()
                                for monitor in monitors)
     if showing and link.resolve() == Path(saved):
         return saved

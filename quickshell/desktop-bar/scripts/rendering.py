@@ -111,15 +111,27 @@ def saved_wallpaper_status(publish=None):
         if (library / 'eitr_paths.py').is_file():
             sys.path.insert(0, str(library))
             break
-    from eitr_paths import code, config, read_settings, cache
-    wallpaper = read_settings(config('eitr/appearance.json')).get('wallpaper', '')
-    if not wallpaper:
-        try:
-            wallpaper = (cache() / 'current-wallpaper').read_text().strip()
-        except OSError:
-            pass
+    from eitr_paths import code, config
     transition = runpy.run_path(str(code('walker/scripts/actions/wallpaper/transition.py')))
-    return wallpaper_status(transition, wallpaper, publish)
+    import eitr_wallpapers as choices
+    defaults = transition['wallpapers'](config('theme/current/backgrounds'))
+    wallpaper = choices.saved_global(str(defaults[0]) if defaults else '')
+    images, active, failures = choices.reconcile(transition, wallpaper)
+    temporary = choices.preview()
+    assignments = choices.prune()
+    motions = {}
+    for monitor in choices.query('monitors'):
+        selected = choices.resolve(monitor, wallpaper, assignments, temporary)
+        scopes = ['global', choices.key('monitor', monitor['name'])]
+        number = choices.workspace_number(monitor)
+        if number:
+            scopes.append(choices.key('workspace', monitor['name'], number))
+        previewing = temporary.get('scope') in scopes and selected == temporary.get('path')
+        motions[monitor['name']] = '' if previewing else motion_folder(selected)
+    return dict(images={name: Path(path).as_uri() for name, path in images.items()},
+                healthy={name: active is not None and name in active and name not in failures
+                         for name in images if name != '*'},
+                wallpaper=wallpaper, motion=motion_folder(wallpaper), motions=motions)
 
 
 if __name__ == '__main__':

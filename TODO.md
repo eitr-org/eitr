@@ -76,12 +76,6 @@ item says what decides the next step. Remove an item when it ships;
   previews, media title), a hover card for the clock (large time and week strip), and
   the wallpaper/theme carousel growing out of the clock island. Islands arrows (‹ ›)
   like Dynamic if the owner wants them.
-- **Wallpaper preview and monitor/workspace assignments.** Preview still images
-  temporarily without changing saved choices or the committed palette; cancel or
-  closing the picker restores the saved wallpaper. Add assignments with the precedence
-  workspace, monitor, global choice, then shipped default. Define restore behavior for
-  login, monitor disconnect/reconnect and removed workspaces; rapid workspace switches
-  should settle on the latest choice without restarting unrelated outputs.
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
   done (Tools > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).

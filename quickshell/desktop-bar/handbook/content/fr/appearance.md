@@ -154,3 +154,11 @@ Cette action apparaît seulement avec plusieurs comptes admissibles et si SDDM a
 ## Notes techniques
 
 Le menu de démarrage Limine utilise les couleurs du thème actuel, un titre EITR et une police plus grande. Les nouvelles installations le configurent ; après un changement de thème, il suit au prochain arrêt. Si votre thème est illisible, les couleurs par défaut sont utilisées. Les entrées de démarrage restent intactes et `limine.conf` est sauvegardé avant chaque modification. Le style n’est pas appliqué avec Secure Boot actif : modifier une configuration Limine dont l’empreinte est inscrite empêcherait le démarrage.
+
+## Aperçus et affectations des fonds
+
+Dans Paramètres > Apparence > Thème et fond, cliquez sur une image pour afficher son image fixe sur le bureau. Appliquer l’enregistre ; Annuler l’aperçu, changer de page ou fermer rétablit le choix enregistré. La palette reste inchangée. Walker > Paramètres > Style > Fond ouvre le carrousel sur l’image choisie. Les flèches prévisualisent, Entrée applique, Échap ou un clic à l’extérieur annule.
+
+Choisissez Tous les écrans, Cet écran ou Cet espace de travail. La cible est fixée à l’ouverture et indique l’écran et le numéro visible de l’espace, en numérotation partagée ou répartie. L’espace prime sur l’écran, le choix global puis le fond du thème. Une affectation spécifique peut masquer un aperçu global. Effacer supprime une affectation.
+
+Les affectations restent locales. Connexion, reconnexion d’un écran et changement d’espace restaurent chaque sortie indépendamment. Un espace supprimé affiche le choix suivant ; son affectation revient avec le même numéro. Un changement de thème retire les images indisponibles et conserve les autres. L’animation Runestone reprend après l’aperçu ; le rendu logiciel utilise la même image fixe.

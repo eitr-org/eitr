@@ -149,3 +149,11 @@ Trocar usuário (Ctrl+Alt+U) abre o login do SDDM e mantém a sessão original b
 ## Notas técnicas
 
 O menu de inicialização do Limine usa as cores do tema atual, o título EITR e uma fonte maior. Novas instalações configuram isso; após trocar o tema, o menu acompanha no próximo desligamento. Se não for possível ler seu tema, usa as cores do padrão. As entradas de inicialização nunca são alteradas, e `limine.conf` recebe um backup antes de cada mudança. O estilo não é aplicado com Secure Boot ativo, pois alterar uma configuração do Limine cujo hash foi cadastrado impediria a inicialização.
+
+## Prévias e atribuições de papéis de parede
+
+Em Configurações > Aparência > Tema e papel de parede, clique em uma imagem para visualizar seu quadro estático na área de trabalho. Aplicar salva; Cancelar prévia, sair da página ou fechar restaura a escolha salva. A paleta não muda. Walker > Configurações > Estilo > Papel de parede abre o carrossel na imagem selecionada. As setas mostram a prévia; Enter aplica; Escape ou clicar fora cancela.
+
+Escolha Todas as telas, Esta tela ou Esta área de trabalho. O destino é fixado ao abrir o seletor e mostra a tela e o número visível da área, tanto no modo de números compartilhados como divididos entre telas. A área tem prioridade sobre a tela, a escolha global e o padrão do tema. Uma atribuição específica pode ocultar uma prévia global. Limpar remove uma atribuição.
+
+As atribuições ficam nesta máquina. Login, reconexão de telas e mudanças de área restauram cada saída separadamente. Áreas removidas mostram a próxima escolha; a atribuição volta quando o mesmo número retorna. Mudanças de tema removem imagens indisponíveis e mantêm as existentes. A animação Runestone volta após a prévia; a renderização por software usa a mesma imagem estática.

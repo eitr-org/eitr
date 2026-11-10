@@ -115,6 +115,9 @@ msgstr "É necessário um certificado de CA em formato PEM"
 msgid "A background service failed, so a feature may not work; restart the PC, and report a problem if it fails again."
 msgstr "Um serviço em segundo plano falhou, então algum recurso pode não funcionar; reinicie o PC e relate um problema se falhar de novo."
 
+msgid "A connected display is required"
+msgstr "É necessária uma tela conectada"
+
 msgid "A desktop component is not running, so menus or the bar may not work; log out and back in, and report a problem if it continues."
 msgstr "Um componente da área de trabalho não está em execução, então os menus ou a barra podem não funcionar; saia e entre de novo na sessão e relate um problema se continuar."
 
@@ -138,6 +141,9 @@ msgstr "No máximo quatro layouts podem ficar ativos ao mesmo tempo"
 
 msgid "A network service is masked; review your custom configuration before switching."
 msgstr "Um serviço de rede está mascarado; revise sua configuração personalizada antes de trocar."
+
+msgid "A numbered workspace is required"
+msgstr "É necessária uma área de trabalho numerada"
 
 msgid "A package signing key is missing or expired, so updates may be refused; run System Update."
 msgstr "Uma chave de assinatura de pacotes está faltando ou expirou, então atualizações podem ser recusadas; execute a Atualização do sistema."
@@ -4170,6 +4176,9 @@ msgstr "Logs de WARN"
 
 msgid "Wallpaper added"
 msgstr "Papel de parede adicionado"
+
+msgid "Wallpaper file not found"
+msgstr "Arquivo de papel de parede não encontrado"
 
 msgid "Wallpaper must be PNG, JPEG or WebP"
 msgstr "O papel de parede deve ser PNG, JPEG ou WebP"

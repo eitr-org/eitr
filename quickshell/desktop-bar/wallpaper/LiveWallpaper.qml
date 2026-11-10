@@ -32,6 +32,7 @@ Scope {
     Timer { interval: 5000; running: rendererQuery.running; onTriggered: rendererQuery.running = false }
 
     property var stillImages: ({})
+    property var motions: ({})
     property var healthyOutputs: ({})
     property bool queryPending: false
     function checkWallpaper() {
@@ -47,6 +48,8 @@ Scope {
                 try {
                     var result = JSON.parse(data);
                     live.stillImages = result.images;
+                    live.motions = result.motions || ({});
+                    live.suspended = false;
                     if (result.healthy !== undefined) live.healthyOutputs = result.healthy;
                     if (live.wallpaper !== result.wallpaper) live.suspended = false;
                     live.wallpaper = result.wallpaper;
@@ -64,6 +67,22 @@ Scope {
     Connections {
         target: Quickshell
         function onScreensChanged() { live.checkWallpaper(); settledCheck.restart(); }
+    }
+    Connections {
+        target: Hyprland
+        function onRawEvent(event) {
+            if (/^(workspace|focusedmon|monitoradded|monitorremoved|destroyworkspace|moveworkspace|configreloaded)/.test(event.name))
+                workspaceCheck.restart();
+        }
+    }
+    Timer { id: workspaceCheck; interval: 80; onTriggered: live.checkWallpaper() }
+    PreferenceWatch {
+        path: (Quickshell.env("XDG_RUNTIME_DIR") || Quickshell.env("XDG_CACHE_HOME") || Quickshell.env("HOME") + "/.cache") + "/eitr-wallpaper/preview.json"
+        onChanged: live.checkWallpaper()
+    }
+    PreferenceWatch {
+        path: (Quickshell.env("XDG_CONFIG_HOME") || Quickshell.env("HOME") + "/.config") + "/eitr/wallpapers.json"
+        onChanged: live.checkWallpaper()
     }
     // A second, one-shot check gives login and wallpaper commits time to finish.
     Timer { id: settledCheck; interval: 3000; running: true; onTriggered: live.checkWallpaper() }
@@ -101,7 +120,8 @@ Scope {
                 ? Performance.workspaceHasWindows(Hyprland.toplevels.values, monitor.activeWorkspace.id) : false
             // Only an output Hyprpaper is known not to draw; unknown (before the first check) is not.
             readonly property bool stillFallback: live.healthyOutputs[modelData.name] === false
-            readonly property bool animate: !live.softwareRendering && !FocusMode.enabled && live.motion !== "" && !live.suspended
+            readonly property string selectedMotion: live.motions[modelData.name] || ""
+            readonly property bool animate: !live.softwareRendering && !FocusMode.enabled && selectedMotion !== "" && !live.suspended
             visible: stillFallback || (animate && scene.ready)
             color: "transparent"
             anchors { top: true; bottom: true; left: true; right: true }
@@ -132,7 +152,7 @@ Scope {
                 id: scene
                 anchors.fill: parent
                 visible: window.animate && ready
-                motion: live.softwareRendering ? "" : live.motion
+                motion: live.softwareRendering ? "" : window.selectedMotion
                 pixelRatio: window.screen ? window.screen.devicePixelRatio : 1
                 time: window.time
             }

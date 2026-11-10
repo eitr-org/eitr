@@ -115,6 +115,9 @@ msgstr "A PEM CA certificate is required"
 msgid "A background service failed, so a feature may not work; restart the PC, and report a problem if it fails again."
 msgstr "A background service failed, so a feature may not work; restart the PC, and report a problem if it fails again."
 
+msgid "A connected display is required"
+msgstr "A connected display is required"
+
 msgid "A desktop component is not running, so menus or the bar may not work; log out and back in, and report a problem if it continues."
 msgstr "A desktop component is not running, so menus or the bar may not work; log out and back in, and report a problem if it continues."
 
@@ -138,6 +141,9 @@ msgstr "A maximum of four layouts can be active at once"
 
 msgid "A network service is masked; review your custom configuration before switching."
 msgstr "A network service is masked; review your custom configuration before switching."
+
+msgid "A numbered workspace is required"
+msgstr "A numbered workspace is required"
 
 msgid "A package signing key is missing or expired, so updates may be refused; run System Update."
 msgstr "A package signing key is missing or expired, so updates may be refused; run System Update."
@@ -4170,6 +4176,9 @@ msgstr "WARN logs"
 
 msgid "Wallpaper added"
 msgstr "Wallpaper added"
+
+msgid "Wallpaper file not found"
+msgstr "Wallpaper file not found"
 
 msgid "Wallpaper must be PNG, JPEG or WebP"
 msgstr "Wallpaper must be PNG, JPEG or WebP"

@@ -75,6 +75,31 @@ Column {
             text: Eitr.I18n.tr("Choose an image for your desktop.")
             font.pixelSize: 11
         }
+        WallpaperScopeControls {
+            width: Math.min(parent.width, 460)
+            model: wallpaperModel
+            live: view.live
+            foreground: view.foreground
+            background: SettingsInk.background
+            gold: SettingsInk.gold
+            helperText: Eitr.I18n.tr("Click a picture to preview it, then Apply or Cancel preview.")
+        }
+        Row {
+            spacing: 8
+            PanelButton {
+                text: Eitr.I18n.tr("Apply")
+                foreground: view.foreground
+                available: wallpaperModel.previewing
+                onClicked: if (view.live) { wallpaperModel.previewing = false; wallpaperModel.apply(); }
+            }
+            PanelButton {
+                width: 156
+                text: Eitr.I18n.tr("Cancel preview")
+                foreground: view.foreground
+                available: wallpaperModel.previewing
+                onClicked: if (view.live) { wallpaperModel.previewing = false; wallpaperModel.cancelPreview(); }
+            }
+        }
         Flow {
             SettingsTarget { objectName: "setting-appearance-wallpaper" }
 
@@ -88,7 +113,7 @@ Column {
                     width: (parent.width - 12) / 3
                     height: width * 9 / 16
                     color: view.background
-                    border.width: modelData.current ? 2 : 0
+                    border.width: index === wallpaperModel.selectedIndex ? 2 : 0
                     border.color: SettingsInk.gold
                     Image {
                         anchors.fill: parent
@@ -102,7 +127,9 @@ Column {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: if (view.live) {
                             wallpaperModel.selectedIndex = parent.index;
-                            wallpaperModel.apply();
+                            wallpaperModel.opened = true;
+                            wallpaperModel.previewing = true;
+                            wallpaperModel.previewSelection();
                         }
                     }
                 }

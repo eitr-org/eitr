@@ -115,6 +115,9 @@ msgstr "Ein CA-Zertifikat im PEM-Format ist erforderlich"
 msgid "A background service failed, so a feature may not work; restart the PC, and report a problem if it fails again."
 msgstr "Ein Hintergrunddienst ist fehlgeschlagen, daher funktioniert eine Funktion vielleicht nicht; starte den PC neu und melde ein Problem, wenn er erneut fehlschlägt."
 
+msgid "A connected display is required"
+msgstr "Ein verbundener Bildschirm ist erforderlich"
+
 msgid "A desktop component is not running, so menus or the bar may not work; log out and back in, and report a problem if it continues."
 msgstr "Ein Teil des Desktops läuft nicht, daher funktionieren Menüs oder die Leiste vielleicht nicht; melde dich ab und wieder an und melde ein Problem, wenn es anhält."
 
@@ -138,6 +141,9 @@ msgstr "Höchstens vier Tastaturbelegungen können gleichzeitig aktiv sein"
 
 msgid "A network service is masked; review your custom configuration before switching."
 msgstr "Ein Netzwerkdienst ist maskiert; prüfen Sie vor dem Wechsel Ihre eigene Konfiguration."
+
+msgid "A numbered workspace is required"
+msgstr "Ein nummerierter Arbeitsbereich ist erforderlich"
 
 msgid "A package signing key is missing or expired, so updates may be refused; run System Update."
 msgstr "Ein Paket-Signaturschlüssel fehlt oder ist abgelaufen, daher werden Updates vielleicht abgelehnt; führe die Systemaktualisierung aus."
@@ -4170,6 +4176,9 @@ msgstr "WARN-Protokolle"
 
 msgid "Wallpaper added"
 msgstr "Hintergrundbild hinzugefügt"
+
+msgid "Wallpaper file not found"
+msgstr "Hintergrunddatei nicht gefunden"
 
 msgid "Wallpaper must be PNG, JPEG or WebP"
 msgstr "Das Hintergrundbild muss PNG, JPEG oder WebP sein"

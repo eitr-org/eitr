@@ -15,6 +15,9 @@
     "%1 themes": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "%1, workspace %2": [
+      "quickshell/desktop-bar/components/WallpaperScopeControls.qml"
+    ],
     "01 / TAPE": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
@@ -133,6 +136,9 @@
     "All day": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
+    "All displays": [
+      "quickshell/desktop-bar/components/WallpaperScopeControls.qml"
+    ],
     "All settings": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
@@ -162,7 +168,11 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Apply": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Apply wallpaper to": [
+      "quickshell/desktop-bar/components/WallpaperScopeControls.qml"
     ],
     "Applying changes…": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -329,6 +339,9 @@
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
+    "Cancel preview": [
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
     "Cards": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
@@ -461,10 +474,14 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Clear": [
+      "quickshell/desktop-bar/components/WallpaperScopeControls.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Clear all": [
       "quickshell/desktop-bar/notifications/NotificationList.qml"
+    ],
+    "Click a picture to preview it, then Apply or Cancel preview.": [
+      "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Clock": [
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
@@ -2522,6 +2539,9 @@
     "This WiFi security type requires advanced network configuration": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
+    "This display": [
+      "quickshell/desktop-bar/components/WallpaperScopeControls.qml"
+    ],
     "This network needs advanced security configuration.": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
     ],
@@ -2533,6 +2553,9 @@
     ],
     "This welcome": [
       "quickshell/desktop-bar/welcome/WelcomePage.qml"
+    ],
+    "This workspace": [
+      "quickshell/desktop-bar/components/WallpaperScopeControls.qml"
     ],
     "Tiling": [
       "tools/choice-lists.json"
@@ -6270,6 +6293,9 @@
     "A background service failed, so a feature may not work; restart the PC, and report a problem if it fails again.": [
       "distro/lib/eitr_selfcheck.py"
     ],
+    "A connected display is required": [
+      "distro/lib/eitr_wallpapers.py"
+    ],
     "A desktop component is not running, so menus or the bar may not work; log out and back in, and report a problem if it continues.": [
       "distro/lib/eitr_selfcheck.py"
     ],
@@ -6294,6 +6320,9 @@
     ],
     "A network service is masked; review your custom configuration before switching.": [
       "distro/system/network-backend.py"
+    ],
+    "A numbered workspace is required": [
+      "distro/lib/eitr_wallpapers.py"
     ],
     "A package signing key is missing or expired, so updates may be refused; run System Update.": [
       "distro/lib/eitr_selfcheck.py"
@@ -10420,6 +10449,9 @@
     "Wallpaper added": [
       "walker/scripts/actions/style/own.py"
     ],
+    "Wallpaper file not found": [
+      "distro/lib/eitr_wallpapers.py"
+    ],
     "Wallpaper must be PNG, JPEG or WebP": [
       "distro/lib/eitr_profile.py"
     ],
@@ -10585,6 +10617,7 @@
       "distro/lib/spinner.sh"
     ],
     "hyprpaper failed on: {outputs}": [
+      "walker/scripts/actions/wallpaper/assignments.py",
       "walker/scripts/actions/wallpaper/transition.py"
     ],
     "hyprsunset and hyprctl are required": [

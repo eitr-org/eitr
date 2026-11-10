@@ -50,8 +50,12 @@ Live artwork decodes at the output's pixel dimensions. Aurora runs at 20 Hz on
 an empty workspace and 5 Hz behind ordinary windows, retaining fullscreen and
 Focus pauses. A one-shot Wayland EGL renderer probe detects llvmpipe/softpipe
 and explicit software rendering. Software or unavailable EGL keeps Hyprpaper's
-selected still image and skips the live scene. At startup and wallpaper preference
-changes, bounded Hyprpaper IPC checks compare each output with its selected image,
+selected still image and skips the live scene. At startup, wallpaper preference changes and monitor/workspace events, the shared
+`eitr_wallpapers` resolver selects workspace, monitor, global or theme-default art
+in that order. Assignments in `eitr/wallpapers.json` use monitor names and visible
+workspace numbers. Temporary picker previews live only in the runtime directory;
+cancel restores saved choices without changing the palette. Bounded Hyprpaper IPC
+updates only outputs whose effective image changed, then checks each output,
 with one follow-up check after 3 s. Outputs with missing, failed or stale replies
 get the same still image from the bar on the background layer, cropped to fill
 and decoded at screen size, including ultrawide variants. This fallback follows
