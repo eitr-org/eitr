@@ -82,10 +82,8 @@ ShellRoot {
                 onStatusChanged: root.failOnError(status)
             }
             Item {
-                id: circleMask
+                id: circleShape
                 anchors.fill: parent
-                visible: false
-                layer.enabled: true
                 Rectangle {
                     anchors.centerIn: parent
                     width: Math.sqrt(window.width * window.width + window.height * window.height) * root.progress
@@ -93,6 +91,16 @@ ShellRoot {
                     radius: width / 2
                     color: "white"
                 }
+            }
+            // A live texture of the circle: a hidden item with layer.enabled is drawn once and
+            // never redrawn as the circle grows, which left the reveal invisible.
+            ShaderEffectSource {
+                id: circleMask
+                anchors.fill: parent
+                sourceItem: circleShape
+                hideSource: true
+                live: true
+                visible: false
             }
             Image {
                 id: newImage
