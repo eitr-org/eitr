@@ -144,7 +144,9 @@ Item {
         border.color: Qt.alpha(host.foreground, PanelStyle.selectionBorderAlpha)
     }
     MouseArea {
-        anchors.fill: parent; enabled: host.tile || host.barItem; z: 2
+        // Hidden, not just disabled, in panels and widgets: a disabled MouseArea still sets
+        // the cursor and would hide the plugin's own pointer cursors underneath it.
+        anchors.fill: parent; visible: host.tile || host.barItem; z: 2
         cursorShape: host.entry.panel ? Qt.PointingHandCursor : Qt.ArrowCursor
         // A click on a bar icon takes no focus, so no focus ring; Tab still shows it.
         onClicked: { if (!host.barItem) host.forceActiveFocus(); host.activate(); }
