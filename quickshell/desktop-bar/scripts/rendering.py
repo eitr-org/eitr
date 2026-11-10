@@ -118,7 +118,8 @@ def saved_wallpaper_status(publish=None):
     wallpaper = choices.saved_global(str(defaults[0]) if defaults else '')
     # During a theme switch the saved file is gone until the switch's own transition
     # commits the new wallpaper; redrawing here first would flash the new one early.
-    images, active, failures = choices.reconcile(transition, wallpaper, write=choices.saved_global_available())
+    switching = not choices.saved_global_available()
+    images, active, failures = choices.reconcile(transition, wallpaper, write=not switching)
     temporary = choices.preview()
     assignments = choices.prune()
     motions = {}
@@ -130,7 +131,7 @@ def saved_wallpaper_status(publish=None):
     return dict(images={name: Path(path).as_uri() for name, path in images.items()},
                 healthy={name: active is not None and name in active and name not in failures
                          for name in images if name != '*'},
-                wallpaper=wallpaper, motion=motion_folder(wallpaper), motions=motions)
+                wallpaper=wallpaper, motion=motion_folder(wallpaper), motions=motions, switching=switching)
 
 
 if __name__ == '__main__':

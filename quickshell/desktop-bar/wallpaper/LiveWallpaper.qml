@@ -49,9 +49,10 @@ Scope {
                     var result = JSON.parse(data);
                     live.stillImages = result.images;
                     live.motions = result.motions || ({});
-                    live.suspended = false;
                     if (result.healthy !== undefined) live.healthyOutputs = result.healthy;
-                    if (live.wallpaper !== result.wallpaper) live.suspended = false;
+                    // A theme switch pauses the moving layer so its circle reveal shows; only a
+                    // settled new wallpaper ends that pause, not checks made mid-switch.
+                    if (!result.switching && live.wallpaper !== result.wallpaper) live.suspended = false;
                     live.wallpaper = result.wallpaper;
                     live.motion = typeof result.motion === "string" ? result.motion : "";
                 } catch (error) {}
