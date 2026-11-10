@@ -428,7 +428,8 @@ class MenuStructureTests(unittest.TestCase):
         self.assertEqual(entry.get("subtext"), ">")
         self.assertEqual(menu("battery-limit")["parent"], "input")
         self.assertEqual([entry["text"] for entry in menu("input")["entries"]], ["Battery Charge Limit", "Keyboard", "Lighting"])
-        self.assertIn('(name == "input" or name == "battery-limit")', (ROOT / "elephant/scoped-menu.lua").read_text())
+        self.assertIn('menus = {["battery-limit"] = true, ["sound-charger"] = true}', (ROOT / "elephant/battery-state.lua").read_text())
+        self.assertIn("battery_state.menus[row.submenu", (ROOT / "elephant/scoped-menu.lua").read_text())
 
     def test_system_groups_have_matching_layouts_and_back_navigation(self):
         # Settings follows the Settings app's groups (SettingsIndex.js), in its order.
@@ -442,7 +443,7 @@ class MenuStructureTests(unittest.TestCase):
         devices = {entry["text"]: entry for entry in menu("system-devices")["entries"]}
         self.assertEqual((devices["Language"].get("subtext"), devices["Language"].get("submenu")), (">", "language"), "Language is a folder")
         layout = ROOT / "walker/themes/current"
-        for group, parent in (("system-devices", "settings"), ("system-connectivity", "system-devices"), ("input", "system-devices"),
+        for group, parent in (("system-devices", "settings"), ("system-connectivity", "system-devices"), ("input", "system-devices"), ("event-sounds", "system-devices"),
                               ("remote-access", "system-devices"), ("style", "settings"), ("appearance", "style"),
                               ("windows", "style"), ("apps-keys", "settings"), ("system-maintenance", "system")):
             self.assertEqual(menu(group)["parent"], parent)
@@ -465,8 +466,46 @@ class MenuStructureTests(unittest.TestCase):
         self.assertEqual([entry["text"] for entry in menu("style")["entries"]],
                          ["Appearance", "Desktop Bar", "Focus", "Lockscreen", "Windows", "Themes & Plugins"])
         self.assertEqual([entry["text"] for entry in menu("appearance")["entries"]],
-                         ["Corners", "Cursor", "Fonts", "Terminal", "Theme", "Wallpaper"])
+                         ["Corners", "Cursor", "Fonts", "Terminal", "Theme", "Wallpaper", "Wallpaper per display", "Settings Colours"])
         self.assertEqual([entry["text"] for entry in menu("windows")["entries"]], ["Window gaps", "Window layout", "Workspaces"])
+
+    def test_settings_app_options_have_walker_choices(self):
+        # Each Settings app toggle or choice Walker offers is a submenu of checked choices
+        # whose Parent is the menu that lists it, written through the setting's own helper.
+        for folder, parent, helper, key in (
+                ("scrolling-focus-fit", "window-layout", "desktop-style.py", '"scrollFocusFit"'),
+                ("scrolling-follow-focus", "window-layout", "desktop-style.py", '"scrollFollowFocus"'),
+                ("scrolling-fullscreen", "window-layout", "desktop-style.py", '"scrollFullscreen"'),
+                ("bar-pinned", "bar", "bar-settings-entries.lua", '"pinned"'),
+                ("wallpaper-per-display", "appearance", "assignments.py", '"per-display"'),
+                ("sound-notifications", "event-sounds", "event-sounds.py", '"notifications"'),
+                ("sound-charger", "event-sounds", "event-sounds.py", '"charger"')):
+            with self.subTest(menu=folder):
+                self.assertEqual(menu(folder)["parent"], parent)
+                self.assertIn(folder, [entry.get("submenu") for entry in menu(parent)["entries"]])
+                source = (MENUS / f"{folder}.lua").read_text()
+                self.assertIn(helper, source)
+                self.assertIn(key, source)
+                self.assertTrue((ROOT / f"walker/themes/current/item_menus-{folder}.xml").is_file())
+        self.assertEqual([entry["text"] for entry in menu("window-layout")["entries"]],
+                         ["Default column width", "Direction", "Focus fit", "Follow focus", "Fullscreen when one column"])
+        self.assertEqual([entry["text"] for entry in menu("event-sounds")["entries"]], ["Charger sounds", "Notification sounds"])
+        self.assertEqual(menu("event-sounds")["parent"], "system-devices")
+        self.assertIn("Keep expanded", [entry["text"] for entry in menu("bar")["entries"]])
+
+    def test_settings_colours_opens_its_settings_tab(self):
+        entry = next(entry for entry in menu("appearance")["entries"] if entry["text"] == "Settings Colours")
+        prefix = "eitr-shell desktop-bar ipc call -- settings show "
+        self.assertTrue(entry["actions"]["open"].startswith(prefix))
+        route = entry["actions"]["open"].removeprefix(prefix)
+        page_tab, setting = route.split("#")
+        page, tab = page_tab.split("/")
+        index = (ROOT / "quickshell/desktop-bar/settings/SettingsIndex.js").read_text()
+        self.assertIn(f'"id": "{page}"', index)
+        self.assertIn(f'{{id: "{tab}", label:', index.split(f"    {page}: [", 1)[1].split("\n", 1)[0])
+        catalog = (ROOT / "quickshell/desktop-bar/settings/SettingsCatalog.js").read_text()
+        self.assertIn(f'"id": "{setting}", "label": "Settings colours", "page": "{page}", "tab": "{tab}"', catalog)
+        self.assertIn(f'objectName: "setting-{setting}"', (ROOT / "quickshell/desktop-bar/settings/SettingsAppearancePage.qml").read_text())
 
     def test_calendar_and_overview_remain_in_the_search_catalog(self):
         source = (MENUS / "system-shortcuts.lua").read_text()

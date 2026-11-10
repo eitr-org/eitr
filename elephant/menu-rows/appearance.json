@@ -71,5 +71,30 @@
     ],
     "icon": "🖻",
     "submenu": "wallpaper"
+  },
+  {
+    "text": "Wallpaper per display",
+    "subtext": ">",
+    "keywords": [
+      "monitor",
+      "screen",
+      "background",
+      "multi-monitor"
+    ],
+    "icon": "🖻",
+    "submenu": "wallpaper-per-display"
+  },
+  {
+    "text": "Settings Colours",
+    "subtext": "Choose the colours the Settings app uses",
+    "keywords": [
+      "settings colors",
+      "palette",
+      "website"
+    ],
+    "icon": "󰏘",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- settings show appearance/theme#appearance-settings-colours"
+    }
   }
 ]

@@ -3055,6 +3055,18 @@
     "A design with your own picture, color and greeting": [
       "elephant/menus/lockscreen.lua"
     ],
+    "A lone column fills the screen": [
+      "elephant/menus/scrolling-fullscreen.lua"
+    ],
+    "A lone column keeps its width": [
+      "elephant/menus/scrolling-fullscreen.lua"
+    ],
+    "A new wallpaper changes every display": [
+      "elephant/menus/wallpaper-per-display.lua"
+    ],
+    "A new wallpaper changes only the display you are using": [
+      "elephant/menus/wallpaper-per-display.lua"
+    ],
     "A one-time or repeating notification": [
       "elephant/menu-rows/reminders.json"
     ],
@@ -3342,6 +3354,10 @@
     "Charge to 100%": [
       "elephant/menu-rows/battery-limit.json"
     ],
+    "Charger sounds": [
+      "elephant/menu-rows/event-sounds.json",
+      "elephant/menus/sound-charger.lua"
+    ],
     "Check This PC": [
       "elephant/menu-rows/system.json"
     ],
@@ -3376,6 +3392,9 @@
     ],
     "Choose the apps that open files and links": [
       "elephant/menu-rows/apps-keys.json"
+    ],
+    "Choose the colours the Settings app uses": [
+      "elephant/menu-rows/appearance.json"
     ],
     "Choose the round picture shown on the lockscreen and login screen": [
       "elephant/menu-rows/users.json"
@@ -3770,6 +3789,10 @@
     "Erase Everything": [
       "elephant/menu-rows/factory-reset.json"
     ],
+    "Event Sounds": [
+      "elephant/menu-rows/system-devices.json",
+      "elephant/menus/event-sounds.lua"
+    ],
     "Every keyboard shortcut, and run one from the list": [
       "elephant/menu-rows/learn.json"
     ],
@@ -3816,6 +3839,10 @@
     "Focus down (scrolling only)": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "Focus fit": [
+      "elephant/menu-rows/window-layout.json",
+      "elephant/menus/scrolling-focus-fit.lua"
+    ],
     "Focus left": [
       "distro/lib/eitr_focus.py"
     ],
@@ -3844,6 +3871,10 @@
     "Follow Theme": [
       "elephant/menus/lighting.lua"
     ],
+    "Follow focus": [
+      "elephant/menu-rows/window-layout.json",
+      "elephant/menus/scrolling-follow-focus.lua"
+    ],
     "Follow the system language; sign out and back in to apply": [
       "elephant/menus/language.lua"
     ],
@@ -3868,6 +3899,10 @@
     ],
     "Full motion": [
       "elephant/menus/bar-motion.lua"
+    ],
+    "Fullscreen when one column": [
+      "elephant/menu-rows/window-layout.json",
+      "elephant/menus/scrolling-fullscreen.lua"
     ],
     "Fun": [
       "elephant/menu-rows/tools.json",
@@ -4025,6 +4060,10 @@
     "Keep My Files": [
       "elephant/menu-rows/factory-reset.json"
     ],
+    "Keep expanded": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-pinned.lua"
+    ],
     "Keep files; reset apps and settings": [
       "elephant/menu-rows/factory-reset.json"
     ],
@@ -4037,8 +4076,14 @@
     "Keep the bar on screen": [
       "elephant/menus/bar-autohide.lua"
     ],
+    "Keep the centered bar expanded": [
+      "elephant/menus/bar-pinned.lua"
+    ],
     "Keep the normal fast cursor trail": [
       "elephant/menus/terminal-cursor-fire.lua"
+    ],
+    "Keep the view still when focus moves": [
+      "elephant/menus/scrolling-follow-focus.lua"
     ],
     "Keybinds": [
       "elephant/menu-rows/apps-keys.json"
@@ -4327,6 +4372,13 @@
     "Notification Center": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "Notification sounds": [
+      "elephant/menu-rows/event-sounds.json",
+      "elephant/menus/sound-notifications.lua"
+    ],
+    "Notifications arrive silently": [
+      "elephant/menus/sound-notifications.lua"
+    ],
     "Number of workspaces": [
       "elephant/menu-rows/workspaces.json",
       "elephant/menus/workspace-count.lua"
@@ -4335,15 +4387,27 @@
       "elephant/menu-rows/tools.json"
     ],
     "Off": [
+      "elephant/menus/bar-pinned.lua",
       "elephant/menus/focus.lua",
-      "elephant/menus/terminal-blur.lua"
+      "elephant/menus/scrolling-follow-focus.lua",
+      "elephant/menus/scrolling-fullscreen.lua",
+      "elephant/menus/sound-charger.lua",
+      "elephant/menus/sound-notifications.lua",
+      "elephant/menus/terminal-blur.lua",
+      "elephant/menus/wallpaper-per-display.lua"
     ],
     "Official Eitr plugin": [
       "elephant/menus/plugin-actions.lua"
     ],
     "On": [
+      "elephant/menus/bar-pinned.lua",
       "elephant/menus/focus.lua",
-      "elephant/menus/terminal-blur.lua"
+      "elephant/menus/scrolling-follow-focus.lua",
+      "elephant/menus/scrolling-fullscreen.lua",
+      "elephant/menus/sound-charger.lua",
+      "elephant/menus/sound-notifications.lua",
+      "elephant/menus/terminal-blur.lua",
+      "elephant/menus/wallpaper-per-display.lua"
     ],
     "One third": [
       "tools/choice-lists.json"
@@ -4470,6 +4534,15 @@
     ],
     "Place the bar on the right": [
       "elephant/menus/bar-position.lua"
+    ],
+    "Play a sound when the charger is connected": [
+      "elephant/menus/sound-charger.lua"
+    ],
+    "Play a sound with notification popups": [
+      "elephant/menus/sound-notifications.lua"
+    ],
+    "Plug and unplug the charger silently": [
+      "elephant/menus/sound-charger.lua"
     ],
     "Plugin by {author} · not reviewed by Eitr": [
       "elephant/menus/plugin-actions.lua"
@@ -4893,6 +4966,9 @@
     "Screenshot Selection": [
       "elephant/menu-rows/shortcuts.json"
     ],
+    "Scroll to the window that gets focus": [
+      "elephant/menus/scrolling-follow-focus.lua"
+    ],
     "Scrolling": [
       "tools/choice-lists.json"
     ],
@@ -5023,6 +5099,9 @@
       "elephant/menu-rows/main.json",
       "elephant/menu-rows/shortcuts.json",
       "elephant/menus/settings.lua"
+    ],
+    "Settings Colours": [
+      "elephant/menu-rows/appearance.json"
     ],
     "Setup": [
       "elephant/menu-rows/remote-away.json",
@@ -5279,6 +5358,9 @@
     "Testing": [
       "tools/choice-lists.json"
     ],
+    "The centered bar expands while hovered": [
+      "elephant/menus/bar-pinned.lua"
+    ],
     "The full guide to Eitr, offline": [
       "elephant/menu-rows/learn.json"
     ],
@@ -5468,6 +5550,10 @@
     ],
     "Wallpaper Picker": [
       "elephant/menu-rows/shortcuts.json"
+    ],
+    "Wallpaper per display": [
+      "elephant/menu-rows/appearance.json",
+      "elephant/menus/wallpaper-per-display.lua"
     ],
     "Warmer screen colors for the evening; on or off": [
       "elephant/menu-rows/toggle.json"

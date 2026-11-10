@@ -31,6 +31,22 @@ class SearchIndexTests(unittest.TestCase):
         with patch.object(search, 'system_batteries', return_value=[Path('/mock/BAT0')]):
             self.assertEqual(len(search.snapshot(self.output(folder, choice), menus=definitions)), 2)
 
+    def test_charger_sounds_are_not_indexed_without_system_battery(self):
+        folder = dict(self.item, provider='menus:event-sounds', text='Charger sounds')
+        choice = dict(self.item, provider='menus:sound-charger', text='On')
+        other = dict(self.item, provider='menus:sound-notifications', text='On')
+        definitions = {'event-sounds': {'entries': [{'text': 'Charger sounds', 'submenu': 'sound-charger'}]}}
+        with patch.object(search, 'system_batteries', return_value=[]):
+            rows = search.snapshot(self.output(folder, choice, other), menus=definitions)
+            self.assertEqual([row['provider'] for row in rows], ['menus:sound-notifications'])
+        with patch.object(search, 'system_batteries', return_value=[Path('/mock/BAT0')]):
+            self.assertEqual(len(search.snapshot(self.output(folder, choice, other), menus=definitions)), 3)
+
+    def test_battery_only_menus_match_the_lua_list(self):
+        source = (Path(__file__).resolve().parents[2] / 'elephant/battery-state.lua').read_text()
+        listed = set(re.findall(r'\["([a-z-]+)"\] = true', source))
+        self.assertEqual(listed, search.BATTERY_MENUS)
+
     def test_private_clipboard_and_index_are_excluded(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -223,7 +239,9 @@ class SearchIndexTests(unittest.TestCase):
 local root = os.getenv('EITR_CODE_ROOT')
 local original_dofile = dofile
 dofile = function(path)
-    if path == root .. '/elephant/battery-state.lua' then return function() return {available=true} end end
+    if path == root .. '/elephant/battery-state.lua' then
+        return setmetatable({menus={}}, {__call=function() return {available=true} end})
+    end
     if path == root .. '/elephant/policies.lua' then return {row=function() return true end} end
     return original_dofile(path)
 end

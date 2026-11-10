@@ -6,7 +6,8 @@ import Quickshell.Io
 import Eitr as Eitr
 
 // Optional sounds for desktop events, off until the user turns them on (Control Center >
-// Sound). Sounds come from the freedesktop sound theme and play through PipeWire. Nothing
+// Sound, Settings > Sound or Walker's Event Sounds menu, which writes the watched file).
+// Sounds come from the freedesktop sound theme and play through PipeWire. Nothing
 // plays during Do Not Disturb, which Game Mode also turns on.
 QtObject {
     id: sounds

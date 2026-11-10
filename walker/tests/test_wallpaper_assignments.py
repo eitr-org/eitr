@@ -1,4 +1,6 @@
 """Display resolution and isolated persistence, including temporary preview rollback."""
+import contextlib
+import io
 import json
 import os
 from pathlib import Path
@@ -179,9 +181,7 @@ class AssignmentTests(unittest.TestCase):
         self.assertEqual(failures, ['DP-1'])
 
     def run_picker(self, *arguments, catalog=None):
-        import contextlib
         import importlib.util
-        import io
         import sys
         import types
         from unittest.mock import Mock
@@ -229,6 +229,20 @@ class AssignmentTests(unittest.TestCase):
         self.run_picker('clear')
         self.assertEqual(choices.prune(), {})
         self.assertTrue(choices.per_display())
+
+    def test_walker_choice_menu_gets_and_sets_per_display(self):
+        choices.set_per_display(False)
+        _, reconcile, output = self.run_picker('get', 'per-display')
+        self.assertEqual(output, 'off\n')
+        reconcile.assert_not_called()
+        _, reconcile, _ = self.run_picker('set', 'per-display', 'on')
+        reconcile.assert_called_once()
+        self.assertTrue(choices.per_display())
+        self.assertEqual(self.run_picker('get', 'per-display')[2], 'on\n')
+        for arguments in (('set', 'per-display', 'maybe'), ('get', 'colour'), ('per-display',), ('apply', 'on')):
+            with self.subTest(arguments=arguments), self.assertRaises(SystemExit), \
+                    contextlib.redirect_stderr(io.StringIO()):
+                self.run_picker(*arguments)
 
     def test_targeted_reconcile_leaves_other_outputs_untouched(self):
         choices.change('apply', 'DP-1', self.images[2], 'owner')

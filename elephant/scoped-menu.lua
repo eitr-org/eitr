@@ -18,9 +18,16 @@ return function(name, configure)
         handle:close()
         local ok, rows = pcall(jsonDecode, raw)
         local entries = {}
-        local battery = (name == "input" or name == "battery-limit") and dofile(paths.code("elephant/battery-state.lua"))() or {}
+        -- Battery-only menus and the rows opening them; the helper runs only when one is listed.
+        local battery_state = dofile(paths.code("elephant/battery-state.lua"))
+        local battery
+        local function shown(row)
+            if not battery_state.menus[row.submenu or ""] and not battery_state.menus[name] then return true end
+            battery = battery or battery_state()
+            return battery.available
+        end
         for _, row in ipairs(ok and rows or {}) do
-            if (row.submenu ~= "battery-limit" and name ~= "battery-limit") or battery.available then
+            if shown(row) then
                 local entry = row_entry(row)
                 entry.SubMenu = row.submenu
                 entry.Actions = row.actions

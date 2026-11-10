@@ -71,6 +71,17 @@
     "submenu": "bar-dock"
   },
   {
+    "text": "Keep expanded",
+    "subtext": ">",
+    "icon": "󰐃",
+    "keywords": [
+      "pin",
+      "centered",
+      "hover"
+    ],
+    "submenu": "bar-pinned"
+  },
+  {
     "text": "Layout",
     "subtext": ">",
     "icon": "󰕰",

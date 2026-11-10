@@ -506,6 +506,31 @@
         ],
         "icon": "🖻",
         "submenu": "wallpaper"
+      },
+      {
+        "text": "Wallpaper per display",
+        "subtext": ">",
+        "keywords": [
+          "monitor",
+          "screen",
+          "background",
+          "multi-monitor"
+        ],
+        "icon": "🖻",
+        "submenu": "wallpaper-per-display"
+      },
+      {
+        "text": "Settings Colours",
+        "subtext": "Choose the colours the Settings app uses",
+        "keywords": [
+          "settings colors",
+          "palette",
+          "website"
+        ],
+        "icon": "󰏘",
+        "actions": {
+          "open": "eitr-shell desktop-bar ipc call -- settings show appearance/theme#appearance-settings-colours"
+        }
       }
     ],
     "apps-keys": [
@@ -608,6 +633,17 @@
           "screen edge"
         ],
         "submenu": "bar-dock"
+      },
+      {
+        "text": "Keep expanded",
+        "subtext": ">",
+        "icon": "󰐃",
+        "keywords": [
+          "pin",
+          "centered",
+          "hover"
+        ],
+        "submenu": "bar-pinned"
       },
       {
         "text": "Layout",
@@ -905,6 +941,30 @@
         "actions": {
           "open": "/usr/share/eitr/walker/scripts/actions/development/open-project.sh vscode"
         }
+      }
+    ],
+    "event-sounds": [
+      {
+        "text": "Charger sounds",
+        "subtext": ">",
+        "keywords": [
+          "battery",
+          "plug",
+          "power"
+        ],
+        "icon": "󰂄",
+        "submenu": "sound-charger"
+      },
+      {
+        "text": "Notification sounds",
+        "subtext": ">",
+        "keywords": [
+          "chime",
+          "alert",
+          "popup"
+        ],
+        "icon": "󰂚",
+        "submenu": "sound-notifications"
       }
     ],
     "factory-reset": [
@@ -2555,6 +2615,18 @@
         "submenu": "system-connectivity"
       },
       {
+        "text": "Event Sounds",
+        "subtext": ">",
+        "keywords": [
+          "sound",
+          "notification",
+          "charger",
+          "chime"
+        ],
+        "icon": "󰂚",
+        "submenu": "event-sounds"
+      },
+      {
         "text": "Input",
         "subtext": ">",
         "keywords": [
@@ -3063,6 +3135,37 @@
         "subtext": ">",
         "icon": "󰍹",
         "submenu": "scrolling-direction"
+      },
+      {
+        "text": "Focus fit",
+        "subtext": ">",
+        "icon": "󰍹",
+        "keywords": [
+          "center",
+          "scrolling"
+        ],
+        "submenu": "scrolling-focus-fit"
+      },
+      {
+        "text": "Follow focus",
+        "subtext": ">",
+        "icon": "󰍹",
+        "keywords": [
+          "scroll",
+          "scrolling"
+        ],
+        "submenu": "scrolling-follow-focus"
+      },
+      {
+        "text": "Fullscreen when one column",
+        "subtext": ">",
+        "icon": "󰍹",
+        "keywords": [
+          "lone",
+          "single",
+          "scrolling"
+        ],
+        "submenu": "scrolling-fullscreen"
       }
     ],
     "windows": [
@@ -3227,6 +3330,7 @@
     "bar-layout": "bar",
     "bar-media": "bar",
     "bar-motion": "bar",
+    "bar-pinned": "bar",
     "bar-position": "bar",
     "bar-screens": "bar",
     "bar": "style",
@@ -3247,6 +3351,7 @@
     "development": "main",
     "digitalocean-account": "digitalocean-contexts",
     "digitalocean-contexts": "cloud",
+    "event-sounds": "system-devices",
     "factory-reset": "system-maintenance",
     "fido2": "security",
     "fingerprint": "security",
@@ -3298,12 +3403,17 @@
     "screenrecord": "capture",
     "screenshot": "capture",
     "scrolling-direction": "window-layout",
+    "scrolling-focus-fit": "window-layout",
+    "scrolling-follow-focus": "window-layout",
+    "scrolling-fullscreen": "window-layout",
     "scrolling-width": "window-layout",
     "security": "settings",
     "settings": "main",
     "share": "tools",
     "shortcuts": "learn",
     "snapshots": "system-maintenance",
+    "sound-charger": "event-sounds",
+    "sound-notifications": "event-sounds",
     "style": "settings",
     "system-connectivity": "system-devices",
     "system-devices": "settings",
@@ -3325,6 +3435,7 @@
     "users": "security",
     "vercel-account": "vercel-contexts",
     "vercel-contexts": "cloud",
+    "wallpaper-per-display": "appearance",
     "wallpaper": "appearance",
     "webapps": "install",
     "window-gaps": "windows",
@@ -5020,6 +5131,53 @@
       "submenu": "wallpaper"
     },
     {
+      "key": "dacb7c09191b58f0ac2c39dadf08a051c698175dc2ee1cac76d3d31e9bc03802",
+      "provider": "menus:appearance",
+      "identifier": "appearance:6",
+      "text": "Wallpaper per display",
+      "subtext": ">",
+      "icon": "🖻",
+      "actions": [],
+      "keywords": [
+        "monitor",
+        "screen",
+        "background",
+        "multi-monitor",
+        "Wallpaper per display",
+        "Wallpaper per display"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "wallpaper-per-display"
+    },
+    {
+      "key": "4f9d26cf70f151d23dad497a9d370071bb82d01c9853eae4d383a18d967766c8",
+      "provider": "menus:appearance",
+      "identifier": "appearance:7",
+      "text": "Settings Colours",
+      "subtext": "Choose the colours the Settings app uses",
+      "icon": "󰏘",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "settings colors",
+        "palette",
+        "website",
+        "Settings Colours",
+        "Settings Colours",
+        "Choose the colours the Settings app uses"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ]
+    },
+    {
       "key": "7be3109789d237ef896bf74e5998ad4196bc6c8f23c40be8034dfdf748dd2199",
       "provider": "menus:apps-keys",
       "identifier": "apps-keys:0",
@@ -5207,6 +5365,28 @@
       "key": "838235f99b2d426995f4faadd2b0b9038c11e37d07cf0bcec5ac32f1a0b2c30e",
       "provider": "menus:bar",
       "identifier": "bar:6",
+      "text": "Keep expanded",
+      "subtext": ">",
+      "icon": "󰐃",
+      "actions": [],
+      "keywords": [
+        "pin",
+        "centered",
+        "hover",
+        "Keep expanded",
+        "Keep expanded"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "bar-pinned"
+    },
+    {
+      "key": "56983b251b1cc27cf4e01d52e4dde09c5ac233c9ac17f55cf5c07e4e613ee947",
+      "provider": "menus:bar",
+      "identifier": "bar:7",
       "text": "Layout",
       "subtext": ">",
       "icon": "󰕰",
@@ -5229,9 +5409,9 @@
       "submenu": "bar-layout"
     },
     {
-      "key": "56983b251b1cc27cf4e01d52e4dde09c5ac233c9ac17f55cf5c07e4e613ee947",
+      "key": "83db68e2ed19b519813505f5df88663aa6de81d1b6417248f7db465741bd818e",
       "provider": "menus:bar",
-      "identifier": "bar:7",
+      "identifier": "bar:8",
       "text": "Media style",
       "subtext": ">",
       "icon": "󰍜",
@@ -5252,9 +5432,9 @@
       "submenu": "bar-media"
     },
     {
-      "key": "83db68e2ed19b519813505f5df88663aa6de81d1b6417248f7db465741bd818e",
+      "key": "fc95814ddcee8c946ae099852acaa629762493f46ba6e819967c60ea5ceb5887",
       "provider": "menus:bar",
-      "identifier": "bar:8",
+      "identifier": "bar:9",
       "text": "Position",
       "subtext": ">",
       "icon": "󰆾",
@@ -5276,9 +5456,9 @@
       "submenu": "bar-position"
     },
     {
-      "key": "fc95814ddcee8c946ae099852acaa629762493f46ba6e819967c60ea5ceb5887",
+      "key": "b2ef19521b5573ab850c2103fd1b89b595d3f219bb1abc2883fd9b57a01d1e08",
       "provider": "menus:bar",
-      "identifier": "bar:9",
+      "identifier": "bar:10",
       "text": "Reduce motion",
       "subtext": ">",
       "icon": "󰍜",
@@ -5845,6 +6025,50 @@
       "menus": [
         "main"
       ]
+    },
+    {
+      "key": "cc8a03ba6678b2fa04dd78c7628b95f362ddf9b156c83503cea0eaff06c54ed8",
+      "provider": "menus:event-sounds",
+      "identifier": "event-sounds:0",
+      "text": "Charger sounds",
+      "subtext": ">",
+      "icon": "󰂄",
+      "actions": [],
+      "keywords": [
+        "battery",
+        "plug",
+        "power",
+        "Charger sounds",
+        "Charger sounds"
+      ],
+      "menus": [
+        "system-devices",
+        "settings",
+        "main"
+      ],
+      "submenu": "sound-charger"
+    },
+    {
+      "key": "98ebfa46ceaaa140113761d7e4bc26c8d28cd97510a9ac4d90d4a4e5827ea628",
+      "provider": "menus:event-sounds",
+      "identifier": "event-sounds:1",
+      "text": "Notification sounds",
+      "subtext": ">",
+      "icon": "󰂚",
+      "actions": [],
+      "keywords": [
+        "chime",
+        "alert",
+        "popup",
+        "Notification sounds",
+        "Notification sounds"
+      ],
+      "menus": [
+        "system-devices",
+        "settings",
+        "main"
+      ],
+      "submenu": "sound-notifications"
     },
     {
       "key": "c6919cc03526f6d3c7f9c009747ce034342bde980e4ee31fca05bc91e943caee",
@@ -9359,6 +9583,28 @@
       "key": "59237012489185674aa4cb5de2ac4183c3f5d59832a76cb141a8d55f1b7a1785",
       "provider": "menus:system-devices",
       "identifier": "system-devices:1",
+      "text": "Event Sounds",
+      "subtext": ">",
+      "icon": "󰂚",
+      "actions": [],
+      "keywords": [
+        "sound",
+        "notification",
+        "charger",
+        "chime",
+        "Event Sounds",
+        "Event Sounds"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ],
+      "submenu": "event-sounds"
+    },
+    {
+      "key": "98d1795f6c2031715df9aa86e6ffbcaa6741f7538f2eef8823e8d7f09c7b09ce",
+      "provider": "menus:system-devices",
+      "identifier": "system-devices:2",
       "text": "Input",
       "subtext": ">",
       "icon": "󰌌",
@@ -9377,9 +9623,9 @@
       "submenu": "input"
     },
     {
-      "key": "98d1795f6c2031715df9aa86e6ffbcaa6741f7538f2eef8823e8d7f09c7b09ce",
+      "key": "a90ec408993f9509f0f8c7f0665406a32c5182026fff9759ce4ae295f967ee1a",
       "provider": "menus:system-devices",
-      "identifier": "system-devices:2",
+      "identifier": "system-devices:3",
       "text": "Language",
       "subtext": ">",
       "icon": "󰗊",
@@ -9398,9 +9644,9 @@
       "submenu": "language"
     },
     {
-      "key": "a90ec408993f9509f0f8c7f0665406a32c5182026fff9759ce4ae295f967ee1a",
+      "key": "53e20c4ca5ca7d6eef673facf7a461cae6f893b5845a21cbf27f76e75aecc402",
       "provider": "menus:system-devices",
-      "identifier": "system-devices:3",
+      "identifier": "system-devices:4",
       "text": "Streaming",
       "subtext": ">",
       "icon": "󰢹",
@@ -9420,9 +9666,9 @@
       "submenu": "remote-access"
     },
     {
-      "key": "53e20c4ca5ca7d6eef673facf7a461cae6f893b5845a21cbf27f76e75aecc402",
+      "key": "58f31bbb193396fd094cda93c4a973be41a71c489b45a44b03f35f5afb06aeb3",
       "provider": "menus:system-devices",
-      "identifier": "system-devices:4",
+      "identifier": "system-devices:5",
       "text": "Audio",
       "subtext": "Output device and app volumes",
       "icon": "",
@@ -9440,9 +9686,9 @@
       ]
     },
     {
-      "key": "58f31bbb193396fd094cda93c4a973be41a71c489b45a44b03f35f5afb06aeb3",
+      "key": "234c570a866054baaa6b6ab39adc83f3b2da4d4675baeab9fd41c88d2c2392c7",
       "provider": "menus:system-devices",
-      "identifier": "system-devices:5",
+      "identifier": "system-devices:6",
       "text": "Display",
       "subtext": "Brightness, Night Light, resolution, refresh rate and scale",
       "icon": "󰍹",
@@ -9474,9 +9720,9 @@
       ]
     },
     {
-      "key": "234c570a866054baaa6b6ab39adc83f3b2da4d4675baeab9fd41c88d2c2392c7",
+      "key": "f52f697edb6aec3e254337fac5c1d779baad63771520bdd4d38c3d2a506350a2",
       "provider": "menus:system-devices",
-      "identifier": "system-devices:6",
+      "identifier": "system-devices:7",
       "text": "Microphone",
       "subtext": "Input device and level",
       "icon": "󰍬",
@@ -10369,6 +10615,73 @@
         "main"
       ],
       "submenu": "scrolling-direction"
+    },
+    {
+      "key": "d34608704ae514aeddc5017ac43db82903244f652ec105d735c3d4150a31623d",
+      "provider": "menus:window-layout",
+      "identifier": "window-layout:2",
+      "text": "Focus fit",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "center",
+        "scrolling",
+        "Focus fit",
+        "Focus fit"
+      ],
+      "menus": [
+        "windows",
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "scrolling-focus-fit"
+    },
+    {
+      "key": "32ff7d7603b5d0eec4954e9535331f1a3acf67ecb944767009fef826697a19ba",
+      "provider": "menus:window-layout",
+      "identifier": "window-layout:3",
+      "text": "Follow focus",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "scroll",
+        "scrolling",
+        "Follow focus",
+        "Follow focus"
+      ],
+      "menus": [
+        "windows",
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "scrolling-follow-focus"
+    },
+    {
+      "key": "50f6cfa5fe128bd4b46ec3961eb451c8754bce1136062664f036ce95d3ab8237",
+      "provider": "menus:window-layout",
+      "identifier": "window-layout:4",
+      "text": "Fullscreen when one column",
+      "subtext": ">",
+      "icon": "󰍹",
+      "actions": [],
+      "keywords": [
+        "lone",
+        "single",
+        "scrolling",
+        "Fullscreen when one column",
+        "Fullscreen when one column"
+      ],
+      "menus": [
+        "windows",
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "scrolling-fullscreen"
     },
     {
       "key": "81b5d665863a4476b009c7eaf4e6deea3f13d024afbd65261cfaf6bf8fe536a2",

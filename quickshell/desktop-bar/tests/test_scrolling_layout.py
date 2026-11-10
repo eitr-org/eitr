@@ -94,10 +94,13 @@ local calls = 0
 jsonDecode = function(raw) return decoded[raw] or {} end
 io.popen = function(command)
     calls = calls + 1
-    local current = command:find("scrollWidth", 1, true) and "half" or command:find("scrollDirection", 1, true) and "right" or "scrolling"
+    local saved = {scrollWidth="half", scrollDirection="right", scrollFocusFit="fit", scrollFollowFocus="no", scrollFullscreen="yes"}
+    local current = saved[command:match(" get (%a+)$")] or "scrolling"
     return {read=function() return current end, close=function() end}
 end
-for _, spec in ipairs({{"window-layout", "windows", "scrolling", 4}, {"scrolling-width", "window-layout", "half", 4}, {"scrolling-direction", "window-layout", "right", 4}}) do
+for _, spec in ipairs({{"window-layout", "windows", "scrolling", 7}, {"scrolling-width", "window-layout", "half", 4},
+                       {"scrolling-direction", "window-layout", "right", 4}, {"scrolling-focus-fit", "window-layout", "fit", 2},
+                       {"scrolling-follow-focus", "window-layout", "no", 2}, {"scrolling-fullscreen", "window-layout", "yes", 2}}) do
     dofile(root .. "/elephant/menus/" .. spec[1] .. ".lua")
     assert(Parent == spec[2])
     local entries = GetEntries("")

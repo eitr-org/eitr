@@ -30,6 +30,8 @@ RUNTIME = Path(os.environ.get('XDG_RUNTIME_DIR', f'/run/user/{os.getuid()}')) / 
 INDEX = RUNTIME / 'index.json'
 MAX_AGE = 60
 EXCLUDED = {'clipboard', 'search-index', 'plugin-actions', 'plugin-visuals', 'choose-folder'}
+# Shown only on PCs with a system battery; elephant/battery-state.lua keeps the same list.
+BATTERY_MENUS = {'battery-limit', 'sound-charger'}
 CLOUD_MENUS = code('walker/scripts/menus/cloud/navigation-menus.json')
 
 
@@ -156,7 +158,7 @@ def snapshot(output, keywords=None, parent_of=None, menus=None):
         menu = provider.removeprefix('menus:')
         if not reachable(menu, ancestors(menu, parent_of or {})):
             continue
-        if not battery_available and (menu == 'battery-limit' or submenus.get((provider, item['text'])) == 'battery-limit'):
+        if not battery_available and (menu in BATTERY_MENUS or submenus.get((provider, item['text'])) in BATTERY_MENUS):
             continue
         key = hashlib.sha256((provider + '\0' + item['identifier']).encode()).hexdigest()
         actions = item.get('actions', [])

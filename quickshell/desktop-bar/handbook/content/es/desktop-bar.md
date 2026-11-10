@@ -36,7 +36,7 @@ Elige una disposición en Configuración > Barra del escritorio. Las cinco funci
 | Disposición | Funcionamiento |
 | :--- | :--- |
 | Completa | Completa mantiene toda la barra en el borde. Los paneles se unen a ella. |
-| Centrada | Centrada muestra solo el reloj hasta pasar el puntero. La chincheta la mantiene abierta; los paneles flotan al lado. |
+| Centrada | Centrada muestra solo el reloj hasta pasar el puntero. La chincheta, o Mantener expandido en Configuración > Barra del escritorio (también en Walker), la mantiene abierta; los paneles flotan al lado. |
 | Pestañas | Pestañas une tres pestañas con una franja fina. Los iconos de estado quedan visibles; pasa el puntero por la central para ver el tiempo. |
 | Islas | Islas da a cada grupo su propia cápsula y muestra siempre todos los iconos de estado. Abrir un panel amplía su isla y aparta los grupos vecinos. |
 | Dinámico | Dinámico empieza con tres islas: logotipo, reloj y red/batería. Pasa el puntero para ampliar una; un panel crece desde esa misma isla. |

@@ -1,10 +1,10 @@
 {
-  "appearance": "ad6d74ff32932389a8436c80f49a47733cbec5a1a771c160b33dec64fa0a9348",
+  "appearance": "f638134ca7df415db4b70d9fa3604aa1476e1c78e6ddddbc2263e7b2315c20eb",
   "apps": "3cfd537fea1a8d88fc4d600ea58c2fb7752bec54cfd19559cb9db71f0ac2edfe",
   "capture": "210f5de46fe8f33d77ec6594f8aee1875a2a5507567de3bd1089e1406800c514",
   "connectivity": "7ed25e232a0fe3cad527c78ef5ce922cde2caafe09cdfec8e6a21eee0036213e",
-  "control-center": "70b0c7adcbbe024252b8a23dbef708bae090f1053f3bfcaad4b1514451c3a8d2",
-  "desktop-bar": "bd78750af594ced502e7bdd33db805b036c411275ebc756a783142731a18457a",
+  "control-center": "3324766573e5e58a1531c5f4a670d604d0d0306b5ed5b3a1d8a85ee25444a830",
+  "desktop-bar": "ec9b46400fe187bfa315396677a6eef74fe38031d1666aded25d44bbe3b091dc",
   "desktop-bar.md": "f7e3bfcc201a8787984fd30d9ac76c38cb3dd9274236ba009cc1cea29eaf4cc4",
   "development": "cdc0210d030faad6fc56cf3b174c083ffbb76ecbe238a72a7fd0e0024bc85a4f",
   "devices": "eab53e6e72d9adda1b1e6f8443fba7188d26e0b30b8c1027891cf1e0a005e8e7",
@@ -21,7 +21,7 @@
   "remote-access": "9e3dd9688af89ee63938f8d53978680d944bd2d732d62ae548ba75aff9e1fe4f",
   "secure-boot": "9eeece908e07b4f008b7f21d0cd569d890544f13a49201c5235755e823a39fdd",
   "security": "effa213274f992deaae2b19ec220544e197215c2fa37bb2bbd169d981703b670",
-  "system": "8d283feafc96ead9caa5b12876ce0d1ad218d1a2fa3e44f08e52554863a5a3c4",
+  "system": "407d559d47732362d7cf7e0b3eda458b23f3473e7733d9cf12fcc43f8ee55e4c",
   "terminal": "32bfb7600dc6be2f1cbb1d30e60b9f8cec63feb35ed432be068aa04dae19db90",
   "troubleshooting": "72381dac1fa9ede61f6b095988ecf2a7331b460cc61434f63141baafec645864"
 }

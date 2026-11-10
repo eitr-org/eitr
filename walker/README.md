@@ -121,6 +121,13 @@ Settings → Devices → Input → Battery Charge Limit sets 60/80/90% or remove
 `yes`, through `eitr-system battery-limit`. It needs a laptop battery whose
 firmware exposes `charge_control_end_threshold`; elsewhere it explains that no
 control exists. The limit is restored at boot and after resume.
+Settings → Devices → Event Sounds turns Notification sounds and, on PCs with a
+battery, Charger sounds on or off through `actions/system/event-sounds.py`; the
+bar watches the `eitr/sounds.json` it writes. Settings → Desktop offers the
+Settings app's other switches as checked choices: Windows → Window layout (Focus
+fit, Follow focus, Fullscreen when one column), Desktop Bar → Keep expanded and
+Appearance → Wallpaper per display. Appearance → Settings Colours opens that
+choice in the Settings window.
 Settings → System → Maintenance → Factory Reset offers Erase Everything and Keep My Files on computers
 installed with the Eitr ISO, after two warnings and typing `RESET MY COMPUTER`;
 Reset Status only checks. See [FACTORY-RESET.md](../distro/FACTORY-RESET.md).

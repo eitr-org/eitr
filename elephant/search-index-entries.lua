@@ -48,9 +48,11 @@ return function(scope)
     if not ok or not index.rows then return {} end
     local entries = {}
     -- The index records battery presence when it is built; typing starts no helper.
-    local battery = index.battery ~= nil and {available = index.battery} or dofile(paths.code("elephant/battery-state.lua"))()
+    local battery_state = dofile(paths.code("elephant/battery-state.lua"))
+    local battery = index.battery ~= nil and {available = index.battery} or battery_state()
     for _, row in ipairs(index.rows) do
-        if in_scope(row, scope) and (battery.available or (row.submenu ~= "battery-limit" and row.provider ~= "menus:battery-limit")) then
+        if in_scope(row, scope) and (battery.available or (not battery_state.menus[row.submenu or ""]
+                and not battery_state.menus[row.provider:gsub("^menus:", "")])) then
             local entry = row_entry(row)
             if row.subtext ~= ">" then entry.Subtext = live_description(row, scope) end
             entry.Value = row.key

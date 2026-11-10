@@ -1,4 +1,7 @@
 [
   {"text": "Default column width", "subtext": ">", "icon": "󰍹", "submenu": "scrolling-width"},
-  {"text": "Direction", "subtext": ">", "icon": "󰍹", "submenu": "scrolling-direction"}
+  {"text": "Direction", "subtext": ">", "icon": "󰍹", "submenu": "scrolling-direction"},
+  {"text": "Focus fit", "subtext": ">", "icon": "󰍹", "keywords": ["center", "scrolling"], "submenu": "scrolling-focus-fit"},
+  {"text": "Follow focus", "subtext": ">", "icon": "󰍹", "keywords": ["scroll", "scrolling"], "submenu": "scrolling-follow-focus"},
+  {"text": "Fullscreen when one column", "subtext": ">", "icon": "󰍹", "keywords": ["lone", "single", "scrolling"], "submenu": "scrolling-fullscreen"}
 ]

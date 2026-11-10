@@ -1,0 +1,24 @@
+[
+  {
+    "text": "Charger sounds",
+    "subtext": ">",
+    "keywords": [
+      "battery",
+      "plug",
+      "power"
+    ],
+    "icon": "󰂄",
+    "submenu": "sound-charger"
+  },
+  {
+    "text": "Notification sounds",
+    "subtext": ">",
+    "keywords": [
+      "chime",
+      "alert",
+      "popup"
+    ],
+    "icon": "󰂚",
+    "submenu": "sound-notifications"
+  }
+]

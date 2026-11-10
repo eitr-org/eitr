@@ -12,11 +12,25 @@ import eitr_wallpapers as choices
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('action', choices=['summary', 'preview', 'cancel', 'apply', 'clear', 'per-display', 'current'])
-    parser.add_argument('value', nargs='?', choices=['on', 'off'])
+    parser.add_argument('action', choices=['summary', 'preview', 'cancel', 'apply', 'clear', 'per-display', 'current', 'get', 'set'])
+    parser.add_argument('value', nargs='*')
     parser.add_argument('--owner', default='')
     parser.add_argument('--path', default='')
     args = parser.parse_args()
+    # Walker's choice menus ask "get per-display" and send "set per-display on|off".
+    if args.action == 'get':
+        if args.value != ['per-display']:
+            parser.error('get takes per-display')
+        print('on' if choices.per_display() else 'off')
+        return
+    if args.action == 'set':
+        if args.value[:1] != ['per-display']:
+            parser.error('set takes per-display on|off')
+        args.action, args.value = 'per-display', args.value[1:]
+    if args.action == 'per-display' and args.value not in (['on'], ['off']):
+        parser.error('per-display requires on or off')
+    if args.action != 'per-display' and args.value:
+        parser.error('only per-display takes a value')
     if args.action == 'summary':
         print(json.dumps(choices.summary()))
         return
@@ -32,9 +46,7 @@ def main():
     path = str(Path(args.path).resolve(strict=True)) if args.path else ''
     output = ''
     if args.action == 'per-display':
-        if args.value is None:
-            parser.error('per-display requires on or off')
-        choices.set_per_display(args.value == 'on')
+        choices.set_per_display(args.value == ['on'])
     elif args.action == 'clear':
         choices.clear_assignments()
         print(json.dumps(choices.summary()))

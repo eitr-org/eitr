@@ -12,6 +12,18 @@
     "submenu": "system-connectivity"
   },
   {
+    "text": "Event Sounds",
+    "subtext": ">",
+    "keywords": [
+      "sound",
+      "notification",
+      "charger",
+      "chime"
+    ],
+    "icon": "󰂚",
+    "submenu": "event-sounds"
+  },
+  {
     "text": "Input",
     "subtext": ">",
     "keywords": [

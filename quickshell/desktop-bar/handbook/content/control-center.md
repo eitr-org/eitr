@@ -23,7 +23,8 @@ The General page. The buttons on the left switch between General, Plugins and To
   default: **Notification sounds** (a chime, a different one for urgent
   notifications; low-priority ones stay silent) and, on PCs with a battery,
   **Charger sounds** when the charger connects or disconnects. Neither plays during
-  Do Not Disturb or Game Mode.
+  Do Not Disturb or Game Mode. Walker > Settings > Devices > Event Sounds offers
+  the same switches.
 - **Display:** brightness, on laptops with a built-in screen.
 - **Media:** cover, artist, playback controls and seeking when supported.
 - **Power:** Lock, plus **Power…**, which unfolds Logout, Suspend, Reboot and Shutdown.
