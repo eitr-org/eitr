@@ -320,6 +320,7 @@ ThemedPopup {
                         from: 1
                         to: 100
                         stepSize: 1
+                        valueText: Math.round(value) + "%"
                         enabled: menu.state.available
                         Binding { target: slider; property: "value"; value: menu.state.value || 1; when: !slider.pressed && !operation.running && !settle.running }
                         onMoved: {

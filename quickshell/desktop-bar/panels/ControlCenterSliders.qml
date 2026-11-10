@@ -26,6 +26,7 @@ Column {
         PanelSlider {
             id: brightnessSlider
             width: parent.width - 100; from: 1; to: 100
+            valueText: Math.round(value) + "%"
             foreground: section.centerRef.foreground; accent: section.centerRef.accent
             enabled: !!section.centerRef.displayControl.state.available
             Binding { target: brightnessSlider; property: "value"; value: section.centerRef.displayControl.state.value; when: !brightnessSlider.pressed }

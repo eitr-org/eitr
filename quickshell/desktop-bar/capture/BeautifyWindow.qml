@@ -138,9 +138,9 @@ FloatingWindow {
         Row {
             width: parent.width; spacing: 12
             Text { width: 70; height: 30; verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("Padding"); color: window.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-            PanelSlider { id: paddingSlider; width: (parent.width - 70 * 2 - 3 * 12) / 2; from: 0; to: 160; value: window.padding; foreground: window.foreground; accent: window.accent; onMoved: window.padding = Math.round(value) }
+            PanelSlider { id: paddingSlider; width: (parent.width - 70 * 2 - 3 * 12) / 2; from: 0; to: 160; valueText: Math.round(value); value: window.padding; foreground: window.foreground; accent: window.accent; onMoved: window.padding = Math.round(value) }
             Text { width: 70; height: 30; verticalAlignment: Text.AlignVCenter; text: Eitr.I18n.tr("Corners"); color: window.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-            PanelSlider { width: paddingSlider.width; from: 0; to: 40; value: window.corners; foreground: window.foreground; accent: window.accent; onMoved: window.corners = Math.round(value) }
+            PanelSlider { width: paddingSlider.width; from: 0; to: 40; valueText: Math.round(value); value: window.corners; foreground: window.foreground; accent: window.accent; onMoved: window.corners = Math.round(value) }
         }
         Item {
             width: parent.width; height: 32

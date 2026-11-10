@@ -126,6 +126,7 @@ Column {
         anchors.horizontalCenter: parent.horizontalCenter; width: 200
         accent: sheet.accent; foreground: sheet.foreground
         from: 1; to: 4
+        valueText: Math.round(value * 100) + "%"
         Binding { target: zoomSlider; property: "value"; value: sheet.zoom; when: !zoomSlider.pressed }
         enabled: editor.loaded && !sheet.busy
         onMoved: sheet.zoom = value

@@ -73,6 +73,7 @@ Column {
             from: 0
             to: 1
             stepSize: 0.01
+            valueText: Math.round(value * 100) + "%"
             enabled: control.node !== null && control.node.ready
             Binding {
                 target: slider

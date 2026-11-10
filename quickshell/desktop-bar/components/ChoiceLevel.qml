@@ -49,6 +49,7 @@ Item {
         stepSize: 1
         snapMode: Controls.Slider.SnapAlways
         ticks: level.choices.length
+        valueText: valueLabel.text
         enabled: level.available && level.choices.length > 0
         foreground: level.foreground
         accent: level.accent
