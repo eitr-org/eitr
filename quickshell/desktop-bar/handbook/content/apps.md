@@ -237,7 +237,7 @@ Add a widget to a display as often as you like: each copy keeps its own display,
 
 Full width fits the largest size with the same aspect ratio. Above-window widgets are click-through; use their options in the Plugins page. Edit widgets in that page or Walker Visuals toggles all widgets interactive until Done or Escape (`plugin-widgets edit` / `done` IPC). Missing monitors keep their saved placements.
 
-Transparent backgrounds have no host color, border or blur; edit handles remain visible. New schema v2 plugins require a square PNG/SVG icon (up to 512 KiB, PNG 64–1024 px); optional previews are PNG/JPEG up to 2 MiB and 3840 px per axis, and homepage is HTTPS. Existing iconless plugins use a generic icon and a review note. The author API adds `api.setMenu([{id, text, checked}])` and `api.menuTriggered(id)` for options such as Wave/Terminal. See `distro/PLUGINS.md` for validation and API details.
+Transparent backgrounds have no host color, border or blur; edit handles remain visible. New schema v2 plugins require a square PNG/SVG icon (up to 512 KiB, PNG 64–1024 px); optional previews are PNG/JPEG up to 2 MiB and 3840 px per axis, and homepage is HTTPS. Existing iconless plugins use a generic icon and a review note. The author API adds `api.setMenu([{id, text, checked, group}])` and `api.menuTriggered(id)` for options such as Wave/Bars. See `distro/PLUGINS.md` for validation and API details.
 
 A schema v2 plugin can request `audio-spectrum`. Review says it reads system
 audio levels only: no audio is recorded or sent, and the host never captures the

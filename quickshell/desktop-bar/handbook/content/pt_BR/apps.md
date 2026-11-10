@@ -173,7 +173,7 @@ Adicione um widget a uma tela quantas vezes quiser: cada cópia tem sua própria
 
 Largura total usa o maior tamanho proporcional que cabe. Widgets acima das janelas deixam passar cliques; suas opções ficam na página Plugins. Editar widgets nessa página ou no Walker torna todos interativos até Concluído ou Esc (`plugin-widgets edit` / `done` via IPC). Monitores desconectados mantêm suas posições.
 
-Fundos transparentes não têm cor, borda nem desfoque do host; as alças de edição continuam visíveis. Novos plugins v2 exigem ícone PNG/SVG quadrado (até 512 KiB, PNG de 64–1024 px); prévias opcionais são PNG/JPEG de até 2 MiB e 3840 px por eixo, e homepage usa HTTPS. Plugins antigos sem ícone usam símbolo genérico e aviso na revisão. A API oferece `api.setMenu([{id, text, checked}])` e `api.menuTriggered(id)` para opções como Wave/Terminal. Consulte `distro/PLUGINS.md`.
+Fundos transparentes não têm cor, borda nem desfoque do host; as alças de edição continuam visíveis. Novos plugins v2 exigem ícone PNG/SVG quadrado (até 512 KiB, PNG de 64–1024 px); prévias opcionais são PNG/JPEG de até 2 MiB e 3840 px por eixo, e homepage usa HTTPS. Plugins antigos sem ícone usam símbolo genérico e aviso na revisão. A API oferece `api.setMenu([{id, text, checked, group}])` e `api.menuTriggered(id)` para opções como Wave/Bars. Consulte `distro/PLUGINS.md`.
 
 Os autores escolhem cores, imagens, shaders e animações. As ajudas de tema (`api.palette`, color0–15, papéis nomeados, fontes, tamanhos, raio e `themeChanged`) são opcionais. Widgets e painéis usam `surface: "none"` por padrão; `"panel"` escolhe o fundo Eitr. Uma escolha explícita salva do widget prevalece; sem ela vale a declaração. A Central de controle mantém sua moldura externa sem decorar a área do plugin.
 
