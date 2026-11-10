@@ -569,8 +569,10 @@ ThemedPopup {
                     }
                 }
                 }
+                // Display layout belongs with the displays, not on the Night Light tab.
                 PanelFooterLink {
                     id: handEditButton
+                    visible: menu.settingsSection !== "nightlight"
                     width: content.width
                     text: Eitr.I18n.tr("Edit layout by hand…")
                     foreground: menu.foreground

@@ -41,7 +41,7 @@ Flickable {
             onChosen: value => { view.tabRequested(value); view.contentY = 0; }
         }
         ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
-            title: Eitr.I18n.tr("Displays")
+            title: view.tab === "nightlight" ? Eitr.I18n.tr("Night Light") : Eitr.I18n.tr("Displays")
             foreground: view.foreground
             visible: displaySlot.active
             Loader {
