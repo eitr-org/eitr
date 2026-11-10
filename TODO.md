@@ -47,6 +47,9 @@ item says what decides the next step. Remove an item when it ships;
     `RemoteAccessContent`'s Tailscale branch remain in core. WireGuard and NetworkManager VPN
     stay on the owner's private test repository (local `vpn-plugins` branch) until they
     get bar icons and panels too.
+- **Mouse and touchpad settings.** The Settings app's Input page has only keyboard
+  layouts; pointer speed, natural scrolling, tap-to-click and acceleration have no page
+  (nor a Walker row). Decide with the owner before building.
 - **Lockscreens tab in the catalog (decided 2026-11-04).** A Lockscreens tab in
   Themes & Plugins, working like themes and plugins. Eitr and Theme Wallpaper are
   permanent (no trash icon). The other designs shipped today move to an official
@@ -103,10 +106,9 @@ item says what decides the next step. Remove an item when it ships;
 
 # 2. To test with the owner
 
-- **Wallpaper preview and per display wallpapers (testing, 2026-11-10).** Still
-  to test with the owner: the Settings switch, Apply / Cancel preview, carousel,
-  Walker and next-wallpaper selection on the focused display, toggling saved picks,
-  theme resets, hotplug and login restore.
+- **Wallpaper per display: the parts not tried yet.** The switch, preview, carousel and
+  theme resets passed the owner's test (2026-11-10); still untried: plugging a display
+  in and out, and each display's wallpaper coming back at login.
 - **Remote access.** Moonlight, Sunshine and Tailscale are built and inactive until set
   up (`distro/REMOTE-ACCESS.md`). Home network (2026-10-21/22, one and two monitors)
   and away from home through Tailscale (2026-10-21) work with a MacBook. Next: fix what
@@ -161,6 +163,11 @@ item says what decides the next step. Remove an item when it ships;
   PipeWire event rebuilding a Repeater (`QQuickItem::polish` from
   `QQuickRepeater::setModel`), not reproduced since; and the binding loops a hotplug
   logs in DisplayService `snapshot` and DisplaySettingsEditor `width`.
+- **Password prompts after a bar crash.** The bar is the polkit agent and KDE's agent
+  starts only at login when the bar has not registered; a bar that crashes mid-session
+  leaves no agent until it restarts. Add a watcher that starts KDE's agent then.
+- **Bar disappeared once (2026-11-10).** No bar was running in the owner's session and
+  the logs gave no reason; watch for it happening again.
 - **Split the large files marked "To improve".** The files listed with their reasons in
   `tools/file-size-baseline.json`: `eitr-system.py` by area behind the same CLI, the
   Themes & Plugins content (cards, sheets, Git address flow), software installs, Git
