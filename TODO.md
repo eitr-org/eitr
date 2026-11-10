@@ -47,9 +47,14 @@ item says what decides the next step. Remove an item when it ships;
   - Remove the Tailscale rows from Walker; keep Install > VPN.
   - Order: plugin `packages` field (VM-tested), the three plugins, then remove Tailscale
     from the core and ship the update step after the plugin passes a VM test.
-  - Status (2026-11-10): WireGuard, NetworkManager VPN and a Taildrop-only Tailscale plugin
-    are on the unpushed local `vpn-plugins` branch of `eitr-plugins` for the owner's review.
-    Files are typed as paths, not chosen; the core Tailscale icon and panel have not moved.
+  - Status (2026-11-10): the three plugins are in the owner's private test repository
+    (`eitr-plugins-vpn-test`, from the local `vpn-plugins` branch of `eitr-plugins`). Plugin
+    packages installed and the Eitr password dialog worked on the owner's desktop. Tailscale
+    has its bar icon and panel (devices, connect, sign-in, Taildrop with a file chooser) and
+    the core bar icon and panel are removed; Walker's Tailscale rows, the setup helper and
+    `RemoteAccessContent`'s Tailscale branch remain. Next: the owner's test, bar icons and
+    panels for WireGuard and NetworkManager VPN, then the official repository and the
+    one-time update step.
 - **Lockscreens tab in the catalog (decided 2026-11-04).** A Lockscreens tab in
   Themes & Plugins, working like themes and plugins. Eitr and Theme Wallpaper are
   permanent (no trash icon). The other designs shipped today move to an official

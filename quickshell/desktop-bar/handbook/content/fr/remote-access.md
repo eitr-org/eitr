@@ -74,9 +74,9 @@ l’assistant root confirmé active et démarre `tailscaled.service`, puis défi
 votre utilisateur comme opérateur. La connexion au compte, la connexion au réseau et la déconnexion ne demandent donc aucun mot de passe. Un Tailscale configuré autrement demande le mot de passe administrateur.
 
 Se connecter ouvre l’URL de `tailscale login` dans le navigateur. Connect connecte ;
-Disconnect déconnecte sans effacer les identifiants. État de la connexion indique
+Disconnect déconnecte sans effacer les identifiants. Le plugin officiel Tailscale ajoute une icône à la barre ; son panneau indique
 l’adresse de ce PC, l’absence de connexion au compte et les connexions directes,
-relayées ou inactives. Tester un appareil distant utilise `tailscale ping` pour un appareil précis. Le relais peut augmenter la latence et réduire la qualité.
+relayées ou inactives, et envoie des fichiers avec Taildrop. Tester un appareil distant utilise `tailscale ping` pour un appareil précis. Le relais peut augmenter la latence et réduire la qualité.
 
 Installez [Tailscale sur le Mac](https://tailscale.com/download/mac), connectez-vous
 au même tailnet et connectez les deux ordinateurs. Ajoutez l’adresse Tailscale

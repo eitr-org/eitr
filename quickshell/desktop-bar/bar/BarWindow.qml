@@ -132,7 +132,7 @@ PanelWindow {
         interval: 350
         onTriggered: bar.hoverExpanded = false
     }
-    readonly property var dockPanels: [wifiMenu, bluetoothMenu, brightnessMenu, volumeMenu, tailscaleMenu, streamingMenu,
+    readonly property var dockPanels: [wifiMenu, bluetoothMenu, brightnessMenu, volumeMenu, streamingMenu,
         keyboardMenu, calendarMenu, weatherMenu, hardwareMenu, aiMenu, obsMenu, recordingMenu, workspaceMenu, notificationCenter, controlCenter, mediaMenu, batteryMenu, pluginPanel]
     readonly property bool panelOpen: dockPanels.some(panel => panel.visible)
     readonly property var panelFocusWindows: notificationPopups.visible ? [bar, notificationPopups] : [bar]
@@ -290,7 +290,6 @@ PanelWindow {
     readonly property alias verticalBluetoothIcon: barVerticalPlacement.verticalBluetoothIconItem
     readonly property alias verticalDisplayIcon: barVerticalPlacement.verticalDisplayIconItem
     readonly property alias verticalVolumeIcon: barVerticalPlacement.verticalVolumeIconItem
-    readonly property alias verticalTailscaleIcon: barVerticalPlacement.verticalTailscaleIconItem
     readonly property alias verticalStreamingIcon: barVerticalPlacement.verticalStreamingIconItem
     readonly property alias verticalObsIcon: barVerticalPlacement.verticalObsIconItem
     readonly property alias verticalKeyboardIcon: barVerticalPlacement.verticalKeyboardIconItem
@@ -307,8 +306,6 @@ PanelWindow {
     readonly property alias brightnessMenu: barHorizontalPlacement.brightnessMenuItem
     readonly property alias volumeIcon: barHorizontalPlacement.volumeIconItem
     readonly property alias volumeMenu: barHorizontalPlacement.volumeMenuItem
-    readonly property alias tailscaleIcon: barHorizontalPlacement.tailscaleIconItem
-    readonly property alias tailscaleMenu: barHorizontalPlacement.tailscaleMenuItem
     readonly property alias streamingIcon: barHorizontalPlacement.streamingIconItem
     readonly property alias streamingMenu: barHorizontalPlacement.streamingMenuItem
     readonly property alias obsIcon: barHorizontalPlacement.obsIconItem

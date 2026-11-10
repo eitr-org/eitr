@@ -70,9 +70,9 @@ Wählen Sie unter Remotezugriff auf diesen PC den Eintrag Zugriff für unterwegs
 Installation aktiviert und startet der bestätigte Root-Helfer `tailscaled.service`
 und setzt Ihren Benutzer als Operator. Daher brauchen Anmelden, Verbinden und Trennen kein Passwort. Ein anders eingerichtetes Tailscale fragt stattdessen nach dem Administratorpasswort.
 Anmelden öffnet die URL von `tailscale login` im Browser. Connect verbindet;
-Disconnect trennt, ohne Anmeldedaten zu löschen. Verbindungsstatus zeigt die Adresse
+Disconnect trennt, ohne Anmeldedaten zu löschen. Das offizielle Tailscale-Plugin fügt der Leiste ein Symbol hinzu; sein Panel zeigt die Adresse
 dieses PCs, fehlende Anmeldung sowie direkte, weitergeleitete oder ruhende
-Verbindungen. Gegenstelle anpingen prüft einen Rechner mit `tailscale ping`.
+Verbindungen und sendet Dateien mit Taildrop. Gegenstelle anpingen prüft einen Rechner mit `tailscale ping`.
 Weiterleitungen können Latenz erhöhen und Qualität mindern.
 
 Installieren Sie [Tailscale auf dem Mac](https://tailscale.com/download/mac), melden

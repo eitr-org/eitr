@@ -14,7 +14,6 @@ Column {
     required property var obsMenuRef
     required property var remoteAccessServiceRef
     required property var streamingMenuRef
-    required property var tailscaleMenuRef
     required property var volumeMenuRef
     required property var wifiMenuRef
     readonly property alias verticalEndItem: verticalEnd
@@ -22,7 +21,6 @@ Column {
     readonly property alias verticalBluetoothIconItem: verticalBluetoothIcon
     readonly property alias verticalDisplayIconItem: verticalDisplayIcon
     readonly property alias verticalVolumeIconItem: verticalVolumeIcon
-    readonly property alias verticalTailscaleIconItem: verticalTailscaleIcon
     readonly property alias verticalStreamingIconItem: verticalStreamingIcon
     readonly property alias verticalObsIconItem: verticalObsIcon
     readonly property alias verticalKeyboardIconItem: verticalKeyboardIcon
@@ -62,7 +60,6 @@ Column {
     VerticalBarIcon { host: verticalEnd.host; id: verticalBluetoothIcon; icon: "󰂯"; tooltip: Eitr.I18n.tr("Bluetooth"); open: verticalEnd.host.iconsOpen; clickable: true; onClicked: barHost.togglePanel(bluetoothMenuRef); onOpenChanged: if (!open) bluetoothMenuRef.opened = false }
     VerticalBarIcon { host: verticalEnd.host; id: verticalDisplayIcon; icon: "󰍹"; tooltip: Eitr.I18n.tr("Display"); open: verticalEnd.host.iconsOpen; clickable: true; onClicked: barHost.togglePanel(brightnessMenuRef); onOpenChanged: if (!open) brightnessMenuRef.opened = false }
     VerticalBarIcon { host: verticalEnd.host; id: verticalVolumeIcon; icon: "\u{F02CE}"; tooltip: Eitr.I18n.tr("Audio/Mic"); open: verticalEnd.host.iconsOpen; clickable: true; onClicked: barHost.togglePanel(volumeMenuRef); onOpenChanged: if (!open) volumeMenuRef.opened = false }
-    VerticalBarIcon { host: verticalEnd.host; id: verticalTailscaleIcon; visible: remoteAccessServiceRef.allowed; icon: "󰌘"; tooltip: "Tailscale"; open: verticalEnd.host.iconsOpen; clickable: true; onClicked: barHost.togglePanel(tailscaleMenuRef); onOpenChanged: if (!open) tailscaleMenuRef.opened = false }
     VerticalBarIcon { host: verticalEnd.host; id: verticalStreamingIcon; visible: remoteAccessServiceRef.allowed; icon: "󰢹"; tooltip: Eitr.I18n.tr("Streaming"); open: verticalEnd.host.iconsOpen; clickable: true; onClicked: barHost.togglePanel(streamingMenuRef); onOpenChanged: if (!open) streamingMenuRef.opened = false }
     VerticalBarIcon { host: verticalEnd.host; id: verticalObsIcon; icon: obsMenuRef.obsState.recording ? (obsMenuRef.obsState.paused ? "󰏤" : "󰑋") : "󰻂"; iconSize: obsMenuRef.obsState.recording && !obsMenuRef.obsState.paused ? 22 : 16; tooltip: obsMenuRef.obsState.recording ? (obsMenuRef.obsState.paused ? Eitr.I18n.tr("Recording paused") : Eitr.I18n.tr("Recording")) : Eitr.I18n.tr("OBS Studio"); open: verticalEnd.host.iconsOpen; clickable: true; onClicked: barHost.togglePanel(obsMenuRef); onOpenChanged: if (!open) obsMenuRef.opened = false }
     VerticalBarIcon { host: verticalEnd.host; id: verticalKeyboardIcon; icon: keyboardMenuRef.activeCode || "󰌌"; iconSize: 11; tooltip: keyboardMenuRef.activeLabel ? Eitr.I18n.tr("Keyboard · {layout}", {layout: keyboardMenuRef.activeLabel}) : Eitr.I18n.tr("Keyboard"); open: verticalEnd.host.iconsOpen && keyboardMenuRef.layouts.length > 1; clickable: true; onClicked: barHost.togglePanel(keyboardMenuRef); onOpenChanged: if (!open) keyboardMenuRef.opened = false }

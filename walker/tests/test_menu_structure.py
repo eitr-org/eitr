@@ -26,7 +26,7 @@ class MenuStructureTests(unittest.TestCase):
 
     def test_remote_setup_folders_keep_daily_actions_direct(self):
         for name, titles in [("remote-share", ["Setup", "Pair a Device", "Sharing Status", "Start Sharing", "Stop Sharing"]),
-                             ("remote-away", ["Setup", "Connect", "Connection Status", "Disconnect"])]:
+                             ("remote-away", ["Setup", "Connect", "Disconnect"])]:
             self.assertEqual([row["text"] for row in menu(name)["entries"]], titles)
             self.assertEqual(menu(name + "-setup")["parent"], name)
         sharing = {row["text"] for row in menu("remote-share-setup")["entries"]}

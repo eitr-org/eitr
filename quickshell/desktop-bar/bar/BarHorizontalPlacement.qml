@@ -14,8 +14,6 @@ BarSection {
     readonly property alias brightnessMenuItem: barHorizontalStatus.brightnessMenuItem
     readonly property alias volumeIconItem: barHorizontalStatus.volumeIconItem
     readonly property alias volumeMenuItem: barHorizontalStatus.volumeMenuItem
-    readonly property alias tailscaleIconItem: barHorizontalStatus.tailscaleIconItem
-    readonly property alias tailscaleMenuItem: barHorizontalStatus.tailscaleMenuItem
     readonly property alias streamingIconItem: barHorizontalStatus.streamingIconItem
     readonly property alias streamingMenuItem: barHorizontalStatus.streamingMenuItem
     readonly property alias obsIconItem: barHorizontalStatus.obsIconItem
@@ -132,7 +130,6 @@ BarSection {
             verticalKeyboardIconRef: barHost.verticalKeyboardIcon
             verticalObsIconRef: barHost.verticalObsIcon
             verticalStreamingIconRef: barHost.verticalStreamingIcon
-            verticalTailscaleIconRef: barHost.verticalTailscaleIcon
             verticalVolumeIconRef: barHost.verticalVolumeIcon
             verticalWifiIconRef: barHost.verticalWifiIcon
         }

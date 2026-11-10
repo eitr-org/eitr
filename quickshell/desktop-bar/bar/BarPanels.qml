@@ -95,7 +95,7 @@ Item {
     function showKind(kind) {
         if (kind === "picture") { showControlCenter(kind); return; }
         var panels = {wifi: barHost.wifiMenu, bluetooth: barHost.bluetoothMenu, brightness: barHost.brightnessMenu, display: barHost.brightnessMenu, volume: barHost.volumeMenu,
-            mic: barHost.volumeMenu, tailscale: barHost.tailscaleMenu, streaming: barHost.streamingMenu, keyboard: barHost.keyboardMenu, calendar: barHost.calendarMenu,
+            mic: barHost.volumeMenu, streaming: barHost.streamingMenu, keyboard: barHost.keyboardMenu, calendar: barHost.calendarMenu,
             weather: barHost.weatherMenu, hardware: barHost.hardwareMenu, ai: barHost.aiMenu, obs: barHost.obsMenu,
             workspace: barHost.workspaceMenu, recording: barHost.recordingMenu, notifications: notificationCenter,
             center: controlCenter, media: mediaMenu, battery: batteryMenu};

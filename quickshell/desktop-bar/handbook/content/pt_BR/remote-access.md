@@ -76,8 +76,8 @@ root confirmado ativa e inicia `tailscaled.service` e define seu usuário como
 operador. Por isso entrar, conectar e desconectar não pedem senha. Um Tailscale configurado de outra forma pede a senha de administrador. Entrar abre no navegador a URL de
 `tailscale login`.
 
-Connect conecta; Disconnect desconecta sem apagar credenciais. Estado da conexão mostra o endereço deste PC, sessão desconectada e conexões
-diretas, retransmitidas ou ociosas. Testar conexão com outro dispositivo executa `tailscale ping` para um
+Connect conecta; Disconnect desconecta sem apagar credenciais. O plugin oficial do Tailscale adiciona um ícone à barra; seu painel mostra o endereço deste PC, sessão desconectada e conexões
+diretas, retransmitidas ou ociosas, e envia arquivos com Taildrop. Testar conexão com outro dispositivo executa `tailscale ping` para um
 par específico. A retransmissão pode aumentar a latência e reduzir a qualidade.
 
 Instale [Tailscale no Mac](https://tailscale.com/download/mac), entre na mesma

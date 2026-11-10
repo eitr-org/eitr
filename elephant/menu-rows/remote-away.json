@@ -14,14 +14,6 @@
     }
   },
   {
-    "text": "Connection Status",
-    "subtext": "Show this PC’s address and peer connection paths",
-    "icon": "󰋽",
-    "actions": {
-      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh tailscale"
-    }
-  },
-  {
     "text": "Disconnect",
     "subtext": "Disconnect this PC from Tailscale",
     "icon": "󰌙",

@@ -1516,14 +1516,6 @@
         }
       },
       {
-        "text": "Connection Status",
-        "subtext": "Show this PC’s address and peer connection paths",
-        "icon": "󰋽",
-        "actions": {
-          "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh tailscale"
-        }
-      },
-      {
         "text": "Disconnect",
         "subtext": "Disconnect this PC from Tailscale",
         "icon": "󰌙",
@@ -7039,28 +7031,6 @@
       "key": "501617662d1da1d7da7fbf08253f8c90f685c2b3a4c4db56a3e1c20ccfc25d31",
       "provider": "menus:remote-away",
       "identifier": "remote-away:2",
-      "text": "Connection Status",
-      "subtext": "Show this PC’s address and peer connection paths",
-      "icon": "󰋽",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Connection Status",
-        "Connection Status",
-        "Show this PC’s address and peer connection paths"
-      ],
-      "menus": [
-        "remote-access",
-        "system-connectivity",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "3f1fbff9e88445eb43eb387fbb32e955f944ca54d1dd044e3e6b2498b53ffd9a",
-      "provider": "menus:remote-away",
-      "identifier": "remote-away:3",
       "text": "Disconnect",
       "subtext": "Disconnect this PC from Tailscale",
       "icon": "󰌙",

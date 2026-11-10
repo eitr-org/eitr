@@ -73,8 +73,8 @@ root confirmado activa e inicia `tailscaled.service` y nombra operador a su usua
 `tailscale login` en el navegador.
 
 Connect conecta; Disconnect desconecta sin
-borrar credenciales. Estado de conexión muestra la dirección del PC, la falta de
-sesión y conexiones directas, retransmitidas o inactivas. Comprobar conexión con otro equipo usa
+borrar credenciales. El plugin oficial de Tailscale añade un icono a la barra; su panel muestra la dirección del PC, la falta de
+sesión y conexiones directas, retransmitidas o inactivas, y envía archivos con Taildrop. Comprobar conexión con otro equipo usa
 `tailscale ping` para comprobar un equipo. Una retransmisión puede añadir latencia.
 
 Instale [Tailscale en el Mac](https://tailscale.com/download/mac), acceda a la misma

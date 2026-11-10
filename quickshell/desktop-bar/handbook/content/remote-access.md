@@ -83,8 +83,8 @@ instead.
 
 Sign In
 opens the URL printed by `tailscale login` in your browser. Connect brings the
-PC online; Disconnect takes it offline without deleting sign-in credentials. Connection Status shows this PC's Tailscale address, signed-out states and whether
-active peers are Direct, Relayed or idle. Ping a Peer uses `tailscale ping` to
+PC online; Disconnect takes it offline without deleting sign-in credentials. The official Tailscale plugin adds a bar icon whose panel shows this PC's Tailscale address,
+signed-out states and whether peers are Direct, Relayed or idle, and sends files with Taildrop. Ping a Peer uses `tailscale ping` to
 check a specific connection.
 
 Relay paths can increase latency and reduce quality.

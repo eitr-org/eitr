@@ -32,7 +32,6 @@ Region {
     Region { item: barHost.bluetoothMenu.opened ? barHost.bluetoothMenu : null }
     Region { item: barHost.brightnessMenu.opened ? barHost.brightnessMenu : null }
     Region { item: barHost.volumeMenu.opened ? barHost.volumeMenu : null }
-    Region { item: barHost.tailscaleMenu.opened ? barHost.tailscaleMenu : null }
     Region { item: barHost.streamingMenu.opened ? barHost.streamingMenu : null }
     Region { item: barHost.keyboardMenu.opened ? barHost.keyboardMenu : null }
     Region { item: barHost.calendarMenu.opened ? barHost.calendarMenu : null }

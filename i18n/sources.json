@@ -3431,9 +3431,6 @@
     "Connect to another PC": [
       "elephant/menu-rows/remote-access.json"
     ],
-    "Connection Status": [
-      "elephant/menu-rows/remote-away.json"
-    ],
     "Connectivity": [
       "elephant/menu-rows/settings.json",
       "elephant/menus/system-connectivity.lua"
@@ -5068,9 +5065,6 @@
     ],
     "Show the full desktop bar": [
       "tools/choice-lists.json"
-    ],
-    "Show this PC’s address and peer connection paths": [
-      "elephant/menu-rows/remote-away.json"
     ],
     "Show three compact edge tabs": [
       "tools/choice-lists.json"

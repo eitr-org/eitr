@@ -16,7 +16,6 @@ Row {
     required property var verticalKeyboardIconRef
     required property var verticalObsIconRef
     required property var verticalStreamingIconRef
-    required property var verticalTailscaleIconRef
     required property var verticalVolumeIconRef
     required property var verticalWifiIconRef
     readonly property alias rightSideItem: rightSide
@@ -29,8 +28,6 @@ Row {
     readonly property alias brightnessMenuItem: brightnessMenu
     readonly property alias volumeIconItem: volumeIcon
     readonly property alias volumeMenuItem: volumeMenu
-    readonly property alias tailscaleIconItem: tailscaleIcon
-    readonly property alias tailscaleMenuItem: tailscaleMenu
     readonly property alias streamingIconItem: streamingIcon
     readonly property alias streamingMenuItem: streamingMenu
     readonly property alias obsIconItem: obsIcon
@@ -164,31 +161,6 @@ Row {
         background: rightSide.host.workspaceMenuBg
     }
 
-    StatusIcon {
-
-        host: rightSide.host
-        id: tailscaleIcon
-        visible: remoteAccessServiceRef.allowed
-        icon: "󰌘"
-        tooltip: "Tailscale"
-        open: rightSide.host.iconsOpen
-        clickable: true
-        onClicked: barHost.togglePanel(tailscaleMenu)
-        onOpenChanged: if (!open) tailscaleMenu.opened = false
-    }
-    RemoteAccessMenu {
-        id: tailscaleMenu
-        kind: "tailscale"
-        service: remoteAccessServiceRef
-        onObservationChanged: observing => rightSide.host.remoteObservers += observing ? 1 : -1
-        maximumHeight: barHost.screen.height - 70
-        surfaceColor: rightSide.host.barBackground()
-        target: rightSide.host.verticalBar ? verticalTailscaleIconRef : tailscaleIcon
-        barEdge: rightSide.host.barEdge
-        accent: rightSide.host.activeBg
-        foreground: rightSide.host.fg
-        background: rightSide.host.workspaceMenuBg
-    }
     StatusIcon {
         host: rightSide.host
         id: streamingIcon
