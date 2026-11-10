@@ -5,9 +5,9 @@ import "../../PanelStyle.js" as PanelStyle
 import "../../WeatherIcons.js" as WeatherIcons
 import "../../ReminderModel.js" as ReminderModel
 
-// Drop's first page: today and the weather beside the month, then the next days'
-// forecast and what is planned for today.
-Column {
+// Drop's first page, drawn flat on the card: the weather and the next days on the left,
+// a thin rule, then the month on the right with today ringed in the accent.
+Item {
     id: page
     required property var barHost
     required property color foreground
@@ -16,234 +16,170 @@ Column {
     required property date now
     readonly property var weather: (DesktopData.topics["weather.default"] || {}).data || ({})
     readonly property bool hasWeather: !!weather.temp && weather.temp !== "--"
-    readonly property var agenda: barHost.calendarMenu ? ReminderModel.dayItems(barHost.calendarMenu.reminders || [], barHost.calendarMenu.events || [], now) : []
-    // The month shown in the grid; arrows browse it and it returns to today on reopening.
+    // The month shown in the grid; the arrows browse it and it returns to today on reopening.
     property int monthOffset: 0
     readonly property date shownMonth: new Date(now.getFullYear(), now.getMonth() + monthOffset, 1)
-    spacing: 10
+    readonly property var calendar: barHost.calendarMenu
+    function weekend(day) { return Qt.locale().weekDays.indexOf(day === 0 ? 7 : day) < 0; }
+    implicitHeight: 262
 
     component Caption: Text {
         color: page.foreground; opacity: PanelStyle.secondaryTextOpacity
         font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
         textFormat: Text.PlainText; elide: Text.ElideRight
     }
-    component Label: Text {
-        color: page.accent
-        font.family: DesktopFonts.family; font.pixelSize: 11; font.weight: Font.DemiBold
-        font.capitalization: Font.AllUppercase; font.letterSpacing: 1.4
-        textFormat: Text.PlainText
+    component Heading: Text {
+        color: page.foreground
+        font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.weight: Font.Bold
+        font.capitalization: Font.AllUppercase; font.letterSpacing: 1.2
+        textFormat: Text.PlainText; elide: Text.ElideRight
     }
 
-    Row {
-        width: parent.width
-        spacing: 10
-        // Today: the date set large, the weather under it.
-        DropCard {
-            id: today
-            foreground: page.foreground
-            width: Math.round((parent.width - parent.spacing) * 0.44); height: 246
+    // Weather: now, where, and the next three days.
+    Item {
+        id: weatherSide
+        x: 6; width: 196; height: parent.height
+        Row {
+            y: 8
+            spacing: 14
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: page.hasWeather ? String(page.weather.text || "").split(" ")[0] : "󰖐"
+                color: page.accent; font.family: DesktopFonts.family; font.pixelSize: 38
+            }
             Column {
-                x: 18; y: 16; width: parent.width - 36
-                spacing: 0
-                Label { text: page.now.toLocaleDateString(Qt.locale(), "dddd") }
-                Row {
-                    spacing: 10
-                    Text {
-                        text: page.now.getDate()
-                        color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: 64; font.weight: Font.Bold
-                        font.features: PanelStyle.tabularFigures
-                    }
-                    Column {
-                        anchors.bottom: parent.bottom; anchors.bottomMargin: 14
-                        Text {
-                            text: page.now.toLocaleDateString(Qt.locale(), "MMMM")
-                            color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: 18; font.weight: Font.DemiBold
-                        }
-                        Caption { text: page.now.getFullYear() }
-                    }
-                }
-                Item { width: 1; height: 6 }
-                Rectangle { width: parent.width; height: 1; color: Qt.alpha(page.foreground, 0.12) }
-                Item { width: 1; height: 10 }
-                Row {
-                    spacing: 12
-                    visible: page.hasWeather
-                    Text {
-                        anchors.verticalCenter: parent.verticalCenter
-                        text: String(page.weather.text || "").split(" ")[0]
-                        color: page.accent; font.family: DesktopFonts.family; font.pixelSize: 40
-                    }
-                    Column {
-                        anchors.verticalCenter: parent.verticalCenter
-                        Text {
-                            text: page.weather.temp || ""
-                            color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: 28; font.weight: Font.DemiBold
-                        }
-                        Caption { width: today.width - 100; text: [page.weather.condition, page.weather.location].filter(Boolean).join(" · ") }
-                    }
-                }
-                Caption { visible: !page.hasWeather; text: Eitr.I18n.tr("Weather unavailable") }
-                Item { width: 1; height: 8 }
-                Row {
-                    visible: page.hasWeather
-                    spacing: 18
-                    Repeater {
-                        model: [{label: "Feels", key: "feels"}, {label: "Wind", key: "wind"}, {label: "Humidity", key: "humidity"}]
-                        Column {
-                            required property var modelData
-                            spacing: 2
-                            Caption { text: Eitr.I18n.tr(parent.modelData.label); font.pixelSize: 11 }
-                            Text {
-                                text: page.weather[parent.modelData.key] || "--"
-                                color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.weight: Font.DemiBold
-                            }
-                        }
-                    }
-                }
-            }
-            MouseArea {
-                anchors.fill: parent; cursorShape: Qt.PointingHandCursor
-                onClicked: page.barHost.togglePanel(page.barHost.weatherMenu)
-            }
-        }
-        // The month, browsable with its arrows; today is filled with the accent and days
-        // with plans carry a dot.
-        DropCard {
-            id: month
-            foreground: page.foreground
-            width: parent.width - today.width - parent.spacing; height: 246
-            readonly property int lead: (page.shownMonth.getDay() - Qt.locale().firstDayOfWeek % 7 + 7) % 7
-            readonly property real cell: (width - 24) / 7
-            Item {
-                x: 12; y: 10; width: parent.width - 24; height: 28
+                anchors.verticalCenter: parent.verticalCenter
                 Text {
-                    x: 4; anchors.verticalCenter: parent.verticalCenter
-                    text: page.shownMonth.toLocaleDateString(Qt.locale(), "MMMM yyyy")
-                    color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.weight: Font.DemiBold
+                    text: page.hasWeather ? page.weather.temp : "--"
+                    color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: 34; font.weight: Font.Bold
                 }
-                Row {
-                    anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
-                    spacing: 4
-                    Repeater {
-                        model: [{glyph: "󰅁", step: -1}, {glyph: "󰅂", step: 1}]
-                        PanelButton {
-                            required property var modelData
-                            width: 24; height: 24; icon: true
-                            text: modelData.glyph; foreground: page.foreground
-                            onClicked: page.monthOffset += modelData.step
-                        }
+                Caption { width: weatherSide.width - 66; text: page.hasWeather ? page.weather.condition || "" : Eitr.I18n.tr("Weather unavailable") }
+            }
+        }
+        Item {
+            y: 92; width: parent.width; height: 20
+            Heading { width: parent.width - humidity.width - 8; anchors.verticalCenter: parent.verticalCenter; text: page.weather.location || "" }
+            Caption {
+                id: humidity
+                anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
+                visible: page.hasWeather
+                text: "󰖌 " + (page.weather.humidity || "--")
+            }
+        }
+        Rectangle { y: 122; width: parent.width; height: 1; color: Qt.alpha(page.foreground, 0.14) }
+        Row {
+            y: 140
+            Repeater {
+                model: (page.weather.forecastDays || []).slice(0, 3)
+                Column {
+                    required property var modelData
+                    width: weatherSide.width / 3
+                    spacing: 5
+                    Caption { text: parent.modelData.day || ""; font.weight: Font.DemiBold; font.letterSpacing: 1 }
+                    Text {
+                        text: WeatherIcons.forecastIcon(String(parent.modelData.icon || ""))
+                        color: page.accent; font.family: DesktopFonts.family; font.pixelSize: 20
                     }
+                    Text {
+                        text: (parent.modelData.high || "--") + "°"
+                        color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.weight: Font.Bold
+                    }
+                    Caption { text: (parent.modelData.low || "--") + "°" }
                 }
             }
-            Grid {
-                x: 12; y: 44
-                columns: 7
-                Repeater {
-                    model: 7
-                    Caption {
-                        required property int index
-                        width: month.cell; height: 22; horizontalAlignment: Text.AlignHCenter
-                        font.pixelSize: 11
-                        text: Qt.locale().dayName((Qt.locale().firstDayOfWeek + index) % 7, Locale.NarrowFormat)
-                    }
-                }
-                Repeater {
-                    model: 42
-                    Item {
-                        required property int index
-                        readonly property date day: new Date(page.shownMonth.getFullYear(), page.shownMonth.getMonth(), index - month.lead + 1)
-                        readonly property bool inMonth: day.getMonth() === page.shownMonth.getMonth()
-                        readonly property bool today: day.toDateString() === page.now.toDateString()
-                        readonly property bool planned: inMonth && page.barHost.calendarMenu
-                            && ReminderModel.dayItems(page.barHost.calendarMenu.reminders || [], page.barHost.calendarMenu.events || [], day).length > 0
-                        width: month.cell; height: 29
-                        Rectangle {
-                            anchors.centerIn: parent; width: 26; height: 26; radius: 13
-                            visible: parent.today; color: page.accent
-                        }
-                        Text {
-                            anchors.centerIn: parent
-                            text: parent.day.getDate()
-                            color: parent.today ? PanelStyle.readableInk(page.accent, page.foreground, page.background) : page.foreground
-                            opacity: parent.inMonth ? 1 : 0.3
-                            font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
-                            font.weight: parent.today ? Font.Bold : Font.Normal; font.features: PanelStyle.tabularFigures
-                        }
-                        Rectangle {
-                            visible: parent.planned && !parent.today
-                            anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: parent.bottom; anchors.bottomMargin: 1
-                            width: 4; height: 4; radius: 2; color: page.accent
-                        }
-                    }
-                }
-            }
+        }
+        MouseArea {
+            anchors.fill: parent; cursorShape: Qt.PointingHandCursor
+            onClicked: page.barHost.togglePanel(page.barHost.weatherMenu)
         }
     }
 
-    Row {
-        width: parent.width
-        spacing: 10
-        // The next three days.
-        DropCard {
-            foreground: page.foreground
-            width: today.width; height: 84
+    Rectangle {
+        id: rule
+        x: weatherSide.x + weatherSide.width + 18; y: 4
+        width: 1; height: parent.height - 8
+        color: Qt.alpha(page.foreground, 0.14)
+    }
+
+    // The month: weekends in the accent, today ringed, days with plans dotted.
+    Item {
+        id: month
+        x: rule.x + 19; width: parent.width - x - 4; height: parent.height
+        readonly property int lead: (page.shownMonth.getDay() - Qt.locale().firstDayOfWeek % 7 + 7) % 7
+        readonly property real cell: width / 7
+        Item {
+            width: parent.width; height: 28
             Row {
-                anchors.centerIn: parent
-                spacing: 0
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 8
+                Text { anchors.verticalCenter: parent.verticalCenter; text: "󰃭"; color: page.accent; font.family: DesktopFonts.family; font.pixelSize: 16 }
+                Heading { anchors.verticalCenter: parent.verticalCenter; text: page.shownMonth.toLocaleDateString(Qt.locale(), "MMMM yyyy") }
+            }
+            Row {
+                anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
+                spacing: 2
                 Repeater {
-                    model: (page.weather.forecastDays || []).slice(0, 3)
-                    Column {
+                    model: [{glyph: "󰅁", step: -1}, {glyph: "󰅂", step: 1}]
+                    PanelButton {
                         required property var modelData
-                        width: (today.width - 24) / 3
-                        spacing: 2
-                        Caption { anchors.horizontalCenter: parent.horizontalCenter; text: parent.modelData.day || ""; font.pixelSize: 11 }
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: WeatherIcons.forecastIcon(String(parent.modelData.icon || ""))
-                            color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: 22
-                        }
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: (parent.modelData.high || "--") + "° " + (parent.modelData.low || "--") + "°"
-                            color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.weight: Font.DemiBold
-                        }
+                        width: 24; height: 24; icon: true
+                        text: modelData.glyph; foreground: page.foreground
+                        onClicked: page.monthOffset += modelData.step
                     }
                 }
             }
-            Caption { anchors.centerIn: parent; visible: !(page.weather.forecastDays || []).length; text: Eitr.I18n.tr("No forecast") }
         }
-        // Today's plans from the calendar and reminders.
-        DropCard {
-            foreground: page.foreground
-            width: month.width; height: 84
-            Column {
-                x: 16; y: 12; width: parent.width - 32
-                spacing: 5
-                Label { text: Eitr.I18n.tr("Today") }
-                Repeater {
-                    model: page.agenda.slice(0, 2)
-                    Row {
-                        required property var modelData
-                        spacing: 8
-                        Rectangle { anchors.verticalCenter: parent.verticalCenter; width: 6; height: 6; radius: 3; color: page.accent }
-                        Text {
-                            width: month.width - 90
-                            text: parent.modelData.text || ""
-                            color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
-                            elide: Text.ElideRight; textFormat: Text.PlainText
-                        }
-                        Caption {
-                            visible: !parent.modelData.allDay
-                            text: Qt.formatTime(new Date(parent.modelData.due * 1000), Qt.locale().timeFormat(Locale.ShortFormat))
-                        }
+        Grid {
+            y: 36
+            columns: 7
+            Repeater {
+                model: 7
+                Text {
+                    required property int index
+                    readonly property int weekday: (Qt.locale().firstDayOfWeek + index) % 7
+                    width: month.cell; height: 24; horizontalAlignment: Text.AlignHCenter
+                    text: Qt.locale().dayName(weekday, Locale.NarrowFormat)
+                    color: page.weekend(weekday) ? page.accent : page.foreground
+                    opacity: page.weekend(weekday) ? 1 : PanelStyle.secondaryTextOpacity
+                    font.family: DesktopFonts.family; font.pixelSize: 11; font.weight: Font.DemiBold
+                }
+            }
+            Repeater {
+                model: 42
+                Item {
+                    required property int index
+                    readonly property date day: new Date(page.shownMonth.getFullYear(), page.shownMonth.getMonth(), index - month.lead + 1)
+                    readonly property bool inMonth: day.getMonth() === page.shownMonth.getMonth()
+                    readonly property bool today: day.toDateString() === page.now.toDateString()
+                    readonly property bool planned: inMonth && !!page.calendar
+                        && ReminderModel.dayItems(page.calendar.reminders || [], page.calendar.events || [], day).length > 0
+                    width: month.cell; height: 33
+                    Rectangle {
+                        anchors.centerIn: parent; width: 28; height: 28; radius: 14
+                        visible: parent.today
+                        color: Qt.alpha(page.accent, 0.12)
+                        border.width: 2; border.color: page.accent
+                    }
+                    Text {
+                        anchors.centerIn: parent
+                        text: parent.day.getDate()
+                        color: parent.today || (parent.inMonth && page.weekend(parent.day.getDay())) ? page.accent : page.foreground
+                        opacity: parent.inMonth ? 1 : 0.25
+                        font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+                        font.weight: parent.today ? Font.Bold : Font.Normal; font.features: PanelStyle.tabularFigures
+                    }
+                    Rectangle {
+                        visible: parent.planned && !parent.today
+                        anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: parent.bottom; anchors.bottomMargin: 2
+                        width: 4; height: 4; radius: 2; color: page.accent
                     }
                 }
-                Caption { visible: page.agenda.length === 0; text: Eitr.I18n.tr("Nothing planned") }
             }
-            MouseArea {
-                anchors.fill: parent; cursorShape: Qt.PointingHandCursor
-                onClicked: page.barHost.togglePanel(page.barHost.calendarMenu)
-            }
+        }
+        MouseArea {
+            y: 36; width: parent.width; height: parent.height - y
+            cursorShape: Qt.PointingHandCursor
+            onClicked: page.barHost.togglePanel(page.barHost.calendarMenu)
         }
     }
 }
