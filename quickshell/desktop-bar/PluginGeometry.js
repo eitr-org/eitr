@@ -39,6 +39,43 @@ function rotatedBox(geometry, degrees, bounds) {
         width: width, height: height};
 }
 
+// A turned widget's clickable area as horizontal strips inside its box (box coordinates):
+// input regions are straight rectangles, so strips follow the turned shape and leave the
+// box's empty corners to the desktop underneath. Unturned widgets get one rectangle.
+function rotatedStrips(width, height, degrees, boxWidth, boxHeight, count) {
+    if (!((degrees || 0) % 180)) return [{x: Math.round((boxWidth - width) / 2), y: Math.round((boxHeight - height) / 2),
+        width: Math.round(width), height: Math.round(height)}];
+    const radians = degrees * Math.PI / 180, cosine = Math.cos(radians), sine = Math.sin(radians);
+    const centerX = boxWidth / 2, centerY = boxHeight / 2;
+    const corners = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(corner => {
+        const x = corner[0] * width / 2, y = corner[1] * height / 2;
+        return {x: centerX + x * cosine - y * sine, y: centerY + x * sine + y * cosine};
+    });
+    // Where a horizontal line crosses the turned rectangle's edges.
+    function span(lineY) {
+        const crossings = [];
+        for (let index = 0; index < 4; index++) {
+            const start = corners[index], end = corners[(index + 1) % 4];
+            if ((start.y <= lineY && end.y >= lineY) || (end.y <= lineY && start.y >= lineY)) {
+                const share = end.y === start.y ? 0 : (lineY - start.y) / (end.y - start.y);
+                crossings.push(start.x + share * (end.x - start.x));
+            }
+        }
+        return crossings.length ? [Math.min(...crossings), Math.max(...crossings)] : null;
+    }
+    const strips = [];
+    const step = boxHeight / count;
+    for (let row = 0; row < count; row++) {
+        const top = row * step, bottom = top + step;
+        const spans = [span(top), span(bottom), span((top + bottom) / 2)].filter(found => found !== null);
+        if (!spans.length) continue;
+        const left = Math.max(0, Math.floor(Math.min(...spans.map(found => found[0]))));
+        const right = Math.min(boxWidth, Math.ceil(Math.max(...spans.map(found => found[1]))));
+        strips.push({x: left, y: Math.floor(top), width: Math.max(1, right - left), height: Math.ceil(bottom) - Math.floor(top)});
+    }
+    return strips;
+}
+
 // Whole degrees 0-359; within 3 degrees of a quarter turn the angle snaps to it.
 function snapRotation(degrees) {
     const value = ((Math.round(degrees) % 360) + 360) % 360;

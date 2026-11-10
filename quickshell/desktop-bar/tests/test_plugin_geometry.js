@@ -100,3 +100,13 @@ for (const [angle, snapped] of [[0, 0], [2, 0], [3, 0], [4, 4], [87, 90], [93, 9
 assert.equal(JSON.stringify(context.clampToScreen({x: 1800, y: 900, width: 300, height: 200}, 1280, 720)), JSON.stringify({x: 980, y: 520, width: 300, height: 200}));
 assert.equal(JSON.stringify(context.clampToScreen({x: 10, y: 10, width: 4000, height: 200}, 1280, 720)), JSON.stringify({x: 0, y: 10, width: 1280, height: 200}));
 console.log('Plugin widget rotation, snapping and copies passed');
+
+// A turned widget's click area follows its shape: strips stay inside the box and leave the
+// corners free; an unturned or half-turned widget is one rectangle.
+const turned = context.rotatedStrips(800, 200, 20, 820, 460, 24);
+assert.equal(turned.length, 24);
+for (const strip of turned) assert.ok(strip.x >= 0 && strip.x + strip.width <= 820 && strip.y >= 0 && strip.y + strip.height <= 461);
+assert.ok(turned[0].x > 40 && turned[0].width < 200, 'top-left corner of the box stays free');
+assert.equal(JSON.stringify(context.rotatedStrips(800, 200, 0, 800, 200, 24)), JSON.stringify([{x: 0, y: 0, width: 800, height: 200}]));
+assert.equal(context.rotatedStrips(800, 200, 180, 800, 200, 24).length, 1);
+console.log("Plugin widget click areas passed");

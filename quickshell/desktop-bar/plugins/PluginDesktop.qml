@@ -68,8 +68,22 @@ Scope {
                     visible: content.editing || !aboveWindows || !display.fullscreen
                     WlrLayershell.layer: content.editing ? WlrLayer.Overlay : aboveWindows ? WlrLayer.Top : WlrLayer.Bottom
                     WlrLayershell.keyboardFocus: content.editing ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
-                    // Input follows the rotated bounding box; above-window widgets pass clicks through.
-                    mask: Region { item: !window.aboveWindows || content.editing ? hitBox : null }
+                    // Input follows the turned widget itself (strips inside its bounding box), so the
+                    // box's empty corners still reach the desktop; editing takes the whole box and
+                    // above-window widgets pass clicks through.
+                    readonly property var strips: Geometry.rotatedStrips(fitted.width, fitted.height, angle, box.width, box.height, 24)
+                    property var stripRegions: []
+                    function rebuildMask() {
+                        for (const region of stripRegions) region.destroy();
+                        stripRegions = strips.map(strip => stripRegion.createObject(window, strip));
+                    }
+                    onStripsChanged: rebuildMask()
+                    Component.onCompleted: rebuildMask()
+                    Component { id: stripRegion; Region {} }
+                    mask: Region {
+                        item: content.editing ? hitBox : null
+                        regions: !window.aboveWindows && !content.editing ? window.stripRegions : []
+                    }
                     Item {
                         id: hitBox
                         x: content.editing ? window.box.x : 0; y: content.editing ? window.box.y : 0
