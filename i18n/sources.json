@@ -73,6 +73,9 @@
     "Accounts on this PC, your picture and your password.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Action": [
+      "quickshell/desktop-bar/panels/PolkitDialog.qml"
+    ],
     "Action and description": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
@@ -194,8 +197,20 @@
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
     ],
+    "Authenticate": [
+      "quickshell/desktop-bar/panels/PolkitDialog.qml"
+    ],
+    "Authenticate as": [
+      "quickshell/desktop-bar/panels/PolkitDialog.qml"
+    ],
+    "Authenticating as {user}": [
+      "quickshell/desktop-bar/panels/PolkitDialog.qml"
+    ],
     "Authentication": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
+    ],
+    "Authentication required": [
+      "quickshell/desktop-bar/panels/PolkitDialog.qml"
     ],
     "Authentication server domain": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -323,6 +338,7 @@
       "quickshell/desktop-bar/components/SettingsConfirmSheet.qml",
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/panels/PolkitDialog.qml",
       "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/TimePicker.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
@@ -1712,6 +1728,7 @@
     ],
     "Password": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
+      "quickshell/desktop-bar/panels/PolkitDialog.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
@@ -1986,6 +2003,9 @@
     ],
     "Repository: {url}": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
+    ],
+    "Request details": [
+      "quickshell/desktop-bar/panels/PolkitDialog.qml"
     ],
     "Resolution": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
@@ -2453,6 +2473,9 @@
     ],
     "Text editor": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "That password was not accepted. Try again.": [
+      "quickshell/desktop-bar/panels/PolkitDialog.qml"
     ],
     "The Eitr project": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"

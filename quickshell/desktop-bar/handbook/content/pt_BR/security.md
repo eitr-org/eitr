@@ -10,6 +10,12 @@ Vinte segundos antes do bloqueio, as telas compatíveis reduzem o brilho para ce
 
 Voltar à autenticação por senha restaura o acesso somente por senha. As mudanças afetam os serviços PAM compatíveis de bloqueio, login e sudo; exigem hardware compatível e os auxiliares instalados. A autenticação por impressão digital pode atrasar brevemente a solicitação de senha. Ler esta página não altera o PAM.
 
+## Pedidos da senha de administrador
+
+Quando um aplicativo ou o próprio Eitr precisa de permissões de administrador (instalar programas, alterar configurações do sistema), um pedido de senha no tema da barra cobre a tela que você está usando. Ele mostra quem está pedindo, qual conta se autentica (com uma escolha quando mais de uma pode) e Detalhes do pedido com a ação do polkit. Enter autentica; Esc ou Cancelar recusa; clicar fora do pedido não faz nada. Uma senha errada mostra um erro e permite tentar de novo. Vários pedidos esperam a vez, um de cada vez. A senha vai direto para o sistema e nunca é salva nem registrada.
+
+Se a barra não conseguir oferecer esse pedido logo após o login, a janela de senha do KDE assume durante a sessão, para que os pedidos de administrador continuem funcionando.
+
 ## Firewall
 
 Novas instalações começam com o firewall ativo. Ele recusa conexões de entrada, exceto respostas a conexões iniciadas pelo computador, descoberta de nomes locais e os aplicativos de compartilhamento instalados pelo Eitr: KDE Connect (portas 1714-1764) e LocalSend (53317). Máquinas virtuais e contêineres no computador continuam podendo acessá-lo, e o tráfego de saída nunca é filtrado. Se o SSH estiver ativo, ele também continua acessível.

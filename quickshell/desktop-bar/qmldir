@@ -72,6 +72,8 @@ RemoteAccessService services/RemoteAccessService.qml
 RemoteAccessContent panels/RemoteAccessContent.qml
 RemoteAccessMenu panels/RemoteAccessMenu.qml
 TimePicker 1.0 panels/TimePicker.qml
+PolkitDialog panels/PolkitDialog.qml
+PolkitPrompt panels/PolkitPrompt.qml
 EitrLogo bar/EitrLogo.qml
 AssistantChat panels/AssistantChat.qml
 PluginArea plugins/PluginArea.qml

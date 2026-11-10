@@ -10,6 +10,12 @@ Vingt secondes avant le verrouillage, les écrans compatibles réduisent leur lu
 
 Revenir à l’authentification par mot de passe rétablit l’accès uniquement par mot de passe. Ces changements concernent les services PAM de verrouillage, de connexion et de sudo pris en charge. Ils nécessitent du matériel compatible et les utilitaires installés. L’authentification par empreinte peut retarder brièvement la demande de mot de passe. Lire cette page ne modifie pas PAM.
 
+## Demandes du mot de passe administrateur
+
+Quand une application ou Eitr lui-même a besoin des droits administrateur (installer des logiciels, modifier des réglages système), une demande de mot de passe aux couleurs de la barre couvre l’écran que vous utilisez. Elle indique qui demande, quel compte s’authentifie (avec un choix lorsque plusieurs le peuvent) et Détails de la demande avec l’action polkit. Entrée authentifie, Échap ou Annuler refuse ; un clic à côté de la demande ne fait rien. Un mot de passe incorrect affiche une erreur et permet de réessayer. Plusieurs demandes attendent leur tour, une seule à la fois. Le mot de passe va directement au système et n’est jamais enregistré ni journalisé.
+
+Si la barre ne peut pas fournir cette demande peu après la connexion, la boîte de dialogue de mot de passe de KDE prend le relais pour la session, afin que les demandes administrateur continuent de fonctionner.
+
 ## Pare-feu
 
 Les nouvelles installations démarrent avec le pare-feu activé. Il refuse les connexions entrantes, sauf les réponses aux connexions lancées par votre ordinateur, la découverte des noms locaux et les connexions des applications de partage installées par Eitr : KDE Connect (ports 1714-1764) et LocalSend (53317). Les machines virtuelles et les conteneurs de votre ordinateur peuvent toujours y accéder ; le trafic sortant n’est jamais filtré. Si SSH est activé, il reste également accessible.

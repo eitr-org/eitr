@@ -21,6 +21,19 @@ changes affect supported lockscreen/login/sudo PAM services; hardware support
 and installed helpers are required. Fingerprint authentication may delay a
 password prompt briefly. Reading this page does not modify PAM.
 
+## Administrator password prompts
+
+When an app or Eitr itself needs administrator rights (installing software, changing
+system settings), a password prompt drawn in the bar's theme covers the screen you are
+using. It shows what is asking, which account authenticates (with a choice when more
+than one may), and Request details with the polkit action. Enter authenticates, Escape
+or Cancel declines; clicking beside the prompt does nothing. A wrong password shows an
+error and lets you try again. Several requests wait their turn, one prompt at a time.
+The password goes straight to the system and is never saved or logged.
+
+If the bar cannot provide this prompt shortly after login, KDE's password dialog takes
+its place for the session, so administrator requests keep working.
+
 ## Firewall
 
 New installations start with the firewall on. It refuses incoming connections

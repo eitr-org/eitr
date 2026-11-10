@@ -10,6 +10,12 @@ Zwanzig Sekunden vor dem Sperren werden unterstützte Bildschirme auf etwa 30 % 
 
 Zurück zur Passwortauthentifizierung stellt die Anmeldung ausschließlich per Passwort wieder her. Diese Änderungen betreffen die unterstützten PAM-Dienste für Sperrbildschirm, Anmeldung und sudo. Sie setzen geeignete Hardware und installierte Hilfsprogramme voraus. Die Fingerabdruckauthentifizierung kann die Passwortabfrage kurz verzögern. Das Lesen dieser Seite ändert PAM nicht.
 
+## Abfragen des Administratorpassworts
+
+Braucht ein Programm oder Eitr selbst Administratorrechte (Software installieren, Systemeinstellungen ändern), deckt eine Passwortabfrage im Design der Leiste den Bildschirm ab, den du gerade benutzt. Sie zeigt, wer anfragt, welches Konto sich anmeldet (mit einer Auswahl, wenn mehrere in Frage kommen), und unter Details zur Anfrage die Polkit-Aktion. Enter bestätigt, Escape oder Abbrechen lehnt ab; ein Klick neben die Abfrage bewirkt nichts. Nach einem falschen Passwort erscheint ein Hinweis und du kannst es erneut versuchen. Mehrere Anfragen warten nacheinander, immer nur eine Abfrage auf einmal. Das Passwort geht direkt an das System und wird nie gespeichert oder protokolliert.
+
+Kann die Leiste diese Abfrage kurz nach der Anmeldung nicht bereitstellen, übernimmt der Passwortdialog von KDE für diese Sitzung, damit Administratoranfragen weiter funktionieren.
+
 ## Firewall
 
 Neue Installationen starten mit eingeschalteter Firewall. Sie weist eingehende Verbindungen ab, außer Antworten auf Verbindungen, die dein Rechner gestartet hat, lokale Namenssuche und Verbindungen der von Eitr installierten Freigabeprogramme: KDE Connect (Ports 1714-1764) und LocalSend (53317). Virtuelle Maschinen und Container auf deinem Rechner können ihn weiterhin erreichen. Ausgehender Datenverkehr wird nie gefiltert. Ist SSH aktiviert, bleibt es ebenfalls erreichbar.

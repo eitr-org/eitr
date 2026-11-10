@@ -47,6 +47,10 @@ ShellRoot {
         accent: shell.activeBg
         defaultScreen: shell.targetScreens()[0] || null
     }
+    PolkitPrompt {
+        foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
+        defaultScreen: shell.targetScreens()[0] || null
+    }
     ReloadErrorPopup {
         foreground: shell.fg
         background: shell.barBackground()

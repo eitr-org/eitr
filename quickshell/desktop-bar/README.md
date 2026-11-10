@@ -68,8 +68,9 @@ transitions; it does not animate the reveal. No polling is added.
 Login starts Hyprpaper, waits up to 0.5 s for its IPC endpoint, then starts the bar
 and Elephant together (Walker needs Elephant). Session preparation, crash help, cursor
 sync, nightlight, OSD and clipboard watchers start once the bar answers on its IPC
-socket (at most 8 s). Authentication agents and idle locking
-keep their existing startup path. Walker starts/waits for the same Elephant
+socket (at most 8 s). Then `hypr/scripts/polkit-fallback.sh` asks the bar's
+`polkit status` IPC for up to 15 s and starts KDE's polkit agent only when the bar's
+agent has not registered. The keyring and idle locking keep their existing startup path. Walker starts/waits for the same Elephant
 service when invoked early; its KillMode remains process. Plugin login hooks
 start after 12 s and the first automatic update check after 45 s.
 
@@ -1096,6 +1097,19 @@ terminal launching. A silent `yay -Qua` exit 1 is a successful empty AUR query, 
 discard repository updates. The standalone CLI retains its output and updater actions
 remain outside the broker. All domains initialize lazily inside the worker pool;
 an import failure remains local to its domain. Screen/VM acceptance is pending.
+
+### Password prompt ownership
+
+`panels/PolkitPrompt.qml` is the session's polkit authentication agent (Quickshell's
+`PolkitAgent`). Quickshell queues concurrent requests and exposes one `AuthFlow` at a
+time; the prompt covers the screen focused when the request arrived with an Overlay
+layer holding exclusive keyboard focus, and `panels/PolkitDialog.qml` draws the card
+(message, identity or identity choice, password field, error line, Details with the
+action id, Cancel and Authenticate). Enter answers, Escape or Cancel cancels, and clicks
+beside the card do nothing. The typed answer goes straight to `AuthFlow.submit()`; the
+field is cleared on submit, identity change and close, and is never logged or stored.
+Request text is plain text, never markup. `eitr-shell desktop-bar ipc call -- polkit
+status` prints `registered` or `unregistered`, which the login fallback reads.
 
 ### CLI result contracts
 

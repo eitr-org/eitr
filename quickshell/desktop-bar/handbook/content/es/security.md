@@ -10,6 +10,12 @@ Veinte segundos antes del bloqueo, las pantallas compatibles atenúan su brillo 
 
 Volver a la autenticación por contraseña restaura el acceso solo mediante contraseña. Estos cambios afectan los servicios PAM compatibles de bloqueo, inicio de sesión y sudo; requieren hardware compatible y los auxiliares instalados. La autenticación por huella puede retrasar brevemente la solicitud de contraseña. Leer esta página no modifica PAM.
 
+## Solicitudes de la contraseña de administrador
+
+Cuando una aplicación o el propio Eitr necesita permisos de administrador (instalar software, cambiar ajustes del sistema), una solicitud de contraseña con el tema de la barra cubre la pantalla que estás usando. Muestra quién lo pide, qué cuenta se autentica (con una opción para elegir si puede hacerlo más de una) y Detalles de la solicitud con la acción de polkit. Intro autentica; Escape o Cancelar lo rechaza; hacer clic fuera de la solicitud no hace nada. Una contraseña incorrecta muestra un error y permite volver a intentarlo. Varias solicitudes esperan su turno, una a la vez. La contraseña va directamente al sistema y nunca se guarda ni se registra.
+
+Si la barra no puede ofrecer esta solicitud poco después de iniciar sesión, el diálogo de contraseña de KDE la sustituye durante la sesión, para que las peticiones de administrador sigan funcionando.
+
 ## Cortafuegos
 
 Las nuevas instalaciones comienzan con el cortafuegos activado. Rechaza conexiones entrantes salvo las respuestas a conexiones iniciadas por tu equipo, el descubrimiento de nombres locales y las aplicaciones de intercambio que instala Eitr: KDE Connect (puertos 1714-1764) y LocalSend (53317). Las máquinas virtuales y los contenedores de tu equipo siguen pudiendo acceder a él, y el tráfico saliente nunca se filtra. Cuando SSH está habilitado, SSH también se mantiene accesible.

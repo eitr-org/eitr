@@ -877,5 +877,12 @@
   "󰂚  No notifications": "󰂚  No notifications",
   "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications",
   "Wallpaper per display": "Wallpaper per display",
-  "When on, a new wallpaper changes only the display you are using.": "When on, a new wallpaper changes only the display you are using."
+  "When on, a new wallpaper changes only the display you are using.": "When on, a new wallpaper changes only the display you are using.",
+  "Action": "Action",
+  "Authenticate": "Authenticate",
+  "Authenticate as": "Authenticate as",
+  "Authenticating as {user}": "Authenticating as {user}",
+  "Authentication required": "Authentication required",
+  "That password was not accepted. Try again.": "That password was not accepted. Try again.",
+  "Request details": "Request details"
 }

@@ -23,6 +23,8 @@ for ((attempt = 0; attempt < 80; attempt++)); do
   sleep 0.1
 done
 systemctl --user start --no-block eitr-crash-help.service
+# The bar draws administrator password prompts; KDE's agent steps in if it cannot.
+bash "${BASH_SOURCE[0]%/*}/polkit-fallback.sh" &
 (eitr-session && eitr-walker --gapplication-service) &
 python3 /usr/share/eitr/walker/scripts/actions/style/cursor.py sync &
 hyprsunset &
