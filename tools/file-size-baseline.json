@@ -46,7 +46,7 @@
       "reason": "Barely over the limit; one panel."
     },
     "quickshell/desktop-bar/panels/CatalogContent.qml": {
-      "lines": 968,
+      "lines": 980,
       "reason": "Catalog cards and review sheets, including package review and optional removal cleanup."
     },
     "quickshell/desktop-bar/scripts/bar-data.py": {

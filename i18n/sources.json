@@ -81,7 +81,6 @@
     ],
     "Add": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
     "Add Layout": [
@@ -102,6 +101,12 @@
     ],
     "Add themes": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml"
+    ],
+    "Add to a display": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
+    "Add to another display": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Adjust blur across the desktop.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
@@ -236,6 +241,9 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml",
       "quickshell/desktop-bar/plugins/PluginPanel.qml"
     ],
+    "Background": [
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+    ],
     "Background service": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -264,7 +272,7 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Blocked": [
-      "quickshell/desktop-bar/plugins/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginDetails.qml"
     ],
     "Bluetooth": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
@@ -504,6 +512,7 @@
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/dock/EdgeDock.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/panels/CatalogPluginSheet.qml",
       "quickshell/desktop-bar/settings/FamilySidebar.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
@@ -769,6 +778,9 @@
     "Detailed Status": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Details": [
+      "quickshell/desktop-bar/plugins/PluginDetails.qml"
+    ],
     "Detecting configured AI clients…": [
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
@@ -802,7 +814,7 @@
     "Disabled": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginComponent.qml",
-      "quickshell/desktop-bar/plugins/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginDetails.qml"
     ],
     "Disconnect": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
@@ -834,10 +846,10 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Done": [
-      "quickshell/desktop-bar/plugins/PluginWidget.qml"
+      "quickshell/desktop-bar/plugins/PluginWidget.qml",
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
     ],
     "Done editing widgets": [
-      "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Dotfiles": [
@@ -868,7 +880,7 @@
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Edit position": [
-      "quickshell/desktop-bar/plugins/PluginManagement.qml",
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml",
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Edit schedule": [
@@ -906,9 +918,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Enable plugin": [
-      "quickshell/desktop-bar/plugins/PluginManager.qml"
-    ],
-    "Enabled": [
+      "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "End": [
@@ -1012,6 +1022,7 @@
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Full width": [
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml",
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Fullscreen when one column": [
@@ -1070,9 +1081,6 @@
     ],
     "Hide Bar": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
-    ],
-    "Hide from the bar": [
-      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Hide icons": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
@@ -1230,6 +1238,9 @@
     ],
     "Large": [
       "tools/choice-lists.json"
+    ],
+    "Larger": [
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
     ],
     "Layout": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
@@ -1538,6 +1549,9 @@
     "Not installed": [
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
+    "Not on any display yet.": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
     "Not paired": [
       "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
@@ -1596,7 +1610,8 @@
       "quickshell/desktop-bar/welcome/WelcomePage.qml"
     ],
     "Official": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/plugins/PluginDetails.qml"
     ],
     "Official Eitr plugin": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1605,6 +1620,12 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/services/UpdatesStatus.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "On the bar": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
+    "On your desktop": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "One third": [
       "tools/choice-lists.json"
@@ -1729,6 +1750,9 @@
     "Pairing...": [
       "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
+    "Panel": [
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+    ],
     "Password": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
       "quickshell/desktop-bar/panels/PolkitDialog.qml",
@@ -1787,9 +1811,6 @@
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/EventSoundSettings.qml"
     ],
-    "Plugin": [
-      "quickshell/desktop-bar/plugins/PluginManagement.qml"
-    ],
     "Plugins": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/ControlCenter.qml",
@@ -1833,7 +1854,7 @@
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
     "Preview": [
-      "quickshell/desktop-bar/plugins/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginDetails.qml"
     ],
     "Previous": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
@@ -1945,8 +1966,7 @@
       "quickshell/desktop-bar/components/SettingsConfirmSheet.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
-      "quickshell/desktop-bar/plugins/PluginManagement.qml",
-      "quickshell/desktop-bar/plugins/PluginManager.qml",
+      "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
@@ -1964,6 +1984,7 @@
       "quickshell/desktop-bar/dock/EdgeDock.qml"
     ],
     "Remove from desktop": [
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml",
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Remove layout": [
@@ -2005,7 +2026,7 @@
       "quickshell/desktop-bar/notifications/NotificationCard.qml"
     ],
     "Repository: {url}": [
-      "quickshell/desktop-bar/plugins/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginDetails.qml"
     ],
     "Request details": [
       "quickshell/desktop-bar/panels/PolkitDialog.qml"
@@ -2284,7 +2305,7 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Show above windows": [
-      "quickshell/desktop-bar/plugins/PluginManagement.qml",
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml",
       "quickshell/desktop-bar/plugins/PluginWidgetMenu.qml"
     ],
     "Show help notifications when a program crashes.": [
@@ -2335,6 +2356,9 @@
     "Silence popups while keeping notification history.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "Size": [
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
+    ],
     "Size unavailable": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -2349,6 +2373,9 @@
     ],
     "Small": [
       "tools/choice-lists.json"
+    ],
+    "Smaller": [
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
     ],
     "Soften the desktop behind terminal windows.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -2424,7 +2451,8 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Style": [
-      "quickshell/desktop-bar/figures/LauncherFigure.qml"
+      "quickshell/desktop-bar/figures/LauncherFigure.qml",
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
     ],
     "Submenu": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
@@ -2574,6 +2602,7 @@
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "This plugin has errors": [
+      "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "This welcome": [
@@ -2599,6 +2628,9 @@
     ],
     "Transcribing": [
       "quickshell/desktop-bar/bar/CaptureIndicator.qml"
+    ],
+    "Transparent": [
+      "quickshell/desktop-bar/plugins/PluginWidgetCard.qml"
     ],
     "Turn Bluetooth on or off": [
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
@@ -2664,7 +2696,7 @@
     ],
     "Update": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/plugins/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginDetails.qml"
     ],
     "Update Channel": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -2677,6 +2709,7 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Update available": [
+      "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Update channel: %1": [
@@ -2731,13 +2764,10 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "View error details": [
-      "quickshell/desktop-bar/plugins/PluginManager.qml"
-    ],
-    "Visuals disabled": [
-      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+      "quickshell/desktop-bar/plugins/PluginDetails.qml"
     ],
     "Visuals disabled after failures": [
-      "quickshell/desktop-bar/plugins/PluginManager.qml"
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Volume": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
@@ -2810,9 +2840,6 @@
     ],
     "WiFi password": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
-    ],
-    "Widget options": [
-      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Window": [
       "quickshell/desktop-bar/overview/WorkspaceOverviewTile.qml",

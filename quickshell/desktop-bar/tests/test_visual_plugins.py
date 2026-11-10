@@ -465,7 +465,7 @@ ShellRoot {
                     Bar.PluginManagement {
                         id: area; width: parent.width; entries: ENTRIES
                         monitors: [{name: "missing-monitor", description: "Example display"}, {name: "DP-2", description: "Second display"}, {name: "DP-3", description: "Third display"}]
-                        foreground: "FOREGROUND"; background: "BACKGROUND"
+                        foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#70ba9a"
                     }
                 }
             }
@@ -476,7 +476,7 @@ ShellRoot {
                         throw new Error("Clock moved off screen centre");
                     if (items.width !== 24) throw new Error("Plugin slot changed width");
                     if (MANAGEMENT) {
-                        if (!area.rows.length || area.height > 640) throw new Error("Management missing or clipped");
+                        if (area.height <= 0 || area.height > 640) throw new Error("Management missing or clipped: " + area.height);
                         if (Bar.PluginRegistry.placements.widgets.length !== 1 || Bar.PluginRegistry.placements.barItems.length !== 1) throw new Error("Management lost placements before capture");
                     }
                     sample.grabToImage(function(result) {
@@ -567,13 +567,13 @@ ShellRoot {
             Bar.PluginManagement {
                 id: manage; visible: MANAGE; x: 24; y: 64; width: parent.width - 48
                 entries: [ENTRY]; monitors: [{name: "test-display", description: "Example monitor"}]
-                foreground: "FOREGROUND"; background: "BACKGROUND"
+                foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#70ba9a"
             }
             Timer {
                 interval: 1200; running: true
                 onTriggered: {
                     if (!MANAGE && !Bar.SpectrumProvider.hasFrame) throw new Error("No fake spectrum");
-                    if (MANAGE && (!manage.rows[0].aboveWindows || manage.height !== 36)) throw new Error("Layer toggle row missing or resized");
+                    if (MANAGE && (manage.widgets.length !== 1 || manage.height <= 36)) throw new Error("Widget card missing");
                     sample.grabToImage(function(result) {
                         result.saveToFile("CAPTURE");
                         console.log("LIVE_PLUGIN_RENDER_OK"); Qt.quit();
@@ -752,7 +752,7 @@ ShellRoot {
             Text { x: MANAGER ? 74 : 24; y: 24; text: MANAGER ? "Plugins" : "Audio visualizer"; color: "FOREGROUND"; font.pixelSize: 16 }
             Bar.PluginManager {
                 id: manager; x: 74; y: 62; width: 560; visible: MANAGER
-                installed: []; entries: [ENTRY]; selectedPlugin: LIST ? "" : "visualizer"; expanded: "visualizer"
+                installed: []; entries: [ENTRY]; selectedPlugin: LIST ? "" : "visualizer"
                 foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#7ee0b5"
             }
             Bar.PluginWidget {

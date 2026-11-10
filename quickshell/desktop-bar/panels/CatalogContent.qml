@@ -91,7 +91,7 @@ Item {
     // selections, filters and scroll positions.
     function resetTransient() {
         addingAddress = false; addressInput.text = ""; gitSelected = []; gitArtwork = ({});
-        detail = null; reviewing = false; removing = null; selected = []; error = ""; progress = "";
+        detail = null; reviewing = false; removing = null; managing = null; selected = []; error = ""; progress = "";
         query = ""; tone = "all"; cursor = -1; shown = pageSize; scroll.contentY = 0;
     }
     function discardReview() {
@@ -195,6 +195,8 @@ Item {
     property var reviewIds: null
     function reviewDetail() { if (kind === "plugins") { prepareReview({id: detail.id, updating: isInstalled(detailItem)}); return; } reviewIds = [detail.id]; reviewing = true; forceActiveFocus(); }
     property var removing: null
+    // The installed plugin whose settings sheet is open.
+    property var managing: null
     property int generation: 0
     property var transport: function(name, args, callback, owner) { return DesktopData.queryCatalog(name, args, owner || catalog, callback); }
     Item { id: updateOwner }
@@ -258,6 +260,7 @@ Item {
         if (busy) return;
         if (getMore) openDetail(item);
         else if (local && kind === "themes" && !item.current) act("apply", {id: item.id});
+        else if (local && kind === "plugins") managing = item;
         else if (!local) toggle(item);
         sidebarFocus = false; forceActiveFocus();
     }
@@ -374,7 +377,7 @@ Item {
     Keys.onPressed: event => {
         if (event.key === Qt.Key_Escape) {
             if (nativeReviewing && confirmingReview) { event.accepted = true; return; }
-            if (nativeReviewing) { DesktopData.releaseOwner(catalog); busy = false; discardReview(); } else if (addingAddress) { addingAddress = false; forceActiveFocus(); } else if (reviewing || removing) cancelSheet(); else if (detail) closeDetail(); else if (query) query = ""; else closeRequested();
+            if (nativeReviewing) { DesktopData.releaseOwner(catalog); busy = false; discardReview(); } else if (addingAddress) { addingAddress = false; forceActiveFocus(); } else if (reviewing || removing) cancelSheet(); else if (managing) managing = null; else if (detail) closeDetail(); else if (query) query = ""; else closeRequested();
             event.accepted = true;
         } else if ((event.key === Qt.Key_Return || event.key === Qt.Key_Enter) && (nativeReviewing || reviewing || removing)) {
             if (nativeReviewing) nativeConfirm(); else confirm(); event.accepted = true;
@@ -502,7 +505,7 @@ Item {
         required property bool local
         readonly property bool picked: catalog.getMore && !local && catalog.selected.includes(item.id)
         readonly property bool focused: catalog.cursor >= 0 && !!catalog.navigable[catalog.cursor] && catalog.navigable[catalog.cursor].id === item.id
-        readonly property bool actionable: (catalog.getMore || !(local && (catalog.kind === "plugins" || item.current)))
+        readonly property bool actionable: catalog.getMore || !(local && item.current)
         readonly property real viewportY: parent.parent.y + parent.y + y - scroll.contentY
         readonly property bool inViewport: viewportY + height > 0 && viewportY < scroll.height
         implicitHeight: details.y + details.height + 12
@@ -561,7 +564,7 @@ Item {
                 }
             }
         }
-        MouseArea { id: cardMouse; anchors.fill: parent; hoverEnabled: true; enabled: tile.actionable && !catalog.busy && !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing && !catalog.detail
+        MouseArea { id: cardMouse; anchors.fill: parent; hoverEnabled: true; enabled: tile.actionable && !catalog.busy && !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing && !catalog.detail && !catalog.managing
             cursorShape: Qt.PointingHandCursor
             onClicked: { catalog.cursor = catalog.navigable.findIndex(theme => theme.id === tile.item.id); catalog.activate(tile.item, tile.local); }
         }
@@ -848,6 +851,15 @@ Item {
                     }
             ActionButton { objectName: "detail-close"; anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 10; width: 32; icon: true; text: "󰅖"; Accessible.name: Eitr.I18n.tr("Close"); onClicked: catalog.closeDetail() }
         }
+    }
+    CatalogPluginSheet {
+        anchors.fill: parent
+        plugin: catalog.kind === "plugins" ? catalog.managing : null
+        foreground: catalog.foreground; background: catalog.background; accent: catalog.accent
+        surface: catalog.surface; line: catalog.line
+        updateAction: item => { catalog.managing = null; catalog.openDetail(item); catalog.prepareReview({id: item.id, updating: true}); }
+        removeAction: item => { catalog.managing = null; catalog.removing = catalog.navigable.find(row => row.id === item.id) || item; catalog.forceActiveFocus(); }
+        onClosed: { catalog.managing = null; catalog.forceActiveFocus(); }
     }
     Rectangle {
         z: 3; anchors.fill: parent; visible: catalog.reviewing || catalog.removing !== null

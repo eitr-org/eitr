@@ -299,7 +299,8 @@ class PluginTests(unittest.TestCase):
         self.assertIn('text: Eitr.I18n.tr("Update Plugins")', page)
         self.assertIn('PluginRegistry.review("update", "")', page)
         self.assertIn('pluginRow.modelData.updateCount > 0', page)
-        self.assertIn('card.modelData.updateCount > 0', page)
+        details = (ROOT / 'quickshell/desktop-bar/plugins/PluginDetails.qml').read_text()
+        self.assertIn('card.modelData.updateCount > 0', details)
 
     def make_index(self):
         spec = self.spec()
