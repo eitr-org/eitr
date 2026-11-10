@@ -146,7 +146,8 @@ Item {
     MouseArea {
         anchors.fill: parent; enabled: host.tile || host.barItem; z: 2
         cursorShape: host.entry.panel ? Qt.PointingHandCursor : Qt.ArrowCursor
-        onClicked: { host.forceActiveFocus(); host.activate(); }
+        // A click on a bar icon takes no focus, so no focus ring; Tab still shows it.
+        onClicked: { if (!host.barItem) host.forceActiveFocus(); host.activate(); }
     }
     Loader {
         id: content
