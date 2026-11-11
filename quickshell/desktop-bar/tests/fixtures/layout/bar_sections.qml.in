@@ -60,7 +60,6 @@ ShellRoot {
             property real itemGap: 4
             property real islandSpacing: 16
             property real weatherReveal: 27
-            property bool weatherExpanded: true
             property var screen: ({height: 1080})
             function togglePanel(panel) { panel.opened = !panel.opened; }
             function openPluginPanel(plugin, panel, target) {}

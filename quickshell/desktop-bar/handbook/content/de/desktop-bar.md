@@ -29,7 +29,7 @@ Wähle ein Layout unter Einstellungen > Desktopleiste. Alle sechs funktionieren 
 | :--- | :--- |
 | Vollständig | Vollständig hält die ganze Leiste am Rand. Panels schließen daran an. |
 | Zentriert | Zentriert zeigt bis zum Darüberfahren nur die Uhr. Die Stecknadel oder Ausgeklappt lassen unter Einstellungen > Desktopleiste (auch in Walker) hält die Leiste offen; Panels schweben daneben. |
-| Laschen | Laschen verbindet drei Tabs mit einem dünnen Streifen. Statussymbole bleiben sichtbar; über dem mittleren Tab erscheint das Wetter. |
+| Laschen | Laschen verbindet drei Tabs mit einem dünnen Streifen. Statussymbole und das Wetter bleiben sichtbar. |
 | Inseln | Inseln gibt jeder Gruppe eine eigene Fläche; alle Statussymbole bleiben sichtbar. Ein Panel erweitert seine Insel und schiebt Nachbargruppen beiseite. |
 | Dynamisch | Dynamisch beginnt mit drei Inseln: Logo, Uhr sowie Netzwerk/Akku, dazu eine Medieninsel zwischen Logo und Uhr, während etwas läuft. Darüberfahren erweitert eine; ein Panel wächst direkt aus ihr. |
 | Tropfen | Tropfen zeigt nur die Uhrzeit in einer Fläche in der Mitte des Rands. Ein Klick lässt daraus sein Dashboard wachsen; ein Rechtsklick öffnet direkt die Schnelleinstellungen. Mit automatischem Ausblenden bleibt nichts auf dem Bildschirm, bis ein Tropfen aus dem Rand fällt und zur Fläche anschwillt. |

@@ -105,7 +105,7 @@ Item {
             id: barWeather
             x: parent.width - width
             opacity: barHost.expanded ? 1 : 0
-            enabled: barHost.expanded && (!barHost.notchLayout || barHost.weatherExpanded)
+            enabled: barHost.expanded
             onClicked: barHost.togglePanel(weatherMenu)
         }
     }

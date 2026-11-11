@@ -37,7 +37,7 @@ Escolha um layout em Configurações > Barra da área de trabalho. Os seis funci
 | :--- | :--- |
 | Completa | Completa mantém toda a barra na borda. Os painéis se unem a ela. |
 | Centralizada | Centralizada mostra só o relógio até passar o ponteiro. O alfinete, ou Manter expandido em Configurações > Barra da área de trabalho (também no Walker), a mantém aberta; os painéis flutuam ao lado. |
-| Abas | Abas une três abas por uma faixa fina. Os ícones de estado ficam visíveis; passe o ponteiro no centro para ver o clima. |
+| Abas | Abas une três abas por uma faixa fina. Os ícones de estado e o clima ficam visíveis. |
 | Ilhas | Ilhas dá a cada grupo sua própria cápsula e mostra sempre todos os ícones de status. Abrir um painel amplia sua ilha e afasta os grupos vizinhos. |
 | Dinâmico | Dinâmico começa com três ilhas: logo, relógio e rede/bateria, mais uma ilha de mídia entre o logo e o relógio enquanto algo toca. Passe o ponteiro para ampliar uma; um painel cresce a partir dessa mesma ilha. |
 | Gota | Gota mostra só a hora em uma cápsula no centro da borda. Clique para ela crescer até o painel; o clique direito abre direto os controles rápidos. Com a ocultação automática nada fica na tela até uma gota cair da borda e virar a cápsula. |

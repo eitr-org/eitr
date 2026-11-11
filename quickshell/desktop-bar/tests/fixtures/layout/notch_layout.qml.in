@@ -31,7 +31,6 @@ FloatingWindow {
     Item { id: weatherMenu; visible: false }
     Timer { id: collapseDelay; interval: 350 }
     REVEAL
-    Component.onCompleted: weatherHovered = HOVERED
     GEOMETRY
     Item {
         id: sample; anchors.fill: parent
@@ -54,7 +53,7 @@ FloatingWindow {
                 anchors.horizontalCenterOffset: shell.verticalBar ? 0 : 0
             }
             Text {
-                id: barWeather; visible: bar.weatherExpanded; text: "☀ 21°"; color: centerInfo.color; font.pixelSize: 13
+                id: barWeather; visible: true; text: "☀ 21°"; color: centerInfo.color; font.pixelSize: 13
                 x: shell.verticalBar ? (parent.width - width) / 2 + 0 : centerInfo.x + centerInfo.width + 6
                 y: shell.verticalBar ? centerInfo.y + centerInfo.height + 3 : centerInfo.y
             }
@@ -133,10 +132,8 @@ Timer {
                 : (MEDIA ? mediaStrip.x : centerInfo.x);
             var clockEnd = shell.verticalBar ? verticalCalendarIcon.y + verticalCalendarIcon.height : centerInfo.x + centerInfo.width;
             var centerEnd = clockEnd + bar.weatherReveal;
-            if (barWeather.visible !== HOVERED) throw new Error("Weather visibility differs from hover");
-            if (!MEDIA && !HOVERED && Math.abs(bar.tabCenterStart + bar.tabCenterEnd - (shell.verticalBar ? sample.height : sample.width)) > 0.01)
-                throw new Error("Collapsed centre tab is not symmetric");
-            if (Math.abs(bar.tabCenterEnd - clockEnd - bar.tabsPadding - (HOVERED ? (shell.verticalBar ? 3 + verticalWeatherIcon.height : 6 + barWeather.width) : 0)) > 0.01)
+            if (!barWeather.visible) throw new Error("Tabs must always show the weather");
+            if (Math.abs(bar.tabCenterEnd - clockEnd - bar.tabsPadding - (shell.verticalBar ? 3 + verticalWeatherIcon.height : 6 + barWeather.width)) > 0.01)
                 throw new Error("Weather reveal did not extend the trailing side");
             var trailingStart = shell.verticalBar ? verticalEnd.y : rightSide.x;
             var paddings = [bar.tabLeadingEnd - leadingEnd, centerStart - bar.tabCenterStart,

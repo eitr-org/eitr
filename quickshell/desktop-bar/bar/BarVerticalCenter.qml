@@ -127,7 +127,6 @@ Item {
             host: verticalMiddle.host
             id: verticalWeatherIcon
             visible: barHost.expanded
-            enabled: !barHost.notchLayout || barHost.weatherExpanded
             y: parent.height - height
             anchors.horizontalCenter: parent.horizontalCenter
             autoRefresh: false

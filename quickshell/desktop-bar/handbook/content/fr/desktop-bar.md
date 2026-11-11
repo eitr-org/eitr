@@ -39,7 +39,7 @@ Choisissez une disposition dans Paramètres > Barre de bureau. Les six fonctionn
 | :--- | :--- |
 | Complète | Complète garde toute la barre au bord. Les panneaux s’y rattachent. |
 | Centrée | Centrée montre seulement l’horloge avant le survol. L’épingle, ou Garder déployé dans Paramètres > Barre de bureau (aussi dans Walker), la garde ouverte ; les panneaux flottent à côté. |
-| Onglets | Onglets relie trois onglets par une fine bande. Les icônes d’état restent visibles ; survolez le centre pour la météo. |
+| Onglets | Onglets relie trois onglets par une fine bande. Les icônes d’état et la météo restent visibles. |
 | Îlots | Îlots donne une capsule à chaque groupe et affiche toujours toutes les icônes d’état. Ouvrir un panneau agrandit son îlot et écarte les groupes voisins. |
 | Dynamique | Dynamique commence par trois îlots : logo, horloge et réseau/batterie, plus un îlot multimédia entre le logo et l’horloge pendant une lecture. Survolez-en un pour le déplier ; le panneau grandit depuis ce même îlot. |
 | Goutte | Goutte n’affiche que l’heure dans une capsule au centre du bord. Cliquez dessus pour faire grandir son tableau de bord ; un clic droit ouvre directement les réglages rapides. Avec le masquage automatique, rien ne reste à l’écran jusqu’à ce qu’une goutte tombe du bord et devienne la capsule. |

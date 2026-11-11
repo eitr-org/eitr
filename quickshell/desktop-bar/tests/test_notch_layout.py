@@ -21,8 +21,9 @@ class NotchLayoutTests(unittest.TestCase):
         tab = shell_source.split('                    Item {\n                        id: tabStrip\n                        visible: shell.notchLayout', 1)[1].split('                    HoverHandler {\n                        id: barHover', 1)[0]
         outline = tab.split('id: tabsOutline', 1)[1]
         self.assertNotIn('DesktopStyle', outline)
-        # The centre-tab hover comes from the bar's own handler, which also sees the clock and weather.
-        self.assertIn('readonly property bool overCenterTab', shell_source)
+        # The weather always shows in the centre tab: nothing hides it on hover.
+        self.assertNotIn('overCenterTab', shell_source)
+        self.assertNotIn('weatherHovered', shell_source)
         self.assertEqual(outline.count('ShapePath {'), 1)
         self.assertIn('EdgeSlopes.outline', outline)
         self.assertNotIn('PanelSurface {', tab)
@@ -34,11 +35,9 @@ class NotchLayoutTests(unittest.TestCase):
         geometry = 'readonly property real tabsPadding:' + shell_source.split(
             '                readonly property real tabsPadding:', 1)[1].split(
             '                readonly property var outerGaps:', 1)[0]
-        reveal = shell_source.split('                property bool weatherHovered:', 1)[1].split('                readonly property real centerExtent:', 1)[0]
-        reveal = 'property bool weatherHovered:' + reveal
-        self.assertIn('duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic', reveal)
-        self.assertIn('interval: collapseDelay.interval', reveal)
-        self.assertIn('weatherMenu.visible || pendingPanel === weatherMenu', reveal)
+        reveal = shell_source.split('                readonly property real weatherExtent:', 1)[1].split('                readonly property real centerExtent:', 1)[0]
+        reveal = 'readonly property real weatherExtent:' + reveal
+        self.assertIn('readonly property real weatherReveal: notchLayout ? weatherExtent : 0', reveal)
         tab = 'Item {\n visible: shell.notchLayout' + tab
         with tempfile.TemporaryDirectory(prefix="eitr-notch-fixture-") as directory:
             folder = Path(directory)
@@ -50,7 +49,6 @@ class NotchLayoutTests(unittest.TestCase):
                          for edge in EDGES
                          for alignment in ('left', 'right'))
             cases = [(*case, media, False) for case in cases for media in (False, True)]
-            cases.extend((edge, False, 'center', 'rounded', 5, False, False, True) for edge in ('top', 'left'))
             jobs = []
             for index, (edge, light, alignment, corners, workspace_count, centered_layout, media, hovered) in enumerate(cases):
                 center_panel = alignment == "center"

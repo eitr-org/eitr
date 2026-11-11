@@ -323,7 +323,7 @@ existing design and workflows rather than replacing them with upstream defaults.
 - Tabs: a thin edge strip with three content-sized tabs (left, centre, right)
   joined by rounded 45° slopes, square at the screen edges; it ignores the corner
   preference. Its panels float detached at their Full-layout positions, and the
-  weather shows only while the centre tab is hovered.
+  weather always shows after the clock in the centre tab.
 - Islands: content-sized pills for logo, Overview/workspaces, AI/Hardware/Idle Lock,
   clock, weather, conditional media/capture and status, preserving icon order and
   Full spacing. Pills are always fully rounded (ignoring the corner preference) and float half the live outer gap

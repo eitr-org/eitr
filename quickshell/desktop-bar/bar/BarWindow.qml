@@ -122,16 +122,9 @@ PanelWindow {
     property real trailingReveal: centeredLayout && expanded ? Math.min(trailingExtent, (host.verticalBar ? bar.height : bar.width) / 2 - centerExtent / 2) : 0
     Behavior on leadingReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     Behavior on trailingReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
-    property bool weatherHovered: false
-    readonly property bool weatherExpanded: weatherHovered || weatherMenu.visible || pendingPanel === weatherMenu
+    // Tabs always shows the weather after the clock, inside the centre tab.
     readonly property real weatherExtent: host.verticalBar ? 3 + verticalWeatherIcon.height : 6 + barWeather.width
-    property real weatherReveal: notchLayout && weatherExpanded ? weatherExtent : 0
-    Behavior on weatherReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
-    Timer {
-        id: weatherCollapseDelay
-        interval: collapseDelay.interval
-        onTriggered: bar.weatherHovered = false
-    }
+    readonly property real weatherReveal: notchLayout ? weatherExtent : 0
     // Centered: the slopes start right at the clock (its button keeps 8 px of padding).
     readonly property real centerExtent: host.verticalBar ? 56 : centerInfo.width
     Timer {
@@ -383,17 +376,6 @@ PanelWindow {
         }
         HoverHandler {
             id: barHover
-            // The bar's own handler also sees the pointer over the clock and the weather,
-            // whose mouse areas would hide it from a separate hover box behind them.
-            readonly property bool overCenterTab: {
-                if (!hovered || !bar.notchLayout) return false;
-                var along = host.verticalBar ? point.position.y : point.position.x;
-                return along >= bar.tabCenterStart && along <= bar.tabCenterEnd;
-            }
-            onOverCenterTabChanged: {
-                if (overCenterTab) { weatherCollapseDelay.stop(); bar.weatherHovered = true; }
-                else weatherCollapseDelay.restart();
-            }
         }
 
     PanelWindow {
