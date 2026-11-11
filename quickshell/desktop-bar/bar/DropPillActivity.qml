@@ -2,13 +2,17 @@ import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Hyprland
+import Quickshell.Services.Pipewire
 import "../panels/drop/Lyrics.js" as Lyrics
+import "../ReminderModel.js" as ReminderModel
 
 // What Drop's time pill shows around the time, which keeps the screen's centre: a bell
 // that slides out from behind the time when a notification arrives, rings twice, and
 // slides back once its popup has gone (clicked meanwhile, it opens the Notifications page); a red dot while recording
 // (the OBS page); a note after the time while music plays (the Media page); and, on
-// changing workspace, the workspace's number rolling in over the time. Dragging the note to
+// changing workspace, the workspace's number rolling in over the time (and the same way a
+// volume level, or a red battery percentage when it runs low); a ring while a timer runs
+// (the Timer page) and a calendar mark when an event starts within ten minutes (today). Dragging the note to
 // the left turns the pill into one line of lyrics alone (no time, note or bell); dragging
 // either way, pausing or stopping turns it back. The pill only makes room on a side that has
 // something.
@@ -30,7 +34,21 @@ Item {
     // Whether the bell is out; the pill eases to the room it needs (as for the dashboard)
     // and the glyphs ride its edge, so they move exactly with it.
     property bool bellOut: false
-    readonly property real leading: lyricsOpen ? 0 : ((bellOut ? 1 : 0) + (recording ? 1 : 0)) * slot
+    // A timer or focus session running, and the next event when it is less than ten
+    // minutes away (checked each minute).
+    readonly property bool timing: FocusTimer.active
+    property bool meetingSoon: false
+    property string meetingTitle: ""
+    function checkMeeting() {
+        const calendar = barHost.calendarMenu;
+        const now = Date.now() / 1000;
+        const soon = calendar ? ReminderModel.dayItems(calendar.reminders || [], calendar.events || [], new Date())
+            .find(item => !item.allDay && item.due > now && item.due - now <= 600) : null;
+        meetingSoon = !!soon;
+        meetingTitle = soon ? soon.text : "";
+    }
+    Timer { interval: 60000; repeat: true; running: true; triggeredOnStart: true; onTriggered: activity.checkMeeting() }
+    readonly property real leading: lyricsOpen ? 0 : ((bellOut ? 1 : 0) + (recording ? 1 : 0) + (timing ? 1 : 0) + (meetingSoon ? 1 : 0)) * slot
     // Lyrics after the time, one line at a time, while opened by dragging the note right.
     property bool lyricsOpen: false
     onPlayingChanged: if (!playing) lyricsOpen = false
@@ -84,19 +102,45 @@ Item {
         ScriptAction { script: if (activity.popupCount === 0) activity.bellOut = false }
     }
 
-    // 0 shows the time, 1 the workspace number; it rises and falls back on a change.
+    // 0 shows the time, 1 the flash: a workspace number, a battery warning or a volume
+    // level rises over the time and falls back.
     property real flash: 0
-    property string workspaceNumber: ""
+    property string flashText: ""
+    property color flashColor: host.fg
+    // 0..1 shows a level bar instead of text; -1 none.
+    property real flashLevel: -1
+    function showFlash(text, color, level) {
+        flashText = text; flashColor = color; flashLevel = level;
+        showWorkspace.restart();
+    }
     readonly property var monitor: barHost.screen ? Hyprland.monitorFor(barHost.screen) : null
     readonly property int workspaceId: monitor && monitor.activeWorkspace ? monitor.activeWorkspace.id : 0
     property int seenWorkspace: 0
     onWorkspaceIdChanged: {
         if (seenWorkspace !== 0 && workspaceId > 0 && workspaceId !== seenWorkspace) {
             const entry = host.workspaceRows(barHost.screen).find(row => row.id === workspaceId);
-            workspaceNumber = String(entry ? entry.number : workspaceId);
-            showWorkspace.restart();
+            showFlash(String(entry ? entry.number : workspaceId), host.fg, -1);
         }
         if (workspaceId > 0) seenWorkspace = workspaceId;
+    }
+    // The output volume: its changes flash a level bar (not the first reading).
+    readonly property PwNode sink: Pipewire.defaultAudioSink
+    PwObjectTracker { objects: [activity.sink] }
+    readonly property real volume: sink && sink.audio ? (sink.audio.muted ? 0 : sink.audio.volume) : -1
+    property real seenVolume: -1
+    onVolumeChanged: {
+        if (seenVolume >= 0 && volume >= 0 && Math.abs(volume - seenVolume) > 0.004)
+            showFlash(volume === 0 ? "󰖁" : "󰕾", host.fg, Math.min(1, volume));
+        seenVolume = volume;
+    }
+    // A running-low battery flashes its percentage in red once as it reaches 15% and 5%.
+    readonly property var battery: PowerService.battery
+    readonly property int batteryPercent: battery && battery.available && battery.status !== "Charging" ? Math.round(battery.percent) : 100
+    property int warnedAt: 100
+    onBatteryPercentChanged: {
+        if (batteryPercent > 15) { warnedAt = 100; return; }
+        const level = batteryPercent <= 5 ? 5 : 15;
+        if (level < warnedAt) { warnedAt = level; showFlash("󰁺 " + batteryPercent + "%", "#e05c68", -1); }
     }
     SequentialAnimation {
         id: showWorkspace
@@ -133,6 +177,32 @@ Item {
                     NumberAnimation { to: 0.35; duration: 700; easing.type: Easing.InOutSine }
                     NumberAnimation { to: 1; duration: 700; easing.type: Easing.InOutSine }
                 }
+            }
+            Glyph {
+                visible: activity.meetingSoon
+                text: "󰃭"
+                onActivated: activity.barHost.dropDashboard.showDay(new Date())
+            }
+            Item {
+                visible: activity.timing
+                width: activity.slot; height: parent.height
+                Canvas {
+                    id: timerRing
+                    anchors.centerIn: parent
+                    width: 14; height: 14
+                    readonly property real progress: FocusTimer.progress
+                    onProgressChanged: requestPaint()
+                    onPaint: {
+                        const context = getContext("2d");
+                        context.reset();
+                        context.lineWidth = 2; context.lineCap = "round";
+                        context.strokeStyle = Qt.alpha(activity.host.fg, 0.3);
+                        context.beginPath(); context.arc(7, 7, 5.5, 0, Math.PI * 2); context.stroke();
+                        context.strokeStyle = activity.host.fg;
+                        context.beginPath(); context.arc(7, 7, 5.5, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * Math.max(0.02, progress)); context.stroke();
+                    }
+                }
+                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: activity.barHost.dropDashboard.show("timer") }
             }
             Glyph {
                 id: bell
@@ -202,16 +272,32 @@ Item {
         }
     }
 
-    // The workspace number over the time: it rises in from below as the time fades.
-    Text {
+    // The flash over the time: it rises in from below as the time fades.
+    Item {
         x: activity.centre - width / 2
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: (1 - activity.flash) * 12
+        width: flashRow.width; height: parent.height
+        anchors.verticalCenterOffset: 0
         visible: activity.flash > 0.01
         opacity: Math.min(1, activity.flash)
         scale: 0.7 + 0.3 * Math.min(1, activity.flash)
-        text: activity.workspaceNumber
-        color: activity.host.fg
-        font.family: DesktopFonts.family; font.pixelSize: 16; font.weight: Font.Bold
+        transform: Translate { y: (1 - activity.flash) * 12 }
+        Row {
+            id: flashRow
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: 6
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: activity.flashText
+                color: activity.flashColor
+                font.family: DesktopFonts.family; font.pixelSize: activity.flashLevel >= 0 ? 14 : 16; font.weight: Font.Bold
+            }
+            Rectangle {
+                visible: activity.flashLevel >= 0
+                anchors.verticalCenter: parent.verticalCenter
+                width: 32; height: 4; radius: 2
+                color: Qt.alpha(activity.host.fg, 0.25)
+                Rectangle { width: parent.width * Math.max(0, activity.flashLevel); height: parent.height; radius: 2; color: activity.host.fg }
+            }
+        }
     }
 }

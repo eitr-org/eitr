@@ -107,6 +107,7 @@ Item {
         anchors.centerIn: parent
         compact: true
         onClicked: barHost.togglePanel(barHost.dropLayout ? barHost.dropDashboard : calendarMenuRef)
+        onRightClicked: if (barHost.dropLayout) barHost.dropDashboard.show("controls")
     }
     Item {
         anchors.top: verticalCalendarIcon.bottom

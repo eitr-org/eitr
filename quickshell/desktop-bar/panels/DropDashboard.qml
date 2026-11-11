@@ -6,7 +6,7 @@ import "../PanelStyle.js" as PanelStyle
 // Drop's dashboard, opened by clicking its time pill: a row of pages dragged sideways
 // (dragging right goes forward, left goes back, both wrapping). It opens on Calendar and
 // weather, then Media (skipped while nothing plays), OBS (while it is open or capturing),
-// quick controls, Performance, AI Usage and
+// quick controls, Timer & Focus, Performance, AI Usage and
 // Notifications. Arrow keys and horizontal scrolling switch pages too.
 ThemedPopup {
     id: dashboard
@@ -19,7 +19,7 @@ ThemedPopup {
     property date now: new Date()
     Timer { interval: 1000; running: dashboard.opened; repeat: true; triggeredOnStart: true; onTriggered: dashboard.now = new Date() }
 
-    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", "performance", "ai", "notifications"].filter(Boolean)
+    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", "timer", "performance", "ai", "notifications"].filter(Boolean)
     readonly property var obsState: barHost.obsMenu ? barHost.obsMenu.obsState : ({})
     readonly property bool obsShown: !!obsState.recording || !!obsState.streaming || ObsStatus.hasWindow
     property string page: "home"
@@ -37,7 +37,14 @@ ThemedPopup {
         if (opened) { go(startPage, 1); startPage = "home"; }
         else barHost.showPanel(dashboard);
     }
-    onOpenedChanged: if (opened) { page = startPage; startPage = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; home.selectedDay = null; home.weatherOpen = false; }
+    // Opens on the home page with a day's plans showing (the pill's calendar mark).
+    property var pendingDay: null
+    function showDay(day) {
+        if (opened) { show("home"); home.weatherOpen = false; home.selectedDay = day; return; }
+        pendingDay = day;
+        show("home");
+    }
+    onOpenedChanged: if (opened) { page = startPage; startPage = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; home.selectedDay = null; home.weatherOpen = false; if (pendingDay) { home.selectedDay = pendingDay; pendingDay = null; } }
     onPagesChanged: if (pages.indexOf(page) < 0) page = "home"
 
     function neighbour(direction) {
@@ -68,7 +75,7 @@ ThemedPopup {
             id: viewport
             width: parent.width
             clip: true
-            readonly property Item current: ({home: home, media: media, obs: obs, controls: controls, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
+            readonly property Item current: ({home: home, media: media, obs: obs, controls: controls, timer: timer, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
             height: current.implicitHeight
             Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
             function place(id) {
@@ -107,6 +114,12 @@ ThemedPopup {
                 width: viewport.width
                 barHost: dashboard.barHost
                 watching: dashboard.opened && visible
+                foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
+            }
+            DropTimerPage {
+                id: timer
+                x: viewport.place("timer"); visible: viewport.shown("timer")
+                width: viewport.width
                 foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }
             DropPerformancePage {

@@ -12,6 +12,7 @@ Rectangle {
     property bool timeOnly: false
 
     signal clicked()
+    signal rightClicked()
 
     width: compact ? host.barHeight - 2 : label.implicitWidth + 17
     height: compact ? compactLabel.implicitHeight + 6 : 24
@@ -86,7 +87,8 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: clock.clicked()
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onClicked: mouse => mouse.button === Qt.RightButton ? clock.rightClicked() : clock.clicked()
     }
 
     BarTooltip {

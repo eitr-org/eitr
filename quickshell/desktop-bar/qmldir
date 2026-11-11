@@ -2,6 +2,7 @@ singleton SiteStyle 1.0 services/SiteStyle.qml
 singleton DesktopFonts 1.0 services/DesktopFonts.qml
 singleton DesktopStyle 1.0 services/DesktopStyle.qml
 singleton AudioDevices 1.0 services/AudioDevices.qml
+singleton FocusTimer 1.0 services/FocusTimer.qml
 singleton PluginRegistry 1.0 plugins/PluginRegistry.qml
 singleton SpectrumProvider 1.0 services/SpectrumProvider.qml
 singleton FocusMode 1.0 services/FocusMode.qml
@@ -106,6 +107,7 @@ DropObsPage 1.0 panels/drop/DropObsPage.qml
 DropWeatherDetail 1.0 panels/drop/DropWeatherDetail.qml
 DropWifiDetail 1.0 panels/drop/DropWifiDetail.qml
 DropPerformancePage 1.0 panels/drop/DropPerformancePage.qml
+DropTimerPage 1.0 panels/drop/DropTimerPage.qml
 BarAutoHide 1.0 bar/BarAutoHide.qml
 MediaIndicator 1.0 media/MediaIndicator.qml
 CenteredBarMask bar/CenteredBarMask.qml

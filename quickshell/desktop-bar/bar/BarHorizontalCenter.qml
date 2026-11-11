@@ -32,6 +32,8 @@ Item {
         anchors.verticalCenterOffset: 0
         // Drop opens its dashboard; every other layout the calendar.
         onClicked: barHost.togglePanel(barHost.dropLayout ? barHost.dropDashboard : calendarMenu)
+        // Drop: a right click goes straight to the quick controls.
+        onRightClicked: if (barHost.dropLayout) barHost.dropDashboard.show("controls")
     }
 
     CaptureIndicator {
