@@ -9,7 +9,7 @@ import "../../PanelStyle.js" as PanelStyle
 // Drop's quick controls: wide buttons with a chevron for WiFi, Bluetooth, Sound and
 // Microphone, which open in place (networks, devices and audio devices, with a back arrow
 // and their own switch); round toggles for Airplane, Silence, Night Light, Idle Lock and
-// OBS recording; then the volume, microphone and, on laptops, brightness. They act
+// OBS recording, and a Settings button; then the volume, microphone and, on laptops, brightness. They act
 // through the Control Center's controllers and observe network and radio state only while
 // this page shows.
 Column {
@@ -164,7 +164,7 @@ Column {
     Row {
         visible: page.opened === ""
         width: parent.width
-        spacing: (width - 5 * 52) / 4
+        spacing: (width - 6 * 52) / 5
         Toggle {
             label: Eitr.I18n.tr("Airplane"); glyph: "󰀝"
             on: !!page.airplane.enabled
@@ -195,6 +195,11 @@ Column {
             on: !!obs.obsState.recording
             available: !obs.busy
             onActivated: obs.run(on ? "stop" : "record")
+        }
+        // Opens the Settings window, closing the dashboard.
+        Toggle {
+            label: Eitr.I18n.tr("Settings"); glyph: "󰒓"
+            onActivated: { page.barHost.closePanels(); page.barHost.host.showSettings(""); }
         }
     }
 
