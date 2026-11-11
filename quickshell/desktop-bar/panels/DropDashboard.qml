@@ -17,6 +17,9 @@ ThemedPopup {
     implicitWidth: 580
     implicitHeight: content.implicitHeight + verticalContentInset
     property date now: new Date()
+    // Pages start their data reads only once the card has finished growing (like the
+    // Control Center): results arriving mid-animation would rebuild it and make it stutter.
+    readonly property bool settled: opened && revealProgress >= 1
     Timer { interval: 1000; running: dashboard.opened; repeat: true; triggeredOnStart: true; onTriggered: dashboard.now = new Date() }
 
     readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", "timer", "performance", "ai", "notifications"].filter(Boolean)
@@ -113,7 +116,7 @@ ThemedPopup {
                 x: viewport.place("controls"); visible: viewport.shown("controls")
                 width: viewport.width
                 barHost: dashboard.barHost
-                watching: dashboard.opened && visible
+                watching: dashboard.settled && visible
                 foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }
             DropTimerPage {
@@ -126,7 +129,7 @@ ThemedPopup {
                 id: performance
                 x: viewport.place("performance"); visible: viewport.shown("performance")
                 width: viewport.width
-                watching: dashboard.opened && visible
+                watching: dashboard.settled && visible
                 foreground: dashboard.foreground; accent: dashboard.accent
             }
 
@@ -135,7 +138,7 @@ ThemedPopup {
                 x: viewport.place("ai"); visible: viewport.shown("ai")
                 width: viewport.width
                 barHost: dashboard.barHost
-                watching: dashboard.opened && visible
+                watching: dashboard.settled && visible
                 foreground: dashboard.foreground; accent: dashboard.accent
             }
             // The notification center's own list, with its Do Not Disturb and Clear buttons.
