@@ -10,7 +10,7 @@ Walker > Configurações > Dispositivos > Entrada > Iluminação controla dispos
 
 ## Ajustar som e microfone
 
-Volume seleciona a saída padrão e controla o volume geral e dos aplicativos em reprodução. Os dispositivos aparecem com nome legível e ícone do tipo; clique no dispositivo atual para escolher outro e use o botão de lápis de um dispositivo para renomeá-lo neste computador. Microfone seleciona a entrada padrão, o ganho e o mudo. O medidor de nível do microfone funciona somente enquanto o painel está aberto e não grava áudio em disco. Abrir outras configurações não inicia o monitoramento do microfone.
+Volume seleciona a saída padrão e controla o volume geral e dos aplicativos em reprodução. Os dispositivos aparecem com nome legível e ícone do tipo; clique no dispositivo atual para escolher outro e use o botão de lápis de um dispositivo para renomeá-lo neste computador. A lista também oferece portas que uma placa de som não está usando no momento, como um segundo monitor na mesma placa de vídeo; escolher uma troca a placa para ela. O nome de um monitor fica com esse monitor mesmo quando a porta muda. Microfone seleciona a entrada padrão, o ganho e o mudo. O medidor de nível do microfone funciona somente enquanto o painel está aberto e não grava áudio em disco. Abrir outras configurações não inicia o monitoramento do microfone.
 
 Os controles deslizantes chegam a 100%; um valor maior já existente só muda quando você move o controle. Trocar o dispositivo de áudio padrão pode afetar uma chamada: faça isso conscientemente. Os controles de reprodução são separados da seleção do dispositivo padrão.
 

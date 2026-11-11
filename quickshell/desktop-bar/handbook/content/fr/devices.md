@@ -10,7 +10,7 @@ Walker > Paramètres > Périphériques > Saisie > Éclairage contrôle les appar
 
 ## Régler le son et le microphone
 
-Volume sélectionne la sortie par défaut et règle le volume général ainsi que celui des applications en lecture. Les périphériques apparaissent avec un nom lisible et une icône de type ; cliquez sur le périphérique actuel pour en choisir un autre et utilisez le bouton crayon d’un périphérique pour le renommer sur cet ordinateur.
+Volume sélectionne la sortie par défaut et règle le volume général ainsi que celui des applications en lecture. Les périphériques apparaissent avec un nom lisible et une icône de type ; cliquez sur le périphérique actuel pour en choisir un autre et utilisez le bouton crayon d’un périphérique pour le renommer sur cet ordinateur. La liste propose aussi les ports qu’une carte son n’utilise pas en ce moment, comme un second moniteur sur la même carte graphique ; le choisir y bascule la carte. Le nom d’un moniteur reste attaché à ce moniteur même si son port change.
 
 Microphone sélectionne l’entrée par défaut, le gain et la mise en sourdine. Son indicateur de niveau ne fonctionne que lorsque le panneau est ouvert ; aucun son n’est enregistré sur disque. Ouvrir d’autres réglages ne démarre pas la surveillance du microphone.
 

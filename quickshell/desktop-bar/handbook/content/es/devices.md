@@ -10,7 +10,7 @@ Walker > Configuración > Dispositivos > Entrada > Iluminación controla disposi
 
 ## Ajustar sonido y micrófono
 
-Volumen selecciona la salida predeterminada y controla el volumen general y el de las aplicaciones en reproducción. Los dispositivos aparecen con un nombre legible y un icono de tipo; haz clic en el dispositivo actual para elegir otro y usa el botón de lápiz de un dispositivo para renombrarlo en este equipo. Micrófono selecciona la entrada predeterminada, la ganancia y el silencio. Su medidor de nivel solo funciona mientras el panel está abierto; no guarda audio en disco. Abrir otros ajustes no inicia la monitorización del micrófono.
+Volumen selecciona la salida predeterminada y controla el volumen general y el de las aplicaciones en reproducción. Los dispositivos aparecen con un nombre legible y un icono de tipo; haz clic en el dispositivo actual para elegir otro y usa el botón de lápiz de un dispositivo para renombrarlo en este equipo. La lista también ofrece puertos que una tarjeta de sonido no usa en ese momento, como un segundo monitor en la misma tarjeta gráfica; al elegirlo, la tarjeta cambia a él. El nombre de un monitor se queda con ese monitor aunque cambie su puerto. Micrófono selecciona la entrada predeterminada, la ganancia y el silencio. Su medidor de nivel solo funciona mientras el panel está abierto; no guarda audio en disco. Abrir otros ajustes no inicia la monitorización del micrófono.
 
 Los deslizadores llegan al 100 %; un valor superior ya existente no cambia hasta moverlos. Cambiar el dispositivo de audio predeterminado puede afectar a una llamada: hazlo conscientemente. Los controles de reproducción son independientes de la selección del dispositivo.
 

@@ -1054,6 +1054,20 @@ GPU probes. The popup keeps its last good sections on failure and uses the exist
 translated unavailable message. `system-details.py` remains an independent CLI with
 its existing JSON and optional stdin identity contract.
 
+Audio port ownership
+--------------------
+
+A sound card plays through one profile at a time, so PipeWire only has devices for
+that profile's ports. The `audio` query (`scripts/audio-domain.py`) lists the other
+available ports of ALSA cards from `pactl` (`ports`) and switches a card's profile to
+one of them (`select`, accepted only for a port that read offers). `services/AudioDevices.qml`
+reads it while an audio picker (the Audio panel, Settings > Sound, Drop's sound page) is
+on screen and when PipeWire's devices change meanwhile, never on a timer; after a switch
+it makes the new device the default once PipeWire has it. USB devices offer only ports
+known to be connected, and Bluetooth cards are left out (their other profile is the
+call mode). Renames of monitor audio are keyed by the monitor's name, since a graphics
+card's ports can trade places.
+
 All domain adapters load lazily on demand inside the bounded worker pool, under
 the read deadline. Each domain can occupy at most two of the three pool
 workers, so one slow domain cannot fill the pool with sibling topics. A failed or slow import marks only that topic unavailable;

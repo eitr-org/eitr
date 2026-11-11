@@ -35,3 +35,12 @@ function glyph(properties, description, microphone) {
     if (/IEC958/.test(text)) return "\u{F0A17}";
     return microphone ? "\u{F036C}" : "\u{F04C3}";
 }
+
+// Glyph for a port no device has yet, from pactl's port type.
+function portGlyph(kind, microphone) {
+    if (microphone) return "\u{F036C}";
+    if (kind === "hdmi" || kind === "displayport") return "\u{F0379}";
+    if (kind === "spdif") return "\u{F0A17}";
+    if (kind === "headphones" || kind === "headset") return "\u{F02CB}";
+    return "\u{F04C3}";
+}

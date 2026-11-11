@@ -6,7 +6,8 @@ import Quickshell.Services.Pipewire
 import "../PanelStyle.js" as PanelStyle
 
 // Sound or microphone opened in Drop's quick controls: the level, then every device as a
-// row, so switching between headset and speakers is one click.
+// row (a card's other ports too, such as a second monitor), so switching between headset and
+// speakers is one click.
 Column {
     id: detail
     required property bool microphone
@@ -14,7 +15,12 @@ Column {
     required property color background
     required property color accent
     readonly property PwNode current: microphone ? Pipewire.defaultAudioSource : Pipewire.defaultAudioSink
-    readonly property var devices: Pipewire.nodes.values.filter(node => node.audio && !node.isStream && node.isSink !== microphone)
+    readonly property var nodes: Pipewire.nodes.values.filter(node => node.audio && !node.isStream && node.isSink !== microphone)
+    readonly property var devices: AudioDevices.choices(nodes, microphone)
+    readonly property string currentValue: current ? String(current.id) : ""
+    onVisibleChanged: AudioDevices.watch(visible)
+    Component.onCompleted: if (visible) AudioDevices.watch(true)
+    Component.onDestruction: if (visible) AudioDevices.watch(false)
     spacing: PanelStyle.selectionRowGap
 
     AudioLevelControl {
@@ -39,7 +45,7 @@ Column {
         Rectangle {
             id: row
             required property var modelData
-            readonly property bool chosen: modelData === detail.current
+            readonly property bool chosen: modelData.value === detail.currentValue
             width: detail.width; height: PanelStyle.selectionRowHeight
             radius: DesktopStyle.radius(PanelStyle.controlRadius)
             color: Qt.alpha(detail.foreground, PanelStyle.selectionAlpha(chosen, mouse.containsMouse))
@@ -48,13 +54,13 @@ Column {
             Text {
                 x: PanelStyle.selectionInset; width: 20; horizontalAlignment: Text.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
-                text: AudioDevices.glyph(row.modelData, detail.microphone)
+                text: row.modelData.glyph
                 color: detail.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.selectionIconSize
             }
             Text {
                 x: PanelStyle.selectionTextInset; width: parent.width - x - 36
                 anchors.verticalCenter: parent.verticalCenter
-                text: AudioDevices.label(row.modelData); elide: Text.ElideRight; textFormat: Text.PlainText
+                text: row.modelData.label; elide: Text.ElideRight; textFormat: Text.PlainText
                 color: detail.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
             }
             Text {
@@ -67,10 +73,7 @@ Column {
                 id: mouse
                 anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
                 enabled: !row.chosen
-                onClicked: {
-                    if (detail.microphone) Pipewire.preferredDefaultAudioSource = row.modelData;
-                    else Pipewire.preferredDefaultAudioSink = row.modelData;
-                }
+                onClicked: AudioDevices.choose(row.modelData.value, detail.nodes, detail.microphone)
             }
         }
     }

@@ -32,23 +32,28 @@ ThemedPopup {
         })
         Component.onCompleted: nodes = availableNodes
         property PwNode currentNode: microphone ? Pipewire.defaultAudioSource : Pipewire.defaultAudioSink
-        property PwNode renaming: null
-        onActiveChanged: if (!active) { picker.expanded = false; renaming = null; }
-        function deviceFor(value) { return devices.find(node => String(node.id) === value) || null; }
-        function startRename(node) {
-            if (!node) return;
-            renaming = node;
-            nameInput.text = AudioDevices.label(node);
+        // The device choice being renamed.
+        property var renaming: null
+        onActiveChanged: {
+            AudioDevices.watch(active);
+            if (!active) { picker.expanded = false; renaming = null; }
+        }
+        Component.onDestruction: if (active) AudioDevices.watch(false)
+        function startRename(choice) {
+            if (!choice) return;
+            renaming = choice;
+            nameInput.text = choice.label;
             nameInput.forceActiveFocus();
             nameInput.selectAll();
         }
         function finishRename(save) {
-            const node = renaming;
+            const choice = renaming;
             renaming = null;
-            if (save && node) AudioDevices.rename(node, nameInput.text);
+            if (save && choice) AudioDevices.rename(choice, nameInput.text);
             picker.forceActiveFocus();
         }
         readonly property var devices: nodes.filter(node => node.audio && !node.isStream && node.isSink !== microphone)
+        readonly property var choices: AudioDevices.choices(devices, microphone)
         readonly property var streams: microphone ? [] : nodes.filter(node => node.type === PwNodeType.AudioOutStream)
         spacing: 12
         PwNodePeakMonitor {
@@ -82,7 +87,8 @@ ThemedPopup {
             height: 8
             foreground: section.foreground
         }
-        // The current device; the other devices float over the panel on click, each with Rename.
+        // The current device; the others (a card's other ports too, such as a second monitor)
+        // float over the panel on click, each with Rename.
         ChoiceDropdown {
             id: picker
             visible: section.renaming === null
@@ -90,16 +96,11 @@ ThemedPopup {
             foreground: section.foreground; background: section.background; gold: section.accent
             floatingLabel: section.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
             placeholder: Eitr.I18n.tr("No device available")
-            choices: section.devices.map(node => ({value: String(node.id), label: AudioDevices.label(node), glyph: AudioDevices.glyph(node, section.microphone)}))
+            choices: section.choices
             current: section.currentNode ? String(section.currentNode.id) : ""
             actionGlyph: "\u{F03EB}"; actionName: Eitr.I18n.tr("Rename")
-            onChosen: value => {
-                const node = section.deviceFor(value);
-                if (!node) return;
-                if (section.microphone) Pipewire.preferredDefaultAudioSource = node;
-                else Pipewire.preferredDefaultAudioSink = node;
-            }
-            onActionTriggered: value => section.startRename(section.deviceFor(value))
+            onChosen: value => AudioDevices.choose(value, section.devices, section.microphone)
+            onActionTriggered: value => section.startRename(section.choices.find(choice => choice.value === value))
         }
         // Renaming replaces the picker row with a text field: Enter saves, Escape cancels.
         Rectangle {
@@ -114,7 +115,7 @@ ThemedPopup {
                 width: PanelStyle.selectionTextInset
                 anchors.verticalCenter: parent.verticalCenter
                 horizontalAlignment: Text.AlignHCenter
-                text: AudioDevices.glyph(section.renaming, section.microphone)
+                text: section.renaming ? section.renaming.glyph : ""
                 color: section.foreground
                 font.family: DesktopFonts.family
                 font.pixelSize: PanelStyle.selectionIconSize

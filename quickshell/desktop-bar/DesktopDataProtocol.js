@@ -80,6 +80,14 @@ function createClient(send, changed) {
         send({v: 1, op: "query", topic: "lyrics", name: "track", args: args, id: id});
         return id;
     }
+    // Audio ports beyond the cards' current profiles ("ports"), and switching to one ("select").
+    function queryAudio(name, args, owner, callback) {
+        if (!online) { callback("broker-unavailable", {}); return ""; }
+        const id = "audio-" + (++sequence);
+        queries[id] = {owner: owner, callback: callback, topic: "audio"};
+        send({v: 1, op: "query", topic: "audio", name: name, args: args, id: id});
+        return id;
+    }
     function accountAction(name, args, owner, callback) {
         if (!online) { callback("broker-unavailable", {}); return ""; }
         const id = "account-" + (++sequence);
@@ -111,7 +119,7 @@ function createClient(send, changed) {
             online = true;
             if (capturePresent) send({v: 1, op: "presence", topic: "capture", present: true});
             Object.keys(tokens).forEach(token => request("subscribe", tokens[token].topic, token));
-        } else if (online && frame.epoch === epoch && frame.op === "reply" && ["weather", "catalog", "account", "lyrics"].includes(frame.topic)) {
+        } else if (online && frame.epoch === epoch && frame.op === "reply" && ["weather", "catalog", "account", "lyrics", "audio"].includes(frame.topic)) {
             const query = queries[frame.id];
             delete queries[frame.id];
             if (query) query.callback(frame.error || "", frame.data || {});
@@ -203,7 +211,7 @@ function createClient(send, changed) {
         });
         changed();
     }
-    return {accountAction: accountAction, queryCatalog: queryCatalog, queryWeather: queryWeather, queryLyrics: queryLyrics, cancelQuery: cancelQuery, setCapturePresence: present => {
+    return {accountAction: accountAction, queryCatalog: queryCatalog, queryWeather: queryWeather, queryLyrics: queryLyrics, queryAudio: queryAudio, cancelQuery: cancelQuery, setCapturePresence: present => {
             capturePresent = present;
             if (online) send({v: 1, op: "presence", topic: "capture", present: present});
         }, actPower: actPower, powerDomain: powerDomain, actCapture: actCapture, captureDomain: captureDomain, act: act, detachAction: detachAction, domain: domain, online: () => online, epoch: () => epoch, tokens: tokens, states: states, observe: observe, release: release, receive: receive, died: died,

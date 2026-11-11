@@ -14,7 +14,13 @@ ControlCard {
     property bool live: true
     readonly property var devices: nodes.filter(node => node.audio && !node.isStream && node.isSink !== microphone)
     readonly property PwNode currentNode: microphone ? Pipewire.defaultAudioSource : Pipewire.defaultAudioSink
-    property PwNode renaming: null
+    readonly property var choices: AudioDevices.choices(devices, microphone)
+    // The device choice being renamed.
+    property var renaming: null
+    readonly property bool watching: live && active
+    onWatchingChanged: AudioDevices.watch(watching)
+    Component.onCompleted: if (watching) AudioDevices.watch(true)
+    Component.onDestruction: if (watching) AudioDevices.watch(false)
     title: microphone ? Eitr.I18n.tr("Input") : Eitr.I18n.tr("Output")
     surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true
     ChoiceDropdown {
@@ -26,18 +32,14 @@ ControlCard {
         visible: !card.renaming
         foreground: card.foreground; background: card.background; gold: SettingsInk.gold
         accessibleName: card.microphone ? Eitr.I18n.tr("Input device") : Eitr.I18n.tr("Output device")
-        choices: card.devices.map(node => ({value: String(node.id), label: AudioDevices.label(node), glyph: AudioDevices.glyph(node, card.microphone)}))
+        choices: card.choices
         current: card.currentNode ? String(card.currentNode.id) : ""
         actionGlyph: "\u{F03EB}"; actionName: Eitr.I18n.tr("Rename")
-        onChosen: value => {
-            if (!card.live) return;
-            const node = card.devices.find(device => String(device.id) === value);
-            if (card.microphone) Pipewire.preferredDefaultAudioSource = node;
-            else Pipewire.preferredDefaultAudioSink = node;
-        }
+        onChosen: value => { if (card.live) AudioDevices.choose(value, card.devices, card.microphone); }
         onActionTriggered: value => {
-            card.renaming = card.devices.find(device => String(device.id) === value);
-            nameInput.text = AudioDevices.label(card.renaming);
+            card.renaming = card.choices.find(choice => choice.value === value) || null;
+            if (!card.renaming) return;
+            nameInput.text = card.renaming.label;
             nameInput.forceActiveFocus(); nameInput.selectAll();
         }
     }

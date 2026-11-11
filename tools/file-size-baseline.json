@@ -50,7 +50,7 @@
       "reason": "Catalog cards and review sheets, including package review and optional removal cleanup."
     },
     "quickshell/desktop-bar/scripts/bar-data.py": {
-      "lines": 969,
+      "lines": 994,
       "reason": "The bar data broker: one event loop owning every topic."
     },
     "quickshell/desktop-bar/scripts/catalog-domain.py": {

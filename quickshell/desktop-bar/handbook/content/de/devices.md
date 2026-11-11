@@ -10,7 +10,7 @@ Walker > Einstellungen > Geräte > Eingabe > Beleuchtung steuert OpenRGB-Geräte
 
 ## Ton und Mikrofon einstellen
 
-Lautstärke wählt den Standardausgang und regelt die Gesamtlautstärke sowie laufende Wiedergabeanwendungen. Geräte erscheinen mit lesbarem Namen und Typsymbol; klicke auf das aktuelle Gerät, um ein anderes zu wählen, und benenne ein Gerät mit seinem Stift-Knopf auf diesem Computer um. Mikrofon wählt den Standardeingang, die Verstärkung und die Stummschaltung. Die Live-Pegelanzeige läuft nur bei geöffnetem Mikrofonpanel und schreibt kein Audio auf die Festplatte. Andere Einstellungen zu öffnen startet keine Mikrofonüberwachung.
+Lautstärke wählt den Standardausgang und regelt die Gesamtlautstärke sowie laufende Wiedergabeanwendungen. Geräte erscheinen mit lesbarem Namen und Typsymbol; klicke auf das aktuelle Gerät, um ein anderes zu wählen, und benenne ein Gerät mit seinem Stift-Knopf auf diesem Computer um. Die Liste bietet auch Anschlüsse an, die eine Soundkarte gerade nicht nutzt, etwa einen zweiten Monitor an derselben Grafikkarte; die Auswahl schaltet die Karte darauf um. Der Name eines Monitors bleibt bei diesem Monitor, auch wenn sich sein Anschluss ändert. Mikrofon wählt den Standardeingang, die Verstärkung und die Stummschaltung. Die Live-Pegelanzeige läuft nur bei geöffnetem Mikrofonpanel und schreibt kein Audio auf die Festplatte. Andere Einstellungen zu öffnen startet keine Mikrofonüberwachung.
 
 Die Regler reichen bis 100 %; ein bereits höherer Wert bleibt bis zum Bewegen erhalten. Ein Wechsel des Standard-Audiogeräts kann ein Gespräch beeinflussen: Nimm ihn bewusst vor. Wiedergabesteuerung und Standardgeräteauswahl sind getrennt.
 

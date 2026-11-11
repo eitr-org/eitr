@@ -36,7 +36,7 @@ class SharedChoicesTests(unittest.TestCase):
                 self.assertEqual((BAR / path).read_text().count('ChoiceDropdown {'), count)
         audio = (BAR / 'panels/AudioMenu.qml').read_text()
         self.assertNotIn('picking', audio)
-        self.assertIn('onActionTriggered: value => section.startRename(section.deviceFor(value))', audio)
+        self.assertIn('onActionTriggered: value => section.startRename(section.choices.find(choice => choice.value === value))', audio)
         keyboard = (BAR / 'settings/SettingsInputPage.qml').read_text()
         self.assertNotIn('adding', keyboard)
         panel = (BAR / 'panels/BrightnessMenu.qml').read_text()

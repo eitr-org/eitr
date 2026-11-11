@@ -13,7 +13,7 @@ Walker > Settings > Devices > Input > Lighting controls OpenRGB devices. It star
 Volume selects the default output and controls both master volume and playback
 applications. Devices appear by readable name with a type icon; click the current
 device to choose another, and use a device's pencil button to rename it on this
-computer. Microphone selects the default input, gain and mute. The mic
+computer. The list also offers ports a sound card is not using right now, such as a second monitor on the same graphics card; choosing one switches the card to it. A monitor's name stays with that monitor even when its port changes. Microphone selects the default input, gain and mute. The mic
 panel's live level meter runs only while that panel is open; it writes no audio
 to disk. Opening other settings does not start microphone monitoring.
 

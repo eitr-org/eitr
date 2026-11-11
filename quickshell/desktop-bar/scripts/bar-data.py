@@ -177,8 +177,8 @@ class Broker:
         self.capture = CaptureController(self)
         self.domains = {}
         self.domain_jobs = {}
-        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics")}
-        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics")}
+        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics", "audio")}
+        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics", "audio")}
         self.read_slots["weather"] = asyncio.Semaphore(1)
         self.ai_cooldowns = {}
         self.queries = {}
@@ -693,22 +693,30 @@ class Broker:
         self.queries.pop(request, None)
 
     async def query_lyrics(self, frame, cancelled):
+        args = frame["args"]
+        await self.query_domain(frame, cancelled, "lyrics", 16, lambda domain, deadline: domain.track(
+            args["title"], args.get("artist", ""), args.get("album", ""), float(args.get("duration", 0)), deadline))
+
+    async def query_audio(self, frame, cancelled):
+        await self.query_domain(frame, cancelled, "audio", 8,
+                                lambda domain, deadline: domain.query(frame["name"], frame["args"], deadline))
+
+    async def query_domain(self, frame, cancelled, topic, seconds, call):
+        """One request/reply read or action on a domain, within its deadline and admission slots."""
         request = frame["id"]
         error, result = "", {}
         loop = asyncio.get_running_loop()
-        deadline = time.monotonic() + 16
-        args = frame["args"]
+        deadline = time.monotonic() + seconds
         def read():
             if cancelled.is_set():
                 return {}
-            return self.load_domain("lyrics").track(args["title"], args.get("artist", ""), args.get("album", ""),
-                                                    float(args.get("duration", 0)), deadline)
+            return call(self.load_domain(topic), deadline)
         async def admitted():
-            async with self.read_slots["lyrics"]:
+            async with self.read_slots[topic]:
                 return await loop.run_in_executor(self.executor, read)
         future = asyncio.create_task(admitted())
         try:
-            done, _ = await asyncio.wait([future], timeout=17)
+            done, _ = await asyncio.wait([future], timeout=seconds + 1)
             if not done:
                 error = "timeout"
                 cancelled.set()
@@ -719,7 +727,7 @@ class Broker:
         except Exception:
             error, result = "read-failed", {}
         if not cancelled.is_set() or error:
-            self.emit(dict(v=1, op="reply", topic="lyrics", id=request, epoch=self.epoch, error=error, data=result))
+            self.emit(dict(v=1, op="reply", topic=topic, id=request, epoch=self.epoch, error=error, data=result))
         # Hold the admission slot until a timed out worker actually drains.
         if not future.done():
             await asyncio.wait([future])
@@ -792,7 +800,7 @@ class Broker:
             self.jobs.add(task)
             task.add_done_callback(self.jobs.discard)
             return
-        if operation == "cancel" and topic == "lyrics":
+        if operation == "cancel" and topic in ("lyrics", "audio"):
             if request in self.queries:
                 self.queries[request].set()
             return
@@ -811,6 +819,23 @@ class Broker:
             cancelled = threading.Event()
             self.queries[request] = cancelled
             task = asyncio.create_task(self.query_lyrics(frame, cancelled))
+            self.jobs.add(task)
+            task.add_done_callback(self.jobs.discard)
+            return
+        if operation == "query" and topic == "audio":
+            args, name = frame.get("args"), frame.get("name")
+            if len(self.queries) - len(self.catalog_queries) >= 8:
+                self.emit(dict(v=1, op="reply", topic="audio", id=request, epoch=self.epoch, error="busy", data={}))
+                return
+            if not request or request in self.query_history or name not in ("ports", "select") or not isinstance(args, dict):
+                raise ValueError("invalid-query")
+            if name == "select" and any(not isinstance(args.get(key), str) or not 1 <= len(args[key]) <= 300
+                                        for key in ("card", "profile")):
+                raise ValueError("invalid-query")
+            self.query_history.append(request)
+            cancelled = threading.Event()
+            self.queries[request] = cancelled
+            task = asyncio.create_task(self.query_audio(frame, cancelled))
             self.jobs.add(task)
             task.add_done_callback(self.jobs.discard)
             return
