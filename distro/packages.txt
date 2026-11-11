@@ -67,6 +67,7 @@ pipewire
 pipewire-alsa
 pipewire-pulse
 wireplumber
+rtkit
 sound-theme-freedesktop
 bluez
 bluez-utils
