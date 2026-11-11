@@ -33,12 +33,12 @@ Item {
     // note after it). The pill shifts toward the side with more, so the time itself
     // keeps the screen's exact centre: timeOffset places it within the pill.
     readonly property real pillExtent: !vertical && activity.lyricsOpen ? activity.lyricsExtent
-        : clockExtent + 8 + (vertical ? 0 : activity.leadingSpace + activity.trailingSpace)
+        : clockExtent + 8 + activity.leadingSpace + activity.trailingSpace
     // Eased like the pill's length, so the side that is not growing holds still.
     // The open dashboard's card is centred, so it takes no shift.
-    property real shift: vertical || pill.morphed ? 0 : (activity.trailingSpace - activity.leadingSpace) / 2
+    property real shift: pill.morphed ? 0 : (activity.trailingSpace - activity.leadingSpace) / 2
     Behavior on shift { enabled: pill.eased; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
-    readonly property real timeOffset: drop.length / 2 - pill.x - pill.width / 2
+    readonly property real timeOffset: drop.length / 2 - (vertical ? pill.y + pill.height / 2 : pill.x + pill.width / 2)
     // The first 40% of the reveal is the fall out of the edge, the rest the swell.
     readonly property real fall: Math.min(1, reveal / 0.4)
     readonly property real swell: Math.max(0, (reveal - 0.4) / 0.6)
@@ -95,14 +95,14 @@ Item {
         visible: drop.reveal > 0
         panel: drop.openPanel()
         x: vertical ? depthOffset : (drop.length - width) / 2 + drop.shift
-        y: vertical ? (drop.length - height) / 2 : depthOffset
+        y: vertical ? (drop.length - height) / 2 + drop.shift : depthOffset
         // Falls out of the bar's edge: before the fall it sits just beyond the screen.
         readonly property real travel: (1 - drop.fall) * (thickness + drop.dropDepth) * (farEdge ? 1 : -1)
         transform: Translate { x: drop.vertical ? pill.travel : 0; y: drop.vertical ? 0 : pill.travel }
         DropPillActivity {
             id: activity
             parent: pill.content
-            visible: !drop.vertical && drop.holding
+            visible: drop.holding
             opacity: drop.contentOpacity
             enabled: drop.reveal >= 1 && !pill.morphed
             host: drop.host; barHost: drop.barHost
@@ -163,7 +163,7 @@ Item {
         },
         State {
             name: "vertical"; when: drop.holding && drop.vertical
-            PropertyChanges { target: barHost.verticalMiddle; parent: pill.content; opacity: drop.contentOpacity; enabled: drop.reveal >= 1 }
+            PropertyChanges { target: barHost.verticalMiddle; parent: pill.content; opacity: drop.contentOpacity * (1 - Math.min(1, activity.flash)); enabled: drop.reveal >= 1 }
             PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: true }
             PropertyChanges { target: barHost.verticalStart; opacity: 0; enabled: false }
             PropertyChanges { target: barHost.verticalEnd; opacity: 0; enabled: false }

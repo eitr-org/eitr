@@ -105,6 +105,8 @@ Item {
         host: verticalMiddle.host
         id: verticalCalendarIcon
         anchors.centerIn: parent
+        // Drop keeps the time at the screen's centre while its pill grows to one side.
+        anchors.verticalCenterOffset: barHost.dropLayout ? barHost.dropSurfaces.timeOffset : 0
         compact: true
         onClicked: barHost.togglePanel(barHost.dropLayout ? barHost.dropDashboard : calendarMenuRef)
         onRightClicked: if (barHost.dropLayout) barHost.dropDashboard.show("controls")

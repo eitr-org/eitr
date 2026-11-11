@@ -52,6 +52,7 @@ Item {
     // Lyrics after the time, one line at a time, while opened by dragging the note right.
     property bool lyricsOpen: false
     onPlayingChanged: if (!playing) lyricsOpen = false
+    onVerticalChanged: if (vertical) lyricsOpen = false
     // The pill's length while it shows lyrics: the line's own width, within limits.
     readonly property real lyricsExtent: Math.max(120, Math.min(760, lineMetrics.advanceWidth + 36))
     TextMetrics { id: lineMetrics; text: activity.line; font.family: DesktopFonts.family; font.pixelSize: 13 }
@@ -71,11 +72,14 @@ Item {
     readonly property real trailing: playing && !lyricsOpen ? slot : 0
     readonly property real leadingSpace: leading > 0 ? leading + margin : 0
     readonly property real trailingSpace: trailing > 0 ? trailing + margin : 0
-    readonly property real centre: width / 2 + timeOffset
-    readonly property real timeHalf: barHost.centerInfo.width / 2
+    // On a side edge "before" is above the time and "after" below it.
+    readonly property bool vertical: host.verticalBar
+    readonly property real along: vertical ? height : width
+    readonly property real centre: along / 2 + timeOffset
+    readonly property real timeHalf: (vertical ? barHost.verticalCalendarIcon.height : barHost.centerInfo.width) / 2
     // The room the pill has opened so far on each side of the time (4 px is its padding).
     readonly property real leadingRoom: Math.max(0, Math.min(leading, centre - timeHalf - 4 - margin))
-    readonly property real trailingRoom: Math.max(0, Math.min(trailing, width - centre - timeHalf - 4 - margin))
+    readonly property real trailingRoom: Math.max(0, Math.min(trailing, along - centre - timeHalf - 4 - margin))
 
     // A new popup brings the bell out to ring twice; it stays out while popups are on
     // screen and goes back behind the time when they have gone. Do Not Disturb keeps it in.
@@ -151,7 +155,7 @@ Item {
 
     component Glyph: Text {
         signal activated()
-        width: activity.slot; height: parent ? parent.height : 0
+        width: activity.vertical ? activity.width : activity.slot; height: activity.vertical ? activity.slot : activity.height
         horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter
         color: activity.host.fg
         font.family: DesktopFonts.family; font.pixelSize: 14
@@ -161,12 +165,13 @@ Item {
     // Each side is a window that opens from the time's edge; its glyphs ride its far edge,
     // so they slide out from behind the time and back in.
     Item {
-        x: activity.centre - activity.timeHalf - width; width: activity.leadingRoom
-        height: parent.height
+        x: activity.vertical ? 0 : activity.centre - activity.timeHalf - width
+        y: activity.vertical ? activity.centre - activity.timeHalf - height : 0
+        width: activity.vertical ? parent.width : activity.leadingRoom
+        height: activity.vertical ? activity.leadingRoom : parent.height
         clip: true
-        Row {
-            x: 0
-            height: parent.height
+        Grid {
+            columns: activity.vertical ? 1 : 4
             Glyph {
                 visible: activity.recording
                 text: "●"; color: activity.obsState.paused && !activity.obsState.streaming ? activity.host.fg : "#e05c68"
@@ -185,7 +190,7 @@ Item {
             }
             Item {
                 visible: activity.timing
-                width: activity.slot; height: parent.height
+                width: activity.vertical ? activity.width : activity.slot; height: activity.vertical ? activity.slot : activity.height
                 Canvas {
                     id: timerRing
                     anchors.centerIn: parent
@@ -216,11 +221,15 @@ Item {
     // After the time: the note, sliding out the same way. Dragging it left opens the
     // lyrics; a plain click opens the Media page.
     Item {
-        x: activity.centre + activity.timeHalf; width: activity.trailingRoom
-        height: parent.height
+        x: activity.vertical ? 0 : activity.centre + activity.timeHalf
+        y: activity.vertical ? activity.centre + activity.timeHalf : 0
+        width: activity.vertical ? parent.width : activity.trailingRoom
+        height: activity.vertical ? activity.trailingRoom : parent.height
         clip: true
         Glyph {
-            anchors.right: parent.right
+            // At the window's far end, which grows away from the time.
+            x: activity.vertical ? 0 : parent.width - width
+            y: activity.vertical ? parent.height - height : 0
             visible: activity.playing
             text: "󰝚"
         }
@@ -231,7 +240,7 @@ Item {
             property bool dragged: false
             onPressed: mouse => { pressX = mouse.x; dragged = false; }
             onPositionChanged: mouse => {
-                if (!pressed || dragged || pressX - mouse.x < 16) return;
+                if (!pressed || dragged || activity.vertical || pressX - mouse.x < 16) return;
                 dragged = true;
                 activity.lyricsOpen = true;
             }
@@ -274,9 +283,9 @@ Item {
 
     // The flash over the time: it rises in from below as the time fades.
     Item {
-        x: activity.centre - width / 2
-        width: flashRow.width; height: parent.height
-        anchors.verticalCenterOffset: 0
+        x: activity.vertical ? (parent.width - width) / 2 : activity.centre - width / 2
+        y: activity.vertical ? activity.centre - height / 2 : 0
+        width: flashRow.width; height: activity.vertical ? flashRow.height : parent.height
         visible: activity.flash > 0.01
         opacity: Math.min(1, activity.flash)
         scale: 0.7 + 0.3 * Math.min(1, activity.flash)
@@ -287,12 +296,14 @@ Item {
             spacing: 6
             Text {
                 anchors.verticalCenter: parent.verticalCenter
-                text: activity.flashText
+                // A side bar is too narrow for the level bar: the level shows as a number.
+                text: activity.vertical && activity.flashLevel >= 0 ? String(Math.round(activity.flashLevel * 100))
+                    : activity.vertical ? activity.flashText.replace(/^\S+ /, "") : activity.flashText
                 color: activity.flashColor
-                font.family: DesktopFonts.family; font.pixelSize: activity.flashLevel >= 0 ? 14 : 16; font.weight: Font.Bold
+                font.family: DesktopFonts.family; font.pixelSize: activity.vertical ? 12 : activity.flashLevel >= 0 ? 14 : 16; font.weight: Font.Bold
             }
             Rectangle {
-                visible: activity.flashLevel >= 0
+                visible: activity.flashLevel >= 0 && !activity.vertical
                 anchors.verticalCenter: parent.verticalCenter
                 width: 32; height: 4; radius: 2
                 color: Qt.alpha(activity.host.fg, 0.25)
