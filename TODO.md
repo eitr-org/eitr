@@ -169,8 +169,9 @@ item says what decides the next step. Remove an item when it ships;
 - **Password prompts after a bar crash.** The bar is the polkit agent and KDE's agent
   starts only at login when the bar has not registered; a bar that crashes mid-session
   leaves no agent until it restarts. Add a watcher that starts KDE's agent then.
-- **Bar disappeared once (2026-11-10).** No bar was running in the owner's session and
-  the logs gave no reason; watch for it happening again.
+- **Bar disappears without a trace (2026-11-10, again 2026-11-11).** The bar process
+  ended with no error in its log and no core dump (the second time while a full
+  `tools/check.sh` ran and the owner used the Audio panel); find what ends it.
 - **Split the large files marked "To improve".** The files listed with their reasons in
   `tools/file-size-baseline.json`: `eitr-system.py` by area behind the same CLI, the
   Themes & Plugins content (cards, sheets, Git address flow), software installs, Git
