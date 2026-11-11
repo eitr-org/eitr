@@ -142,7 +142,7 @@ Item {
         opacity: Math.min(1, activity.flash)
         scale: 0.7 + 0.3 * Math.min(1, activity.flash)
         text: activity.workspaceNumber
-        color: activity.host.activeBg
+        color: activity.host.fg
         font.family: DesktopFonts.family; font.pixelSize: 16; font.weight: Font.Bold
     }
 }
