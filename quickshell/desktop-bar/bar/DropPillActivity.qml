@@ -9,8 +9,8 @@ import "../panels/drop/Lyrics.js" as Lyrics
 // slides back once its popup has gone (clicked meanwhile, it opens the Notifications page); a red dot while recording
 // (the OBS page); a note after the time while music plays (the Media page); and, on
 // changing workspace, the workspace's number rolling in over the time. Dragging the note to
-// the right turns the pill into one line of lyrics alone (no time, note or bell); dragging
-// left, pausing or stopping turns it back. The pill only makes room on a side that has
+// the left turns the pill into one line of lyrics alone (no time, note or bell); dragging
+// either way, pausing or stopping turns it back. The pill only makes room on a side that has
 // something.
 Item {
     id: activity
@@ -143,7 +143,7 @@ Item {
             }
         }
     }
-    // After the time: the note, sliding out the same way. Dragging it right opens the
+    // After the time: the note, sliding out the same way. Dragging it left opens the
     // lyrics; a plain click opens the Media page.
     Item {
         x: activity.centre + activity.timeHalf; width: activity.trailingRoom
@@ -161,7 +161,7 @@ Item {
             property bool dragged: false
             onPressed: mouse => { pressX = mouse.x; dragged = false; }
             onPositionChanged: mouse => {
-                if (!pressed || dragged || mouse.x - pressX < 16) return;
+                if (!pressed || dragged || pressX - mouse.x < 16) return;
                 dragged = true;
                 activity.lyricsOpen = true;
             }
@@ -170,7 +170,7 @@ Item {
     }
 
     // The lyrics alone across the whole pill: each new line rises in as the last fades.
-    // Dragging left closes them; a click opens the Media page.
+    // Dragging either way closes them; a click opens the Media page.
     Item {
         anchors.fill: parent
         visible: activity.lyricsOpen
@@ -194,7 +194,7 @@ Item {
             property bool dragged: false
             onPressed: mouse => { pressX = mouse.x; dragged = false; }
             onPositionChanged: mouse => {
-                if (!pressed || dragged || pressX - mouse.x < 16) return;
+                if (!pressed || dragged || Math.abs(mouse.x - pressX) < 16) return;
                 dragged = true;
                 activity.lyricsOpen = false;
             }
