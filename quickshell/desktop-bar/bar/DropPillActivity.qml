@@ -24,31 +24,32 @@ Item {
     readonly property real slot: 22
     // Room beyond the glyphs, so they keep clear of the pill's rounded ends.
     readonly property real margin: 6
-    // 0 hidden behind the time, 1 fully out; the bell's appearance drives the pill's growth.
-    property real bellOut: 0
-    property real noteOut: playing ? 1 : 0
-    Behavior on noteOut { NumberAnimation { duration: DesktopStyle.motionDuration(260); easing.type: Easing.OutCubic } }
-    property real dotOut: recording ? 1 : 0
-    Behavior on dotOut { NumberAnimation { duration: DesktopStyle.motionDuration(260); easing.type: Easing.OutCubic } }
-    readonly property real leading: (bellOut + dotOut) * slot
-    readonly property real trailing: noteOut * slot
-    readonly property real leadingSpace: leading + Math.min(1, bellOut + dotOut) * margin
-    readonly property real trailingSpace: trailing + noteOut * margin
+    // Whether the bell is out; the pill eases to the room it needs (as for the dashboard)
+    // and the glyphs ride its edge, so they move exactly with it.
+    property bool bellOut: false
+    readonly property real leading: ((bellOut ? 1 : 0) + (recording ? 1 : 0)) * slot
+    readonly property real trailing: playing ? slot : 0
+    readonly property real leadingSpace: leading > 0 ? leading + margin : 0
+    readonly property real trailingSpace: trailing > 0 ? trailing + margin : 0
     readonly property real centre: width / 2 + timeOffset
     readonly property real timeHalf: barHost.centerInfo.width / 2
+    // The room the pill has opened so far on each side of the time (4 px is its padding).
+    readonly property real leadingRoom: Math.max(0, Math.min(leading, centre - timeHalf - 4 - margin))
+    readonly property real trailingRoom: Math.max(0, Math.min(trailing, width - centre - timeHalf - 4 - margin))
 
     // A new popup brings the bell out to ring twice; it stays out while popups are on
     // screen and goes back behind the time when they have gone. Do Not Disturb keeps it in.
     property int popupCount: notifications ? notifications.popups.length : 0
     onPopupCountChanged: {
-        if (popupCount > seenPopups && !notifications.doNotDisturb) { hideBell.stop(); ring.restart(); }
-        else if (popupCount === 0 && !ring.running) hideBell.restart();
+        if (popupCount > seenPopups && !notifications.doNotDisturb) ring.restart();
+        else if (popupCount === 0 && !ring.running) bellOut = false;
         seenPopups = popupCount;
     }
     property int seenPopups: 0
     SequentialAnimation {
         id: ring
-        NumberAnimation { target: activity; property: "bellOut"; to: 1; duration: DesktopStyle.motionDuration(280); easing.type: Easing.OutBack }
+        PropertyAction { target: activity; property: "bellOut"; value: true }
+        PauseAnimation { duration: DesktopStyle.motionDuration(320) }
         SequentialAnimation {
             loops: 2
             NumberAnimation { target: bell; property: "rotation"; to: 18; duration: 90 }
@@ -57,9 +58,8 @@ Item {
             NumberAnimation { target: bell; property: "rotation"; to: 0; duration: 110 }
             PauseAnimation { duration: 260 }
         }
-        ScriptAction { script: if (activity.popupCount === 0) hideBell.restart() }
+        ScriptAction { script: if (activity.popupCount === 0) activity.bellOut = false }
     }
-    NumberAnimation { id: hideBell; target: activity; property: "bellOut"; to: 0; duration: DesktopStyle.motionDuration(280); easing.type: Easing.InCubic }
 
     // 0 shows the time, 1 the workspace number; it rises and falls back on a change.
     property real flash: 0
@@ -94,14 +94,14 @@ Item {
     // Each side is a window that opens from the time's edge; its glyphs ride its far edge,
     // so they slide out from behind the time and back in.
     Item {
-        x: activity.centre - activity.timeHalf - width; width: activity.leading
+        x: activity.centre - activity.timeHalf - width; width: activity.leadingRoom
         height: parent.height
         clip: true
         Row {
             x: 0
             height: parent.height
             Glyph {
-                visible: activity.dotOut > 0
+                visible: activity.recording
                 text: "●"; color: activity.obsState.paused && !activity.obsState.streaming ? activity.host.fg : "#e05c68"
                 font.pixelSize: 10
                 onActivated: activity.barHost.togglePanel(activity.barHost.obsMenu)
@@ -113,7 +113,7 @@ Item {
             }
             Glyph {
                 id: bell
-                visible: activity.bellOut > 0
+                visible: activity.bellOut
                 text: "󰂚"
                 transformOrigin: Item.Top
                 onActivated: activity.barHost.dropDashboard.show("notifications")
@@ -122,12 +122,12 @@ Item {
     }
     // After the time: the note, sliding out the same way.
     Item {
-        x: activity.centre + activity.timeHalf; width: activity.trailing
+        x: activity.centre + activity.timeHalf; width: activity.trailingRoom
         height: parent.height
         clip: true
         Glyph {
             anchors.right: parent.right
-            visible: activity.noteOut > 0
+            visible: activity.playing
             text: "󰝚"
             onActivated: activity.barHost.dropDashboard.show("media")
         }

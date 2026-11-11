@@ -31,7 +31,9 @@ Item {
     // note after it). The pill shifts toward the side with more, so the time itself
     // keeps the screen's exact centre: timeOffset places it within the pill.
     readonly property real pillExtent: clockExtent + 8 + (vertical ? 0 : activity.leadingSpace + activity.trailingSpace)
-    readonly property real shift: vertical ? 0 : (activity.trailingSpace - activity.leadingSpace) / 2
+    // Eased like the pill's length, so the side that is not growing holds still.
+    property real shift: vertical ? 0 : (activity.trailingSpace - activity.leadingSpace) / 2
+    Behavior on shift { enabled: pill.eased; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     readonly property real timeOffset: drop.length / 2 - pill.x - pill.width / 2
     // The first 40% of the reveal is the fall out of the edge, the rest the swell.
     readonly property real fall: Math.min(1, reveal / 0.4)
