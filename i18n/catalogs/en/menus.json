@@ -791,5 +791,7 @@
   "Show only the time; it grows when you need it": "Show only the time; it grows when you need it",
   "Look up lyrics on LRCLIB; sends each song's title, artist and album": "Look up lyrics on LRCLIB; sends each song's title, artist and album",
   "Online lyrics": "Online lyrics",
-  "Show lyrics only when the player sends them": "Show lyrics only when the player sends them"
+  "Show lyrics only when the player sends them": "Show lyrics only when the player sends them",
+  "Start a countdown, a stopwatch or focus sessions": "Start a countdown, a stopwatch or focus sessions",
+  "Timer & Focus": "Timer & Focus"
 }

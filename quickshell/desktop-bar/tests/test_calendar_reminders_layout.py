@@ -17,6 +17,8 @@ Item {
     function updateContent(action) { action(); }
     function applySnapshot(name, value) { if (JsonState.changed(popup[name], value)) popup[name] = value; }
     property bool opened: true
+    signal revealed()
+    property var hostWindow: null
     property var keyTarget
     property color foreground
     property color background

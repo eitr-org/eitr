@@ -2,7 +2,7 @@ import ".."
 import QtQuick
 import Quickshell
 
-// Where Drop's lyrics come from: the player's own (xesam:asText) when it sends them,
+// Where lyrics come from (Media panel, Drop's pill, the bar's media wave): the player's own (xesam:asText) when it sends them,
 // otherwise LRCLIB once the owner has turned online lyrics on (the bar setting "lyrics",
 // also in Settings > Desktop Bar and Walker). Looking a song up sends its title, artist,
 // album and length to lrclib.net through the bar's data service.

@@ -112,24 +112,46 @@ ThemedPopup {
         viewYear = today.getFullYear();
         viewMonth = today.getMonth();
     }
+    // The selected day's plans, open in place of the month with a field to add a reminder.
+    property bool agendaOpen: false
+    property bool keepDay: false
     onOpenedChanged: {
         cancelDelete();
         deleteError = "";
-        if (opened) {
-            goToday();
-            // New events in a subscribed calendar show up while the panel is open:
-            // the refresh rewrites the cache this panel watches.
-            if (!calendarSync.running) calendarSync.running = true;
-        }
+        if (opened && !keepDay) { goToday(); agendaOpen = false; }
+        if (!opened) agendaOpen = false;
+        keepDay = false;
     }
+    // Opens on a day's plans (the clock's next-event mark).
+    function showDay(day) {
+        keepDay = true;
+        selectedDay = day;
+        viewYear = day.getFullYear();
+        viewMonth = day.getMonth();
+        agendaOpen = true;
+        if (!opened) hostWindow.showPanel(menu);
+        else keepDay = false;
+    }
+    // New events in a subscribed calendar show up while the panel is open: the refresh
+    // rewrites the cache this panel watches. It starts once the panel has unfolded,
+    // since starting a process mid-animation stalls rendering.
+    onRevealed: if (!calendarSync.running) calendarSync.running = true
     Process {
         id: calendarSync
         command: ["python3", Eitr.Paths.code("walker/scripts/actions/tools/calendars.py"), "refresh", "--if-older", "60"]
     }
 
+    DayAgenda {
+        anchors.fill: parent
+        visible: menu.agendaOpen
+        calendar: menu; foreground: menu.foreground; accent: menu.accent
+        day: menu.selectedDay
+        onClosed: menu.agendaOpen = false
+    }
     Item {
         id: calendarContent
         anchors.fill: parent
+        visible: !menu.agendaOpen
         focus: true
         Keys.onPressed: function(event) {
             if (event.key === Qt.Key_Left || event.key === Qt.Key_BracketLeft) moveMonth(-1);
@@ -246,6 +268,14 @@ ThemedPopup {
                     color: menu.foreground
                     font.family: DesktopFonts.family
                     font.pixelSize: PanelStyle.captionSize
+                }
+                PanelButton {
+                    visible: menu.deleteError === ""
+                    anchors.right: parent.right; anchors.rightMargin: PanelStyle.selectionActionInset
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 22; height: 22; icon: true; text: "󰐕"; foreground: menu.foreground
+                    Accessible.name: Eitr.I18n.tr("Add a reminder")
+                    onClicked: menu.agendaOpen = true
                 }
                 Text {
                     objectName: "reminderDeleteError"

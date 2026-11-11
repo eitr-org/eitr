@@ -1,40 +1,21 @@
 import ".."
 import QtQuick
 
+// The Media panel: the same page as Drop's dashboard (the cover ringed by bars that follow the
+// music, the song, its lyrics, controls and progress).
 ThemedPopup {
     id: menu
     required property var player
-    // The player is between songs: keep showing the last one.
-    property bool hold: false
+    required property var host
     centered: true
-    paddingScale: 0.5
-    backdropInset: 3
-    implicitWidth: 380
-    implicitHeight: card.implicitHeight + verticalContentInset
-    // The cover fills the whole sheet, edge to edge, darkened so the controls stay readable.
-    backdrop: Item {
+    implicitWidth: 580
+    implicitHeight: page.implicitHeight + verticalContentInset
+    MediaPage {
+        id: page
         anchors.fill: parent
-        visible: card.hasCover
-        Image {
-            anchors.fill: parent
-            source: card.coverSource
-            fillMode: Image.PreserveAspectCrop
-            asynchronous: true
-            sourceSize.width: Math.ceil(width * Screen.devicePixelRatio)
-        }
-        Rectangle {
-            anchors.fill: parent
-            gradient: Gradient {
-                GradientStop { position: 0; color: Qt.rgba(0, 0, 0, 0.45) }
-                GradientStop { position: 1; color: Qt.rgba(0, 0, 0, 0.7) }
-            }
-        }
-    }
-    MediaCard {
-        id: card
-        anchors.fill: parent
-        ownCover: false
-        player: menu.player; hold: menu.hold; active: menu.opened
-        foreground: menu.foreground; accent: menu.accent
+        player: menu.player; host: menu.host
+        // The music's bars and lyric lookups start once the panel has unfolded.
+        active: menu.opened && menu.revealProgress >= 1
+        foreground: menu.foreground; accent: menu.accent; background: menu.background
     }
 }

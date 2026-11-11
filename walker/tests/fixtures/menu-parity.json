@@ -3131,6 +3131,21 @@
         }
       },
       {
+        "text": "Timer & Focus",
+        "subtext": "Start a countdown, a stopwatch or focus sessions",
+        "keywords": [
+          "timer",
+          "stopwatch",
+          "pomodoro",
+          "focus",
+          "countdown"
+        ],
+        "icon": "󰔛",
+        "actions": {
+          "open": "eitr-shell desktop-bar ipc call -- controlCenter show timer"
+        }
+      },
+      {
         "text": "Transcode",
         "subtext": "Convert an image or video to another format",
         "keywords": [
@@ -10628,6 +10643,30 @@
       "key": "f40d8114c4d80847aeed52efa19eb51d3a8c76617111097388cc08afc844977c",
       "provider": "menus:tools",
       "identifier": "tools:7",
+      "text": "Timer & Focus",
+      "subtext": "Start a countdown, a stopwatch or focus sessions",
+      "icon": "󰔛",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "timer",
+        "stopwatch",
+        "pomodoro",
+        "focus",
+        "countdown",
+        "Timer & Focus",
+        "Timer & Focus",
+        "Start a countdown, a stopwatch or focus sessions"
+      ],
+      "menus": [
+        "main"
+      ]
+    },
+    {
+      "key": "91fa1b973f804782228bba001b98b018dea01bf8ddb1de848070f993ae522b49",
+      "provider": "menus:tools",
+      "identifier": "tools:8",
       "text": "Transcode",
       "subtext": "Convert an image or video to another format",
       "icon": "󰑕",

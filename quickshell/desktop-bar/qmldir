@@ -73,6 +73,7 @@ RemoteAccessService services/RemoteAccessService.qml
 RemoteAccessContent panels/RemoteAccessContent.qml
 RemoteAccessMenu panels/RemoteAccessMenu.qml
 TimePicker 1.0 panels/TimePicker.qml
+TimerRing bar/TimerRing.qml
 PolkitDialog panels/PolkitDialog.qml
 PolkitPrompt panels/PolkitPrompt.qml
 EitrLogo bar/EitrLogo.qml
@@ -97,17 +98,18 @@ DropAiPage 1.0 drop/DropAiPage.qml
 DropAudioDetail 1.0 drop/DropAudioDetail.qml
 DropBluetoothDetail 1.0 drop/DropBluetoothDetail.qml
 DropCard 1.0 drop/DropCard.qml
-DropDayAgenda 1.0 drop/DropDayAgenda.qml
+DayAgenda 1.0 components/DayAgenda.qml
 DropControlsPage 1.0 drop/DropControlsPage.qml
 DropHomePage 1.0 drop/DropHomePage.qml
-DropLyrics 1.0 drop/DropLyrics.qml
-DropLyricsSource 1.0 drop/DropLyricsSource.qml
-DropMediaPage 1.0 drop/DropMediaPage.qml
+MediaLyrics 1.0 media/MediaLyrics.qml
+LyricLine 1.0 media/LyricLine.qml
+LyricsSource 1.0 media/LyricsSource.qml
+MediaPage 1.0 media/MediaPage.qml
 DropObsPage 1.0 drop/DropObsPage.qml
 DropWeatherDetail 1.0 drop/DropWeatherDetail.qml
 DropWifiDetail 1.0 drop/DropWifiDetail.qml
 DropPerformancePage 1.0 drop/DropPerformancePage.qml
-DropTimerPage 1.0 drop/DropTimerPage.qml
+FocusTimerControls 1.0 components/FocusTimerControls.qml
 BarAutoHide 1.0 bar/BarAutoHide.qml
 MediaIndicator 1.0 media/MediaIndicator.qml
 CenteredBarMask bar/CenteredBarMask.qml
@@ -125,6 +127,7 @@ StatusCommand bar/StatusCommand.qml
 CaptureIndicator bar/CaptureIndicator.qml
 WeatherWidget bar/WeatherWidget.qml
 NotificationWidget bar/NotificationWidget.qml
+ClockActivityState bar/ClockActivityState.qml
 ClockButton bar/ClockButton.qml
 WelcomeSession services/WelcomeSession.qml
 BarPreferences services/BarPreferences.qml

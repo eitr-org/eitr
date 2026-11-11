@@ -73,8 +73,7 @@ Item {
         target: host.verticalBar ? barHost.verticalCalendarIcon : barHost.mediaStrip
         barEdge: host.barEdge; surfaceColor: host.barBackground()
         foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
-        player: barHost.mediaStrip.player
-        hold: barHost.mediaStrip.between
+        player: barHost.mediaStrip.player; host: barHost.host
     }
     DropDashboard {
         id: dropDashboard
@@ -83,7 +82,6 @@ Item {
         barEdge: host.barEdge; surfaceColor: host.barBackground()
         foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
         player: barHost.mediaStrip.player
-        hold: barHost.mediaStrip.between
     }
     BatteryMenu {
         id: batteryMenu
@@ -96,7 +94,9 @@ Item {
         // Style, Settings and the profile picture moved to the Settings window; their old names open it there.
         var moved = {style: "appearance", settings: "system", system: "system", picture: "user"};
         if (moved[page]) { host.showSettings(moved[page]); return; }
-        page = ({capture: "tools"})[page] || page;
+        // "timer" is the Tools page with its Timer & Focus fold open.
+        if (page === "timer") controlCenter.setFold(controlCenter.timerFold, true);
+        page = ({capture: "tools", timer: "tools"})[page] || page;
         if (["general", "plugins", "tools"].indexOf(page) === -1) return;
         controlCenter.page = page;
         barHost.showPanel(controlCenter);

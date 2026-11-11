@@ -27,11 +27,17 @@ closing; temperature units follow the location, with an alternate unit alongside
 
 Click the clock/date for the calendar. It keeps six week rows and shows year
 progress below the grid. Navigate with the previous/next buttons, Today, arrow
-keys or T. Search Calendar from Walker if the bar is hidden.
+keys or T. Search Calendar from Walker if the bar is hidden. Click a day for its
+reminders below the grid; the + beside the day opens its plans in place, with a field to
+add a reminder at a time that day, and the back arrow returns to the month.
 
-Click the animated equalizer for cover/title/artist, previous/play/next and
-seeking when supported. It hides without an eligible player and excludes
-recognized meetings. The ten bars follow live system audio through a private cava process only while playback and the strip are visible. If cava is unavailable, they use a gentle playback animation.
+Click the animated equalizer for the Media panel: the cover ringed by bars that follow
+the music, the song, its lyrics, previous/play/next and seeking when supported. It hides
+without an eligible player and excludes recognized meetings. The bar's equalizer follows
+live system audio through a private cava process only while playback and the strip are
+visible. Drag the equalizer to the left to swap it for the line being sung; drag the line
+either way, pause or stop to swap it back. Online lyrics are a Desktop Bar setting (see
+the Desktop bar chapter).
 
 ## Notifications
 

@@ -73,6 +73,7 @@ ShellRoot {
             property var notificationsRef: ({popups: [], doNotDisturb: false})
             property var obsMenu: ({obsState: {}})
             property var calendarMenu: null
+            property var clockActivity: ({bellOut: false, timing: false, meetingSoon: false, bellAngle: 0, flash: 0, alerting: false})
             function closePanels() {}
             Rectangle { anchors.fill: parent; color: window.color }
             Bar.BarAutoHide { id: autoHide; autoHide: shell.barAutoHide }

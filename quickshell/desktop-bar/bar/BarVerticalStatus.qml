@@ -81,6 +81,7 @@ Column {
     VerticalBarIcon {
         host: verticalEnd.host
         id: verticalNotificationIcon
+        swing: barHost.clockActivity.bellAngle
         icon: notificationIconRef.text; tooltip: Eitr.I18n.tr("Notifications"); open: true; clickable: true
         onClicked: barHost.togglePanel(notificationCenterRef)
     }

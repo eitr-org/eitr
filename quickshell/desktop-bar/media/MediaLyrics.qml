@@ -4,7 +4,7 @@ import QtQuick
 import "../PanelStyle.js" as PanelStyle
 import "Lyrics.js" as Lyrics
 
-// Lyrics text (from the player or LRCLIB, see DropLyricsSource). Timed LRC lines
+// Lyrics text (from the player or LRCLIB, see LyricsSource). Timed LRC lines
 // ("[01:23.45] text") follow the song, the current one large and centred; untimed
 // lyrics scroll as plain text.
 Item {

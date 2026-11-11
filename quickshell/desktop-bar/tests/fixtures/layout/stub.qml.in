@@ -38,6 +38,8 @@ Item {
     property bool playing: false
     property bool active: false
     property bool audioEnabled: false
+    property var activity: null
+    property real swing: 0
     property string mediaStyle: "wave"
     property string style: "wave"
     property real itemSpacing: 4
@@ -61,6 +63,10 @@ Item {
     signal clicked(int button)
     signal rightClicked()
     signal recordingClicked()
+    signal meetingClicked()
+    signal timerClicked()
+    signal bellClicked()
+    function showDay(day) {}
     signal detailsRequested()
     signal panelRequested(var plugin, var panel, var target)
     signal primarySelected()

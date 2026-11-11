@@ -13,20 +13,6 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
-- **Bring Drop's ideas to the other layouts (noted 2026-11-10).** Drop shipped with its
-  dashboard and live activity; these are worth reusing elsewhere:
-  - Panels that open details in place with a back arrow instead of a second panel (WiFi,
-    Bluetooth and audio devices in the Control Center; the weather's forecast and city
-    search; a calendar day's plans with an inline reminder field).
-  - Live activity beside the clock in Full, Centered and Islands: the ringing bell, the
-    timer ring, the next-event mark and the workspace/volume/battery flashes over the time.
-  - The timer and focus sessions (`services/FocusTimer.qml`) as a Control Center tile
-    and a Walker action.
-  - Auto-hide that brings the bar out for a new notification, for every layout.
-  - Opening data reads only after a panel has finished unfolding, applied to every panel.
-  - Online lyrics on the Media panel and the bar's media strip (one line beside the
-    equalizer).
-  - Swipeable pages for the Control Center's sections.
 - **Drop: update progress on the pill.** System updates run in a terminal, so the bar
   knows only when it checks and how many updates wait. Showing progress needs the update
   terminal to report its stage (download, install) back through the updates domain.

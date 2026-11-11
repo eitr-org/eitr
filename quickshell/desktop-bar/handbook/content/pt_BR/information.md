@@ -19,9 +19,9 @@ Cada provedor detectado tem sua própria seção com plano, limites e erros. Cli
 
 ## Calendário e mídia
 
-Clique no relógio ou na data para abrir o calendário. Ele mantém seis linhas de semanas e mostra o progresso do ano abaixo da grade. Navegue pelos botões anterior/próximo, Hoje, pelas setas ou por T. Se a barra estiver oculta, procure Calendário no Walker.
+Clique no relógio ou na data para abrir o calendário. Ele mantém seis linhas de semanas e mostra o progresso do ano abaixo da grade. Navegue pelos botões anterior/próximo, Hoje, pelas setas ou por T. Se a barra estiver oculta, procure Calendário no Walker. Clique em um dia para ver seus lembretes abaixo da grade; o + ao lado do dia abre os planos dele ali mesmo, com um campo para adicionar um lembrete em um horário desse dia, e a seta de voltar retorna ao mês.
 
-Clique no equalizador animado para ver capa, título e artista, controlar anterior/reproduzir/próximo e avançar na faixa quando permitido. Ele se oculta se não houver um reprodutor compatível e exclui reuniões reconhecidas. As dez barras acompanham o áudio do sistema por um processo cava privado somente durante a reprodução e enquanto a faixa está visível. Se o cava estiver indisponível, usam uma animação suave de reprodução.
+Clique no equalizador animado para abrir o painel Mídia: a capa cercada de barras que seguem o ritmo, a música, a letra, anterior/reproduzir/próximo e o avanço na faixa quando permitido. Ele se oculta se não houver um reprodutor compatível e exclui reuniões reconhecidas. O equalizador da barra acompanha o áudio do sistema por um processo cava privado somente durante a reprodução e enquanto a faixa está visível. Arraste o equalizador para a esquerda para trocá-lo pela linha que está sendo cantada; arraste a linha para qualquer lado, pause ou pare para trazê-lo de volta. Letras online são uma configuração da Barra da área de trabalho (veja o capítulo Barra e espaços de trabalho).
 
 ## Notificações
 

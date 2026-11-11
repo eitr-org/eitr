@@ -20,8 +20,6 @@ Item {
     Component.onCompleted: holding = visible
     readonly property var surfaces: [pill, dotReach]
     readonly property alias pillSurface: pill
-    // True while the bell is out for a new notification; auto-hide reveals the bar for it.
-    readonly property bool notifying: visible && activity.bellOut
     readonly property bool vertical: host.verticalBar
     readonly property real length: vertical ? height : width
     // The auto-hide slide drives the morph: 0 is the dot, 1 the pill. Its animation
@@ -153,7 +151,7 @@ Item {
     states: [
         State {
             name: "horizontal"; when: drop.holding && !drop.vertical
-            PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity * (1 - Math.min(1, activity.flash)) * (activity.lyricsOpen ? 0 : 1); enabled: drop.reveal >= 1 && !activity.lyricsOpen }
+            PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity * (activity.lyricsOpen ? 0 : 1); enabled: drop.reveal >= 1 && !activity.lyricsOpen }
             PropertyChanges { target: barHost.centerInfo; timeOnly: true }
             PropertyChanges { target: barHost.leftGroup; opacity: 0; enabled: false }
             PropertyChanges { target: barHost.rightSide; opacity: 0; enabled: false }
@@ -163,7 +161,7 @@ Item {
         },
         State {
             name: "vertical"; when: drop.holding && drop.vertical
-            PropertyChanges { target: barHost.verticalMiddle; parent: pill.content; opacity: drop.contentOpacity * (1 - Math.min(1, activity.flash)); enabled: drop.reveal >= 1 }
+            PropertyChanges { target: barHost.verticalMiddle; parent: pill.content; opacity: drop.contentOpacity; enabled: drop.reveal >= 1 }
             PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: true }
             PropertyChanges { target: barHost.verticalStart; opacity: 0; enabled: false }
             PropertyChanges { target: barHost.verticalEnd; opacity: 0; enabled: false }

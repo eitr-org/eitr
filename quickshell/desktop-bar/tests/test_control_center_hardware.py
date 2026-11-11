@@ -110,12 +110,16 @@ class ControlCenterContracts(unittest.TestCase):
         self.assertIn('function openSettings(page) { opened = false; settingsRequested(page); }', center)
         self.assertIn('Accessible.name: Eitr.I18n.tr("All settings")', center)
 
-    def test_media_popup_is_the_cover_card_alone(self):
+    def test_media_popup_is_drops_media_page(self):
         root = Path(__file__).parents[1]
         card = (root / 'media/MediaCard.qml').read_text()
         menu = (root / 'media/MediaMenu.qml').read_text()
         self.assertNotIn('PanelHeading', menu)
-        self.assertIn('implicitHeight: card.implicitHeight + verticalContentInset', menu)
+        self.assertIn('implicitHeight: page.implicitHeight + verticalContentInset', menu)
+        self.assertIn('MediaPage {', (root / 'panels/DropDashboard.qml').read_text())
+        # The music's bars and lyric lookups wait for the panel to unfold.
+        self.assertIn('active: menu.opened && menu.revealProgress >= 1', menu)
+        # The Control Center keeps the compact card.
         self.assertIn('fillMode: Image.PreserveAspectCrop', card)
         # Only previous, play/pause and next; the waves follow real audio frames only.
         self.assertEqual(card.count('allowed: "can'), 3)

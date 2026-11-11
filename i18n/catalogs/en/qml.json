@@ -898,7 +898,6 @@
   "Already up to date.": "Already up to date.",
   "Drop": "Drop",
   "%1 cores · %2 threads": "%1 cores · %2 threads",
-  "Back to the weather": "Back to the weather",
   "Back to your location": "Back to your location",
   "Break": "Break",
   "Break is over": "Break is over",
@@ -949,5 +948,7 @@
   "free": "free",
   "used": "used",
   "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.",
-  "{minutes} minutes, then back to focus.": "{minutes} minutes, then back to focus."
+  "{minutes} minutes, then back to focus.": "{minutes} minutes, then back to focus.",
+  "Add a reminder": "Add a reminder",
+  "Timer & Focus": "Timer & Focus"
 }

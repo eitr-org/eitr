@@ -923,7 +923,6 @@ var qml = {
     "Already up to date.": "Already up to date.",
     "Drop": "Drop",
     "%1 cores · %2 threads": "%1 cores · %2 threads",
-    "Back to the weather": "Back to the weather",
     "Back to your location": "Back to your location",
     "Break": "Break",
     "Break is over": "Break is over",
@@ -974,7 +973,9 @@ var qml = {
     "free": "free",
     "used": "used",
     "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.",
-    "{minutes} minutes, then back to focus.": "{minutes} minutes, then back to focus."
+    "{minutes} minutes, then back to focus.": "{minutes} minutes, then back to focus.",
+    "Add a reminder": "Add a reminder",
+    "Timer & Focus": "Timer & Focus"
   },
   "pt_BR": {
     "%1 Hz": "%1 Hz",
@@ -1876,7 +1877,6 @@ var qml = {
     "󰂚  No notifications": "󰂚  Nenhuma notificação",
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação",
     "%1 cores · %2 threads": "%1 núcleos · %2 threads",
-    "Back to the weather": "Voltar ao clima",
     "Back to your location": "Voltar à sua localização",
     "Break": "Pausa",
     "Break is over": "A pausa acabou",
@@ -1927,7 +1927,9 @@ var qml = {
     "free": "livre",
     "used": "usado",
     "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutos de foco, depois {rest} minutos de pausa. Você recebe uma notificação a cada troca.",
-    "{minutes} minutes, then back to focus.": "{minutes} minutos e depois de volta ao foco."
+    "{minutes} minutes, then back to focus.": "{minutes} minutos e depois de volta ao foco.",
+    "Add a reminder": "Adicionar lembrete",
+    "Timer & Focus": "Timer e Foco"
   },
   "es": {
     "%1 Hz": "%1 Hz",
@@ -2829,7 +2831,6 @@ var qml = {
     "󰂚  No notifications": "󰂚  No hay notificaciones",
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
     "%1 cores · %2 threads": "%1 núcleos · %2 hilos",
-    "Back to the weather": "Volver al tiempo",
     "Back to your location": "Volver a tu ubicación",
     "Break": "Descanso",
     "Break is over": "Se acabó el descanso",
@@ -2880,7 +2881,9 @@ var qml = {
     "free": "libre",
     "used": "usado",
     "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutos de concentración y luego {rest} minutos de descanso. Recibirás una notificación en cada cambio.",
-    "{minutes} minutes, then back to focus.": "{minutes} minutos y luego, a concentrarse."
+    "{minutes} minutes, then back to focus.": "{minutes} minutos y luego, a concentrarse.",
+    "Add a reminder": "Añadir un recordatorio",
+    "Timer & Focus": "Temporizador y concentración"
   },
   "de": {
     "%1 Hz": "%1 Hz",
@@ -3782,7 +3785,6 @@ var qml = {
     "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
     "%1 cores · %2 threads": "%1 Kerne · %2 Threads",
-    "Back to the weather": "Zurück zum Wetter",
     "Back to your location": "Zurück zu deinem Ort",
     "Break": "Pause",
     "Break is over": "Pause ist vorbei",
@@ -3833,7 +3835,9 @@ var qml = {
     "free": "frei",
     "used": "belegt",
     "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} Minuten Fokus, dann {rest} Minuten Pause. Bei jedem Wechsel bekommst du eine Benachrichtigung.",
-    "{minutes} minutes, then back to focus.": "{minutes} Minuten, dann zurück zum Fokus."
+    "{minutes} minutes, then back to focus.": "{minutes} Minuten, dann zurück zum Fokus.",
+    "Add a reminder": "Erinnerung hinzufügen",
+    "Timer & Focus": "Timer & Fokus"
   },
   "fr": {
     "%1 Hz": "%1 Hz",
@@ -4735,7 +4739,6 @@ var qml = {
     "󰂚  No notifications": "󰂚  Aucune notification",
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
     "%1 cores · %2 threads": "%1 cœurs · %2 threads",
-    "Back to the weather": "Retour à la météo",
     "Back to your location": "Revenir à votre position",
     "Break": "Pause",
     "Break is over": "La pause est terminée",
@@ -4786,6 +4789,8 @@ var qml = {
     "free": "libre",
     "used": "utilisé",
     "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutes de concentration, puis {rest} minutes de pause. Vous recevrez une notification à chaque changement.",
-    "{minutes} minutes, then back to focus.": "{minutes} minutes, puis retour à la concentration."
+    "{minutes} minutes, then back to focus.": "{minutes} minutes, puis retour à la concentration.",
+    "Add a reminder": "Ajouter un rappel",
+    "Timer & Focus": "Minuteur et concentration"
   }
 };

@@ -25,6 +25,7 @@ Item {
 
         host: centerSection.host
         id: centerInfo
+        activity: barHost.clockActivity
         anchors.alignWhenCentered: false
         anchors.centerIn: parent
         anchors.horizontalCenterOffset: barHost.centeredLayout ? (barHost.leadingReveal - barHost.trailingReveal) / 2
@@ -51,6 +52,10 @@ Item {
         transcribing: centerSection.host.transcribing
         dictationLevels: centerSection.host.dictationLevels
         onRecordingClicked: barHost.togglePanel(recordingMenuRef)
+        activity: barHost.clockActivity
+        onMeetingClicked: calendarMenu.showDay(new Date())
+        onTimerClicked: barHost.showControlCenter("timer")
+        onBellClicked: barHost.showPanel(barHost.notificationCenter)
         centered: barHost.islandsLayout || barHost.dynamicLayout
     }
 
@@ -71,6 +76,7 @@ Item {
     MediaStrip {
         id: mediaStrip
         mediaStyle: centerSection.host.barMediaStyle
+        host: centerSection.host
         audioEnabled: centerSection.host.barVisible && !centerSection.host.verticalBar && barHost.expanded
         opacity: barHost.expanded ? 1 : 0
         enabled: barHost.expanded

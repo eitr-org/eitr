@@ -114,7 +114,11 @@ PanelWindow {
     readonly property real trailingExtent: endPadding - centerPadding + (host.verticalBar
         ? itemGap + verticalWeatherIcon.height + itemGap + verticalEnd.height
         : itemGap + barWeather.width + itemGap + rightSide.width + itemGap + notificationIcon.width)
-    property real leadingReveal: centeredLayout && expanded ? Math.min(leadingExtent, (host.verticalBar ? bar.height : bar.width) / 2 - centerExtent / 2) : 0
+    // Collapsed, Centered still opens room before the clock for what is happening beside it.
+    readonly property bool activityShown: host.verticalBar ? verticalCapture.shown : barCapture.shown
+    readonly property real collapsedLeading: activityShown
+        ? Math.max(0, endPadding - centerPadding + (host.verticalBar ? verticalCapture.height : barCapture.width) + itemGap) : 0
+    property real leadingReveal: !centeredLayout ? 0 : expanded ? Math.min(leadingExtent, (host.verticalBar ? bar.height : bar.width) / 2 - centerExtent / 2) : collapsedLeading
     property real trailingReveal: centeredLayout && expanded ? Math.min(trailingExtent, (host.verticalBar ? bar.height : bar.width) / 2 - centerExtent / 2) : 0
     Behavior on leadingReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     Behavior on trailingReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
@@ -240,10 +244,12 @@ PanelWindow {
         pointerInside: bar.pointerInside || edgeHover.hovered
         // Drop's dashboard lets go as soon as it starts closing, so its card can retract
         // into the edge in one motion instead of first folding back into the pill.
-        // Drop's bell also brings the bar out while it shows a new notification.
+        // A new notification also brings the bar out until its popups have gone.
         held: bar.dockPanels.some(panel => panel === bar.dropDashboard ? panel.opened : panel.visible) || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || host.barPointerHeld
-            || (bar.dropLayout && barDrop.notifying)
+            || clockActivity.alerting
     }
+    readonly property alias clockActivity: clockActivity
+    ClockActivityState { id: clockActivity; host: bar.host; barHost: bar }
     // An empty item the input mask adds and drops as the auto-hide slide settles.
     Item { id: slideSettled; width: 0; height: 0 }
     Item {

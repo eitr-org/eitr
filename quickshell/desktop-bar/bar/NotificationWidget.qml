@@ -8,6 +8,8 @@ Rectangle {
     property var notificationService
     // A click opens the center on the bar that was clicked, not on the focused display.
     signal openRequested()
+    // The bell's swing from its top while it rings for a new notification.
+    property real swing: 0
 
     readonly property bool hasNotifications: notificationService.count > 0
     readonly property string text: notificationService.doNotDisturb ? (hasNotifications ? "󰂠" : "󰪓") : (hasNotifications ? "󱅫" : "󰂜")
@@ -25,6 +27,8 @@ Rectangle {
         font.family: DesktopFonts.family
         font.pixelSize: 18
         font.bold: true
+        rotation: notifications.swing
+        transformOrigin: Item.Top
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }

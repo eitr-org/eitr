@@ -21,7 +21,7 @@ El Modo avión recuerda qué conexiones bloqueó y restaura solo esas. No molest
 
 ## Herramientas
 
-Capturas (selección, pantalla completa, ventana o selección directa al portapapeles), grabación (controles de OBS, Grabar, Grabar + Audio y Detener), OCR, códigos QR, selector de colores, Transcodificar, recordatorios y compartir con LocalSend. El panel se cierra antes de empezar una selección o grabación.
+Temporizador y concentración (una cuenta atrás, un cronómetro o sesiones de concentración de 25 minutos con descansos de 5 minutos; un anillo junto al reloj indica que está en marcha y lo abre), capturas (selección, pantalla completa, ventana o selección directa al portapapeles), grabación (controles de OBS, Grabar, Grabar + Audio y Detener), OCR, códigos QR, selector de colores, Transcodificar, recordatorios y compartir con LocalSend. El panel se cierra antes de empezar una selección o grabación.
 
 ## Chat rápido
 

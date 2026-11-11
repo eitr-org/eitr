@@ -19,9 +19,9 @@ Jeder erkannte Anbieter hat einen eigenen Abschnitt mit Tarif, Limits und Fehler
 
 ## Kalender und Medien
 
-Klicke für den Kalender auf Uhr oder Datum. Er zeigt sechs Wochenzeilen und darunter den Jahresfortschritt. Navigiere mit Zurück/Weiter, Heute, Pfeiltasten oder T. Bei versteckter Leiste suche in Walker nach Kalender.
+Klicke für den Kalender auf Uhr oder Datum. Er zeigt sechs Wochenzeilen und darunter den Jahresfortschritt. Navigiere mit Zurück/Weiter, Heute, Pfeiltasten oder T. Bei versteckter Leiste suche in Walker nach Kalender. Klicke auf einen Tag, um seine Erinnerungen unter dem Raster zu sehen; das + neben dem Tag öffnet seine Pläne an Ort und Stelle, mit einem Feld, um für diesen Tag eine Erinnerung zu einer Uhrzeit hinzuzufügen, und der Zurück-Pfeil führt zum Monat zurück.
 
-Klicke auf den animierten Equalizer für Cover, Titel und Künstler, Zurück/Wiedergabe/Weiter sowie das Springen innerhalb des Titels, falls unterstützt. Ohne geeigneten Player wird er ausgeblendet; erkannte Besprechungen werden ausgeschlossen. Die zehn Balken folgen dem aktuellen Systemaudio über einen eigenen cava-Prozess, nur solange die Wiedergabe läuft und die Anzeige sichtbar ist. Ist cava nicht verfügbar, zeigen sie eine sanfte Wiedergabeanimation.
+Klicke auf den animierten Equalizer für das Panel Medien: das Cover, umgeben von Balken im Takt der Musik, der Song, sein Text, Zurück/Wiedergabe/Weiter sowie das Springen innerhalb des Titels, falls unterstützt. Ohne geeigneten Player wird er ausgeblendet; erkannte Besprechungen werden ausgeschlossen. Der Equalizer der Leiste folgt dem aktuellen Systemaudio über einen eigenen cava-Prozess, nur solange die Wiedergabe läuft und die Anzeige sichtbar ist. Ziehe den Equalizer nach links, um ihn gegen die gerade gesungene Zeile zu tauschen; Ziehen der Zeile in eine Richtung, Pause oder Stopp tauscht ihn zurück. Online-Songtexte sind eine Einstellung der Desktopleiste (siehe das Kapitel Leiste und Arbeitsflächen).
 
 ## Benachrichtigungen
 

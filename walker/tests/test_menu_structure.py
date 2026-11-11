@@ -53,7 +53,7 @@ class MenuStructureTests(unittest.TestCase):
     def test_tools_groups_capture_fun_and_calendar_sources(self):
         entries = menu("tools")["entries"]
         self.assertEqual([entry["text"] for entry in entries],
-                         ["Capture", "Fun", "Reminders", "Share", "Color", "OCR Text", "QR Code", "Transcode"])
+                         ["Capture", "Fun", "Reminders", "Share", "Color", "OCR Text", "QR Code", "Timer & Focus", "Transcode"])
         self.assertEqual([entry["text"] for entry in menu("capture")["entries"]], ["Screen Recording", "Screenshot"])
         self.assertEqual([entry["text"] for entry in menu("fun")["entries"]], ["Music Visualizer", "Rune Rain"])
         self.assertEqual(menu("fun")["parent"], "tools")

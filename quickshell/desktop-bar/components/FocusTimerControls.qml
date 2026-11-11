@@ -4,9 +4,10 @@ import QtQuick
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-// Drop's Timer & Focus page: a large ring with the time left (or the stopwatch's time),
-// the choice of countdown, stopwatch or focus sessions, quick lengths for a countdown, and
-// start, pause and stop. FocusTimer keeps time, so it carries on with the dashboard closed.
+// Timer & Focus (Drop's dashboard page and the Control Center's Tools): a large ring with the
+// time left (or the stopwatch's time), the choice of countdown, stopwatch or focus sessions,
+// quick lengths for a countdown, and start, pause and stop. FocusTimer keeps time, so it
+// carries on with the panel closed.
 Item {
     id: page
     required property color foreground
@@ -14,24 +15,26 @@ Item {
     required property color background
     property string choice: FocusTimer.active ? FocusTimer.mode : "timer"
     property int minutes: 5
-    implicitHeight: 248
+    property real ringSize: 200
+    implicitHeight: Math.max(ringSize + 48, controls.implicitHeight + 12)
 
     // The ring and the time.
     Canvas {
         id: ring
         x: 6; anchors.verticalCenter: parent.verticalCenter
-        width: 200; height: 200
+        width: page.ringSize; height: page.ringSize
         readonly property real progress: FocusTimer.active ? FocusTimer.progress : 0
         onProgressChanged: requestPaint()
         onPaint: {
             const context = getContext("2d");
             context.reset();
+            const middle = width / 2, radius = middle - 12;
             context.lineWidth = 8; context.lineCap = "round";
             context.strokeStyle = Qt.alpha(page.foreground, 0.1);
-            context.beginPath(); context.arc(100, 100, 88, 0, Math.PI * 2); context.stroke();
+            context.beginPath(); context.arc(middle, middle, radius, 0, Math.PI * 2); context.stroke();
             if (progress <= 0) return;
             context.strokeStyle = FocusTimer.phase === "break" && FocusTimer.mode === "focus" ? Qt.lighter(page.accent, 1.3) : page.accent;
-            context.beginPath(); context.arc(100, 100, 88, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * progress); context.stroke();
+            context.beginPath(); context.arc(middle, middle, radius, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * progress); context.stroke();
         }
         Column {
             anchors.centerIn: parent
@@ -39,7 +42,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: !FocusTimer.active ? (page.choice === "stopwatch" ? "0:00" : page.choice === "focus" ? FocusTimer.focusMinutes + ":00" : page.minutes + ":00")
                     : FocusTimer.clock(FocusTimer.mode === "stopwatch" ? FocusTimer.elapsed : FocusTimer.remaining)
-                color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: 38; font.weight: Font.Bold
+                color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: Math.round(page.ringSize * 0.19); font.weight: Font.Bold
                 font.features: PanelStyle.tabularFigures
             }
             Text {
@@ -54,6 +57,7 @@ Item {
     }
 
     Column {
+        id: controls
         x: ring.x + ring.width + 28; width: parent.width - x - 6
         anchors.verticalCenter: parent.verticalCenter
         spacing: 16

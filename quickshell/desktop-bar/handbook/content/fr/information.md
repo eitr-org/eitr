@@ -19,9 +19,9 @@ Chaque fournisseur détecté possède sa propre section avec son forfait, ses li
 
 ## Calendrier et médias
 
-Cliquez sur l’horloge ou la date pour ouvrir le calendrier. Il conserve six lignes de semaines et affiche la progression de l’année sous la grille. Naviguez avec précédent/suivant, Aujourd’hui, les flèches ou T. Si la barre est masquée, recherchez Calendrier dans Walker.
+Cliquez sur l’horloge ou la date pour ouvrir le calendrier. Il conserve six lignes de semaines et affiche la progression de l’année sous la grille. Naviguez avec précédent/suivant, Aujourd’hui, les flèches ou T. Si la barre est masquée, recherchez Calendrier dans Walker. Cliquez sur un jour pour voir ses rappels sous la grille ; le + à côté du jour ouvre ses projets sur place, avec un champ pour ajouter un rappel à une heure de ce jour, et la flèche de retour ramène au mois.
 
-Cliquez sur l’égaliseur animé pour voir pochette, titre et artiste, utiliser précédent/lecture/suivant et vous déplacer dans la piste si possible. Il disparaît sans lecteur compatible et exclut les réunions reconnues. Les dix barres suivent le son du système via un processus cava privé uniquement pendant la lecture et lorsque la zone est visible. Si cava est indisponible, elles utilisent une animation douce de lecture.
+Cliquez sur l’égaliseur animé pour ouvrir le panneau Médias : la pochette entourée de barres qui suivent la musique, le morceau, ses paroles, précédent/lecture/suivant et le déplacement dans la piste si possible. Il disparaît sans lecteur compatible et exclut les réunions reconnues. L’égaliseur de la barre suit le son du système via un processus cava privé uniquement pendant la lecture et lorsque la zone est visible. Faites glisser l’égaliseur vers la gauche pour le remplacer par la ligne chantée ; faites glisser la ligne dans un sens ou l’autre, mettez en pause ou arrêtez pour le retrouver. Les paroles en ligne sont un réglage de la Barre de bureau (voir le chapitre Barre et espaces de travail).
 
 ## Notifications
 

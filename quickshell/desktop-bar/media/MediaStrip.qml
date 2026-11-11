@@ -30,6 +30,15 @@ Item {
     readonly property bool playing: !!player && player.isPlaying
     readonly property string title: player ? [player.trackArtist, player.trackTitle].filter(Boolean).join(" - ") || player.identity : ""
     property string mediaStyle: "bars"
+    // The bar's host, for the online lyrics setting.
+    property var host: null
+    // Dragging the wave to the left swaps it for the line being sung; dragging the line
+    // either way, pausing or stopping swaps it back.
+    property bool lyricsOpen: false
+    onPlayingChanged: if (!playing) lyricsOpen = false
+    readonly property real lyricsWidth: Math.max(80, Math.min(360, availableWidth - controls.width - indicatorSpacing, lyric.naturalWidth + 8))
+    property real indicatorReveal: lyricsOpen ? lyricsWidth : playbackIndicator.width
+    Behavior on indicatorReveal { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
     property bool audioEnabled: true
     readonly property bool hasAudioFrame: playbackIndicator.hasAudioFrame
     readonly property var levels: playbackIndicator.levels
@@ -37,12 +46,12 @@ Item {
     signal detailsRequested()
 
     visible: present && availableWidth >= controls.width + indicatorSpacing + playbackIndicator.width
-    width: visible ? controls.width + indicatorSpacing + playbackIndicator.width : 0
+    width: visible ? controls.width + indicatorSpacing + indicatorReveal : 0
     height: 24
 
     Row {
         id: controls
-        x: playbackIndicator.width + media.indicatorSpacing
+        x: media.indicatorReveal + media.indicatorSpacing
         height: parent.height
         spacing: media.itemSpacing
         MediaControl {
@@ -66,6 +75,8 @@ Item {
     }
     MediaIndicator {
         id: playbackIndicator
+        visible: !media.lyricsOpen && media.indicatorReveal <= width + 0.5
+        onDraggedLeft: if (media.host && media.playing) media.lyricsOpen = true
         style: media.mediaStyle
         playing: media.playing
         active: media.audioEnabled && media.visible && media.enabled && media.opacity > 0
@@ -73,6 +84,28 @@ Item {
         background: media.background
         title: media.title
         onDetailsRequested: media.detailsRequested()
+    }
+
+    LyricLine {
+        id: lyric
+        visible: media.lyricsOpen
+        width: media.indicatorReveal; height: parent.height
+        clip: true
+        host: media.host; player: media.player; active: media.lyricsOpen
+        foreground: media.foreground
+        MouseArea {
+            anchors.fill: parent
+            cursorShape: Qt.PointingHandCursor
+            property real pressX: 0
+            property bool dragged: false
+            onPressed: mouse => { pressX = mouse.x; dragged = false; }
+            onPositionChanged: mouse => {
+                if (!pressed || dragged || Math.abs(mouse.x - pressX) < 16) return;
+                dragged = true;
+                media.lyricsOpen = false;
+            }
+            onClicked: if (!dragged) media.detailsRequested()
+        }
     }
 
     component MediaControl: Item {

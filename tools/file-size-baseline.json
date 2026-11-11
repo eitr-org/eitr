@@ -34,7 +34,7 @@
       "reason": "One compositor configuration, including preference-backed layout options and bindings; machine-specific settings live in local.lua."
     },
     "quickshell/desktop-bar/bar/BarWindow.qml": {
-      "lines": 447,
+      "lines": 453,
       "reason": "One bar window host, including monitor-scoped workspace Overview context and an instance of each layout section."
     },
     "quickshell/desktop-bar/panels/BrightnessMenu.qml": {
@@ -42,8 +42,8 @@
       "reason": "To improve (TODO): display list, night light and power controls in one panel."
     },
     "quickshell/desktop-bar/panels/CalendarMenu.qml": {
-      "lines": 438,
-      "reason": "Barely over the limit; one panel."
+      "lines": 468,
+      "reason": "One panel: the month, a day's reminders and its plans opened in place."
     },
     "quickshell/desktop-bar/panels/CatalogContent.qml": {
       "lines": 987,

@@ -69,6 +69,7 @@ ThemedPopup {
     // The same command as that Walker menu row (scripts/menu-action.py), after closing.
     function menuAction(menu, row) { runAfterClose(["python3", Quickshell.shellDir + "/scripts/menu-action.py", menu, row]); }
     function setFold(title, open) { let next = Object.assign({}, folds); next[title] = open; folds = next; }
+    readonly property string timerFold: Eitr.I18n.tr("Timer & Focus")
     property var organizationPolicy: ({})
     function openSettings(page) { opened = false; settingsRequested(page); }
     // Fetch once in the background after the bar starts, so even the first opening

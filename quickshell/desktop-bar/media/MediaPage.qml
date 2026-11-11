@@ -6,7 +6,7 @@ import Quickshell.Services.Mpris
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-// Drop's Media page: the cover in a circle, ringed by bars that
+// The Media panel and Drop's Media page: the cover in a circle, ringed by bars that
 // follow the music; beside it the song, its lyrics when the player sends them, the
 // controls and a plain progress bar. Lyrics come from the player, or from LRCLIB once the
 // lyrics button has asked and been allowed.
@@ -23,7 +23,7 @@ Item {
     property bool asking: false
     onActiveChanged: if (!active) asking = false
     required property var host
-    DropLyricsSource { id: lyricsSource; host: page.host; player: page.player; active: page.active }
+    LyricsSource { id: lyricsSource; host: page.host; player: page.player; active: page.active }
     property real position: 0
     implicitHeight: 290
 
@@ -137,7 +137,7 @@ Item {
                 font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
             }
         }
-        DropLyrics {
+        MediaLyrics {
             id: lyrics
             anchors { top: song.bottom; topMargin: 10; bottom: controls.top; bottomMargin: 10 }
             width: parent.width

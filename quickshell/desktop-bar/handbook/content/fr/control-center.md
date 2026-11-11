@@ -21,7 +21,7 @@ Le Mode avion mémorise les radios bloquées et ne restaure que celles-ci. Ne pa
 
 ## Outils
 
-Captures d’écran (sélection, écran entier, fenêtre ou sélection directement dans le presse-papiers), enregistrement (commandes OBS, Enregistrer, Enregistrer + Audio et Arrêter), OCR, QR codes, sélecteur de couleurs, Transcoder, rappels et partage LocalSend. Le panneau se ferme avant le début d’une sélection ou d’un enregistrement.
+Minuteur et concentration (un compte à rebours, un chronomètre ou des sessions de concentration de 25 minutes avec des pauses de 5 minutes ; un anneau à côté de l’horloge indique qu’il tourne et l’ouvre), captures d’écran (sélection, écran entier, fenêtre ou sélection directement dans le presse-papiers), enregistrement (commandes OBS, Enregistrer, Enregistrer + Audio et Arrêter), OCR, QR codes, sélecteur de couleurs, Transcoder, rappels et partage LocalSend. Le panneau se ferme avant le début d’une sélection ou d’un enregistrement.
 
 ## Discussion rapide
 

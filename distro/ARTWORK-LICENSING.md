@@ -18,8 +18,9 @@ has no entry; `--public` also fails while any entry is not `cleared`, and
 - **The EITR logo and wordmark**: the files are shipped for EITR itself. Forks
   and derivative distributions must use their own name and logo; describing a
   project as "based on EITR" is fine.
-- **Third-party marks**: none ship. Icons a user's web apps download stay on that
-  machine under their owners' terms.
+- **Third-party marks**: none ship, except the herdr and cmux logos in
+  `walker/icons/` (under review; see `distro/artwork.json`). Icons a user's web apps
+  download stay on that machine under their owners' terms.
 - **Code** keeps its own licenses (for example the lockscreen layouts' GPL notice
   in `quickshell/lockscreen/LICENSE`); `NOTICE.md` lists them all.
 

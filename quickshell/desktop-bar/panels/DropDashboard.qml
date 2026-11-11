@@ -12,7 +12,6 @@ ThemedPopup {
     id: dashboard
     required property var barHost
     required property var player
-    property bool hold: false
     centered: true
     implicitWidth: 580
     implicitHeight: content.implicitHeight + verticalContentInset
@@ -95,7 +94,7 @@ ThemedPopup {
                 barHost: dashboard.barHost; now: dashboard.now
                 foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }
-            DropMediaPage {
+            MediaPage {
                 id: media
                 x: viewport.place("media"); visible: viewport.shown("media")
                 width: viewport.width
@@ -120,7 +119,7 @@ ThemedPopup {
                 watching: dashboard.settled && visible
                 foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }
-            DropTimerPage {
+            FocusTimerControls {
                 id: timer
                 x: viewport.place("timer"); visible: viewport.shown("timer")
                 width: viewport.width

@@ -19,9 +19,9 @@ Cada proveedor detectado tiene su propia sección con plan, límites y errores. 
 
 ## Calendario y multimedia
 
-Haz clic en el reloj o la fecha para abrir el calendario. Mantiene seis filas de semanas y muestra el progreso del año bajo la cuadrícula. Navega con anterior/siguiente, Hoy, las flechas o T. Si la barra está oculta, busca Calendario en Walker.
+Haz clic en el reloj o la fecha para abrir el calendario. Mantiene seis filas de semanas y muestra el progreso del año bajo la cuadrícula. Navega con anterior/siguiente, Hoy, las flechas o T. Si la barra está oculta, busca Calendario en Walker. Haz clic en un día para ver sus recordatorios bajo la cuadrícula; el + junto al día abre sus planes en el mismo sitio, con un campo para añadir un recordatorio a una hora de ese día, y la flecha atrás vuelve al mes.
 
-Haz clic en el ecualizador animado para ver portada, título y artista, usar anterior/reproducir/siguiente y desplazarte por la pista cuando sea posible. Se oculta si no hay un reproductor compatible y excluye las reuniones reconocidas. Las diez barras siguen el audio del sistema mediante un proceso cava privado solo durante la reproducción y mientras la franja está visible. Si cava no está disponible, usan una animación suave de reproducción.
+Haz clic en el ecualizador animado para abrir el panel Multimedia: la portada rodeada de barras que siguen la música, la canción, su letra, anterior/reproducir/siguiente y el desplazamiento por la pista cuando sea posible. Se oculta si no hay un reproductor compatible y excluye las reuniones reconocidas. El ecualizador de la barra sigue el audio del sistema mediante un proceso cava privado solo durante la reproducción y mientras la franja está visible. Arrastra el ecualizador a la izquierda para cambiarlo por la línea que se está cantando; arrastra la línea hacia cualquier lado, pausa o detén para recuperarlo. Las letras en línea son un ajuste de la Barra del escritorio (consulta el capítulo Barra y espacios de trabajo).
 
 ## Notificaciones
 

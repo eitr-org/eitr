@@ -52,6 +52,8 @@ ShellRoot {
             property bool islandsLayout: shell.islandsLayout
             property bool notchLayout: shell.notchLayout
             property bool expanded: true
+            property var clockActivity: ({bellAngle: 0, flash: 0})
+            function showControlCenter(page) {}
             property real leadingReveal: 320
             property real trailingReveal: 240
             property real endPadding: shell.verticalBar ? 8 : 12

@@ -352,10 +352,19 @@ existing design and workflows rather than replacing them with upstream defaults.
   volume and low-battery flashes; one lyric line on dragging the note left), making room
   only on the side that has something while the time keeps the screen centre. No hover
   behaviour. Reserve pill depth plus half the outer gap; only the pill takes clicks.
+- Clock activity in every layout comes from one `bar/ClockActivityState.qml` per bar: a
+  new notification rings the bar's bell (a bell slides out beside the clock where the
+  layout hides its own: Drop, Centered collapsed, Dynamic at rest) and holds an
+  auto-hidden bar out until its popups go; the timer ring and next-event mark sit in
+  `CaptureIndicator` beside the clock, so each layout makes room as for the recording dot;
+  volume and low-battery flashes show over the time (`ClockButton`), the workspace number
+  only where the workspaces are hidden.
 - Keep calendar height fixed with six week rows. Weather city choices are
   session-only; the city close button restores the default geolocation.
 - Media is hidden when no eligible player exists; meetings are excluded. Keep
-  its compact controls and song-name tooltip on the animated equalizer.
+  its compact controls and song-name tooltip on the animated equalizer. Dragging the
+  equalizer left swaps it for one lyric line (`media/LyricLine.qml`). The Media panel
+  and Drop's Media page are one `media/MediaPage.qml`.
 - WiFi separates Connected, Known Networks, and Other Networks. Saved offline
   networks remain listed. Do not show fake signal percentages for offline rows.
 - Workspace style examples must match the actual bar markers. Start with five

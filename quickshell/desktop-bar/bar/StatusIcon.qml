@@ -17,6 +17,8 @@ Item {
     property int glyphOffsetY: 0
     property int slotWidth: host.workspaceItemSize
     property bool spinning: false
+    // A bell's swing from its top, in degrees (the notification icon ringing).
+    property real swing: 0
 
     signal clicked(int button)
 
@@ -56,6 +58,8 @@ Item {
             font.family: DesktopFonts.family
             font.pixelSize: item.iconSize
             font.bold: true
+            rotation: item.swing
+            transformOrigin: Item.Top
 
             // Spin around the glyph's drawn centre; the text box centre sits above it.
             transform: Rotation {

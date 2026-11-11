@@ -10,6 +10,10 @@ Rectangle {
     property bool compact: false
     // Only hours and minutes, without date or AM/PM (Dynamic's resting clock island).
     property bool timeOnly: false
+    // ClockActivityState: its flash (a workspace number, volume level or battery warning)
+    // rises over the time while the time fades.
+    property var activity: null
+    readonly property real flash: activity ? Math.min(1, activity.flash) : 0
 
     signal clicked()
     signal rightClicked()
@@ -32,6 +36,7 @@ Rectangle {
 
         anchors.centerIn: parent
         visible: !clock.compact
+        opacity: 1 - clock.flash
         // Qt counts hours 0-23 in any format without AP, so the 12-hour time-only clock
         // computes its hour itself.
         text: clock.timeOnly ? (host.barClock === "24h" ? Qt.formatDateTime(clock.now, "HH:mm")
@@ -50,6 +55,7 @@ Rectangle {
 
         anchors.centerIn: parent
         visible: clock.compact
+        opacity: 1 - clock.flash
         spacing: 2
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -78,6 +84,35 @@ Rectangle {
             color: host.fg
             font.family: DesktopFonts.family
             font.pixelSize: 14
+        }
+    }
+
+    Item {
+        anchors.centerIn: parent
+        width: flashRow.width; height: flashRow.height
+        visible: clock.flash > 0.01
+        opacity: clock.flash
+        scale: 0.7 + 0.3 * clock.flash
+        transform: Translate { y: (1 - clock.flash) * 12 }
+        Row {
+            id: flashRow
+            spacing: 6
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                // A side bar is too narrow for the level bar: the level shows as a number.
+                text: !clock.activity ? "" : clock.compact && clock.activity.flashLevel >= 0 ? String(Math.round(clock.activity.flashLevel * 100))
+                    : clock.compact ? clock.activity.flashText.replace(/^\S+ /, "") : clock.activity.flashText
+                color: clock.activity ? clock.activity.flashColor : host.fg
+                font.family: DesktopFonts.family; font.weight: Font.Bold
+                font.pixelSize: clock.compact ? 12 : clock.activity && clock.activity.flashLevel >= 0 ? 14 : 16
+            }
+            Rectangle {
+                visible: !!clock.activity && clock.activity.flashLevel >= 0 && !clock.compact
+                anchors.verticalCenter: parent.verticalCenter
+                width: 32; height: 4; radius: 2
+                color: Qt.alpha(host.fg, 0.25)
+                Rectangle { width: parent.width * Math.max(0, clock.activity ? clock.activity.flashLevel : 0); height: parent.height; radius: 2; color: host.fg }
+            }
         }
     }
 

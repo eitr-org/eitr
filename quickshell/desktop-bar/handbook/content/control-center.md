@@ -35,8 +35,9 @@ Idle Lock is not the same as preventing sleep; be mindful of screen privacy.
 
 ## Tools
 
-Screenshots (selection, full screen, window, or a selection straight to the
-clipboard), recording (the OBS controls, Record, Record + Audio and Stop), OCR,
+Timer & Focus (a countdown, a stopwatch, or focus sessions of 25 minutes with
+5-minute breaks; a ring beside the clock shows it running and opens it), screenshots
+(selection, full screen, window, or a selection straight to the clipboard), recording (the OBS controls, Record, Record + Audio and Stop), OCR,
 QR codes, the color picker, Transcode, reminders and LocalSend sharing. The panel
 closes before a selection or recording starts.
 

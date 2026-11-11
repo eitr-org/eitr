@@ -898,7 +898,6 @@
   "󰂚  No notifications": "󰂚  No hay notificaciones",
   "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
   "%1 cores · %2 threads": "%1 núcleos · %2 hilos",
-  "Back to the weather": "Volver al tiempo",
   "Back to your location": "Volver a tu ubicación",
   "Break": "Descanso",
   "Break is over": "Se acabó el descanso",
@@ -949,5 +948,7 @@
   "free": "libre",
   "used": "usado",
   "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutos de concentración y luego {rest} minutos de descanso. Recibirás una notificación en cada cambio.",
-  "{minutes} minutes, then back to focus.": "{minutes} minutos y luego, a concentrarse."
+  "{minutes} minutes, then back to focus.": "{minutes} minutos y luego, a concentrarse.",
+  "Add a reminder": "Añadir un recordatorio",
+  "Timer & Focus": "Temporizador y concentración"
 }

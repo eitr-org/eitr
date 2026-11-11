@@ -17,6 +17,8 @@ Item {
     readonly property bool hasAudioFrame: audioActive && SpectrumProvider.hasFrame
     readonly property var levels: audio.spectrum
     signal detailsRequested()
+    // Pressed and pulled 16 px to the left (the strip then shows lyrics).
+    signal draggedLeft()
     width: 30
     height: 24
 
@@ -91,7 +93,16 @@ Item {
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.LeftButton | Qt.RightButton
+        property real pressX: 0
+        property bool dragged: false
+        onPressed: event => { pressX = event.x; dragged = false; }
+        onPositionChanged: event => {
+            if (!pressed || dragged || pressX - event.x < 16) return;
+            dragged = true;
+            indicator.draggedLeft();
+        }
         onClicked: function(event) {
+            if (dragged) return;
             if (event.button === Qt.RightButton)
                 Quickshell.execDetached(["bash", Eitr.Paths.code("walker/scripts/actions/tools/music-visualizer.sh")]);
             else indicator.detailsRequested();

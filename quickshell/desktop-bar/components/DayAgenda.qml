@@ -6,23 +6,24 @@ import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 import "../ReminderModel.js" as ReminderModel
 
-// A day's plans on Drop's home page, opened by clicking a day: its events and reminders
-// with their times, a field to add a reminder at a time that day, and a bin on one-off
-// reminders (clicked twice). Repeating ones and subscribed events are managed in the
-// Calendar panel.
+// A day's plans, opened in place (Drop's home page, the Calendar panel): its events and
+// reminders with their times, a field to add a reminder at a time that day, and a bin on
+// one-off reminders (clicked twice). Repeating ones and subscribed events are managed in the
+// Calendar panel's list.
 Item {
     id: agenda
-    required property var barHost
+    // The Calendar panel, which reads the reminders and events.
+    required property var calendar
     required property color foreground
     required property color accent
     required property date day
     signal closed()
-    readonly property var calendar: barHost.calendarMenu
     readonly property var items: calendar ? ReminderModel.dayItems(calendar.reminders || [], calendar.events || [], day) : []
     readonly property string helper: Eitr.Paths.code("walker/scripts/actions/tools/reminders.py")
     property string pendingKey: ""
     property string error: ""
     onDayChanged: { pendingKey = ""; error = ""; }
+    function focusInput() { timeField.forceActiveFocus(); }
 
     function add() {
         const time = timeField.text.trim(), text = titleField.text.trim();
@@ -53,7 +54,7 @@ Item {
             id: back
             width: 24; height: 24; icon: true; anchors.verticalCenter: parent.verticalCenter
             text: "󰅁"; foreground: agenda.foreground
-            Accessible.name: Eitr.I18n.tr("Back to the weather")
+            Accessible.name: Eitr.I18n.tr("Back")
             onClicked: agenda.closed()
         }
         Text {

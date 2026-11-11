@@ -77,7 +77,6 @@ Item {
         anchors.bottomMargin: (shown ? (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) : 0)
             + (barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0)
         anchors.horizontalCenter: parent.horizontalCenter
-        height: shown ? 24 : 0
         recording: obsMenuRef.obsState.recording || obsMenuRef.obsState.streaming
         recordingPaused: obsMenuRef.obsState.paused && !obsMenuRef.obsState.streaming
         streaming: obsMenuRef.obsState.streaming
@@ -85,6 +84,11 @@ Item {
         transcribing: verticalMiddle.host.transcribing
         dictationLevels: verticalMiddle.host.dictationLevels
         onRecordingClicked: barHost.togglePanel(recordingMenuRef)
+        activity: barHost.clockActivity
+        vertical: true
+        onMeetingClicked: calendarMenuRef.showDay(new Date())
+        onTimerClicked: barHost.showControlCenter("timer")
+        onBellClicked: barHost.showPanel(barHost.notificationCenter)
         // Stacked in the vertical bar's column, the dot is centred in every layout.
         centered: true
     }
@@ -104,6 +108,7 @@ Item {
     ClockButton {
         host: verticalMiddle.host
         id: verticalCalendarIcon
+        activity: barHost.clockActivity
         anchors.centerIn: parent
         // Drop keeps the time at the screen's centre while its pill grows to one side.
         anchors.verticalCenterOffset: barHost.dropLayout ? barHost.dropSurfaces.timeOffset : 0

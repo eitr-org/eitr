@@ -791,5 +791,7 @@
   "{service} · {url}": "{service} · {url}",
   "Look up lyrics on LRCLIB; sends each song's title, artist and album": "Buscar letras no LRCLIB; envia o título, o artista e o álbum de cada música",
   "Online lyrics": "Letras online",
-  "Show lyrics only when the player sends them": "Mostrar letras só quando o player as enviar"
+  "Show lyrics only when the player sends them": "Mostrar letras só quando o player as enviar",
+  "Timer & Focus": "Timer e Foco",
+  "Start a countdown, a stopwatch or focus sessions": "Inicie uma contagem regressiva, um cronômetro ou sessões de foco"
 }

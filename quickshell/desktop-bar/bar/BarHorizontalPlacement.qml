@@ -140,6 +140,7 @@ BarSection {
 
         notificationService: barHost.notificationsRef
         id: notificationIcon
+        swing: barHost.clockActivity.bellAngle
         onOpenRequested: barHost.togglePanel(barHost.notificationCenter)
         opacity: barHost.expanded ? 1 : 0
         enabled: barHost.expanded

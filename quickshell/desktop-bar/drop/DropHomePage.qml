@@ -110,10 +110,10 @@ Item {
         onVisibleChanged: if (!visible) reset()
     }
 
-    DropDayAgenda {
+    DayAgenda {
         visible: !!page.selectedDay && !page.weatherOpen
         x: weatherSide.x; width: weatherSide.width; height: parent.height
-        barHost: page.barHost; foreground: page.foreground; accent: page.accent
+        calendar: page.barHost.calendarMenu; foreground: page.foreground; accent: page.accent
         day: page.selectedDay || page.now
         onClosed: page.selectedDay = null
     }

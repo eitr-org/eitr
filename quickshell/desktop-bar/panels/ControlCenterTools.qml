@@ -8,6 +8,14 @@ Column {
     id: section
     required property var centerRef
     visible: section.centerRef.page === "tools"; width: parent.width; spacing: 12
+    // The same timer as Drop's dashboard; the clock's timer ring opens this fold.
+    ControlCenterFold { centerRef: section.centerRef;
+    title: section.centerRef.timerFold
+    FocusTimerControls {
+        width: parent.width; ringSize: 112
+        foreground: section.centerRef.foreground; accent: section.centerRef.accent; background: section.centerRef.background
+    }
+    }
     ControlCenterFold { centerRef: section.centerRef;
     title: Eitr.I18n.tr("Screenshots")
     GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
