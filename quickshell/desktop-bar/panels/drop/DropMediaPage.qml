@@ -37,7 +37,7 @@ Item {
     SpectrumConsumer {
         id: audio
         active: page.active && page.playing
-        bars: 24
+        bars: 32
         frameRate: 30
         smoothing: true
         onSpectrumChanged: ring.requestPaint()
@@ -57,7 +57,7 @@ Item {
             onPaint: {
                 const context = getContext("2d");
                 context.reset();
-                const centre = width / 2, glow = context.createRadialGradient(centre, centre, ring.radius - 14, centre, centre, ring.radius + 26);
+                const centre = width / 2, glow = context.createRadialGradient(centre, centre, ring.radius - 6, centre, centre, ring.radius + 44);
                 glow.addColorStop(0, Qt.alpha(tint, 0));
                 glow.addColorStop(0.35, Qt.alpha(tint, 0.35));
                 glow.addColorStop(1, Qt.alpha(tint, 0));
@@ -70,53 +70,35 @@ Item {
             id: ring
             anchors.centerIn: parent
             width: 268; height: 268
-            // Drawn on the GPU: it repaints with every audio frame.
-            renderTarget: Canvas.FramebufferObject
-            renderStrategy: Canvas.Cooperative
-            readonly property real radius: 74
-            // Two hair-thin rippling strands around the cover that sit together and part where
-            // the music swells, the outer one reaching further; the ripples drift slowly.
-            property real phase: 0
-            NumberAnimation on phase {
-                from: 0; to: Math.PI * 2; duration: 8000; loops: Animation.Infinite
-                running: page.active && page.playing && !DesktopStyle.reduceMotion
-            }
-            onPhaseChanged: if (!audio.active) requestPaint()
-            // The level around the circle at an angle (0..1 of a turn), blended smoothly
-            // between neighbouring bands and wrapping round.
-            function level(levels, turn) {
-                if (!levels.length) return 0;
-                const position = turn * levels.length, first = Math.floor(position) % levels.length;
-                const blend = (1 - Math.cos((position - Math.floor(position)) * Math.PI)) / 2;
-                return levels[first] * (1 - blend) + levels[(first + 1) % levels.length] * blend;
-            }
+            readonly property real radius: 72
+            readonly property int count: 64
+            // Rounded stubs set against the cover; neighbouring bars rise together in smooth
+            // clusters, at most about half the cover's radius.
+            readonly property real reach: 34
             onPaint: {
                 const context = getContext("2d");
                 context.reset();
-                const levels = audio.active ? audio.spectrum : [], centre = width / 2, steps = 180;
-                context.lineJoin = "round";
-                context.strokeStyle = Qt.lighter(page.accent, 1.6);
-                [{reach: 1, ripple: 0.8, speed: 1, width: 1.3}, {reach: 0.5, ripple: 0.6, speed: -1, width: 1}].forEach(strand => {
-                    context.lineWidth = strand.width;
+                const levels = audio.spectrum, centre = width / 2;
+                const raw = Array.from({length: count}, (unused, index) => audio.active && levels.length ? levels[Math.floor(index * levels.length / count)] : 0);
+                context.strokeStyle = page.accent;
+                context.lineCap = "round";
+                context.lineWidth = 4.5;
+                for (let index = 0; index < count; index++) {
+                    const level = (raw[(index + count - 1) % count] + 2 * raw[index] + raw[(index + 1) % count]) / 4;
+                    const angle = Math.PI / 2 + (index + 0.5) / count * Math.PI * 2;
+                    const inner = radius + 5, outer = inner + 3 + Math.min(1, level * 1.1) * reach;
                     context.beginPath();
-                    for (let step = 0; step <= steps; step++) {
-                        const turn = step / steps, angle = Math.PI / 2 + turn * Math.PI * 2;
-                        const swell = Math.pow(Math.min(1, level(levels, turn) * 1.2), 1.6) * 16 * strand.reach;
-                        const ripple = Math.sin(turn * Math.PI * 2 * 64 + phase * strand.speed * 4) * strand.ripple;
-                        const distance = radius + swell + ripple;
-                        const x = centre + Math.cos(angle) * distance, y = centre + Math.sin(angle) * distance;
-                        if (step === 0) context.moveTo(x, y); else context.lineTo(x, y);
-                    }
-                    context.closePath();
+                    context.moveTo(centre + Math.cos(angle) * inner, centre + Math.sin(angle) * inner);
+                    context.lineTo(centre + Math.cos(angle) * outer, centre + Math.sin(angle) * outer);
                     context.stroke();
-                });
+                }
             }
             Component.onCompleted: requestPaint()
         }
         ClippingRectangle {
             id: cover
             anchors.centerIn: parent
-            width: 2 * ring.radius - 10; height: width; radius: width / 2
+            width: 2 * ring.radius; height: width; radius: width / 2
             color: Qt.alpha(page.foreground, 0.08)
             Image {
                 id: art
