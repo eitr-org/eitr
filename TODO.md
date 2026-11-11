@@ -109,6 +109,9 @@ item says what decides the next step. Remove an item when it ships;
 
 # 2. To test with the owner
 
+- **Logout on NVIDIA.** The login screen crashed in the NVIDIA driver when SDDM started
+  it again after a logout (black screen). It now uses Qt's basic render loop
+  (`eitr-greeter.conf`, on stable 2026-11-11); log out once after updating to confirm.
 - **Wallpaper per display: the parts not tried yet.** The switch, preview, carousel and
   theme resets passed the owner's test (2026-11-10); still untried: plugging a display
   in and out, and each display's wallpaper coming back at login.
