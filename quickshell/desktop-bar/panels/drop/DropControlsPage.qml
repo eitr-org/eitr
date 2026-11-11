@@ -6,9 +6,10 @@ import Quickshell.Services.Pipewire
 import Quickshell.Bluetooth
 import "../../PanelStyle.js" as PanelStyle
 
-// Drop's quick controls: round buttons for WiFi, Bluetooth, Sound and Microphone, which open
-// in place (networks, devices and audio devices, with a back arrow and their own switch),
-// and toggles for Airplane, Silence, Night Light, Idle Lock and OBS recording; then the volume. They act
+// Drop's quick controls: wide buttons with a chevron for WiFi, Bluetooth, Sound and
+// Microphone, which open in place (networks, devices and audio devices, with a back arrow
+// and their own switch); round toggles for Airplane, Silence, Night Light, Idle Lock and
+// OBS recording; then the volume, microphone and, on laptops, brightness. They act
 // through the Control Center's controllers and observe network and radio state only while
 // this page shows.
 Column {
@@ -52,11 +53,10 @@ Column {
         id: toggle
         required property string label
         required property string glyph
-        property string detail: ""
         property bool on: false
         property bool available: true
         signal activated()
-        width: page.width / 5; height: 92
+        width: page.width / 5; height: 80
         opacity: available ? 1 : 0.45
         Rectangle {
             id: disc
@@ -82,13 +82,6 @@ Column {
             text: toggle.label
             color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.weight: Font.DemiBold
         }
-        Text {
-            y: name.y + name.height + 1; width: parent.width - 6; x: 3
-            horizontalAlignment: Text.AlignHCenter; elide: Text.ElideRight; textFormat: Text.PlainText
-            text: toggle.detail
-            color: page.foreground; opacity: PanelStyle.secondaryTextOpacity
-            font.family: DesktopFonts.family; font.pixelSize: 11
-        }
         MouseArea {
             id: mouse
             anchors.fill: disc
@@ -97,38 +90,78 @@ Column {
         }
     }
 
+    // One control that opens in place: a wide pill with its icon, name and a chevron,
+    // filled with the accent while it is on.
+    component Opener: Rectangle {
+        id: opener
+        required property string label
+        required property string glyph
+        required property string target
+        property bool on: false
+        property bool available: true
+        readonly property color ink: on ? PanelStyle.readableInk(page.accent, page.foreground, page.background) : page.foreground
+        width: (page.width - 8) / 2; height: 44; radius: height / 2
+        color: on ? Qt.alpha(page.accent, openerMouse.containsMouse ? 0.85 : 1) : Qt.alpha(page.foreground, openerMouse.containsMouse ? 0.14 : 0.08)
+        border.width: on ? 0 : 1
+        border.color: Qt.alpha(page.foreground, PanelStyle.selectionBorderAlpha)
+        opacity: available ? 1 : 0.45
+        scale: openerMouse.pressed ? 0.96 : 1
+        Behavior on color { ColorAnimation { duration: DesktopStyle.motionDuration(160) } }
+        Behavior on scale { NumberAnimation { duration: DesktopStyle.motionDuration(120) } }
+        Text {
+            id: openerGlyph
+            x: 16; anchors.verticalCenter: parent.verticalCenter
+            text: opener.glyph; color: opener.ink
+            font.family: DesktopFonts.family; font.pixelSize: 17
+        }
+        Text {
+            x: openerGlyph.x + 26; width: parent.width - x - 26; anchors.verticalCenter: parent.verticalCenter
+            text: opener.label; color: opener.ink; elide: Text.ElideRight
+            font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.weight: Font.DemiBold
+        }
+        Text {
+            anchors.right: parent.right; anchors.rightMargin: 14; anchors.verticalCenter: parent.verticalCenter
+            text: "󰅂"; color: opener.ink; opacity: 0.8
+            font.family: DesktopFonts.family; font.pixelSize: 14
+        }
+        MouseArea {
+            id: openerMouse
+            anchors.fill: parent
+            enabled: opener.available; hoverEnabled: true; cursorShape: Qt.PointingHandCursor
+            onClicked: page.opened = opener.target
+        }
+    }
+
+    Grid {
+        visible: page.opened === ""
+        width: parent.width
+        columns: 2; spacing: 8
+        Opener {
+            label: Eitr.I18n.tr("WiFi"); glyph: page.center.wifiGlyph; target: "wifi"
+            on: !!page.wifi.device && page.wifi.device.powered
+            available: !!page.wifi.device
+        }
+        Opener {
+            label: Eitr.I18n.tr("Bluetooth"); glyph: "󰂯"; target: "bluetooth"
+            on: !!page.bluetooth.adapter && page.bluetooth.adapter.enabled
+            available: !!page.bluetooth.adapter
+        }
+        Opener {
+            label: Eitr.I18n.tr("Sound"); target: "sound"
+            glyph: page.sink && page.sink.audio && page.sink.audio.muted ? "󰖁" : "󰕾"
+            on: !!page.sink && !!page.sink.audio && !page.sink.audio.muted
+        }
+        Opener {
+            label: Eitr.I18n.tr("Microphone"); target: "microphone"
+            glyph: page.source && page.source.audio && page.source.audio.muted ? "󰍭" : "󰍬"
+            on: !!page.source && !!page.source.audio && !page.source.audio.muted
+        }
+    }
     Grid {
         visible: page.opened === ""
         width: parent.width
         columns: 5
         rowSpacing: 4
-        Toggle {
-            label: Eitr.I18n.tr("WiFi"); glyph: page.center.wifiGlyph
-            detail: page.wifi.connected ? page.wifi.connected.name : page.wifi.device && page.wifi.device.powered ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off")
-            on: !!page.wifi.device && page.wifi.device.powered
-            available: !!page.wifi.device
-            onActivated: page.opened = "wifi"
-        }
-        Toggle {
-            readonly property var devices: page.center.bluetoothDevices
-            label: Eitr.I18n.tr("Bluetooth"); glyph: "󰂯"
-            detail: devices.length === 1 ? devices[0].name : devices.length > 1 ? Eitr.I18n.tr("{count} devices", {count: devices.length}) : on ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off")
-            on: !!page.bluetooth.adapter && page.bluetooth.adapter.enabled
-            available: !!page.bluetooth.adapter
-            onActivated: page.opened = "bluetooth"
-        }
-        Toggle {
-            label: Eitr.I18n.tr("Sound"); glyph: page.sink && page.sink.audio && page.sink.audio.muted ? "󰖁" : "󰕾"
-            detail: page.sink ? AudioDevices.label(page.sink) : ""
-            on: !!page.sink && !!page.sink.audio && !page.sink.audio.muted
-            onActivated: page.opened = "sound"
-        }
-        Toggle {
-            label: Eitr.I18n.tr("Microphone"); glyph: page.source && page.source.audio && page.source.audio.muted ? "󰍭" : "󰍬"
-            detail: page.source ? AudioDevices.label(page.source) : ""
-            on: !!page.source && !!page.source.audio && !page.source.audio.muted
-            onActivated: page.opened = "microphone"
-        }
         Toggle {
             label: Eitr.I18n.tr("Airplane"); glyph: "󰀝"
             on: !!page.airplane.enabled
@@ -142,7 +175,6 @@ Column {
         }
         Toggle {
             label: Eitr.I18n.tr("Night Light"); glyph: "󰖔"
-            detail: page.nightlight.mode === "auto" ? Eitr.I18n.tr("Scheduled") : ""
             on: page.nightlight.mode === "on" || !!page.nightlight.active
             available: !!page.nightlight.available
             onActivated: page.center.displayControl.setNightlight(page.nightlight.mode === "on" ? "off" : "on")
@@ -157,7 +189,6 @@ Column {
         Toggle {
             readonly property var obs: page.barHost.obsMenu
             label: Eitr.I18n.tr("Record"); glyph: on ? "󰻃" : "󰑊"
-            detail: obs.obsState.paused ? Eitr.I18n.tr("Paused") : on ? Eitr.I18n.tr("Recording") : ""
             on: !!obs.obsState.recording
             available: !obs.busy
             onActivated: obs.run(on ? "stop" : "record")
@@ -238,10 +269,24 @@ Column {
     }
 
     Rectangle { visible: page.opened === ""; x: 6; width: parent.width - 12; height: 1; color: Qt.alpha(page.foreground, 0.14) }
-    AudioLevelControl {
+    Column {
         visible: page.opened === ""
         x: 6; width: parent.width - 12
-        node: Pipewire.defaultAudioSink; showName: false; textSize: 12; iconSize: 16
-        foreground: page.foreground; background: page.background; accent: page.accent
+        spacing: 8
+        AudioLevelControl {
+            width: parent.width
+            node: page.sink; showName: false; textSize: 12; iconSize: 16
+            foreground: page.foreground; background: page.background; accent: page.accent
+        }
+        AudioLevelControl {
+            width: parent.width
+            node: page.source; microphone: true; showName: false; textSize: 12; iconSize: 16
+            foreground: page.foreground; background: page.background; accent: page.accent
+        }
+        BrightnessSlider {
+            width: parent.width
+            displayControl: page.center.displayControl
+            foreground: page.foreground; accent: page.accent
+        }
     }
 }

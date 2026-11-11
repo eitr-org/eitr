@@ -254,3 +254,4 @@ AboutLogoPreview components/AboutLogoPreview.qml
 SettingsTarget settings/SettingsTarget.qml
 SettingsWorkspacesCard 1.0 settings/SettingsWorkspacesCard.qml
 WifiNetworkRow 1.0 components/WifiNetworkRow.qml
+BrightnessSlider 1.0 components/BrightnessSlider.qml
