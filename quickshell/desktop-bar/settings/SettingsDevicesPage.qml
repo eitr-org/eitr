@@ -101,6 +101,11 @@ Flickable {
                 accent: view.accent
             }
         }
+        SettingsPointerCard {
+            visible: view.page === "input"
+            active: view.active && visible; live: view.live
+            foreground: view.foreground; background: view.background; accent: view.accent
+        }
         PanelButton {
             objectName: "settings-page-handbook"
             width: 160

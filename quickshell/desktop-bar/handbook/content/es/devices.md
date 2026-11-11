@@ -46,6 +46,10 @@ La configuración opcional de keyd en `distro/keyd/navigation.conf.example` hace
 
 Para restaurar esta preferencia tras reinstalar, instala el ejemplo como `/etc/keyd/navigation.conf` y activa `keyd.service`. Se aplica a todos los teclados, incluso fuera de Hyprland, y no está activado por defecto. Para deshacerlo, elimina la configuración y recarga keyd; desactiva el servicio si ningún otro mapeo lo usa. La elección de idioma y distribución sigue siendo independiente.
 
+## Ratón y panel táctil
+
+Abre Configuración > Entrada. Ratón y panel táctil ajusta la velocidad y la aceleración del puntero, el desplazamiento natural y los botones para zurdos; con un panel táctil conectado, también su desplazamiento natural, tocar para hacer clic e ignorar el panel táctil al escribir. Cada cambio se aplica al instante y se guarda en este equipo. Restablecer valores predeterminados vuelve a los valores de Eitr: velocidad media, aceleración activada, desplazamiento normal, botones para diestros, tocar para hacer clic activado y panel táctil ignorado al escribir.
+
 ## Energía y batería del portátil
 
 Los controles de batería y perfil de energía solo aparecen cuando existe una batería del sistema, no solo un ratón o auricular inalámbrico. Ahorro/Equilibrado/Rendimiento necesitan power-profiles-daemon; los perfiles sin soporte quedan deshabilitados. Las estimaciones y la salud de batería solo aparecen si el hardware las proporciona.

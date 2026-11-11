@@ -87,6 +87,10 @@ including outside Hyprland, and is not enabled by default. To undo it, remove
 that configuration and reload keyd; disable the service if no other mappings
 use it. Keyboard language/layout selection remains separate.
 
+## Mouse and touchpad
+
+Open Settings > Input. Mouse & Touchpad sets the pointer speed, pointer acceleration, natural scrolling and left-handed buttons; with a touchpad connected, also its own natural scrolling, tap to click and ignoring the touchpad while typing. Each change applies at once and is kept on this computer. Reset to defaults returns every setting to Eitr's defaults: medium speed, acceleration on, normal scrolling, right-handed buttons, tap to click on and the touchpad ignored while typing.
+
 ## Laptop power and battery
 
 Battery and power-profile controls appear only when a system battery exists,

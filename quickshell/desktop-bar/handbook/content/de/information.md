@@ -4,7 +4,7 @@ Benachrichtigungskarten zeigen unter dem Titel das lokale Eingangsdatum und die 
 
 ## Systeminformationen lesen
 
-Öffne Einstellungen > Über für Eitr-Version, Codename, Aktualisierungskanal, Kernel und Lizenz sowie Prozessor, Grafik, Mainboard, eingebauten Arbeitsspeicher und jedes angeschlossene Laufwerk mit seiner Kapazität. Die Systemübersicht zeigt dein Profil und die aktuelle Hardwareauslastung. Für Hardwaredetails, KI-Nutzung und Wetter klicke auf die Leistensymbole; Walker findet sie auch nach Namen.
+Öffne Einstellungen > Über für Eitr-Version, Codename, Aktualisierungskanal, Kernel und Lizenz sowie Prozessor, Grafik, Mainboard, eingebauten Arbeitsspeicher und jedes angeschlossene Laufwerk mit seiner Kapazität. Die Systemübersicht zeigt dein Profil, die aktuelle Hardwareauslastung und die Netzwerkgeschwindigkeit (Download und Upload). Für Hardwaredetails, KI-Nutzung und Wetter klicke auf die Leistensymbole; Walker findet sie auch nach Namen.
 
 **Hardware** zeigt CPU, GPU, RAM und den Speicher des Laufwerks, auf dem `/` liegt. Andere Laufwerke werden nicht in diese Summe einbezogen. Fehlende Sensor- oder GPU-Daten werden als nicht verfügbar gekennzeichnet.
 

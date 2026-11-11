@@ -115,6 +115,10 @@ def _validate_updates(result):
         raise ValueError("invalid-result")
 
 
+def _validate_throughput(result):
+    fields(result, {"download": nullable_number, "upload": nullable_number, "interfaces": (list,)})
+
+
 def _validate_account(result):
     if any(key not in result for key in ("path", "initial", "name")):
         raise ValueError("invalid-result")
@@ -148,6 +152,7 @@ _DEFINITIONS = (
     TopicDefinition("network.summary", "network", 10, None, _validate_network),
     TopicDefinition("network.details", "network", 2, None, _validate_network),
     TopicDefinition("network.latency", "network", 15, None, _validate_latency),
+    TopicDefinition("throughput.network", "throughput", 2, None, _validate_throughput),
     TopicDefinition("power.battery", "power", 30, None, _validate_power),
     TopicDefinition("power.profile", "power", 5, None, _validate_power),
     TopicDefinition("power.radios", "power", 5, None, _validate_power),

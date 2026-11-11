@@ -50,9 +50,6 @@ item says what decides the next step. Remove an item when it ships;
     `RemoteAccessContent`'s Tailscale branch remain in core. WireGuard and NetworkManager VPN
     stay on the owner's private test repository (local `vpn-plugins` branch) until they
     get bar icons and panels too.
-- **Mouse and touchpad settings.** The Settings app's Input page has only keyboard
-  layouts; pointer speed, natural scrolling, tap-to-click and acceleration have no page
-  (nor a Walker row). Decide with the owner before building.
 - **Lockscreens tab in the catalog (decided 2026-11-04).** A Lockscreens tab in
   Themes & Plugins, working like themes and plugins. Eitr and Theme Wallpaper are
   permanent (no trash icon). The other designs shipped today move to an official
@@ -69,8 +66,9 @@ item says what decides the next step. Remove an item when it ships;
   desktop-lockscreen-*`, staged by `install-login.py`). Per-user installs like themes
   could not reach it, so designs would likely become signed packages in Eitr's
   repository, installed and removed with one password prompt, for every account.
-- **Settings Overview leftovers.** Network throughput needs a shared data topic; each
-  theme's Overview illustration is still to be drawn (the wallpaper until then).
+- **Settings Overview illustration.** The Overview's banner shows the current wallpaper;
+  each theme was to ship its own drawn picture there. The owner decides whether to keep
+  the wallpaper.
 - **Git & Cloud for many companies** (Walker; Settings no longer has the page): group
   each company's cloud profiles and contexts with its Git identity and folder rules.
 - **Dynamic island, next.** Live activities in the clock island beyond the capture

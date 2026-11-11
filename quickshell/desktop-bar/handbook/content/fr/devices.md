@@ -48,6 +48,10 @@ La configuration keyd facultative dans `distro/keyd/navigation.conf.example` env
 
 Pour retrouver cette préférence après réinstallation, installez l’exemple dans `/etc/keyd/navigation.conf` et activez `keyd.service`. Il s’applique à tous les claviers, même hors de Hyprland, et n’est pas activé par défaut. Pour annuler, supprimez la configuration et rechargez keyd ; désactivez le service si aucune autre correspondance ne l’utilise. Le choix de langue et de disposition reste distinct.
 
+## Souris et pavé tactile
+
+Ouvrez Paramètres > Saisie. Souris et pavé tactile règle la vitesse et l’accélération du pointeur, le défilement naturel et les boutons pour gaucher ; avec un pavé tactile connecté, aussi son défilement naturel, le toucher pour cliquer et l’ignorance du pavé pendant la frappe. Chaque changement s’applique aussitôt et reste sur cet ordinateur. Rétablir les valeurs par défaut revient aux réglages d’Eitr : vitesse moyenne, accélération activée, défilement normal, boutons pour droitier, toucher pour cliquer activé et pavé ignoré pendant la frappe.
+
 ## Alimentation et batterie des portables
 
 Les commandes de batterie et de profil énergétique n’apparaissent qu’en présence d’une batterie système, pas simplement d’une souris ou d’un casque sans fil. Économie/Équilibré/Performances nécessitent power-profiles-daemon ; les profils non pris en charge restent indisponibles. Les estimations et l’état de santé ne s’affichent que si le matériel les fournit.

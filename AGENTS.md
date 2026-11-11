@@ -180,7 +180,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   `elephant/choice-entries.lua` for small fixed choices.
 - The bar's data has one owner per kind. `quickshell/desktop-bar/services/DesktopData.qml` starts
   one `scripts/bar-data.py` for every screen and talks to it in JSON lines; its domains
-  (network, capture, power, display, hardware, remote, weather, AI usage, updates, audio ports) own
+  (network, capture, power, display, hardware, remote, weather, AI usage, updates, audio ports, network throughput) own
   the reads and actions, and panels only display state and send requests. Add new bar
   data as a domain there, not as a `Process` or timer in a panel. Domains load lazily
   inside the bounded thread pool, every read and command has a deadline, nothing reads

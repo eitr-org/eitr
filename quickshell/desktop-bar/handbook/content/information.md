@@ -5,7 +5,7 @@ in both popups and notification history. Times are kept only for this session.
 
 ## Read system information
 
-Open Settings > About for the Eitr version, codename, update channel, kernel and licence, and this PC's processor, graphics, motherboard, installed memory and every connected drive with its capacity. The System overview shows your profile and current hardware usage. For detailed hardware, AI Usage and weather, click their bar icons; Walker also finds them by name.
+Open Settings > About for the Eitr version, codename, update channel, kernel and licence, and this PC's processor, graphics, motherboard, installed memory and every connected drive with its capacity. The System overview shows your profile, current hardware usage and network speed (download and upload). For detailed hardware, AI Usage and weather, click their bar icons; Walker also finds them by name.
 
 In Settings > About, choose Emblem or Runes under About logo to change the terminal About page. The choice stays on this machine and defaults to Emblem; both follow the current theme accent.
 

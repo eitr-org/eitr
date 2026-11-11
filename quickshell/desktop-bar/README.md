@@ -1068,6 +1068,14 @@ known to be connected, and Bluetooth cards are left out (their other profile is 
 call mode). Renames of monitor audio are keyed by the monitor's name, since a graphics
 card's ports can trade places.
 
+Network throughput
+------------------
+
+`throughput.network` (`scripts/throughput-domain.py`) turns the byte counters of the
+physical network adapters in `/sys/class/net` into download and upload speeds, from the
+difference since its previous read; it is read every 2 seconds only while Settings >
+Overview observes it, and the first read after a pause reports no speed.
+
 All domain adapters load lazily on demand inside the bounded worker pool, under
 the read deadline. Each domain can occupy at most two of the three pool
 workers, so one slow domain cannot fill the pool with sibling topics. A failed or slow import marks only that topic unavailable;

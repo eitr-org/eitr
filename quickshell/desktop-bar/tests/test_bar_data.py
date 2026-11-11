@@ -1566,7 +1566,7 @@ class DomainResultContractTests(unittest.IsolatedAsyncioTestCase):
         fixtures = self.fixtures()
         self.assertEqual(set(fixtures), set(broker_module.INTERVALS))
         invalid_fields = {'network.summary': ('devices', None), 'network.details': ('devices', {}),
-            'network.latency': ('ping', 'unknown'), 'capture.summary': ('ready', 1),
+            'network.latency': ('ping', 'unknown'), 'throughput.network': ('download', 'fast'), 'capture.summary': ('ready', 1),
             'capture.details': ('recording', None), 'capture.options': ('mic', []),
             'power.battery': ('percent', '50'), 'power.profile': ('profiles', {}),
             'power.radios': ('enabled', 0), 'display.topology': ('monitors', {}),

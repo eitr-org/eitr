@@ -4,7 +4,7 @@ Os cartões de notificação mostram a data e a hora locais de chegada abaixo do
 
 ## Consultar informações do sistema
 
-Abra Configurações > Sobre para ver versão do Eitr, codinome, canal, kernel e licença, além do processador, da placa de vídeo, da placa-mãe, da memória instalada e de cada unidade conectada com sua capacidade. A visão Sistema mostra seu perfil e o uso atual do hardware. Para detalhes de hardware, Uso de IA e clima, clique nos ícones da barra; o Walker também os encontra pelo nome.
+Abra Configurações > Sobre para ver versão do Eitr, codinome, canal, kernel e licença, além do processador, da placa de vídeo, da placa-mãe, da memória instalada e de cada unidade conectada com sua capacidade. A visão Sistema mostra seu perfil, o uso atual do hardware e a velocidade da rede (download e upload). Para detalhes de hardware, Uso de IA e clima, clique nos ícones da barra; o Walker também os encontra pelo nome.
 
 **Hardware** mostra CPU, GPU, RAM e armazenamento da unidade que contém `/`; outros discos não entram nesse total. Dados de sensores ou GPU ausentes aparecem como indisponíveis.
 

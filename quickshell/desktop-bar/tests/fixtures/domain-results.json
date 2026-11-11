@@ -187,6 +187,21 @@
       "loss": 0.0
     }
   ],
+  "throughput.network": [
+    {
+      "download": null,
+      "upload": null,
+      "interfaces": []
+    },
+    {
+      "download": 1315.37,
+      "upload": 2336255.8,
+      "interfaces": [
+        "enp5s0",
+        "wlan0"
+      ]
+    }
+  ],
   "capture.summary": [
     {
       "running": false,

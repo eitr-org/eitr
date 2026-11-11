@@ -216,7 +216,7 @@ ShellRoot {
     content.grabToImage(result => { if (!result.saveToFile("TARGET")) throw new Error("capture"); });
    } else if (phase === 2) {
     overview.observing = true;
-    if (Bar.DesktopData.owners.length !== 2) throw new Error("visible subscriptions");
+    if (Bar.DesktopData.owners.length !== 3) throw new Error("visible subscriptions");
     overview.observing = false;
     if (Bar.DesktopData.owners.length) throw new Error("hidden subscriptions");
     window.show("network/bluetooth");

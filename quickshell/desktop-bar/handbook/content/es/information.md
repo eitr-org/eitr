@@ -4,7 +4,7 @@ Las tarjetas de notificación muestran la fecha y hora locales de llegada bajo e
 
 ## Consultar información del sistema
 
-Abre Configuración > Acerca de para ver versión de Eitr, nombre en clave, canal, núcleo y licencia, además del procesador, la gráfica, la placa base, la memoria instalada y cada unidad conectada con su capacidad. La vista Sistema muestra tu perfil y el uso actual del hardware. Para detalles del hardware, Uso de IA y Tiempo, pulsa sus iconos de la barra; Walker también los encuentra por nombre.
+Abre Configuración > Acerca de para ver versión de Eitr, nombre en clave, canal, núcleo y licencia, además del procesador, la gráfica, la placa base, la memoria instalada y cada unidad conectada con su capacidad. La vista Sistema muestra tu perfil, el uso actual del hardware y la velocidad de red (descarga y subida). Para detalles del hardware, Uso de IA y Tiempo, pulsa sus iconos de la barra; Walker también los encuentra por nombre.
 
 **Hardware** muestra CPU, GPU, RAM y almacenamiento de la unidad que contiene `/`; otros discos no se suman al total. Los datos de sensores o GPU que faltan aparecen como no disponibles.
 

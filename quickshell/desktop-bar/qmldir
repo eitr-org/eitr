@@ -180,6 +180,7 @@ SettingsInputPage settings/SettingsInputPage.qml
 SettingsStyleState settings/SettingsStyleState.qml
 SettingsNotificationState settings/SettingsNotificationState.qml
 ToggleRow components/ToggleRow.qml
+SettingsPointerCard components/SettingsPointerCard.qml
 SettingsSystemHost settings/SettingsSystemHost.qml
 singleton SettingsInk settings/SettingsInk.qml
 ControlCard components/ControlCard.qml

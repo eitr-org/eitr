@@ -46,6 +46,10 @@ A configuração opcional do keyd em `distro/keyd/navigation.conf.example` faz u
 
 Para restaurar essa preferência após reinstalar, instale o exemplo como `/etc/keyd/navigation.conf` e ative `keyd.service`. Ele se aplica a todos os teclados, inclusive fora do Hyprland, e não é ativado por padrão. Para desfazer, remova a configuração e recarregue o keyd; desative o serviço se nenhum outro mapeamento o usar. A escolha do idioma e do layout continua separada.
 
+## Mouse e touchpad
+
+Abra Configurações > Entrada. Mouse e touchpad ajusta a velocidade e a aceleração do ponteiro, a rolagem natural e os botões para canhotos; com um touchpad conectado, também a rolagem natural dele, tocar para clicar e ignorar o touchpad ao digitar. Cada mudança vale na hora e fica neste computador. Restaurar padrões volta às configurações do Eitr: velocidade média, aceleração ligada, rolagem normal, botões para destros, tocar para clicar ligado e touchpad ignorado ao digitar.
+
 ## Energia e bateria de notebooks
 
 Os controles de bateria e perfil de energia aparecem apenas quando há uma bateria do sistema, não apenas um fone ou mouse sem fio. Economia/Equilibrado/Desempenho exigem power-profiles-daemon; perfis sem suporte ficam indisponíveis. Estimativas e saúde da bateria só aparecem quando o hardware fornece esses dados.

@@ -46,6 +46,10 @@ Die optionale keyd-Konfiguration `distro/keyd/navigation.conf.example` sendet be
 
 Installiere das Beispiel nach einer Neuinstallation als `/etc/keyd/navigation.conf` und aktiviere `keyd.service`, um diese Einstellung wiederherzustellen. Sie gilt für alle Tastaturen, auch außerhalb von Hyprland, und ist standardmäßig nicht aktiv. Zum Rückgängigmachen entferne die Konfiguration und lade keyd neu; deaktiviere den Dienst, wenn keine weiteren Zuordnungen ihn benötigen. Sprache und Belegung werden weiterhin separat gewählt.
 
+## Maus und Touchpad
+
+Öffne Einstellungen > Eingabe. Maus & Touchpad stellt Zeigergeschwindigkeit, Zeigerbeschleunigung, natürliches Scrollen und Tasten für Linkshänder ein; mit angeschlossenem Touchpad auch dessen natürliches Scrollen, Tippen zum Klicken und das Ignorieren des Touchpads beim Tippen. Jede Änderung gilt sofort und bleibt auf diesem Computer. Auf Standard zurücksetzen stellt alle Werte auf die Eitr-Standards zurück: mittlere Geschwindigkeit, Beschleunigung an, normales Scrollen, Tasten für Rechtshänder, Tippen zum Klicken an und Touchpad beim Tippen ignoriert.
+
 ## Laptop-Energie und Akku
 
 Akku- und Energieprofilsteuerung erscheinen nur bei einem Systemakku, nicht allein wegen einer kabellosen Maus oder eines Headsets. Energiesparen/Ausgeglichen/Leistung erfordern power-profiles-daemon; nicht unterstützte Profile bleiben deaktiviert. Schätzwerte und Akkuzustand erscheinen nur, wenn die Hardware sie liefert.

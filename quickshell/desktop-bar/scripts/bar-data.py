@@ -177,8 +177,8 @@ class Broker:
         self.capture = CaptureController(self)
         self.domains = {}
         self.domain_jobs = {}
-        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics", "audio")}
-        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics", "audio")}
+        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics", "audio", "throughput")}
+        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics", "audio", "throughput")}
         self.read_slots["weather"] = asyncio.Semaphore(1)
         self.ai_cooldowns = {}
         self.queries = {}

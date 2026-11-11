@@ -19,6 +19,15 @@ Flickable {
     signal pageRequested(string page)
     property var hardware: DesktopData.topics["hardware.details"] || ({})
     property var account: (DesktopData.topics["account.picture"] || {}).data || ({})
+    // Download and upload speed across the network adapters, in bytes per second (null until the second read).
+    readonly property var traffic: (DesktopData.topics["throughput.network"] || {}).data || ({})
+    function speed(bytes) {
+        if (typeof bytes !== "number") return "—";
+        const units = [Eitr.I18n.tr("%1 B/s"), Eitr.I18n.tr("%1 KB/s"), Eitr.I18n.tr("%1 MB/s"), Eitr.I18n.tr("%1 GB/s")];
+        let unit = 0;
+        while (bytes >= 1000 && unit < units.length - 1) { bytes /= 1000; unit++; }
+        return units[unit].arg(bytes >= 100 || unit === 0 ? Math.round(bytes) : bytes.toFixed(1));
+    }
     property var themePalette: ({})
     property string version: ""
     property bool sourceRelease: false
@@ -37,7 +46,8 @@ Flickable {
         DesktopData.releaseOwner(overview);
         tokens = [];
         if (!observing) { paletteReload.stop(); return; }
-        tokens = [DesktopData.observe("hardware.details", overview), DesktopData.observe("account.picture", overview)];
+        tokens = [DesktopData.observe("hardware.details", overview), DesktopData.observe("account.picture", overview),
+                  DesktopData.observe("throughput.network", overview)];
         if (live) {
             uptime.reload(); release.reload(); appearance.reload(); font.reload();
             lockscreenQuery.running = true; installQuery.running = true;
@@ -199,7 +209,7 @@ Flickable {
                     id: metric
                     required property string modelData
                     readonly property var section: overview.sections.find(entry => entry.title === modelData) || ({})
-                    width: (dashboard.width - 28) / 3; height: 116
+                    width: (dashboard.width - 42) / 4; height: 116
                     radius: DesktopStyle.radius(10)
                     color: Qt.alpha(overview.foreground, 0.04)
                     border.width: 1; border.color: Qt.alpha(overview.foreground, PanelStyle.dividerAlpha)
@@ -209,6 +219,19 @@ Flickable {
                         Text { text: typeof metric.section.usage === "number" ? Math.round(metric.section.usage) + "%" : "—"; color: overview.foreground; font.family: DesktopFonts.family; font.pixelSize: 30; font.features: PanelStyle.tabularFigures }
                         Caption { width: parent.width; text: metric.section.name || overview.unavailable; maximumLineCount: 1; elide: Text.ElideRight }
                     }
+                }
+            }
+            // The fourth card: download speed large, upload below it.
+            Rectangle {
+                width: (dashboard.width - 42) / 4; height: 116
+                radius: DesktopStyle.radius(10)
+                color: Qt.alpha(overview.foreground, 0.04)
+                border.width: 1; border.color: Qt.alpha(overview.foreground, PanelStyle.dividerAlpha)
+                Column {
+                    anchors.fill: parent; anchors.margins: 14; spacing: 8
+                    Caption { text: Eitr.I18n.tr("Network") }
+                    Text { width: parent.width; text: "↓ " + overview.speed(overview.traffic.download); color: overview.foreground; font.family: DesktopFonts.family; font.pixelSize: 22; font.features: PanelStyle.tabularFigures; elide: Text.ElideRight }
+                    Caption { width: parent.width; text: "↑ " + overview.speed(overview.traffic.upload); maximumLineCount: 1; elide: Text.ElideRight }
                 }
             }
         }

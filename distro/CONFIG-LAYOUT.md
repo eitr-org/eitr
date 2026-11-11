@@ -69,7 +69,7 @@ document.
 | `hypr/cursor-env.conf` | G | User config; generators never write the shipped tree |
 | `eitr/window-layout.lua` | G | Generated from local `eitr/style.json` layout and scrolling preferences; loaded by Hyprland |
 | `eitr/window-gaps.lua` | G | Generated from the local `eitr/style.json` gap preference on selection and theme regeneration; loaded by Hyprland |
-| `hypr/{local.lua,keyboard-layouts.lua,primary-display,preferred-outputs}` | P | User config; `local.lua` still runs last and guarded |
+| `hypr/{local.lua,keyboard-layouts.lua,pointer.lua,primary-display,preferred-outputs}` | P | User config; `local.lua` still runs last and guarded |
 | `themes/<id>/` palettes, artwork, app theme definitions | D | `/usr/share/eitr/themes/<id>`; menus, generators, Neovim |
 | `theme/current/` | G | User config; the selection itself is a versioned preference |
 | `kitty/kitty.conf` | C baseline | `/usr/share/eitr/kitty/kitty.conf`, included by a tiny user file |
@@ -102,7 +102,7 @@ logged.
 | `eitr/git-accounts/cli/**`, `~/.ssh/eitr-*` | Private account data | Provider CLI tokens and SSH keys; never packaged or backed up by Git Accounts |
 | `lockscreen/selected` | P | Lockscreen settings, launcher and SDDM selection |
 | Data `eitr/{wallpapers,themes,lockscreens}/**` | User data | The user's own items (`eitr_own_style.py`); never packaged, adopted, regenerated or overwritten |
-| `hypr/{primary-display,preferred-outputs,local.lua,keyboard-layouts.lua}` | P | Display helper, bar, Hyprland |
+| `hypr/{primary-display,preferred-outputs,local.lua,keyboard-layouts.lua,pointer.lua}` | P | Display helper, bar, Hyprland |
 | `theme/current/**`, `walker/themes/current/**`, `kitty/{theme,fonts,cursor-fire}.conf`, `swayosd/style.css` | G | Theme switch and generators |
 | `btop/themes/current.theme` plus three owned `btop.conf` keys | G/P | `btop.sh`; other btop settings untouched |
 | `gtk-{3,4}.0/settings.ini`, `qt{5,6}ct/*.conf`, `Kvantum/*#`, `kdeglobals` | G/P | System, font and cursor generators |

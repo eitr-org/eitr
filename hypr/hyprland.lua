@@ -255,9 +255,25 @@ if not keyboard_ok or type(keyboard_layouts) ~= "table" then
 	keyboard_layouts = { layout = "us,us", variant = ",intl" }
 end
 
+-- Mouse and touchpad choices from Settings > Input; a missing file keeps these defaults.
+local pointer_ok, pointer = pcall(dofile, os.getenv("HOME") .. "/.config/hypr/pointer.lua")
+if not pointer_ok or type(pointer) ~= "table" then
+	pointer = {}
+end
+local function pointer_setting(name, default)
+	local value = pointer[name]
+	if type(value) == type(default) then
+		return value
+	end
+	return default
+end
+
 hl.config({
 	input = {
-		sensitivity = 0,
+		sensitivity = math.max(-1, math.min(1, pointer_setting("sensitivity", 0))),
+		accel_profile = pointer_setting("acceleration", true) and "" or "flat",
+		natural_scroll = pointer_setting("natural_scroll", false),
+		left_handed = pointer_setting("left_handed", false),
 		follow_mouse = 1,
 		kb_model = "",
 		kb_rules = "",
@@ -265,7 +281,9 @@ hl.config({
 		kb_variant = keyboard_layouts.variant,
 		kb_options = "grp:alt_shift_toggle",
 		touchpad = {
-			natural_scroll = false,
+			natural_scroll = pointer_setting("touchpad_natural_scroll", false),
+			tap_to_click = pointer_setting("tap_to_click", true),
+			disable_while_typing = pointer_setting("disable_while_typing", true),
 		},
 	},
 })

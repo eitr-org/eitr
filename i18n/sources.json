@@ -1,6 +1,18 @@
 {
   "qml": {
+    "%1 B/s": [
+      "quickshell/desktop-bar/settings/SettingsOverview.qml"
+    ],
+    "%1 GB/s": [
+      "quickshell/desktop-bar/settings/SettingsOverview.qml"
+    ],
     "%1 Hz": [
+      "quickshell/desktop-bar/settings/SettingsOverview.qml"
+    ],
+    "%1 KB/s": [
+      "quickshell/desktop-bar/settings/SettingsOverview.qml"
+    ],
+    "%1 MB/s": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "%1 cores · %2 threads": [
@@ -27,8 +39,14 @@
     "1 theme": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "A light tap on the touchpad clicks.": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml"
+    ],
     "A lone column fills the screen.": [
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
+    "A palm resting on the touchpad does not move the pointer while you type.": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml"
     ],
     "A panel behind the widget, or nothing.": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
@@ -1010,6 +1028,9 @@
     "FIDO2 Security Key": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Fast movements carry the pointer further. Off moves it the same distance at any speed.": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml"
+    ],
     "File manager": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -1152,6 +1173,9 @@
     "Hide the bar; press SUPER + Shift + Space to restore it.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "How far the pointer moves for the same hand movement.": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml"
+    ],
     "INPUT DEVICE": [
       "quickshell/desktop-bar/drop/DropAudioDetail.qml"
     ],
@@ -1174,6 +1198,10 @@
     ],
     "Idle Lock: On": [
       "quickshell/desktop-bar/shell.qml"
+    ],
+    "Ignore the touchpad while typing": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Image viewer": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -1328,6 +1356,10 @@
     "Left of": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
+    "Left-handed buttons": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Let assistants work together": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -1462,6 +1494,9 @@
     "More to read": [
       "quickshell/desktop-bar/welcome/WelcomeMore.qml"
     ],
+    "Mouse & Touchpad": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml"
+    ],
     "Move down": [
       "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
     ],
@@ -1489,6 +1524,13 @@
     ],
     "Name": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
+    ],
+    "Natural scrolling": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Network": [
+      "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "Network Settings…": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -1943,6 +1985,14 @@
     "Plugins shared by other people. Review them before installing.": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Pointer acceleration": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Pointer speed": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Position": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
@@ -2157,6 +2207,10 @@
     ],
     "Reset": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
+    ],
+    "Reset to defaults": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Resets in {days}d {hours}h": [
       "quickshell/desktop-bar/drop/DropAiPage.qml"
@@ -2642,6 +2696,9 @@
     "Swap": [
       "quickshell/desktop-bar/drop/DropPerformancePage.qml"
     ],
+    "Swap the left and right mouse buttons.": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml"
+    ],
     "Switch": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
@@ -2673,6 +2730,10 @@
     ],
     "Tabs": [
       "tools/choice-lists.json"
+    ],
+    "Tap to click": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Terminal": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
@@ -2707,6 +2768,9 @@
     ],
     "The main display holds the bar, panels and notifications. Position only sets where a screen sits next to the others.": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "The mouse wheel moves the content, like a touchscreen.": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml"
     ],
     "The new password was not accepted: {reason}": [
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
@@ -2817,6 +2881,9 @@
     "Total download: %1": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Touchpad": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml"
+    ],
     "Transcode": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -2846,6 +2913,9 @@
     ],
     "Turned right": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Two fingers move the content, like a touchscreen.": [
+      "quickshell/desktop-bar/components/SettingsPointerCard.qml"
     ],
     "Two thirds": [
       "tools/choice-lists.json"
