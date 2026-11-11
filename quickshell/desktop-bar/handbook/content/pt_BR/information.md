@@ -31,6 +31,6 @@ Clique no equalizador animado para ver capa, título e artista, controlar anteri
 
 As notificações têm um brilho interno suave na cor de destaque do tema. As críticas usam o vermelho do tema; as de baixa prioridade ficam discretas, sem brilho. Não perturbe oculta os popups sem apagar o histórico. O histórico permanece na memória durante recargas da configuração, mas não ao reiniciar o processo. O conteúdo das notificações não é salvo em logs.
 
-Clicar em uma notificação executa a ação principal dela. Uma sem ação abre o app que a enviou: a janela dele ou, no herdr, o terminal com o herdr no espaço de trabalho que a notificação cita. Cada cartão mostra o ícone próprio do app quando existe; senão, o sino.
+Clicar em uma notificação executa a ação principal dela. Uma sem ação abre o app que a enviou: a janela dele ou, no herdr, o terminal com o herdr no espaço de trabalho e na aba que a notificação cita. Cada cartão mostra o ícone próprio do app quando existe; senão, o sino.
 
 Use Configurações > Notificações para Não perturbe e Notificações de falhas.

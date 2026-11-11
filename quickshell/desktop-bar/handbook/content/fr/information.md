@@ -31,6 +31,6 @@ Le survol suspend leur expiration. **SUPER + Alt + N** lance l’action principa
 
 Les notifications ont une douce lueur intérieure dans la couleur d’accent du thème. Les critiques utilisent plutôt son rouge ; celles de faible priorité restent discrètes, sans lueur. Ne pas déranger masque les popups sans supprimer l’historique. Celui-ci reste en mémoire lors des rechargements de configuration, mais pas après le redémarrage du processus. Aucun contenu de notification n’est enregistré dans un journal.
 
-Un clic sur une notification lance son action principale. Une notification sans action ouvre l’application qui l’a envoyée : sa fenêtre, ou pour herdr le terminal qui l’exécute, sur l’espace de travail indiqué par la notification. Chaque carte affiche l’icône de l’application quand elle en a une, sinon la cloche.
+Un clic sur une notification lance son action principale. Une notification sans action ouvre l’application qui l’a envoyée : sa fenêtre, ou pour herdr le terminal qui l’exécute, sur l’espace de travail et l’onglet indiqués par la notification. Chaque carte affiche l’icône de l’application quand elle en a une, sinon la cloche.
 
 Utilisez Paramètres > Notifications pour Ne pas déranger et Notifications de plantage.

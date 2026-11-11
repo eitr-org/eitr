@@ -51,5 +51,6 @@ assert.equal(logic.appIconSource({appName: 'Unknown', appIcon: ''}, '', '/logos'
 // Herdr's wording is tidied; everyone else's text is left alone.
 assert.equal(JSON.stringify(logic.presentation({appName: 'Herdr', summary: 'claude finished', body: 'Personal · 2'})), JSON.stringify({summary: 'Claude finished', body: 'Personal'}));
 assert.equal(JSON.stringify(logic.presentation({appName: 'Herdr', summary: 'opencode needs you', body: 'Doola · 12'})), JSON.stringify({summary: 'OpenCode needs you', body: 'Doola'}));
+assert.equal(JSON.stringify(logic.presentation({appName: 'Herdr', summary: 'claude finished', body: 'Doola · 1 · Automations'})), JSON.stringify({summary: 'Claude finished', body: 'Doola · Automations'}));
 assert.equal(JSON.stringify(logic.presentation({appName: 'Slack', summary: 'claude finished', body: 'Personal · 2'})), JSON.stringify({summary: 'claude finished', body: 'Personal · 2'}));
 console.log('Notification policy checks passed');

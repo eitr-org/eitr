@@ -3,7 +3,7 @@
 click action is clicked. Focuses the window of the process that sent it, or else a
 window whose class matches the app or its desktop entry. Herdr notifications come from
 its background server, so they focus the terminal running a herdr client and switch
-herdr to the workspace named in the notification."""
+herdr to the workspace and tab the notification names ("Doola · 1 · Automations")."""
 import argparse
 import json
 from pathlib import Path
@@ -61,13 +61,19 @@ def herdr_clients(proc=Path("/proc")):
     return found
 
 
-def herdr_workspace(label, listing):
-    """The id of the herdr workspace with this label, from `herdr workspace list`."""
+def herdr_find(listing, kind, label):
+    """The id of the herdr workspace or tab with this label, from its `list` output."""
     try:
-        workspaces = json.loads(listing)["result"]["workspaces"]
+        entries = json.loads(listing)["result"][kind + "s"]
     except (ValueError, KeyError, TypeError):
         return ""
-    return next((workspace["workspace_id"] for workspace in workspaces if workspace.get("label") == label), "")
+    return next((entry.get(kind + "_id", "") for entry in entries if entry.get("label") == label), "")
+
+
+def herdr_names(body):
+    """The workspace and tab names in a herdr notification body, without its numbers."""
+    names = [part.strip() for part in body.split(" · ") if part.strip() and not part.strip().isdigit()]
+    return (names + ["", ""])[:2]
 
 
 def focus(window):
@@ -90,10 +96,13 @@ def main(argv=None):
     window = None
     if options.app.lower() == "herdr":
         herdr = shutil.which("herdr")
-        label = options.body.split(" · ")[0].strip()
-        workspace = herdr_workspace(label, run([herdr, "workspace", "list"])) if herdr and label else ""
+        label, tab_label = herdr_names(options.body)
+        workspace = herdr_find(run([herdr, "workspace", "list"]), "workspace", label) if herdr and label else ""
         if workspace:
             run([herdr, "workspace", "focus", workspace])
+            tab = herdr_find(run([herdr, "tab", "list", "--workspace", workspace]), "tab", tab_label) if tab_label else ""
+            if tab:
+                run([herdr, "tab", "focus", tab])
         window = next(filter(None, (window_of(pid, windows) for pid in herdr_clients())), None)
     if window is None and options.pid > 0:
         window = window_of(options.pid, windows)

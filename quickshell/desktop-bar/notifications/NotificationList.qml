@@ -11,6 +11,8 @@ Item {
     required property color background
     required property color accent
     signal activated()
+    // The height that shows every group without scrolling.
+    readonly property real contentHeight: header.height + 26 + groups.implicitHeight
     property var expandedApps: ({})
     function toggleGroup(name) {
         var updated = Object.assign({}, expandedApps);

@@ -146,7 +146,10 @@ ThemedPopup {
             NotificationList {
                 id: notifications
                 x: viewport.place("notifications"); visible: viewport.shown("notifications")
-                width: viewport.width; height: service.count === 0 ? 150 : 380; implicitHeight: height
+                // Grows with its notifications up to most of the screen, then scrolls.
+                width: viewport.width; implicitHeight: height
+                height: service.count === 0 ? 150 : Math.min(contentHeight, Math.max(380, dashboard.barHost.screen.height * 0.7))
+                Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
                 service: dashboard.barHost.notificationsRef
                 foreground: dashboard.foreground; background: dashboard.background; accent: dashboard.accent
                 onActivated: dashboard.opened = false

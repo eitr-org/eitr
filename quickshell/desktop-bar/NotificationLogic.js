@@ -62,8 +62,9 @@ function appIconSource(notification, entryIcon, logoRoot) {
     return shippedLogos.indexOf(name) !== -1 && logoRoot ? "file://" + logoRoot + "/" + name + ".png" : "";
 }
 
-// Herdr names agents in lower case and adds its workspace number to the workspace name
-// ("claude finished", "Personal · 2"): show "Claude finished" over "Personal".
+// Herdr names agents in lower case and adds its workspace number after the workspace
+// name ("claude finished", "Doola · 1 · Automations"): show "Claude finished" over
+// "Doola · Automations" (workspace, then the tab when it has a name).
 var agentNames = {claude: "Claude", codex: "Codex", gemini: "Gemini", grok: "Grok", copilot: "Copilot",
     opencode: "OpenCode", pi: "Pi", agy: "Antigravity", cursor: "Cursor"};
 function presentation(notification) {
@@ -71,7 +72,7 @@ function presentation(notification) {
     var summary = notification.summary || "", body = notification.body || "";
     if (/^herdr$/i.test(notification.appName || "")) {
         summary = summary.replace(/^(\S+)/, word => agentNames[word.toLowerCase()] || word.charAt(0).toUpperCase() + word.slice(1));
-        body = body.replace(/\s+·\s+\d+$/, "");
+        body = body.split(" · ").filter(part => !/^\d+$/.test(part.trim())).join(" · ");
     }
     return {summary: summary, body: body};
 }

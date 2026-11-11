@@ -49,11 +49,18 @@ class NotificationOpenTests(unittest.TestCase):
         self.process(30, 1, ['/usr/bin/kitty', '-e', '/home/user/.local/bin/herdr'])
         self.assertEqual(self.module.herdr_clients(self.proc), [20])
 
-    def test_herdr_workspace_by_label(self):
-        listing = json.dumps({'result': {'workspaces': [{'label': 'Doola', 'workspace_id': 'w3'}, {'label': 'Personal', 'workspace_id': 'w4'}]}})
-        self.assertEqual(self.module.herdr_workspace('Personal', listing), 'w4')
-        self.assertEqual(self.module.herdr_workspace('Missing', listing), '')
-        self.assertEqual(self.module.herdr_workspace('Personal', 'not json'), '')
+    def test_herdr_workspace_and_tab_by_label(self):
+        workspaces = json.dumps({'result': {'workspaces': [{'label': 'Doola', 'workspace_id': 'w3'}, {'label': 'Personal', 'workspace_id': 'w4'}]}})
+        tabs = json.dumps({'result': {'tabs': [{'label': 'Automations', 'tab_id': 'w3:t1'}, {'label': 'Reviewer', 'tab_id': 'w3:t3'}]}})
+        self.assertEqual(self.module.herdr_find(workspaces, 'workspace', 'Personal'), 'w4')
+        self.assertEqual(self.module.herdr_find(tabs, 'tab', 'Reviewer'), 'w3:t3')
+        self.assertEqual(self.module.herdr_find(workspaces, 'workspace', 'Missing'), '')
+        self.assertEqual(self.module.herdr_find('not json', 'workspace', 'Personal'), '')
+
+    def test_herdr_names_skip_its_numbers(self):
+        self.assertEqual(self.module.herdr_names('Doola · 1 · Automations'), ['Doola', 'Automations'])
+        self.assertEqual(self.module.herdr_names('Personal · 2'), ['Personal', ''])
+        self.assertEqual(self.module.herdr_names(''), ['', ''])
 
 
 if __name__ == '__main__':
