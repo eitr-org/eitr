@@ -36,7 +36,7 @@ the music, the song, its lyrics, previous/play/next and seeking when supported. 
 without an eligible player and excludes recognized meetings. The bar's equalizer follows
 live system audio through a private cava process only while playback and the strip are
 visible. Drag the equalizer to the left to swap it for the line being sung; drag the line
-either way, pause or stop to swap it back. Online lyrics are a Desktop Bar setting (see
+either way to swap it back; pausing or changing song keeps it. Online lyrics are a Desktop Bar setting (see
 the Desktop bar chapter).
 
 ## Notifications
