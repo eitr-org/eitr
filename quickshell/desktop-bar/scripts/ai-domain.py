@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import tempfile
+import time
 
 
 class AiDomain:
@@ -40,6 +41,16 @@ class AiDomain:
         data['providers'] = list(providers.values())
         return data
 
+    def last_readings(self):
+        """The saved reading of each account by (provider name, account id)."""
+        try:
+            providers = json.loads(self.cache.read_text()).get('providers')
+        except (OSError, ValueError, AttributeError):
+            return {}
+        return {(provider['name'], account['id']): account
+                for provider in providers if isinstance(provider, dict) and isinstance(provider.get('accounts'), list)
+                for account in provider['accounts'] if isinstance(account, dict) and account.get('windows')} if isinstance(providers, list) else {}
+
     def save(self, data):
         self.cache.parent.mkdir(parents=True, exist_ok=True)
         descriptor, temporary = tempfile.mkstemp(dir=self.cache.parent, prefix=self.cache.name)
@@ -71,5 +82,15 @@ class AiDomain:
             raise asyncio.CancelledError()
         if len(results) != len(accounts):
             raise TimeoutError()
+        # A rate-limited account keeps its last reading until the provider answers again;
+        # an account that failed for any other reason (signed out, offline) is left out.
+        readings = None
+        now = time.monotonic()
+        for index, (identifier, account) in enumerate(accounts):
+            if results[index][1] is None and self.backend.COOLDOWNS.get((identifier, account['id']), 0) > now:
+                readings = self.last_readings() if readings is None else readings
+                kept = readings.get((self.backend.LABELS[identifier], account['id']))
+                if kept:
+                    results[index] = (identifier, kept)
         data = self.backend.group_results(results[index] for index in sorted(results))
         return await loop.run_in_executor(executor, self.save, data)

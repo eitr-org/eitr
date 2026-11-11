@@ -1188,7 +1188,7 @@ class WeatherAiBrokerTests(unittest.IsolatedAsyncioTestCase):
             calls.append(account['id'])
             return None if int(account['id']) % 3 == 0 else dict(id=account['id'], windows=[dict(used=10)])
         adapter.backend = Mock(collect_account=collect, group_results=lambda results: dict(
-            providers=[account for identifier, account in results if account is not None]))
+            providers=[account for identifier, account in results if account is not None]), COOLDOWNS={})
         saved = []
         adapter.save = lambda data: saved.append(data) or data
         adapter.cached = lambda: dict(providers=[], updated=1)
@@ -1203,6 +1203,32 @@ class WeatherAiBrokerTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual([account['id'] for account in saved[0]['providers']],
                              [str(index) for index in range(60) if index % 3])
             self.assertEqual(broker.states['ai.usage']['status'], 'ready')
+        finally:
+            await broker.close()
+
+
+    async def test_ai_rate_limited_account_keeps_its_last_reading(self):
+        specification = importlib.util.spec_from_file_location('test_ai_domain', SCRIPT.with_name('ai-domain.py'))
+        module = importlib.util.module_from_spec(specification)
+        specification.loader.exec_module(module)
+        adapter = module.AiDomain.__new__(module.AiDomain)
+        adapter.accounts = [('claude', dict(id='limited')), ('claude', dict(id='signed-out')), ('codex', dict(id='fresh'))]
+        last = dict(id='limited', windows=[dict(used=40)])
+        adapter.last_readings = lambda: {('Claude', 'limited'): last, ('Claude', 'signed-out'): dict(id='signed-out', windows=[dict(used=5)])}
+        fresh = dict(id='fresh', windows=[dict(used=10)])
+        adapter.backend = Mock(collect_account=lambda identifier, account: fresh if account['id'] == 'fresh' else None,
+                               group_results=lambda results: dict(providers=[account for identifier, account in results if account is not None]),
+                               COOLDOWNS={('claude', 'limited'): module.time.monotonic() + 60},
+                               LABELS={'claude': 'Claude', 'codex': 'Codex'})
+        saved = []
+        adapter.save = lambda data: saved.append(data) or data
+        adapter.cached = lambda: dict(providers=[], updated=1)
+        broker = broker_module.Broker(lambda frame: None)
+        broker.domains['ai'] = adapter
+        try:
+            broker.request(dict(v=1, op='subscribe', topic='ai.usage', token='screen'))
+            await self.settle(lambda: broker.states['ai.usage']['task'] is None)
+            self.assertEqual(saved[0]['providers'], [last, fresh], 'rate limited kept, signed out left out')
         finally:
             await broker.close()
 
