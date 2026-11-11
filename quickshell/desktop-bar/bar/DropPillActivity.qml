@@ -35,7 +35,7 @@ Item {
     property bool lyricsOpen: false
     onPlayingChanged: if (!playing) lyricsOpen = false
     // The pill's length while it shows lyrics: the line's own width, within limits.
-    readonly property real lyricsExtent: Math.max(120, Math.min(380, lineMetrics.advanceWidth + 36))
+    readonly property real lyricsExtent: Math.max(120, Math.min(760, lineMetrics.advanceWidth + 36))
     TextMetrics { id: lineMetrics; text: activity.line; font.family: DesktopFonts.family; font.pixelSize: 13 }
     DropLyricsSource { id: lyricsSource; player: activity.player; active: activity.lyricsOpen }
     property real position: 0
