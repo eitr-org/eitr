@@ -1,4 +1,5 @@
 import ".."
+import QtQuick
 import Quickshell
 
 Region {
@@ -18,6 +19,14 @@ Region {
     // The mask follows item geometry but not the auto-hide slide's transform; changing this
     // empty region when the slide starts and settles rebuilds the mask at the final position.
     Region { item: barHost.autoHideRef.progress === 0 || barHost.autoHideRef.progress === 1 ? slideSettledRef : null }
+    // Moving the bar to another edge moves its whole strip while the pills keep their place
+    // inside it, so the regions would stay at the old edge: pulse this one to rebuild them
+    // at once and again once the strip has settled.
+    property string edge: host.barEdge
+    property bool edgeMoving: false
+    onEdgeChanged: { edgeMoving = true; edgeSettled.restart(); }
+    property Timer edgeSettled: Timer { interval: 200; onTriggered: dockInput.edgeMoving = false }
+    Region { item: dockInput.edgeMoving ? slideSettledRef : null }
     Region { item: edgeSensorRef.visible && !FocusMode.enabled ? edgeSensorRef : null }
     Region { item: host.barPointerHeld && !FocusMode.enabled ? barHost.contentItem : null }
     Region { item: FocusMode.enabled ? null : host.notchLayout ? tabStripRef : host.centeredLayout || host.islandsLayout || host.dynamicLayout || host.dropLayout ? null : barContentsRef }
