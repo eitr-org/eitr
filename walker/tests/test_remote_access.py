@@ -30,6 +30,10 @@ class RemoteAccessTests(unittest.TestCase):
         granted = patch.object(remote, 'GRANTED', Path(folder.name) / 'remote-sharing-granted')
         granted.start()
         self.addCleanup(granted.stop)
+        # Nor this machine's Sunshine install or groups: sharing may start unless a test says why not.
+        ready = patch.object(remote, 'blocker', return_value='')
+        self.blocker = ready.start()
+        self.addCleanup(ready.stop)
         terminal = patch.object(remote, 'reopen_in_terminal')
         self.reopened = terminal.start()
         self.addCleanup(terminal.stop)
@@ -70,6 +74,14 @@ class RemoteAccessTests(unittest.TestCase):
         with patch('builtins.input', return_value='y'), patch.object(remote, 'run'), patch.object(remote, 'root'):
             remote.host('undo')
         self.assertFalse(remote.GRANTED.exists())
+
+    def test_a_blocked_start_names_the_reason_without_starting(self):
+        self.blocker.return_value = 'Sign out and back in before starting sharing.'
+        remote.GRANTED.touch()
+        with patch.object(remote, 'run') as run:
+            with self.assertRaisesRegex(RuntimeError, 'Sign out and back in'):
+                remote.host('start')
+        run.assert_not_called()
 
     def test_stop_disables_login_and_closes_ports(self):
         with patch.object(remote, 'run') as run, patch.object(remote, 'root') as root:
