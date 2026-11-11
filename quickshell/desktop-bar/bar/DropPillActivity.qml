@@ -19,10 +19,12 @@ Item {
     readonly property var player: barHost.mediaStrip ? barHost.mediaStrip.player : null
     readonly property bool playing: !!player && player.isPlaying
     readonly property real slot: 22
+    // Room beyond the glyphs, so they keep clear of the pill's rounded ends.
+    readonly property real margin: 6
     readonly property real leading: (ringing ? slot : 0) + (recording ? slot : 0)
     readonly property real trailing: playing ? slot : 0
     // The space each side of the time, the same on both so the time keeps the centre.
-    readonly property real side: Math.max(leading, trailing)
+    readonly property real side: Math.max(leading, trailing) + (leading || trailing ? margin : 0)
     // 0 shows the time, 1 the workspace number; it rises and falls back on a change.
     property real flash: 0
     property string workspaceNumber: ""
@@ -87,7 +89,7 @@ Item {
     Glyph {
         x: parent.width / 2 + activity.barHost.centerInfo.width / 2 + 2
         visible: activity.playing
-        text: "󰝚"; color: activity.host.activeBg
+        text: "󰝚"
         onActivated: activity.barHost.dropDashboard.show("media")
     }
 
