@@ -33,7 +33,7 @@ Item {
     SpectrumConsumer {
         id: audio
         active: page.active && page.playing
-        bars: 36
+        bars: 48
         frameRate: 30
         smoothing: true
         onSpectrumChanged: ring.requestPaint()
@@ -42,27 +42,42 @@ Item {
     // The cover and its ring of bars, mirrored left and right so it stays balanced.
     Item {
         id: disc
-        width: 250; height: page.height
+        width: 268; height: page.height
         Canvas {
             id: ring
             anchors.centerIn: parent
-            width: 250; height: 250
-            readonly property real radius: 82
+            width: 268; height: 268
+            readonly property real radius: 56
+            // Bars reach up to their full length; quiet bands are lifted a little so the ring
+            // moves with the song rather than only on its loudest beats.
+            readonly property real reach: 66
+            // The bands sit around the circle in a fixed scattered order, so neighbouring bars
+            // differ and the ring looks lively instead of a smooth bass-to-treble sweep.
+            readonly property var order: {
+                const positions = Array.from({length: 48}, (unused, index) => index);
+                let seed = 7;
+                for (let index = positions.length - 1; index > 0; index--) {
+                    seed = (seed * 9301 + 49297) % 233280;
+                    const other = Math.floor(seed / 233280 * (index + 1));
+                    [positions[index], positions[other]] = [positions[other], positions[index]];
+                }
+                return positions;
+            }
             onPaint: {
                 const context = getContext("2d");
                 context.reset();
-                const levels = audio.spectrum, half = 36, count = half * 2;
+                const levels = audio.spectrum, count = order.length, centre = width / 2;
                 context.strokeStyle = page.accent;
                 context.lineCap = "round";
-                context.lineWidth = 4;
+                context.lineWidth = 6;
                 for (let index = 0; index < count; index++) {
-                    const band = index < half ? index : count - 1 - index;
-                    const level = audio.active && levels.length ? levels[Math.min(levels.length - 1, band)] : 0;
-                    const angle = -Math.PI / 2 + index / count * Math.PI * 2;
-                    const inner = radius + 6, outer = inner + 1 + level * 34;
+                    const raw = audio.active && levels.length ? levels[Math.min(levels.length - 1, order[index])] : 0;
+                    const level = Math.min(1, Math.pow(raw, 0.8) * 1.25);
+                    const angle = -Math.PI / 2 + (index + 0.5) / count * Math.PI * 2;
+                    const inner = radius + 9, outer = inner + 2 + level * reach;
                     context.beginPath();
-                    context.moveTo(125 + Math.cos(angle) * inner, 125 + Math.sin(angle) * inner);
-                    context.lineTo(125 + Math.cos(angle) * outer, 125 + Math.sin(angle) * outer);
+                    context.moveTo(centre + Math.cos(angle) * inner, centre + Math.sin(angle) * inner);
+                    context.lineTo(centre + Math.cos(angle) * outer, centre + Math.sin(angle) * outer);
                     context.stroke();
                 }
             }
