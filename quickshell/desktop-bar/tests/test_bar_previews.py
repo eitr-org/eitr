@@ -65,7 +65,7 @@ ShellRoot {
     property color foreground: root.foreground
     property color accent: root.foreground
     property var workspaceHelper: ({summary: {current: "Dots"}})
-    property var styleState: ({barPosition: root.current.edge, appearance: "solid", layout: "unified", barScreens: "main", clockFormat: "24h", mediaStyle: "bars", workspaceStyle: "Dots", terminalAppearance: {}, terminalAppearanceChoices: {}, barAutoHide: false, barDock: true, bar: {pinned: "no"}})
+    property var styleState: ({barPosition: root.current.edge, appearance: "solid", layout: "unified", barScreens: "main", clockFormat: "24h", mediaStyle: "bars", workspaceStyle: "Dots", terminalAppearance: {}, terminalAppearanceChoices: {}, barAutoHide: false, barDock: true, barLyrics: false, bar: {pinned: "no"}})
    }
   }
  }

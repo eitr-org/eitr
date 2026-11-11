@@ -1,9 +1,9 @@
-import "../.."
+import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Eitr as Eitr
 import Quickshell.Services.Pipewire
-import "../../PanelStyle.js" as PanelStyle
+import "../PanelStyle.js" as PanelStyle
 
 // Sound or microphone opened in Drop's quick controls: the level, then every device as a
 // row, so switching between headset and speakers is one click.

@@ -1,7 +1,7 @@
-import "../.."
+import ".."
 import QtQuick
 import Eitr as Eitr
-import "../../PanelStyle.js" as PanelStyle
+import "../PanelStyle.js" as PanelStyle
 
 // Drop's Performance page, flat like the home page: CPU, GPU, RAM and storage in a 2×2
 // grid split by thin rules, each with a usage ring, its model name and its key figures,

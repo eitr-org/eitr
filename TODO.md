@@ -13,27 +13,23 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
-- **Drop, a sixth bar layout (agreed 2026-11-10).** Named after the drop of eitr in Norse
-  myth. Joins the double-right-click cycle and `tools/choice-lists.json`; Dynamic stays.
-  - At rest: one fully rounded pill with only the time, centred on the bar's edge, theme
-    colour and blur.
-  - Hover (after a short delay so passing the pointer does not trigger it): the pill grows
-    along the edge into a glance strip with date and weather, the song playing with
-    play/pause, battery and network, a notification count (opens the notification
-    center), the capture dot, and the workspaces as dots. It shrinks back on leave with
-    Dynamic's 320 ms motion.
-  - Click: the pill grows into a dashboard card with tabs: Dashboard (large time and date,
-    weather, month calendar, media, uptime and profile picture, quick toggles for WiFi,
-    Bluetooth and volume, shortcuts to Control Center and Settings), Media (cover, controls,
-    player) and Performance (CPU, GPU, RAM and storage rings from the hardware domain). Esc
-    or an outside click closes it.
-  - With auto-hide: only a small glowing dot stays at the edge; on reveal it grows into the
-    time pill, then hover and click work as above. Reduce motion makes every step instant.
-  - Reuse the existing panels' data and DesktopData domains; no new readers. Build in steps
-    the owner sees on their bar: resting pill and auto-hide dot, then the glance strip, then
-    the dashboard tabs.
-  - Status (2026-11-10): step 1 built (resting time pill, auto-hide dot, Settings and
-    Walker entries via the choice lists); the glance strip and the dashboard card are next.
+- **Bring Drop's ideas to the other layouts (noted 2026-11-10).** Drop shipped with its
+  dashboard and live activity; these are worth reusing elsewhere:
+  - Panels that open details in place with a back arrow instead of a second panel (WiFi,
+    Bluetooth and audio devices in the Control Center; the weather's forecast and city
+    search; a calendar day's plans with an inline reminder field).
+  - Live activity beside the clock in Full, Centered and Islands: the ringing bell, the
+    timer ring, the next-event mark and the workspace/volume/battery flashes over the time.
+  - The timer and focus sessions (`services/FocusTimer.qml`) as a Control Center tile
+    and a Walker action.
+  - Auto-hide that brings the bar out for a new notification, for every layout.
+  - Opening data reads only after a panel has finished unfolding, applied to every panel.
+  - Online lyrics on the Media panel and the bar's media strip (one line beside the
+    equalizer).
+  - Swipeable pages for the Control Center's sections.
+- **Drop: update progress on the pill.** System updates run in a terminal, so the bar
+  knows only when it checks and how many updates wait. Showing progress needs the update
+  terminal to report its stage (download, install) back through the updates domain.
 - **Keybinds and window rules editors.** Settings > Keybinds only lists shortcuts today:
   rebind one by pressing the new keys, with clash warnings, reset to default and the
   change kept in the person's own config. Window rules: pick an app and choose

@@ -1,7 +1,7 @@
-import "../.."
+import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
-import "../../PanelStyle.js" as PanelStyle
+import "../PanelStyle.js" as PanelStyle
 import "Lyrics.js" as Lyrics
 
 // Lyrics text (from the player or LRCLIB, see DropLyricsSource). Timed LRC lines

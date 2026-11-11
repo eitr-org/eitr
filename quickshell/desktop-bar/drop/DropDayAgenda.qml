@@ -1,10 +1,10 @@
-import "../.."
+import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Io
 import Eitr as Eitr
-import "../../PanelStyle.js" as PanelStyle
-import "../../ReminderModel.js" as ReminderModel
+import "../PanelStyle.js" as PanelStyle
+import "../ReminderModel.js" as ReminderModel
 
 // A day's plans on Drop's home page, opened by clicking a day: its events and reminders
 // with their times, a field to add a reminder at a time that day, and a bin on one-off

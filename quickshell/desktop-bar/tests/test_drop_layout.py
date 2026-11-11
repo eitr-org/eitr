@@ -1,4 +1,4 @@
-"""Drop: the resting time pill on every edge and the auto-hide dot it grows from."""
+"""Drop: the resting time pill on every edge, and the drop it falls from with auto-hide."""
 import json
 from pathlib import Path
 import shutil
@@ -23,7 +23,8 @@ class DropSourceTests(unittest.TestCase):
         drop = self.source('bar/BarDrop.qml')
         self.assertIn('DynamicIsland {', drop)
         self.assertIn('readonly property real reveal: barHost.autoHideRef.progress', drop)
-        self.assertIn('eased: false', drop)
+        # The auto-hide fall follows the slide exactly; only growing into the dashboard eases.
+        self.assertIn('eased: drop.reveal >= 1', drop)
         self.assertNotIn('ParentChange', drop)
         self.assertIn('BarDrop bar/BarDrop.qml', self.source('qmldir'))
 

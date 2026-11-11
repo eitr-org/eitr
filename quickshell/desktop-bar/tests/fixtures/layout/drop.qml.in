@@ -7,6 +7,7 @@ ShellRoot {
     property bool verticalBar: barEdge === "left" || barEdge === "right"
     property bool barPointerHeld: false
     property bool barAutoHide: false
+    property bool barLyrics: false
     property string barClock: "24h"
     property string dragCandidate: ""
     property real workspaceItemSize: 24
@@ -32,6 +33,8 @@ ShellRoot {
         property real panelGap: 12
         property real islandGap: 6
         property Item stripItem: strip
+        property Item dropSurfaces: drop
+        property var dynamicSurfaces: null
         color: LIGHT ? "#e2ddcf" : "#0c1119"
         Item {
             id: bar
@@ -60,6 +63,17 @@ ShellRoot {
             property var verticalMedia: mediaVertical
             property var verticalCapture: captureVertical
             property var verticalCalendarIcon: clockVertical
+            // What the pill's activity reads, at rest: no dashboard open, no notification
+            // popup, OBS idle, nothing playing.
+            property QtObject dropDashboard: QtObject {
+                property bool opened: false
+                function show(page) {}
+                function showDay(day) {}
+            }
+            property var notificationsRef: ({popups: [], doNotDisturb: false})
+            property var obsMenu: ({obsState: {}})
+            property var calendarMenu: null
+            function closePanels() {}
             Rectangle { anchors.fill: parent; color: window.color }
             Bar.BarAutoHide { id: autoHide; autoHide: shell.barAutoHide }
             component Slot: Item {
@@ -140,20 +154,16 @@ ShellRoot {
                 if (regions.length !== 1 || regions[0].item !== pill)
                     throw new Error("Input must cover only the pill");
             }
+            // Hidden: nothing stays on screen; the drop has fallen back into the edge.
             function checkDot() {
                 const pill = drop.pillSurface;
-                checkCentred(pill, drop.dotSize);
-                near(pill.width, drop.dotSize, "Dot width");
-                near(pill.height, drop.dotSize, "Dot height");
-                near(pill.radius, drop.dotSize / 2, "Dot is not round");
-                const dot = bar.find(pill, "dropDot");
-                if (!dot || !dot.visible || dot.opacity !== 1) throw new Error("Glowing dot missing");
-                if (drop.contentOpacity !== 0) throw new Error("Time shows on the dot");
+                if (pill.visible) throw new Error("Hidden Drop must leave nothing on screen");
+                if (drop.contentOpacity !== 0) throw new Error("Time shows while hidden");
                 const reach = drop.surfaces[1];
                 if (!reach.visible) throw new Error("The dot keeps no hover target");
                 const reachMiddle = reach.mapToItem(bar, reach.width / 2, reach.height / 2);
                 near(along(reachMiddle), (shell.verticalBar ? bar.height : bar.width) / 2, "Hover target off centre");
-                if (mask.regions.filter(region => region.item).length !== 2) throw new Error("Dot input must be the dot and its target");
+                if (!mask.regions.some(region => region.item === reach)) throw new Error("The hover target must take input");
             }
             function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
             property int stage: 0
@@ -175,7 +185,7 @@ ShellRoot {
                             const pill = drop.pillSurface;
                             const extent = shell.verticalBar ? pill.height : pill.width;
                             if (!(autoHide.progress > 0 && autoHide.progress < 1)) throw new Error("Reveal did not animate");
-                            if (!(extent > drop.dotSize && extent < drop.pillExtent)) throw new Error("Dot did not grow gradually: " + extent);
+                            if (!(extent >= drop.dropAcross && extent < drop.pillExtent)) throw new Error("Drop did not grow gradually: " + extent);
                             bar.shoot("grow", () => { steps.interval = 600; steps.restart(); });
                             return;
                         } else if (stage === 4) {

@@ -1,6 +1,6 @@
-import "../.."
+import ".."
 import QtQuick
-import "../../PanelStyle.js" as PanelStyle
+import "../PanelStyle.js" as PanelStyle
 
 // A soft tile on Drop's dashboard pages.
 Rectangle {

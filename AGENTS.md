@@ -341,12 +341,17 @@ existing design and workflows rather than replacing them with upstream defaults.
   (no separate surface) and the other islands slide aside. Reserve resting depth plus
   half the outer gap; empty space passes clicks through.
 - Drop: one full pill with only the time, exactly centred on the bar's edge (always
-  fully rounded, theme colour and blur), reusing Dynamic's island; clicking it opens
-  the calendar, whose panel floats detached at the centre. With auto-hide the pill
-  shrinks into a small glowing accent dot at the edge centre and grows back from it
-  on reveal, following the auto-hide slide (instant with Reduce motion); the dot keeps
-  a small hover target. Reserve pill depth plus half the outer gap; only the pill
-  takes clicks. The glance strip and dashboard card come next (see `TODO.md`).
+  fully rounded, theme colour and blur), reusing Dynamic's island. With auto-hide nothing
+  stays on screen: a drop in the bar's colour falls out of the edge and swells into the
+  pill (closing the dashboard retracts card and bar in one motion). Click grows the pill
+  into its dashboard (`panels/DropDashboard.qml`, pages in `drop/`), right-click
+  opens it on Quick controls; pages swipe sideways and wrap. The dashboard never opens
+  another panel: everything (weather, a day's plans, WiFi/Bluetooth/audio devices, an
+  assistant's limits) opens in place with a back arrow. `bar/DropPillActivity.qml` adds
+  activity around the time (bell, recording, timer ring, next event, note; workspace,
+  volume and low-battery flashes; one lyric line on dragging the note left), making room
+  only on the side that has something while the time keeps the screen centre. No hover
+  behaviour. Reserve pill depth plus half the outer gap; only the pill takes clicks.
 - Keep calendar height fixed with six week rows. Weather city choices are
   session-only; the city close button restores the default geolocation.
 - Media is hidden when no eligible player exists; meetings are excluded. Keep

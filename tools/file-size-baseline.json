@@ -34,7 +34,7 @@
       "reason": "One compositor configuration, including preference-backed layout options and bindings; machine-specific settings live in local.lua."
     },
     "quickshell/desktop-bar/bar/BarWindow.qml": {
-      "lines": 442,
+      "lines": 447,
       "reason": "One bar window host, including monitor-scoped workspace Overview context and an instance of each layout section."
     },
     "quickshell/desktop-bar/panels/BrightnessMenu.qml": {
@@ -50,7 +50,7 @@
       "reason": "Catalog cards and review sheets, including package review and optional removal cleanup."
     },
     "quickshell/desktop-bar/scripts/bar-data.py": {
-      "lines": 910,
+      "lines": 969,
       "reason": "The bar data broker: one event loop owning every topic."
     },
     "quickshell/desktop-bar/scripts/catalog-domain.py": {

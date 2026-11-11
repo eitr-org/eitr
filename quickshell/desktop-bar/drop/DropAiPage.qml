@@ -1,8 +1,8 @@
-import "../.."
+import ".."
 import QtQuick
 import Eitr as Eitr
-import "../../PanelStyle.js" as PanelStyle
-import "../../AiSelectionModel.js" as Selection
+import "../PanelStyle.js" as PanelStyle
+import "../AiSelectionModel.js" as Selection
 
 // Drop's AI Usage page: one column per signed-in assistant, each limit as a large
 // percentage over a thin bar with the time until it resets. Clicking an assistant opens

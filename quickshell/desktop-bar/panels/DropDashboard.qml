@@ -100,6 +100,7 @@ ThemedPopup {
                 x: viewport.place("media"); visible: viewport.shown("media")
                 width: viewport.width
                 player: dashboard.player
+                host: dashboard.barHost.host
                 active: dashboard.opened && visible
                 foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }

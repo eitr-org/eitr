@@ -40,7 +40,24 @@ Elige una disposición en Configuración > Barra del escritorio. Las seis funcio
 | Pestañas | Pestañas une tres pestañas con una franja fina. Los iconos de estado quedan visibles; pasa el puntero por la central para ver el tiempo. |
 | Islas | Islas da a cada grupo su propia cápsula y muestra siempre todos los iconos de estado. Abrir un panel amplía su isla y aparta los grupos vecinos. |
 | Dinámico | Dinámico empieza con tres islas: logotipo, reloj y red/batería. Pasa el puntero para ampliar una; un panel crece desde esa misma isla. |
-| Gota | Gota muestra solo la hora en una cápsula en el centro del borde; haz clic para ver el calendario. Con la ocultación automática, un pequeño punto luminoso queda en el borde y vuelve a crecer hasta la cápsula cuando aparece la barra. |
+| Gota | Gota muestra solo la hora en una cápsula en el centro del borde. Haz clic para que crezca su panel; el clic derecho abre directamente los controles rápidos. Con la ocultación automática no queda nada en pantalla hasta que una gota cae del borde y se convierte en la cápsula. |
+
+## El panel de Gota
+
+Haz clic en la cápsula de la hora de Gota y la propia cápsula crece hasta un panel. Arrastra una página hacia un lado (a la derecha avanza, a la izquierda retrocede, y ambas dan la vuelta) o usa las flechas o el desplazamiento horizontal. Esc o un clic fuera lo cierra. Nada en él abre otro panel: los detalles se abren en el mismo sitio con una flecha para volver.
+
+| Página | Qué contiene |
+| :--- | :--- |
+| Calendario y tiempo | El tiempo junto al mes. Haz clic en el tiempo para ver el pronóstico completo y buscar una ciudad; haz clic en un día para ver sus planes y añadir un recordatorio a una hora de ese día. |
+| Multimedia | La portada rodeada de barras que siguen la música, la canción, su letra, los controles y una barra de progreso. Solo mientras suena algo. |
+| OBS | Estado de grabación y emisión con pausa, detener y emitir en directo, una marca de capítulo, la carpeta de grabaciones y OBS. Mientras OBS está abierto. |
+| Controles rápidos | WiFi, Bluetooth, Sonido y Micrófono abren sus redes y dispositivos en el mismo sitio; Modo avión, Silencio, Luz nocturna, Bloqueo por inactividad, Grabar y Configuración; volumen, micrófono y (en portátiles) brillo. |
+| Temporizador y concentración | Una cuenta atrás, un cronómetro o sesiones de concentración de 25 minutos con descansos de 5. Sigue con el panel cerrado y te avisa al terminar. |
+| Rendimiento, Uso de IA y Notificaciones | CPU, GPU, RAM y almacenamiento; los límites de cada asistente (haz clic en uno para verlos todos); la lista de notificaciones. |
+
+Alrededor de la hora, la cápsula muestra lo que pasa y solo deja sitio donde hace falta: una campana que suena dos veces con una notificación nueva (haz clic para ver la lista), un punto rojo mientras grabas, un anillo mientras corre un temporizador, una marca de calendario cuando un evento empieza en menos de diez minutos y una nota mientras suena música (haz clic para Multimedia). Al cambiar de espacio de trabajo o de volumen, la hora se sustituye un momento por el número o el nivel; la batería de un portátil hace lo mismo en rojo al 15 % y al 5 %. Arrastra la nota a la izquierda para convertir la cápsula en una línea de la letra; arrastra hacia cualquier lado, pausa o detén para volver.
+
+**Letras en línea** (Configuración > Barra del escritorio > Comportamiento, o Walker > Configuración > Escritorio > Barra del escritorio > Letras en línea) está desactivado por defecto. Al activarlo, Gota busca la canción en LRCLIB (lrclib.net) y envía su título, artista, álbum y duración. Las letras que envía el propio reproductor siempre tienen prioridad.
 
 ## Espacios de trabajo
 
@@ -62,7 +79,7 @@ El fondo de los botones de icono aparece al pasar el puntero; los paneles se act
 
 **Visualizador de música** abre cava con los colores del tema. Haz clic derecho en el ecualizador multimedia para abrirlo; el clic izquierdo sigue abriendo los detalles multimedia. Pulsa **q** o **Esc** para cerrarlo. Si falta cava, se instala primero.
 
-**Ocultar automáticamente**, en Configuración > Barra del escritorio, retrae la barra tras un breve retraso cuando sales de ella con el puntero. Lleva el puntero al borde de la pantalla para mostrarla. Funciona en los cuatro bordes con los modos Completa, Centrada, Pestañas, Islas, Dinámico y Gota; Gota deja un pequeño punto luminoso en el borde en lugar de retirarse. Los paneles y menús abiertos, así como arrastrar la barra, la mantienen visible; después vuelve a ocultarse.
+**Ocultar automáticamente**, en Configuración > Barra del escritorio, retrae la barra tras un breve retraso cuando sales de ella con el puntero. Lleva el puntero al borde de la pantalla para mostrarla. Funciona en los cuatro bordes con los modos Completa, Centrada, Pestañas, Islas, Dinámico y Gota; con Gota, una gota del color de la barra cae del borde y se convierte en la cápsula de la hora, y una notificación nueva la hace aparecer hasta que se cierra su aviso. Los paneles y menús abiertos, así como arrastrar la barra, la mantienen visible; después vuelve a ocultarse.
 
 Mientras está activado, la barra no reserva espacio para las ventanas: se desliza sobre ellas en vez de moverlas. La preferencia se guarda por separado del anclaje del modo centrado y viene desactivada en instalaciones nuevas. Las notificaciones aparecen sin mostrarla.
 

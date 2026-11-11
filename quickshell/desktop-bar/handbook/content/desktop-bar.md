@@ -38,7 +38,24 @@ Choose a layout in Settings > Desktop Bar. All six work on every screen edge.
 | Tabs | Tabs uses three tabs joined by a thin strip. Status icons stay visible; hover the middle tab for weather. |
 | Islands | Islands gives each group its own pill, with every status icon always shown. Opening a panel expands its pill and moves neighbouring groups aside. |
 | Dynamic | Dynamic starts with three islands: logo, clock and network/battery. Hover one to expand it; opening a panel grows that island into the panel. |
-| Drop | Drop shows only the time in one pill at the centre of the edge; click it for the calendar. With auto-hide, a small glowing dot stays at the edge and grows back into the pill when the bar reveals. |
+| Drop | Drop shows only the time in one pill at the centre of the edge. Click it to grow its dashboard; right-click goes straight to the quick controls. With auto-hide, nothing stays on screen until a drop falls from the edge and swells into the pill. |
+
+## Drop's dashboard
+
+Click Drop's time pill and the pill itself grows into a dashboard. Drag a page sideways (right goes forward, left back, both wrap), or use the arrow keys or horizontal scrolling. Esc or a click outside closes it. Nothing on it opens another panel: details open in place with a back arrow.
+
+| Page | What it holds |
+| :--- | :--- |
+| Calendar and weather | The weather beside the month. Click the weather for the full forecast and a city search; click a day for its plans and to add a reminder at a time that day. |
+| Media | The cover ringed by bars that follow the music, the song, its lyrics, the controls and a progress bar. Shown while something plays. |
+| OBS | Recording and streaming status with pause, stop and go live, a chapter mark, the recordings folder and OBS itself. Shown while OBS is open. |
+| Quick controls | WiFi, Bluetooth, Sound and Microphone open their networks and devices in place; Airplane, Silence, Night Light, Idle Lock, Record and Settings; volume, microphone and (on laptops) brightness. |
+| Timer and focus | A countdown, a stopwatch, or 25-minute focus sessions with 5-minute breaks. It keeps running with the dashboard closed and notifies you at the end. |
+| Performance, AI Usage and Notifications | CPU, GPU, RAM and storage; each assistant's limits (click one for all of them); the notification list. |
+
+Around the time the pill shows what is happening, making room only where needed: a bell that rings twice for a new notification (click it for the list), a red dot while recording, a ring while a timer runs, a calendar mark when an event starts within ten minutes, and a note while music plays (click it for Media). Changing workspace or the volume briefly replaces the time with the number or level; a laptop's battery does the same in red at 15% and 5%. Drag the note to the left to turn the pill into one line of lyrics; drag either way, pause or stop to turn it back.
+
+**Online lyrics** (Settings > Desktop Bar > Behaviour, or Walker > Settings > Desktop > Desktop Bar > Online lyrics) is off by default. When on, Drop looks up the playing song on LRCLIB (lrclib.net), sending its title, artist, album and length. Lyrics a player sends itself are always used first.
 
 ## Workspaces
 
@@ -64,7 +81,7 @@ The Audio/Mic control opens one panel with separate output and microphone sectio
 
 **Music Visualizer** opens cava with theme colours. Right-click the media equalizer to open the same visualizer; left-click still opens media details. Press **q** or **Esc** to close it. On existing desktops, a missing cava package is installed first.
 
-**Auto-hide**, under Settings > Desktop Bar, slides the bar away after a short pointer-leave delay. Touch its screen edge to reveal it. It works on all four edges with Full, Centered, Tabs, Islands, Dynamic and Drop layouts; Drop keeps a small glowing dot at the edge instead of sliding away. Open panels and popups, and dragging the bar, keep it visible; it hides again afterwards. While auto-hide is on, the bar reserves no window space: it slides over windows instead of moving them. The setting is saved independently of the centered-layout pin and is off by default on new installations. Notifications appear without revealing it.
+**Auto-hide**, under Settings > Desktop Bar, slides the bar away after a short pointer-leave delay. Touch its screen edge to reveal it. It works on all four edges with Full, Centered, Tabs, Islands, Dynamic and Drop layouts; with Drop a drop in the bar's colour falls from the edge and swells into the time pill, and a new notification brings it out until its popup closes. Open panels and popups, and dragging the bar, keep it visible; it hides again afterwards. While auto-hide is on, the bar reserves no window space: it slides over windows instead of moving them. The setting is saved independently of the centered-layout pin and is off by default on new installations. Notifications appear without revealing it.
 
 **Reduce motion**, under Settings > Desktop Bar, makes panel unfolding and folding, Overview entrances, notification transitions and decorative bar animations instant. It is off by default and saved in `bar-settings.json`. Timers that refresh data, dismiss notifications or delay auto-hide keep their normal behavior.
 

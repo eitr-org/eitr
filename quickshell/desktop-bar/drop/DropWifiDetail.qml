@@ -1,8 +1,8 @@
-import "../.."
+import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Eitr as Eitr
-import "../../PanelStyle.js" as PanelStyle
+import "../PanelStyle.js" as PanelStyle
 
 // WiFi opened in Drop's quick controls: networks grouped as in the WiFi panel (shared
 // WifiNetworkRow), a scan when it opens, and a password field for a new secured network.

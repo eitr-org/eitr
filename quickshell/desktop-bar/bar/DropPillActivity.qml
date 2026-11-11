@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Hyprland
 import Quickshell.Services.Pipewire
-import "../panels/drop/Lyrics.js" as Lyrics
+import "../drop/Lyrics.js" as Lyrics
 import "../ReminderModel.js" as ReminderModel
 
 // What Drop's time pill shows around the time, which keeps the screen's centre: a bell
@@ -56,7 +56,7 @@ Item {
     // The pill's length while it shows lyrics: the line's own width, within limits.
     readonly property real lyricsExtent: Math.max(120, Math.min(760, lineMetrics.advanceWidth + 36))
     TextMetrics { id: lineMetrics; text: activity.line; font.family: DesktopFonts.family; font.pixelSize: 13 }
-    DropLyricsSource { id: lyricsSource; player: activity.player; active: activity.lyricsOpen }
+    DropLyricsSource { id: lyricsSource; host: activity.host; player: activity.player; active: activity.lyricsOpen }
     property real position: 0
     Timer {
         interval: 250; repeat: true; triggeredOnStart: true
@@ -117,7 +117,11 @@ Item {
         flashText = text; flashColor = color; flashLevel = level;
         showWorkspace.restart();
     }
-    readonly property var monitor: barHost.screen ? Hyprland.monitorFor(barHost.screen) : null
+    // Only a real screen has a Hyprland monitor (test hosts pass a plain object).
+    readonly property var monitor: {
+        try { return barHost.screen ? Hyprland.monitorFor(barHost.screen) : null; }
+        catch (error) { return null; }
+    }
     readonly property int workspaceId: monitor && monitor.activeWorkspace ? monitor.activeWorkspace.id : 0
     property int seenWorkspace: 0
     onWorkspaceIdChanged: {

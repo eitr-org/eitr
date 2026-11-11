@@ -59,6 +59,7 @@ Item {
     width: open ? (compact ? 30 : slotWidth) : 0
     height: 24
     signal clicked(int button)
+    signal rightClicked()
     signal recordingClicked()
     signal detailsRequested()
     signal panelRequested(var plugin, var panel, var target)

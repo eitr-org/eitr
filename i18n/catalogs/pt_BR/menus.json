@@ -788,5 +788,8 @@
   "Zone details": "Detalhes da zona",
   "gh or glab for this account only": "gh ou glab somente para esta conta",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Look up lyrics on LRCLIB; sends each song's title, artist and album": "Buscar letras no LRCLIB; envia o título, o artista e o álbum de cada música",
+  "Online lyrics": "Letras online",
+  "Show lyrics only when the player sends them": "Mostrar letras só quando o player as enviar"
 }

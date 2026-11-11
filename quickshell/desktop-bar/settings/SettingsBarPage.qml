@@ -274,6 +274,19 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-bar-lyrics" }
+            text: Eitr.I18n.tr("Online lyrics")
+            description: Eitr.I18n.tr("Drop looks up song lyrics on LRCLIB, sending each song's title, artist and album.")
+            foreground: view.foreground
+            accent: view.accent
+            checked: styleModel.barLyrics
+            onToggled: checked => {
+                if (view.live) {
+                    styleModel.settingRequested("lyrics", checked ? "yes" : "no");
+                }
+            }
+        }
+        ToggleRow {
             SettingsTarget { objectName: "setting-bar-keep-expanded" }
             text: Eitr.I18n.tr("Keep expanded")
             description: Eitr.I18n.tr("Keep the centered bar expanded.")

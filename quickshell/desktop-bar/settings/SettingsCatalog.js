@@ -25,6 +25,7 @@ var settings = [
     {"id": "bar-dock", "label": "Dock", "page": "bar", "tab": "behaviour", "keywords": "dock"},
     {"id": "bar-reduce-motion", "label": "Reduce motion", "page": "bar", "tab": "behaviour", "keywords": "reduce motion"},
     {"id": "bar-keep-expanded", "label": "Keep expanded", "page": "bar", "tab": "behaviour", "keywords": "keep expanded"},
+    {"id": "bar-lyrics", "label": "Online lyrics", "page": "bar", "tab": "behaviour", "keywords": "lyrics lrclib songs"},
     {"id": "bar-layout", "label": "Layout", "page": "bar", "tab": "layout", "keywords": "layout"},
     {"id": "bar-position", "label": "Position", "page": "bar", "tab": "layout", "keywords": "position"},
     {"id": "bar-appearance", "label": "Appearance", "page": "bar", "tab": "look", "keywords": "appearance"},

@@ -22,7 +22,7 @@ import subprocess
 
 
 SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
-DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium"}
+DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium", "lyrics": "no"}
 OPTIONS = {
     "blur-strength": {"light", "medium", "strong"},
     "appearance": set(ids(BAR_APPEARANCES)),
@@ -37,6 +37,8 @@ OPTIONS = {
     "mediaStyle": {"bars", "line"},
     # 12-hour time with AM/PM, or 24-hour time.
     "clock": {"12h", "24h"},
+    # Look up song lyrics on LRCLIB for Drop (sends each song's title, artist and album).
+    "lyrics": {"yes", "no"},
 }
 
 

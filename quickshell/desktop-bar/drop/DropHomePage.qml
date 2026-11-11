@@ -1,9 +1,9 @@
-import "../.."
+import ".."
 import QtQuick
 import Eitr as Eitr
-import "../../PanelStyle.js" as PanelStyle
-import "../../WeatherIcons.js" as WeatherIcons
-import "../../ReminderModel.js" as ReminderModel
+import "../PanelStyle.js" as PanelStyle
+import "../WeatherIcons.js" as WeatherIcons
+import "../ReminderModel.js" as ReminderModel
 
 // Drop's first page, drawn flat on the card: the weather and the next days on the left,
 // a thin rule, then the month on the right with today ringed in the accent. Clicking a

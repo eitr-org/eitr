@@ -1,8 +1,8 @@
-import "../.."
+import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Eitr as Eitr
-import "../../PanelStyle.js" as PanelStyle
+import "../PanelStyle.js" as PanelStyle
 
 // Drop's Timer & Focus page: a large ring with the time left (or the stopwatch's time),
 // the choice of countdown, stopwatch or focus sessions, quick lengths for a countdown, and

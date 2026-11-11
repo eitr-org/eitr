@@ -60,7 +60,8 @@ assert.ok(panels.includes('centeredPlacement ? (parent.width - width) / 2'));
 assert.ok(panels.includes('centeredPlacement ? (parent.height - height) / 2'));
 assert.ok(panels.includes('strip.x + strip.width + attachmentGap'));
 assert.ok(panels.includes('strip.y + strip.height + attachmentGap'));
-assert.ok(source.includes('anchors.horizontalCenterOffset: barHost.centeredLayout ? (barHost.leadingReveal - barHost.trailingReveal) / 2 : 0'));
+// Centered offsets the clock by its reveals; Drop by its pill's shift (both keep it screen-centred).
+assert.ok(source.includes('anchors.horizontalCenterOffset: barHost.centeredLayout ? (barHost.leadingReveal - barHost.trailingReveal) / 2\n            : barHost.dropLayout ? barHost.dropSurfaces.timeOffset : 0'));
 assert.ok(source.includes('anchors.verticalCenterOffset: barHost.centeredLayout ? (barHost.leadingReveal - barHost.trailingReveal) / 2 : 0'));
 // Measure the packed strip using the production extent and margin expressions.
 // Check the production anchors as well as the extent arithmetic: a changed margin

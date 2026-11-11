@@ -141,7 +141,7 @@ class BarSettingsTests(unittest.TestCase):
             self.assertEqual(bar_settings.read_settings(), {**bar_settings.DEFAULTS, 'version': 1})
             bar_settings.save_settings({"appearance": "solid", "edge": "left"})
             self.assertEqual(bar_settings.read_settings(), {
-                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium", "version": 1
+                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium", "lyrics": "no", "version": 1
             })
             bar_settings.save_settings({"layout": "centered"})
             self.assertEqual(bar_settings.read_settings()["appearance"], "solid")
@@ -308,7 +308,10 @@ ShellRoot {
         source = ((bar / "shell.qml").read_text() + frame_source(bar))
         transform = source.split("id: barContents\n", 1)[1].split("                    width:", 1)[0].replace("FocusMode.", "Bar.FocusMode.")
         self.assertIn("exclusiveZone: zoneReady.done && !FocusMode.enabled && shell.barVisible && !shell.barAutoHide ? bar.reservedThickness : 0", source)
-        self.assertIn("bar.panelOpen || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || shell.barPointerHeld\n", source)
+        # Open panels hold the bar out; Drop's dashboard lets go as it starts closing, and
+        # Drop's bell holds it out for a new notification.
+        self.assertIn("bar.dockPanels.some(panel => panel === bar.dropDashboard ? panel.opened : panel.visible) || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || shell.barPointerHeld\n", source)
+        self.assertIn("|| (bar.dropLayout && barDrop.notifying)", source)
         self.assertNotIn("barPointerHeld || notificationPopups.visible", source)
         with tempfile.TemporaryDirectory(prefix="eitr-autohide-") as directory:
             folder = Path(directory)

@@ -40,7 +40,24 @@ Escolha um layout em Configurações > Barra da área de trabalho. Os seis funci
 | Abas | Abas une três abas por uma faixa fina. Os ícones de estado ficam visíveis; passe o ponteiro no centro para ver o clima. |
 | Ilhas | Ilhas dá a cada grupo sua própria cápsula e mostra sempre todos os ícones de status. Abrir um painel amplia sua ilha e afasta os grupos vizinhos. |
 | Dinâmico | Dinâmico começa com três ilhas: logo, relógio e rede/bateria. Passe o ponteiro para ampliar uma; um painel cresce a partir dessa mesma ilha. |
-| Gota | Gota mostra só a hora em uma cápsula no centro da borda; clique nela para ver o calendário. Com a ocultação automática, um pequeno ponto luminoso fica na borda e volta a crescer até a cápsula quando a barra aparece. |
+| Gota | Gota mostra só a hora em uma cápsula no centro da borda. Clique para ela crescer até o painel; o clique direito abre direto os controles rápidos. Com a ocultação automática nada fica na tela até uma gota cair da borda e virar a cápsula. |
+
+## O painel da Gota
+
+Clique na cápsula da hora da Gota e a própria cápsula cresce até um painel. Arraste uma página para o lado (para a direita avança, para a esquerda volta, e as duas dão a volta) ou use as setas ou a rolagem horizontal. Esc ou um clique fora fecha. Nada nele abre outro painel: os detalhes abrem no mesmo lugar com uma seta para voltar.
+
+| Página | O que tem |
+| :--- | :--- |
+| Calendário e clima | O clima ao lado do mês. Clique no clima para a previsão completa e a busca de cidades; clique em um dia para ver os planos e adicionar um lembrete em um horário desse dia. |
+| Mídia | A capa cercada por barras que seguem a música, a música, a letra, os controles e uma barra de progresso. Só enquanto algo toca. |
+| OBS | Status da gravação e da transmissão com pausar, parar e entrar ao vivo, uma marca de capítulo, a pasta de gravações e o OBS. Enquanto o OBS está aberto. |
+| Controles rápidos | WiFi, Bluetooth, Som e Microfone abrem as redes e os dispositivos no mesmo lugar; Modo avião, Silêncio, Luz noturna, Bloqueio por inatividade, Gravar e Configurações; volume, microfone e (em notebooks) brilho. |
+| Temporizador e foco | Uma contagem regressiva, um cronômetro ou sessões de foco de 25 minutos com pausas de 5. Continua com o painel fechado e avisa você no fim. |
+| Desempenho, Uso de IA e Notificações | CPU, GPU, RAM e armazenamento; os limites de cada assistente (clique em um para ver todos); a lista de notificações. |
+
+Em volta da hora, a cápsula mostra o que está acontecendo e só abre espaço onde precisa: um sino que toca duas vezes com uma notificação nova (clique para a lista), um ponto vermelho durante uma gravação, um anel enquanto um temporizador corre, uma marca de calendário quando um evento começa em menos de dez minutos e uma nota enquanto toca música (clique para Mídia). Trocar de espaço de trabalho ou de volume substitui a hora por um instante pelo número ou pelo nível; a bateria de um notebook faz o mesmo em vermelho em 15% e 5%. Arraste a nota para a esquerda para transformar a cápsula em uma linha da letra; arraste para qualquer lado, pause ou pare para voltar.
+
+**Letras online** (Configurações > Barra da área de trabalho > Comportamento, ou Walker > Configurações > Área de trabalho > Barra da área de trabalho > Letras online) vem desligado. Ligado, a Gota busca a música no LRCLIB (lrclib.net), enviando título, artista, álbum e duração. Letras enviadas pelo próprio player sempre têm prioridade.
 
 ## Espaços de trabalho
 
@@ -62,7 +79,7 @@ O fundo dos botões de ícone aparece quando você passa o ponteiro sobre eles; 
 
 **Visualizador de música** abre o cava com as cores do tema. Clique com o botão direito no equalizador de mídia para abrir o mesmo visualizador; o botão esquerdo continua abrindo os detalhes da mídia. Pressione **q** ou **Esc** para fechar. Se o cava não estiver instalado, ele será instalado primeiro.
 
-**Ocultar automaticamente**, em Configurações > Barra da área de trabalho, recolhe a barra após um breve atraso quando o ponteiro sai. Encoste o ponteiro na borda da tela para mostrá-la. Funciona nas quatro bordas com os modos Completa, Centralizada, Abas, Ilhas, Dinâmico e Gota; Gota deixa um pequeno ponto luminoso na borda em vez de se recolher. Painéis e menus abertos, assim como arrastar a barra, mantêm a barra visível; depois ela volta a se ocultar.
+**Ocultar automaticamente**, em Configurações > Barra da área de trabalho, recolhe a barra após um breve atraso quando o ponteiro sai. Encoste o ponteiro na borda da tela para mostrá-la. Funciona nas quatro bordas com os modos Completa, Centralizada, Abas, Ilhas, Dinâmico e Gota; com Gota, uma gota da cor da barra cai da borda e vira a cápsula da hora, e uma notificação nova a traz até o aviso fechar. Painéis e menus abertos, assim como arrastar a barra, mantêm a barra visível; depois ela volta a se ocultar.
 
 Enquanto estiver ativado, a barra não reserva espaço das janelas: ela desliza sobre elas em vez de movê-las. A preferência é salva separadamente do alfinete do modo centralizado e vem desativada em novas instalações. As notificações aparecem sem mostrá-la.
 

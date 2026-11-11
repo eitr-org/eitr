@@ -108,6 +108,18 @@
     "submenu": "bar-media"
   },
   {
+    "text": "Online lyrics",
+    "subtext": ">",
+    "icon": "󰍡",
+    "keywords": [
+      "lyrics",
+      "lrclib",
+      "songs",
+      "drop"
+    ],
+    "submenu": "bar-lyrics"
+  },
+  {
     "text": "Position",
     "subtext": ">",
     "icon": "󰆾",

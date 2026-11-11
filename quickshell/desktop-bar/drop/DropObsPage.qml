@@ -1,8 +1,8 @@
-import "../.."
+import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Eitr as Eitr
-import "../../PanelStyle.js" as PanelStyle
+import "../PanelStyle.js" as PanelStyle
 
 // Drop's OBS page, shown while OBS is open or capturing: what it is doing and for how long,
 // big buttons to pause, resume or stop the recording and to start or stop streaming, and

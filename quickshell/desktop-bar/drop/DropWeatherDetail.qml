@@ -1,9 +1,9 @@
-import "../.."
+import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Eitr as Eitr
-import "../../PanelStyle.js" as PanelStyle
-import "../../WeatherIcons.js" as WeatherIcons
+import "../PanelStyle.js" as PanelStyle
+import "../WeatherIcons.js" as WeatherIcons
 
 // The weather opened in place on Drop's home page: now, large, with how it feels, the wind
 // and humidity; beside it the coming days, each with a bar spanning its low to its high on a

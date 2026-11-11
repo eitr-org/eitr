@@ -32,7 +32,24 @@ Wähle ein Layout unter Einstellungen > Desktopleiste. Alle sechs funktionieren 
 | Laschen | Laschen verbindet drei Tabs mit einem dünnen Streifen. Statussymbole bleiben sichtbar; über dem mittleren Tab erscheint das Wetter. |
 | Inseln | Inseln gibt jeder Gruppe eine eigene Fläche; alle Statussymbole bleiben sichtbar. Ein Panel erweitert seine Insel und schiebt Nachbargruppen beiseite. |
 | Dynamisch | Dynamisch beginnt mit drei Inseln: Logo, Uhr sowie Netzwerk/Akku. Darüberfahren erweitert eine; ein Panel wächst direkt aus ihr. |
-| Tropfen | Tropfen zeigt nur die Uhrzeit in einer Fläche in der Mitte des Rands; ein Klick öffnet den Kalender. Mit automatischem Ausblenden bleibt ein kleiner leuchtender Punkt am Rand, der beim Einblenden wieder zur Fläche wächst. |
+| Tropfen | Tropfen zeigt nur die Uhrzeit in einer Fläche in der Mitte des Rands. Ein Klick lässt daraus sein Dashboard wachsen; ein Rechtsklick öffnet direkt die Schnelleinstellungen. Mit automatischem Ausblenden bleibt nichts auf dem Bildschirm, bis ein Tropfen aus dem Rand fällt und zur Fläche anschwillt. |
+
+## Das Dashboard von Tropfen
+
+Ein Klick auf die Uhrzeit-Fläche von Tropfen lässt die Fläche selbst zu einem Dashboard wachsen. Ziehe eine Seite zur Seite (rechts vorwärts, links zurück, beides im Kreis) oder nutze die Pfeiltasten oder horizontales Scrollen. Esc oder ein Klick daneben schließt es. Nichts darin öffnet ein anderes Panel: Details öffnen sich an Ort und Stelle mit einem Zurück-Pfeil.
+
+| Seite | Inhalt |
+| :--- | :--- |
+| Kalender und Wetter | Das Wetter neben dem Monat. Ein Klick aufs Wetter zeigt die ganze Vorhersage und eine Ortssuche; ein Klick auf einen Tag zeigt seine Termine und ein Feld für eine Erinnerung an diesem Tag. |
+| Medien | Das Cover, umgeben von Balken im Takt der Musik, der Song, sein Text, die Steuerung und ein Fortschrittsbalken. Nur während etwas läuft. |
+| OBS | Aufnahme- und Streamstatus mit Pause, Stopp und Live gehen, einer Kapitelmarke, dem Aufnahmeordner und OBS selbst. Solange OBS offen ist. |
+| Schnelleinstellungen | WiFi, Bluetooth, Ton und Mikrofon öffnen ihre Netze und Geräte an Ort und Stelle; Flugmodus, Stumm, Nachtlicht, Bildschirmsperre, Aufnahme und Einstellungen; Lautstärke, Mikrofon und (am Laptop) Helligkeit. |
+| Timer und Fokus | Ein Countdown, eine Stoppuhr oder 25-minütige Fokus-Sitzungen mit 5 Minuten Pause. Läuft bei geschlossenem Dashboard weiter und benachrichtigt dich am Ende. |
+| Leistung, KI-Nutzung und Benachrichtigungen | CPU, GPU, RAM und Speicher; die Limits jedes Assistenten (ein Klick zeigt alle); die Benachrichtigungsliste. |
+
+Um die Uhrzeit zeigt die Fläche, was gerade passiert, und macht nur dort Platz, wo nötig: eine Glocke, die bei einer neuen Benachrichtigung zweimal klingelt (Klick öffnet die Liste), ein roter Punkt während einer Aufnahme, ein Ring während ein Timer läuft, eine Kalendermarke, wenn ein Termin in weniger als zehn Minuten beginnt, und eine Note, während Musik läuft (Klick öffnet Medien). Ein Wechsel der Arbeitsfläche oder der Lautstärke ersetzt die Uhrzeit kurz durch Nummer oder Pegel; ein Laptop-Akku tut das in Rot bei 15 % und 5 %. Ziehe die Note nach links, um die Fläche in eine Zeile Songtext zu verwandeln; ziehen in eine Richtung, Pause oder Stopp macht es rückgängig.
+
+**Online-Songtexte** (Einstellungen > Desktopleiste > Verhalten oder Walker > Einstellungen > Desktop > Desktopleiste > Online-Songtexte) ist standardmäßig aus. Eingeschaltet sucht Tropfen den laufenden Song bei LRCLIB (lrclib.net) und sendet dafür Titel, Künstler, Album und Länge. Songtexte, die ein Player selbst sendet, haben immer Vorrang.
 
 ## Arbeitsflächen
 
@@ -50,7 +67,7 @@ Audio/Mikro öffnet ein gemeinsames Panel mit getrennten Bereichen für Audioaus
 
 **Musikvisualisierer** öffnet cava in den Theme-Farben. Ein Rechtsklick auf den Medien-Equalizer öffnet denselben Visualisierer; ein Linksklick öffnet weiterhin die Mediendetails. **q** oder **Esc** schließt ihn. Auf bestehenden Desktops wird cava bei Bedarf zuerst installiert.
 
-**Automatisch ausblenden** unter Einstellungen > Desktopleiste zieht die Leiste nach einer kurzen Verzögerung ein, wenn du den Zeiger wegbewegst. Bewege ihn an den Bildschirmrand, um sie einzublenden. Das funktioniert an allen vier Rändern mit den Layouts Voll, Zentriert, Laschen, Inseln, Dynamisch und Tropfen; Tropfen lässt statt der Leiste einen kleinen leuchtenden Punkt am Rand. Offene Panels und Menüs sowie das Verschieben der Leiste halten sie sichtbar; danach blendet sie sich wieder aus.
+**Automatisch ausblenden** unter Einstellungen > Desktopleiste zieht die Leiste nach einer kurzen Verzögerung ein, wenn du den Zeiger wegbewegst. Bewege ihn an den Bildschirmrand, um sie einzublenden. Das funktioniert an allen vier Rändern mit den Layouts Voll, Zentriert, Laschen, Inseln, Dynamisch und Tropfen; bei Tropfen fällt ein Tropfen in Leistenfarbe aus dem Rand und schwillt zur Uhrzeit-Fläche an, und eine neue Benachrichtigung holt ihn hervor, bis ihr Popup schließt. Offene Panels und Menüs sowie das Verschieben der Leiste halten sie sichtbar; danach blendet sie sich wieder aus.
 
 Solange Automatisch ausblenden aktiv ist, reserviert die Leiste keinen Platz für Fenster: Sie gleitet über die Fenster, statt sie zu verschieben. Die Einstellung wird unabhängig von der Stecknadel des zentrierten Layouts gespeichert und ist bei Neuinstallationen ausgeschaltet. Benachrichtigungen erscheinen, ohne sie einzublenden.
 

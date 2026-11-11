@@ -704,6 +704,18 @@
         "submenu": "bar-media"
       },
       {
+        "text": "Online lyrics",
+        "subtext": ">",
+        "icon": "󰍡",
+        "keywords": [
+          "lyrics",
+          "lrclib",
+          "songs",
+          "drop"
+        ],
+        "submenu": "bar-lyrics"
+      },
+      {
         "text": "Position",
         "subtext": ">",
         "icon": "󰆾",
@@ -3391,6 +3403,7 @@
     "bar-clock": "bar",
     "bar-dock": "bar",
     "bar-layout": "bar",
+    "bar-lyrics": "bar",
     "bar-media": "bar",
     "bar-motion": "bar",
     "bar-pinned": "bar",
@@ -5548,6 +5561,29 @@
       "key": "fc95814ddcee8c946ae099852acaa629762493f46ba6e819967c60ea5ceb5887",
       "provider": "menus:bar",
       "identifier": "bar:9",
+      "text": "Online lyrics",
+      "subtext": ">",
+      "icon": "󰍡",
+      "actions": [],
+      "keywords": [
+        "lyrics",
+        "lrclib",
+        "songs",
+        "drop",
+        "Online lyrics",
+        "Online lyrics"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "bar-lyrics"
+    },
+    {
+      "key": "b2ef19521b5573ab850c2103fd1b89b595d3f219bb1abc2883fd9b57a01d1e08",
+      "provider": "menus:bar",
+      "identifier": "bar:10",
       "text": "Position",
       "subtext": ">",
       "icon": "󰆾",
@@ -5569,9 +5605,9 @@
       "submenu": "bar-position"
     },
     {
-      "key": "b2ef19521b5573ab850c2103fd1b89b595d3f219bb1abc2883fd9b57a01d1e08",
+      "key": "912602b2c464210fd0591f7a88b1126817cd4a033cf238fa1aae1a17168f7e95",
       "provider": "menus:bar",
-      "identifier": "bar:10",
+      "identifier": "bar:11",
       "text": "Reduce motion",
       "subtext": ">",
       "icon": "󰍜",

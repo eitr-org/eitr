@@ -1,9 +1,9 @@
-import "../.."
+import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Eitr as Eitr
-import "../../PanelStyle.js" as PanelStyle
-import "../../components/BluetoothDevices.js" as BluetoothDevices
+import "../PanelStyle.js" as PanelStyle
+import "../components/BluetoothDevices.js" as BluetoothDevices
 
 // Bluetooth opened in Drop's quick controls: connected and known devices, and a scan that
 // starts when it opens, with the shared device rows (a click pairs and connects).

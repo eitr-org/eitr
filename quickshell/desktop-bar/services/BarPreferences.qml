@@ -14,13 +14,14 @@ Scope {
     function nextAppearance(current) { return ChoiceLists.next(ChoiceLists.barAppearances, current); }
     function nextLayout(current) { return ChoiceLists.next(ChoiceLists.barLayouts, current); }
     function updateBarSetting(key, value) {
-        var choices = {appearance: ChoiceLists.ids(ChoiceLists.barAppearances), layout: ChoiceLists.ids(ChoiceLists.barLayouts), edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"]};
+        var choices = {appearance: ChoiceLists.ids(ChoiceLists.barAppearances), layout: ChoiceLists.ids(ChoiceLists.barLayouts), edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"], lyrics: ["yes", "no"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") host.barAppearance = value;
         else if (key === "layout") host.barLayout = value;
         else if (key === "pinned") host.barPinned = value === "yes";
         else if (key === "mediaStyle") host.barMediaStyle = value;
         else if (key === "clock") host.barClock = value;
+        else if (key === "lyrics") host.barLyrics = value === "yes";
         else if (key === "screens") host.barScreens = value;
         else if (key === "reduceMotion") DesktopStyle.reduceMotion = value === "yes";
         else if (key === "dock") host.barDock = value === "yes";
@@ -62,6 +63,7 @@ Scope {
                 host.barPinned = settings.pinned === "yes";
                 host.barMediaStyle = settings.mediaStyle === "line" ? "line" : "bars";
                 host.barClock = settings.clock === "24h" ? "24h" : "12h";
+                host.barLyrics = settings.lyrics === "yes";
                 host.barScreens = settings.screens || "main";
                 host.barAutoHide = settings.autohide === "yes";
                 host.barDock = settings.dock !== "no";

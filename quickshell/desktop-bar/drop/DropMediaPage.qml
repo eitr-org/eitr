@@ -1,10 +1,10 @@
-import "../.."
+import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Widgets
 import Quickshell.Services.Mpris
 import Eitr as Eitr
-import "../../PanelStyle.js" as PanelStyle
+import "../PanelStyle.js" as PanelStyle
 
 // Drop's Media page: the cover in a circle, ringed by bars that
 // follow the music; beside it the song, its lyrics when the player sends them, the
@@ -22,7 +22,8 @@ Item {
     // The lyrics button first asks before any song is looked up online.
     property bool asking: false
     onActiveChanged: if (!active) asking = false
-    DropLyricsSource { id: lyricsSource; player: page.player; active: page.active }
+    required property var host
+    DropLyricsSource { id: lyricsSource; host: page.host; player: page.player; active: page.active }
     property real position: 0
     implicitHeight: 290
 

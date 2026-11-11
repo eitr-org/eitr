@@ -119,5 +119,6 @@ lazydocker
 ttf-jetbrains-mono-nerd
 noto-fonts
 noto-fonts-emoji
+wqy-zenhei
 otf-font-awesome
 ttf-liberation

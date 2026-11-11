@@ -3,6 +3,9 @@
     "%1 Hz": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
+    "%1 cores · %2 threads": [
+      "quickshell/desktop-bar/drop/DropPerformancePage.qml"
+    ],
     "%1 days": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
@@ -132,6 +135,7 @@
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
     "Airplane": [
+      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
@@ -143,6 +147,7 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "All day": [
+      "quickshell/desktop-bar/drop/DropDayAgenda.qml",
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "All settings": [
@@ -243,11 +248,20 @@
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Back": [
+      "quickshell/desktop-bar/drop/DropAiPage.qml",
+      "quickshell/desktop-bar/drop/DropControlsPage.qml",
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml",
       "quickshell/desktop-bar/panels/AssistantChat.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginArea.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml",
       "quickshell/desktop-bar/plugins/PluginPanel.qml"
+    ],
+    "Back to the weather": [
+      "quickshell/desktop-bar/drop/DropDayAgenda.qml"
+    ],
+    "Back to your location": [
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
     ],
     "Background": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
@@ -279,6 +293,7 @@
     "Bluetooth": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
@@ -287,6 +302,7 @@
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
     ],
     "Bluetooth is off": [
+      "quickshell/desktop-bar/drop/DropBluetoothDetail.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
@@ -305,6 +321,12 @@
     ],
     "Bottom": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Break": [
+      "quickshell/desktop-bar/drop/DropTimerPage.qml"
+    ],
+    "Break is over": [
+      "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "Brightness": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -334,6 +356,8 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "CONNECTED": [
+      "quickshell/desktop-bar/drop/DropBluetoothDetail.qml",
+      "quickshell/desktop-bar/drop/DropWifiDetail.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
@@ -486,7 +510,11 @@
     "Choose which displays show a bar.": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
+    "City search unavailable": [
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
+    ],
     "Claude Code": [
+      "quickshell/desktop-bar/drop/DropAiPage.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -498,6 +526,9 @@
     ],
     "Click a picture to preview it, then Apply or Cancel preview.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Click again to delete": [
+      "quickshell/desktop-bar/drop/DropDayAgenda.qml"
     ],
     "Clock": [
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
@@ -533,6 +564,9 @@
     "Close pin": [
       "quickshell/desktop-bar/capture/ScreenshotPins.qml"
     ],
+    "Close search": [
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
+    ],
     "Codename": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -560,10 +594,12 @@
     ],
     "Confirm removal": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
-      "quickshell/desktop-bar/panels/WifiMenu.qml"
+      "quickshell/desktop-bar/components/WifiNetworkRow.qml"
     ],
     "Connect": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
+      "quickshell/desktop-bar/components/WifiNetworkRow.qml",
+      "quickshell/desktop-bar/drop/DropWifiDetail.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Connect to another PC": [
@@ -572,7 +608,7 @@
     ],
     "Connected": [
       "quickshell/desktop-bar/components/BluetoothConnector.qml",
-      "quickshell/desktop-bar/panels/WifiMenu.qml"
+      "quickshell/desktop-bar/components/WifiNetworkRow.qml"
     ],
     "Connected devices": [
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
@@ -628,6 +664,9 @@
       "quickshell/desktop-bar/figures/WindowStyleFigure.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
+    "Could not add the reminder": [
+      "quickshell/desktop-bar/drop/DropDayAgenda.qml"
     ],
     "Could not change Cursor Fire": [
       "quickshell/desktop-bar/settings/SettingsStyleState.qml"
@@ -755,6 +794,7 @@
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
     ],
     "Delete reminder": [
+      "quickshell/desktop-bar/drop/DropDayAgenda.qml",
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
     "Delete?": [
@@ -781,6 +821,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Detecting configured AI clients…": [
+      "quickshell/desktop-bar/drop/DropAiPage.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "Devices": [
@@ -815,7 +856,7 @@
     ],
     "Disconnect": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
-      "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/components/WifiNetworkRow.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -861,6 +902,9 @@
     ],
     "Drop": [
       "tools/choice-lists.json"
+    ],
+    "Drop looks up song lyrics on LRCLIB, sending each song's title, artist and album.": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Duplicate": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
@@ -971,6 +1015,9 @@
     "Files": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Find lyrics on LRCLIB? The title, artist and album of each song you play are sent to lrclib.net.": [
+      "quickshell/desktop-bar/drop/DropMediaPage.qml"
+    ],
     "Fingerprint": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -981,6 +1028,7 @@
       "tools/choice-lists.json"
     ],
     "Focus": [
+      "quickshell/desktop-bar/drop/DropTimerPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -988,6 +1036,9 @@
     "Focus fit": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
+    ],
+    "Focus · round {round}": [
+      "quickshell/desktop-bar/drop/DropTimerPage.qml"
     ],
     "Follow focus": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -1057,6 +1108,9 @@
     "GitHub Copilot CLI": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Go live": [
+      "quickshell/desktop-bar/drop/DropObsPage.qml"
+    ],
     "Grok Build": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -1097,6 +1151,9 @@
     "Hide the bar; press SUPER + Shift + Space to restore it.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "INPUT DEVICE": [
+      "quickshell/desktop-bar/drop/DropAudioDetail.qml"
+    ],
     "IPv4": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -1104,6 +1161,7 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Idle Lock": [
+      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
@@ -1168,9 +1226,11 @@
       "tools/choice-lists.json"
     ],
     "KNOWN DEVICES": [
+      "quickshell/desktop-bar/drop/DropBluetoothDetail.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
     "KNOWN NETWORKS": [
+      "quickshell/desktop-bar/drop/DropWifiDetail.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Keep": [
@@ -1289,6 +1349,7 @@
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
     "Loading…": [
+      "quickshell/desktop-bar/drop/DropPerformancePage.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Lock": [
@@ -1314,6 +1375,12 @@
     ],
     "Look": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+    ],
+    "Looking for lyrics…": [
+      "quickshell/desktop-bar/drop/DropMediaPage.qml"
+    ],
+    "Lyrics are unavailable right now": [
+      "quickshell/desktop-bar/drop/DropMediaPage.qml"
     ],
     "MAC address": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
@@ -1361,6 +1428,7 @@
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Microphone": [
+      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml",
       "quickshell/desktop-bar/panels/ObsMenu.qml",
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
@@ -1412,6 +1480,9 @@
     "Mute output": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "NEXT DAYS": [
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
+    ],
     "NO ADAPTER": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
@@ -1450,6 +1521,7 @@
       "quickshell/desktop-bar/media/MediaCard.qml"
     ],
     "Night Light": [
+      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/BrightnessMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
@@ -1457,6 +1529,7 @@
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
     ],
     "No Bluetooth adapter": [
+      "quickshell/desktop-bar/drop/DropBluetoothDetail.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
@@ -1477,16 +1550,24 @@
     ],
     "No device available": [
       "quickshell/desktop-bar/components/AudioLevelControl.qml",
+      "quickshell/desktop-bar/drop/DropAudioDetail.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
     ],
     "No devices": [
+      "quickshell/desktop-bar/drop/DropBluetoothDetail.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml"
+    ],
+    "No forecast": [
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
     ],
     "No images found": [
       "quickshell/desktop-bar/settings/SettingsAppearanceModel.qml"
     ],
     "No installed items match this filter.": [
       "quickshell/desktop-bar/components/CatalogEmptyState.qml"
+    ],
+    "No lyrics found for this song": [
+      "quickshell/desktop-bar/drop/DropMediaPage.qml"
     ],
     "No matches": [
       "quickshell/emoji-picker/shell.qml"
@@ -1507,6 +1588,7 @@
       "quickshell/desktop-bar/media/MediaCard.qml"
     ],
     "No networks": [
+      "quickshell/desktop-bar/drop/DropWifiDetail.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -1526,6 +1608,7 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": [
+      "quickshell/desktop-bar/drop/DropAiPage.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
@@ -1551,6 +1634,9 @@
     "Not installed": [
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
+    "Not now": [
+      "quickshell/desktop-bar/drop/DropMediaPage.qml"
+    ],
     "Not on any display yet.": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
@@ -1560,8 +1646,14 @@
     "Nothing": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
+    "Nothing is being captured": [
+      "quickshell/desktop-bar/drop/DropObsPage.qml"
+    ],
     "Nothing is sent automatically. You read each report first and choose whether to email it or open a GitHub issue; your name, computer name and network addresses are removed.": [
       "quickshell/desktop-bar/welcome/WelcomePage.qml"
+    ],
+    "Nothing planned": [
+      "quickshell/desktop-bar/drop/DropDayAgenda.qml"
     ],
     "Notification history and Do Not Disturb.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -1593,6 +1685,9 @@
     "OBS command failed": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
+    "OBS is starting…": [
+      "quickshell/desktop-bar/drop/DropObsPage.qml"
+    ],
     "OBS status unavailable": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
@@ -1603,7 +1698,11 @@
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "OTHER NETWORKS": [
+      "quickshell/desktop-bar/drop/DropWifiDetail.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
+    ],
+    "OUTPUT DEVICE": [
+      "quickshell/desktop-bar/drop/DropAudioDetail.qml"
     ],
     "Off": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -1619,7 +1718,7 @@
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Offline": [
-      "quickshell/desktop-bar/panels/WifiMenu.qml",
+      "quickshell/desktop-bar/components/WifiNetworkRow.qml",
       "quickshell/desktop-bar/services/UpdatesStatus.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -1631,6 +1730,10 @@
     ],
     "One third": [
       "tools/choice-lists.json"
+    ],
+    "Online lyrics": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Only the next occurrence can be skipped": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -1767,7 +1870,12 @@
     "Password changed. The login keyring kept its old password; change it in Passwords and Keys.": [
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
     ],
+    "Password for {name}": [
+      "quickshell/desktop-bar/drop/DropWifiDetail.qml"
+    ],
     "Pause": [
+      "quickshell/desktop-bar/drop/DropObsPage.qml",
+      "quickshell/desktop-bar/drop/DropTimerPage.qml",
       "quickshell/desktop-bar/media/MediaCard.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -1778,6 +1886,10 @@
     "Pause recording": [
       "quickshell/desktop-bar/panels/ObsMenu.qml",
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
+    ],
+    "Paused": [
+      "quickshell/desktop-bar/drop/DropObsPage.qml",
+      "quickshell/desktop-bar/drop/DropTimerPage.qml"
     ],
     "Pending updates unavailable": [
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
@@ -1897,6 +2009,9 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
+    "RECORDING": [
+      "quickshell/desktop-bar/drop/DropObsPage.qml"
+    ],
     "RECORDING · {size}": [
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
@@ -1919,12 +2034,15 @@
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Ready": [
-      "distro/plugins/example/HelloTile.qml"
+      "distro/plugins/example/HelloTile.qml",
+      "quickshell/desktop-bar/drop/DropObsPage.qml"
     ],
     "Reboot": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
     "Record": [
+      "quickshell/desktop-bar/drop/DropControlsPage.qml",
+      "quickshell/desktop-bar/drop/DropObsPage.qml",
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Record + Audio": [
@@ -1933,7 +2051,11 @@
     "Recording": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/drop/DropObsPage.qml",
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
+    ],
+    "Recording and streaming": [
+      "quickshell/desktop-bar/drop/DropObsPage.qml"
     ],
     "Recording options": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
@@ -1958,6 +2080,9 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Remind me…": [
+      "quickshell/desktop-bar/drop/DropDayAgenda.qml"
+    ],
     "Reminders & Sharing": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -1966,8 +2091,8 @@
     ],
     "Remove": [
       "quickshell/desktop-bar/components/SettingsConfirmSheet.qml",
+      "quickshell/desktop-bar/components/WifiNetworkRow.qml",
       "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -2032,6 +2157,12 @@
     "Reset": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
+    "Resets in {days}d {hours}h": [
+      "quickshell/desktop-bar/drop/DropAiPage.qml"
+    ],
+    "Resets in {hours}h {minutes}m": [
+      "quickshell/desktop-bar/drop/DropAiPage.qml"
+    ],
     "Resolution": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -2054,6 +2185,10 @@
     ],
     "Results": [
       "quickshell/desktop-bar/panels/Handbook.qml"
+    ],
+    "Resume": [
+      "quickshell/desktop-bar/drop/DropObsPage.qml",
+      "quickshell/desktop-bar/drop/DropTimerPage.qml"
     ],
     "Resume recording": [
       "quickshell/desktop-bar/panels/ObsMenu.qml",
@@ -2109,6 +2244,7 @@
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "SCANNED DEVICES": [
+      "quickshell/desktop-bar/drop/DropBluetoothDetail.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml"
     ],
     "SDR content brightness": [
@@ -2125,6 +2261,9 @@
     "SLEEP": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
+    ],
+    "STREAMING": [
+      "quickshell/desktop-bar/drop/DropObsPage.qml"
     ],
     "SUSPEND": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
@@ -2160,6 +2299,8 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Scanning...": [
+      "quickshell/desktop-bar/drop/DropBluetoothDetail.qml",
+      "quickshell/desktop-bar/drop/DropWifiDetail.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
@@ -2183,6 +2324,12 @@
     "Search": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
+    ],
+    "Search a city": [
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
+    ],
+    "Search a city…": [
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
     ],
     "Search city": [
       "quickshell/desktop-bar/panels/WeatherMenu.qml"
@@ -2237,6 +2384,7 @@
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
     ],
     "Session": [
+      "quickshell/desktop-bar/drop/DropAiPage.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
@@ -2262,6 +2410,7 @@
       "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
     ],
     "Settings": [
+      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/SettingsContent.qml",
       "quickshell/desktop-bar/settings/SettingsWindow.qml"
@@ -2357,6 +2506,9 @@
     "Signal": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
+    "Silence": [
+      "quickshell/desktop-bar/drop/DropControlsPage.qml"
+    ],
     "Silence popups while keeping notification history.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
@@ -2379,6 +2531,7 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Sound": [
+      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml",
@@ -2394,11 +2547,15 @@
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
     "Start": [
+      "quickshell/desktop-bar/drop/DropTimerPage.qml",
       "quickshell/desktop-bar/panels/BrightnessMenu.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Start Screensaver": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
+    ],
+    "Start another focus session when you are ready.": [
+      "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "Start at login": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
@@ -2427,6 +2584,8 @@
       "quickshell/desktop-bar/welcome/WelcomeTour.qml"
     ],
     "Stop": [
+      "quickshell/desktop-bar/drop/DropObsPage.qml",
+      "quickshell/desktop-bar/drop/DropTimerPage.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
     "Stop Recording": [
@@ -2444,9 +2603,13 @@
       "quickshell/desktop-bar/panels/ObsMenu.qml",
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
+    "Stopwatch": [
+      "quickshell/desktop-bar/drop/DropTimerPage.qml"
+    ],
     "Streaming": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/drop/DropObsPage.qml",
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -2462,6 +2625,9 @@
     ],
     "Suspend": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
+    ],
+    "Swap": [
+      "quickshell/desktop-bar/drop/DropPerformancePage.qml"
     ],
     "Switch": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
@@ -2614,6 +2780,15 @@
     "Tiling": [
       "tools/choice-lists.json"
     ],
+    "Time for a break": [
+      "quickshell/desktop-bar/services/FocusTimer.qml"
+    ],
+    "Timer": [
+      "quickshell/desktop-bar/drop/DropTimerPage.qml"
+    ],
+    "Timer finished": [
+      "quickshell/desktop-bar/services/FocusTimer.qml"
+    ],
     "Today": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
@@ -2644,6 +2819,9 @@
     "Turn left": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
+    "Turn on": [
+      "quickshell/desktop-bar/drop/DropMediaPage.qml"
+    ],
     "Turn right": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
@@ -2655,6 +2833,12 @@
     ],
     "Two thirds": [
       "tools/choice-lists.json"
+    ],
+    "Type a time like 18:30 and what to remember": [
+      "quickshell/desktop-bar/drop/DropDayAgenda.qml"
+    ],
+    "Type at least two letters": [
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
     ],
     "Typography": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -2766,6 +2950,9 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
+    "VRAM": [
+      "quickshell/desktop-bar/drop/DropPerformancePage.qml"
+    ],
     "Version": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -2808,8 +2995,13 @@
     ],
     "Weather": [
       "quickshell/desktop-bar/bar/WeatherWidget.qml",
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/panels/WeatherMenu.qml"
+    ],
+    "Weather unavailable": [
+      "quickshell/desktop-bar/drop/DropHomePage.qml",
+      "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
     ],
     "Web browser": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -2836,6 +3028,7 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "WiFi": [
+      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -2846,6 +3039,9 @@
     "WiFi backend": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "WiFi is off": [
+      "quickshell/desktop-bar/drop/DropWifiDetail.qml"
     ],
     "WiFi password": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
@@ -2935,6 +3131,9 @@
     "fingerprint fido tpm firewall authentication": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "free": [
+      "quickshell/desktop-bar/drop/DropPerformancePage.qml"
+    ],
     "gaps corners rounded square shape animations effects tiling scrolling columns direction focus width": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -2996,6 +3195,9 @@
     "style colors palette cursor fonts terminal opacity wallpaper": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "used": [
+      "quickshell/desktop-bar/drop/DropPerformancePage.qml"
+    ],
     "user": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml",
       "quickshell/lockscreen/themes/girl-pillow/Main.qml"
@@ -3019,6 +3221,12 @@
     ],
     "{day} · WEEK {week} · {year}": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
+    ],
+    "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": [
+      "quickshell/desktop-bar/drop/DropTimerPage.qml"
+    ],
+    "{minutes} minutes, then back to focus.": [
+      "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "{name} · already installed": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -4247,6 +4455,9 @@
     "Longest battery lifespan · laptops only": [
       "elephant/menu-rows/battery-limit.json"
     ],
+    "Look up lyrics on LRCLIB; sends each song's title, artist and album": [
+      "elephant/menus/bar-lyrics.lua"
+    ],
     "Main": [
       "elephant/menus/main.lua"
     ],
@@ -4412,6 +4623,7 @@
       "elephant/menu-rows/tools.json"
     ],
     "Off": [
+      "elephant/menus/bar-lyrics.lua",
       "elephant/menus/bar-pinned.lua",
       "elephant/menus/focus.lua",
       "elephant/menus/scrolling-follow-focus.lua",
@@ -4425,6 +4637,7 @@
       "elephant/menus/plugin-actions.lua"
     ],
     "On": [
+      "elephant/menus/bar-lyrics.lua",
       "elephant/menus/bar-pinned.lua",
       "elephant/menus/focus.lua",
       "elephant/menus/scrolling-follow-focus.lua",
@@ -4436,6 +4649,10 @@
     ],
     "One third": [
       "tools/choice-lists.json"
+    ],
+    "Online lyrics": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-lyrics.lua"
     ],
     "Opacity": [
       "elephant/menu-rows/terminal.json",
@@ -5167,6 +5384,9 @@
     ],
     "Show a Google, Outlook or iCal calendar beside your reminders": [
       "elephant/menu-rows/calendars.json"
+    ],
+    "Show lyrics only when the player sends them": [
+      "elephant/menus/bar-lyrics.lua"
     ],
     "Show occupied workspaces": [
       "elephant/menus/system-shortcuts.lua"

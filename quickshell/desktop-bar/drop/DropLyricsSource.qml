@@ -1,17 +1,17 @@
-import "../.."
+import ".."
 import QtQuick
-import Quickshell.Io
-import Eitr as Eitr
+import Quickshell
 
 // Where Drop's lyrics come from: the player's own (xesam:asText) when it sends them,
-// otherwise LRCLIB once the owner has turned online lyrics on. That choice is kept in the
-// machine-local eitr/lyrics.json; looking a song up sends its title, artist, album and
-// length to lrclib.net through the bar's data service.
+// otherwise LRCLIB once the owner has turned online lyrics on (the bar setting "lyrics",
+// also in Settings > Desktop Bar and Walker). Looking a song up sends its title, artist,
+// album and length to lrclib.net through the bar's data service.
 QtObject {
     id: source
     required property var player
     required property bool active
-    property bool online: false
+    required property var host
+    readonly property bool online: !!host.barLyrics
     // "", "loading", "none" (nothing known for the song) or "unavailable".
     property string state: ""
     property string fetched: ""
@@ -29,8 +29,7 @@ QtObject {
     onTrackKeyChanged: lookUp()
 
     function setOnline(value) {
-        online = value;
-        store.setText(JSON.stringify({online: value}, null, 2) + "\n");
+        Quickshell.execDetached(["python3", Quickshell.shellDir + "/scripts/bar-settings.py", "set", "lyrics", value ? "yes" : "no"]);
     }
     function lookUp() {
         if (!wanted || fetchedFor === trackKey) return;
@@ -50,13 +49,4 @@ QtObject {
 
     // A failed lookup (the data service still starting, LRCLIB unreachable) tries again.
     property Timer retry: Timer { interval: 8000; onTriggered: source.lookUp() }
-    property FileView store: FileView {
-        path: Eitr.Paths.config("eitr/lyrics.json")
-        atomicWrites: true; printErrors: false
-        onLoaded: {
-            try { source.online = JSON.parse(text()).online === true; }
-            catch (error) { source.online = false; }
-        }
-        onLoadFailed: source.online = false
-    }
 }

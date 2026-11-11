@@ -1,10 +1,10 @@
-import "../.."
+import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Eitr as Eitr
 import Quickshell.Services.Pipewire
 import Quickshell.Bluetooth
-import "../../PanelStyle.js" as PanelStyle
+import "../PanelStyle.js" as PanelStyle
 
 // Drop's quick controls: wide buttons with a chevron for WiFi, Bluetooth, Sound and
 // Microphone, which open in place (networks, devices and audio devices, with a back arrow

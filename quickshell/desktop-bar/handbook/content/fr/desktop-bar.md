@@ -42,7 +42,24 @@ Choisissez une disposition dans Paramètres > Barre de bureau. Les six fonctionn
 | Onglets | Onglets relie trois onglets par une fine bande. Les icônes d’état restent visibles ; survolez le centre pour la météo. |
 | Îlots | Îlots donne une capsule à chaque groupe et affiche toujours toutes les icônes d’état. Ouvrir un panneau agrandit son îlot et écarte les groupes voisins. |
 | Dynamique | Dynamique commence par trois îlots : logo, horloge et réseau/batterie. Survolez-en un pour le déplier ; le panneau grandit depuis ce même îlot. |
-| Goutte | Goutte n’affiche que l’heure dans une capsule au centre du bord ; cliquez dessus pour le calendrier. Avec le masquage automatique, un petit point lumineux reste au bord et redevient la capsule quand la barre apparaît. |
+| Goutte | Goutte n’affiche que l’heure dans une capsule au centre du bord. Cliquez dessus pour faire grandir son tableau de bord ; un clic droit ouvre directement les réglages rapides. Avec le masquage automatique, rien ne reste à l’écran jusqu’à ce qu’une goutte tombe du bord et devienne la capsule. |
+
+## Le tableau de bord de Goutte
+
+Cliquez sur la capsule de l’heure de Goutte et la capsule elle-même grandit en tableau de bord. Faites glisser une page sur le côté (vers la droite pour avancer, vers la gauche pour revenir, en boucle) ou utilisez les flèches ou le défilement horizontal. Échap ou un clic à côté le ferme. Rien n’y ouvre un autre panneau : les détails s’ouvrent sur place avec une flèche de retour.
+
+| Page | Contenu |
+| :--- | :--- |
+| Calendrier et météo | La météo à côté du mois. Cliquez sur la météo pour les prévisions complètes et la recherche d’une ville ; cliquez sur un jour pour ses rendez-vous et ajouter un rappel à une heure de ce jour. |
+| Médias | La pochette entourée de barres qui suivent la musique, le morceau, ses paroles, les commandes et une barre de progression. Seulement pendant la lecture. |
+| OBS | L’état de l’enregistrement et de la diffusion avec pause, arrêt et passage en direct, un repère de chapitre, le dossier des enregistrements et OBS. Tant qu’OBS est ouvert. |
+| Réglages rapides | WiFi, Bluetooth, Son et Microphone ouvrent sur place leurs réseaux et appareils ; Mode avion, Silence, Éclairage nocturne, Verrouillage d’inactivité, Enregistrer et Paramètres ; volume, microphone et (sur portable) luminosité. |
+| Minuteur et concentration | Un compte à rebours, un chronomètre ou des sessions de concentration de 25 minutes avec 5 minutes de pause. Il continue tableau de bord fermé et vous prévient à la fin. |
+| Performances, Utilisation de l’IA et Notifications | CPU, GPU, RAM et stockage ; les limites de chaque assistant (cliquez sur l’un pour toutes les voir) ; la liste des notifications. |
+
+Autour de l’heure, la capsule montre ce qui se passe et ne fait de la place que là où il faut : une cloche qui sonne deux fois pour une nouvelle notification (cliquez pour la liste), un point rouge pendant un enregistrement, un anneau pendant un minuteur, un repère de calendrier quand un événement commence dans moins de dix minutes, et une note pendant la musique (cliquez pour Médias). Changer d’espace de travail ou de volume remplace un instant l’heure par le numéro ou le niveau ; la batterie d’un portable fait de même en rouge à 15 % et 5 %. Faites glisser la note vers la gauche pour transformer la capsule en une ligne de paroles ; faites glisser dans un sens ou l’autre, mettez en pause ou arrêtez pour revenir.
+
+**Paroles en ligne** (Paramètres > Barre de bureau > Comportement, ou Walker > Paramètres > Bureau > Barre de bureau > Paroles en ligne) est désactivé par défaut. Activé, Goutte recherche le morceau sur LRCLIB (lrclib.net) en envoyant son titre, son artiste, son album et sa durée. Les paroles envoyées par le lecteur lui-même passent toujours en premier.
 
 ## Espaces de travail
 
@@ -64,7 +81,7 @@ Le fond des boutons d’icône apparaît au survol ; les panneaux s’actualisen
 
 **Visualiseur de musique** ouvre cava avec les couleurs du thème. Un clic droit sur l’égaliseur multimédia ouvre ce visualiseur ; le clic gauche ouvre toujours les détails multimédias. Appuyez sur **q** ou **Échap** pour le fermer. Si cava manque, il est installé au préalable.
 
-**Masquage automatique**, dans Paramètres > Barre de bureau, rétracte la barre après un bref délai lorsque vous éloignez le pointeur. Placez-le au bord de l’écran pour la faire apparaître. Cela fonctionne sur les quatre bords avec les dispositions Complète, Centrée, Onglets, Îlots, Dynamique et Goutte ; Goutte laisse un petit point lumineux au bord au lieu de se retirer. Les panneaux et menus ouverts, ainsi que le déplacement de la barre, la gardent visible ; elle se masque à nouveau ensuite.
+**Masquage automatique**, dans Paramètres > Barre de bureau, rétracte la barre après un bref délai lorsque vous éloignez le pointeur. Placez-le au bord de l’écran pour la faire apparaître. Cela fonctionne sur les quatre bords avec les dispositions Complète, Centrée, Onglets, Îlots, Dynamique et Goutte ; avec Goutte, une goutte de la couleur de la barre tombe du bord et devient la capsule de l’heure, et une nouvelle notification la fait apparaître jusqu’à la fermeture de sa fenêtre. Les panneaux et menus ouverts, ainsi que le déplacement de la barre, la gardent visible ; elle se masque à nouveau ensuite.
 
 Tant que l’option est active, la barre ne réserve aucun espace aux fenêtres : elle glisse par-dessus au lieu de les déplacer. Ce réglage est enregistré indépendamment de l’épingle de la disposition centrée et reste désactivé à l’installation. Les notifications s’affichent sans la faire apparaître.
 
