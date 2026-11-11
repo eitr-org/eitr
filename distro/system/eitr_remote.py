@@ -172,6 +172,25 @@ def setup(name):
         raise
 
 
+def refresh(_name=None):
+    """After a Sunshine update (the package hook): installing the package replaces the
+    executable, which drops the capture grant Sharing Setup gave it. Give it back to the
+    account recorded by Sharing Setup, only while that setup is in place (Restore Sharing
+    Setup removes the record) and remote access is allowed."""
+    previous = journal('sunshine')
+    if not previous or not native_binary():
+        return
+    try:
+        from eitr_policy import require
+        require('remote_access')
+        name = previous['user']
+        pwd.getpwnam(name)
+    except (Exception, SystemExit):
+        return
+    if not capture_ready(name):
+        grant_capture(name)
+
+
 def scopes(routes, interfaces=None):
     """Directly connected private subnets only; never default/public/VPN routes."""
     result = []
@@ -349,10 +368,10 @@ STOPPING = {'close', 'undo', 'tailscale-undo'}
 
 
 def dispatch(action, name):
-    if action not in STOPPING:
+    if action not in STOPPING and action != 'refresh':
         from eitr_policy import require
         require('remote_access')
     operations = {'setup': setup, 'undo': undo_sunshine, 'arm': arm,
-                  'open': lambda user: sharing(user, True), 'close': lambda user: sharing(user, False),
+                  'refresh': refresh, 'open': lambda user: sharing(user, True), 'close': lambda user: sharing(user, False),
                   'tailscale': tailscale, 'tailscale-undo': lambda user: tailscale(user, True)}
     operations[action](name)

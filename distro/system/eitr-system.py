@@ -1201,7 +1201,7 @@ if __name__ == "__main__":
                                            "boot-menu-style-remove", "boot-menu-refresh",
                                            "firewall-on", "firewall-off", "firewall-status", "firewall-allow-ssh",
                                            "snapshot-changes", "channel-status", "channel-set",
-                                           "vpn-import", "vpn-up", "vpn-down", "remote-setup", "remote-arm", "remote-undo", "remote-open", "remote-close",
+                                           "vpn-import", "vpn-up", "vpn-down", "remote-setup", "remote-arm", "remote-undo", "remote-open", "remote-close", "remote-refresh",
                                            "remote-tailscale", "remote-tailscale-undo", "profile-apply", "profile-install", "profile-flatpaks"])
     parser.add_argument("argument", nargs="?",
                         help='auth-enable: fingerprint|fido2|password; auth-restore: backup name; snapshot-post: success|failed; boot-menu-style: desktop user; battery-limit: 60-100|off; luks-*: /dev path')

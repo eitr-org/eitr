@@ -7,7 +7,7 @@
 # confirmed, undoable sharing setup (distro/REMOTE-ACCESS.md).
 pkgname=eitr-sunshine
 pkgver=2026.914.233613
-pkgrel=2
+pkgrel=3
 pkgdesc='Native Sunshine desktop sharing, with explicit Eitr permission setup'
 arch=(x86_64)
 url='https://github.com/LizardByte/Sunshine'

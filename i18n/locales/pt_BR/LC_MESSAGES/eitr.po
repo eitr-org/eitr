@@ -3190,6 +3190,9 @@ msgstr "Entre com `claude` para ver o uso da assinatura"
 msgid "Sign in with an API key"
 msgstr "Entrar com uma chave de API"
 
+msgid "Sign out and back in before starting sharing."
+msgstr "Saia e entre novamente antes de iniciar o compartilhamento."
+
 msgid "Sign out and back in before starting sharing. Running sharing stays active."
 msgstr "Saia e entre novamente antes de iniciar o compartilhamento. O compartilhamento em execução continua ativo."
 
@@ -3378,6 +3381,12 @@ msgstr "O Sunshine concede controle total do seu desktop. A configuração permi
 
 msgid "Sunshine is not installed."
 msgstr "Sunshine não está instalado."
+
+msgid "Sunshine is not installed; open Sharing Setup."
+msgstr "O Sunshine não está instalado; abra a configuração do compartilhamento."
+
+msgid "Sunshine lost its screen capture permission; run Set Up Sharing again."
+msgstr "O Sunshine perdeu a permissão de captura de tela; configure o compartilhamento novamente."
 
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Métodos corporativos compatíveis: PEAP/MSCHAPv2 e TTLS/PAP"

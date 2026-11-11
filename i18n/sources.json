@@ -9585,7 +9585,8 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Run Sharing Setup first.": [
-      "distro/system/eitr_remote.py"
+      "distro/system/eitr_remote.py",
+      "walker/scripts/actions/system/remote-access.py"
     ],
     "Run as your desktop user without GIT_CONFIG_GLOBAL": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -9845,6 +9846,9 @@
     "Sign in with an API key": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Sign out and back in before starting sharing.": [
+      "walker/scripts/actions/system/remote-access.py"
+    ],
     "Sign out and back in before starting sharing. Running sharing stays active.": [
       "distro/system/eitr_remote.py"
     ],
@@ -10035,6 +10039,12 @@
     ],
     "Sunshine is not installed.": [
       "quickshell/desktop-bar/scripts/remote-status.py"
+    ],
+    "Sunshine is not installed; open Sharing Setup.": [
+      "walker/scripts/actions/system/remote-access.py"
+    ],
+    "Sunshine lost its screen capture permission; run Set Up Sharing again.": [
+      "walker/scripts/actions/system/remote-access.py"
     ],
     "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"

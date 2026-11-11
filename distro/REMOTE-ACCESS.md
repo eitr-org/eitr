@@ -54,8 +54,14 @@ not revoke its existing process credentials or open executable. An automatic
 service restart before the next login can fail to execute Sunshine.
 
 Package upgrades replace the binary with root:root mode 0755 and no capability.
-The existing confirmed Set Up Sharing repair path restores ownership, mode and
-membership before reapplying the capability; no automatic upgrade grant is added.
+A pacman hook (`92-eitr-sharing.hook`, `eitr-system remote-refresh`) then gives the
+grant back to the account Sharing Setup recorded, restoring ownership, mode and
+membership before the capability, as Set Up Sharing does. It acts only while that
+setup's journal exists (Restore Sharing Setup removes it) and remote access is
+allowed, so it never grants anything that was not confirmed once; the binary is
+Eitr's pinned package. Set Up Sharing remains the confirmed repair path. When sharing
+cannot start, the toggle names the reason (no setup, a session older than the group,
+or a missing capability) before trying the service.
 Stop Sharing closes ports and stops the service, retaining setup permissions for
 a later start. Restore Sharing Setup removes the sharing account's supplementary
 group membership and all binary capabilities, returning the binary to root:root

@@ -49,9 +49,11 @@ Estado do compartilhamento mostra erros.
 
 Na primeira vez, a transmissão fica bloqueada enquanto você define a senha. Volte ao terminal e confirme a definição; sua senha de administrador então libera o controle remoto.
 
-Uma atualização do pacote Sunshine remove a capacidade de captura do executável.
-Se o compartilhamento não iniciar depois, use Configurar compartilhamento novamente
-e confirme a permissão; o registro original de restauração é preservado.
+Uma atualização do pacote Sunshine substitui o executável, o que remove sua
+capacidade de captura; em seguida, a atualização a devolve à conta que configurou o
+compartilhamento. Se ainda assim não iniciar, o botão de Streaming diz o motivo:
+configure o compartilhamento novamente ou saia e entre de novo após a primeira
+configuração. O registro original de restauração é preservado.
 
 O Sunshine usa a capacidade KMS apenas como root ou pela conta que configurou o compartilhamento: a configuração define `root:eitr-sharing`, modo `0750`, e adiciona sua conta ao grupo do sistema. Saia e entre novamente antes de iniciar o compartilhamento para atualizar os grupos do serviço de usuário. A configuração mantém o processo em execução; reiniciá-lo antes de entrar novamente pode falhar.
 

@@ -48,9 +48,11 @@ Désactiver le démarrage à la connexion conserve le démarrage manuel. État d
 
 Au premier démarrage, la diffusion reste bloquée pendant la définition du mot de passe. Revenez au terminal et confirmez sa définition ; votre mot de passe administrateur autorise alors le contrôle à distance.
 
-Une mise à jour du paquet Sunshine retire la capacité de capture de l’exécutable.
-Si le partage refuse ensuite de démarrer, utilisez à nouveau Configurer le partage
-et confirmez l’autorisation. Le journal d’annulation initial est conservé.
+Une mise à jour du paquet Sunshine remplace l’exécutable, ce qui retire sa capacité
+de capture ; la mise à jour la rend ensuite au compte qui a configuré le partage. Si le
+partage ne démarre toujours pas, l’interrupteur Streaming en donne la raison :
+configurez à nouveau le partage, ou déconnectez-vous puis reconnectez-vous après une
+première configuration. Le journal d’annulation initial est conservé.
 
 Sunshine utilise la capacité KMS uniquement comme root ou avec le compte de partage : la configuration applique `root:eitr-sharing`, mode `0750`, et ajoute votre compte à ce groupe système. Déconnectez-vous puis reconnectez-vous avant de démarrer pour actualiser les groupes du service utilisateur. La configuration laisse le processus actif ; un redémarrage avant la prochaine connexion peut échouer.
 

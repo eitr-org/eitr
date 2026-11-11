@@ -129,4 +129,6 @@ package() {
   # A changed splash shows at boot only after the initramfs is rebuilt.
   install -Dm755 distro/system/eitr-plymouth-refresh.sh "$pkgdir/usr/lib/eitr/eitr-plymouth-refresh"
   install -Dm644 distro/system/91-eitr-plymouth.hook "$pkgdir/usr/share/libalpm/hooks/91-eitr-plymouth.hook"
+  install -Dm644 distro/system/92-eitr-sharing.hook "$pkgdir/usr/share/libalpm/hooks/92-eitr-sharing.hook"
+  install -Dm644 distro/system/sddm-eitr-greeter.conf "$pkgdir/usr/lib/sddm/sddm.conf.d/eitr-greeter.conf"
 }

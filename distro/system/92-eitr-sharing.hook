@@ -1,0 +1,10 @@
+[Trigger]
+Type = Path
+Operation = Install
+Operation = Upgrade
+Target = usr/bin/sunshine
+
+[Action]
+Description = Restoring desktop sharing's screen capture after the Sunshine update...
+When = PostTransaction
+Exec = /usr/lib/eitr/eitr-system remote-refresh

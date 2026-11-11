@@ -233,6 +233,32 @@ class RemoteSystemTests(unittest.TestCase):
         self.assertEqual(remote.journal('sunshine'), original)
         self.assertEqual(self.commands[-1], ['setcap', 'cap_sys_admin+p', str(remote.BINARY)])
 
+    def test_package_hook_restores_the_recorded_grant_after_an_update(self):
+        self.setup_sharing()
+        self.commands.clear()
+        with patch.object(remote, 'capture_ready', return_value=False), \
+                patch.object(remote.pwd, 'getpwnam'), patch('eitr_policy.require', create=True):
+            remote.refresh()
+        self.assertEqual(self.commands[-1], ['setcap', 'cap_sys_admin+p', str(remote.BINARY)])
+        self.assertIn(['usermod', '-a', '-G', 'eitr-sharing', 'tester'], self.commands)
+
+    def test_package_hook_does_nothing_without_setup_or_when_already_granted(self):
+        with patch.object(remote, 'capture_ready', return_value=False):
+            remote.refresh()
+        self.assertEqual(self.commands, [])
+        self.setup_sharing()
+        self.commands.clear()
+        with patch.object(remote, 'capture_ready', return_value=True), patch.object(remote.pwd, 'getpwnam'):
+            remote.refresh()
+        self.assertEqual(self.commands, [])
+
+    def test_package_hook_runs_the_refresh_after_sunshine_changes(self):
+        hook = (ROOT / 'distro/system/92-eitr-sharing.hook').read_text()
+        self.assertIn('Target = usr/bin/sunshine', hook)
+        self.assertIn('Exec = /usr/lib/eitr/eitr-system remote-refresh', hook)
+        package = (ROOT / 'distro/pkg/eitr-desktop/PKGBUILD').read_text()
+        self.assertIn('"$pkgdir/usr/share/libalpm/hooks/92-eitr-sharing.hook"', package)
+
     def test_grant_restricts_execution_before_capability_without_service_restart(self):
         self.setup_sharing()
         owner = ['chown', 'root:eitr-sharing', str(remote.BINARY)]

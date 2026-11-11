@@ -1555,5 +1555,8 @@
   "Select it in Desktop > Lockscreen; Ctrl+P previews it.": "Select it in Desktop > Lockscreen; Ctrl+P previews it.",
   "VPN profiles need NetworkManager. Choose it in Settings > Devices > Connections > Network Backend, then reboot.": "VPN profiles need NetworkManager. Choose it in Settings > Devices > Connections > Network Backend, then reboot.",
   "You can remove it later from Development > AI > Default Assistant.": "You can remove it later from Development > AI > Default Assistant.",
-  "{name} is in Desktop > Appearance > Wallpaper and the wallpaper carousel.": "{name} is in Desktop > Appearance > Wallpaper and the wallpaper carousel."
+  "{name} is in Desktop > Appearance > Wallpaper and the wallpaper carousel.": "{name} is in Desktop > Appearance > Wallpaper and the wallpaper carousel.",
+  "Sign out and back in before starting sharing.": "Sign out and back in before starting sharing.",
+  "Sunshine is not installed; open Sharing Setup.": "Sunshine is not installed; open Sharing Setup.",
+  "Sunshine lost its screen capture permission; run Set Up Sharing again.": "Sunshine lost its screen capture permission; run Set Up Sharing again."
 }

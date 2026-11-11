@@ -3190,6 +3190,9 @@ msgstr "Melden Sie sich mit `claude` an, um die Abonnementnutzung anzuzeigen"
 msgid "Sign in with an API key"
 msgstr "Mit einem API-Schlüssel anmelden"
 
+msgid "Sign out and back in before starting sharing."
+msgstr "Melde dich vor dem Start der Freigabe ab und wieder an."
+
 msgid "Sign out and back in before starting sharing. Running sharing stays active."
 msgstr "Melde dich vor dem Start der Freigabe ab und wieder an. Eine laufende Freigabe bleibt aktiv."
 
@@ -3378,6 +3381,12 @@ msgstr "Sunshine gewährt vollständige Desktop-Kontrolle. Die Einrichtung erlau
 
 msgid "Sunshine is not installed."
 msgstr "Sunshine ist nicht installiert."
+
+msgid "Sunshine is not installed; open Sharing Setup."
+msgstr "Sunshine ist nicht installiert; öffne die Freigabe-Einrichtung."
+
+msgid "Sunshine lost its screen capture permission; run Set Up Sharing again."
+msgstr "Sunshine hat die Bildschirmaufnahme-Berechtigung verloren; richte die Freigabe erneut ein."
 
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Unterstützte Unternehmensverfahren: PEAP/MSCHAPv2 und TTLS/PAP"

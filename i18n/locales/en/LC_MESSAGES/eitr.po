@@ -3190,6 +3190,9 @@ msgstr "Sign in with `claude` to show subscription usage"
 msgid "Sign in with an API key"
 msgstr "Sign in with an API key"
 
+msgid "Sign out and back in before starting sharing."
+msgstr "Sign out and back in before starting sharing."
+
 msgid "Sign out and back in before starting sharing. Running sharing stays active."
 msgstr "Sign out and back in before starting sharing. Running sharing stays active."
 
@@ -3378,6 +3381,12 @@ msgstr "Sunshine grants full control of your desktop. Setup grants KMS capture a
 
 msgid "Sunshine is not installed."
 msgstr "Sunshine is not installed."
+
+msgid "Sunshine is not installed; open Sharing Setup."
+msgstr "Sunshine is not installed; open Sharing Setup."
+
+msgid "Sunshine lost its screen capture permission; run Set Up Sharing again."
+msgstr "Sunshine lost its screen capture permission; run Set Up Sharing again."
 
 msgid "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"
 msgstr "Supported enterprise methods: PEAP/MSCHAPv2 and TTLS/PAP"

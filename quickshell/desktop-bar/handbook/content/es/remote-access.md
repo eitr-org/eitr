@@ -47,9 +47,11 @@ Estado del uso compartido muestra errores.
 
 La primera vez, la transmisión permanece bloqueada mientras define la contraseña. Vuelva al terminal y confirme que la ha definido; su contraseña de administrador activa entonces el control remoto.
 
-Una actualización del paquete Sunshine borra la capacidad de captura del ejecutable.
-Si después no se inicia, use Configurar uso compartido de nuevo y confirme el permiso;
-se conserva el registro original de restauración.
+Una actualización del paquete Sunshine reemplaza el ejecutable y borra su capacidad
+de captura; después, la actualización se la devuelve a la cuenta que configuró el uso
+compartido. Si aun así no se inicia, el interruptor de Streaming indica el motivo:
+vuelva a configurar el uso compartido o cierre sesión y vuelva a entrar tras la primera
+configuración. Se conserva el registro original de restauración.
 
 Sunshine usa la capacidad KMS solo como root o con la cuenta que configuró el uso compartido: la configuración establece `root:eitr-sharing`, modo `0750`, y añade tu cuenta al grupo del sistema. Cierra sesión y vuelve a entrar antes de iniciar para actualizar los grupos del servicio de usuario. La configuración mantiene el proceso activo; reiniciarlo antes de volver a entrar puede fallar.
 

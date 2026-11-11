@@ -46,9 +46,11 @@ Anmeldestart deaktivieren behält manuelles Starten bei. Freigabestatus zeigt Di
 
 Beim ersten Mal bleibt Streaming während der Passwortvergabe gesperrt. Kehren Sie zum Terminal zurück und bestätigen Sie die Vergabe; Ihr Administratorpasswort erlaubt dann die Fernkontrolle.
 
-Ein Sunshine-Paketupdate entfernt die Aufnahme-Capability der ausführbaren Datei.
-Falls die Freigabe danach nicht startet, wählen Sie erneut Freigabe einrichten
-und bestätigen Sie die Erlaubnis. Das ursprüngliche Wiederherstellungsprotokoll bleibt erhalten.
+Ein Sunshine-Paketupdate ersetzt die ausführbare Datei und entfernt damit ihre
+Aufnahme-Capability; das Update gibt sie dem Konto, das die Freigabe eingerichtet hat,
+anschließend zurück. Startet die Freigabe trotzdem nicht, nennt der Streaming-Schalter
+den Grund: Freigabe erneut einrichten oder nach der ersten Einrichtung ab- und wieder
+anmelden. Das ursprüngliche Wiederherstellungsprotokoll bleibt erhalten.
 
 Sunshine verwendet die KMS-Capability nur als root oder mit dem Freigabekonto: Die Einrichtung setzt `root:eitr-sharing`, Modus `0750`, und nimmt dein Konto in diese Systemgruppe auf. Melde dich vor dem Start ab und wieder an, damit der Benutzerdienst die neue Gruppe erhält. Die Einrichtung lässt laufende Prozesse aktiv; ein Neustart vor der nächsten Anmeldung kann fehlschlagen. Stoppen behält die Berechtigungen. Zurücksetzen entfernt die Gruppenmitgliedschaft und alle Datei-Capabilities und setzt `root:root`, Modus `0755`, auch bei älteren Einrichtungsdaten. Nach Paketupdates repariert die Einrichtung Eigentümer und Modus vor der erneuten Vergabe der Capability.
 

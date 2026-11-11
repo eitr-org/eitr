@@ -5,6 +5,7 @@ from eitr_i18n import tr
 from eitr_terminal import wait_for_escape
 from eitr_paths import code, config, state
 from eitr_app import app_command
+import grp
 import importlib.util
 import json
 import os
@@ -26,8 +27,33 @@ def run(command, **options):
     return subprocess.run(command, check=True, **options)
 
 
+def blocker():
+    """Why Sunshine cannot run in this session, in words, or '' when nothing stands in the way.
+    Sharing Setup lets only the eitr-sharing group run Sunshine and gives it screen capture;
+    a session started before joining that group cannot run it until the next login."""
+    binary = Path('/usr/bin/sunshine')
+    if not binary.is_file():
+        return tr('Sunshine is not installed; open Sharing Setup.')
+    try:
+        group = grp.getgrnam('eitr-sharing')
+    except KeyError:
+        return tr('Run Sharing Setup first.')
+    name = pwd.getpwuid(os.getuid()).pw_name
+    if name not in group.gr_mem and os.getgid() != group.gr_gid:
+        return tr('Run Sharing Setup first.')
+    if group.gr_gid not in os.getgroups():
+        return tr('Sign out and back in before starting sharing.')
+    capability = subprocess.run(['getcap', str(binary)], capture_output=True, text=True, check=False).stdout
+    if 'cap_sys_admin' not in capability:
+        return tr('Sunshine lost its screen capture permission; run Set Up Sharing again.')
+    return ''
+
+
 def start_service(verb):
     """Start or restart sharing; on failure show the service's own log, which holds the reason."""
+    reason = blocker()
+    if reason:
+        raise RuntimeError(tr('Sharing could not start: {reason}', reason=reason))
     try:
         run(['systemctl', '--user', verb, SERVICE])
     except subprocess.CalledProcessError:

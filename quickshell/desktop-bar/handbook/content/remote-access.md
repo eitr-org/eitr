@@ -53,9 +53,11 @@ Streaming panel or the menu; Turn Off Start at Login keeps manual sharing.
 
 Sharing Status shows service errors.
 
-A Sunshine package update clears the executable’s capture capability. If sharing
-then refuses to start, run Set Up Sharing again and confirm the capture grant;
-the original undo record is retained.
+A Sunshine package update replaces the executable, which clears its capture
+capability; the update then gives it back to the account that set up sharing. If
+sharing still cannot start, the Streaming toggle says why: run Set Up Sharing
+again, or sign out and back in after a first setup. The original undo record is
+retained.
 
 Sunshine runs with the KMS capability only as root or the sharing account: setup sets the executable to `root:eitr-sharing` mode `0750` and adds your account to that system group. Sign out and back in before starting sharing so the user service receives the new group. Setup leaves any running sharing process active; a restart before the next login can fail.
 
