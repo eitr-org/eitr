@@ -27,7 +27,8 @@ Item {
         id: centerInfo
         anchors.alignWhenCentered: false
         anchors.centerIn: parent
-        anchors.horizontalCenterOffset: barHost.centeredLayout ? (barHost.leadingReveal - barHost.trailingReveal) / 2 : 0
+        anchors.horizontalCenterOffset: barHost.centeredLayout ? (barHost.leadingReveal - barHost.trailingReveal) / 2
+            : barHost.dropLayout ? barHost.dropSurfaces.timeOffset : 0
         anchors.verticalCenterOffset: 0
         // Drop opens its dashboard; every other layout the calendar.
         onClicked: barHost.togglePanel(barHost.dropLayout ? barHost.dropDashboard : calendarMenu)

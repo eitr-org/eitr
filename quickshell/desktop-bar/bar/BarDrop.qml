@@ -27,8 +27,12 @@ Item {
     readonly property real reveal: barHost.autoHideRef.progress
     readonly property real dotSize: 10
     readonly property real clockExtent: vertical ? barHost.verticalCalendarIcon.height : barHost.centerInfo.width
-    // The time plus room each side for the pill's activity (bell, recording dot, note).
-    readonly property real pillExtent: clockExtent + 8 + (vertical ? 0 : 2 * activity.side)
+    // The time plus room for the pill's activity (bell and recording dot before it, the
+    // note after it). The pill shifts toward the side with more, so the time itself
+    // keeps the screen's exact centre: timeOffset places it within the pill.
+    readonly property real pillExtent: clockExtent + 8 + (vertical ? 0 : activity.leadingSpace + activity.trailingSpace)
+    readonly property real shift: vertical ? 0 : (activity.trailingSpace - activity.leadingSpace) / 2
+    readonly property real timeOffset: drop.length / 2 - pill.x - pill.width / 2
     // The first 40% of the reveal is the fall out of the edge, the rest the swell.
     readonly property real fall: Math.min(1, reveal / 0.4)
     readonly property real swell: Math.max(0, (reveal - 0.4) / 0.6)
@@ -84,7 +88,7 @@ Item {
         eased: drop.reveal >= 1
         visible: drop.reveal > 0
         panel: drop.openPanel()
-        x: vertical ? depthOffset : (drop.length - width) / 2
+        x: vertical ? depthOffset : (drop.length - width) / 2 + drop.shift
         y: vertical ? (drop.length - height) / 2 : depthOffset
         // Falls out of the bar's edge: before the fall it sits just beyond the screen.
         readonly property real travel: (1 - drop.fall) * (thickness + drop.dropDepth) * (farEdge ? 1 : -1)
@@ -96,6 +100,7 @@ Item {
             opacity: drop.contentOpacity
             enabled: drop.reveal >= 1 && !pill.morphed
             host: drop.host; barHost: drop.barHost
+            timeOffset: drop.timeOffset
         }
         // The drop: the bar's colour with a soft halo, becoming the pill as it swells.
         Item {
