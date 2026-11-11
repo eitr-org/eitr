@@ -4,8 +4,8 @@ import QtQuick
 import Quickshell.Hyprland
 
 // What Drop's time pill shows around the time, which keeps the screen's centre: a bell
-// that slides out from behind the time when a notification arrives, rings twice and slides
-// back (clicked meanwhile, it opens the Notifications page); a red dot while recording
+// that slides out from behind the time when a notification arrives, rings twice, and
+// slides back once its popup has gone (clicked meanwhile, it opens the Notifications page); a red dot while recording
 // (the OBS panel); a note after the time while music plays (the Media page); and, on
 // changing workspace, the workspace's number rolling in over the time. The pill only makes
 // room on a side that has something.
@@ -37,10 +37,12 @@ Item {
     readonly property real centre: width / 2 + timeOffset
     readonly property real timeHalf: barHost.centerInfo.width / 2
 
-    // A new popup brings the bell out once; Do Not Disturb keeps it in.
+    // A new popup brings the bell out to ring twice; it stays out while popups are on
+    // screen and goes back behind the time when they have gone. Do Not Disturb keeps it in.
     property int popupCount: notifications ? notifications.popups.length : 0
     onPopupCountChanged: {
-        if (popupCount > seenPopups && !notifications.doNotDisturb) ring.restart();
+        if (popupCount > seenPopups && !notifications.doNotDisturb) { hideBell.stop(); ring.restart(); }
+        else if (popupCount === 0 && !ring.running) hideBell.restart();
         seenPopups = popupCount;
     }
     property int seenPopups: 0
@@ -55,9 +57,9 @@ Item {
             NumberAnimation { target: bell; property: "rotation"; to: 0; duration: 110 }
             PauseAnimation { duration: 260 }
         }
-        PauseAnimation { duration: 500 }
-        NumberAnimation { target: activity; property: "bellOut"; to: 0; duration: DesktopStyle.motionDuration(280); easing.type: Easing.InCubic }
+        ScriptAction { script: if (activity.popupCount === 0) hideBell.restart() }
     }
+    NumberAnimation { id: hideBell; target: activity; property: "bellOut"; to: 0; duration: DesktopStyle.motionDuration(280); easing.type: Easing.InCubic }
 
     // 0 shows the time, 1 the workspace number; it rises and falls back on a change.
     property real flash: 0
