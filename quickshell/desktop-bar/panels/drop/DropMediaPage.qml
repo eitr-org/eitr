@@ -8,7 +8,8 @@ import "../../PanelStyle.js" as PanelStyle
 
 // Drop's Media page: the cover in a circle, ringed by bars that
 // follow the music; beside it the song, its lyrics when the player sends them, the
-// controls and a plain progress bar.
+// controls and a plain progress bar. Lyrics come from the player, or from LRCLIB once the
+// lyrics button has asked and been allowed.
 Item {
     id: page
     required property var player
@@ -18,7 +19,10 @@ Item {
     required property bool active
     readonly property bool playing: !!player && player.isPlaying
     readonly property real length: player && player.lengthSupported ? Math.max(1, player.length) : 0
-    readonly property string lyricsText: player && player.metadata ? String(player.metadata["xesam:asText"] || "") : ""
+    // The lyrics button first asks before any song is looked up online.
+    property bool asking: false
+    onActiveChanged: if (!active) asking = false
+    DropLyricsSource { id: lyricsSource; player: page.player; active: page.active }
     property real position: 0
     implicitHeight: 268
 
@@ -117,17 +121,49 @@ Item {
             id: lyrics
             anchors { top: song.bottom; topMargin: 10; bottom: controls.top; bottomMargin: 10 }
             width: parent.width
-            visible: available
-            text: page.lyricsText; position: page.position
+            visible: available && !page.asking
+            text: lyricsSource.text; position: page.position
             foreground: page.foreground; accent: page.accent
         }
         Text {
             anchors.centerIn: lyrics
-            visible: !lyrics.available
-            text: page.player ? page.player.identity : ""
-            color: page.foreground; opacity: 0.4
+            width: lyrics.width
+            horizontalAlignment: Text.AlignHCenter; wrapMode: Text.Wrap
+            visible: !lyrics.available && !page.asking
+            text: lyricsSource.state === "loading" ? Eitr.I18n.tr("Looking for lyrics…")
+                : lyricsSource.state === "none" ? Eitr.I18n.tr("No lyrics found for this song")
+                : lyricsSource.state === "unavailable" ? Eitr.I18n.tr("Lyrics are unavailable right now")
+                : page.player ? page.player.identity : ""
+            color: page.foreground; opacity: 0.45
             font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
-            font.capitalization: Font.AllUppercase; font.letterSpacing: 1.4
+            font.capitalization: lyricsSource.state === "" ? Font.AllUppercase : Font.MixedCase
+            font.letterSpacing: lyricsSource.state === "" ? 1.4 : 0
+        }
+        // Asked once, before anything is sent anywhere.
+        Column {
+            anchors.centerIn: lyrics
+            width: lyrics.width
+            visible: page.asking
+            spacing: 10
+            Text {
+                width: parent.width; horizontalAlignment: Text.AlignHCenter; wrapMode: Text.Wrap
+                text: Eitr.I18n.tr("Find lyrics on LRCLIB? The title, artist and album of each song you play are sent to lrclib.net.")
+                color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+            }
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: 8
+                PanelButton {
+                    width: 84; height: 28; outlined: true
+                    text: Eitr.I18n.tr("Not now"); foreground: page.foreground
+                    onClicked: page.asking = false
+                }
+                PanelButton {
+                    width: 84; height: 28; selected: true
+                    text: Eitr.I18n.tr("Turn on"); foreground: page.foreground
+                    onClicked: { page.asking = false; lyricsSource.setOnline(true); }
+                }
+            }
         }
 
         Row {
@@ -141,7 +177,8 @@ Item {
                     {glyph: "󰒮", action: "previous"},
                     {glyph: "", action: "togglePlaying"},
                     {glyph: "󰒭", action: "next"},
-                    {glyph: "󰑖", action: "loop"}
+                    {glyph: "󰑖", action: "loop"},
+                    {glyph: "󰍡", action: "lyrics"}
                 ]
                 Rectangle {
                     id: control
@@ -151,10 +188,12 @@ Item {
                     readonly property bool available: !!player && player.canControl && (
                         modelData.action === "shuffle" ? player.shuffleSupported
                         : modelData.action === "loop" ? player.loopSupported
+                        : modelData.action === "lyrics" ? true
                         : modelData.action === "previous" ? player.canGoPrevious
                         : modelData.action === "next" ? player.canGoNext : player.canTogglePlaying)
                     readonly property bool lit: !!player && (modelData.action === "shuffle" ? player.shuffle
-                        : modelData.action === "loop" ? player.loopState !== MprisLoopState.None : false)
+                        : modelData.action === "loop" ? player.loopState !== MprisLoopState.None
+                        : modelData.action === "lyrics" ? lyricsSource.online || page.asking : false)
                     width: main ? 48 : 34; height: width; radius: main ? DesktopStyle.radius(14) : width / 2
                     anchors.verticalCenter: parent.verticalCenter
                     color: main ? page.accent : Qt.alpha(page.foreground, press.containsMouse && available ? 0.12 : 0)
@@ -175,7 +214,10 @@ Item {
                         hoverEnabled: true; enabled: control.available; cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             const player = control.player;
-                            if (control.modelData.action === "shuffle") player.shuffle = !player.shuffle;
+                            if (control.modelData.action === "lyrics") {
+                                if (lyricsSource.online) lyricsSource.setOnline(false);
+                                else page.asking = !page.asking;
+                            } else if (control.modelData.action === "shuffle") player.shuffle = !player.shuffle;
                             else if (control.modelData.action === "loop")
                                 player.loopState = player.loopState === MprisLoopState.None ? MprisLoopState.Playlist
                                     : player.loopState === MprisLoopState.Playlist ? MprisLoopState.Track : MprisLoopState.None;

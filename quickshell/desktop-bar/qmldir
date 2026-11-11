@@ -98,6 +98,7 @@ DropDayAgenda 1.0 panels/drop/DropDayAgenda.qml
 DropControlsPage 1.0 panels/drop/DropControlsPage.qml
 DropHomePage 1.0 panels/drop/DropHomePage.qml
 DropLyrics 1.0 panels/drop/DropLyrics.qml
+DropLyricsSource 1.0 panels/drop/DropLyricsSource.qml
 DropMediaPage 1.0 panels/drop/DropMediaPage.qml
 DropPerformancePage 1.0 panels/drop/DropPerformancePage.qml
 BarAutoHide 1.0 bar/BarAutoHide.qml

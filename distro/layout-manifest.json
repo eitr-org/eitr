@@ -24,6 +24,7 @@
     {"pattern": "quickshell/desktop-bar/tests/test_workspace_assignments.py", "class": "C", "runtime": false},
     {"pattern": "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/workspaces.py", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/scripts/lyrics-domain.py", "class": "C", "runtime": true},
     {"pattern": "hypr/workspaces.lua", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_workspaces.py", "class": "C", "runtime": true},
     {"pattern": "eitr/window-layout.lua", "class": "G", "runtime": false},

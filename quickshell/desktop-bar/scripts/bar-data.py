@@ -177,8 +177,8 @@ class Broker:
         self.capture = CaptureController(self)
         self.domains = {}
         self.domain_jobs = {}
-        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account")}
-        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account")}
+        self.read_slots = {name: asyncio.Semaphore(2) for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics")}
+        self.domain_locks = {name: threading.Lock() for name in ("network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics")}
         self.read_slots["weather"] = asyncio.Semaphore(1)
         self.ai_cooldowns = {}
         self.queries = {}
@@ -692,6 +692,43 @@ class Broker:
                 pass
         self.queries.pop(request, None)
 
+    async def query_lyrics(self, frame, cancelled):
+        request = frame["id"]
+        error, result = "", {}
+        loop = asyncio.get_running_loop()
+        deadline = time.monotonic() + 16
+        args = frame["args"]
+        def read():
+            if cancelled.is_set():
+                return {}
+            return self.load_domain("lyrics").track(args["title"], args.get("artist", ""), args.get("album", ""),
+                                                    float(args.get("duration", 0)), deadline)
+        async def admitted():
+            async with self.read_slots["lyrics"]:
+                return await loop.run_in_executor(self.executor, read)
+        future = asyncio.create_task(admitted())
+        try:
+            done, _ = await asyncio.wait([future], timeout=17)
+            if not done:
+                error = "timeout"
+                cancelled.set()
+            else:
+                result = future.result()
+                if len(json.dumps(result).encode()) > MAX_RESULT:
+                    raise ValueError("oversize-result")
+        except Exception:
+            error, result = "read-failed", {}
+        if not cancelled.is_set() or error:
+            self.emit(dict(v=1, op="reply", topic="lyrics", id=request, epoch=self.epoch, error=error, data=result))
+        # Hold the admission slot until a timed out worker actually drains.
+        if not future.done():
+            await asyncio.wait([future])
+            try:
+                future.result()
+            except Exception:
+                pass
+        self.queries.pop(request, None)
+
     def request(self, frame):
         if not isinstance(frame, dict) or type(frame.get("v")) is not int or frame["v"] != 1:
             raise ValueError("invalid-version")
@@ -752,6 +789,28 @@ class Broker:
             self.queries[request] = cancelled
             self.catalog_queries.add(request)
             task = asyncio.create_task(self.query_catalog(frame, cancelled))
+            self.jobs.add(task)
+            task.add_done_callback(self.jobs.discard)
+            return
+        if operation == "cancel" and topic == "lyrics":
+            if request in self.queries:
+                self.queries[request].set()
+            return
+        if operation == "query" and topic == "lyrics":
+            args = frame.get("args")
+            if len(self.queries) - len(self.catalog_queries) >= 8:
+                self.emit(dict(v=1, op="reply", topic="lyrics", id=request, epoch=self.epoch, error="busy", data={}))
+                return
+            if not request or request in self.query_history or frame.get("name") != "track" or not isinstance(args, dict):
+                raise ValueError("invalid-query")
+            if not isinstance(args.get("title"), str) or not 1 <= len(args["title"]) <= 300 \
+                    or any(not isinstance(args.get(key, ""), str) or len(args.get(key, "")) > 300 for key in ("artist", "album")) \
+                    or type(args.get("duration", 0)) not in (int, float) or not 0 <= args.get("duration", 0) <= 36000:
+                raise ValueError("invalid-query")
+            self.query_history.append(request)
+            cancelled = threading.Event()
+            self.queries[request] = cancelled
+            task = asyncio.create_task(self.query_lyrics(frame, cancelled))
             self.jobs.add(task)
             task.add_done_callback(self.jobs.discard)
             return
