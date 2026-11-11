@@ -97,6 +97,8 @@ DropCard 1.0 panels/drop/DropCard.qml
 DropDayAgenda 1.0 panels/drop/DropDayAgenda.qml
 DropControlsPage 1.0 panels/drop/DropControlsPage.qml
 DropHomePage 1.0 panels/drop/DropHomePage.qml
+DropLyrics 1.0 panels/drop/DropLyrics.qml
+DropMediaPage 1.0 panels/drop/DropMediaPage.qml
 DropPerformancePage 1.0 panels/drop/DropPerformancePage.qml
 BarAutoHide 1.0 bar/BarAutoHide.qml
 MediaIndicator 1.0 media/MediaIndicator.qml

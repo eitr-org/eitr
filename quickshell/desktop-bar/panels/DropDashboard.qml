@@ -75,18 +75,13 @@ ThemedPopup {
                 barHost: dashboard.barHost; now: dashboard.now
                 foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }
-            DropCard {
+            DropMediaPage {
                 id: media
                 x: viewport.place("media"); visible: viewport.shown("media")
-                width: viewport.width; height: 320; implicitHeight: height
-                foreground: dashboard.foreground
-                clip: true
-                MediaCard {
-                    visible: !!dashboard.player
-                    anchors.fill: parent; anchors.margins: 12
-                    player: dashboard.player; hold: dashboard.hold; active: dashboard.opened && media.visible
-                    foreground: dashboard.foreground; accent: dashboard.accent
-                }
+                width: viewport.width
+                player: dashboard.player
+                active: dashboard.opened && visible
+                foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }
             DropControlsPage {
                 id: controls
