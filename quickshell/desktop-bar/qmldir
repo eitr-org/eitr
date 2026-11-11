@@ -94,6 +94,7 @@ CatalogPluginSheet 1.0 panels/CatalogPluginSheet.qml
 DropDashboard 1.0 panels/DropDashboard.qml
 DropAiPage 1.0 panels/drop/DropAiPage.qml
 DropCard 1.0 panels/drop/DropCard.qml
+DropDayAgenda 1.0 panels/drop/DropDayAgenda.qml
 DropControlsPage 1.0 panels/drop/DropControlsPage.qml
 DropHomePage 1.0 panels/drop/DropHomePage.qml
 DropPerformancePage 1.0 panels/drop/DropPerformancePage.qml

@@ -6,7 +6,8 @@ import "../../WeatherIcons.js" as WeatherIcons
 import "../../ReminderModel.js" as ReminderModel
 
 // Drop's first page, drawn flat on the card: the weather and the next days on the left,
-// a thin rule, then the month on the right with today ringed in the accent.
+// a thin rule, then the month on the right with today ringed in the accent. Clicking a
+// day swaps the weather for that day's plans; clicking it again goes back.
 Item {
     id: page
     required property var barHost
@@ -18,6 +19,9 @@ Item {
     readonly property bool hasWeather: !!weather.temp && weather.temp !== "--"
     // The month shown in the grid; the arrows browse it and it returns to today on reopening.
     property int monthOffset: 0
+    // The day whose plans replace the weather, or null for the weather.
+    property var selectedDay: null
+    function sameDay(first, second) { return !!first && !!second && first.toDateString() === second.toDateString(); }
     readonly property date shownMonth: new Date(now.getFullYear(), now.getMonth() + monthOffset, 1)
     readonly property var calendar: barHost.calendarMenu
     function weekend(day) { return Qt.locale().weekDays.indexOf(day === 0 ? 7 : day) < 0; }
@@ -39,6 +43,7 @@ Item {
     Item {
         id: weatherSide
         x: 6; width: 196; height: parent.height
+        visible: !page.selectedDay
         Row {
             y: 8
             spacing: 14
@@ -92,6 +97,14 @@ Item {
             anchors.fill: parent; cursorShape: Qt.PointingHandCursor
             onClicked: page.barHost.togglePanel(page.barHost.weatherMenu)
         }
+    }
+
+    DropDayAgenda {
+        visible: !!page.selectedDay
+        x: weatherSide.x; width: weatherSide.width; height: parent.height
+        barHost: page.barHost; foreground: page.foreground; accent: page.accent
+        day: page.selectedDay || page.now
+        onClosed: page.selectedDay = null
     }
 
     Rectangle {
@@ -153,12 +166,22 @@ Item {
                     readonly property bool today: day.toDateString() === page.now.toDateString()
                     readonly property bool planned: inMonth && !!page.calendar
                         && ReminderModel.dayItems(page.calendar.reminders || [], page.calendar.events || [], day).length > 0
+                    readonly property bool selected: page.sameDay(day, page.selectedDay)
                     width: month.cell; height: 33
                     Rectangle {
                         anchors.centerIn: parent; width: 28; height: 28; radius: 14
-                        visible: parent.today
-                        color: Qt.alpha(page.accent, 0.12)
-                        border.width: 2; border.color: page.accent
+                        visible: parent.today || parent.selected || dayMouse.containsMouse
+                        color: parent.selected && !parent.today ? Qt.alpha(page.foreground, 0.16)
+                            : Qt.alpha(parent.today ? page.accent : page.foreground, dayMouse.containsMouse ? 0.22 : 0.12)
+                        border.width: parent.today ? 2 : parent.selected ? 1 : 0
+                        border.color: parent.today ? page.accent : Qt.alpha(page.foreground, 0.5)
+                        Behavior on color { ColorAnimation { duration: DesktopStyle.motionDuration(120) } }
+                    }
+                    MouseArea {
+                        id: dayMouse
+                        anchors.fill: parent
+                        hoverEnabled: true; cursorShape: Qt.PointingHandCursor
+                        onClicked: page.selectedDay = parent.selected ? null : parent.day
                     }
                     Text {
                         anchors.centerIn: parent
@@ -175,11 +198,6 @@ Item {
                     }
                 }
             }
-        }
-        MouseArea {
-            y: 36; width: parent.width; height: parent.height - y
-            cursorShape: Qt.PointingHandCursor
-            onClicked: page.barHost.togglePanel(page.barHost.calendarMenu)
         }
     }
 }

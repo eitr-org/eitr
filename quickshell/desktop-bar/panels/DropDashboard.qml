@@ -6,8 +6,7 @@ import "../PanelStyle.js" as PanelStyle
 // Drop's dashboard, opened by clicking its time pill: a row of pages dragged sideways
 // (dragging right goes forward, left goes back, both wrapping). It opens on Calendar and
 // weather, then Media (skipped while nothing plays), quick controls, Performance, AI Usage and
-// Notifications. Arrow keys,
-// horizontal scrolling and the dots below switch pages too.
+// Notifications. Arrow keys and horizontal scrolling switch pages too.
 ThemedPopup {
     id: dashboard
     required property var barHost
@@ -28,7 +27,7 @@ ThemedPopup {
     property string otherPage: ""
     property int otherSide: 1
     readonly property real span: content.width + 24
-    onOpenedChanged: if (opened) { page = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; }
+    onOpenedChanged: if (opened) { page = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; home.selectedDay = null; }
     onPagesChanged: if (pages.indexOf(page) < 0) page = "home"
 
     function neighbour(direction) {
@@ -152,28 +151,6 @@ ThemedPopup {
                     if (Math.abs(gathered) < 120 || slide.running) return;
                     dashboard.step(gathered < 0 ? 1 : -1);
                     gathered = 0;
-                }
-            }
-        }
-
-        // Where you are among the pages; each dot opens its page.
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 6
-            Repeater {
-                model: dashboard.pages
-                Rectangle {
-                    required property string modelData
-                    required property int index
-                    readonly property bool current: modelData === dashboard.page
-                    width: current ? 18 : 6; height: 6; radius: 3
-                    color: current ? dashboard.accent : Qt.alpha(dashboard.foreground, 0.3)
-                    Behavior on width { NumberAnimation { duration: DesktopStyle.motionDuration(200); easing.type: Easing.OutCubic } }
-                    MouseArea {
-                        anchors.fill: parent; anchors.margins: -5
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: dashboard.go(parent.modelData, parent.index > dashboard.index ? 1 : -1)
-                    }
                 }
             }
         }
