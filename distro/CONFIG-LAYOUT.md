@@ -330,7 +330,9 @@ The ID manifest and the narrow selector helper ship in the package too.
 `configure-desktop.sh` keeps only the per-account sudo policy and the initial
 selection, using package files. Preserve
 `/etc/sddm.conf.d/90-desktop-lockscreen.conf` and existing permissions; never
-restart SDDM. Directories created by the old installer are checked against pacman
+restart SDDM. The package's `/usr/lib/sddm/sddm.conf.d/eitr-greeter.conf` runs the
+greeter with Qt's basic render loop (`QSG_RENDER_LOOP=basic`): on NVIDIA the threaded
+loop crashed in the driver when SDDM started the greeter again after a logout. Directories created by the old installer are checked against pacman
 ownership before adoption; never resolve a conflict with `--overwrite '*'`.
 
 User units keep native drop-in and full-unit precedence, and `ExecStart` points at
