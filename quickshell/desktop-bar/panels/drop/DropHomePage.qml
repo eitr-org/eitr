@@ -105,8 +105,9 @@ Item {
         visible: page.weatherOpen
         anchors.fill: parent
         weather: page.weather
-        foreground: page.foreground; accent: page.accent
-        onClosed: page.weatherOpen = false
+        foreground: page.foreground; accent: page.accent; background: page.background
+        onClosed: { reset(); page.weatherOpen = false; }
+        onVisibleChanged: if (!visible) reset()
     }
 
     DropDayAgenda {

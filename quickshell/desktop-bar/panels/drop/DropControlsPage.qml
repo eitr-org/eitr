@@ -56,7 +56,9 @@ Column {
         property bool on: false
         property bool available: true
         signal activated()
-        width: page.width / 5; height: 80
+        // As wide as its circle, so the row's outer circles meet the page's edges; the
+        // name below may reach past it.
+        width: 52; height: 80
         opacity: available ? 1 : 0.45
         Rectangle {
             id: disc
@@ -77,7 +79,9 @@ Column {
         }
         Text {
             id: name
-            y: disc.height + 8; width: parent.width
+            // Centred under its circle, but never past the page's edges.
+            y: disc.height + 8; width: Math.min(implicitWidth, 96)
+            x: Math.max(-toggle.x, Math.min((parent.width - width) / 2, page.width - toggle.x - width))
             horizontalAlignment: Text.AlignHCenter; elide: Text.ElideRight
             text: toggle.label
             color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize; font.weight: Font.DemiBold
@@ -157,11 +161,10 @@ Column {
             on: !!page.source && !!page.source.audio && !page.source.audio.muted
         }
     }
-    Grid {
+    Row {
         visible: page.opened === ""
         width: parent.width
-        columns: 5
-        rowSpacing: 4
+        spacing: (width - 5 * 52) / 4
         Toggle {
             label: Eitr.I18n.tr("Airplane"); glyph: "󰀝"
             on: !!page.airplane.enabled
