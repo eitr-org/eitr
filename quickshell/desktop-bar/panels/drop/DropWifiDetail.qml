@@ -6,7 +6,7 @@ import "../../PanelStyle.js" as PanelStyle
 
 // WiFi opened in Drop's quick controls: networks grouped as in the WiFi panel (shared
 // WifiNetworkRow), a scan when it opens, and a password field for a new secured network.
-// Enterprise networks continue in the WiFi panel, which owns their credentials form.
+// Enterprise networks are set up in Settings › Connections, which owns their credentials form.
 Column {
     id: detail
     required property var barHost
@@ -33,7 +33,7 @@ Column {
     function choose(network) {
         if (network.connected || network.available === false) return;
         if (network.type === "open" || network.known) { act("connect", network.path); return; }
-        if (network.type === "8021x" || network.type === "unsupported") { barHost.togglePanel(barHost.wifiMenu); return; }
+        if (network.type === "8021x" || network.type === "unsupported") { barHost.closePanels(); barHost.host.showSettings("connections"); return; }
         asking = network;
         Qt.callLater(() => password.forceActiveFocus());
     }

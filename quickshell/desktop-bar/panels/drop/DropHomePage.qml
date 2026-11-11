@@ -7,7 +7,8 @@ import "../../ReminderModel.js" as ReminderModel
 
 // Drop's first page, drawn flat on the card: the weather and the next days on the left,
 // a thin rule, then the month on the right with today ringed in the accent. Clicking a
-// day swaps the weather for that day's plans; clicking it again goes back.
+// day swaps the weather for that day's plans; clicking it again goes back. Clicking the
+// weather opens it in place over the whole page.
 Item {
     id: page
     required property var barHost
@@ -21,6 +22,7 @@ Item {
     property int monthOffset: 0
     // The day whose plans replace the weather, or null for the weather.
     property var selectedDay: null
+    property bool weatherOpen: false
     function sameDay(first, second) { return !!first && !!second && first.toDateString() === second.toDateString(); }
     readonly property date shownMonth: new Date(now.getFullYear(), now.getMonth() + monthOffset, 1)
     readonly property var calendar: barHost.calendarMenu
@@ -43,7 +45,7 @@ Item {
     Item {
         id: weatherSide
         x: 6; width: 196; height: parent.height
-        visible: !page.selectedDay
+        visible: !page.selectedDay && !page.weatherOpen
         Row {
             y: 8
             spacing: 14
@@ -95,12 +97,20 @@ Item {
         }
         MouseArea {
             anchors.fill: parent; cursorShape: Qt.PointingHandCursor
-            onClicked: page.barHost.togglePanel(page.barHost.weatherMenu)
+            onClicked: page.weatherOpen = true
         }
     }
 
+    DropWeatherDetail {
+        visible: page.weatherOpen
+        anchors.fill: parent
+        weather: page.weather
+        foreground: page.foreground; accent: page.accent
+        onClosed: page.weatherOpen = false
+    }
+
     DropDayAgenda {
-        visible: !!page.selectedDay
+        visible: !!page.selectedDay && !page.weatherOpen
         x: weatherSide.x; width: weatherSide.width; height: parent.height
         barHost: page.barHost; foreground: page.foreground; accent: page.accent
         day: page.selectedDay || page.now
@@ -109,6 +119,7 @@ Item {
 
     Rectangle {
         id: rule
+        visible: !page.weatherOpen
         x: weatherSide.x + weatherSide.width + 18; y: 4
         width: 1; height: parent.height - 8
         color: Qt.alpha(page.foreground, 0.14)
@@ -117,6 +128,7 @@ Item {
     // The month: weekends in the accent, today ringed, days with plans dotted.
     Item {
         id: month
+        visible: !page.weatherOpen
         x: rule.x + 19; width: parent.width - x - 4; height: parent.height
         readonly property int lead: (page.shownMonth.getDay() - Qt.locale().firstDayOfWeek % 7 + 7) % 7
         readonly property real cell: width / 7

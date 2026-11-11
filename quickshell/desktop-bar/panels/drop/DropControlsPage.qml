@@ -198,7 +198,7 @@ Column {
     // A control opened in place: back, its name, its own switch, then its list.
     Item {
         visible: page.opened !== ""
-        x: 6; width: parent.width - 12; height: 32
+        width: parent.width; height: 32
         PanelButton {
             id: back
             width: 28; height: 28; icon: true; anchors.verticalCenter: parent.verticalCenter
@@ -240,7 +240,7 @@ Column {
     }
     Flickable {
         visible: page.opened !== ""
-        x: 6; width: parent.width - 12
+        width: parent.width
         height: Math.min(300, contentHeight)
         contentHeight: Math.max(wifiDetail.visible ? wifiDetail.implicitHeight : 0, bluetoothDetail.visible ? bluetoothDetail.implicitHeight : 0,
             soundDetail.visible ? soundDetail.implicitHeight : 0)
@@ -268,10 +268,10 @@ Column {
         }
     }
 
-    Rectangle { visible: page.opened === ""; x: 6; width: parent.width - 12; height: 1; color: Qt.alpha(page.foreground, 0.14) }
+    Rectangle { visible: page.opened === ""; width: parent.width; height: 1; color: Qt.alpha(page.foreground, 0.14) }
     Column {
         visible: page.opened === ""
-        x: 6; width: parent.width - 12
+        width: parent.width
         spacing: 8
         AudioLevelControl {
             width: parent.width

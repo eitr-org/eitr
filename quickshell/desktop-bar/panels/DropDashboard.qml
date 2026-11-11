@@ -34,7 +34,7 @@ ThemedPopup {
         if (opened) { go(startPage, 1); startPage = "home"; }
         else barHost.showPanel(dashboard);
     }
-    onOpenedChanged: if (opened) { page = startPage; startPage = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; home.selectedDay = null; }
+    onOpenedChanged: if (opened) { page = startPage; startPage = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; home.selectedDay = null; home.weatherOpen = false; }
     onPagesChanged: if (pages.indexOf(page) < 0) page = "home"
 
     function neighbour(direction) {
