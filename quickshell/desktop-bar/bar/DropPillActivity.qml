@@ -49,7 +49,8 @@ Item {
     SequentialAnimation {
         id: ring
         PropertyAction { target: activity; property: "bellOut"; value: true }
-        PauseAnimation { duration: DesktopStyle.motionDuration(320) }
+        // Long enough for a hidden bar to drop in and the pill to open before it rings.
+        PauseAnimation { duration: DesktopStyle.motionDuration(activity.host.barAutoHide ? 640 : 320) }
         SequentialAnimation {
             loops: 2
             NumberAnimation { target: bell; property: "rotation"; to: 18; duration: 90 }

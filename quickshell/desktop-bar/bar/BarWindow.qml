@@ -240,7 +240,9 @@ PanelWindow {
         pointerInside: bar.pointerInside || edgeHover.hovered
         // Drop's dashboard lets go as soon as it starts closing, so its card can retract
         // into the edge in one motion instead of first folding back into the pill.
+        // Drop's bell also brings the bar out while it shows a new notification.
         held: bar.dockPanels.some(panel => panel === bar.dropDashboard ? panel.opened : panel.visible) || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || host.barPointerHeld
+            || (bar.dropLayout && barDrop.notifying)
     }
     // An empty item the input mask adds and drops as the auto-hide slide settles.
     Item { id: slideSettled; width: 0; height: 0 }

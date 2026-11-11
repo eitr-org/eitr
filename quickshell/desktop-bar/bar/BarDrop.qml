@@ -20,6 +20,8 @@ Item {
     Component.onCompleted: holding = visible
     readonly property var surfaces: [pill, dotReach]
     readonly property alias pillSurface: pill
+    // True while the bell is out for a new notification; auto-hide reveals the bar for it.
+    readonly property bool notifying: visible && activity.bellOut
     readonly property bool vertical: host.verticalBar
     readonly property real length: vertical ? height : width
     // The auto-hide slide drives the morph: 0 is the dot, 1 the pill. Its animation
