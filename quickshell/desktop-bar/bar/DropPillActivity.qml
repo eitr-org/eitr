@@ -6,7 +6,7 @@ import Quickshell.Hyprland
 // What Drop's time pill shows around the time, which keeps the screen's centre: a bell
 // that slides out from behind the time when a notification arrives, rings twice, and
 // slides back once its popup has gone (clicked meanwhile, it opens the Notifications page); a red dot while recording
-// (the OBS panel); a note after the time while music plays (the Media page); and, on
+// (the OBS page); a note after the time while music plays (the Media page); and, on
 // changing workspace, the workspace's number rolling in over the time. The pill only makes
 // room on a side that has something.
 Item {
@@ -104,7 +104,7 @@ Item {
                 visible: activity.recording
                 text: "●"; color: activity.obsState.paused && !activity.obsState.streaming ? activity.host.fg : "#e05c68"
                 font.pixelSize: 10
-                onActivated: activity.barHost.togglePanel(activity.barHost.obsMenu)
+                onActivated: activity.barHost.dropDashboard.show("obs")
                 SequentialAnimation on opacity {
                     running: activity.recording && !DesktopStyle.reduceMotion; loops: Animation.Infinite
                     NumberAnimation { to: 0.35; duration: 700; easing.type: Easing.InOutSine }

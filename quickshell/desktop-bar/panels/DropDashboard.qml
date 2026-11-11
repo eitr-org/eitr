@@ -5,7 +5,8 @@ import "../PanelStyle.js" as PanelStyle
 
 // Drop's dashboard, opened by clicking its time pill: a row of pages dragged sideways
 // (dragging right goes forward, left goes back, both wrapping). It opens on Calendar and
-// weather, then Media (skipped while nothing plays), quick controls, Performance, AI Usage and
+// weather, then Media (skipped while nothing plays), OBS (while it is open or capturing),
+// quick controls, Performance, AI Usage and
 // Notifications. Arrow keys and horizontal scrolling switch pages too.
 ThemedPopup {
     id: dashboard
@@ -18,7 +19,9 @@ ThemedPopup {
     property date now: new Date()
     Timer { interval: 1000; running: dashboard.opened; repeat: true; triggeredOnStart: true; onTriggered: dashboard.now = new Date() }
 
-    readonly property var pages: ["home", dashboard.player ? "media" : "", "controls", "performance", "ai", "notifications"].filter(Boolean)
+    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", "performance", "ai", "notifications"].filter(Boolean)
+    readonly property var obsState: barHost.obsMenu ? barHost.obsMenu.obsState : ({})
+    readonly property bool obsShown: !!obsState.recording || !!obsState.streaming || ObsStatus.hasWindow
     property string page: "home"
     readonly property int index: Math.max(0, pages.indexOf(page))
     // The slide: the current page sits at `shift`; the page it is leaving, or the one peeking
@@ -65,7 +68,7 @@ ThemedPopup {
             id: viewport
             width: parent.width
             clip: true
-            readonly property Item current: ({home: home, media: media, controls: controls, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
+            readonly property Item current: ({home: home, media: media, obs: obs, controls: controls, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
             height: current.implicitHeight
             Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
             function place(id) {
@@ -87,6 +90,14 @@ ThemedPopup {
                 x: viewport.place("media"); visible: viewport.shown("media")
                 width: viewport.width
                 player: dashboard.player
+                active: dashboard.opened && visible
+                foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
+            }
+            DropObsPage {
+                id: obs
+                x: viewport.place("obs"); visible: viewport.shown("obs")
+                width: viewport.width
+                obs: dashboard.barHost.obsMenu
                 active: dashboard.opened && visible
                 foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }

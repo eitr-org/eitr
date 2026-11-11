@@ -102,6 +102,7 @@ DropHomePage 1.0 panels/drop/DropHomePage.qml
 DropLyrics 1.0 panels/drop/DropLyrics.qml
 DropLyricsSource 1.0 panels/drop/DropLyricsSource.qml
 DropMediaPage 1.0 panels/drop/DropMediaPage.qml
+DropObsPage 1.0 panels/drop/DropObsPage.qml
 DropWeatherDetail 1.0 panels/drop/DropWeatherDetail.qml
 DropWifiDetail 1.0 panels/drop/DropWifiDetail.qml
 DropPerformancePage 1.0 panels/drop/DropPerformancePage.qml
