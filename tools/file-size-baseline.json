@@ -42,7 +42,7 @@
       "reason": "To improve (TODO): display list, night light and power controls in one panel."
     },
     "quickshell/desktop-bar/panels/CalendarMenu.qml": {
-      "lines": 468,
+      "lines": 470,
       "reason": "One panel: the month, a day's reminders and its plans opened in place."
     },
     "quickshell/desktop-bar/panels/CatalogContent.qml": {

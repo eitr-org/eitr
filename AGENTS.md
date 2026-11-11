@@ -335,7 +335,8 @@ existing design and workflows rather than replacing them with upstream defaults.
   Every status icon is always shown, without Full’s show/hide toggle.
 - Dynamic: three full-pill islands side by side at the screen centre (always fully
   rounded, ignoring the corner preference): logo, time-only clock exactly centred at
-  rest, network/battery. Hover expands one island along the bar (the clock island then
+  rest, network/battery; while a player is present, a media island (controls and
+  equalizer) sits between logo and clock. Hover expands one island along the bar (the clock island then
   shows date, AM/PM and weather and stays centred as a whole); 320 ms, instant with
   Reduce motion, collapse after 350 ms. Opening a panel grows its island into the panel
   (no separate surface) and the other islands slide aside. Reserve resting depth plus
@@ -348,8 +349,9 @@ existing design and workflows rather than replacing them with upstream defaults.
   opens it on Quick controls; pages swipe sideways and wrap. The dashboard never opens
   another panel: everything (weather, a day's plans, WiFi/Bluetooth/audio devices, an
   assistant's limits) opens in place with a back arrow. `bar/DropPillActivity.qml` adds
-  activity around the time (bell, recording, timer ring, next event, note; workspace,
-  volume and low-battery flashes; one lyric line on dragging the note left), making room
+  activity around the time (before it recording, next event, timer ring and the note; the
+  bell after it; workspace and low-battery flashes; one lyric line on dragging the note
+  right), making room
   only on the side that has something while the time keeps the screen centre. No hover
   behaviour. Reserve pill depth plus half the outer gap; only the pill takes clicks.
 - Clock activity in every layout comes from one `bar/ClockActivityState.qml` per bar: a
@@ -357,8 +359,8 @@ existing design and workflows rather than replacing them with upstream defaults.
   layout hides its own: Drop, Centered collapsed, Dynamic at rest) and holds an
   auto-hidden bar out until its popups go; the timer ring and next-event mark sit in
   `CaptureIndicator` beside the clock, so each layout makes room as for the recording dot;
-  volume and low-battery flashes show over the time (`ClockButton`), the workspace number
-  only where the workspaces are hidden.
+  low-battery flashes show over the time (`ClockButton`), the workspace number only where
+  the workspaces are hidden. Volume and brightness keep their own popup, never the clock.
 - Keep calendar height fixed with six week rows. Weather city choices are
   session-only; the city close button restores the default geolocation.
 - Media is hidden when no eligible player exists; meetings are excluded. Keep

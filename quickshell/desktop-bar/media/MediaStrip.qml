@@ -36,7 +36,7 @@ Item {
     // either way swaps it back (pausing or changing song keeps it), or the player going away.
     property bool lyricsOpen: false
     onPresentChanged: if (!present) lyricsOpen = false
-    readonly property real lyricsWidth: Math.max(80, Math.min(360, availableWidth - controls.width - indicatorSpacing, lyric.naturalWidth + 8))
+    readonly property real lyricsWidth: Math.max(80, Math.min(640, availableWidth - controls.width - indicatorSpacing, lyric.naturalWidth + 8))
     property real indicatorReveal: lyricsOpen ? lyricsWidth : playbackIndicator.width
     Behavior on indicatorReveal { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
     property bool audioEnabled: true

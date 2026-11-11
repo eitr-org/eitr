@@ -24,6 +24,8 @@ Item {
     property string error: ""
     onDayChanged: { pendingKey = ""; error = ""; }
     function focusInput() { timeField.forceActiveFocus(); }
+    // The height its plans need (a long day scrolls), for a panel that sizes itself to it.
+    readonly property real naturalHeight: 38 + Math.max(24, Math.min(rows.implicitHeight, 240)) + 12 + addRow.height
 
     function add() {
         const time = timeField.text.trim(), text = titleField.text.trim();

@@ -2,11 +2,13 @@ pragma Singleton
 import ".."
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import Eitr as Eitr
 
 // One timer for Drop's dashboard and pill: a countdown, a stopwatch, or focus sessions (25
 // minutes of focus, then a 5-minute break). It keeps running with the dashboard closed;
-// a finished countdown or focus phase sends a notification, which rings the pill's bell.
+// a finished countdown or focus phase sends a notification, which rings the clock's bell,
+// with buttons to go on: snooze or restart a countdown, skip a break, start focusing again.
 QtObject {
     id: timer
     // "timer", "stopwatch" or "focus"; idle when nothing runs.
@@ -24,6 +26,8 @@ QtObject {
     property int rounds: 0
     property int focusMinutes: 25
     property int breakMinutes: 5
+    // The last countdown's length, for "Start again".
+    property int lastMinutes: 5
     readonly property real elapsed: banked + (running ? now - startedAt : 0)
     readonly property real remaining: Math.max(0, duration - elapsed)
     // 0..1 through a countdown or focus phase; a stopwatch fills once a minute.
@@ -40,7 +44,7 @@ QtObject {
         mode = kind; duration = milliseconds; banked = 0;
         now = Date.now(); startedAt = now; paused = false; running = true;
     }
-    function startTimer(minutes) { begin("timer", minutes * 60000); }
+    function startTimer(minutes) { lastMinutes = minutes; begin("timer", minutes * 60000); }
     function startStopwatch() { begin("stopwatch", 0); }
     function startFocus() { phase = "focus"; rounds = 0; begin("focus", focusMinutes * 60000); }
     function pause() {
@@ -55,17 +59,35 @@ QtObject {
     function finish() {
         if (mode === "focus" && phase === "focus") {
             rounds += 1; phase = "break";
-            notify(Eitr.I18n.tr("Time for a break"), Eitr.I18n.tr("{minutes} minutes, then back to focus.", {minutes: breakMinutes}));
+            notify(Eitr.I18n.tr("Time for a break"), Eitr.I18n.tr("{minutes} minutes, then back to focus.", {minutes: breakMinutes}),
+                [["skip", Eitr.I18n.tr("Skip break")]]);
             begin("focus", breakMinutes * 60000);
             return;
         }
         stop();
-        if (mode === "focus") notify(Eitr.I18n.tr("Break is over"), Eitr.I18n.tr("Start another focus session when you are ready."));
-        else notify(Eitr.I18n.tr("Timer finished"), "");
+        if (mode === "focus") notify(Eitr.I18n.tr("Break is over"), Eitr.I18n.tr("Start another focus session when you are ready."),
+            [["focus", Eitr.I18n.tr("Start focus")]]);
+        else notify(Eitr.I18n.tr("Timer finished"), "",
+            [["snooze", Eitr.I18n.tr("Snooze 5 min")], ["again", Eitr.I18n.tr("Start again")]]);
         if (mode === "focus") phase = "focus";
     }
-    function notify(title, body) {
-        Quickshell.execDetached(["notify-send", "-a", "Eitr", "-u", "critical", "-i", "alarm-symbolic", title, body]);
+    // A button on the notification: what it does.
+    function act(choice) {
+        if (choice === "snooze") startTimer(5);
+        else if (choice === "again") startTimer(lastMinutes);
+        else if (choice === "skip" || choice === "focus") { phase = "focus"; begin("focus", focusMinutes * 60000); }
+    }
+    // The bell comes from the notification card's fallback (no icon name: an unknown one
+    // draws a broken image). notify-send waits for a button and prints its key; a newer
+    // notice replaces one still waiting.
+    function notify(title, body, actions) {
+        alert.running = false;
+        alert.command = ["notify-send", "-a", "Eitr", "-u", "critical", "--wait"]
+            .concat(...actions.map(action => ["-A", action[0] + "=" + action[1]])).concat([title, body]);
+        alert.running = true;
+    }
+    property Process alert: Process {
+        stdout: StdioCollector { onStreamFinished: timer.act(text.trim()) }
     }
     // 1:05:09, 25:00 or 0:42.
     function clock(milliseconds) {

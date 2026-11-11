@@ -178,18 +178,20 @@ ShellRoot {
                 const islandCentre = middle.mapToItem(bar, middle.width / 2, middle.height / 2);
                 if (Math.abs((shell.verticalBar ? islandCentre.y : islandCentre.x) - expected) > 0.01) throw new Error("Clock island not centred");
                 if (dynamic.clockShift === 0 && Math.abs(actual - expected) > 0.01) throw new Error("Clock moved: " + actual + " vs " + expected);
-                // Capture shows at rest beside the clock; media only when the clock island is expanded.
+                // Capture shows at rest beside the clock; media has its own island between the
+                // logo and the clock while a player is present.
                 const captureItem = shell.verticalBar ? captureVertical : capture;
                 if (!captureItem.visible || captureItem.opacity === 0) throw new Error("Capture hidden at rest");
-                if (!shell.verticalBar && (media.opacity === 1) !== dynamic.middleIsland.expanded) throw new Error("Media must show only with the expanded clock island");
-                if (shell.verticalBar && mediaVertical.visible !== dynamic.middleIsland.expanded) throw new Error("Media must show only with the expanded clock island");
+                if (!dynamic.mediaIsland.visible || (shell.verticalBar ? !mediaVertical.visible : media.opacity !== 1)) throw new Error("Media must show at rest in its own island");
+                const along = shell.verticalBar ? "y" : "x";
+                if (!(dynamic.leadingIsland[along] < dynamic.mediaIsland[along] && dynamic.mediaIsland[along] < dynamic.middleIsland[along])) throw new Error("The media island must sit between the logo and the clock");
                 if (!inside(captureItem, dynamic.middleIsland)) throw new Error("Capture belongs to the clock island");
                 if (!panel.detached || !panel.centeredPlacement) throw new Error("Panels must open at the centre");
                 if (clockItem.timeOnly === dynamic.middleIsland.expanded) throw new Error("Clock shows only the time at rest and everything when expanded");
                 if (panel.x < 0 || panel.y < 0 || panel.x + panel.width > bar.width || panel.y + panel.height > bar.height)
                     throw new Error("Panel outside screen");
                 if (reservedThickness !== 36) throw new Error("Reserved depth changed");
-                if (mask.regions.length !== 3) throw new Error("Mask is not three islands");
+                if (mask.regions.length !== 4) throw new Error("Mask is not the four islands (logo, media, clock, status)");
                 let end = 0;
                 for (let index = 0; index < 3; index++) {
                     const island = islands[index];
@@ -251,8 +253,8 @@ ShellRoot {
                         if (Math.abs((shell.verticalBar ? centre.y : centre.x) - islandCentre) > 0.5) throw new Error("Resting WiFi off centre without a battery");
                         // The left group follows its contents inside Dynamic (no frozen width, no gap).
                         if (!shell.verticalBar && Math.abs(left.width - left.implicitWidth) > 0.5) throw new Error("Left group width frozen: " + left.width + " vs " + left.implicitWidth);
-                        // Media and recording belong to the clock island.
-                        if (dynamic.islandFor(mediaPanel) !== dynamic.middleIsland || dynamic.islandFor(recordingPanel) !== dynamic.middleIsland) throw new Error("Media/recording not in the clock island");
+                        // Media grows from its own island, recording from the clock island.
+                        if (dynamic.islandFor(mediaPanel) !== dynamic.mediaIsland || dynamic.islandFor(recordingPanel) !== dynamic.middleIsland) throw new Error("Media/recording not in their islands");
                         // A card grows its island; neighbours only expand into the space left beside it.
                         if (!dynamic.middleIsland.morphed) throw new Error("Calendar did not grow the clock island");
                         const room = (dynamic.length - dynamic.middleIsland.targetExtent) / 2 - dynamic.insetStart - dynamic.spacing;

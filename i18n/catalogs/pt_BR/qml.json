@@ -950,5 +950,9 @@
   "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutos de foco, depois {rest} minutos de pausa. Você recebe uma notificação a cada troca.",
   "{minutes} minutes, then back to focus.": "{minutes} minutos e depois de volta ao foco.",
   "Add a reminder": "Adicionar lembrete",
-  "Timer & Focus": "Timer e Foco"
+  "Timer & Focus": "Timer e Foco",
+  "Skip break": "Pular pausa",
+  "Start focus": "Começar foco",
+  "Snooze 5 min": "Adiar 5 min",
+  "Start again": "Começar de novo"
 }

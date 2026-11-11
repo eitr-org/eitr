@@ -11,7 +11,8 @@ ThemedPopup {
     id: menu
     implicitWidth: grid.implicitWidth + (contentGaps[1] + contentGaps[3]) * PanelStyle.contentGapMultiplier
         + (!detached && (barEdge === "top" || barEdge === "bottom") ? PanelStyle.surfaceInset * 2 : 0)
-    implicitHeight: navigation.y + navigation.height + 22 + 28 + reminderSection.height + 12 + verticalContentInset
+    // The month keeps a fixed height; a day's plans take only what they need.
+    implicitHeight: agendaOpen ? dayAgenda.naturalHeight + verticalContentInset : navigation.y + navigation.height + 22 + 28 + reminderSection.height + 12 + verticalContentInset
     keyTarget: calendarContent
     property date selectedDay: new Date()
     property var reminders: []
@@ -142,6 +143,7 @@ ThemedPopup {
     }
 
     DayAgenda {
+        id: dayAgenda
         anchors.fill: parent
         visible: menu.agendaOpen
         calendar: menu; foreground: menu.foreground; accent: menu.accent

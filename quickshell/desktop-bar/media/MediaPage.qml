@@ -80,7 +80,11 @@ Item {
                 const context = getContext("2d");
                 context.reset();
                 const levels = audio.spectrum, centre = width / 2;
-                const raw = Array.from({length: count}, (unused, index) => audio.active && levels.length ? levels[Math.floor(index * levels.length / count)] : 0);
+                // Each frame is scaled to its loudest band and the quieter ones pushed down, so
+                // the ring pulses with the beat instead of standing at an even height.
+                const sampled = Array.from({length: count}, (unused, index) => audio.active && levels.length ? levels[Math.floor(index * levels.length / count)] : 0);
+                const peak = Math.max(0.3, ...sampled);
+                const raw = sampled.map(level => Math.pow(level / peak, 1.8) * Math.min(1, peak * 1.6));
                 context.strokeStyle = page.accent;
                 context.lineCap = "round";
                 context.lineWidth = 4.5;

@@ -975,7 +975,11 @@ var qml = {
     "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.",
     "{minutes} minutes, then back to focus.": "{minutes} minutes, then back to focus.",
     "Add a reminder": "Add a reminder",
-    "Timer & Focus": "Timer & Focus"
+    "Timer & Focus": "Timer & Focus",
+    "Skip break": "Skip break",
+    "Snooze 5 min": "Snooze 5 min",
+    "Start again": "Start again",
+    "Start focus": "Start focus"
   },
   "pt_BR": {
     "%1 Hz": "%1 Hz",
@@ -1929,7 +1933,11 @@ var qml = {
     "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutos de foco, depois {rest} minutos de pausa. Você recebe uma notificação a cada troca.",
     "{minutes} minutes, then back to focus.": "{minutes} minutos e depois de volta ao foco.",
     "Add a reminder": "Adicionar lembrete",
-    "Timer & Focus": "Timer e Foco"
+    "Timer & Focus": "Timer e Foco",
+    "Skip break": "Pular pausa",
+    "Start focus": "Começar foco",
+    "Snooze 5 min": "Adiar 5 min",
+    "Start again": "Começar de novo"
   },
   "es": {
     "%1 Hz": "%1 Hz",
@@ -2883,7 +2891,11 @@ var qml = {
     "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutos de concentración y luego {rest} minutos de descanso. Recibirás una notificación en cada cambio.",
     "{minutes} minutes, then back to focus.": "{minutes} minutos y luego, a concentrarse.",
     "Add a reminder": "Añadir un recordatorio",
-    "Timer & Focus": "Temporizador y concentración"
+    "Timer & Focus": "Temporizador y concentración",
+    "Skip break": "Saltar descanso",
+    "Start focus": "Empezar a concentrarte",
+    "Snooze 5 min": "Posponer 5 min",
+    "Start again": "Empezar de nuevo"
   },
   "de": {
     "%1 Hz": "%1 Hz",
@@ -3837,7 +3849,11 @@ var qml = {
     "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} Minuten Fokus, dann {rest} Minuten Pause. Bei jedem Wechsel bekommst du eine Benachrichtigung.",
     "{minutes} minutes, then back to focus.": "{minutes} Minuten, dann zurück zum Fokus.",
     "Add a reminder": "Erinnerung hinzufügen",
-    "Timer & Focus": "Timer & Fokus"
+    "Timer & Focus": "Timer & Fokus",
+    "Skip break": "Pause überspringen",
+    "Start focus": "Fokus starten",
+    "Snooze 5 min": "5 Min. schlummern",
+    "Start again": "Neu starten"
   },
   "fr": {
     "%1 Hz": "%1 Hz",
@@ -4791,6 +4807,10 @@ var qml = {
     "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": "{focus} minutes de concentration, puis {rest} minutes de pause. Vous recevrez une notification à chaque changement.",
     "{minutes} minutes, then back to focus.": "{minutes} minutes, puis retour à la concentration.",
     "Add a reminder": "Ajouter un rappel",
-    "Timer & Focus": "Minuteur et concentration"
+    "Timer & Focus": "Minuteur et concentration",
+    "Skip break": "Passer la pause",
+    "Start focus": "Reprendre la concentration",
+    "Snooze 5 min": "Reporter de 5 min",
+    "Start again": "Recommencer"
   }
 };

@@ -2,14 +2,13 @@ import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Hyprland
-import Quickshell.Services.Pipewire
 import "../ReminderModel.js" as ReminderModel
 
 // What is happening around a bar's clock, for every layout: a new notification rings the
 // bell twice (the bar's own bell, or one that slides out beside the clock where the layout
 // hides it); a timer or focus session and an event starting within ten minutes put a mark
-// beside the clock; changing workspace (where the workspaces are hidden), the volume and a
-// running-low battery briefly show over the time. CaptureIndicator and Drop's pill draw it;
+// beside the clock; changing workspace (where the workspaces are hidden) and a running-low
+// battery briefly show over the time. Volume and brightness keep their own popup. CaptureIndicator and Drop's pill draw it;
 // ClockButton draws the flash.
 Item {
     id: activity
@@ -67,15 +66,13 @@ Item {
     }
     Timer { interval: 60000; repeat: true; running: true; triggeredOnStart: true; onTriggered: activity.checkMeeting() }
 
-    // 0 shows the time, 1 the flash: a workspace number, a battery warning or a volume
-    // level rises over the time and falls back.
+    // 0 shows the time, 1 the flash: a workspace number or a battery warning rises over
+    // the time and falls back.
     property real flash: 0
     property string flashText: ""
     property color flashColor: host.fg
-    // 0..1 shows a level bar instead of text; -1 none.
-    property real flashLevel: -1
-    function showFlash(text, color, level) {
-        flashText = text; flashColor = color; flashLevel = level;
+    function showFlash(text, color) {
+        flashText = text; flashColor = color;
         flashing.restart();
     }
     SequentialAnimation {
@@ -94,19 +91,9 @@ Item {
     onWorkspaceIdChanged: {
         if (workspacesHidden && seenWorkspace !== 0 && workspaceId > 0 && workspaceId !== seenWorkspace) {
             const entry = host.workspaceRows(barHost.screen).find(row => row.id === workspaceId);
-            showFlash(String(entry ? entry.number : workspaceId), host.fg, -1);
+            showFlash(String(entry ? entry.number : workspaceId), host.fg);
         }
         if (workspaceId > 0) seenWorkspace = workspaceId;
-    }
-    // The output volume: its changes flash a level bar (not the first reading).
-    readonly property PwNode sink: Pipewire.defaultAudioSink
-    PwObjectTracker { objects: [activity.sink] }
-    readonly property real volume: sink && sink.audio ? (sink.audio.muted ? 0 : sink.audio.volume) : -1
-    property real seenVolume: -1
-    onVolumeChanged: {
-        if (seenVolume >= 0 && volume >= 0 && Math.abs(volume - seenVolume) > 0.004)
-            showFlash(volume === 0 ? "󰖁" : "󰕾", host.fg, Math.min(1, volume));
-        seenVolume = volume;
     }
     // A running-low battery flashes its percentage in red once as it reaches 15% and 5%.
     readonly property var battery: PowerService.battery
@@ -115,6 +102,6 @@ Item {
     onBatteryPercentChanged: {
         if (batteryPercent > 15) { warnedAt = 100; return; }
         const level = batteryPercent <= 5 ? 5 : 15;
-        if (level < warnedAt) { warnedAt = level; showFlash("󰁺 " + batteryPercent + "%", "#e05c68", -1); }
+        if (level < warnedAt) { warnedAt = level; showFlash("󰁺 " + batteryPercent + "%", "#e05c68"); }
     }
 }

@@ -2519,6 +2519,9 @@
     "Size unavailable": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
+    "Skip break": [
+      "quickshell/desktop-bar/services/FocusTimer.qml"
+    ],
     "Skip this occurrence": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
@@ -2527,6 +2530,9 @@
     ],
     "Smaller": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
+    ],
+    "Snooze 5 min": [
+      "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "Soften the desktop behind terminal windows.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -2555,12 +2561,18 @@
     "Start Screensaver": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "Start again": [
+      "quickshell/desktop-bar/services/FocusTimer.qml"
+    ],
     "Start another focus session when you are ready.": [
       "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "Start at login": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Start focus": [
+      "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "Start recording": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
