@@ -157,6 +157,7 @@ SiteBackdrop 1.0 components/SiteBackdrop.qml
 BarDynamic bar/BarDynamic.qml
 BarDrop bar/BarDrop.qml
 DynamicIsland bar/DynamicIsland.qml
+DropPillActivity bar/DropPillActivity.qml
 ProfilePicture 1.0 panels/ProfilePicture.qml
 ScreenshotPins capture/ScreenshotPins.qml
 BeautifyWindow capture/BeautifyWindow.qml

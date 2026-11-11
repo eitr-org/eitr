@@ -4,8 +4,8 @@ import QtQuick
 
 // Drop: one full pill with only the time, centred on the bar's edge. With auto-hide nothing
 // stays on screen; revealing drops a small drop in the bar's colour out of the edge, which falls into
-// place and swells into the time island (hiding plays it backwards). The glance strip
-// and the dashboard card come later.
+// place and swells into the time island (hiding plays it backwards). Clicking the time
+// opens the dashboard; DropPillActivity adds what is happening around the time.
 Item {
     id: drop
     required property var host
@@ -27,7 +27,8 @@ Item {
     readonly property real reveal: barHost.autoHideRef.progress
     readonly property real dotSize: 10
     readonly property real clockExtent: vertical ? barHost.verticalCalendarIcon.height : barHost.centerInfo.width
-    readonly property real pillExtent: clockExtent + 8
+    // The time plus room each side for the pill's activity (bell, recording dot, note).
+    readonly property real pillExtent: clockExtent + 8 + (vertical ? 0 : 2 * activity.side)
     // The first 40% of the reveal is the fall out of the edge, the rest the swell.
     readonly property real fall: Math.min(1, reveal / 0.4)
     readonly property real swell: Math.max(0, (reveal - 0.4) / 0.6)
@@ -88,6 +89,14 @@ Item {
         // Falls out of the bar's edge: before the fall it sits just beyond the screen.
         readonly property real travel: (1 - drop.fall) * (thickness + drop.dropDepth) * (farEdge ? 1 : -1)
         transform: Translate { x: drop.vertical ? pill.travel : 0; y: drop.vertical ? 0 : pill.travel }
+        DropPillActivity {
+            id: activity
+            parent: pill.content
+            visible: !drop.vertical && drop.holding
+            opacity: drop.contentOpacity
+            enabled: drop.reveal >= 1 && !pill.morphed
+            host: drop.host; barHost: drop.barHost
+        }
         // The drop: the bar's colour with a soft halo, becoming the pill as it swells.
         Item {
             id: dot
@@ -133,7 +142,7 @@ Item {
     states: [
         State {
             name: "horizontal"; when: drop.holding && !drop.vertical
-            PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity; enabled: drop.reveal >= 1 }
+            PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity * (1 - Math.min(1, activity.flash)); enabled: drop.reveal >= 1 }
             PropertyChanges { target: barHost.centerInfo; timeOnly: true }
             PropertyChanges { target: barHost.leftGroup; opacity: 0; enabled: false }
             PropertyChanges { target: barHost.rightSide; opacity: 0; enabled: false }

@@ -27,7 +27,14 @@ ThemedPopup {
     property string otherPage: ""
     property int otherSide: 1
     readonly property real span: content.width + 24
-    onOpenedChanged: if (opened) { page = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; home.selectedDay = null; }
+    // The page the next opening starts on (the pill's bell and note pick theirs).
+    property string startPage: "home"
+    function show(target) {
+        startPage = pages.indexOf(target) >= 0 ? target : "home";
+        if (opened) { go(startPage, 1); startPage = "home"; }
+        else barHost.showPanel(dashboard);
+    }
+    onOpenedChanged: if (opened) { page = startPage; startPage = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; home.selectedDay = null; }
     onPagesChanged: if (pages.indexOf(page) < 0) page = "home"
 
     function neighbour(direction) {
