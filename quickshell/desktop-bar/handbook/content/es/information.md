@@ -31,4 +31,6 @@ Haz clic en el ecualizador animado para ver portada, título y artista, usar ant
 
 Las notificaciones tienen un brillo interior suave con el color de acento del tema. Las críticas usan el rojo del tema y las de baja prioridad son discretas, sin brillo. No molestar oculta los avisos emergentes sin borrar el historial. Este permanece en memoria al recargar la configuración, pero no al reiniciar el proceso. No se guarda el contenido de las notificaciones en un registro.
 
+Pulsar una notificación ejecuta su acción principal. Una sin acción abre la aplicación que la envió: su ventana o, en herdr, el terminal con herdr en el espacio de trabajo que nombra la notificación. Cada tarjeta muestra el icono propio de la aplicación si lo tiene; si no, la campana.
+
 Usa Configuración > Notificaciones para No molestar y Notificaciones de fallos.

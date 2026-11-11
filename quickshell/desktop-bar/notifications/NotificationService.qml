@@ -123,15 +123,15 @@ Item {
         return pool.reduce((best, item) => !best || (timestamps[item.id] || 0) >= (timestamps[best.id] || 0) ? item : best, null);
     }
     // Runs what clicking the newest notification would: its default action, else its
-    // first button; without either it opens the notification center.
+    // first button; without either it opens the app that sent it.
     function actOnNewest() {
         var notification = newest();
         if (!notification) return false;
         var action = notification.actions.find(candidate => candidate.identifier === "default")
             || notification.actions.find(candidate => candidate.identifier !== "inline-reply");
-        if (!action) { toggleRequested(); return false; }
         hidePopup(notification.id);
-        action.invoke();
+        if (action) action.invoke();
+        else Quickshell.execDetached(Logic.openCommand(notification, Eitr.Paths.code("quickshell/desktop-bar/scripts/notification-open.py")));
         return true;
     }
     function dismissNewest() {

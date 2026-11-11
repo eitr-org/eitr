@@ -2,6 +2,7 @@ import ".."
 import Eitr as Eitr
 import QtQuick
 import QtQuick.Controls.Basic
+import Quickshell
 import "../PanelStyle.js" as PanelStyle
 import "../NotificationLogic.js" as NotificationLogic
 
@@ -28,7 +29,18 @@ Rectangle {
         sourceSize: Qt.size(NotificationLogic.thumbnailWidth * Screen.devicePixelRatio, NotificationLogic.thumbnailHeight * Screen.devicePixelRatio)
         asynchronous: true
     }
+    // The app behind the notification: its desktop entry gives an icon when the
+    // notification names none, and its window is what a plain click opens.
+    readonly property var desktopEntry: !notification ? null
+        : (notification.desktopEntry ? DesktopEntries.byId(notification.desktopEntry) : null)
+          || (notification.appName ? DesktopEntries.heuristicLookup(notification.appName) : null)
+    readonly property var shown: NotificationLogic.presentation(notification)
     signal activated(int notificationId)
+    // Without an action of its own, a click opens the app that sent the notification.
+    function openApp() {
+        activated(notification.id);
+        Quickshell.execDetached(NotificationLogic.openCommand(notification, Eitr.Paths.code("quickshell/desktop-bar/scripts/notification-open.py")));
+    }
     function invokeAction(action) {
         var id = notification.id;
         activated(id);
@@ -53,11 +65,12 @@ Rectangle {
         anchors.fill: parent
         readonly property var defaultAction: card.notification
             ? card.notification.actions.find(action => action.identifier === "default") : null
-        enabled: card.expandOnClick || !!defaultAction
+        enabled: !!card.notification
         cursorShape: Qt.PointingHandCursor
         onClicked: {
             if (card.expandOnClick) card.expansionRequested();
-            else card.invokeAction(defaultAction);
+            else if (defaultAction) card.invokeAction(defaultAction);
+            else card.openApp();
         }
     }
 
@@ -89,7 +102,8 @@ Rectangle {
                     id: fallbackIcon
                     objectName: "notificationFallbackIcon"
                     anchors.fill: parent
-                    source: card.notification && card.notification.appIcon ? (card.notification.appIcon.indexOf("/") !== -1 || card.notification.appIcon.indexOf(":") !== -1 ? card.notification.appIcon : "image://icon/" + card.notification.appIcon) : ""
+                    source: NotificationLogic.appIconSource(card.notification, card.desktopEntry ? card.desktopEntry.icon : "",
+                        Eitr.Paths.code("walker/icons"))
                     fillMode: Image.PreserveAspectFit
                     visible: notificationImage.status !== Image.Ready && status === Image.Ready
                 }
@@ -110,7 +124,7 @@ Rectangle {
                 Text {
                     objectName: "notificationTitle"
                     width: parent.width
-                    text: card.notification ? card.notification.summary + (card.repeats > 1 ? "  ×" + card.repeats : "") : ""
+                    text: card.shown.summary + (card.repeats > 1 ? "  ×" + card.repeats : "")
                     textFormat: Text.PlainText
                     color: card.foreground
                     font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
@@ -148,7 +162,7 @@ Rectangle {
         Text {
             visible: text !== ""
             width: parent.width
-            text: card.notification ? card.notification.body : ""
+            text: card.shown.body
             textFormat: Text.PlainText
             color: card.foreground; opacity: 0.85
             font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize

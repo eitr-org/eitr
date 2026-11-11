@@ -47,3 +47,39 @@ function grouped(notifications, timestamps, includeTransient) {
         return newest(b) - newest(a);
     }).map(name => ({name: name, notifications: groups[name].sort((a, b) => (timestamps[b.id] || 0) - (timestamps[a.id] || 0) || b.id - a.id)}));
 }
+
+// Logos Eitr ships for tools that install no icon of their own (walker/icons/).
+var shippedLogos = ["herdr", "cmux"];
+
+// The app's icon, in order: the icon the notification names, the icon of its desktop
+// entry, a logo Eitr ships for it; "" leaves the bell.
+function appIconSource(notification, entryIcon, logoRoot) {
+    if (!notification) return "";
+    var icon = notification.appIcon || "";
+    if (icon) return icon.indexOf("/") !== -1 || icon.indexOf(":") !== -1 ? icon : "image://icon/" + icon;
+    if (entryIcon) return entryIcon.indexOf("/") === 0 ? "file://" + entryIcon : "image://icon/" + entryIcon;
+    var name = String(notification.appName || "").toLowerCase();
+    return shippedLogos.indexOf(name) !== -1 && logoRoot ? "file://" + logoRoot + "/" + name + ".png" : "";
+}
+
+// Herdr names agents in lower case and adds its workspace number to the workspace name
+// ("claude finished", "Personal · 2"): show "Claude finished" over "Personal".
+var agentNames = {claude: "Claude", codex: "Codex", gemini: "Gemini", grok: "Grok", copilot: "Copilot",
+    opencode: "OpenCode", pi: "Pi", agy: "Antigravity", cursor: "Cursor"};
+function presentation(notification) {
+    if (!notification) return {summary: "", body: ""};
+    var summary = notification.summary || "", body = notification.body || "";
+    if (/^herdr$/i.test(notification.appName || "")) {
+        summary = summary.replace(/^(\S+)/, word => agentNames[word.toLowerCase()] || word.charAt(0).toUpperCase() + word.slice(1));
+        body = body.replace(/\s+·\s+\d+$/, "");
+    }
+    return {summary: summary, body: body};
+}
+
+// The command that opens the app behind a notification without an action of its own
+// (scripts/notification-open.py), shared by a click and the keyboard shortcut.
+function openCommand(notification, script) {
+    var hints = notification.hints || {};
+    return ["python3", script, "--app", notification.appName || "", "--desktop-entry", notification.desktopEntry || "",
+        "--pid", String(Number(hints["sender-pid"]) || 0), "--body", notification.body || ""];
+}

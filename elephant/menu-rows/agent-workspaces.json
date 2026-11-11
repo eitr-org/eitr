@@ -9,7 +9,7 @@
       "multiplexer",
       "workspace"
     ],
-    "icon": "",
+    "icon": "/usr/share/eitr/walker/icons/cmux.png",
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/actions/development/agent-workspace.sh cmux"
     }
@@ -24,7 +24,7 @@
       "codex",
       "workspace"
     ],
-    "icon": "󱚝",
+    "icon": "/usr/share/eitr/walker/icons/herdr.png",
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/actions/development/agent-workspace.sh herdr"
     }

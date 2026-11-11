@@ -11,7 +11,7 @@
           "multiplexer",
           "workspace"
         ],
-        "icon": "",
+        "icon": "/usr/share/eitr/walker/icons/cmux.png",
         "actions": {
           "open": "/usr/share/eitr/walker/scripts/actions/development/agent-workspace.sh cmux"
         }
@@ -26,7 +26,7 @@
           "codex",
           "workspace"
         ],
-        "icon": "󱚝",
+        "icon": "/usr/share/eitr/walker/icons/herdr.png",
         "actions": {
           "open": "/usr/share/eitr/walker/scripts/actions/development/agent-workspace.sh herdr"
         }
@@ -4211,7 +4211,7 @@
       "identifier": "agent-workspaces:0",
       "text": "Cmux",
       "subtext": "Terminal workspaces with panes, tabs and a browser",
-      "icon": "",
+      "icon": "/usr/share/eitr/walker/icons/cmux.png",
       "actions": [
         "open"
       ],
@@ -4236,7 +4236,7 @@
       "identifier": "agent-workspaces:1",
       "text": "Herdr",
       "subtext": "Run AI coding agents side by side and see who needs you",
-      "icon": "󱚝",
+      "icon": "/usr/share/eitr/walker/icons/herdr.png",
       "actions": [
         "open"
       ],

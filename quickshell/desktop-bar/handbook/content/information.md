@@ -44,4 +44,6 @@ does), and **SUPER + Alt + Shift + N** dismisses it. A repeated notification (sa
 app, title and text) replaces the earlier one and shows a count such as ×3 instead
 of stacking another card.
 
+Clicking a notification runs its main action. One without an action opens the app that sent it: its window, or for herdr the terminal running herdr, switched to the workspace the notification names. Each card shows the app's own icon when it has one, else the bell.
+
 Use Settings > Notifications for Do Not Disturb and Crash Notifications.

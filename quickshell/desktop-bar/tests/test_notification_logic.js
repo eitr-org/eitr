@@ -41,4 +41,15 @@ const stacked = JSON.parse(JSON.stringify(logic.grouped(burst, {}, true)));
 assert.equal(stacked.length, 1);
 assert.equal(stacked[0].notifications[0].id, 30);
 assert.equal(stacked[0].notifications.length, 30);
+// App icons: the notification's own, then its desktop entry's, then a shipped logo, else "".
+assert.equal(logic.appIconSource({appIcon: 'firefox'}, 'other', '/logos'), 'image://icon/firefox');
+assert.equal(logic.appIconSource({appIcon: '/tmp/a.png'}, '', '/logos'), '/tmp/a.png');
+assert.equal(logic.appIconSource({appName: 'Slack', appIcon: ''}, 'slack', '/logos'), 'image://icon/slack');
+assert.equal(logic.appIconSource({appName: 'Thing', appIcon: ''}, '/opt/thing.svg', '/logos'), 'file:///opt/thing.svg');
+assert.equal(logic.appIconSource({appName: 'Herdr', appIcon: ''}, '', '/logos'), 'file:///logos/herdr.png');
+assert.equal(logic.appIconSource({appName: 'Unknown', appIcon: ''}, '', '/logos'), '');
+// Herdr's wording is tidied; everyone else's text is left alone.
+assert.equal(JSON.stringify(logic.presentation({appName: 'Herdr', summary: 'claude finished', body: 'Personal · 2'})), JSON.stringify({summary: 'Claude finished', body: 'Personal'}));
+assert.equal(JSON.stringify(logic.presentation({appName: 'Herdr', summary: 'opencode needs you', body: 'Doola · 12'})), JSON.stringify({summary: 'OpenCode needs you', body: 'Doola'}));
+assert.equal(JSON.stringify(logic.presentation({appName: 'Slack', summary: 'claude finished', body: 'Personal · 2'})), JSON.stringify({summary: 'claude finished', body: 'Personal · 2'}));
 console.log('Notification policy checks passed');
