@@ -93,6 +93,8 @@ PluginDetails 1.0 plugins/PluginDetails.qml
 CatalogPluginSheet 1.0 panels/CatalogPluginSheet.qml
 DropDashboard 1.0 panels/DropDashboard.qml
 DropAiPage 1.0 panels/drop/DropAiPage.qml
+DropAudioDetail 1.0 panels/drop/DropAudioDetail.qml
+DropBluetoothDetail 1.0 panels/drop/DropBluetoothDetail.qml
 DropCard 1.0 panels/drop/DropCard.qml
 DropDayAgenda 1.0 panels/drop/DropDayAgenda.qml
 DropControlsPage 1.0 panels/drop/DropControlsPage.qml
@@ -100,6 +102,7 @@ DropHomePage 1.0 panels/drop/DropHomePage.qml
 DropLyrics 1.0 panels/drop/DropLyrics.qml
 DropLyricsSource 1.0 panels/drop/DropLyricsSource.qml
 DropMediaPage 1.0 panels/drop/DropMediaPage.qml
+DropWifiDetail 1.0 panels/drop/DropWifiDetail.qml
 DropPerformancePage 1.0 panels/drop/DropPerformancePage.qml
 BarAutoHide 1.0 bar/BarAutoHide.qml
 MediaIndicator 1.0 media/MediaIndicator.qml
@@ -249,3 +252,4 @@ SettingsAccountSheet settings/SettingsAccountSheet.qml
 AboutLogoPreview components/AboutLogoPreview.qml
 SettingsTarget settings/SettingsTarget.qml
 SettingsWorkspacesCard 1.0 settings/SettingsWorkspacesCard.qml
+WifiNetworkRow 1.0 components/WifiNetworkRow.qml

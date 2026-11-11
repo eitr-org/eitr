@@ -24,7 +24,7 @@ Item {
     onActiveChanged: if (!active) asking = false
     DropLyricsSource { id: lyricsSource; player: page.player; active: page.active }
     property real position: 0
-    implicitHeight: 268
+    implicitHeight: 290
 
     function timeLabel(seconds) {
         const value = Math.max(0, Math.floor(seconds || 0));
@@ -169,8 +169,8 @@ Item {
         Row {
             id: controls
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: seek.top; anchors.bottomMargin: 12
-            spacing: 14
+            anchors.bottom: seek.top; anchors.bottomMargin: 10
+            spacing: 6
             Repeater {
                 model: [
                     {glyph: "󰒝", action: "shuffle"},
@@ -194,7 +194,7 @@ Item {
                     readonly property bool lit: !!player && (modelData.action === "shuffle" ? player.shuffle
                         : modelData.action === "loop" ? player.loopState !== MprisLoopState.None
                         : modelData.action === "lyrics" ? lyricsSource.online || page.asking : false)
-                    width: main ? 48 : 34; height: width; radius: main ? DesktopStyle.radius(14) : width / 2
+                    width: main ? 46 : 32; height: width; radius: main ? DesktopStyle.radius(14) : width / 2
                     anchors.verticalCenter: parent.verticalCenter
                     color: main ? page.accent : Qt.alpha(page.foreground, press.containsMouse && available ? 0.12 : 0)
                     opacity: available ? 1 : 0.35

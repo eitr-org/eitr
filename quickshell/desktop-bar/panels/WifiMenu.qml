@@ -224,89 +224,16 @@ ThemedPopup {
                         Text { visible: parent.modelData.networks.length === 0; text: menu.device && menu.device.scanning ? Eitr.I18n.tr("Scanning...") : Eitr.I18n.tr("No networks"); color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
                         Repeater {
                             model: parent.modelData.networks
-                            Rectangle {
-                                id: network
-                                required property var modelData
-                                width: networks.width; height: PanelStyle.selectionRowHeight; radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                                color: Qt.alpha(menu.foreground, PanelStyle.selectionAlpha(modelData.connected, networkMouse.containsMouse || network.activeFocus))
-                                border.width: PanelStyle.selectionBorderWidth(modelData.connected)
-                                border.color: Qt.alpha(menu.foreground, PanelStyle.selectionBorderAlpha)
-                                activeFocusOnTab: true
-                                Keys.onReturnPressed: if (!menu.busy) menu.choose(modelData)
-                                Text { x: PanelStyle.selectionInset; anchors.verticalCenter: parent.verticalCenter; text: "󰤨"; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.headingSize }
-                                Item {
-                                    x: PanelStyle.selectionTextInset
-                                    width: parent.width - networkActions.width - 52
-                                    height: 20
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    Text {
-                                        id: networkName
-                                        width: Math.min(implicitWidth, Math.max(0, parent.width - networkStatus.width - (networkStatus.visible ? 8 : 0)))
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        elide: Text.ElideRight
-                                        textFormat: Text.PlainText
-                                        text: network.modelData.name
-                                        color: menu.foreground
-                                        font.family: DesktopFonts.family
-                                        font.pixelSize: PanelStyle.bodySize
-                                    }
-                                    Row {
-                                        id: networkStatus
-                                        x: networkName.width + 8
-                                        anchors.verticalCenter: parent.verticalCenter
-                                        spacing: 6
-                                        visible: network.modelData.connected || network.modelData.available === false
-                                        width: visible ? implicitWidth : 0
-                                        Rectangle {
-                                            width: 4; height: 4; radius: 2
-                                            anchors.verticalCenter: parent.verticalCenter
-                                            color: menu.foreground
-                                            opacity: 0.6
-                                        }
-                                        Text {
-                                            text: network.modelData.connected ? Eitr.I18n.tr("Connected") : Eitr.I18n.tr("Offline")
-                                            color: menu.foreground
-                                            opacity: PanelStyle.secondaryTextOpacity
-                                            font.family: DesktopFonts.family
-                                            font.pixelSize: PanelStyle.captionSize
-                                        }
-                                    }
+                            WifiNetworkRow {
+                                width: networks.width
+                                foreground: menu.foreground; background: menu.background
+                                busy: menu.busy; pendingRemoval: menu.pendingRemoval
+                                onChosen: menu.choose(modelData)
+                                onDisconnectRequested: menu.act("disconnect", menu.device.path)
+                                onRemoveRequested: confirmed => {
+                                    if (confirmed) { menu.act("forget", modelData.knownPath); menu.pendingRemoval = ""; }
+                                    else menu.pendingRemoval = modelData.knownPath;
                                 }
-                                MouseArea { id: networkMouse; anchors.fill: parent; hoverEnabled: true; enabled: !menu.busy && !network.modelData.connected && network.modelData.available !== false; cursorShape: Qt.PointingHandCursor; onClicked: menu.choose(network.modelData) }
-                                Row {
-                                    id: networkActions
-                                    anchors.right: parent.right; anchors.rightMargin: PanelStyle.selectionActionInset; anchors.verticalCenter: parent.verticalCenter; spacing: PanelStyle.selectionActionGap
-                                    Text { visible: network.modelData.available !== false; anchors.verticalCenter: parent.verticalCenter; text: Math.round(network.modelData.strength) + "%"; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize }
-                                    Text { visible: network.modelData.type !== "open"; anchors.verticalCenter: parent.verticalCenter; text: "󰌾"; color: menu.foreground; opacity: 0.65; font.family: DesktopFonts.family; font.pixelSize: 14 }
-                                    PanelButton {
-                                        id: disconnectButton
-                                        visible: network.modelData.connected
-                                        text: "󰖪"; icon: true; width: PanelStyle.selectionActionWidth; height: PanelStyle.selectionActionHeight
-                                        iconOffsetX: -2
-                                        foreground: menu.foreground; available: !menu.busy
-                                        Accessible.name: Eitr.I18n.tr("Disconnect")
-                                        onClicked: menu.act("disconnect", menu.device.path)
-                                        HoverHandler { id: disconnectHover }
-                                        BarTooltip { target: disconnectButton; hovered: disconnectHover.hovered; text: Eitr.I18n.tr("Disconnect"); foreground: menu.foreground; background: menu.background }
-                                    }
-                                    PanelButton {
-                                        id: removeButton
-                                        visible: network.modelData.known && !network.modelData.connected
-                                        text: menu.pendingRemoval === network.modelData.knownPath ? "" : "󰆴"
-                                        icon: true; width: PanelStyle.selectionActionWidth; height: PanelStyle.selectionActionHeight; foreground: menu.foreground
-                                        Accessible.name: menu.pendingRemoval === network.modelData.knownPath ? Eitr.I18n.tr("Confirm removal") : Eitr.I18n.tr("Remove")
-                                        available: !menu.busy && !!network.modelData.knownPath
-                                        onClicked: {
-                                            if (menu.pendingRemoval === network.modelData.knownPath) {
-                                                menu.act("forget", network.modelData.knownPath);
-                                                menu.pendingRemoval = "";
-                                            } else menu.pendingRemoval = network.modelData.knownPath;
-                                        }
-                                        HoverHandler { id: removeHover }
-                                        BarTooltip { target: removeButton; hovered: removeHover.hovered; text: menu.pendingRemoval === network.modelData.knownPath ? Eitr.I18n.tr("Confirm removal") : Eitr.I18n.tr("Remove"); foreground: menu.foreground; background: menu.background }
-                                    }
-                                }
-                                BarTooltip { target: network; hovered: networkMouse.containsMouse && !removeHover.hovered; text: network.modelData.connected || network.modelData.available === false ? "" : Eitr.I18n.tr("Connect"); foreground: menu.foreground; background: menu.background }
                             }
                         }
                     }

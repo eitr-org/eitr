@@ -3,11 +3,14 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Eitr as Eitr
 import Quickshell.Services.Pipewire
+import Quickshell.Bluetooth
 import "../../PanelStyle.js" as PanelStyle
 
-// Drop's quick controls: round toggles for WiFi, Bluetooth, Airplane, Do Not Disturb, Night
-// Light and Idle Lock, then the volume. They act through the Control Center's controllers,
-// and observe network and radio state only while this page shows.
+// Drop's quick controls: round buttons for WiFi, Bluetooth, Sound and Microphone, which open
+// in place (networks, devices and audio devices, with a back arrow and their own switch),
+// and toggles for Airplane, Silence, Night Light and Idle Lock; then the volume. They act
+// through the Control Center's controllers and observe network and radio state only while
+// this page shows.
 Column {
     id: page
     required property var barHost
@@ -21,8 +24,14 @@ Column {
     readonly property var airplane: PowerService.radios
     readonly property var nightlight: center.displayControl.nightlight
     property string networkToken: ""
+    // The control opened in place ("wifi", "bluetooth", "sound", "microphone") or "".
+    property string opened: ""
+    readonly property PwNode sink: Pipewire.defaultAudioSink
+    readonly property PwNode source: Pipewire.defaultAudioSource
+    PwObjectTracker { objects: [page.sink, page.source] }
     property var powerTokens: []
     onWatchingChanged: {
+        if (!watching) opened = "";
         PowerService.release(powerTokens);
         powerTokens = watching ? PowerService.observe(page, 5, true) : [];
         if (watching) {
@@ -47,7 +56,7 @@ Column {
         property bool on: false
         property bool available: true
         signal activated()
-        width: page.width / 6; height: 96
+        width: page.width / 4; height: 92
         opacity: available ? 1 : 0.45
         Rectangle {
             id: disc
@@ -88,22 +97,37 @@ Column {
         }
     }
 
-    Row {
+    Grid {
+        visible: page.opened === ""
         width: parent.width
+        columns: 4
+        rowSpacing: 4
         Toggle {
             label: Eitr.I18n.tr("WiFi"); glyph: page.center.wifiGlyph
             detail: page.wifi.connected ? page.wifi.connected.name : page.wifi.device && page.wifi.device.powered ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off")
             on: !!page.wifi.device && page.wifi.device.powered
-            available: !!page.wifi.device && !page.wifi.busy && !page.airplane.enabled
-            onActivated: page.wifi.act(page.center, "power", page.wifi.device.path, page.wifi.device.powered ? "false" : "true")
+            available: !!page.wifi.device
+            onActivated: page.opened = "wifi"
         }
         Toggle {
             readonly property var devices: page.center.bluetoothDevices
             label: Eitr.I18n.tr("Bluetooth"); glyph: "󰂯"
             detail: devices.length === 1 ? devices[0].name : devices.length > 1 ? Eitr.I18n.tr("{count} devices", {count: devices.length}) : on ? Eitr.I18n.tr("On") : Eitr.I18n.tr("Off")
             on: !!page.bluetooth.adapter && page.bluetooth.adapter.enabled
-            available: !!page.bluetooth.adapter && !page.airplane.enabled
-            onActivated: page.bluetooth.adapter.enabled = !page.bluetooth.adapter.enabled
+            available: !!page.bluetooth.adapter
+            onActivated: page.opened = "bluetooth"
+        }
+        Toggle {
+            label: Eitr.I18n.tr("Sound"); glyph: page.sink && page.sink.audio && page.sink.audio.muted ? "󰖁" : "󰕾"
+            detail: page.sink ? AudioDevices.label(page.sink) : ""
+            on: !!page.sink && !!page.sink.audio && !page.sink.audio.muted
+            onActivated: page.opened = "sound"
+        }
+        Toggle {
+            label: Eitr.I18n.tr("Microphone"); glyph: page.source && page.source.audio && page.source.audio.muted ? "󰍭" : "󰍬"
+            detail: page.source ? AudioDevices.label(page.source) : ""
+            on: !!page.source && !!page.source.audio && !page.source.audio.muted
+            onActivated: page.opened = "microphone"
         }
         Toggle {
             label: Eitr.I18n.tr("Airplane"); glyph: "󰀝"
@@ -130,8 +154,83 @@ Column {
             onActivated: page.center.idleToggleRequested()
         }
     }
-    Rectangle { x: 6; width: parent.width - 12; height: 1; color: Qt.alpha(page.foreground, 0.14) }
+
+    // A control opened in place: back, its name, its own switch, then its list.
+    Item {
+        visible: page.opened !== ""
+        x: 6; width: parent.width - 12; height: 32
+        PanelButton {
+            id: back
+            width: 28; height: 28; icon: true; anchors.verticalCenter: parent.verticalCenter
+            text: "󰅁"; foreground: page.foreground
+            Accessible.name: Eitr.I18n.tr("Back")
+            onClicked: page.opened = ""
+        }
+        Text {
+            x: back.width + 8; anchors.verticalCenter: parent.verticalCenter
+            text: ({wifi: Eitr.I18n.tr("WiFi"), bluetooth: Eitr.I18n.tr("Bluetooth"), sound: Eitr.I18n.tr("Sound"), microphone: Eitr.I18n.tr("Microphone")})[page.opened] || ""
+            color: page.accent; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.weight: Font.Bold
+            font.capitalization: Font.AllUppercase; font.letterSpacing: 1.2
+        }
+        Row {
+            anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter
+            spacing: 10
+            PanelLoadingIndicator {
+                width: 24; height: 24; anchors.verticalCenter: parent.verticalCenter
+                visible: page.opened === "wifi" || page.opened === "bluetooth"
+                busy: page.opened === "wifi" ? !!page.wifi.device && page.wifi.device.scanning : bluetoothDetail.scanning
+                foreground: page.foreground; background: page.background
+            }
+            PanelSwitch {
+                anchors.verticalCenter: parent.verticalCenter
+                foreground: page.foreground; accent: page.accent
+                readonly property var node: page.opened === "sound" ? page.sink : page.opened === "microphone" ? page.source : null
+                checked: page.opened === "wifi" ? !!page.wifi.device && page.wifi.device.powered
+                    : page.opened === "bluetooth" ? !!page.bluetooth.adapter && page.bluetooth.adapter.enabled
+                    : !!node && !!node.audio && !node.audio.muted
+                enabled: page.opened === "wifi" ? !!page.wifi.device && !page.wifi.busy && !page.airplane.enabled
+                    : page.opened === "bluetooth" ? !!page.bluetooth.adapter && !page.airplane.enabled : !!node && !!node.audio
+                onClicked: {
+                    if (page.opened === "wifi") page.wifi.act(page.center, "power", page.wifi.device.path, checked ? "true" : "false");
+                    else if (page.opened === "bluetooth") page.bluetooth.adapter.enabled = checked;
+                    else node.audio.muted = !checked;
+                }
+            }
+        }
+    }
+    Flickable {
+        visible: page.opened !== ""
+        x: 6; width: parent.width - 12
+        height: Math.min(300, contentHeight)
+        contentHeight: Math.max(wifiDetail.visible ? wifiDetail.implicitHeight : 0, bluetoothDetail.visible ? bluetoothDetail.implicitHeight : 0,
+            soundDetail.visible ? soundDetail.implicitHeight : 0)
+        clip: true; boundsBehavior: Flickable.StopAtBounds
+        DropWifiDetail {
+            id: wifiDetail
+            visible: page.opened === "wifi"; shown: visible && page.watching
+            width: parent.width
+            barHost: page.barHost; wifi: page.wifi
+            foreground: page.foreground; background: page.background; accent: page.accent
+        }
+        DropBluetoothDetail {
+            id: bluetoothDetail
+            visible: page.opened === "bluetooth"; shown: visible && page.watching
+            width: parent.width
+            adapter: page.bluetooth.adapter || Bluetooth.defaultAdapter
+            foreground: page.foreground
+        }
+        DropAudioDetail {
+            id: soundDetail
+            visible: page.opened === "sound" || page.opened === "microphone"
+            microphone: page.opened === "microphone"
+            width: parent.width
+            foreground: page.foreground; background: page.background; accent: page.accent
+        }
+    }
+
+    Rectangle { visible: page.opened === ""; x: 6; width: parent.width - 12; height: 1; color: Qt.alpha(page.foreground, 0.14) }
     AudioLevelControl {
+        visible: page.opened === ""
         x: 6; width: parent.width - 12
         node: Pipewire.defaultAudioSink; showName: false; textSize: 12; iconSize: 16
         foreground: page.foreground; background: page.background; accent: page.accent
