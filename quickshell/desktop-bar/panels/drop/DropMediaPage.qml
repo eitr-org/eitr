@@ -59,7 +59,7 @@ Item {
                 context.reset();
                 const centre = width / 2, glow = context.createRadialGradient(centre, centre, ring.radius - 6, centre, centre, ring.radius + 44);
                 glow.addColorStop(0, Qt.alpha(tint, 0));
-                glow.addColorStop(0.35, Qt.alpha(tint, 0.35));
+                glow.addColorStop(0.35, Qt.alpha(tint, 0.18));
                 glow.addColorStop(1, Qt.alpha(tint, 0));
                 context.fillStyle = glow;
                 context.fillRect(0, 0, width, height);
