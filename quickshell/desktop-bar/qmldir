@@ -92,7 +92,9 @@ PluginWidgetControls 1.0 plugins/PluginWidgetControls.qml
 PluginDetails 1.0 plugins/PluginDetails.qml
 CatalogPluginSheet 1.0 panels/CatalogPluginSheet.qml
 DropDashboard 1.0 panels/DropDashboard.qml
+DropAiPage 1.0 panels/drop/DropAiPage.qml
 DropCard 1.0 panels/drop/DropCard.qml
+DropControlsPage 1.0 panels/drop/DropControlsPage.qml
 DropHomePage 1.0 panels/drop/DropHomePage.qml
 DropPerformancePage 1.0 panels/drop/DropPerformancePage.qml
 BarAutoHide 1.0 bar/BarAutoHide.qml

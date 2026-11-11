@@ -5,7 +5,8 @@ import "../PanelStyle.js" as PanelStyle
 
 // Drop's dashboard, opened by clicking its time pill: a row of pages dragged sideways
 // (dragging right goes forward, left goes back, both wrapping). It opens on Calendar and
-// weather, then Media (skipped while nothing plays) and Performance. Arrow keys,
+// weather, then Media (skipped while nothing plays), quick controls, Performance, AI Usage and
+// Notifications. Arrow keys,
 // horizontal scrolling and the dots below switch pages too.
 ThemedPopup {
     id: dashboard
@@ -18,7 +19,7 @@ ThemedPopup {
     property date now: new Date()
     Timer { interval: 1000; running: dashboard.opened; repeat: true; triggeredOnStart: true; onTriggered: dashboard.now = new Date() }
 
-    readonly property var pages: ["home", dashboard.player ? "media" : "", "performance"].filter(Boolean)
+    readonly property var pages: ["home", dashboard.player ? "media" : "", "controls", "performance", "ai", "notifications"].filter(Boolean)
     property string page: "home"
     readonly property int index: Math.max(0, pages.indexOf(page))
     // The slide: the current page sits at `shift`; the page it is leaving, or the one peeking
@@ -58,7 +59,7 @@ ThemedPopup {
             id: viewport
             width: parent.width
             clip: true
-            readonly property Item current: dashboard.page === "media" ? media : dashboard.page === "performance" ? performance : home
+            readonly property Item current: ({home: home, media: media, controls: controls, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
             height: current.implicitHeight
             Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
             function place(id) {
@@ -88,6 +89,14 @@ ThemedPopup {
                     foreground: dashboard.foreground; accent: dashboard.accent
                 }
             }
+            DropControlsPage {
+                id: controls
+                x: viewport.place("controls"); visible: viewport.shown("controls")
+                width: viewport.width
+                barHost: dashboard.barHost
+                watching: dashboard.opened && visible
+                foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
+            }
             DropPerformancePage {
                 id: performance
                 x: viewport.place("performance"); visible: viewport.shown("performance")
@@ -96,6 +105,26 @@ ThemedPopup {
                 foreground: dashboard.foreground; accent: dashboard.accent
             }
 
+            DropAiPage {
+                id: ai
+                x: viewport.place("ai"); visible: viewport.shown("ai")
+                width: viewport.width
+                barHost: dashboard.barHost
+                watching: dashboard.opened && visible
+                foreground: dashboard.foreground; accent: dashboard.accent
+            }
+            // The notification center's own list, with its Do Not Disturb and Clear buttons.
+            NotificationList {
+                id: notifications
+                x: viewport.place("notifications"); visible: viewport.shown("notifications")
+                width: viewport.width; height: service.count === 0 ? 150 : 380; implicitHeight: height
+                service: dashboard.barHost.notificationsRef
+                foreground: dashboard.foreground; background: dashboard.background; accent: dashboard.accent
+                onActivated: dashboard.opened = false
+                // Reading here counts as the notification center being open.
+                readonly property bool reading: dashboard.opened && dashboard.page === "notifications"
+                onReadingChanged: service.centerOpen = reading
+            }
             // Dragging sideways anywhere on a page moves it; a short drag springs back.
             DragHandler {
                 id: drag
