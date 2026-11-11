@@ -2,8 +2,9 @@ import "../.."
 pragma ComponentBehavior: Bound
 import QtQuick
 import "../../PanelStyle.js" as PanelStyle
+import "Lyrics.js" as Lyrics
 
-// Lyrics the player sends in its track metadata (xesam:asText). Timed LRC lines
+// Lyrics text (from the player or LRCLIB, see DropLyricsSource). Timed LRC lines
 // ("[01:23.45] text") follow the song, the current one large and centred; untimed
 // lyrics scroll as plain text.
 Item {
@@ -12,33 +13,11 @@ Item {
     required property real position
     required property color foreground
     required property color accent
-    readonly property var lines: parse(text)
+    readonly property var lines: Lyrics.parse(text)
     readonly property bool timed: lines.length > 0 && lines[0].time >= 0
-    readonly property int current: {
-        if (!timed) return -1;
-        let found = 0;
-        for (let index = 0; index < lines.length; index++) if (lines[index].time <= position) found = index;
-        return found;
-    }
+    readonly property int current: Lyrics.current(lines, position)
     readonly property bool available: lines.length > 0
     clip: true
-
-    function parse(source) {
-        const timedLines = [];
-        const plain = [];
-        String(source || "").split(/\r?\n/).forEach(line => {
-            const stamp = /\[(\d+):(\d+(?:\.\d+)?)\]/g;
-            const words = line.replace(/\[[^\]]*\]/g, "").trim();
-            let match, timedHere = false;
-            while ((match = stamp.exec(line)) !== null) {
-                timedLines.push({time: Number(match[1]) * 60 + Number(match[2]), text: words});
-                timedHere = true;
-            }
-            if (timedHere) return;
-            if (words !== "") plain.push({time: -1, text: words});
-        });
-        return timedLines.length ? timedLines.sort((first, second) => first.time - second.time) : plain;
-    }
 
     ListView {
         id: view

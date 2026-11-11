@@ -32,7 +32,8 @@ Item {
     // The time plus room for the pill's activity (bell and recording dot before it, the
     // note after it). The pill shifts toward the side with more, so the time itself
     // keeps the screen's exact centre: timeOffset places it within the pill.
-    readonly property real pillExtent: clockExtent + 8 + (vertical ? 0 : activity.leadingSpace + activity.trailingSpace)
+    readonly property real pillExtent: !vertical && activity.lyricsOpen ? activity.lyricsExtent
+        : clockExtent + 8 + (vertical ? 0 : activity.leadingSpace + activity.trailingSpace)
     // Eased like the pill's length, so the side that is not growing holds still.
     // The open dashboard's card is centred, so it takes no shift.
     property real shift: vertical || pill.morphed ? 0 : (activity.trailingSpace - activity.leadingSpace) / 2
@@ -152,7 +153,7 @@ Item {
     states: [
         State {
             name: "horizontal"; when: drop.holding && !drop.vertical
-            PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity * (1 - Math.min(1, activity.flash)); enabled: drop.reveal >= 1 }
+            PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity * (1 - Math.min(1, activity.flash)) * (activity.lyricsOpen ? 0 : 1); enabled: drop.reveal >= 1 && !activity.lyricsOpen }
             PropertyChanges { target: barHost.centerInfo; timeOnly: true }
             PropertyChanges { target: barHost.leftGroup; opacity: 0; enabled: false }
             PropertyChanges { target: barHost.rightSide; opacity: 0; enabled: false }

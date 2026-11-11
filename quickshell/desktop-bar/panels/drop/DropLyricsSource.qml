@@ -42,12 +42,14 @@ QtObject {
             source, function(error, data) {
                 if (key !== source.fetchedFor) return;
                 source.request = "";
-                if (error || data.error) { source.state = "unavailable"; source.fetchedFor = ""; return; }
+                if (error || data.error) { source.state = "unavailable"; source.fetchedFor = ""; retry.restart(); return; }
                 source.fetched = data.synced || data.plain || "";
                 source.state = source.fetched ? "" : "none";
             });
     }
 
+    // A failed lookup (the data service still starting, LRCLIB unreachable) tries again.
+    property Timer retry: Timer { interval: 8000; onTriggered: source.lookUp() }
     property FileView store: FileView {
         path: Eitr.Paths.config("eitr/lyrics.json")
         atomicWrites: true; printErrors: false
