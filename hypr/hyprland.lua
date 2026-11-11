@@ -268,10 +268,16 @@ local function pointer_setting(name, default)
 	return default
 end
 
+-- Acceleration on leaves the device's own profile (Hyprland refuses an empty one).
+local accel_profile = nil
+if not pointer_setting("acceleration", true) then
+	accel_profile = "flat"
+end
+
 hl.config({
 	input = {
 		sensitivity = math.max(-1, math.min(1, pointer_setting("sensitivity", 0))),
-		accel_profile = pointer_setting("acceleration", true) and "" or "flat",
+		accel_profile = accel_profile,
 		natural_scroll = pointer_setting("natural_scroll", false),
 		left_handed = pointer_setting("left_handed", false),
 		follow_mouse = 1,
