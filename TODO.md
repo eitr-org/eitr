@@ -152,6 +152,13 @@ item says what decides the next step. Remove an item when it ships;
 - **Bar disappears without a trace (2026-11-10, again 2026-11-11).** The bar process
   ended with no error in its log and no core dump (the second time while a full
   `tools/check.sh` ran and the owner used the Audio panel); find what ends it.
+- **Hyprland crash on SUPER+T (2026-11-12).** Hyprland 0.57.2 aborted while SUPER+T
+  (float + pin) floated a Chrome Google Meet window on the owner's NVIDIA desktop with two
+  displays: an inlined check in the dwindle layout's `movedTarget` (re-tiling the window)
+  failed. Not reproduced in the test VM (one display, Firefox and kitty, fast and repeated
+  presses, fullscreen, pseudo and resized windows). If it happens again, note the window's
+  display, fullscreen or picture-in-picture state, then report it upstream with the crash
+  report from `~/.cache/hyprland/`.
 - **Split the large files marked "To improve".** The files listed with their reasons in
   `tools/file-size-baseline.json`: `eitr-system.py` by area behind the same CLI, the
   Themes & Plugins content (cards, sheets, Git address flow), software installs, Git
