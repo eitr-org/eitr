@@ -4,8 +4,9 @@ import QtQuick
 
 // What Drop's time pill shows around the time, which keeps the screen's centre. Before the
 // time: a red dot while recording (the OBS page), a calendar mark when an event starts within
-// ten minutes (today), a ring while a timer runs (the Timer page) and, next to the time, a
-// note while music plays (the Media page). After it: a bell that slides out from behind the
+// ten minutes (today), a ring while a timer runs (the Timer page), a turning arrow while the
+// bar checks for updates and the updates mark while their notification is up (System Update)
+// and, next to the time, a note while music plays (the Media page). After it: a bell that slides out from behind the
 // time when a notification arrives, rings twice, and slides back once its popup has gone
 // (clicked meanwhile, it opens the Notifications page). Bell, mark and ring come from the
 // bar's ClockActivityState; the flashes over the time are the clock's own. Dragging the note
@@ -33,7 +34,10 @@ Item {
     readonly property bool bellOut: shared.bellOut
     readonly property bool timing: shared.timing
     readonly property bool meetingSoon: shared.meetingSoon
-    readonly property real leading: lyricsOpen ? 0 : ((playing ? 1 : 0) + (recording ? 1 : 0) + (timing ? 1 : 0) + (meetingSoon ? 1 : 0)) * slot
+    readonly property bool checkingUpdates: !!host.updates.checking
+    readonly property bool updatesFound: !checkingUpdates && host.updatesJustFound && host.updates.count > 0
+    readonly property real leading: lyricsOpen ? 0 : ((playing ? 1 : 0) + (recording ? 1 : 0) + (timing ? 1 : 0) + (meetingSoon ? 1 : 0)
+        + (checkingUpdates || updatesFound ? 1 : 0)) * slot
     // Lyrics across the pill, one line at a time, while opened by dragging the note right.
     property bool lyricsOpen: false
     // Pausing or changing song keeps them; only the player going away closes them (the media
@@ -78,7 +82,18 @@ Item {
         height: activity.vertical ? activity.leadingRoom : parent.height
         clip: true
         Grid {
-            columns: activity.vertical ? 1 : 4
+            columns: activity.vertical ? 1 : 5
+            Glyph {
+                id: updatesGlyph
+                visible: activity.checkingUpdates || activity.updatesFound
+                text: activity.checkingUpdates ? "󰁪" : "󰚰"
+                onActivated: if (activity.updatesFound) activity.host.openSystemUpdate()
+                RotationAnimation on rotation {
+                    running: activity.checkingUpdates && !DesktopStyle.reduceMotion; loops: Animation.Infinite
+                    from: 0; to: 360; duration: 1000
+                    onRunningChanged: if (!running) updatesGlyph.rotation = 0
+                }
+            }
             Glyph {
                 visible: activity.recording
                 text: "●"; color: activity.obsState.paused && !activity.obsState.streaming ? activity.host.fg : "#e05c68"

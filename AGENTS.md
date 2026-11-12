@@ -349,7 +349,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   opens it on Quick controls; pages swipe sideways and wrap. The dashboard never opens
   another panel: everything (weather, a day's plans, WiFi/Bluetooth/audio devices, an
   assistant's limits) opens in place with a back arrow. `bar/DropPillActivity.qml` adds
-  activity around the time (before it recording, next event, timer ring and the note; the
+  activity around the time (before it recording, next event, timer ring, the update check and found updates while their notification shows, and the note; the
   bell after it; workspace and low-battery flashes; one lyric line on dragging the note
   right), making room
   only on the side that has something while the time keeps the screen centre. No hover

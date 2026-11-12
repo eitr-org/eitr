@@ -48,7 +48,13 @@ Scope {
         }
         announcedUpdates = updates.count;
         Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/updates-notify.sh", String(updates.count), updatesSize]);
+        justFound = true;
+        foundTimer.restart();
     }
+    // True while the "updates available" notification is on screen (a popup's default time),
+    // so Drop's pill can show it beside the time.
+    property bool justFound: false
+    Timer { id: foundTimer; interval: 6500; onTriggered: status.justFound = false }
     function checkUpdates() { DesktopData.refresh("updates.status"); }
     function openSystemUpdate() {
         var root = Quickshell.env("EITR_CODE_ROOT") || Quickshell.shellDir + "/../..";

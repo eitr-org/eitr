@@ -13,9 +13,6 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
-- **Drop: update progress on the pill.** System updates run in a terminal, so the bar
-  knows only when it checks and how many updates wait. Showing progress needs the update
-  terminal to report its stage (download, install) back through the updates domain.
 - **Keybinds and window rules editors.** Settings > Keybinds only lists shortcuts today:
   rebind one by pressing the new keys, with clash warnings, reset to default and the
   change kept in the person's own config. Window rules: pick an app and choose

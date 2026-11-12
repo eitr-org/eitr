@@ -170,6 +170,7 @@ ShellRoot {
     UpdatesStatus { id: updatesStatus }
     readonly property alias updates: updatesStatus.updates
     readonly property alias updatesIcon: updatesStatus.updatesIcon
+    readonly property alias updatesJustFound: updatesStatus.justFound
     readonly property alias updatesTooltip: updatesStatus.updatesTooltip
     function checkUpdates() { updatesStatus.checkUpdates(); }
     function openSystemUpdate() { updatesStatus.openSystemUpdate(); }

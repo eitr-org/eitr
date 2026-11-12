@@ -9,6 +9,9 @@ ShellRoot {
     property bool barAutoHide: false
     property bool barLyrics: false
     property string barClock: "24h"
+    property var updates: ({count: 0, checking: false})
+    property bool updatesJustFound: false
+    function openSystemUpdate() {}
     property string dragCandidate: ""
     property real workspaceItemSize: 24
     property real workspaceItemSpacing: 4
@@ -92,7 +95,7 @@ ShellRoot {
                         Repeater { model: ["󰕮", "ᚠ", "ᚢ", "ᚦ"]; Slot { required property string modelData; label: modelData } }
                     }
                     Item { id: center; anchors.fill: parent
-                        Bar.ClockButton { id: clock; host: shell; anchors.centerIn: parent; now: new Date(2026, 10, 10, 9, 41) }
+                        Bar.ClockButton { id: clock; host: shell; anchors.centerIn: parent; anchors.horizontalCenterOffset: drop.timeOffset; now: new Date(2026, 10, 10, 9, 41) }
                         Slot { id: capture; label: "󰑋"; anchors.right: clock.left; anchors.verticalCenter: parent.verticalCenter }
                         Slot { id: media; property bool audioEnabled: true; label: "󰐊"; anchors.right: capture.left; anchors.verticalCenter: parent.verticalCenter }
                     }
@@ -108,7 +111,7 @@ ShellRoot {
                         Repeater { model: ["󰕮", "ᚠ", "ᚢ"]; Slot { required property string modelData; label: modelData } }
                     }
                     Item { id: centerVertical; anchors.centerIn: parent; width: parent.width; height: 40
-                        Bar.ClockButton { id: clockVertical; host: shell; compact: true; anchors.centerIn: parent; now: new Date(2026, 10, 10, 9, 41) }
+                        Bar.ClockButton { id: clockVertical; host: shell; compact: true; anchors.centerIn: parent; anchors.verticalCenterOffset: drop.timeOffset; now: new Date(2026, 10, 10, 9, 41) }
                         Slot { id: captureVertical; label: "󰑋"; anchors.bottom: clockVertical.top; anchors.horizontalCenter: parent.horizontalCenter }
                         Slot { id: mediaVertical; label: "󰐊"; anchors.bottom: captureVertical.top; anchors.horizontalCenter: parent.horizontalCenter }
                     }
