@@ -275,6 +275,24 @@ ShellRoot {
     readonly property string wifiGlyph: networkOwner.glyph
     readonly property string focusNetworkGlyph: networkOwner.focusGlyph
 
+    // Displays without a bar still show notification popups unless they stay on the main one.
+    Variants {
+        model: notificationsService.popupsOnAllDisplays
+            ? (Quickshell.screens || []).filter(screen => screen && shell.targetScreens().indexOf(screen) === -1) : []
+        delegate: Component {
+            NotificationPopups {
+                required property var modelData
+                screen: modelData
+                besideBar: false
+                service: notificationsService
+                foreground: shell.fg
+                background: shell.barBackground()
+                accent: shell.activeBg
+                barEdge: shell.barEdge
+            }
+        }
+    }
+
     Variants {
         model: shell.targetScreens()
 

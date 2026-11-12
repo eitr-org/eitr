@@ -44,6 +44,20 @@ class NotificationActionTests(unittest.TestCase):
         self.assertIn('["satty", "-f", str(path), "-o", str(path)', source)
 
 
+    def test_popups_show_on_every_display_unless_kept_on_the_main_one(self):
+        service = (BAR / 'notifications/NotificationService.qml').read_text()
+        self.assertIn('property bool popupsOnAllDisplays: true', service)
+        self.assertIn('service.popupsOnAllDisplays = service.preferenceData.popupDisplays !== "main";', service)
+        self.assertIn('popupDisplays: enabled ? "all" : "main"', service)
+        panels = (BAR / 'bar/BarPanels.qml').read_text()
+        self.assertIn('shown: barHost.isMainBar || barHost.notificationsRef.popupsOnAllDisplays', panels)
+        shell = (BAR / 'shell.qml').read_text()
+        # Displays without a bar get their own popup window, beside no bar.
+        self.assertIn('screen => screen && shell.targetScreens().indexOf(screen) === -1', shell)
+        self.assertIn('besideBar: false', shell)
+        page = (BAR / 'settings/SettingsNotificationsPage.qml').read_text()
+        self.assertIn('view.notifications.setPopupsOnAllDisplays(checked)', page)
+
     def test_event_sounds_are_optional_quiet_in_do_not_disturb_and_skip_low_priority(self):
         sounds = (BAR / 'services/EventSounds.qml').read_text()
         self.assertIn('property bool notifications: false', sounds)

@@ -33,4 +33,4 @@ Les notifications ont une douce lueur intérieure dans la couleur d’accent du 
 
 Un clic sur une notification lance son action principale. Une notification sans action ouvre l’application qui l’a envoyée : sa fenêtre, ou pour herdr le terminal qui l’exécute, sur l’espace de travail et l’onglet indiqués par la notification. Chaque carte affiche l’icône de l’application quand elle en a une, sinon la cloche.
 
-Utilisez Paramètres > Notifications pour Ne pas déranger et Notifications de plantage.
+Les notifications apparaissent sur chaque écran. Désactivez Notifications sur chaque écran dans Paramètres > Notifications pour les garder sur l'écran principal. La même page propose Ne pas déranger et Notifications de plantage.

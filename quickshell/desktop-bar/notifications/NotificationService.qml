@@ -9,6 +9,8 @@ import "../NotificationLogic.js" as Logic
 Item {
     id: service
     property bool doNotDisturb: false
+    // Popups show on every display unless the person keeps them on the main one.
+    property bool popupsOnAllDisplays: true
     property bool centerOpen: false
     property var timestamps: ({})
     property var popupDeadlines: ({})
@@ -155,6 +157,13 @@ Item {
         settings.setText(JSON.stringify(preferenceData) + "\n");
         return doNotDisturb;
     }
+    function setPopupsOnAllDisplays(enabled) {
+        if (!preferenceWritable) return popupsOnAllDisplays;
+        popupsOnAllDisplays = enabled;
+        preferenceData = Object.assign({}, preferenceData, {version: 1, popupDisplays: enabled ? "all" : "main"});
+        settings.setText(JSON.stringify(preferenceData) + "\n");
+        return popupsOnAllDisplays;
+    }
     onDoNotDisturbChanged: if (doNotDisturb) popupIds = []
     Binding { target: EventSounds; property: "doNotDisturb"; value: service.doNotDisturb }
     onCenterOpenChanged: { if (centerOpen) popupIds = []; trimImages(); Qt.callLater(pruneHistory); }
@@ -216,6 +225,7 @@ Item {
             try {
                 service.preferenceData = Eitr.Paths.settings(text());
                 service.doNotDisturb = service.preferenceData.doNotDisturb === true;
+                service.popupsOnAllDisplays = service.preferenceData.popupDisplays !== "main";
                 service.preferenceWritable = true;
             } catch (error) {
                 service.preferenceWritable = false;

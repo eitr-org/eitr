@@ -979,5 +979,7 @@
   "This theme": "Ce thème",
   "All themes": "Tous les thèmes",
   "Your wallpapers": "Vos fonds d’écran",
-  "No matching wallpapers": "Aucun fond correspondant"
+  "No matching wallpapers": "Aucun fond correspondant",
+  "Popups on Every Display": "Notifications sur chaque écran",
+  "Off shows them only on the main display.": "Désactivé les affiche uniquement sur l'écran principal."
 }

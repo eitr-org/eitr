@@ -288,7 +288,9 @@ Walker exposes the same settings under Settings > Desktop > Desktop Bar > Appear
 Displays, Layout, and Position. Appearance offers Blur, Theme Color and Website. Displays
 shows the bar on the main display only (default) or on every display; then the
 focused display's bar answers IPC and shortcuts, each bar highlights its own
-display's workspace, and only the main bar shows notification popups.
+display's workspace. Notification popups show on every display, also those without a
+bar, unless Settings > Notifications > Popups on Every Display is off; then only the main
+display shows them (`popupDisplays` in `notification-settings.json`).
 Learn > Mouse Gestures also lists these gestures and
 the desktop wallpaper/theme double clicks. Left/right bars keep the 30 px depth of
 top/bottom bars with upright compact controls: the centered clock stacks the hour

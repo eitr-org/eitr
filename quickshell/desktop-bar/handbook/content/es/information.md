@@ -33,4 +33,4 @@ Las notificaciones tienen un brillo interior suave con el color de acento del te
 
 Pulsar una notificación ejecuta su acción principal. Una sin acción abre la aplicación que la envió: su ventana o, en herdr, el terminal con herdr en el espacio de trabajo y la pestaña que nombra la notificación. Cada tarjeta muestra el icono propio de la aplicación si lo tiene; si no, la campana.
 
-Usa Configuración > Notificaciones para No molestar y Notificaciones de fallos.
+Las ventanas emergentes aparecen en cada pantalla. Desactiva Ventanas emergentes en cada pantalla en Configuración > Notificaciones para mostrarlas solo en la pantalla principal. Usa la misma página para No molestar y Notificaciones de fallos.

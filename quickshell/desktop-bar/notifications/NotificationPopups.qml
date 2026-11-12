@@ -11,14 +11,17 @@ PanelWindow {
     required property color background
     required property color accent
     property string barEdge: "top"
-    // With a bar on every display, only the main display's bar shows popups.
     property bool shown: true
+    // On a display without a bar the cards keep only the small screen margin.
+    property bool besideBar: true
+    readonly property int barMargin: besideBar ? 42 : 12
     visible: shown && service.popups.length > 0 && !service.centerOpen
     color: "transparent"
     implicitWidth: 428
     implicitHeight: cards.implicitHeight
     anchors { top: barEdge !== "bottom"; bottom: barEdge === "bottom"; right: barEdge !== "left"; left: barEdge === "left" }
-    margins { top: barEdge === "top" ? 42 : 12; bottom: 42; left: barEdge === "left" ? 80 : 12; right: barEdge === "right" ? 80 : 12 }
+    margins { top: barEdge === "top" ? barMargin : 12; bottom: barEdge === "bottom" ? barMargin : 12
+        left: barEdge === "left" ? (besideBar ? 80 : 12) : 12; right: barEdge === "right" ? (besideBar ? 80 : 12) : 12 }
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.namespace: "desktop-notifications"
     WlrLayershell.layer: WlrLayer.Overlay

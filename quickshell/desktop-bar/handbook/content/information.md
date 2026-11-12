@@ -52,4 +52,6 @@ of stacking another card.
 
 Clicking a notification runs its main action. One without an action opens the app that sent it: its window, or for herdr the terminal running herdr, switched to the workspace and tab the notification names. Each card shows the app's own icon when it has one, else the bell.
 
-Use Settings > Notifications for Do Not Disturb and Crash Notifications.
+Popups show on every display. Turn off Popups on Every Display in Settings > Notifications
+to keep them on the main display only. The same page has Do Not Disturb and Crash
+Notifications.

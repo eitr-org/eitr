@@ -42,6 +42,7 @@ var settings = [
     {"id": "lockscreen-idle-lock", "label": "Idle Lock", "page": "lockscreen", "tab": "", "keywords": "idle lock"},
     {"id": "lockscreen-design", "label": "Design", "page": "lockscreen", "tab": "", "keywords": "design"},
     {"id": "notifications-do-not-disturb", "label": "Do Not Disturb", "page": "notifications", "tab": "", "keywords": "do not disturb dnd alerts"},
+    {"id": "notifications-every-display", "label": "Popups on Every Display", "page": "notifications", "tab": "", "keywords": "popups every display monitor main screen"},
     {"id": "notifications-crash-notifications", "label": "Crash Notifications", "page": "notifications", "tab": "", "keywords": "crash notifications"},
     {"id": "focus-focus", "label": "Focus", "page": "focus", "tab": "", "keywords": "focus"},
     {"id": "connections-wi-fi", "label": "Wi-Fi", "page": "connections", "tab": "wifi", "keywords": "wi-fi wifi wireless network"},

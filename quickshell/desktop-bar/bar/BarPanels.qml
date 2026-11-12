@@ -18,7 +18,7 @@ Item {
     NotificationPopups {
         id: notificationPopups
         screen: barHost.screen
-        shown: barHost.isMainBar
+        shown: barHost.isMainBar || barHost.notificationsRef.popupsOnAllDisplays
         service: barHost.notificationsRef
         foreground: host.fg
         background: host.barBackground()

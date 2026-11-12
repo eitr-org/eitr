@@ -1751,6 +1751,9 @@
     "Off": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
+    "Off shows them only on the main display.": [
+      "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
+    ],
     "Offer to report problems when something breaks": [
       "quickshell/desktop-bar/welcome/WelcomePage.qml"
     ],
@@ -1993,6 +1996,10 @@
     "Pointer speed": [
       "quickshell/desktop-bar/components/SettingsPointerCard.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Popups on Every Display": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
+      "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Position": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",

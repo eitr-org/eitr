@@ -33,4 +33,4 @@ As notificações têm um brilho interno suave na cor de destaque do tema. As cr
 
 Clicar em uma notificação executa a ação principal dela. Uma sem ação abre o app que a enviou: a janela dele ou, no herdr, o terminal com o herdr no espaço de trabalho e na aba que a notificação cita. Cada cartão mostra o ícone próprio do app quando existe; senão, o sino.
 
-Use Configurações > Notificações para Não perturbe e Notificações de falhas.
+Os pop-ups aparecem em todas as telas. Desligue Pop-ups em todas as telas em Configurações > Notificações para mostrá-los apenas na tela principal. A mesma página tem Não perturbe e Notificações de falhas.

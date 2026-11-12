@@ -979,5 +979,7 @@
   "This theme": "Este tema",
   "All themes": "Todos los temas",
   "Your wallpapers": "Tus fondos de pantalla",
-  "No matching wallpapers": "Ningún fondo coincide"
+  "No matching wallpapers": "Ningún fondo coincide",
+  "Popups on Every Display": "Ventanas emergentes en cada pantalla",
+  "Off shows them only on the main display.": "Desactivado las muestra solo en la pantalla principal."
 }

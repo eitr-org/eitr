@@ -1004,7 +1004,9 @@ var qml = {
     "All themes": "All themes",
     "This theme": "This theme",
     "Your wallpapers": "Your wallpapers",
-    "No matching wallpapers": "No matching wallpapers"
+    "No matching wallpapers": "No matching wallpapers",
+    "Off shows them only on the main display.": "Off shows them only on the main display.",
+    "Popups on Every Display": "Popups on Every Display"
   },
   "pt_BR": {
     "%1 Hz": "%1 Hz",
@@ -1987,7 +1989,9 @@ var qml = {
     "This theme": "Este tema",
     "All themes": "Todos os temas",
     "Your wallpapers": "Seus papéis de parede",
-    "No matching wallpapers": "Nenhum papel de parede encontrado"
+    "No matching wallpapers": "Nenhum papel de parede encontrado",
+    "Popups on Every Display": "Pop-ups em todas as telas",
+    "Off shows them only on the main display.": "Desligado mostra apenas na tela principal."
   },
   "es": {
     "%1 Hz": "%1 Hz",
@@ -2970,7 +2974,9 @@ var qml = {
     "This theme": "Este tema",
     "All themes": "Todos los temas",
     "Your wallpapers": "Tus fondos de pantalla",
-    "No matching wallpapers": "Ningún fondo coincide"
+    "No matching wallpapers": "Ningún fondo coincide",
+    "Popups on Every Display": "Ventanas emergentes en cada pantalla",
+    "Off shows them only on the main display.": "Desactivado las muestra solo en la pantalla principal."
   },
   "de": {
     "%1 Hz": "%1 Hz",
@@ -3953,7 +3959,9 @@ var qml = {
     "This theme": "Dieses Theme",
     "All themes": "Alle Themes",
     "Your wallpapers": "Deine Hintergrundbilder",
-    "No matching wallpapers": "Keine passenden Hintergrundbilder"
+    "No matching wallpapers": "Keine passenden Hintergrundbilder",
+    "Popups on Every Display": "Popups auf jedem Bildschirm",
+    "Off shows them only on the main display.": "Aus zeigt sie nur auf dem Hauptbildschirm."
   },
   "fr": {
     "%1 Hz": "%1 Hz",
@@ -4936,6 +4944,8 @@ var qml = {
     "This theme": "Ce thème",
     "All themes": "Tous les thèmes",
     "Your wallpapers": "Vos fonds d’écran",
-    "No matching wallpapers": "Aucun fond correspondant"
+    "No matching wallpapers": "Aucun fond correspondant",
+    "Popups on Every Display": "Notifications sur chaque écran",
+    "Off shows them only on the main display.": "Désactivé les affiche uniquement sur l'écran principal."
   }
 };

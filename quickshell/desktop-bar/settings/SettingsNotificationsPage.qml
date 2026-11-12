@@ -27,6 +27,18 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-notifications-every-display" }
+            text: Eitr.I18n.tr("Popups on Every Display")
+            description: Eitr.I18n.tr("Off shows them only on the main display.")
+            foreground: view.foreground
+            accent: view.accent
+            checked: !view.notifications || view.notifications.popupsOnAllDisplays
+            onToggled: checked => {
+                if (view.live && view.notifications)
+                    view.notifications.setPopupsOnAllDisplays(checked);
+            }
+        }
+        ToggleRow {
             SettingsTarget { objectName: "setting-notifications-crash-notifications" }
             text: Eitr.I18n.tr("Crash Notifications")
             description: Eitr.I18n.tr("Show help notifications when a program crashes.")

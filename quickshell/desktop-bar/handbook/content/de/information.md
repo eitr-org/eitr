@@ -33,4 +33,4 @@ Benachrichtigungen leuchten sanft nach innen in der Akzentfarbe des Themes. Krit
 
 Ein Klick auf eine Benachrichtigung führt ihre Hauptaktion aus. Eine ohne Aktion öffnet die App, die sie gesendet hat: ihr Fenster oder bei herdr das Terminal mit herdr, auf dem Arbeitsbereich und Tab, die die Benachrichtigung nennt. Jede Karte zeigt das eigene Symbol der App, sonst die Glocke.
 
-Nicht stören und Absturzbenachrichtigungen findest du unter Einstellungen > Benachrichtigungen.
+Popups erscheinen auf jedem Bildschirm. Schalte Popups auf jedem Bildschirm unter Einstellungen > Benachrichtigungen aus, damit sie nur auf dem Hauptbildschirm erscheinen. Dort findest du auch Nicht stören und Absturzbenachrichtigungen.
