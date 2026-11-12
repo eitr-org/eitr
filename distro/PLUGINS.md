@@ -304,7 +304,7 @@ grip still sizes the unrotated widget. Duplicate offsets the copy by 24 px, back
 left where it would leave the screen; moving to another display keeps size and settings
 and clamps the position to that display.
 
-Bar items occupy fixed icon slots in the existing right-side group, just before Updates, with its
+Bar items occupy fixed icon slots at the end of the existing right-side group, just before the notifications, with its
 normal hidden/show toggle (always shown in Tabs). They have no hover fill and
 use short themed tooltips. Their content is clipped to the slot. Declared panels
 use the same attached Full or detached Centered/Tabs geometry, Escape and

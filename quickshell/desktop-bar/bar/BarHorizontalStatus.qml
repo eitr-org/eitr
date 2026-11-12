@@ -224,13 +224,6 @@ Row {
         background: rightSide.host.workspaceMenuBg
     }
 
-    // Plugin icons sit just left of Updates, ahead of the notifications at the end.
-    PluginBarItems {
-        foreground: rightSide.host.fg; background: rightSide.host.barBackground(); accent: rightSide.host.activeBg
-        open: rightSide.host.iconsOpen; slotSize: rightSide.host.workspaceItemSize; slotSpacing: rightSide.host.workspaceItemSpacing
-        onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
-    }
-
     StatusIcon {
 
         host: rightSide.host
@@ -256,6 +249,13 @@ Row {
         tooltip: Math.round(rightSide.host.battery.percent) + "% · " + rightSide.host.battery.status
         open: rightSide.host.battery.available; visible: rightSide.host.battery.available
         clickable: true; onClicked: barHost.togglePanel(batteryMenuRef)
+    }
+
+    // Plugin icons come last in the hideable group, right before the notifications.
+    PluginBarItems {
+        foreground: rightSide.host.fg; background: rightSide.host.barBackground(); accent: rightSide.host.activeBg
+        open: rightSide.host.iconsOpen; slotSize: rightSide.host.workspaceItemSize; slotSpacing: rightSide.host.workspaceItemSpacing
+        onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
     }
 
     ObsMenu {
