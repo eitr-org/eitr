@@ -50,9 +50,10 @@ Column {
             title: Eitr.I18n.tr("Night Light"); glyph: "󰖔"
             tooltip: section.centerRef.displayControl.nightlight.mode === "auto"
                 ? Eitr.I18n.tr("Use warmer screen colors. Follows its schedule.") : Eitr.I18n.tr("Use warmer screen colors.")
-            selected: section.centerRef.displayControl.nightlight.mode === "on" || !!section.centerRef.displayControl.nightlight.active
+            // Lit whenever the warm colours are on, by hand or by the schedule; a click flips what it shows.
+            selected: !!section.centerRef.displayControl.nightlight.enabled
             available: !!section.centerRef.displayControl.nightlight.available
-            onClicked: section.centerRef.displayControl.setNightlight(section.centerRef.displayControl.nightlight.mode === "on" ? "off" : "on")
+            onClicked: section.centerRef.displayControl.setNightlight(selected ? "off" : "on")
         }
     }
     // One-off actions, not switches: their own section so they don't read as toggles that are off.

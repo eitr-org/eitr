@@ -178,9 +178,9 @@ Column {
         }
         Toggle {
             label: Eitr.I18n.tr("Night Light"); glyph: "󰖔"
-            on: page.nightlight.mode === "on" || !!page.nightlight.active
+            on: !!page.nightlight.enabled
             available: !!page.nightlight.available
-            onActivated: page.center.displayControl.setNightlight(page.nightlight.mode === "on" ? "off" : "on")
+            onActivated: page.center.displayControl.setNightlight(on ? "off" : "on")
         }
         Toggle {
             label: Eitr.I18n.tr("Idle Lock"); glyph: "󱫖"
