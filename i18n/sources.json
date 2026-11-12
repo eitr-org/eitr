@@ -2359,9 +2359,6 @@
     "Scene": [
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
-    "Scheduled": [
-      "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
-    ],
     "Screen": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
@@ -3017,6 +3014,9 @@
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
     ],
     "Use warmer screen colors.": [
+      "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
+    ],
+    "Use warmer screen colors. Follows its schedule.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Used to sign in, unlock the screen and approve system changes. A disk encryption passphrase is separate and stays the same.": [

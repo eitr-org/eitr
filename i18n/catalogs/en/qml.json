@@ -606,7 +606,6 @@
   "Scanning": "Scanning",
   "Scanning...": "Scanning...",
   "Scene": "Scene",
-  "Scheduled": "Scheduled",
   "Screenshots": "Screenshots",
   "Scroll to the window that gets focus.": "Scroll to the window that gets focus.",
   "Scrolling": "Scrolling",
@@ -975,5 +974,6 @@
   "The mouse wheel moves the content, like a touchscreen.": "The mouse wheel moves the content, like a touchscreen.",
   "Touchpad": "Touchpad",
   "Two fingers move the content, like a touchscreen.": "Two fingers move the content, like a touchscreen.",
-  "Screen": "Screen"
+  "Screen": "Screen",
+  "Use warmer screen colors. Follows its schedule.": "Use warmer screen colors. Follows its schedule."
 }

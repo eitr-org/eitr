@@ -47,8 +47,9 @@ Column {
             onClicked: { section.centerRef.actionError = ""; section.centerRef.gameModeOperationRef.running = true; }
         }
         ControlCenterToggleTile { centerRef: section.centerRef;
-            title: Eitr.I18n.tr("Night Light"); tooltip: Eitr.I18n.tr("Use warmer screen colors."); glyph: "󰖔"
-            detail: section.centerRef.displayControl.nightlight.mode === "auto" ? Eitr.I18n.tr("Scheduled") : ""
+            title: Eitr.I18n.tr("Night Light"); glyph: "󰖔"
+            tooltip: section.centerRef.displayControl.nightlight.mode === "auto"
+                ? Eitr.I18n.tr("Use warmer screen colors. Follows its schedule.") : Eitr.I18n.tr("Use warmer screen colors.")
             selected: section.centerRef.displayControl.nightlight.mode === "on" || !!section.centerRef.displayControl.nightlight.active
             available: !!section.centerRef.displayControl.nightlight.available
             onClicked: section.centerRef.displayControl.setNightlight(section.centerRef.displayControl.nightlight.mode === "on" ? "off" : "on")
