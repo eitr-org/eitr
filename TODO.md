@@ -50,22 +50,13 @@ item says what decides the next step. Remove an item when it ships;
     `RemoteAccessContent`'s Tailscale branch remain in core. WireGuard and NetworkManager VPN
     stay on the owner's private test repository (local `vpn-plugins` branch) until they
     get bar icons and panels too.
-- **Lockscreens tab in the catalog (decided 2026-11-04).** A Lockscreens tab in
-  Themes & Plugins, working like themes and plugins. Eitr and Theme Wallpaper are
-  permanent (no trash icon). The other designs shipped today move to an official
-  `eitr-org/eitr-lockscreens` repository, stay installed by default on fresh and
-  existing desktops (as the extra themes did), and can be uninstalled and
-  reinstalled from the tab. New designs come only from that repository at a pinned,
-  reviewed version; there is no community or third-party source, since a design runs
-  on the screen that reads the password. The design in use shows no trash icon.
-  Uninstalling uses the catalog's usual confirmation sheet; when some of your own
-  lockscreens (Walker > Settings > Desktop > Lockscreen) are built on that design, the sheet says so, and they
-  are hidden rather than deleted, coming back if the design is reinstalled.
-  Open question (paused 2026-11-04): designs also draw the SDDM login screen, which
-  runs as its own user and reads only system files (`/usr/share/sddm/themes/
-  desktop-lockscreen-*`, staged by `install-login.py`). Per-user installs like themes
-  could not reach it, so designs would likely become signed packages in Eitr's
-  repository, installed and removed with one password prompt, for every account.
+- **Add-ons: the rename and a Lockscreens tab (decided 2026-11-11).** Themes & Plugins
+  becomes Add-ons. Only the Eitr design is built in; the other eight become signed
+  packages in Eitr's repository, installed and removed from a Lockscreens tab with Eitr's
+  password popup; System Update installs all eight once on existing desktops; own
+  lockscreens on a removed design are hidden. The brief is ready for Codex
+  (`eitr-testing/codex-wip/addons-lockscreens/BRIEF.md`, Codex usage is back
+  2026-11-13); VM-test installs, removal and the migration before testing.
 - **Git & Cloud for many companies** (Walker; Settings no longer has the page): group
   each company's cloud profiles and contexts with its Git identity and folder rules.
 - **Dynamic island, next.** Live activities in the clock island beyond the capture
