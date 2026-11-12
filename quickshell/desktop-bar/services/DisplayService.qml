@@ -11,7 +11,9 @@ QtObject {
     readonly property var snapshot: DesktopData.topics["display.topology"]
     onSnapshotChanged: if (snapshot && snapshot.status === "ready") {
         topology = snapshot.data;
-        DesktopData.refresh("display.settings");
+        // Later: refreshing republishes DesktopData.topics, which this binding reads, and doing
+        // it inside its own change handler is a binding loop (logged on monitor hotplug).
+        Qt.callLater(() => DesktopData.refresh("display.settings"));
     }
     property var observers: []
     property int readInterval: 3
