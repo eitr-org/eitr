@@ -66,9 +66,6 @@ item says what decides the next step. Remove an item when it ships;
   desktop-lockscreen-*`, staged by `install-login.py`). Per-user installs like themes
   could not reach it, so designs would likely become signed packages in Eitr's
   repository, installed and removed with one password prompt, for every account.
-- **Settings Overview illustration.** The Overview's banner shows the current wallpaper;
-  each theme was to ship its own drawn picture there. The owner decides whether to keep
-  the wallpaper.
 - **Git & Cloud for many companies** (Walker; Settings no longer has the page): group
   each company's cloud profiles and contexts with its Git identity and folder rules.
 - **Dynamic island, next.** Live activities in the clock island beyond the capture
