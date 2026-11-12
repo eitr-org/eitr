@@ -20,6 +20,8 @@ item says what decides the next step. Remove an item when it ships;
   rebind one by pressing the new keys, with clash warnings, reset to default and the
   change kept in the person's own config. Window rules: pick an app and choose
   "always float", workspace, size or opacity from a form instead of editing Lua.
+  Approved 2026-11-11; brief ready for Codex after the Add-ons task
+  (`eitr-testing/codex-wip/keybinds-window-rules/BRIEF.md`).
 - **VPN plugins, Taildrop and Tailscale out of the default install (agreed 2026-11-09,
   to do together with the owner).**
   - Three official plugins in `eitr-org/eitr-plugins`: Tailscale (today's bar icon, panel
