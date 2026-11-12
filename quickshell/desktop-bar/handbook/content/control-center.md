@@ -15,7 +15,7 @@ a section's title to open or close it, remembered until you log out. Where the b
 The General page. The buttons on the left switch between General, Plugins and Tools; the gear below them opens Settings. A toggle that is on fills with the theme accent.
 
 - **Connectivity:** WiFi and Bluetooth power toggles, plus Airplane mode.
-- **Quick Actions:** automatic Idle Lock, Crash Notifications, Do Not Disturb, Game Mode (effects, blur
+- **Quick Actions:** automatic Idle Lock, Do Not Disturb, Game Mode (effects, blur
   and popups off and the performance profile on, until you turn it off) and Night
   Light. Below them, Hide Bar
   (SUPER+Shift+Space brings it back) and Screensaver run once.

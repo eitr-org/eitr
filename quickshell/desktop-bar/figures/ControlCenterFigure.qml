@@ -86,7 +86,6 @@ Item {
                 Tile { title: Eitr.I18n.tr("Idle Lock"); glyph: "󱫖"; selected: true }
                 Tile { title: Eitr.I18n.tr("Do Not Disturb"); glyph: "󰂛" }
                 Tile { title: Eitr.I18n.tr("Night Light"); glyph: "󰖔" }
-                Tile { title: Eitr.I18n.tr("Crash Notifications"); glyph: "󰅚"; selected: true }
             }
             PanelDivider { id: sound; width: parent.width; text: Eitr.I18n.tr("Sound"); foreground: figure.ink }
             Level { id: volume; glyph: "󰕾"; level: 60 }

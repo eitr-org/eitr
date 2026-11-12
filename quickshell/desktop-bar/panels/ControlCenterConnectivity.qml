@@ -39,7 +39,6 @@ Column {
     GridLayout {
         width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap
         ControlCenterToggleTile { centerRef: section.centerRef; title: Eitr.I18n.tr("Idle Lock"); tooltip: Eitr.I18n.tr("Lock the screen automatically when you're away."); glyph: "󱫖"; selected: section.centerRef.idleEnabled; available: !section.centerRef.idleBusy; onClicked: section.centerRef.idleToggleRequested() }
-        ControlCenterToggleTile { centerRef: section.centerRef; title: Eitr.I18n.tr("Crash Notifications"); tooltip: Eitr.I18n.tr("Show help notifications when a program crashes."); glyph: "󰅚"; selected: section.centerRef.crashNotifications; available: !section.centerRef.crashOperationRef.running; onClicked: { section.centerRef.actionError = ""; section.centerRef.crashOperationRef.running = true; } }
         ControlCenterToggleTile { centerRef: section.centerRef; title: Eitr.I18n.tr("Do Not Disturb"); tooltip: Eitr.I18n.tr("Silence popups while keeping notification history."); glyph: "󰂛"; selected: section.centerRef.service.doNotDisturb; onClicked: section.centerRef.service.toggleDnd() }
         ControlCenterToggleTile { centerRef: section.centerRef;
             visible: section.centerRef.organizationPolicy.gaming === true

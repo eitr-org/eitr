@@ -37,11 +37,8 @@ ThemedPopup {
         target: PowerService
         function onRadiosChanged() { center.updateContent(function() { center.airplane = PowerService.radios; }); }
     }
-    property alias crashNotifications: notificationState.enabled
-    readonly property string crashHelpScript: Eitr.Paths.code("walker/scripts/actions/system/crash-help.py")
     property bool gameMode: false
     readonly property string gameModeScript: Eitr.Paths.code("walker/scripts/actions/toggle/game-mode.sh")
-    readonly property var crashOperationRef: notificationState.operation
     readonly property var gameModeOperationRef: gameModeOperation
     property string actionError: ""
     property var pendingCommand: []
@@ -59,7 +56,6 @@ ThemedPopup {
     barEdge: barPosition
     leftAligned: true
     function refresh() {
-        notificationState.refresh();
         if (!gameModeQuery.running && !gameModeOperation.running) gameModeQuery.running = true;
     }
     property bool powerOpen: false
@@ -114,11 +110,6 @@ ThemedPopup {
         }
     }
     Timer { interval: 5000; repeat: true; running: center.opened; onTriggered: center.refresh() }
-    SettingsNotificationState {
-        id: notificationState
-        active: center.opened
-        onErrorChanged: center.actionError = error
-    }
     Process {
         id: gameModeQuery
         command: ["bash", center.gameModeScript, "status"]
