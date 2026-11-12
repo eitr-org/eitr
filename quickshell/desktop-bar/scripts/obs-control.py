@@ -21,6 +21,9 @@ for _eitr_parent in Path(__file__).resolve().parents:
 from eitr_paths import code, config as user_config, read_settings, write_settings
 from eitr_app import app_command
 from eitr_i18n import tr
+# The capture domain loads this file by path, so its own folder is not always importable.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import obs_screen
 import secrets
 import shlex
 import signal
@@ -34,14 +37,24 @@ from urllib.parse import quote
 OPTIONS_FILE = user_config("quickshell/desktop-bar/obs-recording.json")
 
 
-def scene_collection():
+def collection_file():
     config = configparser.ConfigParser(interpolation=None)
     config.read(user_config("obs-studio/user.ini"))
     collection = Path(config.get("Basic", "SceneCollectionFile", fallback="Untitled.json")).name
     if not collection.endswith(".json"):
         collection += ".json"
+    return user_config("obs-studio/basic/scenes") / collection
+
+
+def profile_file():
+    user = configparser.ConfigParser(interpolation=None)
+    user.read(user_config("obs-studio/user.ini"))
+    return user_config("obs-studio/basic/profiles") / Path(user.get("Basic", "ProfileDir", fallback="Untitled")).name / "basic.ini"
+
+
+def scene_collection():
     try:
-        return json.loads((user_config("obs-studio/basic/scenes") / collection).read_text())
+        return json.loads(collection_file().read_text())
     except (OSError, ValueError):
         return {}
 
@@ -173,9 +186,7 @@ def default_recording_folder():
     OBS rewrites its profile when it exits, so callers run this only while OBS is
     closed; a folder anyone chose is never replaced. Returns whether the profile changed.
     """
-    user = configparser.ConfigParser(interpolation=None)
-    user.read(user_config("obs-studio/user.ini"))
-    profile = user_config("obs-studio/basic/profiles") / Path(user.get("Basic", "ProfileDir", fallback="Untitled")).name / "basic.ini"
+    profile = profile_file()
     try:
         text = profile.read_text()
     except FileNotFoundError:
@@ -565,6 +576,11 @@ def control(action, argument=None):
             default_recording_folder()
         except (OSError, configparser.Error):
             pass  # An unreadable profile keeps its folder; recording still works.
+        if action in ("record", "stream", "prepare"):
+            try:
+                obs_screen.follow_focus(collection_file(), profile_file(), set_ini_value)
+            except (OSError, configparser.Error, ValueError):
+                pass  # OBS then records the display it captured last time.
     if action == "open":
         if running:
             reveal_window()

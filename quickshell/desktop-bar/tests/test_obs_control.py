@@ -19,6 +19,23 @@ class ObsControlTests(unittest.TestCase):
         seeded = patch.object(obs, "default_scene_collection")
         seeded.start()
         self.addCleanup(seeded.stop)
+        follow = patch.object(obs.obs_screen, "follow_focus")
+        self.follow_focus = follow.start()
+        self.addCleanup(follow.stop)
+
+    def test_closed_obs_follows_the_focused_display_before_it_starts(self):
+        with patch.object(obs.subprocess, "run", side_effect=[SimpleNamespace(returncode=1), SimpleNamespace(returncode=0)]), \
+                patch.object(obs, "websocket_command", return_value=["obs-cmd"]), \
+                patch.object(obs, "launch_background") as launch, patch.object(obs, "apply_capture_options"), \
+                patch.object(obs, "default_recording_folder"):
+            launch.side_effect = lambda: self.assertTrue(self.follow_focus.called)
+            self.assertEqual(obs.control("prepare"), "OBS ready")
+        self.follow_focus.reset_mock()
+        with patch.object(obs.subprocess, "run", side_effect=[SimpleNamespace(returncode=0), SimpleNamespace(returncode=0)]), \
+                patch.object(obs, "websocket_command", return_value=["obs-cmd"]), \
+                patch.object(obs, "apply_capture_options"):
+            obs.control("prepare")
+        self.follow_focus.assert_not_called()
 
     def test_prepare_does_not_start_capture(self):
         with patch.object(obs.subprocess, "run", side_effect=[SimpleNamespace(returncode=1), SimpleNamespace(returncode=0)]) as run, \

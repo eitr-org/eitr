@@ -117,10 +117,13 @@ logged.
 `distro/user-defaults.json` seeds `distro/defaults/hypr` with `"update": false`;
 `distro/layout-manifest.json` classifies those defaults as P runtime files.
 This includes `xdph.conf`, enabling `screencopy { allow_token_by_default = true }`
-without changing the native share picker. The portal reads the user file at
+and `custom_picker_binary = /usr/share/eitr/hypr/scripts/share-picker.py`. That picker
+answers only Eitr's one-time Record request (OBS follows the focused display, see
+`quickshell/desktop-bar/scripts/obs_screen.py`) and hands every other request to
+Hyprland's own `hyprland-share-picker`. The portal reads the user file at
 `~/.config/hypr/xdph.conf` (or `$XDG_CONFIG_HOME/hypr/xdph.conf`), as documented
 in the [XDPH configuration guide](https://wiki.hypr.land/hypr-ecosystem/user/xdg-desktop-portal-hyprland/#configuration).
-The setting and brace syntax were checked against installed XDPH 1.4.1-2.
+The settings and brace syntax were checked against installed XDPH 1.5.0.
 
 Fresh installs seed it normally. For existing installations, the
 `20261020120000-screen-share-default.py` login migration runs `eitr-config seed`

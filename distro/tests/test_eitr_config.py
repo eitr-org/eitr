@@ -80,7 +80,8 @@ class EitrConfigTests(unittest.TestCase):
         rule = Layout(ROOT).classify(source)
         self.assertEqual(rule['class'], 'P')
         self.assertTrue(rule['runtime'])
-        expected = 'screencopy {\n    allow_token_by_default = true\n}\n'
+        expected = ('screencopy {\n    allow_token_by_default = true\n'
+                    '    custom_picker_binary = /usr/share/eitr/hypr/scripts/share-picker.py\n}\n')
         self.assertEqual((ROOT / source).read_text(), expected)
         self.repo = self.repo / 'portal'
         self.write(self.repo / source, expected)
