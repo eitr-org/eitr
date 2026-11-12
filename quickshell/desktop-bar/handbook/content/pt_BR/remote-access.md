@@ -7,7 +7,7 @@ bloquear durante o compartilhamento, a tela remota mostra a tela de bloqueio:
 quem estiver conectado a vê e pode digitar a senha. Pare o compartilhamento antes
 de se ausentar quando a privacidade for importante.
 
-As pastas de configuração agrupam os ajustes. Streaming > Configuração do compartilhamento contém Configurar compartilhamento, Configurações de compartilhamento, Iniciar ao entrar, Desativar início ao entrar, Status detalhado e Restaurar configuração de compartilhamento. As ações de compartilhamento do dia a dia (Iniciar compartilhamento, Parar compartilhamento, Parear um dispositivo, Estado do compartilhamento e Conectar a outro PC) continuam diretamente em Streaming. O Tailscale é o plugin oficial do Tailscale, com seu próprio painel na barra.
+As pastas de configuração agrupam os ajustes. Streaming > Configuração do compartilhamento contém Configurar compartilhamento, Configurações de compartilhamento, Iniciar ao entrar, Desativar início ao entrar, Status detalhado e Restaurar configuração de compartilhamento. As ações de compartilhamento do dia a dia (Iniciar compartilhamento, Parar compartilhamento, Parear um dispositivo, Estado do compartilhamento e Conectar a outro PC) continuam diretamente em Streaming.
 
 Status detalhado abre um terminal de diagnóstico que permanece aberto até você pressionar Esc.
 
@@ -71,32 +71,13 @@ desativado até você ativá-lo explicitamente.
 
 Atalhos com SUPER a partir do Mac: nas configurações do Moonlight, ative **Capture system keyboard shortcuts** (em tela cheia ou sempre). Só assim o Moonlight envia a tecla Command do Mac como SUPER; caso contrário, os atalhos com Command ficam no Mac. Ctrl+Alt+Shift+K liga ou desliga a captura durante uma sessão.
 
-## Tailscale nos dois computadores
-
-Instale o plugin oficial **Tailscale** (Temas e plugins > Plugins) e coloque o ícone dele
-em Central de controle > Plugins. A etapa **Configurar** do painel instala o Tailscale,
-ativa e inicia o `tailscaled.service` e torna seu usuário o operador. Por isso entrar,
-conectar e desconectar não pedem senha. Entrar abre a página de login do Tailscale no
-navegador. O painel mostra o endereço Tailscale deste PC, cada dispositivo e se o
-caminho é direto, por relay ou inativo, faz ping em um dispositivo, envia arquivos com
-Taildrop, abre um relatório detalhado e desfaz a configuração do Eitr (o operador e o
-estado do serviço anteriores voltam; a conta do Tailscale e os pacotes ficam).
-
-Caminhos por relay podem aumentar a latência e reduzir a qualidade.
-
-Instale [Tailscale no Mac](https://tailscale.com/download/mac), entre na mesma
-tailnet e conecte os dois PCs. Adicione o endereço Tailscale do Eitr ao Moonlight e
-use o mesmo pareamento do Sunshine. A política da tailnet precisa liberar as portas
-de streaming. As configurações web do Sunshine continuam locais.
-
 ## O que foi testado
 
 Os testes automatizados usam simulações. Em um desktop real (com um e depois dois
 monitores) e um MacBook com Moonlight: configuração, iniciar o compartilhamento,
 pareamento pelo endereço, imagem, teclado, mouse, áudio, a tela de bloqueio
 (desbloqueada pelo Mac), início no login, Parar compartilhamento e Restaurar
-configuração na rede de casa, e a configuração, o login e a conexão do Tailscale
-fora de casa. Controles, outras placas de vídeo e outros clientes não foram
+configuração na rede de casa e fora de casa por uma VPN. Controles, outras placas de vídeo e outros clientes não foram
 testados.
 
-Streaming fica ao lado de Conexões em Dispositivos. Sunshine mostra o estado do compartilhamento, configuração, iniciar/parar, iniciar ao entrar, pareamento, ajustes, diagnóstico e restauração. Moonlight mostra o estado de instalação e um botão para instalar/abrir. O Tailscale é um plugin com seu próprio painel.
+Streaming fica ao lado de Conexões em Dispositivos. Sunshine mostra o estado do compartilhamento, configuração, iniciar/parar, iniciar ao entrar, pareamento, ajustes, diagnóstico e restauração. Moonlight mostra o estado de instalação e um botão para instalar/abrir.

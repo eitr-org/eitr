@@ -47,7 +47,7 @@ System Update met à jour les paquets officiels, AUR et Flatpak, avec des instan
 
 Steam est installé avec GameMode, MangoHud et gamescope ; Install > Gaming en propose davantage. Les commandes HDR apparaissent pour les écrans compatibles ; un client installé ou un écran HDR ne garantit pas tous les jeux. Development propose éditeurs, environnements, Docker et assistants IA. Git Accounts sépare les identités par dossier ; les menus cloud affichent les contextes du fournisseur. La disponibilité dépend de l’installation et de la configuration.
 
-Calendriers et rappels organisent la journée. La dictée transforme la parole en texte après configuration. Moonlight, Sunshine et Tailscale permettent l’accès distant ; installez et configurez les outils nécessaires. Les plugins étendent Eitr via son mécanisme de plugins. Les traductions couvrent anglais, portugais brésilien, espagnol, français et allemand. Le manuel hors ligne explique raccourcis, réglages et récupération sans envoyer vos questions.
+Calendriers et rappels organisent la journée. La dictée transforme la parole en texte après configuration. Moonlight et Sunshine permettent l’accès distant ; installez et configurez les outils nécessaires. Les plugins étendent Eitr via son mécanisme de plugins. Les traductions couvrent anglais, portugais brésilien, espagnol, français et allemand. Le manuel hors ligne explique raccourcis, réglages et récupération sans envoyer vos questions.
 
 Le chat du Control Center transmet la conversation, un résumé limité de la machine et du manuel à l’assistant choisi ; il ne lance aucune commande ni ne modifie les réglages.
 <!-- /eitr-overview -->

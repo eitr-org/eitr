@@ -24,4 +24,4 @@ Central de controle > Geral bloqueia WiFi e Bluetooth com rfkill. Desativar o mo
 
 ## VPN
 
-O Walker não tem menu de VPN. WireGuard e NetworkManager VPN estão previstos como plugins (Instalar > Plugins). O Tailscale é o plugin oficial do Tailscale (Temas e plugins > Plugins); veja [Acesso remoto](handbook:remote-access).
+O Walker não tem menu de VPN. WireGuard e NetworkManager VPN estão previstos como plugins (Instalar > Plugins).

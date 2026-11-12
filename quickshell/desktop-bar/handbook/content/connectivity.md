@@ -35,4 +35,4 @@ blocks are not silently overridden. Enable a radio individually if needed.
 
 ## VPN
 
-Walker has no VPN menu. WireGuard and NetworkManager VPN are planned as plugins (Install > Plugins). Tailscale is the official Tailscale plugin (Themes & Plugins > Plugins); see [Remote access](handbook:remote-access).
+Walker has no VPN menu. WireGuard and NetworkManager VPN are planned as plugins (Install > Plugins).

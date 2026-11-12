@@ -6,7 +6,7 @@ before login and wake on LAN are separate future work. While sharing, the remote
 screen shows the lockscreen when this PC locks; anyone connected sees it and can
 type the password, so stop sharing before stepping away when privacy matters.
 
-Setup folders group the configuration actions. Streaming > Sharing Setup contains Set Up Sharing, Sharing Settings, Start at Login, Turn Off Start at Login, Detailed Status and Restore Sharing Setup. Everyday sharing actions (Start Sharing, Stop Sharing, Pair a Device, Sharing Status and Connect to another PC) stay directly in Streaming. Tailscale is the official Tailscale plugin, with its own bar panel.
+Setup folders group the configuration actions. Streaming > Sharing Setup contains Set Up Sharing, Sharing Settings, Start at Login, Turn Off Start at Login, Detailed Status and Restore Sharing Setup. Everyday sharing actions (Start Sharing, Stop Sharing, Pair a Device, Sharing Status and Connect to another PC) stay directly in Streaming.
 
 Detailed Status opens a diagnostic terminal that stays open until you press Esc.
 
@@ -75,31 +75,12 @@ connecting in the opposite direction. Fresh installs include these apps; sharing
 
 SUPER shortcuts from the Mac: in Moonlight's settings, turn on **Capture system keyboard shortcuts** (in fullscreen or always). Only then does Moonlight send the Mac's Command key as SUPER; otherwise Command shortcuts stay on the Mac. Ctrl+Alt+Shift+K turns the capture on or off during a session.
 
-## Tailscale on both computers
-
-Install the official **Tailscale** plugin (Themes & Plugins > Plugins) and place its icon
-from Control Center > Plugins. Its panel's **Set up** step installs Tailscale, enables and
-starts `tailscaled.service` and makes your desktop user its operator, so Sign In, Connect
-and Disconnect need no password. Sign In opens Tailscale's login page in your browser.
-The panel shows this PC's Tailscale address, each device and whether its path is Direct,
-Relayed or idle, pings a device, sends files with Taildrop, opens a detailed report, and
-undoes Eitr's setup (the previous operator and service state come back; the Tailscale
-account and packages stay).
-
-Relay paths can increase latency and reduce quality.
-
-Install [Tailscale on the Mac](https://tailscale.com/download/mac), sign in to the
-same tailnet, and connect both computers. Add Eitr's Tailscale address in Moonlight;
-use the same Sunshine pairing procedure. Tailnet access policy must allow the
-streaming ports. The Sunshine web settings remain local to Eitr.
-
 ## What has been tested
 
 Automated tests use mocks. On a real desktop (one and then two monitors) with a
 MacBook running Moonlight: setup, start sharing, pairing by address, video,
 keyboard, mouse, audio, the lockscreen (unlocked from the Mac), start at login,
-Stop Sharing and Restore Sharing Setup on the home network, and Tailscale setup,
-sign-in and connection from away. Controllers, other GPUs and other clients have
+Stop Sharing and Restore Sharing Setup on the home network and from away through a VPN. Controllers, other GPUs and other clients have
 not been tested.
 
-Streaming sits beside Connections under Devices. Sunshine shows sharing status, setup, start/stop, start at login, pairing, settings, diagnostics and restore setup. Moonlight shows installation status and an install/open button. Tailscale is a plugin with its own panel.
+Streaming sits beside Connections under Devices. Sunshine shows sharing status, setup, start/stop, start at login, pairing, settings, diagnostics and restore setup. Moonlight shows installation status and an install/open button.

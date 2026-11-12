@@ -77,7 +77,7 @@ Le marqueur actif affiche le symbole dans la couleur d’accent, sans fond rempl
 
 Les gestes de souris pour fond d’écran et thème sur le bureau vide figurent dans **Apprendre > Gestes de la souris**. En cas de doute, utilisez les raccourcis des carrousels.
 
-Le contrôle Audio/Micro ouvre un panneau avec des sections distinctes pour la sortie audio et le microphone. Tailscale et Streaming se trouvent juste avant OBS. Un interrupteur dans leur en-tête connecte Tailscale ou lance le partage, les détails et les appareils suivent, et les actions de configuration ou de diagnostic sont dans le menu « … ».
+Le contrôle Audio/Micro ouvre un panneau avec des sections distinctes pour la sortie audio et le microphone. Streaming se trouve juste avant OBS. Un interrupteur dans son en-tête lance le partage, les détails suivent, et les actions de configuration ou de diagnostic sont dans le menu « … ».
 
 Le fond des boutons d’icône apparaît au survol ; les panneaux s’actualisent d’eux-mêmes à l’ouverture, une icône d’actualisation tourne seulement pendant le chargement et les infobulles apparaissent près du pointeur. Les interrupteurs et les boutons d’action intégrés utilisent des dimensions compactes communes.
 

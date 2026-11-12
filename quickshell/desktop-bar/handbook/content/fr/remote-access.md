@@ -7,7 +7,7 @@ Si cet ordinateur se verrouille pendant le partage, l’écran distant affiche
 l’écran de verrouillage : la personne connectée le voit et peut saisir le mot de
 passe. Arrêtez le partage avant de vous absenter si la confidentialité compte.
 
-Les dossiers de configuration regroupent les réglages. Streaming > Configuration du partage contient Configurer le partage, Paramètres de partage, Démarrer à la connexion, Désactiver le démarrage à la connexion, État détaillé et Restaurer la configuration du partage. Les actions de partage courantes (Démarrer le partage, Arrêter le partage, Associer un appareil, État du partage et Se connecter à un autre PC) restent directement dans Streaming. Tailscale est le plugin officiel Tailscale, avec son propre panneau dans la barre.
+Les dossiers de configuration regroupent les réglages. Streaming > Configuration du partage contient Configurer le partage, Paramètres de partage, Démarrer à la connexion, Désactiver le démarrage à la connexion, État détaillé et Restaurer la configuration du partage. Les actions de partage courantes (Démarrer le partage, Arrêter le partage, Associer un appareil, État du partage et Se connecter à un autre PC) restent directement dans Streaming.
 
 État détaillé ouvre un terminal de diagnostic qui reste ouvert jusqu’à un appui sur Esc.
 
@@ -69,34 +69,13 @@ ou ouvrent le client Eitr dans le sens inverse. Les nouvelles installations incl
 
 Raccourcis SUPER depuis le Mac : dans les réglages de Moonlight, activez **Capture system keyboard shortcuts** (en plein écran ou toujours). Ce n’est qu’ainsi que Moonlight envoie la touche Commande du Mac comme SUPER ; sinon, les raccourcis avec Commande restent sur le Mac. Ctrl+Alt+Maj+K active ou désactive la capture pendant une session.
 
-## Tailscale sur les deux ordinateurs
-
-Installez le plugin officiel **Tailscale** (Thèmes et plugins > Plugins) et placez son
-icône depuis Centre de contrôle > Plugins. L’étape **Configurer** de son panneau
-installe Tailscale, active et démarre `tailscaled.service` et définit votre utilisateur
-comme opérateur. La connexion au compte, la connexion au réseau et la déconnexion ne
-demandent donc aucun mot de passe. Se connecter ouvre la page de connexion Tailscale
-dans le navigateur. Le panneau affiche l’adresse Tailscale de ce PC, chaque appareil et
-si son chemin est direct, relayé ou inactif, envoie un ping à un appareil, envoie des
-fichiers avec Taildrop, ouvre un rapport détaillé et annule la configuration d’Eitr
-(l’opérateur et l’état du service précédents reviennent ; le compte Tailscale et les
-paquets restent).
-
-Les chemins relayés peuvent augmenter la latence et réduire la qualité.
-
-Installez [Tailscale sur le Mac](https://tailscale.com/download/mac), connectez-vous
-au même tailnet et connectez les deux ordinateurs. Ajoutez l’adresse Tailscale
-d’Eitr dans Moonlight et associez comme auparavant. La politique du tailnet doit
-autoriser les ports de streaming. Les réglages web de Sunshine restent locaux.
-
 ## Ce qui a été vérifié
 
 Les tests automatiques utilisent des simulations. Sur un vrai bureau (un puis deux
 moniteurs) avec un MacBook sous Moonlight : configuration, démarrage du partage,
 association par adresse, image, clavier, souris, audio, l’écran de verrouillage
 (déverrouillé depuis le Mac), démarrage à la connexion, Arrêter le partage et
-Restaurer la configuration sur le réseau domestique, ainsi que la configuration,
-la connexion et l’accès Tailscale depuis l’extérieur. Les manettes, les autres
+Restaurer la configuration sur le réseau domestique et depuis l’extérieur via un VPN. Les manettes, les autres
 cartes graphiques et les autres clients n’ont pas été testés.
 
-Streaming se trouve à côté de Connexions dans Périphériques. Sunshine affiche l’état du partage, la configuration, le démarrage/arrêt, le lancement à la connexion, l’association, les réglages, le diagnostic et la restauration. Moonlight affiche l’état d’installation et un bouton installer/ouvrir. Tailscale est un plugin avec son propre panneau.
+Streaming se trouve à côté de Connexions dans Périphériques. Sunshine affiche l’état du partage, la configuration, le démarrage/arrêt, le lancement à la connexion, l’association, les réglages, le diagnostic et la restauration. Moonlight affiche l’état d’installation et un bouton installer/ouvrir.

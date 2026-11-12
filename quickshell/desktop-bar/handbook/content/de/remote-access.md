@@ -7,7 +7,7 @@ Sperrt sich dieser PC während der Freigabe, zeigt der entfernte Bildschirm den
 Sperrbildschirm; wer verbunden ist, sieht ihn und kann das Passwort eingeben.
 Beenden Sie die Freigabe, bevor Sie weggehen, wenn Vertraulichkeit wichtig ist.
 
-Einrichtungsordner bündeln die Konfiguration. Unter Streaming > Freigabe-Einrichtung stehen Freigabe einrichten, Freigabeeinstellungen, Beim Anmelden starten, Start beim Anmelden ausschalten, Detaillierter Status und Freigabeeinrichtung wiederherstellen. Tägliche Freigabeaktionen (Freigabe starten, Freigabe beenden, Gerät koppeln, Freigabestatus und Mit anderem PC verbinden) bleiben direkt in Streaming. Tailscale ist das offizielle Tailscale-Plugin mit eigenem Leisten-Panel.
+Einrichtungsordner bündeln die Konfiguration. Unter Streaming > Freigabe-Einrichtung stehen Freigabe einrichten, Freigabeeinstellungen, Beim Anmelden starten, Start beim Anmelden ausschalten, Detaillierter Status und Freigabeeinrichtung wiederherstellen. Tägliche Freigabeaktionen (Freigabe starten, Freigabe beenden, Gerät koppeln, Freigabestatus und Mit anderem PC verbinden) bleiben direkt in Streaming.
 
 Detaillierter Status öffnet ein Diagnoseterminal, das bis zum Drücken von Esc geöffnet bleibt.
 
@@ -66,33 +66,13 @@ Richtung. Neue Installationen enthalten diese Anwendungen; die Freigabe bleibt d
 
 SUPER-Tastenkürzel vom Mac: Schalte in den Moonlight-Einstellungen **Capture system keyboard shortcuts** ein (im Vollbild oder immer). Erst dann sendet Moonlight die Befehlstaste des Macs als SUPER; sonst bleiben Befehlstasten-Kürzel auf dem Mac. Strg+Alt+Umschalt+K schaltet das Abfangen während einer Sitzung ein oder aus.
 
-## Tailscale auf beiden Rechnern
-
-Installieren Sie das offizielle **Tailscale**-Plugin (Themes und Plugins > Plugins) und
-platzieren Sie sein Symbol unter Kontrollzentrum > Plugins. Der Schritt **Einrichten** im
-Panel installiert Tailscale, aktiviert und startet `tailscaled.service` und setzt Ihren
-Benutzer als Operator. Daher brauchen Anmelden, Verbinden und Trennen kein Passwort.
-Anmelden öffnet die Tailscale-Anmeldeseite im Browser. Das Panel zeigt die
-Tailscale-Adresse dieses PCs, jedes Gerät und ob sein Weg direkt, über Relay oder
-inaktiv ist, pingt ein Gerät an, sendet Dateien mit Taildrop, öffnet einen detaillierten
-Bericht und macht Eitrs Einrichtung rückgängig (vorheriger Operator und Dienststatus
-kehren zurück; Tailscale-Konto und Pakete bleiben).
-
-Relay-Wege können die Latenz erhöhen und die Qualität senken.
-
-Installieren Sie [Tailscale auf dem Mac](https://tailscale.com/download/mac), melden
-Sie sich im selben Tailnet an und verbinden Sie beide Rechner. Tragen Sie Eitrs
-Tailscale-Adresse in Moonlight ein und koppeln Sie wie zuvor. Die Tailnet-Regeln
-müssen die Streaming-Ports erlauben. Die Sunshine-Webeinstellungen bleiben lokal.
-
 ## Was geprüft wurde
 
 Automatische Tests verwenden Simulationen. Auf einem echten Desktop (mit einem,
 dann zwei Monitoren) und einem MacBook mit Moonlight geprüft: Einrichtung, Freigabe
 starten, Kopplung über die Adresse, Bild, Tastatur, Maus, Audio, der Sperrbildschirm
 (vom Mac aus entsperrt), Start bei der Anmeldung, Freigabe beenden und
-Freigabe-Einrichtung wiederherstellen im Heimnetz sowie Tailscale-Einrichtung,
-Anmeldung und Verbindung von unterwegs. Controller, andere Grafikkarten und andere
+Freigabe-Einrichtung wiederherstellen im Heimnetz und von unterwegs über ein VPN. Controller, andere Grafikkarten und andere
 Clients wurden nicht geprüft.
 
-Streaming steht unter Geräte neben Verbindungen. Sunshine zeigt Freigabestatus, Einrichtung, Start/Stopp, Start bei Anmeldung, Kopplung, Einstellungen, Diagnose und Wiederherstellung. Moonlight zeigt den Installationsstatus und eine Schaltfläche zum Installieren/Öffnen. Tailscale ist ein Plugin mit eigenem Panel.
+Streaming steht unter Geräte neben Verbindungen. Sunshine zeigt Freigabestatus, Einrichtung, Start/Stopp, Start bei Anmeldung, Kopplung, Einstellungen, Diagnose und Wiederherstellung. Moonlight zeigt den Installationsstatus und eine Schaltfläche zum Installieren/Öffnen.

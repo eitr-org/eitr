@@ -24,4 +24,4 @@ Kontrollzentrum > Allgemein blockiert WiFi und Bluetooth mit rfkill. Ausschalten
 
 ## VPN
 
-Walker hat kein VPN-Menü. WireGuard und NetworkManager VPN sind als Plugins geplant (Installieren > Plugins). Tailscale ist das offizielle Tailscale-Plugin (Themes und Plugins > Plugins); siehe [Fernzugriff](handbook:remote-access).
+Walker hat kein VPN-Menü. WireGuard und NetworkManager VPN sind als Plugins geplant (Installieren > Plugins).

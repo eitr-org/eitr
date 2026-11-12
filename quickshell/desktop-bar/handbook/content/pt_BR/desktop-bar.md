@@ -75,7 +75,7 @@ O marcador ativo usa o símbolo na cor de destaque, sem fundo preenchido. As qua
 
 Os gestos de mouse para papéis de parede e temas no espaço vazio da área de trabalho estão em **Aprender > Gestos do mouse**. Em caso de dúvida, use os atalhos de teclado dos carrosséis.
 
-O controle Áudio/Mic abre um painel com seções separadas para saída de áudio e microfone. Tailscale e Streaming ficam imediatamente antes do OBS. Um interruptor no cabeçalho conecta o Tailscale ou inicia o compartilhamento, depois vêm detalhes e dispositivos, e as ações de configuração ou diagnóstico ficam no menu “…”.
+O controle Áudio/Mic abre um painel com seções separadas para saída de áudio e microfone. Streaming fica imediatamente antes do OBS. Um interruptor no cabeçalho inicia o compartilhamento, depois vêm os detalhes, e as ações de configuração ou diagnóstico ficam no menu “…”.
 
 O fundo dos botões de ícone aparece quando você passa o ponteiro sobre eles; os painéis se atualizam sozinhos ao abrir, um ícone de atualização gira só enquanto carregam, e as dicas aparecem perto do ponteiro. Os interruptores e botões de ação internos usam tamanhos compactos compartilhados.
 

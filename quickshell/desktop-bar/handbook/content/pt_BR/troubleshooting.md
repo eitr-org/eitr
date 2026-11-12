@@ -108,7 +108,7 @@ Hardware usa um único amostrador do broker em todas as telas e na ação Hardwa
 
 Em caso de falha na leitura, as últimas seções válidas continuam visíveis. A CLI independente `system-details.py` permanece disponível; `eitr-shell desktop-bar ipc call -- data status` inclui o diagnóstico de `hardware.details`.
 
-O acesso remoto usa o broker compartilhado: o estado do Tailscale e Sunshine atualiza ao abrir e a cada 10 segundos enquanto algum painel remoto o observa. Fechar o último painel encerra as leituras. A disponibilidade da política é lida apenas na inicialização e quando muda. As ações continuam nos auxiliares do Walker; o broker não altera configurações remotas. A CLI `remote-status.py` continua disponível. `eitr-shell desktop-bar ipc call -- data status` inclui diagnósticos de `remote.status` e `remote.availability`.
+O acesso remoto usa o broker compartilhado: o estado do Sunshine atualiza ao abrir e a cada 10 segundos enquanto algum painel remoto o observa. Fechar o último painel encerra as leituras. A disponibilidade da política é lida apenas na inicialização e quando muda. As ações continuam nos auxiliares do Walker; o broker não altera configurações remotas. A CLI `remote-status.py` continua disponível. `eitr-shell desktop-bar ipc call -- data status` inclui diagnósticos de `remote.status` e `remote.availability`.
 
 O clima compartilha uma previsão padrão entre telas e painéis, com cache e atualização a cada 15 minutos. Buscas e cidades alternativas pertencem apenas ao painel solicitante e não substituem a previsão padrão. O uso de IA compartilha o cache e atualiza ao abrir, depois a cada cinco minutos apenas enquanto algum painel de uso estiver aberto.
 
