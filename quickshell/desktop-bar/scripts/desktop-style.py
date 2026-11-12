@@ -39,6 +39,11 @@ def current():
         return default
 
 
+def current_style():
+    """The chosen corner style's definition: its radius scale and window rounding."""
+    return definitions()[1][current()]
+
+
 def current_gaps():
     value = read_settings(SETTINGS).get("gaps", "default")
     return value if any(choice["id"] == value for choice in WINDOW_GAPS) else "default"

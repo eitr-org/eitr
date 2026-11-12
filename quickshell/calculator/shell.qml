@@ -21,6 +21,7 @@ ShellRoot {
             view.foreground = value.foreground;
             view.accent = value.accent;
             view.font = value.font;
+            view.cornerScale = value.cornerScale || 1;
         }
     }
 

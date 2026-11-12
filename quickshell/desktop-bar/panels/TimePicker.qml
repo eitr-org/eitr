@@ -10,6 +10,8 @@ Item {
     id: picker
     property bool opened: false
     property var defaultScreen: null
+    // Chosen when it opens, so moving the pointer to another display does not move it.
+    property var openScreen: null
     property color foreground: "#ffffff"
     property color background: "#202024"
     property string requestId: ""
@@ -36,6 +38,7 @@ Item {
         requestId = request; title = question; subtitle = detail; typed = ""; editing = false; column = 0;
         const next = new Date();
         if (!setValue(initial)) { hour = (next.getHours() + 1) % 24; minute = 0; }
+        openScreen = Eitr.Screens.focused(defaultScreen);
         opened = true;
         Qt.callLater(function() { content.forceActiveFocus(); });
     }
@@ -71,7 +74,7 @@ Item {
     }
     PanelWindow {
         visible: picker.opened
-        screen: picker.defaultScreen || Quickshell.screens[0]
+        screen: picker.openScreen || picker.defaultScreen || Quickshell.screens[0]
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
         color: "transparent"

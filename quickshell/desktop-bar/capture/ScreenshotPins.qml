@@ -1,7 +1,6 @@
 import ".."
 import QtQuick
 import Quickshell
-import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
 import Eitr as Eitr
@@ -20,8 +19,7 @@ Scope {
 
     function add(path) {
         if (!path) return;
-        var screen = Quickshell.screens.find(candidate => Hyprland.focusedMonitor && candidate.name === Hyprland.focusedMonitor.name)
-            || Quickshell.screens[0];
+        var screen = Eitr.Screens.focused(null);
         if (!screen) return;
         // Each new pin starts a little lower and to the left of the last, so none hides another.
         var offset = (entries.length % 6) * 28;

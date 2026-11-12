@@ -1,10 +1,10 @@
 import ".."
 import QtQuick
 import Quickshell
-import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Services.Polkit
 import Quickshell.Wayland
+import Eitr as Eitr
 
 // The session's polkit authentication agent: administrator password prompts are drawn
 // by the bar. Quickshell queues requests and exposes one AuthFlow at a time as
@@ -21,11 +21,7 @@ Scope {
     readonly property bool showing: !!flow && !flow.isCompleted
     property var promptScreen: null
 
-    function focusedScreen() {
-        const monitor = Hyprland.focusedMonitor;
-        const screens = Quickshell.screens || [];
-        return screens.find(screen => monitor && screen && screen.name === monitor.name) || defaultScreen || screens[0] || null;
-    }
+    function focusedScreen() { return Eitr.Screens.focused(defaultScreen); }
     // The screen is chosen once per request, so the prompt never jumps while typing.
     onShowingChanged: if (showing) promptScreen = focusedScreen()
 

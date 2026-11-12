@@ -5,7 +5,7 @@ Eitr's Settings app: the theme's colours, the chosen font and the corner prefere
 Writes ~/.config/hypr/hyprtoolkit.conf, which hyprtoolkit reads when each dialog starts. A
 file the person wrote themselves (without the generated header) is left alone."""
 from pathlib import Path
-import json
+import importlib.util
 import os
 import subprocess
 import sys
@@ -33,9 +33,10 @@ def helper(*arguments):
 
 def corners():
     """Window rounding for large surfaces and half of it for buttons and rows."""
-    styles = json.loads((CODE / 'quickshell/desktop-bar/corner-styles.json').read_text())['styles']
-    chosen = helper(str(CODE / 'quickshell/desktop-bar/scripts/desktop-style.py'), 'get', 'corners')
-    large = int(styles.get(chosen, styles['rounded'])['windowRounding'])
+    spec = importlib.util.spec_from_file_location('desktop_style', CODE / 'quickshell/desktop-bar/scripts/desktop-style.py')
+    style = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(style)
+    large = int(style.current_style()['windowRounding'])
     return large, large // 2
 
 

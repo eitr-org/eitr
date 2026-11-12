@@ -3,19 +3,30 @@ import Eitr as Eitr
 import QtQuick.Controls
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
 
 ShellRoot {
-    Component.onCompleted: Quickshell.watchFiles = Quickshell.env("EITR_LIVE_RELOAD") === "1"
+    Component.onCompleted: {
+        Quickshell.watchFiles = Quickshell.env("EITR_LIVE_RELOAD") === "1";
+        if (Hyprland.focusedMonitor) openScreen = Eitr.Screens.focused(null);
+    }
     id: picker
     property var emojis: []
+    property var openScreen: null
+    // Hyprland reports the focused display shortly after start; the picker stays there.
+    Connections {
+        target: Hyprland
+        function onFocusedMonitorChanged() { if (!picker.openScreen && Hyprland.focusedMonitor) picker.openScreen = Eitr.Screens.focused(null); }
+    }
     property var results: []
     property string query: ""
     property int selected: 0
     property color background: "#181824"
     property color foreground: "#cdd6f4"
     property color accent: "#cdd6f4"
+    property real cornerScale: 1
 
     function filter() {
         var words = query.trim().toLowerCase().split(/\s+/);
@@ -47,6 +58,7 @@ ShellRoot {
                 picker.background = value.background;
                 picker.foreground = value.foreground;
                 picker.accent = value.accent;
+                picker.cornerScale = value.cornerScale;
                 picker.filter();
             }
         }
@@ -55,7 +67,8 @@ ShellRoot {
     PanelWindow {
         id: panel
         visible: true
-        screen: Quickshell.screens[0]
+        // The focused display when it opened; fixed then, so moving the pointer does not move it.
+        screen: picker.openScreen || Eitr.Screens.focused(null)
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
         color: "transparent"
@@ -69,7 +82,7 @@ ShellRoot {
             anchors.centerIn: parent
             width: Math.min(400, panel.width - 32)
             height: Math.min(500, panel.height - 64)
-            radius: 4
+            radius: 6 * picker.cornerScale
             color: Qt.rgba(picker.background.r, picker.background.g, picker.background.b, 0.96)
             border.width: 2
             border.color: picker.accent
@@ -90,7 +103,7 @@ ShellRoot {
                     font.family: "JetBrainsMono Nerd Font"
                     font.pixelSize: 14
                     selectByMouse: true
-                    background: Rectangle { radius: 4; color: Qt.rgba(picker.foreground.r, picker.foreground.g, picker.foreground.b, 0.06) }
+                    background: Rectangle { radius: 4 * picker.cornerScale; color: Qt.rgba(picker.foreground.r, picker.foreground.g, picker.foreground.b, 0.06) }
                     Component.onCompleted: forceActiveFocus()
                     onTextChanged: { picker.query = text; picker.filter(); }
                     Keys.priority: Keys.BeforeItem
@@ -123,7 +136,7 @@ ShellRoot {
                         required property var modelData
                         width: grid.cellWidth
                         height: grid.cellHeight
-                        radius: 4
+                        radius: 4 * picker.cornerScale
                         color: index === picker.selected ? Qt.rgba(picker.accent.r, picker.accent.g, picker.accent.b, 0.24) : "transparent"
                         Text {
                             anchors.centerIn: parent

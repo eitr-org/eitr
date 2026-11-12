@@ -11,6 +11,8 @@ Item {
     property color foreground: "#e4dcd2"
     property color accent: "#2bb87a"
     property string font: "JetBrainsMono Nerd Font"
+    // The shared corner preference (Square 0, Rounded 1.5, Extra Rounded 3).
+    property real cornerScale: 1
     // Weathered bronze, the colour of the runestone ring on Eitr's wallpapers.
     readonly property color bronze: "#b08d57"
     property string expression: ""
@@ -76,7 +78,7 @@ Item {
         Rectangle {
             width: parent.width
             height: 112
-            radius: 6
+            radius: 6 * calculator.cornerScale
             color: Qt.rgba(1, 1, 1, 0.035)
             border.width: 1
             border.color: Qt.alpha(calculator.bronze, 0.35)
@@ -124,7 +126,7 @@ Item {
                     readonly property bool equals: modelData === "="
                     width: (calculator.width - 36 - 3 * 8) / 4
                     height: 52
-                    radius: 5
+                    radius: 5 * calculator.cornerScale
                     color: key.equals ? calculator.accent
                         : press.pressed ? Qt.alpha(calculator.accent, 0.25)
                         : press.containsMouse ? Qt.rgba(1, 1, 1, 0.09) : Qt.rgba(1, 1, 1, 0.05)
