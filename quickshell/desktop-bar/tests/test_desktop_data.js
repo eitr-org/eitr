@@ -275,7 +275,10 @@ console.log('weather request ownership and AI open-only demand passed');
 // Exercise the shell-owned notification guard through repeated shared snapshots.
 const updateShell = fs.readFileSync(path.join(bar, 'services/UpdatesStatus.qml'), 'utf8');
 const announcementBody = updateShell.match(/function announceUpdates\(\) \{([\s\S]*?)\n    \}/)[1];
-const announcementContext = {updates: {count: 0}, announcedUpdates: 0, updatesSize: '',
+// Each announcement also shows the found updates on Drop's pill for the popup's time.
+let pillShows = 0;
+const announcementContext = {updates: {count: 0}, announcedUpdates: 0, updatesSize: '', justFound: false,
+    foundTimer: {restart: () => { pillShows += 1; }},
     Quickshell: {shellDir: '/fixture', execDetached: command => announcements.push(command)}};
 const announcements = [];
 vm.createContext(announcementContext);
@@ -284,6 +287,8 @@ for (const count of [3, 3, 3, 5, 5, 0, 0, 2, 2]) {
     vm.runInContext('(function() {' + announcementBody + '})()', announcementContext);
 }
 assert.deepEqual(announcements.map(command => command[2]), ['3', '5', '2']);
+assert.equal(pillShows, 3);
+assert.equal(announcementContext.justFound, true);
 const updateClient = createClient(() => {}, () => {});
 updateClient.observe('updates.status', 'shell');
 updateClient.receive(JSON.stringify({v: 1, op: 'hello', epoch: 'updates'}));
