@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import stat
+import subprocess
 import sys
 import tempfile
 import time
@@ -17,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 TOOLS = ROOT / 'walker/scripts/actions/tools'
 sys.path.insert(0, str(TOOLS))
 import calendars
+import ical
 
 SECRET = 'https://calendar.example.com/calendar/ical/private-0123456789abcdef/basic.ics'
 NOW = datetime(2026, 10, 22, 12, tzinfo=timezone.utc).timestamp()
@@ -33,7 +35,7 @@ def utc(row):
 
 class ParserTests(unittest.TestCase):
     def parse(self, text):
-        return calendars.parse_events(text, 'cal', 'Work', now=NOW)[1]
+        return ical.parse_events(text, 'cal', 'Work', now=NOW)[1]
 
     def test_timezones_utc_windows_names_and_vtimezone_offsets(self):
         rows = self.parse(ics('UID:1\nDTSTART;TZID=Europe/Berlin:20261026T090000\nSUMMARY:Berlin',
@@ -95,8 +97,20 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(rows, [])
 
     def test_not_a_calendar(self):
-        with self.assertRaises(calendars.CalendarError):
+        with self.assertRaises(ical.CalendarError):
             self.parse('<html>Sign in</html>')
+
+    def test_ical_imports_and_parses_without_calendars(self):
+        code = ("import sys; "
+                "sys.path.insert(0, sys.argv[1]); "
+                "import ical; "
+                "name, rows = ical.parse_events(sys.argv[2], 'c', 'N', now=float(sys.argv[3])); "
+                "assert 'calendars' not in sys.modules, 'calendars was imported'; "
+                "assert len(rows) == 1 and rows[0]['title'] == 'Test', rows")
+        sample = ics('UID:1\nDTSTART:20261026T090000Z\nSUMMARY:Test')
+        result = subprocess.run([sys.executable, '-c', code, str(TOOLS), sample, str(NOW)],
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
 
 class AddressTests(unittest.TestCase):
@@ -136,7 +150,8 @@ class FlowTests(unittest.TestCase):
         self.folder = Path(folder.name)
         environment = patch.dict(os.environ, {'XDG_CONFIG_HOME': str(self.folder / 'config'),
                                               'XDG_CACHE_HOME': str(self.folder / 'cache'),
-                                              'XDG_STATE_HOME': str(self.folder / 'state')})
+                                              'XDG_STATE_HOME': str(self.folder / 'state'),
+                                              'EITR_CODE_ROOT': str(ROOT)})
         environment.start()
         self.addCleanup(environment.stop)
         self.calls = []

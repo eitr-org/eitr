@@ -7145,7 +7145,7 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Busy": [
-      "walker/scripts/actions/tools/calendars.py"
+      "walker/scripts/actions/tools/ical.py"
     ],
     "C-y copy  Enter print  Esc close": [
       "walker/scripts/menus/cloud/terminal-helpers.sh"
@@ -10426,7 +10426,7 @@
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
     ],
     "This address did not return an iCal calendar.": [
-      "walker/scripts/actions/tools/calendars.py"
+      "walker/scripts/actions/tools/ical.py"
     ],
     "This app is part of Eitr and stays installed.": [
       "walker/scripts/actions/install/software.py"

@@ -93,10 +93,6 @@
       "lines": 419,
       "reason": "Barely over the limit; one helper."
     },
-    "walker/scripts/actions/tools/calendars.py": {
-      "lines": 682,
-      "reason": "To improve (TODO): iCal parsing and calendar storage in one file."
-    },
     "walker/scripts/actions/tools/reminders.py": {
       "lines": 645,
       "reason": "To improve (TODO): reminder rules and scheduling/alerts in one file."
