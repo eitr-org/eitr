@@ -63,7 +63,7 @@ class DesktopStyleTests(unittest.TestCase):
                 self.assertEqual(result.stdout.strip(), choice["inner"] + "," + choice["outer"])
             with self.assertRaises(ValueError):
                 style.select("unknown", "gaps")
-            self.assertTrue(all(call.args[0][0] in ("hyprctl", "bash", "eitr-shell") for call in refresh.call_args_list))
+            self.assertTrue(all(call.args[0][0] in ("hyprctl", "bash", "python3", "eitr-shell") for call in refresh.call_args_list))
         self.assertIn('desktop-style.py" generate', (repo / "walker/scripts/themes/generate.sh").read_text())
         self.assertIn("gaps_in = gaps_inner", hyprland)
         self.assertIn("gaps_out = gaps_outer", hyprland)
