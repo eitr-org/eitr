@@ -420,6 +420,7 @@
     {"pattern": "kitty/fonts.conf", "class": "G", "runtime": false},
     {"pattern": "walker/themes/current/*.css", "class": "G", "runtime": true},
     {"pattern": "swayosd/style.css", "class": "G", "runtime": true},
+    {"pattern": "hypr/hyprtoolkit.conf", "class": "G", "runtime": true},
     {"pattern": "swayosd/config.toml", "class": "P", "runtime": true},
     {"pattern": "nvim/**", "class": "P", "runtime": true},
     {"pattern": "dolphinrc", "class": "P", "runtime": true},

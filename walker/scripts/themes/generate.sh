@@ -20,6 +20,7 @@ start_module() {
 for module in system walker btop cava kitty vscode swayosd; do
   start_module "$module" "$THEME_SCRIPTS_DIR/$module.sh"
 done
+start_module hyprtoolkit python3 "$THEME_SCRIPTS_DIR/hyprtoolkit.py"
 start_module assistants python3 "$THEME_SCRIPTS_DIR/../actions/ai-assistant.py" theme
 # Fonts belong to the desktop preference, not to the selected color theme.
 # Font sync also regenerates Ghostty configuration from the current palette.

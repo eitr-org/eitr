@@ -75,7 +75,7 @@ document.
 | `kitty/kitty.conf` | C baseline | `/usr/share/eitr/kitty/kitty.conf`, included by a tiny user file |
 | `kitty/{theme,fonts,cursor-fire}.conf` | G | User config, included by absolute path |
 | `nvim/` | P, seeded once | User config; LazyVim configs are meant to be edited, so upgrades never touch them |
-| `Kvantum/*#/*`, `kvantum.kvconfig`, `swayosd/style.css` | G | User config; regenerated colors, fonts and corners |
+| `Kvantum/*#/*`, `kvantum.kvconfig`, `swayosd/style.css`, `hypr/hyprtoolkit.conf` | G | User config; regenerated colors, fonts and corners |
 | `swayosd/config.toml`, `dolphinrc`, `filetypesrc`, `mimeapps.list` | P | Seeded when missing |
 | `xdg-desktop-portal/hyprland-portals.conf` | D baseline | Native system path; a user file wins |
 | `fastfetch/eitr.py` and assets | C/D | Shipped tree; About and task banners resolve it independently of settings |
@@ -103,7 +103,7 @@ logged.
 | `lockscreen/selected` | P | Lockscreen settings, launcher and SDDM selection |
 | Data `eitr/{wallpapers,themes,lockscreens}/**` | User data | The user's own items (`eitr_own_style.py`); never packaged, adopted, regenerated or overwritten |
 | `hypr/{primary-display,preferred-outputs,local.lua,keyboard-layouts.lua,pointer.lua}` | P | Display helper, bar, Hyprland |
-| `theme/current/**`, `walker/themes/current/**`, `kitty/{theme,fonts,cursor-fire}.conf`, `swayosd/style.css` | G | Theme switch and generators |
+| `theme/current/**`, `walker/themes/current/**`, `kitty/{theme,fonts,cursor-fire}.conf`, `swayosd/style.css`, `hypr/hyprtoolkit.conf` | G | Theme switch and generators |
 | `btop/themes/current.theme` plus three owned `btop.conf` keys | G/P | `btop.sh`; other btop settings untouched |
 | `gtk-{3,4}.0/settings.ini`, `qt{5,6}ct/*.conf`, `Kvantum/*#`, `kdeglobals` | G/P | System, font and cursor generators |
 | `Code/User/settings.json` | P with generated keys | Font and VS Code helpers; JSONC-safe narrow updates |

@@ -121,7 +121,8 @@ def select(value, key="corners"):
     commands = [["hyprctl", "reload"],
                 ["eitr-shell", "desktop-bar", "ipc", "call", "--", "style", "reload"]]
     if key == "corners":
-        commands.insert(1, ["bash", str(code("walker/scripts/themes/walker.sh"))])
+        commands[1:1] = [["bash", str(code("walker/scripts/themes/walker.sh"))],
+                         ["python3", str(code("walker/scripts/themes/hyprtoolkit.py"))]]
     for command in commands:
         try:
             subprocess.run(command, check=True, timeout=20,

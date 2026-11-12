@@ -183,6 +183,7 @@ def select(family):
     sync()
     for generator in ('walker', 'swayosd'):
         subprocess.run(['bash', str(SCRIPT.parents[2] / f'themes/{generator}.sh')], check=True, timeout=20)
+    subprocess.run(['python3', str(SCRIPT.parents[2] / 'themes/hyprtoolkit.py')], check=True, timeout=20)
     subprocess.run(['fc-cache'], check=True, timeout=30)
     if shutil.which('pkill'):
         # Kitty's documented config-reload signal; never terminate terminals.
