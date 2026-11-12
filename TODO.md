@@ -184,9 +184,6 @@ promises below. The roadmap table in `distro/RELEASES.md` has the wording.
   kept locally for this test only, then deleted.
 - **Repeated clean installs and destructive recovery tests** of the 0.8 ISO in
   isolated VMs, until install, maintenance and recovery are reproducible.
-- **Hardware we do not have**: laptops, AMD and Intel graphics, a real
-  Windows/BitLocker dual boot. Fixes come from early users' reports and do not
-  hold back other work; the results become 1.0's supported hardware matrix.
 - **1.0 documents**: supported hardware matrix, tested upgrade paths, rollback
   limitations, security-update process, compatibility policy.
 
