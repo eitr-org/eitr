@@ -24,4 +24,4 @@ Centre de contrôle > Général bloque WiFi et Bluetooth avec rfkill. Le désact
 
 ## VPN
 
-Walker n’a pas de menu VPN. WireGuard et NetworkManager VPN sont prévus sous forme de plugins (Installer > Plugins). Les entrées Tailscale se trouvent dans Walker > Paramètres > Périphériques > Streaming > Accéder à ce PC à distance ; voir [Accès à distance](handbook:remote-access).
+Walker n’a pas de menu VPN. WireGuard et NetworkManager VPN sont prévus sous forme de plugins (Installer > Plugins). Tailscale est le plugin officiel Tailscale (Thèmes et plugins > Plugins) ; voir [Accès à distance](handbook:remote-access).

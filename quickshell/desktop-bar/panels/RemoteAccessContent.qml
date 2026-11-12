@@ -4,10 +4,10 @@ import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 import "../settings/SettingsCatalog.js" as Catalog
 
-// Tailscale and Streaming share this layout: the main state is a header switch
-// (connected, sharing), details sit below, the everyday actions stay visible and
-// setup or diagnostic actions live in the "…" menu. Every action is a row of
-// Walker's remote-access menus, run through menu-action.py by the panel.
+// Streaming: whether sharing runs is a header switch, details sit below, the everyday
+// actions stay visible and setup or diagnostic actions live in the "…" menu. Every action
+// is a row of Walker's remote-access menus, run through menu-action.py by the panel.
+// (Tailscale is a plugin with its own panel.)
 Column {
     id: content
     required property string kind
@@ -19,18 +19,17 @@ Column {
     property bool settingsMode: false
     readonly property var detail: state[kind] || ({})
     readonly property var actions: detail.actions || []
-    readonly property bool tailscale: kind === "tailscale"
     readonly property bool installed: detail.installed !== false
     // The header's control: a switch for the main state, or the one step that comes first.
-    readonly property string setupSource: tailscale ? "Set Up Away Access" : "Set Up Sharing"
-    readonly property string firstStep: !installed ? setupSource : tailscale && detail.signedOut ? "Sign In" : ""
+    readonly property string setupSource: "Set Up Sharing"
+    readonly property string firstStep: !installed ? setupSource : ""
     readonly property var firstStepAction: firstStep === "" ? null : actions.find(entry => entry.source === firstStep) || null
-    readonly property var switchSources: tailscale ? ["Connect", "Disconnect"] : ["Start Sharing", "Stop Sharing"]
-    readonly property var visibleSources: tailscale ? [] : ["Pair a Device", "Connect to another PC"]
-    readonly property var loginSources: tailscale ? [] : ["Start at Login", "Turn Off Start at Login"]
+    readonly property var switchSources: ["Start Sharing", "Stop Sharing"]
+    readonly property var visibleSources: ["Pair a Device", "Connect to another PC"]
+    readonly property var loginSources: ["Start at Login", "Turn Off Start at Login"]
     readonly property var moreActions: actions.filter(entry => entry.source !== firstStep
         && switchSources.indexOf(entry.source) < 0 && visibleSources.indexOf(entry.source) < 0
-        && loginSources.indexOf(entry.source) < 0 && entry.source !== "Sign In")
+        && loginSources.indexOf(entry.source) < 0)
     signal actionRequested(string menu, string source)
     signal settingsRequested()
     spacing: 14
@@ -51,7 +50,7 @@ Column {
         PanelHeading {
             width: parent.width - controls.width - 8
             anchors.verticalCenter: parent.verticalCenter
-            text: content.tailscale ? "Tailscale" : Eitr.I18n.tr("Streaming")
+            text: Eitr.I18n.tr("Streaming")
             subtitle: content.detail.status || (content.busy ? Eitr.I18n.tr("Checking status…") : Eitr.I18n.tr("Status unavailable"))
             rune: "connectivity"
             foreground: content.foreground
@@ -89,7 +88,7 @@ Column {
                 SettingsTarget { objectName: "setting-streaming-streaming" }
                 anchors.verticalCenter: parent.verticalCenter
                 visible: content.firstStep === "" && content.installed
-                checked: content.tailscale ? !!content.detail.connected : !!content.detail.running
+                checked: !!content.detail.running
                 enabled: !content.busy
                 foreground: content.foreground; accent: content.accent
                 onClicked: content.run(content.switchSources[checked ? 0 : 1])
@@ -128,9 +127,9 @@ Column {
             }
         }
     }
-    // Streaming: whether sharing starts when you sign in.
+    // Whether sharing starts when you sign in.
     Item {
-        visible: !content.tailscale && content.installed && content.detail.startAtLogin !== undefined
+        visible: content.installed && content.detail.startAtLogin !== undefined
         width: parent.width
         height: visible ? 32 : 0
         Text {
@@ -150,67 +149,10 @@ Column {
             onClicked: content.run(content.loginSources[checked ? 0 : 1])
         }
     }
-    // Tailscale: the other devices on the network and how this PC reaches them.
-    Column {
-        visible: content.tailscale && (content.detail.peers || []).length > 0
-        width: parent.width
-        spacing: PanelStyle.selectionRowGap
-        PanelDivider { width: parent.width; height: 8; foreground: content.foreground }
-        Text {
-            text: Eitr.I18n.tr("DEVICES")
-            color: content.foreground
-            opacity: PanelStyle.secondaryTextOpacity
-            font.family: DesktopFonts.family
-            font.pixelSize: PanelStyle.captionSize
-        }
-        Repeater {
-            model: content.tailscale ? content.detail.peers || [] : []
-            delegate: Rectangle {
-                required property var modelData
-                width: content.width
-                height: PanelStyle.selectionRowHeight
-                radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                color: Qt.alpha(content.foreground, PanelStyle.selectionAlpha(false, false))
-                border.width: PanelStyle.selectionBorderWidth(false)
-                border.color: Qt.alpha(content.foreground, PanelStyle.selectionBorderAlpha)
-                Text {
-                    width: PanelStyle.selectionTextInset
-                    anchors.verticalCenter: parent.verticalCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    text: "\u{F0379}"
-                    color: content.foreground
-                    font.family: DesktopFonts.family
-                    font.pixelSize: PanelStyle.selectionIconSize
-                }
-                Text {
-                    x: PanelStyle.selectionTextInset
-                    width: parent.width - x - connection.width - 2 * PanelStyle.selectionInset
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: modelData.name
-                    textFormat: Text.PlainText
-                    elide: Text.ElideRight
-                    color: content.foreground
-                    font.family: DesktopFonts.family
-                    font.pixelSize: PanelStyle.bodySize
-                }
-                Text {
-                    id: connection
-                    anchors.right: parent.right
-                    anchors.rightMargin: PanelStyle.selectionInset
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: modelData.connection
-                    color: content.foreground
-                    opacity: PanelStyle.secondaryTextOpacity
-                    font.family: DesktopFonts.family
-                    font.pixelSize: PanelStyle.captionSize
-                }
-            }
-        }
-    }
-    // Streaming: the everyday actions stay one click away.
+    // The everyday actions stay one click away.
     Row {
         id: everyday
-        visible: !content.tailscale && content.installed
+        visible: content.installed
         width: parent.width
         spacing: PanelStyle.selectionActionGap
         Repeater {

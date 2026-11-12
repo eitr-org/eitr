@@ -7,7 +7,7 @@ se bloquea mientras comparte, la pantalla remota muestra la pantalla de bloqueo:
 quien esté conectado la ve y puede escribir la contraseña. Deje de compartir
 antes de ausentarse si necesita privacidad.
 
-Las carpetas de configuración agrupan los ajustes. Streaming > Configuración para compartir contiene Configurar uso compartido, Ajustes de uso compartido, Iniciar al entrar, Desactivar inicio al entrar, Estado detallado y Restaurar configuración de uso compartido. Acceder a este PC en remoto > Configuración inicial contiene Iniciar sesión, Configurar acceso remoto, Restaurar configuración de acceso remoto, Estado detallado y Hacer ping a un par. Las acciones habituales de uso compartido (Iniciar uso compartido, Detener uso compartido, Emparejar un dispositivo, Estado del uso compartido y Conectar a otro PC) siguen directamente en Streaming, y Conectar y Desconectar en Acceder a este PC en remoto.
+Las carpetas de configuración agrupan los ajustes. Streaming > Configuración para compartir contiene Configurar uso compartido, Ajustes de uso compartido, Iniciar al entrar, Desactivar inicio al entrar, Estado detallado y Restaurar configuración de uso compartido. Las acciones habituales de uso compartido (Iniciar uso compartido, Detener uso compartido, Emparejar un dispositivo, Estado del uso compartido y Conectar a otro PC) siguen directamente en Streaming. Tailscale es el plugin oficial de Tailscale, con su propio panel en la barra.
 
 Estado detallado abre un terminal de diagnóstico que permanece abierto hasta que pulses Esc.
 
@@ -70,24 +70,22 @@ Atajos con SUPER desde el Mac: en los ajustes de Moonlight, activa **Capture sys
 
 ## Tailscale en ambos equipos
 
-En Acceder a este PC en remoto elija Configurar acceso externo. Tras instalar, el asistente
-root confirmado activa e inicia `tailscaled.service` y nombra operador a su usuario. Por eso iniciar sesión, conectar y desconectar no piden contraseña. Un Tailscale configurado de otra forma pide la contraseña de administrador. Iniciar sesión abre la URL de
-`tailscale login` en el navegador.
+Instale el plugin oficial **Tailscale** (Temas y plugins > Plugins) y coloque su icono
+desde Centro de control > Plugins. El paso **Configurar** de su panel instala Tailscale,
+activa e inicia `tailscaled.service` y nombra operador a su usuario. Por eso iniciar
+sesión, conectar y desconectar no piden contraseña. Iniciar sesión abre la página de
+acceso de Tailscale en el navegador. El panel muestra la dirección Tailscale de este PC,
+cada dispositivo y si su ruta es directa, por relé o inactiva, hace ping a un
+dispositivo, envía archivos con Taildrop, abre un informe detallado y deshace la
+configuración de Eitr (vuelven el operador y el estado del servicio anteriores; la
+cuenta de Tailscale y los paquetes se mantienen).
 
-Connect conecta; Disconnect desconecta sin
-borrar credenciales. El plugin oficial de Tailscale añade un icono a la barra; su panel muestra la dirección del PC, la falta de
-sesión y conexiones directas, retransmitidas o inactivas, y envía archivos con Taildrop. Comprobar conexión con otro equipo usa
-`tailscale ping` para comprobar un equipo. Una retransmisión puede añadir latencia.
+Las rutas por relé pueden aumentar la latencia y reducir la calidad.
 
 Instale [Tailscale en el Mac](https://tailscale.com/download/mac), acceda a la misma
 tailnet y conecte ambos equipos. Añada la dirección Tailscale de Eitr en Moonlight
-y empareje como antes. La política de la tailnet debe permitir los puertos.
-La configuración web de Sunshine sigue siendo local a Eitr.
-
-Restaurar configuración de acceso externo restaura el operador y el estado original de arranque
-y ejecución del servicio; conserva la cuenta y los paquetes. Si el servicio ya
-estaba activo, sigue activo. Use Disconnect antes para cerrar la conexión. Los
-errores quedan visibles en el terminal; corríjalos y repita. No se quitan paquetes.
+y use el mismo emparejamiento de Sunshine. La política de la tailnet debe permitir
+los puertos de streaming. Los ajustes web de Sunshine siguen siendo locales.
 
 ## Qué se ha probado
 
@@ -99,4 +97,4 @@ Restaurar la configuración en la red de casa, y la configuración, el inicio de
 sesión y la conexión de Tailscale desde fuera. No se han probado mandos, otras
 tarjetas gráficas ni otros clientes.
 
-Streaming está junto a Conexiones en Dispositivos. Sunshine muestra el estado de uso compartido, configuración, inicio/parada, inicio de sesión, emparejamiento, ajustes, diagnóstico y restauración. Moonlight muestra el estado de instalación y un botón para instalar/abrir. Tailscale permanece en sus menús y panel actuales.
+Streaming está junto a Conexiones en Dispositivos. Sunshine muestra el estado de uso compartido, configuración, inicio/parada, inicio de sesión, emparejamiento, ajustes, diagnóstico y restauración. Moonlight muestra el estado de instalación y un botón para instalar/abrir. Tailscale es un plugin con su propio panel.

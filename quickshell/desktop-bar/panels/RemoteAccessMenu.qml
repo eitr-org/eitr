@@ -8,7 +8,7 @@ ThemedPopup {
     signal observationChanged(bool observing)
     waitForFreshData: true
     required property var service
-    property string kind: "tailscale"
+    property string kind: "streaming"
     property int maximumHeight: 700
     implicitWidth: 468
     implicitHeight: Math.min(content.implicitHeight + verticalContentInset, maximumHeight)

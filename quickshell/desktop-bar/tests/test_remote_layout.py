@@ -25,14 +25,14 @@ class RemoteLayoutTests(unittest.TestCase):
                 renders.mkdir(parents=True, exist_ok=True)
                 capture = renders / (theme + '.png')
                 background, foreground = ('#18212b', '#e9eef1') if theme == 'dark' else ('#f5f0e7', '#252936')
-                state = {'tailscale': {'status': 'Verbunden', 'facts': [
-                    {'label': 'Gerät', 'value': 'example-desktop'},
-                    {'label': 'Tailscale-IP', 'value': '100.64.0.1'},
-                    {'label': 'Netzwerk', 'value': 'example-network'}],
-                    'actions': [{'menu': 'remote-away', 'source': 'Connect',
+                state = {'streaming': {'status': 'Freigabe aktiv', 'running': True, 'startAtLogin': False, 'facts': [
+                    {'label': 'Erfassung', 'value': 'KMS'},
+                    {'label': 'Einstellungen', 'value': 'https://localhost:47990'}],
+                    'actions': [{'menu': 'remote-access', 'source': source,
                                  'title': title, 'description': 'Eine ausführliche Beschreibung', 'icon': '\uf021'}
-                                for title in ['Verbinden', 'Trennen', 'Detaillierter Status', 'Einrichtung für unterwegs zurücksetzen',
-                                              'Gerät überprüfen', 'Zugriff einrichten']]}}
+                                for source, title in [('Start Sharing', 'Freigabe starten'), ('Stop Sharing', 'Freigabe beenden'),
+                                                      ('Pair a Device', 'Gerät koppeln'), ('Connect to another PC', 'Mit anderem PC verbinden'),
+                                                      ('Detailed Status', 'Detaillierter Status'), ('Restore Sharing Setup', 'Freigabeeinrichtung wiederherstellen')]]}}
                 fixture = folder / 'fixture.qml'
                 fixture.write_text('''import QtQuick
 import Quickshell
@@ -48,7 +48,7 @@ ShellRoot {
             Bar.RemoteAccessContent {
                 id: panel
                 x: 24; y: 24; width: 420
-                kind: "tailscale"; state: STATE
+                kind: "streaming"; state: STATE
                 foreground: "FOREGROUND"; background: "BACKGROUND"; accent: "#7ee0b5"
             }
             Row {

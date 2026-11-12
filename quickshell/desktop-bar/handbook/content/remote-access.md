@@ -6,7 +6,7 @@ before login and wake on LAN are separate future work. While sharing, the remote
 screen shows the lockscreen when this PC locks; anyone connected sees it and can
 type the password, so stop sharing before stepping away when privacy matters.
 
-Setup folders group the configuration actions. Streaming > Sharing Setup contains Set Up Sharing, Sharing Settings, Start at Login, Turn Off Start at Login, Detailed Status and Restore Sharing Setup. Access This PC Remotely > Setup contains Sign In, Set Up Away Access, Restore Away Access Setup, Detailed Status and Ping a Peer. Everyday sharing actions (Start Sharing, Stop Sharing, Pair a Device, Sharing Status and Connect to another PC) stay directly in Streaming, and Connect and Disconnect in Access This PC Remotely.
+Setup folders group the configuration actions. Streaming > Sharing Setup contains Set Up Sharing, Sharing Settings, Start at Login, Turn Off Start at Login, Detailed Status and Restore Sharing Setup. Everyday sharing actions (Start Sharing, Stop Sharing, Pair a Device, Sharing Status and Connect to another PC) stay directly in Streaming. Tailscale is the official Tailscale plugin, with its own bar panel.
 
 Detailed Status opens a diagnostic terminal that stays open until you press Esc.
 
@@ -77,17 +77,14 @@ SUPER shortcuts from the Mac: in Moonlight's settings, turn on **Capture system 
 
 ## Tailscale on both computers
 
-Choose Access This PC Remotely > Setup > Set Up Away Access. After installing Tailscale,
-the confirmed root helper enables and starts `tailscaled.service`, then makes
-your desktop user its operator, so Sign In, Connect and Disconnect need no
-password. A Tailscale set up some other way asks for the administrator password
-instead.
-
-Sign In
-opens the URL printed by `tailscale login` in your browser. Connect brings the
-PC online; Disconnect takes it offline without deleting sign-in credentials. The official Tailscale plugin adds a bar icon whose panel shows this PC's Tailscale address,
-signed-out states and whether peers are Direct, Relayed or idle, and sends files with Taildrop. Ping a Peer uses `tailscale ping` to
-check a specific connection.
+Install the official **Tailscale** plugin (Themes & Plugins > Plugins) and place its icon
+from Control Center > Plugins. Its panel's **Set up** step installs Tailscale, enables and
+starts `tailscaled.service` and makes your desktop user its operator, so Sign In, Connect
+and Disconnect need no password. Sign In opens Tailscale's login page in your browser.
+The panel shows this PC's Tailscale address, each device and whether its path is Direct,
+Relayed or idle, pings a device, sends files with Taildrop, opens a detailed report, and
+undoes Eitr's setup (the previous operator and service state come back; the Tailscale
+account and packages stay).
 
 Relay paths can increase latency and reduce quality.
 
@@ -95,12 +92,6 @@ Install [Tailscale on the Mac](https://tailscale.com/download/mac), sign in to t
 same tailnet, and connect both computers. Add Eitr's Tailscale address in Moonlight;
 use the same Sunshine pairing procedure. Tailnet access policy must allow the
 streaming ports. The Sunshine web settings remain local to Eitr.
-
-Restore Away Access Setup restores the previous operator and original service
-startup/running state; it retains Tailscale account state and installed packages.
-If the service was already active it stays active. Disconnect first if you want
-to stop a connection. Failed installs or commands stay visible in the task terminal;
-retry the failed step after resolving its error. No package removal is implicit.
 
 ## What has been tested
 
@@ -111,4 +102,4 @@ Stop Sharing and Restore Sharing Setup on the home network, and Tailscale setup,
 sign-in and connection from away. Controllers, other GPUs and other clients have
 not been tested.
 
-Streaming sits beside Connections under Devices. Sunshine shows sharing status, setup, start/stop, start at login, pairing, settings, diagnostics and restore setup. Moonlight shows installation status and an install/open button. Tailscale stays in its existing menus and panel.
+Streaming sits beside Connections under Devices. Sunshine shows sharing status, setup, start/stop, start at login, pairing, settings, diagnostics and restore setup. Moonlight shows installation status and an install/open button. Tailscale is a plugin with its own panel.

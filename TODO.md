@@ -39,15 +39,14 @@ item says what decides the next step. Remove an item when it ships;
     Tailscale plugin (pinned, reviewed) on desktops that already have Tailscale, with a
     notification; Tailscale is never uninstalled automatically. New installs no longer
     include it.
-  - Remove the Tailscale rows from Walker (Settings > Devices > Streaming > Access This PC
-    Remotely) once the plugin panel has their functions. Install > VPN is gone from Walker;
-    `walker/scripts/actions/install/vpn.py` and `eitr_vpn` stay for the plugins.
+  - Install > VPN and Walker's Tailscale menus are gone; `walker/scripts/actions/install/vpn.py`,
+    `eitr_vpn` and `remote-access.py away setup|undo` (with its root helper) stay for the plugins.
   - Order: plugin `packages` field (VM-tested), the three plugins, then remove Tailscale
     from the core and ship the update step after the plugin passes a VM test.
   - Status (2026-11-10): Tailscale is official (`eitr-org/eitr-plugins`) with its bar icon,
     panel and Taildrop, the core icon and panel are gone, and a login step installs the
-    pinned plugin on desktops with Tailscale. Walker's Tailscale rows, the setup helper and
-    `RemoteAccessContent`'s Tailscale branch remain in core. WireGuard and NetworkManager VPN
+    pinned plugin on desktops with Tailscale (2026-11-11: Walker's Tailscale menus and the
+    core panel's Tailscale branch removed; the plugin's panel covers them). WireGuard and NetworkManager VPN
     stay on the owner's private test repository (local `vpn-plugins` branch) until they
     get bar icons and panels too.
 - **Add-ons: the rename and a Lockscreens tab (decided 2026-11-11).** Themes & Plugins
@@ -57,6 +56,9 @@ item says what decides the next step. Remove an item when it ships;
   lockscreens on a removed design are hidden. The brief is ready for Codex
   (`eitr-testing/codex-wip/addons-lockscreens/BRIEF.md`, Codex usage is back
   2026-11-13); VM-test installs, removal and the migration before testing.
+- **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
+  (2026-11-11). Each separately: access before login (an opt-in auto-login that locks at
+  once, or Sunshine at the login screen), wake on LAN, headless use.
 - **Git & Cloud for many companies** (Walker; Settings no longer has the page): group
   each company's cloud profiles and contexts with its Git identity and folder rules.
 - **Dynamic island, next.** Live activities in the clock island beyond the capture
@@ -96,11 +98,6 @@ item says what decides the next step. Remove an item when it ships;
 - **Wallpaper per display: the parts not tried yet.** The switch, preview, carousel and
   theme resets passed the owner's test (2026-11-10); still untried: plugging a display
   in and out, and each display's wallpaper coming back at login.
-- **Remote access.** Moonlight, Sunshine and Tailscale are built and inactive until set
-  up (`distro/REMOTE-ACCESS.md`). Home network (2026-10-21/22, one and two monitors)
-  and away from home through Tailscale (2026-10-21) work with a MacBook. Next: fix what
-  those tests find, then call remote access ready in the Handbook and on the website.
-  Afterwards, each separately: headless use, access before login, wake on LAN.
 - **Themes & Plugins Update all.** Shipped untested: it appears only when an installed
   theme or plugin has an update. Try it the next time one does.
 
@@ -146,11 +143,10 @@ item says what decides the next step. Remove an item when it ships;
 
 - **Bar crash leftovers.** The owner's two crashes of 2026-10-29 at bar start, a
   PipeWire event rebuilding a Repeater (`QQuickItem::polish` from
-  `QQuickRepeater::setModel`), not reproduced since; and the binding loops a hotplug
-  logs in DisplayService `snapshot` and DisplaySettingsEditor `width`.
-- **Password prompts after a bar crash.** The bar is the polkit agent and KDE's agent
-  starts only at login when the bar has not registered; a bar that crashes mid-session
-  leaves no agent until it restarts. Add a watcher that starts KDE's agent then.
+  `QQuickRepeater::setModel`), not reproduced since; and the binding loop a hotplug
+  logged in DisplaySettingsEditor `width` (VM unplug, 2026-11-04; no cycle in today's
+  code, so check it in the next hotplug test before changing anything). DisplayService
+  `snapshot`'s loop is fixed.
 - **Bar disappears without a trace (2026-11-10, again 2026-11-11).** The bar process
   ended with no error in its log and no core dump (the second time while a full
   `tools/check.sh` ran and the owner used the Audio panel); find what ends it.

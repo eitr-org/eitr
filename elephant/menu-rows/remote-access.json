@@ -1,14 +1,5 @@
 [
   {
-    "text": "Access This PC Remotely",
-    "subtext": ">",
-    "icon": "󰇧",
-    "submenu": "remote-away",
-    "keywords": [
-      "Access This PC Remotely"
-    ]
-  },
-  {
     "text": "Sharing Setup",
     "subtext": ">",
     "icon": "",

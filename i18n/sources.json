@@ -778,9 +778,6 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
-    "DEVICES": [
-      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
-    ],
     "DNS": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -3392,10 +3389,6 @@
     "About": [
       "elephant/menu-rows/system.json"
     ],
-    "Access This PC Remotely": [
-      "elephant/menu-rows/remote-access.json",
-      "elephant/menus/remote-away.lua"
-    ],
     "Accounts": [
       "elephant/menu-rows/ai-agy.json",
       "elephant/menu-rows/ai-claude.json",
@@ -3671,9 +3664,6 @@
     "Check the restore point; changes nothing": [
       "elephant/menu-rows/factory-reset.json"
     ],
-    "Check whether a connection is direct or relayed": [
-      "elephant/menu-rows/remote-away-setup.json"
-    ],
     "Choose Fastest Mirrors": [
       "elephant/menu-rows/system-maintenance.json"
     ],
@@ -3784,12 +3774,6 @@
     ],
     "Configure Snapshot Protection": [
       "elephant/menu-rows/snapshots.json"
-    ],
-    "Connect": [
-      "elephant/menu-rows/remote-away.json"
-    ],
-    "Connect this PC to Tailscale": [
-      "elephant/menu-rows/remote-away.json"
     ],
     "Connect to another PC": [
       "elephant/menu-rows/remote-access.json"
@@ -3956,7 +3940,6 @@
       "elephant/menu-rows/shortcuts.json"
     ],
     "Detailed Status": [
-      "elephant/menu-rows/remote-away-setup.json",
       "elephant/menu-rows/remote-share-setup.json"
     ],
     "Developer Apps": [
@@ -3987,12 +3970,6 @@
     "Disabled": [
       "elephant/menus/bar-dock.lua",
       "elephant/menus/terminal-cursor-fire.lua"
-    ],
-    "Disconnect": [
-      "elephant/menu-rows/remote-away.json"
-    ],
-    "Disconnect this PC from Tailscale": [
-      "elephant/menu-rows/remote-away.json"
     ],
     "Dismiss Newest Notification": [
       "elephant/menu-rows/shortcuts.json"
@@ -4762,9 +4739,6 @@
     "Open OBS Studio for advanced recording": [
       "elephant/menu-rows/screenrecord.json"
     ],
-    "Open Tailscale sign-in in the browser": [
-      "elephant/menu-rows/remote-away-setup.json"
-    ],
     "Open Terminal": [
       "elephant/menu-rows/shortcuts.json"
     ],
@@ -4778,7 +4752,6 @@
       "elephant/menus/system-shortcuts.lua"
     ],
     "Open the diagnostic report in a terminal": [
-      "elephant/menu-rows/remote-away-setup.json",
       "elephant/menu-rows/remote-share-setup.json"
     ],
     "Open this project in the editor": [
@@ -4847,9 +4820,6 @@
     ],
     "Pick a color on screen and copy its code": [
       "elephant/menu-rows/tools.json"
-    ],
-    "Ping a Peer": [
-      "elephant/menu-rows/remote-away-setup.json"
     ],
     "Place the bar at the bottom": [
       "elephant/menus/bar-position.lua"
@@ -5056,9 +5026,6 @@
     "Restart the computer": [
       "elephant/menu-rows/power.json"
     ],
-    "Restore Away Access Setup": [
-      "elephant/menu-rows/remote-away-setup.json"
-    ],
     "Restore Original Network Configuration": [
       "elephant/menu-rows/network-backend.json"
     ],
@@ -5067,9 +5034,6 @@
     ],
     "Restore a File or Folder": [
       "elephant/menu-rows/snapshots.json"
-    ],
-    "Restore tailscaled startup and the previous operator": [
-      "elephant/menu-rows/remote-away-setup.json"
     ],
     "Restore the normal desktop": [
       "elephant/menus/focus.lua"
@@ -5125,9 +5089,6 @@
     "Review a repository and select one or more plugins to install": [
       "elephant/plugin-entries.lua",
       "walker/scripts/actions/install/plugins.py"
-    ],
-    "Review and turn on the Tailscale service": [
-      "elephant/menu-rows/remote-away-setup.json"
     ],
     "Review and update installed plugins": [
       "elephant/plugin-entries.lua"
@@ -5369,9 +5330,6 @@
     "Set Existing SSH Key": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
-    "Set Up Away Access": [
-      "elephant/menu-rows/remote-away-setup.json"
-    ],
     "Set Up Sharing": [
       "elephant/menu-rows/remote-share-setup.json"
     ],
@@ -5433,10 +5391,6 @@
     ],
     "Settings Colours": [
       "elephant/menu-rows/appearance.json"
-    ],
-    "Setup": [
-      "elephant/menu-rows/remote-away.json",
-      "elephant/menus/remote-away-setup.lua"
     ],
     "Seven audio spectrum bars": [
       "elephant/menus/bar-media.lua"
@@ -5512,9 +5466,6 @@
     ],
     "Shutdown": [
       "elephant/menu-rows/power.json"
-    ],
-    "Sign In": [
-      "elephant/menu-rows/remote-away-setup.json"
     ],
     "Sign in to a separate account": [
       "elephant/ai-account-entries.lua"
@@ -7516,9 +7467,6 @@
     "Connect after import": [
       "walker/scripts/actions/install/vpn.py"
     ],
-    "Connected": [
-      "quickshell/desktop-bar/scripts/remote-status.py"
-    ],
     "Connected. Restart open assistant sessions to use it.": [
       "walker/scripts/actions/assistant-collaboration.py"
     ],
@@ -7767,11 +7715,7 @@
     "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.": [
       "distro/archinstall/eitr-guided-install"
     ],
-    "Device": [
-      "quickshell/desktop-bar/scripts/remote-status.py"
-    ],
     "Direct": [
-      "quickshell/desktop-bar/scripts/remote-status.py",
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Disabled by organization policy: {feature}": [
@@ -7780,9 +7724,6 @@
     ],
     "Disconnect": [
       "walker/scripts/actions/install/vpn.py"
-    ],
-    "Disconnected": [
-      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Disk": [
       "distro/archinstall/installer-ui.py",
@@ -8257,7 +8198,6 @@
       "walker/scripts/menus/cloud/navigation.py"
     ],
     "Idle; ping to check": [
-      "quickshell/desktop-bar/scripts/remote-status.py",
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Ignore": [
@@ -8768,9 +8708,6 @@
     ],
     "Name this computer.": [
       "distro/archinstall/installer-ui.py"
-    ],
-    "Network": [
-      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Network ACLs": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -9446,7 +9383,6 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Relayed": [
-      "quickshell/desktop-bar/scripts/remote-status.py",
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Remind me about…": [
@@ -9928,9 +9864,6 @@
     "Sign-in method": [
       "walker/scripts/menus/cloud/accounts.py"
     ],
-    "Signed out": [
-      "quickshell/desktop-bar/scripts/remote-status.py"
-    ],
     "Sites": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -10161,14 +10094,8 @@
     "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel": [
       "walker/scripts/actions/install/software.py"
     ],
-    "Tailscale IP": [
-      "quickshell/desktop-bar/scripts/remote-status.py"
-    ],
     "Tailscale could not change state.": [
       "walker/scripts/actions/system/remote-access.py"
-    ],
-    "Tailscale is not installed.": [
-      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Tailscale is now a plugin": [
       "distro/lib/eitr_tailscale_migration.py"
@@ -10179,14 +10106,11 @@
     "Tailscale setup belongs to another desktop user": [
       "distro/system/eitr_remote.py"
     ],
-    "Tailscale sign-in failed. Try again from Access This PC Remotely.": [
+    "Tailscale sign-in failed. Try again from the Tailscale panel.": [
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Tailscale state: {state}": [
       "walker/scripts/actions/system/remote-access.py"
-    ],
-    "Tailscale status unavailable.": [
-      "quickshell/desktop-bar/scripts/remote-status.py"
     ],
     "Target": [
       "walker/scripts/menus/cloud/providers.py"
@@ -10679,7 +10603,6 @@
     ],
     "Unavailable": [
       "fastfetch/eitr.py",
-      "quickshell/desktop-bar/scripts/remote-status.py",
       "quickshell/desktop-bar/scripts/settings-system.py"
     ],
     "Undo with Restore Sharing Setup. Existing Sunshine settings are kept.": [

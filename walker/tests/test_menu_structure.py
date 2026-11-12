@@ -26,21 +26,17 @@ class MenuStructureTests(unittest.TestCase):
         self.assertEqual(menu("language")["parent"], "system-devices")
 
     def test_remote_setup_folders_keep_daily_actions_direct(self):
-        # Streaming (remote-access) holds Sunshine's daily actions directly; Tailscale's
-        # Access This PC Remotely folder stays there until its plugin panel covers it.
+        # Streaming (remote-access) holds Sunshine's daily actions directly; Tailscale is a
+        # plugin with its own panel, so Walker has no Tailscale menu.
         self.assertEqual([row["text"] for row in menu("remote-access")["entries"]],
-                         ["Access This PC Remotely", "Sharing Setup", "Connect to another PC", "Pair a Device",
+                         ["Sharing Setup", "Connect to another PC", "Pair a Device",
                           "Sharing Status", "Start Sharing", "Stop Sharing"])
         self.assertEqual(menu("remote-access")["parent"], "system-devices")
         self.assertEqual(menu("remote-share-setup")["parent"], "remote-access")
-        self.assertFalse((MENUS / "remote-share.lua").exists())
-        self.assertEqual([row["text"] for row in menu("remote-away")["entries"]], ["Setup", "Connect", "Disconnect"])
-        self.assertEqual(menu("remote-away")["parent"], "remote-access")
-        self.assertEqual(menu("remote-away-setup")["parent"], "remote-away")
+        for removed in ("remote-share.lua", "remote-away.lua", "remote-away-setup.lua"):
+            self.assertFalse((MENUS / removed).exists(), removed)
         sharing = {row["text"] for row in menu("remote-share-setup")["entries"]}
         self.assertEqual(sharing, {"Set Up Sharing", "Sharing Settings", "Start at Login", "Turn Off Start at Login", "Detailed Status", "Restore Sharing Setup"})
-        away = {row["text"] for row in menu("remote-away-setup")["entries"]}
-        self.assertEqual(away, {"Sign In", "Set Up Away Access", "Restore Away Access Setup", "Detailed Status", "Ping a Peer"})
 
     def test_agent_workspaces_open_herdr_and_cmux(self):
         workspaces = menu("agent-workspaces")

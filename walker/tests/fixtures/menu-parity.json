@@ -1685,15 +1685,6 @@
     ],
     "remote-access": [
       {
-        "text": "Access This PC Remotely",
-        "subtext": ">",
-        "icon": "󰇧",
-        "submenu": "remote-away",
-        "keywords": [
-          "Access This PC Remotely"
-        ]
-      },
-      {
         "text": "Sharing Setup",
         "subtext": ">",
         "icon": "",
@@ -1737,72 +1728,6 @@
         "icon": "󰓛",
         "actions": {
           "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host stop"
-        }
-      }
-    ],
-    "remote-away-setup": [
-      {
-        "text": "Detailed Status",
-        "subtext": "Open the diagnostic report in a terminal",
-        "icon": "󰋽",
-        "actions": {
-          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away status"
-        }
-      },
-      {
-        "text": "Ping a Peer",
-        "subtext": "Check whether a connection is direct or relayed",
-        "icon": "󰒢",
-        "actions": {
-          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away ping"
-        }
-      },
-      {
-        "text": "Restore Away Access Setup",
-        "subtext": "Restore tailscaled startup and the previous operator",
-        "icon": "󰦛",
-        "actions": {
-          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away undo"
-        }
-      },
-      {
-        "text": "Set Up Away Access",
-        "subtext": "Review and turn on the Tailscale service",
-        "icon": "󰖷",
-        "actions": {
-          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away setup"
-        }
-      },
-      {
-        "text": "Sign In",
-        "subtext": "Open Tailscale sign-in in the browser",
-        "icon": "󰍂",
-        "actions": {
-          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away login"
-        }
-      }
-    ],
-    "remote-away": [
-      {
-        "text": "Setup",
-        "subtext": ">",
-        "icon": "",
-        "submenu": "remote-away-setup"
-      },
-      {
-        "text": "Connect",
-        "subtext": "Connect this PC to Tailscale",
-        "icon": "󰌘",
-        "actions": {
-          "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away connect"
-        }
-      },
-      {
-        "text": "Disconnect",
-        "subtext": "Disconnect this PC from Tailscale",
-        "icon": "󰌙",
-        "actions": {
-          "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py away disconnect"
         }
       }
     ],
@@ -3488,8 +3413,6 @@
     "projects-vscode": "development",
     "reminders": "tools",
     "remote-access": "system-devices",
-    "remote-away-setup": "remote-away",
-    "remote-away": "remote-access",
     "remote-share-setup": "remote-access",
     "screenrecord": "capture",
     "screenshot": "capture",
@@ -7474,26 +7397,6 @@
       "key": "149ee82c11de113c4ed2c8a640251d80ed0069c15423d0803ca99c4d623f82e6",
       "provider": "menus:remote-access",
       "identifier": "remote-access:0",
-      "text": "Access This PC Remotely",
-      "subtext": ">",
-      "icon": "󰇧",
-      "actions": [],
-      "keywords": [
-        "Access This PC Remotely",
-        "Access This PC Remotely",
-        "Access This PC Remotely"
-      ],
-      "menus": [
-        "system-devices",
-        "settings",
-        "main"
-      ],
-      "submenu": "remote-away"
-    },
-    {
-      "key": "97dec78efa910f3f55c0fde8f0f9c291d4b1f187965fd0e5461f67564938798b",
-      "provider": "menus:remote-access",
-      "identifier": "remote-access:1",
       "text": "Sharing Setup",
       "subtext": ">",
       "icon": "",
@@ -7510,9 +7413,9 @@
       "submenu": "remote-share-setup"
     },
     {
-      "key": "2a478b8a6542898084c84f278669c4fd35f70d7e0b88d961de4e8cfba3e4e841",
+      "key": "97dec78efa910f3f55c0fde8f0f9c291d4b1f187965fd0e5461f67564938798b",
       "provider": "menus:remote-access",
-      "identifier": "remote-access:2",
+      "identifier": "remote-access:1",
       "text": "Connect to another PC",
       "subtext": "Open Moonlight to stream another PC",
       "icon": "󰖔",
@@ -7531,9 +7434,9 @@
       ]
     },
     {
-      "key": "bb6b641442527d0604ba8e3f5d4c405aa975b0c35166ecf71db09e86a2e56543",
+      "key": "2a478b8a6542898084c84f278669c4fd35f70d7e0b88d961de4e8cfba3e4e841",
       "provider": "menus:remote-access",
-      "identifier": "remote-access:3",
+      "identifier": "remote-access:2",
       "text": "Pair a Device",
       "subtext": "Enter the trusted Moonlight device PIN",
       "icon": "󰌹",
@@ -7552,9 +7455,9 @@
       ]
     },
     {
-      "key": "c818bd78aaa6f32612b980d7bcaaa4c8d2b05e0b0d99cb5df487eda2c7a41ca8",
+      "key": "bb6b641442527d0604ba8e3f5d4c405aa975b0c35166ecf71db09e86a2e56543",
       "provider": "menus:remote-access",
-      "identifier": "remote-access:4",
+      "identifier": "remote-access:3",
       "text": "Sharing Status",
       "subtext": "Show whether Sunshine is running",
       "icon": "󰋽",
@@ -7573,9 +7476,9 @@
       ]
     },
     {
-      "key": "1a638d79617c7593c8911ab783df888bda1ae496b33db503e7b5000ae153c692",
+      "key": "c818bd78aaa6f32612b980d7bcaaa4c8d2b05e0b0d99cb5df487eda2c7a41ca8",
       "provider": "menus:remote-access",
-      "identifier": "remote-access:5",
+      "identifier": "remote-access:4",
       "text": "Start Sharing",
       "subtext": "Give trusted devices control of this desktop",
       "icon": "󰐊",
@@ -7594,9 +7497,9 @@
       ]
     },
     {
-      "key": "1b331e55d00685723a029ff73f6f90a12a6c007cdbccefaa1812cd0463bf1cdf",
+      "key": "1a638d79617c7593c8911ab783df888bda1ae496b33db503e7b5000ae153c692",
       "provider": "menus:remote-access",
-      "identifier": "remote-access:6",
+      "identifier": "remote-access:5",
       "text": "Stop Sharing",
       "subtext": "Stop Sunshine and close its streaming ports",
       "icon": "󰓛",
@@ -7609,185 +7512,6 @@
         "Stop Sunshine and close its streaming ports"
       ],
       "menus": [
-        "system-devices",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "9eee1a1a8545e770f726a4373061cf1c6cb15f6d48b65db4363722c74569420f",
-      "provider": "menus:remote-away-setup",
-      "identifier": "remote-away-setup:0",
-      "text": "Detailed Status",
-      "subtext": "Open the diagnostic report in a terminal",
-      "icon": "󰋽",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Detailed Status",
-        "Detailed Status",
-        "Open the diagnostic report in a terminal"
-      ],
-      "menus": [
-        "remote-away",
-        "remote-access",
-        "system-devices",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "299d04d751b550fb877a2d74c594509ec59e4bce63a09f14faf3c7da6f37905d",
-      "provider": "menus:remote-away-setup",
-      "identifier": "remote-away-setup:1",
-      "text": "Ping a Peer",
-      "subtext": "Check whether a connection is direct or relayed",
-      "icon": "󰒢",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Ping a Peer",
-        "Ping a Peer",
-        "Check whether a connection is direct or relayed"
-      ],
-      "menus": [
-        "remote-away",
-        "remote-access",
-        "system-devices",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "b7f1c1e4a08db9a23d181216220f8ef89ebf16e718eea86749bb1fbab83e86d0",
-      "provider": "menus:remote-away-setup",
-      "identifier": "remote-away-setup:2",
-      "text": "Restore Away Access Setup",
-      "subtext": "Restore tailscaled startup and the previous operator",
-      "icon": "󰦛",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Restore Away Access Setup",
-        "Restore Away Access Setup",
-        "Restore tailscaled startup and the previous operator"
-      ],
-      "menus": [
-        "remote-away",
-        "remote-access",
-        "system-devices",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "f5b13b91e18212a96379587cba477eb114d76914f1c6d4d984d7983e3f6db193",
-      "provider": "menus:remote-away-setup",
-      "identifier": "remote-away-setup:3",
-      "text": "Set Up Away Access",
-      "subtext": "Review and turn on the Tailscale service",
-      "icon": "󰖷",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Set Up Away Access",
-        "Set Up Away Access",
-        "Review and turn on the Tailscale service"
-      ],
-      "menus": [
-        "remote-away",
-        "remote-access",
-        "system-devices",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "8f753e452fc20b91648497622d3168595afddf2ba7f103f00b95aaef512d9c36",
-      "provider": "menus:remote-away-setup",
-      "identifier": "remote-away-setup:4",
-      "text": "Sign In",
-      "subtext": "Open Tailscale sign-in in the browser",
-      "icon": "󰍂",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Sign In",
-        "Sign In",
-        "Open Tailscale sign-in in the browser"
-      ],
-      "menus": [
-        "remote-away",
-        "remote-access",
-        "system-devices",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "dc97894602bac6eff6f6dadd4a06a074ad822b4a14577dc71fa6008bb81cefaa",
-      "provider": "menus:remote-away",
-      "identifier": "remote-away:0",
-      "text": "Setup",
-      "subtext": ">",
-      "icon": "",
-      "actions": [],
-      "keywords": [
-        "Setup",
-        "Setup"
-      ],
-      "menus": [
-        "remote-access",
-        "system-devices",
-        "settings",
-        "main"
-      ],
-      "submenu": "remote-away-setup"
-    },
-    {
-      "key": "dd85f450276482a17bc6a2b87efceb6217b353fde17c3555f98b9fedb43906cf",
-      "provider": "menus:remote-away",
-      "identifier": "remote-away:1",
-      "text": "Connect",
-      "subtext": "Connect this PC to Tailscale",
-      "icon": "󰌘",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Connect",
-        "Connect",
-        "Connect this PC to Tailscale"
-      ],
-      "menus": [
-        "remote-access",
-        "system-devices",
-        "settings",
-        "main"
-      ]
-    },
-    {
-      "key": "501617662d1da1d7da7fbf08253f8c90f685c2b3a4c4db56a3e1c20ccfc25d31",
-      "provider": "menus:remote-away",
-      "identifier": "remote-away:2",
-      "text": "Disconnect",
-      "subtext": "Disconnect this PC from Tailscale",
-      "icon": "󰌙",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "Disconnect",
-        "Disconnect",
-        "Disconnect this PC from Tailscale"
-      ],
-      "menus": [
-        "remote-access",
         "system-devices",
         "settings",
         "main"

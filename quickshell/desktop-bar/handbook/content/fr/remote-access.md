@@ -7,7 +7,7 @@ Si cet ordinateur se verrouille pendant le partage, l’écran distant affiche
 l’écran de verrouillage : la personne connectée le voit et peut saisir le mot de
 passe. Arrêtez le partage avant de vous absenter si la confidentialité compte.
 
-Les dossiers de configuration regroupent les réglages. Streaming > Configuration du partage contient Configurer le partage, Paramètres de partage, Démarrer à la connexion, Désactiver le démarrage à la connexion, État détaillé et Restaurer la configuration du partage. Accéder à ce PC à distance > Configuration contient Se connecter, Configurer l’accès distant, Restaurer la configuration d’accès distant, État détaillé et Tester un pair par ping. Les actions de partage courantes (Démarrer le partage, Arrêter le partage, Associer un appareil, État du partage et Se connecter à un autre PC) restent directement dans Streaming, et Connecter et Déconnecter dans Accéder à ce PC à distance.
+Les dossiers de configuration regroupent les réglages. Streaming > Configuration du partage contient Configurer le partage, Paramètres de partage, Démarrer à la connexion, Désactiver le démarrage à la connexion, État détaillé et Restaurer la configuration du partage. Les actions de partage courantes (Démarrer le partage, Arrêter le partage, Associer un appareil, État du partage et Se connecter à un autre PC) restent directement dans Streaming. Tailscale est le plugin officiel Tailscale, avec son propre panneau dans la barre.
 
 État détaillé ouvre un terminal de diagnostic qui reste ouvert jusqu’à un appui sur Esc.
 
@@ -71,25 +71,23 @@ Raccourcis SUPER depuis le Mac : dans les réglages de Moonlight, activez **Capt
 
 ## Tailscale sur les deux ordinateurs
 
-Dans Accéder à ce PC à distance, choisissez Configurer l’accès extérieur. Après installation,
-l’assistant root confirmé active et démarre `tailscaled.service`, puis définit
-votre utilisateur comme opérateur. La connexion au compte, la connexion au réseau et la déconnexion ne demandent donc aucun mot de passe. Un Tailscale configuré autrement demande le mot de passe administrateur.
+Installez le plugin officiel **Tailscale** (Thèmes et plugins > Plugins) et placez son
+icône depuis Centre de contrôle > Plugins. L’étape **Configurer** de son panneau
+installe Tailscale, active et démarre `tailscaled.service` et définit votre utilisateur
+comme opérateur. La connexion au compte, la connexion au réseau et la déconnexion ne
+demandent donc aucun mot de passe. Se connecter ouvre la page de connexion Tailscale
+dans le navigateur. Le panneau affiche l’adresse Tailscale de ce PC, chaque appareil et
+si son chemin est direct, relayé ou inactif, envoie un ping à un appareil, envoie des
+fichiers avec Taildrop, ouvre un rapport détaillé et annule la configuration d’Eitr
+(l’opérateur et l’état du service précédents reviennent ; le compte Tailscale et les
+paquets restent).
 
-Se connecter ouvre l’URL de `tailscale login` dans le navigateur. Connect connecte ;
-Disconnect déconnecte sans effacer les identifiants. Le plugin officiel Tailscale ajoute une icône à la barre ; son panneau indique
-l’adresse de ce PC, l’absence de connexion au compte et les connexions directes,
-relayées ou inactives, et envoie des fichiers avec Taildrop. Tester un appareil distant utilise `tailscale ping` pour un appareil précis. Le relais peut augmenter la latence et réduire la qualité.
+Les chemins relayés peuvent augmenter la latence et réduire la qualité.
 
 Installez [Tailscale sur le Mac](https://tailscale.com/download/mac), connectez-vous
 au même tailnet et connectez les deux ordinateurs. Ajoutez l’adresse Tailscale
-d’Eitr dans Moonlight et associez comme précédemment. La politique du tailnet doit
-autoriser les ports de diffusion. Les réglages web de Sunshine restent locaux.
-
-Rétablir la configuration d’accès extérieur rétablit l’opérateur et les états de démarrage et
-d’exécution initiaux ; compte et paquets sont conservés. Un service déjà actif le
-reste. Utilisez Disconnect avant si vous voulez couper la connexion. Les erreurs
-restent visibles dans le terminal ; corrigez-les puis réessayez. Aucun paquet
-n’est supprimé implicitement.
+d’Eitr dans Moonlight et associez comme auparavant. La politique du tailnet doit
+autoriser les ports de streaming. Les réglages web de Sunshine restent locaux.
 
 ## Ce qui a été vérifié
 
@@ -101,4 +99,4 @@ Restaurer la configuration sur le réseau domestique, ainsi que la configuration
 la connexion et l’accès Tailscale depuis l’extérieur. Les manettes, les autres
 cartes graphiques et les autres clients n’ont pas été testés.
 
-Streaming se trouve à côté de Connexions dans Périphériques. Sunshine affiche l’état du partage, la configuration, le démarrage/arrêt, le lancement à la connexion, l’association, les réglages, le diagnostic et la restauration. Moonlight affiche l’état d’installation et un bouton installer/ouvrir. Tailscale reste dans ses menus et son panneau actuels.
+Streaming se trouve à côté de Connexions dans Périphériques. Sunshine affiche l’état du partage, la configuration, le démarrage/arrêt, le lancement à la connexion, l’association, les réglages, le diagnostic et la restauration. Moonlight affiche l’état d’installation et un bouton installer/ouvrir. Tailscale est un plugin avec son propre panneau.

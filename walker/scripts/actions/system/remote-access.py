@@ -211,7 +211,7 @@ def login():
                 open_page(url)
                 opened.add(url)
         if process.wait():
-            raise RuntimeError(tr('Tailscale sign-in failed. Try again from Access This PC Remotely.'))
+            raise RuntimeError(tr('Tailscale sign-in failed. Try again from the Tailscale panel.'))
 
 
 def status():

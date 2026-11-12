@@ -195,7 +195,7 @@ class PolicyEnforcement(unittest.TestCase):
         remote = module('profile_remote', 'walker/scripts/actions/system/remote-access.py')
         root_remote = module('profile_root_remote', 'distro/system/eitr_remote.py')
         with patch.object(policy, 'load', return_value={'remote_access': False}):
-            for menu in ('remote-access', 'remote-away', 'remote-share-setup'):
+            for menu in ('remote-access', 'remote-share-setup'):
                 for row in menus.rows(menu):
                     self.assertFalse(policy.row_allowed({**row, 'provider': 'menus:' + menu}))
             with self.assertRaisesRegex(ValueError, 'Disabled'):
@@ -247,7 +247,7 @@ class PolicyEnforcement(unittest.TestCase):
         script = '''
 local policies = dofile('elephant/policies.lua')
 policies.allowed = function(feature) return false end
-for _, menu in ipairs({'remote-access', 'remote-away', 'remote-share-setup', 'gaming', 'update-channel'}) do
+for _, menu in ipairs({'remote-access', 'remote-share-setup', 'gaming', 'update-channel'}) do
     assert(#policies.filter({{Text='Example', Actions={open='command'}}}, menu) == 0, menu)
 end
 assert(#policies.filter({{Text='Let assistants work together'}}, 'ai-tools') == 0)

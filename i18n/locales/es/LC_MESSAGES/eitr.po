@@ -853,9 +853,6 @@ msgstr "Conectar"
 msgid "Connect after import"
 msgstr "Conectar tras importar"
 
-msgid "Connected"
-msgstr "Conectado"
-
 msgid "Connected. Restart open assistant sessions to use it."
 msgstr "Conectado. Reinicia las sesiones de asistentes abiertas para usarlo."
 
@@ -1096,9 +1093,6 @@ msgstr "Escritorio: Afterglow / Clockwork Tape, instalado sin conexión antes de
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Registros detallados: /var/log/archinstall. No se modificó nada después del paso que falló."
 
-msgid "Device"
-msgstr "Dispositivo"
-
 msgid "Direct"
 msgstr "Directa"
 
@@ -1107,9 +1101,6 @@ msgstr "Desactivado por la política de organización: {feature}"
 
 msgid "Disconnect"
 msgstr "Desconectar"
-
-msgid "Disconnected"
-msgstr "Desconectado"
 
 msgid "Disk"
 msgstr "Disco"
@@ -2067,9 +2058,6 @@ msgstr "Pon nombre a las suscripciones que quieres en el menú"
 
 msgid "Name this computer."
 msgstr "Asigna un nombre a este equipo."
-
-msgid "Network"
-msgstr "Red"
 
 msgid "Network ACLs"
 msgstr "ACL de red"
@@ -3202,9 +3190,6 @@ msgstr "Estado de sesión y del sitio"
 msgid "Sign-in method"
 msgstr "Método de acceso"
 
-msgid "Signed out"
-msgstr "Sesión sin iniciar"
-
 msgid "Sites"
 msgstr "Sitios"
 
@@ -3433,14 +3418,8 @@ msgstr "Tab / flechas: elegir  Enter: seleccionar  PgUp/PgDn: desplazar  Esc: ca
 msgid "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel"
 msgstr "Tab seleccionar · Enter instalar · Ctrl+D eliminar\nCtrl+F instalados/todos · Ctrl+B compilación / detalles\nCtrl+O abrir en navegador · Esc cancelar"
 
-msgid "Tailscale IP"
-msgstr "IP de Tailscale"
-
 msgid "Tailscale could not change state."
 msgstr "Tailscale no pudo cambiar de estado."
-
-msgid "Tailscale is not installed."
-msgstr "Tailscale no está instalado."
 
 msgid "Tailscale is now a plugin"
 msgstr "Tailscale ahora es un plugin"
@@ -3451,14 +3430,11 @@ msgstr "Tailscale necesita tu contraseña de administrador una vez para que esta
 msgid "Tailscale setup belongs to another desktop user"
 msgstr "La configuración de Tailscale pertenece a otro usuario"
 
-msgid "Tailscale sign-in failed. Try again from Access This PC Remotely."
-msgstr "Falló el inicio de sesión en Tailscale. Inténtalo de nuevo desde Acceder a este PC en remoto."
+msgid "Tailscale sign-in failed. Try again from the Tailscale panel."
+msgstr "Error al iniciar sesión en Tailscale. Inténtalo de nuevo desde el panel de Tailscale."
 
 msgid "Tailscale state: {state}"
 msgstr "Estado de Tailscale: {state}"
-
-msgid "Tailscale status unavailable."
-msgstr "El estado de Tailscale no está disponible."
 
 msgid "Target"
 msgstr "Destino"

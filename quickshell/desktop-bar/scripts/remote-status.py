@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Read local remote-access status and expose the menus' existing actions."""
+"""Read desktop sharing (Sunshine) status and expose its menu's existing actions.
+Tailscale is a plugin with its own status and panel."""
 import eitr_bootstrap
 from eitr_i18n import tr, table
 from eitr_menu import rows
@@ -14,7 +15,7 @@ def query(arguments):
 
 
 # Each menu's setup folder; Streaming (remote-access) holds Sunshine's rows directly.
-SETUP_MENUS = {'remote-away': 'remote-away-setup', 'remote-access': 'remote-share-setup'}
+SETUP_MENUS = {'remote-access': 'remote-share-setup'}
 
 
 def menu_actions(menu):
@@ -25,39 +26,7 @@ def menu_actions(menu):
     return [{'menu': owner, 'source': row['text'], 'title': messages.get(row['text'], row['text']),
              'description': messages.get(row.get('subtext', ''), row.get('subtext', '')),
              'icon': row.get('icon', '')}
-            for owner, row in sources if row.get('actions') and row['text'] not in ('Sharing Status', 'Connection Status', 'Log In')]
-
-
-def tailscale_status():
-    state = {'installed': bool(shutil.which('tailscale')), 'connected': False, 'signedOut': False,
-             'addresses': [], 'peers': [], 'facts': []}
-    if not state['installed']:
-        return {**state, 'status': tr('Tailscale is not installed.')}
-    try:
-        response = query(['tailscale', 'status', '--json'])
-        if response.returncode:
-            raise ValueError('Status unavailable')
-        data = json.loads(response.stdout)
-        backend = data.get('BackendState')
-        state['connected'] = backend == 'Running'
-        state['signedOut'] = backend == 'NeedsLogin'
-        state['status'] = (tr('Connected') if backend == 'Running' else tr('Signed out') if backend == 'NeedsLogin'
-                           else tr('Disconnected') if backend == 'Stopped' else tr('Tailscale status unavailable.'))
-        state['addresses'] = data.get('TailscaleIPs') or []
-        local = data.get('Self') or {}
-        state['facts'] = [
-            {'label': tr('Device'), 'value': local.get('HostName') or tr('Unavailable')},
-            {'label': tr('Tailscale IP'), 'value': ', '.join(state['addresses']) or tr('Unavailable')},
-            {'label': tr('Network'), 'value': (data.get('CurrentTailnet') or {}).get('Name') or tr('Unavailable')},
-        ]
-        state['peers'] = sorted([
-            {'name': peer.get('HostName') or peer.get('DNSName', ''),
-             'connection': (tr('Direct') if peer.get('CurAddr') else tr('Relayed') if peer.get('Relay')
-                            else tr('Idle; ping to check')) if peer.get('Active') else tr('Idle; ping to check')}
-            for peer in (data.get('Peer') or {}).values() if peer.get('Online')], key=lambda peer: peer['name'].casefold())
-    except (OSError, ValueError, TypeError, AttributeError, subprocess.SubprocessError):
-        state['status'] = tr('Tailscale status unavailable.')
-    return state
+            for owner, row in sources if row.get('actions') and row['text'] != 'Sharing Status']
 
 
 def streaming_status():
@@ -89,9 +58,8 @@ def streaming_status():
 def status():
     from eitr_policy import allowed
     if not allowed('remote_access'):
-        return {'allowed': False, 'tailscale': {}, 'streaming': {}}
-    return {'allowed': True, 'tailscale': {**tailscale_status(), 'actions': menu_actions('remote-away')},
-            'streaming': {**streaming_status(), 'actions': menu_actions('remote-access')}}
+        return {'allowed': False, 'streaming': {}}
+    return {'allowed': True, 'streaming': {**streaming_status(), 'actions': menu_actions('remote-access')}}
 
 
 if __name__ == '__main__':

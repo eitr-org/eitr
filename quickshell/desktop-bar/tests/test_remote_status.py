@@ -13,36 +13,6 @@ SPEC.loader.exec_module(status)
 
 
 class RemoteStatusTests(unittest.TestCase):
-    def test_online_peers_are_filtered_and_sorted_without_queries(self):
-        data = {'BackendState': 'Running', 'TailscaleIPs': ['100.64.0.1'],
-                'Self': {'HostName': 'desktop'}, 'CurrentTailnet': {'Name': 'example'},
-                'Peer': {'a': {'HostName': 'zebra', 'Online': True, 'Active': True, 'CurAddr': 'direct'},
-                         'b': {'HostName': 'alpha', 'Online': True, 'Active': False, 'Relay': 'relay'},
-                         'c': {'HostName': 'offline', 'Online': False}}}
-        with patch.object(status.shutil, 'which', return_value='/usr/bin/tailscale'), \
-                patch.object(status, 'query', return_value=subprocess.CompletedProcess([], 0, json.dumps(data))) as query:
-            result = status.tailscale_status()
-        query.assert_called_once_with(['tailscale', 'status', '--json'])
-        self.assertEqual([peer['name'] for peer in result['peers']], ['alpha', 'zebra'])
-        self.assertEqual(result['peers'][0]['connection'], 'Idle; ping to check')
-        self.assertEqual(result['facts'][0]['value'], 'desktop')
-
-    def test_unavailable_and_signed_out_are_not_connected(self):
-        with patch.object(status.shutil, 'which', return_value='/usr/bin/tailscale'):
-            for response, expected in ((subprocess.TimeoutExpired('tailscale', 3), 'Tailscale status unavailable.'),
-                                       (subprocess.CompletedProcess([], 1, '{}'), 'Tailscale status unavailable.'),
-                                       (subprocess.CompletedProcess([], 1, '{"BackendState":"Running"}'), 'Tailscale status unavailable.'),
-                                       (subprocess.CompletedProcess([], 0, '{"BackendState":"NeedsLogin"}'), 'Signed out')):
-                with self.subTest(expected=expected), patch.object(status, 'query') as query:
-                    if isinstance(response, Exception):
-                        query.side_effect = response
-                    else:
-                        query.return_value = response
-                    result = status.tailscale_status()
-                    self.assertEqual(result['status'], expected)
-                    self.assertFalse(result['connected'])
-                    self.assertEqual(result['signedOut'], expected == 'Signed out')
-
     def test_moonlight_status_is_independent_of_sunshine(self):
         with patch.object(status.shutil, 'which', side_effect=lambda executable: '/usr/bin/moonlight' if executable == 'moonlight' else None), patch.object(status, 'query') as query:
             result = status.streaming_status()
@@ -60,12 +30,16 @@ class RemoteStatusTests(unittest.TestCase):
 
     def test_panel_actions_keep_setup_in_walker_and_exclude_self_links(self):
         with patch.dict(os.environ, EITR_CODE_ROOT=str(ROOT)), patch.object(status, 'table', return_value={}):
-            rows = status.menu_actions('remote-away')
+            rows = status.menu_actions('remote-access')
         titles = [row['source'] for row in rows]
-        self.assertIn('Connect', titles)
-        self.assertIn('Detailed Status', titles)
-        self.assertIn('Sign In', titles)
-        self.assertNotIn('Connection Status', titles)
+        self.assertIn('Start Sharing', titles)
+        self.assertIn('Set Up Sharing', titles)
+        self.assertNotIn('Sharing Status', titles)
+
+    def test_tailscale_is_left_to_its_plugin(self):
+        with patch('eitr_policy.allowed', return_value=True), \
+                patch.object(status, 'streaming_status', return_value={}), patch.object(status, 'menu_actions', return_value=[]):
+            self.assertEqual(set(status.status()), {'allowed', 'streaming'})
 
 
 class RemoteDomainTests(unittest.TestCase):
@@ -82,15 +56,13 @@ class RemoteDomainTests(unittest.TestCase):
                 patch.object(self.domain.adapter, 'query') as query:
             result = self.domain.read('remote.status')
         query.assert_not_called()
-        self.assertFalse(result['tailscale']['installed'])
-        self.assertEqual(result['tailscale']['status'], 'Tailscale is not installed.')
         self.assertEqual(result['streaming']['status'], 'Sunshine is not installed.')
 
     def test_policy_denied_skips_clients_and_actions(self):
         with patch('eitr_policy.allowed', return_value=False), \
                 patch.object(self.domain.adapter, 'query') as query, \
                 patch.object(self.domain.adapter, 'menu_actions') as actions:
-            self.assertEqual(self.domain.read('remote.status'), {'allowed': False, 'tailscale': {}, 'streaming': {}})
+            self.assertEqual(self.domain.read('remote.status'), {'allowed': False, 'streaming': {}})
             self.assertEqual(self.domain.read('remote.availability'), {'allowed': False})
         query.assert_not_called()
         actions.assert_not_called()
@@ -101,7 +73,6 @@ class RemoteDomainTests(unittest.TestCase):
                 patch.object(self.domain.adapter, 'query', side_effect=subprocess.TimeoutExpired('fixture', 3)), \
                 patch.object(self.domain.adapter, 'menu_actions', return_value=[]):
             result = self.domain.read('remote.status')
-        self.assertEqual(result['tailscale']['status'], 'Tailscale status unavailable.')
         self.assertEqual(result['streaming']['status'], 'Sharing status unavailable.')
 
     def test_availability_does_not_read_clients(self):
