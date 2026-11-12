@@ -213,8 +213,10 @@ def scopes(routes, interfaces=None):
     return sorted(set(result))
 
 
-def firewall_text(allowed):
-    sources = [*allowed, 'iifname "tailscale0"']
+def firewall_text(allowed, tailscale=False):
+    """Sharing's firewall openings and early guard for the allowed LAN scopes, plus the
+    Tailscale interface while Eitr's Tailscale setup (the Tailscale plugin's Set up) is in place."""
+    sources = [*allowed, *(['iifname "tailscale0"'] if tailscale else [])]
     openings = ''.join(f'add rule inet eitr_firewall input {source} {ports} accept\n' for source in sources for ports in (PORTS, UDP))
     guard = ('table inet eitr_remote\ndelete table inet eitr_remote\n'
              'table inet eitr_remote { chain input { type filter hook input priority -10; policy accept;\n'
@@ -254,7 +256,6 @@ def sharing(name, enabled):
         # Keep the early guard while the process finishes stopping. The empty
         # allowlist blocks all streaming interfaces, including established flows.
         _, guard = firewall_text([])
-        guard = guard.replace('iifname "tailscale0" ' + PORTS + ' return\n', '').replace('iifname "tailscale0" ' + UDP + ' return\n', '')
         write(GUARD, guard, 0o644)
         run(['nft', '-f', str(GUARD)])
         if firewall_active():
@@ -267,7 +268,7 @@ def sharing(name, enabled):
     routes = json.loads(output(['ip', '-j', 'route', 'show', 'scope', 'link']))
     routes += json.loads(output(['ip', '-j', '-6', 'route', 'show', 'scope', 'link']))
     interfaces = {interface.name for interface in (ROOT / 'sys/class/net').glob('*') if (interface / 'device').exists()}
-    openings, guard = firewall_text(scopes(routes, interfaces))
+    openings, guard = firewall_text(scopes(routes, interfaces), tailscale=journal('tailscale') is not None)
     save('sharing', {'user': name, 'openings': openings})
     try:
         write(GUARD, guard, 0o644)
@@ -360,6 +361,15 @@ def tailscale(name, undo=False):
             run(['systemctl', 'stop', UNIT])
         run(['systemctl', 'enable' if previous['enabled'] else 'disable', UNIT])
         (STATE / 'tailscale.json').unlink()
+    reopen_sharing(name)
+
+
+def reopen_sharing(name):
+    """Sharing that is open recomputes its openings, so Tailscale setup or its undo
+    opens or closes the Tailscale interface without restarting Sunshine."""
+    sunshine = journal('sunshine')
+    if RULES.exists() and sunshine and sunshine['user'] == name:
+        sharing(name, True)
 
 
 # Closing ports and undoing setup always work, so a policy added after sharing

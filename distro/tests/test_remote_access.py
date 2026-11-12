@@ -99,11 +99,29 @@ class RemoteSystemTests(unittest.TestCase):
         self.assertNotIn('47990', openings)
         self.assertIn('iifname != "lo" tcp dport 47990 drop', guard)
         self.assertIn('priority -10', guard)
-        self.assertIn('tailscale0', openings)
+        self.assertNotIn('tailscale0', openings + guard)
         self.assertNotIn('ct state established', guard)
         for line in openings.splitlines():
             self.assertIn('iifname ', line)
         self.assertIn('47998-48000', openings)
+
+    def test_tailscale_interface_opens_only_while_tailscale_setup_is_in_place(self):
+        openings, guard = remote.firewall_text(['iifname "enp1s0" ip saddr 192.168.1.0/24'], tailscale=True)
+        self.assertIn('iifname "tailscale0" ' + remote.PORTS + ' accept', openings)
+        self.assertIn('iifname "tailscale0" ' + remote.UDP + ' return', guard)
+        self.setup_sharing()
+        remote.arm('tester')
+        routes = json.dumps([{'dst': '192.168.1.0/24', 'dev': 'enp1s0'}])
+        with patch.object(remote, 'capture_ready', return_value=True), \
+                patch.object(remote, 'output', side_effect=lambda command: routes if command[:2] == ['ip', '-j'] else ''):
+            remote.sharing('tester', True)
+            self.assertNotIn('tailscale0', remote.RULES.read_text())
+            remote.save('tailscale', {'user': 'tester', 'enabled': False, 'active': False, 'operator': ''})
+            remote.reopen_sharing('tester')
+            self.assertIn('tailscale0', remote.RULES.read_text())
+            (remote.STATE / 'tailscale.json').unlink()
+            remote.reopen_sharing('tester')
+            self.assertNotIn('tailscale0', remote.RULES.read_text())
 
     def test_setup_is_idempotent_and_journal_precedes_mutations(self):
         self.setup_sharing()

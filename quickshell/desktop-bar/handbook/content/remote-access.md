@@ -40,7 +40,7 @@ shown on your own Moonlight device. Keep automatic router configuration off;
 Eitr enforces `upnp=off`. Do not configure router port forwarding.
 
 TCP 47984, 47989 and 48010 and UDP 47998-48000 are permitted only from directly
-connected private LAN subnets and `tailscale0`. TCP 47990 is restricted to this PC,
+connected private LAN subnets. TCP 47990 is restricted to this PC,
 even when another firewall rule would permit it. LAN scopes are captured at each
 start; stop and start sharing after changing networks. Use only trusted home
 networks.

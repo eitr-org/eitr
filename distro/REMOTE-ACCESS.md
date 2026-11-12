@@ -27,7 +27,9 @@ reuse that decision.
 
 The priority -10 nftables guard rejects remote TCP 47990 before connection tracking
 or broad rules in the base firewall. It rejects streaming outside connected private
-LAN scopes and tailscale0, even when the base firewall has other allowances. The
+LAN scopes (plus tailscale0 while Eitr's Tailscale setup is in place: the Tailscale
+plugin's Set up runs `remote-tailscale`, its undo closes it again, and open sharing is
+reapplied either way), even when the base firewall has other allowances. The
 base firewall must be active to enable streams. Runtime openings live under /run,
 so reboot cannot leave them enabled without a new service start. ExecStopPost
 revokes them after normal exit, startup failure or a crash; the early guard also

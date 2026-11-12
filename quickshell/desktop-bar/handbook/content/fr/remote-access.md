@@ -35,7 +35,7 @@ Associer un appareil ouvre la page du PIN. Saisissez uniquement le PIN de votre 
 Moonlight. Eitr impose `upnp=off`. Ne configurez pas de redirection de ports sur le routeur.
 
 TCP 47984, 47989 et 48010 et UDP 47998-48000 sont autorisés uniquement depuis les
-sous-réseaux LAN privés directement connectés et `tailscale0`. TCP 47990 reste
+sous-réseaux LAN privés directement connectés. TCP 47990 reste
 accessible seulement depuis ce PC, même si une autre règle autorise l’accès. Les réseaux sont déterminés à chaque démarrage du partage ; relancez-le après un
 changement de réseau.
 

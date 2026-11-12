@@ -32,7 +32,7 @@ die PIN-Seite. Geben Sie nur die PIN Ihres eigenen Moonlight-Geräts ein.
 Eitr erzwingt `upnp=off`. Richten Sie keine Portweiterleitung am Router ein.
 
 TCP 47984, 47989 und 48010 sowie UDP 47998-48000 sind nur aus direkt verbundenen
-privaten LAN-Subnetzen und über `tailscale0` zugänglich. TCP 47990 bleibt auf diesen
+privaten LAN-Subnetzen zugänglich. TCP 47990 bleibt auf diesen
 PC beschränkt, auch wenn andere Regeln Zugriff erlauben. LAN-Bereiche werden bei
 jedem Start ermittelt; starten Sie die Freigabe nach einem Netzwechsel neu. Verwenden Sie nur ein vertrautes Heimnetz.
 

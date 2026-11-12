@@ -34,7 +34,7 @@ del PIN. Introduzca solo el PIN de su propio Moonlight. Eitr impone `upnp=off`.
 No configure redirección de puertos en el router.
 
 TCP 47984, 47989 y 48010 y UDP 47998-48000 solo admiten subredes LAN privadas
-directamente conectadas y `tailscale0`. TCP 47990 solo es accesible desde este PC,
+directamente conectadas. TCP 47990 solo es accesible desde este PC,
 aunque otra regla lo permitiese. Las redes se identifican en cada inicio; detenga
 y vuelva a iniciar al cambiar de red. Use solo una red doméstica de confianza.
 
