@@ -3688,9 +3688,9 @@
     },
     {
       "key": "SUPER + Ctrl + U",
-      "description": "Quarter-size window",
-      "line": "  SUPER + Ctrl + U          Quarter-size window",
-      "command": "\"$EITR_CODE_ROOT/hypr/scripts/window-quarter-size.sh\""
+      "description": "Cycle window size: 2/3, 1/3, half",
+      "line": "  SUPER + Ctrl + U          Cycle window size: 2/3, 1/3, half",
+      "command": "\"$EITR_CODE_ROOT/hypr/scripts/window-size-cycle.sh\""
     },
     {
       "key": "SUPER + Ctrl + H",

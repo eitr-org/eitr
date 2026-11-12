@@ -129,7 +129,6 @@
   "Previous tab": "Previous tab",
   "Print": "Print",
   "Projects, AI CLIs, Cloud, Grafana, optional languages and databases": "Projects, AI CLIs, Cloud, Grafana, optional languages and databases",
-  "Quarter-size window": "Quarter-size window",
   "Quick controls, tools, chat and installed plugins": "Quick controls, tools, chat and installed plugins",
   "Raise brightness": "Raise brightness",
   "Raise volume": "Raise volume",
@@ -217,5 +216,6 @@
   "Move column right (scrolling only)": "Move column right (scrolling only)",
   "Next column width (scrolling only)": "Next column width (scrolling only)",
   "Previous column width (scrolling only)": "Previous column width (scrolling only)",
-  "Full / Centered / Tabs / Islands / Dynamic / Drop": "Full / Centered / Tabs / Islands / Dynamic / Drop"
+  "Full / Centered / Tabs / Islands / Dynamic / Drop": "Full / Centered / Tabs / Islands / Dynamic / Drop",
+  "Cycle window size: 2/3, 1/3, half": "Cycle window size: 2/3, 1/3, half"
 }

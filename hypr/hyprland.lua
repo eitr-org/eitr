@@ -369,7 +369,7 @@ hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.resize({ x = -15, y = 0, relati
 hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.resize({ x = 0, y = 15, relative = true }), { repeating = true })
 hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.resize({ x = 0, y = -15, relative = true }), { repeating = true })
 hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.resize({ x = 15, y = 0, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + CTRL + u", hl.dsp.exec_cmd(hyprScriptsDir .. "/window-quarter-size.sh"))
+hl.bind(mainMod .. " + CTRL + u", hl.dsp.exec_cmd(hyprScriptsDir .. "/window-size-cycle.sh"))
 
 -- Move active window
 hl.bind(mainMod .. " + CTRL + h", hl.dsp.window.move({ direction = "l" }))
