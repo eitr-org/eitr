@@ -97,8 +97,6 @@ item says what decides the next step. Remove an item when it ships;
 - **Wallpaper per display: the parts not tried yet.** The switch, preview, carousel and
   theme resets passed the owner's test (2026-11-10); still untried: plugging a display
   in and out, and each display's wallpaper coming back at login.
-- **Themes & Plugins Update all.** Shipped untested: it appears only when an installed
-  theme or plugin has an update. Try it the next time one does.
 
 # 3. Waiting on others
 

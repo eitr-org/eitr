@@ -446,6 +446,12 @@ ShellRoot {
       panel.prepareReview({id:"gallery", updating:true});
       if (panel.nativeReviewing || panel.busy || panel.updates.gallery !== undefined || panel.progress === "") throw new Error("up to date update");
       panel.progress = "";
+      // Confirming an update review clears that plugin's update mark (Update all and the card's Update).
+      panel.updates = {gallery: 1};
+      panel.transport = function(name,args,callback) { callback("", name === "prepare" ? {review:{token:"update-token",spec:{name:"Gallery"},changes:{new:"b"}}} : {result:[]}); };
+      panel.prepareReview({id:"gallery", updating:true});
+      panel.nativeConfirm();
+      if (panel.updates.gallery !== undefined || panel.pendingUpdates.length || panel.reviewUpdating) throw new Error("a confirmed plugin update keeps its Update mark");
       panel.transport = function(name,args,callback) {
        if (name === "prepare") callback("",{review:{token:"fixture-token",packages:[{name:"tailscale",installed:true},{name:"wireguard-tools",installed:false}],spec:{name:"Gallery plugin",author:"Example author",version:"1.2",rows:[{title:"Open notes",run:"notes.sh"}],ui:{widgets:[{title:"Desktop notes",qml:"Notes.qml"}]}},url:"https://github.com/eitr-org/eitr-plugins",folder:"plugins/gallery",commit:"0123456789abcdef0123456789abcdef01234567",official:true,author:"Example author · 2026-11-03",files:["eitr-plugin.json","Notes.qml","notes.sh"],flags:[]}});
        else callback("",{});

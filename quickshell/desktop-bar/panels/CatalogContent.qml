@@ -51,6 +51,8 @@ Item {
     property var nativeReview: null
     property bool nativeReviewing: false
     property bool confirmingReview: false
+    // The plugin an open update review is for; confirming it clears that plugin's update mark.
+    property string reviewUpdating: ""
     property bool addingAddress: false
     // Themes a Git address offers: chosen as cards, then reviewed together.
     property var gitSelected: []
@@ -119,6 +121,7 @@ Item {
     }
     function prepareReview(args, queued) {
         if (!args.ids && !queued) { gitSelected = []; gitArtwork = ({}); pluginQueue = []; pluginQueueTotal = 0; }
+        reviewUpdating = args.updating ? args.id : "";
         nativeReviewing = true; nativeReview = null; reviewSourcePath = ""; reviewSourceText = ""; addingAddress = false; advice = ""; error = ""; busy = true;
         request("prepare", args, function(failure, data) {
             if (!nativeReviewing) return;
@@ -344,6 +347,7 @@ Item {
             if (name === "confirm" && failure) nativeReview = null;
             if (!failure) { nativeReview = null; nativeReviewing = false; selected = []; reviewing = false; reviewIds = null; removing = null; }
             if (!failure && name === "update") forgetUpdate(args.id);
+            if (!failure && name === "confirm" && reviewUpdating) { forgetUpdate(reviewUpdating); reviewUpdating = ""; }
             refreshInstalled();
             if (!failure && name === "confirm" && pluginQueue.length) {
                 const next = pluginQueue[0];
