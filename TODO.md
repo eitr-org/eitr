@@ -63,7 +63,8 @@ item says what decides the next step. Remove an item when it ships;
   (2026-11-11). Owner's choices (2026-11-12): Sunshine on the login screen behind its own
   switch beside Start at Login (a system Sunshine with KMS capture while SDDM shows, handing
   over to the session's Sunshine after sign-in), and headless use (a virtual display sized
-  to the Moonlight client); wake on LAN is left to people who want it.
+  to the Moonlight client); wake on LAN is left to people who want it. On hold; the agreed
+  design, including several users on one PC, is in `eitr-testing/codex-wip/remote-access-next/PLAN.md`.
 - **Git & Cloud for many companies** (Walker; Settings no longer has the page): group
   each company's cloud profiles and contexts with its Git identity and folder rules.
 - **Dynamic island, next.** Live activities in the clock island beyond the capture
