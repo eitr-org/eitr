@@ -734,8 +734,6 @@
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Crash Notifications": [
-      "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
-      "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
@@ -2364,6 +2362,9 @@
     "Scheduled": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "Screen": [
+      "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
+    ],
     "Screenshots": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -2511,7 +2512,6 @@
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Show help notifications when a program crashes.": [
-      "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Show icons": [

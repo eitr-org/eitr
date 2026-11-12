@@ -11,7 +11,8 @@ Seine Seiten sind Allgemein, Plugins und Werkzeuge. Die Zahnrad-Schaltfläche da
 Die Seite Allgemein. Die Schaltflächen links wechseln zwischen Allgemein, Plugins und Werkzeuge; das Zahnrad darunter öffnet die Einstellungen. Ein eingeschalteter Schalter füllt sich mit der Akzentfarbe des Designs.
 
 - **Verbindungen:** WiFi- und Bluetooth-Schalter sowie Flugmodus.
-- **Schnellaktionen:** automatische Bildschirmsperre, Nicht stören, Spielmodus (Effekte, Unschärfe und Popups aus, Leistungsprofil an, bis du ihn ausschaltest) und Nachtlicht. Darunter führen Leiste ausblenden (SUPER+Shift+Space holt sie zurück) und Bildschirmschoner einmalig eine Aktion aus.
+- **Schnellaktionen:** automatische Bildschirmsperre, Nicht stören, Spielmodus (Effekte, Unschärfe und Popups aus, Leistungsprofil an, bis du ihn ausschaltest) und Nachtlicht.
+- **Bildschirm:** Leiste ausblenden (SUPER+Shift+Space holt sie zurück) und Bildschirmschoner starten führen einmalig eine Aktion aus.
 - **Ton:** Lautstärke sowie Mikrofonverstärkung und Stummschaltung, dazu zwei optionale, standardmäßig ausgeschaltete Schalter: **Benachrichtigungstöne** (ein Klang, ein anderer für dringende Benachrichtigungen; unwichtige bleiben still) und auf PCs mit Akku **Ladetöne** beim An- und Abstecken des Ladegeräts. Beide schweigen bei Nicht stören und im Spielmodus. Walker > Einstellungen > Geräte > Ereignisklänge bietet dieselben Schalter.
 - **Bildschirm:** Helligkeit, auf Laptops mit eingebautem Bildschirm.
 - **Medien:** Cover, Interpret, Wiedergabesteuerung und Positionswahl, sofern unterstützt.

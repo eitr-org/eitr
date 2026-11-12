@@ -999,7 +999,8 @@ var qml = {
     "Tap to click": "Tap to click",
     "The mouse wheel moves the content, like a touchscreen.": "The mouse wheel moves the content, like a touchscreen.",
     "Touchpad": "Touchpad",
-    "Two fingers move the content, like a touchscreen.": "Two fingers move the content, like a touchscreen."
+    "Two fingers move the content, like a touchscreen.": "Two fingers move the content, like a touchscreen.",
+    "Screen": "Screen"
   },
   "pt_BR": {
     "%1 Hz": "%1 Hz",
@@ -1977,7 +1978,8 @@ var qml = {
     "Tap to click": "Tocar para clicar",
     "The mouse wheel moves the content, like a touchscreen.": "A roda do mouse move o conteúdo, como numa tela sensível ao toque.",
     "Touchpad": "Touchpad",
-    "Two fingers move the content, like a touchscreen.": "Dois dedos movem o conteúdo, como numa tela sensível ao toque."
+    "Two fingers move the content, like a touchscreen.": "Dois dedos movem o conteúdo, como numa tela sensível ao toque.",
+    "Screen": "Tela"
   },
   "es": {
     "%1 Hz": "%1 Hz",
@@ -2955,7 +2957,8 @@ var qml = {
     "Tap to click": "Tocar para hacer clic",
     "The mouse wheel moves the content, like a touchscreen.": "La rueda del ratón mueve el contenido, como en una pantalla táctil.",
     "Touchpad": "Panel táctil",
-    "Two fingers move the content, like a touchscreen.": "Dos dedos mueven el contenido, como en una pantalla táctil."
+    "Two fingers move the content, like a touchscreen.": "Dos dedos mueven el contenido, como en una pantalla táctil.",
+    "Screen": "Pantalla"
   },
   "de": {
     "%1 Hz": "%1 Hz",
@@ -3933,7 +3936,8 @@ var qml = {
     "Tap to click": "Tippen zum Klicken",
     "The mouse wheel moves the content, like a touchscreen.": "Das Mausrad bewegt den Inhalt, wie auf einem Touchscreen.",
     "Touchpad": "Touchpad",
-    "Two fingers move the content, like a touchscreen.": "Zwei Finger bewegen den Inhalt, wie auf einem Touchscreen."
+    "Two fingers move the content, like a touchscreen.": "Zwei Finger bewegen den Inhalt, wie auf einem Touchscreen.",
+    "Screen": "Bildschirm"
   },
   "fr": {
     "%1 Hz": "%1 Hz",
@@ -4911,6 +4915,7 @@ var qml = {
     "Tap to click": "Toucher pour cliquer",
     "The mouse wheel moves the content, like a touchscreen.": "La molette déplace le contenu, comme sur un écran tactile.",
     "Touchpad": "Pavé tactile",
-    "Two fingers move the content, like a touchscreen.": "Deux doigts déplacent le contenu, comme sur un écran tactile."
+    "Two fingers move the content, like a touchscreen.": "Deux doigts déplacent le contenu, comme sur un écran tactile.",
+    "Screen": "Écran"
   }
 };

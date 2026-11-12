@@ -17,8 +17,8 @@ The General page. The buttons on the left switch between General, Plugins and To
 - **Connectivity:** WiFi and Bluetooth power toggles, plus Airplane mode.
 - **Quick Actions:** automatic Idle Lock, Do Not Disturb, Game Mode (effects, blur
   and popups off and the performance profile on, until you turn it off) and Night
-  Light. Below them, Hide Bar
-  (SUPER+Shift+Space brings it back) and Screensaver run once.
+  Light.
+- **Screen:** Hide Bar (SUPER+Shift+Space brings it back) and Start Screensaver run once.
 - **Sound:** volume and microphone gain/mute, and two optional switches, off by
   default: **Notification sounds** (a chime, a different one for urgent
   notifications; low-priority ones stay silent) and, on PCs with a battery,

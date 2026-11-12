@@ -11,7 +11,8 @@ Suas páginas são Geral, Plugins e Ferramentas. O botão de engrenagem abaixo d
 A página Geral. Os botões à esquerda alternam entre Geral, Plugins e Ferramentas; a engrenagem abaixo abre Configurações. Um controle ligado fica preenchido com a cor de destaque do tema.
 
 - **Conectividade:** ligar/desligar WiFi e Bluetooth, além do Modo avião.
-- **Ações rápidas:** Bloqueio automático, Não perturbe, Modo jogo (desativa efeitos, desfoque e pop-ups e ativa o perfil de desempenho até você desligá-lo) e Luz noturna. Abaixo, Ocultar barra (SUPER+Shift+Space a traz de volta) e Protetor de tela executam uma vez.
+- **Ações rápidas:** Bloqueio automático, Não perturbe, Modo jogo (desativa efeitos, desfoque e pop-ups e ativa o perfil de desempenho até você desligá-lo) e Luz noturna.
+- **Tela:** Ocultar barra (SUPER+Shift+Space a traz de volta) e Iniciar protetor de tela executam uma vez.
 - **Som:** volume e ganho/mudo do microfone, e dois interruptores opcionais, desligados por padrão: **Sons de notificação** (um aviso, outro para notificações urgentes; as de baixa prioridade ficam em silêncio) e, em PCs com bateria, **Sons do carregador** ao conectar ou desconectar. Nenhum toca em Não perturbe nem no Modo jogo. Walker > Configurações > Dispositivos > Sons de eventos oferece os mesmos interruptores.
 - **Tela:** brilho, em notebooks com tela integrada.
 - **Mídia:** capa, artista, reprodução e avanço na faixa quando compatível.

@@ -54,6 +54,8 @@ Column {
             onClicked: section.centerRef.displayControl.setNightlight(section.centerRef.displayControl.nightlight.mode === "on" ? "off" : "on")
         }
     }
+    // One-off actions, not switches: their own section so they don't read as toggles that are off.
+    ControlCenterSection { centerRef: section.centerRef; text: Eitr.I18n.tr("Screen"); width: parent.width }
     GridLayout {
         width: parent.width; columns: 2; columnSpacing: PanelStyle.selectionActionGap; rowSpacing: PanelStyle.selectionRowGap
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Hide Bar"); tooltip: Eitr.I18n.tr("Hide the bar; press SUPER + Shift + Space to restore it."); glyph: "󰍜"; onClicked: section.centerRef.menuAction("toggle", "Desktop Bar") }

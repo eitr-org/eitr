@@ -11,7 +11,8 @@ Ses pages sont Général, Plugins et Outils. Le bouton en forme d’engrenage en
 La page Général. Les boutons de gauche passent entre Général, Plugins et Outils ; l’engrenage en dessous ouvre les Paramètres. Une commande activée se remplit de la couleur d’accent du thème.
 
 - **Connectivité:** interrupteurs WiFi et Bluetooth, et Mode avion.
-- **Actions rapides:** Verrouillage automatique, Ne pas déranger, Mode jeu (effets, flou et notifications contextuelles désactivés, profil de performances activé jusqu’à désactivation) et Éclairage nocturne. En dessous, Masquer la barre (SUPER+Shift+Space la réaffiche) et Économiseur d’écran s’exécutent une fois.
+- **Actions rapides:** Verrouillage automatique, Ne pas déranger, Mode jeu (effets, flou et notifications contextuelles désactivés, profil de performances activé jusqu’à désactivation) et Éclairage nocturne.
+- **Écran :** Masquer la barre (SUPER+Shift+Space la réaffiche) et Lancer l’économiseur d’écran s’exécutent une fois.
 - **Son:** volume et gain/sourdine du microphone, et deux interrupteurs facultatifs, désactivés par défaut : **Sons de notification** (un signal, un autre pour les notifications urgentes ; celles de faible priorité restent silencieuses) et, sur les PC avec batterie, **Sons du chargeur** au branchement et au débranchement. Aucun ne sonne en Ne pas déranger ni en Mode jeu. Walker > Paramètres > Périphériques > Sons des événements propose les mêmes interrupteurs.
 - **Écran:** luminosité, sur les ordinateurs portables avec écran intégré.
 - **Média:** pochette, artiste, lecture et déplacement dans la piste si disponible.

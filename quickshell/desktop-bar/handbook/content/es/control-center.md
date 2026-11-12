@@ -11,7 +11,8 @@ Sus páginas son General, Plugins y Herramientas. El botón con engranaje debajo
 La página General. Los botones de la izquierda cambian entre General, Plugins y Herramientas; el engranaje de debajo abre Configuración. Un control activado se rellena con el color de acento del tema.
 
 - **Conectividad:** interruptores de WiFi y Bluetooth y Modo avión.
-- **Acciones rápidas:** Bloqueo automático, No molestar, Modo juego (desactiva efectos, desenfoque y ventanas emergentes y activa el perfil de rendimiento hasta apagarlo) y Luz nocturna. Debajo, Ocultar barra (SUPER+Shift+Space la recupera) y Salvapantallas se ejecutan una vez.
+- **Acciones rápidas:** Bloqueo automático, No molestar, Modo juego (desactiva efectos, desenfoque y ventanas emergentes y activa el perfil de rendimiento hasta apagarlo) y Luz nocturna.
+- **Pantalla:** Ocultar barra (SUPER+Shift+Space la recupera) e Iniciar salvapantallas se ejecutan una vez.
 - **Sonido:** volumen y ganancia/silencio del micrófono, y dos interruptores opcionales, desactivados por defecto: **Sonidos de notificación** (un aviso, otro distinto para las urgentes; las de baja prioridad no suenan) y, en equipos con batería, **Sonidos del cargador** al conectarlo o desconectarlo. Ninguno suena en No molestar ni en Modo juego. Walker > Configuración > Dispositivos > Sonidos de eventos ofrece los mismos interruptores.
 - **Pantalla:** brillo, en portátiles con pantalla integrada.
 - **Multimedia:** portada, artista, reproducción y desplazamiento por la pista cuando se admite.
