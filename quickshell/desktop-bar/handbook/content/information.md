@@ -15,7 +15,10 @@ that total. Missing sensor/GPU telemetry is marked unavailable.
 
 **AI Usage** detects installed/configured clients. Cached usage appears first;
 refresh does not launch sign-in or conversations. It shows each account's
-limits; percentages mean the part of a limit already used.
+limits; percentages mean the part of a limit already used. Claude, Codex, Grok and
+Antigravity have readable plan limits (Antigravity per model group: Gemini, Claude & GPT,
+and Argon); pay-per-use assistants such as Copilot CLI, OpenCode, Pi or Gemini CLI with an
+API key have no entry.
 
 Every detected provider has its own section with its plan, limits and errors. Click a heading to fold or unfold only that section. Sections start closed at login and keep their open or closed state for the session. Long lists scroll within the screen.
 

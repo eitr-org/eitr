@@ -1550,5 +1550,7 @@
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit} está ativo; as entradas de snapshots serão gravadas em {entries_path} a partir do próximo boot.",
   "{unit} manages networking; review that custom setup first.": "{unit} gerencia a rede; revise essa configuração personalizada primeiro.",
   "… and {count} more": "… e mais {count}",
-  "Tailscale sign-in failed. Try again from the Tailscale panel.": "Falha ao entrar no Tailscale. Tente novamente pelo painel do Tailscale."
+  "Tailscale sign-in failed. Try again from the Tailscale panel.": "Falha ao entrar no Tailscale. Tente novamente pelo painel do Tailscale.",
+  "Antigravity CLI is not installed": "A Antigravity CLI não está instalada",
+  "Sign in with `agy` to show subscription usage": "Entre com `agy` para ver o uso da assinatura"
 }

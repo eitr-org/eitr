@@ -42,6 +42,44 @@ class ClaudeLimitsTests(unittest.TestCase):
         self.assertFalse((ROOT / "scripts/ai-local-stats.py").exists())
 
 
+ANTIGRAVITY_USAGE = {"status": "SUCCESS", "command": {"name": "usage", "data": {"groups": [
+    {"name": "Gemini Models", "buckets": [
+        {"window": "weekly", "remaining_fraction": 0.75, "reset_time": "2026-11-19T23:12:54Z"},
+        {"window": "5h", "remaining_fraction": 1, "reset_time": "2026-11-13T04:12:54Z"}]},
+    {"name": "Claude and GPT models", "buckets": [
+        {"window": "5h", "remaining_fraction": 0.5, "reset_time": "2026-11-13T04:12:54Z"},
+        {"window": "weekly", "remaining_fraction": None}]},
+    {"name": "Gemini 4 Argon", "buckets": [
+        {"window": "weekly", "remaining_fraction": 0.96, "reset_time": "2026-11-19T23:10:08Z"}]},
+]}}}
+
+
+class AntigravityLimitsTests(unittest.TestCase):
+    def run_usage(self, stdout, returncode=0):
+        result = mock.Mock(returncode=returncode, stdout=stdout)
+        with mock.patch.object(USAGE, "cli_binary", return_value="/mock/agy"), \
+             mock.patch.object(USAGE.subprocess, "run", return_value=result) as run:
+            return USAGE.antigravity_usage({}), run
+
+    def test_groups_become_session_then_weekly_rows(self):
+        usage, run = self.run_usage(json.dumps(ANTIGRAVITY_USAGE))
+        self.assertEqual([(row["label"], row["used"]) for row in usage["windows"]],
+                         [("Gemini session", 0), ("Gemini weekly", 25.0),
+                          ("Claude & GPT session", 50.0), ("Argon weekly", 4.0)])
+        self.assertIsInstance(usage["windows"][0]["reset"], float)
+        # The CLI answers /usage itself: no conversation, and never from a trusted project folder.
+        self.assertEqual(run.call_args.args[0], ["/mock/agy", "-p", "/usage", "--output-format", "json"])
+        self.assertEqual(run.call_args.kwargs["cwd"], USAGE.tempfile.gettempdir())
+
+    def test_signed_out_or_failing_cli_shows_nothing(self):
+        for stdout, code in (("", 1), ("not json", 0), (json.dumps({"status": "ERROR"}), 0)):
+            with self.assertRaises(RuntimeError):
+                self.run_usage(stdout, code)
+        account = {"id": "default", "label": "Default"}
+        with mock.patch.object(USAGE, "antigravity_usage", side_effect=RuntimeError("signed out")):
+            self.assertIsNone(USAGE.collect_account("agy", account))
+
+
 class ProviderDetectionTests(unittest.TestCase):
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
@@ -78,6 +116,12 @@ class ProviderDetectionTests(unittest.TestCase):
         self.credentials(".grok/auth.json", {"https://auth.x.ai::test": {"key": "test-only"}})
         self.assertEqual(self.detect([]), [])
         self.assertEqual(self.detect(["grok"]), ["Grok"])
+
+    def test_antigravity_needs_the_cli_and_finished_sign_in(self):
+        self.assertEqual(self.detect(["agy"]), [])
+        self.credentials(".gemini/antigravity-cli/cache/onboarding.json", {"onboardingComplete": True})
+        self.assertEqual(self.detect([]), [])
+        self.assertEqual(self.detect(["agy"]), ["Antigravity"])
 
     def test_provider_is_removed_after_signout(self):
         self.credentials(".claude/.credentials.json", {"claudeAiOauth": {"accessToken": "test-only"}})

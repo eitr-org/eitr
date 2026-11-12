@@ -11,7 +11,7 @@ Abre Configuración > Acerca de para ver versión de Eitr, nombre en clave, cana
 En Configuración > Acerca de, elija Emblema o Runas en «Logotipo de Acerca de» para cambiar la página Acerca de del terminal. La elección se guarda en este equipo y usa Emblema de forma predeterminada; ambos siguen el color de acento del tema actual.
 
 
-**Uso de IA** detecta clientes instalados o configurados. Primero aparece el uso en caché; actualizar no inicia sesiones ni conversaciones. Muestra los límites de cada cuenta; los porcentajes indican la parte del límite ya consumida.
+**Uso de IA** detecta clientes instalados o configurados. Primero aparece el uso en caché; actualizar no inicia sesiones ni conversaciones. Muestra los límites de cada cuenta; los porcentajes indican la parte del límite ya consumida. Claude, Codex, Grok y Antigravity tienen límites de plan legibles (Antigravity por grupo de modelos: Gemini, Claude & GPT y Argon); los asistentes de pago por uso, como Copilot CLI, OpenCode, Pi o Gemini CLI con clave de API, no aparecen.
 
 Cada proveedor detectado tiene su propia sección con plan, límites y errores. Haz clic en el título para plegar o desplegar solo esa sección. Al iniciar sesión todas empiezan plegadas y conservan su estado durante la sesión. Las listas largas se desplazan dentro de la pantalla.
 

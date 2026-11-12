@@ -11,7 +11,7 @@ Abra Configurações > Sobre para ver versão do Eitr, codinome, canal, kernel e
 Em Configurações > Sobre, escolha Emblema ou Runas em «Logo do Sobre» para alterar a página Sobre no terminal. A escolha fica salva neste computador e usa Emblema por padrão; ambos seguem a cor de destaque do tema atual.
 
 
-**Uso de IA** detecta clientes instalados ou configurados. O uso em cache aparece primeiro; atualizar não inicia login nem conversas. São mostrados os limites de cada conta; os percentuais indicam a parte do limite já utilizada.
+**Uso de IA** detecta clientes instalados ou configurados. O uso em cache aparece primeiro; atualizar não inicia login nem conversas. São mostrados os limites de cada conta; os percentuais indicam a parte do limite já utilizada. Claude, Codex, Grok e Antigravity têm limites de plano legíveis (o Antigravity por grupo de modelos: Gemini, Claude & GPT e Argon); assistentes pagos por uso, como Copilot CLI, OpenCode, Pi ou Gemini CLI com chave de API, não aparecem.
 
 Cada provedor detectado tem sua própria seção com plano, limites e erros. Clique no título para recolher ou expandir somente essa seção. Ao entrar, todas começam recolhidas e mantêm o estado durante a sessão. Listas longas rolam dentro da tela.
 

@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import select
 import subprocess
+import tempfile
 import time
 import sys
 import urllib.error
@@ -87,6 +88,10 @@ def available_providers():
     if cli_binary("grok") and (os.environ.get("XAI_API_KEY") or any(
             isinstance(auth, dict) and auth.get("key") for auth in grok_credentials().values())):
         providers.append("Grok")
+    # Antigravity keeps its sign-in in the keyring; finished onboarding means an account is set up.
+    onboarding = read_credentials(Path.home() / ".gemini/antigravity-cli/cache/onboarding.json")
+    if cli_binary("agy") and onboarding.get("onboardingComplete") is True:
+        providers.append("Antigravity")
     return providers
 
 
@@ -132,6 +137,48 @@ def grok_usage(environment=None):
         message = tr('Grok usage returned HTTP {code}; retry later or sign in again', code=f'{exc.code}')
         raise (UsageRateLimit(message, exc.headers) if exc.code == 429 else RuntimeError(message)) from None
     return {"name": "Grok", "windows": grok_windows(payload), "plan": payload.get("subscriptionTier")}
+
+
+ANTIGRAVITY_GROUPS = {"Gemini Models": "Gemini", "Claude and GPT models": "Claude & GPT",
+                      "Gemini 4 Argon": "Argon"}
+
+
+def antigravity_windows(data):
+    """Each model group's session (5-hour) and weekly buckets, as used percentages."""
+    windows = []
+    for group in data.get("groups") or []:
+        name = group.get("name") or ""
+        short = ANTIGRAVITY_GROUPS.get(name, name)
+        buckets = [bucket for bucket in group.get("buckets") or [] if isinstance(bucket, dict)]
+        for bucket in sorted(buckets, key=lambda bucket: bucket.get("window") != "5h"):
+            remaining = bucket.get("remaining_fraction")
+            if not isinstance(remaining, (int, float)) or not short:
+                continue
+            window = {"5h": "session", "weekly": "weekly"}.get(bucket.get("window"), "usage")
+            reset = bucket.get("reset_time")
+            if isinstance(reset, str):
+                reset = dt.datetime.fromisoformat(reset.replace("Z", "+00:00")).timestamp()
+            windows.append({"label": f"{short} {window}", "used": round((1 - remaining) * 100, 1), "reset": reset})
+    return windows
+
+
+def antigravity_usage(environment=None):
+    # `/usage` is answered by the CLI itself: no conversation, no model call, no quota spent.
+    binary = cli_binary("agy")
+    if not binary:
+        raise RuntimeError(tr('Antigravity CLI is not installed'))
+    env = dict(os.environ if environment is None else environment)
+    result = subprocess.run([binary, "-p", "/usage", "--output-format", "json"], env=env,
+                            cwd=tempfile.gettempdir(), stdin=subprocess.DEVNULL,
+                            capture_output=True, text=True, timeout=20)
+    try:
+        payload = json.loads(result.stdout)
+    except ValueError:
+        payload = {}
+    data = ((payload.get("command") or {}).get("data") or {}) if isinstance(payload, dict) else {}
+    if result.returncode or payload.get("status") != "SUCCESS" or not isinstance(data, dict):
+        raise RuntimeError(tr('Sign in with `agy` to show subscription usage'))
+    return {"name": "Antigravity", "windows": antigravity_windows(data), "plan": None}
 
 
 def codex_usage(environment=None):
@@ -272,7 +319,8 @@ def collect_account(identifier, account):
         return None
     result = {"id": account["id"], "label": account["label"], "windows": []}
     try:
-        reader = {"claude": claude_usage, "codex": codex_usage, "grok": grok_usage}.get(identifier)
+        reader = {"claude": claude_usage, "codex": codex_usage, "grok": grok_usage,
+                  "agy": antigravity_usage}.get(identifier)
         if reader:
             result.update(reader(account_environment(identifier, account=account["id"])))
         if result["windows"] and not result.get("error"):

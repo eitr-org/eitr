@@ -352,6 +352,9 @@ msgstr "Otra imagen: un archivo o una dirección https"
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "El archivo de respuestas indica {disk}, que no está entre los discos disponibles: {candidates}"
 
+msgid "Antigravity CLI is not installed"
+msgstr "Antigravity CLI no está instalada"
+
 msgid "App Services"
 msgstr "Servicios de aplicaciones"
 
@@ -3171,6 +3174,9 @@ msgstr "Inicia sesión en un asistente antes de activar la colaboración."
 
 msgid "Sign in to this account"
 msgstr "Iniciar sesión en esta cuenta"
+
+msgid "Sign in with `agy` to show subscription usage"
+msgstr "Inicia sesión con `agy` para ver el uso de la suscripción"
 
 msgid "Sign in with `claude` to show subscription usage"
 msgstr "Inicia sesión con `claude` para ver el uso de la suscripción"

@@ -1550,5 +1550,7 @@
   "Sign out and back in before starting sharing.": "Sign out and back in before starting sharing.",
   "Sunshine is not installed; open Sharing Setup.": "Sunshine is not installed; open Sharing Setup.",
   "Sunshine lost its screen capture permission; run Set Up Sharing again.": "Sunshine lost its screen capture permission; run Set Up Sharing again.",
-  "Tailscale sign-in failed. Try again from the Tailscale panel.": "Tailscale sign-in failed. Try again from the Tailscale panel."
+  "Tailscale sign-in failed. Try again from the Tailscale panel.": "Tailscale sign-in failed. Try again from the Tailscale panel.",
+  "Antigravity CLI is not installed": "Antigravity CLI is not installed",
+  "Sign in with `agy` to show subscription usage": "Sign in with `agy` to show subscription usage"
 }

@@ -6979,6 +6979,9 @@
     "Answers name {disk}, not one of the eligible disks: {candidates}": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "Antigravity CLI is not installed": [
+      "quickshell/desktop-bar/scripts/ai-usage.py"
+    ],
     "App Services": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -9864,6 +9867,9 @@
     ],
     "Sign in to this account": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Sign in with `agy` to show subscription usage": [
+      "quickshell/desktop-bar/scripts/ai-usage.py"
     ],
     "Sign in with `claude` to show subscription usage": [
       "quickshell/desktop-bar/scripts/ai-usage.py"

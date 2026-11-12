@@ -352,6 +352,9 @@ msgstr "Anderes Bild: Datei oder https-Adresse"
 msgid "Answers name {disk}, not one of the eligible disks: {candidates}"
 msgstr "Die Antwortdatei nennt {disk}, aber nur diese Laufwerke sind zulässig: {candidates}"
 
+msgid "Antigravity CLI is not installed"
+msgstr "Antigravity CLI ist nicht installiert"
+
 msgid "App Services"
 msgstr "App-Dienste"
 
@@ -3171,6 +3174,9 @@ msgstr "Melde dich bei einem Assistenten an, bevor du die Zusammenarbeit aktivie
 
 msgid "Sign in to this account"
 msgstr "Bei diesem Konto anmelden"
+
+msgid "Sign in with `agy` to show subscription usage"
+msgstr "Melden Sie sich mit `agy` an, um die Abonnementnutzung anzuzeigen"
 
 msgid "Sign in with `claude` to show subscription usage"
 msgstr "Melden Sie sich mit `claude` an, um die Abonnementnutzung anzuzeigen"
