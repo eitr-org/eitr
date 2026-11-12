@@ -60,7 +60,7 @@ SettingsAppearanceModel {
 
         Rectangle {
             anchors.fill: parent
-            color: picker.searchable ? Qt.rgba(picker.background.r, picker.background.g, picker.background.b, 0.9) : "#b3000000"
+            color: picker.themeMode ? Qt.rgba(picker.background.r, picker.background.g, picker.background.b, 0.9) : "#b3000000"
         }
         MouseArea {
             anchors.fill: parent
@@ -83,11 +83,12 @@ SettingsAppearanceModel {
                     if (picker.searchText) picker.search("");
                     else picker.opened = false;
                 }
+                // Backspace only edits the search; Escape closes.
                 else if (event.key === Qt.Key_Backspace) {
                     if (picker.searchText) picker.search(picker.searchText.slice(0, -1));
-                    else picker.opened = false;
                 }
-                else if (picker.searchable && event.key === Qt.Key_Tab && (event.modifiers & Qt.ControlModifier)) picker.filterThemes(picker.mode === "theme" ? "theme-dark" : picker.mode === "theme-dark" ? "theme-light" : "theme");
+                else if (picker.themeMode && event.key === Qt.Key_Tab && (event.modifiers & Qt.ControlModifier)) picker.filterThemes(picker.mode === "theme" ? "theme-dark" : picker.mode === "theme-dark" ? "theme-light" : "theme");
+                else if (picker.mode === "wallpaper" && event.key === Qt.Key_Tab && (event.modifiers & Qt.ControlModifier)) picker.setWallpaperScope(picker.wallpaperScope === "all" ? "theme" : "all");
                 else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) picker.apply();
                 else if (event.key === Qt.Key_Left || (!picker.searchable && event.key === Qt.Key_H)) picker.navigate(-1);
                 else if (event.key === Qt.Key_Right || (!picker.searchable && event.key === Qt.Key_L) || event.key === Qt.Key_Tab) picker.navigate(1);
@@ -114,7 +115,18 @@ SettingsAppearanceModel {
                     id: filters
                     anchors.centerIn: parent
                     spacing: PanelStyle.selectionRowGap
+                    // Wallpapers: this theme's, or every installed theme's (only the picture changes).
                     ChoiceSegmented {
+                        visible: picker.mode === "wallpaper"
+                        width: 240
+                        foreground: picker.foreground
+                        choices: [{id: "theme", label: Eitr.I18n.tr("This theme")}, {id: "all", label: Eitr.I18n.tr("All themes")}]
+                        current: picker.wallpaperScope
+                        available: !picker.loading
+                        onChosen: value => { picker.setWallpaperScope(value); content.forceActiveFocus(); }
+                    }
+                    ChoiceSegmented {
+                        visible: picker.themeMode
                         width: 180
                         foreground: picker.foreground
                         choices: [{id: "theme-light", label: Eitr.I18n.tr("Light")}, {id: "theme-dark", label: Eitr.I18n.tr("Dark")}]
@@ -125,6 +137,7 @@ SettingsAppearanceModel {
 
                     PanelButton {
                         id: addThemes
+                        visible: picker.themeMode
                         icon: true
                         width: PanelStyle.selectionRowHeight
                         height: PanelStyle.selectionRowHeight
@@ -233,18 +246,35 @@ SettingsAppearanceModel {
                 }
             }
 
+            // The selected picture's name (a theme, or a wallpaper without its order number).
             Text {
-                visible: picker.mode !== "wallpaper" || !picker.items[picker.selectedIndex]
+                id: selectedName
                 anchors.horizontalCenter: parent.horizontalCenter
                 y: (content.height + content.previewHeight) / 2 - 4
                 width: content.previewWidth
                 horizontalAlignment: Text.AlignHCenter
                 elide: Text.ElideMiddle
-                text: picker.items[picker.selectedIndex] ? picker.items[picker.selectedIndex].name : (picker.searchText ? Eitr.I18n.tr("No matching themes") : (picker.error || Eitr.I18n.tr("Loading...")))
+                text: picker.items[picker.selectedIndex] ? picker.items[picker.selectedIndex].name
+                    : picker.searchText ? (picker.themeMode ? Eitr.I18n.tr("No matching themes") : Eitr.I18n.tr("No matching wallpapers"))
+                    : (picker.error || Eitr.I18n.tr("Loading..."))
                 color: picker.foreground
                 font.family: DesktopFonts.family
                 font.pixelSize: PanelStyle.headingSize
                 font.bold: true
+            }
+            // With every theme's wallpapers, the theme each one comes from.
+            Text {
+                visible: picker.mode === "wallpaper" && picker.wallpaperScope === "all" && !!picker.items[picker.selectedIndex]
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: selectedName.bottom; anchors.topMargin: 2
+                width: content.previewWidth
+                horizontalAlignment: Text.AlignHCenter
+                elide: Text.ElideRight
+                text: picker.items[picker.selectedIndex] ? (picker.items[picker.selectedIndex].theme || Eitr.I18n.tr("Your wallpapers")) : ""
+                color: picker.foreground
+                opacity: PanelStyle.secondaryTextOpacity
+                font.family: DesktopFonts.family
+                font.pixelSize: PanelStyle.bodySize
             }
         }
     }

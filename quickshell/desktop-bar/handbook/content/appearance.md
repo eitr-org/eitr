@@ -100,7 +100,7 @@ name or description. Words can appear in any order; Escape clears the search fir
 
 ## Choose a theme and wallpaper
 
-Choose your theme and wallpaper in Settings > Appearance > Theme & Wallpaper. For Walker’s Dark/Light theme menus, use **Walker > Settings > Desktop > Appearance > Theme** or **SUPER + Ctrl + Shift + N**. Double-right-click empty desktop space to open the theme carousel. The Sun filters light themes, the Moon dark themes; click the active filter again for all themes. The + opens the separate catalog with the same filter. Ctrl+Tab cycles filters, typing searches, arrows/Tab move and Enter applies. Backspace edits search or closes when empty; Escape clears search before closing.
+Choose your theme and wallpaper in Settings > Appearance > Theme & Wallpaper. For Walker’s Dark/Light theme menus, use **Walker > Settings > Desktop > Appearance > Theme** or **SUPER + Ctrl + Shift + N**. Double-right-click empty desktop space to open the theme carousel. The Sun filters light themes, the Moon dark themes; click the active filter again for all themes. The + opens the separate catalog with the same filter. Ctrl+Tab cycles filters, typing searches, arrows/Tab move and Enter applies. Backspace edits the search, even down to empty; Escape clears it before closing.
 
 **SUPER + Ctrl + N** opens wallpapers, and **SUPER + Shift + N** advances to
 the next one. A checkmark marks the active choice in Walker. Theme/wallpaper
@@ -234,6 +234,8 @@ system booting after an edit.
 ## Wallpaper previews and assignments
 
 In Settings > Appearance > Theme & Wallpaper, click an image to preview its still frame on the desktop. Apply saves it; Cancel preview, leaving the page, or closing Settings restores the saved choice. The palette does not change. Walker > Settings > Desktop > Appearance > Wallpaper opens the same desktop carousel at the selected image. Arrows preview; Enter applies; Escape or clicking outside cancels.
+
+Above the carousel's wallpapers, **This theme** and **All themes** switch between the current theme's wallpapers and those of every installed theme (Ctrl+Tab switches too). Each wallpaper's name shows below it (with all themes, also the theme it comes from), and typing searches names and themes; your own images come last. Choosing one changes only the wallpaper; the theme's colours stay.
 
 Wallpaper per display in Settings > Appearance > Theme & Wallpaper (or Walker > Settings > Desktop > Appearance > Wallpaper per display) is off by default: choosing or previewing a wallpaper changes all displays. Turn it on to change only the display you are using when you choose the image. A display without its own choice uses the global wallpaper.
 

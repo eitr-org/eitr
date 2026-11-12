@@ -79,7 +79,7 @@ Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um die aktuelle Seite nach
 
 ## Design und Hintergrundbild wählen
 
-Wähle Design und Hintergrundbild unter Einstellungen > Erscheinungsbild > Design und Hintergrundbild. Walkers Dunkel/Hell-Menüs öffnest du mit **Walker > Einstellungen > Desktop > Erscheinungsbild > Design** oder **SUPER + Ctrl + Shift + N**. Ein rechter Doppelklick auf freie Desktopfläche öffnet das Designkarussell. Sonne filtert helle, Mond dunkle Designs; erneutes Anklicken zeigt alle. Das + öffnet den separaten Katalog mit demselben Filter. Ctrl+Tab wechselt Filter, Tippen sucht, Pfeile/Tab bewegen und Enter wendet an. Backspace bearbeitet die Suche oder schließt bei leerer Suche; Escape leert sie vor dem Schließen.
+Wähle Design und Hintergrundbild unter Einstellungen > Erscheinungsbild > Design und Hintergrundbild. Walkers Dunkel/Hell-Menüs öffnest du mit **Walker > Einstellungen > Desktop > Erscheinungsbild > Design** oder **SUPER + Ctrl + Shift + N**. Ein rechter Doppelklick auf freie Desktopfläche öffnet das Designkarussell. Sonne filtert helle, Mond dunkle Designs; erneutes Anklicken zeigt alle. Das + öffnet den separaten Katalog mit demselben Filter. Ctrl+Tab wechselt Filter, Tippen sucht, Pfeile/Tab bewegen und Enter wendet an. Backspace bearbeitet die Suche, auch bis sie leer ist; Escape leert sie vor dem Schließen.
 
 **SUPER + Ctrl + N** öffnet die Hintergrundbilder, **SUPER + Shift + N** wechselt zum nächsten. Ein Häkchen markiert die aktive Wahl in Walker. Änderungen zeigen keine Erfolgsbenachrichtigungen. Ultrawide-Monitore, deren Breite mindestens das Doppelte der Höhe beträgt, verwenden die 21:9-Version mit weniger Beschnitt; andere verwenden 4K in 16:9.
 
@@ -148,6 +148,8 @@ Das Limine-Startmenü verwendet die aktuellen Designfarben, einen EITR-Titel und
 ## Hintergrundvorschau und Zuweisungen
 
 Unter Einstellungen > Erscheinungsbild > Thema & Hintergrund zeigt ein Klick auf ein Bild dessen Standbild auf dem Desktop. Anwenden speichert es; Vorschau abbrechen, Seitenwechsel oder Schließen stellt die gespeicherte Auswahl wieder her. Die Palette bleibt gleich. Walker > Einstellungen > Desktop > Erscheinungsbild > Hintergrund öffnet das Karussell beim gewählten Bild. Pfeile zeigen die Vorschau, Eingabe wendet an, Escape oder ein Klick außerhalb bricht ab.
+
+Über den Hintergrundbildern des Karussells wechseln **Dieses Theme** und **Alle Themes** zwischen den Bildern des aktuellen Themes und denen aller installierten Themes (auch mit Strg+Tab). Unter jedem Bild steht sein Name (bei allen Themes auch das Theme, aus dem es stammt), und Tippen durchsucht Namen und Themes; deine eigenen Bilder kommen zuletzt. Die Auswahl ändert nur das Hintergrundbild; die Farben des Themes bleiben.
 
 Hintergrund pro Bildschirm unter Einstellungen > Erscheinungsbild > Thema & Hintergrund (oder Walker > Einstellungen > Desktop > Erscheinungsbild > Hintergrund pro Bildschirm) ist standardmäßig aus: Auswahl und Vorschau ändern alle Bildschirme. Eingeschaltet wird nur der Bildschirm geändert, den du bei der Bildauswahl verwendest. Ohne eigene Auswahl zeigt ein Bildschirm den globalen Hintergrund.
 

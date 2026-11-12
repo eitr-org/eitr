@@ -82,7 +82,7 @@ Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar 
 
 Escolha tema e papel de parede em Configurações > Aparência > Tema e papel de parede. Para os menus Escuro/Claro do Walker, use **Walker > Configurações > Área de trabalho > Aparência > Tema** ou **SUPER + Ctrl + Shift + N**. Um clique duplo direito no desktop vazio abre o carrossel. O Sol filtra temas claros e a Lua escuros; clique de novo no filtro ativo para mostrar todos.
 
-O + abre o catálogo separado com o mesmo filtro. Ctrl+Tab alterna filtros, digitar busca, setas/Tab movem e Enter aplica. Backspace edita a busca ou fecha se estiver vazia; Esc limpa antes de fechar.
+O + abre o catálogo separado com o mesmo filtro. Ctrl+Tab alterna filtros, digitar busca, setas/Tab movem e Enter aplica. Backspace edita a busca, mesmo até ficar vazia; Esc limpa antes de fechar.
 
 **SUPER + Ctrl + N** abre os papéis de parede e **SUPER + Shift + N** avança para o próximo. Uma marca indica a escolha ativa no Walker. As trocas não exibem notificações de sucesso. Monitores ultrawide, com largura de pelo menos duas vezes a altura, usam a versão 21:9 de cada imagem para reduzir o recorte; os demais usam a versão 4K 16:9.
 
@@ -153,6 +153,8 @@ O menu de inicialização do Limine usa as cores do tema atual, o título EITR e
 ## Prévias e atribuições de papéis de parede
 
 Em Configurações > Aparência > Tema e papel de parede, clique em uma imagem para visualizar seu quadro estático na área de trabalho. Aplicar salva; Cancelar prévia, sair da página ou fechar restaura a escolha salva. A paleta não muda. Walker > Configurações > Área de trabalho > Aparência > Papel de parede abre o carrossel na imagem selecionada. As setas mostram a prévia; Enter aplica; Escape ou clicar fora cancela.
+
+Acima dos papéis de parede do carrossel, **Este tema** e **Todos os temas** alternam entre os papéis de parede do tema atual e os de todos os temas instalados (Ctrl+Tab também alterna). O nome de cada papel de parede aparece embaixo dele (com todos os temas, também o tema de onde vem), e digitar busca nomes e temas; suas próprias imagens vêm por último. Escolher um muda só o papel de parede; as cores do tema continuam.
 
 Papel de parede por tela em Configurações > Aparência > Tema e papel de parede (ou Walker > Configurações > Área de trabalho > Aparência > Papel de parede por tela) vem desligado: escolher ou visualizar um papel de parede muda todas as telas. Ligue para mudar apenas a tela que você está usando ao escolher a imagem. Uma tela sem escolha própria usa o papel de parede global.
 

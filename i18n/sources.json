@@ -175,6 +175,9 @@
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterNavigation.qml"
     ],
+    "All themes": [
+      "quickshell/desktop-bar/panels/AppearancePicker.qml"
+    ],
     "Already up to date.": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -1622,6 +1625,9 @@
     "No matching themes": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml"
     ],
+    "No matching wallpapers": [
+      "quickshell/desktop-bar/panels/AppearancePicker.qml"
+    ],
     "No media playing": [
       "quickshell/desktop-bar/media/MediaCard.qml"
     ],
@@ -2845,6 +2851,9 @@
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
+    "This theme": [
+      "quickshell/desktop-bar/panels/AppearancePicker.qml"
+    ],
     "This welcome": [
       "quickshell/desktop-bar/welcome/WelcomePage.qml"
     ],
@@ -3177,6 +3186,9 @@
     ],
     "Your system at a glance.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Your wallpapers": [
+      "quickshell/desktop-bar/panels/AppearancePicker.qml"
     ],
     "Your workspace awaits.": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"

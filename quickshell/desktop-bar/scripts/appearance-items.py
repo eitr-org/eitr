@@ -86,12 +86,29 @@ else:
     def natural(path):
         return [int(part) if part.isdigit() else part.lower()
                 for part in re.split(r"(\d+)", path.name)]
-    # The theme's wallpapers, then the user's own (eitr_own_style).
-    images = sorted(directory.rglob("*"), key=natural) + eitr_own_style.wallpapers(beside=directory)
-    for image in images:
-        if image.is_file() and image.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}:
-            entries.append({"name": image.name, "value": str(image),
-                            "image": preview_url(image), "current": choices.canonical(str(image)) == choices.canonical(current) if current else False})
+    current_theme = read_current("current-theme")
+    themes = theme_paths()
+    current_label = display_name(themes[current_theme]) if current_theme in themes else ""
+    # The theme's wallpapers, then (with "wallpaper-all") every other installed theme's in
+    # name order, then the user's own (eitr_own_style). Choosing one changes only the wallpaper.
+    groups = [(current_label, sorted(directory.rglob("*"), key=natural))]
+    if mode == "wallpaper-all":
+        others = sorted(((display_name(folder), folder) for name, folder in themes.items() if name != current_theme),
+                        key=lambda pair: pair[0].lower())
+        groups += [(label, sorted((folder / "backgrounds").rglob("*"), key=natural)) for label, folder in others]
+    groups.append(("", eitr_own_style.wallpapers(beside=directory)))
+    SMALL_WORDS = {"a", "an", "and", "at", "by", "for", "in", "of", "on", "or", "the", "to"}
+
+    def title(path):
+        """"02-fenrir-devours-the-sun.jpg" -> "Fenrir Devours the Sun": no order number or extension."""
+        words = re.sub(r"^\d+[\s._-]*", "", path.stem).replace("_", " ").replace("-", " ").split()
+        return " ".join(word if index and word in SMALL_WORDS else word[:1].upper() + word[1:]
+                        for index, word in enumerate(words)) or path.stem
+    for label, images in groups:
+        for image in images:
+            if image.is_file() and image.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"}:
+                entries.append({"name": title(image), "value": str(image), "theme": label,
+                                "image": preview_url(image), "current": choices.canonical(str(image)) == choices.canonical(current) if current else False})
 try:
     palette = tomllib.loads((config / "theme/current/colors.toml").read_text())
 except (OSError, ValueError):

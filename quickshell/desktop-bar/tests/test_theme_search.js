@@ -26,6 +26,11 @@ assert.equal(context.items.length, 0);
 search('');
 assert.equal(context.items.length, 3);
 assert.equal(context.allItems.length, 3);
-assert.ok(modelSource.includes('readonly property bool searchable: mode.startsWith("theme")'));
+assert.ok(modelSource.includes('readonly property bool themeMode: mode.startsWith("theme")'));
+assert.ok(modelSource.includes('readonly property bool searchable: themeMode || mode === "wallpaper"'));
+// Wallpapers match by name or by the theme they come from.
+context.allItems = [{name: 'Ember Vigil', theme: 'Afterglow'}, {name: 'Frost Queen', theme: 'Niflheim'}];
+search('niflheim');
+assert.deepEqual(context.items.map(item => item.name), ['Frost Queen']);
 assert.ok(source.includes('visible: picker.searchable && picker.searchText.length > 0'));
 console.log('Theme carousel search checks passed');

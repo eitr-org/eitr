@@ -85,7 +85,7 @@ Tapez n’importe où dans le catalogue, ou appuyez sur Ctrl+F ou /, pour cherch
 
 Choisissez thème et fond dans Paramètres > Apparence > Thème et fond d’écran. Pour les menus Sombre/Clair de Walker, utilisez **Walker > Paramètres > Bureau > Apparence > Thème** ou **SUPER + Ctrl + Shift + N**. Un double clic droit sur le bureau vide ouvre le carrousel. Le Soleil filtre les thèmes clairs, la Lune les sombres ; recliquez le filtre actif pour tout afficher.
 
-Le + ouvre le catalogue séparé avec le même filtre. Ctrl+Tab parcourt les filtres, taper cherche, flèches/Tab déplacent et Entrée applique. Backspace corrige la recherche ou ferme si elle est vide ; Échap l’efface avant de fermer.
+Le + ouvre le catalogue séparé avec le même filtre. Ctrl+Tab parcourt les filtres, taper cherche, flèches/Tab déplacent et Entrée applique. Backspace corrige la recherche, jusqu’à la vider ; Échap l’efface avant de fermer.
 
 **SUPER + Ctrl + N** ouvre les fonds et **SUPER + Shift + N** passe au suivant. Une coche indique le choix actif dans Walker. Les changements n’affichent aucune notification de réussite. Les écrans ultrawide, au moins deux fois plus larges que hauts, utilisent la version 21:9 pour réduire le recadrage ; les autres utilisent la version 4K 16:9.
 
@@ -158,6 +158,8 @@ Le menu de démarrage Limine utilise les couleurs du thème actuel, un titre EIT
 ## Aperçus et affectations des fonds
 
 Dans Paramètres > Apparence > Thème et fond, cliquez sur une image pour afficher son image fixe sur le bureau. Appliquer l’enregistre ; Annuler l’aperçu, changer de page ou fermer rétablit le choix enregistré. La palette reste inchangée. Walker > Paramètres > Bureau > Apparence > Fond ouvre le carrousel sur l’image choisie. Les flèches prévisualisent, Entrée applique, Échap ou un clic à l’extérieur annule.
+
+Au-dessus des fonds du carrousel, **Ce thème** et **Tous les thèmes** basculent entre les fonds du thème actuel et ceux de tous les thèmes installés (Ctrl+Tab aussi). Le nom de chaque fond s’affiche dessous (avec tous les thèmes, aussi son thème d’origine), et la saisie cherche dans les noms et les thèmes ; vos propres images viennent en dernier. En choisir un change seulement le fond ; les couleurs du thème restent.
 
 Fond par écran dans Paramètres > Apparence > Thème et fond (ou Walker > Paramètres > Bureau > Apparence > Fond par écran) est désactivé par défaut : choisir ou prévisualiser un fond change tous les écrans. Activez-le pour ne changer que l’écran utilisé au moment du choix. Un écran sans choix propre utilise le fond global.
 

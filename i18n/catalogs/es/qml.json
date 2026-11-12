@@ -975,5 +975,9 @@
   "The mouse wheel moves the content, like a touchscreen.": "La rueda del ratón mueve el contenido, como en una pantalla táctil.",
   "Touchpad": "Panel táctil",
   "Two fingers move the content, like a touchscreen.": "Dos dedos mueven el contenido, como en una pantalla táctil.",
-  "Screen": "Pantalla"
+  "Screen": "Pantalla",
+  "This theme": "Este tema",
+  "All themes": "Todos los temas",
+  "Your wallpapers": "Tus fondos de pantalla",
+  "No matching wallpapers": "Ningún fondo coincide"
 }

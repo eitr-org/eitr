@@ -49,6 +49,41 @@ class AppearanceThemeTests(unittest.TestCase):
             (themes / "dark-b/display-name").write_text("\n")
             self.assertEqual(load("theme-dark")[1]["name"], "Dark B")
 
+    def test_wallpapers_of_this_theme_or_every_theme(self):
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            themes = home / ".config/themes"
+            for name in ("alpha", "beta", "gamma"):
+                backgrounds = themes / name / "backgrounds"
+                backgrounds.mkdir(parents=True)
+                (themes / name / "colors.toml").touch()
+                shutil.copy(BAR.parent.parent / "themes/eitr/preview.png", backgrounds / f"01-{name}-of-the-dawn.png")
+            current = home / ".config/theme/current/backgrounds"
+            current.mkdir(parents=True)
+            shutil.copy(themes / "beta/backgrounds/01-beta-of-the-dawn.png", current / "01-beta-of-the-dawn.png")
+            cache = home / ".cache"
+            cache.mkdir()
+            (cache / "current-theme").write_text("beta\n")
+
+            def load(mode):
+                result = subprocess.run(
+                    [sys.executable, str(SCRIPT), mode],
+                    env={**os.environ, "HOME": str(home), "XDG_CACHE_HOME": str(cache), "XDG_CONFIG_HOME": str(home / ".config"),
+                         "XDG_DATA_HOME": str(home / ".local/share"), "EITR_CODE_ROOT": str(home / ".config"), "PATH": "/usr/bin:/bin"},
+                    capture_output=True, text=True, check=True,
+                )
+                return json.loads(result.stdout)
+
+            this_theme = load("wallpaper")
+            self.assertEqual([(item["name"], item["theme"]) for item in this_theme["items"]], [("Beta of the Dawn", "Beta")])
+            every = load("wallpaper-all")
+            self.assertEqual(every["mode"], "wallpaper-all")
+            # The current theme's copies first, then the other themes by name; only the picture changes.
+            self.assertEqual([(item["name"], item["theme"]) for item in every["items"]],
+                             [("Beta of the Dawn", "Beta"), ("Alpha of the Dawn", "Alpha"), ("Gamma of the Dawn", "Gamma")])
+            self.assertEqual(every["items"][1]["value"], str(themes / "alpha/backgrounds/01-alpha-of-the-dawn.png"))
+
+
 ROOT = Path(__file__).resolve().parents[3]
 BAR = ROOT / 'quickshell/desktop-bar'
 
@@ -112,6 +147,9 @@ ShellRoot {
                 if (picker.items.length !== 0) { Qt.exit(2); return; }
                 keyboard.keyClick(Qt.Key_Escape);
                 if (!picker.opened || picker.items.length !== 1) { Qt.exit(3); return; }
+                // Backspace edits the search down to empty and never closes the picker.
+                keyboard.keyClick(Qt.Key_A); keyboard.keyClick(Qt.Key_Backspace); keyboard.keyClick(Qt.Key_Backspace);
+                if (!picker.opened || picker.searchText !== "") { Qt.exit(3); return; }
                 keyboard.keyClick(Qt.Key_Tab, Qt.ControlModifier);
                 finish.start();
             });

@@ -12,6 +12,9 @@ Item {
     readonly property bool loading: loader.running
     property bool opened: false
     property string mode: "wallpaper"
+    // Wallpapers of the current theme, or of every installed theme ("all"); kept between opens.
+    property string wallpaperScope: "theme"
+    readonly property string listName: mode === "wallpaper" && wallpaperScope === "all" ? "wallpaper-all" : mode
     property var targetScreen: null
     // IPC opens on the bar's primary screen; desktop double-clicks use their own screen.
     property var defaultScreen: null
@@ -19,7 +22,9 @@ Item {
     property var allItems: []
     property var catalogs: ({})
     property string searchText: ""
-    readonly property bool searchable: mode.startsWith("theme")
+    readonly property bool themeMode: mode.startsWith("theme")
+    // Typing searches themes by name, and wallpapers by name or theme.
+    readonly property bool searchable: themeMode || mode === "wallpaper"
     property int selectedIndex: 0
     property color accent: "#cdd6f4"
     property color foreground: "#ffffff"
@@ -72,7 +77,7 @@ Item {
         mode = kind;
         contextReady = kind !== "wallpaper";
         targetScreen = screen;
-        const cached = catalogs[mode] || [];
+        const cached = catalogs[listName] || [];
         if (JsonState.changed(items, cached)) items = cached;
         if (JsonState.changed(allItems, cached)) allItems = cached;
         const current = cached.findIndex(item => item.current);
@@ -81,7 +86,7 @@ Item {
         error = "";
         opened = true;
         if (mode === "wallpaper") wallpaperAction("summary");
-        loader.command = ["python3", Quickshell.shellDir + "/scripts/appearance-items.py", mode];
+        loader.command = ["python3", Quickshell.shellDir + "/scripts/appearance-items.py", listName];
         loader.running = true;
     }
 
@@ -94,7 +99,7 @@ Item {
         searchText = value;
         var query = value.trim().toLocaleLowerCase();
         items = allItems.filter(function(item) {
-            return item.name.toLocaleLowerCase().indexOf(query) !== -1;
+            return (item.name + " " + (item.theme || "")).toLocaleLowerCase().indexOf(query) !== -1;
         });
         selectedIndex = 0;
     }
@@ -107,7 +112,8 @@ Item {
             const chosen = items[selectedIndex].value;
             wallpaperAction("apply", ["--path", chosen]);
             // The next open starts on the new wallpaper instead of the old one.
-            catalogs[mode] = (catalogs[mode] || []).map(item => Object.assign({}, item, {current: item.value === chosen}));
+            for (const list of ["wallpaper", "wallpaper-all"])
+                catalogs[list] = (catalogs[list] || []).map(item => Object.assign({}, item, {current: item.value === chosen}));
             opened = false;
             return;
         }
@@ -117,9 +123,18 @@ Item {
         applyProcess.running = true;
     }
 
+    // Switches the carousel between this theme's wallpapers and every theme's, keeping the
+    // selected picture when it is in both lists.
+    function setWallpaperScope(scope) {
+        if (loader.running || mode !== "wallpaper" || scope === wallpaperScope) return;
+        preferredPath = items[selectedIndex] ? items[selectedIndex].value : "";
+        wallpaperScope = scope;
+        open("wallpaper", targetScreen);
+    }
+
     // All themes by default; a Sun or Moon click shows only that mode, a second click all again.
     function filterThemes(target) {
-        if (!loader.running && searchable)
+        if (!loader.running && themeMode)
             open(mode === target ? "theme" : target, targetScreen);
     }
 
@@ -130,19 +145,17 @@ Item {
             const result = JsonState.parse(output.text, code, {mode: "string", items: [{name: "string", value: "string", image: "string", current: "boolean"}], accent: "string", foreground: "string", background: "string"});
             const data = result.data;
             if (result.ok) {
-                model.mode = data.mode;
+                model.mode = data.mode === "wallpaper-all" ? "wallpaper" : data.mode;
                 if (JsonState.changed(model.items, data.items)) model.items = data.items;
                 if (JsonState.changed(model.allItems, data.items)) model.allItems = data.items;
-                model.catalogs[model.mode] = data.items;
+                model.catalogs[data.mode] = data.items;
                 model.accent = data.accent;
                 model.foreground = data.foreground;
                 model.background = data.background;
                 // One assignment: an intermediate index would preview the wrong picture.
-                var chosen = 0;
-                for (var index = 0; index < data.items.length; index++) {
-                    if (preferredPath ? data.items[index].value === preferredPath : data.items[index].current)
-                        chosen = index;
-                }
+                // The asked-for picture when the list has it, else the current one.
+                var preferred = data.items.findIndex(item => !!preferredPath && item.value === preferredPath);
+                var chosen = preferred >= 0 ? preferred : Math.max(0, data.items.findIndex(item => item.current));
                 model.selectedIndex = chosen;
                 model.preferredPath = "";
                 if (model.searchText) model.search(model.searchText);
@@ -150,7 +163,7 @@ Item {
             } else {
                 model.items = [];
                 model.allItems = [];
-                model.catalogs[model.mode] = [];
+                model.catalogs[model.listName] = [];
                 model.error = Eitr.I18n.tr("Images unavailable");
             }
             model.loaded();

@@ -83,7 +83,7 @@ Escribe en cualquier parte del catálogo, o pulsa Ctrl+F o /, para buscar en la 
 
 Elige tema y fondo en Configuración > Apariencia > Tema y fondo de pantalla. Para los menús Oscuro/Claro de Walker, usa **Walker > Configuración > Escritorio > Apariencia > Tema** o **SUPER + Ctrl + Shift + N**. Un doble clic derecho en el escritorio vacío abre el carrusel. El Sol filtra temas claros y la Luna oscuros; pulsa otra vez el filtro activo para ver todos.
 
-El + abre el catálogo separado con el mismo filtro. Ctrl+Tab recorre filtros, escribir busca, flechas/Tab mueven y Enter aplica. Backspace edita la búsqueda o cierra si está vacía; Escape la borra antes de cerrar.
+El + abre el catálogo separado con el mismo filtro. Ctrl+Tab recorre filtros, escribir busca, flechas/Tab mueven y Enter aplica. Backspace edita la búsqueda, incluso hasta dejarla vacía; Escape la borra antes de cerrar.
 
 **SUPER + Ctrl + N** abre los fondos y **SUPER + Shift + N** pasa al siguiente. Una marca señala la elección activa en Walker. Los cambios no muestran notificaciones de éxito. Los monitores ultrawide, al menos el doble de anchos que de altos, usan la versión 21:9 para recortar menos; los demás usan la versión 4K 16:9.
 
@@ -156,6 +156,8 @@ El menú de arranque de Limine usa los colores del tema actual, el título EITR 
 ## Vistas previas y asignaciones de fondos
 
 En Ajustes > Apariencia > Tema y fondo, pulsa una imagen para previsualizar su fotograma fijo en el escritorio. Aplicar la guarda; Cancelar vista previa, cambiar de página o cerrar restaura la elección guardada. La paleta no cambia. Walker > Ajustes > Escritorio > Apariencia > Fondo abre el carrusel en la imagen seleccionada. Las flechas previsualizan; Intro aplica; Escape o pulsar fuera cancela.
+
+Sobre los fondos del carrusel, **Este tema** y **Todos los temas** alternan entre los fondos del tema actual y los de todos los temas instalados (también con Ctrl+Tab). Debajo de cada fondo aparece su nombre (con todos los temas, también el tema del que viene), y al escribir se buscan nombres y temas; tus propias imágenes van al final. Elegir uno cambia solo el fondo; los colores del tema se mantienen.
 
 Fondo por pantalla en Configuración > Apariencia > Tema y fondo (o Walker > Configuración > Escritorio > Apariencia > Fondo por pantalla) está desactivado de forma predeterminada: elegir o previsualizar un fondo cambia todas las pantallas. Actívalo para cambiar solo la pantalla que usas al elegir la imagen. Las pantallas sin selección propia usan el fondo global.
 

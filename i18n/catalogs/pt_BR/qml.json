@@ -975,5 +975,9 @@
   "The mouse wheel moves the content, like a touchscreen.": "A roda do mouse move o conteúdo, como numa tela sensível ao toque.",
   "Touchpad": "Touchpad",
   "Two fingers move the content, like a touchscreen.": "Dois dedos movem o conteúdo, como numa tela sensível ao toque.",
-  "Screen": "Tela"
+  "Screen": "Tela",
+  "This theme": "Este tema",
+  "All themes": "Todos os temas",
+  "Your wallpapers": "Seus papéis de parede",
+  "No matching wallpapers": "Nenhum papel de parede encontrado"
 }
