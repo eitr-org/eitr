@@ -33,9 +33,9 @@ Vérifiez les choix audio/micro et le moniteur avant de commencer. La webcam né
 
 Le manuel ne démarre jamais d’enregistrement ni de diffusion. Partage d’écran et capture restent des actions explicites. Transcoder ouvre la conversion d’images et vidéos existante ; vérifiez les chemins de sortie avant de remplacer un fichier.
 
-OBS demande une fois quel écran enregistrer. Dans le sélecteur de partage habituel, **Allow restore token** est coché par défaut pour qu’OBS puisse mémoriser votre choix. L’écran enregistré ne suit pas le réglage d’écran principal de la barre. Les fichiers `~/.config/hypr/xdph.conf` existants sont conservés ; vos propres réglages du portail peuvent donc modifier ce comportement.
+Quand OBS est fermé, Enregistrer capture l’écran qui a le focus : Eitr répond lui-même à la demande d’écran d’OBS, sans sélecteur, et règle le canevas d’OBS sur la taille de cet écran (une sortie réduite garde son rapport). Une fenêtre OBS que vous avez ouverte vous-même continue d’enregistrer ce qu’elle capture déjà ; à la fin de l’enregistrement, Eitr ferme l’OBS qu’il a lancé, et le suivant suit de nouveau votre focus. Les autres apps qui partagent votre écran, comme un appel vidéo, affichent toujours le sélecteur de Hyprland. Un `~/.config/hypr/xdph.conf` que vous avez modifié est conservé ; le sélecteur peut alors demander à chaque fois.
 
-Pour une nouvelle configuration OBS, Eitr crée la collection Untitled avec une Scene : capture d’écran, caméra masquée et sources audio par défaut du bureau et du microphone. À la première utilisation, le système vous demande quel écran partager ; OBS conserve cette autorisation. La caméra reste éteinte jusqu’à ce que vous l’activiez. Les collections existantes ne sont jamais modifiées.
+Pour une nouvelle configuration OBS, Eitr crée la collection Untitled avec une Scene : capture d’écran, caméra masquée et sources audio par défaut du bureau et du microphone. La caméra reste éteinte jusqu’à ce que vous l’activiez. Les collections existantes ne sont jamais modifiées.
 
 ## Partager
 

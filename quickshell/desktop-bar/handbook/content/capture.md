@@ -48,9 +48,9 @@ The handbook never starts a recording or stream. Screen sharing and capture
 remain explicit actions. Transcode offers the existing image/video conversion
 workflow; review output paths before replacing a file.
 
-OBS asks once which screen to record. In the standard share picker, **Allow restore token** is checked by default so OBS can remember your choice. The saved screen does not follow the bar’s Main display setting. Existing `~/.config/hypr/xdph.conf` files are kept, so your own portal settings may change this behavior.
+When OBS is closed, Record captures the display you are focused on: Eitr answers OBS's screen request itself, with no picker, and sets OBS's canvas to that display's size (a scaled-down output keeps its ratio). An OBS window you opened yourself keeps recording what it already captures; after the recording stops, Eitr closes the OBS it started, so the next one follows your focus again. Other apps that share your screen, such as a video call, still show Hyprland's share picker. A `~/.config/hypr/xdph.conf` you changed yourself is kept, so the picker may then ask every time.
 
-For a new OBS configuration, Eitr creates an Untitled collection with one Scene: screen capture, a hidden camera, and default desktop and microphone audio. The system asks which screen to share on first use; OBS saves that permission. The camera stays off until you enable it. Existing collections are never changed.
+For a new OBS configuration, Eitr creates an Untitled collection with one Scene: screen capture, a hidden camera, and default desktop and microphone audio. The camera stays off until you enable it. Existing collections are never changed.
 
 ## Share
 

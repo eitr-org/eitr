@@ -251,8 +251,9 @@ The OBS WebSocket password is handed to `obs-cmd` through its
 Recording options persist in `obs-recording.json`; audio and microphone
 switches affect OBS inputs, not system volume. Webcam requires a configured
 OBS camera source. The active scene must include visible full-screen monitor
-capture. OBS's saved Wayland capture permission still determines the monitor;
-changing the primary display may require selecting it again in OBS.
+capture. When Eitr starts OBS for a recording or stream, `scripts/obs_screen.py` makes
+it capture the focused display (Eitr's share picker answers OBS's screen request, see
+`distro/CONFIG-LAYOUT.md`) and sizes the canvas to it; an OBS already open keeps its capture.
 
 Double-left-click empty bar space to cycle the opaque theme color, the transparent
 background with blur, and Website: the Eitr website's palette (`SiteStyle`, light or

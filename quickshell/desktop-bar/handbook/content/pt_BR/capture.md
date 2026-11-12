@@ -33,9 +33,9 @@ Ao encerrar uma gravação, a notificação oferece Reproduzir gravação, Abrir
 
 O manual nunca inicia gravações ou transmissões. Compartilhar e capturar a tela continuam sendo ações explícitas. Transcodificar abre o fluxo existente de conversão de imagens e vídeos; revise os caminhos de saída antes de substituir arquivos.
 
-O OBS pergunta uma vez qual tela gravar. No seletor padrão de compartilhamento, **Allow restore token** vem marcado para que o OBS possa lembrar sua escolha. A tela salva não acompanha a opção Tela principal da barra. Arquivos `~/.config/hypr/xdph.conf` existentes são preservados, portanto suas próprias configurações do portal podem alterar esse comportamento.
+Com o OBS fechado, Gravar captura a tela que está em foco: o Eitr responde ele mesmo ao pedido de tela do OBS, sem seletor, e ajusta a resolução base do OBS ao tamanho dessa tela (uma saída reduzida mantém a proporção). Uma janela do OBS que você mesmo abriu continua gravando o que já captura; quando a gravação termina, o Eitr fecha o OBS que ele abriu, então a próxima volta a seguir o seu foco. Outros apps que compartilham sua tela, como uma chamada de vídeo, continuam mostrando o seletor do Hyprland. Um `~/.config/hypr/xdph.conf` que você mesmo alterou é mantido; aí o seletor pode perguntar toda vez.
 
-Em uma configuração nova do OBS, o Eitr cria a coleção Untitled com uma Scene: captura de tela, câmera oculta e áudio padrão do sistema e do microfone. No primeiro uso, o sistema pergunta qual tela você quer compartilhar; o OBS salva essa permissão. A câmera fica desligada até você ativá-la. Coleções existentes nunca são alteradas.
+Em uma configuração nova do OBS, o Eitr cria a coleção Untitled com uma Scene: captura de tela, câmera oculta e áudio padrão do sistema e do microfone. A câmera fica desligada até você ativá-la. Coleções existentes nunca são alteradas.
 
 ## Compartilhar
 
