@@ -264,7 +264,7 @@ class MenuStructureTests(unittest.TestCase):
                         count = count + 1
                         if entry.Value == "{saved}" then assert(entry.State[1] == "current") end
                     end
-                    assert(count == {5 if hidden else 6})
+                    assert(count == {8 if hidden else 9})
                 """
                 environment = dict(os.environ, EITR_LIBRARY_ROOT=str(ROOT / "distro/lib"), EITR_CODE_ROOT=str(ROOT))
                 subprocess.run(["lua", "-e", harness], cwd=ROOT, env=environment,

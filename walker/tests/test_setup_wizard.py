@@ -150,7 +150,7 @@ class SetupWizardTests(unittest.TestCase):
         spec.loader.exec_module(installer)
         Wizard = installer.Wizard
         STEPS = installer.STEPS
-        self.assertEqual(STEPS, ('Keyboard', 'Disk', 'Install type', 'Hostname', 'Username', 'Password', 'Encryption', 'Review'))
+        self.assertEqual(STEPS, ('Language', 'Keyboard', 'Disk', 'Install type', 'Hostname', 'Username', 'Password', 'Encryption', 'Review'))
         wizard = self.wizard([], ['\n', '\x7f', 'e', '\n'])
         self.assertEqual(Wizard.field(wizard, 'Hostname', '', '-', validator=installer.valid_hostname), 'e')
         wizard.screen.get_wch.side_effect = ['\n', '\t', '\n']
@@ -168,7 +168,8 @@ class SetupWizardTests(unittest.TestCase):
                 patch.object(installer, 'automatic_timezone', return_value='UTC'), \
                 patch.object(installer.Path, 'read_text', return_value='en_US.UTF-8 UTF-8'), \
                 patch.object(installer, 'output', side_effect=['us\nde', 'vda 1G']), \
-                patch.object(installer.subprocess, 'run') as command:
+                patch.object(installer.subprocess, 'run') as command, \
+                patch.object(installer, 'select_language', return_value=('en', 'en_US.UTF-8')) as language:
             wizard = constructor.return_value
             wizard.step = 0
             wizard.choose.side_effect = ['us', disk, 'erase', False]
@@ -182,6 +183,8 @@ class SetupWizardTests(unittest.TestCase):
         self.assertIs(wizard.field.call_args_list[1].kwargs['validator'], installer.valid_username)
         self.assertIn('ERASE /dev/vda: Test', wizard.review.call_args.args[0])
         self.assertIn('Encryption: DISABLED', wizard.review.call_args.args[0])
+        language.assert_called_once()
+        self.assertEqual(answers['language'], 'en_US.UTF-8')
         self.assertEqual(answers['username'], 'alex')
         self.assertEqual(answers['password'], 'test-password')
         self.assertFalse(answers['encrypted'])
