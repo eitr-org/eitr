@@ -60,8 +60,10 @@ item says what decides the next step. Remove an item when it ships;
   (`eitr-testing/codex-wip/addons-lockscreens/BRIEF.md`, Codex usage is back
   2026-11-13); VM-test installs, removal and the migration before testing.
 - **Japanese, Simplified Chinese and Korean (approved 2026-11-12; after the file splits,
-  done by Antigravity).** Every Eitr language is offered by the ISO installer and becomes the
-  installed system's language. Once: one plural form for these locales in
+  done by Antigravity).** The ISO installer starts in English and gets a first Language step
+  listing every Eitr language (it always installs `en_US.UTF-8` today, so this also covers
+  Portuguese, German, Spanish and French): picking one switches the wizard to it and makes it
+  the installed system's language. Once: one plural form for these locales in
   `tools/i18n-build.py`; CJK fonts (`noto-fonts-cjk`, about 189 MB download) in
   `distro/packages.txt`, the offline payload and the live ISO; the installer wizard runs in a
   graphical terminal on the live ISO (`cage` + `foot`) because the Linux console font cannot
