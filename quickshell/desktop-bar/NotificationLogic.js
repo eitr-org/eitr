@@ -53,11 +53,20 @@ var shippedLogos = ["herdr", "cmux"];
 
 // The app's icon, in order: the icon the notification names, the icon of its desktop
 // entry, a logo Eitr ships for it; "" leaves the bell.
-function appIconSource(notification, entryIcon, logoRoot) {
+// `resolve(name)` answers an icon-theme name's source, or "" when the theme lacks it
+// (Quickshell.iconPath(name, true)); a missing name would otherwise draw Qt's
+// placeholder square. The app's own icon then stands in, as for KDE Connect's
+// battery warnings, which name a battery icon the theme may not have.
+function appIconSource(notification, entryIcon, logoRoot, resolve) {
     if (!notification) return "";
-    var icon = notification.appIcon || "";
-    if (icon) return icon.indexOf("/") !== -1 || icon.indexOf(":") !== -1 ? icon : "image://icon/" + icon;
-    if (entryIcon) return entryIcon.indexOf("/") === 0 ? "file://" + entryIcon : "image://icon/" + entryIcon;
+    function themed(name, filePrefix) {
+        if (!name) return "";
+        if (name.indexOf("/") === 0) return filePrefix + name;
+        if (name.indexOf("/") !== -1 || name.indexOf(":") !== -1) return name;
+        return resolve ? resolve(name) || "" : "image://icon/" + name;
+    }
+    var icon = themed(notification.appIcon || "", "") || themed(entryIcon || "", "file://");
+    if (icon) return icon;
     var name = String(notification.appName || "").toLowerCase();
     return shippedLogos.indexOf(name) !== -1 && logoRoot ? "file://" + logoRoot + "/" + name + ".png" : "";
 }

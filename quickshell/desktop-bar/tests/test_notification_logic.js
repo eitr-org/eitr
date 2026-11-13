@@ -48,6 +48,12 @@ assert.equal(logic.appIconSource({appName: 'Slack', appIcon: ''}, 'slack', '/log
 assert.equal(logic.appIconSource({appName: 'Thing', appIcon: ''}, '/opt/thing.svg', '/logos'), 'file:///opt/thing.svg');
 assert.equal(logic.appIconSource({appName: 'Herdr', appIcon: ''}, '', '/logos'), 'file:///logos/herdr.png');
 assert.equal(logic.appIconSource({appName: 'Unknown', appIcon: ''}, '', '/logos'), '');
+// A theme lacking the named icon falls back to the app's own icon, then the shipped logo.
+const installed = name => ['kdeconnect', 'firefox'].includes(name) ? 'image://icon/' + name : '';
+assert.equal(logic.appIconSource({appName: 'KDE Connect', appIcon: 'battery-040'}, 'kdeconnect', '/logos', installed), 'image://icon/kdeconnect');
+assert.equal(logic.appIconSource({appIcon: 'firefox'}, 'other', '/logos', installed), 'image://icon/firefox');
+assert.equal(logic.appIconSource({appName: 'Herdr', appIcon: 'missing'}, '', '/logos', installed), 'file:///logos/herdr.png');
+assert.equal(logic.appIconSource({appName: 'Thing', appIcon: 'missing'}, 'also-missing', '/logos', installed), '');
 // Herdr's wording is tidied; everyone else's text is left alone.
 assert.equal(JSON.stringify(logic.presentation({appName: 'Herdr', summary: 'claude finished', body: 'Personal · 2'})), JSON.stringify({summary: 'Claude finished', body: 'Personal'}));
 assert.equal(JSON.stringify(logic.presentation({appName: 'Herdr', summary: 'opencode needs you', body: 'Doola · 12'})), JSON.stringify({summary: 'OpenCode needs you', body: 'Doola'}));

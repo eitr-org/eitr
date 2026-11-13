@@ -103,7 +103,7 @@ Rectangle {
                     objectName: "notificationFallbackIcon"
                     anchors.fill: parent
                     source: NotificationLogic.appIconSource(card.notification, card.desktopEntry ? card.desktopEntry.icon : "",
-                        Eitr.Paths.code("walker/icons"))
+                        Eitr.Paths.code("walker/icons"), name => Quickshell.iconPath(name, true))
                     fillMode: Image.PreserveAspectFit
                     visible: notificationImage.status !== Image.Ready && status === Image.Ready
                 }
