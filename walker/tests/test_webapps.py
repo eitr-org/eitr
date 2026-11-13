@@ -200,16 +200,18 @@ class WebAppTests(unittest.TestCase):
         specification = importlib.util.spec_from_file_location("recipe_software", SCRIPT.with_name("software.py"))
         software = importlib.util.module_from_spec(specification)
         specification.loader.exec_module(software)
+        import software_catalog
         item = {"label": "Notion", "source": "webapp", "packages": [], "url": "https://www.notion.so/"}
-        with patch.object(software, "catalog", return_value={"productivity": {"notion": item}}), \
-                patch.object(software, "text", side_effect=lambda arguments: json.dumps(self.webapps.apps())), \
+        with patch.object(software_catalog, "catalog", return_value={"productivity": {"notion": item}}), \
+                patch.object(software_catalog, "text", side_effect=lambda arguments: json.dumps(self.webapps.apps())), \
+                patch.object(software, "catalog", return_value={"productivity": {"notion": item}}), \
                 patch.object(software, "run") as run:
             self.assertFalse(software.recipes("productivity")[0]["installed"])
             software.recipe("productivity", "notion")
             run.assert_called_with(["python3", str(SCRIPT), "create", "Notion", item["url"]])
             self.webapps.create("My Notion", item["url"], icon_fetch=lambda *arguments: None)
             # Each menu action is a new process; here one module stands in for several.
-            software.webapp_rows.cache_clear()
+            software_catalog.webapp_rows.cache_clear()
             row = software.recipes("productivity")[0]
             self.assertTrue(row["installed"])
             self.assertTrue(row["removable"])
@@ -230,7 +232,7 @@ class WebAppTests(unittest.TestCase):
             software.recipe_remove("productivity", "notion")
             run.assert_called_with(["python3", str(SCRIPT), "remove", "my-notion"])
             self.webapps.remove("my-notion")
-            software.webapp_rows.cache_clear()
+            software_catalog.webapp_rows.cache_clear()
             self.assertFalse(software.installed(item))
 
     def test_create_lists_and_removes_a_launcher(self):

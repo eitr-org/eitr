@@ -85,10 +85,6 @@
       "lines": 566,
       "reason": "One terminal plugin review flow, sharing package facts with the native review."
     },
-    "walker/scripts/actions/install/software.py": {
-      "lines": 830,
-      "reason": "To improve (TODO): catalog, installers and web apps mixed in one helper."
-    },
     "walker/scripts/actions/install/webapps.py": {
       "lines": 419,
       "reason": "Barely over the limit; one helper."

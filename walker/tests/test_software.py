@@ -21,67 +21,75 @@ ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location("software", ROOT / "walker/scripts/actions/install/software.py")
 software = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(software)
-
+import software_catalog
+import software_packages
 
 
 def install_rows():
     return [(entry["text"], entry.get("subtext"), entry.get("submenu")) for entry in menu_data.load("install")["entries"]]
 
+
 def repository_catalog():
-    """The checkout's catalog: software.catalog() prefers the installed copy."""
-    return patch.object(software, "catalog", return_value=json.loads((ROOT / "distro/software.json").read_text()))
+    """The checkout's catalog: software_catalog.catalog() prefers the installed copy."""
+    return patch.object(software_catalog, "data_file", side_effect=lambda name: ROOT / "distro" / name)
 
 
 def forget_installed_state():
     """A listing remembers what pacman, Flatpak and Web Apps said; tests start fresh."""
-    software.KNOWN_PACKAGES.clear()
-    software.FLATPAK_REFS = None
-    software.webapp_rows.cache_clear()
+    software_catalog.KNOWN_PACKAGES.clear()
+    software_catalog.FLATPAK_REFS = None
+    software_catalog.webapp_rows.cache_clear()
 
 
 class SoftwareTests(unittest.TestCase):
     def setUp(self):
         forget_installed_state()
 
+    def test_modules_import_without_cycles(self):
+        self.assertTrue(callable(software_catalog.catalog))
+        self.assertTrue(callable(software_packages.package_picker))
+        self.assertNotIn("software_packages", Path(software_catalog.__file__).read_text())
+        self.assertNotIn("from software import", Path(software_packages.__file__).read_text())
+
     def test_package_confirmation_keys_and_installed_noop(self):
         for key, present, expected in [("\r", False, True), ("\x1b", False, False), ("\r", True, False)]:
             with self.subTest(key=key, present=present), \
-                    patch.object(software.sys.stdin, "isatty", return_value=True), \
-                    patch.object(software.sys.stdout, "isatty", return_value=True), \
-                    patch.object(software, "installed", return_value=present), \
-                    patch.object(software, "read_key", return_value=key), \
-                    patch.object(software, "install") as install, contextlib.redirect_stdout(io.StringIO()) as output:
+                    patch.object(software_packages.sys.stdin, "isatty", return_value=True), \
+                    patch.object(software_packages.sys.stdout, "isatty", return_value=True), \
+                    patch.object(software_packages, "installed", return_value=present), \
+                    patch.object(software_packages, "read_key", return_value=key), \
+                    patch.object(software_packages, "install") as install, contextlib.redirect_stdout(io.StringIO()) as output:
                 output.isatty = lambda: True
-                software.package_confirm("install", "pacman", "lowfi")
+                software_packages.package_confirm("install", "pacman", "lowfi")
                 self.assertEqual(install.called, expected)
                 if present:
                     self.assertIn("already installed", output.getvalue())
 
     def test_package_confirmation_rejects_no_terminal_and_bad_names(self):
-        with patch.object(software.sys.stdin, "isatty", return_value=False), patch.object(software, "install") as install:
+        with patch.object(software_packages.sys.stdin, "isatty", return_value=False), patch.object(software_packages, "install") as install:
             for name in ("lowfi", "--root", "foo/bar", "foo:bar", "foo;id", "foo\nbar", ""):
                 with self.subTest(name=name), self.assertRaises(ValueError):
-                    software.package_confirm("install", "pacman", name)
+                    software_packages.package_confirm("install", "pacman", name)
             install.assert_not_called()
 
     def test_package_confirmation_refuses_eitr_removal(self):
-        with patch.object(software.sys.stdin, "isatty", return_value=True), \
-                patch.object(software.sys.stdout, "isatty", return_value=True), patch.object(software, "run") as run:
-            for name in software.EITR_PACKAGES:
+        with patch.object(software_packages.sys.stdin, "isatty", return_value=True), \
+                patch.object(software_packages.sys.stdout, "isatty", return_value=True), patch.object(software_packages, "run") as run:
+            for name in software_packages.EITR_PACKAGES:
                 with self.assertRaisesRegex(ValueError, "part of Eitr"):
-                    software.package_confirm("remove", "pacman", name)
+                    software_packages.package_confirm("remove", "pacman", name)
             run.assert_not_called()
 
     def test_aur_confirmation_reuses_build_file_and_review(self):
-        with patch.object(software.sys.stdin, "isatty", return_value=True), \
-                patch.object(software.sys.stdout, "isatty", return_value=True), \
-                patch.object(software, "installed", return_value=False), \
-                patch.object(software, "read_key", side_effect=["\x02", "\x0f", "\r"]), \
-                patch.object(software, "build_file") as build_file, \
-                patch.object(software, "review") as review, \
-                patch.object(software.subprocess, "run") as run, \
-                patch.object(software, "install") as install:
-            software.package_confirm("install", "aur", "lowfi")
+        with patch.object(software_packages.sys.stdin, "isatty", return_value=True), \
+                patch.object(software_packages.sys.stdout, "isatty", return_value=True), \
+                patch.object(software_packages, "installed", return_value=False), \
+                patch.object(software_packages, "read_key", side_effect=["\x02", "\x0f", "\r"]), \
+                patch.object(software_packages, "build_file") as build_file, \
+                patch.object(software_packages, "review") as review, \
+                patch.object(software_packages.subprocess, "run") as run, \
+                patch.object(software_packages, "install") as install:
+            software_packages.package_confirm("install", "aur", "lowfi")
             build_file.assert_called_once_with("aur", "lowfi")
             review.assert_called_once_with("aur", "lowfi")
             self.assertEqual(run.call_args.args[0], ["less", "-R"])
@@ -90,12 +98,12 @@ class SoftwareTests(unittest.TestCase):
     def test_remove_confirmation_uses_shared_removal(self):
         for key, present, expected in [("\r", True, True), ("\x1b", True, False), ("\r", False, False)]:
             with self.subTest(key=key, present=present), \
-                    patch.object(software.sys.stdin, "isatty", return_value=True), \
-                    patch.object(software.sys.stdout, "isatty", return_value=True), \
-                    patch.object(software, "installed", return_value=present), \
-                    patch.object(software, "read_key", return_value=key), \
-                    patch.object(software, "remove") as remove:
-                software.package_confirm("remove", "pacman", "lowfi")
+                    patch.object(software_packages.sys.stdin, "isatty", return_value=True), \
+                    patch.object(software_packages.sys.stdout, "isatty", return_value=True), \
+                    patch.object(software_packages, "installed", return_value=present), \
+                    patch.object(software_packages, "read_key", return_value=key), \
+                    patch.object(software_packages, "remove") as remove:
+                software_packages.package_confirm("remove", "pacman", "lowfi")
                 self.assertEqual(remove.called, expected)
                 if expected:
                     remove.assert_called_once_with("pacman", "lowfi")
@@ -105,10 +113,10 @@ class SoftwareTests(unittest.TestCase):
         answers = [SimpleNamespace(returncode=0, stdout="low\nctrl-d\n" + rows[0] + "\n"),
                    SimpleNamespace(returncode=1, stdout="low\nctrl-f\n"),
                    SimpleNamespace(returncode=130, stdout="")]
-        with patch.object(software, "package_rows", return_value=rows) as listing, \
-                patch.object(software, "pick_packages", side_effect=answers) as picker, \
-                patch.object(software, "package_confirm") as confirm:
-            software.package_picker("aur")
+        with patch.object(software_packages, "package_rows", return_value=rows) as listing, \
+                patch.object(software_packages, "pick_packages", side_effect=answers) as picker, \
+                patch.object(software_packages, "package_confirm") as confirm:
+            software_packages.package_picker("aur")
             confirm.assert_called_once_with("remove", "pacman", "lowfi")
             self.assertEqual(listing.call_count, 2)
             self.assertEqual(picker.call_args.args[1], [rows[0]])
@@ -122,13 +130,14 @@ class SoftwareTests(unittest.TestCase):
         answers = {"pacman": SimpleNamespace(returncode=1, stdout="bash 5.3-1\n",
                                              stderr="error: package 'missing-one' was not found\n"),
                    "flatpak": SimpleNamespace(returncode=0, stdout="org.example.App\n", stderr="")}
-        with patch.object(software, "catalog", return_value=data), \
-                patch.object(software.shutil, "which", return_value="/usr/bin/flatpak"), \
-                patch.object(software.subprocess, "run", side_effect=lambda command, **options: answers[command[0]]) as run:
-            rows = {row["id"]: row["installed"] for row in software.recipes("tools")}
+        with patch.object(software_catalog, "catalog", return_value=data), \
+                patch.object(software_catalog.shutil, "which", return_value="/usr/bin/flatpak"), \
+                patch.object(software_catalog.subprocess, "run", side_effect=lambda command, **options: answers[command[0]]) as run:
+            rows = {row["id"]: row["installed"] for row in software_catalog.recipes("tools")}
         self.assertEqual(rows, {"a": True, "b": False, "c": True, "d": False})
         self.assertEqual([call.args[0][0] for call in run.call_args_list], ["pacman", "flatpak"])
         self.assertEqual(run.call_args_list[0].args[0], ["pacman", "-Q", "--", "sh", "missing-one"])
+
     def test_geforce_adds_runtime_remote_before_install(self):
         data = json.loads((ROOT / "distro/software.json").read_text())
         with patch.object(software, "catalog", return_value=data), \
@@ -146,29 +155,29 @@ class SoftwareTests(unittest.TestCase):
         for satisfied, expected in ((False, ["dbeaver", "jre-openjdk"]), (True, ["dbeaver"])):
             with self.subTest(satisfied=satisfied), patch.object(software, "catalog", return_value=data), \
                     patch.object(software, "installed", return_value=False), \
-                    patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0 if satisfied else 127)) as deptest, \
+                    patch.object(software_catalog.subprocess, "run", return_value=SimpleNamespace(returncode=0 if satisfied else 127)) as deptest, \
                     patch.object(software, "install") as install:
                 software.recipe("databases", "dbeaver")
             deptest.assert_called_once_with(["pacman", "-T", "--", "java-runtime>=21"], stdout=subprocess.DEVNULL)
             install.assert_called_once_with("pacman", expected)
 
     def test_installed_items_are_detected_and_not_installed_again(self):
-        with tempfile.TemporaryDirectory() as home, patch.object(software.Path, "home", return_value=Path(home)):
+        with tempfile.TemporaryDirectory() as home, patch.object(software_catalog.Path, "home", return_value=Path(home)):
             java = {"label": "Java", "source": "managed", "packages": [],
                     "installed": ["~/.sdkman/candidates/java/current/bin/java", "~/.nvm/versions/node/*/bin/node"]}
-            self.assertFalse(software.installed(java))
+            self.assertFalse(software_catalog.installed(java))
             for relative in (".sdkman/candidates/java/current/bin/java", ".nvm/versions/node/v24.1.0/bin/node"):
                 (Path(home) / relative).parent.mkdir(parents=True)
                 (Path(home) / relative).touch()
-            self.assertTrue(software.installed(java))
-            self.assertFalse(software.installed({"label": "X", "source": "managed", "packages": []}))
-        with patch.object(software.subprocess, "run", return_value=SimpleNamespace(
+            self.assertTrue(software_catalog.installed(java))
+            self.assertFalse(software_catalog.installed({"label": "X", "source": "managed", "packages": []}))
+        with patch.object(software_catalog.subprocess, "run", return_value=SimpleNamespace(
                 returncode=1, stdout="", stderr="error: package 'dbeaver' was not found\n")):
-            self.assertFalse(software.installed({"label": "DBeaver", "source": "pacman", "packages": ["dbeaver"]}))
+            self.assertFalse(software_catalog.installed({"label": "DBeaver", "source": "pacman", "packages": ["dbeaver"]}))
         forget_installed_state()
         data = {"databases": {"dbeaver": {"label": "DBeaver", "source": "pacman", "packages": ["dbeaver"]}}}
         with patch.object(software, "catalog", return_value=data), \
-                patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout="", stderr="")), \
+                patch.object(software_catalog.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout="", stderr="")), \
                 patch.object(software, "install") as install:
             software.recipe("databases", "dbeaver")
         install.assert_not_called()
@@ -177,10 +186,10 @@ class SoftwareTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             executable = Path(directory) / 'bin/ibmcloud'
             item = {"source": "managed", "packages": [], "installed": [str(executable)]}
-            self.assertFalse(software.installed(item))
+            self.assertFalse(software_catalog.installed(item))
             executable.parent.mkdir()
             executable.touch()
-            self.assertTrue(software.installed(item))
+            self.assertTrue(software_catalog.installed(item))
 
     def test_every_managed_tool_says_how_to_detect_it(self):
         data = json.loads((ROOT / "distro/software.json").read_text())
@@ -194,10 +203,10 @@ class SoftwareTests(unittest.TestCase):
     def test_package_picker_sends_each_selection_to_its_installer(self):
         rows = ["firefox\textra\t", "chromium\textra\tinstalled", "yay-bin\taur\t"]
         chosen = "\n\nfirefox\textra\t\nyay-bin\taur\t\n"
-        with patch.object(software, "package_rows", return_value=rows), \
-                patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=chosen)) as picker, \
-                patch.object(software, "install") as install:
-            software.package_picker("pacman")
+        with patch.object(software_packages, "package_rows", return_value=rows), \
+                patch.object(software_packages.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=chosen)) as picker, \
+                patch.object(software_packages, "install") as install:
+            software_packages.package_picker("pacman")
             command = picker.call_args.args[0]
             self.assertIn("--multi", command)
             self.assertTrue(any("ctrl-d:" in argument for argument in command))
@@ -209,10 +218,10 @@ class SoftwareTests(unittest.TestCase):
                                                       unittest.mock.call("aur", ["yay-bin"])])
 
     def test_package_picker_cancel_never_installs(self):
-        with patch.object(software, "package_rows", return_value=["firefox\textra\t"]), \
-                patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=130, stdout="")), \
-                patch.object(software, "install") as install:
-            software.package_picker("aur")
+        with patch.object(software_packages, "package_rows", return_value=["firefox\textra\t"]), \
+                patch.object(software_packages.subprocess, "run", return_value=SimpleNamespace(returncode=130, stdout="")), \
+                patch.object(software_packages, "install") as install:
+            software_packages.package_picker("aur")
             install.assert_not_called()
 
     def test_an_exact_name_ranks_first_whatever_its_status(self):
@@ -236,30 +245,30 @@ class SoftwareTests(unittest.TestCase):
         archive = __import__("gzip").compress(b"yay\nyay-bin\n")
         response = unittest.mock.MagicMock()
         response.__enter__.return_value.read.return_value = archive
-        with patch.object(software.subprocess, "run", side_effect=run), \
-                patch.object(software.urllib.request, "urlopen", return_value=response), patch("builtins.print"):
-            self.assertEqual(software.package_rows("pacman"), ["firefox\textra   \tavailable", "yay\teitr    \tinstalled"])
-            self.assertEqual(software.package_rows("aur"), ["yay\taur     \tinstalled", "yay-bin\taur     \tavailable"])
+        with patch.object(software_packages.subprocess, "run", side_effect=run), \
+                patch.object(software_packages.urllib.request, "urlopen", return_value=response), patch("builtins.print"):
+            self.assertEqual(software_packages.package_rows("pacman"), ["firefox\textra   \tavailable", "yay\teitr    \tinstalled"])
+            self.assertEqual(software_packages.package_rows("aur"), ["yay\taur     \tinstalled", "yay-bin\taur     \tavailable"])
             with self.assertRaises(ValueError):
-                software.package_rows("flatpak")
+                software_packages.package_rows("flatpak")
 
     def test_install_keeps_arguments_separate_and_deduplicates(self):
-        with patch.object(software, "require_no_pending_updates"), patch.object(software, "run") as run:
-            software.install("pacman", ["firefox", "firefox"])
+        with patch.object(software_packages, "require_no_pending_updates"), patch.object(software_packages, "run") as run:
+            software_packages.install("pacman", ["firefox", "firefox"])
             run.assert_called_once_with(["sudo", "pacman", "-Syu", "--needed", "--", "firefox"])
 
     def checkupdates(self, returncode, stdout="", stderr=""):
-        return patch.object(software.subprocess, "run",
+        return patch.object(software_packages.subprocess, "run",
                             return_value=SimpleNamespace(returncode=returncode, stdout=stdout, stderr=stderr))
 
     def test_pending_updates_explain_and_cancel_on_escape(self):
         output = io.StringIO()
         with contextlib.redirect_stdout(output), \
-                patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \
+                patch.object(software_packages.shutil, "which", return_value="/usr/bin/checkupdates"), \
                 self.checkupdates(0, "linux 1 -> 2\nmesa 1 -> 2\n"), \
-                patch.object(software, "read_key", return_value="\x1b"), patch.object(software, "run") as run:
-            with self.assertRaises(software.InstallCancelled):
-                software.install("pacman", ["firefox"])
+                patch.object(software_packages, "read_key", return_value="\x1b"), patch.object(software_packages, "run") as run:
+            with self.assertRaises(software_packages.InstallCancelled):
+                software_packages.install("pacman", ["firefox"])
             run.assert_not_called()
         self.assertIn("2 system update(s) are waiting", output.getvalue())
         self.assertIn("without a recovery snapshot", output.getvalue())
@@ -272,10 +281,10 @@ class SoftwareTests(unittest.TestCase):
                 return SimpleNamespace(returncode=0 if len(calls) == 1 else 2, stdout="linux 1 -> 2\n", stderr="")
             return SimpleNamespace(returncode=0)
         with contextlib.redirect_stdout(io.StringIO()), \
-                patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \
-                patch.object(software.subprocess, "run", side_effect=system), \
-                patch.object(software, "read_key", return_value="\r"), patch.object(software, "run") as run:
-            software.install("pacman", ["firefox"])
+                patch.object(software_packages.shutil, "which", return_value="/usr/bin/checkupdates"), \
+                patch.object(software_packages.subprocess, "run", side_effect=system), \
+                patch.object(software_packages, "read_key", return_value="\r"), patch.object(software_packages, "run") as run:
+            software_packages.install("pacman", ["firefox"])
         self.assertEqual(calls[1][0], "bash")
         self.assertTrue(calls[1][1].endswith("walker/scripts/actions/system/update.sh"))
         self.assertEqual(calls[1][2], "system")
@@ -287,11 +296,11 @@ class SoftwareTests(unittest.TestCase):
                 return SimpleNamespace(returncode=0, stdout="linux 1 -> 2\n", stderr="")
             return SimpleNamespace(returncode=1)
         with contextlib.redirect_stdout(io.StringIO()), \
-                patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \
-                patch.object(software.subprocess, "run", side_effect=system), \
-                patch.object(software, "read_key", return_value="\n"), patch.object(software, "run") as run:
+                patch.object(software_packages.shutil, "which", return_value="/usr/bin/checkupdates"), \
+                patch.object(software_packages.subprocess, "run", side_effect=system), \
+                patch.object(software_packages, "read_key", return_value="\n"), patch.object(software_packages, "run") as run:
             with self.assertRaisesRegex(RuntimeError, "System Update did not finish"):
-                software.install("pacman", ["firefox"])
+                software_packages.install("pacman", ["firefox"])
             run.assert_not_called()
 
     def test_install_announces_check_before_waiting_and_before_sudo(self):
@@ -303,41 +312,41 @@ class SoftwareTests(unittest.TestCase):
             self.assertIn("Preparing package installation…", output.getvalue())
             self.assertEqual(arguments[:2], ["sudo", "pacman"])
         with contextlib.redirect_stderr(output), \
-                patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \
-                patch.object(software.subprocess, "run", side_effect=check), \
-                patch.object(software, "run", side_effect=install):
-            software.install("pacman", ["steam"])
+                patch.object(software_packages.shutil, "which", return_value="/usr/bin/checkupdates"), \
+                patch.object(software_packages.subprocess, "run", side_effect=check), \
+                patch.object(software_packages, "run", side_effect=install):
+            software_packages.install("pacman", ["steam"])
 
     def test_install_proceeds_only_when_no_updates_are_pending(self):
-        with patch.object(software.shutil, "which", return_value="/usr/bin/checkupdates"), \
-                self.checkupdates(2), patch.object(software, "run") as run:
-            software.install("pacman", ["firefox"])
+        with patch.object(software_packages.shutil, "which", return_value="/usr/bin/checkupdates"), \
+                self.checkupdates(2), patch.object(software_packages, "run") as run:
+            software_packages.install("pacman", ["firefox"])
             run.assert_called_once()
         for which, returncode in ((None, 2), ("/usr/bin/checkupdates", 1)):
             with self.subTest(which=which, returncode=returncode), \
-                    patch.object(software.shutil, "which", return_value=which), \
-                    self.checkupdates(returncode, stderr="network down"), patch.object(software, "run") as run:
+                    patch.object(software_packages.shutil, "which", return_value=which), \
+                    self.checkupdates(returncode, stderr="network down"), patch.object(software_packages, "run") as run:
                 with self.assertRaises(RuntimeError):
-                    software.install("pacman", ["firefox"])
+                    software_packages.install("pacman", ["firefox"])
                 run.assert_not_called()
 
     def test_missing_catalog_reports_existing_desktop_step(self):
         with tempfile.TemporaryDirectory() as directory, \
                 patch.dict(os.environ, {"XDG_DATA_DIRS": directory}), \
-                patch.object(software.Path, "home", return_value=Path(directory)), \
-                patch.object(software, "SCRIPT", Path(directory) / "a/b/c/d/software.py"):
+                patch.object(software_catalog.Path, "home", return_value=Path(directory)), \
+                patch.object(software_catalog, "SCRIPT", Path(directory) / "a/b/c/d/software_catalog.py"):
             os.environ.pop("XDG_DATA_HOME", None)
             with self.assertRaisesRegex(FileNotFoundError, "Existing desktop"):
-                software.catalog()
+                software_catalog.catalog()
         # An existing desktop has an installed catalog; isolate the checkout
         # fallback from the reviewer's HOME and XDG data dirs rather than
         # assuming they are empty.
         with tempfile.TemporaryDirectory() as directory, \
-                patch.object(software.Path, "home", return_value=Path(directory)), \
+                patch.object(software_catalog.Path, "home", return_value=Path(directory)), \
                 patch.dict(os.environ, {"XDG_DATA_DIRS": directory}):
             os.environ.pop("XDG_DATA_HOME", None)
-            self.assertEqual(software.data_file("software.json"), ROOT / "distro/software.json")
-            self.assertTrue(software.installer_url("nvm").startswith("https://"))
+            self.assertEqual(software_catalog.data_file("software.json"), ROOT / "distro/software.json")
+            self.assertTrue(software_catalog.installer_url("nvm").startswith("https://"))
 
     def test_packaged_data_files_are_found_after_user_copies(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -347,12 +356,12 @@ class SoftwareTests(unittest.TestCase):
             packaged.write_text("{}")
             environment = {"XDG_DATA_HOME": str(base / "data"), "XDG_DATA_DIRS": f"relative:{base}/usr/share"}
             with patch.dict(os.environ, environment):
-                self.assertEqual(software.data_file("software.json"), packaged)
+                self.assertEqual(software_catalog.data_file("software.json"), packaged)
                 user_copy = base / "data/eitr/software.json"
                 user_copy.parent.mkdir(parents=True)
                 user_copy.write_text("{}")
-                self.assertEqual(software.data_file("software.json"), packaged)
-        self.assertEqual(software.data_dirs()[-1].parent.name, "share")
+                self.assertEqual(software_catalog.data_file("software.json"), packaged)
+        self.assertEqual(software_catalog.data_dirs()[-1].parent.name, "share")
 
     def test_mise_is_optional_pacman_recipe_with_manual_activation(self):
         with repository_catalog():
@@ -368,10 +377,11 @@ class SoftwareTests(unittest.TestCase):
             self.assertIn("nvm/uv", output.call_args.args[0])
 
     def test_recipe_menu_shows_catalog_errors(self):
-        script = ROOT / "walker/scripts/actions/install/software.py"
+        install_dir = ROOT / "walker/scripts/actions/install"
         with tempfile.TemporaryDirectory() as directory:
+            for name in ("software.py", "software_catalog.py", "software_packages.py"):
+                (Path(directory) / name).write_text((install_dir / name).read_text())
             copy = Path(directory) / "software.py"
-            copy.write_text(script.read_text())
             result = subprocess.run([sys.executable, str(copy), "recipes", "languages"],
                                     capture_output=True, text=True,
                                     env=dict(os.environ, HOME=directory, XDG_DATA_HOME=directory,
@@ -385,17 +395,17 @@ class SoftwareTests(unittest.TestCase):
 
     def test_invalid_package_never_executes(self):
         for name in ("--overwrite", "firefox; reboot", "$(id)", "../x", ""):
-            with self.subTest(name=name), patch.object(software, "run") as run:
+            with self.subTest(name=name), patch.object(software_packages, "run") as run:
                 with self.assertRaises(ValueError):
-                    software.install("pacman", [name])
+                    software_packages.install("pacman", [name])
                 run.assert_not_called()
 
     def test_aur_keeps_review_prompts_and_runs_as_user(self):
-        with patch.object(software.os, "geteuid", return_value=1000), patch.object(software, "run") as run:
-            software.install("aur", ["google-chrome"])
+        with patch.object(software_packages.os, "geteuid", return_value=1000), patch.object(software_packages, "run") as run:
+            software_packages.install("aur", ["google-chrome"])
             run.assert_called_once_with(["yay", "-S", "--needed", "--", "google-chrome"])
-        with patch.object(software.os, "geteuid", return_value=0), patch.object(software, "run") as run:
-            with self.assertRaises(RuntimeError): software.install("aur", ["google-chrome"])
+        with patch.object(software_packages.os, "geteuid", return_value=0), patch.object(software_packages, "run") as run:
+            with self.assertRaises(RuntimeError): software_packages.install("aur", ["google-chrome"])
             run.assert_not_called()
 
     def test_eitrs_own_apps_cannot_be_uninstalled(self):
@@ -413,8 +423,8 @@ class SoftwareTests(unittest.TestCase):
             terminal.assert_not_called()
 
     def test_remove_does_not_force_or_recursively_delete_dependencies(self):
-        with patch.object(software, "run") as run:
-            software.remove("pacman", "firefox")
+        with patch.object(software_packages, "run") as run:
+            software_packages.remove("pacman", "firefox")
             run.assert_called_once_with(["sudo", "pacman", "-R", "--", "firefox"])
 
     def test_optional_browser_and_webapp_recipes(self):
@@ -434,7 +444,7 @@ class SoftwareTests(unittest.TestCase):
         data = json.loads((ROOT / "distro/software.json").read_text())
         for entries in data.values():
             for item in entries.values():
-                for package in item["packages"]: software.package_name(package)
+                for package in item["packages"]: software_catalog.package_name(package)
         self.assertEqual(data["languages"]["java"]["manager"], "SDKMAN")
         self.assertEqual(data["languages"]["node"]["manager"], "NVM")
         self.assertEqual(data["browsers"]["tor"]["source"], "pacman")
@@ -494,8 +504,8 @@ class SoftwareRemovalTests(unittest.TestCase):
 
     def test_all_install_recipes_have_a_supported_removal_path(self):
         for group in ("browsers", "databases", "developer-apps", "languages", "javascript", "ai", "productivity"):
-            with self.subTest(group=group), patch.object(software, "installed", return_value=True):
-                self.assertTrue(all(row["removable"] for row in software.recipes(group)))
+            with self.subTest(group=group), patch.object(software_catalog, "installed", return_value=True):
+                self.assertTrue(all(row["removable"] for row in software_catalog.recipes(group)))
 
     def test_cancel_never_removes_packages_or_tools(self):
         for group in ("developer-apps", "javascript", "ai"):
@@ -547,14 +557,14 @@ class SoftwareRemovalTests(unittest.TestCase):
 
     def test_packaged_bundle_removes_only_installed_packages_without_recursion(self):
         with patch.object(software, "installed", side_effect=lambda item: item["packages"] == ["php"]), \
-                patch.object(software, "run") as run:
+                patch.object(software_packages, "run") as run:
             software.recipe_remove("languages", "php")
         run.assert_called_once_with(["sudo", "pacman", "-R", "--", "php"])
 
     def test_direct_remove_keeps_eitr_protected(self):
-        with patch.object(software, "run") as run:
+        with patch.object(software_packages, "run") as run:
             with self.assertRaises(ValueError):
-                software.remove("pacman", "firefox", "eitr-desktop")
+                software_packages.remove("pacman", "firefox", "eitr-desktop")
             run.assert_not_called()
 
     def test_native_removal_keeps_settings_and_cached_versions(self):
@@ -640,8 +650,8 @@ class SoftwareRemovalTests(unittest.TestCase):
             self.assertEqual(run.call_args.args[0], ["composer", "global", "remove", "laravel/installer"])
 
     def test_packages_picker_keeps_walker_delete_scoped(self):
-        source = (ROOT / "walker/scripts/actions/install/software.py").read_text()
-        picker = source[source.index("def package_picker("):source.index("def gaming_item(")]
+        source = (ROOT / "walker/scripts/actions/install/software_packages.py").read_text()
+        picker = source[source.index("def package_picker("):]
         self.assertNotIn("delete", picker.lower())
         import tomllib
         actions = tomllib.loads((ROOT / "walker/config.toml").read_text())["providers"]["actions"]
@@ -700,16 +710,16 @@ class GamingTests(unittest.TestCase):
                 launch.assert_not_called()
 
     def test_gaming_flatpak_checks_app_not_just_flatpak_binary(self):
-        item = software.catalog()["gaming"]["geforcenow"]
+        item = software_catalog.catalog()["gaming"]["geforcenow"]
         for found in (True, False):
             forget_installed_state()
             listed = "\n".join(item["packages"]) if found else "org.example.Else"
-            with self.subTest(installed=found), patch.object(software.shutil, "which", return_value="/usr/bin/flatpak"), \
-                    patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=listed)):
-                self.assertEqual(software.installed(item), found)
+            with self.subTest(installed=found), patch.object(software_catalog.shutil, "which", return_value="/usr/bin/flatpak"), \
+                    patch.object(software_catalog.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=listed)):
+                self.assertEqual(software_catalog.installed(item), found)
 
     def test_retroarch_installs_official_cores_with_its_menu_assets(self):
-        item = software.catalog()["gaming"]["retroarch"]
+        item = software_catalog.catalog()["gaming"]["retroarch"]
         self.assertEqual(item["source"], "pacman")
         self.assertIn("retroarch-assets-ozone", item["packages"])
         self.assertGreaterEqual(len([name for name in item["packages"] if name.startswith("libretro-") and name != "libretro-core-info"]), 10)

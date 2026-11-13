@@ -235,7 +235,7 @@ def plan(arguments, code=None, config=None):
     command = arguments.command
     if command == "package":
         import importlib.util
-        specification = importlib.util.spec_from_file_location("eitr_software", actions / "install/software.py")
+        specification = importlib.util.spec_from_file_location("eitr_software", actions / "install/software_catalog.py")
         software = importlib.util.module_from_spec(specification)
         specification.loader.exec_module(software)
         software.package_name(arguments.name)

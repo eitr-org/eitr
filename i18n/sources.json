@@ -6631,7 +6631,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "\nAUR packages are built on this computer: read the build file (Ctrl+B) before installing.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "\nAbout sending it: the report is used only to find and fix this problem, and it\nis deleted once the problem is fixed. An email also shares your email address;\nreply to it anytime to have your report deleted. A GitHub issue is public.\n": [
       "walker/scripts/actions/system/report-problem.py"
@@ -6657,7 +6657,7 @@
       "distro/system/eitr-system.py"
     ],
     "\nOfficial prebuilt package metadata; there is no local AUR build to execute.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "\nUnattended installation from the answers drive will ERASE the whole disk:\n  {disk_label}\nfor user {username}, {state}.": [
       "distro/archinstall/eitr-guided-install"
@@ -6815,13 +6815,13 @@
       "distro/archinstall/installer-ui.py"
     ],
     "AUR builds must run as a normal user": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "AUR package not found": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "AWS SSO (IAM Identity Center)": [
       "walker/scripts/menus/cloud/accounts.py"
@@ -7289,7 +7289,7 @@
       "walker/scripts/actions/system/update.sh"
     ],
     "Checking for system updates before installation…": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Checking official package updates…": [
       "walker/scripts/actions/system/update.sh"
@@ -7549,7 +7549,7 @@
       "distro/system/factory-reset.py"
     ],
     "Could not check for pending updates: {error}": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Could not complete that": [
       "walker/scripts/actions/style/own.py"
@@ -7606,7 +7606,7 @@
       "walker/scripts/actions/style/own.py"
     ],
     "Ctrl+B: view build file · Ctrl+O: open in browser": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Current Disk Usage": [
       "walker/scripts/actions/system/cleanup.sh"
@@ -7855,7 +7855,7 @@
       "walker/scripts/actions/install/software.py"
     ],
     "Eitr {name} is not installed. Install the eitr-desktop package (see distro/README.md, Existing desktop).": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_catalog.py"
     ],
     "Eitr's boot guard: {FAILED_STARTS} starts after the last update failed; restoring the system from snapshot {number}.": [
       "distro/system/boot-guard.py"
@@ -7927,7 +7927,7 @@
       "distro/lib/eitr_wizard.py"
     ],
     "Enter: confirm · Esc: cancel": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Enter: continue  Esc: back": [
       "distro/lib/eitr_wizard.py"
@@ -7942,7 +7942,7 @@
       "walker/scripts/actions/install/vpn.py"
     ],
     "Enter: run System Update now (with its snapshot), then install · Esc: cancel": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Enterprise WiFi requires username, password, CA certificate and server domain": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
@@ -8289,7 +8289,7 @@
       "distro/archinstall/eitr-guided-install"
     ],
     "Install {name} from {source}.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Install {package} first: sudo pacman -Syu --needed {package_2}": [
       "distro/system/network-backend.py"
@@ -8305,7 +8305,7 @@
       "distro/lib/eitr_profile_apply.py"
     ],
     "Installer must use HTTPS": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_catalog.py"
     ],
     "Installing alongside is unavailable: {reason}": [
       "distro/archinstall/installer-ui.py"
@@ -8330,10 +8330,10 @@
       "distro/system/eitr-system.py"
     ],
     "Invalid Flatpak ID": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Invalid Flatpak application ID": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_catalog.py"
     ],
     "Invalid Git accounts settings": [
       "walker/scripts/actions/development/git_accounts_model.py"
@@ -8398,7 +8398,7 @@
       "distro/lib/eitr_profile.py"
     ],
     "Invalid package name": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_catalog.py"
     ],
     "Invalid password": [
       "distro/lib/eitr_accounts.py"
@@ -8619,7 +8619,7 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Loading AUR package names…": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Lockscreen created": [
       "walker/scripts/actions/style/own.py"
@@ -8828,7 +8828,7 @@
       "quickshell/desktop-bar/scripts/display-settings.py"
     ],
     "No package names available; check your package databases/network": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "No palette-driven theme integration is installed.": [
       "distro/lib/eitr_own_themes.py"
@@ -9031,7 +9031,7 @@
       "walker/scripts/actions/system/report-problem.py"
     ],
     "Opened the complete build repository: review PKGBUILD, .install files and patches.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Optional display name.": [
       "walker/scripts/actions/system/users.py"
@@ -9086,13 +9086,13 @@
     ],
     "Package actions require a terminal.": [
       "distro/bin/eitr",
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Package is unavailable in official Arch or Eitr repositories: {name}": [
       "distro/lib/eitr_plugin_packages.py"
     ],
     "Package picker failed": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Package signature errors were logged and can stop updates; run System Update again and report a problem if it fails.": [
       "distro/lib/eitr_selfcheck.py"
@@ -9220,7 +9220,7 @@
       "walker/scripts/actions/system/update.sh"
     ],
     "Preparing package installation…": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Preparing the restored system (the running system is not changed yet)": [
       "distro/system/factory-reset.py"
@@ -9491,7 +9491,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Remove {name}.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Remove {username}: {home}.": [
       "walker/scripts/actions/system/users.py"
@@ -9753,7 +9753,7 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Select at least one package": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Select it in Desktop > Lockscreen; Ctrl+P previews it.": [
       "walker/scripts/actions/style/own.py"
@@ -10094,7 +10094,7 @@
       "quickshell/lockscreen/scripts/install-login.py"
     ],
     "System Update did not finish, so nothing was installed.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "System package operation failed or was cancelled.": [
       "distro/lib/eitr_plugin_packages.py"
@@ -10118,7 +10118,7 @@
       "distro/archinstall/installer-ui.py"
     ],
     "Tab select · Enter install · Ctrl+D remove\nCtrl+F installed/all · Ctrl+B build file / details\nCtrl+O open in browser · Esc cancel": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Tailscale could not change state.": [
       "walker/scripts/actions/system/remote-access.py"
@@ -10430,7 +10430,8 @@
       "walker/scripts/actions/tools/ical.py"
     ],
     "This app is part of Eitr and stays installed.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software.py",
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "This assistant is unavailable.": [
       "distro/lib/eitr_collaboration.py"
@@ -10481,7 +10482,7 @@
       "quickshell/desktop-bar/scripts/keyboard-layout.py"
     ],
     "This launcher is not owned by an installed package. No files were removed.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_catalog.py"
     ],
     "This layout is already added": [
       "quickshell/desktop-bar/scripts/keyboard-layout.py"
@@ -10722,7 +10723,7 @@
       "walker/scripts/menus/search-index.py"
     ],
     "Unsupported application launcher path": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_catalog.py"
     ],
     "Unsupported enterprise method": [
       "distro/system/network-backend.py"
@@ -10731,7 +10732,7 @@
       "quickshell/desktop-bar/scripts/power-profile.py"
     ],
     "Unsupported uninstall source": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Until {date}": [
       "walker/scripts/actions/tools/reminder_rules.py"
@@ -10764,7 +10765,7 @@
       "walker/scripts/actions/system/restart-check.py"
     ],
     "Updates are still waiting after System Update, so nothing was installed.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "Updates are waiting; run System Update to get the latest fixes and security patches.": [
       "distro/lib/eitr_selfcheck.py"
@@ -11035,7 +11036,7 @@
       "distro/lib/spinner.sh"
     ],
     "checkupdates (pacman-contrib) is required to install safely. Run Settings → System → System Update, then install pacman-contrib.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "choose a stronger one": [
       "walker/scripts/actions/system/security.py"
@@ -11204,7 +11205,7 @@
       "walker/scripts/actions/system/update.sh"
     ],
     "{count} system update(s) are waiting. On Arch Linux an app can only be installed on an up-to-date system: installing now would also upgrade part of the system without a recovery snapshot, which can break other apps.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "{days} days": [
       "fastfetch/eitr.py"
@@ -11298,7 +11299,7 @@
       "walker/scripts/actions/system/restore-file.py"
     ],
     "{name} is already installed.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "{name} is in Desktop > Appearance > Wallpaper and the wallpaper carousel.": [
       "walker/scripts/actions/style/own.py"
@@ -11307,7 +11308,7 @@
       "walker/scripts/actions/development/monitoring.py"
     ],
     "{name} is not installed.": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "{name} starts charging at {charge_percent}%; choose a limit above that. Nothing was changed.": [
       "distro/system/eitr-system.py"
@@ -11367,7 +11368,7 @@
       "distro/system/home-snapshots.py"
     ],
     "{status_label}: flagged {flagged_date}": [
-      "walker/scripts/actions/install/software.py"
+      "walker/scripts/actions/install/software_packages.py"
     ],
     "{subscription_count} subscription(s) are ready in the Azure menu.": [
       "walker/scripts/menus/cloud/accounts.py"

@@ -40,7 +40,7 @@ def load_reference(name, path):
 
 def installed_highlights():
     """Query only catalog AI tools and a fixed set of desktop capabilities."""
-    software = load_reference('eitr_software', 'walker/scripts/actions/install/software.py')
+    software = load_reference('eitr_software', 'walker/scripts/actions/install/software_catalog.py')
     catalog = software.catalog()
     items = dict(catalog['ai'])
     for group in catalog.values():
