@@ -59,24 +59,6 @@ item says what decides the next step. Remove an item when it ships;
   lockscreens on a removed design are hidden. The brief is ready for Codex
   (`eitr-testing/codex-wip/addons-lockscreens/BRIEF.md`, Codex usage is back
   2026-11-13); VM-test installs, removal and the migration before testing.
-- **Japanese, Simplified Chinese and Korean (approved 2026-11-12; after the file splits,
-  done by Antigravity).** The ISO installer starts in English and gets a first Language step
-  listing every Eitr language (it always installs `en_US.UTF-8` today, so this also covers
-  Portuguese, German, Spanish and French): picking one switches the wizard to it and makes it
-  the installed system's language. Picking any language other than English shows a short,
-  friendly note under the list, in that language, for example: "Eitr's translations were
-  made with AI and may have small mistakes. Corrections are always welcome." Settings >
-  Language shows the same note. Once: one plural form for these locales in
-  `tools/i18n-build.py`; CJK fonts (`noto-fonts-cjk`, about 189 MB download) in
-  `distro/packages.txt`, the offline payload and the live ISO; the installer wizard runs in a
-  graphical terminal on the live ISO (`cage` + `foot`) because the Linux console font cannot
-  draw CJK, falling back to today's console wizard (Latin-script languages) when graphics fail;
-  the language lists (installer, Settings, Walker, first-login setup) and the layout render
-  tests; VM tests with and without GPU before the next ISO. Then per language: interface
-  catalogs and the Handbook translated by Gemini Flash; automatic checks for missing texts,
-  placeholders, untranslated commands and paths, Handbook structure and glyph coverage;
-  offscreen renders of the panels; a sampled meaning check by a different model. Typing these languages
-  (an input method such as fcitx5 with Mozc, Rime or Hangul) is separate.
 - **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
   (2026-11-11). Owner's choices (2026-11-12): Sunshine on the login screen behind its own
   switch beside Start at Login (a system Sunshine with KMS capture while SDDM shows, handing
