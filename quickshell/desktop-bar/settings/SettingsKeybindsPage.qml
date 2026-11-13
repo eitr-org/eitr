@@ -1,6 +1,8 @@
 import ".."
 import QtQuick
 import QtQuick.Controls.Basic
+import Quickshell
+import Quickshell.Wayland
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 import "KeyCapture.js" as KeyCapture
@@ -12,6 +14,12 @@ Column {
     required property var context
     readonly property var view: context
     property string editing: ""
+    // While a shortcut is captured, Hyprland passes every key to this window, so a
+    // combination it already binds (SUPER + W closes the window) reaches the page.
+    ShortcutInhibitor {
+        window: pageBody.QsWindow.window
+        enabled: pageBody.editing !== "" && !!pageBody.QsWindow.window
+    }
     property string proposed: ""
     property var clash: null
     property var pending: []

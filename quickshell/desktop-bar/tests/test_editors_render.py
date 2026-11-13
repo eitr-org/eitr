@@ -7,6 +7,12 @@ from layout_render import copy_runtime, render_environment, render
 
 
 class EditorsRenderTests(unittest.TestCase):
+    def test_capture_inhibits_compositor_shortcuts(self):
+        # Without it Hyprland acts on combinations it binds (SUPER + W closes Settings).
+        page = (Path(__file__).resolve().parents[1] / 'settings/SettingsKeybindsPage.qml').read_text()
+        self.assertIn('ShortcutInhibitor {', page)
+        self.assertIn('enabled: pageBody.editing !== ""', page)
+
     def test_editors(self):
         output = Path(os.environ.get('EITR_EDITORS_RENDERS', '/tmp/eitr-editors-renders'))
         output.mkdir(parents=True, exist_ok=True)
