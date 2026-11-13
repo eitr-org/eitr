@@ -77,13 +77,6 @@ item says what decides the next step. Remove an item when it ships;
 - **`eitr-store`.** A separate repository and app for themes, plugins and other
   add-ons: catalog index, submissions and listings; replaces the built-in catalog
   window later.
-- **Choose Hyprland or niri (owner's idea, 2026-11-09).** Let a person pick the
-  compositor at install time and in Settings, with niri as a supported second session.
-  Needs first: a list of everything that talks to Hyprland (Lua config, `hyprctl` and
-  its IPC in the bar, Overview, workspaces, window rules, hypridle/hyprlock,
-  screenshots, Focus groups) and an adapter so the bar and helpers ask one Eitr
-  interface instead. Decide what niri does not offer, then VM-test both sessions
-  before any release.
 
 # 2. To test with the owner
 
@@ -173,6 +166,10 @@ item says what decides the next step. Remove an item when it ships;
 0.8 (Muninn) is the exact ISO intended for 1.0; 1.0 (Bifröst) publishes the
 promises below. The roadmap table in `distro/RELEASES.md` has the wording.
 
+- **After 1.0: choose Hyprland or niri (decided 2026-11-13).** Parked until 1.0 ships. The
+  survey of Hyprland dependencies and the adapter plan are in
+  `eitr-testing/ideas/niri/` (INVENTORY.md, PLAN.md). Until then, new settings keep
+  compositor-neutral data (as the keybind editor does).
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 0.8 candidate. The 0.6.4 ISO is
   kept locally for this test only, then deleted.
