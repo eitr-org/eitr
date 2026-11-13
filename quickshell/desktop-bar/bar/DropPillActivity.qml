@@ -99,10 +99,12 @@ Item {
                 text: "●"; color: activity.obsState.paused && !activity.obsState.streaming ? activity.host.fg : "#e05c68"
                 font.pixelSize: 10
                 onActivated: activity.barHost.dropDashboard.show("obs")
-                SequentialAnimation on opacity {
-                    running: activity.recording && !DesktopStyle.reduceMotion; loops: Animation.Infinite
-                    NumberAnimation { to: 0.35; duration: 700; easing.type: Easing.InOutSine }
-                    NumberAnimation { to: 1; duration: 700; easing.type: Easing.InOutSine }
+                RecordingGlow {
+                    z: -1
+                    anchors.centerIn: parent
+                    dotSize: 7
+                    color: parent.color
+                    active: activity.recording && !(activity.obsState.paused && !activity.obsState.streaming)
                 }
             }
             Glyph {

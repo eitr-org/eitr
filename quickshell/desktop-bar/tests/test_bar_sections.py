@@ -64,6 +64,18 @@ class BarSectionTests(unittest.TestCase):
                 self.assertNotIn(error, output)
 
 
+class RecordingGlowTests(unittest.TestCase):
+    def test_both_recording_dots_glow_only_while_recording(self):
+        glow = (BAR / 'components/RecordingGlow.qml').read_text()
+        self.assertIn('DesktopStyle.motionDuration(1) > 0', glow)
+        self.assertIn('RecordingGlow components/RecordingGlow.qml', (BAR / 'qmldir').read_text())
+        self.assertIn('active: capture.recording && !capture.recordingPaused',
+                      (BAR / 'bar/CaptureIndicator.qml').read_text())
+        drop = (BAR / 'bar/DropPillActivity.qml').read_text()
+        self.assertIn('active: activity.recording && !(activity.obsState.paused && !activity.obsState.streaming)', drop)
+        self.assertNotIn('SequentialAnimation on opacity', drop)
+
+
 class ExtractedComponentLoadTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
     def test_production_sections_compile_with_the_registered_dependencies(self):

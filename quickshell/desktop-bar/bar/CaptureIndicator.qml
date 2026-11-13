@@ -67,6 +67,13 @@ Item {
                 height: 6
                 radius: 3
                 color: capture.recordingPaused ? host.fg : "#e05c68"
+                RecordingGlow {
+                    z: -1
+                    anchors.centerIn: parent
+                    dotSize: parent.width
+                    color: parent.color
+                    active: capture.recording && !capture.recordingPaused
+                }
             }
             // Dictation: seven bars mirrored around the centre line, fed by the
             // microphone while listening and pulsing while transcribing.
