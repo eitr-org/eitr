@@ -103,10 +103,18 @@ class LauncherFallbackTests(unittest.TestCase):
                 path = binaries / name
                 path.write_text("#!/bin/bash\n" + body + "\n")
                 path.chmod(path.stat().st_mode | stat.S_IEXEC)
+            # A copy that sees a stand-in display device, so machines without a GPU (CI)
+            # still exercise the graphical path.
+            device = folder / "card0"
+            device.touch()
+            launcher = folder / "eitr-installer-launch"
+            launcher.write_text(LAUNCHER.read_text().replace("'/dev/dri/card*'", f"'{folder}/card*'")
+                                .replace('root=$(readlink -f "$here/../..")', f'root={ROOT}'))
+            launcher.chmod(0o755)
             environment = dict(os.environ, PATH=f"{binaries}:{os.environ['PATH']}",
                                EITR_KIOSK_TIMEOUT="2", EITR_KIOSK_STATE=str(folder / "state"),
                                EITR_INSTALLER_GRAPHICAL="1")
-            return subprocess.run(["bash", str(LAUNCHER)], env=environment, capture_output=True,
+            return subprocess.run(["bash", str(launcher)], env=environment, capture_output=True,
                                   text=True, timeout=30)
 
     def test_a_kiosk_that_fails_falls_back_to_the_console_wizard(self):
