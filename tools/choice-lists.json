@@ -7,7 +7,10 @@
         "de": "Punkte",
         "es": "Puntos",
         "fr": "Points",
-        "pt_BR": "Pontos"
+        "pt_BR": "Pontos",
+        "ja": "ドット",
+        "zh_CN": "圆点",
+        "ko": "점"
       }
     },
     {
@@ -17,7 +20,10 @@
         "de": "Glyphe",
         "es": "Glifo",
         "fr": "Glyphe",
-        "pt_BR": "Glifo"
+        "pt_BR": "Glifo",
+        "ja": "グリフ",
+        "zh_CN": "字形",
+        "ko": "글리프"
       }
     },
     {
@@ -27,7 +33,10 @@
         "de": "Zahlen",
         "es": "Números",
         "fr": "Nombres",
-        "pt_BR": "Números"
+        "pt_BR": "Números",
+        "ja": "数字",
+        "zh_CN": "数字",
+        "ko": "숫자"
       }
     },
     {
@@ -37,7 +46,10 @@
         "de": "Runen",
         "es": "Runas",
         "fr": "Runes",
-        "pt_BR": "Runas"
+        "pt_BR": "Runas",
+        "ja": "ルーン",
+        "zh_CN": "符文",
+        "ko": "룬"
       }
     }
   ],

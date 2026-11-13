@@ -12,7 +12,7 @@ Si vous devez aussi modifier les réglages de tout le système, utilisez ses par
 LANG=pt_BR.UTF-8
 ```
 
-Les premières langues proposées sont `pt_BR.UTF-8` (portugais brésilien), `es_ES.UTF-8` (espagnol), `de_DE.UTF-8` (allemand) et `fr_FR.UTF-8` (français). Une variante régionale peut utiliser la traduction de la langue de base. Exécutez `locale` dans un terminal pour vérifier les variables prioritaires et `locale -a` pour afficher les locales installées. Déconnectez-vous puis reconnectez-vous pour appliquer la langue au bureau, aux menus et aux nouveaux terminaux.
+Eitr est traduit en `pt_BR.UTF-8` (portugais brésilien), `es_ES.UTF-8` (espagnol), `de_DE.UTF-8` (allemand), `fr_FR.UTF-8` (français), `ja_JP.UTF-8` (japonais), `zh_CN.UTF-8` (chinois simplifié) et `ko_KR.UTF-8` (coréen) ; la première étape de l’installateur en choisit une pour le nouveau système. Les traductions ont été réalisées avec l’IA et peuvent contenir de petites erreurs ; les corrections sont toujours les bienvenues (voir ci-dessous). Une variante régionale peut utiliser la traduction de la langue de base. Exécutez `locale` dans un terminal pour vérifier les variables prioritaires et `locale -a` pour afficher les locales installées. Déconnectez-vous puis reconnectez-vous pour appliquer la langue au bureau, aux menus et aux nouveaux terminaux.
 
 Le sélecteur écrit uniquement `~/.config/environment.d/90-eitr-language.conf` : il définit `LC_MESSAGES` et vide `LC_ALL` pour la prochaine session, en conservant les formats de date et de nombres. **Valeur par défaut du système** supprime cette préférence. Il ne modifie pas `/etc/locale.conf` et ne génère aucune locale. Les applications déjà ouvertes conservent leur langue.
 

@@ -30,10 +30,10 @@ var scrollingFocusFit = [
     {"id": "fit", "label": "Fit", "description": "Bring the focused column into view", "value": "1"}
 ];
 var workspaceStyles = [
-    {"id": "Dots", "label": "Dots", "handbook_labels": {"de": "Punkte", "es": "Puntos", "fr": "Points", "pt_BR": "Pontos"}},
-    {"id": "Glyph", "label": "Glyph", "handbook_labels": {"de": "Glyphe", "es": "Glifo", "fr": "Glyphe", "pt_BR": "Glifo"}},
-    {"id": "Numbers", "label": "Numbers", "handbook_labels": {"de": "Zahlen", "es": "N\u00fameros", "fr": "Nombres", "pt_BR": "N\u00fameros"}},
-    {"id": "Runes", "label": "Runes", "handbook_labels": {"de": "Runen", "es": "Runas", "fr": "Runes", "pt_BR": "Runas"}}
+    {"id": "Dots", "label": "Dots", "handbook_labels": {"de": "Punkte", "es": "Puntos", "fr": "Points", "pt_BR": "Pontos", "ja": "\u30c9\u30c3\u30c8", "zh_CN": "\u5706\u70b9", "ko": "\uc810"}},
+    {"id": "Glyph", "label": "Glyph", "handbook_labels": {"de": "Glyphe", "es": "Glifo", "fr": "Glyphe", "pt_BR": "Glifo", "ja": "\u30b0\u30ea\u30d5", "zh_CN": "\u5b57\u5f62", "ko": "\uae00\ub9ac\ud504"}},
+    {"id": "Numbers", "label": "Numbers", "handbook_labels": {"de": "Zahlen", "es": "N\u00fameros", "fr": "Nombres", "pt_BR": "N\u00fameros", "ja": "\u6570\u5b57", "zh_CN": "\u6570\u5b57", "ko": "\uc22b\uc790"}},
+    {"id": "Runes", "label": "Runes", "handbook_labels": {"de": "Runen", "es": "Runas", "fr": "Runes", "pt_BR": "Runas", "ja": "\u30eb\u30fc\u30f3", "zh_CN": "\u7b26\u6587", "ko": "\ub8ec"}}
 ];
 var windowGaps = [
     {"id": "none", "label": "None", "description": "No space between windows", "inner": "0", "outer": "0"},

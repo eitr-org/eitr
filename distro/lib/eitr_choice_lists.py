@@ -29,10 +29,10 @@ SCROLLING_FOCUS_FIT = (
     {'id': 'fit', 'label': 'Fit', 'description': 'Bring the focused column into view', 'value': '1'},
 )
 WORKSPACE_STYLES = (
-    {'id': 'Dots', 'label': 'Dots', 'handbook_labels': {'de': 'Punkte', 'es': 'Puntos', 'fr': 'Points', 'pt_BR': 'Pontos'}},
-    {'id': 'Glyph', 'label': 'Glyph', 'handbook_labels': {'de': 'Glyphe', 'es': 'Glifo', 'fr': 'Glyphe', 'pt_BR': 'Glifo'}},
-    {'id': 'Numbers', 'label': 'Numbers', 'handbook_labels': {'de': 'Zahlen', 'es': 'Números', 'fr': 'Nombres', 'pt_BR': 'Números'}},
-    {'id': 'Runes', 'label': 'Runes', 'handbook_labels': {'de': 'Runen', 'es': 'Runas', 'fr': 'Runes', 'pt_BR': 'Runas'}},
+    {'id': 'Dots', 'label': 'Dots', 'handbook_labels': {'de': 'Punkte', 'es': 'Puntos', 'fr': 'Points', 'pt_BR': 'Pontos', 'ja': 'ドット', 'zh_CN': '圆点', 'ko': '점'}},
+    {'id': 'Glyph', 'label': 'Glyph', 'handbook_labels': {'de': 'Glyphe', 'es': 'Glifo', 'fr': 'Glyphe', 'pt_BR': 'Glifo', 'ja': 'グリフ', 'zh_CN': '字形', 'ko': '글리프'}},
+    {'id': 'Numbers', 'label': 'Numbers', 'handbook_labels': {'de': 'Zahlen', 'es': 'Números', 'fr': 'Nombres', 'pt_BR': 'Números', 'ja': '数字', 'zh_CN': '数字', 'ko': '숫자'}},
+    {'id': 'Runes', 'label': 'Runes', 'handbook_labels': {'de': 'Runen', 'es': 'Runas', 'fr': 'Runes', 'pt_BR': 'Runas', 'ja': 'ルーン', 'zh_CN': '符文', 'ko': '룬'}},
 )
 WINDOW_GAPS = (
     {'id': 'none', 'label': 'None', 'description': 'No space between windows', 'inner': '0', 'outer': '0'},

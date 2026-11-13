@@ -23,8 +23,11 @@ Then set the language in `/etc/locale.conf`, for example:
 LANG=pt_BR.UTF-8
 ```
 
-The first translation targets are `pt_BR.UTF-8` (Brazilian Portuguese),
-`es_ES.UTF-8` (Spanish), `de_DE.UTF-8` (German) and `fr_FR.UTF-8` (French).
+Eitr is translated into `pt_BR.UTF-8` (Brazilian Portuguese), `es_ES.UTF-8`
+(Spanish), `de_DE.UTF-8` (German), `fr_FR.UTF-8` (French), `ja_JP.UTF-8`
+(Japanese), `zh_CN.UTF-8` (Simplified Chinese) and `ko_KR.UTF-8` (Korean); the
+installer's first step picks one for the new system. The translations were made
+with AI and may have small mistakes; corrections are always welcome (see below).
 Regional variants can fall back to the base language. Check `locale` in a
 terminal for overrides, and `locale -a` for installed locales. Sign out and back
 in to apply the language to the desktop, menus and newly opened terminals.

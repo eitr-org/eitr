@@ -29,10 +29,10 @@ return {
         {id = "fit", label = "Fit", description = "Bring the focused column into view", value = "1"},
     },
     workspace_styles = {
-        {id = "Dots", label = "Dots", handbook_labels = {de = "Punkte", es = "Puntos", fr = "Points", pt_BR = "Pontos"}},
-        {id = "Glyph", label = "Glyph", handbook_labels = {de = "Glyphe", es = "Glifo", fr = "Glyphe", pt_BR = "Glifo"}},
-        {id = "Numbers", label = "Numbers", handbook_labels = {de = "Zahlen", es = "N\195\186meros", fr = "Nombres", pt_BR = "N\195\186meros"}},
-        {id = "Runes", label = "Runes", handbook_labels = {de = "Runen", es = "Runas", fr = "Runes", pt_BR = "Runas"}},
+        {id = "Dots", label = "Dots", handbook_labels = {de = "Punkte", es = "Puntos", fr = "Points", pt_BR = "Pontos", ja = "\227\131\137\227\131\131\227\131\136", zh_CN = "\229\156\134\231\130\185", ko = "\236\160\144"}},
+        {id = "Glyph", label = "Glyph", handbook_labels = {de = "Glyphe", es = "Glifo", fr = "Glyphe", pt_BR = "Glifo", ja = "\227\130\176\227\131\170\227\131\149", zh_CN = "\229\173\151\229\189\162", ko = "\234\184\128\235\166\172\237\148\132"}},
+        {id = "Numbers", label = "Numbers", handbook_labels = {de = "Zahlen", es = "N\195\186meros", fr = "Nombres", pt_BR = "N\195\186meros", ja = "\230\149\176\229\173\151", zh_CN = "\230\149\176\229\173\151", ko = "\236\136\171\236\158\144"}},
+        {id = "Runes", label = "Runes", handbook_labels = {de = "Runen", es = "Runas", fr = "Runes", pt_BR = "Runas", ja = "\227\131\171\227\131\188\227\131\179", zh_CN = "\231\172\166\230\150\135", ko = "\235\163\172"}},
     },
     window_gaps = {
         {id = "none", label = "None", description = "No space between windows", inner = "0", outer = "0"},

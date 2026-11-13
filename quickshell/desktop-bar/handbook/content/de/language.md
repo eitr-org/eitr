@@ -12,7 +12,7 @@ Wenn du auch systemweite Einstellungen ändern musst, verwende die Gebietsschema
 LANG=pt_BR.UTF-8
 ```
 
-Die ersten unterstützten Sprachen sind `pt_BR.UTF-8` (brasilianisches Portugiesisch), `es_ES.UTF-8` (Spanisch), `de_DE.UTF-8` (Deutsch) und `fr_FR.UTF-8` (Französisch). Regionale Varianten können auf die Basissprache zurückgreifen. Prüfe mit `locale` im Terminal, welche Variablen die Einstellungen überschreiben, und liste mit `locale -a` die installierten Gebietsschemata auf. Melde dich ab und wieder an, damit die Sprache für den Desktop, die Menüs und neue Terminals gilt.
+Eitr ist übersetzt in `pt_BR.UTF-8` (brasilianisches Portugiesisch), `es_ES.UTF-8` (Spanisch), `de_DE.UTF-8` (Deutsch), `fr_FR.UTF-8` (Französisch), `ja_JP.UTF-8` (Japanisch), `zh_CN.UTF-8` (vereinfachtes Chinesisch) und `ko_KR.UTF-8` (Koreanisch); der erste Schritt des Installationsprogramms wählt eine davon für das neue System. Die Übersetzungen wurden mit KI erstellt und können kleine Fehler enthalten; Korrekturen sind jederzeit willkommen (siehe unten). Regionale Varianten können auf die Basissprache zurückgreifen. Prüfe mit `locale` im Terminal, welche Variablen die Einstellungen überschreiben, und liste mit `locale -a` die installierten Gebietsschemata auf. Melde dich ab und wieder an, damit die Sprache für den Desktop, die Menüs und neue Terminals gilt.
 
 Die Auswahl schreibt nur `~/.config/environment.d/90-eitr-language.conf`: Sie setzt `LC_MESSAGES` und leert `LC_ALL` für die nächste Sitzung. Datums- und Zahlenformate bleiben erhalten. **Systemstandard** entfernt diese Einstellung. `/etc/locale.conf` wird nicht geändert und es werden keine Gebietsschemata erzeugt. Bereits laufende Anwendungen behalten ihre Sprache.
 
