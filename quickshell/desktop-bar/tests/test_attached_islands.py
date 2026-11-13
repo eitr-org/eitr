@@ -1,6 +1,7 @@
 """Attached island style and straight sides: outlines, settings and the bar's edge gap."""
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import unittest
@@ -21,7 +22,7 @@ def points(path):
     return list(zip(numbers[0::2], numbers[1::2]))
 
 
-@unittest.skipUnless(subprocess.run(["which", "node"], capture_output=True).returncode == 0, "node required")
+@unittest.skipUnless(shutil.which("node"), "node required")
 class AttachedOutlineTests(unittest.TestCase):
     def test_attached_pill_is_square_on_the_edge_and_round_away_from_it(self):
         top = points(outline('attached("top", 100, 30, 15)'))
