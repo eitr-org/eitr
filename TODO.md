@@ -17,7 +17,7 @@ item says what decides the next step. Remove an item when it ships;
   rebind one by pressing the new keys, with clash warnings, reset to default and the
   change kept in the person's own config. Window rules: pick an app and choose
   "always float", workspace, size or opacity from a form instead of editing Lua.
-  Approved 2026-11-11; brief ready for Codex after the Add-ons task
+  Approved 2026-11-11; Codex is building it (2026-11-13)
   (`eitr-testing/codex-wip/keybinds-window-rules/BRIEF.md`).
 - **VPN plugins, Taildrop and Tailscale out of the default install (agreed 2026-11-09,
   to do together with the owner).**
@@ -87,7 +87,10 @@ item says what decides the next step. Remove an item when it ships;
 
 # 2. To test with the owner
 
-- Add-ons Lockscreens: verify signed package install/remove, administrator popup, upgrade migration and login restoration in an isolated VM.
+- **Add-ons and the Lockscreens tab (on testing 2026-11-13).** VM-tested: upgrade fallback
+  to Eitr, one-time install of the eight designs, login design restored, remove and reinstall
+  with the password popup, refusals. On the owner's desktop: the first System Update removes the
+  optional designs; the next System Update installs them back (the migration). Then promote.
 
 - **Island style and Side style (on testing 2026-11-13).** Attached Islands, Dynamic and Drop,
   straight sides for Tabs and Centered (Settings > Desktop Bar > Layout); try every layout
