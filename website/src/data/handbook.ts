@@ -3,11 +3,14 @@ import { createHash } from 'node:crypto';
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { localizedPath, type Language } from '../i18n';
+import { localizedPath, htmlLanguage, desktopLocale as desktopLocaleFor, type Language } from '../i18n';
 import pt from '../../../quickshell/desktop-bar/handbook/catalogs/pt_BR.json';
 import es from '../../../quickshell/desktop-bar/handbook/catalogs/es.json';
 import de from '../../../quickshell/desktop-bar/handbook/catalogs/de.json';
 import fr from '../../../quickshell/desktop-bar/handbook/catalogs/fr.json';
+import ja from '../../../quickshell/desktop-bar/handbook/catalogs/ja.json';
+import zh from '../../../quickshell/desktop-bar/handbook/catalogs/zh_CN.json';
+import ko from '../../../quickshell/desktop-bar/handbook/catalogs/ko.json';
 import catalog from '../../../quickshell/desktop-bar/handbook/catalog.json';
 import definitions from '../../../quickshell/desktop-bar/handbook/chapters.json';
 
@@ -15,10 +18,10 @@ const repository = 'https://github.com/eitr-org/eitr/blob/main/';
 const definitionsById = new Map(definitions.map(chapter => [chapter.id, chapter]));
 const chaptersById = new Map(catalog.chapters.map(chapter => [chapter.id, chapter]));
 
-const translatedCatalogs = {'pt-br': pt, es, de, fr};
+const translatedCatalogs = {'pt-br': pt, es, de, fr, ja, 'zh-cn': zh, ko};
 const repositoryRoot = pathToFileURL(resolve(existsSync('quickshell/desktop-bar/handbook/chapters.json') ? '.' : '..') + '/');
 export function chaptersFor(language: Language = 'en') {
-  const desktopLocale = language === 'pt-br' ? 'pt_BR' : language;
+  const desktopLocale = desktopLocaleFor(language);
   const folder = new URL(`quickshell/desktop-bar/handbook/content/${desktopLocale}/`, repositoryRoot);
   const manifest = new URL('source-hashes.json', folder);
   const hashes = language !== 'en' && existsSync(manifest) ? JSON.parse(readFileSync(manifest, 'utf8')) : {};
@@ -52,7 +55,7 @@ export function chaptersFor(language: Language = 'en') {
       id: chapter.id,
       path: localizedPath(`/guide/${chapter.id}/`, language),
       fallback: language !== 'en' && !translated,
-      contentLanguage: translated ? (language === 'pt-br' ? 'pt-BR' : language) : 'en',
+      contentLanguage: translated ? htmlLanguage(language) : 'en',
       title: chapter.title,
       summary: chapter.summary,
       html,

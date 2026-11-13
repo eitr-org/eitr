@@ -1,5 +1,5 @@
 ---
-import { languageFor, languages, languageCodes, localizedPath, unprefixed, hasLocalizedPage, localizeLinks, translator } from '../i18n';
+import { languageFor, languages, languageCodes, htmlLanguage, languageBadge, isCjk, localizedPath, unprefixed, hasLocalizedPage, localizeLinks, translator } from '../i18n';
 const t = translator(Astro.url.pathname, 'shared');
 import "@fontsource/cinzel/500.css";
 import "@fontsource/cinzel/700.css";
@@ -61,7 +61,7 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
 ---
 
 <!doctype html>
-<html lang={language === "pt-br" ? "pt-BR" : language}>
+<html lang={htmlLanguage(language)} class:list={[{cjk: isCjk(language)}]}>
   <head>
     <meta charset="UTF-8" />
     <script is:inline>
@@ -88,7 +88,7 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
     <meta name="theme-color" content="#0a0707" />
     <link rel="icon" href="/branding/eitr-favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
-    {languageCodes.filter(locale => hasLocalizedPage(path) || locale === 'en').map(locale => <link rel="alternate" hreflang={locale === 'pt-br' ? 'pt-BR' : locale} href={new URL(localizedPath(path, locale), Astro.site)} />)}
+    {languageCodes.filter(locale => hasLocalizedPage(path) || locale === 'en').map(locale => <link rel="alternate" hreflang={htmlLanguage(locale)} href={new URL(localizedPath(path, locale), Astro.site)} />)}
     <link rel="alternate" hreflang="x-default" href={new URL(path, Astro.site)} />
     <title>{title}</title>
     {!noindex && <script type="application/ld+json" set:html={JSON.stringify(structuredData).replaceAll("<", "\\u003c")} />}
@@ -114,8 +114,8 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
         <div class="header-tools">
         <a class="version-badge" href={link("/#road")} aria-label={t('version_roadmap', {version: release.version, codename: release.codename})}><span class="status-dot"></span> {release.version} {release.codename}</a>
         <details class="language-menu">
-          <summary aria-label={t('language')}>{language === 'pt-br' ? 'PT' : language.toUpperCase()}</summary>
-          <ul>{Object.entries(languages).map(([locale, name]) => <li><a href={localizedPath(path, locale as keyof typeof languages)} lang={locale === 'pt-br' ? 'pt-BR' : locale} hreflang={hasLocalizedPage(path) ? (locale === 'pt-br' ? 'pt-BR' : locale) : 'en'} data-language={locale} aria-current={locale === language ? 'true' : undefined}>{name}</a></li>)}</ul>
+          <summary aria-label={t('language')}>{languageBadge(language)}</summary>
+          <ul>{Object.entries(languages).map(([locale, name]) => <li><a href={localizedPath(path, locale as keyof typeof languages)} lang={htmlLanguage(locale as keyof typeof languages)} hreflang={hasLocalizedPage(path) ? htmlLanguage(locale as keyof typeof languages) : 'en'} data-language={locale} aria-current={locale === language ? 'true' : undefined}>{name}</a></li>)}<li class="language-note">{t('language_ai_note')}</li></ul>
         </details>
         <SkySwitch />
         <a class="github" href="https://github.com/eitr-org/eitr" target="_blank" rel="noopener noreferrer" aria-label={t('eitr_on_github')}>

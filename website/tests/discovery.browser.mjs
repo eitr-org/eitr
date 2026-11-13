@@ -9,7 +9,9 @@ const handbook=JSON.parse(readFileSync(new URL('../../quickshell/desktop-bar/han
 const englishPaths=[...readdirSync(new URL('../src/pages/',import.meta.url))
  .filter(name=>name.endsWith('.astro') && name!=='intro.astro')
  .map(name=>name==='index.astro'?'/':`/${name.slice(0,-6)}/`), ...handbook.map(chapter=>`/guide/${chapter.id}/`)].sort();
-const locales=['pt-br','es','de','fr'];
+const locales=['pt-br','es','de','fr','ja','zh-cn','ko'];
+const htmlLanguage=locale=>({'pt-br':'pt-BR','zh-cn':'zh-CN'})[locale]??locale;
+const desktopLocale=locale=>({'pt-br':'pt_BR','zh-cn':'zh_CN'})[locale]??locale;
 const translatedBases=englishPaths;
 const localizedPaths=locales.flatMap(locale=>translatedBases.map(path=>`/${locale}${path}`));
 const publicPaths=[...englishPaths,...localizedPaths].sort();
@@ -111,15 +113,15 @@ try {
    const path=`/${locale}${base}`;
    const result=await page.goto(new URL(path,site).href,{waitUntil:'networkidle'});
    assert.equal(result.status(),200,path);
-   assert.equal(await page.locator('html').getAttribute('lang'),locale==='pt-br'?'pt-BR':locale);
+   assert.equal(await page.locator('html').getAttribute('lang'),htmlLanguage(locale));
    assert.equal(await page.locator('h1').count(),1,path);
    assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'),`https://eitr.info${path}`);
    for(const alternate of ['en',...locales,'x-default']) {
-    const hreflang=alternate==='pt-br'?'pt-BR':alternate;
+    const hreflang=htmlLanguage(alternate);
     const expected=`https://eitr.info${alternate==='en'||alternate==='x-default'?'':`/${alternate}`}${base}`;
     assert.equal(await page.locator(`link[rel="alternate"][hreflang="${hreflang}"]`).getAttribute('href'),expected,path);
    }
-   assert.equal(await page.locator('.language-menu [data-language]').count(),5);
+   assert.equal(await page.locator('.language-menu [data-language]').count(),locales.length+1);
    for(const destination of ['en',...locales]) {
     assert.equal(await page.locator(`[data-language="${destination}"]`).getAttribute('href'),`${destination==='en'?'':`/${destination}`}${base}`);
    }
@@ -127,7 +129,7 @@ try {
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${path} overflows at 360 without JavaScript`);
    assert.equal(await page.locator('main a[href^="/guide/"]').count(),0,'Handbook links retain locale');
    if(base==='/guide/getting-started/') {
-    const desktop=locale==='pt-br'?'pt_BR':locale;
+    const desktop=desktopLocale(locale);
     const catalog=JSON.parse(readFileSync(new URL(`../../quickshell/desktop-bar/handbook/catalogs/${desktop}.json`,import.meta.url),'utf8'));
     const chapter=catalog.chapters.find(entry=>entry.id==='getting-started');
     assert.equal(await page.locator('h1').textContent(),chapter.title);

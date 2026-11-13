@@ -396,12 +396,13 @@ error cases.
 ## Website languages
 
 English is the source and fallback at `/`. The same page components generate
-Portuguese (Brazil) under `/pt-br/`, Spanish under `/es/`, German under `/de/`
-and French under `/fr/`. Every prefix offers the home page and `about/`,
+Portuguese (Brazil) under `/pt-br/`, Spanish under `/es/`, German under `/de/`,
+French under `/fr/`, Japanese under `/ja/`, Simplified Chinese under `/zh-cn/`
+and Korean under `/ko/`. Every prefix offers the home page and `about/`,
 `features/`, `development/`, `installation/`, `privacy/`, `screenshots/`,
 `guide/` and `intro/`. Intro keeps `noindex` and stays outside the sitemap.
 
-`src/i18n/en.json`, `pt-br.json`, `es.json`, `de.json` and `fr.json` own page
+`src/i18n/en.json` and one catalog per language (`pt-br.json` … `ko.json`) own page
 and shared-interface copy, including metadata, gallery descriptions, myths and
 roadmap milestones. Keys are grouped by page or shared component. Keep keys,
 placeholders such as `{version}` and `{count}`, product names, commands and
@@ -409,7 +410,13 @@ paths intact when editing a translation. `translator()` falls back per string
 to English; a key missing from English fails the build. Desktop menu names
 follow the corresponding `i18n/catalogs/<locale>/` labels. Release data still
 owns version numbers and codenames. New roadmap milestones need matching keys
-in the website catalogs; asset sync never invents translations.
+in the website catalogs; asset sync never invents translations. The translations
+were made with AI, and the language menu says so.
+
+Japanese, Chinese and Korean pages get the `cjk` class on `<html>`: the Latin
+display faces have no CJK glyphs, so `global.css` falls back to the visitor's
+own CJK fonts (no web-font download), drops the tracking meant for Latin
+capitals and keeps emphasis upright instead of a synthetic italic.
 
 `src/pages/[locale]/[...page].astro` generates localized routes from the existing
 page components. `src/i18n/index.ts` owns locale selection and local link

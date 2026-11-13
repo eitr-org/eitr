@@ -22,7 +22,7 @@ test('missing, extra or changed heading levels require chapter fallback', () => 
 test('reviewed catalogs retain the English heading structure', () => {
   const book = new URL('../../quickshell/desktop-bar/handbook/', import.meta.url);
   const english = JSON.parse(readFileSync(new URL('catalog.json', book))).chapters;
-  for (const locale of ['pt_BR', 'es', 'de', 'fr']) {
+  for (const locale of ['pt_BR', 'es', 'de', 'fr', 'ja', 'zh_CN', 'ko']) {
     const translated = JSON.parse(readFileSync(new URL(`catalogs/${locale}.json`, book))).chapters;
     for (const chapter of english) {
       const target = translated.find(candidate => candidate.id === chapter.id);

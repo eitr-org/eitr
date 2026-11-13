@@ -9,7 +9,7 @@
     "stable_or_testing_for_early_fixes": "Stabil oder Testkanal für frühe Korrekturen",
     "widgets_panels_and_bar_items_from_git": "Widgets, Panels und Leistenelemente aus Git",
     "claude_code_codex_gemini_cli_and_more_with_accounts": "Claude Code, Codex, Gemini CLI und weitere, mit Konten",
-    "english_portugues_brasil_espanol_deutsch_and_francais": "English, Português (Brasil), Español, Deutsch und Français",
+    "english_portugues_brasil_espanol_deutsch_and_francais": "English, Português (Brasil), Español, Deutsch, Français, 日本語, 简体中文 und 한국어",
     "the_desktop": "Der Desktop",
     "walker_brings_apps_settings_and_actions_into_one_keyboa": "Walker vereint Apps, Einstellungen und Aktionen in einem tastaturorientierten Ablauf. Leiste und Kontrollzentrum öffnen dieselben nativen Panels.",
     "make_it_yours": "Mach ihn zu deinem",
@@ -579,6 +579,7 @@
     "an_independent_arch_based_distribution_from_the_far_nor": "Eine unabhängige Arch-basierte Distribution aus dem hohen Norden.",
     "software_description": "Eine Arch-basierte Linux-Distribution mit tastaturorientiertem Hyprland- und Quickshell-Desktop, geführtem Offline-Installer für etwa zwei Minuten auf schnellen Rechnern sowie signierten Updates mit Wiederherstellungs-Snapshots.",
     "language": "Sprache",
+    "language_ai_note": "Die Übersetzungen wurden mit KI erstellt und können kleine Fehler enthalten.",
     "version_roadmap": "Eitr {version} {codename}: zum Fahrplan"
   },
   "metadata": {

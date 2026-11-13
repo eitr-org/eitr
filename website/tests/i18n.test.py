@@ -9,7 +9,9 @@ from urllib.parse import unquote, urlsplit, urljoin
 import xml.etree.ElementTree as ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
-LANGUAGES = ('en', 'pt-br', 'es', 'de', 'fr')
+LANGUAGES = ('en', 'pt-br', 'es', 'de', 'fr', 'ja', 'zh-cn', 'ko')
+HTML_LANGUAGE = {'pt-br': 'pt-BR', 'zh-cn': 'zh-CN'}
+DESKTOP_LOCALE = {'pt-br': 'pt_BR', 'zh-cn': 'zh_CN'}
 CHAPTERS = json.loads((ROOT.parent / 'quickshell/desktop-bar/handbook/chapters.json').read_text())
 PAGES = ('', 'about/', 'features/', 'whats-new/', 'development/', 'installation/', 'privacy/', 'screenshots/', 'guide/', 'intro/') + tuple(f'guide/{chapter["id"]}/' for chapter in CHAPTERS)
 
@@ -57,17 +59,17 @@ class WebsiteTranslations(unittest.TestCase):
                 self.assertTrue(file.is_file(), path)
                 document = Document(file)
                 documents[path] = document
-                self.assertEqual(document.attributes('html')[0]['lang'], 'pt-BR' if language == 'pt-br' else language)
+                self.assertEqual(document.attributes('html')[0]['lang'], HTML_LANGUAGE.get(language, language))
                 self.assertEqual(len(document.attributes('h1')), 1, path)
                 self.assertEqual(document.attributes('link', rel='canonical')[0]['href'], f'https://eitr.info{path}')
                 self.assertGreater(len(document.attributes('meta', name='description')[0]['content']), 40, path)
                 alternates = {attributes['hreflang']: attributes['href'] for attributes in document.attributes('link', rel='alternate')}
-                expected = {('pt-BR' if locale == 'pt-br' else locale): f'https://eitr.info/{"" if locale == "en" else locale + "/"}{page}' for locale in LANGUAGES}
+                expected = {HTML_LANGUAGE.get(locale, locale): f'https://eitr.info/{"" if locale == "en" else locale + "/"}{page}' for locale in LANGUAGES}
                 expected['x-default'] = f'https://eitr.info/{page}'
                 self.assertEqual(alternates, expected, path)
                 self.assertEqual(bool(document.attributes('meta', name='robots')), page == 'intro/', path)
                 switches = [attributes for attributes in document.attributes('a') if 'data-language' in attributes]
-                self.assertEqual(len(switches), 5, path)
+                self.assertEqual(len(switches), len(LANGUAGES), path)
                 for switch in switches:
                     locale = switch['data-language']
                     self.assertEqual(switch['href'], f'/{"" if locale == "en" else locale + "/"}{page}')
@@ -125,7 +127,7 @@ class WebsiteTranslations(unittest.TestCase):
         book = ROOT.parent / 'quickshell/desktop-bar/handbook'
         english = json.loads((book / 'catalog.json').read_text())['chapters']
         for language in LANGUAGES[1:]:
-            desktop = 'pt_BR' if language == 'pt-br' else language
+            desktop = DESKTOP_LOCALE.get(language, language)
             catalog = json.loads((book / f'catalogs/{desktop}.json').read_text())['chapters']
             hashes = json.loads((book / f'content/{desktop}/source-hashes.json').read_text())
             for definition, source in zip(CHAPTERS, english):
@@ -141,7 +143,7 @@ class WebsiteTranslations(unittest.TestCase):
                 html = output.read_text()
                 self.assertIn(expected['title'], html)
                 self.assertEqual('data-translation-fallback' in html, not translated)
-                self.assertEqual(document.attributes('div', **{'class': 'doc-copy'})[0]['lang'], ('pt-BR' if language == 'pt-br' else language) if translated else 'en')
+                self.assertEqual(document.attributes('div', **{'class': 'doc-copy'})[0]['lang'], HTML_LANGUAGE.get(language, language) if translated else 'en')
                 class Text(HTMLParser):
                     def __init__(self, markup):
                         super().__init__()

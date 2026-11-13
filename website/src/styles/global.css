@@ -684,6 +684,7 @@ a.version-badge:hover { border-color: var(--bronze); }
 .language-menu ul{position:absolute;right:0;top:100%;z-index:100;min-width:190px;margin:0;padding:6px;list-style:none;border:1px solid var(--line-strong);border-radius:4px;background:var(--bg);box-shadow:0 8px 24px #0006}
 .language-menu a{display:block;padding:10px;color:var(--fg)}
 .language-menu a:hover,.language-menu a:focus-visible,.language-menu a[aria-current]{background:var(--surface);text-decoration:underline}
+.language-menu .language-note{margin-top:6px;padding:8px 10px 4px;border-top:1px solid var(--line);color:var(--muted);font-size:11px;line-height:1.5}
 html:not([lang="en"]) h1,html:not([lang="en"]) h2{overflow-wrap:anywhere}
 html:not([lang="en"]) .road-release > summary { grid-template-columns: 70px minmax(0, 1fr); }
 html:not([lang="en"]) .road-release > .road-body { min-width: 0; overflow-wrap: anywhere; }
@@ -699,3 +700,28 @@ html:not([lang="en"]) .road-release > .road-body { min-width: 0; overflow-wrap: 
 .release-shot:hover,.release-shot:focus-visible{border-color:var(--line-strong)}
 .release-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px;margin-top:24px}
 @media(max-width:600px){.release-shots.pair{grid-template-columns:1fr}}
+
+/* Japanese, Chinese and Korean: the Latin display faces have no CJK glyphs, so each language
+   falls back to the visitor's own CJK fonts (no web-font download), and the wide tracking
+   meant for Latin capitals is dropped. Runes keep theirs. */
+:root:lang(ja) {
+  --cjk-sans: "Noto Sans CJK JP", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo;
+  --cjk-serif: "Noto Serif CJK JP", "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho";
+}
+:root:lang(zh-CN) {
+  --cjk-sans: "Noto Sans CJK SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei";
+  --cjk-serif: "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", SimSun;
+}
+:root:lang(ko) {
+  --cjk-sans: "Noto Sans CJK KR", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic";
+  --cjk-serif: "Noto Serif CJK KR", "Noto Serif KR", AppleMyungjo, Batang;
+}
+:root.cjk {
+  --mono: ui-monospace, "JetBrains Mono", SFMono-Regular, Menlo, Consolas, var(--cjk-sans), monospace;
+  --serif: "Cormorant Garamond", var(--cjk-serif), Georgia, serif;
+  --carved: "Cinzel", "Cormorant Garamond", var(--cjk-serif), Georgia, serif;
+}
+:root.cjk body :not(.rune-band span, .marquee span, .footer-runes) { letter-spacing: 0 !important; }
+:root.cjk body { font-synthesis-style: none; line-break: strict; word-break: normal; overflow-wrap: anywhere; }
+:root:lang(ko) body { word-break: keep-all; }
+:root:lang(ja) :is(h1, h2, h3) { word-break: auto-phrase; }
