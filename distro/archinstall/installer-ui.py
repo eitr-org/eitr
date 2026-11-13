@@ -1,7 +1,9 @@
 """Eitr's console wizard; collect choices before any installation writes."""
 import eitr_bootstrap
 from eitr_i18n import mark, tr
+from eitr_installer_language import graphical_terminal, select_language
 from eitr_users import valid_username
+from eitr_textwidth import wrap_text
 from eitr_wizard import Wizard as BaseWizard, Cancelled, filtered
 import curses
 from pathlib import Path
@@ -10,19 +12,18 @@ import shutil
 import subprocess
 import sys
 import time
-import textwrap
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 ROOT = Path(__file__).resolve().parents[2]
 
-STEPS = (mark("Keyboard"), mark("Disk"), mark("Install type"), mark("Hostname"),
+STEPS = (mark("Language"), mark("Keyboard"), mark("Disk"), mark("Install type"), mark("Hostname"),
          mark("Username"), mark("Password"), mark("Encryption"), mark("Review"))
 
 
 class Wizard(BaseWizard):
     def __init__(self, screen, steps=STEPS, root=ROOT):
         super().__init__(screen, steps, root)
-        self.heading = tr("INSTALL STEPS")
+        self.heading = mark("INSTALL STEPS")
 
     def review(self, details, warning):
         selected = 0
@@ -31,7 +32,7 @@ class Wizard(BaseWizard):
             y, x = self.frame(tr('Review installation'), tr('Tab / arrows: choose  Enter: select  PgUp/PgDn: scroll  Esc: cancel'))
             bottom = getattr(self, "panel_bottom", self.screen.getmaxyx()[0] - 3)
             count = max(1, bottom - y - 5)
-            lines = [wrapped for line in details for wrapped in (textwrap.wrap(line, self.body_width) or [''])]
+            lines = [wrapped for line in details for wrapped in (wrap_text(line, self.body_width) or [''])]
             scroll = min(scroll, max(0, len(lines) - count))
             for offset, line in enumerate(lines[scroll:scroll + count]):
                 self.text(y + offset, x, line)
@@ -145,10 +146,13 @@ def collect(screen, checks, disks):
     # An offline installation falls back to UTC; the installed system detects it once online.
     values = {"hostname": "eitr", "language": "en_US.UTF-8", "timezone": timezone,
               "timezone_detected": timezone != "UTC"}
+    graphical, language = graphical_terminal(), "en"
     while ui.step < len(STEPS):
         try:
             step = STEPS[ui.step]
-            if step == "Keyboard":
+            if step == "Language":
+                language, values["language"] = select_language(ui, tr('Language'), language, graphical)
+            elif step == "Keyboard":
                 values["keyboard"] = ui.choose(tr('Keyboard layout'), keyboards)
                 subprocess.run(["loadkeys", values["keyboard"]], check=True,
                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

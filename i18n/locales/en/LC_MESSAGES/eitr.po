@@ -1216,6 +1216,9 @@ msgstr "Eitr {name} is not installed. Install the eitr-desktop package (see dist
 msgid "Eitr's boot guard: {FAILED_STARTS} starts after the last update failed; restoring the system from snapshot {number}."
 msgstr "Eitr's boot guard: {FAILED_STARTS} starts after the last update failed; restoring the system from snapshot {number}."
 
+msgid "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome."
+msgstr "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome."
+
 msgid "Elastic IPs"
 msgstr "Elastic IPs"
 
@@ -3681,6 +3684,9 @@ msgstr "The speech model could not transcribe this recording."
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
+
+msgid "The system language {language} was not generated on the installed system"
+msgstr "The system language {language} was not generated on the installed system"
 
 msgid "The template must not name a disk"
 msgstr "The template must not name a disk"

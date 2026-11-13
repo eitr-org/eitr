@@ -1552,5 +1552,7 @@
   "Sunshine lost its screen capture permission; run Set Up Sharing again.": "Sunshine lost its screen capture permission; run Set Up Sharing again.",
   "Tailscale sign-in failed. Try again from the Tailscale panel.": "Tailscale sign-in failed. Try again from the Tailscale panel.",
   "Antigravity CLI is not installed": "Antigravity CLI is not installed",
-  "Sign in with `agy` to show subscription usage": "Sign in with `agy` to show subscription usage"
+  "Sign in with `agy` to show subscription usage": "Sign in with `agy` to show subscription usage",
+  "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome.": "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome.",
+  "The system language {language} was not generated on the installed system": "The system language {language} was not generated on the installed system"
 }

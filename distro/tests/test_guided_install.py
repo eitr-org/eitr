@@ -411,7 +411,7 @@ class AnsweredInstallTests(unittest.TestCase):
         script = (DISTRO / "build-iso.sh").read_text()
         self.assertIn("answers=/sys/firmware/qemu_fw_cfg/by_name/opt/eitr/answers/raw", script)
         self.assertIn('eitr-guided-install --answers "$answers" 2>&1 | tee /dev/ttyS0', script)
-        self.assertIn("  else\n    eitr-guided-install\n", script)
+        self.assertIn("  else\n    eitr-installer-launch\n", script)
 
 
 class InstallerTreeTests(unittest.TestCase):

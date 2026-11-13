@@ -5,11 +5,11 @@ import sys
 import curses
 from dataclasses import dataclass
 import importlib.util
-import textwrap
 import tomllib
 
 from eitr_i18n import mark, tr
 from eitr_paths import ROOT, config
+from eitr_textwidth import clip, wrap_text
 
 
 class Cancelled(Exception):
@@ -80,7 +80,7 @@ class Wizard:
                     return
                 limit = min(limit, self.body_x + self.body_width - x)
             value = tr(str(value))
-            value = value if len(value) <= limit else value[:max(0, limit - 1)] + '…'
+            value = clip(value, limit)
             if limit > 0:
                 self.screen.addnstr(y, x, value, limit, curses.color_pair(style))
 
@@ -141,7 +141,7 @@ class Wizard:
         while True:
             y, x = self.frame(title)
             for paragraph in note.splitlines():
-                for line in textwrap.wrap(paragraph, self.body_width):
+                for line in wrap_text(paragraph, self.body_width):
                     self.text(y, x, line)
                     y += 1
             if note:
@@ -179,12 +179,12 @@ class Wizard:
         while True:
             y, x = self.frame(title, tr('Enter: continue  Esc: back'))
             lines = [wrapped for paragraph in description.splitlines()
-                     for wrapped in (textwrap.wrap(paragraph, self.body_width) or [''])]
+                     for wrapped in (wrap_text(paragraph, self.body_width) or [''])]
             for offset, line in enumerate(lines):
                 self.text(y + offset, x, line)
             entry = y + max(4, len(lines) + 1)
             self.text(entry, x, ("*" * len(value) if secret else value) + "_", 2)
-            for offset, line in enumerate(textwrap.wrap(error, self.body_width)):
+            for offset, line in enumerate(wrap_text(error, self.body_width)):
                 self.text(entry + 2 + offset, x, line, 2)
             self.screen.refresh()
             key = self.screen.get_wch()
@@ -254,7 +254,7 @@ class SetupWizard(Wizard):
         error = ''
         while True:
             y, x = self.frame(step.question or step.label)
-            for offset, line in enumerate(textwrap.wrap(step.description, self.body_width)):
+            for offset, line in enumerate(wrap_text(step.description, self.body_width)):
                 self.text(y + offset, x, line)
             self.text(y + 4, x, ('*' * len(value) if step.secret else value) + '_', 2)
             self.text(y + 6, x, error, 2)
@@ -294,7 +294,7 @@ class SetupWizard(Wizard):
                     value = next((label for label, choice in options if choice == value), value)
                 self.text(y, x, step.question or step.label, 2)
                 self.text(y + 4, x, '*' * len(str(value)) if step.secret else str(value))
-                for offset, line in enumerate(textwrap.wrap(step.description, self.body_width)):
+                for offset, line in enumerate(wrap_text(step.description, self.body_width)):
                     self.text(y + 1 + offset, x, line)
             else:
                 bottom = getattr(self, 'panel_bottom', self.screen.getmaxyx()[0] - 3)
@@ -308,7 +308,7 @@ class SetupWizard(Wizard):
                     if step.secret:
                         value = '*' * len(str(value))
                     value = str(value) if value != '' else tr('(none)')
-                    review_lines.extend(textwrap.wrap(f'{tr(step.label)}: {value}', self.body_width))
+                    review_lines.extend(wrap_text(f'{tr(step.label)}: {value}', self.body_width))
                 review_offset = min(review_offset, max(0, len(review_lines) - count))
                 for offset, line in enumerate(review_lines[review_offset:review_offset + count]):
                     self.text(y + offset, x, line)

@@ -135,8 +135,9 @@ class InstallerUiTests(unittest.TestCase):
         with patch.object(ui, "output", side_effect=blocked):
             self.assertEqual(ui.automatic_timezone(), "Asia/Tokyo")
 
-    def test_wizard_does_not_ask_for_language_timezone_or_network(self):
-        for step in ("Language", "Timezone", "Network"):
+    def test_wizard_starts_with_language_and_never_asks_for_timezone_or_network(self):
+        self.assertEqual(ui.STEPS[0], "Language")
+        for step in ("Timezone", "Network"):
             self.assertNotIn(step, ui.STEPS)
 
     def test_locale_list_accepts_trailing_spaces_and_comment_prefix(self):

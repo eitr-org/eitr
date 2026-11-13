@@ -13,6 +13,7 @@ from eitr_paths import code_root
 
 DOMAIN = "eitr"
 SOURCE = "en"
+_chosen = None
 
 
 def mark(message):
@@ -30,7 +31,18 @@ def normalize(value):
     return parts[0].lower() + ("_" + parts[1].upper() if len(parts) > 1 else "")
 
 
+def use_locale(locale):
+    """Show every message of this process in locale (None: follow the environment again).
+    The installer's Language step uses it, so subprocesses keep their own environment."""
+    global _chosen
+    _chosen = locale
+    _select_locale.cache_clear()
+    _catalog.cache_clear()
+
+
 def system_locale(environment=None):
+    if environment is None and _chosen:
+        return normalize(_chosen)
     environment = os.environ if environment is None else environment
     return normalize(next((environment[key] for key in ("LC_ALL", "LC_MESSAGES", "LANG")
                            if environment.get(key, "").strip()), "en"))

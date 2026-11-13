@@ -309,6 +309,35 @@ def run_archinstall(config, credentials, work, log=None):
         raise GuidedInstallError(tr('archinstall did not complete an installation; Eitr setup stopped'))
 
 
+def system_locales(text):
+    """The UTF-8 locales a locale.gen file enables."""
+    return {match[1] for line in text.splitlines()
+            if (match := re.fullmatch(r"([\w@-]+\.UTF-8)\s+UTF-8", line.strip()))}
+
+
+def ensure_system_locale(language, log):
+    """archinstall writes /etc/locale.conf and generates `language`; confirm it on the
+    installed system and generate it (and en_US.UTF-8, which the setup commands run
+    under) when archinstall did not. An answers file's unusual value is left to archinstall."""
+    if not re.fullmatch(r"[\w@-]+\.UTF-8", language):
+        log(f"Leaving the system language {language!r} to archinstall")
+        return
+    generated = TARGET / "etc/locale.gen"
+    text = generated.read_text() if generated.is_file() else ""
+    missing = [name for name in dict.fromkeys((language, "en_US.UTF-8")) if name not in system_locales(text)]
+    if missing:
+        generated.write_text(text.rstrip("\n") + "\n" + "".join(f"{name} UTF-8\n" for name in missing))
+        chroot(["locale-gen"], log)
+    available = output(["arch-chroot", str(TARGET), "locale", "-a"]).split()
+    if language.replace("UTF-8", "utf8") not in available:
+        raise GuidedInstallError(tr('The system language {language} was not generated on the installed system', language=language))
+    conf = TARGET / "etc/locale.conf"
+    lines = conf.read_text().splitlines() if conf.is_file() else []
+    if f"LANG={language}" not in lines:
+        conf.write_text("\n".join([*(line for line in lines if not line.startswith("LANG=")), f"LANG={language}"]) + "\n")
+    log(f"The installed system speaks {language}")
+
+
 def installed_user(name):
     for user in desktop_users((TARGET / "etc/passwd").read_text()):
         if user["name"] == name:
@@ -642,6 +671,7 @@ def main():
         try:
             stages = [
                 ("Installing the base system", lambda log: run_archinstall(config, credentials, Path(directory), log)),
+                ("Generating the system language", lambda log: ensure_system_locale(choices["language"], log)),
                 ("Installing the Eitr desktop", install_desktop),
                 ("Setting up the desktop for " + choices["username"],
                  lambda log: set_up_desktop(installed_user(choices["username"]), log)),

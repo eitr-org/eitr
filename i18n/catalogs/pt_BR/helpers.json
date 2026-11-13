@@ -1552,5 +1552,7 @@
   "… and {count} more": "… e mais {count}",
   "Tailscale sign-in failed. Try again from the Tailscale panel.": "Falha ao entrar no Tailscale. Tente novamente pelo painel do Tailscale.",
   "Antigravity CLI is not installed": "A Antigravity CLI não está instalada",
-  "Sign in with `agy` to show subscription usage": "Entre com `agy` para ver o uso da assinatura"
+  "Sign in with `agy` to show subscription usage": "Entre com `agy` para ver o uso da assinatura",
+  "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome.": "As traduções do Eitr foram feitas com IA e podem ter pequenos erros. Correções são sempre bem-vindas.",
+  "The system language {language} was not generated on the installed system": "O idioma do sistema {language} não foi gerado no sistema instalado"
 }

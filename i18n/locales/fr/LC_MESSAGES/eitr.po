@@ -1216,6 +1216,9 @@ msgstr "Le composant Eitr {name} n’est pas installé. Installez le paquet eitr
 msgid "Eitr's boot guard: {FAILED_STARTS} starts after the last update failed; restoring the system from snapshot {number}."
 msgstr "Protection de démarrage d’Eitr : {FAILED_STARTS} démarrages ont échoué depuis la dernière mise à jour ; restauration depuis l’instantané {number}."
 
+msgid "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome."
+msgstr "Les traductions d’Eitr ont été réalisées avec l’IA et peuvent contenir de petites erreurs. Les corrections sont toujours les bienvenues."
+
 msgid "Elastic IPs"
 msgstr "IP élastiques"
 
@@ -3681,6 +3684,9 @@ msgstr "Le modèle vocal n’a pas pu transcrire cet enregistrement."
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "Le disque système est presque plein, les mises à jour et les applications peuvent donc échouer ; libérez de l’espace avec Nettoyage."
+
+msgid "The system language {language} was not generated on the installed system"
+msgstr "La langue du système {language} n’a pas été générée sur le système installé"
 
 msgid "The template must not name a disk"
 msgstr "The template must not name a disk"

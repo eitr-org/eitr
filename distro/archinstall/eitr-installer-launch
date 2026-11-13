@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+# Starts the installer's interactive wizard in a full-screen graphical terminal
+# (cage with foot) so Japanese, Chinese and Korean can be drawn, and falls back
+# to the console wizard whenever that session cannot start. The wizard's own exit
+# status is this script's. Answers drives and QEMU firmware config never come
+# here: .zlogin runs eitr-guided-install on the console for those.
+#
+# Test and tuning variables: EITR_KIOSK_TIMEOUT (seconds to wait for the
+# terminal to start, default 20), EITR_KIOSK_STATE (directory for the status files).
+set -u
+
+self=$(readlink -f "$0")
+here=$(dirname "$self")
+root=$(readlink -f "$here/../..")
+variable=EITR_INSTALLER_GRAPHICAL
+
+if [[ ${1:-} == --in-kiosk ]]; then
+  # Runs inside foot: record that the wizard started and how it ended. Its
+  # error text goes to a file that the console shows again once the window closes.
+  state=$2
+  : > "$state/started"
+  export "$variable=1"
+  eitr-guided-install 2> "$state/stderr"
+  echo "$?" > "$state/status"
+  exit 0
+fi
+
+unset "$variable"
+
+console_wizard() {
+  eitr-guided-install
+  exit "$?"
+}
+
+palette() {
+  python3 - "$root" <<'PY'
+import sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1] + "/distro/lib")
+from eitr_wizard import theme_palette
+colors = theme_palette(Path(sys.argv[1]))
+print(*(colors[role].lstrip("#") for role in ("background", "foreground", "accent")))
+PY
+}
+
+write_terminal_config() {
+  local background foreground accent
+  read -r background foreground accent < <(palette) || return 1
+  [[ -n $accent ]] || return 1
+  cat > "$1" <<EOF
+[main]
+term=xterm-256color
+font=DejaVu Sans Mono:pixelsize=16, Noto Sans Mono CJK JP:pixelsize=16, Noto Sans Mono CJK SC:pixelsize=16, Noto Sans Mono CJK KR:pixelsize=16
+dpi-aware=no
+pad=8x8
+
+[scrollback]
+lines=0
+
+[csd]
+preferred=none
+
+[colors]
+background=$background
+foreground=$foreground
+regular0=$background
+regular3=$accent
+regular7=$foreground
+EOF
+}
+
+start_kiosk() {
+  command -v cage > /dev/null && command -v foot > /dev/null || return 1
+  compgen -G '/dev/dri/card*' > /dev/null || return 1
+  if [[ -z ${XDG_RUNTIME_DIR:-} ]]; then
+    XDG_RUNTIME_DIR=/run/user/$(id -u)
+    export XDG_RUNTIME_DIR
+    mkdir -p "$XDG_RUNTIME_DIR" && chmod 700 "$XDG_RUNTIME_DIR"
+  fi
+  write_terminal_config "$state/foot.ini" || return 1
+  # The pixman renderer draws in software, which also works in VMs without 3D.
+  WLR_RENDERER=pixman WLR_NO_HARDWARE_CURSORS=1 \
+    cage -d -- foot --config "$state/foot.ini" -- "$self" --in-kiosk "$state" &
+  kiosk=$!
+  local waited=0 limit=$(( ${EITR_KIOSK_TIMEOUT:-20} * 5 ))
+  while [[ ! -e $state/started ]] && kill -0 "$kiosk" 2> /dev/null; do
+    (( waited++ >= limit )) && { kill "$kiosk" 2> /dev/null; wait "$kiosk" 2> /dev/null; return 1; }
+    sleep 0.2
+  done
+  [[ -e $state/started ]]
+}
+
+state=${EITR_KIOSK_STATE:-$(mktemp -d /tmp/eitr-installer.XXXXXX)}
+mkdir -p "$state"
+rm -f "$state/started" "$state/status" "$state/stderr"
+
+if ! start_kiosk; then
+  wait 2> /dev/null
+  console_wizard
+fi
+
+wait "$kiosk" 2> /dev/null
+[[ -s $state/stderr ]] && cat "$state/stderr" >&2
+if [[ -s $state/status ]]; then
+  exit "$(< "$state/status")"
+fi
+# The wizard had started, so it is never run a second time on the console.
+echo "The graphical installer window closed unexpectedly. Run eitr-guided-install to start again." >&2
+exit 1

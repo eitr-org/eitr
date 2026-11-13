@@ -347,8 +347,12 @@ until it has been tested in a VM. Build public images with
 ### Guided install
 
 Boot the ISO in **UEFI** mode. Eitr's preparation screen and guided wizard open
-automatically on the first console; `eitr-guided-install` can also be run as
-root from that live image. No network is needed or asked for: everything is
+automatically on the first console, inside a full-screen graphical terminal
+(`cage` with `foot` and the Noto CJK fonts, drawn in software so it also works
+without 3D) so Japanese, Chinese and Korean can be shown; when that window
+cannot start, `eitr-installer-launch` falls back to the text console, where those
+three languages are listed by their English names and the wizard stays in
+English. `eitr-guided-install` can also be run as root from that live image. No network is needed or asked for: everything is
 installed from the medium, and you connect after logging in to the desktop. The
 wizard supports arrow keys, type-to-filter lists, Enter and Escape. It:
 
@@ -361,8 +365,12 @@ wizard supports arrow keys, type-to-filter lists, Enter and Escape. It:
    own tools (for example by shrinking C: in Windows Disk Management); the
    installer never resizes partitions. Either way, typing the disk's path
    starts the installation.
-2. Collects keyboard, hostname, user account, passwords and optional LUKS2
-   encryption. English is the default; when online, the timezone is detected by
+2. Starts with **Language**: every Eitr language, English first and preselected.
+   Picking one shows the rest of the wizard in it and makes it the installed
+   system's language (`/etc/locale.conf`, generated with `locale-gen`); any
+   language other than English shows a short note that the translations were
+   made with AI. Then it collects keyboard, hostname, user account, passwords
+   and optional LUKS2 encryption. English is the default; when online, the timezone is detected by
    HTTPS public-IP geolocation. Offline, it starts as UTC and
    `eitr-timezone.service` detects and sets the zone once the installed system
    is online, then disables itself. Credentials are hidden and

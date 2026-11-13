@@ -120,11 +120,14 @@ while IFS= read -r -d '' file; do
 done < <(find "$desktop_config" -type f -perm -u+x -print0 | sort -z) >> "$profile/profiledef.sh"
 mkdir -p "$profile/airootfs/usr/local/bin"
 ln -s /opt/desktop-config/distro/archinstall/eitr-guided-install "$profile/airootfs/usr/local/bin/eitr-guided-install"
+ln -s /opt/desktop-config/distro/archinstall/eitr-installer-launch "$profile/airootfs/usr/local/bin/eitr-installer-launch"
 # A test VM hands the installer its answers through QEMU's firmware config and
 # reads the progress from the first serial port. A real machine installs
 # unattended from eitr-answers.json on a drive labelled EITRANSWERS (FAT allows
 # 11 characters) or EITR-ANSWERS (after a countdown that Ctrl+C cancels);
-# otherwise it gets the wizard. An eitr-profile.json there applies either way.
+# otherwise it gets the wizard, in a full-screen cage and foot window that can draw
+# Japanese, Chinese and Korean (eitr-installer-launch falls back to the console
+# wizard when that cannot start). An eitr-profile.json there applies either way.
 cat >> "$profile/airootfs/root/.zlogin" <<'ZLOGIN'
 
 if [[ $(tty) == /dev/tty1 ]]; then
@@ -141,7 +144,7 @@ if [[ $(tty) == /dev/tty1 ]]; then
   elif [[ -r /run/eitr-answers/eitr-answers.json ]]; then
     eitr-guided-install --answers /run/eitr-answers/eitr-answers.json
   else
-    eitr-guided-install
+    eitr-installer-launch
   fi
 fi
 ZLOGIN
@@ -151,8 +154,9 @@ printf '\niso_name="eitr"\niso_label="EITR_$(date +%%Y%%m)"\niso_publisher="Eitr
 printf '\nairootfs_image_tool_options=("-comp" "zstd" "-Xcompression-level" "6" "-b" "1M")\n' >> "$profile/profiledef.sh"
 printf '\nTo install Eitr (erases the disk you select), run: eitr-guided-install\n' >> "$profile/airootfs/etc/motd"
 # The live environment needs the installer and splash, not the desktop packages,
-# which the installer reads from the payload on the medium.
-printf '\ncurl\ngit\nplymouth\npython-pillow\nflatpak\n' >> "$profile/packages.x86_64"
+# which the installer reads from the payload on the medium. The graphical
+# installer terminal is cage and foot with a monospace font and CJK glyphs.
+printf '\ncage\ncurl\nfoot\ngit\nnoto-fonts-cjk\nplymouth\npython-pillow\nflatpak\nttf-dejavu\n' >> "$profile/packages.x86_64"
 sort -u -o "$profile/packages.x86_64" "$profile/packages.x86_64"
 sudo mkarchiso -v -w "$build_root/work" -o "$build_root/base" "$profile"
 
