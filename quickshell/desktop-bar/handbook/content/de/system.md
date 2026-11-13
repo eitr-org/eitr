@@ -34,6 +34,7 @@ Verwende die folgenden Seitennamen. Anleitungen stehen in den verlinkten Kapitel
 | Focus | [Focus](handbook:focus) |
 | KI-Assistent | [KI-Assistent](handbook:development) |
 | Tastenbelegungen | [Tastenbelegungen](handbook:shortcuts) |
+| Fensterregeln | [Fensterregeln](handbook:apps) |
 | Standard-Apps | [Standard-Apps](handbook:apps) |
 | Benutzer | [Benutzer](handbook:security) |
 | Sicherheit | [Sicherheit](handbook:security) |

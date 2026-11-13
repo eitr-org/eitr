@@ -1,4 +1,6 @@
 local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .. "/paths.lua")
+local keybinds = dofile(paths.code("hypr/keybind-overrides.lua"))(paths)
+local bind_key = keybinds.bind
 -------------
 -- Themes --
 -------------
@@ -244,7 +246,7 @@ hl.config({
 	},
 })
 
-local focus_bindings = dofile(paths.code("hypr/focus.lua"))(paths, shellQuote)
+local focus_bindings = dofile(paths.code("hypr/focus.lua"))(paths, shellQuote, keybinds)
 
 -----------
 -- Input --
@@ -314,21 +316,21 @@ end
 -----------------
 
 -- Launchers and app helpers
-hl.bind(mainMod .. " + return", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + CTRL + return", hl.dsp.exec_cmd(appLaunch .. "--terminal -e tmux new-session -A -s main"))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager .. " --new-window"))
-hl.bind(
+bind_key(mainMod .. " + return", hl.dsp.exec_cmd(terminal))
+bind_key(mainMod .. " + CTRL + return", hl.dsp.exec_cmd(appLaunch .. "--terminal -e tmux new-session -A -s main"))
+bind_key(mainMod .. " + E", hl.dsp.exec_cmd(fileManager .. " --new-window"))
+bind_key(
 	mainMod .. " + P",
 	hl.dsp.exec_cmd(appLaunch .. [[kitty --class fif-terminal -e python3 "/usr/share/eitr/walker/scripts/actions/task-terminal.py" zsh -c 'source ~/.zshrc; fif']])
 )
-hl.bind(
+bind_key(
 	mainMod .. " + CTRL + P",
 	hl.dsp.exec_cmd(appLaunch .. [[kitty --class fifs-terminal -e python3 "/usr/share/eitr/walker/scripts/actions/task-terminal.py" zsh -c 'source ~/.zshrc; fifs; exit 0']])
 )
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd("sleep 0.08; wtype -M ctrl c -m ctrl"))
-hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("sleep 0.08; wtype -M ctrl x -m ctrl"))
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("sleep 0.08; wtype -M ctrl v -m ctrl"))
-hl.bind(
+bind_key(mainMod .. " + C", hl.dsp.exec_cmd("sleep 0.08; wtype -M ctrl c -m ctrl"))
+bind_key(mainMod .. " + X", hl.dsp.exec_cmd("sleep 0.08; wtype -M ctrl x -m ctrl"))
+bind_key(mainMod .. " + V", hl.dsp.exec_cmd("sleep 0.08; wtype -M ctrl v -m ctrl"))
+bind_key(
 	mainMod .. " + CTRL + V",
 	hl.dsp.exec_cmd(
 		"/usr/share/eitr/walker/bin/walker --provider menus:clipboard --width 850"
@@ -336,146 +338,146 @@ hl.bind(
 )
 
 -- Window state and layout
-hl.bind(mainMod .. " + W", hl.dsp.window.close())
+bind_key(mainMod .. " + W", hl.dsp.window.close())
 -- Intentional pair: SUPER+T toggles floating and pin together (see Learn > Shortcuts).
-hl.bind(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + T", hl.dsp.window.pin())
-hl.bind(mainMod .. " + CTRL + F", hl.dsp.window.fullscreen())
-hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("python3 /usr/share/eitr/walker/scripts/actions/ai-assistant.py open"))
-hl.bind(mainMod .. " + R", hl.dsp.layout("togglesplit"))
-hl.bind(mainMod .. " + SHIFT + R", hl.dsp.layout("rotatesplit"))
+bind_key(mainMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
+bind_key(mainMod .. " + T", hl.dsp.window.pin())
+bind_key(mainMod .. " + CTRL + F", hl.dsp.window.fullscreen())
+bind_key(mainMod .. " + SHIFT + P", hl.dsp.window.pseudo())
+bind_key(mainMod .. " + A", hl.dsp.exec_cmd("python3 /usr/share/eitr/walker/scripts/actions/ai-assistant.py open"))
+bind_key(mainMod .. " + R", hl.dsp.layout("togglesplit"))
+bind_key(mainMod .. " + SHIFT + R", hl.dsp.layout("rotatesplit"))
 
 -- Focus with vim-style keys
-hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "l" }))
-hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "d" }))
-hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "u" }))
-hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "r" }))
+bind_key(mainMod .. " + h", hl.dsp.focus({ direction = "l" }))
+bind_key(mainMod .. " + j", hl.dsp.focus({ direction = "d" }))
+bind_key(mainMod .. " + k", hl.dsp.focus({ direction = "u" }))
+bind_key(mainMod .. " + l", hl.dsp.focus({ direction = "r" }))
 
 -- Scrolling-only actions, registered only while the scrolling layout is chosen.
 if window_layout.layout == "scrolling" then
-	hl.bind(mainMod .. " + ALT + Left", hl.dsp.layout("focus l"))
-	hl.bind(mainMod .. " + ALT + Right", hl.dsp.layout("focus r"))
-	hl.bind(mainMod .. " + ALT + Up", hl.dsp.layout("focus u"))
-	hl.bind(mainMod .. " + ALT + Down", hl.dsp.layout("focus d"))
-	hl.bind(mainMod .. " + ALT + SHIFT + Left", hl.dsp.layout("swapcol l"))
-	hl.bind(mainMod .. " + ALT + SHIFT + Right", hl.dsp.layout("swapcol r"))
-	hl.bind(mainMod .. " + ALT + equal", hl.dsp.layout("colresize +conf"))
-	hl.bind(mainMod .. " + ALT + minus", hl.dsp.layout("colresize -conf"))
+	bind_key(mainMod .. " + ALT + Left", hl.dsp.layout("focus l"))
+	bind_key(mainMod .. " + ALT + Right", hl.dsp.layout("focus r"))
+	bind_key(mainMod .. " + ALT + Up", hl.dsp.layout("focus u"))
+	bind_key(mainMod .. " + ALT + Down", hl.dsp.layout("focus d"))
+	bind_key(mainMod .. " + ALT + SHIFT + Left", hl.dsp.layout("swapcol l"))
+	bind_key(mainMod .. " + ALT + SHIFT + Right", hl.dsp.layout("swapcol r"))
+	bind_key(mainMod .. " + ALT + equal", hl.dsp.layout("colresize +conf"))
+	bind_key(mainMod .. " + ALT + minus", hl.dsp.layout("colresize -conf"))
 end
 
 -- Resize active window
-hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.resize({ x = -15, y = 0, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.resize({ x = 0, y = 15, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.resize({ x = 0, y = -15, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.resize({ x = 15, y = 0, relative = true }), { repeating = true })
-hl.bind(mainMod .. " + CTRL + u", hl.dsp.exec_cmd(hyprScriptsDir .. "/window-size-cycle.sh"))
+bind_key(mainMod .. " + SHIFT + h", hl.dsp.window.resize({ x = -15, y = 0, relative = true }), { repeating = true })
+bind_key(mainMod .. " + SHIFT + j", hl.dsp.window.resize({ x = 0, y = 15, relative = true }), { repeating = true })
+bind_key(mainMod .. " + SHIFT + k", hl.dsp.window.resize({ x = 0, y = -15, relative = true }), { repeating = true })
+bind_key(mainMod .. " + SHIFT + l", hl.dsp.window.resize({ x = 15, y = 0, relative = true }), { repeating = true })
+bind_key(mainMod .. " + CTRL + u", hl.dsp.exec_cmd(hyprScriptsDir .. "/window-size-cycle.sh"))
 
 -- Move active window
-hl.bind(mainMod .. " + CTRL + h", hl.dsp.window.move({ direction = "l" }))
-hl.bind(mainMod .. " + CTRL + j", hl.dsp.window.move({ direction = "d" }))
-hl.bind(mainMod .. " + CTRL + k", hl.dsp.window.move({ direction = "u" }))
-hl.bind(mainMod .. " + CTRL + l", hl.dsp.window.move({ direction = "r" }))
+bind_key(mainMod .. " + CTRL + h", hl.dsp.window.move({ direction = "l" }))
+bind_key(mainMod .. " + CTRL + j", hl.dsp.window.move({ direction = "d" }))
+bind_key(mainMod .. " + CTRL + k", hl.dsp.window.move({ direction = "u" }))
+bind_key(mainMod .. " + CTRL + l", hl.dsp.window.move({ direction = "r" }))
 
 -- Desktop panels and Focus
-hl.bind(mainMod .. " + TAB", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show overview"))
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd("eitr focus toggle"))
-hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show volume"))
-hl.bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show bluetooth"))
-hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show calendar"))
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show wifi"))
-hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show display"))
+bind_key(mainMod .. " + TAB", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show overview"))
+bind_key(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd("eitr focus toggle"))
+bind_key(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show volume"))
+bind_key(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show bluetooth"))
+bind_key(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show calendar"))
+bind_key(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show wifi"))
+bind_key(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- panels show display"))
 -- Numbered navigation uses the saved monitor mode, count and marker floor.
 for i = 1, 10 do
 	local key = tostring(i % 10)
-	hl.bind(mainMod .. " + " .. key, workspace_action("focus", i))
-	hl.bind(mainMod .. " + SHIFT + " .. key, workspace_action("move", i))
+	bind_key(mainMod .. " + " .. key, workspace_action("focus", i))
+	bind_key(mainMod .. " + SHIFT + " .. key, workspace_action("move", i))
 end
 
 -- Special workspace
-hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-hl.bind(mainMod .. " + CTRL + S", workspace_action("move", 1))
+bind_key(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+bind_key(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+bind_key(mainMod .. " + CTRL + S", workspace_action("move", 1))
 
 -- Scroll through existing workspaces
 hl.bind(mainMod .. " + mouse_down", workspace_action("step", 1))
 hl.bind(mainMod .. " + mouse_up", workspace_action("step", -1))
-hl.bind(mainMod .. " + ALT + h", workspace_action("step", -1))
-hl.bind(mainMod .. " + ALT + l", workspace_action("step", 1))
+bind_key(mainMod .. " + ALT + h", workspace_action("step", -1))
+bind_key(mainMod .. " + ALT + l", workspace_action("step", 1))
 
 -- Walker menus and scripts
-hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menusDir .. "/search.sh"))
-hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd(menusDir .. "/shortcuts.sh"))
-hl.bind(mainMod .. " + SHIFT + slash", hl.dsp.exec_cmd(menusDir .. "/vim.sh"))
-hl.bind(mainMod .. " + F", hl.dsp.exec_cmd("/usr/share/eitr/walker/bin/walker --provider menus:main"))
-hl.bind(mainMod .. " + CTRL + N", hl.dsp.exec_cmd("bash /usr/share/eitr/quickshell/desktop-bar/scripts/appearance-picker.sh wallpaper"))
-hl.bind(mainMod .. " + CTRL + SHIFT + N", hl.dsp.exec_cmd("bash /usr/share/eitr/quickshell/desktop-bar/scripts/appearance-picker.sh theme"))
-hl.bind(mainMod .. " + G", hl.dsp.exec_cmd(actionsDir .. "/search/google.sh"))
+bind_key(mainMod .. " + space", hl.dsp.exec_cmd(menusDir .. "/search.sh"))
+bind_key(mainMod .. " + slash", hl.dsp.exec_cmd(menusDir .. "/shortcuts.sh"))
+bind_key(mainMod .. " + SHIFT + slash", hl.dsp.exec_cmd(menusDir .. "/vim.sh"))
+bind_key(mainMod .. " + F", hl.dsp.exec_cmd("/usr/share/eitr/walker/bin/walker --provider menus:main"))
+bind_key(mainMod .. " + CTRL + N", hl.dsp.exec_cmd("bash /usr/share/eitr/quickshell/desktop-bar/scripts/appearance-picker.sh wallpaper"))
+bind_key(mainMod .. " + CTRL + SHIFT + N", hl.dsp.exec_cmd("bash /usr/share/eitr/quickshell/desktop-bar/scripts/appearance-picker.sh theme"))
+bind_key(mainMod .. " + G", hl.dsp.exec_cmd(actionsDir .. "/search/google.sh"))
 
-hl.bind("PRINT", hl.dsp.exec_cmd(actionsDir .. "/capture/screenshot-full.sh"))
-hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd(actionsDir .. "/capture/screenshot-selection.sh"))
-hl.bind(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd(actionsDir .. "/capture/screenshot.sh window edit"))
-hl.bind(mainMod .. " + CTRL + PRINT", hl.dsp.exec_cmd(actionsDir .. "/capture/text.sh"))
-hl.bind(mainMod .. " + ALT + PRINT", hl.dsp.exec_cmd(actionsDir .. "/capture/qr.sh"))
-hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd(actionsDir .. "/wallpaper/next.sh"))
-hl.bind(mainMod .. " + SHIFT + space", hl.dsp.exec_cmd(actionsDir .. "/toggle/desktop-bar.sh autohide"))
+bind_key("PRINT", hl.dsp.exec_cmd(actionsDir .. "/capture/screenshot-full.sh"))
+bind_key(mainMod .. " + PRINT", hl.dsp.exec_cmd(actionsDir .. "/capture/screenshot-selection.sh"))
+bind_key(mainMod .. " + SHIFT + PRINT", hl.dsp.exec_cmd(actionsDir .. "/capture/screenshot.sh window edit"))
+bind_key(mainMod .. " + CTRL + PRINT", hl.dsp.exec_cmd(actionsDir .. "/capture/text.sh"))
+bind_key(mainMod .. " + ALT + PRINT", hl.dsp.exec_cmd(actionsDir .. "/capture/qr.sh"))
+bind_key(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd(actionsDir .. "/wallpaper/next.sh"))
+bind_key(mainMod .. " + SHIFT + space", hl.dsp.exec_cmd(actionsDir .. "/toggle/desktop-bar.sh autohide"))
 
 -- Desktop utilities
-hl.bind(mainMod .. " + F1", hl.dsp.exec_cmd("bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh toggle"))
-hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- catalog toggle"))
-hl.bind(mainMod .. " + comma", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- settings toggle"))
-hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- controlCenter toggle"))
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications toggle"))
-hl.bind(mainMod .. " + ALT + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications act"))
-hl.bind(mainMod .. " + ALT + SHIFT + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications dismissNewest"))
-hl.bind(mainMod .. " + equal", hl.dsp.exec_cmd("hyprpicker -a"))
-hl.bind(mainMod .. " + m", hl.dsp.exec_cmd(hyprScriptsDir .. "/manual-lock.sh"))
-hl.bind(mainMod .. " + SEMICOLON", hl.dsp.exec_cmd(actionsDir .. "/emoji-picker.sh"))
+bind_key(mainMod .. " + F1", hl.dsp.exec_cmd("bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh toggle"))
+bind_key(mainMod .. " + F2", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- catalog toggle"))
+bind_key(mainMod .. " + comma", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- settings toggle"))
+bind_key(mainMod .. " + I", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- controlCenter toggle"))
+bind_key(mainMod .. " + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications toggle"))
+bind_key(mainMod .. " + ALT + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications act"))
+bind_key(mainMod .. " + ALT + SHIFT + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications dismissNewest"))
+bind_key(mainMod .. " + equal", hl.dsp.exec_cmd("hyprpicker -a"))
+bind_key(mainMod .. " + m", hl.dsp.exec_cmd(hyprScriptsDir .. "/manual-lock.sh"))
+bind_key(mainMod .. " + SEMICOLON", hl.dsp.exec_cmd(actionsDir .. "/emoji-picker.sh"))
 
 -- Media keys
-hl.bind("F8", hl.dsp.exec_cmd("playerctl play-pause"))
-hl.bind("F9", hl.dsp.exec_cmd("playerctl next"))
+bind_key("F8", hl.dsp.exec_cmd("playerctl play-pause"))
+bind_key("F9", hl.dsp.exec_cmd("playerctl next"))
 
 -- Hardware keys
-hl.bind(
+bind_key(
 	"XF86AudioRaiseVolume",
 	hl.dsp.exec_cmd("swayosd-client --output-volume=2 --max-volume=100"),
 	{ locked = true, repeating = true }
 )
-hl.bind(
+bind_key(
 	"XF86AudioLowerVolume",
 	hl.dsp.exec_cmd("swayosd-client --output-volume=-2 --max-volume=100"),
 	{ locked = true, repeating = true }
 )
-hl.bind(
+bind_key(
 	"XF86AudioMute",
 	hl.dsp.exec_cmd("swayosd-client --output-volume=mute-toggle --max-volume=100"),
 	{ locked = true }
 )
-hl.bind(
+bind_key(
 	"XF86AudioMicMute",
 	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
 	{ locked = true }
 )
-hl.bind("XF86Calculator", hl.dsp.exec_cmd(paths.code("walker/scripts/actions/tools/calculator.sh")))
+bind_key("XF86Calculator", hl.dsp.exec_cmd(paths.code("walker/scripts/actions/tools/calculator.sh")))
 -- Offline dictation: hold to speak, release to type (whisper-cpp ships with every installation).
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(paths.code("walker/scripts/actions/tools/dictate.sh") .. " start"))
-hl.bind(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd("python3 " .. paths.code("walker/scripts/actions/tools/voice-command.py") .. " start"))
+bind_key(mainMod .. " + D", hl.dsp.exec_cmd(paths.code("walker/scripts/actions/tools/dictate.sh") .. " start"))
+bind_key(mainMod .. " + SHIFT + D", hl.dsp.exec_cmd("python3 " .. paths.code("walker/scripts/actions/tools/voice-command.py") .. " start"))
 -- D release stops either mode even after SUPER/SHIFT is released; ordinary D input passes through.
-hl.bind("D", hl.dsp.exec_cmd(paths.code("walker/scripts/actions/tools/dictate.sh") .. " stop; " .. paths.code("walker/scripts/actions/tools/dictate.sh") .. " stop voice"), { release = true, ignore_mods = true, non_consuming = true })
+bind_key("D", hl.dsp.exec_cmd(paths.code("walker/scripts/actions/tools/dictate.sh") .. " stop; " .. paths.code("walker/scripts/actions/tools/dictate.sh") .. " stop voice"), { release = true, ignore_mods = true, non_consuming = true })
 -- Keyboard backlight keys do nothing on keyboards without a light.
-hl.bind("XF86KbdBrightnessUp", hl.dsp.exec_cmd("brightnessctl --device='*::kbd_backlight' set +33%"), { locked = true })
-hl.bind("XF86KbdBrightnessDown", hl.dsp.exec_cmd("brightnessctl --device='*::kbd_backlight' set 33%-"), { locked = true })
+bind_key("XF86KbdBrightnessUp", hl.dsp.exec_cmd("brightnessctl --device='*::kbd_backlight' set +33%"), { locked = true })
+bind_key("XF86KbdBrightnessDown", hl.dsp.exec_cmd("brightnessctl --device='*::kbd_backlight' set 33%-"), { locked = true })
 -- Lid with an external monitor: the laptop screen turns off (hypr/scripts/lid.sh; experimental).
 hl.bind("switch:on:Lid Switch", hl.dsp.exec_cmd(paths.code("hypr/scripts/lid.sh") .. " close"), { locked = true })
 hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd(paths.code("hypr/scripts/lid.sh") .. " open"), { locked = true })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness +2"), { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness -2"), { locked = true, repeating = true })
+bind_key("XF86MonBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness +2"), { locked = true, repeating = true })
+bind_key("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness -2"), { locked = true, repeating = true })
 
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+bind_key("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+bind_key("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+bind_key("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+bind_key("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 -- Mouse window manipulation
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
@@ -634,3 +636,15 @@ blurred_layer("swayosd", 0.3)
 ------------------------------
 
 if focus_bindings then focus_bindings() end
+
+local personal_rules = loadfile(paths.config .. "/hypr/window-rules.lua")
+if personal_rules then
+    local valid, rules = pcall(personal_rules)
+    if valid and type(rules) == "table" then
+        for _, rule in ipairs(rules) do
+            if type(rule) == "table" and type(rule.match) == "table" then
+                pcall(hl.window_rule, rule)
+            end
+        end
+    end
+end

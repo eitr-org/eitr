@@ -63,7 +63,7 @@ def parents(files, menus):
     return result
 
 
-def shortcut_reference():
+def shortcut_reference(effective_keys=True):
     indexed = {row['text']: row for row in rows('shortcuts')}
     result = []
     for definition in json.loads(code('elephant/shortcut-reference.json').read_text()):
@@ -72,14 +72,17 @@ def shortcut_reference():
             row = indexed[entry['row']]
             entry['key'] = row['subtext']
             entry.setdefault('command', row['actions']['open'] + (' &' if entry.get('background') else ''))
+        if effective_keys and "key" in entry:
+            from eitr_keybinds import effective
+            entry["key"] = effective(entry["key"]) or "Disabled"
         result.append(entry)
     return result
 
 
-def shortcut_options():
+def shortcut_options(effective_keys=True):
     return '\n'.join(entry['heading'] if 'heading' in entry else
                      '  ' + entry['key'].ljust(max(26, len(entry['key']) + 2)) + entry['description']
-                     for entry in shortcut_reference())
+                     for entry in shortcut_reference(effective_keys=effective_keys))
 
 
 def shortcut_command(selection):

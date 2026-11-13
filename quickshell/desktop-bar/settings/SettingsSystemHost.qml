@@ -122,7 +122,7 @@ Flickable {
     SettingsHelper {
         id: helper
         objectName: "settings-system-helper"
-        active: hostView.active && ["keybinds", "user", "security", "assistant", "about"].includes(hostView.page)
+        active: hostView.active && ["user", "security", "assistant", "about"].includes(hostView.page)
         live: hostView.live
         script: Eitr.Paths.code("quickshell/desktop-bar/scripts/settings-system.py")
         summaryArguments: [hostView.page === "assistant" ? "assistants" : hostView.page]
@@ -187,6 +187,7 @@ Flickable {
     property alias defaults: defaults
     property alias check: check
     property alias chooser: chooser
+    Component { id: windowrulesComponent; SettingsWindowRulesPage { context: hostView } }
     Component { id: keybindsComponent; SettingsKeybindsPage { context: hostView } }
     Component { id: defaultappsComponent; SettingsDefaultAppsPage { context: hostView } }
     Component { id: userComponent; SettingsUserPage { context: hostView } }
@@ -215,7 +216,7 @@ Flickable {
             id: pageLoader
             width: parent.width
             height: item ? item.implicitHeight : 0
-            sourceComponent: ({"keybinds": keybindsComponent, "default-apps": defaultappsComponent, "user": userComponent, "security": securityComponent, "assistant": assistantsComponent, "updates": updatesComponent, "check-pc": checkpcComponent, "about": aboutComponent})[hostView.page] || null
+            sourceComponent: ({"window-rules": windowrulesComponent, "keybinds": keybindsComponent, "default-apps": defaultappsComponent, "user": userComponent, "security": securityComponent, "assistant": assistantsComponent, "updates": updatesComponent, "check-pc": checkpcComponent, "about": aboutComponent})[hostView.page] || null
         }
         Label {
             visible: helper.active && helper.error !== ""

@@ -34,6 +34,7 @@
 | Focus | [Focus](handbook:focus) |
 | AI 어시스턴트 | [AI 어시스턴트](handbook:development) |
 | 키 바인딩 | [키 바인딩](handbook:shortcuts) |
+| 창 규칙 | [창 규칙](handbook:apps) |
 | 기본 앱 | [기본 앱](handbook:apps) |
 | 사용자 | [사용자](handbook:security) |
 | 보안 | [보안](handbook:security) |

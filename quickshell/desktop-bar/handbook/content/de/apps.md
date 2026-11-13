@@ -170,3 +170,23 @@ Transparente Hintergründe haben keine Host-Farbe, Umrandung oder Unschärfe; Be
 Autoren wählen Farben, Bilder, Shader und Animationen frei. Themenhilfen (`api.palette`, color0–15, benannte Rollen, Schrift, Größen, Radius und `themeChanged`) sind optional. Widgets und Panels verwenden standardmäßig `surface: "none"`; `"panel"` wählt den Eitr-Hintergrund. Eine ausdrücklich gespeicherte Widgetwahl hat Vorrang, sonst gilt die Deklaration. Das Kontrollzentrum behält seinen äußeren Rahmen ohne zusätzliche Dekoration im Pluginbereich.
 
 `header: false` blendet die Kopfzeile aus; Zurück/Escape funktionieren weiterhin. Kacheln verwenden standardmäßig `look: "eitr"`; `"custom"` zeichnet den ganzen festen Platz, mit Aktivierung und Fokusring vom Host. Leistenelemente erhalten keine Färbung oder Hoverfüllung. Relative QML-Bilder liegen im Pluginordner. Grenzen, zentrierte Uhr, Prüfung, Fähigkeiten und Fehlerbehandlung bleiben bestehen. Das Beispiel zeigt beide Kachelstile.
+
+## Tastenkürzel und Fensterregeln
+
+Unter Einstellungen > Tastenkürzel nach Aktion oder Taste suchen, Bearbeiten wählen und die
+Kombination drücken. Escape bricht ab; Rücktaste fragt vor dem Deaktivieren. Bei Konflikten
+stehen Tauschen und Abbrechen bereit. Geänderte Zeilen zeigen den Standard und Zurücksetzen;
+Alle zurücksetzen stellt alle Standards wieder her. SUPER + M (Sperren) und D / SUPER + D / SUPER + SHIFT + D (Diktat-Ende)
+sind reserviert. Mauskürzel bleiben gleich. Lernen > Tastenkürzel zeigt wirksame Tasten,
+die Tabellen im Handbuch zeigen Standards.
+
+Einstellungen > Fensterregeln ergänzt Regeln für offene Fenster oder installierte Anwendungen
+mit bekannter Klasse. Anwendung auswählen, dann schwebend, Arbeitsfläche (1–10, `name:NAME`
+oder `special:NAME`), Größe (zwei positive Pixelwerte oder Prozentwerte bis 100%) und Deckkraft
+(0.2–1.0) festlegen. Klasse und optionaler Titel stimmen genau überein. Bearbeiten ändert die
+Regel; Entfernen fragt nach. Persönliche Regeln folgen den Eitr-Regeln. Anwendung erneut öffnen, um die Anfangsposition zu prüfen.
+
+Die Auswahl bleibt auf diesem PC in `~/.config/eitr/keybinds.json` und `window-rules.json`
+(oder `$XDG_CONFIG_HOME/eitr`). Helfer erzeugen `hypr/keybinds.lua` und
+`hypr/window-rules.lua` und laden Hyprland nach jeder Änderung neu. Updates behalten die Dateien.
+Fehlende oder fehlerhafte Lua-Projektionen nutzen Standards. Ohne Änderungen wird die Projektion entfernt.

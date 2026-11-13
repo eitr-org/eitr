@@ -15,7 +15,7 @@
   },
   {
     "text": "Keybinds",
-    "subtext": "Browse the keyboard and mouse shortcuts",
+    "subtext": "Edit keyboard shortcuts and restore defaults",
     "keywords": [
       "shortcuts",
       "bindings",
@@ -24,6 +24,14 @@
     "icon": "󰌌",
     "actions": {
       "open": "eitr-shell desktop-bar ipc call -- settings show keybinds"
+    }
+  },
+  {
+    "text": "Window Rules",
+    "subtext": "Choose how app windows open",
+    "icon": "󰖲",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- settings show window-rules"
     }
   }
 ]

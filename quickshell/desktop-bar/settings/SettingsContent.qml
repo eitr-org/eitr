@@ -140,7 +140,7 @@ Rectangle {
             id: systemPage
             onPageRequested: page => settings.navigate(page)
             anchors.fill: parent
-            visible: ["keybinds", "default-apps", "user", "security", "assistant", "updates", "check-pc", "about"].includes(settings.page)
+            visible: ["window-rules", "keybinds", "default-apps", "user", "security", "assistant", "updates", "check-pc", "about"].includes(settings.page)
             page: settings.page; title: settings.current.title; tab: settings.tab
             onTabRequested: value => { reveal.stop(); settings.tab = value; }
             active: settings.opened && visible

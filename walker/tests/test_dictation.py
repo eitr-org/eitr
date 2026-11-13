@@ -263,7 +263,7 @@ class DictationTests(unittest.TestCase):
         source = SCRIPT.read_text()
         self.assertIn('model_sha256="60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe"', source)
         hypr = (ROOT / "hypr/hyprland.lua").read_text()
-        self.assertIn('hl.bind("D",', hypr)
+        self.assertIn('bind_key("D",', hypr)
         self.assertIn('{ release = true, ignore_mods = true, non_consuming = true }', hypr)
         self.assertIn('" stop voice"', hypr)
         self.assertNotIn('" stop"), { release = true })', hypr)

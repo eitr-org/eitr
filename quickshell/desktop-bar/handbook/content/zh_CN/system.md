@@ -34,6 +34,7 @@
 | Focus | [Focus](handbook:focus) |
 | AI 助手 | [AI 助手](handbook:development) |
 | 按键绑定 | [按键绑定](handbook:shortcuts) |
+| 窗口规则 | [窗口规则](handbook:apps) |
 | 默认应用 | [默认应用](handbook:apps) |
 | 用户 | [用户](handbook:security) |
 | 安全 | [安全](handbook:security) |

@@ -198,3 +198,25 @@ Les auteurs choisissent couleurs, images, shaders et animations. Les aides de th
 Le Centre de contrôle conserve son cadre externe sans décorer le canevas du plugin. `header: false` masque l’en-tête ; Retour/Échap fonctionnent toujours. Les tuiles utilisent `look: "eitr"` par défaut ; `"custom"` dessine tout l’emplacement fixe, avec activation et contour de focus fournis par l’hôte. La barre n’ajoute ni teinte ni fond au survol.
 
 Les images QML relatives se résolvent dans le dossier du plugin. Limites, horloge centrée, vérifications, capacités et gestion des erreurs restent inchangées. L’exemple montre les deux styles de tuiles.
+
+## Raccourcis et règles de fenêtres
+
+Dans Paramètres > Raccourcis, recherchez une action ou une touche, choisissez Modifier puis
+appuyez sur la combinaison. Échap annule ; Retour arrière demande confirmation avant de désactiver.
+Un conflit propose Échanger ou Annuler. Les lignes modifiées montrent la valeur par défaut
+et Réinitialiser ; Tout réinitialiser restaure les valeurs par défaut. SUPER + M (verrouillage)
+et D / SUPER + D / SUPER + SHIFT + D (fin de dictée) sont réservés. Les raccourcis souris restent identiques. Apprendre > Raccourcis
+montre les touches effectives ; les tableaux du manuel montrent les valeurs par défaut.
+
+Paramètres > Règles de fenêtres ajoute des règles pour les fenêtres ouvertes ou les applications
+installées dont la classe est connue. Choisissez une application puis le mode flottant, le bureau
+(1–10, `name:NAME` ou `special:NAME`), la taille (deux valeurs positives en pixels ou pourcentages
+jusqu’à 100%) et l’opacité (0.2–1.0). La classe et le titre facultatif correspondent exactement.
+Modifiez une règle ou supprimez-la avec confirmation. Les règles personnelles suivent celles
+d’Eitr ; rouvrez l’application pour vérifier le placement initial.
+
+Les choix restent sur ce PC dans `~/.config/eitr/keybinds.json` et `window-rules.json`
+(ou `$XDG_CONFIG_HOME/eitr`). Les assistants génèrent `hypr/keybinds.lua` et
+`hypr/window-rules.lua` puis rechargent Hyprland après chaque modification. Les mises à jour
+les conservent. Les projections Lua absentes ou invalides utilisent les valeurs par défaut.
+Supprimer tous les changements supprime la projection.

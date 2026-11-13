@@ -34,6 +34,7 @@ Usa los siguientes nombres de página. Los capítulos enlazados explican los pas
 | Focus | [Focus](handbook:focus) |
 | Asistente de IA | [Asistente de IA](handbook:development) |
 | Atajos de teclado | [Atajos de teclado](handbook:shortcuts) |
+| Reglas de ventanas | [Reglas de ventanas](handbook:apps) |
 | Apps predeterminadas | [Apps predeterminadas](handbook:apps) |
 | Usuarios | [Usuarios](handbook:security) |
 | Seguridad | [Seguridad](handbook:security) |

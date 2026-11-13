@@ -34,6 +34,7 @@ Use the page names below. See the linked chapters for instructions.
 | Focus | [Focus](handbook:focus) |
 | AI Assistant | [AI Assistant](handbook:development) |
 | Keybinds | [Keybinds](handbook:shortcuts) |
+| Window Rules | [Window Rules](handbook:apps) |
 | Default apps | [Default apps](handbook:apps) |
 | Users | [Users](handbook:security) |
 | Security | [Security](handbook:security) |

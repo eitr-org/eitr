@@ -163,10 +163,10 @@ def shortcuts():
     # The Handbook is built from this tree's shortcut source, not an installed copy.
     os.environ["EITR_CODE_ROOT"] = str(ROOT)
     from eitr_menu import shortcut_options
-    options = shortcut_options()
+    options = shortcut_options(effective_keys=False)
     lines = ["# Shortcuts", "", "Keyboard and mouse shortcuts share this reference. SUPER is the Windows/Command-logo key.", "",
              "Open this handbook with **SUPER + F1**. Search chapters with **Ctrl + F**, scroll with **Page Up/Page Down**; Escape closes it.", "",
-             "## Keyboard", "", "Local hardware overrides may add bindings.", ""]
+             "## Keyboard", "", "Local hardware overrides may add bindings.", "", "Keyboard shortcuts can be changed in Settings > Keybinds. Tables show defaults.", ""]
     for line in options.splitlines():
         if line.startswith("  "):
             key, description = re.split(r"\s{2,}", line.strip(), maxsplit=1)
@@ -176,7 +176,7 @@ def shortcuts():
                           "| Shortcut | Action |", "| :--- | :--- |"])
     lines.extend(["", "### Focus mode", "", "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.", "",
                   "| Shortcut | Action |", "| :--- | :--- |"])
-    for entry in shortcut_entries():
+    for entry in shortcut_entries(effective_keys=False):
         lines.append("| **" + entry["Subtext"] + "** | " + entry["Text"] + " |")
     source = (ROOT / "walker/scripts/menus/mouse-gestures.sh").read_text()
     mouse = re.search(r'^options="(.*?)"$', source, re.MULTILINE | re.DOTALL)[1]

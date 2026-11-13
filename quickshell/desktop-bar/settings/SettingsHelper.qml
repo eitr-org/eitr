@@ -11,11 +11,14 @@ Item {
     property bool live: true
     property var summary: ({current: "", choices: [], available: false})
     property string error: ""
+    property string actionError: ""
+    signal saved()
     readonly property bool busy: write.running
     property var schema: ({current: "string", choices: "array", available: "boolean"})
     function refresh() { if (active && live && !read.running) read.running = true; }
     function change(arguments) {
         if (!live || busy) return;
+        actionError = "";
         write.command = ["python3", script].concat(arguments);
         write.running = true;
     }
@@ -31,13 +34,18 @@ Item {
         stdout: StdioCollector { id: output }
         onExited: function(code) {
             const result = JsonState.parse(output.text, code, helper.schema);
-            helper.error = result.ok ? "" : result.error;
+            helper.error = result.ok ? helper.actionError : result.error;
             if (result.ok) helper.summary = result.data;
         }
     }
     Process {
         id: write
         stderr: StdioCollector { id: errors }
-        onExited: function(code) { helper.error = code ? errors.text.trim() : ""; helper.refresh(); }
+        onExited: function(code) {
+            helper.actionError = code ? errors.text.trim() : "";
+            helper.error = helper.actionError;
+            if (!code) helper.saved();
+            helper.refresh();
+        }
     }
 }

@@ -34,6 +34,7 @@
 | フォーカス | [フォーカス](handbook:focus) |
 | AIアシスタント | [AIアシスタント](handbook:development) |
 | キーバインド | [キーバインド](handbook:shortcuts) |
+| ウィンドウルール | [ウィンドウルール](handbook:apps) |
 | 既定のアプリ | [既定のアプリ](handbook:apps) |
 | ユーザー | [ユーザー](handbook:security) |
 | セキュリティ | [セキュリティ](handbook:security) |

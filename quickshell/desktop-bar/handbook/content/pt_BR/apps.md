@@ -182,3 +182,23 @@ Os autores escolhem cores, imagens, shaders e animações. As ajudas de tema (`a
 `header: false` oculta o cabeçalho; Voltar/Escape continuam funcionando. Blocos usam `look: "eitr"` por padrão; `"custom"` desenha todo o espaço fixo, com ativação e contorno de foco do host. A barra não adiciona cor ou fundo ao passar o ponteiro. Imagens QML relativas ficam no diretório do plugin. Limites, relógio centralizado, revisões, capacidades e tratamento de falhas continuam.
 
 O exemplo mostra os dois estilos.
+
+## Atalhos e regras de janelas
+
+Em Configurações > Atalhos, busque uma ação ou tecla, escolha Editar e pressione a combinação.
+Escape cancela; Backspace pede confirmação para desativar. Em conflito, escolha Trocar ou Cancelar.
+As linhas alteradas mostram o padrão e Redefinir; Redefinir tudo restaura os padrões.
+SUPER + M (bloqueio) e D / SUPER + D / SUPER + SHIFT + D (soltar ditado) são reservados. Os atalhos do mouse não mudam.
+Aprender > Atalhos mostra as teclas efetivas; as tabelas do manual mostram os padrões.
+
+Configurações > Regras de janelas adiciona regras para janelas abertas ou aplicativos instalados
+com classe conhecida. Escolha o aplicativo e configure flutuação, área de trabalho (1–10,
+`name:NAME` ou `special:NAME`), tamanho (dois valores positivos em pixels ou porcentagens até 100%)
+e opacidade (0.2–1.0). A classe e o título opcional correspondem exatamente. Edite uma regra
+ou remova com confirmação. Regras pessoais vêm depois das regras do Eitr; reabra o aplicativo
+para conferir o posicionamento inicial.
+
+As escolhas ficam neste PC em `~/.config/eitr/keybinds.json` e `window-rules.json`
+(ou `$XDG_CONFIG_HOME/eitr`). Os auxiliares geram `hypr/keybinds.lua` e
+`hypr/window-rules.lua` e recarregam o Hyprland a cada alteração. Atualizações preservam esses
+arquivos. Projeções Lua ausentes ou inválidas usam os padrões. Remover todas as alterações remove a projeção.

@@ -34,6 +34,7 @@ Use os nomes de página abaixo. Os capítulos vinculados explicam os passos.
 | Focus | [Focus](handbook:focus) |
 | Assistente de IA | [Assistente de IA](handbook:development) |
 | Atalhos de teclado | [Atalhos de teclado](handbook:shortcuts) |
+| Regras de janelas | [Regras de janelas](handbook:apps) |
 | Apps padrão | [Apps padrão](handbook:apps) |
 | Usuários | [Usuários](handbook:security) |
 | Segurança | [Segurança](handbook:security) |

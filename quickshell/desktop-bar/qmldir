@@ -267,3 +267,4 @@ BrightnessSlider 1.0 components/BrightnessSlider.qml
 DisplayListSection panels/DisplayListSection.qml
 NightLightSection panels/NightLightSection.qml
 PowerProfileSection panels/PowerProfileSection.qml
+SettingsWindowRulesPage 1.0 settings/SettingsWindowRulesPage.qml

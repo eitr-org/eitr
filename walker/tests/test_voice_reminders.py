@@ -228,7 +228,7 @@ class VoiceProtocolTests(unittest.TestCase):
         self.assertEqual(len(bindings), 1)
         self.assertIn('SHIFT + D', bindings[0])
         self.assertIn('" start"', bindings[0])
-        release = next(line for line in source.splitlines() if 'hl.bind("D",' in line)
+        release = next(line for line in source.splitlines() if 'bind_key("D",' in line)
         self.assertIn('" stop voice"', release)
         self.assertIn('release = true, ignore_mods = true, non_consuming = true', release)
         self.assertIn('SUPER + Shift + D (hold)', (ROOT/'elephant/shortcut-reference.json').read_text())

@@ -22,7 +22,7 @@ class CalculatorTests(unittest.TestCase):
         self.assertIn("CalculatorView {", shell)
         hypr = (ROOT / "hypr/hyprland.lua").read_text()
         self.assertIn('match = { title = "^(Eitr Calculator)$" }, float = true', hypr)
-        self.assertIn('hl.bind("XF86Calculator"', hypr)
+        self.assertIn('bind_key("XF86Calculator"', hypr)
 
     def test_the_view_never_runs_typed_text(self):
         for name in ("CalculatorView.qml", "CalculatorModel.js", "shell.qml"):

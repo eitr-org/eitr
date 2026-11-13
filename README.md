@@ -180,3 +180,19 @@ button opens Settings. Window gaps are saved locally alongside Corners.
 Connections has Wi-Fi and Bluetooth tabs; Displays and Appearance group separate subjects in tabs. Picture cards preview bar layouts, edges, surfaces, media, gaps, corners and lockscreen designs. Appearance offers Theme colours or Eitr website for Settings, the Handbook and Add-ons; `settings palette theme|website` saves the same choice. Search and `settings show <page/tab>` open the matching tab (`network` remains a Connections alias).
 
 **Add-ons > Lockscreens** installs and removes official signed lockscreen designs with administrator authentication. Eitr stays built in; designs used by the session or login screen cannot be removed. Choose the active design in Settings > Lockscreen or Walker.
+
+### Keyboard overrides and window rules
+
+Settings > Keybinds edits keyboard combinations, disables shortcuts, swaps clashes and
+restores defaults. Search includes default and effective keys. Lock (SUPER + M) and the
+D release and SUPER + D / SUPER + SHIFT + D combinations used by dictation are reserved. Mouse bindings and gestures keep their defaults.
+Learn > Shortcuts shows effective keys; the Handbook tables document defaults.
+
+Settings > Window Rules selects an open or installed app by its exact class and optionally
+its exact title. Rules control floating, workspace (1–10, `name:NAME` or `special:NAME`),
+size (two positive pixels/percentages) and opacity (0.2–1.0). Later personal rules follow
+Eitr's rules. Existing windows may need reopening for initial placement changes.
+Preferences live in `$XDG_CONFIG_HOME/eitr/keybinds.json` and `window-rules.json`;
+the helpers atomically project them to `hypr/keybinds.lua` and `hypr/window-rules.lua`
+and reload Hyprland. Updates preserve these machine-local files. Resetting all shortcuts
+or removing the last rule deletes its projection. Broken/missing Lua files use defaults.

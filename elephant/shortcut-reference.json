@@ -526,5 +526,30 @@
     "key": "Media Next",
     "description": "Next media",
     "command": "playerctl next"
+  },
+  {
+    "key": "XF86Calculator",
+    "description": "Open calculator",
+    "command": "\"$ACTIONS_DIR/tools/calculator.sh\""
+  },
+  {
+    "key": "D",
+    "description": "Finish dictation or voice reminder",
+    "command": "\"$ACTIONS_DIR/tools/dictate.sh\" stop; \"$ACTIONS_DIR/tools/dictate.sh\" stop voice"
+  },
+  {
+    "key": "XF86KbdBrightnessUp",
+    "description": "Raise keyboard backlight",
+    "command": "brightnessctl --device='*::kbd_backlight' set +33%"
+  },
+  {
+    "key": "XF86KbdBrightnessDown",
+    "description": "Lower keyboard backlight",
+    "command": "brightnessctl --device='*::kbd_backlight' set 33%-"
+  },
+  {
+    "key": "XF86AudioPause",
+    "description": "Play or pause media",
+    "command": "playerctl play-pause"
   }
 ]

@@ -30,7 +30,7 @@
       "reason": "One destructive transaction, kept together so it can be reviewed in one place."
     },
     "hypr/hyprland.lua": {
-      "lines": 636,
+      "lines": 650,
       "reason": "One compositor configuration, including preference-backed layout options and bindings; machine-specific settings live in local.lua."
     },
     "quickshell/desktop-bar/bar/BarWindow.qml": {

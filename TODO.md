@@ -13,12 +13,6 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
-- **Keybinds and window rules editors.** Settings > Keybinds only lists shortcuts today:
-  rebind one by pressing the new keys, with clash warnings, reset to default and the
-  change kept in the person's own config. Window rules: pick an app and choose
-  "always float", workspace, size or opacity from a form instead of editing Lua.
-  Approved 2026-11-11; Codex is building it (2026-11-13)
-  (`eitr-testing/codex-wip/keybinds-window-rules/BRIEF.md`).
 - **VPN plugins, Taildrop and Tailscale out of the default install (agreed 2026-11-09,
   to do together with the owner).**
   - Three official plugins in `eitr-org/eitr-plugins`: Tailscale (today's bar icon, panel
@@ -84,6 +78,10 @@ item says what decides the next step. Remove an item when it ships;
   to Eitr, one-time install of the eight designs, login design restored, remove and reinstall
   with the password popup, refusals. On the owner's desktop: the first System Update removes the
   optional designs; the next System Update installs them back (the migration). Then promote.
+
+- **Keybinds and window rules editors (on testing 2026-11-13).** Settings > Keybinds rebinds,
+  disables and resets shortcuts; Settings > Window Rules sets float, workspace, size and opacity
+  per app. Try a rebind, a clash and swap, a rule on a real app, then promote.
 
 - **Island style and Side style (on testing 2026-11-13).** Attached Islands, Dynamic and Drop,
   straight sides for Tabs and Centered (Settings > Desktop Bar > Layout); try every layout

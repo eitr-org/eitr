@@ -78,7 +78,7 @@ ShellRoot {
         source = catalog.replace('var settings =', 'var Catalog = {settings:').replace('];', ']};') + source
         script = source + '''
 const assert = require('node:assert/strict');
-assert.equal(pages.length, 20);
+assert.equal(pages.length, 21);
 assert(!pages.some(page => ["themes", "plugins"].includes(page.id)));
 assert(pages.every(page => page.rune && page.description));
 assert.equal(pages[0].id, 'system');
@@ -304,13 +304,14 @@ QtObject {
                                               'OUTPUT': str(output_folder), 'ARTWORK': str(BAR.parents[1] / 'themes/vanaheim/backgrounds/01-hidden-garden.jpg')}.items():
                     fixture = fixture.replace(original, replacement)
                 (folder / 'fixture.qml').write_text(fixture)
-                code, output = render(folder / 'fixture.qml', render_environment(folder, (1280, 960)), 30)
+                # Every page is captured once per theme; under the full check's parallel load this takes ~30 s.
+                code, output = render(folder / 'fixture.qml', render_environment(folder, (1280, 960)), 60)
                 self.assertEqual(code, 0, output)
                 self.assertIn('PAGES_OK', output)
                 for diagnostic in ('TypeError:', 'ReferenceError:', 'Unable to assign', 'Binding loop', 'Error:', 'Required property'):
                     self.assertNotIn(diagnostic, output)
                 for page in ('appearance', 'bar', 'windows', 'lockscreen', 'notifications', 'focus',
-                             'displays', 'sound', 'connections', 'input', 'keybinds', 'default-apps', 'user', 'user-manage', 'user-users', 'security', 'assistants', 'updates', 'check-pc', 'about'):
+                             'displays', 'sound', 'connections', 'input', 'keybinds', 'window-rules', 'default-apps', 'user', 'user-manage', 'user-users', 'security', 'assistants', 'updates', 'check-pc', 'about'):
                     self.assertTrue((output_folder / f'{theme}-{page}.png').is_file(), page)
 
     def test_user_picture_sheet_and_overview_avatar(self):

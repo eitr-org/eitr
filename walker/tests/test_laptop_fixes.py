@@ -38,7 +38,7 @@ class LidTests(unittest.TestCase):
 class LaptopWiringTests(unittest.TestCase):
     def test_keys_lid_and_battery_warnings_are_wired(self):
         hypr = (ROOT / "hypr/hyprland.lua").read_text()
-        self.assertIn('hl.bind("XF86KbdBrightnessUp"', hypr)
+        self.assertIn('bind_key("XF86KbdBrightnessUp"', hypr)
         self.assertIn('hl.bind("switch:on:Lid Switch"', hypr)
         self.assertIn('hl.bind("switch:off:Lid Switch"', hypr)
         shell = (ROOT / "quickshell/desktop-bar/services/SessionHooks.qml").read_text()

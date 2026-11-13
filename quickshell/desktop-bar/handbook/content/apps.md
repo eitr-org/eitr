@@ -261,3 +261,22 @@ Plugin authors choose their own colors, images, shaders and animation. Theme hel
 Panels keep a navigation header unless `header: false`; Back/Escape still work. Tiles default to `look: "eitr"`; `"custom"` draws the whole fixed slot, with only host activation and a focus ring. Bar slots add no hover fill or tint. Relative QML images resolve in the plugin directory. Bounds, centred clock, reviews, capabilities and failure handling remain unchanged.
 
 The example demonstrates both tile styles.
+
+## Keybinds and window rules
+
+Settings > Keybinds changes keyboard shortcuts. Search by action or key, choose Edit,
+and press a combination. Escape cancels; Backspace asks before disabling. A clash offers
+Swap or Cancel. Changed rows show the default and Reset; Reset all restores all defaults.
+SUPER + M (lock) and D / SUPER + D / SUPER + SHIFT + D (dictation release) are reserved. Mouse shortcuts stay unchanged.
+Learn > Shortcuts shows effective keys; the Handbook tables show defaults.
+
+Settings > Window Rules adds rules for open windows or installed apps with a known class.
+Choose an app, then floating, workspace (1–10, `name:NAME` or `special:NAME`), size
+(two positive pixel values or percentages up to 100%) and opacity (0.2–1.0). Class and
+optional title match exactly. Edit changes a rule; Remove asks for confirmation.
+Personal rules follow Eitr rules. Reopen an app to check initial placement.
+
+Choices stay on this PC in `~/.config/eitr/keybinds.json` and `window-rules.json`
+(or `$XDG_CONFIG_HOME/eitr`). Helpers generate `hypr/keybinds.lua` and
+`hypr/window-rules.lua` and reload Hyprland after each change. Updates preserve them.
+Missing or broken Lua projections use defaults. Removing all changes removes the projection.

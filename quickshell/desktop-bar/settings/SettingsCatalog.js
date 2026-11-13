@@ -1,6 +1,7 @@
 .pragma library
 
 var settings = [
+    {"id": "window-rules-add", "label": "Add rule", "page": "window-rules", "tab": "", "keywords": "window class float workspace size opacity"},
     {"id": "windows-workspace-monitors", "label": "Monitors", "page": "windows", "tab": "", "keywords": "workspaces shared numbers split monitors"},
     {"id": "windows-workspace-count", "label": "Number of workspaces", "page": "windows", "tab": "", "keywords": "workspace count number"},
     {"id": "windows-workspace-always-show", "label": "Always show", "page": "windows", "tab": "", "keywords": "workspaces markers always show"},

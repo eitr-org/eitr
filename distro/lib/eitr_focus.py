@@ -85,10 +85,11 @@ def restore_options(hypr):
 
 
 
-def shortcut_entries(translated=False):
+def shortcut_entries(translated=False, effective_keys=True):
+    from eitr_keybinds import effective
     messages = table("menus") if translated else {}
     return [{'Text': messages.get(entry['label'], entry['label']).replace('{number}', str(entry.get('number', ''))),
-             'Subtext': entry['key'].replace('SHIFT', 'Shift').replace('backslash', '\\').replace('minus', '-'),
+             'Subtext': ((effective(entry['key']) or 'Disabled') if effective_keys else entry['key']).replace('SHIFT', 'Shift').replace('backslash', '\\').replace('minus', '-'),
              'Icon': '󰍹', 'Actions': {'open': 'true'}} for entry in FOCUS_KEYS]
 
 

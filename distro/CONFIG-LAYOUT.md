@@ -479,3 +479,13 @@ or edited copies with `.eitr-new` review files. A login migration seeds missing
 copies on existing installations; it never starts an assistant or signs in.
 
 Lockscreen manifests are per-package files in `/usr/share/eitr/lockscreen-designs.d/`. The desktop owns Eitr and all previews in `quickshell/lockscreen/previews/`; optional design packages own their session and SDDM trees. Machine state in `/var/lib/eitr/lockscreen-packages-migrated` records the one-time System Update migration.
+
+### Keyboard and window preferences
+
+`eitr/keybinds.json` maps default keyboard combinations to replacements or null (disabled).
+`eitr/window-rules.json` holds exact app-class/title matches and window preferences.
+Both are machine-local preferences (P), with generated Lua projections also classified P:
+`hypr/keybinds.lua` and `hypr/window-rules.lua`. The Settings helpers own projection and
+reload; package updates never overwrite them. Hyprland ignores missing or broken Lua
+projections. The keybind projection is isolated from compositor-neutral JSON so another
+compositor can project the same choices. Lock (SUPER + M), dictation/voice starts (SUPER + D, SUPER + SHIFT + D) and D release are reserved.

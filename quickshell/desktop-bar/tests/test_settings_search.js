@@ -18,7 +18,7 @@ const cursorResults = context.filter('cursor', translate);
 assert(cursorResults.some(result => result.settingId));
 assert(cursorResults.some(result => !result.settingId && result.id === 'appearance'));
 assert(cursorResults.every((result, index) => index === 0 || cursorResults[index - 1].score >= result.score));
-assert.equal(context.filter(' ', translate).length, 20);
+assert.equal(context.filter(' ', translate).length, 21);
 assert.equal(context.filter('unmatched words', translate).length, 0);
 assert(context.score('Cursor size', '', 'cursor size') > context.score('Cursor size', '', 'cursor'));
 assert(context.score('Cursor size', '', 'cursor') > context.score('Large cursor size', '', 'cursor'));

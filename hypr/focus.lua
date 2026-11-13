@@ -1,5 +1,5 @@
 -- Native groups are the pane targets; this layout keeps them in a bounded grid.
-return function(paths, quote)
+return function(paths, quote, keybinds)
     local helper = "python3 " .. quote(paths.code("quickshell/desktop-bar/scripts/focus-mode.py"))
     local reader = io.popen(helper .. " status")
     local enabled = reader and reader:read("*l") == "on"
@@ -94,15 +94,19 @@ return function(paths, quote)
             "SUPER + CTRL + u", "SUPER + CTRL + h", "SUPER + CTRL + j", "SUPER + CTRL + k", "SUPER + CTRL + l",
             "SUPER + S", "SUPER + SHIFT + S", "SUPER + CTRL + S", "SUPER + mouse_down", "SUPER + mouse_up",
             "SUPER + ALT + h", "SUPER + ALT + l", "SUPER + SHIFT + space", "SUPER + mouse:272", "SUPER + mouse:273", "SUPER + 0"}
-        for _, key in ipairs(disabled) do hl.unbind(key) end
-        for number = 0, 9 do hl.unbind("SUPER + SHIFT + " .. number) end
+        for _, key in ipairs(disabled) do local effective = keybinds.resolve(key); if effective then hl.unbind(effective) end end
+        for number = 0, 9 do local effective = keybinds.resolve("SUPER + SHIFT + " .. number); if effective then hl.unbind(effective) end end
         local generated = io.popen(helper .. " bindings")
         if not generated then error("Cannot generate Focus bindings") end
         local source = generated:read("*a")
         -- Hyprland reaps its children itself, so close() cannot report the exit status.
         generated:close()
         if not source:find("hl.bind", 1, true) then error("Cannot read Focus bindings") end
-        assert(load(source, "Focus bindings"))()
+        local focus_hl = setmetatable({bind = keybinds.bind, unbind = function(key)
+            local effective = keybinds.resolve(key)
+            if effective then hl.unbind(effective) end
+        end}, {__index = hl})
+        assert(load(source, "Focus bindings", "t", setmetatable({hl = focus_hl}, {__index = _G})))()
     end
     return install_bindings
 end

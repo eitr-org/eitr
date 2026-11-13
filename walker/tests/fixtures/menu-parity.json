@@ -582,7 +582,7 @@
       },
       {
         "text": "Keybinds",
-        "subtext": "Browse the keyboard and mouse shortcuts",
+        "subtext": "Edit keyboard shortcuts and restore defaults",
         "keywords": [
           "shortcuts",
           "bindings",
@@ -591,6 +591,14 @@
         "icon": "󰌌",
         "actions": {
           "open": "eitr-shell desktop-bar ipc call -- settings show keybinds"
+        }
+      },
+      {
+        "text": "Window Rules",
+        "subtext": "Choose how app windows open",
+        "icon": "󰖲",
+        "actions": {
+          "open": "eitr-shell desktop-bar ipc call -- settings show window-rules"
         }
       }
     ],
@@ -4170,6 +4178,36 @@
       "description": "Next media",
       "line": "  Media Next                Next media",
       "command": "playerctl next"
+    },
+    {
+      "key": "XF86Calculator",
+      "description": "Open calculator",
+      "line": "  XF86Calculator            Open calculator",
+      "command": "\"$ACTIONS_DIR/tools/calculator.sh\""
+    },
+    {
+      "key": "D",
+      "description": "Finish dictation or voice reminder",
+      "line": "  D                         Finish dictation or voice reminder",
+      "command": "\"$ACTIONS_DIR/tools/dictate.sh\" stop; \"$ACTIONS_DIR/tools/dictate.sh\" stop voice"
+    },
+    {
+      "key": "XF86KbdBrightnessUp",
+      "description": "Raise keyboard backlight",
+      "line": "  XF86KbdBrightnessUp       Raise keyboard backlight",
+      "command": "brightnessctl --device='*::kbd_backlight' set +33%"
+    },
+    {
+      "key": "XF86KbdBrightnessDown",
+      "description": "Lower keyboard backlight",
+      "line": "  XF86KbdBrightnessDown     Lower keyboard backlight",
+      "command": "brightnessctl --device='*::kbd_backlight' set 33%-"
+    },
+    {
+      "key": "XF86AudioPause",
+      "description": "Play or pause media",
+      "line": "  XF86AudioPause            Play or pause media",
+      "command": "playerctl play-pause"
     }
   ],
   "search": [
@@ -5300,7 +5338,7 @@
       "provider": "menus:apps-keys",
       "identifier": "apps-keys:1",
       "text": "Keybinds",
-      "subtext": "Browse the keyboard and mouse shortcuts",
+      "subtext": "Edit keyboard shortcuts and restore defaults",
       "icon": "󰌌",
       "actions": [
         "open"
@@ -5311,7 +5349,27 @@
         "keys",
         "Keybinds",
         "Keybinds",
-        "Browse the keyboard and mouse shortcuts"
+        "Edit keyboard shortcuts and restore defaults"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "9650f07064eeeb81c15036a747f060d42f73c7aaf2f6b7bb139219e0c1cc5755",
+      "provider": "menus:apps-keys",
+      "identifier": "apps-keys:2",
+      "text": "Window Rules",
+      "subtext": "Choose how app windows open",
+      "icon": "󰖲",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Window Rules",
+        "Window Rules",
+        "Choose how app windows open"
       ],
       "menus": [
         "settings",

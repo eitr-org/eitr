@@ -186,3 +186,22 @@ Los autores eligen colores, imágenes, shaders y animaciones. Las ayudas de tema
 El Centro de control conserva su marco exterior sin decorar el lienzo del plugin. `header: false` oculta la cabecera; Atrás/Escape siguen funcionando. Los mosaicos usan `look: "eitr"` por defecto; `"custom"` dibuja todo el espacio fijo, con activación y anillo de foco del host. La barra no añade tinte ni relleno al pasar el puntero.
 
 Las imágenes QML relativas se resuelven en el directorio del plugin. Se mantienen límites, reloj centrado, revisiones, capacidades y gestión de fallos. El ejemplo muestra ambos estilos.
+
+## Atajos y reglas de ventanas
+
+En Configuración > Atajos, busca una acción o tecla, elige Editar y pulsa la combinación.
+Escape cancela; Retroceso pide confirmar la desactivación. Los conflictos ofrecen Intercambiar
+o Cancelar. Las filas modificadas muestran el valor predeterminado y Restablecer; Restablecer todo
+restaura todos los valores. SUPER + M (bloqueo) y D / SUPER + D / SUPER + SHIFT + D (soltar dictado) están reservados.
+Los atajos del ratón no cambian. Aprender > Atajos muestra las teclas efectivas; el manual muestra las predeterminadas.
+
+Configuración > Reglas de ventanas añade reglas para ventanas abiertas o aplicaciones instaladas
+con clase conocida. Elige una aplicación y configura flotante, espacio de trabajo (1–10,
+`name:NAME` o `special:NAME`), tamaño (dos valores positivos en píxeles o porcentajes hasta 100%)
+y opacidad (0.2–1.0). La clase y el título opcional coinciden exactamente. Edita o elimina
+con confirmación. Las reglas personales siguen a las de Eitr; vuelve a abrir la aplicación para comprobar la posición inicial.
+
+Las opciones permanecen en este PC en `~/.config/eitr/keybinds.json` y `window-rules.json`
+(o `$XDG_CONFIG_HOME/eitr`). Los ayudantes generan `hypr/keybinds.lua` y
+`hypr/window-rules.lua` y recargan Hyprland tras cada cambio. Las actualizaciones los conservan.
+Las proyecciones Lua ausentes o inválidas usan los valores predeterminados. Quitar todos los cambios elimina la proyección.

@@ -36,7 +36,7 @@ ShellRoot {
  }
  Timer {
   interval: 180; running: true; repeat: true
-  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "windows", "windows/scrolling", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "default-apps", "user", "user/manage", "user/users", "security", "updates", "check-pc", "about"]
+  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "windows", "windows/scrolling", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "window-rules", "default-apps", "user", "user/manage", "user/users", "security", "updates", "check-pc", "about"]
   property int current: 0
   property int phase: 0
   property bool saved: false
@@ -159,7 +159,7 @@ ShellRoot {
     const pageView = desktop.visible ? desktop : devices.visible ? devices : fixture.find(content, "settings-system-page");
     if (pageView) pageView.contentY = Math.max(0, pageView.contentHeight - pageView.height);
    } else if (phase === 4) {
-    if (["appearance", "bar", "windows", "windows/scrolling", "lockscreen", "notifications", "focus", "connections", "sound", "displays", "input", "keybinds", "default-apps", "user", "security", "assistants", "updates", "check-pc", "about"].includes(pages[current].split("/")[0])) {
+    if (["appearance", "bar", "windows", "windows/scrolling", "lockscreen", "notifications", "focus", "connections", "sound", "displays", "input", "keybinds", "window-rules", "default-apps", "user", "security", "assistants", "updates", "check-pc", "about"].includes(pages[current].split("/")[0])) {
      saved = false;
      content.grabToImage(result => { if (!result.saveToFile("OUTPUT/PALETTE-" + pages[current].replace("/", "-") + "-bottom.png")) throw new Error("render save"); saved = true; });
     }

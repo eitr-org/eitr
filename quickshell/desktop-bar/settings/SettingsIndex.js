@@ -97,8 +97,15 @@ var pages = [
         "group": "Apps & Keys",
         "id": "keybinds",
         "title": "Keybinds",
-        "description": "Browse the keyboard and mouse shortcuts.",
+        "description": "Edit keyboard shortcuts and restore defaults.",
         "keywords": "shortcuts bindings keyboard mouse keys"
+    },
+    {
+        "group": "Apps & Keys",
+        "id": "window-rules",
+        "title": "Window Rules",
+        "description": "Choose how app windows open.",
+        "keywords": "window rules float workspace size opacity"
     },
     {
         "group": "Apps & Keys",

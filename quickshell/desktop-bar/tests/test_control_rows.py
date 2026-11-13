@@ -39,8 +39,10 @@ class ControlRowTests(unittest.TestCase):
 # Transient forms and searches already explain their input in labels/placeholders.
 # Counts make an additional bare control fail even in an excepted file.
 BARE_EXCEPTIONS = {
+    ('SettingsWindowRulesPage.qml', 'PanelTextField'): (4, 'Rule form: other app class, exact title, width and height'),
+    ('SettingsWindowRulesPage.qml', 'ChoiceSegmented'): (1, 'Pixel or percent unit beside the width and height fields'),
     ('FamilySidebar.qml', 'TextField'): (1, 'Settings search'),
-    ('SettingsKeybindsPage.qml', 'TextField'): (1, 'Shortcut search'),
+    ('SettingsKeybindsPage.qml', 'PanelTextField'): (1, 'Shortcut search'),
     ('SettingsAccountSheet.qml', 'ChoiceSegmented'): (1, 'Destructive review with its own explanation'),
     ('SettingsPasswordSheet.qml', 'PanelTextField'): (3, 'Labelled password confirmation form'),
     ('SettingsWifiCredentials.qml', 'PanelTextField'): (5, 'Labelled network credential form'),
