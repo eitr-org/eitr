@@ -49,6 +49,7 @@ ShellRoot {
         property var outerGaps: shell.screenGaps
         property real panelGap: 12
         property real islandGap: 6
+        property real edgeGap: islandGap
         property Item stripItem: strip
         color: LIGHT ? "#e2ddcf" : "#0c1119"
         Item {
@@ -64,6 +65,7 @@ ShellRoot {
             property bool dropLayout: false
             property real normalThickness: 30
             property real islandGap: 6
+            property real edgeGap: islandGap
             property bool floatingIslands: dynamicLayout
             property bool centeredLayout: false
             property real thinThickness: normalThickness

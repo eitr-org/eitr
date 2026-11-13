@@ -1018,7 +1018,11 @@ var qml = {
     "Your wallpapers": "Your wallpapers",
     "No matching wallpapers": "No matching wallpapers",
     "Off shows them only on the main display.": "Off shows them only on the main display.",
-    "Popups on Every Display": "Popups on Every Display"
+    "Popups on Every Display": "Popups on Every Display",
+    "Float the islands off the screen edge, or attach them to it.": "Float the islands off the screen edge, or attach them to it.",
+    "Island style": "Island style",
+    "Meet the screen edge with slopes or straight sides.": "Meet the screen edge with slopes or straight sides.",
+    "Side style": "Side style"
   },
   "pt_BR": {
     "%1 Hz": "%1 Hz",
@@ -2003,7 +2007,11 @@ var qml = {
     "Your wallpapers": "Seus papéis de parede",
     "No matching wallpapers": "Nenhum papel de parede encontrado",
     "Popups on Every Display": "Pop-ups em todas as telas",
-    "Off shows them only on the main display.": "Desligado mostra apenas na tela principal."
+    "Off shows them only on the main display.": "Desligado mostra apenas na tela principal.",
+    "Float the islands off the screen edge, or attach them to it.": "As ilhas flutuam afastadas da borda da tela ou ficam presas a ela.",
+    "Island style": "Estilo das ilhas",
+    "Meet the screen edge with slopes or straight sides.": "Encontra a borda da tela com rampas ou com laterais retas.",
+    "Side style": "Estilo das laterais"
   },
   "es": {
     "%1 Hz": "%1 Hz",
@@ -2988,7 +2996,11 @@ var qml = {
     "Your wallpapers": "Tus fondos de pantalla",
     "No matching wallpapers": "Ningún fondo coincide",
     "Popups on Every Display": "Ventanas emergentes en cada pantalla",
-    "Off shows them only on the main display.": "Desactivado las muestra solo en la pantalla principal."
+    "Off shows them only on the main display.": "Desactivado las muestra solo en la pantalla principal.",
+    "Float the islands off the screen edge, or attach them to it.": "Las islas flotan separadas del borde de la pantalla o quedan unidas a él.",
+    "Island style": "Estilo de las islas",
+    "Meet the screen edge with slopes or straight sides.": "Se une al borde de la pantalla con rampas o con lados rectos.",
+    "Side style": "Estilo de los lados"
   },
   "de": {
     "%1 Hz": "%1 Hz",
@@ -3973,7 +3985,11 @@ var qml = {
     "Your wallpapers": "Deine Hintergrundbilder",
     "No matching wallpapers": "Keine passenden Hintergrundbilder",
     "Popups on Every Display": "Popups auf jedem Bildschirm",
-    "Off shows them only on the main display.": "Aus zeigt sie nur auf dem Hauptbildschirm."
+    "Off shows them only on the main display.": "Aus zeigt sie nur auf dem Hauptbildschirm.",
+    "Float the islands off the screen edge, or attach them to it.": "Inseln schweben mit Abstand zum Bildschirmrand oder sitzen direkt daran.",
+    "Island style": "Inselstil",
+    "Meet the screen edge with slopes or straight sides.": "Trifft den Bildschirmrand mit Schrägen oder geraden Seiten.",
+    "Side style": "Seitenstil"
   },
   "fr": {
     "%1 Hz": "%1 Hz",
@@ -4958,7 +4974,11 @@ var qml = {
     "Your wallpapers": "Vos fonds d’écran",
     "No matching wallpapers": "Aucun fond correspondant",
     "Popups on Every Display": "Notifications sur chaque écran",
-    "Off shows them only on the main display.": "Désactivé les affiche uniquement sur l'écran principal."
+    "Off shows them only on the main display.": "Désactivé les affiche uniquement sur l'écran principal.",
+    "Float the islands off the screen edge, or attach them to it.": "Les îlots flottent à distance du bord de l’écran ou s’y rattachent.",
+    "Island style": "Style des îlots",
+    "Meet the screen edge with slopes or straight sides.": "Rejoint le bord de l’écran par des pentes ou des côtés droits.",
+    "Side style": "Style des côtés"
   },
   "ja": {
     "%1 Hz": "%1 Hz",
@@ -5943,7 +5963,11 @@ var qml = {
     "Your wallpapers": "マイ壁紙",
     "No matching wallpapers": "一致する壁紙はありません",
     "Off shows them only on the main display.": "オフにすると、メインディスプレイにのみ表示されます。",
-    "Popups on Every Display": "すべてのディスプレイにポップアップを表示"
+    "Popups on Every Display": "すべてのディスプレイにポップアップを表示",
+    "Float the islands off the screen edge, or attach them to it.": "アイランドを画面の端から浮かせるか、端に付けて表示します。",
+    "Island style": "アイランドのスタイル",
+    "Meet the screen edge with slopes or straight sides.": "画面の端に斜面またはまっすぐな辺で接します。",
+    "Side style": "側面のスタイル"
   },
   "zh_CN": {
     "%1 Hz": "%1 Hz",
@@ -6928,7 +6952,11 @@ var qml = {
     "Your wallpapers": "您的壁纸",
     "No matching wallpapers": "无匹配壁纸",
     "Off shows them only on the main display.": "关闭时仅在主显示器上显示。",
-    "Popups on Every Display": "在每个显示器上显示弹窗"
+    "Popups on Every Display": "在每个显示器上显示弹窗",
+    "Float the islands off the screen edge, or attach them to it.": "让岛屿悬浮于屏幕边缘之外，或贴合屏幕边缘。",
+    "Island style": "岛屿样式",
+    "Meet the screen edge with slopes or straight sides.": "以斜坡或直边与屏幕边缘相接。",
+    "Side style": "侧边样式"
   },
   "ko": {
     "%1 Hz": "%1 Hz",
@@ -7913,6 +7941,10 @@ var qml = {
     "Your wallpapers": "내 배경화면",
     "No matching wallpapers": "일치하는 배경화면 없음",
     "Off shows them only on the main display.": "끄면 기본 디스플레이에만 표시됩니다.",
-    "Popups on Every Display": "모든 디스플레이에 팝업 표시"
+    "Popups on Every Display": "모든 디스플레이에 팝업 표시",
+    "Float the islands off the screen edge, or attach them to it.": "아일랜드를 화면 가장자리에서 띄우거나 가장자리에 붙입니다.",
+    "Island style": "아일랜드 스타일",
+    "Meet the screen edge with slopes or straight sides.": "화면 가장자리와 경사 또는 곧은 옆면으로 만납니다.",
+    "Side style": "옆면 스타일"
   }
 };

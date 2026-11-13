@@ -42,11 +42,11 @@ return {
     },
     bar_layouts = {
         {id = "unified", label = "Full", description = "Show the full desktop bar", keywords = {"Full"}, icon = "\243\176\141\156"},
-        {id = "centered", label = "Centered", description = "Show the clock and expand on hover", keywords = {"Centered"}, icon = "\243\176\149\176"},
-        {id = "notch", label = "Tabs", description = "Show three compact edge tabs", icon = "\243\176\141\156"},
-        {id = "islands", label = "Islands", description = "Show separate floating pills", icon = "\243\176\141\156"},
-        {id = "dynamic", label = "Dynamic", description = "Expand three floating islands on hover", icon = "\243\176\141\156"},
-        {id = "drop", label = "Drop", description = "Show only the time; it grows when you need it", icon = "\243\176\150\140"},
+        {id = "centered", label = "Centered", description = "Show the clock and expand on hover", keywords = {"Centered"}, edgeStyle = "sideStyle", icon = "\243\176\149\176"},
+        {id = "notch", label = "Tabs", description = "Show three compact edge tabs", edgeStyle = "sideStyle", icon = "\243\176\141\156"},
+        {id = "islands", label = "Islands", description = "Show separate floating pills", edgeStyle = "islandStyle", icon = "\243\176\141\156"},
+        {id = "dynamic", label = "Dynamic", description = "Expand three floating islands on hover", edgeStyle = "islandStyle", icon = "\243\176\141\156"},
+        {id = "drop", label = "Drop", description = "Show only the time; it grows when you need it", edgeStyle = "islandStyle", icon = "\243\176\150\140"},
     },
     bar_appearances = {
         {id = "solid", label = "Theme Color", description = "Use the current theme colour", icon = "\243\176\143\152"},

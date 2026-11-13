@@ -981,5 +981,9 @@
   "Your wallpapers": "Deine Hintergrundbilder",
   "No matching wallpapers": "Keine passenden Hintergrundbilder",
   "Popups on Every Display": "Popups auf jedem Bildschirm",
-  "Off shows them only on the main display.": "Aus zeigt sie nur auf dem Hauptbildschirm."
+  "Off shows them only on the main display.": "Aus zeigt sie nur auf dem Hauptbildschirm.",
+  "Float the islands off the screen edge, or attach them to it.": "Inseln schweben mit Abstand zum Bildschirmrand oder sitzen direkt daran.",
+  "Island style": "Inselstil",
+  "Meet the screen edge with slopes or straight sides.": "Trifft den Bildschirmrand mit Schrägen oder geraden Seiten.",
+  "Side style": "Seitenstil"
 }

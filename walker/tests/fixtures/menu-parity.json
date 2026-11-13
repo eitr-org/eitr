@@ -667,6 +667,20 @@
         "submenu": "bar-dock"
       },
       {
+        "text": "Island style",
+        "subtext": ">",
+        "icon": "󰕰",
+        "keywords": [
+          "attached",
+          "floating",
+          "islands",
+          "dynamic",
+          "drop",
+          "edge"
+        ],
+        "submenu": "bar-island-style"
+      },
+      {
         "text": "Keep expanded",
         "subtext": ">",
         "icon": "󰐃",
@@ -737,6 +751,20 @@
           "accessibility"
         ],
         "submenu": "bar-motion"
+      },
+      {
+        "text": "Side style",
+        "subtext": ">",
+        "icon": "󰓩",
+        "keywords": [
+          "tabs",
+          "centered",
+          "slopes",
+          "straight",
+          "notch",
+          "edge"
+        ],
+        "submenu": "bar-side-style"
       }
     ],
     "battery-limit": [
@@ -3342,6 +3370,7 @@
     "bar-blur-strength": "bar",
     "bar-clock": "bar",
     "bar-dock": "bar",
+    "bar-island-style": "bar",
     "bar-layout": "bar",
     "bar-lyrics": "bar",
     "bar-media": "bar",
@@ -3349,6 +3378,7 @@
     "bar-pinned": "bar",
     "bar-position": "bar",
     "bar-screens": "bar",
+    "bar-side-style": "bar",
     "bar": "style",
     "battery-limit": "input",
     "browsers": "install",
@@ -5429,6 +5459,31 @@
       "key": "838235f99b2d426995f4faadd2b0b9038c11e37d07cf0bcec5ac32f1a0b2c30e",
       "provider": "menus:bar",
       "identifier": "bar:6",
+      "text": "Island style",
+      "subtext": ">",
+      "icon": "󰕰",
+      "actions": [],
+      "keywords": [
+        "attached",
+        "floating",
+        "islands",
+        "dynamic",
+        "drop",
+        "edge",
+        "Island style",
+        "Island style"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "bar-island-style"
+    },
+    {
+      "key": "56983b251b1cc27cf4e01d52e4dde09c5ac233c9ac17f55cf5c07e4e613ee947",
+      "provider": "menus:bar",
+      "identifier": "bar:7",
       "text": "Keep expanded",
       "subtext": ">",
       "icon": "󰐃",
@@ -5448,9 +5503,9 @@
       "submenu": "bar-pinned"
     },
     {
-      "key": "56983b251b1cc27cf4e01d52e4dde09c5ac233c9ac17f55cf5c07e4e613ee947",
+      "key": "83db68e2ed19b519813505f5df88663aa6de81d1b6417248f7db465741bd818e",
       "provider": "menus:bar",
-      "identifier": "bar:7",
+      "identifier": "bar:8",
       "text": "Layout",
       "subtext": ">",
       "icon": "󰕰",
@@ -5473,9 +5528,9 @@
       "submenu": "bar-layout"
     },
     {
-      "key": "83db68e2ed19b519813505f5df88663aa6de81d1b6417248f7db465741bd818e",
+      "key": "fc95814ddcee8c946ae099852acaa629762493f46ba6e819967c60ea5ceb5887",
       "provider": "menus:bar",
-      "identifier": "bar:8",
+      "identifier": "bar:9",
       "text": "Media style",
       "subtext": ">",
       "icon": "󰍜",
@@ -5496,9 +5551,9 @@
       "submenu": "bar-media"
     },
     {
-      "key": "fc95814ddcee8c946ae099852acaa629762493f46ba6e819967c60ea5ceb5887",
+      "key": "b2ef19521b5573ab850c2103fd1b89b595d3f219bb1abc2883fd9b57a01d1e08",
       "provider": "menus:bar",
-      "identifier": "bar:9",
+      "identifier": "bar:10",
       "text": "Online lyrics",
       "subtext": ">",
       "icon": "󰍡",
@@ -5519,9 +5574,9 @@
       "submenu": "bar-lyrics"
     },
     {
-      "key": "b2ef19521b5573ab850c2103fd1b89b595d3f219bb1abc2883fd9b57a01d1e08",
+      "key": "912602b2c464210fd0591f7a88b1126817cd4a033cf238fa1aae1a17168f7e95",
       "provider": "menus:bar",
-      "identifier": "bar:10",
+      "identifier": "bar:11",
       "text": "Position",
       "subtext": ">",
       "icon": "󰆾",
@@ -5543,9 +5598,9 @@
       "submenu": "bar-position"
     },
     {
-      "key": "912602b2c464210fd0591f7a88b1126817cd4a033cf238fa1aae1a17168f7e95",
+      "key": "cdb811c23af1a8be7d2c900f8312a58fe8413ade49bd101512dd07e7998ddb4c",
       "provider": "menus:bar",
-      "identifier": "bar:11",
+      "identifier": "bar:12",
       "text": "Reduce motion",
       "subtext": ">",
       "icon": "󰍜",
@@ -5562,6 +5617,31 @@
         "main"
       ],
       "submenu": "bar-motion"
+    },
+    {
+      "key": "db032401abb0177b771defbdd91c9fd0d115d340531860229442131a56c5fc69",
+      "provider": "menus:bar",
+      "identifier": "bar:13",
+      "text": "Side style",
+      "subtext": ">",
+      "icon": "󰓩",
+      "actions": [],
+      "keywords": [
+        "tabs",
+        "centered",
+        "slopes",
+        "straight",
+        "notch",
+        "edge",
+        "Side style",
+        "Side style"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "bar-side-style"
     },
     {
       "key": "90f31c241617970112bd01f3321f180f83d080da415ee06017c36596c22d07c7",

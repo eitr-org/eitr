@@ -981,5 +981,9 @@
   "Your wallpapers": "내 배경화면",
   "No matching wallpapers": "일치하는 배경화면 없음",
   "Off shows them only on the main display.": "끄면 기본 디스플레이에만 표시됩니다.",
-  "Popups on Every Display": "모든 디스플레이에 팝업 표시"
+  "Popups on Every Display": "모든 디스플레이에 팝업 표시",
+  "Float the islands off the screen edge, or attach them to it.": "아일랜드를 화면 가장자리에서 띄우거나 가장자리에 붙입니다.",
+  "Island style": "아일랜드 스타일",
+  "Meet the screen edge with slopes or straight sides.": "화면 가장자리와 경사 또는 곧은 옆면으로 만납니다.",
+  "Side style": "옆면 스타일"
 }

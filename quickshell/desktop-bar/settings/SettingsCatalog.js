@@ -19,6 +19,7 @@ var settings = [
     {"id": "appearance-settings-colours", "label": "Settings colours", "page": "appearance", "tab": "theme", "keywords": "settings colours"},
     {"id": "bar-show-on", "label": "Show on", "page": "bar", "tab": "layout", "keywords": "show on"},
     {"id": "bar-clock", "label": "Clock", "page": "bar", "tab": "look", "keywords": "clock"},
+    {"id": "bar-island-style", "label": "Island style", "page": "bar", "tab": "layout", "keywords": "attached floating islands dynamic drop side style tabs centered slopes straight notch edge"},
     {"id": "bar-blur-strength-shared", "label": "Blur strength (shared)", "page": "bar", "tab": "look", "keywords": "blur strength (shared)"},
     {"id": "bar-workspace-style", "label": "Workspace style", "page": "bar", "tab": "look", "keywords": "workspace style"},
     {"id": "bar-auto-hide", "label": "Auto-hide", "page": "bar", "tab": "behaviour", "keywords": "auto-hide"},

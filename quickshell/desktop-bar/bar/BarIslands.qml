@@ -1,6 +1,8 @@
 import ".."
 import QtQuick
+import QtQuick.Shapes
 import "../PanelStyle.js" as PanelStyle
+import "../EdgeSlopes.js" as EdgeSlopes
 
 Item {
     required property var host
@@ -81,7 +83,20 @@ Item {
         height: host.verticalBar ? trailing.y + last.height - leading.y + 8 : barHost.normalThickness
         // Pills are always fully rounded, whatever the corner preference.
         radius: Math.min(width, height) / 2
-        color: host.barBackground()
+        // Attached: straight sides into the screen edge, square against it.
+        color: barHost.attachedIslands ? "transparent" : host.barBackground()
+        Shape {
+            id: attachedShape
+            readonly property real round: parent.radius
+            anchors.fill: parent
+            visible: barHost.attachedIslands
+            antialiasing: true
+            ShapePath {
+                strokeWidth: -1
+                fillColor: host.barBackground()
+                PathSvg { path: EdgeSlopes.attached(host.barEdge, attachedShape.width, attachedShape.height, attachedShape.round) }
+            }
+        }
         BarGestureArea {
             anchors.fill: parent
             hostWindow: barHost

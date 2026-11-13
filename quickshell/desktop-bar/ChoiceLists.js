@@ -43,11 +43,11 @@ var windowGaps = [
 ];
 var barLayouts = [
     {"id": "unified", "label": "Full", "description": "Show the full desktop bar", "keywords": ["Full"], "icon": "\udb80\udf5c"},
-    {"id": "centered", "label": "Centered", "description": "Show the clock and expand on hover", "keywords": ["Centered"], "icon": "\udb81\udd70"},
-    {"id": "notch", "label": "Tabs", "description": "Show three compact edge tabs", "icon": "\udb80\udf5c"},
-    {"id": "islands", "label": "Islands", "description": "Show separate floating pills", "icon": "\udb80\udf5c"},
-    {"id": "dynamic", "label": "Dynamic", "description": "Expand three floating islands on hover", "icon": "\udb80\udf5c"},
-    {"id": "drop", "label": "Drop", "description": "Show only the time; it grows when you need it", "icon": "\udb81\udd8c"}
+    {"id": "centered", "label": "Centered", "description": "Show the clock and expand on hover", "keywords": ["Centered"], "edgeStyle": "sideStyle", "icon": "\udb81\udd70"},
+    {"id": "notch", "label": "Tabs", "description": "Show three compact edge tabs", "edgeStyle": "sideStyle", "icon": "\udb80\udf5c"},
+    {"id": "islands", "label": "Islands", "description": "Show separate floating pills", "edgeStyle": "islandStyle", "icon": "\udb80\udf5c"},
+    {"id": "dynamic", "label": "Dynamic", "description": "Expand three floating islands on hover", "edgeStyle": "islandStyle", "icon": "\udb80\udf5c"},
+    {"id": "drop", "label": "Drop", "description": "Show only the time; it grows when you need it", "edgeStyle": "islandStyle", "icon": "\udb81\udd8c"}
 ];
 var barAppearances = [
     {"id": "solid", "label": "Theme Color", "description": "Use the current theme colour", "icon": "\udb80\udfd8"},

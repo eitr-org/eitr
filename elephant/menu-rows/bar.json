@@ -71,6 +71,20 @@
     "submenu": "bar-dock"
   },
   {
+    "text": "Island style",
+    "subtext": ">",
+    "icon": "󰕰",
+    "keywords": [
+      "attached",
+      "floating",
+      "islands",
+      "dynamic",
+      "drop",
+      "edge"
+    ],
+    "submenu": "bar-island-style"
+  },
+  {
     "text": "Keep expanded",
     "subtext": ">",
     "icon": "󰐃",
@@ -141,5 +155,19 @@
       "accessibility"
     ],
     "submenu": "bar-motion"
+  },
+  {
+    "text": "Side style",
+    "subtext": ">",
+    "icon": "󰓩",
+    "keywords": [
+      "tabs",
+      "centered",
+      "slopes",
+      "straight",
+      "notch",
+      "edge"
+    ],
+    "submenu": "bar-side-style"
   }
 ]

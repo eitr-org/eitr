@@ -981,5 +981,9 @@
   "Your wallpapers": "您的壁纸",
   "No matching wallpapers": "无匹配壁纸",
   "Off shows them only on the main display.": "关闭时仅在主显示器上显示。",
-  "Popups on Every Display": "在每个显示器上显示弹窗"
+  "Popups on Every Display": "在每个显示器上显示弹窗",
+  "Float the islands off the screen edge, or attach them to it.": "让岛屿悬浮于屏幕边缘之外，或贴合屏幕边缘。",
+  "Island style": "岛屿样式",
+  "Meet the screen edge with slopes or straight sides.": "以斜坡或直边与屏幕边缘相接。",
+  "Side style": "侧边样式"
 }

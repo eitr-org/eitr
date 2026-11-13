@@ -779,5 +779,15 @@
   "Online lyrics": "온라인 가사",
   "Show lyrics only when the player sends them": "플레이어에서 전송할 때만 가사 표시",
   "Start a countdown, a stopwatch or focus sessions": "카운트다운, 스톱워치 또는 포커스 세션 시작",
-  "Timer & Focus": "타이머 및 포커스"
+  "Timer & Focus": "타이머 및 포커스",
+  "Attached": "붙임",
+  "Floating": "떠 있음",
+  "Island style": "아일랜드 스타일",
+  "Islands float half the outer gap off the screen edge": "아일랜드가 바깥 여백의 절반만큼 화면 가장자리에서 떠 있습니다",
+  "Islands sit against the screen edge with straight sides": "아일랜드가 곧은 옆면으로 화면 가장자리에 붙습니다",
+  "Slopes": "경사",
+  "Straight": "직선",
+  "Side style": "옆면 스타일",
+  "Tabs and Centered meet the screen edge with 45° slopes": "Tabs와 Centered가 45° 경사로 화면 가장자리와 만납니다",
+  "Tabs and Centered meet the screen edge with straight sides": "Tabs와 Centered가 곧은 옆면으로 화면 가장자리와 만납니다"
 }

@@ -779,5 +779,15 @@
   "Online lyrics": "オンライン歌詞",
   "Show lyrics only when the player sends them": "プレーヤーから送信された場合のみ歌詞を表示",
   "Start a countdown, a stopwatch or focus sessions": "カウントダウン、ストップウォッチ、またはフォーカスセッションを開始",
-  "Timer & Focus": "タイマーとフォーカス"
+  "Timer & Focus": "タイマーとフォーカス",
+  "Attached": "アタッチ",
+  "Floating": "フローティング",
+  "Island style": "アイランドのスタイル",
+  "Islands float half the outer gap off the screen edge": "アイランドは外側の余白の半分だけ画面の端から浮きます",
+  "Islands sit against the screen edge with straight sides": "アイランドはまっすぐな辺で画面の端に付きます",
+  "Slopes": "斜面",
+  "Straight": "まっすぐ",
+  "Side style": "側面のスタイル",
+  "Tabs and Centered meet the screen edge with 45° slopes": "タブとセンターは45°の斜面で画面の端に接します",
+  "Tabs and Centered meet the screen edge with straight sides": "タブとセンターはまっすぐな辺で画面の端に接します"
 }

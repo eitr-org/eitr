@@ -44,6 +44,8 @@ Choisissez une disposition dans Paramètres > Barre de bureau. Les six fonctionn
 | Dynamique | Dynamique commence par trois îlots : logo, horloge et réseau/batterie, plus un îlot multimédia entre le logo et l’horloge pendant une lecture. Survolez-en un pour le déplier ; le panneau grandit depuis ce même îlot. |
 | Goutte | Goutte n’affiche que l’heure dans une capsule au centre du bord. Cliquez dessus pour faire grandir son tableau de bord ; un clic droit ouvre directement les réglages rapides. Avec le masquage automatique, rien ne reste à l’écran jusqu’à ce qu’une goutte tombe du bord et devienne la capsule. |
 
+**Style des îlots** (Paramètres > Barre de bureau > Disposition, ou Walker > Paramètres > Bureau > Barre de bureau > Style des îlots) choisit comment Îlots, Dynamique et Goutte rejoignent le bord de l’écran : Flottant garde les pilules à un demi-espacement extérieur du bord ; Attaché les colle au bord, droites côté bord et avec des côtés droits, et leurs panneaux s’ouvrent aussi depuis le bord. **Style des côtés** choisit comment Onglets et Centrée rejoignent le bord : pentes à 45° ou côtés droits (avec des côtés droits, Onglets perd aussi la fine bande entre les onglets).
+
 ## Le tableau de bord de Goutte
 
 Cliquez sur la capsule de l’heure de Goutte et la capsule elle-même grandit en tableau de bord. Faites glisser une page sur le côté (vers la droite pour avancer, vers la gauche pour revenir, en boucle) ou utilisez les flèches ou le défilement horizontal. Échap ou un clic à côté le ferme. Rien n’y ouvre un autre panneau : les détails s’ouvrent sur place avec une flèche de retour.

@@ -1047,6 +1047,9 @@
     "Fit": [
       "tools/choice-lists.json"
     ],
+    "Float the islands off the screen edge, or attach them to it.": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+    ],
     "Focus": [
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -1248,6 +1251,10 @@
     ],
     "Invalid assistant response.": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
+    ],
+    "Island style": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Islands": [
       "tools/choice-lists.json"
@@ -1454,6 +1461,9 @@
     ],
     "Medium": [
       "tools/choice-lists.json"
+    ],
+    "Meet the screen edge with slopes or straight sides.": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Messages go to %1; nothing is saved": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -2562,6 +2572,9 @@
     "Shutdown": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
+    "Side style": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+    ],
     "Sign-in": [
       "quickshell/desktop-bar/settings/SettingsSecurityPage.qml"
     ],
@@ -3538,6 +3551,9 @@
       "elephant/menus/ai-tools.lua",
       "elephant/menus/assistant-access.lua"
     ],
+    "Attached": [
+      "elephant/menus/bar-island-style.lua"
+    ],
     "Audio": [
       "elephant/menu-rows/system-devices.json"
     ],
@@ -4135,6 +4151,9 @@
     "Fit": [
       "tools/choice-lists.json"
     ],
+    "Floating": [
+      "elephant/menus/bar-island-style.lua"
+    ],
     "Focus": [
       "elephant/menu-rows/style.json",
       "elephant/menus/focus.lua"
@@ -4362,8 +4381,18 @@
     "Invalidations": [
       "elephant/menus/aws-cloudfront-invalidations-1.lua"
     ],
+    "Island style": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-island-style.lua"
+    ],
     "Islands": [
       "tools/choice-lists.json"
+    ],
+    "Islands float half the outer gap off the screen edge": [
+      "elephant/menus/bar-island-style.lua"
+    ],
+    "Islands sit against the screen edge with straight sides": [
+      "elephant/menus/bar-island-style.lua"
     ],
     "JavaScript Tools": [
       "elephant/menu-rows/install.json",
@@ -5486,6 +5515,10 @@
     "Shutdown": [
       "elephant/menu-rows/power.json"
     ],
+    "Side style": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-side-style.lua"
+    ],
     "Sign in to a separate account": [
       "elephant/ai-account-entries.lua"
     ],
@@ -5503,6 +5536,9 @@
     ],
     "Size": [
       "elephant/menu-rows/cursor.json"
+    ],
+    "Slopes": [
+      "elephant/menus/bar-side-style.lua"
     ],
     "Small": [
       "elephant/menus/terminal-padding.lua",
@@ -5602,6 +5638,9 @@
       "elephant/menus/aws-ecs-stopped-tasks-1.lua",
       "elephant/menus/aws-ecs-stopped-tasks-2.lua"
     ],
+    "Straight": [
+      "elephant/menus/bar-side-style.lua"
+    ],
     "Stream games and desktops from another PC": [
       "elephant/menu-rows/gaming.json"
     ],
@@ -5654,6 +5693,12 @@
     ],
     "Tabs": [
       "tools/choice-lists.json"
+    ],
+    "Tabs and Centered meet the screen edge with 45° slopes": [
+      "elephant/menus/bar-side-style.lua"
+    ],
+    "Tabs and Centered meet the screen edge with straight sides": [
+      "elephant/menus/bar-side-style.lua"
     ],
     "Tell the assistant…": [
       "elephant/menu-rows/reminders.json"

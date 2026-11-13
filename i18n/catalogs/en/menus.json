@@ -779,5 +779,15 @@
   "Online lyrics": "Online lyrics",
   "Show lyrics only when the player sends them": "Show lyrics only when the player sends them",
   "Start a countdown, a stopwatch or focus sessions": "Start a countdown, a stopwatch or focus sessions",
-  "Timer & Focus": "Timer & Focus"
+  "Timer & Focus": "Timer & Focus",
+  "Attached": "Attached",
+  "Floating": "Floating",
+  "Island style": "Island style",
+  "Islands float half the outer gap off the screen edge": "Islands float half the outer gap off the screen edge",
+  "Islands sit against the screen edge with straight sides": "Islands sit against the screen edge with straight sides",
+  "Slopes": "Slopes",
+  "Straight": "Straight",
+  "Side style": "Side style",
+  "Tabs and Centered meet the screen edge with 45° slopes": "Tabs and Centered meet the screen edge with 45° slopes",
+  "Tabs and Centered meet the screen edge with straight sides": "Tabs and Centered meet the screen edge with straight sides"
 }

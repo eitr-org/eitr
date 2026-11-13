@@ -981,5 +981,9 @@
   "Your wallpapers": "Tus fondos de pantalla",
   "No matching wallpapers": "Ningún fondo coincide",
   "Popups on Every Display": "Ventanas emergentes en cada pantalla",
-  "Off shows them only on the main display.": "Desactivado las muestra solo en la pantalla principal."
+  "Off shows them only on the main display.": "Desactivado las muestra solo en la pantalla principal.",
+  "Float the islands off the screen edge, or attach them to it.": "Las islas flotan separadas del borde de la pantalla o quedan unidas a él.",
+  "Island style": "Estilo de las islas",
+  "Meet the screen edge with slopes or straight sides.": "Se une al borde de la pantalla con rampas o con lados rectos.",
+  "Side style": "Estilo de los lados"
 }

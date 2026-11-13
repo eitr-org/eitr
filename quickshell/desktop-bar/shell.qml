@@ -117,6 +117,11 @@ ShellRoot {
     readonly property bool dynamicLayout: barLayout === "dynamic"
     readonly property bool dropLayout: barLayout === "drop"
     readonly property bool islandsLayout: barLayout === "islands"
+    // Islands, Dynamic and Drop float off the screen edge or sit attached to it.
+    property string barIslandStyle: "floating"
+    // Tabs and Centered meet the screen edge with 45° slopes or straight sides.
+    property string barSideStyle: "slopes"
+    readonly property bool attachedIslands: barIslandStyle === "attached" && (islandsLayout || dynamicLayout || dropLayout)
     readonly property bool notchLayout: barLayout === "notch"
     readonly property real tabStripThickness: 7
     // Radius of the four bends on each Tabs slope.

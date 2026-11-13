@@ -981,5 +981,9 @@
   "Your wallpapers": "Your wallpapers",
   "No matching wallpapers": "No matching wallpapers",
   "Off shows them only on the main display.": "Off shows them only on the main display.",
-  "Popups on Every Display": "Popups on Every Display"
+  "Popups on Every Display": "Popups on Every Display",
+  "Float the islands off the screen edge, or attach them to it.": "Float the islands off the screen edge, or attach them to it.",
+  "Island style": "Island style",
+  "Meet the screen edge with slopes or straight sides.": "Meet the screen edge with slopes or straight sides.",
+  "Side style": "Side style"
 }

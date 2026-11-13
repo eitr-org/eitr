@@ -42,6 +42,8 @@ Escolha um layout em Configurações > Barra da área de trabalho. Os seis funci
 | Dinâmico | Dinâmico começa com três ilhas: logo, relógio e rede/bateria, mais uma ilha de mídia entre o logo e o relógio enquanto algo toca. Passe o ponteiro para ampliar uma; um painel cresce a partir dessa mesma ilha. |
 | Gota | Gota mostra só a hora em uma cápsula no centro da borda. Clique para ela crescer até o painel; o clique direito abre direto os controles rápidos. Com a ocultação automática nada fica na tela até uma gota cair da borda e virar a cápsula. |
 
+**Estilo das ilhas** (Configurações > Barra da área de trabalho > Layout, ou Walker > Configurações > Área de trabalho > Barra da área de trabalho > Estilo das ilhas) escolhe como Ilhas, Dinâmico e Gota encontram a borda da tela: Flutuante mantém as pílulas a meio espaçamento externo da borda; Presa as encosta nela, retas do lado da borda e com laterais retas, e os painéis também crescem a partir da borda. **Estilo das laterais** escolhe como Abas e Centralizada encontram a borda: rampas de 45° ou laterais retas (com laterais retas, Abas também perdem a faixa fina entre as abas).
+
 ## O painel da Gota
 
 Clique na cápsula da hora da Gota e a própria cápsula cresce até um painel. Arraste uma página para o lado (para a direita avança, para a esquerda volta, e as duas dão a volta) ou use as setas ou a rolagem horizontal. Esc ou um clique fora fecha. Nada nele abre outro painel: os detalhes abrem no mesmo lugar com uma seta para voltar.

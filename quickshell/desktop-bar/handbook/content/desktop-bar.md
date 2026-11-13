@@ -40,6 +40,8 @@ Choose a layout in Settings > Desktop Bar. All six work on every screen edge.
 | Dynamic | Dynamic starts with three islands: logo, clock and network/battery, plus a media island between the logo and the clock while something plays. Hover one to expand it; opening a panel grows that island into the panel. |
 | Drop | Drop shows only the time in one pill at the centre of the edge. Click it to grow its dashboard; right-click goes straight to the quick controls. With auto-hide, nothing stays on screen until a drop falls from the edge and swells into the pill. |
 
+**Island style** (Settings > Desktop Bar > Layout, or Walker > Settings > Desktop > Desktop Bar > Island style) chooses how Islands, Dynamic and Drop meet the screen edge: Floating keeps the pills half the outer gap off the edge; Attached puts them against it, square on the edge side with straight sides, and their panels grow from the edge too. **Side style** chooses how Tabs and Centered meet the edge: 45° slopes, or straight sides (straight Tabs also drop the thin strip between the tabs).
+
 ## Drop's dashboard
 
 Click Drop's time pill and the pill itself grows into a dashboard. Drag a page sideways (right goes forward, left back, both wrap), or use the arrow keys or horizontal scrolling. Esc or a click outside closes it. Nothing on it opens another panel: details open in place with a back arrow.

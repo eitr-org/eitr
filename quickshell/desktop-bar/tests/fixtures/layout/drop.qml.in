@@ -35,6 +35,7 @@ ShellRoot {
         property var outerGaps: shell.screenGaps
         property real panelGap: 12
         property real islandGap: 6
+        property real edgeGap: islandGap
         property Item stripItem: strip
         property Item dropSurfaces: drop
         property var dynamicSurfaces: null
@@ -45,6 +46,7 @@ ShellRoot {
             property bool dropLayout: true
             property real normalThickness: 30
             property real islandGap: 6
+            property real edgeGap: islandGap
             property bool floatingIslands: dropLayout
             property bool centeredLayout: false
             property real thinThickness: normalThickness

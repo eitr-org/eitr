@@ -10,6 +10,8 @@ Region {
     required property string edge
     required property real depth
     required property real bendRound
+    // Straight sides: the body is a plain rectangle inside the slopes' room.
+    property bool straight: false
     readonly property bool vertical: edge === "left" || edge === "right"
     readonly property real length: vertical ? surface.height : surface.width
     readonly property point origin: surface.parent.mapToItem(null, surface.x, surface.y)
@@ -20,8 +22,8 @@ Region {
         model: mask.surface.visible ? Math.ceil(mask.depth) : 0
         delegate: Region {
             required property int index
-            readonly property real inset: EdgeSlopes.boundary(mask.depth + mask.bendRound,
-                mask.depth, mask.bendRound, index + 0.5)
+            readonly property real inset: mask.straight ? mask.depth + mask.bendRound
+                : EdgeSlopes.boundary(mask.depth + mask.bendRound, mask.depth, mask.bendRound, index + 0.5)
             readonly property real across: mask.edge === "bottom" || mask.edge === "right" ? mask.depth - index - 1 : index
             x: Math.ceil(mask.origin.x + (mask.vertical ? across : inset))
             y: Math.ceil(mask.origin.y + (mask.vertical ? inset : across))

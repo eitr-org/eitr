@@ -34,6 +34,8 @@ Wähle ein Layout unter Einstellungen > Desktopleiste. Alle sechs funktionieren 
 | Dynamisch | Dynamisch beginnt mit drei Inseln: Logo, Uhr sowie Netzwerk/Akku, dazu eine Medieninsel zwischen Logo und Uhr, während etwas läuft. Darüberfahren erweitert eine; ein Panel wächst direkt aus ihr. |
 | Tropfen | Tropfen zeigt nur die Uhrzeit in einer Fläche in der Mitte des Rands. Ein Klick lässt daraus sein Dashboard wachsen; ein Rechtsklick öffnet direkt die Schnelleinstellungen. Mit automatischem Ausblenden bleibt nichts auf dem Bildschirm, bis ein Tropfen aus dem Rand fällt und zur Fläche anschwillt. |
 
+**Inselstil** (Einstellungen > Desktopleiste > Anordnung oder Walker > Einstellungen > Desktop > Desktopleiste > Inselstil) legt fest, wie Inseln, Dynamisch und Tropfen auf den Bildschirmrand treffen: Schwebend hält die Pillen einen halben Außenabstand vom Rand entfernt; Angedockt setzt sie direkt an den Rand, auf der Randseite eckig und mit geraden Seiten, und ihre Panels wachsen ebenfalls aus dem Rand. **Seitenstil** legt fest, wie Laschen und Zentriert auf den Rand treffen: 45°-Schrägen oder gerade Seiten (mit geraden Seiten entfällt bei Laschen auch der dünne Streifen zwischen den Laschen).
+
 ## Das Dashboard von Tropfen
 
 Ein Klick auf die Uhrzeit-Fläche von Tropfen lässt die Fläche selbst zu einem Dashboard wachsen. Ziehe eine Seite zur Seite (rechts vorwärts, links zurück, beides im Kreis) oder nutze die Pfeiltasten oder horizontales Scrollen. Esc oder ein Klick daneben schließt es. Nichts darin öffnet ein anderes Panel: Details öffnen sich an Ort und Stelle mit einem Zurück-Pfeil.

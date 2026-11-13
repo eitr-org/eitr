@@ -1,6 +1,8 @@
 import ".."
 import QtQuick
+import QtQuick.Shapes
 import "../PanelStyle.js" as PanelStyle
+import "../EdgeSlopes.js" as EdgeSlopes
 
 Rectangle {
     id: island
@@ -39,7 +41,20 @@ Rectangle {
     height: host.verticalBar ? extent : depth
     // Islands are always full pills, whatever the corner preference; a card keeps 20 px corners.
     radius: Math.min(width, height, depth > thickness + 0.5 ? 40 : Infinity) / 2
-    color: host.barBackground()
+    readonly property color fill: host.barBackground()
+    // Attached: straight sides into the screen edge, square against it, as island and card.
+    color: !!barHost.attachedIslands ? "transparent" : fill
+    Shape {
+        id: attachedShape
+        anchors.fill: parent
+        visible: !!island.barHost.attachedIslands
+        antialiasing: true
+        ShapePath {
+            strokeWidth: -1
+            fillColor: island.fill
+            PathSvg { path: EdgeSlopes.attached(island.host.barEdge, attachedShape.width, attachedShape.height, island.radius) }
+        }
+    }
     Behavior on extent { enabled: island.eased && !island.followsPanel; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     onExpandedChanged: {
         if (expanded) return;

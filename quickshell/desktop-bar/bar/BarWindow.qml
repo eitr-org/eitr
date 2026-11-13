@@ -95,7 +95,10 @@ PanelWindow {
     // Islands float half the outer gap off the screen edge; pills keep the full gap between them.
     readonly property real islandGap: outerGaps[({top: 0, right: 1, bottom: 2, left: 3})[host.barEdge]] / 2
     readonly property real islandSpacing: islandGap * 2 + 8
-    readonly property real reservedThickness: normalThickness + (floatingIslands ? islandGap : 0)
+    // Attached islands sit against the edge: no gap before the pills, only their depth reserved.
+    readonly property bool attachedIslands: host.attachedIslands
+    readonly property real edgeGap: floatingIslands && !attachedIslands ? islandGap : 0
+    readonly property real reservedThickness: normalThickness + edgeGap
     readonly property bool notchLayout: host.notchLayout
     readonly property real panelGap: host.verticalBar ? host.windowGaps[1] + host.windowGaps[3] : host.windowGaps[0] + host.windowGaps[2]
     property bool hoverExpanded: false
@@ -360,14 +363,14 @@ PanelWindow {
         visible: !FocusMode.enabled
         transform: Translate {
             // Drop stays in place: its pill shrinks into the auto-hide dot instead of sliding.
-            readonly property real distance: bar.dropLayout ? 0 : (bar.normalThickness + (bar.floatingIslands ? bar.islandGap : 0)) * (1 - autoHide.progress)
+            readonly property real distance: bar.dropLayout ? 0 : (bar.normalThickness + bar.edgeGap) * (1 - autoHide.progress)
             x: host.verticalBar ? (host.barEdge === "left" ? -1 : 1) * distance : 0
             y: !host.verticalBar ? (host.barEdge === "top" ? -1 : 1) * distance : 0
         }
         width: host.verticalBar ? bar.thinThickness : (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.width)
         height: host.verticalBar ? (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.height) : bar.thinThickness
-        x: host.verticalBar ? (host.barEdge === "right" ? bar.width - width - (bar.floatingIslands ? bar.islandGap : 0) : (bar.floatingIslands ? bar.islandGap : 0)) : bar.centeredLayout ? (bar.width - bar.centerExtent) / 2 - bar.leadingReveal : 0
-        y: host.verticalBar ? (bar.centeredLayout ? (bar.height - bar.centerExtent) / 2 - bar.leadingReveal : 0) : (host.barEdge === "bottom" ? bar.height - height - (bar.floatingIslands ? bar.islandGap : 0) : (bar.floatingIslands ? bar.islandGap : 0))
+        x: host.verticalBar ? (host.barEdge === "right" ? bar.width - width - bar.edgeGap : bar.edgeGap) : bar.centeredLayout ? (bar.width - bar.centerExtent) / 2 - bar.leadingReveal : 0
+        y: host.verticalBar ? (bar.centeredLayout ? (bar.height - bar.centerExtent) / 2 - bar.leadingReveal : 0) : (host.barEdge === "bottom" ? bar.height - height - bar.edgeGap : bar.edgeGap)
         clip: bar.centeredLayout
         BarTabs {
             id: barTabs

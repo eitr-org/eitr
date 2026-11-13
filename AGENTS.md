@@ -323,7 +323,13 @@ existing design and workflows rather than replacing them with upstream defaults.
 - Tabs: a thin edge strip with three content-sized tabs (left, centre, right)
   joined by rounded 45° slopes, square at the screen edges; it ignores the corner
   preference. Its panels float detached at their Full-layout positions, and the
-  weather always shows after the clock in the centre tab.
+  weather always shows after the clock in the centre tab. Side style Straight (`sideStyle`,
+  also Centered's) replaces the slopes with straight sides and rounded free corners, and
+  straight Tabs drop the strip between the tabs.
+- Island style (`islandStyle`, Settings > Desktop Bar > Layout) applies to Islands, Dynamic and
+  Drop: Floating as described below, or Attached: pills against the screen edge with no gap,
+  square on the edge side with straight sides (`EdgeSlopes.attached`), cards growing from the
+  edge the same way, and only the pill depth reserved.
 - Islands: content-sized pills for logo, Overview/workspaces, AI/Hardware/Idle Lock,
   clock, weather, conditional media/capture and status, preserving icon order and
   Full spacing. Pills are always fully rounded (ignoring the corner preference) and float half the live outer gap

@@ -779,5 +779,15 @@
   "Online lyrics": "Online-Songtexte",
   "Show lyrics only when the player sends them": "Songtexte nur zeigen, wenn der Player sie sendet",
   "Timer & Focus": "Timer & Fokus",
-  "Start a countdown, a stopwatch or focus sessions": "Starte einen Countdown, eine Stoppuhr oder Fokus-Sitzungen"
+  "Start a countdown, a stopwatch or focus sessions": "Starte einen Countdown, eine Stoppuhr oder Fokus-Sitzungen",
+  "Attached": "Angedockt",
+  "Floating": "Schwebend",
+  "Island style": "Inselstil",
+  "Islands float half the outer gap off the screen edge": "Inseln schweben einen halben Außenabstand vom Bildschirmrand entfernt",
+  "Islands sit against the screen edge with straight sides": "Inseln sitzen mit geraden Seiten direkt am Bildschirmrand",
+  "Slopes": "Schrägen",
+  "Straight": "Gerade",
+  "Side style": "Seitenstil",
+  "Tabs and Centered meet the screen edge with 45° slopes": "Laschen und Zentriert treffen den Bildschirmrand mit 45°-Schrägen",
+  "Tabs and Centered meet the screen edge with straight sides": "Laschen und Zentriert treffen den Bildschirmrand mit geraden Seiten"
 }

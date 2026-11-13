@@ -42,6 +42,8 @@ Elige una disposición en Configuración > Barra del escritorio. Las seis funcio
 | Dinámico | Dinámico empieza con tres islas: logotipo, reloj y red/batería, más una isla multimedia entre el logotipo y el reloj mientras suena algo. Pasa el puntero para ampliar una; un panel crece desde esa misma isla. |
 | Gota | Gota muestra solo la hora en una cápsula en el centro del borde. Haz clic para que crezca su panel; el clic derecho abre directamente los controles rápidos. Con la ocultación automática no queda nada en pantalla hasta que una gota cae del borde y se convierte en la cápsula. |
 
+**Estilo de las islas** (Ajustes > Barra del escritorio > Distribución, o Walker > Ajustes > Escritorio > Barra del escritorio > Estilo de las islas) elige cómo Islas, Dinámico y Gota se encuentran con el borde de la pantalla: Flotante deja las píldoras a medio espacio exterior del borde; Unida las pega a él, rectas del lado del borde y con lados rectos, y sus paneles también crecen desde el borde. **Estilo de los lados** elige cómo Pestañas y Centrada se unen al borde: rampas de 45° o lados rectos (con lados rectos, Pestañas también pierde la franja fina entre las pestañas).
+
 ## El panel de Gota
 
 Haz clic en la cápsula de la hora de Gota y la propia cápsula crece hasta un panel. Arrastra una página hacia un lado (a la derecha avanza, a la izquierda retrocede, y ambas dan la vuelta) o usa las flechas o el desplazamiento horizontal. Esc o un clic fuera lo cierra. Nada en él abre otro panel: los detalles se abren en el mismo sitio con una flecha para volver.

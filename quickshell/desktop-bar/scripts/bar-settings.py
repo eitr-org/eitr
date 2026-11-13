@@ -22,7 +22,7 @@ import subprocess
 
 
 SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
-DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium", "lyrics": "no"}
+DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes"}
 OPTIONS = {
     "blur-strength": {"light", "medium", "strong"},
     "appearance": set(ids(BAR_APPEARANCES)),
@@ -39,6 +39,10 @@ OPTIONS = {
     "clock": {"12h", "24h"},
     # Look up song lyrics on LRCLIB for Drop (sends each song's title, artist and album).
     "lyrics": {"yes", "no"},
+    # Islands, Dynamic and Drop: pills floating off the screen edge, or attached to it.
+    "islandStyle": {"floating", "attached"},
+    # Tabs and Centered: 45° slopes into the screen edge, or straight sides.
+    "sideStyle": {"slopes", "straight"},
 }
 
 

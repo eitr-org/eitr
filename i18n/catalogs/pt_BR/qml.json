@@ -981,5 +981,9 @@
   "Your wallpapers": "Seus papéis de parede",
   "No matching wallpapers": "Nenhum papel de parede encontrado",
   "Popups on Every Display": "Pop-ups em todas as telas",
-  "Off shows them only on the main display.": "Desligado mostra apenas na tela principal."
+  "Off shows them only on the main display.": "Desligado mostra apenas na tela principal.",
+  "Float the islands off the screen edge, or attach them to it.": "As ilhas flutuam afastadas da borda da tela ou ficam presas a ela.",
+  "Island style": "Estilo das ilhas",
+  "Meet the screen edge with slopes or straight sides.": "Encontra a borda da tela com rampas ou com laterais retas.",
+  "Side style": "Estilo das laterais"
 }

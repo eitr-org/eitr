@@ -108,31 +108,36 @@
       "description": "Show the clock and expand on hover",
       "keywords": [
         "Centered"
-      ]
+      ],
+      "edgeStyle": "sideStyle"
     },
     {
       "id": "notch",
       "label": "Tabs",
       "icon": "F035C",
-      "description": "Show three compact edge tabs"
+      "description": "Show three compact edge tabs",
+      "edgeStyle": "sideStyle"
     },
     {
       "id": "islands",
       "label": "Islands",
       "icon": "F035C",
-      "description": "Show separate floating pills"
+      "description": "Show separate floating pills",
+      "edgeStyle": "islandStyle"
     },
     {
       "id": "dynamic",
       "label": "Dynamic",
       "icon": "F035C",
-      "description": "Expand three floating islands on hover"
+      "description": "Expand three floating islands on hover",
+      "edgeStyle": "islandStyle"
     },
     {
       "id": "drop",
       "label": "Drop",
       "icon": "F058C",
-      "description": "Show only the time; it grows when you need it"
+      "description": "Show only the time; it grows when you need it",
+      "edgeStyle": "islandStyle"
     }
   ],
   "bar_appearances": [

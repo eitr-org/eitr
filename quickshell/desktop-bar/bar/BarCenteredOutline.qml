@@ -31,6 +31,7 @@ Shape {
         PathSvg { path: EdgeSlopes.outline(host.barEdge,
             host.verticalBar ? centeredOutline.height : centeredOutline.width,
             barHost.normalThickness, 0, host.tabBendRound,
-            [[centeredOutline.slope, (host.verticalBar ? centeredOutline.height : centeredOutline.width) - centeredOutline.slope]]) }
+            [[centeredOutline.slope, (host.verticalBar ? centeredOutline.height : centeredOutline.width) - centeredOutline.slope]],
+            host.barSideStyle === "straight") }
     }
 }

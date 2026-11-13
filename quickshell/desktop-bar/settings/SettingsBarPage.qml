@@ -41,6 +41,30 @@ Column {
                 }
             }
         }
+        ControlRow {
+            id: edgeStyleRow
+            SettingsTarget { objectName: "setting-bar-island-style" }
+            // tools/choice-lists.json names the key each layout's edge style lives in.
+            readonly property string styleKey: (ChoiceLists.barLayouts.find(choice => choice.id === styleModel.layout) || {}).edgeStyle || ""
+            readonly property bool islands: styleKey === "islandStyle"
+            visible: styleKey !== ""
+            text: islands ? Eitr.I18n.tr("Island style") : Eitr.I18n.tr("Side style")
+            description: islands ? Eitr.I18n.tr("Float the islands off the screen edge, or attach them to it.")
+                : Eitr.I18n.tr("Meet the screen edge with slopes or straight sides.")
+            foreground: view.foreground
+            ChoiceSegmented { gold: SettingsInk.gold; background: SettingsInk.background;
+                foreground: view.foreground
+                choices: edgeStyleRow.islands
+                    ? [{id: "floating", label: "Floating"}, {id: "attached", label: "Attached"}]
+                    : [{id: "slopes", label: "Slopes"}, {id: "straight", label: "Straight"}]
+                current: edgeStyleRow.islands ? (styleModel.bar.islandStyle || "floating") : (styleModel.bar.sideStyle || "slopes")
+                onChosen: value => {
+                    if (view.live) {
+                        styleModel.settingRequested(edgeStyleRow.styleKey, value);
+                    }
+                }
+            }
+        }
         SettingsChoiceSection {
             SettingsTarget { objectName: "setting-bar-position" }
             text: Eitr.I18n.tr("Position")

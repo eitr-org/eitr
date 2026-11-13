@@ -48,8 +48,10 @@ Item {
             PathSvg { path: {
                 return EdgeSlopes.outline(host.barEdge,
                     host.verticalBar ? tabsOutline.height : tabsOutline.width,
-                    barHost.normalThickness, host.tabStripThickness, host.tabBendRound,
-                    [[0, barHost.tabLeadingEnd], [barHost.tabCenterStart, barHost.tabCenterEnd], [barHost.tabTrailingStart, host.verticalBar ? tabsOutline.height : tabsOutline.width]]);
+                    // Straight Tabs have no strip between the tabs, only the tabs against the edge.
+                    barHost.normalThickness, host.barSideStyle === "straight" ? 0 : host.tabStripThickness, host.tabBendRound,
+                    [[0, barHost.tabLeadingEnd], [barHost.tabCenterStart, barHost.tabCenterEnd], [barHost.tabTrailingStart, host.verticalBar ? tabsOutline.height : tabsOutline.width]],
+                    host.barSideStyle === "straight");
             } }
         }
     }

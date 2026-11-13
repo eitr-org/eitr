@@ -981,5 +981,9 @@
   "Your wallpapers": "マイ壁紙",
   "No matching wallpapers": "一致する壁紙はありません",
   "Off shows them only on the main display.": "オフにすると、メインディスプレイにのみ表示されます。",
-  "Popups on Every Display": "すべてのディスプレイにポップアップを表示"
+  "Popups on Every Display": "すべてのディスプレイにポップアップを表示",
+  "Float the islands off the screen edge, or attach them to it.": "アイランドを画面の端から浮かせるか、端に付けて表示します。",
+  "Island style": "アイランドのスタイル",
+  "Meet the screen edge with slopes or straight sides.": "画面の端に斜面またはまっすぐな辺で接します。",
+  "Side style": "側面のスタイル"
 }

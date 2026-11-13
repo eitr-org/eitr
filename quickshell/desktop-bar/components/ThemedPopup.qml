@@ -1,6 +1,8 @@
 import ".."
 import QtQuick
 import "../PanelStyle.js" as PanelStyle
+import QtQuick.Shapes
+import "../EdgeSlopes.js" as EdgeSlopes
 import Quickshell
 import Quickshell.Hyprland
 import Eitr as Eitr
@@ -76,7 +78,20 @@ DockPanel {
             width: pill.width + (popup.width - pill.width) * progress
             height: pill.height + (popup.height - pill.height) * progress
             radius: (popup.morphPill ? popup.morphPill.radius : 0) * (1 - progress) + 20 * progress
-            color: popup.surfaceColor
+            readonly property bool attached: !!popup.hostWindow && !!popup.hostWindow.attachedIslands
+            color: attached ? "transparent" : popup.surfaceColor
+            // Attached Islands: the card stays square against the edge, like its pill.
+            Shape {
+                id: attachedCard
+                anchors.fill: parent
+                visible: pillCard.attached
+                antialiasing: true
+                ShapePath {
+                    strokeWidth: -1
+                    fillColor: popup.surfaceColor
+                    PathSvg { path: EdgeSlopes.attached(popup.barEdge, attachedCard.width, attachedCard.height, pillCard.radius) }
+                }
+            }
         },
         // Dynamic: step to the previous or next panel of the island this card grew from.
         Item {

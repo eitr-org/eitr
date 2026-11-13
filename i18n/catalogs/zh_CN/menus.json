@@ -779,5 +779,15 @@
   "Online lyrics": "在线歌词",
   "Show lyrics only when the player sends them": "仅在播放器发送时显示歌词",
   "Start a countdown, a stopwatch or focus sessions": "启动倒计时、秒表或专注会话",
-  "Timer & Focus": "计时器与专注"
+  "Timer & Focus": "计时器与专注",
+  "Attached": "贴合",
+  "Floating": "悬浮",
+  "Island style": "岛屿样式",
+  "Islands float half the outer gap off the screen edge": "岛屿与屏幕边缘相隔外边距的一半",
+  "Islands sit against the screen edge with straight sides": "岛屿以直边贴合屏幕边缘",
+  "Slopes": "斜坡",
+  "Straight": "直边",
+  "Side style": "侧边样式",
+  "Tabs and Centered meet the screen edge with 45° slopes": "标签页和居中以 45° 斜坡与屏幕边缘相接",
+  "Tabs and Centered meet the screen edge with straight sides": "标签页和居中以直边与屏幕边缘相接"
 }

@@ -981,5 +981,9 @@
   "Your wallpapers": "Vos fonds d’écran",
   "No matching wallpapers": "Aucun fond correspondant",
   "Popups on Every Display": "Notifications sur chaque écran",
-  "Off shows them only on the main display.": "Désactivé les affiche uniquement sur l'écran principal."
+  "Off shows them only on the main display.": "Désactivé les affiche uniquement sur l'écran principal.",
+  "Float the islands off the screen edge, or attach them to it.": "Les îlots flottent à distance du bord de l’écran ou s’y rattachent.",
+  "Island style": "Style des îlots",
+  "Meet the screen edge with slopes or straight sides.": "Rejoint le bord de l’écran par des pentes ou des côtés droits.",
+  "Side style": "Style des côtés"
 }

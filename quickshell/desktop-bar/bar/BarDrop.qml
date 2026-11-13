@@ -115,7 +115,7 @@ Item {
             visible: opacity > 0
             Canvas {
                 id: halo
-                readonly property color accent: pill.color
+                readonly property color accent: pill.fill
                 anchors.centerIn: parent
                 width: drop.dotSize * 2.6; height: width
                 onAccentChanged: requestPaint()
@@ -131,7 +131,7 @@ Item {
                     context.fillRect(0, 0, width, height);
                 }
             }
-            Rectangle { anchors.fill: parent; radius: pill.radius; color: pill.color }
+            Rectangle { anchors.fill: parent; radius: pill.radius; color: pill.fill }
         }
     }
     // A slightly larger target around the dot, from the bar's edge, so the pointer finds
