@@ -78,8 +78,8 @@
       "reason": "A lockscreen design ships as one self-contained file."
     },
     "walker/scripts/actions/development/git-accounts.py": {
-      "lines": 729,
-      "reason": "To improve (TODO): account model and its apply/CLI layer in one file."
+      "lines": 431,
+      "reason": "Applying the configuration, per-account CLI/SSH wrappers and the terminal forms and previews; the account model lives in git_accounts_model.py."
     },
     "walker/scripts/actions/install/plugins.py": {
       "lines": 566,

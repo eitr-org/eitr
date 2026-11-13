@@ -179,10 +179,10 @@ item says what decides the next step. Remove an item when it ships;
   presses, fullscreen, pseudo and resized windows). If it happens again, note the window's
   display, fullscreen or picture-in-picture state, then report it upstream with the crash
   report from `~/.cache/hyprland/`.
-- **Split the large files marked "To improve".** The three listed with their reasons in
-  `tools/file-size-baseline.json`: software installs (catalog, installers and web apps),
-  Git Accounts (model vs apply/CLI) and the Display panel (display list, night light,
-  power). One at a time, when it is next worked on; no behaviour change.
+- **Split the large files marked "To improve".** The two listed with their reasons in
+  `tools/file-size-baseline.json`: software installs (catalog, installers and web apps) and
+  the Display panel (display list, night light, power). One at a time, when it is next
+  worked on; no behaviour change.
 - **Move expensive work off the UI thread selectively.** Profile interactions first,
   then move demonstrated image-processing, audio-analysis or other costly work into
   bounded asynchronous workers. Keep results tied to the current request so stale

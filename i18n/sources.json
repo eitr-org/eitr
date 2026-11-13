@@ -3449,7 +3449,7 @@
       "elephant/menus/monitoring.lua"
     ],
     "Add Folder": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Add Layout": [
       "elephant/menus/keyboard-add.lua",
@@ -3678,7 +3678,7 @@
       "elephant/menu-rows/system.json"
     ],
     "Check that the provider accepts the key": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Check the restore point; changes nothing": [
       "elephant/menu-rows/factory-reset.json"
@@ -3687,7 +3687,7 @@
       "elephant/menu-rows/system-maintenance.json"
     ],
     "Choose a key from ~/.ssh": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Choose a terminal assistant to install": [
       "elephant/menus/ai-tools.lua"
@@ -3786,7 +3786,7 @@
       "elephant/menus/terminal-padding.lua"
     ],
     "Commit author shown in history": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Compact window spacing": [
       "tools/choice-lists.json"
@@ -3855,7 +3855,7 @@
       "elephant/menus/lockscreen.lua"
     ],
     "Create SSH Key": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Create Theme": [
       "elephant/menu-rows/theme.json"
@@ -4051,7 +4051,7 @@
       "elephant/menus/aws-cloudwatch-error-logs-2.lua"
     ],
     "Edit Name and Email": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Effects, blur and popups off; performance profile on": [
       "elephant/menu-rows/toggle.json"
@@ -4380,7 +4380,7 @@
       "elephant/menu-rows/factory-reset.json"
     ],
     "Keep it only for its folders": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Keep sharing manual": [
       "elephant/menu-rows/remote-share-setup.json"
@@ -4417,7 +4417,7 @@
       "elephant/menu-rows/learn.json"
     ],
     "Keys stay on disk": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Kitty": [
       "elephant/menus/terminal.lua"
@@ -4526,7 +4526,7 @@
       "elephant/menus/lockscreen.lua"
     ],
     "Log In to CLI": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Logout": [
       "elephant/menu-rows/power.json"
@@ -4551,7 +4551,7 @@
       "elephant/menus/system-maintenance.lua"
     ],
     "Make Default": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Media style": [
       "elephant/menu-rows/bar.json",
@@ -4633,7 +4633,7 @@
       "elephant/menu-rows/ai-pi.json"
     ],
     "New Ed25519 key with a passphrase": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "New Eitr builds first; less tested, snapshots still protect updates": [
       "tools/choice-lists.json"
@@ -4888,7 +4888,7 @@
       "elephant/menu-rows/shortcuts.json"
     ],
     "Print and copy it for GitHub or GitLab": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Productivity": [
       "elephant/menu-rows/install.json",
@@ -4990,10 +4990,10 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Remove Account": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Remove Folder": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Remove Limit": [
       "elephant/menu-rows/battery-limit.json"
@@ -5010,7 +5010,7 @@
       "elephant/menu-rows/system.json"
     ],
     "Repositories inside it use this account": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Requires Btrfs root; never formats or repartitions": [
       "elephant/menu-rows/snapshots.json"
@@ -5347,7 +5347,7 @@
       "elephant/menus/aws-ecs-service-status-2.lua"
     ],
     "Set Existing SSH Key": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Set Up Sharing": [
       "elephant/menu-rows/remote-share-setup.json"
@@ -5439,7 +5439,7 @@
       "elephant/menu-rows/tpm-unlock.json"
     ],
     "Show Public Key": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Show a Google, Outlook or iCal calendar beside your reminders": [
       "elephant/menu-rows/calendars.json"
@@ -5590,13 +5590,13 @@
       "elephant/menu-rows/remote-access.json"
     ],
     "Stop Using as Default": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Stop and save the recording": [
       "elephant/menu-rows/screenrecord.json"
     ],
     "Stop using it in a folder": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Stopped tasks": [
       "elephant/menus/aws-ecs-stopped-tasks-1.lua",
@@ -5666,7 +5666,7 @@
       "elephant/menu-rows/agent-workspaces.json"
     ],
     "Test Connection": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Testing": [
       "tools/choice-lists.json"
@@ -5797,7 +5797,7 @@
       "tools/choice-lists.json"
     ],
     "Use it in folders without their own account": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Use one third of the screen": [
       "tools/choice-lists.json"
@@ -5949,7 +5949,7 @@
       "elephant/menus/aws-route53-zone-details-1.lua"
     ],
     "gh or glab for this account only": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "iwd": [
       "elephant/menu-rows/network-backend.json"
@@ -7313,10 +7313,10 @@
       "distro/lib/eitr_forms.py"
     ],
     "Choose a user-owned private key with permission 600 or stricter": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Choose an existing folder without Git glob characters": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Choose an installed assistant.": [
       "distro/lib/eitr_ai_accounts.py",
@@ -7804,7 +7804,7 @@
       "distro/lib/eitr_profile.py"
     ],
     "Duplicate folder or unknown account": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Duplicate login theme name": [
       "quickshell/lockscreen/scripts/install-login.py"
@@ -7819,7 +7819,7 @@
       "walker/scripts/menus/cloud/navigation.py"
     ],
     "EITR include block was edited; review it manually": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "ERASE EVERYTHING returns this computer to how it was at its first login.": [
       "walker/scripts/actions/system/factory-reset.py"
@@ -7864,7 +7864,7 @@
       "walker/scripts/menus/cloud/navigation.py"
     ],
     "Empty values and control characters are not allowed": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Enabled for: {services}": [
       "quickshell/desktop-bar/scripts/settings-system.py"
@@ -7898,7 +7898,7 @@
       "distro/lib/eitr_own_themes.py"
     ],
     "Enter a hostname, not a URL, port or shell option": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Enter on the review creates the lockscreen and shows a preview.": [
       "walker/scripts/actions/style/own.py"
@@ -8336,7 +8336,7 @@
       "walker/scripts/actions/install/software.py"
     ],
     "Invalid Git accounts settings": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Invalid JSON constant: {value}": [
       "distro/lib/eitr_profile.py"
@@ -8345,7 +8345,7 @@
       "distro/system/network-backend.py"
     ],
     "Invalid account or provider": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Invalid account request": [
       "distro/lib/eitr_accounts.py",
@@ -8380,7 +8380,7 @@
       "quickshell/lockscreen/scripts/install-login.py"
     ],
     "Invalid folder rule": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Invalid font package": [
       "walker/scripts/actions/style/fonts.py"
@@ -8662,7 +8662,7 @@
       "quickshell/desktop-bar/scripts/default-apps.py"
     ],
     "Malformed EITR include block; review ~/.gitconfig manually": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Managed databases": [
       "walker/scripts/menus/cloud/providers.py"
@@ -8882,7 +8882,7 @@
       "tools/choice-lists.json"
     ],
     "Not a user-owned regular file: {path}": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Not an Arch package file: {filename}": [
       "distro/lib/eitr_profile.py"
@@ -9397,7 +9397,7 @@
       "distro/system/eitr_remote.py"
     ],
     "Refusing a symlinked configuration path: {item}": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "Refusing to replace custom symlink: {path}": [
       "distro/system/network-backend.py"
@@ -9669,7 +9669,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "SSH key references must be absolute paths": [
-      "walker/scripts/actions/development/git-accounts.py"
+      "walker/scripts/actions/development/git_accounts_model.py"
     ],
     "SSO Login": [
       "walker/scripts/menus/cloud/navigation.py"

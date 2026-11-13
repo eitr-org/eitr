@@ -1,17 +1,21 @@
+import ast
 import copy
 import importlib.util
 import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
-SPEC = importlib.util.spec_from_file_location('git_accounts', ROOT / 'walker/scripts/actions/development/git-accounts.py')
+DEVELOPMENT = ROOT / 'walker/scripts/actions/development'
+SPEC = importlib.util.spec_from_file_location('git_accounts', DEVELOPMENT / 'git-accounts.py')
 accounts = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(accounts)
+import git_accounts_model  # noqa: E402 (git-accounts.py puts its folder on sys.path)
 
 
 class GitAccountTests(unittest.TestCase):
@@ -60,7 +64,7 @@ class GitAccountTests(unittest.TestCase):
         self.assertEqual(self.value(work, 'alias.st'), 'status')
         subprocess.run(['git', '-C', str(work), 'config', 'user.name', 'Local'], check=True)
         self.assertEqual(self.value(work, 'user.name'), 'Local')
-        self.assertEqual(accounts.load()['unknown'], 'preserve')
+        self.assertEqual(git_accounts_model.load()['unknown'], 'preserve')
         self.model['default'] = None
         self.model['folders'] = []
         accounts.apply(self.model)
@@ -138,38 +142,38 @@ class GitAccountTests(unittest.TestCase):
             self.assertEqual(accounts.ssh_args(self.personal, account, ['git@gitlab.com']), ['ssh', 'git@gitlab.com'])
 
     def test_future_version_is_read_only(self):
-        accounts.settings_path().parent.mkdir(parents=True)
-        accounts.settings_path().write_text('{"version":2}')
+        git_accounts_model.settings_path().parent.mkdir(parents=True)
+        git_accounts_model.settings_path().write_text('{"version":2}')
         with self.assertRaises(ValueError):
-            accounts.load()
+            git_accounts_model.load()
 
     def test_stale_preview_and_future_schema_cannot_overwrite_settings(self):
         stale = copy.deepcopy(self.model)
         accounts.apply(self.model)
-        before = accounts.settings_path().read_text()
+        before = git_accounts_model.settings_path().read_text()
         with self.assertRaises(ValueError):
             accounts.apply(stale)
-        self.assertEqual(accounts.settings_path().read_text(), before)
-        accounts.settings_path().write_text('{"version":2}')
+        self.assertEqual(git_accounts_model.settings_path().read_text(), before)
+        git_accounts_model.settings_path().write_text('{"version":2}')
         with self.assertRaises(ValueError):
             accounts.apply(self.model)
-        self.assertEqual(accounts.settings_path().read_text(), '{"version":2}')
+        self.assertEqual(git_accounts_model.settings_path().read_text(), '{"version":2}')
 
     def test_apply_failure_restores_original_files(self):
         original = '[user]\nname=Old\n'
         (self.home / '.gitconfig').write_text(original)
-        real_atomic = accounts.atomic
+        real_atomic = git_accounts_model.atomic
 
         def failing(path, text, mode=0o600):
-            if path == self.home / '.gitconfig' and accounts.BEGIN in text:
+            if path == self.home / '.gitconfig' and git_accounts_model.BEGIN in text:
                 raise OSError('simulated write error')
             return real_atomic(path, text, mode)
 
         with patch.object(accounts, 'atomic', side_effect=failing), self.assertRaises(OSError):
             accounts.apply(self.model)
         self.assertEqual((self.home / '.gitconfig').read_text(), original)
-        self.assertFalse(accounts.settings_path().exists())
-        self.assertFalse((accounts.root() / 'active.gitconfig').exists())
+        self.assertFalse(git_accounts_model.settings_path().exists())
+        self.assertFalse((git_accounts_model.root() / 'active.gitconfig').exists())
 
     def answer(self, *values):
         answers = iter(values)
@@ -179,8 +183,8 @@ class GitAccountTests(unittest.TestCase):
         projects = self.home / 'Development/personal'
         projects.mkdir(parents=True)
         with patch.object(accounts, 'collect_setup', return_value=dict(provider='github', label='Personal', name='Erick', email='me@example.com', host='github.com', key='', default=True, folder=str(projects))):
-            self.assertTrue(accounts.add_form(copy.deepcopy(accounts.load())))
-        model = accounts.load()
+            self.assertTrue(accounts.add_form(copy.deepcopy(git_accounts_model.load())))
+        model = git_accounts_model.load()
         (identifier, account), = model['accounts'].items()
         self.assertEqual((account['label'], account['provider'], account['host']), ('Personal', 'github', 'github.com'))
         self.assertEqual(model['default'], identifier)
@@ -188,10 +192,10 @@ class GitAccountTests(unittest.TestCase):
 
     def test_add_form_keeps_an_existing_default_unless_asked(self):
         accounts.apply(self.model)
-        before = accounts.load()
+        before = git_accounts_model.load()
         with patch.object(accounts, 'collect_setup', return_value=dict(provider='gitlab', label='Lab', name='Erick', email='lab@example.com', host='gitlab.com', key='', default=False, folder='')):
             accounts.add_form(copy.deepcopy(before))
-        after = accounts.load()
+        after = git_accounts_model.load()
         self.assertEqual(after['default'], before['default'])
         self.assertIn('gitlab.com', [account['host'] for account in after['accounts'].values()])
 
@@ -199,9 +203,9 @@ class GitAccountTests(unittest.TestCase):
         with patch.object(accounts, 'collect_setup', side_effect=KeyboardInterrupt), \
                 patch.object(accounts, 'apply') as apply:
             with self.assertRaises(KeyboardInterrupt):
-                accounts.add_form(copy.deepcopy(accounts.load()))
+                accounts.add_form(copy.deepcopy(git_accounts_model.load()))
             apply.assert_not_called()
-        self.assertFalse(accounts.settings_path().exists())
+        self.assertFalse(git_accounts_model.settings_path().exists())
         self.assertFalse((self.home / '.gitconfig').exists())
 
     def test_rows_say_where_each_account_applies(self):
@@ -209,7 +213,7 @@ class GitAccountTests(unittest.TestCase):
         projects.mkdir(parents=True)
         self.model['folders'] = [{'path': str(projects), 'account': self.work}]
         accounts.apply(self.model)
-        details = {row['label']: row['detail'] for row in accounts.rows()}
+        details = {row['label']: row['detail'] for row in git_accounts_model.rows()}
         self.assertEqual(details, {'Personal': 'Default', 'Work': 'work', 'Nested': 'Not used yet'})
 
     def test_walker_actions_change_default_and_folders_after_confirmation(self):
@@ -220,18 +224,18 @@ class GitAccountTests(unittest.TestCase):
         with patch.object(accounts, 'walker', side_effect=lambda options, placeholder: next(choices)), \
                 patch.object(accounts, 'notify') as notify:
             accounts.perform(self.work, 'Make Default')
-        self.assertEqual(accounts.load()['default'], self.work)
+        self.assertEqual(git_accounts_model.load()['default'], self.work)
         notify.assert_called_once_with('Work is now the default account')
         choices = iter(['~/Development/work', 'Confirm'])
         with patch.object(accounts, 'walker', side_effect=lambda options, placeholder: next(choices)), \
                 patch.object(accounts, 'notify'):
             accounts.perform(self.nested, 'Add Folder')
-        self.assertEqual(accounts.load()['folders'], [{'path': str(projects.resolve()), 'account': self.nested}])
+        self.assertEqual(git_accounts_model.load()['folders'], [{'path': str(projects.resolve()), 'account': self.nested}])
         choices = iter(['~/Development/work', 'Cancel'])
         with patch.object(accounts, 'walker', side_effect=lambda options, placeholder: next(choices)), \
                 patch.object(accounts, 'notify') as notify:
             accounts.perform(self.nested, 'Remove Folder')
-        self.assertEqual(len(accounts.load()['folders']), 1)
+        self.assertEqual(len(git_accounts_model.load()['folders']), 1)
         notify.assert_not_called()
 
     def test_typing_actions_open_a_terminal_form(self):
@@ -241,14 +245,14 @@ class GitAccountTests(unittest.TestCase):
         terminal.assert_called_once_with('edit', self.work)
 
     def test_key_actions_appear_only_with_a_key_and_clone_check_are_gone(self):
-        names = accounts.account_actions(self.model, self.work)
+        names = git_accounts_model.account_actions(self.model, self.work)
         self.assertNotIn('Show Public Key', names)
         self.assertEqual(names, sorted(names, key=str.casefold))
         key = self.home / 'key'
         key.write_text('private')
         key.chmod(0o600)
         self.model['accounts'][self.work]['key'] = str(key)
-        self.assertIn('Show Public Key', accounts.account_actions(self.model, self.work))
+        self.assertIn('Show Public Key', git_accounts_model.account_actions(self.model, self.work))
         menu = (ROOT / 'elephant/menus/git-accounts.lua').read_text()
         self.assertNotIn('clone', menu)
         self.assertNotIn('check', menu)
@@ -263,8 +267,8 @@ class GitAccountTests(unittest.TestCase):
         accounts.apply(self.model)
         with self.assertRaises(ValueError):
             accounts.perform(self.work, 'Show Public Key')
-        self.assertEqual(accounts.action_rows('f' * 32), [])
-        rows = accounts.action_rows(self.work)
+        self.assertEqual(git_accounts_model.action_rows('f' * 32), [])
+        rows = git_accounts_model.action_rows(self.work)
         self.assertTrue(all(row['hint'] and row['icon'] for row in rows))
 
     def test_provider_defaults_and_key_permissions(self):
@@ -272,7 +276,7 @@ class GitAccountTests(unittest.TestCase):
         key.write_text('private content must never enter backups')
         key.chmod(0o644)
         with self.assertRaises(ValueError):
-            accounts.private_key(key)
+            git_accounts_model.private_key(key)
         key.chmod(0o600)
         self.model['accounts'][self.work].update(provider='gitlab', host='gitlab.com', key=str(key))
         self.model['default'] = self.work
@@ -285,6 +289,21 @@ class GitAccountTests(unittest.TestCase):
             if backup.is_file():
                 self.assertNotIn('private content must never enter backups', backup.read_text())
 
+    def test_model_module_imports_no_terminal_or_script_code(self):
+        tree = ast.parse(Path(git_accounts_model.__file__).read_text())
+        imported = {alias.name.split('.')[0] for node in ast.walk(tree) if isinstance(node, ast.Import) for alias in node.names}
+        imported |= {node.module.split('.')[0] for node in ast.walk(tree) if isinstance(node, ast.ImportFrom)}
+        self.assertTrue(all(name in sys.stdlib_module_names or name.startswith('eitr_') for name in imported), imported)
+        self.assertNotIn('eitr_forms', imported)
+        self.assertNotIn('ui', vars(git_accounts_model))
+
+    def test_model_selects_most_specific_folder(self):
+        self.model['folders'] = [{'path': str(self.home / 'work'), 'account': self.work},
+                                 {'path': str(self.home / 'work/special'), 'account': self.nested}]
+        self.assertEqual(git_accounts_model.selected(self.model, self.home / 'work/special/app'), self.nested)
+        self.assertEqual(git_accounts_model.selected(self.model, self.home / 'other'), self.personal)
+        self.assertIn('only in ~/work', git_accounts_model.describe(self.model, self.work))
+        self.assertEqual(git_accounts_model.global_text(git_accounts_model.managed_block(), False), '')
 
 class ImportExistingSetupTests(unittest.TestCase):
     setUp, repo, value = GitAccountTests.setUp, GitAccountTests.repo, GitAccountTests.value
@@ -309,8 +328,8 @@ class ImportExistingSetupTests(unittest.TestCase):
 
     def test_manual_identities_folders_and_keys_are_found(self):
         self.manual_setup()
-        with patch.object(accounts, 'ssh_route', side_effect=self.route):
-            found = accounts.existing_setup()
+        with patch.object(git_accounts_model, 'ssh_route', side_effect=self.route):
+            found = git_accounts_model.existing_setup()
         self.assertEqual(found['default']['email'], 'me@example.com')
         folders = {Path(entry['path']).name: entry for entry in found['folders']}
         self.assertEqual(sorted(folders), ['personal', 'work'])
@@ -320,9 +339,9 @@ class ImportExistingSetupTests(unittest.TestCase):
 
     def test_import_creates_accounts_rules_and_reuses_identities(self):
         self.manual_setup()
-        with patch.object(accounts, 'ssh_route', side_effect=self.route):
-            found = accounts.existing_setup()
-        model = accounts.import_setup(copy.deepcopy(accounts.load()), found)
+        with patch.object(git_accounts_model, 'ssh_route', side_effect=self.route):
+            found = git_accounts_model.existing_setup()
+        model = git_accounts_model.import_setup(copy.deepcopy(git_accounts_model.load()), found)
         labels = sorted(account['label'] for account in model['accounts'].values())
         self.assertEqual(labels, ['Personal', 'Work'])
         personal = next(key for key, account in model['accounts'].items() if account['label'] == 'Personal')
@@ -331,13 +350,13 @@ class ImportExistingSetupTests(unittest.TestCase):
         accounts.apply(model)
         repo = self.repo('Development/work/app')
         self.assertEqual(self.value(repo, 'user.email'), 'me@work.example')
-        again = accounts.import_setup(copy.deepcopy(accounts.load()), found)
+        again = git_accounts_model.import_setup(copy.deepcopy(git_accounts_model.load()), found)
         self.assertEqual(len(again['accounts']), 2)
         self.assertEqual(len(again['folders']), 2)
 
     def test_import_never_reads_back_eitr_managed_rules(self):
         accounts.apply(self.model)
-        found = accounts.existing_setup()
+        found = git_accounts_model.existing_setup()
         self.assertEqual(found['folders'], [])
 
 
