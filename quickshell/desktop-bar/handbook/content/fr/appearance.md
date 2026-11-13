@@ -147,6 +147,8 @@ Comparez les neuf modèles avec `bash quickshell/lockscreen/scripts/gallery.sh`.
 
 Sur les PC avec plusieurs comptes, l’écran de connexion affiche l’utilisateur sélectionné. Cliquez sur la moitié gauche ou droite du sélecteur, ou utilisez Ctrl+Left / Ctrl+Right, pour choisir un autre compte ; Entrée envoie toujours le mot de passe et Échap conserve son comportement. Avec un seul compte, la présentation ne change pas.
 
+Avec plusieurs écrans, l’écran de connexion n’apparaît que sur le plus grand ; les autres restent noirs.
+
 L’écran verrouillé affiche le nom réel de la session si disponible et accepte uniquement le mot de passe de ce compte. Changer d’utilisateur (Ctrl+Alt+U) ouvre la connexion SDDM en gardant la session initiale verrouillée. De retour dans la session verrouillée, cliquez une fois dans le champ du mot de passe avant de taper.
 
 Cette action apparaît seulement avec plusieurs comptes admissibles et si SDDM autorise le changement. Les aperçus et la galerie utilisent trois comptes fictifs sans authentification.

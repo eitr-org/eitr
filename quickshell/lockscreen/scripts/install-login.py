@@ -24,6 +24,8 @@ PREFIX = 'desktop-lockscreen-'
 # installed design receives a copy that its Main.qml imports by relative path.
 I18N_MODULE = ROOT.parent / "Eitr"
 SHARED_MODULE = ROOT / 'imports/LockscreenComponents'
+# The greeter's Main.qml: the design on the main display only, black on the others.
+LOGIN_WRAPPER = ROOT / 'login'
 MODULE_IMPORT = re.compile(r'^import ' + SHARED_MODULE.name + r'\s*$', re.MULTILINE)
 SDDM_CONFIG = Path('/etc/sddm.conf.d/90-desktop-lockscreen.conf')
 MANIFEST = Path('/usr/share/eitr/lockscreen-designs.json')
@@ -88,6 +90,9 @@ def stage(package_root):
         if destination.exists():
             raise SystemExit(tr('Staging destination already exists: {destination}', destination=str(destination)))
         shutil.copytree(source, destination)
+        (destination / 'Main.qml').rename(destination / 'Design.qml')
+        for wrapper in ('Main.qml', 'LoginDisplay.js'):
+            shutil.copyfile(LOGIN_WRAPPER / wrapper, destination / wrapper)
         shutil.copytree(SHARED_MODULE, destination / SHARED_MODULE.name)
         module = destination / "Eitr"
         module.mkdir()

@@ -133,6 +133,13 @@ selector, not arbitrary commands or file copying. If login selection fails,
 the lockscreen selection stays unchanged. Previews never update either selection.
 SDDM is never restarted; changes appear at the next login.
 
+SDDM opens the login theme on every display. Each staged design's `Main.qml` is
+`login/Main.qml`, which loads the design (renamed `Design.qml`) only on the largest
+display (leftmost, then topmost, on a tie; `login/LoginDisplay.js`) and leaves the others
+black, so the greeter draws one animated screen. Nobody is signed in yet, so the desktop's
+Main display choice is not known there. The decision waits until SDDM has shown each window
+on its display, and the login window then takes the keyboard.
+
 To restore the previous SDDM theme without changing your lockscreen, remove
 `/etc/sddm.conf.d/90-desktop-lockscreen.conf` with sudo. To disconnect automatic
 login selection, also remove `/etc/sudoers.d/desktop-login-select` and

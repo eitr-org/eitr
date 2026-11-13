@@ -137,6 +137,8 @@ Vergleiche die neun Designs mit `bash quickshell/lockscreen/scripts/gallery.sh`.
 
 Auf PCs mit mehreren Konten zeigt der Anmeldebildschirm den ausgewählten Benutzer. Ein Klick auf die linke oder rechte Hälfte der Benutzerauswahl oder Ctrl+Left / Ctrl+Right wählt ein anderes Konto; Enter sendet weiterhin das Passwort und Escape behält seine bisherige Funktion. Mit einem Konto bleibt die Anmeldung optisch unverändert. Der Sperrbildschirm zeigt nach Möglichkeit den echten Namen der gesperrten Sitzung und akzeptiert nur das Passwort dieses Kontos.
 
+Bei mehreren Bildschirmen erscheint der Anmeldebildschirm nur auf dem größten; die anderen bleiben schwarz.
+
 Benutzer wechseln (Ctrl+Alt+U) öffnet die SDDM-Anmeldung und lässt die ursprüngliche Sitzung gesperrt. Zurück in der gesperrten Sitzung klicken Sie einmal in das Passwortfeld, bevor Sie tippen. Die Aktion erscheint nur bei mehreren geeigneten Konten und wenn SDDM den Wechsel unterstützt. Vorschau und Galerie verwenden drei fiktive Konten und authentifizieren nie.
 
 Integrierte Themen gehören zu Eitr und können nicht entfernt werden. Der Papierkorb bei einem heruntergeladenen Thema löscht dessen installiertes Paket; das aktuelle Thema kann nicht entfernt werden.
