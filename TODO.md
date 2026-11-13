@@ -59,6 +59,15 @@ item says what decides the next step. Remove an item when it ships;
   lockscreens on a removed design are hidden. The brief is ready for Codex
   (`eitr-testing/codex-wip/addons-lockscreens/BRIEF.md`, Codex usage is back
   2026-11-13); VM-test installs, removal and the migration before testing.
+- **Japanese, Simplified Chinese and Korean (approved 2026-11-12; after the file splits,
+  done by Antigravity).** Once: one plural form for these locales in `tools/i18n-build.py`,
+  CJK fonts (`noto-fonts-cjk`) installed only when one of them is picked, the language lists
+  (Settings, Walker, first-login setup) and the layout render tests. Then per language:
+  interface catalogs and the Handbook translated by Gemini Flash; automatic checks for
+  missing texts, placeholders, untranslated commands and paths, Handbook structure and glyph
+  coverage; offscreen renders of the panels; a sampled meaning check by a different model.
+  Marked as machine-translated in Settings until a native speaker reviews them. Typing
+  these languages (an input method such as fcitx5 with Mozc, Rime or Hangul) is separate.
 - **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
   (2026-11-11). Owner's choices (2026-11-12): Sunshine on the login screen behind its own
   switch beside Start at Login (a system Sunshine with KMS capture while SDDM shows, handing
