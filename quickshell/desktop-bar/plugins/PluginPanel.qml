@@ -51,6 +51,8 @@ ThemedPopup {
             id: content
             width: scroll.availableWidth; height: implicitHeight
             active: panel.entry !== null
+            // The panel itself is the plugin's surface; a second fill would show twice through Blur.
+            surface: false
             onImplicitHeightChanged: panel.dataReady()
             entry: panel.entry || ({kind: "panels", plugin: "", id: "", commit: "", qml: "", source: "", title: "", disabled: true})
             foreground: panel.foreground; background: panel.background; accent: panel.accent
