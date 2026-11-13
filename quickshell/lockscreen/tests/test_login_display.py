@@ -61,6 +61,9 @@ class StagedLoginTests(unittest.TestCase):
         # Decided once the window is shown on its display, and the keyboard follows it there.
         self.assertIn("Window.window.visible", wrapper)
         self.assertIn("requestActivate()", wrapper)
+        # Designs pass focus to their password field only when their root gains it.
+        self.assertIn("onLoaded: item.forceActiveFocus()", wrapper)
+        self.assertIn("design.item.forceActiveFocus()", wrapper)
 
 
 if __name__ == "__main__":

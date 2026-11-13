@@ -13,10 +13,16 @@ Rectangle {
     readonly property bool main: shown && LoginDisplay.isMain(Screen.name, Qt.application.screens)
     // X11's own main display may be another one: take the keyboard to the login screen.
     onMainChanged: if (main) Window.window.requestActivate()
+    // Designs hand focus to their password field when their root gains it, as in the
+    // session lockscreen (shell.qml); inside a Loader nothing gives it to them.
+    readonly property bool windowActive: Window.active
+    onWindowActiveChanged: if (windowActive && design.item) design.item.forceActiveFocus()
     Loader {
+        id: design
         anchors.fill: parent
         focus: true
         active: display.main
         source: "Design.qml"
+        onLoaded: item.forceActiveFocus()
     }
 }
