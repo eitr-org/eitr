@@ -95,6 +95,7 @@ problem report and the ISO name and boot menu all read it.
 | 0.7.0 | Huginn | beta | Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout |
 | 0.7.2 | Huginn | beta | The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal |
 | 0.7.3 | Huginn | beta | A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents |
+| 0.7.4 | Huginn | beta | Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use |
 | 0.8.0 | Muninn | release candidate | The exact ISO intended for 1.0: repeated clean installs, upgrades from earlier public releases and destructive recovery tests in isolated environments, until installation, maintenance and recovery are reproducible on the declared supported configurations |
 | 1.0.0 | Bifröst | stable | A supported hardware matrix, tested upgrade paths, documented rollback limitations, a security-update process and a clear compatibility policy |
 
@@ -363,7 +364,7 @@ Assistant sessions use full access by default; Settings > AI Assistant > Assista
 The current state and the next concrete steps, so anyone (or any AI assistant)
 can pick up from the repository alone. Remove items as they ship.
 
-- **Released.** 0.3.0 to 0.7.3 (there is no 0.7.1), each ISO built in the owner's builder VM (outside
+- **Released.** 0.3.0 to 0.7.4 (there is no 0.7.1), each ISO built in the owner's builder VM (outside
   this repository) and passed the automated VM tests below; the packages are
   published in `[eitr]`. `v0.6.4` and later are tagged.
 - **History.** On 2026-10-19 the 707 commits up to 0.6.3 were squashed into one, to
