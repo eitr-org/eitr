@@ -97,6 +97,9 @@ item says what decides the next step. Remove an item when it ships;
 - **Island style and Side style (on testing 2026-11-13).** Attached Islands, Dynamic and Drop,
   straight sides for Tabs and Centered (Settings > Desktop Bar > Layout); try every layout
   and edge, panels opening from attached pills, auto-hide, then promote.
+- **Login on the main display (on testing 2026-11-13).** The login design runs only on the
+  largest display and the others stay black; at the next login, check that typing goes
+  straight to the password field, then promote.
 - **Logout on NVIDIA.** The login screen crashed in the NVIDIA driver when SDDM started
   it again after a logout (black screen). It now uses Qt's basic render loop
   (`eitr-greeter.conf`, on stable 2026-11-11); log out once after updating to confirm.
