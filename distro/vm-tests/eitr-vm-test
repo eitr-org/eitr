@@ -122,6 +122,8 @@ def install(arguments):
         passphrase = "".join(secrets.choice(PASSPHRASE_CHARACTERS) for _ in range(20))
         (work / "passphrase").write_text(passphrase + "\n")
         answers.update(encrypted=True, passphrase=passphrase)
+    if arguments.language:
+        answers["language"] = arguments.language
     (work / "answers.json").write_text(json.dumps(answers, indent=2) + "\n")
     if arguments.stick:
         attach_stick(work, arguments.stick)
@@ -220,9 +222,19 @@ CHECKS = [
 ]
 
 
+def language_checks(work):
+    """An install that chose a language must speak it: locale.conf and the generated locale."""
+    answers = work / "answers.json"
+    language = json.loads(answers.read_text()).get("language") if answers.exists() else None
+    if not language:
+        return []
+    return [("the system language is " + language, "grep -x 'LANG=" + language + "' /etc/locale.conf", "LANG=" + language),
+            ("its locale is generated", "locale -a | grep -ix '" + language.replace("UTF-8", "utf8") + "' >/dev/null && echo yes", "yes")]
+
+
 def run_checks(work):
     failures = []
-    for title, command, expected in CHECKS:
+    for title, command, expected in CHECKS + language_checks(work):
         result = ssh(work, command, check=False)
         value = result.stdout.strip()
         passed = value == expected
@@ -528,6 +540,7 @@ def main():
     stick_parser.add_argument('--size', type=int, default=512, help='MiB')
     install_parser.add_argument("--timeout", type=int, default=3600)
     install_parser.add_argument("--encrypted", action="store_true", help="install on LUKS2; boots type the passphrase")
+    install_parser.add_argument("--language", help="system locale to install, such as ja_JP.UTF-8")
     for name in ("install", "verify", "update", "reset", "boot-guard", "ssh", "profile-apply"):
         sub = install_parser if name == "install" else commands.add_parser(name)
         sub.add_argument("--work", required=True)

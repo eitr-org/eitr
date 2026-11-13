@@ -86,6 +86,8 @@ distro/vm-tests/eitr-vm-test boot-guard --work "$RUN"                 # after an
   login sees them and runs `eitr-guided-install --answers` instead of the
   wizard (erase install on `/dev/vda`, user `tester`, the run's SSH key). The
   installer logs to the serial port and powers off when done. With
+  `--language ja_JP.UTF-8` (any Eitr language) it installs that system language,
+  and **verify** then also checks `/etc/locale.conf` and the generated locale. With
   `--encrypted` it installs on LUKS2 with a random passphrase saved as
   `passphrase` in the run folder; every later boot and restart types it at
   the unlock prompt through QEMU's monitor.
