@@ -62,8 +62,8 @@
       "reason": "One display helper (modes, trials, rollback) shared by the panel and Walker."
     },
     "quickshell/desktop-bar/scripts/obs-control.py": {
-      "lines": 649,
-      "reason": "To improve (TODO): capture options and saved-capture actions in one file."
+      "lines": 407,
+      "reason": "Barely over the limit; OBS launch, status, recording actions and the CLI after the capture options moved out."
     },
     "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml": {
       "lines": 780,

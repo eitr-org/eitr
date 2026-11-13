@@ -6903,10 +6903,10 @@
       "walker/scripts/menus/cloud/accounts.py"
     ],
     "Add a camera source in OBS first": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Add a microphone source in OBS first": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Add a monitoring dashboard: a saved address opened from Development > Monitoring.": [
       "walker/scripts/actions/development/monitoring.py"
@@ -7181,7 +7181,7 @@
       "walker/scripts/actions/tools/calendars.py"
     ],
     "Camera": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Cancel": [
       "distro/archinstall/installer-ui.py",
@@ -7268,7 +7268,7 @@
       "fastfetch/eitr.py"
     ],
     "Chapters need the Hybrid MP4 recording format (OBS Settings > Output)": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Charging will stop at {value}% to reduce battery wear, also after reboot and resume.": [
       "walker/scripts/actions/system/battery-limit.py"
@@ -7471,7 +7471,7 @@
       "walker/scripts/actions/install/vpn.py"
     ],
     "Configure this source in OBS first": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Configured selection for {design_count} package-owned login designs.": [
       "quickshell/lockscreen/scripts/install-login.py"
@@ -7540,10 +7540,10 @@
       "walker/scripts/actions/system/report-problem.py"
     ],
     "Could not apply recording audio settings": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Could not apply recording webcam settings": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.": [
       "distro/system/factory-reset.py"
@@ -7564,7 +7564,7 @@
       "quickshell/desktop-bar/scripts/obs-control.py"
     ],
     "Could not read the current OBS scene": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Could not record running packages; the update continues without a restart hint.": [
       "walker/scripts/actions/system/update.sh"
@@ -7729,7 +7729,7 @@
       "walker/scripts/actions/style/own.py"
     ],
     "Desktop Audio": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Desktop: Afterglow / Clockwork Tape, installed offline before reboot": [
       "distro/archinstall/installer-ui.py"
@@ -9708,7 +9708,7 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Screen": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Screenshot saved": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -9801,7 +9801,7 @@
       "distro/lib/eitr_local_assistant.py"
     ],
     "Set up full-screen monitor capture in OBS first": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "Settings": [
       "quickshell/desktop-bar/scripts/remote-status.py"
@@ -10182,7 +10182,7 @@
       "distro/lib/eitr_own_themes.py"
     ],
     "That OBS scene no longer exists": [
-      "quickshell/desktop-bar/scripts/obs-control.py"
+      "quickshell/desktop-bar/scripts/obs_options.py"
     ],
     "That address is a web page, not a picture. {hint}": [
       "distro/lib/eitr_own_pictures.py"

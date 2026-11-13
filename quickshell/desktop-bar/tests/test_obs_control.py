@@ -12,35 +12,43 @@ from unittest.mock import patch
 spec = importlib.util.spec_from_file_location("obs_control", Path(__file__).parents[1] / "scripts/obs-control.py")
 obs = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(obs)
+obs_options = obs.obs_options
 
 
 class ObsControlTests(unittest.TestCase):
     def setUp(self):
-        seeded = patch.object(obs, "default_scene_collection")
+        seeded = patch.object(obs_options, "default_scene_collection")
         seeded.start()
         self.addCleanup(seeded.stop)
         follow = patch.object(obs.obs_screen, "follow_focus")
         self.follow_focus = follow.start()
         self.addCleanup(follow.stop)
 
+    def test_obs_options_is_independent_without_obs_control(self):
+        self.assertTrue(hasattr(obs_options, "capture_options"))
+        self.assertTrue(hasattr(obs_options, "default_scene_collection"))
+        self.assertTrue(hasattr(obs_options, "apply_capture_options"))
+        self.assertTrue(hasattr(obs_options, "save_capture_option"))
+        self.assertFalse(hasattr(obs_options, "control"))
+
     def test_closed_obs_follows_the_focused_display_before_it_starts(self):
         with patch.object(obs.subprocess, "run", side_effect=[SimpleNamespace(returncode=1), SimpleNamespace(returncode=0)]), \
                 patch.object(obs, "websocket_command", return_value=["obs-cmd"]), \
-                patch.object(obs, "launch_background") as launch, patch.object(obs, "apply_capture_options"), \
+                patch.object(obs, "launch_background") as launch, patch.object(obs_options, "apply_capture_options"), \
                 patch.object(obs, "default_recording_folder"):
             launch.side_effect = lambda: self.assertTrue(self.follow_focus.called)
             self.assertEqual(obs.control("prepare"), "OBS ready")
         self.follow_focus.reset_mock()
         with patch.object(obs.subprocess, "run", side_effect=[SimpleNamespace(returncode=0), SimpleNamespace(returncode=0)]), \
                 patch.object(obs, "websocket_command", return_value=["obs-cmd"]), \
-                patch.object(obs, "apply_capture_options"):
+                patch.object(obs_options, "apply_capture_options"):
             obs.control("prepare")
         self.follow_focus.assert_not_called()
 
     def test_prepare_does_not_start_capture(self):
         with patch.object(obs.subprocess, "run", side_effect=[SimpleNamespace(returncode=1), SimpleNamespace(returncode=0)]) as run, \
                 patch.object(obs, "websocket_command", return_value=["obs-cmd"]), \
-                patch.object(obs, "launch_background"), patch.object(obs, "apply_capture_options") as apply, \
+                patch.object(obs, "launch_background"), patch.object(obs_options, "apply_capture_options") as apply, \
                 patch.object(obs, "default_recording_folder") as default_folder:
             self.assertEqual(obs.control("prepare"), "OBS ready")
             default_folder.assert_called_once_with()
@@ -54,6 +62,7 @@ class ObsControlTests(unittest.TestCase):
             profile.write_text(text)
         home = Path(directory) / "home"
         with patch.object(obs, "user_config", side_effect=lambda relative: Path(directory) / "config" / relative), \
+                patch.object(obs_options, "user_config", side_effect=lambda relative: Path(directory) / "config" / relative), \
                 patch.object(obs.Path, "home", return_value=home):
             changed = obs.default_recording_folder()
         self.assertTrue((home / "Videos/Records").is_dir())
@@ -95,16 +104,16 @@ class ObsControlTests(unittest.TestCase):
     def test_capture_options_persist_without_launching_obs(self):
         options = {key: {"enabled": False, "available": True, "sources": []} for key in ("audio", "mic", "webcam")}
         with tempfile.TemporaryDirectory() as directory, \
-                patch.object(obs, "OPTIONS_FILE", Path(directory) / "options.json"), \
-                patch.object(obs, "capture_options", return_value=options), patch.object(obs.subprocess, "Popen") as launch:
-            obs.save_capture_option("mic", "true")
-            self.assertIn('"mic": true', obs.OPTIONS_FILE.read_text())
+                patch.object(obs_options, "OPTIONS_FILE", Path(directory) / "options.json"), \
+                patch.object(obs_options, "capture_options", return_value=options), patch.object(obs.subprocess, "Popen") as launch:
+            obs_options.save_capture_option("mic", "true")
+            self.assertIn('"mic": true', obs_options.OPTIONS_FILE.read_text())
             launch.assert_not_called()
 
     def test_missing_camera_cannot_be_enabled(self):
-        with patch.object(obs, "capture_options", return_value={"webcam": {"available": False}}):
+        with patch.object(obs_options, "capture_options", return_value={"webcam": {"available": False}}):
             with self.assertRaisesRegex(RuntimeError, "Configure"):
-                obs.save_capture_option("webcam", "true")
+                obs_options.save_capture_option("webcam", "true")
 
     def test_audio_choices_apply_to_obs_not_system_volume(self):
         options = {"audio": {"enabled": False, "sources": ["Desktop Audio"]},
@@ -112,9 +121,9 @@ class ObsControlTests(unittest.TestCase):
         scene = {"current_scene": "Scene", "sources": [
             {"name": "Screen", "id": "pipewire-screen-capture-source"},
             {"name": "Scene", "settings": {"items": [{"name": "Screen", "visible": True}]}}]}
-        with patch.object(obs, "capture_options", return_value=options), patch.object(obs, "scene_collection", return_value=scene), \
-                patch.object(obs.subprocess, "run", return_value=SimpleNamespace(returncode=0)) as run:
-            obs.apply_capture_options(["obs-cmd"])
+        with patch.object(obs_options, "capture_options", return_value=options), patch.object(obs_options, "scene_collection", return_value=scene), \
+                patch.object(obs_options.subprocess, "run", return_value=SimpleNamespace(returncode=0)) as run:
+            obs_options.apply_capture_options(["obs-cmd"])
             self.assertEqual(run.call_args_list[0].args[0], ["obs-cmd", "audio", "mute", "Desktop Audio"])
             self.assertEqual(run.call_args_list[1].args[0], ["obs-cmd", "audio", "unmute", "Mic/Aux"])
 
@@ -128,10 +137,10 @@ class ObsControlTests(unittest.TestCase):
                     options = {"audio": {"enabled": audio, "sources": ["Desktop Audio"]},
                                "mic": {"enabled": mic, "sources": ["Mic/Aux"]},
                                "webcam": {"sources": []}}
-                    with patch.object(obs, "capture_options", return_value=options), \
-                            patch.object(obs, "scene_collection", return_value=scene), \
-                            patch.object(obs.subprocess, "run", return_value=SimpleNamespace(returncode=0)) as run:
-                        obs.apply_capture_options(["obs-cmd"])
+                    with patch.object(obs_options, "capture_options", return_value=options), \
+                            patch.object(obs_options, "scene_collection", return_value=scene), \
+                            patch.object(obs_options.subprocess, "run", return_value=SimpleNamespace(returncode=0)) as run:
+                        obs_options.apply_capture_options(["obs-cmd"])
                         self.assertEqual([call.args[0] for call in run.call_args_list], [
                             ["obs-cmd", "audio", "unmute" if audio else "mute", "Desktop Audio"],
                             ["obs-cmd", "audio", "unmute" if mic else "mute", "Mic/Aux"]])
@@ -140,9 +149,9 @@ class ObsControlTests(unittest.TestCase):
         scene = {"current_scene": "Scene", "sources": [
             {"name": "Window", "id": "pipewire-window-capture-source"},
             {"name": "Scene", "settings": {"items": [{"name": "Window", "visible": True}]}}]}
-        with patch.object(obs, "scene_collection", return_value=scene), patch.object(obs.subprocess, "run") as run:
+        with patch.object(obs_options, "scene_collection", return_value=scene), patch.object(obs_options.subprocess, "run") as run:
             with self.assertRaisesRegex(RuntimeError, "full-screen"):
-                obs.apply_capture_options(["obs-cmd"])
+                obs_options.apply_capture_options(["obs-cmd"])
             run.assert_not_called()
 
     def test_camera_uses_scene_name_without_cli_preamble(self):
@@ -151,12 +160,12 @@ class ObsControlTests(unittest.TestCase):
         scene = {"current_scene": "Scene", "sources": [
             {"name": "Screen", "id": "pipewire-screen-capture-source"},
             {"name": "Scene", "settings": {"items": [{"name": "Screen"}]}}]}
-        with patch.object(obs, "capture_options", return_value=options), \
-                patch.object(obs, "scene_collection", return_value=scene), \
-                patch.object(obs.subprocess, "run", side_effect=[
+        with patch.object(obs_options, "capture_options", return_value=options), \
+                patch.object(obs_options, "scene_collection", return_value=scene), \
+                patch.object(obs_options.subprocess, "run", side_effect=[
                     SimpleNamespace(returncode=0, stdout="Executing: Get current scene\nCurrent scene: Scene\n"),
                     SimpleNamespace(returncode=0)]) as run:
-            obs.apply_capture_options(["obs-cmd"])
+            obs_options.apply_capture_options(["obs-cmd"])
             self.assertEqual(run.call_args.args[0], ["obs-cmd", "scene-item", "enable", "Scene", "Camera"])
 
     def test_idle_obs_exits_after_successful_stop(self):
@@ -227,7 +236,7 @@ class ObsControlTests(unittest.TestCase):
         options = {"mic": {"sources": ["Mic"], "available": True, "enabled": True},
                    "webcam": {"sources": [], "available": False, "enabled": False}}
         state = {"running": True, "ready": True, "recording": True, "paused": False, "streaming": True}
-        with patch.object(obs, "capture_options", return_value=options), \
+        with patch.object(obs_options, "capture_options", return_value=options), \
                 patch.object(obs, "websocket_command", return_value=["obs-cmd"]), patch.object(obs.subprocess, "run", side_effect=run):
             details = obs.details()
         self.assertEqual((details["recordingSeconds"], details["recordingBytes"], details["streamingSeconds"]), (65, 2048, 4))
@@ -243,16 +252,16 @@ class ObsControlTests(unittest.TestCase):
         def run(command, **options):
             calls.append(command[1:])
             return SimpleNamespace(returncode=0, stdout={"current": "Current scene: Desk\n",
-                                                        "list": "Available scenes:\n  - Desk\n  - Game\n"}.get(command[2], ""))
+                                                         "list": "Available scenes:\n  - Desk\n  - Game\n"}.get(command[2], ""))
 
         options = {"mic": {"sources": ["Mic"]}, "webcam": {"sources": ["Cam"]}}
-        with patch.object(obs, "capture_options", return_value=options), patch.object(obs, "save_capture_option") as save, \
-                patch.object(obs.subprocess, "run", side_effect=run):
-            obs.live_control(["obs-cmd"], "mic-mute", None)
-            obs.live_control(["obs-cmd"], "camera-off", None)
-            obs.live_control(["obs-cmd"], "scene", "Game")
+        with patch.object(obs_options, "capture_options", return_value=options), patch.object(obs_options, "save_capture_option") as save, \
+                patch.object(obs_options.subprocess, "run", side_effect=run):
+            obs_options.live_control(["obs-cmd"], "mic-mute", None)
+            obs_options.live_control(["obs-cmd"], "camera-off", None)
+            obs_options.live_control(["obs-cmd"], "scene", "Game")
             with self.assertRaisesRegex(RuntimeError, "no longer exists"):
-                obs.live_control(["obs-cmd"], "scene", "Gone")
+                obs_options.live_control(["obs-cmd"], "scene", "Gone")
         self.assertIn(["audio", "mute", "Mic"], calls)
         self.assertIn(["scene-item", "disable", "Desk", "Cam"], calls)
         self.assertIn(["scene", "switch", "Game"], calls)
@@ -374,7 +383,7 @@ class ObsControlTests(unittest.TestCase):
             path = self.websocket_file(directory, '{"server_enabled": false, "auth_required": true, '
                                                   '"server_password": "kept", "server_port": 4460}')
             with patch.object(obs, "user_config", side_effect=lambda relative: Path(directory) / relative), \
-                    patch.object(obs, "obs_running", return_value=False):
+                    patch.object(obs_options, "obs_running", return_value=False):
                 obs.websocket_command()
             config = json.loads(path.read_text())
             self.assertEqual((config["server_enabled"], config["auth_required"], config["server_password"],
@@ -385,7 +394,7 @@ class ObsControlTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = self.websocket_file(directory)
             with patch.object(obs, "user_config", side_effect=lambda relative: Path(directory) / relative), \
-                    patch.object(obs, "obs_running", return_value=False):
+                    patch.object(obs_options, "obs_running", return_value=False):
                 obs.websocket_command()
             config = json.loads(path.read_text())
             self.assertTrue(config["server_enabled"] and config["auth_required"])
@@ -396,7 +405,7 @@ class ObsControlTests(unittest.TestCase):
             original = '{"server_enabled": false}'
             path = self.websocket_file(directory, original)
             with patch.object(obs, "user_config", side_effect=lambda relative: Path(directory) / relative), \
-                    patch.object(obs, "obs_running", return_value=True), \
+                    patch.object(obs_options, "obs_running", return_value=True), \
                     self.assertRaisesRegex(RuntimeError, "Close OBS once"):
                 obs.websocket_command()
             self.assertEqual(path.read_text(), original, "OBS would overwrite the change when it exits")
@@ -427,12 +436,12 @@ class ObsControlTests(unittest.TestCase):
 class DefaultCollectionTests(unittest.TestCase):
     def test_seed_and_preserve_existing_collection(self):
         with tempfile.TemporaryDirectory() as directory, \
-                patch.object(obs, "user_config", side_effect=lambda relative: Path(directory) / relative), \
-                patch.object(obs, "obs_running", return_value=False), \
-                patch.object(obs, "first_capture_device", return_value="/dev/video2"), \
-                patch.object(obs, "OPTIONS_FILE", Path(directory) / "options.json"):
-            self.assertTrue(obs.default_scene_collection())
-            collection = obs.scene_collection()
+                patch.object(obs_options, "user_config", side_effect=lambda relative: Path(directory) / relative), \
+                patch.object(obs_options, "obs_running", return_value=False), \
+                patch.object(obs_options, "first_capture_device", return_value="/dev/video2"), \
+                patch.object(obs_options, "OPTIONS_FILE", Path(directory) / "options.json"):
+            self.assertTrue(obs_options.default_scene_collection())
+            collection = obs_options.scene_collection()
             sources = collection["sources"]
             camera = next(source for source in sources if source["id"] == "v4l2_input")
             self.assertEqual(camera["settings"]["device_id"], "/dev/video2")
@@ -448,37 +457,37 @@ class DefaultCollectionTests(unittest.TestCase):
             self.assertEqual(len(identifiers), len(set(identifiers)))
             for key in ("DesktopAudioDevice1", "AuxAudioDevice1"):
                 self.assertEqual(collection[key]["settings"], {"device_id": "default"})
-            self.assertTrue(obs.capture_options()["mic"]["available"])
-            self.assertTrue(obs.capture_options()["webcam"]["available"])
+            self.assertTrue(obs_options.capture_options()["mic"]["available"])
+            self.assertTrue(obs_options.capture_options()["webcam"]["available"])
             files = {path: path.read_bytes() for path in Path(directory).rglob("*") if path.is_file()}
-            self.assertFalse(obs.default_scene_collection())
+            self.assertFalse(obs_options.default_scene_collection())
             self.assertEqual(files, {path: path.read_bytes() for path in files})
 
     def test_running_obs_and_other_collections_are_untouched(self):
         with tempfile.TemporaryDirectory() as directory, \
-                patch.object(obs, "user_config", side_effect=lambda relative: Path(directory) / relative), \
-                patch.object(obs, "obs_running", return_value=True):
-            self.assertFalse(obs.default_scene_collection())
+                patch.object(obs_options, "user_config", side_effect=lambda relative: Path(directory) / relative), \
+                patch.object(obs_options, "obs_running", return_value=True):
+            self.assertFalse(obs_options.default_scene_collection())
             self.assertEqual(list(Path(directory).iterdir()), [])
             scenes = Path(directory) / "obs-studio/basic/scenes"
             scenes.mkdir(parents=True)
             existing = scenes / "Personal.json"
             existing.write_bytes(b"user collection")
-            with patch.object(obs, "obs_running", return_value=False):
-                self.assertFalse(obs.default_scene_collection())
+            with patch.object(obs_options, "obs_running", return_value=False):
+                self.assertFalse(obs_options.default_scene_collection())
             self.assertEqual(existing.read_bytes(), b"user collection")
             self.assertEqual(list(scenes.iterdir()), [existing])
 
     def test_missing_camera_and_explicit_collection_settings(self):
         with tempfile.TemporaryDirectory() as directory, \
-                patch.object(obs, "user_config", side_effect=lambda relative: Path(directory) / relative), \
-                patch.object(obs, "obs_running", return_value=False), \
-                patch.object(obs, "first_capture_device", return_value=None):
+                patch.object(obs_options, "user_config", side_effect=lambda relative: Path(directory) / relative), \
+                patch.object(obs_options, "obs_running", return_value=False), \
+                patch.object(obs_options, "first_capture_device", return_value=None):
             settings = Path(directory) / "obs-studio/user.ini"
             settings.parent.mkdir()
             original = "[Basic]\nSceneCollection=Personal\nSceneCollectionFile=Personal\n[Other]\nKey=value\n"
             settings.write_text(original)
-            self.assertTrue(obs.default_scene_collection())
+            self.assertTrue(obs_options.default_scene_collection())
             self.assertEqual(settings.read_text(), original)
             collection = json.loads((settings.parent / "basic/scenes/Untitled.json").read_text())
             self.assertEqual(collection["sources"][1]["settings"], {})
@@ -498,4 +507,4 @@ class DefaultCollectionTests(unittest.TestCase):
                 capabilities.calls += 1
             capabilities.calls = 0
             with patch.object(Path, 'glob', return_value=[metadata, camera]), patch.object(fcntl, 'ioctl', side_effect=capabilities):
-                self.assertEqual(obs.first_capture_device(), str(camera))
+                self.assertEqual(obs_options.first_capture_device(), str(camera))
