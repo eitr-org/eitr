@@ -61,13 +61,21 @@ target_state() {
 install_desktop_package() {
   local build_dir
   local -a package
-  local name
+  local name recipe
+  local -a lockscreens=()
   mkdir -p -- "${XDG_CACHE_HOME:-$HOME/.cache}/eitr"
   # Kept on disk, not in a tmpfs /tmp: the tree includes large wallpapers.
   build_dir="$(mktemp -d -- "${XDG_CACHE_HOME:-$HOME/.cache}/eitr/package.XXXXXX")"
   cleanup_paths+=("$build_dir")
   export BUILDDIR="$build_dir/build" PKGDEST="$build_dir/out" PKGEXT=.pkg.tar
   while IFS= read -r name; do
+    if [[ $name == eitr-lockscreen-* ]]; then
+      if (( ${#lockscreens[@]} == 0 )); then
+        (cd "$repo_root/distro/pkg/eitr-lockscreens" && makepkg --nodeps --noconfirm --force)
+        mapfile -t lockscreens < <(cd "$repo_root/distro/pkg/eitr-lockscreens" && makepkg --packagelist)
+      fi
+      continue
+    fi
     (cd "$repo_root/distro/pkg/$name" && makepkg --syncdeps --noconfirm --force)
     mapfile -t package < <(cd "$repo_root/distro/pkg/$name" && makepkg --packagelist)
     sudo pacman -U --needed -- "${package[@]}"
@@ -75,7 +83,7 @@ install_desktop_package() {
   (cd "$repo_root/distro/pkg/eitr-desktop" && makepkg --nodeps --noconfirm --force)
   mapfile -t package < <(cd "$repo_root/distro/pkg/eitr-desktop" && makepkg --packagelist)
   unset BUILDDIR PKGDEST PKGEXT
-  sudo pacman -U --needed -- "${package[@]}"
+  sudo pacman -U --needed -- "${package[@]}" "${lockscreens[@]}"
 }
 
 # EITR_SHELL_ASSETS names a directory of <name>.tar.zst checkouts that the ISO

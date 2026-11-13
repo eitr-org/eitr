@@ -3,7 +3,7 @@ import QtQuick
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-// Themes & Plugins: clicking an installed plugin opens everything Control Center offers
+// Add-ons: clicking an installed plugin opens everything Control Center offers
 // for it (switch, desktop widgets and bar icons with their settings, details, update and
 // remove) in one sheet over the catalog.
 Rectangle {

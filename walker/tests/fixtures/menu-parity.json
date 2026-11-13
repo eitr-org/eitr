@@ -2587,8 +2587,8 @@
         "submenu": "windows"
       },
       {
-        "text": "Themes & Plugins",
-        "subtext": "Browse installed and official themes and plugins",
+        "text": "Add-ons",
+        "subtext": "Browse themes, plugins and lockscreens",
         "icon": "󰸌",
         "command": "eitr-shell desktop-bar ipc call -- panels show catalog"
       }
@@ -3545,9 +3545,9 @@
     },
     {
       "key": "SUPER + F2",
-      "description": "Toggle Themes & Plugins",
+      "description": "Toggle Add-ons",
       "command": "eitr-shell desktop-bar ipc call -- catalog toggle",
-      "line": "  SUPER + F2                Toggle Themes & Plugins"
+      "line": "  SUPER + F2                Toggle Add-ons"
     },
     {
       "description": "Settings",
@@ -9491,14 +9491,14 @@
       "key": "a0509ac3a7a6e81fcbe51e6e6d16d66d6018dd28cb3c8fff0fc5a70c80ac9589",
       "provider": "menus:style",
       "identifier": "style:5",
-      "text": "Themes & Plugins",
-      "subtext": "Browse installed and official themes and plugins",
+      "text": "Add-ons",
+      "subtext": "Browse themes, plugins and lockscreens",
       "icon": "󰸌",
       "actions": [],
       "keywords": [
-        "Themes & Plugins",
-        "Themes & Plugins",
-        "Browse installed and official themes and plugins"
+        "Add-ons",
+        "Add-ons",
+        "Browse themes, plugins and lockscreens"
       ],
       "menus": [
         "settings",

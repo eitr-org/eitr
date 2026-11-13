@@ -63,8 +63,8 @@
     "submenu": "windows"
   },
   {
-    "text": "Themes & Plugins",
-    "subtext": "Browse installed and official themes and plugins",
+    "text": "Add-ons",
+    "subtext": "Browse themes, plugins and lockscreens",
     "icon": "󰸌",
     "command": "eitr-shell desktop-bar ipc call -- panels show catalog"
   }

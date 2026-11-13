@@ -43,7 +43,7 @@
   },
   {
     "key": "SUPER + F2",
-    "description": "Toggle Themes & Plugins",
+    "description": "Toggle Add-ons",
     "command": "eitr-shell desktop-bar ipc call -- catalog toggle"
   },
   {

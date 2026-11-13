@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / 主题",
     "worlds": "多重世界，",
     "one_desktop": "同一个桌面。",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr 是默认主题，Eitr Light 则是其明亮版本。每一款主题都会为桌面栏、终端、启动器、锁屏、编辑器和应用重新着色，并配有专属壁纸。更多主题（如 Catppuccin、Gruvbox 和 Nord 等共 12 款）可从“主题与插件”目录中安装。",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr 是默认主题，Eitr Light 则是其明亮版本。每一款主题都会为桌面栏、终端、启动器、锁屏、编辑器和应用重新着色，并配有专属壁纸。更多主题（如 Catppuccin、Gruvbox 和 Nord 等共 12 款）可从“附加组件”目录中安装。",
     "light": "明亮",
     "previous_theme": "上一个主题",
     "next_theme": "下一个主题",
@@ -670,8 +670,8 @@
     "islands_alt": "Eitr 空桌面，Islands 桌面栏悬浮在屏幕边缘稍内侧",
     "dynamic_caption": "Dynamic：可展开为面板的动态岛状栏",
     "dynamic_alt": "空桌面上的 Dynamic 动态栏，其左侧岛状结构展开为工作区样式卡片",
-    "catalog_caption": "主题与插件：官方精选、社区与已安装",
-    "catalog_alt": "“主题与插件”窗口列出带有调色板和预览的官方主题",
+    "catalog_caption": "附加组件：官方精选、社区与已安装",
+    "catalog_alt": "“附加组件”窗口列出带有调色板和预览的官方主题",
     "focus_caption": "Focus：标签条下方的双分栏",
     "focus_alt": "Focus 模式，细长标签条下方并排呈现两个分栏",
     "lockscreen_eitr_caption": "带有账户选择器的 Eitr 锁屏",
@@ -705,7 +705,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "官网上展示真实桌面截图，并提供更小体积的下载包",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "插件生态、拥有专属 Neovim 和 VS Code 配色的 Eitr 主题、Focus 模式以及 Islands 桌面栏布局",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "滚动式窗口布局、跨显示器共享或独立划分的工作区、支持查找任意项的“设置”搜索、全“设置”采用线框输入框、标签页与 Material 风格滑块及开关，以及面向 AI 编程助手的 herdr",
-    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "“设置”应用、“主题与插件”窗口、带欢迎导览的用户手册、“连接”中的 Wi-Fi 与蓝牙，以及以 Rune Seal 为首的全新 Eitr 壁纸",
+    "The Settings app, the Add-ons window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "“设置”应用、“附加组件”窗口、带欢迎导览的用户手册、“连接”中的 Wi-Fi 与蓝牙，以及以 Rune Seal 为首的全新 Eitr 壁纸",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "安装程序新增“语言”步骤并支持日语、简体中文与韩语，引入水滴桌面栏布局及其仪表板、支持复制与旋转的插件微件、Eitr 原生密码对话框、多显示器独立壁纸，以及跟随工作所在显示器的通知与录屏"
   },
   "client": {

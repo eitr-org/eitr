@@ -115,3 +115,5 @@ pointing pacman at it with `SigLevel = Required`: the database and packages
 verified, a tampered package was refused, and the personal-only packages were
 absent. The first release (0.3.0 Ymir, 20 packages) was published on 2026-10-14;
 its database and packages verify against `distro/keys/eitr.asc`.
+
+`distro/pkg/eitr-lockscreens/PKGBUILD` builds eight signed optional design packages from committed sources. Each depends on `eitr-desktop` and owns one design, one wrapped SDDM theme and one manifest in `lockscreen-designs.d`. Release and offline payload tooling share this split recipe. Fresh installations include all eight; System Update installs them once on existing desktops, preserving later removals.

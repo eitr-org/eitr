@@ -3,7 +3,7 @@
 The JSON backend is `python3 walker/scripts/actions/install/themes.py` with
 `index URL`, `install URL ID [ID ...]`, `list`, `check`, `update ID` and
 `remove ID`. Each response has `ok` and `result`, or `ok: false` and `error`
-with exit status 1. The Themes & Plugins catalog opens from Walker > Settings > Desktop > Themes & Plugins or SUPER + F2. HTTPS and SSH Git addresses
+with exit status 1. The Add-ons catalog opens from Walker > Settings > Desktop > Add-ons or SUPER + F2. HTTPS and SSH Git addresses
 are accepted; file URLs are reserved for library tests. No repository code,
 checkout filters, hooks, installers or submodules run.
 

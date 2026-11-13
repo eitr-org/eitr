@@ -2,3 +2,11 @@
 eitr-artwork
 eitr-cmux-tui-bin
 eitr-sunshine
+eitr-lockscreen-clockwork-neo-orbital
+eitr-lockscreen-clockwork-tape
+eitr-lockscreen-girl-coffee
+eitr-lockscreen-girl-pillow
+eitr-lockscreen-material-you-dark
+eitr-lockscreen-material-you
+eitr-lockscreen-nothing
+eitr-lockscreen-theme-wallpaper

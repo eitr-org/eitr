@@ -254,7 +254,7 @@ class Builder:
         (self.work / "sources" / name).mkdir(parents=True, exist_ok=True)
         os.environ.update(BUILDDIR=str(self.work / name), SRCDEST=str(self.work / "sources" / name))
         try:
-            return self.makepkg(payload.DISTRO / "pkg" / name, flags)
+            return self.makepkg(payload.DISTRO / "pkg" / ("eitr-lockscreens" if name.startswith("eitr-lockscreen-") else name), flags)
         finally:
             del os.environ["BUILDDIR"], os.environ["SRCDEST"]
 
@@ -262,7 +262,7 @@ class Builder:
         """Archive the full source of every AUR and local package built here (GPL source offer)."""
         destination.mkdir(parents=True, exist_ok=True)
         recipes = {base: directory for base, directory in self.recipes.items() if base in aur}
-        recipes.update({name: payload.DISTRO / "pkg" / name for name in payload.desktop_local() if name != "eitr-artwork"})
+        recipes.update({("eitr-lockscreens" if name.startswith("eitr-lockscreen-") else name): payload.DISTRO / "pkg" / ("eitr-lockscreens" if name.startswith("eitr-lockscreen-") else name) for name in payload.desktop_local() if name != "eitr-artwork"})
         for name, directory in sorted(recipes.items()):
             environment = dict(os.environ, SRCPKGDEST=str(destination), MAKEPKG_CONF=str(payload.DISTRO / "makepkg.conf"))
             if directory.parent == payload.DISTRO / "pkg":
@@ -277,8 +277,9 @@ class Builder:
 
     def build_local_packages(self):
         files = []
-        for name in payload.desktop_local():
-            files.extend(self.build_in_work(name, ["--syncdeps", "--noconfirm", "--needed"]))
+        for name in dict.fromkeys("eitr-lockscreens" if package.startswith("eitr-lockscreen-") else package for package in payload.desktop_local()):
+            flags = ["--nodeps" if name == "eitr-lockscreens" else "--syncdeps", "--noconfirm", "--needed"]
+            files.extend(self.build_in_work(name, flags))
         return files
 
     def create_repository(self, files):

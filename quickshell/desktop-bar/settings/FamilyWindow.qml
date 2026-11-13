@@ -1,7 +1,7 @@
 import ".."
 import QtQuick
 
-// The opaque window shared by Settings, the Handbook and Themes & Plugins: theme
+// The opaque window shared by Settings, the Handbook and Add-ons: theme
 // colours through SettingsPalette, or the website palette when Settings chooses it.
 LibraryWindow {
     id: window

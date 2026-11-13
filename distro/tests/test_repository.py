@@ -240,7 +240,7 @@ class ReleaseDesktopTests(unittest.TestCase):
                                  side_effect=lambda names, repo, work, **options: reused.extend(names)), \
                     patch.object(release, "run"), patch.object(sys, "argv", ["release", "--dry-run", "/tmp/x"]):
                 release.main()
-            self.assertEqual(built, expected)
+            self.assertEqual(built, expected + ["eitr-lockscreen-" + row["id"].replace("/", "-") for row in __import__("eitr_choice_lists").LOCKSCREEN_DESIGNS if not row["builtin"]])
             self.assertEqual(reused, ["linux-1-1-x86_64.pkg.tar.zst", *([artwork] if published else [])])
 
     def test_testing_reuses_optional_packages_it_already_carries(self):

@@ -28,7 +28,8 @@ SHARED_MODULE = ROOT / 'imports/LockscreenComponents'
 LOGIN_WRAPPER = ROOT / 'login'
 MODULE_IMPORT = re.compile(r'^import ' + SHARED_MODULE.name + r'\s*$', re.MULTILINE)
 SDDM_CONFIG = Path('/etc/sddm.conf.d/90-desktop-lockscreen.conf')
-MANIFEST = Path('/usr/share/eitr/lockscreen-designs.json')
+from eitr_lockscreen_packages import manifests
+MANIFEST = Path('/usr/share/eitr/lockscreen-designs.d')
 HELPER = Path('/usr/lib/eitr/desktop-login-select')
 
 
@@ -71,12 +72,14 @@ def link_images(destination, design, package_root):
             path.symlink_to(target)
 
 
-def stage(package_root):
+def stage(package_root, design_id=None, builtin_only=False):
     """Build native greeter assets without privileges or any writes to the host."""
     manifest = {}
     for main_qml in sorted((ROOT / 'themes').rglob('Main.qml')):
         source = main_qml.parent
         design = str(source.relative_to(ROOT / 'themes'))
+        if design_id is not None and design != design_id or builtin_only and design != 'eitr':
+            continue
         theme = PREFIX + design.replace('/', '-')
         if any(c not in 'abcdefghijklmnopqrstuvwxyz0123456789-' for c in theme):
             raise SystemExit(tr('Invalid design ID: {design}', design=design))
@@ -112,9 +115,16 @@ def stage(package_root):
     directory = package_root / 'usr/share/eitr'
     directory.mkdir(parents=True, exist_ok=True)
     directory.chmod(0o755)
-    manifest_path = directory / 'lockscreen-designs.json'
-    manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
-    manifest_path.chmod(0o644)
+    directory = directory / 'lockscreen-designs.d'
+    directory.mkdir(parents=True, exist_ok=True)
+    for design, theme in manifest.items():
+        manifest_path = directory / (design.replace('/', '-') + '.json')
+        manifest_path.write_text(json.dumps({design: theme}, indent=2) + '\n')
+        manifest_path.chmod(0o644)
+    if design_id is not None:
+        if design_id not in manifest:
+            raise ValueError('Unknown lockscreen design')
+        return manifest
     helper = package_root / 'usr/lib/eitr/desktop-login-select'
     helper.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / 'scripts/sddm-select.py', helper)
@@ -131,7 +141,7 @@ def configure_account():
     account = pwd.getpwuid(int(os.environ['SUDO_UID']))
     if not account.pw_name or any(c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-' for c in account.pw_name):
         raise SystemExit(tr('Unsupported account name for sudo policy'))
-    manifest = json.loads(MANIFEST.read_text())
+    manifest = manifests(MANIFEST)
     if not HELPER.is_file():
         raise SystemExit(tr('Install eitr-desktop before configuring login selection'))
     policy = Path('/etc/sudoers.d/desktop-login-select')
@@ -155,8 +165,10 @@ def configure_account():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--stage', type=Path, metavar='PACKAGE_ROOT')
+    parser.add_argument('--design')
+    parser.add_argument('--builtin-only', action='store_true')
     args = parser.parse_args()
     if args.stage:
-        stage(args.stage)
+        stage(args.stage, args.design, args.builtin_only)
     else:
         configure_account()

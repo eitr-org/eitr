@@ -1,6 +1,6 @@
 # Temas, papéis de parede e estilo
 
-Configurações (**SUPER + ,**) inclui os controles de Aparência; **Mais temas** abre o catálogo separado de temas e plugins (**SUPER + F2**).
+Configurações (**SUPER + ,**) inclui os controles de Aparência; **Mais temas** abre o catálogo separado de Complementos (**SUPER + F2**).
 
 ## Layout das janelas
 
@@ -11,7 +11,7 @@ Rolagem mostra Direção (Direita, Esquerda, Baixo, Cima), Largura padrão da co
 Somente em Rolagem: **SUPER + ALT + setas** muda o foco; **SUPER + ALT + SHIFT + Esquerda/Direita** troca as colunas; **SUPER + ALT + Equal/Minus** alterna a largura entre um terço, metade, dois terços e inteira. O ciclo redimensiona a coluna em foco; a largura padrão vale para colunas novas. Veja a [referência de teclado](handbook:shortcuts).
 
 
-## Catálogo de temas e plugins
+## Catálogo de Complementos
 
 O catálogo compartilha a moldura, a barra lateral, o cabeçalho de página e os
 cartões da janela de Configurações. Ele segue as cores do tema, ou a paleta do site
@@ -22,7 +22,7 @@ direita ficam o título, a descrição, o filtro Todas, Claro e Escuro para os t
 uma galeria com rolagem independente. Cima/Baixo percorre a barra; Direita ou Tab
 entra no conteúdo. Esquerda na primeira coluna volta à barra lateral.
 
-Abra **Mais temas** em Configurações > Aparência > Tema e papel de parede ou pressione **SUPER + F2**. Temas e plugins é uma janela separada. Veja [Configurações](handbook:system) para navegar.
+Abra **Mais temas** em Configurações > Aparência > Tema e papel de parede ou pressione **SUPER + F2**. Complementos é uma janela separada. Veja [Configurações](handbook:system) para navegar.
 
 O catálogo é uma janela que lembra seu tamanho. Segure SUPER e arraste com o botão esquerdo para mover ou com o direito para redimensionar. Os atalhos normais permitem organizar em mosaico ou enviar para outro espaço de trabalho. Abrir novamente foca a janela existente, mesmo em outro espaço. SUPER + F2 fecha quando ela está focada.
 
@@ -77,6 +77,12 @@ Plugins têm todas as permissões da sua conta. Enter confirma e Escape cancela.
 Os temas integrados vêm com o Eitr e não podem ser removidos. A lixeira de um tema baixado exclui o pacote instalado; o tema atual não pode ser removido.
 
 Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar na página atual por nome ou descrição. As palavras podem estar em qualquer ordem; Escape limpa a pesquisa primeiro.
+
+
+### Telas de bloqueio em Complementos
+
+Abra **Complementos > Telas de bloqueio > Oficial** para instalar desenhos do repositório de pacotes assinados do Eitr. Instalar e remover pedem a senha de administrador na janela do Eitr. **Instalado** mostra os desenhos instalados; escolha qual usar em **Configurações > Tela de bloqueio** ou no Walker. **Eitr** é integrado e não pode ser removido. O desenho usado pela sessão ou pela tela de login mostra **Atual** e não tem lixeira. Suas telas baseadas em um desenho removido ficam ocultas, nunca são apagadas, e reaparecem ao reinstalá-lo. A Atualização do Sistema instala os oito pacotes opcionais uma única vez; instalações novas também os incluem. Remoções posteriores são preservadas.
+
 
 ## Escolher tema e papel de parede
 

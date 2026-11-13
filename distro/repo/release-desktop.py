@@ -49,26 +49,34 @@ def require_pushed_head():
     return head[:7]
 
 
+def recipe(name):
+    return ROOT / "distro/pkg" / ("eitr-lockscreens" if name.startswith("eitr-lockscreen-") else name)
+
+
 def build(name, work):
     print(f"Building {name} from HEAD…", flush=True)
     output = work / "packages"
     output.mkdir(exist_ok=True)
     environment = dict(os.environ, BUILDDIR=str(work / "build"), PKGDEST=str(output), SRCDEST=str(work / "sources"))
+    existing = [path for path in output.glob("*.pkg.tar.zst") if publish.package_name(path) == name]
+    if existing:
+        return existing[0]
     with open(work / f"makepkg-{name}.log", "w") as log:
         result = subprocess.run(["makepkg", "--nodeps", "--noconfirm", "--force"],
-                                cwd=ROOT / "distro/pkg" / name, env=environment, stdout=log, stderr=log)
+                                cwd=recipe(name), env=environment, stdout=log, stderr=log)
     if result.returncode:
         # The work directory is temporary and gone by the time anyone reads the path,
         # so the end of the log goes into the error itself.
         tail = "\n".join((work / f"makepkg-{name}.log").read_text(errors="replace").splitlines()[-25:])
         raise RuntimeError(f"makepkg failed for {name}:\n{tail}")
-    package, = output.glob(f"{name}-*.pkg.tar.zst")
+    package, = [path for path in output.glob("*.pkg.tar.zst") if publish.package_name(path) == name]
     return package
 
 
 def package_file(name):
     """The file name makepkg would produce for distro/pkg/NAME at HEAD."""
-    return Path(text(["makepkg", "--packagelist"], cwd=ROOT / "distro/pkg" / name).splitlines()[0]).name
+    return next(Path(line).name for line in text(["makepkg", "--packagelist"], cwd=recipe(name)).splitlines()
+                if publish.package_name(Path(line)) == name)
 
 
 def fetch(url, destination):

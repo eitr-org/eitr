@@ -39,11 +39,13 @@ def load_catalog(path=CATALOG):
     catalog = json.loads(path.read_text())
     for group in ('workspace_styles', 'lockscreen_designs'):
         rows = catalog[group]
-        fields = {'id', 'label', 'handbook_labels'} if group == 'workspace_styles' else {'id', 'label'}
+        fields = {'id', 'label', 'handbook_labels'} if group == 'workspace_styles' else {'id', 'label', 'builtin'}
         if not rows or any(set(row) != fields or
                            any(not isinstance(row[key], str) or not row[key] for key in ('id', 'label'))
                            for row in rows):
             raise ValueError(f'Invalid {group} rows')
+        if group == 'lockscreen_designs' and any(not isinstance(row['builtin'], bool) or row['builtin'] != (row['id'] == 'eitr') for row in rows):
+            raise ValueError('Only Eitr is a built-in lockscreen design')
         if group == 'workspace_styles':
             for row in rows:
                 translations = row['handbook_labels']
@@ -85,6 +87,8 @@ def lua_string(text):
 
 
 def lua_value(value, indent='    '):
+    if isinstance(value, bool):
+        return 'true' if value else 'false'
     if isinstance(value, str):
         return lua_string(value)
     if isinstance(value, list):
@@ -94,7 +98,7 @@ def lua_value(value, indent='    '):
 
 def modules(catalog):
     """Whole generated files for the ordered groups, keyed by repository path."""
-    groups = {'workspaceModes': 'workspace_modes', 'aboutLogos': 'about_logos', 'windowLayouts': 'window_layouts', 'scrollingDirections': 'scrolling_directions', 'scrollingWidths': 'scrolling_widths', 'scrollingFocusFit': 'scrolling_focus_fit', 'workspaceStyles': 'workspace_styles', 'windowGaps': 'window_gaps', 'barLayouts': 'bar_layouts', 'barAppearances': 'bar_appearances', 'updateChannels': 'update_channels'}
+    groups = {'lockscreenDesigns': 'lockscreen_designs', 'workspaceModes': 'workspace_modes', 'aboutLogos': 'about_logos', 'windowLayouts': 'window_layouts', 'scrollingDirections': 'scrolling_directions', 'scrollingWidths': 'scrolling_widths', 'scrollingFocusFit': 'scrolling_focus_fit', 'workspaceStyles': 'workspace_styles', 'windowGaps': 'window_gaps', 'barLayouts': 'bar_layouts', 'barAppearances': 'bar_appearances', 'updateChannels': 'update_channels'}
     javascript = ['.pragma library', f'// {GENERATED_NOTICE}', '']
     for name, group in groups.items():
         # ASCII escapes keep editors from dropping the icon glyphs.
@@ -151,7 +155,7 @@ def projections(catalog):
     yield bar + 'scripts/workspace-color.py', r'^if style not in [^\n]*:$', 'if style not in ' + repr(tuple(styles)) + ':'
     yield 'quickshell/lockscreen/scripts/settings.py', r'^NAMES = \{.*?^\}', 'NAMES = {\n' + ''.join(f'    {identifier!r}: {label!r},\n' for identifier, label in names.items()) + '}'
     gallery = '[\n' + ',\n'.join('        {id: ' + json.dumps(identifier) + ', title: Eitr.I18n.tr(' + json.dumps(label, ensure_ascii=False) + ')}' for identifier, label in names.items()) + '\n    ]'
-    yield 'quickshell/lockscreen/design-gallery.qml', r'(?<=readonly property var designs: )\[.*?^    \]', gallery
+    yield 'quickshell/lockscreen/design-gallery.qml', r'(?<=readonly property var catalogDesigns: )\[.*?^    \]', gallery
 
 
 def check_documentation(catalog, root=ROOT):

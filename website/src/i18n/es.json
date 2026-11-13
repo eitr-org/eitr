@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / Temas",
     "worlds": "mundos,",
     "one_desktop": "un escritorio.",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr es el tema predeterminado, y Eitr Light su versión clara. Cada tema recolorea la barra, el terminal, el lanzador, la pantalla de bloqueo, los editores y las aplicaciones, y trae sus propios fondos. Doce más, como Catppuccin, Gruvbox y Nord, se instalan desde el catálogo Temas y plugins.",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr es el tema predeterminado, y Eitr Light su versión clara. Cada tema recolorea la barra, el terminal, el lanzador, la pantalla de bloqueo, los editores y las aplicaciones, y trae sus propios fondos. Doce más, como Catppuccin, Gruvbox y Nord, se instalan desde el catálogo Complementos.",
     "light": "claro",
     "previous_theme": "Tema anterior",
     "next_theme": "Siguiente tema",
@@ -670,8 +670,8 @@
     "islands_alt": "Un escritorio Eitr vacío con la barra Islands flotando separada del borde",
     "dynamic_caption": "Dinámico: islas que crecen hasta ser sus paneles",
     "dynamic_alt": "La barra dinámica en un escritorio vacío, con su isla izquierda convertida en la tarjeta de estilo de espacios",
-    "catalog_caption": "Temas y plugins: oficiales, de la comunidad e instalados",
-    "catalog_alt": "La ventana Temas y plugins con temas oficiales, paletas y vistas previas",
+    "catalog_caption": "Complementos: oficiales, de la comunidad e instalados",
+    "catalog_alt": "La ventana Complementos con temas oficiales, paletas y vistas previas",
     "focus_caption": "Focus: dos paneles bajo la franja de pestañas",
     "focus_alt": "Modo Focus con dos paneles uno al lado del otro bajo una fina franja de pestañas",
     "lockscreen_eitr_caption": "La pantalla de bloqueo Eitr con el selector de cuentas",
@@ -705,7 +705,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "Capturas reales del escritorio en el sitio y descargas más pequeñas",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "Plugins, el tema Eitr con colores propios para Neovim y VS Code, el modo Focus y el diseño de barra Islands",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "Una disposición de ventanas con desplazamiento, espacios de trabajo compartidos o repartidos entre monitores, una búsqueda en Configuración que encuentra cualquier ajuste, campos con contorno, pestañas, deslizadores e interruptores Material en Configuración, y herdr para agentes de programación con IA",
-    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "La app de Ajustes, la ventana de Temas y Plugins, un Manual que se abre con un recorrido de bienvenida, Wi-Fi y Bluetooth en Conexiones y nuevos fondos de Eitr encabezados por Rune Seal",
+    "The Settings app, the Add-ons window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "La app de Ajustes, la ventana de Complementos, un Manual que se abre con un recorrido de bienvenida, Wi-Fi y Bluetooth en Conexiones y nuevos fondos de Eitr encabezados por Rune Seal",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "Japonés, chino simplificado y coreano con un paso de Idioma en el instalador, el diseño de barra Drop y su panel, widgets de plugins que puedes copiar y girar, el diálogo de contraseña propio de Eitr, un fondo por pantalla, y notificaciones y grabación que siguen a la pantalla que usas"
   },
   "client": {

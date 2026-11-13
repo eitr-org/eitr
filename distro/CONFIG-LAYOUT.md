@@ -477,3 +477,5 @@ The user-defaults manifest seeds the same source to `~/.claude/skills/eitr/` for
 Claude Code and `~/.agents/skills/eitr/` for Codex, Gemini CLI and OpenCode. Updates replace unedited copies and preserve user-created
 or edited copies with `.eitr-new` review files. A login migration seeds missing
 copies on existing installations; it never starts an assistant or signs in.
+
+Lockscreen manifests are per-package files in `/usr/share/eitr/lockscreen-designs.d/`. The desktop owns Eitr and all previews in `quickshell/lockscreen/previews/`; optional design packages own their session and SDDM trees. Machine state in `/var/lib/eitr/lockscreen-packages-migrated` records the one-time System Update migration.

@@ -70,12 +70,20 @@ package() {
   install -Dm644 distro/release.json "$pkgdir/usr/share/eitr/release.json"
   install -Dm644 quickshell/lockscreen/scripts/install-login.py \
     "$pkgdir/usr/share/eitr/quickshell/lockscreen/scripts/install-login.py"
-  python3 quickshell/lockscreen/scripts/install-login.py --stage "$pkgdir"
+  python3 quickshell/lockscreen/scripts/install-login.py --stage "$pkgdir" --builtin-only
+  install -dm755 "$pkgdir/usr/share/eitr/quickshell/lockscreen/previews"
+  while IFS= read -r -d '' preview; do
+    local design="${preview#quickshell/lockscreen/themes/}"
+    design="${design%/preview.png}"
+    install -m644 "$preview" "$pkgdir/usr/share/eitr/quickshell/lockscreen/previews/${design//\//-}.png"
+    [[ $design == eitr ]] || rm -rf -- "$pkgdir/usr/share/eitr/quickshell/lockscreen/themes/$design"
+  done < <(find quickshell/lockscreen/themes -name preview.png -print0)
   install -Dm644 -t "$pkgdir/usr/share/eitr" \
     distro/software.json distro/removable-apps.json distro/plugin-blocklist.json distro/packages.txt distro/aur-packages.txt distro/local-packages.txt distro/installers.json distro/PLUGINS.md distro/THEMES.md distro/RECOVERY.md distro/SECURE-BOOT.md distro/FACTORY-RESET.md \
     distro/system-update-policy.conf
   install -dm755 "$pkgdir/usr/lib/eitr"
   ln -s /usr/share/eitr/lib/eitr_bootstrap.py "$pkgdir/usr/lib/eitr/eitr_bootstrap.py"
+  install -Dm644 distro/system/eitr_lockscreen_packages_root.py "$pkgdir/usr/lib/eitr/eitr_lockscreen_packages_root.py"
   install -Dm644 distro/system/eitr_plugin_packages_root.py "$pkgdir/usr/lib/eitr/eitr_plugin_packages_root.py"
   install -Dm644 distro/system/eitr_vpn_root.py "$pkgdir/usr/lib/eitr/eitr_vpn_root.py"
   install -Dm644 distro/system/eitr_remote.py "$pkgdir/usr/lib/eitr/eitr_remote.py"

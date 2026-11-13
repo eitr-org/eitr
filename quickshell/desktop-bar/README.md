@@ -196,7 +196,7 @@ Workspaces, Lockscreen, Cursor and Terminal folds. Each open fold encloses its
 header and padded options in one subtle surface. Bar groups Layout, Position,
 Appearance, Show on, Clock, Media style and Behavior; Behavior holds Auto-hide,
 Dock and Reduce motion. Theme & Wallpaper opens the carousels, font picker and the
-Themes & Plugins catalog;
+Add-ons catalog;
 Workspaces includes marker previews. Settings contains
 inline keyboard and display/night-light configuration. Keyboard rows include
 removal controls, disabled when only one layout remains. General ends
@@ -1177,11 +1177,12 @@ sliding gold marker; entries are `{id, title, rune, group, groupRune}`),
 `FamilyPageHeader` (gold rune breadcrumb, Cinzel title and description), `ControlCard`,
 `ControlRow` and `PanelButton`. `SettingsWindow` uses the bar's `eitr-catalog` app id
 and a translated Settings title. SUPER+comma toggles it; SUPER+I toggles Control
-Center. Its opaque theme canvas has no blur. Like the Handbook and Themes & Plugins,
+Center. Its opaque theme canvas has no blur. Like the Handbook and Add-ons,
 it opens at its default size every time; a resize lasts until it closes. Outside clicks leave it
 open. `settings toggle`, `settings show <page/tab>` and `settings close` control it.
-Themes and Plugins have their own catalog window in the same family: its sidebar
-lists Installed, Official and Community under Themes and Plugins, the page header names
+Add-ons has its own catalog window in the same family: its sidebar
+lists Installed, Official and Community under Themes and under Plugins, plus Installed
+and Official under Lockscreens. The page header names
 the current source, and cards use the Settings card style with an All/Light/Dark
 `ChoiceSegmented` filter. `catalog toggle`,
 SUPER+F2, `panels show catalog`, `host.showCatalog()` and `showThemes(tone)` open
@@ -1192,7 +1193,7 @@ that window. Plugin review actions retain their existing reviewed terminal flow.
 keywords and tab routes. System is the first page and includes the profile
 and system overview; `settings show you` remains an alias. Its nine palette swatches
 match the theme cards: background, foreground, accent and color1 through color6.
-Themes and Plugins are absent from Settings navigation and search.
+Add-ons is absent from Settings navigation and search.
 
 Settings uses bundled Cinzel titles, Elder Futhark group captions,
 Noto Sans Runic page marks and the light/dark `SiteStyle.bronze` ink owned by

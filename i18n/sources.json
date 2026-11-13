@@ -136,6 +136,9 @@
     "Add to a display": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
+    "Add-ons": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Adjust blur across the desktop.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
@@ -1246,6 +1249,9 @@
     "Installed assistants and collaboration preferences.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Installed lockscreen designs. Choose a design in Settings > Lockscreen.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Interface": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -1407,6 +1413,9 @@
     ],
     "Lockscreen design and idle settings.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Lockscreens": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Logout": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
@@ -1770,6 +1779,9 @@
     "Official": [
       "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginDetails.qml"
+    ],
+    "Official Eitr lockscreen designs. Installing requires the administrator password.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Official Eitr plugin": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -2840,9 +2852,6 @@
     "Themes": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
-    "Themes & Plugins": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
     "Themes from the Eitr project, ready to install.": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
@@ -3204,6 +3213,9 @@
     "Your last working configuration is still running.": [
       "quickshell/desktop-bar/components/ReloadErrorPopup.qml"
     ],
+    "Your own lockscreens using this design are hidden until you reinstall it.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    ],
     "Your system at a glance.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -3485,6 +3497,9 @@
     "Add {provider} Account": [
       "elephant/cloud-context-entries.lua"
     ],
+    "Add-ons": [
+      "elephant/menu-rows/style.json"
+    ],
     "After enrollment · password fallback retained": [
       "elephant/menu-rows/fido2.json"
     ],
@@ -3617,11 +3632,11 @@
     "Browse bucket": [
       "elephant/menus/aws-s3-browse-bucket-1.lua"
     ],
-    "Browse installed and official themes and plugins": [
-      "elephant/menu-rows/style.json"
-    ],
     "Browse the keyboard and mouse shortcuts": [
       "elephant/menu-rows/apps-keys.json"
+    ],
+    "Browse themes, plugins and lockscreens": [
+      "elephant/menu-rows/style.json"
     ],
     "Browsers": [
       "elephant/menu-rows/install.json",
@@ -5738,9 +5753,6 @@
     "Theme changes do not touch device lighting": [
       "elephant/menus/lighting.lua"
     ],
-    "Themes & Plugins": [
-      "elephant/menu-rows/style.json"
-    ],
     "This CLI has no supported isolated account folder": [
       "elephant/ai-account-entries.lua"
     ],
@@ -6574,13 +6586,13 @@
     "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": [
       "tools/handbook-build.py"
     ],
+    "Toggle Add-ons": [
+      "tools/handbook-build.py"
+    ],
     "Toggle EITR handbook": [
       "tools/handbook-build.py"
     ],
     "Toggle Focus": [
-      "tools/handbook-build.py"
-    ],
-    "Toggle Themes & Plugins": [
       "tools/handbook-build.py"
     ],
     "Toggle automatic locking.": [
@@ -8299,6 +8311,9 @@
     ],
     "Install Ghostty? Enter: install · Esc: cancel": [
       "walker/scripts/actions/style/terminal.py"
+    ],
+    "Install a lockscreen design from Add-ons first.": [
+      "walker/scripts/actions/style/own.py"
     ],
     "Install alongside the existing systems in {size_text} of free space": [
       "distro/archinstall/installer-ui.py"
@@ -10149,6 +10164,7 @@
       "walker/scripts/actions/install/software_packages.py"
     ],
     "System package operation failed or was cancelled.": [
+      "distro/lib/eitr_lockscreen_packages.py",
       "distro/lib/eitr_plugin_packages.py"
     ],
     "System packages": [
@@ -10311,6 +10327,9 @@
     ],
     "The collaboration state is invalid; settings were left unchanged.": [
       "distro/lib/eitr_collaboration.py"
+    ],
+    "The current lockscreen cannot be removed.": [
+      "distro/lib/eitr_lockscreen_packages.py"
     ],
     "The current password is not correct.": [
       "walker/scripts/actions/system/security.py"

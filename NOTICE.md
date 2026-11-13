@@ -42,6 +42,15 @@ packaged by EITR. Their licenses travel inside each package under
 | eitr-cmux-tui-bin | https://cmux.com/tui | GPL-3.0-or-later |
 | eitr-sunshine (Sunshine, upstream's prebuilt release) | https://github.com/LizardByte/Sunshine | GPL-3.0-only |
 
+| eitr-lockscreen-clockwork-neo-orbital | Eitr / qylock, sources in `quickshell/lockscreen/themes/clockwork/neo-orbital` | GPL-3.0-only, GPL-3.0-or-later, CC BY 4.0 (per file) |
+| eitr-lockscreen-clockwork-tape | Eitr / qylock, sources in `quickshell/lockscreen/themes/clockwork/tape` | GPL-3.0-only, GPL-3.0-or-later, CC BY 4.0 (per file) |
+| eitr-lockscreen-girl-coffee | Eitr / qylock, sources in `quickshell/lockscreen/themes/girl-coffee` | GPL-3.0-only, GPL-3.0-or-later, CC BY 4.0 (per file) |
+| eitr-lockscreen-girl-pillow | Eitr / qylock, sources in `quickshell/lockscreen/themes/girl-pillow` | GPL-3.0-only, GPL-3.0-or-later, CC BY 4.0 (per file) |
+| eitr-lockscreen-material-you-dark | Eitr / qylock, sources in `quickshell/lockscreen/themes/material-you-dark` | GPL-3.0-only, GPL-3.0-or-later, CC BY 4.0 (per file) |
+| eitr-lockscreen-material-you | Eitr / qylock, sources in `quickshell/lockscreen/themes/material-you` | GPL-3.0-only, GPL-3.0-or-later, CC BY 4.0 (per file) |
+| eitr-lockscreen-nothing | Eitr / qylock, sources in `quickshell/lockscreen/themes/nothing` | GPL-3.0-only, GPL-3.0-or-later, CC BY 4.0 (per file) |
+| eitr-lockscreen-theme-wallpaper | Eitr / qylock, sources in `quickshell/lockscreen/themes/theme-wallpaper` | GPL-3.0-only, GPL-3.0-or-later, CC BY 4.0 (per file) |
+
 The ISO also contains official Arch Linux packages, unmodified. Each keeps its
 own license under `/usr/share/licenses/`.
 

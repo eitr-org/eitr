@@ -722,7 +722,7 @@
   "Theme palette": "Theme palette",
   "Theme, wallpaper, fonts and cursor.": "Theme, wallpaper, fonts and cursor.",
   "Themes": "Themes",
-  "Themes & Plugins": "Themes & Plugins",
+  "Add-ons": "Add-ons",
   "Themes from the Eitr project, ready to install.": "Themes from the Eitr project, ready to install.",
   "Themes on this computer. Choose one to apply it.": "Themes on this computer. Choose one to apply it.",
   "Themes shared by other people. Review them before installing.": "Themes shared by other people. Review them before installing.",
@@ -985,5 +985,9 @@
   "Float the islands off the screen edge, or attach them to it.": "Float the islands off the screen edge, or attach them to it.",
   "Island style": "Island style",
   "Meet the screen edge with slopes or straight sides.": "Meet the screen edge with slopes or straight sides.",
-  "Side style": "Side style"
+  "Side style": "Side style",
+  "Installed lockscreen designs. Choose a design in Settings > Lockscreen.": "Installed lockscreen designs. Choose a design in Settings > Lockscreen.",
+  "Lockscreens": "Lockscreens",
+  "Official Eitr lockscreen designs. Installing requires the administrator password.": "Official Eitr lockscreen designs. Installing requires the administrator password.",
+  "Your own lockscreens using this design are hidden until you reinstall it.": "Your own lockscreens using this design are hidden until you reinstall it."
 }

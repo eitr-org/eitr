@@ -1,7 +1,7 @@
 # Themes, wallpapers and style
 
 Settings (**SUPER + ,**) includes Appearance controls; **More themes** opens
-the separate Themes & Plugins catalog window (**SUPER + F2**).
+the separate Add-ons catalog window (**SUPER + F2**).
 
 ## Window layout
 
@@ -12,19 +12,19 @@ Scrolling reveals Direction (Right, Left, Down, Up), Default column width (One t
 Only while Scrolling is selected: **SUPER + ALT + arrows** focuses windows; **SUPER + ALT + SHIFT + Left/Right** swaps columns; **SUPER + ALT + Equal/Minus** cycles column width through one third, half, two thirds and full. Width cycles resize the focused column; Default column width controls new columns. See the generated [keyboard reference](handbook:shortcuts).
 
 
-## Themes & Plugins catalog
+## Add-ons
 
 The catalog shares the Settings window's frame, sidebar, page header and cards.
 It follows the theme's colours, or the Eitr website palette when Settings chooses
 it, with the bundled Cinzel lettering.
 
 The left sidebar lists Installed, Official and Community under Themes and under
-Plugins. The right side has the page title, description, the All, Light and Dark
+Plugins, plus Installed and Official under Lockscreens. The right side has the page title, description, the All, Light and Dark
 filter for themes and an independently scrolling gallery. Up/Down moves between
 sidebar rows; Right or Tab enters the content. Left from the first column returns
 to the sidebar.
 
-Open **More themes** in Settings > Appearance > Theme & Wallpaper, or press **SUPER + F2**. Themes & Plugins is a separate window. See [Settings](handbook:system) for navigation.
+Open **More themes** in Settings > Appearance > Theme & Wallpaper, or press **SUPER + F2**. Add-ons is a separate window. See [Settings](handbook:system) for navigation.
 
 The catalog opens as a movable, resizable window. Hold SUPER and drag with the
 left mouse button to move it, or the right button to resize it. Its last size is
@@ -97,6 +97,11 @@ downloaded theme deletes that installed package; the current theme cannot be rem
 
 Type anywhere in the catalog, or press Ctrl+F or /, to search the current page by
 name or description. Words can appear in any order; Escape clears the search first.
+
+### Lockscreens in Add-ons
+
+Open **Add-ons > Lockscreens > Official** to install designs from Eitr’s signed package repository. Installing and removing ask for the administrator password in Eitr’s password popup. **Installed** shows installed designs; choose which one to use in **Settings > Lockscreen** or Walker. **Eitr** is built in and cannot be removed. The design used by the session or login screen has a **Current** badge and no trash button. Your own lockscreens using an uninstalled design are hidden, never deleted, and return when you reinstall it. Existing desktops receive all eight optional packages once through System Update; fresh installs include them too. Later removals are preserved.
+
 
 ## Choose a theme and wallpaper
 

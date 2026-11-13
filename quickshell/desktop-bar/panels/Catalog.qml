@@ -2,10 +2,10 @@ import ".."
 import QtQuick
 import Quickshell.Io
 
-// Themes & Plugins in the Settings family: the shared frame, sidebar and palette.
+// Add-ons in the Settings family: the shared frame, sidebar and palette.
 FamilyWindow {
     id: window
-    title: "Themes & Plugins"
+    title: "Add-ons"
     function show() { showWindow(); }
     function showThemes(tone) {
         content.kind = "themes"; content.tab = "official"; content.tone = tone;

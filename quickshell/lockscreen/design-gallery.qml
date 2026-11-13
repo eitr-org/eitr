@@ -10,7 +10,7 @@ ShellRoot {
     property bool light: false
     property bool controlsVisible: true
     property int selectedIndex: 0
-    readonly property var designs: [
+    readonly property var catalogDesigns: [
         {id: "clockwork/neo-orbital", title: Eitr.I18n.tr("Clockwork Neo Orbital")},
         {id: "clockwork/tape", title: Eitr.I18n.tr("Clockwork Tape")},
         {id: "eitr", title: Eitr.I18n.tr("Eitr")},
@@ -21,6 +21,13 @@ ShellRoot {
         {id: "nothing", title: Eitr.I18n.tr("Nothing")},
         {id: "theme-wallpaper", title: Eitr.I18n.tr("Theme Wallpaper")}
     ]
+    property var installedIds: ["eitr"]
+    readonly property var designs: catalogDesigns.filter(design => installedIds.includes(design.id))
+    Process {
+        running: true
+        command: ["python3", decodeURIComponent(Qt.resolvedUrl("scripts/settings.py").toString().replace("file://", "")), "summary"]
+        stdout: StdioCollector { onStreamFinished: { const state = JSON.parse(text); gallery.installedIds = state.choices.filter(design => !design.value.startsWith("user:")).map(design => design.value); } }
+    }
     readonly property var backgrounds: ({"material-you": "background.svg", "material-you-dark": "background.svg", "girl-coffee": "background.png", "girl-pillow": "background.png"})
     property var wallpaperConfig: ({})
     property var eitrSettings: ({})

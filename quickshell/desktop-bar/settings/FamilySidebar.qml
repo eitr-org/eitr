@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-// The sidebar shared by Settings, the Handbook and Themes & Plugins: a header box
+// The sidebar shared by Settings, the Handbook and Add-ons: a header box
 // with the Eitr logo, a search field, rune group captions and rows with a sliding
 // gold marker. Entries are {id, title, rune, group, groupRune}, already translated.
 ColumnLayout {

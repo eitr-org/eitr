@@ -17,7 +17,7 @@ class LoginPackageTests(unittest.TestCase):
             designs = login.stage(package)
             self.assertEqual(len(designs), 9)
             self.assertEqual(designs['theme-wallpaper'], 'desktop-lockscreen-theme-wallpaper')
-            self.assertEqual(json.loads((package / 'usr/share/eitr/lockscreen-designs.json').read_text()), designs)
+            self.assertEqual(login.manifests(package / 'usr/share/eitr/lockscreen-designs.d'), designs)
             for name in designs.values():
                 design = package / 'usr/share/sddm/themes' / name
                 source = (design / 'Main.qml').read_text()

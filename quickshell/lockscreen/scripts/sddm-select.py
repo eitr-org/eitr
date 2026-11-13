@@ -15,7 +15,8 @@ from pathlib import Path
 import sys
 import tempfile
 
-MANIFEST = Path('/usr/share/eitr/lockscreen-designs.json')
+from eitr_lockscreen_packages import manifests
+MANIFEST = Path('/usr/share/eitr/lockscreen-designs.d')
 CONFIG = Path('/etc/sddm.conf.d/90-desktop-lockscreen.conf')
 WALLPAPER = Path('/var/lib/eitr/login-wallpaper.jpg')
 WALLPAPER_LIMIT = 25 * 1024 * 1024
@@ -45,7 +46,7 @@ def main():
     if sys.argv[1] == '--wallpaper':
         store_wallpaper()
         return
-    designs = json.loads(MANIFEST.read_text())
+    designs = manifests(MANIFEST)
     theme = designs.get(sys.argv[1])
     if not isinstance(theme, str) or not theme.startswith('desktop-lockscreen-') or any(
         character not in 'abcdefghijklmnopqrstuvwxyz0123456789-' for character in theme

@@ -28,12 +28,19 @@ MUTATIONS = {'prepare', 'confirm', 'discard', 'advice', 'install', 'update', 're
 def validate(name, args):
     if name not in {'installed', 'index', 'preview', 'artwork', 'detail', 'source', 'check', *MUTATIONS} or not isinstance(args, dict):
         raise ValueError('invalid-request')
-    if args.get('kind') not in {'themes', 'plugins'}:
+    if args.get('kind') not in {'themes', 'plugins', 'lockscreens'}:
         raise ValueError('invalid-kind')
     if args.get('channel', 'official') not in {'official', 'community', 'installed', 'git'}:
         raise ValueError('invalid-channel')
     if args['kind'] == 'plugins' and name in {'install', 'update', 'apply'}:
         raise ValueError('Use the plugin prepare/confirm review')
+    if args['kind'] == 'lockscreens':
+        if name not in {'installed', 'index', 'install', 'remove'} or args.get('channel', 'official') not in {'official', 'installed'}:
+            raise ValueError('invalid-lockscreen-request')
+        if name in {'install', 'remove'}:
+            from eitr_lockscreen_packages import names
+            names(args.get('ids', []) if name == 'install' else [args.get('id')])
+        return
     ids = args.get('ids', []) if name == 'install' or name == 'prepare' and 'ids' in args else [args.get('id')] if name in {'update', 'remove', 'apply', 'preview', 'artwork', 'detail'} else []
     if not isinstance(ids, list) or (name == 'install' and not ids) or len(ids) > 1000 or any(
             not isinstance(theme_id, str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', theme_id) or len(theme_id) > 64 for theme_id in ids):
@@ -424,6 +431,12 @@ def worker(name, args):
     from eitr_plugins import Plugins
     validate(name, args)
     kind = args['kind']
+    if kind == 'lockscreens':
+        from eitr_lockscreen_packages import listing, root
+        if name in {'installed', 'index'}:
+            return {'items': listing(installed_only=name == 'installed')}
+        root(name, args['ids'] if name == 'install' else [args['id']])
+        return {'result': True}
     if args.get('channel') == 'community' and name in {'index', 'install'}:
         return community(name, args)
     if kind == 'themes':

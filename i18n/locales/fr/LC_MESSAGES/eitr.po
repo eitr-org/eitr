@@ -1606,6 +1606,9 @@ msgstr "Installez Chrome, Chromium, Edge, Brave ou Vivaldi depuis Walker > Insta
 msgid "Install Ghostty? Enter: install · Esc: cancel"
 msgstr "Installer Ghostty ? Entrée : installer · Échap : annuler"
 
+msgid "Install a lockscreen design from Add-ons first."
+msgstr "Installez d’abord un modèle depuis Modules complémentaires."
+
 msgid "Install alongside the existing systems in {size_text} of free space"
 msgstr "Installer à côté des systèmes existants dans {size_text} d’espace libre"
 
@@ -3564,6 +3567,9 @@ msgstr "L’horloge n’est pas synchronisée, ce qui peut casser les sites séc
 
 msgid "The collaboration state is invalid; settings were left unchanged."
 msgstr "L’état de collaboration est invalide ; les réglages restent inchangés."
+
+msgid "The current lockscreen cannot be removed."
+msgstr "L’écran de verrouillage actuel ne peut pas être supprimé."
 
 msgid "The current password is not correct."
 msgstr "Le mot de passe actuel est incorrect."

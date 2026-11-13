@@ -132,6 +132,57 @@ class CatalogDomainTests(unittest.TestCase):
 
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
 class CatalogRenderTests(unittest.TestCase):
+    def test_lockscreens_group_and_cards_render(self):
+        from eitr_lockscreen_packages import listing
+        with patch("eitr_lockscreen_packages.code_root", return_value=BAR.parents[1]):
+            rows = listing()
+        for row in rows:
+            row['current'] = row['id'] == 'nothing'
+            row['removable'] = row['id'] not in {'eitr', 'nothing'}
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            copy_runtime(folder)
+            (folder / 'services/DesktopData.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function releaseOwner(owner) {} }\n')
+            fixture = '''import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {
+ FloatingWindow {
+  visible: true; implicitWidth: 1100; implicitHeight: 800
+  Bar.CatalogContent {
+   id: panel; anchors.fill: parent; live: false; opened: true; kind: "lockscreens"; tab: "official"
+   installed: ROWS.filter(row => ["eitr", "nothing", "clockwork/tape"].includes(row.id)); availableItems: ROWS
+   transport: function(name, args, callback) { callback("", {items: []}); }
+  }
+  Timer {
+   interval: 600; running: true; repeat: true
+   property int stage: 0
+   onTriggered: {
+    if (stage === 0) {
+     panel.installed = ROWS.filter(row => ["eitr", "nothing", "clockwork/tape"].includes(row.id)); panel.availableItems = ROWS;
+     if (panel.navigation.filter(row => row.kind === "lockscreens").length !== 2) throw new Error("Lockscreens navigation");
+     if (panel.navigation.some(row => row.kind === "lockscreens" && row.tab === "community")) throw new Error("Community lockscreens");
+     stage++; return;
+    }
+    if (stage === 3) { console.log("LOCKSCREENS_RENDER_OK"); Qt.quit(); return; }
+    const page = stage === 1 ? "official" : "installed";
+    panel.grabToImage(function(result) {
+     if (!result.saveToFile("TARGET/addons-lockscreens-" + page + ".png")) throw new Error("Capture failed");
+     panel.tab = "installed";
+    });
+    stage++;
+   }
+  }
+ }
+}
+'''.replace('ROWS', json.dumps(rows)).replace('TARGET', str(BAR.parents[2]))
+            (folder / 'fixture.qml').write_text(fixture)
+            code, output = render(folder / 'fixture.qml', render_environment(folder), 15)
+            self.assertEqual(code, 0, output)
+            self.assertIn('LOCKSCREENS_RENDER_OK', output)
+            self.assertNotIn('Error:', output)
+            self.assertNotIn('Unable to assign', output)
+
     def test_window_lifecycle_and_default_size(self):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
@@ -156,7 +207,7 @@ ShellRoot {
    content.live = false;
    if (phase === 0) {
     if (catalog.opened || catalog.visible) throw new Error("initially closed");
-    if (catalog.title !== "Themes & Plugins") throw new Error("window metadata");
+    if (catalog.title !== "Add-ons") throw new Error("window metadata");
     catalog.show();
    } else if (phase === 1) {
     if (!catalog.opened || !catalog.visible) throw new Error("show");
@@ -526,9 +577,9 @@ ShellRoot {
       panel.live = true;
       panel.transport = function(name, args, callback) { calls.push(name + ":" + args.kind + ":" + args.channel); callback("", {items: [{id: args.channel + "-" + args.kind, name: "Row"}]}); };
       panel.load();
-      if (calls.length !== 6 || !calls.includes("index:themes:community") || !calls.includes("installed:plugins:installed")) throw new Error("opening loads every source once: " + calls);
+      if (calls.length !== 8 || !calls.includes("index:themes:community") || !calls.includes("installed:plugins:installed")) throw new Error("opening loads every source once: " + calls);
       panel.tab = "community"; panel.kind = "themes"; panel.tab = "installed"; panel.tab = "official";
-      if (calls.length !== 6) throw new Error("switching tabs must not reload: " + calls);
+      if (calls.length !== 8) throw new Error("switching tabs must not reload: " + calls);
       if (panel.availableItems[0].id !== "official-themes" || panel.installed[0].id !== "installed-themes") throw new Error("views come from the loaded store");
       panel.tab = "community";
       const replies = [];

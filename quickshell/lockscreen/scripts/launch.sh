@@ -50,8 +50,8 @@ if [[ "$mode" == lock ]]; then
   choice="${2:-$(python3 "$root/scripts/settings.py" current 2>/dev/null || echo hyprlock)}"
   [[ "$choice" != hyprlock ]] || exec eitr-hyprlock
   # Only shipped designs draw a lock (own lockscreens name one); no arbitrary QML paths.
-  design="$(python3 "$root/scripts/settings.py" design "$choice")" || exec eitr-hyprlock
-  [[ -f "$root/themes/$design/Main.qml" ]] || exec eitr-hyprlock
+  design="$(python3 "$root/scripts/settings.py" design "$choice")" || { choice=eitr; design=eitr; }
+  [[ -f "$root/themes/$design/Main.qml" ]] || { choice=eitr; design=eitr; }
   config="$(python3 "$root/scripts/settings.py" config "$choice")" || exec eitr-hyprlock
 else
   choice="${2:-$(python3 "$root/scripts/settings.py" current)}"

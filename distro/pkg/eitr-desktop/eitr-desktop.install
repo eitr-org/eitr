@@ -1,4 +1,6 @@
 post_install() {
+  install -dm755 /var/lib/eitr
+  touch /var/lib/eitr/lockscreen-packages-migrated
   echo ':: Eitr code is in /usr/share/eitr. As each new desktop user, run:'
   echo '     eitr-config seed     # seeds missing preferences and native loaders'
   echo ':: Existing desktops: review eitr-config adopt-layout --dry-run first.'
@@ -15,7 +17,9 @@ post_upgrade() {
     local login_theme
     login_theme=$(sed -n 's/^Current=//p' "$sddm_config")
     if [[ $login_theme == desktop-lockscreen-* && ! -d /usr/share/sddm/themes/$login_theme ]]; then
-      sed -i 's/^Current=.*/Current=desktop-lockscreen-clockwork-tape/' "$sddm_config"
+      install -dm755 /var/lib/eitr
+      [[ -e /var/lib/eitr/login-design-before-split ]] || printf '%s\n' "$login_theme" > /var/lib/eitr/login-design-before-split
+      sed -i 's/^Current=.*/Current=desktop-lockscreen-eitr/' "$sddm_config"
     fi
   fi
   # Ethernet counts for network-online again (the wait-online drop-in waits for

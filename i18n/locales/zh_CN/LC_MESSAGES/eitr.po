@@ -1606,6 +1606,9 @@ msgstr "从 Walker >“安装 > 浏览器”安装 Chrome、Chromium、Edge、Br
 msgid "Install Ghostty? Enter: install · Esc: cancel"
 msgstr "安装 Ghostty？Enter: 安装 · Esc: 取消"
 
+msgid "Install a lockscreen design from Add-ons first."
+msgstr "请先从附加组件安装锁屏设计。"
+
 msgid "Install alongside the existing systems in {size_text} of free space"
 msgstr "在 {size_text} 的空闲空间中与现有系统并存安装"
 
@@ -3564,6 +3567,9 @@ msgstr "时钟未同步，这可能会破坏安全网站访问和系统更新；
 
 msgid "The collaboration state is invalid; settings were left unchanged."
 msgstr "协作状态无效；设置保持未更改。"
+
+msgid "The current lockscreen cannot be removed."
+msgstr "无法移除当前锁屏。"
 
 msgid "The current password is not correct."
 msgstr "当前密码不正确。"

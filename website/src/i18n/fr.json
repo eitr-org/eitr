@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / Thèmes",
     "worlds": "mondes,",
     "one_desktop": "un bureau.",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr est le thème par défaut, et Eitr Light sa version claire. Chaque thème recolore la barre, le terminal, le lanceur, l’écran de verrouillage, les éditeurs et les applications, avec ses propres fonds d’écran. Douze autres, comme Catppuccin, Gruvbox et Nord, s’installent depuis le catalogue Thèmes et plugins.",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr est le thème par défaut, et Eitr Light sa version claire. Chaque thème recolore la barre, le terminal, le lanceur, l’écran de verrouillage, les éditeurs et les applications, avec ses propres fonds d’écran. Douze autres, comme Catppuccin, Gruvbox et Nord, s’installent depuis le catalogue Modules complémentaires.",
     "light": "clair",
     "previous_theme": "Thème précédent",
     "next_theme": "Thème suivant",
@@ -670,8 +670,8 @@
     "islands_alt": "Un bureau Eitr vide avec la barre Islands flottant à distance du bord",
     "dynamic_caption": "Dynamique : des îlots qui deviennent leurs panneaux",
     "dynamic_alt": "La barre dynamique sur un bureau vide, son îlot gauche devenu la carte du style des espaces",
-    "catalog_caption": "Thèmes et plugins : officiels, communautaires et installés",
-    "catalog_alt": "La fenêtre Thèmes et plugins listant les thèmes officiels avec palettes et aperçus",
+    "catalog_caption": "Modules complémentaires : officiels, communautaires et installés",
+    "catalog_alt": "La fenêtre Modules complémentaires listant les thèmes officiels avec palettes et aperçus",
     "focus_caption": "Focus : deux volets sous la bande d’onglets",
     "focus_alt": "Mode Focus avec deux volets côte à côte sous une fine bande d’onglets",
     "lockscreen_eitr_caption": "Le verrouillage Eitr avec le sélecteur de comptes",
@@ -705,7 +705,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "Captures réelles du bureau sur le site et téléchargements plus légers",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "Plugins, le thème Eitr avec ses propres couleurs Neovim et VS Code, le mode Focus et la disposition de barre Islands",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "Une disposition des fenêtres défilante, des espaces de travail partagés ou répartis entre écrans, une recherche dans les Paramètres qui trouve chaque réglage, des champs à contour, des onglets, des curseurs et interrupteurs Material dans les Paramètres, et herdr pour les agents de programmation IA",
-    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "L’application Paramètres, la fenêtre Thèmes et Plugins, un Manuel qui s’ouvre sur une visite d’accueil, le Wi-Fi et le Bluetooth dans Connexions et de nouveaux fonds d’écran Eitr menés par Rune Seal",
+    "The Settings app, the Add-ons window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "L’application Paramètres, la fenêtre Modules complémentaires, un Manuel qui s’ouvre sur une visite d’accueil, le Wi-Fi et le Bluetooth dans Connexions et de nouveaux fonds d’écran Eitr menés par Rune Seal",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "Japonais, chinois simplifié et coréen avec une étape Langue dans l’installateur, la disposition de barre Drop et son tableau de bord, des widgets de plugins à copier et orienter, le dialogue de mot de passe propre à Eitr, un fond d’écran par écran, et des notifications et enregistrements qui suivent l’écran utilisé"
   },
   "client": {

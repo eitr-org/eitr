@@ -10,9 +10,9 @@ La ventana de Configuración tiene una barra lateral con búsqueda y tarjetas pa
 
 Los enlaces al pie de los paneles cierran el panel y abren la página correspondiente de Configuración. Todos los ajustes en el Centro de control hace lo mismo; **SUPER + I** abre los controles rápidos. Consulta [Centro de control](handbook:control-center).
 
-Elige Colores de Ajustes en Configuración > Apariencia > Tema y fondo de pantalla: Colores del tema sigue el escritorio; Sitio web de Eitr usa la paleta del sitio. Afecta a Configuración, el Manual y Temas y plugins, no al tema del escritorio. Walker > Configuración > Escritorio > Apariencia > Colores de Configuración abre esta opción.
+Elige Colores de Ajustes en Configuración > Apariencia > Tema y fondo de pantalla: Colores del tema sigue el escritorio; Sitio web de Eitr usa la paleta del sitio. Afecta a Configuración, el Manual y Complementos, no al tema del escritorio. Walker > Configuración > Escritorio > Apariencia > Colores de Configuración abre esta opción.
 
-El catálogo separado Temas y plugins se abre con SUPER + F2 o Más temas en Apariencia.
+El catálogo separado Complementos se abre con SUPER + F2 o Más temas en Apariencia.
 
 ## Elegir una página
 

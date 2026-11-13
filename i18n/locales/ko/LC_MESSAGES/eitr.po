@@ -1606,6 +1606,9 @@ msgstr "Walker > 설치 > 브라우저에서 Chrome, Chromium, Edge, Brave 또�
 msgid "Install Ghostty? Enter: install · Esc: cancel"
 msgstr "Ghostty를 설치하시겠습니까? Enter: 설치 · Esc: 취소"
 
+msgid "Install a lockscreen design from Add-ons first."
+msgstr "먼저 애드온에서 잠금 화면 디자인을 설치하세요."
+
 msgid "Install alongside the existing systems in {size_text} of free space"
 msgstr "{size_text}의 여유 공간에 기존 시스템과 나란히 설치"
 
@@ -3564,6 +3567,9 @@ msgstr "시계가 동기화되지 않아 보안 웹사이트 및 업데이트가
 
 msgid "The collaboration state is invalid; settings were left unchanged."
 msgstr "협업 상태가 유효하지 않아 설정이 변경되지 않았습니다."
+
+msgid "The current lockscreen cannot be removed."
+msgstr "현재 잠금 화면은 제거할 수 없습니다."
 
 msgid "The current password is not correct."
 msgstr "현재 비밀번호가 올바르지 않습니다."

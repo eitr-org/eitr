@@ -1556,5 +1556,7 @@
   "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome.": "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome.",
   "The system language {language} was not generated on the installed system": "The system language {language} was not generated on the installed system",
   "Search: {query}": "Search: {query}",
-  "Type to search": "Type to search"
+  "Type to search": "Type to search",
+  "Install a lockscreen design from Add-ons first.": "Install a lockscreen design from Add-ons first.",
+  "The current lockscreen cannot be removed.": "The current lockscreen cannot be removed."
 }

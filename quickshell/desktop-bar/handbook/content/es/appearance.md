@@ -1,6 +1,6 @@
 # Temas, fondos de pantalla y estilo
 
-Configuración (**SUPER + ,**) incluye los controles de Apariencia; **Más temas** abre el catálogo independiente de temas y plugins (**SUPER + F2**).
+Configuración (**SUPER + ,**) incluye los controles de Apariencia; **Más temas** abre el catálogo independiente de Complementos (**SUPER + F2**).
 
 ## Distribución de ventanas
 
@@ -11,7 +11,7 @@ Desplazamiento muestra Dirección (Derecha, Izquierda, Abajo, Arriba), Anchura p
 Solo en Desplazamiento: **SUPER + ALT + flechas** enfoca ventanas; **SUPER + ALT + SHIFT + Izquierda/Derecha** intercambia columnas; **SUPER + ALT + Equal/Minus** alterna entre un tercio, mitad, dos tercios y anchura completa. El ciclo redimensiona la columna enfocada; la anchura predeterminada se aplica a columnas nuevas. Consulta la [referencia de teclado](handbook:shortcuts).
 
 
-## Catálogo de temas y plugins
+## Catálogo de Complementos
 
 El catálogo comparte el marco, la barra lateral, el encabezado de página y las
 tarjetas de la ventana de Configuración. Sigue los colores del tema, o la paleta
@@ -24,7 +24,7 @@ los temas y una galería con desplazamiento independiente. Arriba/Abajo recorre 
 filas; Derecha o Tab entra al contenido. Izquierda desde la primera columna vuelve
 a la barra lateral.
 
-Abre **Más temas** en Configuración > Apariencia > Tema y fondo de pantalla o pulsa **SUPER + F2**. Temas y plugins es una ventana independiente. Consulta [Configuración](handbook:system) para navegar.
+Abre **Más temas** en Configuración > Apariencia > Tema y fondo de pantalla o pulsa **SUPER + F2**. Complementos es una ventana independiente. Consulta [Configuración](handbook:system) para navegar.
 
 El catálogo es una ventana que recuerda su tamaño. Mantén SUPER y arrastra con el botón izquierdo para moverla o con el derecho para cambiar su tamaño. Los atajos normales permiten organizarla en mosaico o enviarla a otro espacio de trabajo. Abrirla de nuevo enfoca la ventana existente, incluso en otro espacio.
 
@@ -78,6 +78,12 @@ Los plugins tienen todos los permisos de tu cuenta. Enter confirma y Escape canc
 Los temas integrados vienen con Eitr y no se pueden eliminar. La papelera de un tema descargado borra su paquete instalado; el tema actual no se puede eliminar.
 
 Escribe en cualquier parte del catálogo, o pulsa Ctrl+F o /, para buscar en la página actual por nombre o descripción. Las palabras pueden ir en cualquier orden; Escape borra primero la búsqueda.
+
+
+### Pantallas de bloqueo en Complementos
+
+Abre **Complementos > Pantallas de bloqueo > Oficial** para instalar diseños desde el repositorio de paquetes firmados de Eitr. Instalar y eliminar requieren la contraseña de administrador en la ventana de Eitr. **Instalado** muestra los diseños instalados; elige el que usarás en **Configuración > Pantalla de bloqueo** o Walker. **Eitr** está integrado y no se puede eliminar. El diseño usado por la sesión o el inicio de sesión muestra **Actual** y no tiene papelera. Tus pantallas basadas en un diseño eliminado se ocultan sin borrarse y reaparecen al reinstalarlo. System Update instala los ocho paquetes opcionales una sola vez; las instalaciones nuevas también los incluyen. Las eliminaciones posteriores se respetan.
+
 
 ## Elegir tema y fondo
 

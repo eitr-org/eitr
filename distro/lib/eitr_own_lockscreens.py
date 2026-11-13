@@ -14,6 +14,8 @@ LOCK_DESIGNS = ("theme-wallpaper", "material-you-dark", "material-you")
 LOCK_PREFIX = "user:"
 
 def own_lockscreens():
+    from eitr_lockscreen_packages import installed_designs
+    installed = installed_designs()
     directory = own("lockscreens")
     found = {}
     if not directory.is_dir():
@@ -25,7 +27,7 @@ def own_lockscreens():
             continue
         picture = path / str(settings.get("picture", ""))
         if (re.fullmatch(r"[a-z0-9-]{1,40}", path.name) and settings.get("design") in LOCK_DESIGNS
-                and picture.parent == path and picture.is_file()):
+                and settings.get("design") in installed and picture.parent == path and picture.is_file()):
             found[LOCK_PREFIX + path.name] = dict(settings, picture=str(picture), directory=str(path))
     return found
 
@@ -39,7 +41,8 @@ def lockscreen(value):
 
 def create_lockscreen(name, design, source, accent="", greeting="", opener=None):
     name = clean_name(name)
-    if design not in LOCK_DESIGNS:
+    from eitr_lockscreen_packages import installed_designs
+    if design not in LOCK_DESIGNS or design not in installed_designs():
         raise ValueError(tr('Choose one of the listed designs.'))
     accent = accent.strip()
     if accent and not accent.startswith("#"):

@@ -2,7 +2,7 @@
 
 Ces commandes sont également disponibles directement dans les paramètres.
 
-Les paramètres (**SUPER + ,**) incluent les réglages d’apparence ; **Plus de thèmes** ouvre le catalogue séparé des thèmes et plugins (**SUPER + F2**).
+Les paramètres (**SUPER + ,**) incluent les réglages d’apparence ; **Plus de thèmes** ouvre le catalogue séparé des Modules complémentaires (**SUPER + F2**).
 
 ## Disposition des fenêtres
 
@@ -13,7 +13,7 @@ Défilement affiche Direction (Droite, Gauche, Bas, Haut), Largeur de colonne pa
 Uniquement en Défilement : **SUPER + ALT + flèches** change le focus ; **SUPER + ALT + SHIFT + Gauche/Droite** échange les colonnes ; **SUPER + ALT + Equal/Minus** alterne entre un tiers, la moitié, deux tiers et la pleine largeur. Le cycle redimensionne la colonne active ; la largeur par défaut s’applique aux nouvelles colonnes. Voir la [référence clavier](handbook:shortcuts).
 
 
-## Catalogue de thèmes et plugins
+## Catalogue de Modules complémentaires
 
 Le catalogue partage le cadre, la barre latérale, l’en-tête de page et les cartes
 de la fenêtre des Paramètres. Il suit les couleurs du thème, ou la palette du site
@@ -25,7 +25,7 @@ Sombre pour les thèmes et une galerie à défilement indépendant. Haut/Bas par
 la barre ; Droite ou Tab entre dans le contenu. Gauche depuis la première colonne
 revient à la barre latérale.
 
-Ouvrez **Plus de thèmes** dans Paramètres > Apparence > Thème et fond d’écran ou appuyez sur **SUPER + F2**. Thèmes et plugins est une fenêtre séparée. Voir [Paramètres](handbook:system) pour la navigation.
+Ouvrez **Plus de thèmes** dans Paramètres > Apparence > Thème et fond d’écran ou appuyez sur **SUPER + F2**. Modules complémentaires est une fenêtre séparée. Voir [Paramètres](handbook:system) pour la navigation.
 
 Le catalogue est une fenêtre qui mémorise sa taille. Maintiens SUPER et fais glisser avec le bouton gauche pour la déplacer ou le bouton droit pour la redimensionner. Les raccourcis habituels permettent de la disposer en mosaïque ou de l’envoyer sur un autre espace de travail. La rouvrir active la fenêtre existante, même sur un autre espace.
 
@@ -80,6 +80,12 @@ Les plugins disposent de toutes les permissions du compte. Entrée confirme et �
 Les thèmes intégrés font partie d’Eitr et ne peuvent pas être supprimés. La corbeille d’un thème téléchargé efface son paquet installé ; le thème actuel ne peut pas être supprimé.
 
 Tapez n’importe où dans le catalogue, ou appuyez sur Ctrl+F ou /, pour chercher dans la page actuelle par nom ou description. Les mots peuvent être dans n’importe quel ordre ; Échap efface d’abord la recherche.
+
+
+### Écrans de verrouillage dans Modules complémentaires
+
+Ouvrez **Modules complémentaires > Écrans de verrouillage > Officiel** pour installer des modèles depuis le dépôt de paquets signés d’Eitr. L’installation et la suppression demandent le mot de passe administrateur dans la fenêtre Eitr. **Installé** affiche les modèles installés ; choisissez le modèle à utiliser dans **Paramètres > Écran de verrouillage** ou Walker. **Eitr** est intégré et ne peut pas être supprimé. Le modèle utilisé par la session ou la connexion porte le badge **Actuel** et n’a pas de corbeille. Vos écrans basés sur un modèle désinstallé sont masqués, jamais supprimés, et reviennent après sa réinstallation. System Update installe les huit paquets optionnels une seule fois ; les nouvelles installations les incluent aussi. Les suppressions ultérieures sont conservées.
+
 
 ## Choisir thème et fond d’écran
 

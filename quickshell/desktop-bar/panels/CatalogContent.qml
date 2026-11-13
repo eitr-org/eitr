@@ -228,13 +228,16 @@ Item {
             "themes/community": Eitr.I18n.tr("Themes shared by other people. Review them before installing."),
             "plugins/installed": Eitr.I18n.tr("Plugins on this computer, with their updates."),
             "plugins/official": Eitr.I18n.tr("Plugins from the Eitr project, reviewed before installing."),
-            "plugins/community": Eitr.I18n.tr("Plugins shared by other people. Review them before installing.")
+            "plugins/community": Eitr.I18n.tr("Plugins shared by other people. Review them before installing."),
+            "lockscreens/installed": Eitr.I18n.tr("Installed lockscreen designs. Choose a design in Settings > Lockscreen."),
+            "lockscreens/official": Eitr.I18n.tr("Official Eitr lockscreen designs. Installing requires the administrator password.")
         };
         const groups = [{kind: "themes", name: Eitr.I18n.tr("Themes"), rune: "ᚦ", runes: ["ᚠ", "ᚢ", "ᚦ"]},
-            {kind: "plugins", name: Eitr.I18n.tr("Plugins"), rune: "ᛈ", runes: ["ᚨ", "ᚱ", "ᚲ"]}];
+            {kind: "plugins", name: Eitr.I18n.tr("Plugins"), rune: "ᛈ", runes: ["ᚨ", "ᚱ", "ᚲ"]},
+            {kind: "lockscreens", name: Eitr.I18n.tr("Lockscreens"), rune: "ᛚ", runes: ["ᛚ", "ᛟ"]}];
         const rows = [];
         for (const group of groups)
-            sources.forEach((source, index) => rows.push({id: group.kind + "/" + source, kind: group.kind, tab: source, title: labels[source],
+            sources.filter(source => group.kind !== "lockscreens" || source !== "community").forEach((source, index) => rows.push({id: group.kind + "/" + source, kind: group.kind, tab: source, title: labels[source],
                 rune: group.runes[index], group: group.name, groupRune: group.rune, description: descriptions[group.kind + "/" + source]}));
         return rows;
     }
@@ -268,6 +271,7 @@ Item {
     function isInstalled(item) { return installed.some(local => local.id === item.id); }
     function activate(item, local) {
         if (busy) return;
+        if (kind === "lockscreens") return;
         if (getMore) openDetail(item);
         else if (local && kind === "themes" && !item.current) act("apply", {id: item.id});
         else if (local && kind === "plugins") managing = item;
@@ -314,8 +318,8 @@ Item {
         store = ({}); installed = []; availableItems = []; selected = []; updates = updateCache[kind] || ({}); previews = ({}); previewRequests = ({});
         detail = null; reviewIds = null; artwork = ({}); artworkRequests = ({}); reviewing = false; removing = null; busy = false; error = ""; repositoryError = ""; installedError = ""; progress = "";
         if (!live || !opened) return;
-        for (const catalogKind of [kind, kind === "themes" ? "plugins" : "themes"])
-            for (const source of sources) fetch(catalogKind, source);
+        for (const catalogKind of ["themes", "plugins", "lockscreens"])
+            for (const source of sources.filter(source => catalogKind !== "lockscreens" || source !== "community")) fetch(catalogKind, source);
     }
     function switchView() {
         detail = null; cursor = -1; scroll.contentY = 0; shown = pageSize; selected = []; error = ""; progress = "";
@@ -360,7 +364,7 @@ Item {
 
     function preview(item) {
         const key = previewKey(item);
-        if (!live || !opened || previews[key] || previewRequests[key]) return;
+        if (kind === "lockscreens" || !live || !opened || previews[key] || previewRequests[key]) return;
         if (kind === "themes" && tab === "community") return;
         if (kind === "plugins" && !item.preview && !item.icon) return;
         previewRequests = Object.assign({}, previewRequests, {[key]: true});
@@ -553,6 +557,7 @@ Item {
             }
             Flow { width: parent.width; spacing: 6
                 Pill { text: catalog.badge(tile.item) }
+                Pill { visible: catalog.kind === "lockscreens" && !!tile.item.current; text: Eitr.I18n.tr("Current"); current: true }
                 Pill { visible: tile.local && catalog.getMore; text: Eitr.I18n.tr("Installed") }
                 Pill { visible: catalog.kind === "plugins" && tile.item.enabled === false; text: Eitr.I18n.tr("Disabled") }
             }
@@ -566,7 +571,7 @@ Item {
                     width: 110; visible: catalog.getMore && !tile.local
                     text: tile.picked ? "\uF00C " + Eitr.I18n.tr("Selected") : Eitr.I18n.tr("Install")
                     selected: tile.picked; available: !catalog.busy
-                    onClicked: { if (catalog.kind === "plugins") { catalog.openDetail(tile.item); catalog.reviewDetail(); } else catalog.toggle(tile.item); catalog.cursor = catalog.navigable.findIndex(item => item.id === tile.item.id); catalog.sidebarFocus = false; catalog.forceActiveFocus(); }
+                    onClicked: { if (catalog.kind === "lockscreens") catalog.act("install", {ids: [tile.item.id]}); else if (catalog.kind === "plugins") { catalog.openDetail(tile.item); catalog.reviewDetail(); } else catalog.toggle(tile.item); catalog.cursor = catalog.navigable.findIndex(item => item.id === tile.item.id); catalog.sidebarFocus = false; catalog.forceActiveFocus(); }
                 }
                 Pill {
                     anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
@@ -589,7 +594,7 @@ Item {
             anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 8
             width: 28; height: 28; icon: true; text: "󰆴"; foreground: catalog.foreground
             color: catalog.background
-            visible: catalog.tab === "installed" && tile.local && !tile.item.current && tile.item.kind !== "builtin" && tile.item.kind !== "own"
+            visible: catalog.tab === "installed" && tile.local && (catalog.kind !== "lockscreens" || tile.item.removable === true) && !tile.item.current && tile.item.kind !== "builtin" && tile.item.kind !== "own"
             Accessible.name: Eitr.I18n.tr("Remove %1").arg(tile.item.name || "")
             onClicked: { catalog.removing = tile.item; catalog.forceActiveFocus(); }
             BarTooltip { target: removeButton; hovered: removeButton.hovered; text: Eitr.I18n.tr("Delete"); foreground: catalog.foreground; background: catalog.raised }
@@ -603,9 +608,9 @@ Item {
         anchors.margins: PanelStyle.padding
         interactive: !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing && !catalog.detail
         foreground: catalog.foreground; background: catalog.background; accent: catalog.accent
-        subtitle: Eitr.I18n.tr("Themes & Plugins")
+        subtitle: Eitr.I18n.tr("Add-ons")
         closeName: Eitr.I18n.tr("Close catalog")
-        placeholder: catalog.kind === "themes" ? Eitr.I18n.tr("Search themes") : Eitr.I18n.tr("Search plugins")
+        placeholder: catalog.kind === "lockscreens" ? Eitr.I18n.tr("Lockscreens") : catalog.kind === "themes" ? Eitr.I18n.tr("Search themes") : Eitr.I18n.tr("Search plugins")
         query: catalog.query
         currentId: catalog.kind + "/" + catalog.tab
         entries: catalog.navigation
@@ -635,7 +640,7 @@ Item {
         Item {
             width: parent.width
             height: visible ? PanelStyle.selectionRowHeight : 0
-            visible: (catalog.kind === "themes" && !catalog.communityEmpty) || catalog.tab === "installed"
+            visible: (catalog.kind === "themes" && !catalog.communityEmpty) || (catalog.tab === "installed" && catalog.kind !== "lockscreens")
             // All themes by default, or only the light or the dark ones.
             ChoiceSegmented {
                 visible: catalog.kind === "themes" && !catalog.communityEmpty
@@ -654,7 +659,7 @@ Item {
                 visible: catalog.tab === "installed" && catalog.pendingUpdates.length > 0; available: !catalog.busy; onClicked: catalog.updateAll()
                 BarTooltip { target: updateAllButton; hovered: updateAllButton.compact && updateAllButton.hovered; text: updateAllLabel.text; foreground: catalog.foreground; background: catalog.raised } }
             TextMetrics { id: updateAllLabel; font.family: DesktopFonts.family; font.pixelSize: 13; text: Eitr.I18n.tr("Update all (%1)").arg(catalog.pendingUpdates.length) }
-            ActionButton { id: addButton; anchors.right: parent.right; width: 110; height: PanelStyle.selectionRowHeight; visible: catalog.tab === "installed"; available: !catalog.busy; leadingIcon: ""; text: Eitr.I18n.tr("Add"); Accessible.name: Eitr.I18n.tr("Add from a Git address"); onClicked: { catalog.addingAddress = true; catalog.error = ""; addressInput.forceActiveFocus(); } }
+            ActionButton { id: addButton; anchors.right: parent.right; width: 110; height: PanelStyle.selectionRowHeight; visible: catalog.tab === "installed" && catalog.kind !== "lockscreens"; available: !catalog.busy; leadingIcon: ""; text: Eitr.I18n.tr("Add"); Accessible.name: Eitr.I18n.tr("Add from a Git address"); onClicked: { catalog.addingAddress = true; catalog.error = ""; addressInput.forceActiveFocus(); } }
         }
         Label { width: parent.width; visible: text !== ""; text: (!catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
         Flickable {
@@ -887,7 +892,7 @@ Item {
                 id: sheetColumn
                 anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 24; spacing: 18
                 Label { width: parent.width; font.family: SiteStyle.carved; font.pixelSize: PanelStyle.headingSize; font.weight: Font.Medium; text: catalog.reviewing ? Eitr.I18n.tr("Review theme installation") : Eitr.I18n.tr("Remove %1?").arg(catalog.removing ? catalog.removing.name : "") }
-                Label { width: parent.width; text: catalog.reviewing ? Eitr.I18n.tr("Data-only themes · Review selected sources") : catalog.kind === "plugins" ? Eitr.I18n.tr("The plugin and its files are deleted from this computer.") : Eitr.I18n.tr("The theme is deleted from this computer."); color: catalog.muted }
+                Label { width: parent.width; text: catalog.reviewing ? Eitr.I18n.tr("Data-only themes · Review selected sources") : catalog.kind === "lockscreens" ? Eitr.I18n.tr("Your own lockscreens using this design are hidden until you reinstall it.") : catalog.kind === "plugins" ? Eitr.I18n.tr("The plugin and its files are deleted from this computer.") : Eitr.I18n.tr("The theme is deleted from this computer."); color: catalog.muted }
                 Row {
                     visible: catalog.kind === "plugins" && !!catalog.removing && (catalog.removing.removablePackages || []).length > 0
                     width: parent.width; spacing: 10

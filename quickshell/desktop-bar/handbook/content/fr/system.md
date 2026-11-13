@@ -10,9 +10,9 @@ La fenêtre Paramètres propose une barre latérale avec recherche et des cartes
 
 Les liens en bas des panneaux ferment le panneau et ouvrent la page correspondante de Paramètres. Tous les paramètres dans le Centre de contrôle fait de même ; **SUPER + I** ouvre les commandes rapides. Voir [Centre de contrôle](handbook:control-center).
 
-Choisissez Couleurs des paramètres dans Paramètres > Apparence > Thème et fond d’écran : Couleurs du thème suit le bureau, Site web Eitr utilise la palette du site. Cela concerne Paramètres, le Manuel et Thèmes et plugins, pas le thème du bureau. Walker > Paramètres > Bureau > Apparence > Couleurs des paramètres ouvre ce choix.
+Choisissez Couleurs des paramètres dans Paramètres > Apparence > Thème et fond d’écran : Couleurs du thème suit le bureau, Site web Eitr utilise la palette du site. Cela concerne Paramètres, le Manuel et Modules complémentaires, pas le thème du bureau. Walker > Paramètres > Bureau > Apparence > Couleurs des paramètres ouvre ce choix.
 
-Le catalogue séparé Thèmes et plugins s’ouvre avec SUPER + F2 ou Plus de thèmes dans Apparence.
+Le catalogue séparé Modules complémentaires s’ouvre avec SUPER + F2 ou Plus de thèmes dans Apparence.
 
 ## Choisir une page
 

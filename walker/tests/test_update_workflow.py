@@ -34,12 +34,17 @@ def tearDownModule():
     _hook_stub.cleanup()
 
 
-def run_protected_update(mocks, answer="", environment_extra=None):
+def run_protected_update(mocks, answer="", environment_extra=None, migrated=True):
     source = (ROOT / "walker/scripts/actions/system/update.sh").read_text()
     with tempfile.TemporaryDirectory() as directory:
         policy = Path(directory) / "policy"
         policy.touch()
         source = source.replace("/etc/eitr/system-update-policy.conf", str(policy))
+        # The one-time lockscreen migration marker: present unless a test needs it missing.
+        marker = Path(directory) / "lockscreen-packages-migrated"
+        if migrated:
+            marker.touch()
+        source = source.replace("/var/lib/eitr/lockscreen-packages-migrated", str(marker))
         source = source.replace("/usr/lib/eitr/eitr-system /usr/local/lib/eitr/eitr-system", "/usr/bin/true")
         environment = dict(os.environ, XDG_RUNTIME_DIR=directory, EITR_CODE_ROOT=str(ROOT), **(environment_extra or {}))
         return subprocess.run(["bash", "-c", FLOCK_MOCK + HOST_MOCKS + mocks + source, "update", "system"],
@@ -50,6 +55,15 @@ class UpdateWorkflowTests(unittest.TestCase):
     # A stand-in for arch-news.py that reports news (exit 10).
     NEWS = 'python3() { if [[ "$1" == *arch-news.py ]]; then echo "Arch posted news"; return 10; fi; }\n'
     UPDATING = 'sudo() { echo "sudo $*"; }\nyay() { echo "yay $*"; }\n'
+
+    def test_up_to_date_desktop_still_installs_the_lockscreen_designs_once(self):
+        mocks = ("checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; "
+                 "sudo() { echo \"sudo $*\"; }; python3() { :; };\n")
+        result = run_protected_update(mocks, migrated=False)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("sudo /usr/lib/eitr/eitr-system lockscreen-migrate", result.stdout)
+        result = run_protected_update(mocks)
+        self.assertNotIn("lockscreen-migrate", result.stdout)
 
     def test_no_package_updates_still_checks_plugins(self):
         mocks = ("checkupdates() { return 2; }; yay() { :; }; flatpak() { :; }; "

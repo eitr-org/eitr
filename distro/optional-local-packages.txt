@@ -1,3 +1,11 @@
 # Also published by release-desktop.py, so machines installed before they joined
 # local-packages.txt can install them on first use.
 eitr-sunshine
+eitr-lockscreen-clockwork-neo-orbital
+eitr-lockscreen-clockwork-tape
+eitr-lockscreen-girl-coffee
+eitr-lockscreen-girl-pillow
+eitr-lockscreen-material-you-dark
+eitr-lockscreen-material-you
+eitr-lockscreen-nothing
+eitr-lockscreen-theme-wallpaper

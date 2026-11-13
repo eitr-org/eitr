@@ -29,7 +29,7 @@ class SettingsRegressionTests(unittest.TestCase):
             for diagnostic in ('FAIL!', 'TypeError:', 'ReferenceError:', 'Binding loop', 'Unable to assign', 'ERROR qml:'):
                 self.assertNotIn(diagnostic, result)
             for corner in ('square', 'rounded', 'extra-rounded'):
-                for family in ('Settings', 'Handbook', 'ThemesPlugins'):
+                for family in ('Settings', 'Handbook', 'Addons'):
                     with Image.open(output / f'sidebar-{corner}-{family}.png') as picture:
                         self.assertEqual(picture.convert('RGB').getpixel((24, 190)), (25, 27, 37))
             for layout in ('unified', 'centered', 'notch', 'islands', 'dynamic', 'drop'):

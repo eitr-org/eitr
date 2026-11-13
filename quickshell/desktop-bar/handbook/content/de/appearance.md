@@ -1,6 +1,6 @@
 # Designs, Hintergrundbilder und Darstellung
 
-Einstellungen (**SUPER + ,**) enthält Darstellungsoptionen; **Weitere Themes** öffnet den separaten Katalog für Themes und Plugins (**SUPER + F2**).
+Einstellungen (**SUPER + ,**) enthält Darstellungsoptionen; **Weitere Themes** öffnet den separaten Add-ons (**SUPER + F2**).
 
 ## Fensterlayout
 
@@ -11,7 +11,7 @@ Scrollen zeigt Richtung (Rechts, Links, Unten, Oben), Standard-Spaltenbreite (Ei
 Nur bei Scrollen: **SUPER + ALT + Pfeiltasten** fokussiert Fenster; **SUPER + ALT + SHIFT + Links/Rechts** tauscht Spalten; **SUPER + ALT + Equal/Minus** wechselt die Spaltenbreite zwischen einem Drittel, der Hälfte, zwei Dritteln und voller Breite. Der Wechsel verändert die fokussierte Spalte; Standard-Spaltenbreite gilt für neue Spalten. Siehe [Tastaturreferenz](handbook:shortcuts).
 
 
-## Katalog für Themes und Plugins
+## Add-ons
 
 Der Katalog teilt Rahmen, Seitenleiste, Seitenüberschrift und Karten mit dem
 Einstellungsfenster. Er folgt den Theme-Farben oder der Palette der Eitr-Website,
@@ -23,7 +23,7 @@ Dunkel für Themes und eine separat scrollbare Galerie. Auf/Ab wechselt die
 Seitenleistenzeile; Rechts oder Tab öffnet den Inhalt. Links in der ersten Spalte
 kehrt zur Seitenleiste zurück.
 
-Öffne **Weitere Themes** unter Einstellungen > Erscheinungsbild > Design und Hintergrundbild oder drücke **SUPER + F2**. Themes und Plugins hat ein eigenes Fenster. Die Navigation erklärt [Einstellungen](handbook:system).
+Öffne **Weitere Themes** unter Einstellungen > Erscheinungsbild > Design und Hintergrundbild oder drücke **SUPER + F2**. Add-ons hat ein eigenes Fenster. Die Navigation erklärt [Einstellungen](handbook:system).
 
 Der Katalog ist ein verschiebbares Fenster mit gespeicherter Größe. Halte SUPER und ziehe mit der linken Maustaste zum Verschieben oder mit der rechten zum Ändern der Größe. Normale Fensterkürzel kacheln es oder verschieben es auf eine andere Arbeitsfläche. Erneutes Öffnen fokussiert das vorhandene Fenster auch auf einer anderen Arbeitsfläche. SUPER + F2 schließt es, wenn es fokussiert ist.
 
@@ -76,6 +76,12 @@ Enter bestätigt, Escape bricht ab. Installiert wird genau der geprüfte Commit;
 Die 13 integrierten Themes bleiben offline verfügbar. Die 14 zusätzlichen Themes, darunter die hellen Freyja und Skaði, werden aus dem offiziellen Katalog `eitr-org/eitr-themes` installiert. Bestehende Konten erhielten die ersten 12 im Hintergrund; bei Netzwerkfehlern wird es später erneut versucht. Das aktuelle Theme und das gespeicherte Hintergrundbild bleiben erhalten. Neue Konten erhalten nur die integrierten Themes.
 
 Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um die aktuelle Seite nach Name oder Beschreibung zu durchsuchen. Die Wörter können in beliebiger Reihenfolge stehen; Escape leert zuerst die Suche.
+
+
+### Sperrbildschirme in Add-ons
+
+Unter **Add-ons > Sperrbildschirme > Offiziell** installierst du Designs aus Eitrs signiertem Paket-Repository. Installation und Entfernung fragen im Eitr-Passwortfenster nach dem Administratorpasswort. **Installiert** zeigt installierte Designs; die Auswahl erfolgt in **Einstellungen > Sperrbildschirm** oder Walker. **Eitr** ist fest integriert und kann nicht entfernt werden. Das von Sitzung oder Anmeldung verwendete Design ist als **Aktuell** markiert und hat keinen Papierkorb. Eigene Sperrbildschirme mit einem entfernten Design werden ausgeblendet, nicht gelöscht, und erscheinen nach der Neuinstallation wieder. System Update installiert die acht optionalen Pakete einmalig; neue Installationen enthalten sie ebenfalls. Spätere Entfernungen bleiben erhalten.
+
 
 ## Design und Hintergrundbild wählen
 

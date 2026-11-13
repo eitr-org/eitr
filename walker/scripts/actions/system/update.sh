@@ -31,7 +31,9 @@ cancel() { rm -f "$packages"; eitr_gettext 'Update cancelled; nothing was change
 # Sync, then upgrade in the same run (the same as -Syu). A list whose signature
 # stalled mid-download keeps a mismatched old signature that pacman then skips
 # as current, so a failed sync is retried once with a forced refresh (-Syy).
-pacman_update() { sudo pacman -Sy || sudo pacman -Syy || return; sudo pacman -Su; }
+# The optional lockscreen designs are installed once on desktops that had them built in.
+lockscreen_migrate() { [[ -e /var/lib/eitr/lockscreen-packages-migrated ]] || sudo /usr/lib/eitr/eitr-system lockscreen-migrate; }
+pacman_update() { sudo pacman -Sy || sudo pacman -Syy || return; sudo pacman -Su || return; lockscreen_migrate; }
 full_update() { pacman_update; yay -Sua --devel; update_flatpaks; }
 # Only a complete, successful check may skip the update. checkupdates keeps its
 # sync database separate from the system database (exit 2 means no updates).
@@ -81,6 +83,7 @@ check_plugin_updates() {
 }
 
 if [[ "${1:-}" == system ]] && no_updates; then
+  lockscreen_migrate
   check_plugin_updates
   eitr_gettext 'Everything is up to date.'
   printf '\n'

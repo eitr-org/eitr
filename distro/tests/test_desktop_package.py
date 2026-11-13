@@ -93,7 +93,7 @@ class DesktopPackageTests(unittest.TestCase):
 
     def test_upgrade_replaces_a_login_design_the_package_no_longer_ships(self):
         hook = (PACKAGE / "eitr-desktop.install").read_text()
-        for before, after in (("ivy-window", "clockwork-tape"), ("field", "clockwork-tape"),
+        for before, after in (("ivy-window", "eitr"), ("field", "eitr"),
                               ("girl-coffee", "girl-coffee")):
             with tempfile.TemporaryDirectory() as directory:
                 themes = Path(directory) / "themes"
@@ -104,9 +104,15 @@ class DesktopPackageTests(unittest.TestCase):
                 script = hook.replace("/etc/sddm.conf.d/", directory + "/sddm/") \
                     .replace("/usr/share/sddm/themes/", str(themes) + "/") \
                     .replace("/etc/systemd/network/", directory + "/") \
-                    .replace("/etc/pacman.conf", directory + "/pacman.conf")
+                    .replace("/etc/pacman.conf", directory + "/pacman.conf") \
+                    .replace("/var/lib/eitr", directory + "/state")
                 subprocess.run(["bash", "-c", HOOK_STUBS + script + "\npost_upgrade"], check=True, capture_output=True)
                 self.assertEqual(config.read_text(), f"[Theme]\nCurrent=desktop-lockscreen-{after}\n", before)
+                saved = Path(directory) / "state/login-design-before-split"
+                if before != after:
+                    self.assertEqual(saved.read_text().strip(), "desktop-lockscreen-" + before)
+                else:
+                    self.assertFalse(saved.exists())
 
     def test_walker_config_avoids_the_walker_package_path(self):
         # The walker package owns /etc/xdg/walker/config.toml; pacman would refuse both.

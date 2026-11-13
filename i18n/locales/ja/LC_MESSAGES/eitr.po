@@ -1606,6 +1606,9 @@ msgstr "Walker >「インストール」>「ブラウザ」からChrome、Chromi
 msgid "Install Ghostty? Enter: install · Esc: cancel"
 msgstr "Ghosttyをインストールしますか？ Enter: インストール · Esc: キャンセル"
 
+msgid "Install a lockscreen design from Add-ons first."
+msgstr "先にアドオンからロック画面デザインをインストールしてください。"
+
 msgid "Install alongside the existing systems in {size_text} of free space"
 msgstr "{size_text} の空き領域に既存のシステムと並べてインストール"
 
@@ -3564,6 +3567,9 @@ msgstr "時計が同期されていません。安全なウェブサイトや更
 
 msgid "The collaboration state is invalid; settings were left unchanged."
 msgstr "コラボレーションの状態が無効です。設定は変更されませんでした。"
+
+msgid "The current lockscreen cannot be removed."
+msgstr "現在のロック画面は削除できません。"
 
 msgid "The current password is not correct."
 msgstr "現在のパスワードが正しくありません。"

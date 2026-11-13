@@ -30,7 +30,7 @@ item says what decides the next step. Remove an item when it ships;
   - Plugin format has an optional `packages` field (on testing since 2026-11-10; a real
     install and removal with the administrator password still needs a VM test): official
     Arch/Eitr repositories only. The install review lists them; after approval they install with the
-    administrator password, ideally inside the Themes & Plugins session, otherwise a
+    administrator password, ideally inside the Add-ons session, otherwise a
     terminal that returns to it. Packages already installed are detected and not
     reinstalled. Removing the plugin offers to remove only the packages it installed
     that nothing else needs.
@@ -48,13 +48,6 @@ item says what decides the next step. Remove an item when it ships;
     core panel's Tailscale branch removed; the plugin's panel covers them). WireGuard and NetworkManager VPN
     stay on the owner's private test repository (local `vpn-plugins` branch) until they
     get bar icons and panels too.
-- **Add-ons: the rename and a Lockscreens tab (decided 2026-11-11).** Themes & Plugins
-  becomes Add-ons. Only the Eitr design is built in; the other eight become signed
-  packages in Eitr's repository, installed and removed from a Lockscreens tab with Eitr's
-  password popup; System Update installs all eight once on existing desktops; own
-  lockscreens on a removed design are hidden. The brief is ready for Codex
-  (`eitr-testing/codex-wip/addons-lockscreens/BRIEF.md`, Codex usage is back
-  2026-11-13); VM-test installs, removal and the migration before testing.
 - **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
   (2026-11-11). Owner's choices (2026-11-12): Sunshine on the login screen behind its own
   switch beside Start at Login (a system Sunshine with KMS capture while SDDM shows, handing
@@ -93,6 +86,8 @@ item says what decides the next step. Remove an item when it ships;
   before any release.
 
 # 2. To test with the owner
+
+- Add-ons Lockscreens: verify signed package install/remove, administrator popup, upgrade migration and login restoration in an isolated VM.
 
 - **Island style and Side style (on testing 2026-11-13).** Attached Islands, Dynamic and Drop,
   straight sides for Tabs and Centered (Settings > Desktop Bar > Layout); try every layout

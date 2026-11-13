@@ -273,10 +273,13 @@ def free_lockscreen_name(name):
 
 def create_lockscreen():
     names = lock_settings().NAMES
-    designs = [(names.get(design, design), design) for design in own.LOCK_DESIGNS]
+    from eitr_lockscreen_packages import installed_designs
+    designs = [(names.get(design, design), design) for design in own.LOCK_DESIGNS if design in installed_designs()]
+    if not designs:
+        raise ValueError(tr("Install a lockscreen design from Add-ons first."))
 
     def steps(previous):
-        return [Step('design', tr('Design'), default=previous.get('design', own.LOCK_DESIGNS[0]), options=designs,
+        return [Step('design', tr('Design'), default=previous.get('design', designs[0][1]), options=designs,
                      description=tr('The layout your picture, color and greeting go into.'))] + picture_steps(previous) + [
             Step('accent', tr('Accent color'), default=previous.get('accent', ''), optional=True,
                  validator=lambda value: own.HEX.match(value if value.startswith('#') else '#' + value) is not None,

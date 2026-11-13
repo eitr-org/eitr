@@ -1606,6 +1606,9 @@ msgstr "Installiere Chrome, Chromium, Edge, Brave oder Vivaldi unter Walker > In
 msgid "Install Ghostty? Enter: install · Esc: cancel"
 msgstr "Ghostty installieren? Enter: installieren · Esc: abbrechen"
 
+msgid "Install a lockscreen design from Add-ons first."
+msgstr "Installiere zuerst ein Sperrbildschirm-Design aus Add-ons."
+
 msgid "Install alongside the existing systems in {size_text} of free space"
 msgstr "Neben bestehenden Systemen in {size_text} freiem Speicher installieren"
 
@@ -3564,6 +3567,9 @@ msgstr "Die Uhr ist nicht synchronisiert, was sichere Websites und Updates stör
 
 msgid "The collaboration state is invalid; settings were left unchanged."
 msgstr "Der Zusammenarbeitsstatus ist ungültig; die Einstellungen bleiben unverändert."
+
+msgid "The current lockscreen cannot be removed."
+msgstr "Der aktuelle Sperrbildschirm kann nicht entfernt werden."
 
 msgid "The current password is not correct."
 msgstr "Das aktuelle Passwort ist nicht korrekt."

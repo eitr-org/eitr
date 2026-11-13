@@ -15,7 +15,7 @@ spec.loader.exec_module(payload)
 class PayloadDefinitionTests(unittest.TestCase):
     def test_local_packages_are_built_and_installed_on_both_paths(self):
         # The committed signing key adds the keyring that trusts the [eitr] repository.
-        self.assertEqual(payload.desktop_local(), ["eitr-artwork", "eitr-cmux-tui-bin", "eitr-sunshine", "eitr-keyring"])
+        self.assertEqual(payload.desktop_local(), ["eitr-artwork", "eitr-cmux-tui-bin", "eitr-sunshine", *["eitr-lockscreen-" + row["id"].replace("/", "-") for row in __import__("eitr_choice_lists").LOCKSCREEN_DESIGNS if not row["builtin"]], "eitr-keyring"])
         builder = (DISTRO / "payload/build-payload.py").read_text()
         self.assertIn("builder.build_local_packages()", builder)
         self.assertIn("payload.desktop_local(SOURCE)", (DISTRO / "archinstall/eitr-guided-install").read_text())
@@ -121,7 +121,7 @@ class LocalPackageBuildTests(unittest.TestCase):
                 builder.build_local_packages()
                 self.assertNotIn("BUILDDIR", os.environ)
                 self.assertNotIn("SRCDEST", os.environ)
-            self.assertEqual(sorted(seen), sorted(payload.desktop_local()))
+            self.assertEqual(sorted(seen), sorted({"eitr-lockscreens" if name.startswith("eitr-lockscreen-") else name for name in payload.desktop_local()}))
             self.assertEqual(seen["eitr-cmux-tui-bin"]["build"], str(work / "eitr-cmux-tui-bin"))
             self.assertEqual(seen["eitr-cmux-tui-bin"]["sources"], str(work / "sources/eitr-cmux-tui-bin"))
             self.assertTrue((work / "sources/eitr-cmux-tui-bin").is_dir())
@@ -139,7 +139,7 @@ class LocalPackageBuildTests(unittest.TestCase):
             calls = []
             with patch.object(build, "run", side_effect=lambda args, **kwargs: calls.append((args, kwargs))):
                 saved = builder.save_sources(work / "sources-out", aur)
-            self.assertEqual(saved, sorted(["walker"] + [name for name in payload.desktop_local() if name != "eitr-artwork"]))
+            self.assertEqual(saved, sorted(["walker"] + list({"eitr-lockscreens" if name.startswith("eitr-lockscreen-") else name for name in payload.desktop_local() if name != "eitr-artwork"})))
             self.assertTrue(all(args[:2] == ["makepkg", "--allsource"] for args, _ in calls))
             self.assertTrue(all(kwargs["env"]["SRCPKGDEST"] == str(work / "sources-out") for _, kwargs in calls))
             local = next(kwargs for _, kwargs in calls if kwargs["cwd"].name == "eitr-cmux-tui-bin")

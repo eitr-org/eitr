@@ -2,6 +2,10 @@
   "version": 1,
   "layout_version": 2,
   "rules": [
+    {"pattern": "distro/lib/eitr_lockscreen_packages.py", "class": "C", "runtime": true},
+    {"pattern": "distro/system/eitr_lockscreen_packages_root.py", "class": "C", "runtime": true},
+    {"pattern": "distro/pkg/eitr-lockscreens/**", "class": "C", "runtime": false},
+    {"pattern": "distro/tests/test_lockscreen_packages.py", "class": "C", "runtime": false},
     {"pattern": "eitr/wallpapers.json", "class": "P", "runtime": false},
     {"pattern": "distro/lib/eitr_wallpapers.py", "class": "C", "runtime": true},
     {"pattern": "walker/scripts/actions/wallpaper/assignments.py", "class": "C", "runtime": true},
@@ -248,7 +252,6 @@
     {"pattern": "elephant/menus/bar-dock.lua", "class": "C", "runtime": true},
     {"pattern": "walker/themes/current/item_menus-bar-dock.xml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/tests/test_edge_dock.py", "class": "C", "runtime": false},
-
     {"pattern": "quickshell/desktop-bar/bar/CenteredBarMask.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/EdgeSlopes.js", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/tests/test_centered_slopes.py", "class": "C", "runtime": false},
@@ -293,7 +296,6 @@
     {"pattern": "elephant/menu-rows/plugin-actions.json", "class": "C", "runtime": true},
     {"pattern": "elephant/menus/plugin-visuals.lua", "class": "C", "runtime": true},
     {"pattern": "walker/themes/current/item_menus-plugin-visuals.xml", "class": "C", "runtime": true},
-
     {"pattern": "quickshell/desktop-bar/tests/test_visual_plugins.py", "class": "C", "runtime": false},
     {"pattern": "quickshell/desktop-bar/plugins/PluginArea.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/plugins/PluginComponent.qml", "class": "C", "runtime": true},

@@ -1,0 +1,40 @@
+# shellcheck shell=bash disable=SC2034,SC2154
+_repo="$(cd -- "$startdir/../../.." && pwd -P)"
+_sources=(quickshell/lockscreen quickshell/Eitr distro/lib distro/ARTWORK-LICENSING.md)
+pkgbase=eitr-lockscreens
+pkgname=(eitr-lockscreen-clockwork-neo-orbital eitr-lockscreen-clockwork-tape eitr-lockscreen-girl-coffee eitr-lockscreen-girl-pillow eitr-lockscreen-material-you-dark eitr-lockscreen-material-you eitr-lockscreen-nothing eitr-lockscreen-theme-wallpaper)
+pkgver="$(TZ=UTC git -C "$_repo" log -1 --format='%cd.g%h' --abbrev=7 --date=format-local:%Y%m%d.%H%M%S HEAD -- "${_sources[@]}")"
+pkgrel=1
+pkgdesc='Official Eitr lockscreen design'
+arch=(any)
+url='https://github.com/eitr-org/eitr'
+license=('GPL-3.0-only' 'GPL-3.0-or-later' 'CC-BY-4.0')
+depends=(eitr-desktop)
+makedepends=(git python)
+options=(!debug !strip)
+
+prepare() {
+  [[ -n "$pkgver" ]] || return 1
+  rm -rf -- "$srcdir/eitr"
+  mkdir -p "$srcdir/eitr"
+  git -C "$_repo" archive --format=tar HEAD -- "${_sources[@]}" | tar -x -C "$srcdir/eitr"
+}
+
+_stage() {
+  local design="$1"
+  cd "$srcdir/eitr" || return
+  mkdir -p "$pkgdir/usr/share/eitr/quickshell/lockscreen/themes/$(dirname "$design")"
+  cp -a "quickshell/lockscreen/themes/$design" "$pkgdir/usr/share/eitr/quickshell/lockscreen/themes/$design"
+  python3 quickshell/lockscreen/scripts/install-login.py --stage "$pkgdir" --design "$design"
+  install -Dm644 distro/ARTWORK-LICENSING.md "$pkgdir/usr/share/licenses/$pkgname/ARTWORK-LICENSING.md"
+  install -Dm644 quickshell/lockscreen/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
+
+package_eitr-lockscreen-clockwork-neo-orbital() { _stage clockwork/neo-orbital; }
+package_eitr-lockscreen-clockwork-tape() { _stage clockwork/tape; }
+package_eitr-lockscreen-girl-coffee() { _stage girl-coffee; }
+package_eitr-lockscreen-girl-pillow() { _stage girl-pillow; }
+package_eitr-lockscreen-material-you-dark() { _stage material-you-dark; }
+package_eitr-lockscreen-material-you() { _stage material-you; }
+package_eitr-lockscreen-nothing() { _stage nothing; }
+package_eitr-lockscreen-theme-wallpaper() { _stage theme-wallpaper; }

@@ -1,6 +1,6 @@
 {
-  "appearance": "59c2f7d71f1dbdbe4c23bda9f2069b0e3ced3765a3c3bd148909c02cfbbdb24c",
-  "apps": "3cfd537fea1a8d88fc4d600ea58c2fb7752bec54cfd19559cb9db71f0ac2edfe",
+  "appearance": "2947a8a1e14d2c495344494df844d57860a1bab149f600136af4e28166625f0a",
+  "apps": "fb35970efdcda19738ff0eceded725a57c63394ad955a79392681b29badb1088",
   "capture": "fa655ff5c4fe38e5b8792d8c615a0c81abdfa327247946224b8b010e4ef278aa",
   "connectivity": "281a3d0de107ce81198ebf6412e47655db219e1f946d7936d95e1ca7710ff223",
   "control-center": "44de71c791e422556175b06d37be17420bc31caf613bca144565141ea73d9bca",
@@ -20,7 +20,7 @@
   "remote-access": "be2ae0988c0966417914096791f8b220d7a103c240ea6dea829b78e4c6aaa2bf",
   "secure-boot": "9eeece908e07b4f008b7f21d0cd569d890544f13a49201c5235755e823a39fdd",
   "security": "effa213274f992deaae2b19ec220544e197215c2fa37bb2bbd169d981703b670",
-  "system": "407d559d47732362d7cf7e0b3eda458b23f3473e7733d9cf12fcc43f8ee55e4c",
+  "system": "d819f4725e64d74be287067b60c7a74bdda36e92a62ff49fa4246eea935b80f2",
   "terminal": "32bfb7600dc6be2f1cbb1d30e60b9f8cec63feb35ed432be068aa04dae19db90",
   "troubleshooting": "c0d1199f9d462cfbcdeef827fce6b6a0bb85b5e29b0bff9bb1234eb6ea03cf53"
 }

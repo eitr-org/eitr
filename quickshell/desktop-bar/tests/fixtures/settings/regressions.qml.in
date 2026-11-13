@@ -198,7 +198,7 @@ ShellRoot {
    const corners = ["square", "rounded", "extra-rounded"];
    for (const corner of corners) {
     Bar.DesktopStyle.corners = corner; wait(40);
-    for (const family of ["Settings", "Handbook", "Themes & Plugins"]) {
+    for (const family of ["Settings", "Handbook", "Add-ons"]) {
      sidebar.subtitle = family;
      shot("sidebar-" + corner + "-" + family.replace(/[^a-z]/gi, ""));
     }

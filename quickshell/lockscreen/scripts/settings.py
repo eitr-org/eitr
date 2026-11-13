@@ -34,9 +34,11 @@ NAMES = {
 
 
 def designs():
+    from eitr_lockscreen_packages import manifests
+    installed = manifests() if ROOT == Path("/usr/share/eitr/quickshell/lockscreen") else NAMES
     return {
         str(path.parent.relative_to(ROOT / "themes")): NAMES.get(str(path.parent.relative_to(ROOT / "themes")), path.parent.name)
-        for path in sorted((ROOT / "themes").rglob("Main.qml"))}
+        for path in sorted((ROOT / "themes").rglob("Main.qml")) if str(path.parent.relative_to(ROOT / "themes")) in installed}
 
 
 def own_designs():
@@ -58,7 +60,7 @@ def selected():
         value = STATE.read_text().strip()
     except OSError:
         value = "hyprlock"
-    return value if known(value) else "hyprlock"
+    return value if value == "hyprlock" or known(value) else "eitr"
 
 
 def theme_wallpaper():

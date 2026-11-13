@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / Temas",
     "worlds": "mundos,",
     "one_desktop": "um desktop.",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr é o tema padrão, e Eitr Light é a sua versão clara. Cada tema recolore a barra, o terminal, o lançador, a tela de bloqueio, os editores e os apps, e vem com seus próprios papéis de parede. Mais doze, como Catppuccin, Gruvbox e Nord, são instalados pelo catálogo Temas e plugins.",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr é o tema padrão, e Eitr Light é a sua versão clara. Cada tema recolore a barra, o terminal, o lançador, a tela de bloqueio, os editores e os apps, e vem com seus próprios papéis de parede. Mais doze, como Catppuccin, Gruvbox e Nord, são instalados pelo catálogo Complementos.",
     "light": "claro",
     "previous_theme": "Tema anterior",
     "next_theme": "Próximo tema",
@@ -670,8 +670,8 @@
     "islands_alt": "Uma área de trabalho Eitr vazia com a barra Islands flutuando afastada da borda",
     "dynamic_caption": "Dinâmico: ilhas que crescem até virar seus painéis",
     "dynamic_alt": "A barra dinâmica numa área de trabalho vazia, com a ilha esquerda transformada no cartão de estilo dos espaços",
-    "catalog_caption": "Temas e plugins: oficiais, da comunidade e instalados",
-    "catalog_alt": "A janela Temas e plugins listando temas oficiais com paletas e prévias",
+    "catalog_caption": "Complementos: oficiais, da comunidade e instalados",
+    "catalog_alt": "A janela Complementos listando temas oficiais com paletas e prévias",
     "focus_caption": "Focus: dois painéis sob a faixa de abas",
     "focus_alt": "Modo Focus com dois painéis lado a lado sob uma faixa fina de abas",
     "lockscreen_eitr_caption": "A tela de bloqueio Eitr com o seletor de contas",
@@ -705,7 +705,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "Capturas reais do desktop no site e downloads menores",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "Plugins, o tema Eitr com cores próprias para Neovim e VS Code, o modo Focus e o layout de barra Islands",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "Um layout de janelas com rolagem, áreas de trabalho compartilhadas ou divididas entre monitores, uma busca nas Configurações que encontra qualquer ajuste, campos com contorno, abas, controles deslizantes e chaves Material nas Configurações, e herdr para agentes de programação com IA",
-    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "O app de Configurações, a janela de Temas e Plugins, um Manual que abre com um tour de boas-vindas, Wi-Fi e Bluetooth em Conexões e novos papéis de parede do Eitr liderados pelo Rune Seal",
+    "The Settings app, the Add-ons window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "O app de Configurações, a janela de Complementos, um Manual que abre com um tour de boas-vindas, Wi-Fi e Bluetooth em Conexões e novos papéis de parede do Eitr liderados pelo Rune Seal",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "Japonês, chinês simplificado e coreano com uma etapa de Idioma no instalador, o layout de barra Drop e seu painel, widgets de plugins que você pode copiar e girar, a caixa de diálogo de senha própria do Eitr, um papel de parede por monitor, e notificações e gravação que acompanham a tela em uso"
   },
   "client": {
