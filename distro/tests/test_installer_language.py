@@ -71,6 +71,26 @@ class LanguageStepTests(unittest.TestCase):
         self.assertEqual(eitr_i18n.system_locale(), "en")
 
 
+class WizardWidthTests(unittest.TestCase):
+    def tearDown(self):
+        eitr_i18n.use_locale(None)
+
+    def test_the_step_list_is_as_wide_as_its_japanese_labels(self):
+        import eitr_wizard
+        eitr_i18n.use_locale("ja")
+        wizard = object.__new__(eitr_wizard.Wizard)
+        wizard.screen = Mock()
+        wizard.screen.getmaxyx.return_value = (40, 120)
+        wizard.logo, wizard.step, wizard.heading = [], 1, eitr_i18n.mark("INSTALL STEPS")
+        wizard.steps = (eitr_i18n.mark("Language"), eitr_i18n.mark("Install type"))
+        wizard.box, wizard.text = Mock(), Mock()
+        wizard.frame("Title")
+        sidebar_width = wizard.box.call_args_list[0].args[3]
+        for label in (eitr_i18n.tr("INSTALL STEPS"), eitr_i18n.tr("Install type")):
+            self.assertNotEqual(label, "Install type")
+            self.assertGreaterEqual(sidebar_width, cell_width(label) + 4, label)
+
+
 @unittest.skipUnless(Path("/bin/bash").exists(), "bash required")
 class LauncherFallbackTests(unittest.TestCase):
     def run_launcher(self, cage_script, foot_script="exit 0"):

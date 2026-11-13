@@ -1554,5 +1554,7 @@
   "Antigravity CLI is not installed": "Antigravity CLI 未安装",
   "Sign in with `agy` to show subscription usage": "使用 `agy` 登录以显示订阅用量",
   "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome.": "Eitr 的翻译由 AI 完成，可能存在小错误。欢迎随时提出更正。",
-  "The system language {language} was not generated on the installed system": "未在已安装的系统上生成系统语言 {language}"
+  "The system language {language} was not generated on the installed system": "未在已安装的系统上生成系统语言 {language}",
+  "Type to search": "输入以搜索",
+  "Search: {query}": "搜索：{query}"
 }

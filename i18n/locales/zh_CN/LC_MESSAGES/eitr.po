@@ -3043,6 +3043,9 @@ msgstr "搜索仓库"
 msgid "Search word"
 msgstr "搜索词"
 
+msgid "Search: {query}"
+msgstr "搜索：{query}"
+
 msgid "Second warning: this resets the computer named \"{host}\"."
 msgstr "第二次警告：这将重置名为“{host}”的电脑。"
 
@@ -3897,6 +3900,9 @@ msgstr "输入 1、2、3 或 4，或者按 Enter。"
 
 msgid "Type APPLY PROFILE to make these system changes: "
 msgstr "键入 APPLY PROFILE 以应用这些系统更改: "
+
+msgid "Type to search"
+msgstr "输入以搜索"
 
 msgid "Type yes to connect them (Enter cancels): "
 msgstr "键入 yes 连接它们（按 Enter 取消）: "

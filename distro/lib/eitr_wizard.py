@@ -9,7 +9,7 @@ import tomllib
 
 from eitr_i18n import mark, tr
 from eitr_paths import ROOT, config
-from eitr_textwidth import clip, wrap_text
+from eitr_textwidth import cell_width, clip, wrap_text
 
 
 class Cancelled(Exception):
@@ -111,8 +111,8 @@ class Wizard:
         self.text(progress_y, (width - bar_width) // 2 + progress, "─" * (bar_width - progress))
         start_y = 8 if compact else 12
         start_x = 2
-        left_width = min(max(len(tr(self.heading)) + 4,
-                             max(len(tr(name)) + 5 for name in self.steps)), width // 2 - 4)
+        left_width = min(max(cell_width(tr(self.heading)) + 4,
+                             max(cell_width(tr(name)) + 5 for name in self.steps)), width // 2 - 4)
         panel_height = height - start_y - 2
         right_x = start_x + left_width + 1
         right_width = width - right_x - 2
@@ -123,7 +123,7 @@ class Wizard:
         for index, name in enumerate(self.steps):
             label = tr(name)
             available = left_width - 5
-            label = label if len(label) <= available else label[:available - 1] + '…'
+            label = clip(label, available)
             self.text(start_y + 2 + index, start_x, f"{'>' if index == self.step else ' '} {label}",
                       2 if index == self.step else 1)
         self.body_x = right_x + 2
@@ -146,7 +146,7 @@ class Wizard:
                     y += 1
             if note:
                 y += 1
-            self.text(y, x, f"Search: {query}" if query else "Type to search")
+            self.text(y, x, tr('Search: {query}', query=query) if query else mark('Type to search'))
             matches = filtered(options, query)
             selected = min(selected, max(0, len(matches) - 1))
             count = max(1, min(18, self.screen.getmaxyx()[0] - y - 6 - (3 if details else 0)))

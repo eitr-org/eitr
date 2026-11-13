@@ -3043,6 +3043,9 @@ msgstr "저장소 검색"
 msgid "Search word"
 msgstr "검색어"
 
+msgid "Search: {query}"
+msgstr "검색: {query}"
+
 msgid "Second warning: this resets the computer named \"{host}\"."
 msgstr "두 번째 경고: \"{host}\" 컴퓨터가 재설정됩니다."
 
@@ -3897,6 +3900,9 @@ msgstr "1, 2, 3 또는 4를 입력하거나 Enter를 누르세요."
 
 msgid "Type APPLY PROFILE to make these system changes: "
 msgstr "이 시스템 변경 사항을 적용하려면 APPLY PROFILE을 입력하세요: "
+
+msgid "Type to search"
+msgstr "입력하여 검색"
 
 msgid "Type yes to connect them (Enter cancels): "
 msgstr "이들을 연결하려면 yes를 입력하세요(Enter를 누르면 취소): "

@@ -9738,6 +9738,9 @@
     "Search word": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Search: {query}": [
+      "distro/lib/eitr_wizard.py"
+    ],
     "Second warning: this resets the computer named \"{host}\".": [
       "walker/scripts/actions/system/factory-reset.py"
     ],
@@ -10607,6 +10610,9 @@
     ],
     "Type APPLY PROFILE to make these system changes: ": [
       "distro/lib/eitr_profile_apply.py"
+    ],
+    "Type to search": [
+      "distro/lib/eitr_wizard.py"
     ],
     "Type yes to connect them (Enter cancels): ": [
       "walker/scripts/actions/assistant-collaboration.py"

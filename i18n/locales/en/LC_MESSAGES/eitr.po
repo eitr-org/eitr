@@ -3043,6 +3043,9 @@ msgstr "Search repository"
 msgid "Search word"
 msgstr "Search word"
 
+msgid "Search: {query}"
+msgstr "Search: {query}"
+
 msgid "Second warning: this resets the computer named \"{host}\"."
 msgstr "Second warning: this resets the computer named \"{host}\"."
 
@@ -3897,6 +3900,9 @@ msgstr "Type 1, 2, 3 or 4, or press Enter."
 
 msgid "Type APPLY PROFILE to make these system changes: "
 msgstr "Type APPLY PROFILE to make these system changes: "
+
+msgid "Type to search"
+msgstr "Type to search"
 
 msgid "Type yes to connect them (Enter cancels): "
 msgstr "Type yes to connect them (Enter cancels): "

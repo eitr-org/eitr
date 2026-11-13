@@ -3043,6 +3043,9 @@ msgstr "Rechercher un dépôt"
 msgid "Search word"
 msgstr "Mot à rechercher"
 
+msgid "Search: {query}"
+msgstr "Recherche : {query}"
+
 msgid "Second warning: this resets the computer named \"{host}\"."
 msgstr "Deuxième avertissement : cette opération réinitialise l’ordinateur nommé \"{host}\"."
 
@@ -3897,6 +3900,9 @@ msgstr "Saisissez 1, 2, 3 ou 4, ou appuyez sur Enter."
 
 msgid "Type APPLY PROFILE to make these system changes: "
 msgstr "Saisissez APPLY PROFILE pour effectuer ces modifications système : "
+
+msgid "Type to search"
+msgstr "Tapez pour rechercher"
 
 msgid "Type yes to connect them (Enter cancels): "
 msgstr "Saisissez yes pour les connecter (Entrée annule) : "

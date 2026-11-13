@@ -1554,5 +1554,7 @@
   "Antigravity CLI is not installed": "Antigravity CLI가 설치되지 않았습니다",
   "Sign in with `agy` to show subscription usage": "구독 사용량을 표시하려면 `agy`로 로그인하세요",
   "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome.": "Eitr의 번역은 AI로 만들어져 작은 오류가 있을 수 있습니다. 수정 제안은 언제나 환영합니다.",
-  "The system language {language} was not generated on the installed system": "설치된 시스템에서 시스템 언어 {language}이(가) 생성되지 않았습니다"
+  "The system language {language} was not generated on the installed system": "설치된 시스템에서 시스템 언어 {language}이(가) 생성되지 않았습니다",
+  "Type to search": "입력하여 검색",
+  "Search: {query}": "검색: {query}"
 }

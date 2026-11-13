@@ -1554,5 +1554,7 @@
   "Antigravity CLI is not installed": "Antigravity CLIがインストールされていません",
   "Sign in with `agy` to show subscription usage": "サブスクリプションの使用状況を表示するには `agy` でサインインしてください",
   "Eitr's translations were made with AI and may have small mistakes. Corrections are always welcome.": "Eitr の翻訳は AI で作成されたため、小さな誤りがあるかもしれません。修正はいつでも歓迎します。",
-  "The system language {language} was not generated on the installed system": "インストールされたシステムでシステム言語 {language} が生成されませんでした"
+  "The system language {language} was not generated on the installed system": "インストールされたシステムでシステム言語 {language} が生成されませんでした",
+  "Type to search": "入力して検索",
+  "Search: {query}": "検索: {query}"
 }
