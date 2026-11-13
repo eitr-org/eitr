@@ -34,6 +34,7 @@ import sys
 import tempfile
 from pathlib import Path
 
+import reminder_rules
 import reminders
 
 
@@ -78,7 +79,7 @@ def validate(payload, existing, now=None):
     action = payload['action']
     if action == 'create':
         if 'repeat' in payload:
-            reminders.repeat_rule(payload['repeat'])
+            reminder_rules.repeat_rule(payload['repeat'])
         text_value(payload['title'], 240)
         event = timestamp(payload['event'], now)
         values = payload['alerts']
@@ -181,7 +182,7 @@ def expand_local(payload, now=None, transcript=''):
         raise ValueError(tr('Nothing changed.'))
     now = now or datetime.now().astimezone()
     try:
-        due, rule = reminders.parse_when(phrase, now.replace(tzinfo=None))
+        due, rule = reminder_rules.parse_when(phrase, now.replace(tzinfo=None))
     except ValueError:
         due, rule = None, None
     if due is None:
@@ -222,15 +223,15 @@ def execute(payload):
             times = [timestamp(value, now) for value in payload['alerts']]
             reminder = reminders.create(payload['title'], event, times, repeat=payload.get('repeat'))
             return tr('Reminder set: {title} · {time} · alerts {alerts}', title=reminder['text'],
-                      time=reminders.label(event) + reminders.repeat_label(reminder),
-                      alerts=', '.join(reminders.label(moment) for moment in times))
+                      time=reminder_rules.label(event) + reminder_rules.repeat_label(reminder),
+                      alerts=', '.join(reminder_rules.label(moment) for moment in times))
         if action == 'delete':
             for identifier in payload['ids']:
                 reminders.cancel(identifier, payload.get('scope', 'series'))
             return tr('Reminders cancelled: {count}', count=len(payload['ids']))
         if action == 'list':
             items = reminders.load()
-            return '\n'.join(reminders.label(item['due']) + ' · ' + item['text'] + reminders.repeat_label(item) for item in items) or tr('No reminders.')
+            return '\n'.join(reminder_rules.label(item['due']) + ' · ' + item['text'] + reminder_rules.repeat_label(item) for item in items) or tr('No reminders.')
         return payload['message']
 
 

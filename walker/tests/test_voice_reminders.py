@@ -13,6 +13,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[2]
 TOOLS = ROOT / 'walker/scripts/actions/tools'
 sys.path.insert(0, str(TOOLS))
+import reminder_rules
 import reminders
 spec = importlib.util.spec_from_file_location('voice_command', TOOLS / 'voice-command.py')
 voice = importlib.util.module_from_spec(spec)
@@ -28,9 +29,9 @@ class DatedReminderTests(unittest.TestCase):
                                ('2026-10-30 09:00', datetime(2026, 10, 30, 9)),
                                ('Oct 30 15:00', datetime(2026, 10, 30, 15)),
                                ('October 30', datetime(2026, 10, 30, 9))]:
-            self.assertEqual(datetime.fromtimestamp(reminders.when(text, now)), expected, text)
+            self.assertEqual(datetime.fromtimestamp(reminder_rules.when(text, now)), expected, text)
         for text in ['2020-10-30 09:00', 'tomorrow 99:00', 'Feb 30', 'today 09:00']:
-            self.assertIsNone(reminders.when(text, now), text)
+            self.assertIsNone(reminder_rules.when(text, now), text)
 
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()

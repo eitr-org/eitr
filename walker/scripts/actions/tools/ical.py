@@ -15,7 +15,7 @@ import re
 import time
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-import reminders
+import reminder_rules
 
 PAST_DAYS = 7
 FUTURE_DAYS = 60
@@ -226,7 +226,7 @@ def candidates(start, rule):
         return
     wanted = rule.get('day_of_month', start.day)
     for index in range(1, 100000):
-        moment = reminders.occurrence(start, rule, index)
+        moment = reminder_rules.occurrence(start, rule, index)
         # reminders move the 31st to a short month's last day; iCal skips that month.
         if rule['frequency'] in ('monthly', 'yearly') and moment.day != wanted:
             continue

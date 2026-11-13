@@ -94,8 +94,8 @@
       "reason": "Barely over the limit; one helper."
     },
     "walker/scripts/actions/tools/reminders.py": {
-      "lines": 645,
-      "reason": "To improve (TODO): reminder rules and scheduling/alerts in one file."
+      "lines": 416,
+      "reason": "Barely over the limit; reminders' CLI, storage, timers and alerts after the rules moved out."
     },
     "walker/scripts/menus/cloud/navigation.py": {
       "lines": 408,

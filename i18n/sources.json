@@ -7663,7 +7663,7 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Daily": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Dark": [
       "walker/scripts/actions/style/own.py"
@@ -8087,7 +8087,7 @@
       "walker/scripts/actions/development/git-accounts.py"
     ],
     "Friday": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Full": [
       "tools/choice-lists.json"
@@ -8431,6 +8431,7 @@
       "walker/scripts/actions/tools/reminders.py"
     ],
     "Invalid repeat rule.": [
+      "walker/scripts/actions/tools/reminder_rules.py",
       "walker/scripts/actions/tools/reminders.py"
     ],
     "Invalid repository server URL": [
@@ -8695,10 +8696,10 @@
       "distro/system/eitr-system.py"
     ],
     "Monday": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Monthly": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Motherboard": [
       "fastfetch/eitr.py",
@@ -9677,7 +9678,7 @@
       "walker/scripts/actions/install/plugins.py"
     ],
     "Saturday": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Save these settings?": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -10060,7 +10061,7 @@
       "distro/lib/eitr_selfcheck.py"
     ],
     "Sunday": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Sunshine grants full control of your desktop. Setup grants KMS capture and virtual keyboard, mouse and controller access.": [
       "distro/system/eitr_remote.py"
@@ -10522,7 +10523,7 @@
       "walker/scripts/actions/install/software.py"
     ],
     "Thursday": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Tiling": [
       "tools/choice-lists.json"
@@ -10558,7 +10559,7 @@
       "distro/lib/eitr_wizard.py"
     ],
     "Tuesday": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Turn home snapshots off?": [
       "walker/scripts/actions/system/home-snapshots.py"
@@ -10733,7 +10734,7 @@
       "walker/scripts/actions/install/software.py"
     ],
     "Until {date}": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Up": [
       "tools/choice-lists.json"
@@ -10936,10 +10937,10 @@
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Wednesday": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Weekly": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "When? (10m, 18:30, every day 08:00)": [
       "walker/scripts/actions/tools/reminders.py"
@@ -10960,7 +10961,7 @@
       "walker/scripts/actions/system/security.py"
     ],
     "Yearly": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "Yellow": [
       "walker/scripts/actions/style/own.py"
@@ -11197,7 +11198,7 @@
       "walker/scripts/actions/tools/calendars.py"
     ],
     "{count} occurrences": [
-      "walker/scripts/actions/tools/reminders.py"
+      "walker/scripts/actions/tools/reminder_rules.py"
     ],
     "{count} plugin updates available: Control Center > Plugins or Plugins > Update Plugins": [
       "walker/scripts/actions/system/update.sh"

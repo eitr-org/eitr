@@ -1,11 +1,13 @@
 from home_isolation import setUpModule, tearDownModule
 from menu_data import load as load_menu
 from datetime import datetime
+import ast
 import importlib.util
 import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import time
 import tomllib
@@ -14,6 +16,8 @@ import unittest.mock
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "walker/scripts/actions/tools/reminders.py"
+sys.path.insert(0, str(SCRIPT.parent))
+import reminder_rules
 spec = importlib.util.spec_from_file_location("reminders", SCRIPT)
 reminders = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(reminders)
@@ -23,12 +27,12 @@ class ReminderTimeTests(unittest.TestCase):
     now = datetime(2026, 10, 16, 14, 0, 0)
 
     def due(self, text):
-        value = reminders.when(text, now=self.now)
+        value = reminder_rules.when(text, now=self.now)
         return None if value is None else datetime.fromtimestamp(value)
 
     def test_this_and_next_weekday(self):
         now = datetime(2026, 10, 22, 11, 0)  # a Thursday
-        stamp = lambda phrase: datetime.fromtimestamp(reminders.when(phrase, now)).strftime('%a %d %H:%M')
+        stamp = lambda phrase: datetime.fromtimestamp(reminder_rules.when(phrase, now)).strftime('%a %d %H:%M')
         self.assertEqual(stamp('friday 10:30'), 'Fri 23 10:30')
         self.assertEqual(stamp('this friday 10:30'), 'Fri 23 10:30')
         self.assertEqual(stamp('next friday 10:30'), 'Fri 30 10:30')
@@ -36,9 +40,9 @@ class ReminderTimeTests(unittest.TestCase):
 
     def test_a_date_without_a_time_asks_for_one(self):
         for phrase in ("every month on the 29th", "friday", "tomorrow", "weekdays"):
-            self.assertFalse(reminders.has_time(phrase), phrase)
+            self.assertFalse(reminder_rules.has_time(phrase), phrase)
         for phrase in ("today 13:00", "every monday 09:00", "20m", "90", "2026-10-30 09:00"):
-            self.assertTrue(reminders.has_time(phrase), phrase)
+            self.assertTrue(reminder_rules.has_time(phrase), phrase)
         with unittest.mock.patch.object(reminders, "ask_time", return_value="10:00") as ask:
             self.assertEqual(reminders.with_time("every month on the 29th"), "every month on the 29th 10:00")
             self.assertEqual(reminders.with_time("18:30"), "18:30")
@@ -50,15 +54,15 @@ class ReminderTimeTests(unittest.TestCase):
 
     def test_everyday_phrasing(self):
         now = datetime(2026, 10, 22, 17, 14)
-        stamp = lambda phrase: datetime.fromtimestamp(reminders.parse_when(phrase, now)[0]).strftime('%d %H:%M')
+        stamp = lambda phrase: datetime.fromtimestamp(reminder_rules.parse_when(phrase, now)[0]).strftime('%d %H:%M')
         for phrase, expected in [('in one minute', '22 17:15'), ('in 1 minute', '22 17:15'), ('in half an hour', '22 17:44'),
                                  ('1 hour and 30 minutes', '22 18:44'), ('9am', '23 09:00'), ('9:30 PM', '22 21:30'),
                                  ('12am', '23 00:00'), ('tomorrow at 3pm', '23 15:00'), ('friday at noon', '23 12:00'),
                                  ('Oct 30 3pm', '30 15:00'), ('every 29th at 09:00 am', '29 09:00')]:
             self.assertEqual(stamp(phrase), expected, phrase)
-        self.assertEqual(reminders.parse_when('every 29th', now)[1], {'frequency': 'monthly', 'day_of_month': 29})
-        self.assertFalse(reminders.has_time('every 29th'))
-        self.assertIsNone(reminders.parse_when('13pm', now)[0])
+        self.assertEqual(reminder_rules.parse_when('every 29th', now)[1], {'frequency': 'monthly', 'day_of_month': 29})
+        self.assertFalse(reminder_rules.has_time('every 29th'))
+        self.assertIsNone(reminder_rules.parse_when('13pm', now)[0])
         with unittest.mock.patch.object(reminders, "ask_time", return_value="9 am"):
             self.assertEqual(reminders.with_time("every 29th"), "every 29th 09:00")
 
@@ -196,16 +200,16 @@ class RepeatTests(unittest.TestCase):
             ('weekdays 07:00', datetime(2026, 10, 19, 7), 'weekly'),
             ('every Monday and Thursday 09:30', datetime(2026, 10, 19, 9, 30), 'weekly'),
             ('every month on the 31st', datetime(2026, 10, 31, 9), 'monthly')]:
-            due, rule = reminders.parse_when(phrase, now)
+            due, rule = reminder_rules.parse_when(phrase, now)
             self.assertEqual(datetime.fromtimestamp(due), expected)
             self.assertEqual(rule['frequency'], frequency)
-        self.assertEqual(reminders.parse_when('every someday', now), (None, None))
+        self.assertEqual(reminder_rules.parse_when('every someday', now), (None, None))
 
     def test_month_and_leap_year_clamping_retains_anchor(self):
         anchor = datetime(2028, 1, 31, 8)
-        self.assertEqual(reminders.occurrence(anchor, {'frequency':'monthly'}, 1), datetime(2028, 2, 29, 8))
-        self.assertEqual(reminders.occurrence(anchor, {'frequency':'monthly'}, 2), datetime(2028, 3, 31, 8))
-        self.assertEqual(reminders.occurrence(datetime(2028, 2, 29, 8), {'frequency':'yearly'}, 4), datetime(2032, 2, 29, 8))
+        self.assertEqual(reminder_rules.occurrence(anchor, {'frequency':'monthly'}, 1), datetime(2028, 2, 29, 8))
+        self.assertEqual(reminder_rules.occurrence(anchor, {'frequency':'monthly'}, 2), datetime(2028, 3, 31, 8))
+        self.assertEqual(reminder_rules.occurrence(datetime(2028, 2, 29, 8), {'frequency':'yearly'}, 4), datetime(2032, 2, 29, 8))
 
     def test_strict_rules(self):
         for rule in [{}, {'frequency':'hourly'}, {'frequency':'daily','interval':True},
@@ -214,7 +218,14 @@ class RepeatTests(unittest.TestCase):
                      {'frequency':'daily','until':'2026-02-30'}, {'frequency':'daily','until':'2026-10-30','count':2},
                      {'frequency':'daily','command':'x'}]:
             with self.assertRaises(ValueError, msg=str(rule)):
-                reminders.repeat_rule(rule)
+                reminder_rules.repeat_rule(rule)
+
+    def test_reminder_rules_is_pure_and_independent_of_reminders(self):
+        tree = ast.parse(Path(reminder_rules.__file__).read_text())
+        imported = {alias.name.split('.')[0] for node in tree.body if isinstance(node, ast.Import) for alias in node.names}
+        imported |= {node.module.split('.')[0] for node in tree.body if isinstance(node, ast.ImportFrom)}
+        self.assertLessEqual(imported, {'eitr_bootstrap', 'eitr_i18n', 'datetime', 'calendar', 're'})
+        self.assertEqual(reminder_rules.normalize('in 5 minutes'), '5m')
 
     def test_missed_series_once_offsets_count_and_cancel(self):
         from unittest.mock import patch
@@ -248,12 +259,12 @@ class RepeatTests(unittest.TestCase):
             os.environ['TZ'] = 'America/New_York'
             time.tzset()
             anchor = datetime(2026, 3, 7, 8)
-            tomorrow = reminders.occurrence(anchor, {'frequency':'daily'}, 1)
+            tomorrow = reminder_rules.occurrence(anchor, {'frequency':'daily'}, 1)
             self.assertEqual(tomorrow.hour, 8)
             self.assertEqual(tomorrow.timestamp()-anchor.timestamp(), 23*3600)
             item = {'repeat':{'frequency':'daily','until':'2026-03-08'},'repeat_anchor':anchor.isoformat(), 'alert_offsets':[0]}
-            self.assertTrue(reminders.advance(item, int(anchor.timestamp())))
-            self.assertFalse(reminders.advance(item, item['due']))
+            self.assertTrue(reminder_rules.advance(item, int(anchor.timestamp())))
+            self.assertFalse(reminder_rules.advance(item, item['due']))
         finally:
             if original is None:
                 os.environ.pop('TZ', None)
