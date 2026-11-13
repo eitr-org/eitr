@@ -17,7 +17,7 @@ function systemLocale(environment) {
 function candidates(locale) {
     const normalized = normalize(locale);
     const base = normalized.split("_")[0];
-    return Array.from(new Set([normalized, base === "pt" ? "pt_BR" : base, "en"]));
+    return Array.from(new Set([normalized, base === "pt" ? "pt_BR" : base === "zh" ? "zh_CN" : base, "en"]));
 }
 
 function select(locale, supported) {

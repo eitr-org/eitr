@@ -4,4 +4,7 @@ return {
     ["es"] = true,
     ["de"] = true,
     ["fr"] = true,
+    ["ja"] = true,
+    ["zh_CN"] = true,
+    ["ko"] = true,
 }

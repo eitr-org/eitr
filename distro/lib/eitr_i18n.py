@@ -38,7 +38,8 @@ def system_locale(environment=None):
 
 def candidates(locale):
     normalized = normalize(locale)
-    alias = "pt_BR" if normalized.split("_", 1)[0] == "pt" else normalized.split("_", 1)[0]
+    base = normalized.split("_", 1)[0]
+    alias = {"pt": "pt_BR", "zh": "zh_CN"}.get(base, base)
     return list(dict.fromkeys((normalized, alias, SOURCE)))
 
 

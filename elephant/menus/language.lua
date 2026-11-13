@@ -25,7 +25,10 @@ function GetEntries()
         {"Português (Brasil)", "pt_BR", "󰗊", i18n.mark("Sign out and back in to apply")},
         {"Español", "es", "󰗊", i18n.mark("Sign out and back in to apply")},
         {"Deutsch", "de", "󰗊", i18n.mark("Sign out and back in to apply")},
-        {"Français", "fr", "󰗊", i18n.mark("Sign out and back in to apply")}
+        {"Français", "fr", "󰗊", i18n.mark("Sign out and back in to apply")},
+        {"日本語", "ja", "󰗊", i18n.mark("Sign out and back in to apply")},
+        {"简体中文", "zh_CN", "󰗊", i18n.mark("Sign out and back in to apply")},
+        {"한국어", "ko", "󰗊", i18n.mark("Sign out and back in to apply")}
     })
     local visible = {}
     for _, entry in ipairs(entries) do

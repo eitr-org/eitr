@@ -9,7 +9,8 @@ from eitr_i18n import languages, select_locale, tr
 from eitr_paths import config
 
 LOCALES = {"en": "en_US.UTF-8", "pt_BR": "pt_BR.UTF-8", "es": "es_ES.UTF-8",
-           "de": "de_DE.UTF-8", "fr": "fr_FR.UTF-8"}
+           "de": "de_DE.UTF-8", "fr": "fr_FR.UTF-8", "ja": "ja_JP.UTF-8",
+           "zh_CN": "zh_CN.UTF-8", "ko": "ko_KR.UTF-8"}
 HEADER = "# Managed by Eitr Language; message language only.\n"
 
 

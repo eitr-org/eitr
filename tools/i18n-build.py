@@ -136,8 +136,10 @@ def gettext_source(messages, locale):
         escapes = {"\\": "\\\\", '"': '\\"', "\n": "\\n", "\r": "\\r", "\t": "\\t"}
         return '"' + ''.join(escapes.get(character, "\\%03o" % ord(character) if ord(character) < 32 else character)
                               for character in value) + '"'
-    plural = "n > 1" if locale in {"fr", "pt_BR"} else "n != 1"
-    header = "Project-Id-Version: Eitr\nContent-Type: text/plain; charset=UTF-8\nLanguage: " + locale + "\nPlural-Forms: nplurals=2; plural=(" + plural + ");\n"
+    # Japanese, Chinese and Korean use one form for every count.
+    plurals = "nplurals=1; plural=0;" if locale in {"ja", "zh_CN", "ko"} else \
+        "nplurals=2; plural=(" + ("n > 1" if locale in {"fr", "pt_BR"} else "n != 1") + ");"
+    header = "Project-Id-Version: Eitr\nContent-Type: text/plain; charset=UTF-8\nLanguage: " + locale + "\nPlural-Forms: " + plurals + "\n"
     lines = ['msgid ""', 'msgstr ' + quote(header), '']
     for source, translated in sorted(messages.items()):
         lines.extend(['msgid ' + quote(source), 'msgstr ' + quote(translated), ''])

@@ -20,6 +20,18 @@ var languages = {
   "fr": {
     "name": "French",
     "nativeName": "Français"
+  },
+  "ja": {
+    "name": "Japanese",
+    "nativeName": "日本語"
+  },
+  "zh_CN": {
+    "name": "Simplified Chinese",
+    "nativeName": "简体中文"
+  },
+  "ko": {
+    "name": "Korean",
+    "nativeName": "한국어"
   }
 };
 var qml = {

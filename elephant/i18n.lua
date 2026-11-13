@@ -22,6 +22,7 @@ local function locale_name()
     local regional = region and (base .. "_" .. region:upper()) or base
     if supported[regional] then return regional end
     if base == "pt" then base = "pt_BR" end
+    if base == "zh" then base = "zh_CN" end
     return supported[base] and base or "en"
 end
 
