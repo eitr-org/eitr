@@ -40,9 +40,21 @@ class SharedChoicesTests(unittest.TestCase):
         keyboard = (BAR / 'settings/SettingsInputPage.qml').read_text()
         self.assertNotIn('adding', keyboard)
         panel = (BAR / 'panels/BrightnessMenu.qml').read_text()
-        for contract in ('MonitorMap {', 'settings: menu.displaySettings.monitors',
-                         'pending: menu.pendingMonitor', 'menu.settingsFor = name'):
-            self.assertIn(contract, panel)
+        for section in ('PowerProfileSection', 'NightLightSection', 'DisplayListSection'):
+            self.assertIn(f'{section} panels/{section}.qml', registry)
+            self.assertIn(f'{section} {{', panel)
+        display_list = (BAR / 'panels/DisplayListSection.qml').read_text()
+        for contract in ('MonitorMap {', 'settings: content.menu.displaySettings.monitors',
+                         'pending: content.menu.pendingMonitor', 'content.menu.settingsFor = name'):
+            self.assertIn(contract, display_list)
+        nightlight = (BAR / 'panels/NightLightSection.qml').read_text()
+        for contract in ('setting-displays-edit-schedule', 'setting-displays-night-light',
+                         'setting-displays-schedule-start', 'setting-displays-schedule-end',
+                         'setting-displays-schedule-auto'):
+            self.assertIn(contract, nightlight)
+        power = (BAR / 'panels/PowerProfileSection.qml').read_text()
+        self.assertIn('ChoiceSegmented {', power)
+        self.assertIn('section.menu.setPowerProfile(value)', power)
         self.assertNotIn('MonitorMap {', (BAR / 'panels/DisplaySettingsEditor.qml').read_text())  # the Display panel draws the one map
         self.assertIn('setLineDash([5, 4])', (BAR / 'components/MonitorMap.qml').read_text())
 

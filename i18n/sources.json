@@ -261,7 +261,7 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Auto": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/panels/NightLightSection.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Auto-hide": [
@@ -269,7 +269,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Automatic · {start} - {end}": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/NightLightSection.qml"
     ],
     "Back": [
       "quickshell/desktop-bar/components/DayAgenda.qml",
@@ -581,7 +581,7 @@
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Close its settings": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/DisplayListSection.qml"
     ],
     "Close pin": [
       "quickshell/desktop-bar/capture/ScreenshotPins.qml"
@@ -885,7 +885,7 @@
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Displays": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/panels/DisplayListSection.qml",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -945,13 +945,13 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Edit layout by hand…": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/DisplayListSection.qml"
     ],
     "Edit position": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Edit schedule": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/panels/NightLightSection.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Edit widgets": [
@@ -989,7 +989,7 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "End": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/panels/NightLightSection.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Enroll Fingerprint": [
@@ -1421,7 +1421,7 @@
     ],
     "Main": [
       "quickshell/desktop-bar/components/MonitorMap.qml",
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/DisplayListSection.qml"
     ],
     "Main display": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
@@ -1435,7 +1435,7 @@
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
     "Manual": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/NightLightSection.qml"
     ],
     "Material Dark": [
       "quickshell/lockscreen/design-gallery.qml"
@@ -1564,8 +1564,8 @@
     "Night Light": [
       "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
+      "quickshell/desktop-bar/panels/NightLightSection.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
     ],
@@ -1581,7 +1581,7 @@
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "No active displays": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/DisplayListSection.qml"
     ],
     "No applications are playing audio.": [
       "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
@@ -1958,7 +1958,7 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Pixel offsets, flipped screens and more in local.lua": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/DisplayListSection.qml"
     ],
     "Play": [
       "quickshell/desktop-bar/media/MediaCard.qml",
@@ -2011,7 +2011,7 @@
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
     "Power Profile": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/PowerProfileSection.qml"
     ],
     "Power profiles unavailable on this hardware": [
       "quickshell/desktop-bar/components/PowerControls.qml"
@@ -2231,7 +2231,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Resolution, position and more": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/DisplayListSection.qml"
     ],
     "Resolution, scaling and connected displays.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -2616,7 +2616,7 @@
     ],
     "Start": [
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml",
+      "quickshell/desktop-bar/panels/NightLightSection.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Start Screensaver": [
@@ -3349,7 +3349,7 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "{width}×{height} · {rate} Hz": [
-      "quickshell/desktop-bar/panels/BrightnessMenu.qml"
+      "quickshell/desktop-bar/panels/DisplayListSection.qml"
     ],
     "•  now": [
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"

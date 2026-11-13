@@ -264,3 +264,6 @@ SettingsTarget settings/SettingsTarget.qml
 SettingsWorkspacesCard 1.0 settings/SettingsWorkspacesCard.qml
 WifiNetworkRow 1.0 components/WifiNetworkRow.qml
 BrightnessSlider 1.0 components/BrightnessSlider.qml
+DisplayListSection panels/DisplayListSection.qml
+NightLightSection panels/NightLightSection.qml
+PowerProfileSection panels/PowerProfileSection.qml

@@ -37,10 +37,6 @@
       "lines": 453,
       "reason": "One bar window host, including monitor-scoped workspace Overview context and an instance of each layout section."
     },
-    "quickshell/desktop-bar/panels/BrightnessMenu.qml": {
-      "lines": 623,
-      "reason": "To improve (TODO): display list, night light and power controls in one panel."
-    },
     "quickshell/desktop-bar/panels/CalendarMenu.qml": {
       "lines": 470,
       "reason": "One panel: the month, a day's reminders and its plans opened in place."
