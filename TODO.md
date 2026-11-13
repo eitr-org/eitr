@@ -19,10 +19,6 @@ item says what decides the next step. Remove an item when it ships;
   "always float", workspace, size or opacity from a form instead of editing Lua.
   Approved 2026-11-11; brief ready for Codex after the Add-ons task
   (`eitr-testing/codex-wip/keybinds-window-rules/BRIEF.md`).
-- **Attached islands (approved 2026-11-12).** A second style for Islands, Dynamic and Drop:
-  today's floating pills, or pills joined to the screen edge like a notch (square against the
-  edge, concave curves where they meet it; not the Tabs trapezoid slopes). Saved per layout,
-  in Settings > Desktop Bar; all four edges, auto-hide and reserved space.
 - **VPN plugins, Taildrop and Tailscale out of the default install (agreed 2026-11-09,
   to do together with the owner).**
   - Three official plugins in `eitr-org/eitr-plugins`: Tailscale (today's bar icon, panel
@@ -98,6 +94,9 @@ item says what decides the next step. Remove an item when it ships;
 
 # 2. To test with the owner
 
+- **Island style and Side style (on testing 2026-11-13).** Attached Islands, Dynamic and Drop,
+  straight sides for Tabs and Centered (Settings > Desktop Bar > Layout); try every layout
+  and edge, panels opening from attached pills, auto-hide, then promote.
 - **Logout on NVIDIA.** The login screen crashed in the NVIDIA driver when SDDM started
   it again after a logout (black screen). It now uses Qt's basic render loop
   (`eitr-greeter.conf`, on stable 2026-11-11); log out once after updating to confirm.
