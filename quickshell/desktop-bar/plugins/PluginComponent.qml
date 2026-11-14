@@ -11,6 +11,8 @@ Item {
     required property color foreground
     required property color background
     required property color accent
+    property bool verticalContent: false
+    property string clockFormat: PluginRegistry.clockFormat
     property bool active: true
     readonly property bool live: active && visible && enabled && opacity > 0 && !entry.disabled && error === ""
     property bool surface: tile ? styledTile : entry.surface === "panel"
@@ -25,6 +27,8 @@ Item {
     signal failed(string plugin)
     readonly property bool tile: entry.kind === "tiles"
     readonly property string detail: entry.disabled ? Eitr.I18n.tr("Disabled") : error !== "" ? Eitr.I18n.tr("Could not load") : api.detail
+    implicitWidth: content.item ? content.item.implicitWidth : 0
+    readonly property real barContentHeight: content.item ? content.item.implicitHeight : 0
     implicitHeight: tile ? PanelStyle.selectionRowHeight : error !== "" || entry.disabled ? 56 : Math.max(36, content.item ? content.item.implicitHeight : 36)
     activeFocusOnTab: tile || barItem
     function activate() {
@@ -85,6 +89,7 @@ Item {
         onAccentChanged: themeChanged()
         onFontFamilyChanged: themeChanged()
         onRadiusChanged: themeChanged()
+        readonly property string clockFormat: host.clockFormat
         readonly property string fontFamily: DesktopFonts.family
         readonly property int bodySize: PanelStyle.bodySize
         readonly property int captionSize: PanelStyle.captionSize
@@ -155,11 +160,11 @@ Item {
     }
     Loader {
         id: content
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-        width: host.styledTile ? Math.min(96, item ? item.implicitWidth : 0) : host.width
-        anchors.rightMargin: host.styledTile ? PanelStyle.selectionActionInset : 0
+        x: host.styledTile ? host.width - width - PanelStyle.selectionActionInset : (host.width - width) / 2
+        y: (host.height - height) / 2
+        height: host.verticalContent ? host.width : host.height
+        rotation: host.verticalContent ? 90 : 0
+        width: host.styledTile ? Math.min(96, item ? item.implicitWidth : 0) : host.verticalContent ? host.height : host.width
         z: host.barItem ? -1 : 0
         active: host.active && !host.entry.disabled && host.error === ""
         asynchronous: true

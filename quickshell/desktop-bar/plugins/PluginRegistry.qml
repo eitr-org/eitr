@@ -110,6 +110,7 @@ QtObject {
         next[widgetKey(placement)] = entries;
         widgetMenus = next;
     }
+    property string clockFormat: "12h"
     property var placements: ({version: 3, widgets: [], barItems: []})
     function copies(entry) {
         return (placements.widgets || []).filter(placement => placement.plugin === entry.plugin && placement.id === entry.id);
@@ -150,7 +151,9 @@ QtObject {
     readonly property string helper: Eitr.Paths.code("walker/scripts/actions/install/plugins.py")
     readonly property string stateRoot: Quickshell.env("XDG_STATE_HOME") || Quickshell.env("HOME") + "/.local/state"
     readonly property string configRoot: Quickshell.env("XDG_CONFIG_HOME") || Quickshell.env("HOME") + "/.config"
-    readonly property var barItems: placed("barItems", "")
+    readonly property var placedBarItems: placed("barItems", "")
+    readonly property var clockBarItems: placedBarItems.filter(entry => entry.slot === "clock").slice(0, 2)
+    readonly property var barItems: placedBarItems.filter(entry => clockBarItems.indexOf(entry) === -1)
     function placed(kind, monitor) {
         return (placements[kind] || []).filter(placement => kind !== "widgets" || placement.monitor === monitor)
             .map(placement => {

@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 
 BarSection {
+    readonly property alias clockPluginsItem: barHorizontalCenter.clockPluginsItem
     required property var host
     readonly property alias rightSideItem: barHorizontalStatus.rightSideItem
     readonly property alias statusToggleItem: barHorizontalStatus.statusToggleItem

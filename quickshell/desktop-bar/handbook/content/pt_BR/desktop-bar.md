@@ -4,6 +4,8 @@
 
 A barra completa. O logotipo do Eitr abre a Central de controle; depois vêm Visão geral, os marcadores de espaços de trabalho, Uso de IA, Hardware e Bloqueio automático. A data e a hora ficam centralizadas, com a mídia antes e o clima depois. **Mostrar ícones** exibe ou oculta os ícones de status à direita; as notificações ficam por último.
 
+Itens opcionais de plugins podem aparecer imediatamente antes do relógio (acima dele nas barras verticais). Os dois primeiros itens posicionados no espaço do relógio usam essa posição; os demais aparecem entre os ícones de status. Eles seguem a visibilidade do clima: Centered e Dynamic os mostram quando expandidos, Tabs e Islands os incluem, e Drop os oculta. O relógio permanece centralizado na tela. World clock é um plugin oficial opcional: escolha cidades e edite os rótulos no painel; ele funciona offline e segue a preferência de 12/24 horas da barra.
+
 Ilhas apresenta grupos em superfícies separadas: logotipo, Visão geral e espaços de trabalho, Uso de IA/Hardware/Bloqueio por inatividade, relógio, clima e controles de estado. Mídia e captura aparecem apenas quando ativos. O relógio permanece exatamente centrado na tela; o clima tem a sua própria superfície ao lado. As superfícies são sempre totalmente arredondadas, seja qual for a preferência de cantos, e seguem cor/transparência e desfoque.
 
 As superfícies ficam a metade do espaçamento exterior atual do Hyprland da borda, com o espaçamento completo entre superfícies vizinhas, nas quatro posições. O espaço reservado para janelas inclui a espessura e essa metade; a ocultação automática não reserva espaço. Os intervalos deixam passar cliques. O espaço vazio nas superfícies aceita os gestos habituais de clique duplo e arrasto.

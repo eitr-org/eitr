@@ -250,10 +250,10 @@ class DictationTests(unittest.TestCase):
             for field in ("dictating", "transcribing", "dictationLevels"):
                 self.assertIn(f"{field}: {owner}.host.{field}", source)
         self.assertIn('text: capture.dictating ? Eitr.I18n.tr("Dictating") : capture.transcribing ? Eitr.I18n.tr("Transcribing")', shell)
-        # The indicator sits just before the clock on both bar orientations.
+        # The indicator precedes clock-slot plugins, or the clock when none are shown.
         self.assertIn("import QtQuick\n", (bar / "bar/CaptureIndicator.qml").read_text())
-        self.assertRegex(sections[0], r"id: barCapture\s+anchors.right: centerInfo.left")
-        self.assertRegex(sections[1], r"id: verticalCapture\s+anchors.bottom: verticalCalendarIcon.top")
+        self.assertRegex(sections[0], r"id: barCapture\s+anchors.right: clockPlugins.width > 0 \? clockPlugins.left : centerInfo.left")
+        self.assertRegex(sections[1], r"id: verticalCapture\s+anchors.bottom: clockPlugins.height > 0 \? clockPlugins.top : verticalCalendarIcon.top")
         self.assertIn("node: Pipewire.defaultAudioSource", shell, "the waveform follows the microphone dictation records")
         self.assertIn("enabled: dictation.dictating && node !== null", shell, "the microphone is only metered while listening")
         self.assertIn("Behavior on height { enabled: !capture.transcribing;", shell,

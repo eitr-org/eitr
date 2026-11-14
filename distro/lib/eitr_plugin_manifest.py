@@ -289,6 +289,8 @@ def validate_ui(root, ui):
             optional = ('icon', 'refreshInterval', 'dataCommand', 'dataStream')
             if kind in ('tiles', 'barItems'):
                 optional += ('panel',)
+            if kind == 'barItems':
+                optional += ('slot',)
             if kind == 'tiles':
                 optional += ('look',)
             elif kind == 'panels':
@@ -296,6 +298,8 @@ def validate_ui(root, ui):
             elif kind == 'widgets':
                 optional += ('minWidth', 'minHeight', 'defaultWidth', 'defaultHeight', 'surface')
             object_keys(entry, ('id', 'title', 'qml'), optional)
+            if kind == 'barItems' and entry.get('slot', 'status') not in ('status', 'clock'):
+                raise ValueError('Invalid bar item slot')
             if 'panel' in entry:
                 panel_id = identifier(entry['panel'])
                 if panel_id not in [panel.get('id') for panel in ui.get('panels', []) if isinstance(panel, dict)]:

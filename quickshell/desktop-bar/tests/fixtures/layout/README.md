@@ -12,7 +12,13 @@ sections and scenario values.
   included in the trailing, square, ten-workspace cases.
 - Bar sections: 64 states. Four edges, four layouts, status open/closed and
   two screen sizes. Every state checks clock centering and panel targets.
-- Islands: 12 edge/corner combinations. Each runs six stages covering player
+- Clock slots: Full, expanded Centered, Tabs, Islands, expanded Dynamic and hidden
+  Drop on four edges and two palettes, with numerical clock centring. Additional
+  cases exercise the real loader’s natural dimensions, rotation and panel target,
+  and production Tabs with a clock-slot stub on top/left in both palettes.
+- Dynamic: production islands include a clock-slot stub during expansion; the
+  clock stays centred at rest, expanded, and after layout switches.
+- Islands: 12 edge/corner combinations, including a separate clock-slot pill. Each runs six stages covering player
   and capture visibility, content sizes, transparency, reduced motion, gaps,
   auto-hide, input regions and final capture.
 

@@ -184,11 +184,11 @@ class LiveRegressionTests(unittest.TestCase):
             self.assertIn(f'grow: "{grow}"', line)
         self.assertIn('barWindow.islandSurfaces.afterLogo', self.source('bar/BarLeftGroup.qml'))
         self.assertIn('barWindow.islandSurfaces.afterWorkspaces', self.source('bar/BarLeftGroup.qml'))
-        self.assertEqual(self.source('bar/BarHorizontalCenter.qml').count('barHost.islandSurfaces.aroundClock'), 2)
+        self.assertEqual(self.source('bar/BarHorizontalCenter.qml').count('barHost.islandSurfaces.aroundClock'), 3)
         vertical = self.source('bar/BarVerticalPlacement.qml')
         self.assertIn('barHost.islandSurfaces.afterLogo', vertical)
         self.assertIn('barHost.islandSurfaces.afterWorkspaces', vertical)
-        self.assertEqual(self.source('bar/BarVerticalCenter.qml').count('barHost.islandSurfaces.aroundClock'), 2)
+        self.assertEqual(self.source('bar/BarVerticalCenter.qml').count('barHost.islandSurfaces.aroundClock'), 3)
 
     def test_twelve_hour_clocks_never_show_the_24_hour_number(self):
         clock = self.source('bar/ClockButton.qml')

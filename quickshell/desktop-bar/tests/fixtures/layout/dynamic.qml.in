@@ -55,6 +55,8 @@ ShellRoot {
         Item {
             id: bar
             anchors.fill: parent
+            property real clockPluginExtent: 166
+            property var pluginPanel: null
             property bool expanded: true
             property bool statusOpen: true
             property bool islandsLayout: false
@@ -126,8 +128,12 @@ ShellRoot {
                         Bar.BarLeftGroup { id: left; host: shell; barWindow: bar; styleMenu: workspaces; aiPanel: ai; hardwarePanel: hardware; Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter }
                     }
                     Item { id: center; anchors.fill: parent
-                        Bar.ClockButton { id: clock; host: shell; anchors.centerIn: parent }
-                        Slot { id: capture; property bool shown: true; label: "󰑋"; anchors.right: clock.left; anchors.rightMargin: 6; anchors.verticalCenter: parent.verticalCenter }
+                        Bar.ClockButton { id: clock; host: shell; anchors.alignWhenCentered: false; anchors.centerIn: parent }
+                        Item { id: clockPlugin; anchors.right: clock.left; anchors.rightMargin: 6; anchors.verticalCenter: clock.verticalCenter
+                            width: dynamic.middleIsland.expanded ? 160 : 0; height: 24; clip: true
+                            Text { anchors.centerIn: parent; text: "LIS 14:05"; color: shell.fg; font.pixelSize: 12 }
+                        }
+                        Slot { id: capture; property bool shown: true; label: "󰑋"; anchors.right: clockPlugin.width > 0 ? clockPlugin.left : clock.left; anchors.rightMargin: 6; anchors.verticalCenter: parent.verticalCenter }
                         Slot { id: media; property real availableWidth: 160; property var player: ({}); property bool present: true; label: "󰐊"; anchors.right: capture.left; anchors.rightMargin: 12; anchors.verticalCenter: parent.verticalCenter }
                         Item { anchors.left: clock.right; anchors.verticalCenter: parent.verticalCenter; width: dynamic.weatherReveal; height: 24; clip: true
                             Slot { id: weather; width: 65; label: "󰖙 24°"; x: 4 }
@@ -146,8 +152,12 @@ ShellRoot {
                         Repeater { model: ["󰕮", "ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "", "󰍛", "󰒲"]; Slot { required property string modelData; label: modelData } }
                     }
                     Item { id: centerVertical; anchors.centerIn: parent; width: parent.width; height: 40
-                        Bar.ClockButton { id: clockVertical; host: shell; compact: true; anchors.centerIn: parent }
-                        Slot { id: captureVertical; property bool shown: true; label: "󰑋"; anchors.bottom: clockVertical.top; anchors.bottomMargin: 3; anchors.horizontalCenter: parent.horizontalCenter }
+                        Bar.ClockButton { id: clockVertical; host: shell; compact: true; anchors.alignWhenCentered: false; anchors.centerIn: parent }
+                        Item { id: clockPluginVertical; anchors.bottom: clockVertical.top; anchors.bottomMargin: 3; anchors.horizontalCenter: clockVertical.horizontalCenter
+                            width: 24; height: dynamic.middleIsland.expanded ? 160 : 0; clip: true
+                            Text { anchors.centerIn: parent; rotation: 90; text: "LIS 14:05"; color: shell.fg; font.pixelSize: 12 }
+                        }
+                        Slot { id: captureVertical; property bool shown: true; label: "󰑋"; anchors.bottom: clockPluginVertical.height > 0 ? clockPluginVertical.top : clockVertical.top; anchors.bottomMargin: 3; anchors.horizontalCenter: parent.horizontalCenter }
                         Slot { id: mediaVertical; label: "󰐊"; anchors.bottom: captureVertical.top; anchors.bottomMargin: 3; anchors.horizontalCenter: parent.horizontalCenter }
                         Item { anchors.top: clockVertical.bottom; width: 30; height: dynamic.weatherReveal; clip: true
                             Slot { id: weatherVertical; label: "󰖙"; y: 4 }
@@ -175,11 +185,11 @@ ShellRoot {
                 const point = clockItem.mapToItem(bar, clockItem.width / 2, clockItem.height / 2);
                 const actual = shell.verticalBar ? point.y : point.x;
                 const expected = (shell.verticalBar ? height : width) / 2;
-                // At rest the clock is exactly centred; expanded, the whole clock island is.
+                // The clock and its island remain exactly centred, including with an asymmetric clock-slot item.
                 const middle = dynamic.middleIsland;
                 const islandCentre = middle.mapToItem(bar, middle.width / 2, middle.height / 2);
                 if (Math.abs((shell.verticalBar ? islandCentre.y : islandCentre.x) - expected) > 0.01) throw new Error("Clock island not centred");
-                if (dynamic.clockShift === 0 && Math.abs(actual - expected) > 0.01) throw new Error("Clock moved: " + actual + " vs " + expected);
+                if (Math.abs(actual - expected) > 0.01) throw new Error("Clock moved: " + actual + " vs " + expected);
                 // Capture shows at rest beside the clock; media has its own island between the
                 // logo and the clock while a player is present.
                 const captureItem = shell.verticalBar ? captureVertical : capture;

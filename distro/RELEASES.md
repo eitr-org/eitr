@@ -1,5 +1,9 @@
 # Releases
 
+Plugins may place up to two bar items immediately before the screen-centred clock,
+with status-group overflow. The optional official World clock plugin uses this slot
+for offline city times; clock-slot items follow weather visibility in each layout.
+
 Eitr Light adds the light Primordial Venom palette, local light Neovim and VS Code
 themes, and four still wallpapers led by Dusk Fjord. Eitr starts with Aurora
 Fjord, then Dusk Fjord, Rune Seal and the animated Runestone. The fjords use

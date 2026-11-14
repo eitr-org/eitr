@@ -31,6 +31,9 @@ FloatingWindow {
     Item { id: weatherMenu; visible: false }
     Timer { id: collapseDelay; interval: 350 }
     REVEAL
+    Item { id: emptyClockPlugin; width: 0; height: 0 }
+    QtObject { id: barHorizontalCenter; readonly property Item clockPluginsItem: emptyClockPlugin }
+    QtObject { id: barVerticalCenter; readonly property Item clockPluginsItem: emptyClockPlugin }
     GEOMETRY
     Item {
         id: sample; anchors.fill: parent

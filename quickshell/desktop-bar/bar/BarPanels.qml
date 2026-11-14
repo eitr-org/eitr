@@ -40,6 +40,7 @@ Item {
 
     PluginPanel {
         id: pluginPanel
+        clockFormat: host.barClock
         target: barHost.notificationIcon
         barEdge: host.barEdge; surfaceColor: host.barBackground()
         foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
@@ -47,6 +48,8 @@ Item {
     function openPluginPanel(plugin, panel, target) {
         var entry = PluginRegistry.entries.find(entry => entry.plugin === plugin && entry.id === panel && entry.kind === "panels");
         if (!entry) return;
+        pluginPanel.clockSlot = PluginRegistry.clockBarItems.some(item => item.plugin === plugin && item.panel === panel);
+        pluginPanel.centered = pluginPanel.clockSlot;
         pluginPanel.target = target;
         pluginPanel.entry = entry;
         barHost.showPanel(pluginPanel);

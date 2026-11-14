@@ -222,6 +222,7 @@ Every root component must be a QtQuick Item and declare
 - `foreground`, `background`, `accent`: optional live theme colors.
 - `palette`: full theme palette, including `color0`–`color15` and named roles from colors.toml. `themeChanged()` signals changes to the palette or style helpers.
 - `fontFamily`, `bodySize`, `captionSize`, `headingSize`, `radius`: shared style.
+- `clockFormat`: the bar’s live `"12h"` or `"24h"` preference.
 - `title`, `icon`: this component's manifest labels.
 - `runDataCommand()`: runs only this component's declared argv, with its plugin
   directory as cwd. Repeated calls while busy are ignored. Runs on component
@@ -304,7 +305,16 @@ grip still sizes the unrotated widget. Duplicate offsets the copy by 24 px, back
 left where it would leave the screen; moving to another display keeps size and settings
 and clamps the position to that display.
 
-Bar items occupy fixed icon slots at the end of the existing right-side group, just before the notifications, with its
+Bar items accept optional `slot: "status"` (default) or `slot: "clock"` in schema 2.
+The first two placed clock-slot entries, in saved placement order, appear immediately
+before the independently centred clock (above it on vertical bars); further entries
+appear in the status group. Clock items use the root’s natural `implicitWidth` and
+`implicitHeight`, rotated as one line on vertical edges. A zero-sized root is hidden.
+Full shows them directly; Centered only while expanded; Tabs includes them in the
+centre tab; Islands gives them a pill; Dynamic reveals them in its expanded clock
+island; Drop hides them. Panels use the same attachment/detachment as weather.
+
+Status bar items occupy fixed icon slots at the end of the existing right-side group, just before the notifications, with its
 normal hidden/show toggle (always shown in Tabs). They have no hover fill and
 use short themed tooltips. Their content is clipped to the slot. Declared panels
 use the same attached Full or detached Centered/Tabs geometry, Escape and

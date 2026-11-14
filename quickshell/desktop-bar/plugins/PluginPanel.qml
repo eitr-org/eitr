@@ -9,6 +9,8 @@ ThemedPopup {
     id: panel
     waitForFreshData: true
     property var entry: null
+    property bool clockSlot: false
+    property string clockFormat: PluginRegistry.clockFormat
     surfaceColor: entry && entry.surface === "panel" ? background : "transparent"
     property var history: []
     function back() {
@@ -49,6 +51,7 @@ ThemedPopup {
         contentWidth: availableWidth; clip: true
         PluginComponent {
             id: content
+            clockFormat: panel.clockFormat
             width: scroll.availableWidth; height: implicitHeight
             active: panel.entry !== null
             // The panel itself is the plugin's surface; a second fill would show twice through Blur.

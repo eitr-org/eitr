@@ -19,6 +19,7 @@ Item {
     readonly property alias verticalCalendarIconItem: verticalCalendarIcon
     readonly property alias verticalWeatherIconItem: verticalWeatherIcon
 
+    readonly property alias clockPluginsItem: clockPlugins
     id: verticalMiddle
     anchors.alignWhenCentered: false
     anchors.horizontalCenterOffset: 0
@@ -72,10 +73,10 @@ Item {
     CaptureIndicator {
         host: verticalMiddle.host
         id: verticalCapture
-        anchors.bottom: verticalCalendarIcon.top
+        anchors.bottom: clockPlugins.height > 0 ? clockPlugins.top : verticalCalendarIcon.top
         anchors.horizontalCenterOffset: 0
         anchors.bottomMargin: (shown ? (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) : 0)
-            + (barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0)
+            + (barHost.islandsLayout && clockPlugins.height <= 0 ? barHost.islandSurfaces.aroundClock : 0)
         anchors.horizontalCenter: parent.horizontalCenter
         recording: obsMenuRef.obsState.recording || obsMenuRef.obsState.streaming
         recordingPaused: obsMenuRef.obsState.paused && !obsMenuRef.obsState.streaming
@@ -105,9 +106,31 @@ Item {
         open: true; clickable: true
         onClicked: verticalMiddle.host.updateBarSetting("pinned", verticalMiddle.host.barPinned ? "no" : "yes")
     }
+    PluginBarItems {
+        id: clockPlugins
+        clockSlot: true
+        vertical: true
+        clockFormat: verticalMiddle.host.barClock
+        slotSize: verticalMiddle.host.workspaceItemSize
+        slotSpacing: barHost.itemGap
+        foreground: verticalMiddle.host.fg
+        background: verticalMiddle.host.barBackground()
+        accent: verticalMiddle.host.activeBg
+        open: !barHost.dropLayout && barHost.expanded
+        reveal: barHost.dynamicLayout ? (barHost.dynamicSurfaces.middleIsland.expanded ? 1 : 0) : 1
+        Behavior on reveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+        opacity: reveal
+        enabled: opacity > 0
+        anchors.bottom: verticalCalendarIcon.top
+        anchors.bottomMargin: barHost.islandsLayout ? barHost.islandSpacing + barHost.islandSurfaces.aroundClock : barHost.centeredLayout ? barHost.itemGap : 3
+        anchors.horizontalCenter: verticalCalendarIcon.horizontalCenter
+        onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
+    }
+
     ClockButton {
         host: verticalMiddle.host
         id: verticalCalendarIcon
+        anchors.alignWhenCentered: false
         activity: barHost.clockActivity
         anchors.centerIn: parent
         // Drop keeps the time at the screen's centre while its pill grows to one side.

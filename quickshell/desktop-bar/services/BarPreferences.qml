@@ -10,6 +10,7 @@ import "../ChoiceLists.js" as ChoiceLists
 Scope {
     id: preferences
     property var host
+    Binding { target: PluginRegistry; property: "clockFormat"; value: preferences.host.barClock }
     // Empty-bar double-click cycles follow tools/choice-lists.json (left: appearances, right: layouts).
     function nextAppearance(current) { return ChoiceLists.next(ChoiceLists.barAppearances, current); }
     function nextLayout(current) { return ChoiceLists.next(ChoiceLists.barLayouts, current); }

@@ -4,6 +4,8 @@
 
 Die volle Leiste. Das Eitr-Logo öffnet das Kontrollzentrum; danach folgen Übersicht, Arbeitsflächenmarkierungen, KI-Nutzung, Hardware und automatische Sperre. Datum und Uhrzeit bleiben mittig, die Medien davor und das Wetter dahinter. **Symbole anzeigen** blendet die Statussymbole rechts ein oder aus; die Benachrichtigungen stehen ganz am Ende.
 
+Optionale Plugin-Elemente können direkt vor der Uhr stehen (bei vertikalen Leisten darüber). Die ersten zwei platzierten Elemente für den Uhrbereich nutzen diese Position; weitere erscheinen bei den Statussymbolen. Wie das Wetter sind sie in Centered und Dynamic nur im erweiterten Zustand sichtbar, in Tabs und Islands enthalten und in Drop verborgen. Die Uhr bleibt in der Bildschirmmitte. World clock ist ein optionales offizielles Plugin: Städte wählen und Kürzel im Panel bearbeiten; es arbeitet offline und folgt dem 12/24-Stunden-Format der Leiste.
+
 Unter Einstellungen > Fenster verwenden Fensterlayout und Monitore jeweils zwei Schaltflächen. Arbeitsflächenanzahl und Immer anzeigen verwenden Auswahllisten; Immer anzeigen bietet 2 bis zur aktuellen Anzahl an. Beschreibungen unter den Einstellungen erklären ihre Wirkung, auch für das gewählte Fensterlayout und die Scrolloptionen.
 
 ## Aktualisierungen

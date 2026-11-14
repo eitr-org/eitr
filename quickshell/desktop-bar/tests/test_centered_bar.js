@@ -22,8 +22,8 @@ context.centeredLayout = false;
 assert.equal(expanded(), true);
 assert.ok(source.includes('interval: 350'));
 assert.ok(source.includes('anchors.right: barHost.centeredLayout ? barPin.left : barCapture.left'));
-// The recording/dictation indicator sits between the pin (or media) and the clock.
-assert.ok(/id: barCapture\s+anchors.right: centerInfo.left/.test(source));
+// Capture stays before any clock-slot plugins, followed by the clock.
+assert.ok(/id: barCapture\s+anchors.right: clockPlugins.width > 0 \? clockPlugins.left : centerInfo.left/.test(source));
 assert.ok(/id: barPin\s+visible: barHost.centeredLayout && barHost.expanded\s+anchors.right: barCapture.left/.test(source));
 assert.ok(source.includes('id: barPin'));
 assert.equal((source.match(/BarSection \{/g) || []).length, 2);
@@ -106,7 +106,7 @@ try {
                     const clockSize = verticalBar ? 40 : 156;
                     const rightSizes = [verticalBar ? 24 : 50, ...slots(9), 24];
                     const centerExtent = verticalBar ? 56 : clockSize + 24;
-                    const context = {shell, endPadding: padding, centerPadding: (centerExtent - clockSize) / 2, itemGap: gap,
+                    const context = {shell, clockPluginExtent: 0, endPadding: padding, centerPadding: (centerExtent - clockSize) / 2, itemGap: gap,
                         leftGroup: {workspaces: {width: span(workspaceSizes)}, hardwareStatus: {width: span(hardwareSizes)}},
                         mediaStrip: {player: withMedia ? {} : null, present: withMedia, visible: withMedia, width: span(mediaSizes)},
                         barPin: {width: 24}, barCapture: {width: shown ? 22 : 0, shown},

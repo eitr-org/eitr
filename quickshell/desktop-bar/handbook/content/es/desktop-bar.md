@@ -4,6 +4,8 @@
 
 La barra completa. El logotipo de Eitr abre el Centro de control; le siguen Vista general, los marcadores de espacios de trabajo, Uso de IA, Hardware y Bloqueo automático. La fecha y la hora quedan centradas, con la multimedia delante y el tiempo detrás. **Mostrar iconos** muestra u oculta los iconos de estado de la derecha; las notificaciones van al final.
 
+Los elementos opcionales de complementos pueden situarse justo antes del reloj (encima en barras verticales). Los dos primeros del espacio del reloj usan esa posición; los demás aparecen entre los iconos de estado. Siguen la visibilidad del tiempo: Centered y Dynamic los muestran al expandirse, Tabs e Islands los incluyen y Drop los oculta. El reloj permanece centrado en la pantalla. World clock es un complemento oficial opcional: permite elegir ciudades y editar etiquetas en su panel, funciona sin conexión y sigue el formato de 12/24 horas de la barra.
+
 Islas presenta grupos en superficies separadas: logotipo, Vista general y espacios de trabajo, Uso de IA/Hardware/Bloqueo por inactividad, reloj, tiempo y controles de estado. Los indicadores multimedia y de captura aparecen solo cuando están activos. El reloj permanece exactamente centrado en la pantalla; el tiempo tiene su propia superficie al lado.
 
 Las superficies son siempre totalmente redondeadas, sea cual sea la preferencia de esquinas, y siguen el color/transparencia y el desenfoque. Las superficies quedan a la mitad del espacio exterior actual de Hyprland del borde, con el espacio completo entre superficies vecinas, en los cuatro lados. La reserva para ventanas incluye el grosor y esa mitad; la ocultación automática no reserva espacio.

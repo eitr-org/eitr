@@ -4,6 +4,8 @@
 
 The Full bar. The Eitr logo opens Control Center; Overview, the workspace markers, AI Usage, Hardware and Idle Lock follow it. The date and time stay centered, with media before them and the weather after them. **Show Icons** reveals or hides the status icons on the right; Notifications come last.
 
+Optional plugin bar items can sit immediately before the clock (above it on vertical bars). The first two placed clock-slot items use that position; others appear among status icons. They follow the weather’s visibility: Centered and Dynamic show them while expanded, Tabs and Islands include them, and Drop hides them. The clock stays screen-centred. World clock is an optional official plugin: choose cities and edit labels in its panel; it works offline and follows the bar’s 12/24-hour preference.
+
 In Settings > Windows, Window layout and Monitors use two-button choices. Number of workspaces and Always show use dropdown lists; Always show offers 2 up to the current workspace count. Descriptions below each setting explain its effect, including the selected window layout and scrolling options.
 
 ## Updates

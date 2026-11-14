@@ -16,6 +16,7 @@ Item {
     IslandSurface { id: workspacesPill; first: host.verticalBar ? barHost.verticalOverviewIcon : barHost.leftGroup.overviewIcon; last: host.verticalBar ? barHost.verticalWorkspaces : barHost.leftGroup.workspaceButtonRow }
     IslandSurface { first: host.verticalBar ? barHost.verticalHardware : barHost.leftGroup.hardwareStatus }
     IslandSurface { id: clockPill; first: host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo; grow: "center" }
+    IslandSurface { first: barHost.clockPlugins; shown: barHost.clockPluginExtent > 0 }
     IslandSurface { first: host.verticalBar ? barHost.verticalWeatherIcon : barHost.barWeather }
     IslandSurface { first: host.verticalBar ? barHost.verticalMedia : barHost.mediaStrip; shown: host.verticalBar ? barHost.verticalMedia.visible : barHost.mediaStrip.visible; grow: "end" }
     IslandSurface { first: host.verticalBar ? barHost.verticalCapture : barHost.barCapture; shown: host.verticalBar ? barHost.verticalCapture.shown : barHost.barCapture.shown; grow: "end" }

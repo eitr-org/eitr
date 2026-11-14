@@ -1,5 +1,9 @@
 import QtQuick
 Item {
+    property bool hovered: false
+    property bool clockSlot: false
+    property string clockFormat: "12h"
+    property real reveal: 1
     property var host
     property bool compact: false
     property bool open: true

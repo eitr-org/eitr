@@ -78,9 +78,12 @@ PanelWindow {
         ? tabItemStart(verticalStart) + verticalStart.height
         : tabItemStart(leftGroup.hardwareStatus) + leftGroup.hardwareStatus.width) + tabsPadding
     readonly property real tabTrailingStart: tabItemStart(host.verticalBar ? verticalEnd : rightSide) - tabsPadding
+    readonly property var clockPlugins: host.verticalBar ? barVerticalPlacement.clockPluginsItem : barHorizontalPlacement.clockPluginsItem
+    readonly property real clockPluginExtent: (host.verticalBar ? clockPlugins.implicitHeight : clockPlugins.implicitWidth) > 0
+        ? (host.verticalBar ? clockPlugins.implicitHeight : clockPlugins.implicitWidth) + (islandsLayout ? islandSpacing : centeredLayout ? itemGap : host.verticalBar ? 3 : 6) : 0
     readonly property real tabCenterStart: (host.verticalBar
-        ? tabItemStart(verticalMedia.visible ? verticalMedia : verticalCapture.shown ? verticalCapture : verticalCalendarIcon)
-        : tabItemStart(mediaStrip.visible ? mediaStrip : barCapture.shown ? barCapture : centerInfo)) - tabsPadding
+        ? tabItemStart(verticalMedia.visible ? verticalMedia : verticalCapture.shown ? verticalCapture : clockPlugins.height > 0 ? clockPlugins : verticalCalendarIcon)
+        : tabItemStart(mediaStrip.visible ? mediaStrip : barCapture.shown ? barCapture : clockPlugins.width > 0 ? clockPlugins : centerInfo)) - tabsPadding
     readonly property real tabCenterEnd: (host.verticalBar
         ? tabItemStart(verticalCalendarIcon) + verticalCalendarIcon.height + (notchLayout ? weatherReveal : 3 + verticalWeatherIcon.height)
         : tabItemStart(centerInfo) + centerInfo.width + (notchLayout ? weatherReveal : 6 + barWeather.width)) + tabsPadding
@@ -111,7 +114,7 @@ PanelWindow {
     readonly property real itemGap: host.workspaceItemSpacing
     readonly property real endPadding: host.verticalBar ? 8 : 4
     readonly property real centerPadding: (centerExtent - (host.verticalBar ? verticalCalendarIcon.height : centerInfo.width)) / 2
-    readonly property real leadingExtent: endPadding - centerPadding + (host.verticalBar
+    readonly property real leadingExtent: clockPluginExtent + endPadding - centerPadding + (host.verticalBar
         ? verticalStart.height + itemGap + (mediaStrip.present ? verticalMedia.height + itemGap : 0) + verticalPin.height + itemGap + (verticalCapture.shown ? verticalCapture.height + itemGap : 0)
         : leftGroup.workspaces.width + itemGap + leftGroup.hardwareStatus.width + itemGap + (mediaStrip.visible ? mediaStrip.width + itemGap : 0) + barPin.width + itemGap + (barCapture.shown ? barCapture.width + itemGap : 0))
     readonly property real trailingExtent: endPadding - centerPadding + (host.verticalBar

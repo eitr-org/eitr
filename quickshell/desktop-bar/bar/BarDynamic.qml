@@ -28,7 +28,7 @@ Item {
     readonly property real weatherExtent: vertical ? barHost.verticalWeatherIcon.height : barHost.barWeather.width
     // The clock island holds [capture] clock [weather]. At rest: the time plus what is
     // happening beside it (recording, timer, next event, bell); hover adds date and weather.
-    // It stays centred as a whole, so the clock shifts by half the difference of its sides.
+    // Balance both sides so the clock remains exactly screen-centred.
     readonly property bool captureShown: vertical ? barHost.verticalCapture.shown : barHost.barCapture.shown
     readonly property real captureLength: captureShown ? (vertical ? barHost.verticalCapture.height + 3 : barHost.barCapture.width + 6) : 0
     // While a player is there, its controls and equalizer are an island of their own
@@ -38,13 +38,10 @@ Item {
     // The room the media island takes before the clock island, gap included.
     readonly property real mediaRun: mediaAvailable ? media.targetExtent + spacing : 0
     readonly property real weatherLength: host.workspaceItemSpacing + weatherExtent
-    readonly property real middleExtent: clockExtent + 8 + captureLength + weatherLength
+    readonly property real middleExtent: clockExtent + 8 + 2 * Math.max(captureLength + barHost.clockPluginExtent, weatherLength)
     // Space the clock island takes when the side islands expand: a card's full size, or its widest hover.
     readonly property real middleRoom: middle.morphed ? middle.targetExtent : middleExtent
-    readonly property real middleLeading: captureLength
     readonly property real middleTrailing: middle.expanded ? weatherLength : 0
-    property real clockShift: (middleLeading - middleTrailing) / 2
-    Behavior on clockShift { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     property real weatherReveal: middleTrailing
     Behavior on weatherReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     readonly property real leadingExtent: (vertical ? barHost.verticalStart.height : barHost.leftGroup.implicitWidth) + 8
@@ -65,7 +62,8 @@ Item {
     function owns(panel, names) { return names.indexOf(panel) !== -1; }
     function active(names) { return names.some(panel => panel.visible || panel === barHost.pendingPanel); }
     readonly property var leftPanels: [barHost.aiMenu, barHost.hardwareMenu, barHost.workspaceMenu]
-    readonly property var middlePanels: [barHost.calendarMenu, barHost.weatherMenu, barHost.recordingMenu].filter(panel => !!panel)
+    readonly property var middlePanels: [barHost.calendarMenu, barHost.weatherMenu, barHost.recordingMenu,
+        barHost.pluginPanel && barHost.pluginPanel.clockSlot ? barHost.pluginPanel : null].filter(panel => !!panel)
     // Control Center can be opened from the logo or externally; retain its source island.
     property string controlCenterOwner: "left"
     function rememberOwner(panel) {
@@ -168,7 +166,7 @@ Item {
         x: vertical ? depthOffset : dynamic.middleStartFor(leading.extent, extent, trailing.extent)
         y: vertical ? dynamic.middleStartFor(leading.extent, extent, trailing.extent) : depthOffset
         panel: dynamic.openPanel(middle)
-        restingExtent: clockExtent + 8 + captureLength
+        restingExtent: clockExtent + 8 + 2 * captureLength
         // Beside a card from another island, expand only into the space that is left.
         fullExtent: Math.max(restingExtent, Math.min(middleExtent, length - 2 * Math.max(
             insetStart + (leading.morphed ? leading.targetExtent : leading.restingExtent) + spacing + dynamic.mediaRun,
@@ -242,7 +240,7 @@ Item {
             PropertyChanges { target: barHost.leftGroup; parent: leading.content; x: 4; y: (leading.thickness - barHost.leftGroup.height) / 2 }
             PropertyChanges { target: barHost.leftGroup; width: barHost.leftGroup.implicitWidth }
             PropertyChanges { target: barHost.barHorizontalCenter; parent: middle.content }
-            PropertyChanges { target: barHost.centerInfo; timeOnly: !middle.expanded; anchors.horizontalCenterOffset: dynamic.clockShift }
+            PropertyChanges { target: barHost.centerInfo; timeOnly: !middle.expanded; anchors.centerIn: null; x: (barHost.centerInfo.parent.width - barHost.centerInfo.width) / 2; y: (middle.thickness - barHost.centerInfo.height) / 2 }
             PropertyChanges { target: barHost.rightSide; parent: trailing.content }
             PropertyChanges { target: barHost.notificationIcon; parent: trailing.content }
             PropertyChanges { target: barHost.notificationIcon; anchors.rightMargin: 4; opacity: trailing.expanded ? 1 : 0; enabled: trailing.expanded }
@@ -254,8 +252,8 @@ Item {
         State {
             name: "vertical"; when: dynamic.holding && dynamic.vertical
             PropertyChanges { target: barHost.verticalStart; parent: leading.content; y: 4 }
-            PropertyChanges { target: barHost.verticalMiddle; parent: middle.content }
-            PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: !middle.expanded; anchors.verticalCenterOffset: dynamic.clockShift }
+            PropertyChanges { target: barHost.verticalMiddle; parent: middle.content; anchors.centerIn: null; x: 0; y: (middle.content.height - barHost.verticalMiddle.height) / 2 }
+            PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: !middle.expanded; anchors.centerIn: null; x: (barHost.verticalCalendarIcon.parent.width - barHost.verticalCalendarIcon.width) / 2; y: (barHost.verticalCalendarIcon.parent.height - barHost.verticalCalendarIcon.height) / 2 }
             PropertyChanges { target: barHost.verticalEnd; parent: trailing.content }
             PropertyChanges { target: barHost.verticalEnd; anchors.bottomMargin: 4; opacity: trailing.expanded ? 1 : 0; enabled: trailing.expanded }
             AnchorChanges { target: barHost.verticalMedia; anchors.bottom: undefined; anchors.horizontalCenter: undefined }

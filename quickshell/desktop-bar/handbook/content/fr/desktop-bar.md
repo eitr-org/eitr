@@ -4,6 +4,8 @@ Ces commandes sont également disponibles directement dans les paramètres.
 
 <!-- eitr-figure: bar-anatomy -->
 
+Les éléments de barre des extensions peuvent se placer juste avant l’horloge (au-dessus dans une barre verticale). Les deux premiers éléments de cet emplacement y apparaissent ; les suivants rejoignent les icônes d’état. Leur visibilité suit la météo : Centered et Dynamic les montrent en mode développé, Tabs et Islands les incluent, Drop les masque. L’horloge reste centrée sur l’écran. World clock est une extension officielle facultative : choisissez des villes et modifiez leurs libellés dans son panneau ; elle fonctionne hors ligne et suit le format 12/24 heures de la barre.
+
 La barre complète. Le logo Eitr ouvre le Centre de contrôle ; viennent ensuite Vue d’ensemble, les marqueurs d’espaces de travail, Utilisation IA, Matériel et Verrouillage automatique. La date et l’heure restent centrées, le multimédia avant elles et la météo après. **Afficher les icônes** affiche ou masque les icônes d’état à droite ; les notifications viennent en dernier.
 
 Îlots présente des surfaces séparées pour le logo, la vue d’ensemble et les espaces de travail, Utilisation IA/Matériel/Verrouillage d’inactivité, l’horloge, la météo et les icônes d’état. Les indicateurs multimédias et de capture apparaissent uniquement lorsqu’ils sont actifs. L’horloge reste exactement centrée à l’écran ; la météo possède sa propre surface à côté.

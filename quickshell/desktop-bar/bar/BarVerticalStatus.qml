@@ -74,6 +74,7 @@ Column {
     VerticalBarIcon { host: verticalEnd.host; id: verticalBatteryIcon; icon: verticalEnd.host.batteryIcon; tooltip: Math.round(verticalEnd.host.battery.percent) + "% · " + verticalEnd.host.battery.status; open: verticalEnd.host.battery.available; visible: verticalEnd.host.battery.available; clickable: true; onClicked: barHost.togglePanel(batteryMenuRef) }
     // Plugin icons come last in the hideable group, right before the notifications.
     PluginBarItems {
+        clockFormat: verticalEnd.host.barClock
         foreground: verticalEnd.host.fg; background: verticalEnd.host.barBackground(); accent: verticalEnd.host.activeBg
         vertical: true; open: verticalEnd.host.iconsOpen; slotSize: verticalEnd.host.workspaceItemSize; slotSpacing: verticalEnd.host.workspaceItemSpacing
         onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }

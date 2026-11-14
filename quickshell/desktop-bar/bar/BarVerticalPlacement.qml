@@ -3,6 +3,7 @@ import QtQuick
 import Eitr as Eitr
 
 BarSection {
+    readonly property alias clockPluginsItem: barVerticalCenter.clockPluginsItem
     required property var host
     readonly property alias verticalEndItem: barVerticalStatus.verticalEndItem
     readonly property alias verticalWifiIconItem: barVerticalStatus.verticalWifiIconItem

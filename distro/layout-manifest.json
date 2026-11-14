@@ -16,7 +16,9 @@
     {"pattern": "tools/tests/test_store.py", "class": "C", "runtime": false},
     {"pattern": "quickshell/desktop-bar/tests/test_store_render.py", "class": "C", "runtime": false},
     {"pattern": "distro/STORE.md", "class": "C", "runtime": false},
-
+    {"pattern": "distro/tests/test_plugin_clock_slot.py", "class": "C", "runtime": false},
+    {"pattern": "quickshell/desktop-bar/tests/test_clock_slot_render.py", "class": "C", "runtime": false},
+    {"pattern": "quickshell/desktop-bar/tests/test_clock_slots.js", "class": "C", "runtime": false},
     {"pattern": "distro/lib/eitr_keybinds.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_window_rules.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_rule_storage.py", "class": "C", "runtime": true},

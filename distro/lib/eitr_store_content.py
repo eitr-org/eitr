@@ -268,5 +268,3 @@ def artwork_preview(kind, item_id, backend, requested=None, channel="official", 
                         image.verify()
                 temporary.replace(target)
         return {'image': target.as_uri(), 'size': target.stat().st_size}
-
-

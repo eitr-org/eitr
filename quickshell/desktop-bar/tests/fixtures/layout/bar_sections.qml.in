@@ -3,6 +3,7 @@ import Quickshell
 ShellRoot {
     id: shell
     property bool verticalBar: false
+    property string barClock: "24h"
     property string barEdge: "top"
     property bool notchLayout: false
     property bool centeredLayout: false
@@ -44,6 +45,7 @@ ShellRoot {
         visible: true; implicitWidth: 1920; implicitHeight: 1080
         Item {
             id: bar; anchors.fill: parent
+            property real clockPluginExtent: 0
             property bool centeredLayout: shell.centeredLayout
             property bool dynamicLayout: false
             property bool dropLayout: false
