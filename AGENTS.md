@@ -446,6 +446,10 @@ Check these before committing; reviews keep catching them.
   would pass the limit without a real reason to stay whole. Briefs for delegated work
   state the limit and the reuse rule.
 
+- One control, one look: dropdowns, buttons, text fields and switches are Eitr's shared
+  components (`ChoiceDropdown`, `PanelButton`, `PanelTextField`, `PanelSwitch`) everywhere,
+  including official plugins, which get them through `api.controls` (see `distro/PLUGINS.md`).
+  Never hand-build a look-alike control in a page, panel or plugin; extend the shared one.
 - A new QML type under `quickshell/desktop-bar`, including its subfolders, must be
   listed with its relative path in the root `qmldir`,
   or the running bar cannot find it even though `qmllint` passes.

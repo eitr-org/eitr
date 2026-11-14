@@ -192,6 +192,16 @@ Rectangle {
         if (api.palette.color15 !== "#fff123" || api.palette.foreground !== "#abcdef")
             throw new Error("Missing full palette");
         api.themeChanged.connect(function() { console.log("THEME_SIGNAL_OK"); });
+        // Eitr's own controls are offered to plugin QML, themed, with their usual API.
+        const dropdown = api.controls.dropdown.createObject(this, {choices: [{value: "1", label: "One"}], current: "1"});
+        const button = api.controls.button.createObject(this, {text: "Go"});
+        const field = api.controls.textField.createObject(this);
+        const toggle = api.controls.toggle.createObject(this, {checked: true});
+        if (!dropdown || !dropdown.chosen || !button || !button.clicked || !field || !toggle || !toggle.checked)
+            throw new Error("Missing Eitr controls");
+        if (dropdown.foreground !== api.foreground || dropdown.gold !== api.accent) throw new Error("Controls not themed");
+        [dropdown, button, field, toggle].forEach(control => control.visible = false);
+        console.log("CONTROLS_OK");
     }
     Text { anchors.centerIn: parent; text: "MY CANVAS"; color: "#132750"; font.pixelSize: 22 }
 }''')
@@ -274,6 +284,7 @@ ShellRoot {
                 self.assertNotIn('Plugin QML', output)
                 if mode != 'custom-tiles':
                     self.assertIn('THEME_SIGNAL_OK', output)
+                    self.assertIn('CONTROLS_OK', output)
                 self.assertTrue(capture.is_file())
 
     def test_example_and_load_failure_in_both_themes(self):
