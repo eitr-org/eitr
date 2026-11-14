@@ -62,14 +62,6 @@ item says what decides the next step. Remove an item when it ships;
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
   done (Tools > Reminders > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).
-- **Song recognition, as a plugin (owner's idea, 2026-11-10).** "What's playing?" for audio
-  on the desktop (a video, a stream, a game): capture a few seconds from PipeWire's monitor
-  of the default output (`pw-record --target` the sink monitor), fingerprint it and show
-  the title, artist and links in a notification or panel. Shazam has no official public
-  API; options are AcoustID/Chromaprint (open, free, but mostly matches full recordings),
-  AudD or ACRCloud (paid APIs with free tiers and keys), or an unofficial Shazam client
-  (`songrec` in the AUR, works today but can break). Decide the service with the owner;
-  audio leaves the computer only when the person asks.
 - **World clock, as a plugin.** Other cities and people's local time beside the clock;
   not built in.
 - **`eitr-store`.** A separate repository and app for themes, plugins and other
