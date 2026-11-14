@@ -74,21 +74,6 @@ item says what decides the next step. Remove an item when it ships;
 
 # 2. To test with the owner
 
-- **Add-ons and the Lockscreens tab (on testing 2026-11-13).** VM-tested: upgrade fallback
-  to Eitr, one-time install of the eight designs, login design restored, remove and reinstall
-  with the password popup, refusals. On the owner's desktop: the first System Update removes the
-  optional designs; the next System Update installs them back (the migration). Then promote.
-
-- **Keybinds and window rules editors (on testing 2026-11-13).** Settings > Keybinds rebinds,
-  disables and resets shortcuts; Settings > Window Rules sets float, workspace, size and opacity
-  per app. Try a rebind, a clash and swap, a rule on a real app, then promote.
-
-- **Island style and Side style (on testing 2026-11-13).** Attached Islands, Dynamic and Drop,
-  straight sides for Tabs and Centered (Settings > Desktop Bar > Layout); try every layout
-  and edge, panels opening from attached pills, auto-hide, then promote.
-- **Login on the main display (on testing 2026-11-13).** The login design runs only on the
-  largest display and the others stay black; at the next login, check that typing goes
-  straight to the password field, then promote.
 - **Logout on NVIDIA.** The login screen crashed in the NVIDIA driver when SDDM started
   it again after a logout (black screen). It now uses Qt's basic render loop
   (`eitr-greeter.conf`, on stable 2026-11-11); log out once after updating to confirm.
