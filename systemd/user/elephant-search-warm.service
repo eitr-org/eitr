@@ -1,0 +1,13 @@
+[Unit]
+Description=Warm Elephant menu search index
+After=elephant.service
+Requires=elephant.service
+PartOf=elephant.service
+
+[Service]
+Type=oneshot
+Environment=EITR_CODE_ROOT=/usr/share/eitr
+ExecStart=/usr/bin/python3 /usr/share/eitr/walker/scripts/menus/search-index.py warm
+Nice=10
+IOSchedulingClass=idle
+RemainAfterExit=yes

@@ -243,6 +243,20 @@ def build(check=False, root=ROOT):
             rows.extend(["    },", "    sortKeys = {"])
             rows.extend("        [" + quote(value) + "] = " + quote(sort_key(value)) + "," for value in sorted(set(messages.values())))
             rows.extend(["    },", "    language = " + quote(bundles["languages"][locale]["nativeName"]), "}"])
+            if locale == "en":
+                exceptions = ["return {"]
+                for value in sorted(set(messages.values())):
+                    lua_lower = re.sub(r"[A-Z]", lambda match: match[0].lower(), value)
+                    if sort_key(value) != lua_lower:
+                        exceptions.append("    [" + quote(value) + "] = " + quote(sort_key(value)) + ",")
+                exceptions.append("}")
+                exception_output = menu_file.with_name("menu-sort-exceptions.lua")
+                exception_text = "\n".join(exceptions) + "\n"
+                if check:
+                    if not exception_output.is_file() or exception_output.read_text() != exception_text:
+                        errors.append("Stale English menu sort exceptions")
+                else:
+                    exception_output.write_text(exception_text)
             rendered = "\n".join(rows) + "\n"
             output = menu_file.with_suffix(".lua")
             if check:

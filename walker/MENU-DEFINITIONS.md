@@ -17,6 +17,23 @@ rows: apps, clipboard, cloud/account navigation, plugins, installed software,
 themes, wallpaper, fonts, keyboard layouts and current setting choices. Search
 snapshots those providers rather than maintaining a second list of their choices.
 
+## Query startup and cost
+
+Walker waits for Elephant query readiness, then starts index preparation detached
+with idle I/O priority and a lower CPU priority. Empty queries use their own menu
+rows immediately; typed descendant results appear once the index is available.
+Preparation retains the 60-second freshness window and the shared nonblocking
+refresh lock. `elephant-search-warm.service` warms the index after backend readiness,
+independently of the backend start transaction, and follows backend restarts.
+Policies share one decoded snapshot within each query's Lua state; activation
+still validates current policy. English loads only generated sort exceptions;
+other locales load their full catalogs. Apps scans all five directories once,
+then orders paths by directory precedence before selecting visible desktop IDs.
+
+Run `python3 tools/benchmark-walker.py` on a live desktop to sample Main opening,
+Main typing (`f`, `fi`, `fir`) and Apps opening through Elephant. Timings include
+CLI/IPC overhead and do not measure Walker window rendering.
+
 ## Live menu search
 
 Dynamic providers wrap their final browse loader with

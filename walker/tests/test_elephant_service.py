@@ -16,12 +16,21 @@ class ElephantServiceTests(unittest.TestCase):
         self.assertEqual(unit["Service"]["KillMode"], "process")
         self.assertTrue(unit["Service"]["ExecStart"].endswith(" /usr/bin/elephant"))
 
-    def test_the_search_index_is_ready_before_the_first_walker(self):
+    def test_readiness_does_not_wait_for_index_warmup(self):
         unit = configparser.ConfigParser(interpolation=None)
         unit.read(ROOT / "systemd/user/elephant.service")
-        # "-": a failed warm-up never fails the backend; Walker then prepares it itself.
         self.assertEqual(unit["Service"]["ExecStartPost"],
-                         "-/usr/bin/python3 /usr/share/eitr/walker/scripts/menus/search-index.py warm")
+                         "-/usr/bin/python3 /usr/share/eitr/walker/scripts/menus/search-index.py ready")
+
+    def test_warmup_follows_backend_and_restarts_with_it(self):
+        unit = configparser.ConfigParser(interpolation=None)
+        unit.read(ROOT / "systemd/user/elephant-search-warm.service")
+        self.assertEqual(unit["Unit"]["After"], "elephant.service")
+        self.assertEqual(unit["Unit"]["PartOf"], "elephant.service")
+        self.assertEqual(unit["Service"]["Type"], "oneshot")
+        backend = (ROOT / "systemd/user/elephant.service").read_text()
+        self.assertIn("Wants=elephant-search-warm.service", backend)
+        self.assertNotIn("Before=elephant-search-warm.service", backend)
 
     def test_startup_uses_single_service(self):
         config = (ROOT / "hypr/hyprland.lua").read_text()

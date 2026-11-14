@@ -1,4 +1,5 @@
 local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .. "/paths.lua")
+local policies = dofile(paths.code("elephant/policies.lua"))
 local search = dofile(paths.code("elephant/search-index-entries.lua"))
 
 local function copy(value)
@@ -49,7 +50,7 @@ return function(name, load, context)
             for _, entry in ipairs(search(name)) do table.insert(entries, entry) end
         end
         if query and query ~= "" then
-            return dofile(paths.code("elephant/policies.lua")).filter(entries, name)
+            return policies.filter(entries, name)
         end
         return entries
     end

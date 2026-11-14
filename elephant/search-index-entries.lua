@@ -1,9 +1,10 @@
 local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .. "/paths.lua")
+local policies = dofile(paths.code("elephant/policies.lua"))
 -- Rows from the prepared search index. scope "main" (or nil) offers every menu's
 -- rows; another menu name offers only the rows of the menus below it. The menu's
 -- own rows are left out: its definition already lists them.
 local quote = dofile(paths.code("elephant/shell-quote.lua"))
-local helper = paths.code("walker/scripts/menus/search-index.py")
+local helper = quote(paths.code("walker/scripts/menus/search-index.py"))
 local row_entry = dofile(paths.code("elephant/row-entry.lua"))
 local runtime = os.getenv("XDG_RUNTIME_DIR")
 
@@ -65,12 +66,12 @@ return function(scope)
                 for _, action in ipairs(row.actions or {}) do
                     if row.provider ~= "menus:apps" or action == "open" then
                         local binding = row.provider == "menus:apps" and "app_launch" or action
-                        actions[binding] = "python3 " .. quote(helper) .. " activate " .. quote(row.key) .. " " .. quote(action)
+                        actions[binding] = "python3 " .. helper .. " activate " .. quote(row.key) .. " " .. quote(action)
                     end
                 end
                 entry.Actions = actions
             end
-            if dofile(paths.code("elephant/policies.lua")).row(entry, row.provider:gsub("^menus:", "")) then
+            if policies.row(entry, row.provider:gsub("^menus:", "")) then
                 table.insert(entries, entry)
             end
         end

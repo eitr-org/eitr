@@ -509,6 +509,7 @@
     {"pattern": "fastfetch/*.py", "class": "C", "runtime": true},
     {"pattern": "fastfetch/**", "class": "D", "runtime": true},
     {"pattern": "xdg-desktop-portal/**", "class": "D", "runtime": true},
+    {"pattern": "systemd/user/elephant-search-warm.service", "class": "C", "runtime": false},
     {"pattern": "systemd/**", "class": "C", "runtime": false},
     {"pattern": "distro/**", "class": "C", "runtime": false},
     {"pattern": "tools/**", "class": "C", "runtime": false},

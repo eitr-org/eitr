@@ -1,5 +1,6 @@
 if rawget(_G, "EitrI18n") then return EitrI18n end
 local paths = dofile((os.getenv("EITR_LIBRARY_ROOT") or "/usr/share/eitr/lib") .. "/paths.lua")
+local policies = dofile(paths.code("elephant/policies.lua"))
 local translations = nil
 local module = {}
 local sort_keys = {}
@@ -29,7 +30,13 @@ end
 local function catalog()
     if translations then return translations end
     translations = {}
-    local loaded, result = pcall(dofile, paths.code("i18n/catalogs/" .. locale_name() .. "/menus.lua"))
+    local locale = locale_name()
+    if locale == "en" then
+        local loaded, result = pcall(dofile, paths.code("i18n/catalogs/en/menu-sort-exceptions.lua"))
+        if loaded and type(result) == "table" then sort_keys = result end
+        return translations
+    end
+    local loaded, result = pcall(dofile, paths.code("i18n/catalogs/" .. locale .. "/menus.lua"))
     if loaded and type(result) == "table" then
         translations = result.messages or {}
         sort_keys = result.sortKeys or {}
@@ -58,7 +65,7 @@ function module.tr(source, values)
 end
 
 function module.entries(entries, preserve_order)
-    entries = dofile(paths.code("elephant/policies.lua")).filter(entries, rawget(_G, "Name"))
+    entries = policies.filter(entries, rawget(_G, "Name"))
     for _, entry in ipairs(entries) do
         local english = entry.Text or ""
         local description = entry.Subtext or ""

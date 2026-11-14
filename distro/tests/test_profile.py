@@ -271,6 +271,9 @@ io.open = function() return {read = function() return '' end, close = function()
 jsonDecode = function() return {plugins = {allow = {'https://example.org/a.git'}}} end
 assert(#policies.filter({{Text='Plugins', SubMenu='plugins'}}, 'tools') == 1)
 jsonDecode = function() return {plugins = false} end
+assert(#policies.filter({{Text='Plugins', SubMenu='plugins'}}, 'tools') == 1)
+EitrPolicies = nil
+policies = dofile('elephant/policies.lua')
 assert(#policies.filter({{Text='Plugins', SubMenu='plugins'}}, 'tools') == 0)
 '''
         subprocess.run(['lua', '-'], input=script, text=True, check=True, cwd=ROOT)

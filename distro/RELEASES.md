@@ -4,6 +4,11 @@ Plugins may place up to two bar items immediately before the screen-centred cloc
 with status-group overflow. The optional official World clock plugin uses this slot
 for offline city times; clock-slot items follow weather visibility in each layout.
 
+Walker opens menus while their descendant index prepares in the background.
+Typing reuses one policy snapshot per query; English skips the full translation
+catalog, Apps uses one directory scan, and backend readiness no longer waits
+for the full search warm-up.
+
 Eitr Light adds the light Primordial Venom palette, local light Neovim and VS Code
 themes, and four still wallpapers led by Dusk Fjord. Eitr starts with Aurora
 Fjord, then Dusk Fjord, Rune Seal and the animated Runestone. The fjords use

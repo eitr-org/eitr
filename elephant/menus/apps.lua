@@ -80,51 +80,60 @@ function GetEntries()
     local entries = {}
     local seen = {}
 
-    for _, dir in ipairs(app_dirs) do
-        local handle = io.popen("find -L " .. shell_quote(dir) .. " -maxdepth 1 -type f -name '*.desktop' 2>/dev/null | sort")
+    local directories, priority = {}, {}
+    for index, dir in ipairs(app_dirs) do
+        table.insert(directories, shell_quote(dir))
+        priority[dir] = index
+    end
+    local handle = io.popen("find -L " .. table.concat(directories, " ") .. " -maxdepth 1 -type f -name '*.desktop' 2>/dev/null")
+    local files = {}
+    if handle then
+        for path in handle:lines() do table.insert(files, path) end
+        handle:close()
+    end
+    table.sort(files, function(left, right)
+        local left_priority = priority[left:match("^(.*)/")] or #app_dirs + 1
+        local right_priority = priority[right:match("^(.*)/")] or #app_dirs + 1
+        if left_priority ~= right_priority then return left_priority < right_priority end
+        return left < right
+    end)
+    for _, path in ipairs(files) do
+        local id = desktop_id(path)
 
-        if handle then
-            for path in handle:lines() do
-                local id = desktop_id(path)
+        if not seen[id] then
+            local app = parse_desktop_file(path)
 
-                if not seen[id] then
-                    local app = parse_desktop_file(path)
+            if is_visible_app(app) then
+                seen[id] = true
 
-                    if is_visible_app(app) then
-                        seen[id] = true
-
-                        local keywords = {}
-                        if app.Keywords then
-                            for keyword in app.Keywords:gmatch("[^;]+") do
-                                table.insert(keywords, keyword)
-                            end
-                        end
-
-                        if app.GenericName then
-                            table.insert(keywords, app.GenericName)
-                        end
-
-                        table.insert(entries, {
-                            Text = app.Name,
-                            Subtext = app.GenericName or app.Comment or id,
-                            Value = path,
-                            Icon = app.Icon or "application-x-executable",
-                            Keywords = keywords,
-                            Actions = {
-                                open = shell_quote(paths.code("walker/bin/app-launch")) .. " --desktop " .. shell_quote(id),
-                                app_uninstall = "python3 " .. shell_quote(paths.code("walker/scripts/actions/install/software.py")) .. " uninstall " .. shell_quote(path),
-                            },
-                        })
+                local keywords = {}
+                if app.Keywords then
+                    for keyword in app.Keywords:gmatch("[^;]+") do
+                        table.insert(keywords, keyword)
                     end
                 end
-            end
 
-            handle:close()
+                if app.GenericName then
+                    table.insert(keywords, app.GenericName)
+                end
+
+                table.insert(entries, {
+                    Text = app.Name,
+                    Subtext = app.GenericName or app.Comment or id,
+                    Value = path,
+                    Icon = app.Icon or "application-x-executable",
+                    Keywords = keywords,
+                    Actions = {
+                        open = shell_quote(paths.code("walker/bin/app-launch")) .. " --desktop " .. shell_quote(id),
+                        app_uninstall = "python3 " .. shell_quote(paths.code("walker/scripts/actions/install/software.py")) .. " uninstall " .. shell_quote(path),
+                    },
+                })
+            end
         end
     end
 
-    table.sort(entries, function(a, b)
-        return a.Text:lower() < b.Text:lower()
+    table.sort(entries, function(left, right)
+        return left.Text:lower() < right.Text:lower()
     end)
 
     return entries

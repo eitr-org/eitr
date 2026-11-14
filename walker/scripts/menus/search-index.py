@@ -232,14 +232,19 @@ def prepare():
                          stderr=subprocess.DEVNULL, start_new_session=True)
 
 
-def warm(attempts=60, delay=0.5):
-    """Build the index right after Elephant starts (its service runs this), so the
-    first Walker after a boot finds it ready instead of building it while you wait."""
+def ready(attempts=60, delay=0.5):
+    """Wait for the single backend to answer queries, without building the index."""
     for _ in range(attempts):
         if subprocess.run(['elephant', 'query', '--async=false', '--json', 'menus:main;;1'],
                           capture_output=True, timeout=15).returncode == 0:
-            break
+            return
         time.sleep(delay)
+    raise ValueError("Elephant did not become ready")
+
+
+def warm(attempts=60, delay=0.5):
+    """Build the index independently of the backend start transaction."""
+    ready(attempts, delay)
     if not fresh(read_index()):
         refresh()
 
@@ -269,7 +274,7 @@ def activate(key, action):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('operation', choices=['prepare', 'refresh', 'warm', 'activate'])
+    parser.add_argument('operation', choices=['prepare', 'refresh', 'warm', 'ready', 'activate'])
     parser.add_argument('values', nargs='*')
     args = parser.parse_args()
     try:
@@ -279,6 +284,8 @@ def main():
             activate(*args.values)
         elif args.operation == 'prepare':
             prepare()
+        elif args.operation == 'ready':
+            ready()
         elif args.operation == 'warm':
             warm()
         else:
