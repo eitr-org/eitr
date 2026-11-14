@@ -33,10 +33,14 @@ Grid {
             id: slot
             required property var modelData
             property real reservedWidth: 0
-            // Grows to the widest content seen (a placeholder may come first) and never shrinks,
-            // so changing values do not move the neighbours.
-            onImplicitWidthChanged: reservedWidth = Math.min(320, Math.max(reservedWidth, implicitWidth))
-            Component.onCompleted: reservedWidth = Math.min(320, Math.max(reservedWidth, implicitWidth))
+            // Grows to wider content at once; shrinks only when the content gets clearly
+            // narrower (an item removed), so a changing digit does not move the neighbours.
+            function fit() {
+                const target = Math.min(320, implicitWidth);
+                if (target > reservedWidth || reservedWidth - target > 16) reservedWidth = target;
+            }
+            onImplicitWidthChanged: fit()
+            Component.onCompleted: fit()
             entry: modelData
             clockFormat: items.clockFormat
             observing: items.observing
