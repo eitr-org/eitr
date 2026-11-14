@@ -7,7 +7,7 @@ Tu nuevo escritorio está listo. Haz el recorrido breve, configura lo esencial y
 
 - **Barra del escritorio**: Los espacios de trabajo, el reloj y los iconos de estado están en el borde de la pantalla. Pulsa un icono para sus controles; Bloqueo automático cambia directamente el bloqueo por inactividad.
 - **El lanzador**: Pulsa **SUPER + Space** para tus aplicaciones o **SUPER + F** para todos los menús. Escribe para buscar y pulsa Enter.
-- **Configuración**: Pulsa **SUPER + ,** para pantallas, sonido, teclado, apariencia y más. Todas las páginas se pueden buscar.
+- **Configuración**: Pulsa **SUPER + ,**, o busca "Settings" en Apps, para pantallas, sonido, teclado, apariencia y más. Todas las páginas se pueden buscar.
 - **Centro de control**: Pulsa **SUPER + I** para los interruptores rápidos, la captura de pantalla y un chat rápido con tu asistente.
 - **Temas**: Un tema da color a todo el escritorio y trae sus propios fondos. Cámbialo cuando quieras o crea el tuyo.
 <!-- /eitr-welcome:tour -->
@@ -28,7 +28,7 @@ En el escritorio, cada uno abre su página en Configuración.
 
 **SUPER** es la tecla con el logotipo de Windows o Command. **SUPER + Enter** abre una terminal. Los iconos del lado derecho de la barra pueden estar ocultos: haz clic en la flecha para mostrarlos. Las instalaciones nuevas empiezan con el tema **Eitr** y la pantalla de bloqueo **Eitr**; los escritorios existentes conservan su elección.
 
-Esta bienvenida se abre sola en el primer inicio de sesión. Activa **Mostrar esta bienvenida al iniciar sesión** para volver a verla, o ábrela desde **Aprender > Manual de EITR** o con **SUPER + F1**.
+Esta bienvenida se abre sola en el primer inicio de sesión. Activa **Mostrar esta bienvenida al iniciar sesión** para volver a verla, o ábrela desde **Aprender > Manual de EITR**, con **SUPER + F1** o buscando "Handbook" en Apps.
 
 **Ofrecer informar de problemas cuando algo falle** está activado de forma predeterminada y comparte el ajuste de notificaciones de fallos: cuando un programa falla, una notificación ofrece ayuda o un informe que revisas antes de enviarlo. Consulta [Solución de problemas](handbook:troubleshooting).
 

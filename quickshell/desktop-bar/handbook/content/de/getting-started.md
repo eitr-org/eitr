@@ -7,7 +7,7 @@ Dein neuer Desktop ist bereit. Mach die kurze Tour, richte das Wichtigste ein un
 
 - **Desktopleiste**: Arbeitsflächen, Uhr und Statussymbole liegen am Bildschirmrand. Ein Klick auf ein Symbol öffnet seine Steuerung; automatische Sperre schaltet direkt um.
 - **Der Starter**: **SUPER + Space** öffnet deine Anwendungen, **SUPER + F** alle Menüs. Tippe zum Suchen und drücke Enter.
-- **Einstellungen**: **SUPER + ,** öffnet Bildschirme, Ton, Tastatur, Darstellung und mehr. Jede Seite ist durchsuchbar.
+- **Einstellungen**: **SUPER + ,** oder die Suche nach "Settings" in Apps öffnet Bildschirme, Ton, Tastatur, Darstellung und mehr. Jede Seite ist durchsuchbar.
 - **Kontrollzentrum**: **SUPER + I** öffnet Schnellschalter, Bildschirmaufnahme und einen schnellen Chat mit deinem Assistenten.
 - **Themes**: Ein Theme färbt den ganzen Desktop und bringt eigene Hintergrundbilder mit. Wechsle jederzeit oder erstelle dein eigenes.
 <!-- /eitr-welcome:tour -->
@@ -28,7 +28,7 @@ Auf dem Desktop öffnet jeder Eintrag seine Seite in den Einstellungen.
 
 **SUPER** ist die Taste mit dem Windows- oder Command-Symbol. **SUPER + Enter** öffnet ein Terminal. Rechte Leistensymbole können ausgeblendet sein; der Pfeil zeigt sie an. Neue Installationen beginnen mit dem Theme **Eitr** und dem Sperrbildschirm **Eitr**; bestehende Desktops behalten ihre Auswahl.
 
-Diese Begrüßung öffnet sich bei der ersten Anmeldung von selbst. Aktiviere **Diese Begrüßung bei der nächsten Anmeldung anzeigen**, um sie erneut zu sehen, oder öffne sie über **Lernen > EITR-Handbuch** oder **SUPER + F1**.
+Diese Begrüßung öffnet sich bei der ersten Anmeldung von selbst. Aktiviere **Diese Begrüßung bei der nächsten Anmeldung anzeigen**, um sie erneut zu sehen, oder öffne sie über **Lernen > EITR-Handbuch**, **SUPER + F1** oder die Suche nach "Handbook" in Apps.
 
 **Bei Fehlern einen Problembericht anbieten** ist standardmäßig eingeschaltet und teilt sich die Einstellung mit den Absturzbenachrichtigungen: Stürzt ein Programm ab, bietet eine Benachrichtigung Hilfe oder einen Bericht an, den du vor dem Senden prüfst. Siehe [Fehlerbehebung](handbook:troubleshooting).
 

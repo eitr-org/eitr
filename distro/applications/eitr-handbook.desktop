@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Handbook
+GenericName=Help
+Comment=The Eitr Handbook: guides, shortcuts and how everything works
+Icon=eitr-handbook
+Exec=bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh toggle
+Keywords=Eitr;docs;documentation;manual;guide;shortcuts;
+Categories=Documentation;System;
+Terminal=false
+StartupNotify=false

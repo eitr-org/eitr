@@ -7,7 +7,7 @@ Your new desktop is ready. Take the short tour, set up the essentials, then make
 
 - **Desktop Bar**: Workspaces, the clock and your status icons live along the screen edge. Click an icon for its controls; Idle Lock switches automatic locking directly.
 - **The launcher**: Press **SUPER + Space** for your apps, or **SUPER + F** for every menu. Start typing to search, then press Enter.
-- **Settings**: Press **SUPER + ,** for displays, sound, keyboard, appearance and more. Every page is searchable.
+- **Settings**: Press **SUPER + ,**, or search "Settings" in Apps, for displays, sound, keyboard, appearance and more. Every page is searchable.
 - **Control Center**: Press **SUPER + I** for quick toggles, screen capture and a quick chat with your assistant.
 - **Themes**: A theme colors the whole desktop and brings its own wallpapers. Switch any time, or create your own.
 <!-- /eitr-welcome:tour -->
@@ -28,7 +28,7 @@ On the desktop, each of these opens its page in Settings.
 
 **SUPER** is the Windows or Command logo key. **SUPER + Enter** opens a terminal. Right-side bar icons may be hidden: click the arrow to reveal them. Fresh installs start with the **Eitr** theme and the **Eitr** lockscreen; existing desktops keep their choices.
 
-This welcome opens by itself at the first login. Turn on **Show this welcome at the next login** to see it again, or reopen it from **Learn > EITR Handbook** or **SUPER + F1**.
+This welcome opens by itself at the first login. Turn on **Show this welcome at the next login** to see it again, or reopen it from **Learn > EITR Handbook**, **SUPER + F1** or "Handbook" in Apps.
 
 **Offer to report problems when something breaks** is on by default and shares the Crash Notifications setting: when a program crashes, a notification offers help or a report you review before sending. See [Troubleshooting](handbook:troubleshooting).
 

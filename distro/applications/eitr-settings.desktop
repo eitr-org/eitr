@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Settings
+GenericName=Settings
+Comment=Displays, sound, desktop, apps and system settings for Eitr
+Icon=eitr-settings
+Exec=eitr-shell desktop-bar ipc call -- settings toggle
+Keywords=Eitr;preferences;control center;config;configuration;options;
+Categories=Settings;
+Terminal=false
+StartupNotify=false

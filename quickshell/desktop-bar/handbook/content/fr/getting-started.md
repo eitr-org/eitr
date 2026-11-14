@@ -7,7 +7,7 @@ Votre nouveau bureau est prêt. Suivez la courte visite, réglez l’essentiel, 
 
 - **Barre de bureau** : Les espaces de travail, l’horloge et les icônes d’état bordent l’écran. Cliquez sur une icône pour ses commandes ; Verrouillage automatique bascule directement le verrouillage en cas d’inactivité.
 - **Le lanceur** : Appuyez sur **SUPER + Space** pour vos applications, ou sur **SUPER + F** pour tous les menus. Tapez pour chercher, puis appuyez sur Enter.
-- **Paramètres** : Appuyez sur **SUPER + ,** pour les écrans, le son, le clavier, l’apparence et plus encore. Chaque page se recherche.
+- **Paramètres** : Appuyez sur **SUPER + ,**, ou cherchez « Settings » dans Apps, pour les écrans, le son, le clavier, l’apparence et plus encore. Chaque page se recherche.
 - **Centre de contrôle** : Appuyez sur **SUPER + I** pour les bascules rapides, la capture d’écran et une discussion rapide avec votre assistant.
 - **Thèmes** : Un thème colore tout le bureau et apporte ses propres fonds d’écran. Changez-en à tout moment ou créez le vôtre.
 <!-- /eitr-welcome:tour -->
@@ -28,7 +28,7 @@ Sur le bureau, chacun ouvre sa page dans les Paramètres.
 
 **SUPER** est la touche portant le logo Windows ou Command. **SUPER + Enter** ouvre un terminal. Les icônes de droite de la barre peuvent être masquées : cliquez sur la flèche pour les afficher. Les nouvelles installations commencent avec le thème **Eitr** et l’écran de verrouillage **Eitr** ; les bureaux existants gardent leurs choix.
 
-Cet accueil s’ouvre de lui-même à la première connexion. Activez **Afficher cet accueil à la prochaine connexion** pour le revoir, ou rouvrez-le depuis **Apprendre > Manuel EITR** ou avec **SUPER + F1**.
+Cet accueil s’ouvre de lui-même à la première connexion. Activez **Afficher cet accueil à la prochaine connexion** pour le revoir, ou rouvrez-le depuis **Apprendre > Manuel EITR**, avec **SUPER + F1** ou en cherchant « Handbook » dans Apps.
 
 **Proposer de signaler les problèmes en cas de panne** est activé par défaut et partage le réglage Notifications de plantage : quand un programme plante, une notification propose de l’aide ou un rapport que vous relisez avant de l’envoyer. Voir [Dépannage](handbook:troubleshooting).
 

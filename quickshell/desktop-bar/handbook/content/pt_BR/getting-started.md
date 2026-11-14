@@ -7,7 +7,7 @@ Seu novo desktop está pronto. Faça o tour rápido, configure o essencial e dep
 
 - **Barra da área de trabalho**: Áreas de trabalho, relógio e ícones de status ficam na borda da tela. Clique em um ícone para seus controles; Bloqueio automático alterna diretamente o bloqueio por inatividade.
 - **O lançador**: Pressione **SUPER + Space** para seus aplicativos ou **SUPER + F** para todos os menus. Digite para pesquisar e pressione Enter.
-- **Configurações**: Pressione **SUPER + ,** para telas, som, teclado, aparência e mais. Todas as páginas podem ser pesquisadas.
+- **Configurações**: Pressione **SUPER + ,**, ou pesquise "Settings" em Apps, para telas, som, teclado, aparência e mais. Todas as páginas podem ser pesquisadas.
 - **Central de controle**: Pressione **SUPER + I** para os atalhos rápidos, a captura de tela e um chat rápido com seu assistente.
 - **Temas**: Um tema dá cor a todo o desktop e traz os próprios papéis de parede. Troque quando quiser ou crie o seu.
 <!-- /eitr-welcome:tour -->
@@ -28,7 +28,7 @@ No desktop, cada item abre sua página nas Configurações.
 
 **SUPER** é a tecla com o logotipo do Windows ou Command. **SUPER + Enter** abre um terminal. Os ícones do lado direito da barra podem estar ocultos: clique na seta para mostrá-los. Instalações novas começam com o tema **Eitr** e a tela de bloqueio **Eitr**; desktops existentes mantêm suas escolhas.
 
-Estas boas-vindas abrem sozinhas no primeiro login. Ative **Mostrar estas boas-vindas no próximo login** para vê-las de novo, ou reabra em **Aprender > Manual do EITR** ou com **SUPER + F1**.
+Estas boas-vindas abrem sozinhas no primeiro login. Ative **Mostrar estas boas-vindas no próximo login** para vê-las de novo, ou reabra em **Aprender > Manual do EITR**, com **SUPER + F1** ou pesquisando "Handbook" em Apps.
 
 **Oferecer relatar problemas quando algo falhar** fica ativado por padrão e compartilha a opção Notificações de falhas: quando um programa falha, uma notificação oferece ajuda ou um relatório que você revisa antes de enviar. Veja [Solução de problemas](handbook:troubleshooting).
 
