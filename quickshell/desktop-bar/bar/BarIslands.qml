@@ -16,7 +16,8 @@ Item {
     IslandSurface { id: workspacesPill; first: host.verticalBar ? barHost.verticalOverviewIcon : barHost.leftGroup.overviewIcon; last: host.verticalBar ? barHost.verticalWorkspaces : barHost.leftGroup.workspaceButtonRow }
     IslandSurface { first: host.verticalBar ? barHost.verticalHardware : barHost.leftGroup.hardwareStatus }
     IslandSurface { id: clockPill; first: host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo; grow: "center" }
-    IslandSurface { first: barHost.clockPlugins; shown: barHost.clockPluginExtent > 0 }
+    // Before the clock: the card grows away from the clock and pushes the pills before it.
+    IslandSurface { id: clockPluginsPill; first: barHost.clockPlugins; shown: barHost.clockPluginExtent > 0; grow: "end" }
     IslandSurface { first: host.verticalBar ? barHost.verticalWeatherIcon : barHost.barWeather; shown: host.verticalBar ? barHost.verticalWeatherIcon.height > 0 : barHost.barWeather.width > 0 }
     IslandSurface { first: host.verticalBar ? barHost.verticalMedia : barHost.mediaStrip; shown: host.verticalBar ? barHost.verticalMedia.visible : barHost.mediaStrip.visible; grow: "end" }
     IslandSurface { first: host.verticalBar ? barHost.verticalCapture : barHost.barCapture; shown: host.verticalBar ? barHost.verticalCapture.shown : barHost.barCapture.shown; grow: "end" }
@@ -37,8 +38,10 @@ Item {
     property real afterLogo: overflow(logoPill)
     property real afterWorkspaces: overflow(workspacesPill)
     property real aroundClock: overflow(clockPill) / 2
+    property real beforeClockPlugins: overflow(clockPluginsPill)
     Behavior on afterLogo { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     Behavior on afterWorkspaces { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+    Behavior on beforeClockPlugins { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     Behavior on aroundClock { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     // The pill whose span holds a bar item; its panel grows out of that pill.
     function pillFor(item) {

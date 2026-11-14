@@ -187,9 +187,16 @@ Item {
         active: host.active && !host.entry.disabled && host.error === ""
         asynchronous: true
         onActiveChanged: if (active) load()
+        // One host can show another plugin's QML (the bar's shared plugin panel): load it.
+        Connections {
+            target: host
+            function onEntryChanged() { if (content.active && host.entry.source !== content.loadedSource) content.load(); }
+        }
         Component.onCompleted: if (active) load()
+        property string loadedSource: ""
         function load() {
             PluginRegistry.registerSource(host.entry);
+            loadedSource = host.entry.source;
             setSource(host.entry.source, {api: api});
         }
         onStatusChanged: {

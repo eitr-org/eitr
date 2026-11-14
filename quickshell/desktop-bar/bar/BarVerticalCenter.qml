@@ -76,7 +76,7 @@ Item {
         anchors.bottom: clockPlugins.height > 0 ? clockPlugins.top : verticalCalendarIcon.top
         anchors.horizontalCenterOffset: 0
         anchors.bottomMargin: (shown ? (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) : 0)
-            + (barHost.islandsLayout && clockPlugins.height <= 0 ? barHost.islandSurfaces.aroundClock : 0)
+            + (barHost.islandsLayout ? (clockPlugins.height <= 0 ? barHost.islandSurfaces.aroundClock : barHost.islandSurfaces.beforeClockPlugins) : 0)
         anchors.horizontalCenter: parent.horizontalCenter
         recording: obsMenuRef.obsState.recording || obsMenuRef.obsState.streaming
         recordingPaused: obsMenuRef.obsState.paused && !obsMenuRef.obsState.streaming

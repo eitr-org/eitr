@@ -325,6 +325,9 @@ grows at once for wider content and shrinks only when the content becomes more t
 16 px narrower, so a changing digit does not move neighbours. Vertical content rotates as one line.
 A zero-sized root is hidden. The Weather host view uses its compact icon vertically.
 
+`eitr-shell desktop-bar ipc call -- panels plugin <id>` opens a placed bar item's panel
+exactly as clicking it does (for shortcuts and scripts).
+
 Full shows the slots directly; Centered reveals them when expanded. Tabs includes
 start in its left tab, both clock slots in the centre tab and status on the right.
 Islands joins start to the hardware pill and gives each clock slot its own pill.

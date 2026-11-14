@@ -45,6 +45,17 @@ Item {
         barEdge: host.barEdge; surfaceColor: host.barBackground()
         foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
     }
+    // Opens a placed plugin bar item's panel as its click does (IPC `panels plugin`).
+    function clickPlugin(plugin) {
+        function find(item) {
+            if (item.barItem === true && item.entry && item.entry.plugin === plugin && item.visible) return item;
+            for (const child of item.children || []) { const found = find(child); if (found) return found; }
+            return null;
+        }
+        const item = find(barHost.contentItem);
+        if (item && item.entry.panel) barHost.openPluginPanel(plugin, item.entry.panel, item);
+        return item !== null;
+    }
     function openPluginPanel(plugin, panel, target) {
         var entry = PluginRegistry.entries.find(entry => entry.plugin === plugin && entry.id === panel && entry.kind === "panels");
         if (!entry) return;
@@ -53,6 +64,8 @@ Item {
         pluginPanel.clockSlot = pluginPanel.placementSlot === "clock" || pluginPanel.placementSlot === "clockEnd";
         pluginPanel.centered = pluginPanel.clockSlot;
         pluginPanel.target = target;
+        // Clearing first restarts the shared panel's content and data for the new plugin.
+        if (pluginPanel.entry && (pluginPanel.entry.plugin !== entry.plugin || pluginPanel.entry.id !== entry.id)) pluginPanel.entry = null;
         pluginPanel.entry = entry;
         barHost.showPanel(pluginPanel);
     }
@@ -145,6 +158,7 @@ Item {
         function inspect(): string { return host.activeBar(barHost).inspectPanels(); }
         function close(): void { host.activeBar(barHost).closePanels(); }
         function show(kind: string): void { host.activeBar(barHost).showKind(kind); }
+        function plugin(plugin: string): bool { return host.activeBar(barHost).clickPlugin(plugin); }
     }
 
 }

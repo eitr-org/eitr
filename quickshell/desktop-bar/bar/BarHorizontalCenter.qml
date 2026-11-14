@@ -66,7 +66,7 @@ Item {
         id: barCapture
         anchors.right: clockPlugins.width > 0 ? clockPlugins.left : centerInfo.left
         anchors.rightMargin: (shown ? (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) : 0)
-            + (barHost.islandsLayout && clockPlugins.width <= 0 ? barHost.islandSurfaces.aroundClock : 0)
+            + (barHost.islandsLayout ? (clockPlugins.width <= 0 ? barHost.islandSurfaces.aroundClock : barHost.islandSurfaces.beforeClockPlugins) : 0)
         anchors.verticalCenter: parent.verticalCenter
         recording: obsMenuRef.obsState.recording || obsMenuRef.obsState.streaming
         recordingPaused: obsMenuRef.obsState.paused && !obsMenuRef.obsState.streaming

@@ -34,7 +34,7 @@
       "reason": "One compositor configuration, including preference-backed layout options and bindings; machine-specific settings live in local.lua."
     },
     "quickshell/desktop-bar/bar/BarWindow.qml": {
-      "lines": 448,
+      "lines": 449,
       "reason": "One per-screen bar host, including layout sections and clock-slot plugin extents."
     },
     "quickshell/desktop-bar/panels/CalendarMenu.qml": {
