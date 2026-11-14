@@ -1,6 +1,7 @@
 import ".."
 import QtQuick
 import Eitr as Eitr
+import "../PanelStyle.js" as PanelStyle
 
 Item {
     id: weather
@@ -54,7 +55,7 @@ Item {
             text: weather.text.split(" ")[0]
             color: host.fg
             font.family: DesktopFonts.family
-            font.pixelSize: weather.compact ? 12 : 14
+            font.pixelSize: weather.compact ? 12 : PanelStyle.barTextSize
             font.bold: true
         }
         Text {
@@ -62,7 +63,7 @@ Item {
             text: weather.temperature
             color: host.fg
             font.family: DesktopFonts.family
-            font.pixelSize: weather.compact ? 12 : 14
+            font.pixelSize: weather.compact ? 12 : PanelStyle.barTextSize
             font.bold: true
         }
     }

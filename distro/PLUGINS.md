@@ -245,6 +245,7 @@ Every root component must be a QtQuick Item and declare
 - `foreground`, `background`, `accent`: optional live theme colors.
 - `palette`: full theme palette, including `color0`–`color15` and named roles from colors.toml. `themeChanged()` signals changes to the palette or style helpers.
 - `fontFamily`, `bodySize`, `captionSize`, `headingSize`, `radius`: shared style.
+- `barTextSize`: text in a bar item, bold, so it matches the clock and weather.
 - `clockFormat`: the bar’s live `"12h"` or `"24h"` preference.
 - `title`, `icon`: this component's manifest labels.
 - `runDataCommand()`: runs only this component's declared argv, with its plugin

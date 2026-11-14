@@ -24,7 +24,9 @@ class ClockSlotRenderTests(unittest.TestCase):
             for kind in kinds - {'Item', 'Row', 'Column', 'Behavior', 'NumberAnimation', 'PluginBarItems', 'ClockButton'}:
                 (folder / (kind + '.qml')).write_text('import QtQuick\nStub {}\n')
             for name, source in [('ClockButton', 'bar/ClockButton.qml'), ('PluginBarItems', 'plugins/PluginBarItems.qml')]:
-                (folder / (name + '.qml')).write_text((BAR / source).read_text().replace('import ".."\n', ''))
+                (folder / (name + '.qml')).write_text((BAR / source).read_text().replace('import ".."\n', '')
+                    .replace('"../PanelStyle.js"', '"PanelStyle.js"'))
+            (folder / 'PanelStyle.js').write_text((BAR / 'PanelStyle.js').read_text())
             (folder / 'DesktopStyle.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function radius(value) { return value; } function motionDuration(value) { return 0; } }')
             (folder / 'DesktopFonts.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property string family: "DejaVu Sans Mono" }')
             (folder / 'PluginRegistry.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property var clockBarItems: [{title:"World clock"}]; property var barItems: []; function slotItems(slot) { return slot === "clock" ? clockBarItems : []; } }')

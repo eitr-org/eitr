@@ -6,6 +6,8 @@ var secondarySize = 12;
 var bodySize = 13;
 var controlSize = 13;
 var headingSize = 16;
+// Bar text beside the clock (time, weather, plugin items), drawn bold.
+var barTextSize = 14;
 var padding = 18;
 var cornerRadius = 6;
 var controlRadius = 4;

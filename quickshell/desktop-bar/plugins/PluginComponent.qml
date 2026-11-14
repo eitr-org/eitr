@@ -105,6 +105,7 @@ Item {
         readonly property int bodySize: PanelStyle.bodySize
         readonly property int captionSize: PanelStyle.captionSize
         readonly property int headingSize: PanelStyle.headingSize
+        readonly property int barTextSize: PanelStyle.barTextSize
         readonly property real radius: DesktopStyle.radius(PanelStyle.controlRadius)
         readonly property string title: host.entry.title
         readonly property string icon: host.entry.icon || ""

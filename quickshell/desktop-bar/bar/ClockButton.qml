@@ -1,6 +1,7 @@
 import ".."
 import QtQuick
 import Eitr as Eitr
+import "../PanelStyle.js" as PanelStyle
 
 Rectangle {
     id: clock
@@ -45,7 +46,7 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         color: host.fg
         font.family: DesktopFonts.family
-        font.pixelSize: 14
+        font.pixelSize: PanelStyle.barTextSize
         font.bold: true
     }
 
@@ -83,7 +84,7 @@ Rectangle {
             text: "\u{F00ED}"
             color: host.fg
             font.family: DesktopFonts.family
-            font.pixelSize: 14
+            font.pixelSize: PanelStyle.barTextSize
         }
     }
 
