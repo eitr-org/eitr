@@ -48,8 +48,12 @@ item says what decides the next step. Remove an item when it ships;
   over to the session's Sunshine after sign-in), and headless use (a virtual display sized
   to the Moonlight client); wake on LAN is left to people who want it. On hold; the agreed
   design, including several users on one PC, is in `eitr-testing/codex-wip/remote-access-next/PLAN.md`.
-- **Git & Cloud for many companies** (Walker; Settings no longer has the page): group
-  each company's cloud profiles and contexts with its Git identity and folder rules.
+- **Companies: Git identity and cloud accounts per folder (planned 2026-11-14).** Git Accounts
+  becomes Companies: each company has folders, a commit identity (one main Git account can serve
+  several companies with different emails) and an AWS profile and Google Cloud configuration
+  that a terminal uses inside its folders. A default company's cloud accounts apply outside
+  them only when the person turns that on. Azure and the other providers come later. Plan in
+  `eitr-testing/codex-wip/companies/PLAN.md`; next: Codex brief, then a VM test.
 - **Dynamic island, next.** Live activities in the clock island beyond the capture
   indicator (volume/brightness replacing swayosd only in Dynamic, notification
   previews, media title), a hover card for the clock (large time and week strip), and
