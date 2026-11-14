@@ -94,13 +94,17 @@ FamilyWindow {
     onRevealChanged: if (reveal === 0 || reveal === 1) catalogSettled.restart()
     Timer { id: catalogSettled; interval: 0; onTriggered: book.applyCatalog() }
     Timer { id: focusDelay; interval: 80; onTriggered: if (book.opened) sidebar.searchField.forceActiveFocus() }
+    property bool ipcEnabled: true
+    function scrollTo(y) { articleScroll.contentY = Math.max(0, Math.min(y, articleScroll.contentHeight - articleScroll.height)); }
+    function status() { return JSON.stringify({opened: book.opened, chapter: book.selectedId, chapters: book.chapters.length, scroll: articleScroll.contentY, error: book.loadError}); }
     IpcHandler {
+        enabled: book.ipcEnabled
         target: "handbook"
         function toggle(): void { book.toggle(); }
         function open(chapter: string): void { book.show(chapter); }
         function close(): void { book.opened = false; }
-        function scroll(y: int): void { articleScroll.contentY = Math.max(0, Math.min(y, articleScroll.contentHeight - articleScroll.height)); }
-        function status(): string { return JSON.stringify({opened: book.opened, chapter: book.selectedId, chapters: book.chapters.length, scroll: articleScroll.contentY, error: book.loadError}); }
+        function scroll(y: int): void { book.scrollTo(y); }
+        function status(): string { return book.status(); }
     }
     Item {
         id: inputRoot

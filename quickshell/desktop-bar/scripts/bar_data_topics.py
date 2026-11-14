@@ -125,6 +125,15 @@ def _validate_account(result):
     fields(result, {"path": (str, type(None)), "initial": (str,), "name": (str,), "version": (int,)})
 
 
+def _validate_keyboard(result):
+    if not isinstance(result.get('layouts'), list) or type(result.get('active')) is not int:
+        raise ValueError('invalid-result')
+    for entry in result['layouts']:
+        if not isinstance(entry, dict) or any(key not in entry for key in ('index', 'label', 'code')):
+            raise ValueError('invalid-result')
+        fields(entry, {'index': (int,), 'label': (str,), 'code': (str,)})
+
+
 class TopicDefinition(NamedTuple):
     name: str
     domain: str
@@ -138,6 +147,7 @@ class TopicDefinition(NamedTuple):
 
 
 _DEFINITIONS = (
+    TopicDefinition("keyboard.layouts", "keyboard", float("inf"), 5, _validate_keyboard),
     TopicDefinition("account.picture", "account", float("inf"), 16, _validate_account),
     TopicDefinition("updates.status", "updates", 21600, 365, _validate_updates),
     TopicDefinition("weather.default", "weather", 900, 17, _validate_weather),

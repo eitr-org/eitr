@@ -12,8 +12,13 @@ Item {
     // Takes the bar's pieces one beat after becoming visible, so a layout switching away
     // (Dynamic and Drop move the same clock) has always given them back first.
     property bool holding: false
-    onVisibleChanged: if (!visible) holding = false; else Qt.callLater(() => { dynamic.holding = dynamic.visible; })
-    Component.onCompleted: holding = visible
+    onVisibleChanged: {
+        if (!visible) { takeItems.stop(); holding = false; }
+        else takeItems.restart();
+    }
+    Timer { id: takeItems; interval: 0; onTriggered: dynamic.holding = dynamic.visible }
+    Component.onCompleted: if (visible) takeItems.restart()
+    Component.onDestruction: { holding = false; state = ""; }
     readonly property var surfaces: [leading, media, middle, trailing]
     readonly property alias leadingIsland: leading
     readonly property alias mediaIsland: media
@@ -48,10 +53,11 @@ Item {
     readonly property real trailingExtent: (vertical ? barHost.verticalEnd.height : barHost.rightSide.width + host.workspaceItemSpacing + barHost.notificationIcon.width) + 8
     HoverHandler {
         id: pointer
-        onHoveredChanged: Qt.callLater(dynamic.updateHover)
+        onHoveredChanged: hoverUpdate.restart()
     }
     readonly property point pointerPosition: pointer.point.position
-    onPointerPositionChanged: Qt.callLater(updateHover)
+    onPointerPositionChanged: hoverUpdate.restart()
+    Timer { id: hoverUpdate; interval: 0; onTriggered: dynamic.updateHover() }
     function updateHover() { trackPointer(pointer.hovered, pointerPosition); }
     function trackPointer(inside, position) {
         surfaces.forEach(island => {
@@ -75,7 +81,7 @@ Item {
         target: barHost
         function onPendingPanelChanged() { dynamic.rememberOwner(barHost.pendingPanel); }
     }
-    readonly property bool controlCenterOpen: barHost.controlCenter.visible || barHost.pendingPanel === barHost.controlCenter
+    readonly property bool controlCenterOpen: !!barHost.controlCenter && (barHost.controlCenter.visible || barHost.pendingPanel === barHost.controlCenter)
     // Each panel belongs to one island, which grows into it while it is open.
     function islandFor(panel) {
         if (owns(panel, leftPanels) || (panel === barHost.controlCenter && controlCenterOwner === "left")) return leading;
@@ -159,7 +165,7 @@ Item {
         panel: dynamic.openPanel(media)
         restingExtent: dynamic.mediaExtent
         fullExtent: restingExtent
-        held: barHost.mediaMenu.visible || barHost.pendingPanel === barHost.mediaMenu
+        held: !!barHost.mediaMenu && (barHost.mediaMenu.visible || barHost.pendingPanel === barHost.mediaMenu)
     }
     DynamicIsland {
         id: middle
@@ -211,7 +217,7 @@ Item {
             RestingGlyph {
                 visible: host.battery.available
                 glyph: host.batteryIcon; tooltip: Math.round(host.battery.percent) + "% · " + host.battery.status
-                onClicked: barHost.togglePanel(barHost.batteryMenu)
+                onClicked: barHost.toggleKind("battery")
             }
         }
     }

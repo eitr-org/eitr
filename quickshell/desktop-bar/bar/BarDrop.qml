@@ -16,8 +16,13 @@ Item {
     // Takes the bar's pieces one beat after becoming visible, so a layout switching away
     // (Dynamic and Drop move the same clock) has always given them back first.
     property bool holding: false
-    onVisibleChanged: if (!visible) holding = false; else Qt.callLater(() => { drop.holding = drop.visible; })
-    Component.onCompleted: holding = visible
+    onVisibleChanged: {
+        if (!visible) { takeItems.stop(); holding = false; }
+        else takeItems.restart();
+    }
+    Timer { id: takeItems; interval: 0; onTriggered: drop.holding = drop.visible }
+    Component.onCompleted: if (visible) takeItems.restart()
+    Component.onDestruction: { holding = false; state = ""; }
     readonly property var surfaces: [pill, dotReach]
     readonly property alias pillSurface: pill
     readonly property bool vertical: host.verticalBar
@@ -57,18 +62,23 @@ Item {
     Connections {
         target: barHost.dropDashboard
         function onOpenedChanged() {
-            if (barHost.dropDashboard.opened) { drop.cardOpen = true; return; }
+            if ((barHost.dropDashboard ? barHost.dropDashboard.opened : false)) { drop.cardOpen = true; return; }
             if (host.barAutoHide) {
                 drop.cardExtent = pill.extent; drop.cardDepth = pill.depth;
                 barHost.autoHideRef.hideNow();
             }
-            Qt.callLater(() => {
-                drop.cardOpen = false;
-                if (drop.reveal >= 1 && barHost.autoHideRef.shown) drop.cardExtent = 0;
-            });
+            settleCard.restart();
         }
     }
-    onRevealChanged: if (retracting && (reveal <= 0 || (reveal >= 1 && !barHost.dropDashboard.opened && barHost.autoHideRef.shown))) cardExtent = 0
+    Timer {
+        id: settleCard
+        interval: 0
+        onTriggered: {
+            drop.cardOpen = false;
+            if (drop.reveal >= 1 && barHost.autoHideRef.shown) drop.cardExtent = 0;
+        }
+    }
+    onRevealChanged: if (retracting && (reveal <= 0 || (reveal >= 1 && !(barHost.dropDashboard ? barHost.dropDashboard.opened : false) && barHost.autoHideRef.shown))) cardExtent = 0
     function islandFor(panel) { return panel === barHost.dropDashboard ? pill : null; }
     function openPanel() {
         const dashboard = barHost.dropDashboard;

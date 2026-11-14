@@ -7,44 +7,80 @@ Item {
     id: panels
     required property var host
     required property var barHost
-    readonly property alias batteryMenuItem: batteryMenu
-    readonly property alias controlCenterItem: controlCenter
-    readonly property alias mediaMenuItem: mediaMenu
-    readonly property alias dropDashboardItem: dropDashboard
-    readonly property alias notificationCenterItem: notificationCenter
+    readonly property var batteryMenuItem: batteryMenuLoader.item
+    readonly property var controlCenterItem: controlCenterLoader.item
+    readonly property var mediaMenuItem: mediaMenuLoader.item
+    readonly property var dropDashboardItem: dropDashboardLoader.item
+    readonly property var notificationCenterItem: notificationCenterLoader.item
     readonly property alias notificationPopupsItem: notificationPopups
     readonly property alias panelIpcItem: panelIpc
-    readonly property alias pluginPanelItem: pluginPanel
+    readonly property var pluginPanelItem: pluginPanelLoader.item
+    function ensure(kind) {
+        const loaders = {notifications: notificationCenterLoader, plugin: pluginPanelLoader,
+            center: controlCenterLoader, media: mediaMenuLoader, dashboard: dropDashboardLoader, battery: batteryMenuLoader};
+        const loader = loaders[kind];
+        if (!loader) return null;
+        loader.active = true;
+        loader.asynchronous = false;
+        return loader.item;
+    }
+    function toggleKind(kind) { panels.barHost.togglePanel(ensure(kind)); }
+    // Incubate one closed panel at a time, after the bar has had time to present.
+    Timer {
+        interval: 3500
+        running: true
+        repeat: true
+        property int next: 0
+        property var loaders: [notificationCenterLoader, controlCenterLoader, mediaMenuLoader,
+            batteryMenuLoader, pluginPanelLoader, dropDashboardLoader]
+        onTriggered: {
+            if (next >= loaders.length) { stop(); return; }
+            loaders[next++].active = true;
+            interval = 500;
+        }
+    }
     NotificationPopups {
         id: notificationPopups
-        screen: barHost.screen
-        shown: barHost.isMainBar || barHost.notificationsRef.popupsOnAllDisplays
-        service: barHost.notificationsRef
-        foreground: host.fg
-        background: host.barBackground()
-        accent: host.activeBg
-        barEdge: host.barEdge
+        screen: panels.barHost.screen
+        shown: panels.barHost.isMainBar || panels.barHost.notificationsRef.popupsOnAllDisplays
+        service: panels.barHost.notificationsRef
+        foreground: panels.host.fg
+        background: panels.host.barBackground()
+        accent: panels.host.activeBg
+        barEdge: panels.host.barEdge
     }
 
-    NotificationCenter {
-        id: notificationCenter
-        service: barHost.notificationsRef
-        maximumHeight: barHost.screen.height - 70
-        target: host.verticalBar ? barHost.verticalNotificationIcon : barHost.notificationIcon
-        barEdge: host.barEdge
-        surfaceColor: host.barBackground()
-        foreground: host.fg
-        background: host.workspaceMenuBg
-        accent: host.activeBg
+    Loader {
+        id: notificationCenterLoader
+        active: false
+        asynchronous: true
+        sourceComponent: NotificationCenter {
+            id: notificationCenter
+            service: panels.barHost.notificationsRef
+            maximumHeight: panels.barHost.screen.height - 70
+            target: panels.host.verticalBar ? panels.barHost.verticalNotificationIcon : panels.barHost.notificationIcon
+            barEdge: panels.host.barEdge
+            surfaceColor: panels.host.barBackground()
+            foreground: panels.host.fg
+            background: panels.host.workspaceMenuBg
+            accent: panels.host.activeBg
+        }
     }
 
-    PluginPanel {
-        id: pluginPanel
-        clockFormat: host.barClock
-        target: barHost.notificationIcon
-        barEdge: host.barEdge; surfaceColor: host.barBackground()
-        foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
+
+    Loader {
+        id: pluginPanelLoader
+        active: false
+        asynchronous: true
+        sourceComponent: PluginPanel {
+            id: pluginPanel
+            clockFormat: panels.host.barClock
+            target: panels.barHost.notificationIcon
+            barEdge: panels.host.barEdge; surfaceColor: panels.host.barBackground()
+            foreground: panels.host.fg; background: panels.host.workspaceMenuBg; accent: panels.host.activeBg
+        }
     }
+
     // Opens a placed plugin bar item's panel as its click does (IPC `panels plugin`).
     function clickPlugin(plugin) {
         function find(item) {
@@ -52,92 +88,119 @@ Item {
             for (const child of item.children || []) { const found = find(child); if (found) return found; }
             return null;
         }
-        const item = find(barHost.contentItem);
-        if (item && item.entry.panel) barHost.openPluginPanel(plugin, item.entry.panel, item);
+        const item = find(panels.barHost.contentItem);
+        if (item && item.entry.panel) panels.barHost.openPluginPanel(plugin, item.entry.panel, item);
         return item !== null;
     }
     function openPluginPanel(plugin, panel, target) {
+        ensure("plugin");
         var entry = PluginRegistry.entries.find(entry => entry.plugin === plugin && entry.id === panel && entry.kind === "panels");
         if (!entry) return;
         const placed = PluginRegistry.placedBarItems.find(item => item.plugin === plugin && item.panel === panel);
-        pluginPanel.placementSlot = target && target.entry ? target.entry.slot || "status" : placed ? placed.slot : "status";
-        pluginPanel.clockSlot = pluginPanel.placementSlot === "clock" || pluginPanel.placementSlot === "clockEnd";
-        pluginPanel.centered = pluginPanel.clockSlot;
-        pluginPanel.target = target;
+        panels.pluginPanelItem.placementSlot = target && target.entry ? target.entry.slot || "status" : placed ? placed.slot : "status";
+        panels.pluginPanelItem.clockSlot = panels.pluginPanelItem.placementSlot === "clock" || panels.pluginPanelItem.placementSlot === "clockEnd";
+        panels.pluginPanelItem.centered = panels.pluginPanelItem.clockSlot;
+        panels.pluginPanelItem.target = target;
         // Clearing first restarts the shared panel's content and data for the new plugin.
-        if (pluginPanel.entry && (pluginPanel.entry.plugin !== entry.plugin || pluginPanel.entry.id !== entry.id)) pluginPanel.entry = null;
-        pluginPanel.entry = entry;
-        barHost.showPanel(pluginPanel);
+        if (panels.pluginPanelItem.entry && (panels.pluginPanelItem.entry.plugin !== entry.plugin || panels.pluginPanelItem.entry.id !== entry.id)) panels.pluginPanelItem.entry = null;
+        panels.pluginPanelItem.entry = entry;
+        panels.barHost.showPanel(panels.pluginPanelItem);
     }
-    ControlCenter {
-        id: controlCenter
-        screenMargins: host.screenGaps
-        target: barHost.stripItem
-        surfaceColor: host.barBackground()
-        foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
-        service: barHost.notificationsRef
-        wifiControl: barHost.networkServiceRef; bluetoothControl: barHost.bluetoothMenu; displayControl: barHost.brightnessMenu
-        wifiGlyph: host.verticalBar ? barHost.verticalWifiIcon.text : barHost.wifiIcon.text
-        battery: host.battery; mediaPlayer: barHost.mediaStrip.player
-        idleEnabled: host.idleLockEnabled; idleBusy: barHost.idleLockProcessRef.running
-        barPosition: host.barEdge
-        onIdleToggleRequested: if (!barHost.idleLockProcessRef.running) barHost.idleLockProcessRef.running = true
-        onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
-        onPanelRequested: function(kind) { panelIpc.show(kind); }
-        onSettingsRequested: function(page) { host.showSettings(page); }
+    Loader {
+        id: controlCenterLoader
+        active: false
+        asynchronous: true
+        sourceComponent: ControlCenter {
+            id: controlCenter
+            screenMargins: panels.host.screenGaps
+            target: panels.barHost.stripItem
+            surfaceColor: panels.host.barBackground()
+            foreground: panels.host.fg; background: panels.host.workspaceMenuBg; accent: panels.host.activeBg
+            service: panels.barHost.notificationsRef
+            wifiControl: panels.barHost.networkServiceRef; bluetoothControl: panels.barHost.bluetoothMenu; displayControl: panels.barHost.brightnessMenu
+            wifiGlyph: panels.host.verticalBar ? panels.barHost.verticalWifiIcon.text : panels.barHost.wifiIcon.text
+            battery: panels.host.battery; mediaPlayer: panels.barHost.mediaStrip.player
+            idleEnabled: panels.host.idleLockEnabled; idleBusy: panels.barHost.idleLockProcessRef.running
+            barPosition: panels.host.barEdge
+            onIdleToggleRequested: if (!panels.barHost.idleLockProcessRef.running) panels.barHost.idleLockProcessRef.running = true
+            onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
+            onPanelRequested: function(kind) { panelIpc.show(kind); }
+            onSettingsRequested: function(page) { panels.host.showSettings(page); }
+        }
     }
-    MediaMenu {
-        id: mediaMenu
-        target: host.verticalBar ? barHost.verticalCalendarIcon : barHost.mediaStrip
-        barEdge: host.barEdge; surfaceColor: host.barBackground()
-        foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
-        player: barHost.mediaStrip.player; host: barHost.host
+
+    Loader {
+        id: mediaMenuLoader
+        active: false
+        asynchronous: true
+        sourceComponent: MediaMenu {
+            id: mediaMenu
+            target: panels.host.verticalBar ? panels.barHost.verticalCalendarIcon : panels.barHost.mediaStrip
+            barEdge: panels.host.barEdge; surfaceColor: panels.host.barBackground()
+            foreground: panels.host.fg; background: panels.host.workspaceMenuBg; accent: panels.host.activeBg
+            player: panels.barHost.mediaStrip.player; host: panels.barHost.host
+        }
     }
-    DropDashboard {
-        id: dropDashboard
-        barHost: panels.barHost
-        target: host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo
-        barEdge: host.barEdge; surfaceColor: host.barBackground()
-        foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
-        player: barHost.mediaStrip.player
+
+    Loader {
+        id: dropDashboardLoader
+        active: false
+        asynchronous: true
+        sourceComponent: DropDashboard {
+            id: dropDashboard
+            barHost: panels.barHost
+            target: panels.host.verticalBar ? panels.barHost.verticalCalendarIcon : panels.barHost.centerInfo
+            barEdge: panels.host.barEdge; surfaceColor: panels.host.barBackground()
+            foreground: panels.host.fg; background: panels.host.workspaceMenuBg; accent: panels.host.activeBg
+            player: panels.barHost.mediaStrip.player
+        }
     }
-    BatteryMenu {
-        id: batteryMenu
-        target: host.verticalBar ? barHost.verticalBatteryIcon : barHost.batteryBarIcon
-        barEdge: host.barEdge; surfaceColor: host.barBackground()
-        foreground: host.fg; background: host.workspaceMenuBg; accent: host.activeBg
-        battery: host.battery; displayControl: barHost.brightnessMenu
+
+    Loader {
+        id: batteryMenuLoader
+        active: false
+        asynchronous: true
+        sourceComponent: BatteryMenu {
+            id: batteryMenu
+            target: panels.host.verticalBar ? panels.barHost.verticalBatteryIcon : panels.barHost.batteryBarIcon
+            barEdge: panels.host.barEdge; surfaceColor: panels.host.barBackground()
+            foreground: panels.host.fg; background: panels.host.workspaceMenuBg; accent: panels.host.activeBg
+            battery: panels.host.battery; displayControl: panels.barHost.brightnessMenu
+        }
     }
+
     function showControlCenter(page) {
         // Style, Settings and the profile picture moved to the Settings window; their old names open it there.
         var moved = {style: "appearance", settings: "system", system: "system", picture: "user"};
-        if (moved[page]) { host.showSettings(moved[page]); return; }
+        if (moved[page]) { panels.host.showSettings(moved[page]); return; }
+        ensure("center");
         // "timer" is the Tools page with its Timer & Focus fold open.
-        if (page === "timer") controlCenter.setFold(controlCenter.timerFold, true);
+        if (page === "timer") panels.controlCenterItem.setFold(panels.controlCenterItem.timerFold, true);
         page = ({capture: "tools", timer: "tools"})[page] || page;
         if (["general", "plugins", "tools"].indexOf(page) === -1) return;
-        controlCenter.page = page;
-        barHost.showPanel(controlCenter);
+        panels.controlCenterItem.page = page;
+        panels.barHost.showPanel(panels.controlCenterItem);
     }
-    function toggleControlCenter() { barHost.togglePanel(controlCenter); }
+    function toggleControlCenter() { panels.barHost.togglePanel(ensure("center")); }
     function showKind(kind) {
         if (kind === "weather" && !PluginRegistry.weatherEnabled) return;
         if (kind === "picture") { showControlCenter(kind); return; }
-        var panels = {wifi: barHost.wifiMenu, bluetooth: barHost.bluetoothMenu, brightness: barHost.brightnessMenu, display: barHost.brightnessMenu, volume: barHost.volumeMenu,
-            mic: barHost.volumeMenu, streaming: barHost.streamingMenu, keyboard: barHost.keyboardMenu, calendar: barHost.calendarMenu,
-            weather: barHost.weatherMenu, hardware: barHost.hardwareMenu, ai: barHost.aiMenu, obs: barHost.obsMenu,
-            workspace: barHost.workspaceMenu, recording: barHost.recordingMenu, notifications: notificationCenter,
-            center: controlCenter, media: mediaMenu, battery: batteryMenu, dashboard: barHost.dropDashboard};
-        if (kind === "store" || kind === "catalog") { host.showCatalog(); return; }
-        if (kind === "overview") { barHost.toggleOverview(); return; }
-        if (!panels[kind]) return;
-        if (kind === "mic" || kind === "volume") barHost.volumeMenu.microphone = kind === "mic";
-        barHost.showPanel(panels[kind]);
+        ensure(kind);
+        var choices = {wifi: panels.barHost.wifiMenu, bluetooth: panels.barHost.bluetoothMenu, brightness: panels.barHost.brightnessMenu, display: panels.barHost.brightnessMenu, volume: panels.barHost.volumeMenu,
+            mic: panels.barHost.volumeMenu, streaming: panels.barHost.streamingMenu, keyboard: panels.barHost.keyboardMenu, calendar: panels.barHost.calendarMenu,
+            weather: panels.barHost.weatherMenu, hardware: panels.barHost.hardwareMenu, ai: panels.barHost.aiMenu, obs: panels.barHost.obsMenu,
+            workspace: panels.barHost.workspaceMenu, recording: panels.barHost.recordingMenu, notifications: panels.notificationCenterItem,
+            center: panels.controlCenterItem, media: panels.mediaMenuItem, battery: panels.batteryMenuItem, dashboard: panels.barHost.dropDashboard};
+        if (kind === "store" || kind === "catalog") { panels.host.showCatalog(); return; }
+        if (kind === "overview") { panels.barHost.toggleOverview(); return; }
+        if (!choices[kind]) return;
+        if (kind === "mic" || kind === "volume") panels.barHost.volumeMenu.microphone = kind === "mic";
+        panels.barHost.showPanel(choices[kind]);
     }
     function inspectPanels() {
-        return JSON.stringify(barHost.dockPanels.map(panel => ({name: panel.toString(), visible: panel.visible,
+        return JSON.stringify(panels.barHost.dockPanels.map(panel => ({name: panel.toString(), visible: panel.visible,
             x: panel.x, y: panel.y, width: panel.width, height: panel.height,
-            progress: panel.revealProgress, opened: panel.opened, screen: barHost.modelData.name,
+            progress: panel.revealProgress, opened: panel.opened, screen: panels.barHost.modelData.name,
             parent: String(panel.parent), host: String(panel.hostWindow)})));
     }
 
@@ -145,20 +208,20 @@ Item {
 
     // The main barHost receives shortcuts and forwards them to the barHost of the display in use.
     IpcHandler {
-        enabled: barHost.isMainBar
+        enabled: panels.barHost.isMainBar
         target: "controlCenter"
-        function toggle(): void { host.activeBar(barHost).toggleControlCenter(); }
-        function show(page: string): void { host.activeBar(barHost).showControlCenter(page); }
+        function toggle(): void { panels.host.activeBar(barHost).toggleControlCenter(); }
+        function show(page: string): void { panels.host.activeBar(barHost).showControlCenter(page); }
     }
 
     IpcHandler {
         id: panelIpc
-        enabled: barHost.isMainBar
+        enabled: panels.barHost.isMainBar
         target: "panels"
-        function inspect(): string { return host.activeBar(barHost).inspectPanels(); }
-        function close(): void { host.activeBar(barHost).closePanels(); }
-        function show(kind: string): void { host.activeBar(barHost).showKind(kind); }
-        function plugin(plugin: string): bool { return host.activeBar(barHost).clickPlugin(plugin); }
+        function inspect(): string { return panels.host.activeBar(barHost).inspectPanels(); }
+        function close(): void { panels.host.activeBar(barHost).closePanels(); }
+        function show(kind: string): void { panels.host.activeBar(barHost).showKind(kind); }
+        function plugin(plugin: string): bool { return panels.host.activeBar(barHost).clickPlugin(plugin); }
     }
 
 }

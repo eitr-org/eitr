@@ -50,7 +50,7 @@ class NotificationActionTests(unittest.TestCase):
         self.assertIn('service.popupsOnAllDisplays = service.preferenceData.popupDisplays !== "main";', service)
         self.assertIn('popupDisplays: enabled ? "all" : "main"', service)
         panels = (BAR / 'bar/BarPanels.qml').read_text()
-        self.assertIn('shown: barHost.isMainBar || barHost.notificationsRef.popupsOnAllDisplays', panels)
+        self.assertIn('shown: panels.barHost.isMainBar || panels.barHost.notificationsRef.popupsOnAllDisplays', panels)
         shell = (BAR / 'shell.qml').read_text()
         # Displays without a bar get their own popup window, beside no bar.
         self.assertIn('screen => screen && shell.targetScreens().indexOf(screen) === -1', shell)

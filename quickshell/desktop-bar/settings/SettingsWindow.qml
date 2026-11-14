@@ -5,28 +5,47 @@ import Eitr as Eitr
 
 FamilyWindow {
     id: window
-    property alias page: content.page
-    property alias networkService: content.networkService
-    property alias notifications: content.notifications
-    property alias idleEnabled: content.idleEnabled
+    property string page: "system"
+    onPageChanged: if (contentLoader.item && contentLoader.item.page !== page) contentLoader.item.navigate(page)
+    property var networkService: null
+    property var notifications: null
+    property bool idleEnabled: false
     signal idleToggleRequested()
     signal themesRequested()
-    property alias live: content.live
+    property bool live: true
     title: Eitr.I18n.tr("Settings")
 
     function show(page) {
-        content.navigate(page || "system");
+        ensureContent().navigate(page || "system");
         showWindow();
     }
     function closeSettings() { opened = false; }
-    SettingsContent {
-        id: content
+    function ensureContent() {
+        contentLoader.active = true;
+        contentLoader.asynchronous = false;
+        return contentLoader.item;
+    }
+    onOpenedChanged: if (opened) ensureContent()
+    Loader {
+        id: contentLoader
         anchors.fill: parent
-        foreground: SettingsPalette.foreground; background: window.color; accent: SettingsPalette.accent
-        opened: window.opened
-        onThemesRequested: window.themesRequested()
-        onIdleToggleRequested: window.idleToggleRequested()
-        onCloseRequested: window.closeSettings()
+        active: false
+        // Native overlays share the window's content and keyboard focus scope.
+        onLoaded: item.parent = window.contentItem
+        sourceComponent: SettingsContent {
+            anchors.fill: parent
+            foreground: SettingsPalette.foreground; background: window.color; accent: SettingsPalette.accent
+            opened: window.opened
+            networkService: window.networkService
+            notifications: window.notifications
+            idleEnabled: window.idleEnabled
+            live: window.live
+            Component.onCompleted: navigate(window.page)
+            onPageChanged: window.page = page
+            onThemesRequested: window.themesRequested()
+            onIdleToggleRequested: window.idleToggleRequested()
+            onCloseRequested: window.closeSettings()
+        }
     }
     IpcHandler {
         target: "settings"

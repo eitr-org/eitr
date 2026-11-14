@@ -98,7 +98,7 @@ Item {
                 visible: activity.recording
                 text: "●"; color: activity.obsState.paused && !activity.obsState.streaming ? activity.host.fg : "#e05c68"
                 font.pixelSize: 10
-                onActivated: activity.barHost.dropDashboard.show("obs")
+                onActivated: activity.barHost.panel("dashboard").show("obs")
                 RecordingGlow {
                     z: -1
                     anchors.centerIn: parent
@@ -110,13 +110,13 @@ Item {
             Glyph {
                 visible: activity.meetingSoon
                 text: "󰃭"
-                onActivated: activity.barHost.dropDashboard.showDay(new Date())
+                onActivated: activity.barHost.panel("dashboard").showDay(new Date())
             }
             Item {
                 visible: activity.timing
                 width: activity.vertical ? activity.width : activity.slot; height: activity.vertical ? activity.slot : activity.height
                 TimerRing { anchors.centerIn: parent; foreground: activity.host.fg }
-                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: activity.barHost.dropDashboard.show("timer") }
+                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: activity.barHost.panel("dashboard").show("timer") }
             }
             // The note, next to the time. Dragging it right opens the lyrics; a plain click
             // opens the Media page.
@@ -134,7 +134,7 @@ Item {
                         dragged = true;
                         activity.lyricsOpen = true;
                     }
-                    onClicked: if (!dragged) activity.barHost.dropDashboard.show("media")
+                    onClicked: if (!dragged) activity.barHost.panel("dashboard").show("media")
                 }
             }
         }
@@ -155,7 +155,7 @@ Item {
             text: "󰂚"
             transformOrigin: Item.Top
             rotation: activity.shared.bellAngle
-            onActivated: activity.barHost.dropDashboard.show("notifications")
+            onActivated: activity.barHost.panel("dashboard").show("notifications")
         }
     }
     // The lyrics alone across the whole pill: each new line rises in as the last fades.
@@ -181,7 +181,7 @@ Item {
                 dragged = true;
                 activity.lyricsOpen = false;
             }
-            onClicked: if (!dragged) activity.barHost.dropDashboard.show("media")
+            onClicked: if (!dragged) activity.barHost.panel("dashboard").show("media")
         }
     }
 }

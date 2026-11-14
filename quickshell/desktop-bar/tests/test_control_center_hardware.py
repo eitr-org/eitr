@@ -164,9 +164,9 @@ class ControlCenterContracts(unittest.TestCase):
         self.assertNotIn('\n    y:', center)
         self.assertIn('MediaCard {', center)
         shell = ((root / 'shell.qml').read_text() + frame_source(root))
-        self.assertIn('Region { item: controlCenter.opened ? controlCenter : null }', shell)
+        self.assertIn('Region { item: (controlCenter ? controlCenter.opened : false) ? controlCenter : null }', shell)
         center_section = (root / 'bar/BarHorizontalCenter.qml').read_text()
-        self.assertIn('onDetailsRequested: barHost.togglePanel(mediaMenuRef)', center_section)
+        self.assertIn('onDetailsRequested: barHost.toggleKind("media")', center_section)
 
 if __name__ == '__main__':
     unittest.main()
@@ -176,7 +176,7 @@ class HardwareSubscriberTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which("quickshell"), "Quickshell unavailable")
     def test_panel_demand_lifetime_retained_errors_and_control_center_entry(self):
         bar = Path(__file__).parents[1]
-        self.assertIn('hardware: barHost.hardwareMenu', (bar / 'bar/BarPanels.qml').read_text())
+        self.assertIn('hardware: panels.barHost.hardwareMenu', (bar / 'bar/BarPanels.qml').read_text())
         self.assertNotIn('hardwareIdentity', ((bar / 'shell.qml').read_text() + frame_source(bar)))
         panel = (bar / 'panels/SystemMonitorMenu.qml').read_text()
         self.assertNotIn('Process {', panel)

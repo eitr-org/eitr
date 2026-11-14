@@ -23,7 +23,7 @@ class TimePickerTests(unittest.TestCase):
                         shutil.copy(source, destination)
                 source = (folder / 'panels/TimePicker.qml').read_text()
                 # FloatingWindow supplies the offscreen surface in place of a Wayland layer.
-                source = source.replace('id: picker', 'id: picker\n    property alias keyTarget: content', 1)
+                source = source.replace('id: picker', 'id: picker\n    property var keyTarget: contentLoader.item', 1)
                 source = source.replace('PanelWindow {', 'FloatingWindow {\n        implicitWidth: 800; implicitHeight: 600')
                 source = '\n'.join(line for line in source.splitlines() if not any(
                     token in line for token in ('anchors { top:', 'exclusionMode:', 'WlrLayershell.')))

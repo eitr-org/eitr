@@ -24,7 +24,7 @@ def ipc_show_kinds():
     if not match:
         raise AssertionError("showKind() not found in BarWindow.qml")
     body = match.group(1)
-    mapping = re.search(r"var panels = \{(.*?)\};", body, re.S)
+    mapping = re.search(r"var choices = \{(.*?)\};", body, re.S)
     if not mapping:
         raise AssertionError("panels kind map not found in BarWindow.qml")
     kinds = set(re.findall(r"(\w+):\s*\w+", mapping.group(1)))

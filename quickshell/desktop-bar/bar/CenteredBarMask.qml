@@ -13,13 +13,13 @@ Region {
     // Straight sides: the body is a plain rectangle inside the slopes' room.
     property bool straight: false
     readonly property bool vertical: edge === "left" || edge === "right"
-    readonly property real length: vertical ? surface.height : surface.width
-    readonly property point origin: surface.parent.mapToItem(null, surface.x, surface.y)
+    readonly property real length: surface ? (vertical ? surface.height : surface.width) : 0
+    readonly property point origin: surface && surface.parent ? surface.parent.mapToItem(null, surface.x, surface.y) : Qt.point(0, 0)
     width: 0
     height: 0
     // One-pixel slices follow the same rounded slope as the painted surface.
     property Instantiator slices: Instantiator {
-        model: mask.surface.visible ? Math.ceil(mask.depth) : 0
+        model: mask.surface && mask.surface.visible ? Math.ceil(mask.depth) : 0
         delegate: Region {
             required property int index
             readonly property real inset: mask.straight ? mask.depth + mask.bendRound

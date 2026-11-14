@@ -132,7 +132,7 @@ class HandbookWelcomeTests(unittest.TestCase):
         shell = (ROOT / "shell.qml").read_text() + (ROOT / "services/WelcomeSession.qml").read_text()
         self.assertIn('reloadableId: "handbookWelcomeSession"', shell)
         self.assertIn('command: session.welcomeCommand("status")', shell)
-        self.assertIn("if (state.show) handbook.showWelcome(state.pending);", shell)
+        self.assertIn("if (state.show) session.reader().showWelcome(state.pending);", shell)
         self.assertIn('if (welcomeShown && !showAtLogin) welcomeChoice("dismiss");', self.source)
 
     def test_only_its_own_controls_close_the_handbook(self):

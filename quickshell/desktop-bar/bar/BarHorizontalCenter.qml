@@ -25,7 +25,7 @@ Item {
     PluginBarItems {
         id: clockPlugins
         clockSlot: true
-        observing: !barHost.dynamicLayout || barHost.dynamicSurfaces.middleIsland.expanded
+        observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
         vertical: false
         clockFormat: centerSection.host.barClock
         slotSize: centerSection.host.workspaceItemSize
@@ -34,12 +34,12 @@ Item {
         background: centerSection.host.barBackground()
         accent: centerSection.host.activeBg
         open: !barHost.dropLayout && barHost.expanded
-        reveal: barHost.dynamicLayout ? (barHost.dynamicSurfaces.middleIsland.expanded ? 1 : 0) : 1
+        reveal: barHost.dynamicLayout ? ((barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false) ? 1 : 0) : 1
         Behavior on reveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
         opacity: reveal
         enabled: opacity > 0
         anchors.right: centerInfo.left
-        anchors.rightMargin: barHost.islandsLayout ? barHost.islandSpacing + barHost.islandSurfaces.aroundClock : barHost.centeredLayout ? barHost.itemGap : 6
+        anchors.rightMargin: barHost.islandsLayout ? barHost.islandSpacing + (barHost.islandSurfaces ? barHost.islandSurfaces.aroundClock : 0) : barHost.centeredLayout ? barHost.itemGap : 6
         anchors.verticalCenter: centerInfo.verticalCenter
         onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
     }
@@ -52,12 +52,12 @@ Item {
         anchors.alignWhenCentered: false
         anchors.centerIn: parent
         anchors.horizontalCenterOffset: barHost.centeredLayout ? (barHost.leadingReveal - barHost.trailingReveal) / 2
-            : barHost.dropLayout ? barHost.dropSurfaces.timeOffset : 0
+            : barHost.dropLayout ? (barHost.dropSurfaces ? barHost.dropSurfaces.timeOffset : 0) : 0
         anchors.verticalCenterOffset: 0
         // Drop opens its dashboard; every other layout the calendar.
-        onClicked: barHost.togglePanel(barHost.dropLayout ? barHost.dropDashboard : calendarMenu)
+        onClicked: barHost.togglePanel(barHost.dropLayout ? barHost.panel("dashboard") : calendarMenu)
         // Drop: a right click goes straight to the quick controls.
-        onRightClicked: if (barHost.dropLayout) barHost.dropDashboard.show("controls")
+        onRightClicked: if (barHost.dropLayout) barHost.panel("dashboard").show("controls")
     }
 
     CaptureIndicator {
@@ -66,7 +66,7 @@ Item {
         id: barCapture
         anchors.right: clockPlugins.width > 0 ? clockPlugins.left : centerInfo.left
         anchors.rightMargin: (shown ? (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) : 0)
-            + (barHost.islandsLayout ? (clockPlugins.width <= 0 ? barHost.islandSurfaces.aroundClock : barHost.islandSurfaces.beforeClockPlugins) : 0)
+            + (barHost.islandsLayout ? (clockPlugins.width <= 0 ? (barHost.islandSurfaces ? barHost.islandSurfaces.aroundClock : 0) : (barHost.islandSurfaces ? barHost.islandSurfaces.beforeClockPlugins : 0)) : 0)
         anchors.verticalCenter: parent.verticalCenter
         recording: obsMenuRef.obsState.recording || obsMenuRef.obsState.streaming
         recordingPaused: obsMenuRef.obsState.paused && !obsMenuRef.obsState.streaming
@@ -78,7 +78,7 @@ Item {
         activity: barHost.clockActivity
         onMeetingClicked: calendarMenu.showDay(new Date())
         onTimerClicked: barHost.showControlCenter("timer")
-        onBellClicked: barHost.showPanel(barHost.notificationCenter)
+        onBellClicked: barHost.showKind("notifications")
         centered: barHost.islandsLayout || barHost.dynamicLayout
     }
 
@@ -113,20 +113,20 @@ Item {
             : Math.max(0, centerInfo.x - barHost.clockPluginExtent - hardwareStatusRef.mapToItem(centerInfo.parent, hardwareStatusRef.width, 0).x - (barHost.islandsLayout ? 2 * barHost.islandSpacing + (barCapture.shown ? barCapture.width + barHost.islandSpacing : 0) : 24))
         foreground: centerSection.host.fg
         background: centerSection.host.workspaceMenuBg
-        onDetailsRequested: barHost.togglePanel(mediaMenuRef)
+        onDetailsRequested: barHost.toggleKind("media")
     }
 
     Item {
         anchors.left: centerInfo.right
-        anchors.leftMargin: barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0
+        anchors.leftMargin: barHost.islandsLayout ? (barHost.islandSurfaces ? barHost.islandSurfaces.aroundClock : 0) : 0
         anchors.verticalCenter: centerInfo.verticalCenter
-        width: barHost.dropLayout || barWeather.width <= 0 ? 0 : barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
+        width: barHost.dropLayout || barWeather.width <= 0 ? 0 : barHost.dynamicLayout ? (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.weatherReveal : 0) : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
         height: barWeather.height
         clip: barHost.dropLayout || barHost.notchLayout || barHost.dynamicLayout
         PluginBarItems {
             id: barWeather
             placementSlot: "clockEnd"
-            observing: !barHost.dynamicLayout || barHost.dynamicSurfaces.middleIsland.expanded
+            observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
             x: parent.width - width
             foreground: centerSection.host.fg; background: centerSection.host.barBackground(); accent: centerSection.host.activeBg
             clockFormat: centerSection.host.barClock

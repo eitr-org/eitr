@@ -137,6 +137,10 @@ io.popen = function(command)
 end
 dofile = function(path)
     if path:match("live%-menu.lua$") then return function(name, loader) return loader end end
+    -- Saved settings come from the shared Lua reader; its parity is tested in test_login_startup.
+    if path:match("setting%-value.lua$") then
+        return function(script, key) return ({workspaceMode="shared", workspaceCount="6", workspaceAlwaysShow="5"})[key] end
+    end
     return real_dofile(path)
 end
 for _, spec in ipairs({{"workspace-monitors",2}, {"workspace-count",6}, {"workspace-always-show",5}}) do

@@ -1,5 +1,6 @@
 """Exercise the shipped Lua configuration, bindings and pane geometry offline."""
 import os
+import json
 from pathlib import Path
 import shutil
 import subprocess
@@ -14,9 +15,7 @@ local mode = arg[2] == "on"
 local bindings = assert(io.open(arg[3])):read("*a")
 local real_popen = io.popen
 io.popen = function(command)
-    if command:match("focus%-mode.py.* status$") then
-        return {read=function() return mode and "on" or "off" end, close=function() return true end}
-    elseif command:match("focus%-mode.py.* bindings$") then
+    if command:match("focus%-mode.py.* bindings$") then
         -- Hyprland reaps its children, so close() reports no exit status there.
         return {read=function() return bindings end, close=function() return nil end}
     end
@@ -140,7 +139,9 @@ class FocusLuaTests(unittest.TestCase):
             with patch.dict(os.environ, environment):
                 generated.write_text(bindings())
             self.assertEqual(len({entry['key'].lower() for entry in FOCUS_KEYS}), len(FOCUS_KEYS))
+            (folder / 'eitr').mkdir()
             for mode in ('off', 'on'):
+                (folder / 'eitr/focus.json').write_text(json.dumps({'enabled': mode == 'on'}))
                 result = subprocess.run(['lua', str(script), str(ROOT / 'hypr/hyprland.lua'), mode, str(generated)],
                                         env=environment, capture_output=True, text=True, timeout=10)
                 self.assertEqual(result.returncode, 0, result.stderr)

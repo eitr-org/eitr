@@ -40,7 +40,7 @@ RowLayout {
             anchors.verticalCenter: parent.verticalCenter
             onClicked: barWindow.toggleControlCenter()
         }
-        Item { width: barWindow.islandsLayout ? barWindow.islandSpacing - 2 * host.workspaceItemSpacing + barWindow.islandSurfaces.afterLogo : 0; height: 1; visible: barWindow.islandsLayout }
+        Item { width: barWindow.islandsLayout ? barWindow.islandSpacing - 2 * host.workspaceItemSpacing + (barWindow.islandSurfaces ? barWindow.islandSurfaces.afterLogo : 0) : 0; height: 1; visible: barWindow.islandsLayout }
         StatusIcon {
             host: group.host
             id: overview
@@ -90,7 +90,7 @@ RowLayout {
         enabled: barWindow.expanded
         Behavior on shownOpacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
         Layout.alignment: Qt.AlignVCenter
-        Layout.leftMargin: barWindow.islandsLayout ? barWindow.islandSpacing + barWindow.islandSurfaces.afterWorkspaces : host.workspaceItemSpacing
+        Layout.leftMargin: barWindow.islandsLayout ? barWindow.islandSpacing + (barWindow.islandSurfaces ? barWindow.islandSurfaces.afterWorkspaces : 0) : host.workspaceItemSpacing
         spacing: host.workspaceItemSpacing
 
         StatusIcon {
@@ -136,7 +136,7 @@ RowLayout {
             clockFormat: host.barClock
             foreground: host.fg; background: host.barBackground(); accent: host.activeBg
             open: !barWindow.dropLayout && barWindow.expanded
-            observing: !barWindow.dynamicLayout || barWindow.dynamicSurfaces.leadingIsland.expanded
+            observing: !barWindow.dynamicLayout || (barWindow.dynamicSurfaces ? barWindow.dynamicSurfaces.leadingIsland.expanded : false)
             slotSize: host.workspaceItemSize; slotSpacing: host.workspaceItemSpacing
             onPanelRequested: function(plugin, panel, target) { barWindow.openPluginPanel(plugin, panel, target); }
         }

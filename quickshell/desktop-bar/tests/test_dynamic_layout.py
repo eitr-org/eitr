@@ -1,4 +1,5 @@
 """Production Dynamic parenting, motion, independent anchors and rounded input regions."""
+from bar_frame_source import eager_projection
 import json
 from pathlib import Path
 import shutil
@@ -40,7 +41,7 @@ class DynamicLayoutTests(unittest.TestCase):
                     for website in (False, True):
                         capture = capture_path('DYNAMIC', directory, f'{edge}-{light}-{website}')
                         fixture = (BAR / 'tests/fixtures/layout/dynamic.qml.in').read_text()
-                        source = (BAR / 'bar/BarWindow.qml').read_text()
+                        source = eager_projection((BAR / 'bar/BarWindow.qml').read_text())
                         geometry = source.split('        width: host.verticalBar ? bar.thinThickness', 1)[1].split('        BarTabs {', 1)[0]
                         geometry = 'width: host.verticalBar ? bar.thinThickness' + geometry
                         geometry = geometry.replace('host.', 'shell.')

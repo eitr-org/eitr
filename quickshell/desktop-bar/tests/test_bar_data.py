@@ -1574,6 +1574,7 @@ class DomainResultContractTests(unittest.IsolatedAsyncioTestCase):
             'display.nightlight': ('scheduled', 'false'), 'hardware.details': ('sections', [None]),
             'remote.availability': ('allowed', 'false'), 'remote.status': ('tailscale', []),
             'weather.default': ('forecastDays', {}), 'ai.usage': ('providers', None), 'account.picture': ('path', 5),
+            'keyboard.layouts': ('layouts', None),
             'updates.status': ('count', True)}
         for topic, variants in fixtures.items():
             for data in variants:

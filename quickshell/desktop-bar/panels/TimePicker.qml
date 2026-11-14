@@ -40,7 +40,7 @@ Item {
         if (!setValue(initial)) { hour = (next.getHours() + 1) % 24; minute = 0; }
         openScreen = Eitr.Screens.focused(defaultScreen);
         opened = true;
-        Qt.callLater(function() { content.forceActiveFocus(); });
+        Qt.callLater(function() { contentLoader.item && contentLoader.item.forceActiveFocus(); });
     }
     function step(which, delta) {
         if (!valid) return;
@@ -82,74 +82,82 @@ Item {
         WlrLayershell.layer: WlrLayer.Overlay
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
         Rectangle { anchors.fill: parent; color: "#80000000" }
-        Item {
-            id: content
+        Loader {
+            id: contentLoader
+            focus: picker.opened
             anchors.fill: parent
-            focus: true
-            Keys.onPressed: function(event) {
-                if (event.key === Qt.Key_Escape) picker.finish(true);
-                else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) picker.finish(false);
-                else if (event.key === Qt.Key_Up || event.key === Qt.Key_Down) picker.step(picker.column, event.key === Qt.Key_Up ? 1 : -1);
-                else if ([Qt.Key_Left, Qt.Key_Right, Qt.Key_Tab, Qt.Key_Backtab].includes(event.key)) picker.column = 1 - picker.column;
-                else if (event.key === Qt.Key_Backspace) { if (!picker.editing) picker.typed = picker.value.replace(":", ""); picker.editing = true; picker.typed = picker.typed.slice(0, -1); }
-                else if (/^[0-9]$/.test(event.text)) picker.typeDigit(event.text);
-                else return;
-                event.accepted = true;
-            }
-            Rectangle {
-                objectName: "timePickerCard"
-                anchors.centerIn: parent
-                width: Math.min(380, parent.width - 2 * PanelStyle.padding)
-                height: layout.height + 2 * PanelStyle.padding
-                radius: DesktopStyle.radius(PanelStyle.cornerRadius)
-                color: picker.background
-                Column {
-                    id: layout
-                    x: PanelStyle.padding; y: PanelStyle.padding
-                    width: parent.width - 2 * PanelStyle.padding
-                    spacing: 12
-                    Text {
-                        width: parent.width; wrapMode: Text.Wrap
-                        text: picker.title; color: picker.foreground
-                        font.family: DesktopFonts.family; font.pixelSize: PanelStyle.headingSize
-                    }
-                    Text {
-                        width: parent.width; visible: text.length > 0; wrapMode: Text.Wrap
-                        text: picker.subtitle; color: picker.foreground; opacity: PanelStyle.secondaryTextOpacity
-                        font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
-                    }
-                    Text {
-                        width: parent.width; height: 64
-                        text: picker.value; horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                        color: picker.valid ? picker.foreground : "#d04b4b"
-                        font.family: DesktopFonts.family; font.pixelSize: 40
-                        font.features: PanelStyle.tabularFigures
-                    }
-                    Item {
-                        width: parent.width; height: 2
-                        Rectangle {
-                            width: 48; height: 2
-                            x: parent.width / 2 + (picker.column === 0 ? -60 : 12)
-                            color: picker.foreground
+            property bool retained: false
+            active: picker.opened || retained
+            onLoaded: { retained = true; item.forceActiveFocus(); }
+            sourceComponent: Item {
+                id: content
+                anchors.fill: parent
+                focus: true
+                Keys.onPressed: function(event) {
+                    if (event.key === Qt.Key_Escape) picker.finish(true);
+                    else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) picker.finish(false);
+                    else if (event.key === Qt.Key_Up || event.key === Qt.Key_Down) picker.step(picker.column, event.key === Qt.Key_Up ? 1 : -1);
+                    else if ([Qt.Key_Left, Qt.Key_Right, Qt.Key_Tab, Qt.Key_Backtab].includes(event.key)) picker.column = 1 - picker.column;
+                    else if (event.key === Qt.Key_Backspace) { if (!picker.editing) picker.typed = picker.value.replace(":", ""); picker.editing = true; picker.typed = picker.typed.slice(0, -1); }
+                    else if (/^[0-9]$/.test(event.text)) picker.typeDigit(event.text);
+                    else return;
+                    event.accepted = true;
+                }
+                Rectangle {
+                    objectName: "timePickerCard"
+                    anchors.centerIn: parent
+                    width: Math.min(380, parent.width - 2 * PanelStyle.padding)
+                    height: layout.height + 2 * PanelStyle.padding
+                    radius: DesktopStyle.radius(PanelStyle.cornerRadius)
+                    color: picker.background
+                    Column {
+                        id: layout
+                        x: PanelStyle.padding; y: PanelStyle.padding
+                        width: parent.width - 2 * PanelStyle.padding
+                        spacing: 12
+                        Text {
+                            width: parent.width; wrapMode: Text.Wrap
+                            text: picker.title; color: picker.foreground
+                            font.family: DesktopFonts.family; font.pixelSize: PanelStyle.headingSize
                         }
-                    }
-                    Row {
-                        anchors.right: parent.right; spacing: 8
-                        PanelButton {
-                            width: 100
-                            text: Eitr.I18n.tr("Cancel"); foreground: picker.foreground
-                            Keys.forwardTo: [content]
-                            activeFocusOnTab: false
-                            onClicked: picker.finish(true)
+                        Text {
+                            width: parent.width; visible: text.length > 0; wrapMode: Text.Wrap
+                            text: picker.subtitle; color: picker.foreground; opacity: PanelStyle.secondaryTextOpacity
+                            font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
                         }
-                        PanelButton {
-                            width: 100
-                            enabled: picker.valid
-                            text: Eitr.I18n.tr("Set"); foreground: picker.foreground
-                            Keys.forwardTo: [content]
-                            activeFocusOnTab: false
-                            onClicked: picker.finish(false)
+                        Text {
+                            width: parent.width; height: 64
+                            text: picker.value; horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                            color: picker.valid ? picker.foreground : "#d04b4b"
+                            font.family: DesktopFonts.family; font.pixelSize: 40
+                            font.features: PanelStyle.tabularFigures
+                        }
+                        Item {
+                            width: parent.width; height: 2
+                            Rectangle {
+                                width: 48; height: 2
+                                x: parent.width / 2 + (picker.column === 0 ? -60 : 12)
+                                color: picker.foreground
+                            }
+                        }
+                        Row {
+                            anchors.right: parent.right; spacing: 8
+                            PanelButton {
+                                width: 100
+                                text: Eitr.I18n.tr("Cancel"); foreground: picker.foreground
+                                Keys.forwardTo: [content]
+                                activeFocusOnTab: false
+                                onClicked: picker.finish(true)
+                            }
+                            PanelButton {
+                                width: 100
+                                enabled: picker.valid
+                                text: Eitr.I18n.tr("Set"); foreground: picker.foreground
+                                Keys.forwardTo: [content]
+                                activeFocusOnTab: false
+                                onClicked: picker.finish(false)
+                            }
                         }
                     }
                 }

@@ -72,13 +72,15 @@ PanelWindow {
         function close(): void { overview.opened = false; }
         function status(): string { return JSON.stringify({opened: overview.opened, workspaces: overview.workspaces.map(w => ({id: w.id, windows: w.windows.length}))}); }
     }
+    property bool prewarmed: false
+    Timer { interval: 6500; running: true; onTriggered: overview.prewarmed = true }
     Loader {
         id: contentLoader
         focus: overview.opened
         onLoaded: if (overview.opened) item.forceActiveFocus()
         anchors.fill: parent
-        active: true
-        asynchronous: true
+        active: overview.opened || overview.prewarmed
+        asynchronous: !overview.opened
         sourceComponent: Component {
             Rectangle {
                 color: overview.background

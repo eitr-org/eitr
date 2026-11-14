@@ -1,4 +1,5 @@
 """Drop: the resting time pill on every edge, and the drop it falls from with auto-hide."""
+from bar_frame_source import eager_projection
 import json
 from pathlib import Path
 import shutil
@@ -32,7 +33,7 @@ class DropSourceTests(unittest.TestCase):
         window = self.source('bar/BarWindow.qml')
         self.assertIn('readonly property real distance: bar.dropLayout ? 0 :', window)
         self.assertIn('readonly property bool floatingIslands: islandsLayout || dynamicLayout || dropLayout', window)
-        self.assertIn('IslandMask { surfaces: barHost.dropSurfaces.surfaces }', self.source('bar/BarInputMask.qml'))
+        self.assertIn('IslandMask { surfaces: barHost.dropSurfaces ? barHost.dropSurfaces.surfaces : [] }', self.source('bar/BarInputMask.qml'))
 
 
 @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell required')
@@ -41,7 +42,7 @@ class DropRenderTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='eitr-drop-') as directory:
             folder = Path(directory)
             copy_runtime(folder)
-            source = (BAR / 'bar/BarWindow.qml').read_text()
+            source = eager_projection((BAR / 'bar/BarWindow.qml').read_text())
             geometry = source.split('        width: host.verticalBar ? bar.thinThickness', 1)[1].split('        BarTabs {', 1)[0]
             geometry = ('width: host.verticalBar ? bar.thinThickness' + geometry).replace('host.', 'shell.')
             reserved = source.split('readonly property real reservedThickness: ', 1)[1].split('\n', 1)[0]

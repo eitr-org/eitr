@@ -1,0 +1,193 @@
+{
+  "bar-settings.py": {
+    "path": "quickshell/desktop-bar/bar-settings.json",
+    "defaults": {
+      "appearance": "solid",
+      "layout": "unified",
+      "edge": "top",
+      "pinned": "no",
+      "screens": "main",
+      "autohide": "no",
+      "reduceMotion": "no",
+      "mediaStyle": "bars",
+      "dock": "yes",
+      "clock": "12h",
+      "blur-strength": "medium",
+      "lyrics": "no",
+      "islandStyle": "floating",
+      "sideStyle": "slopes"
+    },
+    "options": {
+      "blur-strength": [
+        "light",
+        "medium",
+        "strong"
+      ],
+      "appearance": [
+        "solid",
+        "transparent",
+        "website"
+      ],
+      "layout": [
+        "centered",
+        "drop",
+        "dynamic",
+        "islands",
+        "notch",
+        "unified"
+      ],
+      "edge": [
+        "bottom",
+        "left",
+        "right",
+        "top"
+      ],
+      "pinned": [
+        "no",
+        "yes"
+      ],
+      "screens": [
+        "all",
+        "main"
+      ],
+      "autohide": [
+        "no",
+        "yes"
+      ],
+      "dock": [
+        "no",
+        "yes"
+      ],
+      "reduceMotion": [
+        "no",
+        "yes"
+      ],
+      "mediaStyle": [
+        "bars",
+        "line"
+      ],
+      "clock": [
+        "12h",
+        "24h"
+      ],
+      "lyrics": [
+        "no",
+        "yes"
+      ],
+      "islandStyle": [
+        "attached",
+        "floating"
+      ],
+      "sideStyle": [
+        "slopes",
+        "straight"
+      ]
+    }
+  },
+  "desktop-style.py": {
+    "path": "eitr/style.json",
+    "defaults": {
+      "corners": "rounded",
+      "gaps": "default",
+      "layout": "dwindle",
+      "scrollDirection": "right",
+      "scrollWidth": "half",
+      "scrollFocusFit": "fit",
+      "scrollFollowFocus": "yes",
+      "scrollFullscreen": "yes",
+      "workspaceMode": "shared",
+      "workspaceCount": 10,
+      "workspaceAlwaysShow": 5
+    },
+    "options": {
+      "layout": [
+        "dwindle",
+        "scrolling"
+      ],
+      "scrollDirection": [
+        "right",
+        "left",
+        "down",
+        "up"
+      ],
+      "scrollWidth": [
+        "third",
+        "half",
+        "two-thirds",
+        "full"
+      ],
+      "scrollFocusFit": [
+        "center",
+        "fit"
+      ],
+      "corners": [
+        "square",
+        "rounded",
+        "extra-rounded"
+      ],
+      "gaps": [
+        "none",
+        "small",
+        "default",
+        "large"
+      ],
+      "scrollFollowFocus": [
+        "yes",
+        "no"
+      ],
+      "scrollFullscreen": [
+        "yes",
+        "no"
+      ],
+      "workspaceMode": [
+        "shared",
+        "split"
+      ],
+      "workspaceCount": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "workspaceAlwaysShow": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    }
+  },
+  "terminal.py": {
+    "path": "eitr/terminal.json",
+    "defaults": {
+      "opacity": "default",
+      "padding": "none",
+      "blur": "on"
+    },
+    "options": {
+      "opacity": [
+        "solid",
+        "light",
+        "medium",
+        "default",
+        "strong"
+      ],
+      "padding": [
+        "none",
+        "small",
+        "comfortable"
+      ],
+      "blur": [
+        "off",
+        "on"
+      ]
+    }
+  }
+}

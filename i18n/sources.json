@@ -86,7 +86,7 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Accent": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+      "quickshell/desktop-bar/capture/BeautifyContent.qml"
     ],
     "Accounts & Security": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml",
@@ -328,7 +328,7 @@
       "quickshell/desktop-bar/panels/BatteryMenu.qml"
     ],
     "Beautify screenshot": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+      "quickshell/desktop-bar/capture/BeautifyContent.qml"
     ],
     "Before the clock": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
@@ -600,7 +600,7 @@
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Close": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml",
+      "quickshell/desktop-bar/capture/BeautifyContent.qml",
       "quickshell/desktop-bar/dock/EdgeDock.qml",
       "quickshell/desktop-bar/panels/CatalogPluginSheet.qml",
       "quickshell/desktop-bar/settings/FamilySidebar.qml",
@@ -706,16 +706,16 @@
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Copied, ready to paste": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+      "quickshell/desktop-bar/capture/BeautifyContent.qml"
     ],
     "Copy picture": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+      "quickshell/desktop-bar/capture/BeautifyContent.qml"
     ],
     "Copy reply": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Corners": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml",
+      "quickshell/desktop-bar/capture/BeautifyContent.qml",
       "quickshell/desktop-bar/figures/WindowStyleFigure.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
@@ -764,7 +764,7 @@
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Could not save the picture": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+      "quickshell/desktop-bar/capture/BeautifyContent.qml"
     ],
     "Could not set the main display": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
@@ -1785,7 +1785,7 @@
       "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "None": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml",
+      "quickshell/desktop-bar/capture/BeautifyContent.qml",
       "tools/choice-lists.json"
     ],
     "Normal": [
@@ -2013,7 +2013,7 @@
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
     "Padding": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml",
+      "quickshell/desktop-bar/capture/BeautifyContent.qml",
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -2497,10 +2497,10 @@
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
     ],
     "Save picture": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+      "quickshell/desktop-bar/capture/BeautifyContent.qml"
     ],
     "Saved as {name}": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+      "quickshell/desktop-bar/capture/BeautifyContent.qml"
     ],
     "Scale": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
@@ -2639,7 +2639,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Shadow": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+      "quickshell/desktop-bar/capture/BeautifyContent.qml"
     ],
     "Share Clipboard": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -2970,7 +2970,7 @@
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
     ],
     "Theme": [
-      "quickshell/desktop-bar/capture/BeautifyWindow.qml",
+      "quickshell/desktop-bar/capture/BeautifyContent.qml",
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"

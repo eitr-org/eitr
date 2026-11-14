@@ -65,14 +65,32 @@ and decoded at screen size, including ultrawide variants. This fallback follows
 Walker and carousel choices and remains visible in Focus mode and during
 transitions; it does not animate the reveal. No polling is added.
 
-Login starts Hyprpaper, waits up to 0.5 s for its IPC endpoint, then starts the bar
-and Elephant together (Walker needs Elephant). Session preparation, crash help, cursor
-sync, nightlight, OSD and clipboard watchers start once the bar answers on its IPC
-socket (at most 8 s). Then `hypr/scripts/polkit-fallback.sh` asks the bar's
-`polkit status` IPC for up to 15 s and starts KDE's polkit agent only when the bar's
-agent has not registered. The keyring and idle locking keep their existing startup path. Walker starts/waits for the same Elephant
-service when invoked early; its KillMode remains process. Plugin login hooks
-start after 12 s and the first automatic update check after 45 s.
+Login starts the single Elephant service, clipboard watchers, session preparation
+and the polkit watchdog independently. Walker's GApplication service starts after
+session preparation has finished regenerating GTK styles. A renderer probe has a
+two-second deadline; only confirmed software rendering skips Hyprpaper. Its still
+frame readiness poll has a one-second deadline before the bar starts. The bar's
+IPC poll has an eight-second deadline including command time; IPC does not prove
+that a frame has been presented. The polkit watchdog starts KDE's agent if the
+bar has not registered within fifteen seconds of session startup. The keyring
+and idle locking retain their existing startup path. Elephant retains
+`KillMode=process`. Plugin hooks start after 12 s and update checks after 45 s.
+
+The last login's milestones live in `$XDG_STATE_HOME/eitr/login-timing.jsonl`
+(default `~/.local/state/eitr/login-timing.jsonl`). Each record has an event, a
+wall-clock Unix timestamp and Linux CLOCK_BOOTTIME seconds (monotonic, including
+suspend). Run `eitr-run lib/eitr_login_timing.py` to print the timeline relative to
+session-start; no SDDM/PAM timestamp is collected. Missing readiness marks mean
+the corresponding deadline expired, not that the component was ready. The renderer
+result is shared with the wallpaper component through the session runtime folder.
+
+Choice menus read a generated settings schema directly in Lua, preserving the
+helpers' validation and migration rules. Regenerate that schema after changing
+those rules with `python3 tools/login-settings.py` and verify with `--check`.
+The bar reads its saved settings with FileView; helper write and summary APIs
+remain available. Plugin UI, installed metadata and placements share one helper
+snapshot per refresh. Keyboard menus across screens share one event-refreshed
+`keyboard.layouts` broker topic instead of starting their own Python readers.
 
 The shared Audio/Mic panel includes a live PipeWire input-level meter. Monitoring runs
 only while that panel is open; no audio is written to disk. The meter follows the
@@ -814,6 +832,17 @@ button effects and meters use it. Infinite indicators stop under reduced motion;
 loading state remains visible. Realm screenshot flashes and Fenrir are suppressed.
 Data refresh, focus, notification-expiry and pointer-leave timers are unchanged.
 
+Closed Settings and Store windows retain their small frame and IPC owner, creating
+content on first open. WelcomeSession owns Handbook IPC without creating the reader
+or loading its catalog until requested or the first-login welcome is due. Beautify
+also keeps only its IPC owner until requested; the Time and Appearance pickers defer their visual content. Loaded content stays alive across closes.
+BarPanels creates Notification Center, Control Center, media, battery, plugin and Drop
+content on request, and asynchronously prewarms them one at a time after 3.5 seconds.
+Notification popups and polkit registration stay eager. Special layout surfaces use
+conditional Loaders; their exported items are nullable outside their active layout.
+Horizontal bars also defer the vertical placement tree. The horizontal placement
+remains present on vertical bars because it owns shared media/weather and menu state.
+
 `shell.qml` owns shared state and service wiring. Each `bar/BarWindow.qml` owns one
 screen's frame, input regions, bar sections and panel routing, receiving its shell
 host and service dependencies explicitly. `BarPanels` retains the panel instances
@@ -870,7 +899,7 @@ compositor blur, D-Bus, GPU capture, DDC or real hardware performance.
 | Plugin panels (`PluginPanel`) and General subviews | Author QML/data loader activates on opening | Asynchronous PluginComponent retained; host activates before reveal and reports implicit-height readiness; arbitrary author code still requires profiling | needs live check |
 | Overview (`overview`) | Synchronous grid Loader, toplevel refresh and capture on open | Retain grid with asynchronous construction; defer refresh and captures until entrances finish; async sized wallpaper; dismissal remains instant | needs live check |
 | Theme / Wallpaper carousel | Re-query, model clear and image cache disabled | Reuse per-mode catalog; guard equal results; async bounded image placeholders; preserve uncached artwork across theme changes; motion policy covers navigation | needs live check |
-| Handbook / first-login welcome | Reload/parse complete catalog on every open | Existing startup/watch loading retained; remove redundant open reload; guard and defer changed catalogs; figures already async | needs live check |
+| Handbook / first-login welcome | Reload/parse complete catalog on every open | Reader and catalog created on first open or when welcome is due; retained while closed; catalog watches and async figures remain | needs live check |
 | Time picker (`timepicker`) | Fixed controls; writer only on confirmation | No open-time process or image load; already instant | needs live check |
 | Header More actions, widget options, device/layout choices, power confirmation rows | Retained small action lists | No background load on open; shared button images async; existing instant popup behavior retained | needs live check |
 | Bar/tool/workspace tooltips | Text-only popup and font metrics | Fixed font roles, bounded width; existing delay and instant display retained; no open-time process | needs live check |

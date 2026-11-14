@@ -10,7 +10,7 @@ import Quickshell.Wayland
 
 SettingsAppearanceModel {
     id: picker
-    onLoaded: Qt.callLater(function() { content.forceActiveFocus(); })
+    onLoaded: Qt.callLater(function() { contentLoader.item && contentLoader.item.forceActiveFocus(); })
     // Shortcuts and Walker open the carousel on the display in use, like a desktop double-click.
     function focusedScreen() { return Eitr.Screens.focused(picker.defaultScreen); }
     IpcHandler {
@@ -68,213 +68,221 @@ SettingsAppearanceModel {
             onWheel: function(event) { picker.navigate(event.angleDelta.y > 0 ? -1 : 1); }
         }
 
-        Item {
-            id: content
+        Loader {
+            id: contentLoader
+            focus: picker.opened
             anchors.fill: parent
-            focus: true
-            // Theme previews keep their 16:9 aspect on every screen shape.
-            readonly property real previewAspect: 16 / 9
-            readonly property real previewWidth: picker.mode !== "wallpaper" ? previewHeight * previewAspect : Math.min(768, width * 0.55)
-            readonly property real previewHeight: picker.mode !== "wallpaper" ? Math.min(560, height * 0.58, width * 0.68 / previewAspect) : Math.min(475, height * 0.58)
-            readonly property real sliceWidth: Math.min(108, width * 0.08)
-            readonly property real step: sliceWidth * 0.74
-            Keys.onPressed: function(event) {
-                if (event.key === Qt.Key_Escape) {
-                    if (picker.searchText) picker.search("");
-                    else picker.opened = false;
-                }
-                // Backspace only edits the search; Escape closes.
-                else if (event.key === Qt.Key_Backspace) {
-                    if (picker.searchText) picker.search(picker.searchText.slice(0, -1));
-                }
-                else if (picker.themeMode && event.key === Qt.Key_Tab && (event.modifiers & Qt.ControlModifier)) picker.filterThemes(picker.mode === "theme" ? "theme-dark" : picker.mode === "theme-dark" ? "theme-light" : "theme");
-                else if (picker.mode === "wallpaper" && event.key === Qt.Key_Tab && (event.modifiers & Qt.ControlModifier)) picker.setWallpaperScope(picker.wallpaperScope === "all" ? "theme" : "all");
-                else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) picker.apply();
-                else if (event.key === Qt.Key_Left || (!picker.searchable && event.key === Qt.Key_H)) picker.navigate(-1);
-                else if (event.key === Qt.Key_Right || (!picker.searchable && event.key === Qt.Key_L) || event.key === Qt.Key_Tab) picker.navigate(1);
-                else if (picker.searchable && event.text && !(event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier)) && !/[\x00-\x1f\x7f]/.test(event.text)) picker.search(picker.searchText + event.text);
-                else return;
-                event.accepted = true;
-            }
-            PanelHeading {
-                x: PanelStyle.padding; y: PanelStyle.padding
-                width: parent.width - 2 * PanelStyle.padding
-                text: picker.mode === "wallpaper" ? Eitr.I18n.tr("Wallpaper") : picker.mode === "font" ? Eitr.I18n.tr("Fonts") : Eitr.I18n.tr("Theme")
-                foreground: picker.foreground; accent: picker.accent; rune: "style"
-            }
-            Rectangle {
-                anchors.horizontalCenter: parent.horizontalCenter
-                // Just above the selected card.
-                y: Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - height)
-                width: filters.implicitWidth + 12
-                height: PanelStyle.selectionRowHeight + 12
-                radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                color: picker.background
-                visible: picker.searchable
-                Row {
-                    id: filters
-                    anchors.centerIn: parent
-                    spacing: PanelStyle.selectionRowGap
-                    // Wallpapers: this theme's, or every installed theme's (only the picture changes).
-                    ChoiceSegmented {
-                        visible: picker.mode === "wallpaper"
-                        width: 240
-                        foreground: picker.foreground
-                        choices: [{id: "theme", label: Eitr.I18n.tr("This theme")}, {id: "all", label: Eitr.I18n.tr("All themes")}]
-                        current: picker.wallpaperScope
-                        available: !picker.loading
-                        onChosen: value => { picker.setWallpaperScope(value); content.forceActiveFocus(); }
+            property bool retained: false
+            active: picker.opened || retained
+            onLoaded: { retained = true; item.forceActiveFocus(); }
+            sourceComponent: Item {
+                id: content
+                anchors.fill: parent
+                focus: true
+                // Theme previews keep their 16:9 aspect on every screen shape.
+                readonly property real previewAspect: 16 / 9
+                readonly property real previewWidth: picker.mode !== "wallpaper" ? previewHeight * previewAspect : Math.min(768, width * 0.55)
+                readonly property real previewHeight: picker.mode !== "wallpaper" ? Math.min(560, height * 0.58, width * 0.68 / previewAspect) : Math.min(475, height * 0.58)
+                readonly property real sliceWidth: Math.min(108, width * 0.08)
+                readonly property real step: sliceWidth * 0.74
+                Keys.onPressed: function(event) {
+                    if (event.key === Qt.Key_Escape) {
+                        if (picker.searchText) picker.search("");
+                        else picker.opened = false;
                     }
-                    ChoiceSegmented {
-                        visible: picker.themeMode
-                        width: 180
-                        foreground: picker.foreground
-                        choices: [{id: "theme-light", label: Eitr.I18n.tr("Light")}, {id: "theme-dark", label: Eitr.I18n.tr("Dark")}]
-                        current: picker.mode
-                        available: !picker.loading
-                        onChosen: value => { picker.filterThemes(value); content.forceActiveFocus(); }
+                    // Backspace only edits the search; Escape closes.
+                    else if (event.key === Qt.Key_Backspace) {
+                        if (picker.searchText) picker.search(picker.searchText.slice(0, -1));
                     }
-
-                    PanelButton {
-                        id: addThemes
-                        visible: picker.themeMode
-                        icon: true
-                        width: PanelStyle.selectionRowHeight
-                        height: PanelStyle.selectionRowHeight
-                        text: "󰐕"
-                        foreground: picker.foreground
-                        activeFocusOnTab: false
-                        color: Qt.rgba(foreground.r, foreground.g, foreground.b, PanelStyle.selectionAlpha(false, addHover.containsMouse))
-                        border.width: PanelStyle.selectionBorderWidth(false)
-                        border.color: Qt.rgba(foreground.r, foreground.g, foreground.b, PanelStyle.selectionBorderAlpha)
-                        Accessible.name: Eitr.I18n.tr("Add themes")
-                        onClicked: {
-                            const tone = picker.mode === "theme-light" ? "light" : picker.mode === "theme-dark" ? "dark" : "all";
-                            picker.opened = false;
-                            picker.catalogRequested(tone);
+                    else if (picker.themeMode && event.key === Qt.Key_Tab && (event.modifiers & Qt.ControlModifier)) picker.filterThemes(picker.mode === "theme" ? "theme-dark" : picker.mode === "theme-dark" ? "theme-light" : "theme");
+                    else if (picker.mode === "wallpaper" && event.key === Qt.Key_Tab && (event.modifiers & Qt.ControlModifier)) picker.setWallpaperScope(picker.wallpaperScope === "all" ? "theme" : "all");
+                    else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) picker.apply();
+                    else if (event.key === Qt.Key_Left || (!picker.searchable && event.key === Qt.Key_H)) picker.navigate(-1);
+                    else if (event.key === Qt.Key_Right || (!picker.searchable && event.key === Qt.Key_L) || event.key === Qt.Key_Tab) picker.navigate(1);
+                    else if (picker.searchable && event.text && !(event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier)) && !/[\x00-\x1f\x7f]/.test(event.text)) picker.search(picker.searchText + event.text);
+                    else return;
+                    event.accepted = true;
+                }
+                PanelHeading {
+                    x: PanelStyle.padding; y: PanelStyle.padding
+                    width: parent.width - 2 * PanelStyle.padding
+                    text: picker.mode === "wallpaper" ? Eitr.I18n.tr("Wallpaper") : picker.mode === "font" ? Eitr.I18n.tr("Fonts") : Eitr.I18n.tr("Theme")
+                    foreground: picker.foreground; accent: picker.accent; rune: "style"
+                }
+                Rectangle {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    // Just above the selected card.
+                    y: Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - height)
+                    width: filters.implicitWidth + 12
+                    height: PanelStyle.selectionRowHeight + 12
+                    radius: DesktopStyle.radius(PanelStyle.controlRadius)
+                    color: picker.background
+                    visible: picker.searchable
+                    Row {
+                        id: filters
+                        anchors.centerIn: parent
+                        spacing: PanelStyle.selectionRowGap
+                        // Wallpapers: this theme's, or every installed theme's (only the picture changes).
+                        ChoiceSegmented {
+                            visible: picker.mode === "wallpaper"
+                            width: 240
+                            foreground: picker.foreground
+                            choices: [{id: "theme", label: Eitr.I18n.tr("This theme")}, {id: "all", label: Eitr.I18n.tr("All themes")}]
+                            current: picker.wallpaperScope
+                            available: !picker.loading
+                            onChosen: value => { picker.setWallpaperScope(value); contentLoader.item && contentLoader.item.forceActiveFocus(); }
                         }
+                        ChoiceSegmented {
+                            visible: picker.themeMode
+                            width: 180
+                            foreground: picker.foreground
+                            choices: [{id: "theme-light", label: Eitr.I18n.tr("Light")}, {id: "theme-dark", label: Eitr.I18n.tr("Dark")}]
+                            current: picker.mode
+                            available: !picker.loading
+                            onChosen: value => { picker.filterThemes(value); contentLoader.item && contentLoader.item.forceActiveFocus(); }
+                        }
+
+                        PanelButton {
+                            id: addThemes
+                            visible: picker.themeMode
+                            icon: true
+                            width: PanelStyle.selectionRowHeight
+                            height: PanelStyle.selectionRowHeight
+                            text: "󰐕"
+                            foreground: picker.foreground
+                            activeFocusOnTab: false
+                            color: Qt.rgba(foreground.r, foreground.g, foreground.b, PanelStyle.selectionAlpha(false, addHover.containsMouse))
+                            border.width: PanelStyle.selectionBorderWidth(false)
+                            border.color: Qt.rgba(foreground.r, foreground.g, foreground.b, PanelStyle.selectionBorderAlpha)
+                            Accessible.name: Eitr.I18n.tr("Add themes")
+                            onClicked: {
+                                const tone = picker.mode === "theme-light" ? "light" : picker.mode === "theme-dark" ? "dark" : "all";
+                                picker.opened = false;
+                                picker.catalogRequested(tone);
+                            }
+                            MouseArea {
+                                id: addHover
+                                anchors.fill: parent
+                                acceptedButtons: Qt.NoButton
+                                hoverEnabled: true
+                                cursorShape: Qt.PointingHandCursor
+                            }
+                        }
+                    }
+                    BarTooltip {
+                        target: addThemes
+                        hovered: addHover.containsMouse
+                        text: Eitr.I18n.tr("Add themes")
+                        foreground: picker.foreground
+                        background: picker.background
+                    }
+                }
+                Text {
+                    visible: picker.searchable && picker.searchText.length > 0
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - PanelStyle.selectionRowHeight - 12 - 40)
+                    width: content.previewWidth
+                    horizontalAlignment: Text.AlignHCenter
+                    elide: Text.ElideLeft
+                    text: picker.searchText
+                    color: picker.foreground
+                    font.family: DesktopFonts.family
+                    font.pixelSize: PanelStyle.headingSize
+                }
+
+                Repeater {
+                    model: picker.items
+                    delegate: Item {
+                        id: tile
+                        required property int index
+                        required property var modelData
+                        readonly property int offset: index - picker.selectedIndex
+                        readonly property bool selected: offset === 0
+                        visible: Math.abs(offset) <= Math.ceil((content.width - content.previewWidth) / (2 * content.step)) + 1
+                        width: selected ? content.previewWidth : content.sliceWidth
+                        height: selected ? content.previewHeight : content.previewHeight * 0.91
+                        x: selected ? (content.width - content.previewWidth) / 2 : (offset < 0 ? (content.width - content.previewWidth) / 2 + offset * content.step : (content.width + content.previewWidth) / 2 - content.sliceWidth * 0.26 + (offset - 1) * content.step)
+                        y: (content.height - height) / 2 - 24
+                        z: selected ? 100 : 50 - Math.abs(offset)
+                        Behavior on x { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
+                        Behavior on width { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
+                        Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
+                        Behavior on y { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
+
+                        Rectangle {
+                            id: roundedMask
+                            anchors.fill: parent
+                            radius: DesktopStyle.radius(PanelStyle.controlRadius)
+                            color: "white"
+                            visible: false
+                            layer.enabled: true
+                        }
+
+                        Item {
+                            anchors.fill: parent
+                            clip: true
+                            layer.enabled: true
+                            layer.effect: MultiEffect { maskEnabled: true; maskSource: roundedMask }
+                            Rectangle { anchors.fill: parent; color: "#202024" }
+                            Image {
+                                anchors.fill: parent
+                                source: tile.visible ? tile.modelData.image : ""
+                                sourceSize.width: Math.ceil(content.previewWidth)
+                                sourceSize.height: Math.ceil(content.previewHeight)
+                                asynchronous: true
+                                cache: false
+                                fillMode: picker.mode !== "wallpaper" && tile.selected ? Image.PreserveAspectFit : Image.PreserveAspectCrop
+                            }
+                            Rectangle { anchors.fill: parent; color: tile.selected ? "transparent" : "#70000000" }
+                        }
+
+                        Rectangle {
+                            anchors.fill: parent
+                            color: "transparent"
+                            radius: DesktopStyle.radius(PanelStyle.controlRadius)
+                            border.color: tile.selected ? picker.accent : "#66ffffff"
+                            border.width: tile.selected ? 3 : 1
+                        }
+
                         MouseArea {
-                            id: addHover
                             anchors.fill: parent
-                            acceptedButtons: Qt.NoButton
-                            hoverEnabled: true
                             cursorShape: Qt.PointingHandCursor
+                            onClicked: tile.selected ? picker.apply() : picker.selectedIndex = tile.index
+                            onWheel: function(event) { picker.navigate(event.angleDelta.y > 0 ? -1 : 1); }
                         }
                     }
                 }
-                BarTooltip {
-                    target: addThemes
-                    hovered: addHover.containsMouse
-                    text: Eitr.I18n.tr("Add themes")
-                    foreground: picker.foreground
-                    background: picker.background
+
+                // The selected picture's name (a theme, or a wallpaper without its order number).
+                Text {
+                    id: selectedName
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    y: (content.height + content.previewHeight) / 2 - 4
+                    width: content.previewWidth
+                    horizontalAlignment: Text.AlignHCenter
+                    elide: Text.ElideMiddle
+                    text: picker.items[picker.selectedIndex] ? picker.items[picker.selectedIndex].name
+                        : picker.searchText ? (picker.themeMode ? Eitr.I18n.tr("No matching themes") : Eitr.I18n.tr("No matching wallpapers"))
+                        : (picker.error || Eitr.I18n.tr("Loading..."))
+                    color: picker.foreground
+                    font.family: DesktopFonts.family
+                    font.pixelSize: PanelStyle.headingSize
+                    font.bold: true
                 }
-            }
-            Text {
-                visible: picker.searchable && picker.searchText.length > 0
-                anchors.horizontalCenter: parent.horizontalCenter
-                y: Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - PanelStyle.selectionRowHeight - 12 - 40)
-                width: content.previewWidth
-                horizontalAlignment: Text.AlignHCenter
-                elide: Text.ElideLeft
-                text: picker.searchText
-                color: picker.foreground
-                font.family: DesktopFonts.family
-                font.pixelSize: PanelStyle.headingSize
-            }
-
-            Repeater {
-                model: picker.items
-                delegate: Item {
-                    id: tile
-                    required property int index
-                    required property var modelData
-                    readonly property int offset: index - picker.selectedIndex
-                    readonly property bool selected: offset === 0
-                    visible: Math.abs(offset) <= Math.ceil((content.width - content.previewWidth) / (2 * content.step)) + 1
-                    width: selected ? content.previewWidth : content.sliceWidth
-                    height: selected ? content.previewHeight : content.previewHeight * 0.91
-                    x: selected ? (content.width - content.previewWidth) / 2 : (offset < 0 ? (content.width - content.previewWidth) / 2 + offset * content.step : (content.width + content.previewWidth) / 2 - content.sliceWidth * 0.26 + (offset - 1) * content.step)
-                    y: (content.height - height) / 2 - 24
-                    z: selected ? 100 : 50 - Math.abs(offset)
-                    Behavior on x { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
-                    Behavior on width { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
-                    Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
-                    Behavior on y { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
-
-                    Rectangle {
-                        id: roundedMask
-                        anchors.fill: parent
-                        radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                        color: "white"
-                        visible: false
-                        layer.enabled: true
-                    }
-
-                    Item {
-                        anchors.fill: parent
-                        clip: true
-                        layer.enabled: true
-                        layer.effect: MultiEffect { maskEnabled: true; maskSource: roundedMask }
-                        Rectangle { anchors.fill: parent; color: "#202024" }
-                        Image {
-                            anchors.fill: parent
-                            source: tile.visible ? tile.modelData.image : ""
-                            sourceSize.width: Math.ceil(content.previewWidth)
-                            sourceSize.height: Math.ceil(content.previewHeight)
-                            asynchronous: true
-                            cache: false
-                            fillMode: picker.mode !== "wallpaper" && tile.selected ? Image.PreserveAspectFit : Image.PreserveAspectCrop
-                        }
-                        Rectangle { anchors.fill: parent; color: tile.selected ? "transparent" : "#70000000" }
-                    }
-
-                    Rectangle {
-                        anchors.fill: parent
-                        color: "transparent"
-                        radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                        border.color: tile.selected ? picker.accent : "#66ffffff"
-                        border.width: tile.selected ? 3 : 1
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: tile.selected ? picker.apply() : picker.selectedIndex = tile.index
-                        onWheel: function(event) { picker.navigate(event.angleDelta.y > 0 ? -1 : 1); }
-                    }
+                // With every theme's wallpapers, the theme each one comes from.
+                Text {
+                    visible: picker.mode === "wallpaper" && picker.wallpaperScope === "all" && !!picker.items[picker.selectedIndex]
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.top: selectedName.bottom; anchors.topMargin: 2
+                    width: content.previewWidth
+                    horizontalAlignment: Text.AlignHCenter
+                    elide: Text.ElideRight
+                    text: picker.items[picker.selectedIndex] ? (picker.items[picker.selectedIndex].theme || Eitr.I18n.tr("Your wallpapers")) : ""
+                    color: picker.foreground
+                    opacity: PanelStyle.secondaryTextOpacity
+                    font.family: DesktopFonts.family
+                    font.pixelSize: PanelStyle.bodySize
                 }
-            }
-
-            // The selected picture's name (a theme, or a wallpaper without its order number).
-            Text {
-                id: selectedName
-                anchors.horizontalCenter: parent.horizontalCenter
-                y: (content.height + content.previewHeight) / 2 - 4
-                width: content.previewWidth
-                horizontalAlignment: Text.AlignHCenter
-                elide: Text.ElideMiddle
-                text: picker.items[picker.selectedIndex] ? picker.items[picker.selectedIndex].name
-                    : picker.searchText ? (picker.themeMode ? Eitr.I18n.tr("No matching themes") : Eitr.I18n.tr("No matching wallpapers"))
-                    : (picker.error || Eitr.I18n.tr("Loading..."))
-                color: picker.foreground
-                font.family: DesktopFonts.family
-                font.pixelSize: PanelStyle.headingSize
-                font.bold: true
-            }
-            // With every theme's wallpapers, the theme each one comes from.
-            Text {
-                visible: picker.mode === "wallpaper" && picker.wallpaperScope === "all" && !!picker.items[picker.selectedIndex]
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: selectedName.bottom; anchors.topMargin: 2
-                width: content.previewWidth
-                horizontalAlignment: Text.AlignHCenter
-                elide: Text.ElideRight
-                text: picker.items[picker.selectedIndex] ? (picker.items[picker.selectedIndex].theme || Eitr.I18n.tr("Your wallpapers")) : ""
-                color: picker.foreground
-                opacity: PanelStyle.secondaryTextOpacity
-                font.family: DesktopFonts.family
-                font.pixelSize: PanelStyle.bodySize
             }
         }
     }

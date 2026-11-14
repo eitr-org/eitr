@@ -24,10 +24,10 @@ class PolkitFallbackTests(unittest.TestCase):
             folder = Path(directory)
             log = folder / 'calls'
             fake_command(folder, 'eitr-shell', f'echo query >> "{log}"\n' + status_body)
-            fake_command(folder, 'sleep', 'exit 0')
+            fake_command(folder, 'sleep', '/usr/bin/sleep 0.01')
             fake_command(folder, 'env', f'echo "env $*" >> "{log}"')
             environment = dict(os.environ, PATH=f'{folder}:/usr/bin:/bin', QT_STYLE_OVERRIDE='kvantum')
-            result = subprocess.run(['bash', str(SCRIPT)], env=environment, capture_output=True,
+            result = subprocess.run(['bash', '-c', SCRIPT.read_text().replace('15s bash', '0.5s bash')], env=environment, capture_output=True,
                                     text=True, timeout=30)
             self.assertEqual(result.returncode, 0, result.stderr)
             calls = log.read_text().splitlines() if log.exists() else []
@@ -41,7 +41,7 @@ class PolkitFallbackTests(unittest.TestCase):
     def test_unregistered_bar_starts_kde_agent_without_kvantum_style(self):
         started, queries = self.run_fallback('echo unregistered')
         self.assertEqual(started, ['env -u QT_STYLE_OVERRIDE /usr/lib/polkit-kde-authentication-agent-1'])
-        self.assertEqual(queries, 30)
+        self.assertGreater(queries, 0)
 
     def test_bar_without_ipc_answer_starts_kde_agent(self):
         started, _ = self.run_fallback('exit 1')
@@ -60,7 +60,7 @@ class PolkitFallbackTests(unittest.TestCase):
         self.assertNotIn('polkit-kde-authentication-agent-1', startup)
         session = SESSION.read_text()
         ready = session.index('eitr-shell desktop-bar ipc call -- bar workspaces')
-        self.assertLess(ready, session.index('polkit-fallback.sh" &'))
+        self.assertLess(session.index('polkit-fallback.sh" &'), ready)
 
 
 if __name__ == '__main__':

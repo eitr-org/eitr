@@ -71,7 +71,7 @@ Column {
         clickable: true; rightClickable: true
         onClicked: function(button) { if (button === Qt.RightButton) verticalEnd.host.checkUpdates(); else verticalEnd.host.openSystemUpdate(); }
     }
-    VerticalBarIcon { host: verticalEnd.host; id: verticalBatteryIcon; icon: verticalEnd.host.batteryIcon; tooltip: Math.round(verticalEnd.host.battery.percent) + "% · " + verticalEnd.host.battery.status; open: verticalEnd.host.battery.available; visible: verticalEnd.host.battery.available; clickable: true; onClicked: barHost.togglePanel(batteryMenuRef) }
+    VerticalBarIcon { host: verticalEnd.host; id: verticalBatteryIcon; icon: verticalEnd.host.batteryIcon; tooltip: Math.round(verticalEnd.host.battery.percent) + "% · " + verticalEnd.host.battery.status; open: verticalEnd.host.battery.available; visible: verticalEnd.host.battery.available; clickable: true; onClicked: barHost.toggleKind("battery") }
     // Plugin icons come last in the hideable group, right before the notifications.
     PluginBarItems {
         clockFormat: verticalEnd.host.barClock
@@ -84,6 +84,6 @@ Column {
         id: verticalNotificationIcon
         swing: barHost.clockActivity.bellAngle
         icon: notificationIconRef.text; tooltip: Eitr.I18n.tr("Notifications"); open: true; clickable: true
-        onClicked: barHost.togglePanel(notificationCenterRef)
+        onClicked: barHost.toggleKind("notifications")
     }
 }

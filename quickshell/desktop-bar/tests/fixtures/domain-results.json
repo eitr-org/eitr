@@ -565,5 +565,26 @@
       "name": "Astrid",
       "version": 123
     }
+  ],
+  "keyboard.layouts": [
+    {
+      "layouts": [
+        {
+          "index": 0,
+          "label": "English (US)",
+          "code": "US"
+        },
+        {
+          "index": 1,
+          "label": "English (US International)",
+          "code": "INT"
+        }
+      ],
+      "active": 0
+    },
+    {
+      "layouts": [],
+      "active": -1
+    }
   ]
 }

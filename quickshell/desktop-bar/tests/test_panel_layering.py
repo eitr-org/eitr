@@ -20,7 +20,7 @@ class PanelLayeringTests(unittest.TestCase):
         shell = frame_source(ROOT)
         self.assertIn("readonly property bool panelOpen: dockPanels.some(panel => panel.visible)", shell)
         self.assertIn("WlrLayershell.layer: panelOpen && !notificationPopups.visible ? WlrLayer.Overlay : WlrLayer.Top", shell)
-        self.assertIn("Region { item: notificationCenter.opened ? notificationCenter : null }", shell)
+        self.assertIn("Region { item: (notificationCenter ? notificationCenter.opened : false) ? notificationCenter : null }", shell)
         dock = (ROOT / "components/DockPanel.qml").read_text()
         self.assertIn("visible: opened || revealProgress > 0", dock)
 

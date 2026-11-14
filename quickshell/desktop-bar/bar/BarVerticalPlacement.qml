@@ -72,7 +72,7 @@ BarSection {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: barHost.toggleControlCenter()
             }
-            Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing + barHost.islandSurfaces.afterLogo : 0; visible: barHost.islandsLayout }
+            Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing + (barHost.islandSurfaces ? barHost.islandSurfaces.afterLogo : 0) : 0; visible: barHost.islandsLayout }
             VerticalBarIcon { host: verticalSurface.host; id: verticalOverviewIcon; icon: "󰕮"; tooltip: Eitr.I18n.tr("Overview"); open: true; clickable: true; onClicked: barHost.toggleOverview() }
             Repeater {
                 model: host.workspaceRows(barHost.screen).length
@@ -89,7 +89,7 @@ BarSection {
                 }
             }
         }
-        Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing + barHost.islandSurfaces.afterWorkspaces : 0; visible: barHost.islandsLayout }
+        Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing + (barHost.islandSurfaces ? barHost.islandSurfaces.afterWorkspaces : 0) : 0; visible: barHost.islandsLayout }
         Column {
             id: verticalHardware
             anchors.horizontalCenter: parent.horizontalCenter
@@ -100,7 +100,7 @@ BarSection {
             PluginBarItems {
                 vertical: true
                 placementSlot: "start"
-                observing: !barHost.dynamicLayout || barHost.dynamicSurfaces.leadingIsland.expanded
+                observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.leadingIsland.expanded : false)
                 clockFormat: host.barClock
                 foreground: host.fg; background: host.barBackground(); accent: host.activeBg
                 open: !barHost.dropLayout && barHost.expanded

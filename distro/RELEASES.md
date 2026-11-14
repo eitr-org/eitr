@@ -1,5 +1,10 @@
 # Releases
 
+Login starts Elephant and session preparation independently of the bar, bounds
+renderer and IPC probes, and shares saved-setting, plugin and keyboard reads.
+The polkit watchdog starts with the session; machine-local milestones record
+startup readiness for diagnosis.
+
 Plugins may place up to two bar items immediately before the screen-centred clock,
 with status-group overflow. The optional official World clock plugin uses this slot
 for offline city times; clock-slot items follow weather visibility in each layout.

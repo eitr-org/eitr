@@ -248,7 +248,7 @@ Row {
         icon: rightSide.host.batteryIcon
         tooltip: Math.round(rightSide.host.battery.percent) + "% · " + rightSide.host.battery.status
         open: rightSide.host.battery.available; visible: rightSide.host.battery.available
-        clickable: true; onClicked: barHost.togglePanel(batteryMenuRef)
+        clickable: true; onClicked: barHost.toggleKind("battery")
     }
 
     // Plugin icons come last in the hideable group, right before the notifications.

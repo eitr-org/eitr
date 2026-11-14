@@ -201,6 +201,7 @@ ShellRoot {
   property int phase: 0
   onTriggered: {
    const find = function(item, name) { if (item.objectName === name) return item; for (const child of item.children || []) { const found = find(child, name); if (found) return found; } return null; };
+   if (phase === 0) window.ensureContent();
    const content = find(window.contentItem, "settings-content");
    const overview = find(content, "settings-overview");
    if (phase === 0) {

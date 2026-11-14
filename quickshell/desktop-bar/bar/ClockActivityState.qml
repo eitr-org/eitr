@@ -18,9 +18,9 @@ Item {
     readonly property var notifications: barHost.notificationsRef
     // Layouts that show no bell or workspaces at rest: Drop, Centered collapsed, Dynamic at rest.
     readonly property bool bellHidden: barHost.dropLayout || (barHost.centeredLayout && !barHost.expanded)
-        || (barHost.dynamicLayout && !barHost.dynamicSurfaces.trailingIsland.expanded)
+        || (barHost.dynamicLayout && !(barHost.dynamicSurfaces ? barHost.dynamicSurfaces.trailingIsland.expanded : false))
     readonly property bool workspacesHidden: barHost.dropLayout || (barHost.centeredLayout && !barHost.expanded)
-        || (barHost.dynamicLayout && !barHost.dynamicSurfaces.leadingIsland.expanded)
+        || (barHost.dynamicLayout && !(barHost.dynamicSurfaces ? barHost.dynamicSurfaces.leadingIsland.expanded : false))
 
     // From a new popup until the popups have gone; auto-hide keeps the bar out meanwhile.
     property bool alerting: false

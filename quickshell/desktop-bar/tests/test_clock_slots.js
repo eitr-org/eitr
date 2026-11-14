@@ -32,9 +32,11 @@ const showSource = panelSource.match(/function showKind\(kind\) \{([\s\S]*?)\n  
 let openedWeather = false;
 const panelContext = vm.createContext({
     PluginRegistry: {weatherEnabled: false},
+    ensure(kind) { return null; },
     barHost: {weatherMenu: {}, showPanel(panel) { openedWeather = true; }},
     notificationCenter: {}, controlCenter: {}, mediaMenu: {}, batteryMenu: {}
 });
+panelContext.panels = panelContext;
 vm.runInContext("function showKind(kind) {" + showSource + "}", panelContext);
 panelContext.showKind("weather");
 assert.equal(openedWeather, false);

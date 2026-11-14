@@ -17,6 +17,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
     if (_eitr_lib / "eitr_paths.py").is_file():
         sys.path.insert(0, str(_eitr_lib))
         break
+from eitr_login_timing import mark
 from eitr_paths import code
 from eitr_battery import system_batteries
 from eitr_i18n import tr
@@ -214,6 +215,7 @@ def refresh():
             with os.fdopen(fd, 'w') as handle:
                 json.dump({'updated': time.time(), 'locale': select_locale(), 'battery': bool(system_batteries()), 'rows': rows}, handle)
             os.replace(temporary, INDEX)
+            mark("search-index-committed")
         finally:
             if os.path.exists(temporary):
                 os.unlink(temporary)
@@ -232,17 +234,23 @@ def prepare():
                          stderr=subprocess.DEVNULL, start_new_session=True)
 
 
-def ready(attempts=60, delay=0.5):
-    """Wait for the single backend to answer queries, without building the index."""
-    for _ in range(attempts):
-        if subprocess.run(['elephant', 'query', '--async=false', '--json', 'menus:main;;1'],
-                          capture_output=True, timeout=15).returncode == 0:
-            return
-        time.sleep(delay)
+def ready(attempts=60, delay=0.05):
+    """Wait at most thirty seconds, including time spent inside query calls."""
+    deadline = time.monotonic() + 30
+    while time.monotonic() < deadline:
+        try:
+            result = subprocess.run(['elephant', 'query', '--async=false', '--json', 'menus:main;;1'],
+                                    capture_output=True, timeout=max(0.001, deadline - time.monotonic()))
+            if result.returncode == 0:
+                mark('elephant-ready')
+                return
+        except subprocess.TimeoutExpired:
+            break
+        time.sleep(min(delay, max(0, deadline - time.monotonic())))
     raise ValueError("Elephant did not become ready")
 
 
-def warm(attempts=60, delay=0.5):
+def warm(attempts=60, delay=0.05):
     """Build the index independently of the backend start transaction."""
     ready(attempts, delay)
     if not fresh(read_index()):

@@ -479,7 +479,7 @@ def visual_rows(manager, plugin_id, monitors):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['check', 'list', 'add', 'update', 'remove', 'enable', 'disable', 'surface', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'ui-stream', 'toggle-layer', 'placements', 'place', 'unplace', 'duplicate', 'move', 'rotate', 'visual-rows'])
+    parser.add_argument('action', choices=['check', 'list', 'add', 'update', 'remove', 'enable', 'disable', 'surface', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'snapshot', 'ui-failure', 'enable-ui', 'ui-data', 'ui-stream', 'toggle-layer', 'placements', 'place', 'unplace', 'duplicate', 'move', 'rotate', 'visual-rows'])
     parser.add_argument('value', nargs='?')
     parser.add_argument('index', nargs='?')
     parser.add_argument('--slot', choices=('start', 'clock', 'clockEnd', 'status'))
@@ -491,7 +491,7 @@ def main(argv=None):
     parser.add_argument('--rotation', type=int, help='widget rotation in degrees, 0-359')
     arguments = parser.parse_args(argv)
     manager = Plugins(notify=notify_blocked)
-    if arguments.action in ("ui", "installed"):
+    if arguments.action in ("ui", "installed", "snapshot"):
         manager.ensure_bundled()
     if arguments.action == 'check':
         print(json.dumps(manager.check_updates()))
@@ -513,6 +513,8 @@ def main(argv=None):
                                  toggle_layer=arguments.action == 'toggle-layer', surface=arguments.surface, rotation=arguments.rotation, slot=arguments.slot)
         if instance and arguments.action in ('place', 'duplicate'):
             print(instance)
+    elif arguments.action == 'snapshot':
+        print(json.dumps(dict(entries=manager.ui(), installed=manager.installed(), placements=manager.placements())))
     elif arguments.action == 'ui':
         print(json.dumps(manager.ui()))
     elif arguments.action == 'ui-failure':

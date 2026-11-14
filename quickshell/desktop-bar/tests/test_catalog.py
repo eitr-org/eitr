@@ -214,7 +214,12 @@ ShellRoot {
   property real openedWidth: 0
   onTriggered: {
    const find = function(item, name) { if (item.objectName === name) return item; for (const child of item.children || []) { const found = find(child, name); if (found) return found; } return null; };
-   const content = find(catalog.contentItem, "catalog-content");
+   let content = find(catalog.contentItem, "catalog-content");
+   if (phase === 0) {
+    if (content) throw new Error("Store content should wait for first open");
+    catalog.ensureContent();
+    content = find(catalog.contentItem, "catalog-content");
+   }
    content.live = false;
    if (phase === 0) {
     if (catalog.opened || catalog.visible) throw new Error("initially closed");

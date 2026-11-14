@@ -100,7 +100,8 @@ class AppearancePickerLayoutTests(unittest.TestCase):
                         destination.parent.mkdir(parents=True, exist_ok=True)
                         shutil.copy(source, destination)
                 source = (folder / 'panels/AppearancePicker.qml').read_text()
-                source = source.replace('id: picker', 'id: picker\n    property alias keyTarget: content\n    property alias addButton: addThemes', 1)
+                source = source.replace('id: content\n', 'id: content\n                property alias addThemesItem: addThemes\n', 1)
+                source = source.replace('id: picker', 'id: picker\n    property var keyTarget: contentLoader.item\n    property var addButton: contentLoader.item ? contentLoader.item.addThemesItem : null', 1)
                 # Replace Wayland surfaces with one isolated offscreen window.
                 start = source.index('    Variants {')
                 end = source.index('    PanelWindow {\n        id: overlay', start)
@@ -111,7 +112,7 @@ class AppearancePickerLayoutTests(unittest.TestCase):
                 # The software scene graph cannot render the existing GPU preview mask.
                 source = source.replace('layer.enabled: true', 'layer.enabled: false')
                 source = source.replace('layer.effect: MultiEffect { maskEnabled: true; maskSource: roundedMask }', '')
-                source = source.replace('id: content', 'id: content\n            Rectangle { anchors.fill: parent; z: -1; color: picker.background }', 1)
+                source = source.replace('id: content\n', 'id: content\n            Rectangle { anchors.fill: parent; z: -1; color: picker.background }', 1)
                 (folder / 'panels/AppearancePicker.qml').write_text(source)
                 for name in ('eitr', 'eitr-light'):
                     shutil.copy(ROOT / 'themes' / name / 'preview.png', folder / f'{name}.png')

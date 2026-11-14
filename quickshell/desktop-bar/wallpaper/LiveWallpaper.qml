@@ -5,6 +5,7 @@ import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Wayland
 import "../Performance.js" as Performance
+import "../JsonState.js" as JsonState
 
 // A wallpaper that ships live layers (theme/motion/<wallpaper name>/) is drawn
 // here over Hyprpaper's still copy: the starry sky, two aurora curtains that
@@ -22,12 +23,21 @@ Scope {
     Process {
         id: rendererQuery
         command: ["python3", Quickshell.shellDir + "/scripts/rendering.py"]
-        running: true
         stdout: StdioCollector {
             onStreamFinished: {
                 try { live.softwareRendering = JSON.parse(text).software !== false; } catch (error) {}
             }
         }
+    }
+    FileView {
+        path: (Quickshell.env("XDG_RUNTIME_DIR") || "/run/user/" + Quickshell.env("UID")) + "/eitr-rendering.json"
+        blockLoading: true
+        printErrors: false
+        onLoaded: {
+            const result = JsonState.parse(text(), 0, {software: "boolean", detected: "boolean"});
+            live.softwareRendering = !result.ok || result.data.software;
+        }
+        onLoadFailed: rendererQuery.running = true
     }
     Timer { interval: 5000; running: rendererQuery.running; onTriggered: rendererQuery.running = false }
 

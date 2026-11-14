@@ -138,7 +138,9 @@ ShellRoot {{
 
     def test_login_skips_hyprpaper_without_a_gpu(self):
         startup = (ROOT / "hypr/scripts/session-start.sh").read_text()
-        guard = startup.index('rendering.py 2>/dev/null | grep -q \'"software": false\'')
+        guard = startup.index("grep -q '\"software\": true'")
+        self.assertIn("grep -q '\"detected\": true'", startup)
+        self.assertIn('timeout -s KILL 2s eitr-run', startup)
         self.assertLess(guard, startup.index("eitr-hyprpaper &"))
         self.assertLess(startup.index("eitr-hyprpaper &"), startup.index("eitr-shell desktop-bar --daemonize"))
 

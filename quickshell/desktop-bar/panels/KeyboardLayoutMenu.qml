@@ -27,7 +27,7 @@ ThemedPopup {
     implicitHeight: heading.implicitHeight + 16 + Math.max(1, Math.min(layouts.length, visibleRows)) * (PanelStyle.selectionRowHeight + PanelStyle.selectionRowGap)
         + 16 + PanelStyle.selectionRowHeight + (error ? 34 : 0) + verticalContentInset
 
-    function refresh() { if (!query.running && !operation.running) query.running = true; }
+    function refresh() { if (!operation.running) DesktopData.refresh("keyboard.layouts"); }
     function perform(command) {
         if (operation.running) return;
         error = "";
@@ -35,7 +35,8 @@ ThemedPopup {
         operation.running = true;
     }
     function manageLayouts() { openSettings("input"); }
-    Component.onCompleted: refresh()
+    Component.onCompleted: DesktopData.observe("keyboard.layouts", menu)
+    Component.onDestruction: DesktopData.releaseOwner(menu)
     onOpenedChanged: if (opened) { error = ""; refresh(); }
     // Alt+Shift switches fire activelayout; adding or removing a layout reloads the config.
     Connections {
@@ -44,22 +45,16 @@ ThemedPopup {
             if (event.name === "activelayout" || event.name === "configreloaded") menu.refresh();
         }
     }
-    Process {
-        id: query
-        command: ["python3", menu.helper]
-        stdout: StdioCollector { id: output }
-        onExited: function(code) {
-            const received = output.text;
-            menu.updateContent(function() {
-                try {
-                    var result = JSON.parse(received);
-                    if (code !== 0) throw new Error(result.error || Eitr.I18n.tr("Layouts unavailable"));
-                    menu.applySnapshot("layouts", result.layouts);
-                    menu.activeLayout = result.active;
-                } catch (e) { menu.error = e.message; }
-
-            });
-        }
+    readonly property var keyboardState: DesktopData.topics["keyboard.layouts"]
+    onKeyboardStateChanged: {
+        if (!keyboardState) return;
+        const snapshot = keyboardState;
+        menu.updateContent(function() {
+            if (snapshot.status === "ready") {
+                menu.applySnapshot("layouts", snapshot.data.layouts);
+                menu.activeLayout = snapshot.data.active;
+            } else if (snapshot.error) menu.error = Eitr.I18n.tr("Layouts unavailable");
+        });
     }
     Process {
         id: operation

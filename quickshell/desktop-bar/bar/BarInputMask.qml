@@ -31,9 +31,9 @@ Region {
     Region { item: host.barPointerHeld && !FocusMode.enabled ? barHost.contentItem : null }
     Region { item: FocusMode.enabled ? null : host.notchLayout ? tabStripRef : host.centeredLayout || host.islandsLayout || host.dynamicLayout || host.dropLayout ? null : barContentsRef }
     IslandMask { surfaces: barHost.choicePopups || [] }
-    IslandMask { surfaces: barHost.islandSurfaces.children }
-    IslandMask { surfaces: barHost.dynamicSurfaces.surfaces }
-    IslandMask { surfaces: barHost.dropSurfaces.surfaces }
+    IslandMask { surfaces: barHost.islandSurfaces ? barHost.islandSurfaces.children : [] }
+    IslandMask { surfaces: barHost.dynamicSurfaces ? barHost.dynamicSurfaces.surfaces : [] }
+    IslandMask { surfaces: barHost.dropSurfaces ? barHost.dropSurfaces.surfaces : [] }
     CenteredBarMask { surface: barHost.centeredOutline; edge: host.barEdge; depth: barHost.normalThickness; bendRound: host.tabBendRound; straight: host.barSideStyle === "straight" }
     Region { item: host.notchLayout && !FocusMode.enabled ? leadingTabRef : null }
     Region { item: host.notchLayout && !FocusMode.enabled ? notchTabRef : null }
@@ -51,9 +51,9 @@ Region {
     Region { item: barHost.obsMenu.opened ? barHost.obsMenu : null }
     Region { item: barHost.recordingMenu.opened ? barHost.recordingMenu : null }
     Region { item: barHost.workspaceMenu.opened ? barHost.workspaceMenu : null }
-    Region { item: barHost.notificationCenter.opened ? barHost.notificationCenter : null }
-    Region { item: barHost.controlCenter.opened ? barHost.controlCenter : null }
-    Region { item: barHost.mediaMenu.opened ? barHost.mediaMenu : null }
-    Region { item: barHost.batteryMenu.opened ? barHost.batteryMenu : null }
-    Region { item: barHost.pluginPanel.opened ? barHost.pluginPanel : null }
+    Region { item: (barHost.notificationCenter ? barHost.notificationCenter.opened : false) ? barHost.notificationCenter : null }
+    Region { item: (barHost.controlCenter ? barHost.controlCenter.opened : false) ? barHost.controlCenter : null }
+    Region { item: (barHost.mediaMenu ? barHost.mediaMenu.opened : false) ? barHost.mediaMenu : null }
+    Region { item: (barHost.batteryMenu ? barHost.batteryMenu.opened : false) ? barHost.batteryMenu : null }
+    Region { item: barHost.pluginPanel && barHost.pluginPanel.opened ? barHost.pluginPanel : null }
 }

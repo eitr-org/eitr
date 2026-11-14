@@ -9,18 +9,40 @@ import Eitr as Eitr
 Scope {
     id: session
     property var host
-    Handbook {
-        id: handbook
-        foreground: host.fg
-        background: host.barBackground()
-        accent: host.activeBg
-        screen: host.targetScreens()[0] || null
-        onOpenedChanged: if (opened) host.handbookOpened()
-        // The welcome's setup cards open their Settings page, such as "connections/wifi".
-        onSetupRequested: function(route) { host.showSettings(route); }
-        onWelcomeChoice: function(action) { Quickshell.execDetached(session.welcomeCommand(action)); }
-        onProblemReportsChoice: function(offer) {
-            Quickshell.execDetached(session.problemReportsCommand(["set", offer ? "on" : "off"]));
+    property bool offerProblemReports: false
+    function reader() {
+        handbookLoader.active = true;
+        handbookLoader.asynchronous = false;
+        return handbookLoader.item;
+    }
+    Loader {
+        id: handbookLoader
+        active: false
+        sourceComponent: Handbook {
+            ipcEnabled: false
+            offerProblemReports: session.offerProblemReports
+            foreground: host.fg
+            background: host.barBackground()
+            accent: host.activeBg
+            screen: host.targetScreens()[0] || null
+            onOpenedChanged: if (opened) host.handbookOpened()
+            // The welcome's setup cards open their Settings page, such as "connections/wifi".
+            onSetupRequested: function(route) { host.showSettings(route); }
+            onWelcomeChoice: function(action) { Quickshell.execDetached(session.welcomeCommand(action)); }
+            onProblemReportsChoice: function(offer) {
+                Quickshell.execDetached(session.problemReportsCommand(["set", offer ? "on" : "off"]));
+            }
+        }
+    }
+    IpcHandler {
+        target: "handbook"
+        function toggle(): void { session.reader().toggle(); }
+        function open(chapter: string): void { session.reader().show(chapter); }
+        function close(): void { if (handbookLoader.item) handbookLoader.item.opened = false; }
+        function scroll(y: int): void { if (handbookLoader.item) handbookLoader.item.scrollTo(y); }
+        function status(): string {
+            return handbookLoader.item ? handbookLoader.item.status()
+                : JSON.stringify({opened: false, chapter: "getting-started", chapters: 0, scroll: 0, error: ""});
         }
     }
     function problemReportsCommand(args) {
@@ -39,7 +61,7 @@ Scope {
         stdout: StdioCollector { id: problemStatusOutput }
         onExited: function(code) {
             if (code !== 0) return;
-            try { handbook.offerProblemReports = JSON.parse(problemStatusOutput.text).offer; } catch (error) {}
+            try { session.offerProblemReports = JSON.parse(problemStatusOutput.text).offer; } catch (error) {}
         }
     }
     function welcomeCommand(action) {
@@ -66,7 +88,7 @@ Scope {
             if (code !== 0) return;
             try {
                 var state = JSON.parse(welcomeOutput.text);
-                if (state.show) handbook.showWelcome(state.pending);
+                if (state.show) session.reader().showWelcome(state.pending);
             } catch (error) {}
         }
     }

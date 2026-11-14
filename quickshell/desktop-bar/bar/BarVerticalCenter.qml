@@ -44,7 +44,7 @@ Item {
             foreground: verticalMiddle.host.fg
             background: verticalMiddle.host.workspaceMenuBg
             title: mediaStripRef.title
-            onDetailsRequested: barHost.togglePanel(mediaMenuRef)
+            onDetailsRequested: barHost.toggleKind("media")
         }
         VerticalBarIcon {
             host: verticalMiddle.host
@@ -67,7 +67,7 @@ Item {
         VerticalBarIcon {
             host: verticalMiddle.host
             icon: "󰝚"; tooltip: Eitr.I18n.tr("Media"); open: true; clickable: true
-            onClicked: barHost.togglePanel(mediaMenuRef)
+            onClicked: barHost.toggleKind("media")
         }
     }
     CaptureIndicator {
@@ -76,7 +76,7 @@ Item {
         anchors.bottom: clockPlugins.height > 0 ? clockPlugins.top : verticalCalendarIcon.top
         anchors.horizontalCenterOffset: 0
         anchors.bottomMargin: (shown ? (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) : 0)
-            + (barHost.islandsLayout ? (clockPlugins.height <= 0 ? barHost.islandSurfaces.aroundClock : barHost.islandSurfaces.beforeClockPlugins) : 0)
+            + (barHost.islandsLayout ? (clockPlugins.height <= 0 ? (barHost.islandSurfaces ? barHost.islandSurfaces.aroundClock : 0) : (barHost.islandSurfaces ? barHost.islandSurfaces.beforeClockPlugins : 0)) : 0)
         anchors.horizontalCenter: parent.horizontalCenter
         recording: obsMenuRef.obsState.recording || obsMenuRef.obsState.streaming
         recordingPaused: obsMenuRef.obsState.paused && !obsMenuRef.obsState.streaming
@@ -89,7 +89,7 @@ Item {
         vertical: true
         onMeetingClicked: calendarMenuRef.showDay(new Date())
         onTimerClicked: barHost.showControlCenter("timer")
-        onBellClicked: barHost.showPanel(barHost.notificationCenter)
+        onBellClicked: barHost.showKind("notifications")
         // Stacked in the vertical bar's column, the dot is centred in every layout.
         centered: true
     }
@@ -109,7 +109,7 @@ Item {
     PluginBarItems {
         id: clockPlugins
         clockSlot: true
-        observing: !barHost.dynamicLayout || barHost.dynamicSurfaces.middleIsland.expanded
+        observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
         vertical: true
         clockFormat: verticalMiddle.host.barClock
         slotSize: verticalMiddle.host.workspaceItemSize
@@ -118,12 +118,12 @@ Item {
         background: verticalMiddle.host.barBackground()
         accent: verticalMiddle.host.activeBg
         open: !barHost.dropLayout && barHost.expanded
-        reveal: barHost.dynamicLayout ? (barHost.dynamicSurfaces.middleIsland.expanded ? 1 : 0) : 1
+        reveal: barHost.dynamicLayout ? ((barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false) ? 1 : 0) : 1
         Behavior on reveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
         opacity: reveal
         enabled: opacity > 0
         anchors.bottom: verticalCalendarIcon.top
-        anchors.bottomMargin: barHost.islandsLayout ? barHost.islandSpacing + barHost.islandSurfaces.aroundClock : barHost.centeredLayout ? barHost.itemGap : 3
+        anchors.bottomMargin: barHost.islandsLayout ? barHost.islandSpacing + (barHost.islandSurfaces ? barHost.islandSurfaces.aroundClock : 0) : barHost.centeredLayout ? barHost.itemGap : 3
         anchors.horizontalCenter: verticalCalendarIcon.horizontalCenter
         onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
     }
@@ -135,22 +135,22 @@ Item {
         activity: barHost.clockActivity
         anchors.centerIn: parent
         // Drop keeps the time at the screen's centre while its pill grows to one side.
-        anchors.verticalCenterOffset: barHost.dropLayout ? barHost.dropSurfaces.timeOffset : 0
+        anchors.verticalCenterOffset: barHost.dropLayout ? (barHost.dropSurfaces ? barHost.dropSurfaces.timeOffset : 0) : 0
         compact: true
-        onClicked: barHost.togglePanel(barHost.dropLayout ? barHost.dropDashboard : calendarMenuRef)
-        onRightClicked: if (barHost.dropLayout) barHost.dropDashboard.show("controls")
+        onClicked: barHost.togglePanel(barHost.dropLayout ? barHost.panel("dashboard") : calendarMenuRef)
+        onRightClicked: if (barHost.dropLayout) barHost.panel("dashboard").show("controls")
     }
     Item {
         anchors.top: verticalCalendarIcon.bottom
-        anchors.topMargin: barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0
+        anchors.topMargin: barHost.islandsLayout ? (barHost.islandSurfaces ? barHost.islandSurfaces.aroundClock : 0) : 0
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width
-        height: barHost.dropLayout || verticalWeatherIcon.height <= 0 ? 0 : barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
+        height: barHost.dropLayout || verticalWeatherIcon.height <= 0 ? 0 : barHost.dynamicLayout ? (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.weatherReveal : 0) : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
         clip: barHost.dropLayout || barHost.notchLayout || barHost.dynamicLayout
         PluginBarItems {
             id: verticalWeatherIcon
             placementSlot: "clockEnd"
-            observing: !barHost.dynamicLayout || barHost.dynamicSurfaces.middleIsland.expanded
+            observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
             vertical: true
             y: parent.height - height
             anchors.horizontalCenter: parent.horizontalCenter

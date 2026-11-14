@@ -28,7 +28,7 @@ class TopicContractTests(unittest.TestCase):
     def test_read_budgets_preserve_default_and_short_test_timeouts(self):
         overrides = {'account.picture': 16, 'updates.status': 365, 'weather.default': 17, 'remote.status': 10,
                      'display.topology': 16, 'display.settings': 6, 'display.brightness': 9,
-                     'capture.details': 25, 'capture.summary': 10}
+                     'capture.details': 25, 'capture.summary': 10, 'keyboard.layouts': 5}
         for name, definition in topics.TOPICS.items():
             for timeout in (0.01, 4, 5, 12):
                 with self.subTest(topic=name, timeout=timeout):

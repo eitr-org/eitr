@@ -1,9 +1,10 @@
 -- Native groups are the pane targets; this layout keeps them in a bounded grid.
 return function(paths, quote, keybinds)
     local helper = "python3 " .. quote(paths.code("quickshell/desktop-bar/scripts/focus-mode.py"))
-    local reader = io.popen(helper .. " status")
-    local enabled = reader and reader:read("*l") == "on"
+    local reader = io.open(paths.config .. "/eitr/focus.json", "r")
+    local text = reader and reader:read("*a") or ""
     if reader then reader:close() end
+    local enabled = text:match('"enabled"%s*:%s*true') ~= nil
     if not enabled then return false end
 
     local layouts = {}

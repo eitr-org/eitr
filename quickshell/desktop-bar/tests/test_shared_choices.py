@@ -96,7 +96,7 @@ function refresh() {}''',
                 picker_path = folder / 'panels/AppearancePicker.qml'
                 picker = picker_path.read_text().replace('PanelWindow {', 'FloatingWindow {\n            implicitWidth: 1280; implicitHeight: 960')
                 picker = re.sub(r'^\s*(?:anchors \{ top: true; bottom: true; left: true; right: true \}|exclusionMode:.*|WlrLayershell\..*)$', '', picker, flags=re.M)
-                picker = picker.replace('id: picker', 'id: picker\n    readonly property alias previewItem: content')
+                picker = picker.replace('id: picker', 'id: picker\n    readonly property var previewItem: contentLoader.item')
                 picker_path.write_text(picker)
                 output_folder = capture_path('SETTINGS', directory, 'placeholder').parent
                 fixture = (BAR / 'tests/fixtures/settings/shared-choices.qml.in').read_text()

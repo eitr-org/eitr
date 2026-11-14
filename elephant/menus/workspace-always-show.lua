@@ -8,10 +8,8 @@ Icon = "󰍹"
 FixedOrder = true
 function GetEntries()
     local options = {}
-    local maximum = 10
-    local quote = dofile(paths.code("elephant/shell-quote.lua"))
-    local reader = io.popen("python3 " .. quote(paths.code("quickshell/desktop-bar/scripts/desktop-style.py")) .. " get workspaceCount")
-    if reader then maximum = tonumber(reader:read("*l")) or 10; reader:close() end
+    local setting = dofile(paths.code("elephant/setting-value.lua"))
+    local maximum = tonumber(setting(paths.code("quickshell/desktop-bar/scripts/desktop-style.py"), "workspaceCount")) or 10
     for number = 2, maximum do
         table.insert(options, {tostring(number), tostring(number), Icon, i18n.mark("Choose workspace count")})
     end

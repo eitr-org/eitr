@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Io
 import Eitr as Eitr
 import "../ChoiceLists.js" as ChoiceLists
+import "../JsonState.js" as JsonState
 
 // The bar's saved settings and workspace palette: read at start and when their
 // files change, written after a short delay, and the bar IPC that edits them.
@@ -51,15 +52,20 @@ Scope {
         }
     }
 
-    Process {
-        id: barSettingsQuery
-        command: ["python3", Quickshell.shellDir + "/scripts/bar-settings.py", "status"]
-        running: true
-        stdout: StdioCollector { id: barSettingsOutput }
-        onExited: function(code) {
-            if (code !== 0 || host.settingsDirty || saveBarSettings.running) return;
-            try {
-                var settings = JSON.parse(barSettingsOutput.text);
+    FileView {
+        id: settingsSchema
+        path: Quickshell.shellDir + "/login-settings.json"
+        blockLoading: true
+    }
+    function loadBarSettings() {
+        if (host.settingsDirty || saveBarSettings.running) return;
+        const parsed = JsonState.parse(barSettingsFile.text(), 0, {});
+        const definition = JSON.parse(settingsSchema.text())["bar-settings.py"];
+        const data = parsed.ok ? parsed.data : {};
+        if (data.layout === "split") data.layout = "centered";
+        const settings = {};
+        for (const key of Object.keys(definition.defaults))
+            settings[key] = definition.options[key].indexOf(data[key]) >= 0 ? data[key] : definition.defaults[key];
                 host.barAppearance = settings.appearance;
                 host.barLayout = ChoiceLists.ids(ChoiceLists.barLayouts).indexOf(settings.layout) >= 0 ? settings.layout : ChoiceLists.barLayouts[0].id;
                 host.barEdge = settings.edge;
@@ -73,8 +79,13 @@ Scope {
                 host.barAutoHide = settings.autohide === "yes";
                 host.barDock = settings.dock !== "no";
                 DesktopStyle.reduceMotion = settings.reduceMotion === "yes";
-            } catch (e) {}
-        }
+    }
+    FileView {
+        id: barSettingsFile
+        path: Eitr.Paths.config("quickshell/desktop-bar/bar-settings.json")
+        blockLoading: true
+        onLoaded: preferences.loadBarSettings()
+        onLoadFailed: preferences.loadBarSettings()
     }
 
     PreferenceWatch {
@@ -85,8 +96,8 @@ Scope {
         id: settingsReload
         interval: 40
         onTriggered: {
-            if (barSettingsQuery.running || saveBarSettings.running || host.settingsDirty) restart();
-            else barSettingsQuery.running = true;
+            if (saveBarSettings.running || host.settingsDirty) restart();
+            else barSettingsFile.reload();
         }
     }
 
@@ -108,7 +119,7 @@ Scope {
         id: saveBarSettings
         onExited: {
             if (host.settingsDirty) preferences.persistBarSettings();
-            else if (!barSettingsQuery.running) barSettingsQuery.running = true;
+            else barSettingsFile.reload();
         }
     }
 

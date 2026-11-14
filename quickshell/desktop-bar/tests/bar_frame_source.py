@@ -6,8 +6,34 @@ import textwrap
 from qml_source import qml_block
 
 
+def eager_projection(source):
+    """Geometry fixtures inspect all layouts; runtime tests exercise their Loaders."""
+    for component in ('BarCenteredOutline', 'BarTabs', 'BarIslands', 'BarDynamic', 'BarDrop', 'BarVerticalPlacement'):
+        marker = 'sourceComponent: ' + component + ' {'
+        if marker not in source:
+            continue
+        position = source.index(marker)
+        loader_start = source.rfind('Loader {', 0, position)
+        loader = qml_block(source[loader_start:], 'Loader {')
+        child = qml_block(loader, marker).replace('sourceComponent: ', '', 1)
+        if component == 'BarVerticalPlacement':
+            child = child.replace('BarVerticalPlacement {', 'BarVerticalPlacement {\n        id: barVerticalPlacement', 1)
+        source = source[:loader_start] + source[loader_start:].replace(loader, child, 1)
+        identifier = component[0].lower() + component[1:]
+        source = re.sub(r'readonly property var (\w+): ' + identifier + r'Loader.item \? '
+                        + identifier + r'Loader.item(\.\w+) : (?:null|emptyVertical)',
+                        lambda match: 'readonly property alias ' + match[1] + ': ' + identifier + match[2], source)
+        source = re.sub(r'readonly property var (\w+): ' + identifier + r'Loader.item \? '
+                        + identifier + r'Loader.item : emptyVertical',
+                        lambda match: 'readonly property alias ' + match[1] + ': ' + identifier, source)
+        source = re.sub(r'readonly property var (\w+): ' + identifier + r'Loader.item',
+                        lambda match: 'readonly property alias ' + match[1] + ': ' + identifier, source)
+    source = source.replace('barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.clockPluginsItem : emptyVertical', 'barVerticalPlacement.clockPluginsItem')
+    return source
+
+
 def frame_source(directory):
-    source = (Path(directory) / "bar/BarWindow.qml").read_text()
+    source = eager_projection((Path(directory) / "bar/BarWindow.qml").read_text())
     for name in ('BarVerticalPlacement', 'BarHorizontalPlacement', 'BarIslands',
                  'BarCenteredOutline', 'BarPanels', 'BarTabs', 'BarInputMask'):
         child = (Path(directory) / 'bar' / (name + '.qml')).read_text()
@@ -17,9 +43,11 @@ def frame_source(directory):
         for alias, target in exports.items():
             source = source.replace(instance_id + '.' + alias, target)
         child = re.sub(r'^    (?:required property var|readonly property alias) .*\n', '', child, flags=re.M)
+        child = child.replace('panels.host.', 'host.').replace('panels.barHost.', 'barHost.')
         child = child.replace('barHost.stripItem', 'barContents').replace('barHost.autoHideRef', 'autoHide')
         child = child.replace('host: verticalSurface.host', 'host: bar.host').replace('host: surface.host', 'host: bar.host')
         child = child.replace('barHost: verticalSurface.barHost', 'barHost: bar').replace('barHost: surface.barHost', 'barHost: bar')
+        child = child.replace('barHost.islandSurfaces ? barHost.islandSurfaces.children : []', 'barHost.islandSurfaces.children')
         child = child.replace('barHost.', 'bar.')
         child = re.sub(r'\bbarHost\b(?!\s*:)', 'bar', child)
         for identifier in ('networkServiceRef', 'notificationsRef', 'remoteServiceRef'):
@@ -33,6 +61,8 @@ def frame_source(directory):
             child = textwrap.dedent(child)
         if name == 'BarPanels':
             child = textwrap.dedent(child[child.index('    NotificationPopups {'):child.rfind('}')])
+            for panel_name in ('notificationCenter', 'controlCenter', 'mediaMenu', 'dropDashboard', 'batteryMenu', 'pluginPanel'):
+                child = child.replace('panels.' + panel_name + 'Item', panel_name)
             for method in ('openPluginPanel', 'showControlCenter', 'toggleControlCenter', 'showKind', 'inspectPanels'):
                 wrapper = qml_block(source, '    function ' + method + '(')
                 source = source.replace(wrapper, '')

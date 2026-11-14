@@ -146,8 +146,6 @@ QtObject {
         return draft !== undefined ? draft : placement.rotation || 0;
     }
     property bool pending: false
-    property bool installedPending: false
-    property bool placementPending: false
     readonly property string helper: Eitr.Paths.code("walker/scripts/actions/install/plugins.py")
     readonly property string stateRoot: Quickshell.env("XDG_STATE_HOME") || Quickshell.env("HOME") + "/.local/state"
     readonly property string configRoot: Quickshell.env("XDG_CONFIG_HOME") || Quickshell.env("HOME") + "/.config"
@@ -169,11 +167,8 @@ QtObject {
         if (query.running) pending = true;
         else query.running = true;
     }
-    function refreshPlacements() {
-        if (placementQuery.running) placementPending = true;
-        else placementQuery.running = true;
-    }
-    function refresh() { refreshEntries(); refreshPlacements(); if (installedQuery.running) installedPending = true; else installedQuery.running = true; }
+    function refreshPlacements() { refreshEntries(); }
+    function refresh() { refreshEntries(); }
     // options: {instance, monitor, isNew, geometry, surface, rotation}, each optional.
     function change(action, entry, options) {
         const settings = options || {};
@@ -197,18 +192,7 @@ QtObject {
         Quickshell.execDetached([Eitr.Paths.code("walker/bin/menu-path/kitty"), "--class", "eitr-plugins", "-e",
             "python3", Eitr.Paths.code("walker/scripts/actions/task-terminal.py"), "python3", helper, action].concat(plugin ? [plugin] : []));
     }
-    function refreshInstalled() { installedQuery.running = true; }
-    property Process installedQuery: Process {
-        command: ["python3", registry.helper, "installed"]
-        stdout: StdioCollector { id: installedOutput }
-        onExited: function(code) {
-            if (code === 0) try {
-                const next = JSON.parse(installedOutput.text);
-                if (JsonState.changed(registry.installed, next)) registry.installed = next;
-            } catch (error) { console.warn("Plugin manager:", error); }
-            if (registry.installedPending) { registry.installedPending = false; Qt.callLater(registry.refreshInstalled); }
-        }
-    }
+    function refreshInstalled() { refreshEntries(); }
     Component.onCompleted: { refresh(); startDiagnostics(); }
     property FileView approvalWatch: FileView {
         path: registry.stateRoot + "/eitr/plugins.json"; watchChanges: true; printErrors: false
@@ -227,27 +211,18 @@ QtObject {
         onFileChanged: { reload(); registry.refresh(); }
     }
     property Process query: Process {
-        command: ["python3", registry.helper, "ui"]
+        command: ["python3", registry.helper, "snapshot"]
         stdout: StdioCollector { id: output }
         onExited: function(code) {
-            if (code !== 0) registry.entries = [];
-            else try {
-                const next = JSON.parse(output.text);
-                if (JsonState.changed(registry.entries, next)) registry.entries = next;
-            } catch (error) { registry.entries = []; }
+            const result = JsonState.parse(output.text, code, {entries: "array", installed: "array", placements: "object"});
+            if (result.ok) {
+                const next = result.data;
+                if (JsonState.changed(registry.entries, next.entries)) registry.entries = next.entries;
+                if (JsonState.changed(registry.installed, next.installed)) registry.installed = next.installed;
+                if (JsonState.changed(registry.placements, next.placements)) registry.placements = next.placements;
+                registry.rotationDrafts = ({});
+            } else registry.entries = [];
             if (registry.pending) { registry.pending = false; Qt.callLater(registry.refreshEntries); }
-        }
-    }
-    property Process placementQuery: Process {
-        command: ["python3", registry.helper, "placements"]
-        stdout: StdioCollector { id: placementOutput }
-        onExited: function(code) {
-            if (registry.placementPending) { registry.placementPending = false; Qt.callLater(registry.refreshPlacements); }
-            if (code === 0) try {
-                const next = JSON.parse(placementOutput.text);
-                if (JsonState.changed(registry.placements, next)) registry.placements = next;
-            } catch (error) { console.warn("Plugin placements:", error); }
-            registry.rotationDrafts = ({});
         }
     }
     property IpcHandler ipc: IpcHandler {
