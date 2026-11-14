@@ -177,7 +177,7 @@
     "keyboard_first": "Tastatur zuerst.",
     "graphical_when_you_need_it": "Grafisch, wenn du es brauchst.",
     "the_custom_quickshell_desktop_includes_native_notificat": "Native Bedienfelder bündeln alltägliche Einstellungen, während Arbeitsbereichsvorschauen beim Finden deiner Fenster helfen. Suche Apps, Einstellungen und Aktionen per Tastatur.",
-    "choose_full_centered_with_evenly_packed_icons_around_a_": "Wähle das Leistenlayout Vollständig, Zentriert, Laschen oder Inseln.",
+    "choose_full_centered_with_evenly_packed_icons_around_a_": "Wähle das Leistenlayout Full, Centered, Tabs, Islands, Dynamic oder Drop.",
     "place_monitors_beside_one_another_choose_a_main_display": "Ordne Monitore nebeneinander an, wähle einen Hauptbildschirm und zeige die Leiste auf einem oder allen Bildschirmen. HDR-Monitore erhalten einen HDR-Schalter mit SDR-Inhaltshelligkeit.",
     "adjust_per_application_audio_and_microphone_controls_in": "Regle Audio pro Anwendung und Mikrofone in einem Panel; wähle Balken oder Linie für den Medien-Equalizer.",
     "choose_from": "Wähle aus",
@@ -228,7 +228,9 @@
     "focus_preset": "Focus bietet Fenstertabs und bis zu vier Bereiche pro Monitor und bewahrt deine normalen Leisteneinstellungen.",
     "clock_format": "Wähle das 12- oder 24-Stunden-Format.",
     "lockscreen_accounts": "Wähle aus neun Sperrbildschirm-Designs. Eitrs eigenes ritzt für jede getippte Taste eine Rune.",
-    "whats_new_in": "Neu in {version}"
+    "whats_new_in": "Neu in {version}",
+    "keybinds_window_rules": "Ändere jedes Tastenkürzel unter Einstellungen > Tastenkürzel, indem du die neue Kombination drückst, und gib Apps eigene Fensterregeln: immer schwebend, ein Arbeitsbereich, eine Größe und eine Deckkraft.",
+    "eitr_store": "Der Eitr Store installiert Themes, Hintergründe, Sperrbildschirme und Plugins, offiziell und aus der Community, in einem Fenster, mit einer Prüfung, bevor etwas aus der Community ausgeführt wird."
   },
   "development": {
     "development_part_of_the_same_desktop": "Entwicklung / Teil desselben Desktops",
@@ -685,7 +687,15 @@
     "eitr_seal_caption": "Rune Seal, der Standardhintergrund des Eitr-Themes",
     "eitr_seal_alt": "Der leere Eitr-Desktop mit dem leuchtend grünen Eitr-Emblem in einem goldenen Runenring auf reinem Schwarz",
     "eitr_gates_caption": "The Gates of Yggdrasil",
-    "eitr_gates_alt": "Der Eitr-Desktop mit dem Hintergrund The Gates of Yggdrasil: ein geschnitztes Steintor mit Bären und Raben, das sich zum Weltenbaum öffnet"
+    "eitr_gates_alt": "Der Eitr-Desktop mit dem Hintergrund The Gates of Yggdrasil: ein geschnitztes Steintor mit Bären und Raben, das sich zum Weltenbaum öffnet",
+    "drop_caption": "Drop: die ganze Leiste in einer Pille mit der Uhrzeit",
+    "drop_alt": "Ein leerer Eitr-Desktop, oben nur eine kleine Pille mit der Uhrzeit",
+    "store_wallpapers_caption": "Eitr Store: Hintergründe, ein Klick zum Verwenden",
+    "store_wallpapers_alt": "Der Eitr Store mit installierten Hintergrundbildern in großen Vorschauen",
+    "keybinds_caption": "Tastenkürzel: neue Kombination drücken, um ein Kürzel zu ändern",
+    "keybinds_alt": "Einstellungen mit der Seite Tastenkürzel, jedes Kürzel mit einer Bearbeiten-Schaltfläche",
+    "window_rules_caption": "Fensterregeln: schwebend, Arbeitsbereich, Größe und Deckkraft pro App",
+    "window_rules_alt": "Einstellungen mit drei Fensterregeln für kitty, Google Chrome und Dolphin"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "Desktop-Code aus Paketen; Offline-Installer, signiertes Repository, Werksreset und Dual-Boot",
@@ -705,7 +715,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "Echte Desktop-Screenshots auf der Website und kleinere Downloads",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "Plugins, das Eitr-Design mit eigenen Neovim- und VS-Code-Farben, der Focus-Modus und das Leistenlayout Islands",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "Ein scrollendes Fensterlayout, Arbeitsflächen gemeinsam oder aufgeteilt über Bildschirme, eine Einstellungssuche, die jede Einstellung findet, umrandete Felder, Reiter und Material-Schieberegler und -Schalter in den Einstellungen sowie herdr für KI-Programmieragenten",
-    "The Settings app, the Eitr Store window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "Die Einstellungen-App, das Fenster Eitr Store, ein Handbuch, das mit einer Willkommenstour beginnt, WLAN und Bluetooth unter Verbindungen und neue Eitr-Hintergründe, angeführt vom Rune Seal",
+    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "Die Einstellungen-App, das Fenster Themes & Plugins, ein Handbuch, das mit einer Willkommenstour beginnt, WLAN und Bluetooth unter Verbindungen und neue Eitr-Hintergründe, angeführt vom Rune Seal",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "Japanisch, vereinfachtes Chinesisch und Koreanisch mit einem Sprachschritt im Installer, das Leistenlayout Drop und sein Dashboard, Plugin-Widgets zum Kopieren und Drehen, Eitrs eigener Passwortdialog, ein Hintergrundbild pro Bildschirm sowie Benachrichtigungen und Aufnahme, die dem genutzten Bildschirm folgen"
   },
   "client": {

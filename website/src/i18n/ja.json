@@ -177,7 +177,7 @@
     "keyboard_first": "キーボード優先。",
     "graphical_when_you_need_it": "必要なときにはグラフィカルに。",
     "the_custom_quickshell_desktop_includes_native_notificat": "ネイティブパネルが日常の各種コントロールを集約し、ワークスペースやウィンドウはキーボードショートカットまたはオンスクリーンメニューから操作できます。",
-    "choose_full_centered_with_evenly_packed_icons_around_a_": "Full、Centered、Tabs、Islandsからバーレイアウトを選択できます。",
+    "choose_full_centered_with_evenly_packed_icons_around_a_": "バーのレイアウトを Full、Centered、Tabs、Islands、Dynamic、Drop から選べます。",
     "place_monitors_beside_one_another_choose_a_main_display": "モニターを左右に並べて配置し、メインディスプレイを選択し、各画面の解像度とリフレッシュレートを個別に設定できます。",
     "adjust_per_application_audio_and_microphone_controls_in": "ひとつのパネルでアプリケーションごとの音声およびマイクの音量を調整でき、メディアのイコライザー表示はBarsまたはLineから選択できます。",
     "choose_from": "用意された",
@@ -228,7 +228,9 @@
     "focus_preset": "Focusはウィンドウタブとモニターあたり最大4つのペインを提供し、通常のバー設定はそのまま保持されます。",
     "clock_format": "12時間表記または24時間表記を選択できます。",
     "lockscreen_accounts": "9種類のロック画面デザインから選択できます。Eitr独自のデザインでは、キーを押すごとにルーン文字が刻まれます。",
-    "whats_new_in": "{version} の新機能"
+    "whats_new_in": "{version} の新機能",
+    "keybinds_window_rules": "設定 > キーバインドで新しい組み合わせを押すだけでショートカットを変更でき、アプリごとにウィンドウルール（常にフローティング、ワークスペース、サイズ、不透明度）を設定できます。",
+    "eitr_store": "Eitr Store では、公式とコミュニティのテーマ、壁紙、ロック画面、プラグインを 1 つのウィンドウからインストールできます。コミュニティのものは実行前に確認します。"
   },
   "development": {
     "development_part_of_the_same_desktop": "開発 / 同じデスクトップの一部として",
@@ -685,7 +687,15 @@
     "eitr_seal_caption": "Rune Seal、Eitrテーマのデフォルト壁紙",
     "eitr_seal_alt": "真の黒を背景に、黄金のルーンリングの中で緑に輝くEitrエンブレムが配された何もないEitrデスクトップ",
     "eitr_gates_caption": "The Gates of Yggdrasil",
-    "eitr_gates_alt": "Gates of Yggdrasil壁紙が表示されたEitrデスクトップ: 熊とワタリガラスが刻まれた石門が世界樹へと開かれています"
+    "eitr_gates_alt": "Gates of Yggdrasil壁紙が表示されたEitrデスクトップ: 熊とワタリガラスが刻まれた石門が世界樹へと開かれています",
+    "drop_caption": "Drop：バー全体を時刻だけの小さなピルに",
+    "drop_alt": "上部に時刻を表示する小さなピルだけがある空の Eitr デスクトップ",
+    "store_wallpapers_caption": "Eitr Store：壁紙をワンクリックで使用",
+    "store_wallpapers_alt": "インストール済みの壁紙を大きなプレビューで並べた Eitr Store",
+    "keybinds_caption": "キーバインド：新しい組み合わせを押してショートカットを変更",
+    "keybinds_alt": "各ショートカットに編集ボタンがある設定のキーバインドページ",
+    "window_rules_caption": "ウィンドウルール：アプリごとのフローティング、ワークスペース、サイズ、不透明度",
+    "window_rules_alt": "kitty、Google Chrome、Dolphin の 3 つのウィンドウルールを表示した設定"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "パッケージとして提供されるデスクトップコード、オフラインインストーラー、署名付きパッケージリポジトリ、初期化機能、デュアルブート",
@@ -705,7 +715,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "サイト上の実際のデスクトップスクリーンショットとダウンロードサイズの縮小",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "プラグイン、NeovimおよびVS Codeの専用配色を備えたEitrテーマ、Focusモード、Islandsバーレイアウト",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "スクロール型ウィンドウレイアウト、モニター間でのワークスペース共有または分割、あらゆる設定を検索できる設定内検索、設定アプリ全体のアウトラインフィールド・タブ・Materialスライダーおよびスイッチ、AIコーディングエージェント向けherdr",
-    "The Settings app, the Eitr Store window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "設定アプリ、「アドオン」ウィンドウ、ウェルカムツアーで始まるハンドブック、「接続」内のWi-FiおよびBluetooth、Rune Sealをはじめとする新しいEitr壁紙",
+    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "設定アプリ、「テーマとプラグイン」ウィンドウ、ウェルカムツアーで始まるハンドブック、「接続」内のWi-FiおよびBluetooth、Rune Sealをはじめとする新しいEitr壁紙",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "インストーラーの言語選択ステップによる日本語・簡体字中国語・韓国語への対応、Dropバーレイアウトとそのダッシュボード、複製や調整ができるプラグインウィジェット、Eitr専用のパスワードダイアログ、ディスプレイごとの個別壁紙、使用中のディスプレイに追従する通知と録画機能"
   },
   "client": {

@@ -177,7 +177,7 @@
     "keyboard_first": "键盘优先。",
     "graphical_when_you_need_it": "图形界面随时待命。",
     "the_custom_quickshell_desktop_includes_native_notificat": "原生面板将日常控制融为一体，工作区预览则助你迅速定位窗口。直接从键盘搜索应用程序、系统设置与各种操作。",
-    "choose_full_centered_with_evenly_packed_icons_around_a_": "桌面栏可选用完整、居中、标签页或岛状布局。",
+    "choose_full_centered_with_evenly_packed_icons_around_a_": "可选择 Full、Centered、Tabs、Islands、Dynamic 或 Drop 栏布局。",
     "place_monitors_beside_one_another_choose_a_main_display": "随心并排排列显示器，指定主显示器，并可选择在一个或所有屏幕上显示桌面栏。HDR 显示器享有独立的 HDR 开关与 SDR 内容亮度调节。",
     "adjust_per_application_audio_and_microphone_controls_in": "在同一面板中微调各应用独立的音频与麦克风控制；媒体均衡器可在柱状或线条样式间自由切换。",
     "choose_from": "随心选择",
@@ -228,7 +228,9 @@
     "focus_preset": "Focus 模式为你提供窗口标签页，每个显示器最多支持四个分栏，并保留你的常规桌面栏设置以备后用。",
     "clock_format": "可自由选择 12 小时制或 24 小时制时间格式。",
     "lockscreen_accounts": "提供九款锁屏设计任选。Eitr 原生锁屏会在你每次键入时雕刻一枚符文。",
-    "whats_new_in": "{version} 新变化"
+    "whats_new_in": "{version} 新变化",
+    "keybinds_window_rules": "在“设置 > 快捷键”中按下新组合即可更改任意快捷键，并为应用设置窗口规则：始终浮动、工作区、大小和不透明度。",
+    "eitr_store": "Eitr Store 在一个窗口中安装官方和社区的主题、壁纸、锁屏和插件，社区内容运行前都会先经过审查。"
   },
   "development": {
     "development_part_of_the_same_desktop": "开发环境 / 桌面原生集成",
@@ -685,7 +687,15 @@
     "eitr_seal_caption": "Rune Seal，Eitr 主题的默认壁纸",
     "eitr_seal_alt": "Eitr 空桌面，纯黑背景上的金色符文环中带有发绿光的 Eitr 徽标",
     "eitr_gates_caption": "The Gates of Yggdrasil",
-    "eitr_gates_alt": "采用 The Gates of Yggdrasil 壁纸的 Eitr 桌面：雕刻有巨熊与渡鸦的石门向世界树敞开"
+    "eitr_gates_alt": "采用 The Gates of Yggdrasil 壁纸的 Eitr 桌面：雕刻有巨熊与渡鸦的石门向世界树敞开",
+    "drop_caption": "Drop：整条栏缩成一颗只显示时间的胶囊",
+    "drop_alt": "空白的 Eitr 桌面，顶部只有一颗显示时间的小胶囊",
+    "store_wallpapers_caption": "Eitr Store：壁纸，一键使用",
+    "store_wallpapers_alt": "Eitr Store 以大预览图列出已安装的壁纸",
+    "keybinds_caption": "快捷键：按下新组合即可更改快捷键",
+    "keybinds_alt": "设置中的快捷键页面，每个快捷键都有编辑按钮",
+    "window_rules_caption": "窗口规则：按应用设置浮动、工作区、大小和不透明度",
+    "window_rules_alt": "设置中显示 kitty、Google Chrome 和 Dolphin 的三条窗口规则"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "通过软件包分发的桌面代码；离线安装程序、签名的软件仓库、恢复出厂设置、双系统引导",
@@ -705,7 +715,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "官网上展示真实桌面截图，并提供更小体积的下载包",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "插件生态、拥有专属 Neovim 和 VS Code 配色的 Eitr 主题、Focus 模式以及 Islands 桌面栏布局",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "滚动式窗口布局、跨显示器共享或独立划分的工作区、支持查找任意项的“设置”搜索、全“设置”采用线框输入框、标签页与 Material 风格滑块及开关，以及面向 AI 编程助手的 herdr",
-    "The Settings app, the Eitr Store window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "“设置”应用、“附加组件”窗口、带欢迎导览的用户手册、“连接”中的 Wi-Fi 与蓝牙，以及以 Rune Seal 为首的全新 Eitr 壁纸",
+    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "“设置”应用、“主题与插件”窗口、带欢迎导览的用户手册、“连接”中的 Wi-Fi 与蓝牙，以及以 Rune Seal 为首的全新 Eitr 壁纸",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "安装程序新增“语言”步骤并支持日语、简体中文与韩语，引入水滴桌面栏布局及其仪表板、支持复制与旋转的插件微件、Eitr 原生密码对话框、多显示器独立壁纸，以及跟随工作所在显示器的通知与录屏"
   },
   "client": {

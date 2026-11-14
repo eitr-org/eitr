@@ -39,6 +39,13 @@ export const screenshotGroups = [
         "height": 1080
       },
       {
+        "file": "drop",
+        "caption": "drop_caption",
+        "alt": "drop_alt",
+        "width": 1920,
+        "height": 1080
+      },
+      {
         "file": "focus",
         "caption": "focus_caption",
         "alt": "focus_alt",
@@ -143,6 +150,13 @@ export const screenshotGroups = [
         "height": 852
       },
       {
+        "file": "store-wallpapers",
+        "caption": "store_wallpapers_caption",
+        "alt": "store_wallpapers_alt",
+        "width": 1152,
+        "height": 852
+      },
+      {
         "file": "eitr-light",
         "caption": "eitr_light_caption",
         "alt": "eitr_light_alt",
@@ -175,6 +189,20 @@ export const screenshotGroups = [
         "alt": "walker_the_main_menu",
         "width": 1280,
         "height": 720
+      },
+      {
+        "file": "keybinds",
+        "caption": "keybinds_caption",
+        "alt": "keybinds_alt",
+        "width": 1152,
+        "height": 852
+      },
+      {
+        "file": "window-rules",
+        "caption": "window_rules_caption",
+        "alt": "window_rules_alt",
+        "width": 1152,
+        "height": 852
       },
       {
         "file": "tools",

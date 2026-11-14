@@ -177,7 +177,7 @@
     "keyboard_first": "Le clavier d’abord.",
     "graphical_when_you_need_it": "Le graphique à votre portée.",
     "the_custom_quickshell_desktop_includes_native_notificat": "Les panneaux natifs réunissent les commandes du quotidien, et les aperçus des espaces de travail vous aident à retrouver vos fenêtres. Recherchez applications, réglages et actions au clavier.",
-    "choose_full_centered_with_evenly_packed_icons_around_a_": "Choisissez une disposition de barre Complète, Centrée, Onglets ou Îlots.",
+    "choose_full_centered_with_evenly_packed_icons_around_a_": "Choisissez la disposition de barre Full, Centered, Tabs, Islands, Dynamic ou Drop.",
     "place_monitors_beside_one_another_choose_a_main_display": "Placez les écrans côte à côte, choisissez le principal et affichez la barre sur un seul ou tous les écrans. Les écrans HDR disposent d’un interrupteur HDR avec réglage de luminosité du contenu SDR.",
     "adjust_per_application_audio_and_microphone_controls_in": "Réglez le son par application et les microphones dans un panneau ; choisissez Barres ou Ligne pour l’égaliseur multimédia.",
     "choose_from": "Choisissez parmi",
@@ -228,7 +228,9 @@
     "focus_preset": "Focus propose des onglets de fenêtres et jusqu’à quatre volets par écran, tout en conservant vos réglages de barre habituels.",
     "clock_format": "Choisissez le format horaire sur 12 ou 24 heures.",
     "lockscreen_accounts": "Choisissez parmi neuf designs d’écran de verrouillage. Celui d’Eitr grave une rune à chaque touche tapée.",
-    "whats_new_in": "Nouveautés de la {version}"
+    "whats_new_in": "Nouveautés de la {version}",
+    "keybinds_window_rules": "Changez n’importe quel raccourci dans Paramètres > Raccourcis en appuyant sur la nouvelle combinaison, et donnez aux apps leurs propres règles de fenêtre : toujours flottante, un espace de travail, une taille et une opacité.",
+    "eitr_store": "L’Eitr Store installe thèmes, fonds d’écran, écrans de verrouillage et plugins, officiels et communautaires, dans une seule fenêtre, avec une vérification avant que quoi que ce soit de la communauté ne s’exécute."
   },
   "development": {
     "development_part_of_the_same_desktop": "Développement / Dans le même bureau",
@@ -685,7 +687,15 @@
     "eitr_seal_caption": "Rune Seal, le fond d’écran par défaut du thème Eitr",
     "eitr_seal_alt": "Le bureau Eitr vide avec l’emblème vert lumineux dans un anneau de runes doré sur un noir pur",
     "eitr_gates_caption": "The Gates of Yggdrasil",
-    "eitr_gates_alt": "Le bureau Eitr avec le fond d’écran The Gates of Yggdrasil : une porte de pierre sculptée, gardée par des ours et des corbeaux, qui s’ouvre sur l’arbre-monde"
+    "eitr_gates_alt": "Le bureau Eitr avec le fond d’écran The Gates of Yggdrasil : une porte de pierre sculptée, gardée par des ours et des corbeaux, qui s’ouvre sur l’arbre-monde",
+    "drop_caption": "Drop : toute la barre dans une pastille avec l’heure",
+    "drop_alt": "Un bureau Eitr vide avec seulement une petite pastille affichant l’heure en haut",
+    "store_wallpapers_caption": "Eitr Store : fonds d’écran, un clic pour les utiliser",
+    "store_wallpapers_alt": "L’Eitr Store listant les fonds d’écran installés avec de grands aperçus",
+    "keybinds_caption": "Raccourcis : appuyez sur une nouvelle combinaison pour changer un raccourci",
+    "keybinds_alt": "Les Paramètres sur la page Raccourcis, chaque raccourci avec un bouton de modification",
+    "window_rules_caption": "Règles de fenêtre : flottante, espace, taille et opacité par app",
+    "window_rules_alt": "Les Paramètres avec trois règles de fenêtre pour kitty, Google Chrome et Dolphin"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "Code du bureau livré par paquet ; installateur hors ligne, dépôt signé, réinitialisation d’usine et double démarrage",
@@ -705,7 +715,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "Captures réelles du bureau sur le site et téléchargements plus légers",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "Plugins, le thème Eitr avec ses propres couleurs Neovim et VS Code, le mode Focus et la disposition de barre Islands",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "Une disposition des fenêtres défilante, des espaces de travail partagés ou répartis entre écrans, une recherche dans les Paramètres qui trouve chaque réglage, des champs à contour, des onglets, des curseurs et interrupteurs Material dans les Paramètres, et herdr pour les agents de programmation IA",
-    "The Settings app, the Eitr Store window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "L’application Paramètres, la fenêtre Modules complémentaires, un Manuel qui s’ouvre sur une visite d’accueil, le Wi-Fi et le Bluetooth dans Connexions et de nouveaux fonds d’écran Eitr menés par Rune Seal",
+    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "L’application Paramètres, la fenêtre Thèmes et Plugins, un Manuel qui s’ouvre sur une visite d’accueil, le Wi-Fi et le Bluetooth dans Connexions et de nouveaux fonds d’écran Eitr menés par Rune Seal",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "Japonais, chinois simplifié et coréen avec une étape Langue dans l’installateur, la disposition de barre Drop et son tableau de bord, des widgets de plugins à copier et orienter, le dialogue de mot de passe propre à Eitr, un fond d’écran par écran, et des notifications et enregistrements qui suivent l’écran utilisé"
   },
   "client": {

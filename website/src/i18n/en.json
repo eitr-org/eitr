@@ -177,7 +177,7 @@
     "keyboard_first": "Keyboard-first.",
     "graphical_when_you_need_it": "Graphical when you need it.",
     "the_custom_quickshell_desktop_includes_native_notificat": "Native panels bring everyday controls together, while workspace previews help you find your windows. Search apps, settings and actions from the keyboard.",
-    "choose_full_centered_with_evenly_packed_icons_around_a_": "Choose a Full, Centered, Tabs or Islands bar layout.",
+    "choose_full_centered_with_evenly_packed_icons_around_a_": "Choose a Full, Centered, Tabs, Islands, Dynamic or Drop bar layout.",
     "place_monitors_beside_one_another_choose_a_main_display": "Place monitors beside one another, choose a main display, and show the bar on one or all screens. HDR monitors get an HDR switch with SDR content brightness.",
     "adjust_per_application_audio_and_microphone_controls_in": "Adjust per-application audio and microphone controls in one panel; choose Bars or Line for the media equalizer.",
     "choose_from": "Choose from",
@@ -228,7 +228,9 @@
     "focus_preset": "Focus gives you window tabs and up to four panes per monitor, keeping your normal bar settings for later.",
     "clock_format": "Choose 12-hour or 24-hour time.",
     "lockscreen_accounts": "Choose from nine lockscreen designs. Eitr’s own carves a rune for each key you type.",
-    "whats_new_in": "What's new in {version}"
+    "whats_new_in": "What's new in {version}",
+    "keybinds_window_rules": "Change any keyboard shortcut in Settings > Keybinds by pressing the new combination, and give apps their own window rules: always float, a workspace, a size and an opacity.",
+    "eitr_store": "The Eitr Store installs themes, wallpapers, lockscreens and plugins, official and community, in one window, with a review before anything from the community runs."
   },
   "development": {
     "development_part_of_the_same_desktop": "Development / Part of the same desktop",
@@ -685,7 +687,15 @@
     "eitr_seal_caption": "Rune Seal, the Eitr theme's default wallpaper",
     "eitr_seal_alt": "The empty Eitr desktop with the glowing green Eitr emblem inside a gold rune ring on true black",
     "eitr_gates_caption": "The Gates of Yggdrasil",
-    "eitr_gates_alt": "The Eitr desktop with the Gates of Yggdrasil wallpaper: a carved stone gate with bears and ravens opening onto the world tree"
+    "eitr_gates_alt": "The Eitr desktop with the Gates of Yggdrasil wallpaper: a carved stone gate with bears and ravens opening onto the world tree",
+    "drop_caption": "Drop: the whole bar in one pill with the time",
+    "drop_alt": "An empty Eitr desktop with only a small pill showing the time at the top",
+    "store_wallpapers_caption": "Eitr Store: wallpapers, one click to use",
+    "store_wallpapers_alt": "The Eitr Store listing installed wallpapers with large previews",
+    "keybinds_caption": "Keybinds: press a new combination to change a shortcut",
+    "keybinds_alt": "Settings showing the Keybinds page with each shortcut and an edit button",
+    "window_rules_caption": "Window Rules: float, workspace, size and opacity per app",
+    "window_rules_alt": "Settings showing three window rules for kitty, Google Chrome and Dolphin"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot",
@@ -705,7 +715,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "Real-desktop screenshots on the site and smaller downloads",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents",
-    "The Settings app, the Eitr Store window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "The Settings app, the Eitr Store window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal",
+    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use"
   },
   "client": {

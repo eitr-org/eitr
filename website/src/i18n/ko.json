@@ -177,7 +177,7 @@
     "keyboard_first": "키보드 중심.",
     "graphical_when_you_need_it": "필요할 때는 그래픽으로.",
     "the_custom_quickshell_desktop_includes_native_notificat": "네이티브 패널이 일상적인 컨트롤을 모아주며, 작업 공간 미리보기를 통해 원하는 창을 빠르게 찾을 수 있습니다. 키보드로 앱, 설정 및 작업을 검색해 보세요.",
-    "choose_full_centered_with_evenly_packed_icons_around_a_": "Full, Centered, Tabs 또는 Islands 바 레이아웃 중 원하는 스타일을 선택하세요.",
+    "choose_full_centered_with_evenly_packed_icons_around_a_": "바 레이아웃을 Full, Centered, Tabs, Islands, Dynamic, Drop 중에서 고르세요.",
     "place_monitors_beside_one_another_choose_a_main_display": "모니터를 나란히 배치하고, 주 디스플레이를 선택하며, 하나 또는 모든 화면에 바를 표시할 수 있습니다. HDR 모니터는 SDR 콘텐츠 밝기 조절이 가능한 HDR 스위치를 지원합니다.",
     "adjust_per_application_audio_and_microphone_controls_in": "하나의 패널에서 애플리케이션별 오디오 및 마이크 컨트롤을 조절하고, 미디어 이퀄라이저로 막대형(Bars) 또는 선형(Line)을 선택하세요.",
     "choose_from": "애플리케이션 색상, 잠금 화면 및 배경화면이 조화롭게 구성된",
@@ -228,7 +228,9 @@
     "focus_preset": "Focus 모드는 창 탭과 모니터당 최대 4개의 창을 제공하며, 나중에 복원할 수 있도록 기본 바 설정을 보존합니다.",
     "clock_format": "12시간제 또는 24시간제 형식을 선택하세요.",
     "lockscreen_accounts": "9가지 잠금 화면 디자인 중에서 선택하세요. Eitr 자체 디자인은 키를 누를 때마다 룬을 새겨 넣습니다.",
-    "whats_new_in": "{version}의 새로운 기능"
+    "whats_new_in": "{version}의 새로운 기능",
+    "keybinds_window_rules": "설정 > 키 바인딩에서 새 조합을 눌러 단축키를 바꾸고, 앱마다 창 규칙(항상 띄우기, 작업 공간, 크기, 불투명도)을 정하세요.",
+    "eitr_store": "Eitr Store는 공식 및 커뮤니티 테마, 배경화면, 잠금 화면, 플러그인을 한 창에서 설치하며, 커뮤니티 항목은 실행 전에 검토합니다."
   },
   "development": {
     "development_part_of_the_same_desktop": "개발 / 동일한 데스크톱의 일부",
@@ -685,7 +687,15 @@
     "eitr_seal_caption": "Rune Seal, Eitr 테마의 기본 배경화면",
     "eitr_seal_alt": "완전한 블랙 배경 위에 골드 룬 링 내부에서 빛나는 초록색 Eitr 엠블럼이 있는 빈 Eitr 데스크톱",
     "eitr_gates_caption": "The Gates of Yggdrasil",
-    "eitr_gates_alt": "The Gates of Yggdrasil 배경화면이 적용된 Eitr 데스크톱: 세계수를 향해 열리는 곰과 까마귀가 조각된 돌문"
+    "eitr_gates_alt": "The Gates of Yggdrasil 배경화면이 적용된 Eitr 데스크톱: 세계수를 향해 열리는 곰과 까마귀가 조각된 돌문",
+    "drop_caption": "Drop: 시간만 보이는 작은 알약 하나로 줄어든 바",
+    "drop_alt": "위쪽에 시간을 보여 주는 작은 알약만 있는 빈 Eitr 데스크톱",
+    "store_wallpapers_caption": "Eitr Store: 클릭 한 번으로 쓰는 배경화면",
+    "store_wallpapers_alt": "설치된 배경화면을 큰 미리보기로 보여 주는 Eitr Store",
+    "keybinds_caption": "키 바인딩: 새 조합을 눌러 단축키 변경",
+    "keybinds_alt": "각 단축키에 편집 버튼이 있는 설정의 키 바인딩 페이지",
+    "window_rules_caption": "창 규칙: 앱별 띄우기, 작업 공간, 크기, 불투명도",
+    "window_rules_alt": "kitty, Google Chrome, Dolphin의 창 규칙 세 개를 보여 주는 설정"
   },
   "roadmap": {
     "Desktop code shipped by the package; offline installer, signed package repository, factory reset, dual boot": "패키지로 제공되는 데스크톱 코드, 오프라인 설치 프로그램, 서명된 패키지 저장소, 공장 초기화, 듀얼 부팅",
@@ -705,7 +715,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "사이트 내 실제 데스크톱 스크린샷 및 더 작아진 다운로드 크기",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "플러그인, 전용 Neovim 및 VS Code 색상이 적용된 Eitr 테마, Focus 모드 및 Islands 바 레이아웃",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "스크롤 창 레이아웃, 모니터 간 공유되거나 분할되는 작업 공간, 모든 설정을 찾는 설정 검색, 외곽선 필드, 탭, 설정 전반의 Material 슬라이더 및 스위치, AI 코딩 에이전트를 위한 herdr",
-    "The Settings app, the Eitr Store window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "설정 앱, 애드온 창, 환영 둘러보기로 시작하는 핸드북, '연결'의 Wi-Fi 및 Bluetooth, Rune Seal을 필두로 한 새로운 Eitr 배경화면",
+    "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "설정 앱, 테마 및 플러그인 창, 환영 둘러보기로 시작하는 핸드북, '연결'의 Wi-Fi 및 Bluetooth, Rune Seal을 필두로 한 새로운 Eitr 배경화면",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "설치 프로그램의 언어 단계를 통한 일본어, 중국어 간체 및 한국어 지원, Drop 바 레이아웃 및 대시보드, 복사하고 회전할 수 있는 플러그인 위젯, Eitr 전용 비밀번호 대화상자, 디스플레이별 배경화면, 사용하는 디스플레이를 따르는 알림 및 녹화"
   },
   "client": {
