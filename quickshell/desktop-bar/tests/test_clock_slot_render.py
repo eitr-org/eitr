@@ -27,19 +27,22 @@ class ClockSlotRenderTests(unittest.TestCase):
                 (folder / (name + '.qml')).write_text((BAR / source).read_text().replace('import ".."\n', ''))
             (folder / 'DesktopStyle.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function radius(value) { return value; } function motionDuration(value) { return 0; } }')
             (folder / 'DesktopFonts.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property string family: "DejaVu Sans Mono" }')
-            (folder / 'PluginRegistry.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property var clockBarItems: [{title:"World clock"}]; property var barItems: [] }')
+            (folder / 'PluginRegistry.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property var clockBarItems: [{title:"World clock"}]; property var barItems: []; function slotItems(slot) { return slot === "clock" ? clockBarItems : []; } }')
             (folder / 'PluginComponent.qml').write_text('''import QtQuick
 Item {
     required property var entry
+    property bool observing: true
     property string clockFormat: "24h"
     property bool verticalContent: false
+    property bool verticalBar: false
+    property bool iconSlot: false
     property color foreground
     property color background
     property color accent
     readonly property int barContentHeight: 24
-    implicitWidth: 160
+    implicitWidth: entry.slot === "clockEnd" ? 64 : 120
     signal panelRequested(string plugin, string panel)
-    Text { anchors.centerIn: parent; rotation: parent.verticalContent ? 90 : 0; text: "LIS 14:05"; color: parent.foreground; font.family: "DejaVu Sans Mono"; font.pixelSize: 12 }
+    Text { anchors.centerIn: parent; rotation: parent.verticalContent ? 90 : 0; text: ({clock:"LIS 14:05", clockEnd:"E", start:"S", status:"R"})[parent.entry.title] || parent.entry.title; color: parent.foreground; font.family: "DejaVu Sans Mono"; font.pixelSize: 12 }
 }''')
             (folder / 'BarTooltip.qml').write_text('import QtQuick\nItem { property color background; property color foreground; property Item target; property bool hovered; property string text }')
             registry = []
@@ -50,16 +53,22 @@ Item {
             for layout in ('Full', 'Centered', 'Tabs', 'Islands', 'Dynamic', 'Drop'):
                 for edge in EDGES:
                     for light in (False, True):
-                        capture = capture_path('CLOCK_SLOT', directory, f'clock-slot-{layout.lower()}-{edge}-{"light" if light else "dark"}.png')
-                        fixture = FIXTURE.replace('LAYOUT', json.dumps(layout)).replace('EDGE', json.dumps(edge)).replace('LIGHT', str(light).lower()).replace('CAPTURE', json.dumps(str(capture)))
-                        (folder / 'fixture.qml').write_text(fixture)
-                        code, output = render(folder / 'fixture.qml', render_environment(directory), 10)
-                        with self.subTest(layout=layout, edge=edge, light=light):
-                            self.assertEqual(code, 0, output)
-                            self.assertIn('CLOCK_CENTRE_OK', output)
-                            for error in ('ReferenceError', 'TypeError', 'Binding loop', 'Cannot anchor', 'Unable to assign', 'Error:'):
-                                self.assertNotIn(error, output)
-                            self.assertTrue(capture.is_file())
+                        for scenario in ('weather', 'removed', 'slots'):
+                            entries = [] if scenario == 'removed' else [{'title': '☁ 21°C', 'slot': 'clockEnd'}]
+                            if scenario == 'slots':
+                                entries = [{'title': slot, 'slot': slot} for slot in ('start', 'clock', 'clockEnd', 'status')]
+                            (folder / 'PluginRegistry.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property var entries: '
+                                + json.dumps(entries) + '; function slotItems(slot) { return entries.filter(entry => entry.slot === slot); } }')
+                            capture = capture_path('CLOCK_SLOT', directory, f'{scenario}-{layout.lower()}-{edge}-{"light" if light else "dark"}.png')
+                            fixture = FIXTURE.replace('EXPECT_CLOCK', str(scenario == 'slots').lower()).replace('LAYOUT', json.dumps(layout)).replace('EDGE', json.dumps(edge)).replace('LIGHT', str(light).lower()).replace('CAPTURE', json.dumps(str(capture)))
+                            (folder / 'fixture.qml').write_text(fixture)
+                            code, output = render(folder / 'fixture.qml', render_environment(directory), 10)
+                            with self.subTest(layout=layout, edge=edge, light=light):
+                                self.assertEqual(code, 0, output)
+                                self.assertIn('CLOCK_CENTRE_OK', output)
+                                for error in ('ReferenceError', 'TypeError', 'Binding loop', 'Cannot anchor', 'Unable to assign', 'Error:'):
+                                    self.assertNotIn(error, output)
+                                self.assertTrue(capture.is_file())
 
 
     def test_production_tabs_include_the_clock_slot(self):
@@ -204,7 +213,7 @@ ShellRoot {
             property real islandSpacing: 20
             property real weatherReveal: 50
             property real clockPluginExtent: 166
-            property var islandSurfaces: ({aroundClock: 0})
+            property var islandSurfaces: ({aroundClock: 0, afterLogo:0, afterWorkspaces:0})
             property var dynamicSurfaces: ({middleIsland: {expanded: true}, weatherReveal: 50})
             property var dropSurfaces: ({timeOffset: 0})
             property var clockActivity: ({flash:0, bellAngle:0, flashText:"", flashColor:"white"})
@@ -227,6 +236,32 @@ ShellRoot {
                     anchors.fill: parent
                     radius: bar.islandsLayout || bar.dynamicLayout || bar.dropLayout ? 20 : 0
                     color: shell.barBackground()
+                }
+                PluginBarItems {
+                    id: startSlot
+                    placementSlot: "start"; vertical: shell.verticalBar
+                    foreground:shell.fg; background:shell.workspaceMenuBg; accent:shell.activeBg
+                    open: !bar.dropLayout
+                    x:shell.verticalBar ? 8 : 350; y:shell.verticalBar ? 280 : 8
+                    slotSize:24
+                }
+                PluginBarItems {
+                    id: statusSlot
+                    placementSlot: "status"; vertical: shell.verticalBar
+                    foreground:shell.fg; background:shell.workspaceMenuBg; accent:shell.activeBg
+                    open: !bar.dropLayout
+                    x:shell.verticalBar ? 8 : strip.width - 180; y:shell.verticalBar ? strip.height - 100 : 8
+                    slotSize:24
+                }
+                Text {
+                    visible:!shell.verticalBar && !bar.dropLayout
+                    x:12; y:12; text:"ᛖ   ▦   1  2  3  4  5   ▥   ◉   ♙"
+                    color:shell.fg; font.pixelSize:13
+                }
+                Text {
+                    visible:!shell.verticalBar && !bar.dropLayout
+                    x:strip.width - 130; y:12; text:"WiFi  ♪  ♧"
+                    color:shell.fg; font.pixelSize:13
                 }
                 BarHorizontalCenter {
                     id: horizontal
@@ -257,12 +292,18 @@ ShellRoot {
                     const actual = shell.verticalBar ? point.y : point.x;
                     const expected = (shell.verticalBar ? bar.height : bar.width) / 2;
                     if (Math.abs(actual - expected) > 0.01) { console.error("Clock displaced", actual, expected); Qt.exit(1); return; }
-                    if (!bar.dropLayout) {
+                    if (!bar.dropLayout && EXPECT_CLOCK) {
                         const start = slot.mapToItem(bar, 0, 0);
                         const end = shell.verticalBar ? start.y + slot.height : start.x + slot.width;
                         const beforeClock = shell.verticalBar ? point.y - clock.height / 2 : point.x - clock.width / 2;
                         if (end > beforeClock || slot.width <= 0 || slot.height <= 0) { console.error("Clock slot misplaced"); Qt.exit(1); return; }
                     } else if (slot.width > 0 && slot.height > 0) { console.error("Drop slot visible"); Qt.exit(1); return; }
+                    for (const item of [startSlot, statusSlot]) {
+                        if (EXPECT_CLOCK && !bar.dropLayout && (item.width !== 24 || item.height !== 24)) {
+                            console.error("Outer slot geometry"); Qt.exit(1); return;
+                        }
+                        if (bar.dropLayout && item.visible) { console.error("Drop outer slot leaked"); Qt.exit(1); return; }
+                    }
                     console.log("CLOCK_CENTRE_OK", shell.layout, shell.barEdge, actual, expected);
                     bar.grabToImage(result => { result.saveToFile(CAPTURE); Qt.quit(); });
                 }

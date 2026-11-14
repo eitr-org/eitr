@@ -106,8 +106,8 @@ VERTICAL
                         const actual = shell.verticalBar ? position.y : position.x;
                         const expected = (shell.verticalBar ? bar.height : bar.width) / 2;
                         if (Math.abs(actual - expected) > 0.01) throw new Error("Clock displaced: " + actual + " / " + expected);
-                        for (const item of [bar.centerInfo, bar.barCapture, bar.barPin, bar.barWeather,
-                                bar.verticalCalendarIcon, bar.verticalCapture, bar.verticalWeatherIcon,
+                        for (const item of [bar.centerInfo, bar.barCapture, bar.barPin,
+                                bar.verticalCalendarIcon, bar.verticalCapture,
                                 bar.wifiIcon, bar.bluetoothIcon, bar.obsIcon, bar.keyboardIcon,
                                 bar.verticalWifiIcon, bar.verticalBluetoothIcon, bar.verticalObsIcon]) {
                             if (item.host !== shell) throw new Error("Missing host: " + item);

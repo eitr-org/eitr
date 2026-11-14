@@ -1,6 +1,7 @@
 import QtQuick
 Item {
     property bool hovered: false
+    property string placementSlot: "status"
     property bool clockSlot: false
     property string clockFormat: "12h"
     property real reveal: 1
@@ -35,6 +36,7 @@ Item {
     property bool rightClickable: false
     property bool spinning: false
     property bool vertical: false
+    property bool observing: true
     property bool autoRefresh: false
     property real temp: 21
     property var player: null

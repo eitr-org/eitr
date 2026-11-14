@@ -74,6 +74,7 @@ class SubscriptionLifetimeTests(unittest.TestCase):
             for name in ("plugins/PluginComponent.qml", "services/UpdatesStatus.qml", "components/SpectrumConsumer.qml",
                          "PanelStyle.js", "Spectrum.js", "DesktopDataProtocol.js"):
                 (root / Path(name).name).write_text((bar / name).read_text().replace('import ".."\n', '').replace('"../', '"'))
+            (root / "WeatherWidget.qml").write_text('import QtQuick\nItem { property var host; property bool autoRefresh; property bool compact; property string temperature; signal clicked() }')
             (root / "DesktopData.qml").write_text('''pragma Singleton
 import QtQuick
 import "DesktopDataProtocol.js" as Protocol
@@ -113,7 +114,7 @@ function release(owner) { consumers = consumers.filter(existing => existing !== 
 function update() {}''',
             }
             registry = ['singleton DesktopData DesktopData.qml', 'PluginComponent PluginComponent.qml',
-                        'UpdatesStatus UpdatesStatus.qml', 'SpectrumConsumer SpectrumConsumer.qml', 'BarTooltip BarTooltip.qml']
+                        'UpdatesStatus UpdatesStatus.qml', 'SpectrumConsumer SpectrumConsumer.qml', 'BarTooltip BarTooltip.qml', 'WeatherWidget WeatherWidget.qml']
             for name, body in stubs.items():
                 (root / (name + '.qml')).write_text('pragma Singleton\nimport QtQuick\nQtObject {\n' + body + '\n}\n')
                 registry.append(f'singleton {name} {name}.qml')

@@ -13,7 +13,7 @@ class ClockSlotManifestTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             (root / 'Clock.qml').write_text('import QtQuick\nItem {}\n')
-            for slot in (None, 'status', 'clock'):
+            for slot in (None, 'start', 'status', 'clock', 'clockEnd'):
                 entry = {'id': 'clock', 'title': 'Clock', 'qml': 'Clock.qml'}
                 if slot is not None:
                     entry['slot'] = slot

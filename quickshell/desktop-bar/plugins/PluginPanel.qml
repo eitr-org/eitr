@@ -10,6 +10,7 @@ ThemedPopup {
     waitForFreshData: true
     property var entry: null
     property bool clockSlot: false
+    property string placementSlot: "status"
     property string clockFormat: PluginRegistry.clockFormat
     surfaceColor: entry && entry.surface === "panel" ? background : "transparent"
     property var history: []

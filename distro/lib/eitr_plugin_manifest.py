@@ -182,7 +182,7 @@ def manifest(root):
         if homepage.scheme != 'https' or not homepage.hostname or homepage.username or homepage.password:
             raise ValueError('Plugin homepage must be an HTTPS URL without credentials')
     capabilities = value.get('capabilities', [])
-    if not isinstance(capabilities, list) or any(not isinstance(capability, str) or capability != 'audio-spectrum' for capability in capabilities) or len(capabilities) != len(set(capabilities)):
+    if not isinstance(capabilities, list) or any(not isinstance(capability, str) or capability not in ('audio-spectrum', 'weather') for capability in capabilities) or len(capabilities) != len(set(capabilities)):
         raise ValueError('Invalid plugin capabilities')
     identifier(value['id'])
     for field in ('name', 'author', 'version'):
@@ -298,7 +298,7 @@ def validate_ui(root, ui):
             elif kind == 'widgets':
                 optional += ('minWidth', 'minHeight', 'defaultWidth', 'defaultHeight', 'surface')
             object_keys(entry, ('id', 'title', 'qml'), optional)
-            if kind == 'barItems' and entry.get('slot', 'status') not in ('status', 'clock'):
+            if kind == 'barItems' and entry.get('slot', 'status') not in ('start', 'clock', 'clockEnd', 'status'):
                 raise ValueError('Invalid bar item slot')
             if 'panel' in entry:
                 panel_id = identifier(entry['panel'])

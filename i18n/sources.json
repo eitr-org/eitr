@@ -157,6 +157,12 @@
     "Administrator": [
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
+    "After Idle Lock": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
+    "After clock": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
     "Airplane": [
       "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
@@ -319,6 +325,9 @@
     ],
     "Beautify screenshot": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml"
+    ],
+    "Before clock": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Behaviour": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
@@ -1857,6 +1866,7 @@
     ],
     "Official": [
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml",
       "quickshell/desktop-bar/store/StoreSearchHeader.qml",
       "quickshell/desktop-bar/store/StoreState.qml"
     ],
@@ -2777,6 +2787,9 @@
     "Start the screensaver now.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "Status group": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
     "Status icons": [
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml"
     ],
@@ -3229,7 +3242,8 @@
       "quickshell/desktop-bar/bar/WeatherWidget.qml",
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
-      "quickshell/desktop-bar/panels/WeatherMenu.qml"
+      "quickshell/desktop-bar/panels/WeatherMenu.qml",
+      "quickshell/desktop-bar/plugins/PluginBarItems.qml"
     ],
     "Weather unavailable": [
       "quickshell/desktop-bar/drop/DropHomePage.qml",

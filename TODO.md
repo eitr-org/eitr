@@ -66,6 +66,7 @@ item says what decides the next step. Remove an item when it ships;
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
   done (Tools > Reminders > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).
+- **Plugin slots and bundled Weather (2026-11-14).** Checkout implementation adds four user-selectable slots and a removable, offline bundled Weather default. Owner validation on a packaged desktop is still needed.
 - **World clock plugin (2026-11-14).** The desktop's clock slot is on testing; the plugin is
   on the `world-clock` branch of `eitr-org/eitr-plugins` (VM-tested: bar item left of the
   clock, panel). Next: the owner tries it, then merge to main so the Store lists it.

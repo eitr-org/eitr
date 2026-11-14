@@ -482,6 +482,7 @@ def main(argv=None):
     parser.add_argument('action', choices=['check', 'list', 'add', 'update', 'remove', 'enable', 'disable', 'surface', 'rows', 'installed', 'launch', 'enforce', 'notice', 'hooks', 'ui', 'ui-failure', 'enable-ui', 'ui-data', 'ui-stream', 'toggle-layer', 'placements', 'place', 'unplace', 'duplicate', 'move', 'rotate', 'visual-rows'])
     parser.add_argument('value', nargs='?')
     parser.add_argument('index', nargs='?')
+    parser.add_argument('--slot', choices=('start', 'clock', 'clockEnd', 'status'))
     parser.add_argument('--monitor')
     parser.add_argument('--geometry')
     parser.add_argument('--surface', choices=('panel', 'none'))
@@ -490,6 +491,8 @@ def main(argv=None):
     parser.add_argument('--rotation', type=int, help='widget rotation in degrees, 0-359')
     arguments = parser.parse_args(argv)
     manager = Plugins(notify=notify_blocked)
+    if arguments.action in ("ui", "installed"):
+        manager.ensure_bundled()
     if arguments.action == 'check':
         print(json.dumps(manager.check_updates()))
     elif arguments.action in ('enable', 'disable'):
@@ -507,7 +510,7 @@ def main(argv=None):
         instance = manager.place(arguments.value, arguments.index, arguments.monitor, instance=arguments.instance, new=arguments.new,
                                  remove=arguments.action == 'unplace', duplicate=arguments.action == 'duplicate',
                                  geometry=json.loads(arguments.geometry) if arguments.geometry else None,
-                                 toggle_layer=arguments.action == 'toggle-layer', surface=arguments.surface, rotation=arguments.rotation)
+                                 toggle_layer=arguments.action == 'toggle-layer', surface=arguments.surface, rotation=arguments.rotation, slot=arguments.slot)
         if instance and arguments.action in ('place', 'duplicate'):
             print(instance)
     elif arguments.action == 'ui':

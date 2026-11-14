@@ -124,6 +124,7 @@ Item {
         reviewUpdating = args.updating ? args.id : "";
         nativeReviewing = true; nativeReview = null; reviewSourcePath = ""; reviewSourceText = ""; addingAddress = false; advice = ""; error = ""; busy = true;
         request("prepare", args, function(failure, data) {
+            if (!failure && data.bundled) { nativeReviewing = false; busy = false; catalog.act("install", {ids:[args.id]}); return; }
             if (!nativeReviewing) return;
             busy = false;
             if (!failure && data.upToDate) {

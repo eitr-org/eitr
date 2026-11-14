@@ -37,7 +37,7 @@ Item {
     readonly property real mediaExtent: (vertical ? barHost.verticalMedia.implicitHeight : barHost.mediaStrip.width) + 16
     // The room the media island takes before the clock island, gap included.
     readonly property real mediaRun: mediaAvailable ? media.targetExtent + spacing : 0
-    readonly property real weatherLength: host.workspaceItemSpacing + weatherExtent
+    readonly property real weatherLength: weatherExtent > 0 ? host.workspaceItemSpacing + weatherExtent : 0
     readonly property real middleExtent: clockExtent + 8 + 2 * Math.max(captureLength + barHost.clockPluginExtent, weatherLength)
     // Space the clock island takes when the side islands expand: a card's full size, or its widest hover.
     readonly property real middleRoom: middle.morphed ? middle.targetExtent : middleExtent
@@ -61,7 +61,8 @@ Item {
     }
     function owns(panel, names) { return names.indexOf(panel) !== -1; }
     function active(names) { return names.some(panel => panel.visible || panel === barHost.pendingPanel); }
-    readonly property var leftPanels: [barHost.aiMenu, barHost.hardwareMenu, barHost.workspaceMenu]
+    readonly property var leftPanels: [barHost.aiMenu, barHost.hardwareMenu, barHost.workspaceMenu,
+        barHost.pluginPanel && barHost.pluginPanel.placementSlot === "start" ? barHost.pluginPanel : null].filter(panel => !!panel)
     readonly property var middlePanels: [barHost.calendarMenu, barHost.weatherMenu, barHost.recordingMenu,
         barHost.pluginPanel && barHost.pluginPanel.clockSlot ? barHost.pluginPanel : null].filter(panel => !!panel)
     // Control Center can be opened from the logo or externally; retain its source island.

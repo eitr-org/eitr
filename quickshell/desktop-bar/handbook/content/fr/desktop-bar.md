@@ -4,7 +4,9 @@ Ces commandes sont également disponibles directement dans les paramètres.
 
 <!-- eitr-figure: bar-anatomy -->
 
-Les éléments de barre des extensions peuvent se placer juste avant l’horloge (au-dessus dans une barre verticale). Les deux premiers éléments de cet emplacement y apparaissent ; les suivants rejoignent les icônes d’état. Leur visibilité suit la météo : Centered et Dynamic les montrent en mode développé, Tabs et Islands les incluent, Drop les masque. L’horloge reste centrée sur l’écran. World clock est une extension officielle facultative : choisissez des villes et modifiez leurs libellés dans son panneau ; elle fonctionne hors ligne et suit le format 12/24 heures de la barre.
+Les éléments de plugins peuvent apparaître après le verrouillage automatique, avant ou après l’horloge, ou dans le groupe d’état. Choisissez leur position dans Paramètres > Plugins > le plugin > Dans la barre. Les limites sont de quatre après le verrouillage automatique, deux de chaque côté de l’horloge et huit dans l’état, selon l’ordre de placement ; les éléments supplémentaires restent masqués à leur position choisie. Centered et Dynamic les révèlent une fois développés ; Tabs et Islands les incluent ; Drop masque les éléments de plugins de la barre. L’horloge reste centrée sur l’écran. World clock est un plugin officiel facultatif qui suit le format 12/24 heures de la barre.
+
+Weather est un plugin officiel intégré, installé par défaut après l’horloge. Supprimez-le dans Eitr Store > Plugins > Installés pour masquer la météo partout, y compris sur l’accueil de Drop. Il reste supprimé après les mises à jour ; réinstallez-le depuis Découvrir avec la copie du paquet, sans téléchargement. La recherche de villes reste temporaire pour la session.
 
 La barre complète. Le logo Eitr ouvre le Centre de contrôle ; viennent ensuite Vue d’ensemble, les marqueurs d’espaces de travail, Utilisation IA, Matériel et Verrouillage automatique. La date et l’heure restent centrées, le multimédia avant elles et la météo après. **Afficher les icônes** affiche ou masque les icônes d’état à droite ; les notifications viennent en dernier.
 

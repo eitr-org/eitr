@@ -6,7 +6,7 @@ Item {
     id: weather
     property var host
     signal clicked()
-    property bool autoRefresh: true
+    property bool autoRefresh: false
     property bool compact: false
     property string text: "󰖐"
     property string location: ""
@@ -38,7 +38,12 @@ Item {
     readonly property real contentWidth: Math.max(26, label.implicitWidth + 8)
     width: contentWidth
     height: 24
-    Component.onCompleted: if (autoRefresh) DesktopData.observe("weather.default", weather)
+    function observe() {
+        DesktopData.releaseOwner(weather);
+        if (autoRefresh) DesktopData.observe("weather.default", weather);
+    }
+    onAutoRefreshChanged: observe()
+    Component.onCompleted: observe()
     Component.onDestruction: DesktopData.releaseOwner(weather)
 
     Row {

@@ -109,6 +109,7 @@ Item {
     PluginBarItems {
         id: clockPlugins
         clockSlot: true
+        observing: !barHost.dynamicLayout || barHost.dynamicSurfaces.middleIsland.expanded
         vertical: true
         clockFormat: verticalMiddle.host.barClock
         slotSize: verticalMiddle.host.workspaceItemSize
@@ -144,19 +145,19 @@ Item {
         anchors.topMargin: barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width
-        height: barHost.dropLayout ? 0 : barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
+        height: barHost.dropLayout || verticalWeatherIcon.height <= 0 ? 0 : barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
         clip: barHost.dropLayout || barHost.notchLayout || barHost.dynamicLayout
-        WeatherWidget {
-            host: verticalMiddle.host
+        PluginBarItems {
             id: verticalWeatherIcon
-            visible: barHost.expanded
+            placementSlot: "clockEnd"
+            observing: !barHost.dynamicLayout || barHost.dynamicSurfaces.middleIsland.expanded
+            vertical: true
             y: parent.height - height
             anchors.horizontalCenter: parent.horizontalCenter
-            autoRefresh: false
-            compact: true
-            text: barWeatherRef.text
-            temp: barWeatherRef.temp
-            onClicked: barHost.togglePanel(weatherMenuRef)
+            foreground: verticalMiddle.host.fg; background: verticalMiddle.host.barBackground(); accent: verticalMiddle.host.activeBg
+            clockFormat: verticalMiddle.host.barClock
+            open: !barHost.dropLayout && barHost.expanded
+            onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
         }
     }
 }

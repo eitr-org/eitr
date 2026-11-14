@@ -25,6 +25,7 @@ from eitr_plugin_manifest import (
     printable,
 )
 from eitr_plugin_placements import PluginPlacements
+from eitr_plugin_bundled import BundledPlugins
 
 
 HOOK_TIMEOUT = 30
@@ -241,7 +242,7 @@ class PluginRuntime:
         subprocess.Popen(command(root, spec['rows'][index]), cwd=root, start_new_session=True)
 
 
-class Plugins(_PluginInstall, PluginRuntime, PluginPlacements):
+class Plugins(BundledPlugins, _PluginInstall, PluginRuntime, PluginPlacements):
     """Per-user approved installations and their runtime operations."""
 
 

@@ -97,6 +97,17 @@ BarSection {
             VerticalBarIcon { host: verticalSurface.host; id: verticalAiIcon; icon: ""; iconSize: 16; tooltip: Eitr.I18n.tr("AI Usage"); open: true; clickable: true; onClicked: barHost.togglePanel(barHost.aiMenu) }
             VerticalBarIcon { host: verticalSurface.host; id: verticalHardwareIcon; icon: "󰍛"; iconSize: 18; tooltip: Eitr.I18n.tr("Hardware"); open: true; clickable: true; onClicked: barHost.togglePanel(barHost.hardwareMenu) }
             VerticalBarIcon { host: verticalSurface.host; id: verticalIdleLockIcon; icon: host.idleLockGlyph; iconSize: 17; tooltip: host.idleLockTooltip; open: true; clickable: true; onClicked: host.switchIdleLock() }
+            PluginBarItems {
+                vertical: true
+                placementSlot: "start"
+                observing: !barHost.dynamicLayout || barHost.dynamicSurfaces.leadingIsland.expanded
+                clockFormat: host.barClock
+                foreground: host.fg; background: host.barBackground(); accent: host.activeBg
+                open: !barHost.dropLayout && barHost.expanded
+                slotSize: host.workspaceItemSize; slotSpacing: host.workspaceItemSpacing
+                onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
+            }
+
         }
     }
 

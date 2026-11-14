@@ -16,6 +16,7 @@ VERSION = 3
 INSTANCE = re.compile(r'[0-9a-f]{8}\Z')
 WIDGET_FIELDS = ('plugin', 'id', 'monitor', 'x', 'y', 'width', 'height')
 LIMIT = 256
+BAR_SLOTS = ('start', 'clock', 'clockEnd', 'status')
 
 
 def instance_id(value):
@@ -80,7 +81,9 @@ class PluginPlacements:
                 if kind == 'widgets':
                     validate_widget(placement, value['version'])
                 else:
-                    object_keys(placement, ('plugin', 'id'))
+                    object_keys(placement, ('plugin', 'id'), ('slot',))
+                    if 'slot' in placement and placement['slot'] not in BAR_SLOTS:
+                        raise ValueError('Invalid bar item slot')
                 identifier(placement['plugin'])
                 identifier(placement['id'])
                 key = (kind, placement['plugin'], placement['id'], placement.get('instance'))
@@ -91,13 +94,15 @@ class PluginPlacements:
         return value
 
     def place(self, plugin_id, entry_id, monitor=None, *, instance=None, new=False, remove=False, geometry=None,
-              toggle_layer=False, surface=None, rotation=None, duplicate=False):
+              toggle_layer=False, surface=None, rotation=None, duplicate=False, slot=None):
         """Change one placement; returns the widget copy's instance id.
 
         A widget copy is named by `instance`. `new` adds another copy on `monitor`, and
         `duplicate` copies `instance`. Without either, `monitor` names the display's
         first copy, as a bar started before version 3 still asks.
         """
+        if slot is not None and slot not in BAR_SLOTS:
+            raise ValueError('Invalid bar item slot')
         identifier(plugin_id)
         identifier(entry_id)
         if instance is not None:
@@ -120,8 +125,12 @@ class PluginPlacements:
                     raise ValueError('Bar items have no widget settings')
                 values[kind] = [placement for placement in values[kind] if placement['plugin'] != plugin_id or placement['id'] != entry_id]
                 if not remove:
-                    values[kind].append(dict(plugin=plugin_id, id=entry_id))
+                    previous = next((placement for placement in self.placements()[kind] if placement['plugin'] == plugin_id and placement['id'] == entry_id), {})
+                    chosen = slot if slot is not None else previous.get('slot')
+                    values[kind].append(dict(plugin=plugin_id, id=entry_id, **({'slot': chosen} if chosen else {})))
             else:
+                if slot is not None:
+                    raise ValueError('Only bar items have slots')
                 result = self._change_widget(values['widgets'], entry, plugin_id, entry_id, monitor, instance, new, remove,
                                              geometry, toggle_layer, surface, rotation, duplicate)
             if len(values[kind]) > LIMIT:

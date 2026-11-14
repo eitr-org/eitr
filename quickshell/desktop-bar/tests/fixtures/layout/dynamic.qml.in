@@ -54,6 +54,7 @@ ShellRoot {
         color: LIGHT ? "#e2ddcf" : "#0c1119"
         Item {
             id: bar
+            property alias dynamicSurfaces: dynamic
             anchors.fill: parent
             property real clockPluginExtent: 166
             property var pluginPanel: null

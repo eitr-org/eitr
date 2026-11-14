@@ -2,7 +2,7 @@
   "limit": 400,
   "files": {
     "distro/lib/eitr_plugin_install.py": {
-      "lines": 1023,
+      "lines": 1036,
       "reason": "One approved plugin transaction, including package provenance and shared ownership transfer."
     },
     "distro/lib/eitr_profile.py": {
@@ -34,7 +34,7 @@
       "reason": "One compositor configuration, including preference-backed layout options and bindings; machine-specific settings live in local.lua."
     },
     "quickshell/desktop-bar/bar/BarWindow.qml": {
-      "lines": 441,
+      "lines": 448,
       "reason": "One per-screen bar host, including layout sections and clock-slot plugin extents."
     },
     "quickshell/desktop-bar/panels/CalendarMenu.qml": {
@@ -70,7 +70,7 @@
       "reason": "Applying the configuration, per-account CLI/SSH wrappers and the terminal forms and previews; the account model lives in git_accounts_model.py."
     },
     "walker/scripts/actions/install/plugins.py": {
-      "lines": 566,
+      "lines": 569,
       "reason": "One terminal plugin review flow, sharing package facts with the native review."
     },
     "walker/scripts/actions/install/webapps.py": {

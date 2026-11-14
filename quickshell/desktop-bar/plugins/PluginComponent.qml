@@ -12,9 +12,13 @@ Item {
     required property color background
     required property color accent
     property bool verticalContent: false
+    property bool verticalBar: false
+    property bool iconSlot: false
+    readonly property bool rotateContent: verticalContent && !(entry.capabilities || []).includes("weather")
     property string clockFormat: PluginRegistry.clockFormat
     property bool active: true
-    readonly property bool live: active && visible && enabled && opacity > 0 && !entry.disabled && error === ""
+    property bool observing: true
+    readonly property bool live: active && observing && visible && enabled && opacity > 0 && !entry.disabled && error === ""
     property bool surface: tile ? styledTile : entry.surface === "panel"
     readonly property bool customTile: tile && entry.look === "custom"
     readonly property bool styledTile: tile && (!customTile || entry.disabled || error !== "")
@@ -89,6 +93,10 @@ Item {
         onAccentChanged: themeChanged()
         onFontFamilyChanged: themeChanged()
         onRadiusChanged: themeChanged()
+        readonly property bool observed: host.live
+        readonly property bool verticalBar: host.verticalBar
+        readonly property bool compactBarItem: host.verticalBar || host.iconSlot
+        readonly property Component weatherWidgetComponent: (host.entry.capabilities || []).includes("weather") ? weatherView : null
         readonly property string clockFormat: host.clockFormat
         readonly property string fontFamily: DesktopFonts.family
         readonly property int bodySize: PanelStyle.bodySize
@@ -105,6 +113,16 @@ Item {
         }
         function openPanel(panelId) { host.panelRequested(host.entry.plugin, panelId); }
         function reportError(message) { host.fail(message); }
+    }
+    Component {
+        id: weatherView
+        WeatherWidget {
+            host: ({fg: api.foreground, workspaceMenuBg: api.background})
+            autoRefresh: api.observed
+            compact: api.compactBarItem
+            onTemperatureChanged: api.detail = temperature
+            onClicked: api.openPanel("forecast")
+        }
     }
     SpectrumConsumer {
         id: spectrumConsumer
@@ -162,9 +180,9 @@ Item {
         id: content
         x: host.styledTile ? host.width - width - PanelStyle.selectionActionInset : (host.width - width) / 2
         y: (host.height - height) / 2
-        height: host.verticalContent ? host.width : host.height
-        rotation: host.verticalContent ? 90 : 0
-        width: host.styledTile ? Math.min(96, item ? item.implicitWidth : 0) : host.verticalContent ? host.height : host.width
+        height: host.rotateContent ? host.width : host.height
+        rotation: host.rotateContent ? 90 : 0
+        width: host.styledTile ? Math.min(96, item ? item.implicitWidth : 0) : host.rotateContent ? host.height : host.width
         z: host.barItem ? -1 : 0
         active: host.active && !host.entry.disabled && host.error === ""
         asynchronous: true

@@ -41,6 +41,12 @@ ShellRoot {
   return null;
  }
  FloatingWindow {
+  id: window
+  function findNamed(item, name) {
+   if (item.objectName === name) return item;
+   for (const child of item.children || []) { const found = window.findNamed(child, name); if (found) return found; }
+   return null;
+  }
   visible: true; implicitWidth: 1100; implicitHeight: 900
   Bar.StoreContent {
    id: panel; anchors.fill: parent; live: false; opened: true
@@ -70,6 +76,10 @@ ShellRoot {
      panel.detail = null; panel.reviewing = false; panel.nativeReviewing = false; panel.removing = null;
      panel.kind = entry.kind; panel.tab = entry.tab; panel.sourceFilter = entry.filter || "all";
      panel.installed = ROWS.slice(0,1); panel.availableItems = ROWS; panel.loading = false; panel.indexLoaded = true;
+     if (entry.kind === "plugins") {
+      const weather = {id:"weather", name:"Weather", kind:"builtin", builtin:true, official:true, removable:true, previewUrl:"WEATHER_ICON"};
+      panel.installed = [weather]; panel.availableItems = ROWS.concat([weather]);
+     }
      panel.selected = []; panel.reviewIds = null;
      if (entry.filter && (panel.discoveries.length !== 1 || panel.badge(panel.discoveries[0]) !== "Community")) throw new Error("Provenance filter");
      const field = find(panel, "catalog-search");
@@ -96,6 +106,10 @@ ShellRoot {
      if (entry.remove) panel.removing = ROWS[1];
     } else {
      if (entry.popup) find(panel, "catalog-tone-filter").popup.background.parent.grabToImage(result => { if (!result.saveToFile("TARGET/PALETTE-appearance-menu.png")) throw new Error("Filter capture failed"); });
+     if (entry.kind === "plugins" && entry.tab === "installed") {
+      const remove = window.findNamed(panel, "remove-weather");
+      if (!remove || !remove.visible) throw new Error("Bundled Weather cannot be removed");
+     }
      const filename = "TARGET/" + "PALETTE-" + entry.name + ".png";
      panel.grabToImage(result => { if (!result.saveToFile(filename)) throw new Error("Store capture failed"); });
     }

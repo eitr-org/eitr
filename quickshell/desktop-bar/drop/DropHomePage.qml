@@ -17,12 +17,22 @@ Item {
     required property color background
     required property date now
     readonly property var weather: (DesktopData.topics["weather.default"] || {}).data || ({})
+    readonly property bool weatherEnabled: PluginRegistry.weatherEnabled
+    onWeatherEnabledChanged: if (!weatherEnabled) weatherOpen = false
     readonly property bool hasWeather: !!weather.temp && weather.temp !== "--"
     // The month shown in the grid; the arrows browse it and it returns to today on reopening.
     property int monthOffset: 0
     // The day whose plans replace the weather, or null for the weather.
     property var selectedDay: null
     property bool weatherOpen: false
+    readonly property bool observeWeather: visible && weatherEnabled && (!selectedDay || weatherOpen)
+    function syncWeatherObservation() {
+        DesktopData.releaseOwner(page);
+        if (observeWeather) DesktopData.observe("weather.default", page);
+    }
+    onObserveWeatherChanged: syncWeatherObservation()
+    Component.onCompleted: syncWeatherObservation()
+    Component.onDestruction: DesktopData.releaseOwner(page)
     function sameDay(first, second) { return !!first && !!second && first.toDateString() === second.toDateString(); }
     readonly property date shownMonth: new Date(now.getFullYear(), now.getMonth() + monthOffset, 1)
     readonly property var calendar: barHost.calendarMenu
@@ -45,7 +55,7 @@ Item {
     Item {
         id: weatherSide
         x: 6; width: 196; height: parent.height
-        visible: !page.selectedDay && !page.weatherOpen
+        visible: page.weatherEnabled && !page.selectedDay && !page.weatherOpen
         Row {
             y: 8
             spacing: 14
@@ -120,7 +130,7 @@ Item {
 
     Rectangle {
         id: rule
-        visible: !page.weatherOpen
+        visible: !page.weatherOpen && (page.weatherEnabled || !!page.selectedDay)
         x: weatherSide.x + weatherSide.width + 18; y: 4
         width: 1; height: parent.height - 8
         color: Qt.alpha(page.foreground, 0.14)
@@ -130,7 +140,7 @@ Item {
     Item {
         id: month
         visible: !page.weatherOpen
-        x: rule.x + 19; width: parent.width - x - 4; height: parent.height
+        x: page.weatherEnabled || page.selectedDay ? rule.x + 19 : 6; width: parent.width - x - 4; height: parent.height
         readonly property int lead: (page.shownMonth.getDay() - Qt.locale().firstDayOfWeek % 7 + 7) % 7
         readonly property real cell: width / 7
         Item {

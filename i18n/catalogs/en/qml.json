@@ -1021,5 +1021,9 @@
   "Search Store": "Search Store",
   "Try another source filter or check again later.": "Try another source filter or check again later.",
   "Wallpapers on this computer. Choose one to use it.": "Wallpapers on this computer. Choose one to use it.",
-  "Clear search": "Clear search"
+  "Clear search": "Clear search",
+  "After Idle Lock": "After Idle Lock",
+  "After clock": "After clock",
+  "Before clock": "Before clock",
+  "Status group": "Status group"
 }

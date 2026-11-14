@@ -48,7 +48,9 @@ Item {
     function openPluginPanel(plugin, panel, target) {
         var entry = PluginRegistry.entries.find(entry => entry.plugin === plugin && entry.id === panel && entry.kind === "panels");
         if (!entry) return;
-        pluginPanel.clockSlot = PluginRegistry.clockBarItems.some(item => item.plugin === plugin && item.panel === panel);
+        const placed = PluginRegistry.placedBarItems.find(item => item.plugin === plugin && item.panel === panel);
+        pluginPanel.placementSlot = target && target.entry ? target.entry.slot || "status" : placed ? placed.slot : "status";
+        pluginPanel.clockSlot = pluginPanel.placementSlot === "clock" || pluginPanel.placementSlot === "clockEnd";
         pluginPanel.centered = pluginPanel.clockSlot;
         pluginPanel.target = target;
         pluginPanel.entry = entry;
@@ -106,6 +108,7 @@ Item {
     }
     function toggleControlCenter() { barHost.togglePanel(controlCenter); }
     function showKind(kind) {
+        if (kind === "weather" && !PluginRegistry.weatherEnabled) return;
         if (kind === "picture") { showControlCenter(kind); return; }
         var panels = {wifi: barHost.wifiMenu, bluetooth: barHost.bluetoothMenu, brightness: barHost.brightnessMenu, display: barHost.brightnessMenu, volume: barHost.volumeMenu,
             mic: barHost.volumeMenu, streaming: barHost.streamingMenu, keyboard: barHost.keyboardMenu, calendar: barHost.calendarMenu,

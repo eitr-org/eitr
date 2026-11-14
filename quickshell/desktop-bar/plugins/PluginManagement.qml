@@ -128,14 +128,37 @@ Column {
     }
     Repeater {
         model: management.barItems
-        ToggleRow {
+        Column {
+            id: barItem
             required property var modelData
-            width: management.width
-            text: modelData.title
-            description: Eitr.I18n.tr("Show on the bar")
-            foreground: management.foreground; accent: management.accent
-            checked: management.placed(modelData).length > 0
-            onToggled: checked => PluginRegistry.change(checked ? "place" : "unplace", modelData)
+            readonly property string chosenSlot: (management.placed(modelData)[0] || {}).slot || modelData.slot || "status"
+            width: management.width; spacing: PanelStyle.selectionRowGap
+            ToggleRow {
+                width: parent.width; text: barItem.modelData.title
+                description: Eitr.I18n.tr("Show on the bar")
+                foreground: management.foreground; accent: management.accent
+                checked: management.placed(barItem.modelData).length > 0
+                onToggled: checked => PluginRegistry.change(checked ? "place" : "unplace", barItem.modelData)
+            }
+            Flow {
+                width: parent.width; spacing: 6
+                visible: management.placed(barItem.modelData).length > 0
+                Repeater {
+                    model: [{slot:"start", label:Eitr.I18n.tr("After Idle Lock")},
+                        {slot:"clock", label:Eitr.I18n.tr("Before clock")},
+                        {slot:"clockEnd", label:Eitr.I18n.tr("After clock")},
+                        {slot:"status", label:Eitr.I18n.tr("Status group")}]
+                    PanelButton {
+                        required property var modelData
+                        width: Math.max(100, placementText.advanceWidth + 24)
+                        text: modelData.label; foreground: management.foreground
+                        selected: barItem.chosenSlot === modelData.slot
+                        outlined: !selected
+                        onClicked: PluginRegistry.change("place", barItem.modelData, {slot:modelData.slot})
+                        TextMetrics { id: placementText; text: parent.text; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
+                    }
+                }
+            }
         }
     }
 }

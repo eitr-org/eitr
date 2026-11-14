@@ -57,6 +57,7 @@ Rectangle {
         Flow { width: parent.width; spacing: 6
             StorePill { catalog: tile.catalog; text: catalog.badge(tile.item) }
             StorePill { catalog: tile.catalog; visible: tile.itemKind === "lockscreens" && !!tile.item.current; text: Eitr.I18n.tr("Current"); current: true }
+            StorePill { catalog: tile.catalog; visible: tile.itemKind === "plugins" && tile.item.builtin === true; text: Eitr.I18n.tr("Official") }
             StorePill { catalog: tile.catalog; visible: tile.local && catalog.getMore; text: Eitr.I18n.tr("Installed") }
             StorePill { catalog: tile.catalog; visible: tile.itemKind === "plugins" && tile.item.enabled === false; text: Eitr.I18n.tr("Disabled") }
         }
@@ -93,7 +94,7 @@ Rectangle {
         anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 8
         width: 28; height: 28; icon: true; text: "󰆴"; foreground: catalog.foreground
         color: catalog.background
-        visible: catalog.tab === "installed" && tile.local && (tile.capabilities.remove && (tile.item.removable === undefined || tile.item.removable === true)) && !tile.item.current && tile.item.kind !== "builtin" && tile.item.kind !== "own"
+        visible: catalog.tab === "installed" && tile.local && (tile.capabilities.remove && (tile.item.removable === undefined || tile.item.removable === true)) && !tile.item.current && (tile.item.kind !== "builtin" || tile.item.removable === true) && tile.item.kind !== "own"
         Accessible.name: Eitr.I18n.tr("Remove %1").arg(tile.item.name || "")
         onClicked: { if (tile.item.storeKind) catalog.kind = tile.item.storeKind; catalog.removing = tile.item; catalog.forceActiveFocus(); }
         BarTooltip { target: removeButton; hovered: removeButton.hovered; text: Eitr.I18n.tr("Delete"); foreground: catalog.foreground; background: catalog.raised }

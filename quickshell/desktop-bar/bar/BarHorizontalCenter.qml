@@ -25,6 +25,7 @@ Item {
     PluginBarItems {
         id: clockPlugins
         clockSlot: true
+        observing: !barHost.dynamicLayout || barHost.dynamicSurfaces.middleIsland.expanded
         vertical: false
         clockFormat: centerSection.host.barClock
         slotSize: centerSection.host.workspaceItemSize
@@ -119,16 +120,20 @@ Item {
         anchors.left: centerInfo.right
         anchors.leftMargin: barHost.islandsLayout ? barHost.islandSurfaces.aroundClock : 0
         anchors.verticalCenter: centerInfo.verticalCenter
-        width: barHost.dropLayout ? 0 : barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
+        width: barHost.dropLayout || barWeather.width <= 0 ? 0 : barHost.dynamicLayout ? barHost.dynamicSurfaces.weatherReveal : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
         height: barWeather.height
         clip: barHost.dropLayout || barHost.notchLayout || barHost.dynamicLayout
-        WeatherWidget {
-            host: centerSection.host
+        PluginBarItems {
             id: barWeather
+            placementSlot: "clockEnd"
+            observing: !barHost.dynamicLayout || barHost.dynamicSurfaces.middleIsland.expanded
             x: parent.width - width
+            foreground: centerSection.host.fg; background: centerSection.host.barBackground(); accent: centerSection.host.activeBg
+            clockFormat: centerSection.host.barClock
+            open: !barHost.dropLayout && barHost.expanded
             opacity: barHost.expanded ? 1 : 0
             enabled: barHost.expanded
-            onClicked: barHost.togglePanel(weatherMenu)
+            onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
         }
     }
 

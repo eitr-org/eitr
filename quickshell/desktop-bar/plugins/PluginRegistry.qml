@@ -152,13 +152,17 @@ QtObject {
     readonly property string stateRoot: Quickshell.env("XDG_STATE_HOME") || Quickshell.env("HOME") + "/.local/state"
     readonly property string configRoot: Quickshell.env("XDG_CONFIG_HOME") || Quickshell.env("HOME") + "/.config"
     readonly property var placedBarItems: placed("barItems", "")
-    readonly property var clockBarItems: placedBarItems.filter(entry => entry.slot === "clock").slice(0, 2)
-    readonly property var barItems: placedBarItems.filter(entry => clockBarItems.indexOf(entry) === -1)
+    function slotItems(slot) {
+        return placedBarItems.filter(entry => (entry.slot || "status") === slot).slice(0, slot === "status" ? 8 : slot === "start" ? 4 : 2);
+    }
+    readonly property var clockBarItems: slotItems("clock")
+    readonly property var barItems: slotItems("status")
+    readonly property bool weatherEnabled: entries.some(entry => entry.plugin === "weather" && !entry.disabled && (entry.capabilities || []).includes("weather"))
     function placed(kind, monitor) {
         return (placements[kind] || []).filter(placement => kind !== "widgets" || placement.monitor === monitor)
             .map(placement => {
                 const entry = entries.find(entry => entry.plugin === placement.plugin && entry.id === placement.id && entry.kind === kind);
-                return entry && !entry.disabled ? Object.assign({}, entry, {geometry: placement}) : null;
+                return entry && !entry.disabled ? Object.assign({}, entry, {geometry: placement, slot: placement.slot || entry.slot || "status"}) : null;
             }).filter(entry => entry !== null);
     }
     function refreshEntries() {
@@ -178,6 +182,7 @@ QtObject {
         if (settings.monitor) args = args.concat(["--monitor", settings.monitor]);
         if (settings.isNew) args.push("--new");
         if (settings.geometry) args = args.concat(["--geometry", JSON.stringify(settings.geometry)]);
+        if (settings.slot) args = args.concat(["--slot", settings.slot]);
         if (settings.surface) args = args.concat(["--surface", settings.surface]);
         if (settings.rotation !== undefined) args = args.concat(["--rotation", String(settings.rotation)]);
         Quickshell.execDetached(args);

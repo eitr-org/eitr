@@ -21,6 +21,7 @@ def plugin_backend():
     if _PLUGIN_BACKEND is None:
         from eitr_plugins import Plugins
         _PLUGIN_BACKEND = Plugins()
+        _PLUGIN_BACKEND.ensure_bundled()
     return _PLUGIN_BACKEND
 
 
@@ -84,7 +85,7 @@ def plugins(name, args):
         return community(name, args)
     backend = plugin_backend()
     if name == 'installed':
-        return {'items': installed_badges([dict(row, kind='official' if row['official'] else 'third-party') for row in backend.installed()], kind)}
+        return {'items': installed_badges([dict(row, kind='builtin' if row.get('builtin') else 'official' if row['official'] else 'third-party') for row in backend.installed()], kind)}
     if name == 'check':
         return {'updates': backend.check_updates()}
     if name == 'remove':
@@ -99,7 +100,11 @@ def plugins(name, args):
         return {'answer': backend.review_advice(args['token'])}
     if name == 'source':
         return backend.review_source(args['token'], args.get('path'), args.get('offset', 0))
+    if name == 'install' and args.get('ids') == ['weather']:
+        return {'result': backend.install_bundled('weather')}
     if name == 'prepare':
+        if args.get('id') == 'weather' and not args.get('url') and not args.get('updating'):
+            return {'bundled': True}
         if args.get('url'):
             review = backend.prepare_review(args['url'], plugin_id=args.get('id'))
             if 'choices' in review:
@@ -149,7 +154,11 @@ def plugins(name, args):
     if name == 'detail':
         rows = json.loads(cache('eitr/catalog-previews/plugins' + ('-community' if args.get('channel') == 'community' else '') + '.json').read_text())
         return {'item': next(row for row in rows if row['id'] == args['id'])}
-    rows = backend.catalog(PLUGINS)
+    try:
+        rows = backend.catalog(PLUGINS)
+    except (OSError, ValueError, subprocess.SubprocessError):
+        rows = []
+    rows = backend.bundled_catalog() + [row for row in rows if row['id'] != 'weather']
     save_plugin_rows(rows)
     return {'items': rows}
 

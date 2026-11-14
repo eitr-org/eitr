@@ -358,7 +358,7 @@ function lifetimeContext(relative, values, functions = []) {
     for (const name of ['BatteryMenu', 'BrightnessMenu', 'ControlCenter', 'WifiMenu', 'WeatherMenu', 'SystemMonitorMenu', 'AiUsageMenu', 'ObsMenu']) {
         const owner = {};
         const panel = lifetimeContext('panels/' + name + '.qml', {
-            DesktopData: facade, PowerService: power, DisplayService: display.context,
+            DesktopData: facade, PowerService: power, DisplayService: display.context, PluginRegistry: {weatherEnabled:true},
             menu: owner, center: owner, opened: false, visible: true,
             powerTokens: [], powerActionId: '', networkToken: '', accountToken: '', detailsToken: '', latencyToken: '',
             defaultToken: '', hardwareToken: '', usageToken: '', optionToken: '', actionId: '', optionId: '',

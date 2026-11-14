@@ -305,14 +305,52 @@ grip still sizes the unrotated widget. Duplicate offsets the copy by 24 px, back
 left where it would leave the screen; moving to another display keeps size and settings
 and clamps the position to that display.
 
-Bar items accept optional `slot: "status"` (default) or `slot: "clock"` in schema 2.
-The first two placed clock-slot entries, in saved placement order, appear immediately
-before the independently centred clock (above it on vertical bars); further entries
-appear in the status group. Clock items use the root’s natural `implicitWidth` and
-`implicitHeight`, rotated as one line on vertical edges. A zero-sized root is hidden.
-Full shows them directly; Centered only while expanded; Tabs includes them in the
-centre tab; Islands gives them a pill; Dynamic reveals them in its expanded clock
-island; Drop hides them. Panels use the same attachment/detachment as weather.
+Bar items accept four optional named slots in schema 2. Omitting `slot` keeps the
+legacy `status` default. Settings > Plugins > a plugin > On the bar lets the user
+override each item's slot; the optional `slot` in its bar placement wins over the
+manifest. Old placement versions and manifests remain valid.
+
+| Slot | Position | Limit |
+| --- | --- | --- |
+| `start` | After Idle Lock, following the built-in left group | 4 |
+| `clock` | Immediately before the independently centred clock | 2 |
+| `clockEnd` | Immediately after the clock | 2 |
+| `status` | End of the status group, before notifications | 8 |
+
+Limits apply in saved placement order, independently per slot. Excess items stay
+placed but hidden until space in their chosen slot becomes available; they never
+spill into another region. Start/status use fixed icon slots. Clock slots use the
+root's first nonzero natural width, capped at 192 px, and natural height; later data
+changes stay inside that allocation. Vertical clock content rotates as one line.
+A zero-sized root is hidden. The Weather host view uses its compact icon vertically.
+
+Full shows the slots directly; Centered reveals them when expanded. Tabs includes
+start in its left tab, both clock slots in the centre tab and status on the right.
+Islands joins start to the hardware pill and gives each clock slot its own pill.
+Dynamic reveals start/status in their expanded side islands and both clock slots
+in its expanded clock island. Drop hides all bar plugin slots, as before. The
+clock keeps its independent screen-centre anchor on all four edges.
+
+### Bundled Weather
+
+Weather (`weather`) is an official plugin shipped in `eitr-desktop`, without a Git
+checkout or download. The user upgrade migration and host startup share a one-time
+default for fresh and existing homes and
+places its item in `clockEnd`. The machine-local
+`$XDG_STATE_HOME/eitr/bundled-plugins.json` marker records that default migration;
+package updates never reinstall a removed default or re-enable a disabled one.
+Eitr Store > Plugins > Installed labels it Built in and offers Remove. Discover
+can install it again from the package copy, offline. Its files update with the
+package; it has no separate Git update or background service.
+
+The schema-2 `weather` capability supplies `api.weatherWidgetComponent`, the host's
+existing Weather view, plus `api.observed`, `api.verticalBar` and `api.compactBarItem`. Icon slots and vertical bars use the compact host view. The view observes
+`weather.default` through DesktopData only while displayed. The single bar-data
+weather domain still owns caching, location, deadlines and city requests. No plugin
+poller or duplicate fetch code is added. The bundled item's panel request reuses
+the host's centred weather panel; Drop reuses its existing in-place weather view.
+Removing/disabling Weather hides both views and releases their observations. Drop
+uses the space for its calendar. Temporary city choices remain session-only.
 
 Status bar items occupy fixed icon slots at the end of the existing right-side group, just before the notifications, with its
 normal hidden/show toggle (always shown in Tabs). They have no hover fill and
@@ -330,9 +368,9 @@ limitations still apply; URL-attributed warnings are diagnostic and do not incre
 
 ### Audio spectrum (schema version 2)
 
-Declare `"capabilities": ["audio-spectrum"]` at the manifest root. Only this
-capability is supported; unknown names, duplicates and non-array values are
-refused. Version 1 cannot declare capabilities. Installation review describes it
+Declare `"capabilities": ["audio-spectrum"]` at the manifest root. The `weather`
+host capability is also supported. Unknown names, duplicates and non-array values
+are refused. Version 1 cannot declare capabilities. Installation review describes it
 as “Reads the system audio spectrum (levels only, no audio is recorded or sent)”.
 Adding it raises an update RISK flag. This is playback-monitor analysis only:
 the host fixes PipeWire `source = auto` (sink capture), with no microphone or

@@ -726,11 +726,11 @@ Every panel follows the same rules, so a new one feels like the others:
 
 ## Visual plugins
 
-Plugin bar items default to the status group. Optional `slot: "clock"` places the first
-two in saved placement order immediately before the screen-centred clock (above it
-on vertical bars); overflow remains in status. Clock items share weather’s layout
-visibility and panel geometry, use natural content size, and rotate on vertical edges.
-Drop hides them. Plugin `api.clockFormat` follows the live 12/24-hour bar preference.
+Plugin bar placements use `start`, `clock`, `clockEnd` and `status`, with independent
+limits of 4, 2, 2 and 8. Placement overrides take precedence over manifests. Weather
+is a removable bundled plugin in `clockEnd`; its host capability reuses the existing
+weather broker and native panel. Drop observes weather only while its home is visible
+and the plugin is enabled. See `distro/PLUGINS.md` for layout visibility and migration.
 
 
 Plugin runtime diagnostics appear in **Control Center > Plugins**: an error state, the first message and **View error details**, with one-click disabling retained. The session list is bounded and de-duplicated; file URLs identify plugin QML warnings and exceptions. Messages without plugin URLs cannot be attributed reliably. Plugins run inside the desktop with its permissions, without a sandbox; install only trusted plugins. The existing installation review shows the full-permissions warning, including for plugins outside the official collection. See `distro/PLUGINS.md` for diagnostic limits.

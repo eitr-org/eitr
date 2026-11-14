@@ -77,7 +77,12 @@ ThemedPopup {
     function forecastIcon(code) {
         return WeatherIcons.forecastIcon(code);
     }
+    Connections {
+        target: PluginRegistry
+        function onWeatherEnabledChanged() { if (!PluginRegistry.weatherEnabled) menu.opened = false; }
+    }
     onOpenedChanged: {
+        if (opened && !PluginRegistry.weatherEnabled) opened = false;
         if (opened) {
             city = null;
             weatherData = defaultWeatherData;

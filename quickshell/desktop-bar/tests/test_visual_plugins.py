@@ -371,6 +371,7 @@ ShellRoot {
                             source=(ROOT / 'distro/plugins/example' / entry['qml']).as_uri())
                        for kind, declarations in spec['ui'].items() for entry in declarations]
             (folder / 'eitr').mkdir()
+            (folder / 'eitr/bundled-plugins.json').write_text('{"version":1}')
             (folder / 'eitr/plugin-placements.json').write_text(json.dumps({
                 'version': 1,
                 'widgets': [dict(plugin='example', id='clock', monitor='missing-monitor',
@@ -542,6 +543,7 @@ Item {
             placement = dict(plugin='fixture', id='spectrum', monitor='test-display',
                              x=24, y=24, width=320, height=180, aboveWindows=True)
             (folder / 'eitr').mkdir()
+            (folder / 'eitr/bundled-plugins.json').write_text('{"version":1}')
             (folder / 'eitr/plugin-placements.json').write_text(json.dumps(dict(version=2, widgets=[placement], barItems=[])))
             for mode in ('spectrum-dark', 'spectrum-light', 'layer-toggle-dark', 'layer-toggle-light'):
                 captures = Path(os.environ.get('EITR_PLUGIN_REVIEW_RENDERS', directory))
@@ -854,6 +856,7 @@ Item {
                         dict(name='HDMI-A-1', description='LG HDR 4K', width=1920, height=1080)]
             # The registry reads placements through the real helper, from this folder.
             (folder / 'eitr').mkdir()
+            (folder / 'eitr/bundled-plugins.json').write_text('{"version":1}')
             (folder / 'eitr/plugin-placements.json').write_text(json.dumps(dict(version=3, widgets=copies, barItems=[])))
             captures = Path(os.environ.get('EITR_PLUGIN_REVIEW_RENDERS', directory))
             captures.mkdir(parents=True, exist_ok=True)

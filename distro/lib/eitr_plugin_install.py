@@ -107,6 +107,9 @@ def clone(url, destination, *, allow_file=False):
 
 
 def commit(root):
+    from eitr_plugin_bundled import is_bundled, bundled_revision
+    if is_bundled(root):
+        return bundled_revision(root)
     return git(root, 'rev-parse', 'HEAD')
 
 
@@ -311,7 +314,9 @@ class PluginInstall:
             raise ValueError('Invalid plugin state')
         for plugin_id, record in value.items():
             identifier(plugin_id)
-            object_keys(record, ('url', 'id', 'commit', 'installed'), ('enabled', 'path', 'packages'))
+            object_keys(record, ('url', 'id', 'commit', 'installed'), ('enabled', 'path', 'packages', 'bundled'))
+            if 'bundled' in record and (record['bundled'] is not True or plugin_id != 'weather' or record['url'] != 'https://github.com/eitr-org/eitr' or 'path' in record):
+                raise ValueError('Invalid bundled plugin state')
             eitr_plugin_packages.names(record.get('packages', []), limit=4096)
             if 'path' in record:
                 relative = record['path']
@@ -349,6 +354,9 @@ class PluginInstall:
 
     def root(self, plugin_id):
         record = self.records().get(plugin_id, {})
+        if record.get('bundled'):
+            from eitr_plugin_bundled import bundled_root
+            return bundled_root(plugin_id)
         if record.get('path'):
             return self.snapshot(record['url'], record['commit']) / record['path']
         return self.folder / plugin_id
@@ -763,6 +771,8 @@ class PluginInstall:
 
     def prepare_review(self, url=None, *, plugin_id=None, folder=None, revision=None, updating=False):
         """Run the normal validation transaction, stopping at its approval boundary."""
+        if updating and self.records().get(plugin_id, {}).get("bundled"):
+            raise ValueError("No plugin changes to review")
         self.expire_reviews()
         if revision is not None and not COMMIT.fullmatch(revision):
             raise ValueError('Invalid pinned commit')
@@ -941,7 +951,7 @@ class PluginInstall:
                 raise ValueError('Plugin folder must not be a symlink')
             if self.unit(plugin_id).exists():
                 self.service(plugin_id)
-            if target.exists() and not record.get('path'):
+            if target.exists() and not record.get('path') and not record.get('bundled'):
                 shutil.rmtree(target)
             for other_id, other in records.items():
                 if other_id != plugin_id:
@@ -965,7 +975,8 @@ class PluginInstall:
                 if root.is_symlink() or commit(root) != record['commit']:
                     raise ValueError('Plugin differs from its approved commit')
                 spec = manifest(root)
-                self.service(plugin_id, spec)
+                if 'service' in spec or self.unit(plugin_id).exists():
+                    self.service(plugin_id, spec)
             elif self.unit(plugin_id).exists():
                 self.service(plugin_id)
             records[plugin_id] = {**record, 'enabled': enabled}
@@ -978,6 +989,8 @@ class PluginInstall:
         with self.lock():
             for plugin_id, record in self.records().items():
                 try:
+                    if record.get('bundled'):
+                        continue
                     root = self.root(plugin_id)
                     git(root, 'fetch', '--no-recurse-submodules', '--', record['url'],
                         'HEAD', allow_file=self.allow_file)
@@ -1006,7 +1019,7 @@ class PluginInstall:
             spec = self.spec(plugin_id)
             checked = updates.get(plugin_id, {})
             count = checked.get('count', 0) if checked.get('commit') == record['commit'] else 0
-            rows.append(dict(id=plugin_id, updateCount=count, official=official(record['url']),
+            rows.append(dict(id=plugin_id, updateCount=count, official=bool(record.get('bundled')) or official(record['url']), builtin=bool(record.get('bundled')), removable=True,
                              removablePackages=eitr_plugin_packages.removable(eitr_plugin_packages.owned(plugin_id, record.get('packages', [])),
                                  {name for other_id in self.records() if other_id != plugin_id
                                   for name in (self.spec(other_id) or {}).get('packages', [])}),

@@ -131,5 +131,14 @@ RowLayout {
             clickable: true
             onClicked: host.switchIdleLock()
         }
+        PluginBarItems {
+            placementSlot: "start"
+            clockFormat: host.barClock
+            foreground: host.fg; background: host.barBackground(); accent: host.activeBg
+            open: !barWindow.dropLayout && barWindow.expanded
+            observing: !barWindow.dynamicLayout || barWindow.dynamicSurfaces.leadingIsland.expanded
+            slotSize: host.workspaceItemSize; slotSpacing: host.workspaceItemSpacing
+            onPanelRequested: function(plugin, panel, target) { barWindow.openPluginPanel(plugin, panel, target); }
+        }
     }
 }

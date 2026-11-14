@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 2,
+  "id": "weather",
+  "name": "Weather",
+  "description": "Local weather and forecasts, with session-only city search.",
+  "author": "The Eitr project",
+  "version": "1.0.0",
+  "rows": [],
+  "capabilities": [
+    "weather"
+  ],
+  "ui": {
+    "barItems": [
+      {
+        "id": "weather",
+        "title": "Weather",
+        "qml": "Weather.qml",
+        "slot": "clockEnd",
+        "panel": "forecast"
+      }
+    ],
+    "panels": [
+      {
+        "id": "forecast",
+        "title": "Weather",
+        "qml": "Weather.qml"
+      }
+    ]
+  },
+  "icon": "icon.svg"
+}

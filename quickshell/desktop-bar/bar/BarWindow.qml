@@ -85,8 +85,8 @@ PanelWindow {
         ? tabItemStart(verticalMedia.visible ? verticalMedia : verticalCapture.shown ? verticalCapture : clockPlugins.height > 0 ? clockPlugins : verticalCalendarIcon)
         : tabItemStart(mediaStrip.visible ? mediaStrip : barCapture.shown ? barCapture : clockPlugins.width > 0 ? clockPlugins : centerInfo)) - tabsPadding
     readonly property real tabCenterEnd: (host.verticalBar
-        ? tabItemStart(verticalCalendarIcon) + verticalCalendarIcon.height + (notchLayout ? weatherReveal : 3 + verticalWeatherIcon.height)
-        : tabItemStart(centerInfo) + centerInfo.width + (notchLayout ? weatherReveal : 6 + barWeather.width)) + tabsPadding
+        ? tabItemStart(verticalCalendarIcon) + verticalCalendarIcon.height + (notchLayout ? weatherReveal : weatherExtent)
+        : tabItemStart(centerInfo) + centerInfo.width + (notchLayout ? weatherReveal : weatherExtent)) + tabsPadding
     readonly property var outerGaps: host.screenGaps
     readonly property bool centeredLayout: host.centeredLayout
     readonly property bool islandsLayout: host.islandsLayout
@@ -118,8 +118,8 @@ PanelWindow {
         ? verticalStart.height + itemGap + (mediaStrip.present ? verticalMedia.height + itemGap : 0) + verticalPin.height + itemGap + (verticalCapture.shown ? verticalCapture.height + itemGap : 0)
         : leftGroup.workspaces.width + itemGap + leftGroup.hardwareStatus.width + itemGap + (mediaStrip.visible ? mediaStrip.width + itemGap : 0) + barPin.width + itemGap + (barCapture.shown ? barCapture.width + itemGap : 0))
     readonly property real trailingExtent: endPadding - centerPadding + (host.verticalBar
-        ? itemGap + verticalWeatherIcon.height + itemGap + verticalEnd.height
-        : itemGap + barWeather.width + itemGap + rightSide.width + itemGap + notificationIcon.width)
+        ? (verticalWeatherIcon.height > 0 ? itemGap + verticalWeatherIcon.height : 0) + itemGap + verticalEnd.height
+        : (barWeather.width > 0 ? itemGap + barWeather.width : 0) + itemGap + rightSide.width + itemGap + notificationIcon.width)
     // Collapsed, Centered still opens room before the clock for what is happening beside it.
     readonly property bool activityShown: host.verticalBar ? verticalCapture.shown : barCapture.shown
     readonly property real collapsedLeading: activityShown
@@ -129,7 +129,7 @@ PanelWindow {
     Behavior on leadingReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     Behavior on trailingReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     // Tabs always shows the weather after the clock, inside the centre tab.
-    readonly property real weatherExtent: host.verticalBar ? 3 + verticalWeatherIcon.height : 6 + barWeather.width
+    readonly property real weatherExtent: host.verticalBar ? (verticalWeatherIcon.height > 0 ? 3 + verticalWeatherIcon.height : 0) : (barWeather.width > 0 ? 6 + barWeather.width : 0)
     readonly property real weatherReveal: notchLayout ? weatherExtent : 0
     // Centered: the slopes start right at the clock (its button keeps 8 px of padding).
     readonly property real centerExtent: host.verticalBar ? 56 : centerInfo.width
@@ -342,7 +342,14 @@ PanelWindow {
     }
     Component.onCompleted: host.registerBar(bar)
     Component.onDestruction: host.unregisterBar(bar)
-    function openPluginPanel(plugin, panel, target) { return barPanels.openPluginPanel(plugin, panel, target); }
+    function openPluginPanel(plugin, panel, target) {
+        if (plugin === "weather" && panel === "forecast" && PluginRegistry.weatherEnabled) {
+            weatherMenu.morphAnchor = target;
+            togglePanel(weatherMenu);
+            return;
+        }
+        return barPanels.openPluginPanel(plugin, panel, target);
+    }
     function showControlCenter(page) { return barPanels.showControlCenter(page); }
     function toggleControlCenter() { return barPanels.toggleControlCenter(); }
     function showKind(kind) { return barPanels.showKind(kind); }
