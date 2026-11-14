@@ -140,20 +140,19 @@ Column {
                 checked: management.placed(barItem.modelData).length > 0
                 onToggled: checked => PluginRegistry.change(checked ? "place" : "unplace", barItem.modelData)
             }
-            ControlRow {
-                text: Eitr.I18n.tr("Position"); description: Eitr.I18n.tr("Where it sits on the bar.")
-                foreground: management.foreground
+            ChoiceDropdown {
+                objectName: "plugin-bar-slot"
                 visible: management.placed(barItem.modelData).length > 0
-                ChoiceDropdown {
-                    objectName: "plugin-bar-slot"
-                    width: parent.width; foreground: management.foreground; background: management.background; gold: management.accent
-                    current: barItem.chosenSlot
-                    choices: [{value:"start", label:Eitr.I18n.tr("Left side")},
-                        {value:"clock", label:Eitr.I18n.tr("Before the clock")},
-                        {value:"clockEnd", label:Eitr.I18n.tr("After the clock")},
-                        {value:"status", label:Eitr.I18n.tr("Right side")}]
-                    onChosen: value => PluginRegistry.change("place", barItem.modelData, {slot: value})
-                }
+                width: parent.width
+                floatingLabel: Eitr.I18n.tr("Position")
+                helperText: Eitr.I18n.tr("Where it sits on the bar.")
+                foreground: management.foreground; background: management.background; gold: management.accent
+                current: barItem.chosenSlot
+                choices: [{value:"start", label:Eitr.I18n.tr("Left side")},
+                    {value:"clock", label:Eitr.I18n.tr("Before the clock")},
+                    {value:"clockEnd", label:Eitr.I18n.tr("After the clock")},
+                    {value:"status", label:Eitr.I18n.tr("Right side")}]
+                onChosen: value => PluginRegistry.change("place", barItem.modelData, {slot: value})
             }
         }
     }

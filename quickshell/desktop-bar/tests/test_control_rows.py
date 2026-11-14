@@ -117,5 +117,29 @@ class SettingsControlCoverageTests(unittest.TestCase):
                     self.assertNotRegex(own_properties(body), r'\bdescription\s*:\s*""', path.name)
 
 
+# The host's plugin factory: plugins set floatingLabel on what it creates.
+UNLABELLED_DROPDOWNS = {'PluginComponent.qml'}
+# The lockscreen design gallery is a standalone developer preview with stock Qt controls.
+COMBOBOX_EXCEPTIONS = {'design-gallery.qml'}
+
+
+class DropdownStyleTests(unittest.TestCase):
+    def test_every_dropdown_is_the_outlined_choice_dropdown(self):
+        """One dropdown look everywhere: ChoiceDropdown with its title on the border."""
+        failures = []
+        for path in (ROOT / 'quickshell').rglob('*.qml'):
+            if 'tests' in path.parts or path.name == 'ChoiceDropdown.qml':
+                continue
+            text = path.read_text()
+            for kind, start, end, body in source_blocks(text):
+                line = f'{path.relative_to(ROOT)}:{text[:start].count(chr(10)) + 1}'
+                if kind == 'ComboBox' and path.name not in COMBOBOX_EXCEPTIONS:
+                    failures.append(f'{line}: ComboBox instead of ChoiceDropdown')
+                elif kind == 'ChoiceDropdown' and path.name not in UNLABELLED_DROPDOWNS \
+                        and not re.search(r'\bfloatingLabel\s*:', own_properties(body)):
+                    failures.append(f'{line}: ChoiceDropdown without floatingLabel')
+        self.assertEqual(failures, [])
+
+
 if __name__ == '__main__':
     unittest.main()

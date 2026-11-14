@@ -207,8 +207,8 @@ and no larger than 64 KiB. Symlinks are refused anywhere in the repository.
 ### Eitr controls for plugin QML
 
 `api.controls` holds Eitr's own themed controls as components: `dropdown`
-(ChoiceDropdown: `choices` of `{value, label}`, `current`, `available`, signal
-`chosen(value)`), `button` (PanelButton: `text`, or `icon: true` with a glyph as
+(ChoiceDropdown: `floatingLabel` and `helperText`, which every dropdown sets, `choices`
+of `{value, label}`, `current`, `available`, signal `chosen(value)`), `button` (PanelButton: `text`, or `icon: true` with a glyph as
 `text`; signal `clicked()`), `textField` (PanelTextField) and `toggle` (PanelSwitch:
 `checked`, signal `toggled()`). They already follow the theme, corners and
 fonts. Use them instead of drawing look-alike controls, so plugins match the desktop:
@@ -216,8 +216,10 @@ fonts. Use them instead of drawing look-alike controls, so plugins match the des
 ```qml
 Loader {
     sourceComponent: api.controls.dropdown
-    width: 120
+    width: parent.width
     onLoaded: {
+        item.floatingLabel = "Count";
+        item.helperText = "How many to show.";
         item.choices = [{value: "1", label: "1"}, {value: "2", label: "2"}];
         item.current = Qt.binding(() => String(settings.count));
         item.chosen.connect(value => save(Number(value)));

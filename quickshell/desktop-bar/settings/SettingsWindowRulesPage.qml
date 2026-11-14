@@ -94,18 +94,15 @@ Column {
         visible: pageBody.formOpen
         title: pageBody.editing < 0 ? Eitr.I18n.tr("Add rule") : Eitr.I18n.tr("Edit rule")
         foreground: view.foreground
-        ControlRow {
-            text: Eitr.I18n.tr("App"); description: Eitr.I18n.tr("The app this rule applies to.")
-            foreground: view.foreground
-            ChoiceDropdown {
-                width: parent.width; foreground: view.foreground; background: view.background; gold: view.accent
-                objectName: "window-rule-app-picker"
-                appIcons: true
-                choices: pageBody.appChoices
-                current: pageBody.otherApp ? "__other__" : pageBody.appClass
-                placeholder: Eitr.I18n.tr("Choose an app")
-                onChosen: value => { pageBody.otherApp = value === "__other__"; pageBody.appClass = pageBody.otherApp ? "" : value; }
-            }
+        ChoiceDropdown {
+            width: Math.min(parent.width, 460); foreground: view.foreground; background: view.background; gold: view.accent
+            objectName: "window-rule-app-picker"
+            floatingLabel: Eitr.I18n.tr("App")
+            helperText: Eitr.I18n.tr("The app this rule applies to.")
+            appIcons: true
+            choices: pageBody.appChoices
+            current: pageBody.otherApp ? "__other__" : pageBody.appClass
+            onChosen: value => { pageBody.otherApp = value === "__other__"; pageBody.appClass = pageBody.otherApp ? "" : value; }
         }
         PanelTextField { visible: pageBody.otherApp; width: Math.min(320, parent.width); foreground: view.foreground; accent: view.accent; placeholderText: Eitr.I18n.tr("App class"); text: pageBody.appClass; onTextEdited: pageBody.appClass = text }
         ToggleRow { id: titleMatch; description: Eitr.I18n.tr("Window title (optional, exact match)"); text: Eitr.I18n.tr("Match a window title"); foreground: view.foreground; accent: view.accent; onToggled: value => titleMatch.checked = value }
@@ -114,15 +111,13 @@ Column {
             id: floating; text: Eitr.I18n.tr("Always float"); description: Eitr.I18n.tr("Open this app's windows floating.")
             foreground: view.foreground; accent: view.accent; onToggled: value => floating.checked = value
         }
-        ControlRow {
-            text: Eitr.I18n.tr("Workspace"); description: Eitr.I18n.tr("Where this app's windows open.")
-            foreground: view.foreground
-            ChoiceDropdown {
-                id: workspace; width: parent.width; foreground: view.foreground; background: view.background; gold: view.accent
-                current: ""
-                choices: [{value: "", label: Eitr.I18n.tr("Any workspace")}].concat(Array.from({length: 10}, (unused, index) => ({value: String(index + 1), label: String(index + 1)})))
-                onChosen: value => current = value
-            }
+        ChoiceDropdown {
+            id: workspace; width: Math.min(parent.width, 460); foreground: view.foreground; background: view.background; gold: view.accent
+            floatingLabel: Eitr.I18n.tr("Workspace")
+            helperText: Eitr.I18n.tr("Where this app's windows open.")
+            current: ""
+            choices: [{value: "", label: Eitr.I18n.tr("Any workspace")}].concat(Array.from({length: 10}, (unused, index) => ({value: String(index + 1), label: String(index + 1)})))
+            onChosen: value => current = value
         }
         ToggleRow { id: sizing; description: Eitr.I18n.tr("Width") + " × " + Eitr.I18n.tr("Height"); text: Eitr.I18n.tr("Set a size"); foreground: view.foreground; accent: view.accent; onToggled: value => sizing.checked = value }
         Row {

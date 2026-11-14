@@ -188,7 +188,7 @@ Item {
             else if (control.keyboardHighlight) control.commit(control.highlightedIndex);
             else control.expanded = false;
         }
-        ChoiceEntryContent { anchors.fill: parent; anchors.rightMargin: 28; visible: control.appIcons; choice: button.currentChoice; foreground: control.foreground; placeholder: control.placeholder }
+        ChoiceEntryContent { anchors.fill: parent; anchors.rightMargin: 28; visible: control.appIcons; choice: button.currentChoice; foreground: control.foreground; placeholder: control.outlined ? "" : control.placeholder }
         // One chevron, centred on its drawn shape, turned over while the list is open; two
         // different glyphs sat at different heights and the arrow jumped.
         Swatches {

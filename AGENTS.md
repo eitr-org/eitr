@@ -450,6 +450,10 @@ Check these before committing; reviews keep catching them.
   components (`ChoiceDropdown`, `PanelButton`, `PanelTextField`, `PanelSwitch`) everywhere,
   including official plugins, which get them through `api.controls` (see `distro/PLUGINS.md`).
   Never hand-build a look-alike control in a page, panel or plugin; extend the shared one.
+  Every dropdown is the outlined `ChoiceDropdown`: its title in `floatingLabel` on the
+  border and its explanation in `helperText` below, never a `ControlRow` label beside a
+  plain box. `test_control_rows.py` fails on a `ChoiceDropdown` without `floatingLabel`
+  or a `ComboBox`.
 - A new QML type under `quickshell/desktop-bar`, including its subfolders, must be
   listed with its relative path in the root `qmldir`,
   or the running bar cannot find it even though `qmllint` passes.

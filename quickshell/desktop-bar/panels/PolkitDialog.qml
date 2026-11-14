@@ -136,7 +136,7 @@ FocusScope {
             foreground: dialog.foreground
             background: dialog.background
             gold: dialog.accent
-            label: Eitr.I18n.tr("Authenticate as")
+            floatingLabel: Eitr.I18n.tr("Authenticate as")
             accessibleName: Eitr.I18n.tr("Authenticate as")
             available: !dialog.waiting
             choices: dialog.identities.map((identity, index) => ({value: String(index), label: dialog.identityName(identity)}))

@@ -496,9 +496,6 @@
     "Choose a picture": [
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
-    "Choose an app": [
-      "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
-    ],
     "Choose an image for your desktop.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
