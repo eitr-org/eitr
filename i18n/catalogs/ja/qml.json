@@ -47,8 +47,6 @@
   "Adjust the volume for this application.": "このアプリケーションの音量を調整します。",
   "Adjust the volume or mute this device.": "音量を調整、またはこのデバイスをミュートします。",
   "Administrator": "管理者",
-  "After Idle Lock": "自動ロックの後",
-  "After clock": "時計の後",
   "Airplane": "機内モード",
   "Align with %1": "%1に揃える",
   "All": "すべて",
@@ -94,7 +92,6 @@
   "Battery & Power": "バッテリーと電源",
   "Battery health: {percent}%": "バッテリーの状態: {percent}%",
   "Beautify screenshot": "スクリーンショットを美化",
-  "Before clock": "時計の前",
   "Behaviour": "動作",
   "Below": "下",
   "Beside %1": "%1の隣",
@@ -799,7 +796,6 @@
   "Start recording": "録画を開始",
   "Start streaming": "配信を開始",
   "Start the screensaver now.": "今すぐスクリーンセーバーを開始します。",
-  "Status group": "ステータスグループ",
   "Status icons": "ステータスアイコン",
   "Status unavailable": "ステータスを利用できません",
   "Stays on top of open apps.": "開いているアプリの最前面に常に表示します。",
@@ -1025,5 +1021,10 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  今",
   "󰂚  No notifications": "󰂚  通知はありません",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  おやすみモード\n\n通知はありません"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  おやすみモード\n\n通知はありません",
+  "Where it sits on the bar.": "バー上の表示位置。",
+  "Left side": "左側",
+  "Before the clock": "時計の前",
+  "After the clock": "時計の後",
+  "Right side": "右側"
 }

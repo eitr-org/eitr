@@ -157,10 +157,7 @@
     "Administrator": [
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
-    "After Idle Lock": [
-      "quickshell/desktop-bar/plugins/PluginManagement.qml"
-    ],
-    "After clock": [
+    "After the clock": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Airplane": [
@@ -326,7 +323,7 @@
     "Beautify screenshot": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml"
     ],
-    "Before clock": [
+    "Before the clock": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Behaviour": [
@@ -1442,6 +1439,9 @@
     "Left of": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
+    "Left side": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
     "Left-handed buttons": [
       "quickshell/desktop-bar/components/SettingsPointerCard.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -2122,6 +2122,7 @@
     ],
     "Position": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
+      "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -2425,6 +2426,9 @@
     ],
     "Right of": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Right side": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Rotation": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
@@ -2786,9 +2790,6 @@
     ],
     "Start the screensaver now.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
-    ],
-    "Status group": [
-      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Status icons": [
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml"
@@ -3261,6 +3262,9 @@
     ],
     "When on, a new wallpaper changes only the display you are using.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
+    ],
+    "Where it sits on the bar.": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Where this app's windows open.": [
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"

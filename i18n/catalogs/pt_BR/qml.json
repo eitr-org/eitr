@@ -47,8 +47,6 @@
   "Adjust the volume for this application.": "Ajuste o volume deste aplicativo.",
   "Adjust the volume or mute this device.": "Ajuste o volume ou silencie este dispositivo.",
   "Administrator": "Administrador",
-  "After Idle Lock": "Após Bloqueio automático",
-  "After clock": "Após o relógio",
   "Airplane": "Modo avião",
   "Align with %1": "Alinhar com %1",
   "All": "Todas",
@@ -94,7 +92,6 @@
   "Battery & Power": "Bateria e energia",
   "Battery health: {percent}%": "Saúde da bateria: {percent}%",
   "Beautify screenshot": "Embelezar captura",
-  "Before clock": "Antes do relógio",
   "Behaviour": "Comportamento",
   "Below": "Abaixo",
   "Beside %1": "Ao lado de %1",
@@ -799,7 +796,6 @@
   "Start recording": "Iniciar gravação",
   "Start streaming": "Iniciar transmissão",
   "Start the screensaver now.": "Inicie o protetor de tela agora.",
-  "Status group": "Grupo de status",
   "Status icons": "Ícones de status",
   "Status unavailable": "Status indisponível",
   "Stays on top of open apps.": "Fica acima dos apps abertos.",
@@ -1025,5 +1021,10 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  agora",
   "󰂚  No notifications": "󰂚  Nenhuma notificação",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação",
+  "Where it sits on the bar.": "Onde fica na barra.",
+  "Left side": "Lado esquerdo",
+  "Before the clock": "Antes do relógio",
+  "After the clock": "Depois do relógio",
+  "Right side": "Lado direito"
 }
