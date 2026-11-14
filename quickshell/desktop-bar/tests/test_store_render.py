@@ -57,6 +57,12 @@ ShellRoot {
    property int phase: 0
    property var cases: []
    Component.onCompleted: {
+    // Switching from a kind with other sources must list the new kind's own sources.
+    panel.live = true; panel.kind = "wallpapers"; panel.tab = "discover";
+    panel.store = {"lockscreens:official": {items: [{id: "nothing", name: "Nothing", kind: "official"}], loaded: true}, "lockscreens:installed": {items: [], loaded: true}};
+    panel.kind = "lockscreens";
+    if (panel.availableItems.length !== 1) throw new Error("Lockscreens empty after Wallpapers");
+    panel.live = false;
     for (const kind of ["themes", "plugins", "lockscreens", "wallpapers"])
      for (const tab of ["installed", "discover"]) cases.push({kind:kind, tab:tab, name:kind+"-"+tab});
     cases.push({kind:"themes",tab:"discover",filter:"community",name:"community-filter"});

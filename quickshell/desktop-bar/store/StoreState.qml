@@ -301,7 +301,9 @@ Item {
     }
     function sync() {
         const local = store[kind + ":installed"] || {items: []};
-        const indexes = definition.sources.map(source => store[kind + ":" + source] || {items: []});
+        // Read the kind's own entry: onKindChanged can run before the definition binding updates.
+        const current = kinds.find(entry => entry.id === kind) || kinds[0];
+        const indexes = current.sources.map(source => store[kind + ":" + source] || {items: []});
         const merged = [];
         for (const index of indexes) for (const item of index.items) if (!merged.some(row => row.id === item.id)) merged.push(item);
         const index = {items: merged, loaded: indexes.every(entry => entry.loaded), error: indexes.map(entry => entry.error || "").filter(value => value).join("\n")};
