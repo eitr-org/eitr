@@ -110,6 +110,8 @@ class StoreTests(unittest.TestCase):
             with patch('subprocess.run') as command:
                 backend.apply('northern-art')
                 self.assertIn('store-northern-art-north.png', command.call_args.args[0][-1])
+                # The worker answers on stdout; the apply script's output must not reach it.
+                self.assertIs(command.call_args.kwargs['stdout'], subprocess.DEVNULL)
             with patch.object(backend, 'current_paths', return_value={str(backend.folder / 'store-northern-art-north.png')}), self.assertRaisesRegex(ValueError, 'another wallpaper'):
                 backend.remove('northern-art')
             backend.remove('northern-art')

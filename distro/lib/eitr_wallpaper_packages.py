@@ -138,5 +138,7 @@ class Wallpapers:
         import subprocess
         row = next(row for row in self.installed() if row['id'] == item_id)
         path = row.get('path') or self.folder / json.loads((self.records / (item_id + '.json')).read_text())['files'][0]
-        subprocess.run(['bash', str(code_root() / 'walker/scripts/actions/wallpaper/apply.sh'), str(path)], check=True, timeout=90)
+        # The Store's worker answers on stdout: the script's own output must not reach it.
+        subprocess.run(['bash', str(code_root() / 'walker/scripts/actions/wallpaper/apply.sh'), str(path)], check=True, timeout=90,
+                       stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         return item_id
