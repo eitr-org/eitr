@@ -137,6 +137,13 @@ promises below. The roadmap table in `distro/RELEASES.md` has the wording.
   survey of Hyprland dependencies and the adapter plan are in
   `eitr-testing/ideas/niri/` (INVENTORY.md, PLAN.md). Until then, new settings keep
   compositor-neutral data (as the keybind editor does).
+- **After 1.0: analyse a Quickshell launcher in place of Walker (noted 2026-11-14).**
+  Possible gains: no process start per open, the panels' look and motion, menus that grow
+  into the bar panels in place, live rows, one i18n system, no Walker XML/GTK blur
+  workaround. Risks: rewriting every menu and provider (apps, clipboard, calculator, files,
+  emoji), CJK input-method support in Quickshell text fields, search speed in QML, a crash
+  taking the bar down. First step: a prototype Main menu in Quickshell on Elephant's data,
+  measured against Walker (open, typing) and tested with CJK input.
 - **Upgrade that skips releases.** 1.0 promises supported upgrades, so test
   installing 0.6.4 and updating straight to the 0.8 candidate. The 0.6.4 ISO is
   kept locally for this test only, then deleted.
