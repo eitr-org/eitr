@@ -116,9 +116,13 @@ for _, key in ipairs(bound) do print(key) end
         applications = self.config / 'data/applications'
         applications.mkdir(parents=True)
         (applications / 'test.desktop').write_text('[Desktop Entry]\nName=Example\nStartupWMClass=example.app\nIcon=example\n')
-        with patch.object(rules.subprocess, 'run', side_effect=FileNotFoundError):
+        # Without StartupWMClass the class is the desktop file name, as Wayland apps report it.
+        (applications / 'org.example.Viewer.desktop').write_text('[Desktop Entry]\nName=Viewer\nIcon=viewer\n')
+        with patch.object(rules.subprocess, 'run', side_effect=FileNotFoundError), \
+                patch.dict(os.environ, {'XDG_DATA_DIRS': str(self.config / 'none')}):
             summary = rules.summary()
-        self.assertEqual(summary['apps'][0]['class'], 'example.app')
+        self.assertEqual([(app['class'], app['icon']) for app in summary['apps']],
+                         [('example.app', 'example'), ('org.example.Viewer', 'viewer')])
         self.assertEqual(summary['rules'], [])
         self.assertTrue(keys.summary()['items'])
         for script in ('keybinds', 'window-rules'):

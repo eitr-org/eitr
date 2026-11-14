@@ -105,7 +105,8 @@ def apps():
             try:
                 desktop.read(path, encoding='utf-8')
                 entry = desktop['Desktop Entry']
-                app_class = entry.get('StartupWMClass', '')
+                # Without StartupWMClass a Wayland app's class is its desktop file name (firefox, kitty).
+                app_class = entry.get('StartupWMClass', '') or path.stem
                 if app_class and entry.get('Hidden', 'false') != 'true' and entry.get('NoDisplay', 'false') != 'true':
                     result[app_class] = {'class': app_class, 'name': entry.get('Name', app_class), 'icon': entry.get('Icon', ''), 'title': ''}
             except (OSError, configparser.Error, KeyError, UnicodeError):
