@@ -17,6 +17,8 @@ Abre Eitr Store desde el lanzador, SUPER + F2, el menú Escritorio de Walker o M
 
 Temas, Plugins, Pantallas de bloqueo y Fondos tienen Instalado y Descubrir. Descubrir combina tarjetas oficiales y comunitarias con insignias de origen. Filtra con Todos / Oficial / Comunidad; la búsqueda abarca las categorías cargadas de la vista actual. Los temas también se filtran por claro/oscuro. Arriba/Abajo cambia de fila; Derecha o Tab entra en la cuadrícula y la izquierda vuelve; Ctrl+F enfoca la búsqueda.
 
+La búsqueda está encima de la cuadrícula en Instalado y Descubrir. Escape o el botón de borrar vacía la consulta. El botón de filtro contiguo ofrece Todos / Claro / Oscuro para temas; un punto indica un filtro activo.
+
 Pulsa un tema, bloqueo o fondo instalado para usarlo. Las tarjetas de Descubrir muestran detalles, imágenes y fuentes. Selecciona temas o paquetes de fondos y revisa antes de confirmar la instalación. Actualizar todo actualiza temas en secuencia y revisa cada plugin. Eliminar siempre pide confirmación; no se pueden eliminar el tema ni el bloqueo actuales.
 
 Los plugins tienen todos los permisos de tu cuenta. Cada instalación y actualización muestra fuente, commit fijado, autor, archivos, comandos, paquetes y advertencias. Revisa el código y, si quieres, el consejo de IA. Los commits comunitarios están fijados en el índice. La revisión caduca a los 15 minutos y al cerrar. Instalado > Añadir acepta direcciones Git HTTPS o SSH de temas y plugins. Las tarjetas instaladas abren ajustes, activación, actualización y eliminación; se pueden retirar paquetes del plugin que ya no se usan.

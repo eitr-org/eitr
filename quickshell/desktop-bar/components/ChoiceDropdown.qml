@@ -22,6 +22,9 @@ Item {
     // With a label, the closed control is a settings row: the label on the left and the
     // current choice on the right, so the row itself is the selector.
     property string label: ""
+    property bool iconOnly: false
+    property real popupWidth: width
+    property bool appIcons: false
     // Outlined field: the label sits inside the empty field and moves into its top border
     // once a choice is shown or the list opens; the helper text describes it underneath.
     property string floatingLabel: ""
@@ -154,12 +157,15 @@ Item {
         id: button
         y: control.labelRoom
         width: parent.width
-        height: control.outlined ? 48 : PanelStyle.selectionRowHeight
+        // An icon-only selector takes the size it is given, e.g. a filter inside a search field.
+        height: control.iconOnly ? control.height : control.outlined ? 48 : PanelStyle.selectionRowHeight
+        iconSize: control.iconOnly ? 15 : 20
         foreground: control.foreground
         textAlignment: Text.AlignLeft
         flat: control.outlined
         // The value lines up with the floating label above it.
         textInset: control.outlined ? 14 : 8
+        icon: control.iconOnly
         // Focus shows as the gold border, so a chosen field is not left filled.
         focusFill: !control.outlined
         selected: control.expanded && !control.outlined
@@ -167,8 +173,8 @@ Item {
         readonly property string currentText: currentChoice ? control.labelOf(currentChoice) : control.placeholder
         readonly property string currentGlyph: control.glyphOf(currentChoice)
         leadingIcon: control.label === "" ? currentGlyph : ""
-        text: control.outlined ? (control.currentIndex >= 0 ? currentText : "") : control.label || currentText
-        Accessible.name: control.accessibleName || control.floatingLabel || control.label || text
+        text: control.appIcons ? "" : control.outlined ? (control.currentIndex >= 0 ? currentText : "") : control.label || currentText
+        Accessible.name: control.accessibleName || control.floatingLabel || control.label || button.currentText
         Accessible.role: Accessible.ComboBox
         activeFocusOnTab: true
         Keys.onPressed: event => control.typeAhead(event)
@@ -182,6 +188,7 @@ Item {
             else if (control.keyboardHighlight) control.commit(control.highlightedIndex);
             else control.expanded = false;
         }
+        ChoiceEntryContent { anchors.fill: parent; anchors.rightMargin: 28; visible: control.appIcons; choice: button.currentChoice; foreground: control.foreground; placeholder: control.placeholder }
         // One chevron, centred on its drawn shape, turned over while the list is open; two
         // different glyphs sat at different heights and the arrow jumped.
         Swatches {
@@ -196,6 +203,7 @@ Item {
             anchors.right: chevron.left; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter
         }
         Item {
+            visible: !control.iconOnly
             id: chevron
             anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter
             width: 14; height: 14
@@ -211,7 +219,7 @@ Item {
             }
         }
         Text {
-            visible: control.label !== ""
+            visible: control.label !== "" && !control.iconOnly
             anchors.right: chevron.left; anchors.rightMargin: 8; anchors.verticalCenter: parent.verticalCenter
             width: Math.max(0, parent.width * 0.6)
             horizontalAlignment: Text.AlignRight; elide: Text.ElideRight
@@ -263,9 +271,9 @@ Item {
             upward = below < wanted && above > below;
             room = Math.max(PanelStyle.selectionRowHeight + topPadding + bottomPadding, Math.min(wanted, upward ? above : below));
         }
-        x: 0
+        x: Math.min(0, control.width - width)
         y: upward ? button.y - height - gap : button.y + button.height + gap
-        width: control.width
+        width: control.popupWidth
         height: Math.min(rowsHeight + topPadding + bottomPadding, room)
         padding: 4
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
@@ -309,18 +317,20 @@ Item {
                 textAlignment: Text.AlignLeft
                 leadingIcon: control.glyphOf(modelData)
                 // The selected row is marked by its background alone.
-                text: control.labelOf(modelData)
+                text: control.appIcons ? "" : control.labelOf(modelData)
                 // Outlined fields line their rows up with the value (list padding 4 + 10).
                 textInset: control.outlined ? 10 : 8
                 selected: control.currentIndex === index
                 available: modelData.available !== false
                 activeFocusOnTab: false
                 Accessible.role: Accessible.RadioButton
+                Accessible.name: control.labelOf(modelData)
                 Accessible.checked: selected
                 Keys.onReturnPressed: control.commit(control.highlightedIndex)
                 Keys.onEnterPressed: control.commit(control.highlightedIndex)
                 Keys.onSpacePressed: control.commit(control.highlightedIndex)
                 onClicked: control.commit(index)
+                ChoiceEntryContent { anchors.fill: parent; visible: control.appIcons; choice: row.modelData; foreground: row.foreground }
                 HoverHandler {
                     id: rowHover
                     onHoveredChanged: if (hovered && !control.keyboardHighlight) control.highlightedIndex = row.index

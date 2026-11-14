@@ -26,10 +26,10 @@ FocusScope {
                 catalog.sidebarFocus = true; catalog.cursor = -1; event.accepted = true; return;
             }
             if ((event.key === Qt.Key_F && (event.modifiers & Qt.ControlModifier)) || (event.key === Qt.Key_Slash && !event.modifiers)) {
-                catalog.sidebar.searchField.forceActiveFocus(); catalog.sidebar.searchField.selectAll(); event.accepted = true; return;
+                catalog.searchField.forceActiveFocus(); catalog.searchField.selectAll(); event.accepted = true; return;
             }
             if (event.text && event.text !== " " && !(event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier)) && !/[\x00-\x1f\x7f]/.test(event.text)) {
-                catalog.query += event.text; catalog.sidebarFocus = false; catalog.sidebar.searchField.forceActiveFocus(); catalog.sidebar.searchField.cursorPosition = catalog.sidebar.searchField.text.length;
+                catalog.query += event.text; catalog.sidebarFocus = false; catalog.searchField.forceActiveFocus(); catalog.searchField.cursorPosition = catalog.searchField.text.length;
                 event.accepted = true; return;
             }
             const count = catalog.navigable.length;

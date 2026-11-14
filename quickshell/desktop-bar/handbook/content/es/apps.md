@@ -201,6 +201,8 @@ con clase conocida. Elige una aplicación y configura flotante, espacio de traba
 y opacidad (0.2–1.0). La clase y el título opcional coinciden exactamente. Edita o elimina
 con confirmación. Las reglas personales siguen a las de Eitr; vuelve a abrir la aplicación para comprobar la posición inicial.
 
+El selector de aplicaciones muestra los iconos de las entradas de escritorio, con un icono de ventana genérico como alternativa. La clase aparece debajo del nombre solo cuando es diferente.
+
 Las opciones permanecen en este PC en `~/.config/eitr/keybinds.json` y `window-rules.json`
 (o `$XDG_CONFIG_HOME/eitr`). Los ayudantes generan `hypr/keybinds.lua` y
 `hypr/window-rules.lua` y recargan Hyprland tras cada cambio. Las actualizaciones los conservan.

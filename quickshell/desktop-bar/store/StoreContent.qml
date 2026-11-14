@@ -12,6 +12,7 @@ StoreState {
     addressInput: review.addressInput
     removePackagesChoice: removeSheet.removePackagesChoice
     sidebar: navigationSidebar
+    searchField: grid.searchField
     Rectangle { anchors.fill: parent; color: catalog.background; z: -1 }
     StoreSidebar { id: navigationSidebar; catalog: catalog }
     Rectangle { x: navigationSidebar.x + navigationSidebar.width + PanelStyle.padding; width: 1; height: parent.height; color: catalog.line }

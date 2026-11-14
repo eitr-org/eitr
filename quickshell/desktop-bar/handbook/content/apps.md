@@ -271,6 +271,7 @@ SUPER + M (lock) and D / SUPER + D / SUPER + SHIFT + D (dictation release) are r
 Learn > Shortcuts shows effective keys; the Handbook tables show defaults.
 
 Settings > Window Rules adds rules for open windows or installed apps with a known class.
+The app picker shows desktop-entry icons, with a generic window icon as fallback. App classes appear below names only when they differ.
 Choose an app, then floating, workspace (1–10, `name:NAME` or `special:NAME`), size
 (two positive pixel values or percentages up to 100%) and opacity (0.2–1.0). Class and
 optional title match exactly. Edit changes a rule; Remove asks for confirmation.

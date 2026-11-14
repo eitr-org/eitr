@@ -186,6 +186,8 @@ oder `special:NAME`), Größe (zwei positive Pixelwerte oder Prozentwerte bis 10
 (0.2–1.0) festlegen. Klasse und optionaler Titel stimmen genau überein. Bearbeiten ändert die
 Regel; Entfernen fragt nach. Persönliche Regeln folgen den Eitr-Regeln. Anwendung erneut öffnen, um die Anfangsposition zu prüfen.
 
+Die App-Auswahl zeigt Symbole aus Desktop-Einträgen und ersatzweise ein allgemeines Fenstersymbol. Die Klasse steht nur dann unter dem Namen, wenn sie davon abweicht.
+
 Die Auswahl bleibt auf diesem PC in `~/.config/eitr/keybinds.json` und `window-rules.json`
 (oder `$XDG_CONFIG_HOME/eitr`). Helfer erzeugen `hypr/keybinds.lua` und
 `hypr/window-rules.lua` und laden Hyprland nach jeder Änderung neu. Updates behalten die Dateien.

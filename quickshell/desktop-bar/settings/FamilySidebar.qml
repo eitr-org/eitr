@@ -17,6 +17,7 @@ ColumnLayout {
     property string closeName: Eitr.I18n.tr("Close")
     property string placeholder: ""
     property string query: ""
+    property bool searchVisible: true
     property var entries: []
     property string currentId: ""
     // A row picked from the search field with Up/Down, or -1.
@@ -47,6 +48,7 @@ ColumnLayout {
     }
     TextField {
         id: search
+        visible: sidebar.searchVisible
         Layout.fillWidth: true
         enabled: sidebar.interactive
         text: sidebar.query

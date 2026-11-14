@@ -20,7 +20,7 @@ Column {
     property string sizeUnit: "px"
     readonly property int sizeLimit: sizeUnit === "%" ? 100 : 32768
     readonly property string sizeError: !sizing.checked ? "" : !(/^[1-9][0-9]*$/.test(ruleWidth.text) && /^[1-9][0-9]*$/.test(ruleHeight.text)) ? Eitr.I18n.tr("Enter a positive width and height.") : Number(ruleWidth.text) > sizeLimit || Number(ruleHeight.text) > sizeLimit ? Eitr.I18n.tr("Size must be between 1 and %1.").arg(sizeLimit) : ""
-    readonly property var appChoices: editor.summary.apps.slice().sort((first, second) => Number(Boolean(second.title)) - Number(Boolean(first.title))).map(app => ({value: app.class, label: app.name + " · " + app.class})).concat([{value: "__other__", label: Eitr.I18n.tr("Other app…")}])
+    readonly property var appChoices: editor.summary.apps.slice().sort((first, second) => Number(Boolean(second.title)) - Number(Boolean(first.title))).map(app => ({value: app.class, label: app.name, description: app.name.toLocaleLowerCase() === app.class.toLocaleLowerCase() ? "" : app.class, icon: app.icon})).concat([{value: "__other__", label: Eitr.I18n.tr("Other app…")}])
     width: parent ? parent.width : 0
     spacing: 12
     function edit(index) {
@@ -99,6 +99,8 @@ Column {
             foreground: view.foreground
             ChoiceDropdown {
                 width: parent.width; foreground: view.foreground; background: view.background; gold: view.accent
+                objectName: "window-rule-app-picker"
+                appIcons: true
                 choices: pageBody.appChoices
                 current: pageBody.otherApp ? "__other__" : pageBody.appClass
                 placeholder: Eitr.I18n.tr("Choose an app")

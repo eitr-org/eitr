@@ -103,7 +103,7 @@
     ],
     "Add": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml",
-      "quickshell/desktop-bar/store/StoreGrid.qml"
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml"
     ],
     "Add Layout": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -122,8 +122,8 @@
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Add from a Git address": [
-      "quickshell/desktop-bar/store/StoreGrid.qml",
-      "quickshell/desktop-bar/store/StoreReview.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml",
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml"
     ],
     "Add or Remove Layouts…": [
       "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml"
@@ -168,7 +168,7 @@
     "All": [
       "quickshell/desktop-bar/components/CatalogEmptyState.qml",
       "quickshell/desktop-bar/panels/CalendarMenu.qml",
-      "quickshell/desktop-bar/store/StoreGrid.qml"
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml"
     ],
     "All day": [
       "quickshell/desktop-bar/components/DayAgenda.qml",
@@ -210,7 +210,8 @@
     "Appearance": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
-      "quickshell/desktop-bar/settings/SettingsIndex.js"
+      "quickshell/desktop-bar/settings/SettingsIndex.js",
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml"
     ],
     "Applications": [
       "quickshell/desktop-bar/panels/AudioMenu.qml",
@@ -568,6 +569,9 @@
     "Clear all": [
       "quickshell/desktop-bar/notifications/NotificationList.qml"
     ],
+    "Clear search": [
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml"
+    ],
     "Click a picture to preview it, then Apply or Cancel preview.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
@@ -621,7 +625,7 @@
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Community": [
-      "quickshell/desktop-bar/store/StoreGrid.qml",
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml",
       "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Configure this source in OBS": [
@@ -804,7 +808,7 @@
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/store/StoreDetail.qml",
       "quickshell/desktop-bar/store/StoreGitThemeCard.qml",
-      "quickshell/desktop-bar/store/StoreGrid.qml",
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Data-only images · Review selected sources": [
@@ -1444,7 +1448,7 @@
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/store/StoreDetail.qml",
       "quickshell/desktop-bar/store/StoreGitThemeCard.qml",
-      "quickshell/desktop-bar/store/StoreGrid.qml",
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Link speed": [
@@ -1853,7 +1857,7 @@
     ],
     "Official": [
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
-      "quickshell/desktop-bar/store/StoreGrid.qml",
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml",
       "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Official Eitr lockscreen designs. Installing requires the administrator password.": [
@@ -2511,7 +2515,7 @@
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
     "Search Store": [
-      "quickshell/desktop-bar/store/StoreSidebar.qml"
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml"
     ],
     "Search a city": [
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
@@ -3123,7 +3127,7 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Update all (%1)": [
-      "quickshell/desktop-bar/store/StoreGrid.qml"
+      "quickshell/desktop-bar/store/StoreSearchHeader.qml"
     ],
     "Update available": [
       "quickshell/desktop-bar/plugins/PluginDetails.qml",

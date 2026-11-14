@@ -190,6 +190,8 @@ Backspace 在确认后禁用。发生冲突时可交换或取消。已更改的�
 类名和可选标题均精确匹配。编辑可修改规则；删除需要确认。个人规则在 Eitr 规则之后应用。
 请重新打开应用以检查初始位置。
 
+应用选择器显示桌面条目的图标，无法解析时使用通用窗口图标。仅当类名与名称不同时，才在名称下方显示类名。
+
 选项保存在此电脑的 `~/.config/eitr/keybinds.json` 和 `window-rules.json` 中
 （或 `$XDG_CONFIG_HOME/eitr`）。辅助程序生成 `hypr/keybinds.lua` 和
 `hypr/window-rules.lua`，并在每次更改后重新加载 Hyprland。更新会保留这些文件。

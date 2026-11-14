@@ -285,3 +285,5 @@ StoreState 1.0 store/StoreState.qml
 StoreKeyboard 1.0 store/StoreKeyboard.qml
 StoreSheet 1.0 store/StoreSheet.qml
 StoreInstallReview 1.0 store/StoreInstallReview.qml
+StoreSearchHeader 1.0 store/StoreSearchHeader.qml
+ChoiceEntryContent 1.0 components/ChoiceEntryContent.qml

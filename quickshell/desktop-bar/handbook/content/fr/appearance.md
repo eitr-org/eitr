@@ -19,6 +19,8 @@ Ouvrez Eitr Store depuis le lanceur, SUPER + F2, le menu Bureau de Walker ou Plu
 
 Thèmes, Plugins, Écrans de verrouillage et Fonds d’écran proposent Installé et Découvrir. Découvrir réunit les cartes officielles et communautaires avec un badge de provenance. Filtrez par Tous / Officiel / Communauté ; la recherche couvre les catégories chargées de la vue actuelle. Les thèmes ont aussi un filtre clair/sombre. Haut/Bas change de ligne, Droite ou Tab entre dans la grille, Gauche revient ; Ctrl+F active la recherche.
 
+La recherche se trouve au-dessus de la grille dans Installé et Découvrir. Échap ou le bouton d’effacement vide la recherche. Le bouton de filtre adjacent propose Tous / Clair / Sombre pour les thèmes ; un point indique un filtre actif.
+
 Cliquez sur un thème, verrouillage ou fond installé pour l’utiliser. Les cartes Découvrir ouvrent détails, images et sources. Sélectionnez les thèmes ou packs d’images puis examinez et confirmez avant toute installation. Tout mettre à jour traite les thèmes successivement et examine chaque plugin. La suppression demande confirmation ; le thème et le verrouillage actuels sont protégés.
 
 Les plugins ont tous les droits de votre compte. Chaque installation et mise à jour présente source, commit fixé, auteur, fichiers, commandes, paquets et avertissements. Examinez le code et éventuellement l’avis de l’IA. Les commits communautaires sont fixés dans l’index. L’examen expire après 15 minutes ou à la fermeture. Installé > Ajouter accepte les adresses Git HTTPS ou SSH des thèmes et plugins. Les cartes installées ouvrent réglages, activation, mises à jour et suppression ; les paquets inutilisés du plugin peuvent être retirés.

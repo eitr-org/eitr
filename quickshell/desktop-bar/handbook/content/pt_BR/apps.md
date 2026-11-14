@@ -198,6 +198,8 @@ e opacidade (0.2–1.0). A classe e o título opcional correspondem exatamente. 
 ou remova com confirmação. Regras pessoais vêm depois das regras do Eitr; reabra o aplicativo
 para conferir o posicionamento inicial.
 
+O seletor de apps mostra ícones das entradas desktop, com um ícone de janela genérico como alternativa. A classe aparece abaixo do nome apenas quando é diferente.
+
 As escolhas ficam neste PC em `~/.config/eitr/keybinds.json` e `window-rules.json`
 (ou `$XDG_CONFIG_HOME/eitr`). Os auxiliares geram `hypr/keybinds.lua` e
 `hypr/window-rules.lua` e recarregam o Hyprland a cada alteração. Atualizações preservam esses

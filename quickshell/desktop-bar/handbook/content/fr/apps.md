@@ -215,6 +215,8 @@ jusqu’à 100%) et l’opacité (0.2–1.0). La classe et le titre facultatif c
 Modifiez une règle ou supprimez-la avec confirmation. Les règles personnelles suivent celles
 d’Eitr ; rouvrez l’application pour vérifier le placement initial.
 
+Le sélecteur d’applications affiche les icônes des entrées de bureau, avec une icône de fenêtre générique en remplacement. La classe apparaît sous le nom uniquement si elle est différente.
+
 Les choix restent sur ce PC dans `~/.config/eitr/keybinds.json` et `window-rules.json`
 (ou `$XDG_CONFIG_HOME/eitr`). Les assistants génèrent `hypr/keybinds.lua` et
 `hypr/window-rules.lua` puis rechargent Hyprland après chaque modification. Les mises à jour

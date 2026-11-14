@@ -191,6 +191,8 @@ SUPER + M(잠금)과 D / SUPER + D / SUPER + SHIFT + D(받아쓰기 종료)는 �
 클래스와 선택적 제목은 정확히 일치합니다. 편집으로 변경하며 삭제는 확인이 필요합니다.
 개인 규칙은 Eitr 규칙 뒤에 적용됩니다. 초기 위치를 확인하려면 앱을 다시 여세요.
 
+앱 선택기는 데스크톱 항목의 아이콘을 표시하며, 찾을 수 없으면 일반 창 아이콘을 사용합니다. 클래스가 이름과 다른 경우에만 이름 아래에 표시됩니다.
+
 설정은 이 PC의 `~/.config/eitr/keybinds.json` 및 `window-rules.json`(또는
 `$XDG_CONFIG_HOME/eitr`)에 유지됩니다. 도우미는 `hypr/keybinds.lua` 및
 `hypr/window-rules.lua`를 생성하고 변경할 때마다 Hyprland를 다시 읽습니다. 업데이트해도 유지됩니다.

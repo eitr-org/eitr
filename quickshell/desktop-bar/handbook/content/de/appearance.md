@@ -17,6 +17,8 @@ Nur bei Scrollen: **SUPER + ALT + Pfeiltasten** fokussiert Fenster; **SUPER + AL
 
 Themes, Plugins, Sperrbildschirme und Hintergrundbilder haben jeweils Installiert und Entdecken. Entdecken vereint offizielle und Community-Karten mit Herkunftskennzeichen. Alle / Offiziell / Community filtert die Auswahl; die Suche durchsucht geladene Kategorien der aktuellen Ansicht. Themes bieten zusätzlich Hell/Dunkel. Auf/Ab wechselt Seitenleistenzeilen, Rechts oder Tab öffnet das Raster, Links kehrt zurück; Strg+F fokussiert die Suche.
 
+Die Suche steht über dem Raster in Installiert und Entdecken. Escape oder die Löschtaste leert die Suchanfrage. Die Filterschaltfläche daneben bietet Alle / Hell / Dunkel für Themes; ein Punkt kennzeichnet einen aktiven Filter.
+
 Ein Klick verwendet installierte Themes, Sperrbildschirme und Bilder. Entdecken-Karten öffnen Details und Quellen. Themes und Bildpakete werden erst nach Prüfung und Bestätigung installiert. Alle aktualisieren aktualisiert Themes nacheinander und prüft jedes Plugin einzeln. Entfernen erfordert eine Bestätigung; aktuelle Themes und Sperrbildschirme bleiben geschützt.
 
 Plugins besitzen die vollen Rechte deines Kontos. Vor Installation und Updates zeigt die Prüfung Quelle, festen Commit, Autor, Dateien, Befehle, Pakete und Warnungen. Prüfe den Code und optional die KI-Hinweise. Community-Commits sind im Index festgelegt. Prüfungen verfallen nach 15 Minuten und beim Schließen. Installiert > Hinzufügen akzeptiert HTTPS- und SSH-Git-Adressen für Themes und Plugins. Plugin-Karten öffnen Einstellungen, Aktivierung, Updates und Entfernen; ungenutzte Plugin-Pakete können optional entfernt werden.

@@ -14,6 +14,7 @@ Item {
     property var detailScroll
     property var addressInput
     property var removePackagesChoice
+    property var searchField
     property var sidebar
     id: catalog
     property color foreground: SettingsPalette.foreground
@@ -248,7 +249,7 @@ Item {
     function filtered(items) { return items.filter(item => StoreSearch.matches(item, query) && (kind !== "themes" || tone === "all" || item.light === (tone === "light"))); }
     readonly property var locals: filtered(installed)
     readonly property var discoveries: filtered(availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: item.kind, channel: item.channel}))).filter(item => sourceFilter === "all" || (sourceFilter === "official" ? ["builtin", "official"].includes(item.kind) : item.kind === "community"))
-    readonly property var navigable: query.trim() && live ? StoreSearch.rows(store, kinds, tab, query, sourceFilter) : getMore ? discoveries : locals
+    readonly property var navigable: query.trim() && live ? StoreSearch.rows(store, kinds, tab, query, sourceFilter, kind === "themes" ? tone : "all") : getMore ? discoveries : locals
     function toggle(item) {
         if (item.storeKind && item.storeKind !== kind) kind = item.storeKind;
         if (!capabilities.useOnClick || capabilities.needsAdministrator || busy || isInstalled(item)) return;

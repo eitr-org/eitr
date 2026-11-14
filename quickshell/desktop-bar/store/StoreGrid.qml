@@ -10,6 +10,7 @@ import "../PanelStyle.js" as PanelStyle
 Column {
     required property var catalog
     property alias scroll: scroll
+    property alias searchField: searchHeader.searchField
     property real selectionHeight: 0
 
     id: contentLayout
@@ -23,38 +24,7 @@ Column {
         title: catalog.currentPage.title
         description: catalog.currentPage.description
     }
-    ChoiceSegmented {
-        visible: catalog.getMore
-        width: Math.min(360, parent.width)
-        foreground: catalog.foreground; background: catalog.background; gold: catalog.gold
-        choices: [{id: "all", label: Eitr.I18n.tr("All")}, {id: "official", label: Eitr.I18n.tr("Official")}, {id: "community", label: Eitr.I18n.tr("Community")}]
-        current: catalog.sourceFilter
-        onChosen: value => { catalog.sourceFilter = value; catalog.cursor = -1; }
-    }
-    Item {
-        width: parent.width
-        height: visible ? PanelStyle.selectionRowHeight : 0
-        visible: (catalog.kind === "themes" && !catalog.communityEmpty) || (catalog.tab === "installed" && ["themes", "plugins"].includes(catalog.kind))
-        // All themes by default, or only the light or the dark ones.
-        ChoiceSegmented {
-            visible: catalog.kind === "themes" && !catalog.communityEmpty
-            width: Math.min(300, parent.width - (addButton.visible ? addButton.width + 12 : 0) - (updateAllButton.visible ? updateAllButton.width + 12 : 0))
-            foreground: catalog.foreground; background: catalog.background; gold: catalog.gold
-            available: !catalog.busy
-            choices: [{id: "all", label: Eitr.I18n.tr("All")}, {id: "light", label: Eitr.I18n.tr("Light")}, {id: "dark", label: Eitr.I18n.tr("Dark")}]
-            current: catalog.tone
-            onChosen: value => { catalog.tone = value; catalog.cursor = -1; catalog.forceActiveFocus(); }
-        }
-        // Narrow windows keep the filter readable and show Update all as its icon.
-        StoreActionButton { catalog: contentLayout.catalog; id: updateAllButton; objectName: "update-all"; anchors.right: addButton.left; anchors.rightMargin: 12; height: PanelStyle.selectionRowHeight
-            readonly property bool compact: parent.width < 300 + addButton.width + updateAllLabel.advanceWidth + 32 + 24
-            width: compact ? height : Math.max(130, updateAllLabel.advanceWidth + 32); icon: compact; text: compact ? "\u{F06B0}" : updateAllLabel.text
-            Accessible.name: updateAllLabel.text
-            visible: catalog.tab === "installed" && catalog.pendingUpdates.length > 0; available: !catalog.busy; onClicked: catalog.updateAll()
-            BarTooltip { target: updateAllButton; hovered: updateAllButton.compact && updateAllButton.hovered; text: updateAllLabel.text; foreground: catalog.foreground; background: catalog.raised } }
-        TextMetrics { id: updateAllLabel; font.family: DesktopFonts.family; font.pixelSize: 13; text: Eitr.I18n.tr("Update all (%1)").arg(catalog.pendingUpdates.length) }
-        StoreActionButton { catalog: contentLayout.catalog; id: addButton; anchors.right: parent.right; width: 110; height: PanelStyle.selectionRowHeight; visible: catalog.tab === "installed" && ["themes", "plugins"].includes(catalog.kind); available: !catalog.busy; leadingIcon: ""; text: Eitr.I18n.tr("Add"); Accessible.name: Eitr.I18n.tr("Add from a Git address"); onClicked: { catalog.addingAddress = true; catalog.error = ""; catalog.addressInput.forceActiveFocus(); } }
-    }
+    StoreSearchHeader { id: searchHeader; width: parent.width; catalog: contentLayout.catalog }
     StoreLabel { catalog: contentLayout.catalog; width: parent.width; visible: text !== ""; text: (!catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
     Flickable {
         id: scroll

@@ -17,6 +17,8 @@ Abra a Eitr Store pelo lançador de aplicativos, SUPER + F2, menu Desktop do Wal
 
 Temas, Plugins, Telas de bloqueio e Papéis de parede têm Instalado e Descobrir. Descobrir reúne cartões oficiais e da comunidade com selos de origem. Use Todos / Oficial / Comunidade para filtrar; a busca abrange as categorias carregadas da visualização atual. Temas também têm Claro/Escuro. Cima/Baixo muda a linha, Direita ou Tab entra na grade e Esquerda retorna; Ctrl+F foca a busca.
 
+A busca fica acima da grade em Instalado e Descobrir. Escape ou o botão de limpar apaga a consulta. O botão de filtro ao lado oferece Todos / Claro / Escuro para temas; um ponto indica um filtro ativo.
+
 Clique em um tema, bloqueio ou papel de parede instalado para usá-lo. Cartões em Descobrir abrem detalhes, imagens e fontes. Selecione temas ou pacotes de imagens e revise antes de confirmar a instalação. Atualizar todos atualiza temas em sequência e revisa cada plugin. Remover sempre pede confirmação; o tema e o bloqueio atuais ficam protegidos.
 
 Plugins têm todas as permissões da sua conta. Cada instalação e atualização mostra fonte, commit fixado, autor, arquivos, comandos, pacotes e avisos. Revise o código e, se quiser, a orientação da IA. Commits da comunidade são fixados no índice. Revisões expiram após 15 minutos e ao fechar. Instalado > Adicionar aceita endereços Git HTTPS ou SSH de temas e plugins. Os cartões instalados abrem configurações, ativação, atualização e remoção; pacotes instalados pelo plugin sem uso podem ser removidos.

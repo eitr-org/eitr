@@ -21,3 +21,9 @@ assert.equal(rows('discover', 'community')[1].channel, 'community');
 assert.equal(context.matches({name: 'Northern sky', maintainer: 'Example'}, 'sky example'), true);
 assert.equal(context.matches({name: 'Northern sky'}, 'forest'), false);
 console.log('Store: merged discovery, provenance filters and global search passed');
+
+store['themes:official'].items[0].light = false;
+store['themes:community'].items[0].light = true;
+assert.equal(context.rows(store, kinds, 'discover', 'northern', 'all', 'light').length, 2);
+assert.equal(context.rows(store, kinds, 'discover', 'northern', 'official', 'light').length, 0);
+assert.equal(context.rows(store, kinds, 'discover', 'northern', 'official', 'dark').length, 1);

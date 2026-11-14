@@ -38,7 +38,7 @@ ShellRoot {
    {default:"SUPER + RETURN",effective:"SUPER + RETURN",title:"Open terminal",group:"Launchers",changed:false,protected:false},
    {default:"SUPER + E",effective:"SUPER + SHIFT + E",title:"Open file manager",group:"Launchers",changed:true,protected:false},
    {default:"SUPER + P",effective:null,title:"Fuzzy-find files",group:"Launchers",changed:true,protected:false}]})
- property var rulesData: ({rules:[{class:"example.app",float:true,workspace:"3",size:"900 600",opacity:0.9}],apps:[{class:"installed.app",name:"An installed app",icon:"",title:""},{class:"example.app",name:"Example app",icon:"applications-internet",title:"Example"}]})
+ property var rulesData: ({rules:[{class:"example.app",float:true,workspace:"3",size:"900 600",opacity:0.9}],apps:[{class:"kitty",name:"kitty",icon:"",title:""},{class:"example.app",name:"Example app",icon:"ICON_PATH",title:"Example"}]})
  Component.onCompleted: {
   const combinations = [
    [Qt.Key_Return, Qt.MetaModifier, "SUPER + RETURN"],
@@ -73,6 +73,11 @@ ShellRoot {
      if (page.otherApp) throw new Error("new form must wait for Other app selection");
      page.edit(0);
      if (page.appChoices[0].value !== "example.app") throw new Error("open windows must come first");
+     const picker = root.find(page, "window-rule-app-picker");
+     if (page.appChoices[0].icon !== "ICON_PATH" || page.appChoices[0].description !== "example.app") throw new Error("App metadata lost");
+     if (page.appChoices[1].label !== "kitty" || page.appChoices[1].description !== "") throw new Error("Duplicate class label");
+     if (!picker.appIcons || picker.current !== "example.app") throw new Error("App picker icon mode missing");
+     picker.expanded = true;
      if (page.sizeError !== "") throw new Error("valid pixel size rejected");
      page.sizeUnit = "%";
      if (page.sizeError === "") throw new Error("oversize percentage accepted");
@@ -81,6 +86,9 @@ ShellRoot {
     }
     step++; return;
    }
+   if (root.form) root.find(window.contentItem, "window-rule-app-picker").popup.background.parent.grabToImage(result => {
+    if (!result.saveToFile("OUTPUT/app-picker-" + (root.light ? "light" : "dark") + ".png")) throw new Error("App menu capture failed");
+   });
    root.find(window.contentItem, "settings-content").grabToImage(function(result) {
     if (!result.saveToFile("OUTPUT/" + (root.form ? "window-rules-form" : root.rules ? "window-rules" : "keybinds") + "-" + (root.light ? "light" : "dark") + ".png")) throw new Error("save failed");
     if (root.form && root.light) { console.log("EDITORS_OK"); Qt.quit(); }
@@ -92,7 +100,7 @@ ShellRoot {
   }
  }
 }
-'''.replace('OUTPUT', str(output))
+'''.replace('OUTPUT', str(output)).replace('ICON_PATH', str(folder / 'assets/eitr-logo-white.svg'))
             (folder / 'EditorsRender.qml').write_text(fixture)
             status, log = render(folder / 'EditorsRender.qml', render_environment(folder, (1400, 1000)), 30)
             self.assertEqual(status, 0, log)
