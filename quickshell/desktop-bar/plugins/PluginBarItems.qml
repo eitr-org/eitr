@@ -36,7 +36,7 @@ Grid {
             // Grows to wider content at once; shrinks only when the content gets clearly
             // narrower (an item removed), so a changing digit does not move the neighbours.
             function fit() {
-                const target = Math.min(320, implicitWidth);
+                const target = Math.min(960, implicitWidth);
                 if (target > reservedWidth || reservedWidth - target > 16) reservedWidth = target;
             }
             onImplicitWidthChanged: fit()
