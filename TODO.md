@@ -39,9 +39,13 @@ item says what decides the next step. Remove an item when it ships;
   - Status (2026-11-10): Tailscale is official (`eitr-org/eitr-plugins`) with its bar icon,
     panel and Taildrop, the core icon and panel are gone, and a login step installs the
     pinned plugin on desktops with Tailscale (2026-11-11: Walker's Tailscale menus and the
-    core panel's Tailscale branch removed; the plugin's panel covers them). WireGuard and NetworkManager VPN
-    stay on the owner's private test repository (local `vpn-plugins` branch) until they
-    get bar icons and panels too.
+    core panel's Tailscale branch removed; the plugin's panel covers them).
+  - Status (2026-11-14): WireGuard and NetworkManager VPN have bar icons and panels on the
+    `vpn-bar-panels` branch of `eitr-org/eitr-plugins` (WireGuard installed in the VM through
+    the normal review, its panel shown; real tunnels untested). Next: the owner reviews the
+    branch, a VM test with a real WireGuard peer and an OpenVPN profile, then merge to main.
+    Removing a tunnel asks for the password through `pkexec rm`; an `eitr-system` action
+    would show a clearer prompt.
 - **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
   (2026-11-11). Owner's choices (2026-11-12): Sunshine on the login screen behind its own
   switch beside Start at Login (a system Sunshine with KMS capture while SDDM shows, handing
@@ -62,12 +66,12 @@ item says what decides the next step. Remove an item when it ships;
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
   done (Tools > Reminders > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).
-- **World clock, as a plugin.** Other cities and people's local time beside the clock;
-  not built in.
-- **`eitr-store` publication.** Migrate the existing community index and verified
-  license into `eitr-org/eitr-store`, publish it, and verify the desktop against
-  the live schema 2 endpoint. Screensavers and other future kinds remain separate
-  backends and registry entries; they are not built yet.
+- **World clock plugin (2026-11-14).** The desktop's clock slot is on testing; the plugin is
+  on the `world-clock` branch of `eitr-org/eitr-plugins` (VM-tested: bar item left of the
+  clock, panel). Next: the owner tries it, then merge to main so the Store lists it.
+- **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the
+  community index had no entries yet) and its validation workflow. Screensavers and other
+  future kinds are a registry entry plus a backend (`distro/STORE.md`).
 
 # 2. To test with the owner
 
