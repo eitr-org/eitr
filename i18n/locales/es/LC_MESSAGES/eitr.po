@@ -3658,6 +3658,9 @@ msgstr "Initramfs aún no admite el desbloqueo TPM2. No se cambió nada."
 msgid "The layout your picture, color and greeting go into."
 msgstr "El diseño donde van tu imagen, color y saludo."
 
+msgid "The lockscreen could not be changed."
+msgstr "No se pudo cambiar la pantalla de bloqueo."
+
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "El fondo de acceso debe ser un JPEG de menos de 25 MB"
 

@@ -3658,6 +3658,9 @@ msgstr "The initramfs cannot use TPM2 unlock yet. Nothing was changed."
 msgid "The layout your picture, color and greeting go into."
 msgstr "The layout your picture, color and greeting go into."
 
+msgid "The lockscreen could not be changed."
+msgstr "The lockscreen could not be changed."
+
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "The login wallpaper must be a JPEG under 25 MB"
 

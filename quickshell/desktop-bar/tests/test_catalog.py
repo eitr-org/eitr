@@ -147,12 +147,14 @@ class CatalogRenderTests(unittest.TestCase):
 import Quickshell
 import "." as Bar
 ShellRoot {
+ id: root
+ property var applied: []
  FloatingWindow {
   visible: true; implicitWidth: 1100; implicitHeight: 800
   Bar.CatalogContent {
    id: panel; anchors.fill: parent; live: false; opened: true; kind: "lockscreens"; tab: "official"
    installed: ROWS.filter(row => ["eitr", "nothing", "clockwork/tape"].includes(row.id)); availableItems: ROWS
-   transport: function(name, args, callback) { callback("", {items: []}); }
+   transport: function(name, args, callback) { if (name === "apply") root.applied = root.applied.concat([args.id]); callback("", {items: []}); }
   }
   Timer {
    interval: 600; running: true; repeat: true
@@ -164,7 +166,13 @@ ShellRoot {
      if (panel.navigation.some(row => row.kind === "lockscreens" && row.tab === "community")) throw new Error("Community lockscreens");
      stage++; return;
     }
-    if (stage === 3) { console.log("LOCKSCREENS_RENDER_OK"); Qt.quit(); return; }
+    if (stage === 3) {
+     // Choosing an installed design uses it; the current one stays as it is.
+     panel.activate(ROWS.find(row => row.id === "nothing"), true);
+     panel.activate(ROWS.find(row => row.id === "clockwork/tape"), true);
+     if (JSON.stringify(root.applied) !== JSON.stringify(["clockwork/tape"])) throw new Error("Apply " + JSON.stringify(root.applied));
+     console.log("LOCKSCREENS_RENDER_OK"); Qt.quit(); return;
+    }
     const page = stage === 1 ? "official" : "installed";
     panel.grabToImage(function(result) {
      if (!result.saveToFile("TARGET/addons-lockscreens-" + page + ".png")) throw new Error("Capture failed");

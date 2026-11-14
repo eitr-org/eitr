@@ -1580,5 +1580,6 @@
   "Cannot read window rules: {error}": "Cannot read window rules: {error}",
   "Invalid {field}": "Invalid {field}",
   "Unknown Hyprland key: {key}": "Unknown Hyprland key: {key}",
-  "{key} is used by {title}": "{key} is used by {title}"
+  "{key} is used by {title}": "{key} is used by {title}",
+  "The lockscreen could not be changed.": "The lockscreen could not be changed."
 }

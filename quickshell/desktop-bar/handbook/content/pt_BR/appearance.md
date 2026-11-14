@@ -81,7 +81,7 @@ Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar 
 
 ### Telas de bloqueio em Complementos
 
-Abra **Complementos > Telas de bloqueio > Oficial** para instalar desenhos do repositório de pacotes assinados do Eitr. Instalar e remover pedem a senha de administrador na janela do Eitr. **Instalado** mostra os desenhos instalados; escolha qual usar em **Configurações > Tela de bloqueio** ou no Walker. **Eitr** é integrado e não pode ser removido. O desenho usado pela sessão ou pela tela de login mostra **Atual** e não tem lixeira. Suas telas baseadas em um desenho removido ficam ocultas, nunca são apagadas, e reaparecem ao reinstalá-lo. A Atualização do Sistema instala os oito pacotes opcionais uma única vez; instalações novas também os incluem. Remoções posteriores são preservadas.
+Abra **Complementos > Telas de bloqueio > Oficial** para instalar desenhos do repositório de pacotes assinados do Eitr. Instalar e remover pedem a senha de administrador na janela do Eitr. **Instalado** mostra os desenhos instalados; clique em um para usá-lo na sessão e na tela de login, como em **Configurações > Tela de bloqueio** ou no Walker. **Eitr** é integrado e não pode ser removido. O desenho usado pela sessão ou pela tela de login mostra **Atual** e não tem lixeira. Suas telas baseadas em um desenho removido ficam ocultas, nunca são apagadas, e reaparecem ao reinstalá-lo. A Atualização do Sistema instala os oito pacotes opcionais uma única vez; instalações novas também os incluem. Remoções posteriores são preservadas.
 
 
 ## Escolher tema e papel de parede

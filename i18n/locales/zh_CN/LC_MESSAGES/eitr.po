@@ -3658,6 +3658,9 @@ msgstr "initramfs 尚无法使用 TPM2 解锁。未进行任何更改。"
 msgid "The layout your picture, color and greeting go into."
 msgstr "放置您的图片、颜色和问候语的布局。"
 
+msgid "The lockscreen could not be changed."
+msgstr "无法更改锁屏。"
+
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "登录壁纸必须是小于 25 MB 的 JPEG 图片"
 

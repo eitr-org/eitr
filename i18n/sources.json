@@ -1303,9 +1303,6 @@
     "Installed assistants and collaboration preferences.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
-    "Installed lockscreen designs. Choose a design in Settings > Lockscreen.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
     "Interface": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -1467,6 +1464,9 @@
     ],
     "Lockscreen design and idle settings.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Lockscreen designs on this computer. Choose one to use it.": [
+      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Lockscreens": [
       "quickshell/desktop-bar/panels/CatalogContent.qml"
@@ -10563,6 +10563,9 @@
     ],
     "The layout your picture, color and greeting go into.": [
       "walker/scripts/actions/style/own.py"
+    ],
+    "The lockscreen could not be changed.": [
+      "distro/lib/eitr_lockscreen_packages.py"
     ],
     "The login wallpaper must be a JPEG under 25 MB": [
       "quickshell/lockscreen/scripts/sddm-select.py"

@@ -82,7 +82,7 @@ Escribe en cualquier parte del catálogo, o pulsa Ctrl+F o /, para buscar en la 
 
 ### Pantallas de bloqueo en Complementos
 
-Abre **Complementos > Pantallas de bloqueo > Oficial** para instalar diseños desde el repositorio de paquetes firmados de Eitr. Instalar y eliminar requieren la contraseña de administrador en la ventana de Eitr. **Instalado** muestra los diseños instalados; elige el que usarás en **Configuración > Pantalla de bloqueo** o Walker. **Eitr** está integrado y no se puede eliminar. El diseño usado por la sesión o el inicio de sesión muestra **Actual** y no tiene papelera. Tus pantallas basadas en un diseño eliminado se ocultan sin borrarse y reaparecen al reinstalarlo. System Update instala los ocho paquetes opcionales una sola vez; las instalaciones nuevas también los incluyen. Las eliminaciones posteriores se respetan.
+Abre **Complementos > Pantallas de bloqueo > Oficial** para instalar diseños desde el repositorio de paquetes firmados de Eitr. Instalar y eliminar requieren la contraseña de administrador en la ventana de Eitr. **Instalado** muestra los diseños instalados; haz clic en uno para usarlo en la sesión y el inicio de sesión, como en **Configuración > Pantalla de bloqueo** o Walker. **Eitr** está integrado y no se puede eliminar. El diseño usado por la sesión o el inicio de sesión muestra **Actual** y no tiene papelera. Tus pantallas basadas en un diseño eliminado se ocultan sin borrarse y reaparecen al reinstalarlo. System Update instala los ocho paquetes opcionales una sola vez; las instalaciones nuevas también los incluyen. Las eliminaciones posteriores se respetan.
 
 
 ## Elegir tema y fondo

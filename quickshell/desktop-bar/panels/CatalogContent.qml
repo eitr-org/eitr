@@ -229,7 +229,7 @@ Item {
             "plugins/installed": Eitr.I18n.tr("Plugins on this computer, with their updates."),
             "plugins/official": Eitr.I18n.tr("Plugins from the Eitr project, reviewed before installing."),
             "plugins/community": Eitr.I18n.tr("Plugins shared by other people. Review them before installing."),
-            "lockscreens/installed": Eitr.I18n.tr("Installed lockscreen designs. Choose a design in Settings > Lockscreen."),
+            "lockscreens/installed": Eitr.I18n.tr("Lockscreen designs on this computer. Choose one to use it."),
             "lockscreens/official": Eitr.I18n.tr("Official Eitr lockscreen designs. Installing requires the administrator password.")
         };
         const groups = [{kind: "themes", name: Eitr.I18n.tr("Themes"), rune: "ᚦ", runes: ["ᚠ", "ᚢ", "ᚦ"]},
@@ -271,9 +271,9 @@ Item {
     function isInstalled(item) { return installed.some(local => local.id === item.id); }
     function activate(item, local) {
         if (busy) return;
-        if (kind === "lockscreens") return;
+        if (kind === "lockscreens" && getMore) return;
         if (getMore) openDetail(item);
-        else if (local && kind === "themes" && !item.current) act("apply", {id: item.id});
+        else if (local && kind !== "plugins" && !item.current) act("apply", {id: item.id});
         else if (local && kind === "plugins") managing = item;
         else if (!local) toggle(item);
         sidebarFocus = false; forceActiveFocus();

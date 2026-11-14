@@ -1218,6 +1218,7 @@
   "The history of {id} was rewritten: the approved commit {commit} is not part of the new one. Eitr does not update it automatically. If you still trust its author, remove the plugin and add it again.": "{id}의 기록이 다시 작성되었습니다: 승인된 커밋 {commit}이(가) 새 기록에 포함되어 있지 않습니다. Eitr는 이를 자동으로 업데이트하지 않습니다. 작성자를 여전히 신뢰한다면 플러그인을 제거하고 다시 추가하세요.",
   "The initramfs cannot use TPM2 unlock yet. Nothing was changed.": "initramfs가 아직 TPM2 잠금 해제를 사용할 수 없습니다. 아무것도 변경되지 않았습니다.",
   "The layout your picture, color and greeting go into.": "사진, 색상 및 인사말이 들어가는 레이아웃입니다.",
+  "The lockscreen could not be changed.": "잠금 화면을 변경할 수 없습니다.",
   "The login wallpaper must be a JPEG under 25 MB": "로그인 배경화면은 25MB 미만의 JPEG여야 합니다",
   "The main display stays where it is; place the other displays around it.": "주 디스플레이는 현재 위치에 유지됩니다. 다른 디스플레이를 그 주위에 배치하세요.",
   "The model download did not finish. Run setup again to resume it.": "모델 다운로드가 완료되지 않았습니다. 설정을 다시 실행하여 재개하세요.",

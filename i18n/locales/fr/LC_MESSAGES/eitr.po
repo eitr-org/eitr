@@ -3658,6 +3658,9 @@ msgstr "L’initramfs ne permet pas encore le déverrouillage TPM2. Aucune modif
 msgid "The layout your picture, color and greeting go into."
 msgstr "La mise en page qui accueille votre image, couleur et message."
 
+msgid "The lockscreen could not be changed."
+msgstr "Impossible de modifier l’écran de verrouillage."
+
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "Le fond de connexion doit être un JPEG de moins de 25 Mo"
 

@@ -50,7 +50,7 @@
       "reason": "The bar data broker: one event loop owning every topic."
     },
     "quickshell/desktop-bar/scripts/catalog-domain.py": {
-      "lines": 574,
+      "lines": 577,
       "reason": "One catalog transport and backend dispatcher, including reviewed package cleanup."
     },
     "quickshell/desktop-bar/scripts/display-settings.py": {

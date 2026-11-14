@@ -100,7 +100,7 @@ name or description. Words can appear in any order; Escape clears the search fir
 
 ### Lockscreens in Add-ons
 
-Open **Add-ons > Lockscreens > Official** to install designs from Eitr’s signed package repository. Installing and removing ask for the administrator password in Eitr’s password popup. **Installed** shows installed designs; choose which one to use in **Settings > Lockscreen** or Walker. **Eitr** is built in and cannot be removed. The design used by the session or login screen has a **Current** badge and no trash button. Your own lockscreens using an uninstalled design are hidden, never deleted, and return when you reinstall it. Existing desktops receive all eight optional packages once through System Update; fresh installs include them too. Later removals are preserved.
+Open **Add-ons > Lockscreens > Official** to install designs from Eitr’s signed package repository. Installing and removing ask for the administrator password in Eitr’s password popup. **Installed** shows installed designs; click one to use it for the session and the login screen, as in **Settings > Lockscreen** or Walker. **Eitr** is built in and cannot be removed. The design used by the session or login screen has a **Current** badge and no trash button. Your own lockscreens using an uninstalled design are hidden, never deleted, and return when you reinstall it. Existing desktops receive all eight optional packages once through System Update; fresh installs include them too. Later removals are preserved.
 
 
 ## Choose a theme and wallpaper

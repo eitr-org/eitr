@@ -3658,6 +3658,9 @@ msgstr "initramfs가 아직 TPM2 잠금 해제를 사용할 수 없습니다. �
 msgid "The layout your picture, color and greeting go into."
 msgstr "사진, 색상 및 인사말이 들어가는 레이아웃입니다."
 
+msgid "The lockscreen could not be changed."
+msgstr "잠금 화면을 변경할 수 없습니다."
+
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "로그인 배경화면은 25MB 미만의 JPEG여야 합니다"
 

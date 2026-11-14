@@ -1218,6 +1218,7 @@
   "The history of {id} was rewritten: the approved commit {commit} is not part of the new one. Eitr does not update it automatically. If you still trust its author, remove the plugin and add it again.": "O histórico de {id} foi reescrito: o commit aprovado {commit} não faz parte do novo. O Eitr não o atualiza automaticamente. Se você ainda confia no autor, remova o plugin e adicione-o novamente.",
   "The initramfs cannot use TPM2 unlock yet. Nothing was changed.": "O initramfs ainda não permite desbloqueio por TPM2. Nada foi alterado.",
   "The layout your picture, color and greeting go into.": "O layout que recebe sua imagem, cor e saudação.",
+  "The lockscreen could not be changed.": "Não foi possível alterar a tela de bloqueio.",
   "The login wallpaper must be a JPEG under 25 MB": "O papel de parede do login deve ser um JPEG menor que 25 MB",
   "The main display stays where it is; place the other displays around it.": "A tela principal fica onde está; posicione as outras telas ao redor dela.",
   "The model download did not finish. Run setup again to resume it.": "O download do modelo não terminou. Execute a configuração novamente para retomá-lo.",

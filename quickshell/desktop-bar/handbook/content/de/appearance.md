@@ -80,7 +80,7 @@ Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um die aktuelle Seite nach
 
 ### Sperrbildschirme in Add-ons
 
-Unter **Add-ons > Sperrbildschirme > Offiziell** installierst du Designs aus Eitrs signiertem Paket-Repository. Installation und Entfernung fragen im Eitr-Passwortfenster nach dem Administratorpasswort. **Installiert** zeigt installierte Designs; die Auswahl erfolgt in **Einstellungen > Sperrbildschirm** oder Walker. **Eitr** ist fest integriert und kann nicht entfernt werden. Das von Sitzung oder Anmeldung verwendete Design ist als **Aktuell** markiert und hat keinen Papierkorb. Eigene Sperrbildschirme mit einem entfernten Design werden ausgeblendet, nicht gelöscht, und erscheinen nach der Neuinstallation wieder. System Update installiert die acht optionalen Pakete einmalig; neue Installationen enthalten sie ebenfalls. Spätere Entfernungen bleiben erhalten.
+Unter **Add-ons > Sperrbildschirme > Offiziell** installierst du Designs aus Eitrs signiertem Paket-Repository. Installation und Entfernung fragen im Eitr-Passwortfenster nach dem Administratorpasswort. **Installiert** zeigt installierte Designs; ein Klick verwendet eines für Sitzung und Anmeldung, wie in **Einstellungen > Sperrbildschirm** oder Walker. **Eitr** ist fest integriert und kann nicht entfernt werden. Das von Sitzung oder Anmeldung verwendete Design ist als **Aktuell** markiert und hat keinen Papierkorb. Eigene Sperrbildschirme mit einem entfernten Design werden ausgeblendet, nicht gelöscht, und erscheinen nach der Neuinstallation wieder. System Update installiert die acht optionalen Pakete einmalig; neue Installationen enthalten sie ebenfalls. Spätere Entfernungen bleiben erhalten.
 
 
 ## Design und Hintergrundbild wählen

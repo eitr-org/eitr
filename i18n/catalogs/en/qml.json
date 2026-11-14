@@ -984,7 +984,6 @@
   "Island style": "Island style",
   "Meet the screen edge with slopes or straight sides.": "Meet the screen edge with slopes or straight sides.",
   "Side style": "Side style",
-  "Installed lockscreen designs. Choose a design in Settings > Lockscreen.": "Installed lockscreen designs. Choose a design in Settings > Lockscreen.",
   "Lockscreens": "Lockscreens",
   "Official Eitr lockscreen designs. Installing requires the administrator password.": "Official Eitr lockscreen designs. Installing requires the administrator password.",
   "Your own lockscreens using this design are hidden until you reinstall it.": "Your own lockscreens using this design are hidden until you reinstall it.",
@@ -1022,5 +1021,6 @@
   "Set a size": "Set a size",
   "Width": "Width",
   "Workspace": "Workspace",
-  "Size must be between 1 and %1.": "Size must be between 1 and %1."
+  "Size must be between 1 and %1.": "Size must be between 1 and %1.",
+  "Lockscreen designs on this computer. Choose one to use it.": "Lockscreen designs on this computer. Choose one to use it."
 }

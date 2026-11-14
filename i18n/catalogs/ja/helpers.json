@@ -1218,6 +1218,7 @@
   "The history of {id} was rewritten: the approved commit {commit} is not part of the new one. Eitr does not update it automatically. If you still trust its author, remove the plugin and add it again.": "{id} の履歴が書き換えられました: 承認されたコミット {commit} は新しい履歴に含まれていません。Eitrは自動的に更新しません。作成者を信頼できる場合は、プラグインを一度削除してから再度追加してください。",
   "The initramfs cannot use TPM2 unlock yet. Nothing was changed.": "initramfsはまだTPM2ロック解除を使用できません。何も変更されませんでした。",
   "The layout your picture, color and greeting go into.": "画像、色、挨拶メッセージを配置するレイアウト。",
+  "The lockscreen could not be changed.": "ロック画面を変更できませんでした。",
   "The login wallpaper must be a JPEG under 25 MB": "ログイン壁紙は25MB未満のJPEGである必要があります",
   "The main display stays where it is; place the other displays around it.": "メインディスプレイの位置は固定されます。その周囲に他のディスプレイを配置してください。",
   "The model download did not finish. Run setup again to resume it.": "モデルのダウンロードが完了しませんでした。セットアップを再度実行して再開してください。",

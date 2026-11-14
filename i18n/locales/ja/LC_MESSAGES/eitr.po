@@ -3658,6 +3658,9 @@ msgstr "initramfsはまだTPM2ロック解除を使用できません。何も�
 msgid "The layout your picture, color and greeting go into."
 msgstr "画像、色、挨拶メッセージを配置するレイアウト。"
 
+msgid "The lockscreen could not be changed."
+msgstr "ロック画面を変更できませんでした。"
+
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "ログイン壁紙は25MB未満のJPEGである必要があります"
 

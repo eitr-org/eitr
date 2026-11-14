@@ -73,6 +73,16 @@ def names(value):
     return ['eitr-lockscreen-' + identifier.replace('/', '-') for identifier in value]
 
 
+def select(identifier):
+    """Uses an installed design for the session and login, as Settings > Lockscreen does."""
+    if not isinstance(identifier, str) or identifier not in installed_designs():
+        raise ValueError('Invalid installed lockscreen design')
+    result = subprocess.run(['python3', str(code_root() / 'quickshell/lockscreen/scripts/settings.py'), 'select', identifier],
+                            capture_output=True, text=True, timeout=60)
+    if result.returncode:
+        raise ValueError(result.stderr.strip() or tr('The lockscreen could not be changed.'))
+
+
 def root(action, identifiers):
     if action not in {'install', 'remove'}:
         raise ValueError('Invalid lockscreen action')

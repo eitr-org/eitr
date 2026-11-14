@@ -35,7 +35,7 @@ def validate(name, args):
     if args['kind'] == 'plugins' and name in {'install', 'update', 'apply'}:
         raise ValueError('Use the plugin prepare/confirm review')
     if args['kind'] == 'lockscreens':
-        if name not in {'installed', 'index', 'install', 'remove'} or args.get('channel', 'official') not in {'official', 'installed'}:
+        if name not in {'installed', 'index', 'install', 'remove', 'apply'} or args.get('channel', 'official') not in {'official', 'installed'}:
             raise ValueError('invalid-lockscreen-request')
         if name in {'install', 'remove'}:
             from eitr_lockscreen_packages import names
@@ -432,9 +432,12 @@ def worker(name, args):
     validate(name, args)
     kind = args['kind']
     if kind == 'lockscreens':
-        from eitr_lockscreen_packages import listing, root
+        from eitr_lockscreen_packages import listing, root, select
         if name in {'installed', 'index'}:
             return {'items': listing(installed_only=name == 'installed')}
+        if name == 'apply':
+            select(args.get('id'))
+            return {}
         root(name, args['ids'] if name == 'install' else [args['id']])
         return {'result': True}
     if args.get('channel') == 'community' and name in {'index', 'install'}:

@@ -97,6 +97,20 @@ class LockscreenPackageTests(unittest.TestCase):
             self.assertFalse(next(row for row in rows if row['id'] == 'eitr')['removable'])
             self.assertEqual({row['id'] for row in catalog.listing(True)}, {'eitr', 'nothing'})
 
+    def test_select_uses_only_installed_designs_through_the_settings_helper(self):
+        with patch.object(catalog, 'installed_designs', return_value={'eitr', 'nothing'}), \
+                patch.object(catalog.subprocess, 'run', return_value=SimpleNamespace(returncode=0, stderr='')) as run:
+            for value in ('clockwork/tape', '../nothing', None, ['nothing']):
+                with self.subTest(value=value), self.assertRaises(ValueError):
+                    catalog.select(value)
+            run.assert_not_called()
+            catalog.select('nothing')
+            command = run.call_args.args[0]
+            self.assertEqual(command[1:], [str(catalog.code_root() / 'quickshell/lockscreen/scripts/settings.py'), 'select', 'nothing'])
+            run.return_value = SimpleNamespace(returncode=1, stderr='Login screen could not be updated')
+            with self.assertRaisesRegex(ValueError, 'Login screen'):
+                catalog.select('eitr')
+
     def test_own_lockscreens_hidden_without_deleting(self):
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory) / 'mine'

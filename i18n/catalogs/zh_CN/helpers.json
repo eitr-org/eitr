@@ -1218,6 +1218,7 @@
   "The history of {id} was rewritten: the approved commit {commit} is not part of the new one. Eitr does not update it automatically. If you still trust its author, remove the plugin and add it again.": "{id} 的历史记录已被重写：已批准的提交 {commit} 不属于新历史。Eitr 不会自动对其进行更新。如果您仍然信任其作者，请移除该插件并重新添加。",
   "The initramfs cannot use TPM2 unlock yet. Nothing was changed.": "initramfs 尚无法使用 TPM2 解锁。未进行任何更改。",
   "The layout your picture, color and greeting go into.": "放置您的图片、颜色和问候语的布局。",
+  "The lockscreen could not be changed.": "无法更改锁屏。",
   "The login wallpaper must be a JPEG under 25 MB": "登录壁纸必须是小于 25 MB 的 JPEG 图片",
   "The main display stays where it is; place the other displays around it.": "主显示器保持在原位；在其周围放置其他显示器。",
   "The model download did not finish. Run setup again to resume it.": "模型下载未完成。重新运行设置以继续下载。",

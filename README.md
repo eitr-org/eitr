@@ -179,7 +179,7 @@ button opens Settings. Window gaps are saved locally alongside Corners.
 
 Connections has Wi-Fi and Bluetooth tabs; Displays and Appearance group separate subjects in tabs. Picture cards preview bar layouts, edges, surfaces, media, gaps, corners and lockscreen designs. Appearance offers Theme colours or Eitr website for Settings, the Handbook and Add-ons; `settings palette theme|website` saves the same choice. Search and `settings show <page/tab>` open the matching tab (`network` remains a Connections alias).
 
-**Add-ons > Lockscreens** installs and removes official signed lockscreen designs with administrator authentication. Eitr stays built in; designs used by the session or login screen cannot be removed. Choose the active design in Settings > Lockscreen or Walker.
+**Add-ons > Lockscreens** installs and removes official signed lockscreen designs with administrator authentication. Eitr stays built in; designs used by the session or login screen cannot be removed. Clicking an installed design uses it for the session and login, as Settings > Lockscreen and Walker do.
 
 ### Keyboard overrides and window rules
 
