@@ -117,8 +117,6 @@ item says what decides the next step. Remove an item when it ships;
 
 # 5. Maintenance
 
-- **Hotplug binding loop.** A VM unplug logged a binding loop in DisplaySettingsEditor
-  `width` (2026-11-04); check it in a VM hotplug test and fix it if it comes back.
 - **Bar disappearing.** It ended twice without a trace (2026-11-10 and 11). The bar now
   leaves a record when it ends unexpectedly (`~/.local/state/eitr/shell-exits/`): read the
   newest one if it happens again.

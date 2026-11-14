@@ -99,7 +99,8 @@ Column {
         Text {
             id: arrow
             anchors.right: parent.right; anchors.rightMargin: 10; anchors.verticalCenter: parent.verticalCenter
-            width: row.interactive ? implicitWidth : 0
+            // Empty when not interactive, so its implicit width is 0; binding width to
+            // implicitWidth loops when the display list changes.
             text: row.interactive ? (row.open ? "󰅀" : "󰅂") : ""; color: row.chevron
             font.family: DesktopFonts.family; font.pixelSize: 16
         }

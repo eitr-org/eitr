@@ -69,7 +69,15 @@ PanelWindow {
     readonly property var monitor: Hyprland.monitorFor(screen)
     readonly property bool fullscreen: !!(monitor && monitor.activeWorkspace && monitor.activeWorkspace.hasFullscreen)
     readonly property int workspaceId: monitor && monitor.activeWorkspace ? monitor.activeWorkspace.id : 0
-    readonly property var apps: DockModel.groups(clients, workspaceId, pinnedEntries, surface.application)
+    // Recomputed when its inputs change rather than bound: looking up desktop entries can
+    // update them while the groups are built, which as a binding is a loop (monitor hotplug).
+    property var apps: []
+    function updateApps() { apps = DockModel.groups(clients, workspaceId, pinnedEntries, surface.application); }
+    onClientsChanged: updateApps()
+    onWorkspaceIdChanged: updateApps()
+    onPinnedEntriesChanged: updateApps()
+    Connections { target: surface; function onDesktopEntriesChanged() { Qt.callLater(dock.updateApps); } }
+    Component.onCompleted: updateApps()
     readonly property bool available: dockEnabled && !fullscreen && apps.length > 0
     anchors { top: true; bottom: true; left: true; right: true }
     color: "transparent"

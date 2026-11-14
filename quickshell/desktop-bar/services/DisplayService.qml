@@ -9,11 +9,13 @@ QtObject {
     id: service
     property var topology: ({monitors: [], primary: "", preferred: [], windowLayout: ({layout: "dwindle"}), windowGaps: [6, 6, 6, 6], screenGaps: [12, 12, 12, 12]})
     readonly property var snapshot: DesktopData.topics["display.topology"]
-    onSnapshotChanged: if (snapshot && snapshot.status === "ready") {
+    // Applied after the change: what the new topology updates republishes DesktopData.topics,
+    // which this binding reads, and doing it inside the handler is a binding loop (hotplug).
+    onSnapshotChanged: Qt.callLater(applySnapshot)
+    function applySnapshot() {
+        if (!snapshot || snapshot.status !== "ready") return;
         topology = snapshot.data;
-        // Later: refreshing republishes DesktopData.topics, which this binding reads, and doing
-        // it inside its own change handler is a binding loop (logged on monitor hotplug).
-        Qt.callLater(() => DesktopData.refresh("display.settings"));
+        DesktopData.refresh("display.settings");
     }
     property var observers: []
     property int readInterval: 3
