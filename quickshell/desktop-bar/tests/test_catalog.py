@@ -152,7 +152,7 @@ ShellRoot {
  FloatingWindow {
   visible: true; implicitWidth: 1100; implicitHeight: 800
   Bar.CatalogContent {
-   id: panel; anchors.fill: parent; live: false; opened: true; kind: "lockscreens"; tab: "official"
+   id: panel; anchors.fill: parent; live: false; opened: true; kind: "lockscreens"; tab: "discover"
    installed: ROWS.filter(row => ["eitr", "nothing", "clockwork/tape"].includes(row.id)); availableItems: ROWS
    transport: function(name, args, callback) { if (name === "apply") root.applied = root.applied.concat([args.id]); callback("", {items: []}); }
   }
@@ -173,7 +173,7 @@ ShellRoot {
      if (JSON.stringify(root.applied) !== JSON.stringify(["clockwork/tape"])) throw new Error("Apply " + JSON.stringify(root.applied));
      console.log("LOCKSCREENS_RENDER_OK"); Qt.quit(); return;
     }
-    const page = stage === 1 ? "official" : "installed";
+    const page = stage === 1 ? "discover" : "installed";
     panel.grabToImage(function(result) {
      if (!result.saveToFile("TARGET/addons-lockscreens-" + page + ".png")) throw new Error("Capture failed");
      panel.tab = "installed";
@@ -215,7 +215,7 @@ ShellRoot {
    content.live = false;
    if (phase === 0) {
     if (catalog.opened || catalog.visible) throw new Error("initially closed");
-    if (catalog.title !== "Add-ons") throw new Error("window metadata");
+    if (catalog.title !== "Eitr Store") throw new Error("window metadata");
     catalog.show();
    } else if (phase === 1) {
     if (!catalog.opened || !catalog.visible) throw new Error("show");
@@ -270,16 +270,16 @@ ShellRoot {
     if (phase === cases.length * 2) { console.log("COMMUNITY_EMPTY_OK"); Qt.quit(); return; }
     const entry = cases[Math.floor(phase / 2)];
     if (phase % 2 === 0) {
-     panel.kind = entry[0]; panel.tab = "community";
-     panel.store = Object.assign({}, panel.store, {[entry[0] + ":community"]: {items: [], error: entry[1], pending: false, loaded: !entry[1]}});
+     panel.kind = entry[0]; panel.tab = "discover"; panel.sourceFilter = "community";
+     panel.store = Object.assign({}, panel.store, {[entry[0] + ":official"]: {items: [], loaded: true}, [entry[0] + ":community"]: {items: [], error: entry[1], pending: false, loaded: !entry[1]}});
      panel.sync();
     } else {
      const welcome = find(panel, "catalog-community-welcome");
      if (!welcome || welcome.visible !== entry[2] || panel.communityEmpty !== entry[2]) throw new Error("welcome card for " + entry);
      if (entry[2]) {
-      panel.tab = "official";
+      panel.tab = "discover"; panel.sourceFilter = "official";
       if (panel.communityEmpty) throw new Error("Official is never the community welcome");
-      panel.tab = "community";
+      panel.tab = "discover"; panel.sourceFilter = "community";
      }
     }
     phase++;
@@ -378,15 +378,16 @@ ShellRoot {
       panel.transport = function(name, args, callback) { callback("", {items:[]}); };
       if (panel.width < 800) { panel.installed = panel.installed.slice(0, 2); panel.availableItems = panel.availableItems.slice(0, 2); }
      } else if (sample.phase === 1) {
-      panel.tab = "official"; panel.selected = [];
-      panel.forceActiveFocus();
+      panel.tab = "installed"; panel.sourceFilter = "official"; panel.selected = [];
+      panel.sidebarFocus = true; panel.forceActiveFocus();
       keys.keyClick(Qt.Key_Down);
-      if (panel.kind !== "themes" || panel.tab !== "community") throw new Error("sidebar Down");
+      if (panel.kind !== "themes" || panel.tab !== "discover") throw new Error("sidebar Down");
       keys.keyClick(Qt.Key_Down);
       if (panel.kind !== "plugins" || panel.tab !== "installed") throw new Error("sidebar Down into Plugins");
       keys.keyClick(Qt.Key_Up); keys.keyClick(Qt.Key_Up);
-      if (panel.kind !== "themes" || panel.tab !== "official") throw new Error("sidebar Up");
-      panel.availableItems = [{id:"moss",name:"Moss",kind:"official",description:"Deep forest greens",size:3145728,previewUrl:"PREVIEW2"},{id:"jade",name:"Jade",kind:"official",light:true,description:"Warm jade and cream",size:2097152,previewUrl:"PREVIEW3"}];
+      if (panel.kind !== "themes" || panel.tab !== "installed") throw new Error("sidebar Up");
+      panel.tab = "discover";
+      panel.availableItems = panel.installed.filter(item => ["builtin", "official"].includes(item.kind)).concat([{id:"moss",name:"Moss",kind:"official",description:"Deep forest greens",size:3145728,previewUrl:"PREVIEW2"},{id:"jade",name:"Jade",kind:"official",light:true,description:"Warm jade and cream",size:2097152,previewUrl:"PREVIEW3"}]);
       keys.keyClick(Qt.Key_Right);
       if (panel.sidebarFocus || panel.cursor !== 0) throw new Error("Right enters content");
       keys.keyClick(Qt.Key_Space);
@@ -438,7 +439,7 @@ ShellRoot {
 
       panel.forceActiveFocus(); keys.keyClick(Qt.Key_Escape);
       if (panel.reviewing || !panel.opened) throw new Error("Escape must cancel review");
-      panel.tab = "community"; panel.selected = [];
+      panel.tab = "discover"; panel.sourceFilter = "community"; panel.selected = [];
       panel.availableItems = [{id:"community-dusk", name:"Community Dusk", kind:"community", description:"Indigo and warm stone", maintainer:"Example artist", license:"MIT", repository:"https://example.invalid/themes", folder:"themes/dusk", size:4567890, wallpapers:[{path:"themes/dusk/backgrounds/dusk.jpg",size:456789},{path:"themes/dusk/backgrounds/stone.png",size:null}]}];
       panel.openDetail(panel.availableItems[0]);
       if (panel.wallpapers[0].thumbnail || panel.wallpapers[0].imageUrl) throw new Error("community uses name tiles");
@@ -466,7 +467,7 @@ ShellRoot {
       panel.activate({id:"afterglow", name:"Afterglow"}, true);
       if (applies !== 1 || panel.detail) throw new Error("Installed still applies");
       panel.kind = "plugins";
-      panel.tab = "official";
+      panel.tab = "discover"; panel.sourceFilter = "official";
       panel.installed = [];
       panel.availableItems = [{id:"clock",name:"Clock",kind:"official",description:"A desktop clock",previewUrl:"PREVIEW",preview:"preview.png"},{id:"notes",name:"Notes",kind:"official",description:"Notes on the desktop",icon:"ICON",previewUrl:"ICON"},{id:"plain",name:"Plain",kind:"official",description:"A plugin without artwork"}];
       panel.activate(panel.availableItems[0], false);
@@ -485,7 +486,7 @@ ShellRoot {
       if (panel.cursor !== Math.min(panel.columns, panel.locals.length - 1)) throw new Error("plugin grid Down");
       panel.removing = Object.assign({}, panel.installed[0], {removablePackages:["wireguard-tools", "openvpn"]});
      } else if (sample.phase === 11) {
-      panel.cancelSheet(); panel.tab = "official"; panel.installed = [];
+      panel.cancelSheet(); panel.tab = "discover"; panel.sourceFilter = "official"; panel.installed = [];
       panel.availableItems = [{id:"gallery",name:"Gallery plugin",kind:"official",author:"Example author",version:"1.2",description:"A plugin with pictures and video",repository:"https://example.invalid/plugins",folder:"plugins/gallery",preview:"preview.png",previewUrl:"PREVIEW",components:{rows:[{title:"Open notes",run:"notes.sh"}],ui:{widgets:[{title:"Desktop notes",qml:"Notes.qml"}]}},media:[{type:"image",path:"picture.png",caption:"Desktop picture"},{type:"video",path:"clip.webm",caption:"A short demonstration"}]}];
      } else if (sample.phase === 12) {
       panel.openDetail(panel.availableItems[0]);
@@ -529,7 +530,7 @@ ShellRoot {
       if (panel.removing) throw new Error("Escape cancels removal");
       panel.opened = true;
       panel.kind = "themes";
-      panel.tab = "official";
+      panel.tab = "discover"; panel.sourceFilter = "official";
       panel.availableItems = [{id:"new",name:"New",size:1024},{id:"other",name:"Other",size:2048}]; panel.selected = ["other"];
       panel.openDetail(panel.availableItems[0]);
       function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
@@ -585,11 +586,11 @@ ShellRoot {
       panel.live = true;
       panel.transport = function(name, args, callback) { calls.push(name + ":" + args.kind + ":" + args.channel); callback("", {items: [{id: args.channel + "-" + args.kind, name: "Row"}]}); };
       panel.load();
-      if (calls.length !== 8 || !calls.includes("index:themes:community") || !calls.includes("installed:plugins:installed")) throw new Error("opening loads every source once: " + calls);
-      panel.tab = "community"; panel.kind = "themes"; panel.tab = "installed"; panel.tab = "official";
-      if (calls.length !== 8) throw new Error("switching tabs must not reload: " + calls);
+      if (calls.length !== 10 || !calls.includes("index:themes:community") || !calls.includes("installed:plugins:installed")) throw new Error("opening loads every source once: " + calls);
+      panel.tab = "discover"; panel.sourceFilter = "community"; panel.kind = "themes"; panel.tab = "installed"; panel.tab = "discover"; panel.sourceFilter = "official";
+      if (calls.length !== 10) throw new Error("switching tabs must not reload: " + calls);
       if (panel.availableItems[0].id !== "official-themes" || panel.installed[0].id !== "installed-themes") throw new Error("views come from the loaded store");
-      panel.tab = "community";
+      panel.tab = "discover"; panel.sourceFilter = "community";
       const replies = [];
       const artworkPaths = [];
       panel.transport = function(name, args, callback) {
@@ -603,7 +604,7 @@ ShellRoot {
       if (panel.detail.name !== "Original") throw new Error("stale detail must not replace reopened sheet");
       replies[1]("", {item:{name:"Fresh"}});
       if (panel.detail.name !== "Fresh") throw new Error("current detail reply");
-      panel.closeDetail(); panel.tab = "official";
+      panel.closeDetail(); panel.tab = "discover"; panel.sourceFilter = "official";
       panel.openDetail({id:"lazy",kind:"official",name:"Lazy",wallpapers:[{path:"themes/lazy/backgrounds/wall.png",thumbnail:"thumbnails/lazy/wall.jpg",size:123} ]});
       if (artworkPaths.length !== 1 || artworkPaths[0] !== "thumbnails/lazy/wall.jpg") throw new Error("opening details fetches thumbnail only");
       panel.showWallpaper(0);
@@ -769,14 +770,14 @@ class CatalogBackendTests(unittest.TestCase):
             target.write_text(json.dumps(index))
             row = index['themes'][0]
             for asset in (row['preview'], row['wallpapers'][0]['thumbnail'], row['wallpapers'][0]['path']):
-                with patch.object(DOMAIN, 'THEMES', url), patch('eitr_plugin_install.git', wraps=theme_git) as reads:
+                with patch('eitr_store_content.THEMES', url), patch('eitr_plugin_install.git', wraps=theme_git) as reads:
                     result = DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
                     self.assertTrue(Path(result['image'].removeprefix('file://')).is_file())
                     blobs = [call for call in reads.call_args_list if call.args[1:3] == ('cat-file', 'blob')]
                     self.assertEqual(len(blobs), 1)
                     DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
                     self.assertEqual(len([call for call in reads.call_args_list if call.args[1:3] == ('cat-file', 'blob')]), 1)
-            with patch.object(DOMAIN, 'THEMES', url), patch('eitr_plugin_install.git', wraps=theme_git) as reads:
+            with patch('eitr_store_content.THEMES', url), patch('eitr_plugin_install.git', wraps=theme_git) as reads:
                 for asset in ('themes/alpha/colors.toml', 'themes/beta/preview.png', '../preview.png'):
                     with self.assertRaises(ValueError):
                         DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
@@ -812,7 +813,7 @@ class CatalogBackendTests(unittest.TestCase):
                 def oversized(repository, *arguments, **options):
                     if arguments[:2] == ('cat-file', '-s'): return str(17 * 1024 * 1024)
                     return theme_git(repository, *arguments, **options)
-                with patch.object(DOMAIN, 'THEMES', url), patch('eitr_plugin_install.git', side_effect=oversized) as reads:
+                with patch('eitr_store_content.THEMES', url), patch('eitr_plugin_install.git', side_effect=oversized) as reads:
                     with self.assertRaisesRegex(ValueError, 'size limit'):
                         DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
                     self.assertFalse(any(call.args[1:3] == ('cat-file', 'blob') for call in reads.call_args_list))

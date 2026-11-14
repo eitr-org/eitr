@@ -490,4 +490,4 @@ Check these before committing; reviews keep catching them.
 - Another agent may be editing this checkout. Read `git status` and stage
   explicit paths; never stage website build output.
 
-Lockscreen design sources stay in this repository. Only Eitr is built in; eight optional signed packages own the other designs and per-design login manifests. Add-ons manages installation; Settings and Walker choose among installed designs.
+Lockscreen design sources stay in this repository. Only Eitr is built in; eight optional signed packages own the other designs and per-design login manifests. Eitr Store manages installation; Settings and Walker choose among installed designs.

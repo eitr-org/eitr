@@ -24,7 +24,7 @@ item says what decides the next step. Remove an item when it ships;
   - Plugin format has an optional `packages` field (on testing since 2026-11-10; a real
     install and removal with the administrator password still needs a VM test): official
     Arch/Eitr repositories only. The install review lists them; after approval they install with the
-    administrator password, ideally inside the Add-ons session, otherwise a
+    administrator password, ideally inside the Eitr Store session, otherwise a
     terminal that returns to it. Packages already installed are detected and not
     reinstalled. Removing the plugin offers to remove only the packages it installed
     that nothing else needs.
@@ -64,9 +64,10 @@ item says what decides the next step. Remove an item when it ships;
   sign-in (OAuth, with Google's app verification).
 - **World clock, as a plugin.** Other cities and people's local time beside the clock;
   not built in.
-- **`eitr-store`.** A separate repository and app for themes, plugins and other
-  add-ons: catalog index, submissions and listings; replaces the built-in catalog
-  window later.
+- **`eitr-store` publication.** Migrate the existing community index and verified
+  license into `eitr-org/eitr-store`, publish it, and verify the desktop against
+  the live schema 2 endpoint. Screensavers and other future kinds remain separate
+  backends and registry entries; they are not built yet.
 
 # 2. To test with the owner
 

@@ -63,7 +63,8 @@ def main(argv=None, executable=None):
     executable = executable or Path(sys.argv[0]).name
     values = list(sys.argv[1:] if argv is None else argv)
     # Only a leading --repo belongs to the launcher; every other argument, options
-    # included (walker --gapplication-service), passes through unchanged.
+    # included (walker --gapplication-service), passes through. Store IPC arguments
+    # are padded below for its typed handler.
     repo = None
     if values[:1] == ['--repo']:
         if len(values) < 2:
@@ -99,6 +100,11 @@ def main(argv=None, executable=None):
         if not values:
             raise ValueError('Usage: eitr-shell COMPONENT [ipc|kill|list] [ARGUMENTS]')
         component, *rest = values
+        if component == 'desktop-bar' and rest[:2] == ['ipc', 'call']:
+            target_index = 3 if rest[2:3] == ['--'] else 2
+            if rest[target_index:target_index + 2] in (['store', 'show'], ['catalog', 'show']):
+                supplied = len(rest) - target_index - 2
+                rest += [''] * max(0, 2 - supplied)
         selected = str(shell_path(component, root))
         # Package upgrades replace files under the code root mid-transaction; a live
         # reload then fails. Only checkouts and personal overrides reload live; the

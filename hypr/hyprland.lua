@@ -424,7 +424,7 @@ bind_key(mainMod .. " + SHIFT + space", hl.dsp.exec_cmd(actionsDir .. "/toggle/d
 
 -- Desktop utilities
 bind_key(mainMod .. " + F1", hl.dsp.exec_cmd("bash /usr/share/eitr/quickshell/desktop-bar/scripts/handbook.sh toggle"))
-bind_key(mainMod .. " + F2", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- catalog toggle"))
+bind_key(mainMod .. " + F2", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- store toggle"))
 bind_key(mainMod .. " + comma", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- settings toggle"))
 bind_key(mainMod .. " + I", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- controlCenter toggle"))
 bind_key(mainMod .. " + N", hl.dsp.exec_cmd("eitr-shell desktop-bar ipc call -- notifications toggle"))

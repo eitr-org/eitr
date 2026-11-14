@@ -95,7 +95,7 @@ Si la barra desaparece sin un fallo, Eitr guarda cómo terminó: el final de su 
 El código de EITR está en `/usr/share/eitr` y se actualiza con `eitr-desktop`; tus ajustes quedan en `~/.config`. Coloca los cambios duraderos donde no los modifiquen las actualizaciones:
 
 - Monitores, dispositivos, atajos y reglas adicionales: `~/.config/hypr/local.lua`.
-- Complementos del shell: `~/.config/eitr/shell.local.zsh`.
+- Eitr Store del shell: `~/.config/eitr/shell.local.zsh`.
 - Opciones del terminal: `~/.config/kitty/local.conf`.
 - Colores del lanzador: `~/.config/walker/style.override.css`.
 - Sustitución completa de un archivo distribuido: la misma ruta relativa bajo `~/.config/eitr/overrides`. Deja de recibir correcciones de actualizaciones.

@@ -1621,8 +1621,8 @@ msgstr "Walker >「インストール」>「ブラウザ」からChrome、Chromi
 msgid "Install Ghostty? Enter: install · Esc: cancel"
 msgstr "Ghosttyをインストールしますか？ Enter: インストール · Esc: キャンセル"
 
-msgid "Install a lockscreen design from Add-ons first."
-msgstr "先にアドオンからロック画面デザインをインストールしてください。"
+msgid "Install a lockscreen design from Eitr Store first."
+msgstr "先にEitr Storeからロック画面デザインをインストールしてください。"
 
 msgid "Install alongside the existing systems in {size_text} of free space"
 msgstr "{size_text} の空き領域に既存のシステムと並べてインストール"

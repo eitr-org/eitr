@@ -46,6 +46,12 @@ def extract(root=ROOT):
             continue
         for match in re.finditer(r"\bI18n\.tr\(\s*(" + LITERAL + ")", path.read_text()):
             add("qml", ast.literal_eval(match[1]), path)
+    store_registry = root / "distro/store-kinds.json"
+    if store_registry.is_file():
+        for kind in json.loads(store_registry.read_text()):
+            add("qml", kind["label"], store_registry)
+            for description in kind["descriptions"].values():
+                add("qml", description, store_registry)
     settings_index = root / "quickshell/desktop-bar/settings/SettingsIndex.js"
     if settings_index.is_file():
         # The index is one JSON array assigned to `pages`; anything else is an error.

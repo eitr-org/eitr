@@ -4,7 +4,7 @@ import Quickshell
 import Quickshell.Wayland
 import "../PanelStyle.js" as PanelStyle
 
-// Settings, the Handbook and Add-ons: a floating window that opens at its
+// Settings, the Handbook and Eitr Store: a floating window that opens at its
 // default size every time (bounded by the screen); a resize lasts until it closes.
 FloatingWindow {
     id: window

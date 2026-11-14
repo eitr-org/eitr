@@ -26,20 +26,20 @@ Item {
             foreground: emptyState.catalogContext.foreground
             surface: emptyState.catalogContext.surface; line: emptyState.catalogContext.line; gold: emptyState.catalogContext.gold; carved: true
             spacing: 14
-            title: emptyState.catalogContext.kind === "themes" ? Eitr.I18n.tr("Community themes are on their way") : Eitr.I18n.tr("Community plugins are on their way")
+            title: Eitr.I18n.tr("No community items yet")
             SettingsText {
-                text: Eitr.I18n.tr("We're building a place for people to share their own themes and plugins. Until then, explore the Official collection.")
+                text: Eitr.I18n.tr("Try another source filter or check again later.")
                 color: emptyState.catalogContext.foreground
             }
             PanelButton {
-                width: 170; outlined: true; text: Eitr.I18n.tr("Browse Official"); foreground: emptyState.catalogContext.foreground
-                onClicked: { emptyState.catalogContext.tab = "official"; emptyState.catalogContext.tone = "all"; emptyState.catalogContext.query = ""; }
+                width: 170; outlined: true; text: Eitr.I18n.tr("All"); foreground: emptyState.catalogContext.foreground
+                onClicked: emptyState.catalogContext.sourceFilter = "all"
             }
         }
         SettingsText {
             visible: !emptyState.welcome
             horizontalAlignment: Text.AlignHCenter
-            text: emptyState.sectionContext.pageError || (emptyState.sectionContext.modelData.local ? Eitr.I18n.tr("No installed items match this filter.") : Eitr.I18n.tr("No themes available. Try again shortly."))
+            text: emptyState.sectionContext.pageError || (emptyState.sectionContext.modelData.local ? Eitr.I18n.tr("No installed items match this filter.") : Eitr.I18n.tr("No items match this filter."))
             color: emptyState.catalogContext.muted
         }
         PanelButton {

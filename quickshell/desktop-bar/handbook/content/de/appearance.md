@@ -1,6 +1,6 @@
 # Designs, Hintergrundbilder und Darstellung
 
-Einstellungen (**SUPER + ,**) enthält Darstellungsoptionen; **Weitere Themes** öffnet den separaten Add-ons (**SUPER + F2**).
+Einstellungen (**SUPER + ,**) enthält Darstellungsoptionen; **Weitere Themes** öffnet den separaten Eitr Store (**SUPER + F2**).
 
 ## Fensterlayout
 
@@ -11,77 +11,24 @@ Scrollen zeigt Richtung (Rechts, Links, Unten, Oben), Standard-Spaltenbreite (Ei
 Nur bei Scrollen: **SUPER + ALT + Pfeiltasten** fokussiert Fenster; **SUPER + ALT + SHIFT + Links/Rechts** tauscht Spalten; **SUPER + ALT + Equal/Minus** wechselt die Spaltenbreite zwischen einem Drittel, der Hälfte, zwei Dritteln und voller Breite. Der Wechsel verändert die fokussierte Spalte; Standard-Spaltenbreite gilt für neue Spalten. Siehe [Tastaturreferenz](handbook:shortcuts).
 
 
-## Add-ons
+## Eitr Store
 
-Der Katalog teilt Rahmen, Seitenleiste, Seitenüberschrift und Karten mit dem
-Einstellungsfenster. Er folgt den Theme-Farben oder der Palette der Eitr-Website,
-wenn die Einstellungen sie wählen, mit der mitgelieferten Schrift Cinzel.
+Öffne Eitr Store im App-Starter, mit SUPER + F2, im Desktop-Menü von Walker oder über Weitere Themes in den Einstellungen. Das eigene verschiebbare Fenster nutzt die Einstellungspalette und den Kopf EITR / STORE. Schließen und Escape verwerfen vorübergehende Auswahlen und Prüfungen.
 
-Die linke Seitenleiste listet Installiert, Offiziell und Community unter Themes und
-unter Plugins. Rechts stehen Seitentitel, Beschreibung, der Filter Alle, Hell und
-Dunkel für Themes und eine separat scrollbare Galerie. Auf/Ab wechselt die
-Seitenleistenzeile; Rechts oder Tab öffnet den Inhalt. Links in der ersten Spalte
-kehrt zur Seitenleiste zurück.
+Themes, Plugins, Sperrbildschirme und Hintergrundbilder haben jeweils Installiert und Entdecken. Entdecken vereint offizielle und Community-Karten mit Herkunftskennzeichen. Alle / Offiziell / Community filtert die Auswahl; die Suche durchsucht geladene Kategorien der aktuellen Ansicht. Themes bieten zusätzlich Hell/Dunkel. Auf/Ab wechselt Seitenleistenzeilen, Rechts oder Tab öffnet das Raster, Links kehrt zurück; Strg+F fokussiert die Suche.
 
-Öffne **Weitere Themes** unter Einstellungen > Erscheinungsbild > Design und Hintergrundbild oder drücke **SUPER + F2**. Add-ons hat ein eigenes Fenster. Die Navigation erklärt [Einstellungen](handbook:system).
+Ein Klick verwendet installierte Themes, Sperrbildschirme und Bilder. Entdecken-Karten öffnen Details und Quellen. Themes und Bildpakete werden erst nach Prüfung und Bestätigung installiert. Alle aktualisieren aktualisiert Themes nacheinander und prüft jedes Plugin einzeln. Entfernen erfordert eine Bestätigung; aktuelle Themes und Sperrbildschirme bleiben geschützt.
 
-Der Katalog ist ein verschiebbares Fenster mit gespeicherter Größe. Halte SUPER und ziehe mit der linken Maustaste zum Verschieben oder mit der rechten zum Ändern der Größe. Normale Fensterkürzel kacheln es oder verschieben es auf eine andere Arbeitsfläche. Erneutes Öffnen fokussiert das vorhandene Fenster auch auf einer anderen Arbeitsfläche. SUPER + F2 schließt es, wenn es fokussiert ist.
+Plugins besitzen die vollen Rechte deines Kontos. Vor Installation und Updates zeigt die Prüfung Quelle, festen Commit, Autor, Dateien, Befehle, Pakete und Warnungen. Prüfe den Code und optional die KI-Hinweise. Community-Commits sind im Index festgelegt. Prüfungen verfallen nach 15 Minuten und beim Schließen. Installiert > Hinzufügen akzeptiert HTTPS- und SSH-Git-Adressen für Themes und Plugins. Plugin-Karten öffnen Einstellungen, Aktivierung, Updates und Entfernen; ungenutzte Plugin-Pakete können optional entfernt werden.
 
-Auch die Schließen-Schaltfläche, Escape (nach dem Schließen eines Bestätigungsdialogs) oder das normale Fenster-Schließen-Kürzel schließen es. Installiert zeigt jedes Theme als Integriert, Offiziell, Drittanbieter oder
-Eigene in einer Vorschaugalerie. Ein Klick auf ein installiertes Theme wendet es
-über den normalen Ablauf an; ein Häkchen markiert das aktuelle Theme. Alle, Dunkel
-und Hell filtern die Galerie.
+Sperrbildschirme bleiben offizielle signierte Pakete. Installation und Entfernen verlangen das Administratorpasswort. Eitr ist eingebaut; verwendete Sitzungs- und Anmeldedesigns lassen sich nicht entfernen. Eigene Sperrbildschirme bleiben gespeichert und erscheinen nach erneuter Installation wieder.
 
-Installiert wird beim Öffnen und nach Aktionen aktualisiert. Beim Öffnen werden Metadaten im Hintergrund geprüft; danach erscheinen Update-Markierungen. Es gibt keine regelmäßige Netzwerkprüfung; Update ersetzt ein Katalog-Theme; Alle aktualisieren neben Hinzufügen aktualisiert nacheinander jedes Theme mit Update-Markierung und öffnet bei Plugins nacheinander jede Update-Prüfung. Wende ein aktualisiertes aktives Theme
-erneut an, um den Desktop zu erneuern. Entfernen fragt im Fenster nach und verweigert
-das aktive Theme: wende zuerst ein anderes an.
-
-Integrierte und eigene Themes bleiben erhalten.
-
-Offiziell vereint integrierte Themes und das Repository `eitr-org/eitr-themes`;
-Community zeigt Themes aus der Community. Ein Klick auf eine Karte dieser Tabs
-öffnet Details: Vorschau, Beschreibung, Palette (Hexwerte beim Überfahren), Quelle,
-Größe, Betreuung und Lizenz. Hintergrundbilder erscheinen als Miniaturen;
-Community-Bilder als Namenskarten mit Größenangabe. Ein Klick vergrößert das Bild,
-Zurück/Weiter blättert und die Rücktaste im Fenster führt zur Übersicht.
-Escape, die Schließen-Schaltfläche oder ein Klick außerhalb schließt die Details
-und gibt den Fokus an die Karte zurück. Vollständige entfernte Bilder werden erst
-beim Öffnen geladen, installierte Bilder lokal gelesen.
-
-Installieren auf der Karte schaltet die Auswahl um und zeigt Ausgewählt mit Haken. Installierte Karten zeigen Installiert und gegebenenfalls Aktuell. Wähle mehrere
-Themes und öffne mit Prüfen und installieren im Pop-up unter den Karten die Prüfung mit Vorschauen,
-Quellen und Gesamtgröße; Leeren hebt die Auswahl auf. Pfeiltasten navigieren,
-Leertaste schaltet die Auswahl um, Enter öffnet Details in Offiziell oder Community.
-
-Mit Tab zu Prüfen und installieren in diesem Pop-up und Enter öffnet sich die Prüfung. In Installiert wendet Enter weiterhin ein Theme an; eine offene Prüfung wird
-bestätigt. Installieren in den Details prüft nur dieses Theme; danach erscheint
-Anwenden oder Aktuell. Escape schließt zuerst die Prüfung, dann Details oder Fenster. Downloads, Fortschritt und Fehler bleiben im Fenster.
-
-Sichtbare Vorschauen und
-geöffnete Galerien nutzen den Benutzer-Cache. Bei nicht erreichbarem Repository
-lädt Erneut versuchen neu; Installiert bleibt offline verfügbar.
-
-Nicht zwischengespeicherte Community-Bilder zeigen bis zum Öffnen Größe unbekannt:
-Git würde für die Größenabfrage die gesamte Datei laden. Bekannte Größen werden angezeigt.
-
-Die Plugin-Seite zeigt installierte Plugins und das offizielle Repository
-`eitr-org/eitr-plugins` als Bildkarten mit Screenshot, zentriertem Symbol oder
-allgemeinem Plugin-Symbol. Kennzeichnungen zeigen installierte und deaktivierte
-Plugins. Das Entfernen wird im Fenster bestätigt.
-
-Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offiziell und Community öffnen Details mit Bildern, Videos und Komponenten. Videos starten stumm und stoppen beim Schließen. Installieren und Update zeigen Quelle, vollständigen Commit, Autor, Dateien, Befehle, Warnungen und Änderungen; die optionale KI-Prüfung erscheint als Text. Plugins haben alle Berechtigungen deines Kontos.
-
-Enter bestätigt, Escape bricht ab. Installiert wird genau der geprüfte Commit; Community verwendet den im Index festgelegten Commit. Die Prüfung läuft nach 15 Minuten ab und wird beim Schließen verworfen. Installiert > Von einer Git-Adresse hinzufügen akzeptiert HTTPS oder SSH für Plugins und datenbasierte Themes, ohne Terminal.
-
-Die 13 integrierten Themes bleiben offline verfügbar. Die 14 zusätzlichen Themes, darunter die hellen Freyja und Skaði, werden aus dem offiziellen Katalog `eitr-org/eitr-themes` installiert. Bestehende Konten erhielten die ersten 12 im Hintergrund; bei Netzwerkfehlern wird es später erneut versucht. Das aktuelle Theme und das gespeicherte Hintergrundbild bleiben erhalten. Neue Konten erhalten nur die integrierten Themes.
-
-Tippe irgendwo im Katalog oder drücke Ctrl+F oder /, um die aktuelle Seite nach Name oder Beschreibung zu durchsuchen. Die Wörter können in beliebiger Reihenfolge stehen; Escape leert zuerst die Suche.
+Hintergrundbilder zeigt mitgelieferte und eigene Bilder sowie Paketkarten. Ein Paket verwendet beim Anklicken sein erstes Bild; einzelne Bilder sind ebenfalls verfügbar. Community-Pakete enthalten nur geprüfte JPEG-, PNG- oder WebP-Bilder. Sie erscheinen im vorhandenen Bildwähler und Karussell; Entfernen löscht nur Paketdateien. Bildschirmschoner sind nicht enthalten.
 
 
-### Sperrbildschirme in Add-ons
+Theme-Repository: `eitr-org/eitr-themes`.
 
-Unter **Add-ons > Sperrbildschirme > Offiziell** installierst du Designs aus Eitrs signiertem Paket-Repository. Installation und Entfernung fragen im Eitr-Passwortfenster nach dem Administratorpasswort. **Installiert** zeigt installierte Designs; ein Klick verwendet eines für Sitzung und Anmeldung, wie in **Einstellungen > Sperrbildschirm** oder Walker. **Eitr** ist fest integriert und kann nicht entfernt werden. Das von Sitzung oder Anmeldung verwendete Design ist als **Aktuell** markiert und hat keinen Papierkorb. Eigene Sperrbildschirme mit einem entfernten Design werden ausgeblendet, nicht gelöscht, und erscheinen nach der Neuinstallation wieder. System Update installiert die acht optionalen Pakete einmalig; neue Installationen enthalten sie ebenfalls. Spätere Entfernungen bleiben erhalten.
-
+Wähle ein anderes Hintergrundbild, bevor du ein Paket einer gespeicherten Auswahl entfernst.
 
 ## Design und Hintergrundbild wählen
 

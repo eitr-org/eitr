@@ -468,7 +468,7 @@ class MenuStructureTests(unittest.TestCase):
 
     def test_desktop_mirrors_the_settings_app_pages(self):
         self.assertEqual([entry["text"] for entry in menu("style")["entries"]],
-                         ["Appearance", "Desktop Bar", "Focus", "Lockscreen", "Windows", "Add-ons"])
+                         ["Appearance", "Desktop Bar", "Focus", "Lockscreen", "Windows", "Eitr Store"])
         self.assertEqual([entry["text"] for entry in menu("appearance")["entries"]],
                          ["Corners", "Cursor", "Fonts", "Terminal", "Theme", "Wallpaper", "Wallpaper per display", "Settings Colours"])
         self.assertEqual([entry["text"] for entry in menu("windows")["entries"]], ["Window gaps", "Window layout", "Workspaces"])

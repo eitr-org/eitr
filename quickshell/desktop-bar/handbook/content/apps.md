@@ -167,7 +167,7 @@ In the install review, press A to ask your default assistant to check a temporar
 
 Scroll the report with PgUp/PgDn. AI can miss things: this is advice, not approval, and the full-permissions warning still applies. Enter installs and Esc cancels, including while the check runs. Errors, empty answers and a 180-second timeout leave the normal review available. Nothing is installed automatically. The catalog also supports data-only Git theme packages.
 
-The Add-ons catalog also installs and updates plugins without opening a
+The Eitr Store catalog also installs and updates plugins without opening a
 terminal. Official and Community cards open details with pictures, videos and
 component information; Install opens the native commit review. Installed > Add
 from a Git address accepts HTTPS or SSH. Review includes files, commands, QML

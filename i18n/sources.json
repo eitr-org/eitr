@@ -30,17 +30,11 @@
     "%1 leaves your keyboard layouts. You can add it again later.": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
-    "%1 themes": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
     "01 / TAPE": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "02 / NEO ORBITAL": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
-    ],
-    "1 theme": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "A light tap on the touchpad clicks.": [
       "quickshell/desktop-bar/components/SettingsPointerCard.qml"
@@ -108,8 +102,8 @@
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
     ],
     "Add": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/settings/SettingsInputPage.qml"
+      "quickshell/desktop-bar/settings/SettingsInputPage.qml",
+      "quickshell/desktop-bar/store/StoreGrid.qml"
     ],
     "Add Layout": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -128,7 +122,8 @@
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Add from a Git address": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreGrid.qml",
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Add or Remove Layouts…": [
       "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml"
@@ -142,9 +137,6 @@
     ],
     "Add to a display": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
-    ],
-    "Add-ons": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Adjust blur across the desktop.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
@@ -174,8 +166,9 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "All": [
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml",
       "quickshell/desktop-bar/panels/CalendarMenu.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreGrid.qml"
     ],
     "All day": [
       "quickshell/desktop-bar/components/DayAgenda.qml",
@@ -189,7 +182,7 @@
       "quickshell/desktop-bar/panels/AppearancePicker.qml"
     ],
     "Already up to date.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Always float": [
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
@@ -228,12 +221,12 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Apply": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
-      "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml"
+      "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "Applying changes…": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Apps & Keys": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml",
@@ -246,7 +239,7 @@
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
     "Ask the AI to check": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Assistant Access": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
@@ -303,10 +296,10 @@
       "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml",
       "quickshell/desktop-bar/panels/AssistantChat.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginArea.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml",
-      "quickshell/desktop-bar/plugins/PluginPanel.qml"
+      "quickshell/desktop-bar/plugins/PluginPanel.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "Back to your location": [
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
@@ -315,7 +308,7 @@
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Background service": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Battery & Power": [
       "quickshell/desktop-bar/panels/BatteryMenu.qml"
@@ -382,11 +375,8 @@
     "Brightness unavailable": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
-    "Browse Official": [
-      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
-    ],
     "Built in": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "CA certificate file not found": [
       "quickshell/desktop-bar/services/NetworkService.qml"
@@ -416,7 +406,6 @@
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
       "quickshell/desktop-bar/components/SettingsConfirmSheet.qml",
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/PolkitDialog.qml",
       "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/TimePicker.qml",
@@ -425,7 +414,9 @@
       "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml",
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml",
-      "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
+      "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml",
+      "quickshell/desktop-bar/store/StoreReview.qml",
+      "quickshell/desktop-bar/store/StoreSheet.qml"
     ],
     "Cancel preview": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -507,7 +498,7 @@
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Choose plugins": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Choose stable builds or try new builds first.": [
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
@@ -552,7 +543,7 @@
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Choose themes": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Choose user · Ctrl+Left / Ctrl+Right": [
       "quickshell/lockscreen/imports/LockscreenComponents/UserPicker.qml"
@@ -572,7 +563,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Clear": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreSelection.qml"
     ],
     "Clear all": [
       "quickshell/desktop-bar/notifications/NotificationList.qml"
@@ -597,16 +588,16 @@
     "Close": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
       "quickshell/desktop-bar/dock/EdgeDock.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/CatalogPluginSheet.qml",
       "quickshell/desktop-bar/settings/FamilySidebar.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Close All Windows": [
       "quickshell/desktop-bar/dock/EdgeDock.qml"
     ],
-    "Close catalog": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+    "Close Store": [
+      "quickshell/desktop-bar/store/StoreSidebar.qml"
     ],
     "Close handbook": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -630,20 +621,15 @@
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Community": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
-    "Community plugins are on their way": [
-      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
-    ],
-    "Community themes are on their way": [
-      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
+      "quickshell/desktop-bar/store/StoreGrid.qml",
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Configure this source in OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Confirm": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Confirm removal": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
@@ -689,11 +675,11 @@
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Continue": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
+      "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Continue · %1": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Control Center": [
       "quickshell/desktop-bar/bar/EitrLogo.qml",
@@ -777,7 +763,8 @@
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "Current": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "Current page": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
@@ -815,11 +802,17 @@
     ],
     "Dark": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml",
+      "quickshell/desktop-bar/store/StoreGitThemeCard.qml",
+      "quickshell/desktop-bar/store/StoreGrid.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
+    "Data-only images · Review selected sources": [
+      "quickshell/desktop-bar/store/StoreInstallReview.qml"
+    ],
     "Data-only themes · Review selected sources": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreInstallReview.qml",
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Default Assistant": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
@@ -836,7 +829,7 @@
       "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml"
     ],
     "Delete": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml"
     ],
     "Delete every occurrence": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -866,7 +859,7 @@
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "Desktop theme": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml"
     ],
     "Detailed Status": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -904,16 +897,29 @@
       "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml"
     ],
     "Disabled": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginComponent.qml",
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
-      "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml"
+      "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml",
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "Disconnect": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
       "quickshell/desktop-bar/components/WifiNetworkRow.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Discover": [
+      "quickshell/desktop-bar/store/StoreState.qml"
+    ],
+    "Discover community wallpaper packs.": [
+      "distro/store-kinds.json"
+    ],
+    "Discover official and community plugins.": [
+      "distro/store-kinds.json"
+    ],
+    "Discover official and community themes.": [
+      "distro/store-kinds.json"
     ],
     "Display": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
@@ -1012,7 +1018,7 @@
       "quickshell/calculator/shell.qml"
     ],
     "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Eitr version": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
@@ -1084,7 +1090,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Files": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Find lyrics on LRCLIB? The title, artist and album of each song you play are sent to lrclib.net.": [
       "quickshell/desktop-bar/media/MediaPage.qml"
@@ -1196,7 +1202,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "HTTPS or SSH Git address": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Half": [
       "tools/choice-lists.json"
@@ -1287,8 +1293,10 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Install": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
+      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml",
+      "quickshell/desktop-bar/store/StoreInstallReview.qml"
     ],
     "Install an AI Assistant": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
@@ -1297,8 +1305,11 @@
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Installed": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
+      "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml",
+      "quickshell/desktop-bar/store/StoreGitThemeCard.qml",
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Installed assistants and collaboration preferences.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -1431,7 +1442,9 @@
     ],
     "Light": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml",
+      "quickshell/desktop-bar/store/StoreGitThemeCard.qml",
+      "quickshell/desktop-bar/store/StoreGrid.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Link speed": [
@@ -1445,7 +1458,8 @@
     ],
     "Loading…": [
       "quickshell/desktop-bar/drop/DropPerformancePage.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreGrid.qml",
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Lock": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
@@ -1466,10 +1480,10 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Lockscreen designs on this computer. Choose one to use it.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "distro/store-kinds.json"
     ],
     "Lockscreens": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "distro/store-kinds.json"
     ],
     "Logout": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
@@ -1552,7 +1566,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Missing packages require the administrator password.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Monitors": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -1582,7 +1596,7 @@
     ],
     "Mute": [
       "quickshell/desktop-bar/components/AudioLevelControl.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "Mute microphone": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -1624,8 +1638,9 @@
     "Next": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/Handbook.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml",
+      "quickshell/desktop-bar/store/StoreReview.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Next panel": [
@@ -1662,6 +1677,9 @@
     "No applications are playing audio.": [
       "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
     ],
+    "No community items yet": [
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
+    ],
     "No connected devices": [
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
@@ -1681,6 +1699,9 @@
       "quickshell/desktop-bar/settings/SettingsAppearanceModel.qml"
     ],
     "No installed items match this filter.": [
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
+    ],
+    "No items match this filter.": [
       "quickshell/desktop-bar/components/CatalogEmptyState.qml"
     ],
     "No lyrics found for this song": [
@@ -1735,11 +1756,8 @@
     "No reminders": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
-    "No themes available. Try again shortly.": [
-      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
-    ],
     "No wallpapers": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "None": [
       "quickshell/desktop-bar/capture/BeautifyWindow.qml",
@@ -1834,14 +1852,15 @@
       "quickshell/desktop-bar/welcome/WelcomePage.qml"
     ],
     "Official": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/plugins/PluginDetails.qml"
+      "quickshell/desktop-bar/plugins/PluginDetails.qml",
+      "quickshell/desktop-bar/store/StoreGrid.qml",
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Official Eitr lockscreen designs. Installing requires the administrator password.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "distro/store-kinds.json"
     ],
     "Official Eitr plugin": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Offline": [
       "quickshell/desktop-bar/components/WifiNetworkRow.qml",
@@ -1863,6 +1882,9 @@
     ],
     "Only the next occurrence can be skipped": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
+    ],
+    "Only this pack’s wallpaper files are deleted.": [
+      "quickshell/desktop-bar/store/StoreRemove.qml"
     ],
     "Opacity": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
@@ -2014,7 +2036,7 @@
       "quickshell/desktop-bar/drop/DropObsPage.qml",
       "quickshell/desktop-bar/media/MediaCard.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "Pause notification popups.": [
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
@@ -2052,7 +2074,7 @@
     "Play": [
       "quickshell/desktop-bar/media/MediaCard.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "Play a sound when the charger is connected.": [
       "quickshell/desktop-bar/settings/EventSoundSettings.qml"
@@ -2062,21 +2084,15 @@
       "quickshell/desktop-bar/settings/EventSoundSettings.qml"
     ],
     "Plugins": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
+      "distro/store-kinds.json",
       "quickshell/desktop-bar/panels/ControlCenter.qml",
       "quickshell/desktop-bar/plugins/PluginArea.qml"
     ],
-    "Plugins from the Eitr project, reviewed before installing.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
     "Plugins on this computer, with their updates.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "distro/store-kinds.json"
     ],
     "Plugins run with your account's full permissions": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
-    "Plugins shared by other people. Review them before installing.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Pointer acceleration": [
       "quickshell/desktop-bar/components/SettingsPointerCard.qml",
@@ -2124,8 +2140,9 @@
     "Previous": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/panels/Handbook.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml",
+      "quickshell/desktop-bar/store/StoreReview.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Previous panel": [
@@ -2243,18 +2260,18 @@
     "Remove": [
       "quickshell/desktop-bar/components/SettingsConfirmSheet.qml",
       "quickshell/desktop-bar/components/WifiNetworkRow.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml",
-      "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
+      "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml",
+      "quickshell/desktop-bar/store/StoreRemove.qml"
     ],
     "Remove %1": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml"
     ],
     "Remove %1?": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreRemove.qml"
     ],
     "Remove TPM Unlock": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -2285,7 +2302,7 @@
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
     ],
     "Remove unused plugin-installed packages: {packages}?": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreRemove.qml"
     ],
     "Rename": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
@@ -2367,22 +2384,26 @@
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
     "Review": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Review & install": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreSelection.qml"
     ],
     "Review plugin %1 of %2": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Review plugin installation": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Review plugin update": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "Review theme installation": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreInstallReview.qml",
+      "quickshell/desktop-bar/store/StoreReview.qml"
+    ],
+    "Review wallpaper installation": [
+      "quickshell/desktop-bar/store/StoreInstallReview.qml"
     ],
     "Right": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
@@ -2489,6 +2510,9 @@
       "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
+    "Search Store": [
+      "quickshell/desktop-bar/store/StoreSidebar.qml"
+    ],
     "Search a city": [
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
     ],
@@ -2501,9 +2525,6 @@
     "Search emojis": [
       "quickshell/emoji-picker/shell.qml"
     ],
-    "Search plugins": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
     "Search settings": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/SettingsContent.qml"
@@ -2514,9 +2535,6 @@
     ],
     "Search the handbook…": [
       "quickshell/desktop-bar/panels/Handbook.qml"
-    ],
-    "Search themes": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
     ],
     "Security": [
       "quickshell/desktop-bar/settings/SettingsIndex.js",
@@ -2529,7 +2547,8 @@
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
     "Selected": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml",
+      "quickshell/desktop-bar/store/StoreSelection.qml"
     ],
     "Selected row": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
@@ -2688,7 +2707,7 @@
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
     ],
     "Size unavailable": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Skip break": [
       "quickshell/desktop-bar/services/FocusTimer.qml"
@@ -2835,7 +2854,7 @@
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "System packages": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "System updates and the update channel.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -2870,7 +2889,7 @@
       "quickshell/desktop-bar/panels/PolkitDialog.qml"
     ],
     "The Eitr project": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "The app this rule applies to.": [
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
@@ -2903,13 +2922,13 @@
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
     ],
     "The plugin and its files are deleted from this computer.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreRemove.qml"
     ],
     "The screen that shows this copy.": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "The theme is deleted from this computer.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreRemove.qml"
     ],
     "Their login keyring cannot be updated and will keep its old password. Enter the new password in the terminal.": [
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
@@ -2939,22 +2958,16 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Themes": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
-    "Themes from the Eitr project, ready to install.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "distro/store-kinds.json"
     ],
     "Themes on this computer. Choose one to apply it.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
-    ],
-    "Themes shared by other people. Review them before installing.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "distro/store-kinds.json"
     ],
     "Thinking…": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Third-party": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "This WiFi security type requires advanced network configuration": [
       "quickshell/desktop-bar/services/NetworkService.qml"
@@ -3000,7 +3013,7 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Total download: %1": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreInstallReview.qml"
     ],
     "Touchpad": [
       "quickshell/desktop-bar/components/SettingsPointerCard.qml"
@@ -3013,6 +3026,9 @@
     ],
     "Transparent": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
+    ],
+    "Try another source filter or check again later.": [
+      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
     ],
     "Turn Bluetooth on or off": [
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
@@ -3079,7 +3095,7 @@
     ],
     "Unmute": [
       "quickshell/desktop-bar/components/AudioLevelControl.qml",
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "Unnamed device": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml"
@@ -3095,8 +3111,9 @@
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Update": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml",
-      "quickshell/desktop-bar/plugins/PluginDetails.qml"
+      "quickshell/desktop-bar/plugins/PluginDetails.qml",
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml",
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "Update Channel": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -3106,7 +3123,7 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "Update all (%1)": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreGrid.qml"
     ],
     "Update available": [
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
@@ -3198,10 +3215,11 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Wallpapers": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "distro/store-kinds.json",
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
-    "We're building a place for people to share their own themes and plugins. Until then, explore the Official collection.": [
-      "quickshell/desktop-bar/components/CatalogEmptyState.qml"
+    "Wallpapers on this computer. Choose one to use it.": [
+      "distro/store-kinds.json"
     ],
     "Weather": [
       "quickshell/desktop-bar/bar/WeatherWidget.qml",
@@ -3321,7 +3339,7 @@
       "quickshell/desktop-bar/components/ReloadErrorPopup.qml"
     ],
     "Your own lockscreens using this design are hidden until you reinstall it.": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreRemove.qml"
     ],
     "Your system at a glance.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -3333,7 +3351,7 @@
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "Yours": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "ai usage assistants collaboration default access permissions accounts claude codex gemini grok copilot": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -3466,10 +3484,10 @@
       "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "{name} · already installed": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "{name} · will be installed": [
-      "quickshell/desktop-bar/panels/CatalogContent.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml"
     ],
     "{percent}% used": [
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
@@ -3606,9 +3624,6 @@
     ],
     "Add {provider} Account": [
       "elephant/cloud-context-entries.lua"
-    ],
-    "Add-ons": [
-      "elephant/menu-rows/style.json"
     ],
     "After enrollment · password fallback retained": [
       "elephant/menu-rows/fido2.json"
@@ -4199,6 +4214,9 @@
     ],
     "Effects, blur and popups off; performance profile on": [
       "elephant/menu-rows/toggle.json"
+    ],
+    "Eitr Store": [
+      "elephant/menu-rows/style.json"
     ],
     "Eitr builds once they have been tried on testing": [
       "tools/choice-lists.json"
@@ -6720,10 +6738,10 @@
     "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": [
       "tools/handbook-build.py"
     ],
-    "Toggle Add-ons": [
+    "Toggle EITR handbook": [
       "tools/handbook-build.py"
     ],
-    "Toggle EITR handbook": [
+    "Toggle Eitr Store": [
       "tools/handbook-build.py"
     ],
     "Toggle Focus": [
@@ -8473,7 +8491,7 @@
     "Install Ghostty? Enter: install · Esc: cancel": [
       "walker/scripts/actions/style/terminal.py"
     ],
-    "Install a lockscreen design from Add-ons first.": [
+    "Install a lockscreen design from Eitr Store first.": [
       "walker/scripts/actions/style/own.py"
     ],
     "Install alongside the existing systems in {size_text} of free space": [

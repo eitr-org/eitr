@@ -196,7 +196,7 @@ Workspaces, Lockscreen, Cursor and Terminal folds. Each open fold encloses its
 header and padded options in one subtle surface. Bar groups Layout, Position,
 Appearance, Show on, Clock, Media style and Behavior; Behavior holds Auto-hide,
 Dock and Reduce motion. Theme & Wallpaper opens the carousels, font picker and the
-Add-ons catalog;
+Eitr Store catalog;
 Workspaces includes marker previews. Settings contains
 inline keyboard and display/night-light configuration. Keyboard rows include
 removal controls, disabled when only one layout remains. General ends
@@ -1177,23 +1177,24 @@ sliding gold marker; entries are `{id, title, rune, group, groupRune}`),
 `FamilyPageHeader` (gold rune breadcrumb, Cinzel title and description), `ControlCard`,
 `ControlRow` and `PanelButton`. `SettingsWindow` uses the bar's `eitr-catalog` app id
 and a translated Settings title. SUPER+comma toggles it; SUPER+I toggles Control
-Center. Its opaque theme canvas has no blur. Like the Handbook and Add-ons,
+Center. Its opaque theme canvas has no blur. Like the Handbook and Eitr Store,
 it opens at its default size every time; a resize lasts until it closes. Outside clicks leave it
 open. `settings toggle`, `settings show <page/tab>` and `settings close` control it.
-Add-ons has its own catalog window in the same family: its sidebar
-lists Installed, Official and Community under Themes and under Plugins, plus Installed
-and Official under Lockscreens. The page header names
-the current source, and cards use the Settings card style with an All/Light/Dark
-`ChoiceSegmented` filter. `catalog toggle`,
-SUPER+F2, `panels show catalog`, `host.showCatalog()` and `showThemes(tone)` open
-that window. Plugin review actions retain their existing reviewed terminal flow. Appearance's
-**More themes** button opens the catalog on Themes.
+Eitr Store has its own application window in the same family. The registry in
+`distro/store-kinds.json` drives Installed and Discover under each kind. Discover
+merges source lists and shows Official/Community badges with a provenance filter;
+the search field searches loaded kinds. Themes retain the All/Light/Dark filter.
+`store show [kind] [tab]`, `store toggle`, SUPER+F2 and the desktop launcher open it.
+The `catalog` target remains an IPC alias, as do `panels show catalog` and
+`host.showCatalog()`. Appearance's **More themes** opens Themes / Discover.
+Plugin permission review and lockscreen administrator authentication remain in
+their existing backend owners. See [Store architecture](../../distro/STORE.md).
 
 `settings/SettingsIndex.js` owns sidebar groups, page IDs, descriptions, search
 keywords and tab routes. System is the first page and includes the profile
 and system overview; `settings show you` remains an alias. Its nine palette swatches
 match the theme cards: background, foreground, accent and color1 through color6.
-Add-ons is absent from Settings navigation and search.
+Eitr Store is absent from Settings navigation and search.
 
 Settings uses bundled Cinzel titles, Elder Futhark group captions,
 Noto Sans Runic page marks and the light/dark `SiteStyle.bronze` ink owned by
@@ -1234,19 +1235,19 @@ active layout before dispatching a native layout message.
 Changing gaps uses the same config reload path as Corners. DisplayService refreshes
 live topology and gaps on `configreloaded`, including existing island/panel spacing.
 
-`panels/CatalogContent`
-sends explicit `catalog` queries through DesktopData: `installed`, `index`,
-`preview`, `check`, `install`, `update`, `remove`, `unhide`, and `apply`, with `kind`
-(`themes` or `plugins`), `channel` (`official`, `community`, `installed`) and IDs where needed. Plugins expose only installed,
-index, check and remove in this step. There is no polling or terminal UI.
-`catalog-domain.py` loads lazily in the bounded broker pool; one persistent backend worker calls
-existing theme/plugin owners with a 60-second read or 300-second action deadline.
-Closing cancels owned queries; broker restarts never replay actions. An interrupted
-mutation has an unknown outcome: refresh Installed before retrying. Theme preview
-blobs are validated and cached below XDG_CACHE_HOME/eitr/catalog-previews.
-The plugin owner reads its index, manifest labels and Git tree sizes in a sparse
-metadata clone; listing downloads no plugin code, icons or previews. Full plugin
-validation remains in the existing install/review path.
+`store/StoreContent.qml` composes the sidebar, grid, cards, detail, data review,
+plugin review and removal sheets. `StoreState.qml` owns transactions and view
+state; `StoreKeyboard.qml` owns keyboard navigation. `panels/CatalogContent.qml`
+is a compatibility type. All Store sources stay below 400 lines.
+
+Store queries retain the `catalog` domain through DesktopData. `catalog-domain.py`
+owns transport, deadlines and cancellation; `eitr_store_backends.py` dispatches
+registry backend IDs to the existing theme, plugin and lockscreen owners and the
+wallpaper backend. One persistent worker uses a 60-second read or 300-second
+action deadline. Closing cancels owned queries; interrupted actions are never
+replayed. Refresh Installed after an unknown outcome. Index, artwork and review
+caches keep their machine-local names. The plugin index remains metadata-only;
+code and permission review stay in the existing prepare/confirm path.
 
 Settings, the Handbook and the catalog share `LibraryWindow` focus, sizing and Hyprland rules
 through `FamilyWindow`. The Handbook groups chapters by their `group` in `handbook/chapters.json`

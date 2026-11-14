@@ -1557,7 +1557,7 @@
   "The system language {language} was not generated on the installed system": "The system language {language} was not generated on the installed system",
   "Search: {query}": "Search: {query}",
   "Type to search": "Type to search",
-  "Install a lockscreen design from Add-ons first.": "Install a lockscreen design from Add-ons first.",
+  "Install a lockscreen design from Eitr Store first.": "Install a lockscreen design from Eitr Store first.",
   "The current lockscreen cannot be removed.": "The current lockscreen cannot be removed.",
   "An app class is required": "An app class is required",
   "Expected summary, add JSON, update INDEX JSON or remove INDEX": "Expected summary, add JSON, update INDEX JSON or remove INDEX",

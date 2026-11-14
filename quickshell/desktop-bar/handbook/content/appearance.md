@@ -1,7 +1,7 @@
 # Themes, wallpapers and style
 
 Settings (**SUPER + ,**) includes Appearance controls; **More themes** opens
-the separate Add-ons catalog window (**SUPER + F2**).
+the separate Eitr Store catalog window (**SUPER + F2**).
 
 ## Window layout
 
@@ -12,96 +12,21 @@ Scrolling reveals Direction (Right, Left, Down, Up), Default column width (One t
 Only while Scrolling is selected: **SUPER + ALT + arrows** focuses windows; **SUPER + ALT + SHIFT + Left/Right** swaps columns; **SUPER + ALT + Equal/Minus** cycles column width through one third, half, two thirds and full. Width cycles resize the focused column; Default column width controls new columns. See the generated [keyboard reference](handbook:shortcuts).
 
 
-## Add-ons
+## Eitr Store
 
-The catalog shares the Settings window's frame, sidebar, page header and cards.
-It follows the theme's colours, or the Eitr website palette when Settings chooses
-it, with the bundled Cinzel lettering.
+Open Eitr Store from the app launcher, SUPER + F2, Walker’s Desktop menu or More themes in Settings. It is a separate movable, resizable window in the Settings palette, with the EITR / STORE header. The close button, Escape and the normal close shortcut dismiss it. Closing clears temporary selections and reviews.
 
-The left sidebar lists Installed, Official and Community under Themes and under
-Plugins, plus Installed and Official under Lockscreens. The right side has the page title, description, the All, Light and Dark
-filter for themes and an independently scrolling gallery. Up/Down moves between
-sidebar rows; Right or Tab enters the content. Left from the first column returns
-to the sidebar.
+Each kind—Themes, Plugins, Lockscreens and Wallpapers—has Installed and Discover. Discover combines Official and Community cards; badges show their source. Use All / Official / Community above the grid to filter. The search field searches loaded kinds in the current Installed or Discover view. Themes also offer All / Light / Dark. Up/Down selects a sidebar row; Right or Tab enters the grid; Left from the first column returns. Ctrl+F focuses search.
 
-Open **More themes** in Settings > Appearance > Theme & Wallpaper, or press **SUPER + F2**. Add-ons is a separate window. See [Settings](handbook:system) for navigation.
+Click an installed theme, lockscreen or wallpaper to use it. Click a Discover card for details, provenance and artwork. Select themes or wallpaper packs and choose Review & install; nothing installs before confirmation. Remote artwork loads on demand. Update all updates themes in sequence and reviews each plugin update. Installed cards show update badges; removal always asks for confirmation. The current theme and lockscreen cannot be removed.
 
-The catalog opens as a movable, resizable window. Hold SUPER and drag with the
-left mouse button to move it, or the right button to resize it. Its last size is
-remembered. Normal window shortcuts can tile it or send it to another workspace. Opening it again focuses the existing window, including on another workspace.
+Plugins run with your account’s full permissions. Installing or updating always shows the source, pinned commit, author, files, commands, required packages and warnings. Review code and any optional AI advice before confirming. Community plugin commits are pinned by the index. Reviews expire after 15 minutes and are discarded on close. Installed > Add accepts HTTPS or SSH Git addresses for themes and plugins; multiple plugins are reviewed one after another. Installed plugin cards open management, including settings, enable/disable, updates and removal. Unused plugin-installed packages can be removed when offered.
 
-SUPER + F2 closes it when focused. Its close button, Escape (after dismissing any
-review sheet), or the normal window close shortcut also closes it. Installed lists every theme as Built in, Official, Third-party
-or Yours in a preview gallery. Click an installed card to apply it through the
-normal theme workflow; a check marks the current theme.
+Lockscreens remain official signed packages. Installing and removing require the administrator password. Eitr stays built in; designs used by the session or login cannot be removed. Your own lockscreens remain on disk if their design is removed and return when reinstalled.
 
-All, Dark and Light
-filter the gallery. Installed refreshes when the window opens and after actions. Opening the window
-also checks package metadata in the background; update pills appear when it
-finishes. There is no periodic network check. Update replaces a catalog theme; Update all, beside Add, updates every theme with an update pill in turn, and for plugins opens each update's review in turn. Reapply an updated
-active theme to refresh the desktop.
+Wallpapers lists shipped theme pictures, your own pictures and installed pack cards. Clicking a pack uses its first image; individual images are also available. Community packs are data-only verified JPEG, PNG or WebP images. Installation adds them to your own wallpapers for the existing picker and carousel; removing a pack deletes only its files. Screensavers are not included.
 
-Remove asks inside the window and refuses
-the active theme: apply another theme first. Built-in and Yours items stay here.
-
-Official combines built-in themes and the official `eitr-org/eitr-themes`
-repository. Community lists community themes. Click a card on either tab to open
-its details: preview, description, palette (hover for hex values), source, size,
-maintainer and license. Wallpapers appear as thumbnails; community wallpapers
-use name tiles with sizes. Click one to view it large, use Previous/Next to browse,
-and Back to return. Escape, the close button or clicking outside closes details
-and returns focus to the card. Full remote wallpapers download only when opened;
-installed artwork is read locally.
-
-A card's Install button toggles its download selection and shows Selected with a
-check. Installed cards show Installed and retain Current where appropriate. Select several themes, then use Review & install in the pop-up that appears below the cards to review their previews,
-sources and total size; Clear removes the selection. Arrows move between cards,
-Space toggles selection, and Enter opens details on Official or Community.
-
-Tab to
-Review & install in that pop-up and press Enter to review the selection. Enter still
-applies a theme on Installed and confirms an open review. The detail sheet's
-Install reviews just that theme; after installation it offers Apply, or Current
-when active. Escape cancels a review before closing details or the window.
-
-Downloads, progress and errors stay in the window. Visible card previews and
-opened galleries use the user cache. If a repository is unreachable, Retry loads
-it again; Installed remains available offline.
-
-Uncached community wallpaper sizes show Size unavailable until opened: obtaining
-those sizes from Git would download the full files. Already cached sizes are shown.
-
-The Plugins page lists installed plugins and the official `eitr-org/eitr-plugins`
-repository as picture cards, using a screenshot, centered icon or generic glyph.
-Badges show installed and disabled plugins. Removal has an in-window confirmation.
-Click an Official or Community plugin to see its author, version, source,
-components and a gallery of pictures and videos. Select a thumbnail to load that
-asset. Videos loop muted; Play/Pause and Unmute/Mute stay inside the sheet.
-Selecting another asset or closing details stops playback. Installed plugin cards
-on the Installed tab keep their existing behavior.
-
-Install opens an in-window review of the source, full commit, author, files,
-commands and permissions. Update shows new commits, changed files and risk flags.
-Plugins run with your account's full permissions; third-party and community
-sources carry a stronger warning. Optional Ask the AI to check shows advice in
-the window. Enter confirms; Escape cancels. Nothing installs before confirmation,
-and the reviewed commit is preserved even if upstream changes. Reviews expire
-after 15 minutes and are discarded when the catalog closes.
-
-Installed > Add from a Git address accepts an HTTPS or SSH repository address for
-a plugin or a data-only theme package, then shows its review. No terminal opens.
-Walker and Control Center retain their terminal workflows.
-
-Built-in themes ship with Eitr and cannot be removed. The trash button on a
-downloaded theme deletes that installed package; the current theme cannot be removed.
-
-Type anywhere in the catalog, or press Ctrl+F or /, to search the current page by
-name or description. Words can appear in any order; Escape clears the search first.
-
-### Lockscreens in Add-ons
-
-Open **Add-ons > Lockscreens > Official** to install designs from Eitr’s signed package repository. Installing and removing ask for the administrator password in Eitr’s password popup. **Installed** shows installed designs; click one to use it for the session and the login screen, as in **Settings > Lockscreen** or Walker. **Eitr** is built in and cannot be removed. The design used by the session or login screen has a **Current** badge and no trash button. Your own lockscreens using an uninstalled design are hidden, never deleted, and return when you reinstall it. Existing desktops receive all eight optional packages once through System Update; fresh installs include them too. Later removals are preserved.
-
+Choose another wallpaper before removing a pack used by a saved wallpaper selection.
 
 ## Choose a theme and wallpaper
 

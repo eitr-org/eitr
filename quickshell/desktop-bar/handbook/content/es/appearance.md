@@ -1,6 +1,6 @@
 # Temas, fondos de pantalla y estilo
 
-Configuración (**SUPER + ,**) incluye los controles de Apariencia; **Más temas** abre el catálogo independiente de Complementos (**SUPER + F2**).
+Configuración (**SUPER + ,**) incluye los controles de Apariencia; **Más temas** abre el catálogo independiente de Eitr Store (**SUPER + F2**).
 
 ## Distribución de ventanas
 
@@ -11,79 +11,24 @@ Desplazamiento muestra Dirección (Derecha, Izquierda, Abajo, Arriba), Anchura p
 Solo en Desplazamiento: **SUPER + ALT + flechas** enfoca ventanas; **SUPER + ALT + SHIFT + Izquierda/Derecha** intercambia columnas; **SUPER + ALT + Equal/Minus** alterna entre un tercio, mitad, dos tercios y anchura completa. El ciclo redimensiona la columna enfocada; la anchura predeterminada se aplica a columnas nuevas. Consulta la [referencia de teclado](handbook:shortcuts).
 
 
-## Catálogo de Complementos
+## Eitr Store
 
-El catálogo comparte el marco, la barra lateral, el encabezado de página y las
-tarjetas de la ventana de Configuración. Sigue los colores del tema, o la paleta
-del sitio web de Eitr cuando Configuración la elige, con la tipografía Cinzel
-incluida.
+Abre Eitr Store desde el lanzador, SUPER + F2, el menú Escritorio de Walker o Más temas en Configuración. Es una ventana independiente que se puede mover y redimensionar, con la paleta de Configuración y la cabecera EITR / STORE. Cerrar o pulsar Escape descarta selecciones y revisiones temporales.
 
-La barra lateral enumera Instalado, Oficial y Comunidad bajo Temas y bajo Plugins.
-A la derecha están el título, la descripción, el filtro Todas, Claro y Oscuro para
-los temas y una galería con desplazamiento independiente. Arriba/Abajo recorre las
-filas; Derecha o Tab entra al contenido. Izquierda desde la primera columna vuelve
-a la barra lateral.
+Temas, Plugins, Pantallas de bloqueo y Fondos tienen Instalado y Descubrir. Descubrir combina tarjetas oficiales y comunitarias con insignias de origen. Filtra con Todos / Oficial / Comunidad; la búsqueda abarca las categorías cargadas de la vista actual. Los temas también se filtran por claro/oscuro. Arriba/Abajo cambia de fila; Derecha o Tab entra en la cuadrícula y la izquierda vuelve; Ctrl+F enfoca la búsqueda.
 
-Abre **Más temas** en Configuración > Apariencia > Tema y fondo de pantalla o pulsa **SUPER + F2**. Complementos es una ventana independiente. Consulta [Configuración](handbook:system) para navegar.
+Pulsa un tema, bloqueo o fondo instalado para usarlo. Las tarjetas de Descubrir muestran detalles, imágenes y fuentes. Selecciona temas o paquetes de fondos y revisa antes de confirmar la instalación. Actualizar todo actualiza temas en secuencia y revisa cada plugin. Eliminar siempre pide confirmación; no se pueden eliminar el tema ni el bloqueo actuales.
 
-El catálogo es una ventana que recuerda su tamaño. Mantén SUPER y arrastra con el botón izquierdo para moverla o con el derecho para cambiar su tamaño. Los atajos normales permiten organizarla en mosaico o enviarla a otro espacio de trabajo. Abrirla de nuevo enfoca la ventana existente, incluso en otro espacio.
+Los plugins tienen todos los permisos de tu cuenta. Cada instalación y actualización muestra fuente, commit fijado, autor, archivos, comandos, paquetes y advertencias. Revisa el código y, si quieres, el consejo de IA. Los commits comunitarios están fijados en el índice. La revisión caduca a los 15 minutos y al cerrar. Instalado > Añadir acepta direcciones Git HTTPS o SSH de temas y plugins. Las tarjetas instaladas abren ajustes, activación, actualización y eliminación; se pueden retirar paquetes del plugin que ya no se usan.
 
-SUPER + F2 la cierra si tiene el foco. También se cierra con su botón, Escape (tras cerrar cualquier confirmación) o el atajo normal para cerrar ventanas. Instalados muestra cada tema como Integrado, Oficial, De terceros o Tuyos en una
-galería de vistas previas. Pulsa un tema instalado para aplicarlo con el flujo
-habitual; una marca indica el actual.
+Los bloqueos siguen siendo paquetes oficiales firmados; instalar y eliminar exige contraseña de administrador. Eitr está integrado; los diseños usados en la sesión o el acceso no se eliminan. Tus bloqueos propios se conservan y regresan al reinstalar el diseño.
 
-Todos, Oscuros y Claros filtran la galería. Instalados se actualiza al abrir la ventana y después de cada acción. Al abrir se comprueban los metadatos en segundo plano y aparecen indicadores de actualización. No hay comprobaciones periódicas de red; Actualizar reemplaza un tema del catálogo; Actualizar todo, junto a Añadir, actualiza uno tras otro cada tema con indicador de actualización y, en los plugins, abre la revisión de cada actualización por turno. Vuelve a aplicar un tema
-activo actualizado para refrescar el escritorio.
-
-Eliminar pide confirmación en
-la ventana y rechaza el tema activo: aplica otro primero. Los integrados y tuyos se conservan.
-
-Oficial reúne los temas integrados y el repositorio `eitr-org/eitr-themes`;
-Comunidad muestra temas de la comunidad. Pulsa una tarjeta de estas pestañas
-para ver sus detalles: vista previa, descripción, paleta (pasa el puntero para
-ver valores hexadecimales), origen, tamaño, responsable y licencia. Los fondos
-aparecen como miniaturas; los comunitarios usan tarjetas con nombre y tamaño.
-
-Pulsa uno para ampliarlo, usa Anterior/Siguiente para recorrerlos y Atrás para
-volver. Escape, el botón de cierre o un clic fuera cierra los detalles y devuelve
-el foco a la tarjeta. Los fondos remotos completos solo se descargan al abrirlos;
-las imágenes instaladas se leen localmente.
-
-Instalar en la tarjeta alterna la selección y muestra Seleccionado con una marca. Las tarjetas instaladas muestran Instalado y Actual cuando corresponde. Selecciona
-varios temas y usa Revisar e instalar en la ventana emergente bajo las tarjetas para revisar vistas previas,
-orígenes y tamaño total; Limpiar borra la selección. Las flechas navegan, Espacio
-alterna la selección y Enter abre detalles en Oficial o Comunidad.
-
-Usa Tab hasta
-Revisar e instalar en esa ventana emergente y Enter para revisar. Enter sigue aplicando temas
-en Instalados y confirma una revisión abierta. Instalar en los detalles revisa
-solo ese tema; después ofrece Aplicar, o Actual si está activo. Escape cancela la
-revisión antes de cerrar detalles o ventana. Descargas, progreso y errores quedan
-en la ventana.
-
-Las vistas previas visibles y galerías abiertas usan la caché. Si el repositorio no responde, Reintentar lo recarga; Instalados funciona sin conexión.
-
-Los tamaños de fondos comunitarios fuera de la caché aparecen como Tamaño no disponible
-hasta abrirlos: obtenerlos con Git descargaría el archivo completo. Los tamaños en caché se muestran.
-
-La página Plugins muestra los plugins instalados y el repositorio oficial
-`eitr-org/eitr-plugins` en tarjetas con captura, icono centrado o símbolo genérico.
-Las etiquetas indican los plugins instalados y desactivados. La eliminación se
-confirma en la ventana.
-
-El catálogo instala y actualiza plugins dentro de la ventana. Las tarjetas Oficial y Comunidad abren detalles con imágenes, vídeos y componentes. Los vídeos empiezan silenciados y se detienen al cerrar. Instalar y Actualizar muestran fuente, commit completo, autor, archivos, comandos, avisos y cambios; la revisión opcional por IA aparece como texto.
-
-Los plugins tienen todos los permisos de tu cuenta. Enter confirma y Escape cancela. Se instala exactamente el commit revisado; Comunidad usa el commit fijado en el índice. La revisión caduca en 15 minutos y se descarta al cerrar el catálogo. Instalados > Añadir desde una dirección Git acepta HTTPS o SSH para plugins y temas de datos, sin terminal.
-
-Los temas integrados vienen con Eitr y no se pueden eliminar. La papelera de un tema descargado borra su paquete instalado; el tema actual no se puede eliminar.
-
-Escribe en cualquier parte del catálogo, o pulsa Ctrl+F o /, para buscar en la página actual por nombre o descripción. Las palabras pueden ir en cualquier orden; Escape borra primero la búsqueda.
+Fondos muestra imágenes incluidas, propias y tarjetas de paquetes. Pulsar un paquete usa su primera imagen; también están disponibles las imágenes individuales. Los paquetes comunitarios contienen solo imágenes JPEG, PNG o WebP verificadas. Aparecen en el selector y carrusel existentes; eliminar un paquete borra solo sus archivos. No incluye salvapantallas.
 
 
-### Pantallas de bloqueo en Complementos
+Repositorio de temas: `eitr-org/eitr-themes`.
 
-Abre **Complementos > Pantallas de bloqueo > Oficial** para instalar diseños desde el repositorio de paquetes firmados de Eitr. Instalar y eliminar requieren la contraseña de administrador en la ventana de Eitr. **Instalado** muestra los diseños instalados; haz clic en uno para usarlo en la sesión y el inicio de sesión, como en **Configuración > Pantalla de bloqueo** o Walker. **Eitr** está integrado y no se puede eliminar. El diseño usado por la sesión o el inicio de sesión muestra **Actual** y no tiene papelera. Tus pantallas basadas en un diseño eliminado se ocultan sin borrarse y reaparecen al reinstalarlo. System Update instala los ocho paquetes opcionales una sola vez; las instalaciones nuevas también los incluyen. Las eliminaciones posteriores se respetan.
-
+Elige otro fondo antes de eliminar un paquete usado por una selección guardada.
 
 ## Elegir tema y fondo
 

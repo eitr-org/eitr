@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Eitr Store
+GenericName=Store
+Comment=Discover and manage Eitr themes, plugins, lockscreens and wallpapers
+Icon=system-software-install
+Exec=eitr-shell desktop-bar ipc call -- store show
+Keywords=Eitr;themes;plugins;lockscreens;wallpapers;
+Categories=System;PackageManager;
+Terminal=false
+StartupNotify=false

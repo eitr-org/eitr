@@ -111,7 +111,7 @@ assert.equal(filter('traduit', text => text === 'Displays' ? 'traduit' : text)[0
         self.assertIn('Qt.rgba(SettingsPalette.background.r, SettingsPalette.background.g, SettingsPalette.background.b, 1)', family)
         for name in ('panels/Handbook.qml', 'panels/Catalog.qml'):
             self.assertIn('FamilyWindow {', (BAR / name).read_text())
-        for name in ('settings/SettingsContent.qml', 'panels/Handbook.qml', 'panels/CatalogContent.qml'):
+        for name in ('settings/SettingsContent.qml', 'panels/Handbook.qml', 'store/StoreSidebar.qml'):
             self.assertIn('FamilySidebar {', (BAR / name).read_text())
         self.assertIn('target: "settings"', window)
         self.assertNotIn('target: "catalog"', window)
@@ -122,7 +122,7 @@ assert.equal(filter('traduit', text => text === 'Displays' ? 'traduit' : text)[0
         self.assertIn('onThemesRequested: shell.showThemes("all")', shell)
         self.assertTrue((BAR / 'panels/Catalog.qml').exists())
         self.assertFalse((BAR / 'settings/CatalogContent.qml').exists())
-        catalog = (BAR / "panels/CatalogContent.qml").read_text()
+        catalog = (BAR / "store/StoreState.qml").read_text()
         self.assertIn("SettingsPalette.", catalog)
         for token in ("SiteStyle.fg", "SiteStyle.card", "SiteStyle.surface", "SiteStyle.raised", "SiteStyle.accent", "SiteStyle.primary"):
             self.assertNotIn(token, catalog)

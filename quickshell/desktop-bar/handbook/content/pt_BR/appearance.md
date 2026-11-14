@@ -1,6 +1,6 @@
 # Temas, papéis de parede e estilo
 
-Configurações (**SUPER + ,**) inclui os controles de Aparência; **Mais temas** abre o catálogo separado de Complementos (**SUPER + F2**).
+Configurações (**SUPER + ,**) inclui os controles de Aparência; **Mais temas** abre o catálogo separado de Eitr Store (**SUPER + F2**).
 
 ## Layout das janelas
 
@@ -11,78 +11,24 @@ Rolagem mostra Direção (Direita, Esquerda, Baixo, Cima), Largura padrão da co
 Somente em Rolagem: **SUPER + ALT + setas** muda o foco; **SUPER + ALT + SHIFT + Esquerda/Direita** troca as colunas; **SUPER + ALT + Equal/Minus** alterna a largura entre um terço, metade, dois terços e inteira. O ciclo redimensiona a coluna em foco; a largura padrão vale para colunas novas. Veja a [referência de teclado](handbook:shortcuts).
 
 
-## Catálogo de Complementos
+## Eitr Store
 
-O catálogo compartilha a moldura, a barra lateral, o cabeçalho de página e os
-cartões da janela de Configurações. Ele segue as cores do tema, ou a paleta do site
-do Eitr quando as Configurações a escolhem, com a fonte Cinzel incluída.
+Abra a Eitr Store pelo lançador de aplicativos, SUPER + F2, menu Desktop do Walker ou Mais temas nas Configurações. A janela independente pode ser movida e redimensionada e usa a paleta das Configurações, com o cabeçalho EITR / STORE. Fechar ou pressionar Escape descarta seleções e revisões temporárias.
 
-A barra lateral lista Instalado, Oficial e Comunidade em Temas e em Plugins. À
-direita ficam o título, a descrição, o filtro Todas, Claro e Escuro para os temas e
-uma galeria com rolagem independente. Cima/Baixo percorre a barra; Direita ou Tab
-entra no conteúdo. Esquerda na primeira coluna volta à barra lateral.
+Temas, Plugins, Telas de bloqueio e Papéis de parede têm Instalado e Descobrir. Descobrir reúne cartões oficiais e da comunidade com selos de origem. Use Todos / Oficial / Comunidade para filtrar; a busca abrange as categorias carregadas da visualização atual. Temas também têm Claro/Escuro. Cima/Baixo muda a linha, Direita ou Tab entra na grade e Esquerda retorna; Ctrl+F foca a busca.
 
-Abra **Mais temas** em Configurações > Aparência > Tema e papel de parede ou pressione **SUPER + F2**. Complementos é uma janela separada. Veja [Configurações](handbook:system) para navegar.
+Clique em um tema, bloqueio ou papel de parede instalado para usá-lo. Cartões em Descobrir abrem detalhes, imagens e fontes. Selecione temas ou pacotes de imagens e revise antes de confirmar a instalação. Atualizar todos atualiza temas em sequência e revisa cada plugin. Remover sempre pede confirmação; o tema e o bloqueio atuais ficam protegidos.
 
-O catálogo é uma janela que lembra seu tamanho. Segure SUPER e arraste com o botão esquerdo para mover ou com o direito para redimensionar. Os atalhos normais permitem organizar em mosaico ou enviar para outro espaço de trabalho. Abrir novamente foca a janela existente, mesmo em outro espaço. SUPER + F2 fecha quando ela está focada.
+Plugins têm todas as permissões da sua conta. Cada instalação e atualização mostra fonte, commit fixado, autor, arquivos, comandos, pacotes e avisos. Revise o código e, se quiser, a orientação da IA. Commits da comunidade são fixados no índice. Revisões expiram após 15 minutos e ao fechar. Instalado > Adicionar aceita endereços Git HTTPS ou SSH de temas e plugins. Os cartões instalados abrem configurações, ativação, atualização e remoção; pacotes instalados pelo plugin sem uso podem ser removidos.
 
-O botão de fechar, Escape (após dispensar qualquer confirmação) ou o atalho normal de fechar janelas também fecham o catálogo. Instalados mostra cada tema como Integrado, Oficial, De terceiros ou
-Seus numa galeria de prévias. Clique num tema instalado para aplicar pelo fluxo
-normal; uma marca indica o tema atual.
+Bloqueios continuam sendo pacotes oficiais assinados. Instalar e remover exige senha de administrador. Eitr é integrado; desenhos usados pela sessão ou pelo login não podem ser removidos. Seus bloqueios próprios ficam no disco e reaparecem ao reinstalar o desenho.
 
-Todos, Escuros e Claros filtram a galeria. Instalados atualiza ao abrir a janela e após cada ação. Ao abrir, os metadados são verificados em segundo plano e os indicadores de atualização aparecem ao terminar. Não há verificações periódicas de rede; Atualizar substitui um tema do catálogo; Atualizar tudo, ao lado de Adicionar, atualiza um por vez cada tema com indicador de atualização e, nos plugins, abre a revisão de cada atualização em sequência. Reaplique
-um tema ativo atualizado para renovar a área de trabalho.
-
-Remover pede confirmação
-na janela e recusa o tema ativo: aplique outro antes. Temas integrados e seus são preservados.
-
-Oficial reúne temas integrados e o repositório `eitr-org/eitr-themes`; Comunidade
-lista temas da comunidade. Clique num cartão nessas abas para abrir os detalhes:
-prévia, descrição, paleta (passe o ponteiro para ver os valores hexadecimais),
-origem, tamanho, responsável e licença. Papéis de parede aparecem em miniaturas;
-os da comunidade usam cartões com nome e tamanho.
-
-Clique para ampliar, use
-Anterior/Próximo para navegar e Voltar para retornar. Escape, o botão de fechar ou
-um clique fora fecha os detalhes e devolve o foco ao cartão. Imagens remotas
-completas só são baixadas ao abrir; imagens instaladas são lidas localmente.
-
-O botão Instalar no cartão alterna a seleção e mostra Selecionado com uma marca. Cartões instalados mostram Instalado e, quando aplicável, Atual. Selecione vários
-temas e use Revisar e instalar no pop-up abaixo dos cartões para revisar prévias, origens e tamanho
-total; Limpar desfaz a seleção. Setas navegam, Espaço alterna a seleção e Enter
-abre detalhes em Oficial ou Comunidade.
-
-Use Tab até Revisar e instalar nesse pop-up e
-Enter para revisar. Em Instalados, Enter continua aplicando o tema; numa revisão,
-confirma a instalação. Instalar nos detalhes revisa somente aquele tema; depois
-oferece Aplicar, ou Atual se já ativo. Escape cancela a revisão antes de fechar
-detalhes ou janela. Downloads, progresso e erros ficam na janela.
-
-Prévias visíveis
-e galerias abertas usam o cache do usuário. Se o repositório estiver inacessível,
-Tentar novamente recarrega; Instalados permanece disponível sem conexão.
-
-Tamanhos de imagens da comunidade fora do cache mostram Tamanho indisponível até
-abrir: obter esse valor pelo Git baixaria o arquivo completo. Tamanhos em cache aparecem.
-
-A página Plugins lista os plugins instalados e o repositório oficial
-`eitr-org/eitr-plugins` em cartões com captura de tela, ícone centralizado ou símbolo
-genérico. Os selos indicam plugins instalados e desativados. A remoção tem confirmação
-na janela.
-
-O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e Comunidade abrem detalhes com imagens, vídeos e componentes. Vídeos começam sem som e param ao fechar. Instalar e Atualizar mostram fonte, commit completo, autor, arquivos, comandos, avisos e alterações; a verificação opcional por IA aparece como texto.
-
-Plugins têm todas as permissões da sua conta. Enter confirma e Escape cancela. A instalação usa exatamente o commit revisado; na Comunidade, usa o commit fixado pelo índice. A revisão expira em 15 minutos e é descartada ao fechar o catálogo. Instalados > Adicionar de um endereço Git aceita HTTPS ou SSH para plugins e temas de dados, sem terminal.
-
-Os temas integrados vêm com o Eitr e não podem ser removidos. A lixeira de um tema baixado exclui o pacote instalado; o tema atual não pode ser removido.
-
-Digite em qualquer lugar do catálogo, ou pressione Ctrl+F ou /, para pesquisar na página atual por nome ou descrição. As palavras podem estar em qualquer ordem; Escape limpa a pesquisa primeiro.
+Papéis de parede mostra imagens incluídas, próprias e cartões de pacotes. Clicar em um pacote usa sua primeira imagem; as imagens individuais também aparecem. Pacotes da comunidade contêm apenas imagens JPEG, PNG ou WebP verificadas. Elas entram no seletor e carrossel existentes; remover um pacote apaga somente seus arquivos. Protetores de tela não estão incluídos.
 
 
-### Telas de bloqueio em Complementos
+Repositório de temas: `eitr-org/eitr-themes`.
 
-Abra **Complementos > Telas de bloqueio > Oficial** para instalar desenhos do repositório de pacotes assinados do Eitr. Instalar e remover pedem a senha de administrador na janela do Eitr. **Instalado** mostra os desenhos instalados; clique em um para usá-lo na sessão e na tela de login, como em **Configurações > Tela de bloqueio** ou no Walker. **Eitr** é integrado e não pode ser removido. O desenho usado pela sessão ou pela tela de login mostra **Atual** e não tem lixeira. Suas telas baseadas em um desenho removido ficam ocultas, nunca são apagadas, e reaparecem ao reinstalá-lo. A Atualização do Sistema instala os oito pacotes opcionais uma única vez; instalações novas também os incluem. Remoções posteriores são preservadas.
-
+Escolha outro papel de parede antes de remover um pacote usado por uma seleção salva.
 
 ## Escolher tema e papel de parede
 

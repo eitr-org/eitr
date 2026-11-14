@@ -268,3 +268,20 @@ DisplayListSection panels/DisplayListSection.qml
 NightLightSection panels/NightLightSection.qml
 PowerProfileSection panels/PowerProfileSection.qml
 SettingsWindowRulesPage 1.0 settings/SettingsWindowRulesPage.qml
+StoreActionButton 1.0 store/StoreActionButton.qml
+StoreCatalogCard 1.0 store/StoreCatalogCard.qml
+StoreContent 1.0 store/StoreContent.qml
+StoreDetail 1.0 store/StoreDetail.qml
+StoreGitThemeCard 1.0 store/StoreGitThemeCard.qml
+StoreGrid 1.0 store/StoreGrid.qml
+StoreLabel 1.0 store/StoreLabel.qml
+StorePill 1.0 store/StorePill.qml
+StorePreview 1.0 store/StorePreview.qml
+StoreRemove 1.0 store/StoreRemove.qml
+StoreReview 1.0 store/StoreReview.qml
+StoreSelection 1.0 store/StoreSelection.qml
+StoreSidebar 1.0 store/StoreSidebar.qml
+StoreState 1.0 store/StoreState.qml
+StoreKeyboard 1.0 store/StoreKeyboard.qml
+StoreSheet 1.0 store/StoreSheet.qml
+StoreInstallReview 1.0 store/StoreInstallReview.qml

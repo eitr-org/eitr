@@ -49,12 +49,13 @@ failed=0
 
 # --- file discovery --------------------------------------------------------
 
-# Tracked files that still exist in the working tree, NUL-separated.
+# Working files, including new untracked sources, NUL-separated.
 tracked_files() {
   local file
   while IFS= read -r -d '' file; do
+    [[ "$file" == tmp* ]] && continue
     [[ -f "$file" && ! -L "$file" ]] && printf '%s\0' "$file"
-  done < <(git ls-files -z -- "$@")
+  done < <(git ls-files --cached --others --exclude-standard -z -- "$@")
 }
 
 # Prints the interpreter named by a file's shebang (bash, sh, python3, ...).
@@ -198,10 +199,6 @@ stage_shellcheck() {
 stage_qml() {
   local qml_files
   collect qml_files '*.qml'
-  local new_qml
-  while IFS= read -r -d '' new_qml; do
-    [[ -f "$new_qml" && ! -L "$new_qml" ]] && qml_files+=("$new_qml")
-  done < <(git ls-files --others --exclude-standard -z -- '*.qml')
   if [[ ! -x "$qmllint_bin" ]]; then
     echo "Qt 6 qmllint not found at $qmllint_bin (install qt6-declarative)"
     return 1
@@ -237,6 +234,7 @@ stage_whitespace() {
 stage_data() {
   python3 tools/walker-xml.py --check || return 1
   python3 tools/choice-lists.py --check || return 1
+  python3 tools/store-kinds.py --check || return 1
   local data_files
   collect data_files '*.json' '*.toml'
   python3 - "${data_files[@]}" <<'PY'

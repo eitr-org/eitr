@@ -63,9 +63,9 @@
     "submenu": "windows"
   },
   {
-    "text": "Add-ons",
+    "text": "Eitr Store",
     "subtext": "Browse themes, plugins and lockscreens",
     "icon": "󰸌",
-    "command": "eitr-shell desktop-bar ipc call -- panels show catalog"
+    "command": "eitr-shell desktop-bar ipc call -- store show"
   }
 ]

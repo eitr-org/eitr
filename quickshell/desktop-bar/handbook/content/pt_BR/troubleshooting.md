@@ -95,7 +95,7 @@ Se a barra sumir sem uma falha, o Eitr guarda como ela terminou: o fim do regist
 O código do EITR fica em `/usr/share/eitr` e é atualizado pelo pacote `eitr-desktop`; suas configurações ficam em `~/.config`. Coloque mudanças duradouras onde as atualizações não mexem:
 
 - Monitores, dispositivos, atalhos e regras adicionais: `~/.config/hypr/local.lua`.
-- Complementos do shell: `~/.config/eitr/shell.local.zsh`.
+- Eitr Store do shell: `~/.config/eitr/shell.local.zsh`.
 - Opções do terminal: `~/.config/kitty/local.conf`.
 - Cores do launcher: `~/.config/walker/style.override.css`.
 - Substituição completa de um arquivo distribuído: mesmo caminho relativo em `~/.config/eitr/overrides`. Esse arquivo deixa de receber correções das atualizações.

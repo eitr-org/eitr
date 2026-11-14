@@ -1621,7 +1621,7 @@ msgstr "Walker > 설치 > 브라우저에서 Chrome, Chromium, Edge, Brave 또�
 msgid "Install Ghostty? Enter: install · Esc: cancel"
 msgstr "Ghostty를 설치하시겠습니까? Enter: 설치 · Esc: 취소"
 
-msgid "Install a lockscreen design from Add-ons first."
+msgid "Install a lockscreen design from Eitr Store first."
 msgstr "먼저 애드온에서 잠금 화면 디자인을 설치하세요."
 
 msgid "Install alongside the existing systems in {size_text} of free space"

@@ -539,7 +539,7 @@
   "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it.": "Installez Chrome, Chromium, Edge, Brave ou Vivaldi depuis Installer > Navigateurs pour l’ouvrir.",
   "Install Chrome, Chromium, Edge, Brave or Vivaldi from Walker > Install > Browsers; Firefox cannot open app windows.": "Installez Chrome, Chromium, Edge, Brave ou Vivaldi depuis Walker > Installer > Navigateurs ; Firefox ne peut pas ouvrir de fenêtres d’applications.",
   "Install Ghostty? Enter: install · Esc: cancel": "Installer Ghostty ? Entrée : installer · Échap : annuler",
-  "Install a lockscreen design from Add-ons first.": "Installez d’abord un modèle depuis Modules complémentaires.",
+  "Install a lockscreen design from Eitr Store first.": "Installez d’abord un modèle depuis Eitr Store.",
   "Install alongside the existing systems in {size_text} of free space": "Installer à côté des systèmes existants dans {size_text} d’espace libre",
   "Install eitr-desktop before configuring login selection": "Installez eitr-desktop avant de configurer le choix du thème de connexion",
   "Install it from Install > AI CLIs: {command}": "Installez-le depuis Installer > CLI IA : {command}",

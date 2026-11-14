@@ -10,9 +10,9 @@ The Settings window has a searchable sidebar and cards for related controls. It 
 
 Panel footer links close the panel and open the matching Settings page. The Control Center’s All settings button does the same; use **SUPER + I** for quick controls. See [Control Center](handbook:control-center).
 
-Choose Settings colours in Settings > Appearance > Theme & Wallpaper: Theme colours follows your desktop, while Eitr website uses the website palette. This affects Settings, the Handbook and Add-ons, not the desktop theme. Walker > Settings > Desktop > Appearance > Settings Colours opens this choice.
+Choose Settings colours in Settings > Appearance > Theme & Wallpaper: Theme colours follows your desktop, while Eitr website uses the website palette. This affects Settings, the Handbook and Eitr Store, not the desktop theme. Walker > Settings > Desktop > Appearance > Settings Colours opens this choice.
 
-The separate Add-ons catalog opens with SUPER + F2 or More themes in Appearance.
+The separate Eitr Store catalog opens with SUPER + F2 or More themes in Appearance.
 
 ## Choose a page
 

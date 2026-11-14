@@ -2,11 +2,15 @@ import importlib.machinery
 import importlib.util
 from pathlib import Path
 import tempfile
+import sys
 import unittest
 import unittest.mock
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT / 'walker/tests'))
+from home_isolation import setUpModule, tearDownModule
+
 loader = importlib.machinery.SourceFileLoader('eitr_launch', str(ROOT / 'distro/bin/eitr-launch'))
 spec = importlib.util.spec_from_loader('eitr_launch', loader)
 launch = importlib.util.module_from_spec(spec)
@@ -33,6 +37,16 @@ class LauncherTests(unittest.TestCase):
         command, _ = self.run_launcher('eitr-shell', ['desktop-bar', 'ipc', 'call', '--', 'panels', 'show', 'wifi'])
         self.assertEqual(command[:3], ['quickshell', 'ipc', '-p'])
         self.assertEqual(command[-5:], ['call', '--', 'panels', 'show', 'wifi'])
+
+    def test_store_show_pads_optional_typed_ipc_arguments(self):
+        with patch.object(launch, 'running_instance', side_effect=lambda component, selected: selected):
+            for target in ('store', 'catalog'):
+                for separator in ([], ['--']):
+                    for arguments, expected in (([], ['', '']), (['wallpapers'], ['wallpapers', '']),
+                                                (['plugins', 'installed'], ['plugins', 'installed'])):
+                        with self.subTest(target=target, arguments=arguments, separator=separator):
+                            command, _ = self.run_launcher('eitr-shell', ['desktop-bar', 'ipc', 'call', *separator, target, 'show', *arguments])
+                            self.assertEqual(command[-4:], [target, 'show', *expected])
 
     def test_daemonized_starts_wait_for_each_other(self):
         with tempfile.TemporaryDirectory() as runtime, \

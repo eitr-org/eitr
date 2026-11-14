@@ -123,7 +123,7 @@ Before installing a Git plugin, the review offers **Ask the AI to check** when
 Ratatoskr or Claude is the installed default assistant. It reviews text from a temporary
 copy without tools (locally with Ratatoskr, through its provider with Claude). The report is advice, never approval;
 the full-permissions warning and Enter/Install or Esc/Cancel remain. Decisions
-stay available during the check. Unsupported defaults get an explanation instead of an AI action. Install extra data-only themes through Add-ons. See
+stay available during the check. Unsupported defaults get an explanation instead of an AI action. Install extra data-only themes through Eitr Store. See
 [distro/PLUGINS.md](distro/PLUGINS.md#ai-advice-before-installation) for limits
 and [assistant qualification](distro/ASSISTANT-STARTUP.md#advice-before-git-plugin-installation).
 
@@ -170,16 +170,18 @@ The desktop bar offers Full, Centered, Tabs, Islands, Dynamic and Drop layouts. 
 
 Settings (**SUPER + ,**) provides System, Desktop and Devices pages with shared
 inline controls, plus Keybinds, Default apps, Users (accounts, your picture and password), Security,
-Updates, Check This PC and About; Git and cloud accounts stay in Walker. Add-ons has its own catalog window; it and the
+Updates, Check This PC and About; Git and cloud accounts stay in Walker. Eitr Store has its own application window; it and the
 Handbook use the Settings frame, sidebar, page header and cards. Default apps uses
 installed MIME handlers and the shared terminal preference; diagnostics run only
 on request. Account and privileged actions retain their existing guided flows. The Control Center
 (**SUPER + I**) keeps quick toggles, sliders, media, plugins and tools; its All settings
 button opens Settings. Window gaps are saved locally alongside Corners.
 
-Connections has Wi-Fi and Bluetooth tabs; Displays and Appearance group separate subjects in tabs. Picture cards preview bar layouts, edges, surfaces, media, gaps, corners and lockscreen designs. Appearance offers Theme colours or Eitr website for Settings, the Handbook and Add-ons; `settings palette theme|website` saves the same choice. Search and `settings show <page/tab>` open the matching tab (`network` remains a Connections alias).
+Connections has Wi-Fi and Bluetooth tabs; Displays and Appearance group separate subjects in tabs. Picture cards preview bar layouts, edges, surfaces, media, gaps, corners and lockscreen designs. Appearance offers Theme colours or Eitr website for Settings, the Handbook and Eitr Store; `settings palette theme|website` saves the same choice. Search and `settings show <page/tab>` open the matching tab (`network` remains a Connections alias).
 
-**Add-ons > Lockscreens** installs and removes official signed lockscreen designs with administrator authentication. Eitr stays built in; designs used by the session or login screen cannot be removed. Clicking an installed design uses it for the session and login, as Settings > Lockscreen and Walker do.
+**Eitr Store > Lockscreens > Discover** installs and removes official signed lockscreen designs with administrator authentication. Eitr stays built in; designs used by the session or login screen cannot be removed. Clicking an installed design uses it for the session and login, as Settings > Lockscreen and Walker do.
+
+Eitr Store opens from the app launcher or `eitr-shell desktop-bar ipc call -- store show`. Its registry supplies Themes, Plugins, Lockscreens and Wallpapers, each with Installed and Discover. Discover merges official and community cards with provenance filters; search spans loaded kinds. See [Store architecture and wallpaper packs](distro/STORE.md).
 
 ### Keyboard overrides and window rules
 

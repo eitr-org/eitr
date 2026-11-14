@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / Themes",
     "worlds": "Welten,",
     "one_desktop": "ein Desktop.",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr ist das Standarddesign, Eitr Light sein helles Gegenstück. Jedes Design färbt Leiste, Terminal, Starter, Sperrbildschirm, Editoren und Apps neu und bringt eigene Hintergrundbilder mit. Zwölf weitere, etwa Catppuccin, Gruvbox und Nord, lassen sich aus dem Katalog Add-ons installieren.",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr ist das Standarddesign, Eitr Light sein helles Gegenstück. Jedes Design färbt Leiste, Terminal, Starter, Sperrbildschirm, Editoren und Apps neu und bringt eigene Hintergrundbilder mit. Zwölf weitere, etwa Catppuccin, Gruvbox und Nord, lassen sich aus dem Katalog Eitr Store installieren.",
     "light": "hell",
     "previous_theme": "Vorheriges Theme",
     "next_theme": "Nächstes Theme",
@@ -670,8 +670,8 @@
     "islands_alt": "Ein leerer Eitr-Desktop mit der Islands-Leiste in Abstand zum Bildschirmrand",
     "dynamic_caption": "Dynamisch: Inseln, die zu ihren Panels wachsen",
     "dynamic_alt": "Die dynamische Leiste auf einem leeren Desktop, ihre linke Insel zur Karte für den Arbeitsflächenstil gewachsen",
-    "catalog_caption": "Add-ons: offiziell, Community und installiert",
-    "catalog_alt": "Das Fenster Add-ons mit offiziellen Designs, Paletten und Vorschauen",
+    "catalog_caption": "Eitr Store: offiziell, Community und installiert",
+    "catalog_alt": "Das Fenster Eitr Store mit offiziellen Designs, Paletten und Vorschauen",
     "focus_caption": "Focus: zwei Bereiche unter dem Tabstreifen",
     "focus_alt": "Focus-Modus mit zwei Bereichen nebeneinander unter einem dünnen Tabstreifen",
     "lockscreen_eitr_caption": "Der Eitr-Sperrbildschirm mit Kontoauswahl",
@@ -705,7 +705,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "Echte Desktop-Screenshots auf der Website und kleinere Downloads",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "Plugins, das Eitr-Design mit eigenen Neovim- und VS-Code-Farben, der Focus-Modus und das Leistenlayout Islands",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "Ein scrollendes Fensterlayout, Arbeitsflächen gemeinsam oder aufgeteilt über Bildschirme, eine Einstellungssuche, die jede Einstellung findet, umrandete Felder, Reiter und Material-Schieberegler und -Schalter in den Einstellungen sowie herdr für KI-Programmieragenten",
-    "The Settings app, the Add-ons window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "Die Einstellungen-App, das Fenster Add-ons, ein Handbuch, das mit einer Willkommenstour beginnt, WLAN und Bluetooth unter Verbindungen und neue Eitr-Hintergründe, angeführt vom Rune Seal",
+    "The Settings app, the Eitr Store window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "Die Einstellungen-App, das Fenster Eitr Store, ein Handbuch, das mit einer Willkommenstour beginnt, WLAN und Bluetooth unter Verbindungen und neue Eitr-Hintergründe, angeführt vom Rune Seal",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "Japanisch, vereinfachtes Chinesisch und Koreanisch mit einem Sprachschritt im Installer, das Leistenlayout Drop und sein Dashboard, Plugin-Widgets zum Kopieren und Drehen, Eitrs eigener Passwortdialog, ein Hintergrundbild pro Bildschirm sowie Benachrichtigungen und Aufnahme, die dem genutzten Bildschirm folgen"
   },
   "client": {

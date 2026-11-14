@@ -10,9 +10,9 @@ Das Einstellungsfenster hat eine durchsuchbare Seitenleiste und Karten für zusa
 
 Links am unteren Panelrand schließen das Panel und öffnen die passende Einstellungsseite. Alle Einstellungen im Kontrollzentrum tut dasselbe; **SUPER + I** öffnet die Schnellsteuerung. Siehe [Kontrollzentrum](handbook:control-center).
 
-Wähle Einstellungsfarben unter Einstellungen > Erscheinungsbild > Design und Hintergrundbild: Theme-Farben folgt deinem Desktop, Eitr-Website verwendet die Website-Palette. Das betrifft Einstellungen, Handbuch sowie Add-ons, nicht das Desktop-Design. Walker > Einstellungen > Desktop > Erscheinungsbild > Einstellungsfarben öffnet diese Auswahl.
+Wähle Einstellungsfarben unter Einstellungen > Erscheinungsbild > Design und Hintergrundbild: Theme-Farben folgt deinem Desktop, Eitr-Website verwendet die Website-Palette. Das betrifft Einstellungen, Handbuch sowie Eitr Store, nicht das Desktop-Design. Walker > Einstellungen > Desktop > Erscheinungsbild > Einstellungsfarben öffnet diese Auswahl.
 
-Den separaten Katalog Add-ons öffnest du mit SUPER + F2 oder Weitere Themes im Erscheinungsbild.
+Den separaten Katalog Eitr Store öffnest du mit SUPER + F2 oder Weitere Themes im Erscheinungsbild.
 
 ## Eine Seite wählen
 

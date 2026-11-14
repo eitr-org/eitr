@@ -3,7 +3,7 @@
 The JSON backend is `python3 walker/scripts/actions/install/themes.py` with
 `index URL`, `install URL ID [ID ...]`, `list`, `check`, `update ID` and
 `remove ID`. Each response has `ok` and `result`, or `ok: false` and `error`
-with exit status 1. The Add-ons catalog opens from Walker > Settings > Desktop > Add-ons or SUPER + F2. HTTPS and SSH Git addresses
+with exit status 1. The Eitr Store catalog opens from Walker > Settings > Desktop > Eitr Store or SUPER + F2. HTTPS and SSH Git addresses
 are accepted; file URLs are reserved for library tests. No repository code,
 checkout filters, hooks, installers or submodules run.
 
@@ -125,7 +125,7 @@ Community installs record `community: true` in their local source record so thei
 
 Official and Community theme cards open a website-style detail sheet. Their Install
 buttons toggle the existing multi-selection; Installed cards keep their apply action.
-Enter opens details on discovery tabs, Space toggles selection, and the bottom
+Enter opens details in Discover, Space toggles selection, and the bottom
 Install button opens the multi-theme review (Tab to it, then Enter). The detail
 sheet's Install reviews only that theme, preserving the gallery selection until
 installation succeeds. Escape, its close button or the area outside dismisses
@@ -157,3 +157,5 @@ cached). Unknown totals remain unavailable rather than adding only known sizes.
 Name tiles fetch a wallpaper only when clicked. Repository
 and folder, download size, maintainer and license appear when available; official
 themes credit The Eitr project under GPL-3.0.
+
+The Store registry and wallpaper pack backend are documented in [STORE.md](STORE.md). Discover merges source lists with Official/Community badges and filters; Installed retains the existing apply and management actions.

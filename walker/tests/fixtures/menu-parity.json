@@ -2595,10 +2595,10 @@
         "submenu": "windows"
       },
       {
-        "text": "Add-ons",
+        "text": "Eitr Store",
         "subtext": "Browse themes, plugins and lockscreens",
         "icon": "󰸌",
-        "command": "eitr-shell desktop-bar ipc call -- panels show catalog"
+        "command": "eitr-shell desktop-bar ipc call -- store show"
       }
     ],
     "system-connectivity": [
@@ -3553,9 +3553,9 @@
     },
     {
       "key": "SUPER + F2",
-      "description": "Toggle Add-ons",
-      "command": "eitr-shell desktop-bar ipc call -- catalog toggle",
-      "line": "  SUPER + F2                Toggle Add-ons"
+      "description": "Toggle Eitr Store",
+      "command": "eitr-shell desktop-bar ipc call -- store toggle",
+      "line": "  SUPER + F2                Toggle Eitr Store"
     },
     {
       "description": "Settings",
@@ -9549,13 +9549,13 @@
       "key": "a0509ac3a7a6e81fcbe51e6e6d16d66d6018dd28cb3c8fff0fc5a70c80ac9589",
       "provider": "menus:style",
       "identifier": "style:5",
-      "text": "Add-ons",
+      "text": "Eitr Store",
       "subtext": "Browse themes, plugins and lockscreens",
       "icon": "󰸌",
       "actions": [],
       "keywords": [
-        "Add-ons",
-        "Add-ons",
+        "Eitr Store",
+        "Eitr Store",
         "Browse themes, plugins and lockscreens"
       ],
       "menus": [

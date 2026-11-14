@@ -43,8 +43,8 @@
   },
   {
     "key": "SUPER + F2",
-    "description": "Toggle Add-ons",
-    "command": "eitr-shell desktop-bar ipc call -- catalog toggle"
+    "description": "Toggle Eitr Store",
+    "command": "eitr-shell desktop-bar ipc call -- store toggle"
   },
   {
     "description": "Settings",

@@ -276,7 +276,7 @@ def create_lockscreen():
     from eitr_lockscreen_packages import installed_designs
     designs = [(names.get(design, design), design) for design in own.LOCK_DESIGNS if design in installed_designs()]
     if not designs:
-        raise ValueError(tr("Install a lockscreen design from Add-ons first."))
+        raise ValueError(tr("Install a lockscreen design from Eitr Store first."))
 
     def steps(previous):
         return [Step('design', tr('Design'), default=previous.get('design', designs[0][1]), options=designs,

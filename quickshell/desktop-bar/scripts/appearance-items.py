@@ -59,7 +59,7 @@ if mode.startswith("theme"):
     def is_light(directory):
         return (directory / "light.mode").is_file()
 
-    # The colours the Add-ons cards show, for the swatches beside each name.
+    # The colours the Eitr Store cards show, for the swatches beside each name.
     SWATCH_KEYS = ("background", "foreground", "accent", "color1", "color2", "color3", "color4", "color5", "color6")
 
     def swatches(directory):

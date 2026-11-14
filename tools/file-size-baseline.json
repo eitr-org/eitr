@@ -41,17 +41,9 @@
       "lines": 470,
       "reason": "One panel: the month, a day's reminders and its plans opened in place."
     },
-    "quickshell/desktop-bar/panels/CatalogContent.qml": {
-      "lines": 996,
-      "reason": "Shared catalog navigation, cards and review workflow; lockscreen pages reuse the cards and package broker."
-    },
     "quickshell/desktop-bar/scripts/bar-data.py": {
       "lines": 994,
       "reason": "The bar data broker: one event loop owning every topic."
-    },
-    "quickshell/desktop-bar/scripts/catalog-domain.py": {
-      "lines": 577,
-      "reason": "One catalog transport and backend dispatcher, including reviewed package cleanup."
     },
     "quickshell/desktop-bar/scripts/display-settings.py": {
       "lines": 466,

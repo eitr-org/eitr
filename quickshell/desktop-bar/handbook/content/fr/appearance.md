@@ -2,7 +2,7 @@
 
 Ces commandes sont également disponibles directement dans les paramètres.
 
-Les paramètres (**SUPER + ,**) incluent les réglages d’apparence ; **Plus de thèmes** ouvre le catalogue séparé des Modules complémentaires (**SUPER + F2**).
+Les paramètres (**SUPER + ,**) incluent les réglages d’apparence ; **Plus de thèmes** ouvre le catalogue séparé des Eitr Store (**SUPER + F2**).
 
 ## Disposition des fenêtres
 
@@ -13,79 +13,24 @@ Défilement affiche Direction (Droite, Gauche, Bas, Haut), Largeur de colonne pa
 Uniquement en Défilement : **SUPER + ALT + flèches** change le focus ; **SUPER + ALT + SHIFT + Gauche/Droite** échange les colonnes ; **SUPER + ALT + Equal/Minus** alterne entre un tiers, la moitié, deux tiers et la pleine largeur. Le cycle redimensionne la colonne active ; la largeur par défaut s’applique aux nouvelles colonnes. Voir la [référence clavier](handbook:shortcuts).
 
 
-## Catalogue de Modules complémentaires
+## Eitr Store
 
-Le catalogue partage le cadre, la barre latérale, l’en-tête de page et les cartes
-de la fenêtre des Paramètres. Il suit les couleurs du thème, ou la palette du site
-web Eitr lorsque les Paramètres la choisissent, avec la police Cinzel incluse.
+Ouvrez Eitr Store depuis le lanceur, SUPER + F2, le menu Bureau de Walker ou Plus de thèmes dans Paramètres. Cette fenêtre indépendante, déplaçable et redimensionnable utilise la palette des Paramètres et l’en-tête EITR / STORE. Fermer ou Échap abandonne les sélections et examens temporaires.
 
-La barre latérale liste Installé, Officiel et Communauté sous Thèmes et sous
-Plugins. À droite figurent le titre, la description, le filtre Toutes, Clair et
-Sombre pour les thèmes et une galerie à défilement indépendant. Haut/Bas parcourt
-la barre ; Droite ou Tab entre dans le contenu. Gauche depuis la première colonne
-revient à la barre latérale.
+Thèmes, Plugins, Écrans de verrouillage et Fonds d’écran proposent Installé et Découvrir. Découvrir réunit les cartes officielles et communautaires avec un badge de provenance. Filtrez par Tous / Officiel / Communauté ; la recherche couvre les catégories chargées de la vue actuelle. Les thèmes ont aussi un filtre clair/sombre. Haut/Bas change de ligne, Droite ou Tab entre dans la grille, Gauche revient ; Ctrl+F active la recherche.
 
-Ouvrez **Plus de thèmes** dans Paramètres > Apparence > Thème et fond d’écran ou appuyez sur **SUPER + F2**. Modules complémentaires est une fenêtre séparée. Voir [Paramètres](handbook:system) pour la navigation.
+Cliquez sur un thème, verrouillage ou fond installé pour l’utiliser. Les cartes Découvrir ouvrent détails, images et sources. Sélectionnez les thèmes ou packs d’images puis examinez et confirmez avant toute installation. Tout mettre à jour traite les thèmes successivement et examine chaque plugin. La suppression demande confirmation ; le thème et le verrouillage actuels sont protégés.
 
-Le catalogue est une fenêtre qui mémorise sa taille. Maintiens SUPER et fais glisser avec le bouton gauche pour la déplacer ou le bouton droit pour la redimensionner. Les raccourcis habituels permettent de la disposer en mosaïque ou de l’envoyer sur un autre espace de travail. La rouvrir active la fenêtre existante, même sur un autre espace.
+Les plugins ont tous les droits de votre compte. Chaque installation et mise à jour présente source, commit fixé, auteur, fichiers, commandes, paquets et avertissements. Examinez le code et éventuellement l’avis de l’IA. Les commits communautaires sont fixés dans l’index. L’examen expire après 15 minutes ou à la fermeture. Installé > Ajouter accepte les adresses Git HTTPS ou SSH des thèmes et plugins. Les cartes installées ouvrent réglages, activation, mises à jour et suppression ; les paquets inutilisés du plugin peuvent être retirés.
 
-SUPER + F2 la ferme si elle est active. Son bouton de fermeture, Échap (après avoir fermé toute confirmation) ou le raccourci habituel de fermeture la ferment aussi. Installés affiche chaque thème comme Intégré, Officiel, Tiers ou Les vôtres. La galerie affiche leurs aperçus. Cliquez sur un thème installé pour l’appliquer
-avec le fonctionnement habituel ; une coche indique le thème actuel.
+Les verrouillages restent des paquets officiels signés. Installation et suppression exigent le mot de passe administrateur. Eitr est intégré ; les modèles utilisés par la session ou la connexion sont protégés. Vos propres verrouillages restent sur disque et reviennent après réinstallation du modèle.
 
-Tous, Sombres
-et Clairs filtrent la galerie. Installés se rafraîchit à l’ouverture et après chaque action. L’ouverture vérifie les métadonnées en arrière-plan et affiche ensuite les indicateurs de mise à jour. Aucune vérification réseau périodique ; Mettre à jour remplace un thème du catalogue ; Tout mettre à jour, à côté d’Ajouter, met à jour tour à tour chaque thème signalé et, pour les extensions, ouvre la revue de chaque mise à jour l’une après l’autre. Réappliquez un thème actif mis à jour pour actualiser le bureau.
-
-Supprimer demande
-confirmation dans la fenêtre et refuse le thème actif : appliquez-en un autre d’abord. Les thèmes intégrés et personnels sont conservés.
-
-Officiel réunit les thèmes intégrés et le dépôt `eitr-org/eitr-themes` ;
-Communauté affiche les thèmes communautaires. Cliquez sur une carte de ces onglets
-pour ouvrir ses détails : aperçu, description, palette (survolez pour les valeurs
-hexadécimales), source, taille, responsable et licence. Les fonds apparaissent en
-miniatures ; ceux de la communauté utilisent des cartes avec nom et taille.
-
-Cliquez pour agrandir, utilisez Précédent/Suivant pour parcourir et Retour pour
-revenir. Échap, le bouton de fermeture ou un clic à l’extérieur ferme les détails
-et rend le focus à la carte. Les fonds distants complets sont téléchargés seulement
-à l’ouverture ; les images installées sont lues localement.
-
-Installer sur la carte bascule la sélection et affiche Sélectionné avec une coche. Les cartes installées affichent Installé et Actuel si nécessaire. Sélectionnez
-plusieurs thèmes, puis utilisez Vérifier et installer dans la fenêtre contextuelle sous les cartes pour vérifier
-aperçus, sources et taille totale ; Effacer vide la sélection. Les flèches naviguent,
-Espace bascule la sélection et Entrée ouvre les détails dans Officiel ou Communauté.
-
-Avec Tab, atteignez Vérifier et installer dans cette fenêtre contextuelle, puis Entrée ouvre la
-vérification. Entrée applique toujours un thème dans Installés et confirme une
-vérification ouverte. Installer dans les détails vérifie uniquement ce thème ;
-après installation, Appliquer ou Actuel apparaît. Échap annule d’abord la
-vérification, puis ferme les détails ou la fenêtre.
-
-Téléchargements, progression
-et erreurs restent dans la fenêtre. Aperçus visibles et galeries ouvertes utilisent
-le cache. Si le dépôt est inaccessible, Réessayer le recharge ; Installés reste
-disponible hors ligne.
-
-Les tailles des fonds communautaires absents du cache affichent Taille indisponible
-jusqu’à l’ouverture : Git téléchargerait tout le fichier pour les connaître. Les tailles en cache sont affichées.
-
-La page Plugins affiche les plugins installés et le dépôt officiel
-`eitr-org/eitr-plugins` sous forme de cartes avec capture, icône centrée ou symbole
-générique. Les badges indiquent les plugins installés et désactivés. La suppression
-est confirmée dans la fenêtre.
-
-Le catalogue installe et met à jour les plugins dans la fenêtre. Les cartes Officiel et Communauté ouvrent les détails avec images, vidéos et composants. Les vidéos démarrent sans son et s’arrêtent à la fermeture. Installer et Mettre à jour présentent source, commit complet, auteur, fichiers, commandes, avertissements et changements ; la vérification facultative par IA apparaît sous forme de texte.
-
-Les plugins disposent de toutes les permissions du compte. Entrée confirme et Échap annule. Le commit installé est exactement celui vérifié ; Communauté utilise le commit fixé dans l’index. La vérification expire après 15 minutes et est supprimée à la fermeture du catalogue. Installés > Ajouter depuis une adresse Git accepte HTTPS ou SSH pour les plugins et les thèmes de données, sans terminal.
-
-Les thèmes intégrés font partie d’Eitr et ne peuvent pas être supprimés. La corbeille d’un thème téléchargé efface son paquet installé ; le thème actuel ne peut pas être supprimé.
-
-Tapez n’importe où dans le catalogue, ou appuyez sur Ctrl+F ou /, pour chercher dans la page actuelle par nom ou description. Les mots peuvent être dans n’importe quel ordre ; Échap efface d’abord la recherche.
+Fonds d’écran montre les images fournies, personnelles et les cartes de packs. Cliquer sur un pack utilise sa première image ; les images individuelles sont aussi disponibles. Les packs communautaires contiennent uniquement des images JPEG, PNG ou WebP vérifiées. Elles rejoignent le sélecteur et le carrousel existants ; supprimer un pack ne retire que ses fichiers. Les économiseurs d’écran ne sont pas inclus.
 
 
-### Écrans de verrouillage dans Modules complémentaires
+Dépôt de thèmes: `eitr-org/eitr-themes`.
 
-Ouvrez **Modules complémentaires > Écrans de verrouillage > Officiel** pour installer des modèles depuis le dépôt de paquets signés d’Eitr. L’installation et la suppression demandent le mot de passe administrateur dans la fenêtre Eitr. **Installé** affiche les modèles installés ; cliquez sur l’un d’eux pour l’utiliser pour la session et la connexion, comme dans **Paramètres > Écran de verrouillage** ou Walker. **Eitr** est intégré et ne peut pas être supprimé. Le modèle utilisé par la session ou la connexion porte le badge **Actuel** et n’a pas de corbeille. Vos écrans basés sur un modèle désinstallé sont masqués, jamais supprimés, et reviennent après sa réinstallation. System Update installe les huit paquets optionnels une seule fois ; les nouvelles installations les incluent aussi. Les suppressions ultérieures sont conservées.
-
+Choisissez un autre fond avant de supprimer un pack utilisé par une sélection enregistrée.
 
 ## Choisir thème et fond d’écran
 

@@ -111,7 +111,7 @@ package() {
   install -Dm644 distro/system/firewall.nft "$pkgdir/usr/share/eitr/firewall.nft"
   install -Dm644 distro/system/networkd-wait-online-any.conf \
     "$pkgdir/usr/lib/systemd/system/systemd-networkd-wait-online.service.d/eitr.conf"
-  install -Dm644 -t "$pkgdir/usr/share/applications" distro/applications/eitr-calculator.desktop
+  install -Dm644 -t "$pkgdir/usr/share/applications" distro/applications/eitr-calculator.desktop distro/applications/eitr-store.desktop
   install -Dm755 distro/bin/eitr "$pkgdir/usr/bin/eitr"
   install -Dm755 distro/bin/eitr-config "$pkgdir/usr/bin/eitr-config"
   install -Dm755 distro/bin/eitr-launch "$pkgdir/usr/bin/eitr-launch"

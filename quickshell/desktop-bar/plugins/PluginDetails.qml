@@ -6,7 +6,7 @@ import "../PanelStyle.js" as PanelStyle
 
 // One installed plugin: name, author and switch, its desktop widgets and bar icons with
 // their settings, Update and Remove. Control Center's Plugins page and the
-// Add-ons window both show it.
+// Eitr Store window both show it.
 Rectangle {
     id: card
     required property var modelData
@@ -15,7 +15,7 @@ Rectangle {
     required property color background
     required property color accent
     property bool showPreview: false
-    // A host with its own review flow (the Add-ons window) handles these; otherwise
+    // A host with its own review flow (the Eitr Store window) handles these; otherwise
     // they open the reviewed terminal flows.
     property var updateAction: null
     property var removeAction: null

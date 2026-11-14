@@ -1621,8 +1621,8 @@ msgstr "Installez Chrome, Chromium, Edge, Brave ou Vivaldi depuis Walker > Insta
 msgid "Install Ghostty? Enter: install · Esc: cancel"
 msgstr "Installer Ghostty ? Entrée : installer · Échap : annuler"
 
-msgid "Install a lockscreen design from Add-ons first."
-msgstr "Installez d’abord un modèle depuis Modules complémentaires."
+msgid "Install a lockscreen design from Eitr Store first."
+msgstr "Installez d’abord un modèle depuis Eitr Store."
 
 msgid "Install alongside the existing systems in {size_text} of free space"
 msgstr "Installer à côté des systèmes existants dans {size_text} d’espace libre"

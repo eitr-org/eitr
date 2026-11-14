@@ -234,4 +234,4 @@ SDDM bus policy verify the interface; live bus introspection was sandbox-blocked
 Actual VT switching, concurrent login and return to the still-locked session need
 a real multi-user test. No switch call is made by automated tests.
 
-Only **Eitr** is built in. The other eight designs are optional signed `eitr-lockscreen-*` packages in the Eitr repository. Add-ons > Lockscreens installs and removes them with administrator authentication. Active session and login designs cannot be removed. Own lockscreens are hidden while their base design is absent.
+Only **Eitr** is built in. The other eight designs are optional signed `eitr-lockscreen-*` packages in the Eitr repository. Eitr Store > Lockscreens installs and removes them with administrator authentication. Active session and login designs cannot be removed. Own lockscreens are hidden while their base design is absent.

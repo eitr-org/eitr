@@ -10,9 +10,9 @@ A janela Configurações tem uma barra lateral com busca e cartões para control
 
 Links no rodapé dos painéis fecham o painel e abrem a página correspondente de Configurações. Todas as configurações na Central de controle faz o mesmo; **SUPER + I** abre os controles rápidos. Veja [Central de controle](handbook:control-center).
 
-Escolha Cores das configurações em Configurações > Aparência > Tema e papel de parede: Cores do tema acompanha o desktop; Site do Eitr usa a paleta do site. Isso afeta Configurações, o Manual e Complementos, não o tema da área de trabalho. Walker > Configurações > Área de trabalho > Aparência > Cores das configurações abre essa escolha.
+Escolha Cores das configurações em Configurações > Aparência > Tema e papel de parede: Cores do tema acompanha o desktop; Site do Eitr usa a paleta do site. Isso afeta Configurações, o Manual e Eitr Store, não o tema da área de trabalho. Walker > Configurações > Área de trabalho > Aparência > Cores das configurações abre essa escolha.
 
-O catálogo separado Complementos abre com SUPER + F2 ou Mais temas em Aparência.
+O catálogo separado Eitr Store abre com SUPER + F2 ou Mais temas em Aparência.
 
 ## Escolher uma página
 

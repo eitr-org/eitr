@@ -705,7 +705,7 @@
     "Real-desktop screenshots on the site and smaller downloads": "サイト上の実際のデスクトップスクリーンショットとダウンロードサイズの縮小",
     "Plugins, the Eitr theme with its own Neovim and VS Code colours, Focus mode and the Islands bar layout": "プラグイン、NeovimおよびVS Codeの専用配色を備えたEitrテーマ、Focusモード、Islandsバーレイアウト",
     "A scrolling window layout, workspaces shared across or split between monitors, Settings search that finds any setting, outlined fields, tabs and Material sliders and switches across Settings, and herdr for AI coding agents": "スクロール型ウィンドウレイアウト、モニター間でのワークスペース共有または分割、あらゆる設定を検索できる設定内検索、設定アプリ全体のアウトラインフィールド・タブ・Materialスライダーおよびスイッチ、AIコーディングエージェント向けherdr",
-    "The Settings app, the Add-ons window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "設定アプリ、「アドオン」ウィンドウ、ウェルカムツアーで始まるハンドブック、「接続」内のWi-FiおよびBluetooth、Rune Sealをはじめとする新しいEitr壁紙",
+    "The Settings app, the Eitr Store window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "設定アプリ、「アドオン」ウィンドウ、ウェルカムツアーで始まるハンドブック、「接続」内のWi-FiおよびBluetooth、Rune Sealをはじめとする新しいEitr壁紙",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "インストーラーの言語選択ステップによる日本語・簡体字中国語・韓国語への対応、Dropバーレイアウトとそのダッシュボード、複製や調整ができるプラグインウィジェット、Eitr専用のパスワードダイアログ、ディスプレイごとの個別壁紙、使用中のディスプレイに追従する通知と録画機能"
   },
   "client": {

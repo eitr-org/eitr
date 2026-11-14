@@ -539,7 +539,7 @@
   "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it.": "開くには「インストール」>「ブラウザ」からChrome、Chromium、Edge、Brave、またはVivaldiをインストールしてください。",
   "Install Chrome, Chromium, Edge, Brave or Vivaldi from Walker > Install > Browsers; Firefox cannot open app windows.": "Walker >「インストール」>「ブラウザ」からChrome、Chromium、Edge、Brave、またはVivaldiをインストールしてください。Firefoxはアプリウィンドウを開くことができません。",
   "Install Ghostty? Enter: install · Esc: cancel": "Ghosttyをインストールしますか？ Enter: インストール · Esc: キャンセル",
-  "Install a lockscreen design from Add-ons first.": "先にアドオンからロック画面デザインをインストールしてください。",
+  "Install a lockscreen design from Eitr Store first.": "先にEitr Storeからロック画面デザインをインストールしてください。",
   "Install alongside the existing systems in {size_text} of free space": "{size_text} の空き領域に既存のシステムと並べてインストール",
   "Install eitr-desktop before configuring login selection": "ログイン選択を設定する前に eitr-desktop をインストールしてください",
   "Install it from Install > AI CLIs: {command}": "「インストール」>「AI CLI」からインストールしてください: {command}",
