@@ -51,7 +51,9 @@ ShellRoot {
       throw new Error("Weather geometry " + [horizontal.width,horizontal.height,vertical.width,vertical.height]);
      if (Bar.DesktopData.observers !== 6) throw new Error("Missing observations " + Bar.DesktopData.observers);
      for (let index = 0; index < icons.count; index++) {
-      if (icons.itemAt(index).width !== 24 || icons.itemAt(index).height !== 24) throw new Error("Weather icon slot geometry");
+      // Status is a fixed icon slot; start sizes to its content (the full reading across, the icon down the side).
+      const item = icons.itemAt(index), wide = item.placementSlot === "start" && !item.vertical;
+      if (item.width !== (wide ? 64 : 24) || item.height !== 24) throw new Error("Weather slot geometry " + [item.placementSlot, item.vertical, item.width, item.height]);
      }
      horizontal.observing = false;
      Bar.DesktopData.topics = {"weather.default": {data:{temp:"-100°C",text:"󰖐 -100°C"}}};

@@ -319,9 +319,10 @@ manifest. Old placement versions and manifests remain valid.
 
 Limits apply in saved placement order, independently per slot. Excess items stay
 placed but hidden until space in their chosen slot becomes available; they never
-spill into another region. Start/status use fixed icon slots. Clock slots use the
-root's first nonzero natural width, capped at 192 px, and natural height; later data
-changes stay inside that allocation. Vertical clock content rotates as one line.
+spill into another region. Status uses fixed icon slots. Start and the clock slots
+use the root's widest natural width so far, capped at 320 px, and natural height; the
+allocation grows once for wider content (such as a placeholder replaced by data) and
+never shrinks, so later changes do not move neighbours. Vertical content rotates as one line.
 A zero-sized root is hidden. The Weather host view uses its compact icon vertically.
 
 Full shows the slots directly; Centered reveals them when expanded. Tabs includes

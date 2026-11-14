@@ -298,7 +298,11 @@ ShellRoot {
                         const beforeClock = shell.verticalBar ? point.y - clock.height / 2 : point.x - clock.width / 2;
                         if (end > beforeClock || slot.width <= 0 || slot.height <= 0) { console.error("Clock slot misplaced"); Qt.exit(1); return; }
                     } else if (slot.width > 0 && slot.height > 0) { console.error("Drop slot visible"); Qt.exit(1); return; }
-                    for (const item of [startSlot, statusSlot]) {
+                    // Status keeps fixed icon slots; start sizes to its content like the clock slots.
+                    if (EXPECT_CLOCK && !bar.dropLayout && (startSlot.width <= 0 || startSlot.height <= 0)) {
+                        console.error("Start slot geometry"); Qt.exit(1); return;
+                    }
+                    for (const item of [statusSlot]) {
                         if (EXPECT_CLOCK && !bar.dropLayout && (item.width !== 24 || item.height !== 24)) {
                             console.error("Outer slot geometry"); Qt.exit(1); return;
                         }

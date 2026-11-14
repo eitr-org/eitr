@@ -10,7 +10,8 @@ Grid {
     required property color accent
     property bool clockSlot: false
     property string placementSlot: clockSlot ? "clock" : "status"
-    readonly property bool naturalSize: placementSlot === "clock" || placementSlot === "clockEnd"
+    // Only the status group keeps fixed icon slots; the other places size items to their content.
+    readonly property bool naturalSize: placementSlot !== "status"
     property real reveal: 1
     width: implicitWidth * (naturalSize && !vertical ? reveal : 1)
     height: implicitHeight * (naturalSize && vertical ? reveal : 1)
@@ -32,8 +33,10 @@ Grid {
             id: slot
             required property var modelData
             property real reservedWidth: 0
-            onImplicitWidthChanged: if (reservedWidth <= 0 && implicitWidth > 0) reservedWidth = Math.min(192, implicitWidth)
-            Component.onCompleted: if (implicitWidth > 0) reservedWidth = Math.min(192, implicitWidth)
+            // Grows to the widest content seen (a placeholder may come first) and never shrinks,
+            // so changing values do not move the neighbours.
+            onImplicitWidthChanged: reservedWidth = Math.min(320, Math.max(reservedWidth, implicitWidth))
+            Component.onCompleted: reservedWidth = Math.min(320, Math.max(reservedWidth, implicitWidth))
             entry: modelData
             clockFormat: items.clockFormat
             observing: items.observing
