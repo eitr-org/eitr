@@ -1063,7 +1063,16 @@ var qml = {
     "Before the clock": "Before the clock",
     "Left side": "Left side",
     "Right side": "Right side",
-    "Where it sits on the bar.": "Where it sits on the bar."
+    "Where it sits on the bar.": "Where it sits on the bar.",
+    "Adds": "Adds",
+    "Bar item": "Bar item",
+    "Control Center tile": "Control Center tile",
+    "Filters": "Filters",
+    "Installs packages": "Installs packages",
+    "Runs a background service": "Runs a background service",
+    "Source": "Source",
+    "Walker rows": "Walker rows",
+    "Widget": "Widget"
   },
   "pt_BR": {
     "%1 B/s": "%1 B/s",
@@ -2093,7 +2102,16 @@ var qml = {
     "Left side": "Lado esquerdo",
     "Before the clock": "Antes do relógio",
     "After the clock": "Depois do relógio",
-    "Right side": "Lado direito"
+    "Right side": "Lado direito",
+    "Adds": "Adiciona",
+    "Bar item": "Item da barra",
+    "Control Center tile": "Bloco da Central de controle",
+    "Filters": "Filtros",
+    "Installs packages": "Instala pacotes",
+    "Runs a background service": "Executa um serviço em segundo plano",
+    "Source": "Origem",
+    "Walker rows": "Linhas do Walker",
+    "Widget": "Widget"
   },
   "es": {
     "%1 B/s": "%1 B/s",
@@ -3123,7 +3141,16 @@ var qml = {
     "Left side": "Lado izquierdo",
     "Before the clock": "Antes del reloj",
     "After the clock": "Después del reloj",
-    "Right side": "Lado derecho"
+    "Right side": "Lado derecho",
+    "Adds": "Añade",
+    "Bar item": "Elemento de barra",
+    "Control Center tile": "Mosaico del Centro de control",
+    "Filters": "Filtros",
+    "Installs packages": "Instala paquetes",
+    "Runs a background service": "Ejecuta un servicio en segundo plano",
+    "Source": "Origen",
+    "Walker rows": "Filas de Walker",
+    "Widget": "Widget"
   },
   "de": {
     "%1 B/s": "%1 B/s",
@@ -4153,7 +4180,16 @@ var qml = {
     "Left side": "Linke Seite",
     "Before the clock": "Vor der Uhr",
     "After the clock": "Nach der Uhr",
-    "Right side": "Rechte Seite"
+    "Right side": "Rechte Seite",
+    "Adds": "Fügt hinzu",
+    "Bar item": "Leistenelement",
+    "Control Center tile": "Kontrollzentrum-Kachel",
+    "Filters": "Filter",
+    "Installs packages": "Installiert Pakete",
+    "Runs a background service": "Führt einen Hintergrunddienst aus",
+    "Source": "Quelle",
+    "Walker rows": "Walker-Einträge",
+    "Widget": "Widget"
   },
   "fr": {
     "%1 B/s": "%1 o/s",
@@ -5183,7 +5219,16 @@ var qml = {
     "Left side": "Côté gauche",
     "Before the clock": "Avant l'horloge",
     "After the clock": "Après l'horloge",
-    "Right side": "Côté droit"
+    "Right side": "Côté droit",
+    "Adds": "Ajoute",
+    "Bar item": "Élément de barre",
+    "Control Center tile": "Tuile du Centre de contrôle",
+    "Filters": "Filtres",
+    "Installs packages": "Installe des paquets",
+    "Runs a background service": "Exécute un service en arrière-plan",
+    "Source": "Source",
+    "Walker rows": "Lignes Walker",
+    "Widget": "Widget"
   },
   "ja": {
     "%1 B/s": "%1 B/s",
@@ -6213,7 +6258,16 @@ var qml = {
     "Left side": "左側",
     "Before the clock": "時計の前",
     "After the clock": "時計の後",
-    "Right side": "右側"
+    "Right side": "右側",
+    "Adds": "追加機能",
+    "Bar item": "バー項目",
+    "Control Center tile": "コントロールセンターのタイル",
+    "Filters": "フィルター",
+    "Installs packages": "パッケージをインストール",
+    "Runs a background service": "バックグラウンドサービスを実行",
+    "Source": "提供元",
+    "Walker rows": "Walkerの行",
+    "Widget": "ウィジェット"
   },
   "zh_CN": {
     "%1 B/s": "%1 B/s",
@@ -7243,7 +7297,16 @@ var qml = {
     "Left side": "左侧",
     "Before the clock": "时钟之前",
     "After the clock": "时钟之后",
-    "Right side": "右侧"
+    "Right side": "右侧",
+    "Adds": "新增功能",
+    "Bar item": "栏项目",
+    "Control Center tile": "控制中心磁贴",
+    "Filters": "筛选",
+    "Installs packages": "安装软件包",
+    "Runs a background service": "运行后台服务",
+    "Source": "来源",
+    "Walker rows": "Walker 行",
+    "Widget": "小组件"
   },
   "ko": {
     "%1 B/s": "%1 B/s",
@@ -8273,6 +8336,15 @@ var qml = {
     "Left side": "왼쪽",
     "Before the clock": "시계 앞",
     "After the clock": "시계 뒤",
-    "Right side": "오른쪽"
+    "Right side": "오른쪽",
+    "Adds": "추가 기능",
+    "Bar item": "막대 항목",
+    "Control Center tile": "제어 센터 타일",
+    "Filters": "필터",
+    "Installs packages": "패키지 설치",
+    "Runs a background service": "백그라운드 서비스 실행",
+    "Source": "출처",
+    "Walker rows": "Walker 행",
+    "Widget": "위젯"
   }
 };

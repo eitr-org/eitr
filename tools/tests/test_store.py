@@ -35,7 +35,8 @@ class StoreTests(unittest.TestCase):
                     self.assertEqual(dispatch(operation, args), (operation, args))
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'registry.json'
-            for changes in ({'id': '../bad'}, {'sources': ['git']}, {'capabilities': {}}, {'backend': '__import__(bad)'}):
+            for changes in ({'id': '../bad'}, {'sources': ['git']}, {'capabilities': {}}, {'backend': '__import__(bad)'}, {'filters': {}}, {'filters': [dict(id='adds', label='Adds', multiple='yes', options=[])]},
+                            {'filters': [dict(id='adds', label='Adds', multiple=True, options=[dict(id='widget', label='Widget', path='../bad')])]}):
                 path.write_text(json.dumps([dict(registry[0], **changes)]))
                 with self.assertRaises(ValueError):
                     load(path)

@@ -1026,5 +1026,14 @@
   "Left side": "Lado esquerdo",
   "Before the clock": "Antes do relógio",
   "After the clock": "Depois do relógio",
-  "Right side": "Lado direito"
+  "Right side": "Lado direito",
+  "Adds": "Adiciona",
+  "Bar item": "Item da barra",
+  "Control Center tile": "Bloco da Central de controle",
+  "Filters": "Filtros",
+  "Installs packages": "Instala pacotes",
+  "Runs a background service": "Executa um serviço em segundo plano",
+  "Source": "Origem",
+  "Walker rows": "Linhas do Walker",
+  "Widget": "Widget"
 }

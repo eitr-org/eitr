@@ -10,15 +10,6 @@ RowLayout {
     property alias searchField: search
     spacing: 8
     height: PanelStyle.selectionRowHeight
-    ChoiceSegmented {
-        visible: catalog.getMore
-        Layout.preferredWidth: Math.min(300, header.width * 0.46)
-        foreground: catalog.foreground; background: catalog.background; gold: catalog.gold
-        choices: [{id: "all", label: Eitr.I18n.tr("All")}, {id: "official", label: Eitr.I18n.tr("Official")}, {id: "community", label: Eitr.I18n.tr("Community")}]
-        current: catalog.sourceFilter
-        onChosen: value => { catalog.sourceFilter = value; catalog.cursor = -1; }
-    }
-    Item { Layout.fillWidth: true }
     PanelTextField {
         id: search
         objectName: "catalog-search"
@@ -43,29 +34,20 @@ RowLayout {
             foreground: catalog.foreground; Accessible.name: Eitr.I18n.tr("Clear search")
             onClicked: { catalog.query = ""; search.forceActiveFocus(); }
         }
-        ChoiceDropdown {
+        StoreFilterMenu {
             id: toneFilter
             objectName: "catalog-tone-filter"
-            visible: catalog.kind === "themes"
+            catalog: header.catalog
             anchors.right: parent.right; anchors.rightMargin: 4; anchors.verticalCenter: parent.verticalCenter
             width: 28; height: 28
-            foreground: catalog.foreground; background: catalog.background; gold: catalog.gold
-            accessibleName: Eitr.I18n.tr("Appearance")
-            label: "\uf0b0"
-            current: catalog.tone
-            choices: [{id: "all", label: Eitr.I18n.tr("All")}, {id: "light", label: Eitr.I18n.tr("Light")}, {id: "dark", label: Eitr.I18n.tr("Dark")}]
-            popupWidth: 160
-            iconOnly: true
-            onChosen: value => { catalog.tone = value; catalog.cursor = -1; }
-            Rectangle { anchors.right: parent.right; anchors.top: parent.top; width: 6; height: 6; radius: 3; color: catalog.gold; visible: catalog.tone !== "all" }
         }
     }
     StoreActionButton {
         catalog: header.catalog
         objectName: "update-all"
-        visible: catalog.tab === "installed" && catalog.pendingUpdates.length > 0
+        visible: catalog.tab === "updates" && catalog.updateItems.length > 0
         Layout.preferredWidth: 36; Layout.preferredHeight: header.height; icon: true; text: "\u{F06B0}"
-        Accessible.name: Eitr.I18n.tr("Update all (%1)").arg(catalog.pendingUpdates.length)
+        Accessible.name: Eitr.I18n.tr("Update all (%1)").arg(catalog.updateItems.length)
         available: !catalog.busy; onClicked: catalog.updateAll()
     }
     StoreActionButton {

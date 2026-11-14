@@ -154,9 +154,9 @@ Rectangle {
                     objectName: "detail-install"
                     anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.margins: 22
                     width: 150; primary: true; available: !catalog.busy
-                    visible: !catalog.detailItem.current && (catalog.capabilities.useOnClick || !catalog.isInstalled(catalog.detailItem) || (catalog.updates[catalog.detailItem.id] || catalog.detailItem.updateCount || 0) > 0)
-                    text: catalog.isInstalled(catalog.detailItem) ? (catalog.kind === "plugins" ? Eitr.I18n.tr("Update") : Eitr.I18n.tr("Apply")) : Eitr.I18n.tr("Install")
-                    onClicked: { if (catalog.kind === "plugins") catalog.reviewDetail(); else if (catalog.isInstalled(catalog.detailItem)) { const themeId = catalog.detailItem.id; catalog.closeDetail(); catalog.act("apply", {id: themeId}); } else catalog.reviewDetail(); }
+                    visible: (catalog.tab === "updates" || !catalog.detailItem.current) && (catalog.capabilities.useOnClick || !catalog.isInstalled(catalog.detailItem) || (catalog.updates[catalog.detailItem.id] || catalog.detailItem.updateCount || 0) > 0)
+                    text: catalog.isInstalled(catalog.detailItem) ? ((catalog.kind === "plugins" || catalog.tab === "updates") ? Eitr.I18n.tr("Update") : Eitr.I18n.tr("Apply")) : Eitr.I18n.tr("Install")
+                    onClicked: { if (catalog.tab === "updates" && catalog.capabilities.useOnClick) { const itemId = catalog.detailItem.id; catalog.closeDetail(); catalog.act("update", {id: itemId}); } else if (catalog.kind === "plugins") catalog.reviewDetail(); else if (catalog.isInstalled(catalog.detailItem)) { const themeId = catalog.detailItem.id; catalog.closeDetail(); catalog.act("apply", {id: themeId}); } else catalog.reviewDetail(); }
                 }
         StoreActionButton { catalog: detailSheet.catalog; objectName: "detail-close"; anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 10; width: 32; icon: true; text: "󰅖"; Accessible.name: Eitr.I18n.tr("Close"); onClicked: catalog.closeDetail() }
     }

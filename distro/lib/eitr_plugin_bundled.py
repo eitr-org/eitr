@@ -73,6 +73,7 @@ class BundledPlugins:
     def bundled_catalog(self):
         spec = manifest(bundled_root('weather'))
         return [dict(id=spec['id'], name=spec['name'], description=spec['description'], author=spec['author'],
+                     components={key: spec[key] for key in ('rows', 'ui', 'service', 'packages') if key in spec},
                      version=spec['version'], kind='builtin', builtin=True, official=True, repository=BUNDLED_URL,
                      previewUrl=(bundled_root('weather') / spec['icon']).as_uri(),
                      folder='plugins/bundled/weather', commit=bundled_revision(bundled_root('weather')))]

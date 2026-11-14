@@ -21,7 +21,32 @@ var kinds = [
             "remove": true,
             "update": true,
             "needsAdministrator": false
-        }
+        },
+        "filters": [
+            {
+                "id": "tone",
+                "label": "Appearance",
+                "multiple": false,
+                "options": [
+                    {
+                        "id": "all",
+                        "label": "All"
+                    },
+                    {
+                        "id": "light",
+                        "label": "Light",
+                        "path": "light",
+                        "equals": true
+                    },
+                    {
+                        "id": "dark",
+                        "label": "Dark",
+                        "path": "light",
+                        "equals": false
+                    }
+                ]
+            }
+        ]
     },
     {
         "id": "plugins",
@@ -42,7 +67,51 @@ var kinds = [
             "remove": true,
             "update": true,
             "needsAdministrator": false
-        }
+        },
+        "filters": [
+            {
+                "id": "adds",
+                "label": "Adds",
+                "multiple": true,
+                "options": [
+                    {
+                        "id": "barItems",
+                        "label": "Bar item",
+                        "path": "components.ui.barItems"
+                    },
+                    {
+                        "id": "widgets",
+                        "label": "Widget",
+                        "path": "components.ui.widgets"
+                    },
+                    {
+                        "id": "tiles",
+                        "label": "Control Center tile",
+                        "path": "components.ui.tiles"
+                    },
+                    {
+                        "id": "panels",
+                        "label": "Panel",
+                        "path": "components.ui.panels"
+                    },
+                    {
+                        "id": "rows",
+                        "label": "Walker rows",
+                        "path": "components.rows"
+                    },
+                    {
+                        "id": "service",
+                        "label": "Runs a background service",
+                        "path": "components.service"
+                    },
+                    {
+                        "id": "packages",
+                        "label": "Installs packages",
+                        "path": "components.packages"
+                    }
+                ]
+            }
+        ]
     },
     {
         "id": "lockscreens",
@@ -62,7 +131,8 @@ var kinds = [
             "remove": true,
             "update": false,
             "needsAdministrator": true
-        }
+        },
+        "filters": []
     },
     {
         "id": "wallpapers",
@@ -82,6 +152,7 @@ var kinds = [
             "remove": true,
             "update": false,
             "needsAdministrator": false
-        }
+        },
+        "filters": []
     }
 ];

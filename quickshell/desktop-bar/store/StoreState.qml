@@ -8,6 +8,7 @@ import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 import "../StoreKinds.js" as StoreKinds
 import "StoreSearch.js" as StoreSearch
+import "StoreUpdates.js" as StoreUpdates
 
 Item {
     property var scroll
@@ -96,11 +97,11 @@ Item {
     function resetTransient() {
         addingAddress = false; catalog.addressInput.text = ""; gitSelected = []; gitArtwork = ({});
         detail = null; reviewing = false; removing = null; managing = null; selected = []; error = ""; progress = "";
-        query = ""; tone = "all"; sourceFilter = "all"; cursor = -1; shown = pageSize; catalog.scroll.contentY = 0;
+        query = ""; tone = "all"; sourceFilter = "all"; filterValues = ({}); cursor = -1; shown = pageSize; catalog.scroll.contentY = 0;
     }
     function discardReview() {
         if (live && ["themes", "plugins"].includes(kind)) transport("discard", {kind: kind}, function() {}, cleanupOwner);
-        nativeReview = null; nativeReviewing = false; advice = ""; pluginQueue = []; pluginQueueTotal = 0;
+        nativeReview = null; nativeReviewing = false; advice = ""; pluginQueue = []; pluginQueueTotal = 0; updateQueue = [];
     }
     function reviewChosenPlugins() {
         pluginQueueUrl = nativeReview.url; pluginQueueTotal = gitSelected.length;
@@ -108,19 +109,14 @@ Item {
         prepareReview({url: pluginQueueUrl, id: gitSelected[0]}, true);
     }
     readonly property var pendingUpdates: installed.filter(item => (updates[item.id] || 0) > 0).map(item => item.id)
+    property var updateQueue: []
     function updateAll() {
-        const ids = pendingUpdates;
-        if (!ids.length || busy) return;
-        if (capabilities.useOnClick) { updateThemes(ids); return; }
-        pluginQueueTotal = ids.length;
-        pluginQueue = ids.slice(1).map(id => ({id: id, updating: true}));
-        prepareReview({id: ids[0], updating: true}, true);
-    }
-    function updateThemes(ids) {
-        if (ids.length) act("update", {id: ids[0]}, () => updateThemes(ids.slice(1)));
+        if (busy || !updateItems.length) return;
+        updateQueue = updateItems.slice();
+        StoreUpdates.next(catalog);
     }
     function prepareReview(args, queued) {
-        if (!args.ids && !queued) { gitSelected = []; gitArtwork = ({}); pluginQueue = []; pluginQueueTotal = 0; }
+        if (!args.ids && !queued) { gitSelected = []; gitArtwork = ({}); pluginQueue = []; pluginQueueTotal = 0; updateQueue = []; }
         reviewUpdating = args.updating ? args.id : "";
         nativeReviewing = true; nativeReview = null; reviewSourcePath = ""; reviewSourceText = ""; addingAddress = false; advice = ""; error = ""; busy = true;
         request("prepare", args, function(failure, data) {
@@ -129,7 +125,7 @@ Item {
             busy = false;
             if (!failure && data.upToDate) {
                 nativeReviewing = false; nativeReview = null; forgetUpdate(args.id);
-                progress = Eitr.I18n.tr("Already up to date."); forceActiveFocus();
+                progress = Eitr.I18n.tr("Already up to date."); forceActiveFocus(); StoreUpdates.next(catalog);
                 return;
             }
             error = failure; nativeReview = failure ? null : data.review;
@@ -215,7 +211,7 @@ Item {
     readonly property var more: availableItems.filter(item => !installed.some(local => local.id === item.id))
     property string tab: "discover"
     property string query: ""
-    readonly property bool getMore: tab !== "installed"
+    readonly property bool getMore: tab === "discover"
     property bool sidebarFocus: true
     readonly property bool compact: width < 760
     readonly property int sidebarWidth: Math.min(260, width * 0.31) + PanelStyle.padding * 3
@@ -223,34 +219,42 @@ Item {
     readonly property var definition: kinds.find(entry => entry.id === kind) || kinds[0]
     readonly property var capabilities: definition.capabilities
     property string sourceFilter: "all"
-    readonly property var navigation: {
-        const rows = [];
-        for (const entry of kinds)
-            for (const page of ["installed", "discover"])
-                rows.push({id: entry.id + "/" + page, kind: entry.id, tab: page,
-                    title: page === "installed" ? Eitr.I18n.tr("Installed") : Eitr.I18n.tr("Discover"),
-                    rune: entry.rune, group: Eitr.I18n.tr(entry.label), groupRune: entry.rune,
-                    description: Eitr.I18n.tr(entry.descriptions[page])});
-        return rows;
-    }
-    readonly property int navigationIndex: Math.max(0, navigation.findIndex(row => row.kind === kind && row.tab === tab))
-    readonly property var currentPage: navigation[navigationIndex]
+    readonly property var updateItems: StoreUpdates.items(store, kinds, updateCache)
+    readonly property var navigation: [
+        {id: "discover", title: Eitr.I18n.tr("Discover"), rune: "ᚱ"},
+        {id: "installed", title: Eitr.I18n.tr("Installed"), rune: "ᛟ"}
+    ].concat(updateItems.length ? [{id: "updates", title: Eitr.I18n.tr("Updates") + " (" + updateItems.length + ")", rune: "ᛃ"}] : [])
+    readonly property int navigationIndex: Math.max(0, navigation.findIndex(row => row.id === tab))
+    readonly property var currentPage: navigation.find(row => row.id === tab) || {id: "updates", title: Eitr.I18n.tr("Updates")}
     function navigate(index) {
-        const row = navigation[Math.max(0, Math.min(navigation.length - 1, index))];
-        kind = row.kind; tab = row.tab;
+        tab = navigation[Math.max(0, Math.min(navigation.length - 1, index))].id;
         cursor = -1; catalog.scroll.contentY = 0;
         sidebarFocus = true; forceActiveFocus();
     }
+    property var filterValues: ({})
+    function filterValue(group) { return group.id === "tone" ? tone : filterValues[kind + ":" + group.id] || (group.multiple ? [] : "all"); }
+    function chooseFilter(group, value) {
+        if (group.id === "source") sourceFilter = value;
+        else if (group.id === "tone") tone = value;
+        else {
+            const current = filterValue(group);
+            const next = group.multiple ? current.includes(value) ? current.filter(entry => entry !== value) : current.concat([value]) : value;
+            filterValues = Object.assign({}, filterValues, {[kind + ":" + group.id]: next});
+        }
+        cursor = -1; shown = pageSize; catalog.scroll.contentY = 0;
+    }
+    readonly property var filterGroups: [{id: "source", label: Eitr.I18n.tr("Source"), multiple: false, options: [{id: "all", label: Eitr.I18n.tr("All")}, {id: "official", label: Eitr.I18n.tr("Official")}, {id: "community", label: Eitr.I18n.tr("Community")}]}].concat(definition.filters)
+    readonly property bool filtersActive: sourceFilter !== "all" || definition.filters.some(group => group.multiple ? filterValue(group).length > 0 : filterValue(group) !== "all")
     property string tone: "all"
     property int cursor: -1
     readonly property int pageSize: 24
     property int shown: pageSize
     onCursorChanged: if (cursor >= shown - columns) shown = Math.ceil((cursor + columns + 1) / pageSize) * pageSize
     readonly property int columns: Math.max(1, Math.min(3, Math.floor((width - sidebarWidth - 48) / 230)))
-    function filtered(items) { return items.filter(item => StoreSearch.matches(item, query) && (kind !== "themes" || tone === "all" || item.light === (tone === "light"))); }
+    function filtered(items) { return items.filter(item => StoreSearch.matches(item, query) && StoreSearch.filters(item, kinds.find(entry => entry.id === (item.storeKind || kind)), sourceFilter, tone, filterValues)); }
     readonly property var locals: filtered(installed)
-    readonly property var discoveries: filtered(availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: item.kind, channel: item.channel}))).filter(item => sourceFilter === "all" || (sourceFilter === "official" ? ["builtin", "official"].includes(item.kind) : item.kind === "community"))
-    readonly property var navigable: query.trim() && live ? StoreSearch.rows(store, kinds, tab, query, sourceFilter, kind === "themes" ? tone : "all") : getMore ? discoveries : locals
+    readonly property var discoveries: filtered(availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: item.kind, channel: item.channel})))
+    readonly property var navigable: tab === "updates" ? filtered(updateItems) : getMore ? discoveries : locals
     function toggle(item) {
         if (item.storeKind && item.storeKind !== kind) kind = item.storeKind;
         if (!capabilities.useOnClick || capabilities.needsAdministrator || busy || isInstalled(item)) return;
@@ -260,6 +264,7 @@ Item {
     function activate(item, local) {
         if (item.storeKind && item.storeKind !== kind) kind = item.storeKind;
         if (busy) return;
+        if (tab === "updates") { openDetail(item); return; }
         if (kind === "lockscreens" && getMore) return;
         if (getMore) openDetail(item);
         else if (local && capabilities.useOnClick && !item.current) act("apply", {id: item.id});
@@ -349,6 +354,7 @@ Item {
                 pluginQueue = pluginQueue.slice(1);
                 prepareReview(next, true);
             }
+            if (!failure && name === "confirm" && updateQueue.length) StoreUpdates.next(catalog);
             if (!failure && done) done();
         });
     }

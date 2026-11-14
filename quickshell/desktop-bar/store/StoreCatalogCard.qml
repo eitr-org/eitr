@@ -19,7 +19,7 @@ Rectangle {
     readonly property int updateCount: (catalog.updateCache[itemKind] || catalog.updates)[item.id] || 0
     readonly property bool picked: catalog.getMore && !local && catalog.selected.includes(item.id)
     readonly property bool focused: catalog.cursor >= 0 && !!catalog.navigable[catalog.cursor] && catalog.navigable[catalog.cursor].id === item.id && (catalog.navigable[catalog.cursor].storeKind || catalog.kind) === itemKind
-    readonly property bool actionable: catalog.getMore || !(local && item.current)
+    readonly property bool actionable: catalog.getMore || catalog.tab === "updates" || !(local && item.current)
     readonly property real viewportY: parent.parent.y + parent.y + y - catalog.scroll.contentY
     readonly property bool inViewport: viewportY + height > 0 && viewportY < catalog.scroll.height
     implicitHeight: details.y + details.height + 12
@@ -76,7 +76,7 @@ Rectangle {
             StorePill { catalog: tile.catalog;
                 anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
                 visible: tile.updateCount > 0; text: Eitr.I18n.tr("Update"); current: true
-                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: { if (tile.capabilities.useOnClick) catalog.act("update", {id: tile.item.id}); else { catalog.openDetail(tile.item); catalog.prepareReview({id: tile.item.id, updating: true}); } } }
+                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: { if (tile.item.storeKind) catalog.kind = tile.item.storeKind; if (tile.capabilities.useOnClick) catalog.act("update", {id: tile.item.id}); else { catalog.openDetail(tile.item); catalog.prepareReview({id: tile.item.id, updating: true}); } } }
             }
         }
     }

@@ -419,6 +419,7 @@
     {"pattern": "quickshell/desktop-bar/panels/RemoteAccessMenu.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/services/RemoteAccessService.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/remote-status.py", "class": "C", "runtime": true},
+    {"pattern": "eitr/store.json", "class": "P", "runtime": false},
     {"pattern": "eitr/cloud-navigation.json", "class": "P", "runtime": false},
     {"pattern": "walker/scripts/menus/cloud/navigation-menus.json", "class": "C", "runtime": true},
     {"pattern": "elephant/cloud-navigation-entries.lua", "class": "C", "runtime": true},

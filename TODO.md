@@ -70,7 +70,7 @@ item says what decides the next step. Remove an item when it ships;
 - **World clock plugin (2026-11-14).** The desktop's clock slot is on testing; the plugin is
   on the `world-clock` branch of `eitr-org/eitr-plugins` (VM-tested: bar item left of the
   clock, panel). Next: the owner tries it, then merge to main so the Store lists it.
-- **Store search and app picker.** Discover and Installed share a single search/filter header; Window Rules app choices show icons and distinct classes. Offscreen checks cover both palettes; owner session verification remains.
+- **Store search and app picker.** Store sections share registry kind tabs, a grouped source/capability filter and an Updates section; Window Rules app choices show icons and distinct classes. Offscreen checks cover both palettes; owner session verification remains.
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the
   community index had no entries yet) and its validation workflow. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).

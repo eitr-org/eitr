@@ -1026,5 +1026,14 @@
   "Left side": "左侧",
   "Before the clock": "时钟之前",
   "After the clock": "时钟之后",
-  "Right side": "右侧"
+  "Right side": "右侧",
+  "Adds": "新增功能",
+  "Bar item": "栏项目",
+  "Control Center tile": "控制中心磁贴",
+  "Filters": "筛选",
+  "Installs packages": "安装软件包",
+  "Runs a background service": "运行后台服务",
+  "Source": "来源",
+  "Walker rows": "Walker 行",
+  "Widget": "小组件"
 }

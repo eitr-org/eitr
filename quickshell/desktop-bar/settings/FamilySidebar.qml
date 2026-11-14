@@ -90,9 +90,9 @@ ColumnLayout {
                     width: navigation.width; spacing: 2
                     onYChanged: if (row.selected) Qt.callLater(row.revealRow)
                     Text {
-                        visible: entry.index === 0 || sidebar.entries[entry.index - 1].group !== entry.modelData.group
+                        visible: !!entry.modelData.group && (entry.index === 0 || sidebar.entries[entry.index - 1].group !== entry.modelData.group)
                         height: visible ? 24 : 0
-                        text: entry.modelData.groupRune + "  " + entry.modelData.group.toLocaleUpperCase()
+                        text: (entry.modelData.groupRune || "") + "  " + (entry.modelData.group || "").toLocaleUpperCase()
                         color: sidebar.gold
                         font.family: SettingsInk.runes; font.pixelSize: 11; font.capitalization: Font.SmallCaps; font.letterSpacing: 1
                         verticalAlignment: Text.AlignBottom

@@ -1026,5 +1026,14 @@
   "Left side": "左側",
   "Before the clock": "時計の前",
   "After the clock": "時計の後",
-  "Right side": "右側"
+  "Right side": "右側",
+  "Adds": "追加機能",
+  "Bar item": "バー項目",
+  "Control Center tile": "コントロールセンターのタイル",
+  "Filters": "フィルター",
+  "Installs packages": "パッケージをインストール",
+  "Runs a background service": "バックグラウンドサービスを実行",
+  "Source": "提供元",
+  "Walker rows": "Walkerの行",
+  "Widget": "ウィジェット"
 }

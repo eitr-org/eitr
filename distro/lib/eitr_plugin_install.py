@@ -500,7 +500,7 @@ class PluginInstall:
                          for asset in media_entries(spec.get('media', []))]
                 rows.append(dict(id=entry['id'], name=name, description=description, size=0,
                                  author=string(spec.get('author')), version=string(spec.get('version')),
-                                 components={key: spec[key] for key in ('rows', 'ui', 'hooks', 'service', 'capabilities') if key in spec},
+                                 components={key: spec[key] for key in ('rows', 'ui', 'hooks', 'service', 'capabilities', 'packages') if key in spec},
                                  repository=url, folder=entry['path'], media=media, commit=revision, **artwork))
             return rows
 
@@ -1028,7 +1028,7 @@ class PluginInstall:
                              repository=printable(record['url']), repositoryPath=record.get('path', ''),
                              enabled=record.get('enabled', True), version=spec['version'] if spec else '',
                              description=spec['description'] if spec else '', commit=record['commit'],
-                             components={key: spec[key] for key in ('rows', 'ui', 'hooks', 'service', 'capabilities') if spec and key in spec},
+                             components={key: spec[key] for key in ('rows', 'ui', 'hooks', 'service', 'capabilities', 'packages') if spec and key in spec},
                              media=[dict(asset, imageUrl=(self.root(plugin_id) / asset['path']).as_uri()) for asset in spec.get('media', [])] if spec else [],
                              visualsDisabled=bool(self.ui_state().get(plugin_id, {}).get('disabled')),
                              icon=(self.root(plugin_id) / spec['icon']).as_uri() if spec and spec.get('icon') else '',

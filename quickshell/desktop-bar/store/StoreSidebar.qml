@@ -19,7 +19,7 @@ FamilySidebar {
     subtitle: "STORE"
     closeName: Eitr.I18n.tr("Close Store")
     searchVisible: false
-    currentId: catalog.kind + "/" + catalog.tab
+    currentId: catalog.tab
     entries: catalog.navigation
     onChosen: entry => { if (!catalog.busy) catalog.navigate(catalog.navigation.findIndex(row => row.id === entry.id)); }
     onCloseRequested: catalog.closeRequested()

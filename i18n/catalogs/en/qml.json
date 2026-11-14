@@ -1026,5 +1026,14 @@
   "Before the clock": "Before the clock",
   "Left side": "Left side",
   "Right side": "Right side",
-  "Where it sits on the bar.": "Where it sits on the bar."
+  "Where it sits on the bar.": "Where it sits on the bar.",
+  "Adds": "Adds",
+  "Bar item": "Bar item",
+  "Control Center tile": "Control Center tile",
+  "Filters": "Filters",
+  "Installs packages": "Installs packages",
+  "Runs a background service": "Runs a background service",
+  "Source": "Source",
+  "Walker rows": "Walker rows",
+  "Widget": "Widget"
 }

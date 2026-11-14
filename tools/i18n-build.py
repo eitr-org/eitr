@@ -50,6 +50,10 @@ def extract(root=ROOT):
     if store_registry.is_file():
         for kind in json.loads(store_registry.read_text()):
             add("qml", kind["label"], store_registry)
+            for group in kind.get("filters", []):
+                add("qml", group["label"], store_registry)
+                for option in group["options"]:
+                    add("qml", option["label"], store_registry)
             for description in kind["descriptions"].values():
                 add("qml", description, store_registry)
     settings_index = root / "quickshell/desktop-bar/settings/SettingsIndex.js"

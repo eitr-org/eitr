@@ -1026,5 +1026,14 @@
   "Left side": "왼쪽",
   "Before the clock": "시계 앞",
   "After the clock": "시계 뒤",
-  "Right side": "오른쪽"
+  "Right side": "오른쪽",
+  "Adds": "추가 기능",
+  "Bar item": "막대 항목",
+  "Control Center tile": "제어 센터 타일",
+  "Filters": "필터",
+  "Installs packages": "패키지 설치",
+  "Runs a background service": "백그라운드 서비스 실행",
+  "Source": "출처",
+  "Walker rows": "Walker 행",
+  "Widget": "위젯"
 }

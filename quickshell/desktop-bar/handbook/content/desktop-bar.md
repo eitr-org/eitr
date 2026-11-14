@@ -6,7 +6,7 @@ The Full bar. The Eitr logo opens Control Center; Overview, the workspace marker
 
 Plugin bar items can appear after Idle Lock, before the clock, after the clock or in the status group. Choose a position in Settings > Plugins > the plugin > On the bar. The limits are four after Idle Lock, two on each side of the clock and eight in status, in placement order; extra items stay hidden in their chosen position. Centered and Dynamic reveal them while expanded; Tabs and Islands include them; Drop hides bar plugin items. The clock stays screen-centred. World clock is an optional official plugin and follows the bar's 12/24-hour preference.
 
-Weather is an official, built-in plugin, installed by default after the clock. Remove it in Eitr Store > Plugins > Installed to hide weather everywhere, including Drop's home page. It stays removed after updates; install it again from Discover using the bundled copy, with no download. Its city search remains temporary for the session.
+Weather is an official, built-in plugin, installed by default after the clock. Remove it in Eitr Store > Installed > Plugins to hide weather everywhere, including Drop's home page. It stays removed after updates; install it again from Discover using the bundled copy, with no download. Its city search remains temporary for the session.
 
 In Settings > Windows, Window layout and Monitors use two-button choices. Number of workspaces and Always show use dropdown lists; Always show offers 2 up to the current workspace count. Descriptions below each setting explain its effect, including the selected window layout and scrolling options.
 

@@ -6,20 +6,20 @@ function matches(item, query) {
     return words.every(word => text.includes(word));
 }
 
-function rows(store, kinds, tab, query, filter, tone) {
-    const result = [];
-    for (const kind of kinds) {
-        const sources = tab === "installed" ? ["installed"] : kind.sources;
-        for (const source of sources) {
-            for (const item of (store[kind.id + ":" + source] || {}).items || []) {
-                if (!matches(item, query)) continue;
-                if (kind.id === "themes" && tone && tone !== "all" && item.light !== (tone === "light")) continue;
-                const official = ["builtin", "official"].includes(item.kind);
-                if (tab !== "installed" && filter !== "all" && (filter === "official") !== official) continue;
-                if (result.some(row => row.storeKind === kind.id && row.id === item.id)) continue;
-                result.push(Object.assign({}, item, {storeKind: kind.id}));
-            }
-        }
-    }
-    return result;
+function filters(item, definition, source, tone, values) {
+    const official = ["builtin", "official"].includes(item.kind);
+    if (source === "official" && !official) return false;
+    if (source === "community" && item.kind !== "community") return false;
+    return definition.filters.every(group => {
+        const selection = group.id === "tone" ? tone : values[definition.id + ":" + group.id] || (group.multiple ? [] : "all");
+        const selected = group.multiple ? selection : [selection];
+        return selected.every(identifier => {
+            const option = group.options.find(entry => entry.id === identifier);
+            if (!option) return false;
+            if (!option.path) return true;
+            const value = option.path.split(".").reduce((current, field) => current && typeof current === "object" ? current[field] : undefined, item);
+            if (option.equals !== undefined) return value === option.equals;
+            return Array.isArray(value) ? value.length > 0 : !!value;
+        });
+    });
 }

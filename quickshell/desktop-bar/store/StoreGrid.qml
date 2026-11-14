@@ -19,10 +19,18 @@ Column {
     width: catalog.width - x - PanelStyle.padding; spacing: 14
     FamilyPageHeader {
         foreground: catalog.foreground
-        rune: catalog.currentPage.groupRune
-        group: catalog.currentPage.group
+        rune: catalog.definition.rune
+        group: Eitr.I18n.tr(catalog.definition.label)
         title: catalog.currentPage.title
-        description: catalog.currentPage.description
+        description: catalog.tab === "updates" ? "" : Eitr.I18n.tr(catalog.definition.descriptions[catalog.tab])
+    }
+    ChoiceSegmented {
+        width: parent.width
+        foreground: catalog.foreground; background: catalog.background; gold: catalog.gold
+        choices: catalog.kinds
+        current: catalog.kind
+        available: !catalog.busy
+        onChosen: value => catalog.kind = value
     }
     StoreSearchHeader { id: searchHeader; width: parent.width; catalog: contentLayout.catalog }
     StoreLabel { catalog: contentLayout.catalog; width: parent.width; visible: text !== ""; text: (!catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }

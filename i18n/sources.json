@@ -138,6 +138,9 @@
     "Add to a display": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
+    "Adds": [
+      "distro/store-kinds.json"
+    ],
     "Adjust blur across the desktop.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
@@ -169,9 +172,10 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "All": [
+      "distro/store-kinds.json",
       "quickshell/desktop-bar/components/CatalogEmptyState.qml",
       "quickshell/desktop-bar/panels/CalendarMenu.qml",
-      "quickshell/desktop-bar/store/StoreSearchHeader.qml"
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "All day": [
       "quickshell/desktop-bar/components/DayAgenda.qml",
@@ -211,10 +215,10 @@
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
     ],
     "Appearance": [
+      "distro/store-kinds.json",
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
-      "quickshell/desktop-bar/settings/SettingsIndex.js",
-      "quickshell/desktop-bar/store/StoreSearchHeader.qml"
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Applications": [
       "quickshell/desktop-bar/panels/AudioMenu.qml",
@@ -313,6 +317,9 @@
     ],
     "Background service": [
       "quickshell/desktop-bar/store/StoreState.qml"
+    ],
+    "Bar item": [
+      "distro/store-kinds.json"
     ],
     "Battery & Power": [
       "quickshell/desktop-bar/panels/BatteryMenu.qml"
@@ -631,7 +638,6 @@
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Community": [
-      "quickshell/desktop-bar/store/StoreSearchHeader.qml",
       "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Configure this source in OBS": [
@@ -695,6 +701,9 @@
       "quickshell/desktop-bar/bar/EitrLogo.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
+    ],
+    "Control Center tile": [
+      "distro/store-kinds.json"
     ],
     "Copied": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
@@ -811,10 +820,10 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Dark": [
+      "distro/store-kinds.json",
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/store/StoreDetail.qml",
       "quickshell/desktop-bar/store/StoreGitThemeCard.qml",
-      "quickshell/desktop-bar/store/StoreSearchHeader.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Data-only images · Review selected sources": [
@@ -1102,6 +1111,9 @@
     "Files": [
       "quickshell/desktop-bar/store/StoreReview.qml"
     ],
+    "Filters": [
+      "quickshell/desktop-bar/store/StoreFilterMenu.qml"
+    ],
     "Find lyrics on LRCLIB? The title, artist and album of each song you play are sent to lrclib.net.": [
       "quickshell/desktop-bar/media/MediaPage.qml"
     ],
@@ -1324,6 +1336,9 @@
     "Installed assistants and collaboration preferences.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Installs packages": [
+      "distro/store-kinds.json"
+    ],
     "Interface": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -1454,10 +1469,10 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Light": [
+      "distro/store-kinds.json",
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/store/StoreDetail.qml",
       "quickshell/desktop-bar/store/StoreGitThemeCard.qml",
-      "quickshell/desktop-bar/store/StoreSearchHeader.qml",
       "quickshell/lockscreen/design-gallery.qml"
     ],
     "Link speed": [
@@ -1867,7 +1882,6 @@
     "Official": [
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/store/StoreCatalogCard.qml",
-      "quickshell/desktop-bar/store/StoreSearchHeader.qml",
       "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Official Eitr lockscreen designs. Installing requires the administrator password.": [
@@ -2028,6 +2042,7 @@
       "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
     "Panel": [
+      "distro/store-kinds.json",
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Password": [
@@ -2442,6 +2457,9 @@
     "Runes": [
       "tools/choice-lists.json"
     ],
+    "Runs a background service": [
+      "distro/store-kinds.json"
+    ],
     "Runs on this PC; nothing is saved": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
@@ -2751,6 +2769,9 @@
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Source": [
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Split across monitors": [
       "tools/choice-lists.json"
@@ -3152,7 +3173,8 @@
     ],
     "Updates": [
       "quickshell/desktop-bar/settings/SettingsIndex.js",
-      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml",
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Updating": [
       "quickshell/desktop-bar/components/PanelLoadingIndicator.qml"
@@ -3223,6 +3245,9 @@
     ],
     "WPA3 Personal": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Walker rows": [
+      "distro/store-kinds.json"
     ],
     "Wallpaper": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
@@ -3298,6 +3323,9 @@
     ],
     "WiFi password": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
+    ],
+    "Widget": [
+      "distro/store-kinds.json"
     ],
     "Width": [
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"

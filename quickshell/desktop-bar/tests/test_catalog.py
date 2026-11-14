@@ -162,8 +162,8 @@ ShellRoot {
    onTriggered: {
     if (stage === 0) {
      panel.installed = ROWS.filter(row => ["eitr", "nothing", "clockwork/tape"].includes(row.id)); panel.availableItems = ROWS;
-     if (panel.navigation.filter(row => row.kind === "lockscreens").length !== 2) throw new Error("Lockscreens navigation");
-     if (panel.navigation.some(row => row.kind === "lockscreens" && row.tab === "community")) throw new Error("Community lockscreens");
+     if (panel.navigation.length !== 2 || panel.kinds[2].id !== "lockscreens") throw new Error("Lockscreens navigation");
+     if (panel.navigation.some(row => row.id === "community")) throw new Error("Community lockscreens");
      stage++; return;
     }
     if (stage === 3) {
@@ -195,6 +195,9 @@ ShellRoot {
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
             copy_runtime(folder)
+            preference = folder / 'eitr/store.json'
+            preference.parent.mkdir()
+            preference.write_text(json.dumps(dict(version=1, kind='wallpapers', section='installed')))
             (folder / 'services/DesktopData.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function releaseOwner(owner) {} }\n')
             fixture = r'''//@ pragma AppId eitr-catalog
 import QtQuick
@@ -216,11 +219,14 @@ ShellRoot {
    if (phase === 0) {
     if (catalog.opened || catalog.visible) throw new Error("initially closed");
     if (catalog.title !== "Eitr Store") throw new Error("window metadata");
-    catalog.show();
+    if (content.kind !== "wallpapers" || content.tab !== "installed") throw new Error("saved Store view");
+    catalog.show("themes", "discover");
+    if (content.kind !== "themes" || content.tab !== "discover") throw new Error("legacy Store IPC mapping");
    } else if (phase === 1) {
     if (!catalog.opened || !catalog.visible) throw new Error("show");
     openedWidth = catalog.implicitWidth;
     if (openedWidth <= 0 || openedWidth > catalog.defaultSize.width) throw new Error("default size");
+    content.kind = "plugins"; content.tab = "installed";
     catalog.implicitWidth = 610; catalog.implicitHeight = 510;
    } else if (phase === 2) {
     catalog.closed();
@@ -242,6 +248,7 @@ ShellRoot {
             code, output = render(folder / 'fixture.qml', render_environment(folder), 10)
             self.assertEqual(code, 0, output)
             self.assertIn('CATALOG_WINDOW_OK', output)
+            self.assertEqual(json.loads(preference.read_text()), dict(version=1, kind='plugins', section='installed'))
             self.assertNotIn('Error:', output)
             self.assertNotIn('Unable to assign', output)
             self.assertFalse((folder / 'eitr/catalog-window.json').exists())
@@ -365,6 +372,7 @@ ShellRoot {
       if (panel.updates.afterglow || panel.updateCache.themes.afterglow) throw new Error("an updated theme keeps its Update label");
       const updated = [];
       panel.installed = installedThemes; panel.updates = {afterglow:1, mine:2};
+      panel.store = {"themes:installed": {items: installedThemes}}; panel.updateCache = {themes: panel.updates};
       if (panel.pendingUpdates.join() !== "afterglow,mine") throw new Error("pending updates follow the check");
       panel.transport = function(name, args, callback) { if (name === "update") updated.push(args.id); callback("", name === "update" ? {result:[args.id]} : {items:[]}); };
       panel.updateAll();
@@ -378,14 +386,16 @@ ShellRoot {
       panel.transport = function(name, args, callback) { callback("", {items:[]}); };
       if (panel.width < 800) { panel.installed = panel.installed.slice(0, 2); panel.availableItems = panel.availableItems.slice(0, 2); }
      } else if (sample.phase === 1) {
-      panel.tab = "installed"; panel.sourceFilter = "official"; panel.selected = [];
+      panel.tab = "discover"; panel.sourceFilter = "official"; panel.selected = [];
+      panel.updateCache = ({});
       panel.sidebarFocus = true; panel.forceActiveFocus();
       keys.keyClick(Qt.Key_Down);
-      if (panel.kind !== "themes" || panel.tab !== "discover") throw new Error("sidebar Down");
-      keys.keyClick(Qt.Key_Down);
-      if (panel.kind !== "plugins" || panel.tab !== "installed") throw new Error("sidebar Down into Plugins");
-      keys.keyClick(Qt.Key_Up); keys.keyClick(Qt.Key_Up);
-      if (panel.kind !== "themes" || panel.tab !== "installed") throw new Error("sidebar Up");
+      if (panel.kind !== "themes" || panel.tab !== "installed") throw new Error("sidebar Down");
+      keys.keyClick(Qt.Key_2, Qt.ControlModifier);
+      if (panel.kind !== "plugins" || panel.tab !== "installed") throw new Error("Ctrl+2 selects Plugins");
+      keys.keyClick(Qt.Key_1, Qt.ControlModifier);
+      keys.keyClick(Qt.Key_Up);
+      if (panel.kind !== "themes" || panel.tab !== "discover") throw new Error("sidebar Up");
       panel.tab = "discover";
       panel.availableItems = panel.installed.filter(item => ["builtin", "official"].includes(item.kind)).concat([{id:"moss",name:"Moss",kind:"official",description:"Deep forest greens",size:3145728,previewUrl:"PREVIEW2"},{id:"jade",name:"Jade",kind:"official",light:true,description:"Warm jade and cream",size:2097152,previewUrl:"PREVIEW3"}]);
       keys.keyClick(Qt.Key_Right);
@@ -444,7 +454,7 @@ ShellRoot {
       panel.openDetail(panel.availableItems[0]);
       if (panel.wallpapers[0].thumbnail || panel.wallpapers[0].imageUrl) throw new Error("community uses name tiles");
      } else if (sample.phase === 7) {
-      panel.closeDetail(); panel.tab = "installed";
+      panel.closeDetail(); panel.tab = "installed"; panel.sourceFilter = "all";
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"afterglow",name:"Afterglow",kind:"builtin",description:"Warm dusk",previewUrl:"PREVIEW3"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"}];
       panel.updates = {nord:1};
       panel.forceActiveFocus(); keys.keyClick("n"); keys.keyClick("o"); keys.keyClick("r");
@@ -474,7 +484,7 @@ ShellRoot {
       if (!panel.detail || panel.detail.id !== "clock") throw new Error("plugin opens detail");
       panel.closeDetail();
      } else if (sample.phase === 9) {
-      panel.tab = "installed";
+      panel.tab = "installed"; panel.sourceFilter = "all";
       panel.installed = [{id:"clock",name:"Clock",kind:"official",description:"A desktop clock",preview:"PREVIEW"},{id:"notes",name:"Notes",kind:"community",description:"Notes on the desktop",icon:"ICON",enabled:false},{id:"plain",name:"Plain",kind:"third-party",description:"A plugin without artwork"}];
      } else if (sample.phase === 10) {
       let requests = 0;
@@ -839,10 +849,10 @@ class CatalogBackendTests(unittest.TestCase):
             if arguments[:2] == ('cat-file', '-s'):
                 return '120'
             if arguments[:2] == ('cat-file', 'blob'):
-                return json.dumps({'schemaVersion': 1, 'plugins': [{'id': 'clock', 'path': 'plugins/clock'}]}) if arguments[2] == 'index-blob' else json.dumps({'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'author': 'Fixture', 'version': '1', 'media': [{'type': 'video', 'path': 'clip.webm', 'caption': 'Demo'}], 'icon': 'icon.svg', 'preview': 'preview.png'})
+                return json.dumps({'schemaVersion': 1, 'plugins': [{'id': 'clock', 'path': 'plugins/clock'}]}) if arguments[2] == 'index-blob' else json.dumps({'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'author': 'Fixture', 'version': '1', 'packages': ['example-package'], 'media': [{'type': 'video', 'path': 'clip.webm', 'caption': 'Demo'}], 'icon': 'icon.svg', 'preview': 'preview.png'})
             raise AssertionError(arguments)
         with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_CACHE_HOME': directory, 'XDG_STATE_HOME': directory}), patch('eitr_plugin_install.git', side_effect=git):
-            self.assertEqual(PluginInstall().catalog(DOMAIN.PLUGINS), [{'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'size': 0, 'author': 'Fixture', 'version': '1', 'components': {}, 'repository': DOMAIN.PLUGINS, 'folder': 'plugins/clock', 'media': [{'type': 'video', 'path': 'plugins/clock/clip.webm', 'caption': 'Demo'}], 'commit': 'a' * 40, 'icon': 'plugins/clock/icon.svg', 'preview': 'plugins/clock/preview.png'}])
+            self.assertEqual(PluginInstall().catalog(DOMAIN.PLUGINS), [{'id': 'clock', 'name': 'Clock', 'description': 'A desktop clock', 'size': 0, 'author': 'Fixture', 'version': '1', 'components': {'packages': ['example-package']}, 'repository': DOMAIN.PLUGINS, 'folder': 'plugins/clock', 'media': [{'type': 'video', 'path': 'plugins/clock/clip.webm', 'caption': 'Demo'}], 'commit': 'a' * 40, 'icon': 'plugins/clock/icon.svg', 'preview': 'plugins/clock/preview.png'}])
         self.assertEqual(sum(arguments[:2] == ('cat-file', 'blob') for arguments in calls), 2)
 
     def test_plugin_artwork_from_local_repository(self):

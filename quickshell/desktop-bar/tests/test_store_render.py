@@ -62,6 +62,8 @@ ShellRoot {
     cases.push({kind:"themes",tab:"discover",filter:"community",name:"community-filter"});
     cases.push({kind:"themes",tab:"discover",search:true,name:"search-filter"});
     cases.push({kind:"themes",tab:"discover",popup:true,name:"appearance-filter"});
+    cases.push({kind:"plugins",tab:"discover",popup:true,name:"plugin-filters"});
+    cases.push({kind:"themes",tab:"updates",updates:true,name:"updates"});
     cases.push({kind:"themes",tab:"discover",detail:true,name:"community-detail"});
     cases.push({kind:"wallpapers",tab:"discover",review:true,name:"wallpaper-review"});
     cases.push({kind:"plugins",tab:"discover",native:true,name:"plugin-review"});
@@ -71,13 +73,13 @@ ShellRoot {
     if (phase === cases.length * 2) { console.log("STORE_RENDER_OK"); Qt.quit(); return; }
     const entry = cases[Math.floor(phase / 2)];
     if (phase % 2 === 0) {
-     panel.query = ""; panel.tone = "all";
+     panel.query = ""; panel.tone = "all"; panel.filterValues = ({}); panel.updateCache = ({}); panel.store = ({});
      const filter = find(panel, "catalog-tone-filter"); if (filter) filter.expanded = false;
      panel.detail = null; panel.reviewing = false; panel.nativeReviewing = false; panel.removing = null;
      panel.kind = entry.kind; panel.tab = entry.tab; panel.sourceFilter = entry.filter || "all";
      panel.installed = ROWS.slice(0,1); panel.availableItems = ROWS; panel.loading = false; panel.indexLoaded = true;
      if (entry.kind === "plugins") {
-      const weather = {id:"weather", name:"Weather", kind:"builtin", builtin:true, official:true, removable:true, previewUrl:"WEATHER_ICON"};
+      const weather = {id:"weather", name:"Weather", kind:"builtin", builtin:true, official:true, removable:true, previewUrl:"file:///home/erick/Development/personal/eitr-testing/codex-wip/store-tabs/eitr/distro/plugins/bundled/weather/icon.svg"};
       panel.installed = [weather]; panel.availableItems = ROWS.concat([weather]);
      }
      panel.selected = []; panel.reviewIds = null;
@@ -85,16 +87,27 @@ ShellRoot {
      const field = find(panel, "catalog-search");
      if (!field || !field.visible || field !== panel.searchField) throw new Error("Visible shared header search missing");
      if (entry.search) {
+      panel.store = {"plugins:official": {items:[{id:"other",name:"Other kind",kind:"official"}]}};
+      panel.query = "other";
+      if (panel.navigable.length) throw new Error("Search escaped the selected kind");
       field.forceActiveFocus(); panel.query = "northern"; panel.tone = "light";
       if (field.text !== "northern" || panel.discoveries.length !== 1) throw new Error("Search and tone must combine");
-      filter.commit(2);
+      panel.chooseFilter(panel.definition.filters[0], "dark");
       if (panel.discoveries.length !== 0) throw new Error("Tone filter ignored");
-      filter.commit(1);
+      panel.chooseFilter(panel.definition.filters[0], "light");
       field.accepted();
       if (panel.cursor !== 0) throw new Error("Search acceptance must enter the grid");
       find(panel, "catalog-search-clear").clicked();
       if (panel.query !== "" || field.text !== "") throw new Error("Clear search did not clear the shared query");
       panel.query = "northern";
+     }
+     if (entry.updates) {
+      panel.store = {"themes:installed": {items:[ROWS[0]]}, "plugins:installed": {items:[{id:"clock",name:"Clock widget",kind:"official",components:{ui:{widgets:[{}]}}}]}};
+      panel.updateCache = {themes:{eitr:1}, plugins:{clock:2}};
+      if (panel.updateItems.length !== 2 || panel.navigable.length !== 2 || panel.navigation.length !== 3) throw new Error("Updates across kinds");
+      panel.query = "clock";
+      if (panel.navigable.length !== 1 || panel.navigable[0].storeKind !== "plugins") throw new Error("Updates search scope");
+      panel.query = "";
      }
      if (entry.popup) filter.expanded = true;
      if (entry.detail) panel.openDetail(ROWS[1]);
@@ -105,7 +118,7 @@ ShellRoot {
      }
      if (entry.remove) panel.removing = ROWS[1];
     } else {
-     if (entry.popup) find(panel, "catalog-tone-filter").popup.background.parent.grabToImage(result => { if (!result.saveToFile("TARGET/PALETTE-appearance-menu.png")) throw new Error("Filter capture failed"); });
+     if (entry.popup) find(panel, "catalog-tone-filter").popup.background.parent.grabToImage(result => { if (!result.saveToFile("TARGET/PALETTE-" + entry.name + "-menu.png")) throw new Error("Filter capture failed"); });
      if (entry.kind === "plugins" && entry.tab === "installed") {
       const remove = window.findNamed(panel, "remove-weather");
       if (!remove || !remove.visible) throw new Error("Bundled Weather cannot be removed");
