@@ -39,9 +39,14 @@ class LauncherTests(unittest.TestCase):
                 patch.dict(launch.os.environ, {'XDG_RUNTIME_DIR': runtime}), \
                 patch.object(launch.fcntl, 'flock') as flock, \
                 patch.object(launch.subprocess, 'run', return_value=unittest.mock.Mock(returncode=0)) as run, \
+                patch.object(launch.subprocess, 'Popen') as watcher, \
                 patch.object(launch.os, 'execvpe') as execute:
             self.assertEqual(launch.main(['desktop-bar', '--daemonize'], 'eitr-shell'), 0)
         execute.assert_not_called()
+        # The bar's end leaves a record; the watcher runs in its own session.
+        self.assertTrue(watcher.call_args.args[0][1].endswith('eitr_shell_exits.py'))
+        self.assertEqual(watcher.call_args.args[0][2:], ['desktop-bar', str(Path(run.call_args.args[0][3]) / 'shell.qml')])
+        self.assertTrue(watcher.call_args.kwargs['start_new_session'])
         flock.assert_called_once_with(unittest.mock.ANY, launch.fcntl.LOCK_EX)
         self.assertEqual(flock.call_args.args[0].name, f'{runtime}/eitr/shell-desktop-bar.lock')
         command = run.call_args.args[0]

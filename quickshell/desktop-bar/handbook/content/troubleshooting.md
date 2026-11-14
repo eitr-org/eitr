@@ -116,6 +116,8 @@ Preferences and muted program paths stay in `~/.config/eitr/crash-help.json`; re
 
 Ask the AI opens your default assistant with only the program, signal and backtrace from `coredumpctl info`, asking for an explanation and a proposed fix without changing the system unless you agree. No core dump is passed. Your assistant may send that summary to its provider when you choose this action. Report a problem attaches the same summary to the existing report workflow: review it before sharing; nothing is sent automatically.
 
+If the bar disappears without a crash, Eitr keeps a record of how it ended: the end of its log, any core dump and out-of-memory messages, in `~/.local/state/eitr/shell-exits/` (the newest ten). Restarts and logging out leave no record. Attach the newest file when you report it.
+
 ## Customizations and updates
 
 EITR's own code is installed under `/usr/share/eitr` and updated with the

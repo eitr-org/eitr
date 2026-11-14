@@ -88,6 +88,8 @@ Las preferencias y las rutas silenciadas se guardan en `~/.config/eitr/crash-hel
 
 Preguntar a la IA abre tu asistente predeterminado solo con el programa, la señal y la traza de pila de `coredumpctl info`, pidiendo una explicación y una propuesta de solución sin cambiar el sistema salvo que lo autorices. No se pasa ningún volcado de memoria. Al elegir esta acción, el asistente puede enviar el resumen a su proveedor. Informar de un problema adjunta el mismo resumen al flujo existente: revísalo antes de compartirlo; nada se envía automáticamente.
 
+Si la barra desaparece sin un fallo, Eitr guarda cómo terminó: el final de su registro, cualquier volcado de memoria y los mensajes de falta de memoria, en `~/.local/state/eitr/shell-exits/` (los diez más recientes). Los reinicios y el cierre de sesión no dejan registro. Adjunta el archivo más reciente al informarlo.
+
 ## Personalizaciones y actualizaciones
 
 El código de EITR está en `/usr/share/eitr` y se actualiza con `eitr-desktop`; tus ajustes quedan en `~/.config`. Coloca los cambios duraderos donde no los modifiquen las actualizaciones:

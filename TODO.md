@@ -117,28 +117,11 @@ item says what decides the next step. Remove an item when it ships;
 
 # 5. Maintenance
 
-- **Bar crash leftovers.** The owner's two crashes of 2026-10-29 at bar start, a
-  PipeWire event rebuilding a Repeater (`QQuickItem::polish` from
-  `QQuickRepeater::setModel`), not reproduced since; and the binding loop a hotplug
-  logged in DisplaySettingsEditor `width` (VM unplug, 2026-11-04; no cycle in today's
-  code, so check it in the next hotplug test before changing anything). DisplayService
-  `snapshot`'s loop is fixed.
-- **Bar disappears without a trace (2026-11-10, again 2026-11-11).** The bar process
-  ended with no error in its log and no core dump (the second time while a full
-  `tools/check.sh` ran and the owner used the Audio panel); find what ends it.
-- **Hyprland crash on SUPER+T (2026-11-12).** Hyprland 0.57.2 aborted while SUPER+T
-  (float + pin) floated a Chrome Google Meet window on the owner's NVIDIA desktop with two
-  displays: an inlined check in the dwindle layout's `movedTarget` (re-tiling the window)
-  failed. Not reproduced in the test VM (one display, Firefox and kitty, fast and repeated
-  presses, fullscreen, pseudo and resized windows). If it happens again, note the window's
-  display, fullscreen or picture-in-picture state, then report it upstream with the crash
-  report from `~/.cache/hyprland/`.
-- **Move expensive work off the UI thread selectively.** Profile interactions first,
-  then move demonstrated image-processing, audio-analysis or other costly work into
-  bounded asynchronous workers. Keep results tied to the current request so stale
-  work cannot overwrite newer state. Consider a native helper only when measured
-  benefits justify its build and maintenance cost; retain the existing broker and
-  shared ownership model.
+- **Hotplug binding loop.** A VM unplug logged a binding loop in DisplaySettingsEditor
+  `width` (2026-11-04); check it in a VM hotplug test and fix it if it comes back.
+- **Bar disappearing.** It ended twice without a trace (2026-11-10 and 11). The bar now
+  leaves a record when it ends unexpectedly (`~/.local/state/eitr/shell-exits/`): read the
+  newest one if it happens again.
 
 # 6. 0.8 release candidate and 1.0.0
 

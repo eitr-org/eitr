@@ -89,6 +89,8 @@ Les préférences et les chemins des programmes masqués restent dans `~/.config
 
 Demander à l’IA ouvre votre assistant par défaut avec uniquement le programme, le signal et la trace de pile de `coredumpctl info`, en demandant une explication et une solution proposée sans modifier le système sans votre accord. Aucun fichier de vidage mémoire n’est transmis. Lorsque vous choisissez cette action, l’assistant peut envoyer le résumé à son fournisseur. Signaler un problème joint le même résumé au parcours existant : vérifiez-le avant de le partager ; rien n’est envoyé automatiquement.
 
+Si la barre disparaît sans plantage, Eitr garde une trace de sa fin : la fin de son journal, un éventuel core dump et les messages de mémoire insuffisante, dans `~/.local/state/eitr/shell-exits/` (les dix plus récents). Les redémarrages et la déconnexion ne laissent pas de trace. Joignez le fichier le plus récent à votre signalement.
+
 ## Personnalisations et mises à jour
 
 Le code EITR se trouve sous `/usr/share/eitr` et est actualisé avec `eitr-desktop` ; vos réglages restent dans `~/.config`. Placez les changements durables hors de portée des mises à jour :

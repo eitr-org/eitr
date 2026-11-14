@@ -5,6 +5,7 @@
     {"pattern": "distro/lib/eitr_keybinds.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_window_rules.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_rule_storage.py", "class": "C", "runtime": true},
+    {"pattern": "distro/lib/eitr_shell_exits.py", "class": "C", "runtime": true},
     {"pattern": "hypr/keybind-overrides.lua", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/keybinds.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/window-rules.py", "class": "C", "runtime": true},

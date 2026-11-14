@@ -80,6 +80,8 @@ Einstellungen > Benachrichtigungen > Absturzbenachrichtigungen. Einstellungen un
 
 Die KI fragen öffnet deinen Standardassistenten nur mit Programm, Signal und Stacktrace aus `coredumpctl info`. Er soll die Ursache erklären und eine Lösung vorschlagen, ohne das System ohne deine Zustimmung zu ändern. Ein Speicherabbild wird nicht übergeben. Wenn du diese Aktion wählst, kann der Assistent die Zusammenfassung an seinen Anbieter senden. Problem melden fügt dieselbe Zusammenfassung dem vorhandenen Meldeablauf hinzu: Prüfe sie vor dem Teilen; nichts wird automatisch gesendet.
 
+Verschwindet die Leiste ohne Absturz, hält Eitr fest, wie sie endete: das Ende ihres Protokolls, einen eventuellen Core Dump und Speichermangel-Meldungen, in `~/.local/state/eitr/shell-exits/` (die neuesten zehn). Neustarts und Abmelden hinterlassen keinen Eintrag. Hänge die neueste Datei an, wenn du es meldest.
+
 ## Anpassungen und Aktualisierungen
 
 EITR-Code liegt unter `/usr/share/eitr` und wird mit `eitr-desktop` aktualisiert. Deine Einstellungen bleiben unter `~/.config`. Dauerhafte Änderungen gehören dorthin, wo Aktualisierungen sie nicht berühren:

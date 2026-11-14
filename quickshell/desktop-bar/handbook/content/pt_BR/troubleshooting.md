@@ -88,6 +88,8 @@ Uma falha que encerra a sessão é oferecida no próximo login, mas não as de p
 
 Perguntar à IA abre seu assistente padrão apenas com programa, sinal e rastreamento de pilha do `coredumpctl info`, pedindo uma explicação e uma sugestão de correção sem alterar o sistema sem sua autorização. Nenhum despejo de memória é enviado ao assistente. Ao escolher essa ação, o assistente pode enviar o resumo ao provedor. Relatar um problema anexa o mesmo resumo ao fluxo existente: revise antes de compartilhar; nada é enviado automaticamente.
 
+Se a barra sumir sem uma falha, o Eitr guarda como ela terminou: o fim do registro dela, qualquer core dump e mensagens de falta de memória, em `~/.local/state/eitr/shell-exits/` (os dez mais recentes). Reinícios e sair da sessão não deixam registro. Anexe o arquivo mais recente ao relatar.
+
 ## Personalizações e atualizações
 
 O código do EITR fica em `/usr/share/eitr` e é atualizado pelo pacote `eitr-desktop`; suas configurações ficam em `~/.config`. Coloque mudanças duradouras onde as atualizações não mexem:

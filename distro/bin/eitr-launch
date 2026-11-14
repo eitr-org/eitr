@@ -40,7 +40,23 @@ def start_once(component, command, environment):
     runtime.mkdir(parents=True, exist_ok=True)
     with open(runtime / f'shell-{component}.lock', 'w') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
-        return subprocess.run(command, env=environment).returncode
+        status = subprocess.run(command, env=environment).returncode
+    if status == 0 and component in WATCHED:
+        watch_exit(component, command[command.index('-p') + 1], environment)
+    return status
+
+
+# Shells that should run for the whole session: an end leaves a record (eitr_shell_exits).
+WATCHED = {'desktop-bar'}
+
+
+def watch_exit(component, selected, environment):
+    try:
+        subprocess.Popen([sys.executable, str(Path(environment['EITR_LIBRARY_ROOT']) / 'eitr_shell_exits.py'),
+                          component, str(Path(selected) / 'shell.qml')], env=environment, start_new_session=True,
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except OSError:
+        pass
 
 
 def main(argv=None, executable=None):
