@@ -6,6 +6,9 @@ source "${BASH_SOURCE[0]%/*}/login-timing.sh"
 mkdir -p "${EITR_LOGIN_TIMING_FILE%/*}"
 : > "$EITR_LOGIN_TIMING_FILE"
 login_mark session-start
+# Elephant and its menu helpers need the compositor variables. Hyprland has them
+# now; uwsm would publish them to systemd only after its own polling and settle.
+systemctl --user import-environment WAYLAND_DISPLAY HYPRLAND_INSTANCE_SIGNATURE
 systemctl --user start --no-block elephant.service
 bash "${BASH_SOURCE[0]%/*}/polkit-fallback.sh" &
 rm -f ~/.cache/cliphist/db
