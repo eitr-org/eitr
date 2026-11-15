@@ -17,20 +17,32 @@ wl-paste --type image --watch cliphist store &
  eitr-walker --gapplication-service &
  login_mark walker-service-started
  wait) &
-# A failed or timed-out probe is unknown: only certain software rendering skips
-# Hyprpaper. Bound both the probe and the complete readiness poll.
-rendering=$(timeout -s KILL 2s eitr-run quickshell/desktop-bar/scripts/rendering.py 2>/dev/null) || rendering=""
-# Reuse this session's probe in the wallpaper component; unknown keeps animation off.
-rendering_cache="${XDG_RUNTIME_DIR:-/run/user/$UID}/eitr-rendering.json"
-if [[ -z "$rendering" ]]; then rendering='{"software": true, "detected": false}'; fi
-printf '%s\n' "$rendering" > "$rendering_cache.tmp"
-mv -f "$rendering_cache.tmp" "$rendering_cache"
-if ! { grep -q '"software": true' <<< "$rendering" && grep -q '"detected": true' <<< "$rendering"; }; then
-  eitr-hyprpaper &
-  if timeout -s KILL 1s bash -c 'until hyprctl hyprpaper listactive >/dev/null 2>&1; do sleep 0.05; done'; then
-    login_mark wallpaper-ready
-  fi
-fi
+# The renderer probe and Hyprpaper run beside the bar: on a cold boot the EGL probe
+# alone can take seconds. Only confirmed software rendering skips Hyprpaper (it
+# crashes without a GPU, hyprwm/hyprtoolkit#144). This session's probe result is
+# shared with the wallpaper component; a failed or timed-out probe writes none, so
+# the component probes again later instead of treating unknown as software.
+runtime_dir="${XDG_RUNTIME_DIR:-/run/user/$UID}"
+wallpaper_settled="$runtime_dir/eitr-wallpaper-settled"
+rm -f "$wallpaper_settled" "$runtime_dir/eitr-rendering.json"
+(rendering=$(timeout -s KILL 4s eitr-run quickshell/desktop-bar/scripts/rendering.py 2>/dev/null) || rendering=""
+ if grep -q '"detected": true' <<< "$rendering"; then
+   printf '%s\n' "$rendering" > "$runtime_dir/eitr-rendering.json.tmp"
+   mv -f "$runtime_dir/eitr-rendering.json.tmp" "$runtime_dir/eitr-rendering.json"
+   login_mark renderer-detected
+ fi
+ if ! { grep -q '"software": true' <<< "$rendering" && grep -q '"detected": true' <<< "$rendering"; }; then
+   eitr-hyprpaper &
+   if timeout -s KILL 3s bash -c 'until hyprctl hyprpaper listactive >/dev/null 2>&1; do sleep 0.05; done'; then
+     login_mark wallpaper-ready
+   fi
+ fi
+ : > "$wallpaper_settled"
+ wait) &
+# Hyprpaper's still frame normally precedes the bar. The bar waits at most one
+# second for it; after that the bar draws the same still image itself until
+# Hyprpaper answers.
+timeout -s KILL 1s bash -c 'until [[ -e "$1" ]]; do sleep 0.05; done' bash "$wallpaper_settled"
 eitr-shell desktop-bar --daemonize
 login_mark bar-launched
 # IPC readiness says nothing about presentation of the first frame. The complete

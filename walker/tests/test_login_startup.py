@@ -89,6 +89,16 @@ class LoginStartupTests(unittest.TestCase):
             self.assertEqual(result.stdout, 'fallback')
             self.assertLess(time.monotonic() - started, 1)
 
+    def test_bar_waits_at_most_a_second_for_the_wallpaper(self):
+        source = (ROOT / 'hypr/scripts/session-start.sh').read_text()
+        wait = next(line for line in source.splitlines() if line.startswith('timeout -s KILL 1s') and 'wallpaper_settled' in line)
+        self.assertLess(source.index(wait), source.index('eitr-shell desktop-bar --daemonize'))
+        # The probe and Hyprpaper run in the background; a missing marker must not hold the bar.
+        self.assertIn('eitr-hyprpaper &', source[source.index('(rendering=$('):source.index(wait)])
+        started = time.monotonic()
+        subprocess.run(['bash', '-c', 'wallpaper_settled=/nonexistent/settled; ' + wait], timeout=3)
+        self.assertLess(time.monotonic() - started, 1.5)
+
     def test_bar_poll_interrupts_a_slow_command(self):
         source = (ROOT / 'hypr/scripts/session-start.sh').read_text()
         poll = next(line for line in source.splitlines() if line.startswith('if timeout') and 'bar workspaces' in line)

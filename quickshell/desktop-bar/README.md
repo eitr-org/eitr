@@ -67,9 +67,11 @@ transitions; it does not animate the reveal. No polling is added.
 
 Login starts the single Elephant service, clipboard watchers, session preparation
 and the polkit watchdog independently. Walker's GApplication service starts after
-session preparation has finished regenerating GTK styles. A renderer probe has a
-two-second deadline; only confirmed software rendering skips Hyprpaper. Its still
-frame readiness poll has a one-second deadline before the bar starts. The bar's
+session preparation has finished regenerating GTK styles. The renderer probe
+(four-second deadline) and Hyprpaper start beside the bar; only confirmed software
+rendering skips Hyprpaper, and only a detected renderer is shared with the wallpaper
+component, which otherwise probes again itself. The bar waits at most one second for
+Hyprpaper's still frame, then draws the same still image until Hyprpaper answers. The bar's
 IPC poll has an eight-second deadline including command time; IPC does not prove
 that a frame has been presented. The polkit watchdog starts KDE's agent if the
 bar has not registered within fifteen seconds of session startup. The keyring

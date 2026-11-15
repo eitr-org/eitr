@@ -29,7 +29,11 @@ Scope {
             }
         }
     }
+    // Login writes this session's probe result beside the bar; until it lands, read it
+    // again after the login probe's deadline, then probe here.
+    property bool rendererRetried: false
     FileView {
+        id: rendererCache
         path: (Quickshell.env("XDG_RUNTIME_DIR") || "/run/user/" + Quickshell.env("UID")) + "/eitr-rendering.json"
         blockLoading: true
         printErrors: false
@@ -37,8 +41,12 @@ Scope {
             const result = JsonState.parse(text(), 0, {software: "boolean", detected: "boolean"});
             live.softwareRendering = !result.ok || result.data.software;
         }
-        onLoadFailed: rendererQuery.running = true
+        onLoadFailed: {
+            if (live.rendererRetried) rendererQuery.running = true;
+            else rendererRetry.start();
+        }
     }
+    Timer { id: rendererRetry; interval: 5000; onTriggered: { live.rendererRetried = true; rendererCache.reload(); } }
     Timer { interval: 5000; running: rendererQuery.running; onTriggered: rendererQuery.running = false }
 
     property var stillImages: ({})

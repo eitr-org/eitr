@@ -140,7 +140,7 @@ ShellRoot {{
         startup = (ROOT / "hypr/scripts/session-start.sh").read_text()
         guard = startup.index("grep -q '\"software\": true'")
         self.assertIn("grep -q '\"detected\": true'", startup)
-        self.assertIn('timeout -s KILL 2s eitr-run', startup)
+        self.assertIn('timeout -s KILL 4s eitr-run', startup)
         self.assertLess(guard, startup.index("eitr-hyprpaper &"))
         self.assertLess(startup.index("eitr-hyprpaper &"), startup.index("eitr-shell desktop-bar --daemonize"))
 
