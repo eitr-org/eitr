@@ -19,9 +19,34 @@ export LS_COLORS=$(cat ~/.ls_colors)
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+# nvm itself loads on first use: sourcing it costs up to 0.4 s in every new shell. Its
+# default Node version is on PATH from the start, so node, npm and global tools work at once.
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  _eitr_nvm_version=default
+  for _eitr_nvm_hop in 1 2 3 4 5; do
+    [[ -f "$NVM_DIR/alias/$_eitr_nvm_version" ]] || break
+    _eitr_nvm_version=$(<"$NVM_DIR/alias/$_eitr_nvm_version")
+  done
+  if [[ -n "$_eitr_nvm_version" && -d "$NVM_DIR/versions/node/$_eitr_nvm_version/bin" ]]; then
+    export PATH="$NVM_DIR/versions/node/$_eitr_nvm_version/bin:$PATH"
+    _eitr_nvm_commands=(nvm)
+  else
+    _eitr_nvm_commands=(nvm node npm npx)
+  fi
+  _eitr_load_nvm() {
+    local command
+    for command in nvm node npm npx _eitr_load_nvm; do
+      (( $+functions[$command] )) && unfunction $command
+    done
+    \. "$NVM_DIR/nvm.sh"
+    [[ -s "$NVM_DIR/bash_completion" ]] && \. "$NVM_DIR/bash_completion"
+  }
+  for _eitr_nvm_command in $_eitr_nvm_commands; do
+    eval "$_eitr_nvm_command() { _eitr_load_nvm; $_eitr_nvm_command \"\$@\"; }"
+  done
+  unset _eitr_nvm_version _eitr_nvm_hop _eitr_nvm_commands _eitr_nvm_command
+fi
 
 open_file() {
   local file="$1"
