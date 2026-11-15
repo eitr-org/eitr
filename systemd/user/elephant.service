@@ -2,6 +2,8 @@
 Description=Elephant launcher backend
 # Not ordered after graphical-session.target: uwsm notices the compositor's variables
 # up to 0.7 s late. Login imports them before starting this unit (session-start.sh).
+# Stops with the session, so a quick re-login never reuses the old compositor's variables.
+PartOf=graphical-session.target
 Wants=elephant-search-warm.service
 
 [Service]

@@ -16,6 +16,12 @@ class ElephantServiceTests(unittest.TestCase):
         self.assertEqual(unit["Service"]["KillMode"], "process")
         self.assertTrue(unit["Service"]["ExecStart"].endswith(" /usr/bin/elephant"))
 
+    def test_backend_stops_with_the_session(self):
+        unit = configparser.ConfigParser(interpolation=None)
+        unit.read(ROOT / "systemd/user/elephant.service")
+        self.assertEqual(unit["Unit"]["PartOf"], "graphical-session.target")
+        self.assertNotIn("After", unit["Unit"])
+
     def test_readiness_does_not_wait_for_index_warmup(self):
         unit = configparser.ConfigParser(interpolation=None)
         unit.read(ROOT / "systemd/user/elephant.service")

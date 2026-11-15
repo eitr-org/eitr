@@ -67,7 +67,8 @@ transitions; it does not animate the reveal. No polling is added.
 
 Login starts the single Elephant service, clipboard watchers, session preparation
 and the polkit watchdog independently. It imports the compositor variables first, so
-Elephant need not wait for uwsm to finish polling for them. Walker's GApplication service starts after
+Elephant need not wait for uwsm to finish polling for them; Elephant stops with the
+graphical session, so a quick re-login starts it fresh with the new compositor's variables. Walker's GApplication service starts after
 session preparation has finished regenerating GTK styles. The renderer probe
 (four-second deadline) and Hyprpaper start beside the bar; only confirmed software
 rendering skips Hyprpaper, and only a detected renderer is shared with the wallpaper
