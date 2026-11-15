@@ -135,6 +135,12 @@ class HandbookWelcomeTests(unittest.TestCase):
         self.assertIn("if (state.show) session.reader().showWelcome(state.pending);", shell)
         self.assertIn('if (welcomeShown && !showAtLogin) welcomeChoice("dismiss");', self.source)
 
+    def test_problem_report_choice_is_read_only_when_the_handbook_is_built(self):
+        session = (ROOT / "services/WelcomeSession.qml").read_text()
+        status = session.index('command: session.problemReportsCommand(["status"])')
+        self.assertIn("running: handbookLoader.active", session[status:status + 120])
+        self.assertIn("property bool offerProblemReports: true", session)
+
     def test_only_its_own_controls_close_the_handbook(self):
         closers = [line.strip() for line in self.source.splitlines() if "opened = false" in line]
         expected = ("function close()", "Key_Escape", "onCloseRequested:")

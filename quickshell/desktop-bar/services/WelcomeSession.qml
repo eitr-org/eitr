@@ -9,7 +9,8 @@ import Eitr as Eitr
 Scope {
     id: session
     property var host
-    property bool offerProblemReports: false
+    // The crash-notification preference's default, until the saved choice has been read.
+    property bool offerProblemReports: true
     function reader() {
         handbookLoader.active = true;
         handbookLoader.asynchronous = false;
@@ -54,10 +55,11 @@ Scope {
         running: true
         onTriggered: Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/boot-guard-notice.sh"])
     }
-    // The welcome's "offer to report problems" switch starts from the saved choice.
+    // The welcome's "offer to report problems" switch starts from the saved choice, read
+    // once when the Handbook is first built rather than at every login.
     Process {
         command: session.problemReportsCommand(["status"])
-        running: true
+        running: handbookLoader.active
         stdout: StdioCollector { id: problemStatusOutput }
         onExited: function(code) {
             if (code !== 0) return;
