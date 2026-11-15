@@ -284,12 +284,7 @@ Item {
         onClosed: { control.expanded = false; control.typeBuffer = ""; control.lastTypedAt = 0; }
         enter: Transition { NumberAnimation { property: "opacity"; from: 0; to: 1; duration: DesktopStyle.motionDuration(120) } }
         exit: Transition { NumberAnimation { property: "opacity"; from: 1; to: 0; duration: DesktopStyle.motionDuration(90) } }
-        background: Rectangle {
-            radius: DesktopStyle.radius(PanelStyle.controlRadius + 4)
-            color: Qt.rgba(control.background.r, control.background.g, control.background.b, 1)
-            border.width: 1
-            border.color: Qt.alpha(control.foreground, PanelStyle.selectionBorderAlpha)
-        }
+        background: ChoiceListSurface { foreground: control.foreground; surface: control.background }
         contentItem: ListView {
             id: list
             focus: true

@@ -188,6 +188,7 @@ ControlCard components/ControlCard.qml
 ControlRow components/ControlRow.qml
 SettingsPageHeader settings/SettingsPageHeader.qml
 ChoiceDropdown components/ChoiceDropdown.qml
+ChoiceListSurface components/ChoiceListSurface.qml
 ChoiceSegmented components/ChoiceSegmented.qml
 ChoiceLevel components/ChoiceLevel.qml
 singleton SettingsPalette settings/SettingsPalette.qml
