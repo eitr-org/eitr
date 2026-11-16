@@ -627,6 +627,18 @@
         "submenu": "bar-autohide"
       },
       {
+        "text": "Bar moments",
+        "subtext": ">",
+        "icon": "󰂚",
+        "keywords": [
+          "notifications",
+          "volume",
+          "brightness",
+          "songs"
+        ],
+        "submenu": "bar-moments"
+      },
+      {
         "text": "Blur strength",
         "subtext": ">",
         "icon": "󰐾",
@@ -3382,6 +3394,7 @@
     "bar-layout": "bar",
     "bar-lyrics": "bar",
     "bar-media": "bar",
+    "bar-moments": "bar",
     "bar-motion": "bar",
     "bar-pinned": "bar",
     "bar-position": "bar",
@@ -5425,6 +5438,29 @@
       "key": "82fb411828c17150512f1ddf6e7f30cb798a224130942f73e32b6f44c8f1f6fa",
       "provider": "menus:bar",
       "identifier": "bar:2",
+      "text": "Bar moments",
+      "subtext": ">",
+      "icon": "󰂚",
+      "actions": [],
+      "keywords": [
+        "notifications",
+        "volume",
+        "brightness",
+        "songs",
+        "Bar moments",
+        "Bar moments"
+      ],
+      "menus": [
+        "style",
+        "settings",
+        "main"
+      ],
+      "submenu": "bar-moments"
+    },
+    {
+      "key": "ed778d688a22c40dc9eeaf97891231406cf36264de4199d93e1294ad6ce80105",
+      "provider": "menus:bar",
+      "identifier": "bar:3",
       "text": "Blur strength",
       "subtext": ">",
       "icon": "󰐾",
@@ -5444,9 +5480,9 @@
       "submenu": "bar-blur-strength"
     },
     {
-      "key": "ed778d688a22c40dc9eeaf97891231406cf36264de4199d93e1294ad6ce80105",
+      "key": "64a4e3a1b1a43eacff2cac82a9796e63a0f6b28cd2bb930a33c07f39177f9f22",
       "provider": "menus:bar",
-      "identifier": "bar:3",
+      "identifier": "bar:4",
       "text": "Clock",
       "subtext": ">",
       "icon": "󰥔",
@@ -5468,9 +5504,9 @@
       "submenu": "bar-clock"
     },
     {
-      "key": "64a4e3a1b1a43eacff2cac82a9796e63a0f6b28cd2bb930a33c07f39177f9f22",
+      "key": "64b588dc2abe7105cf6e17f965b87c01bb2cf48955aa356f90564109b7ebf999",
       "provider": "menus:bar",
-      "identifier": "bar:4",
+      "identifier": "bar:5",
       "text": "Displays",
       "subtext": ">",
       "icon": "󰍹",
@@ -5492,9 +5528,9 @@
       "submenu": "bar-screens"
     },
     {
-      "key": "64b588dc2abe7105cf6e17f965b87c01bb2cf48955aa356f90564109b7ebf999",
+      "key": "838235f99b2d426995f4faadd2b0b9038c11e37d07cf0bcec5ac32f1a0b2c30e",
       "provider": "menus:bar",
-      "identifier": "bar:5",
+      "identifier": "bar:6",
       "text": "Dock",
       "subtext": ">",
       "icon": "󰀻",
@@ -5514,9 +5550,9 @@
       "submenu": "bar-dock"
     },
     {
-      "key": "838235f99b2d426995f4faadd2b0b9038c11e37d07cf0bcec5ac32f1a0b2c30e",
+      "key": "56983b251b1cc27cf4e01d52e4dde09c5ac233c9ac17f55cf5c07e4e613ee947",
       "provider": "menus:bar",
-      "identifier": "bar:6",
+      "identifier": "bar:7",
       "text": "Island style",
       "subtext": ">",
       "icon": "󰕰",
@@ -5539,9 +5575,9 @@
       "submenu": "bar-island-style"
     },
     {
-      "key": "56983b251b1cc27cf4e01d52e4dde09c5ac233c9ac17f55cf5c07e4e613ee947",
+      "key": "83db68e2ed19b519813505f5df88663aa6de81d1b6417248f7db465741bd818e",
       "provider": "menus:bar",
-      "identifier": "bar:7",
+      "identifier": "bar:8",
       "text": "Keep expanded",
       "subtext": ">",
       "icon": "󰐃",
@@ -5561,9 +5597,9 @@
       "submenu": "bar-pinned"
     },
     {
-      "key": "83db68e2ed19b519813505f5df88663aa6de81d1b6417248f7db465741bd818e",
+      "key": "fc95814ddcee8c946ae099852acaa629762493f46ba6e819967c60ea5ceb5887",
       "provider": "menus:bar",
-      "identifier": "bar:8",
+      "identifier": "bar:9",
       "text": "Layout",
       "subtext": ">",
       "icon": "󰕰",
@@ -5586,9 +5622,9 @@
       "submenu": "bar-layout"
     },
     {
-      "key": "fc95814ddcee8c946ae099852acaa629762493f46ba6e819967c60ea5ceb5887",
+      "key": "b2ef19521b5573ab850c2103fd1b89b595d3f219bb1abc2883fd9b57a01d1e08",
       "provider": "menus:bar",
-      "identifier": "bar:9",
+      "identifier": "bar:10",
       "text": "Media style",
       "subtext": ">",
       "icon": "󰍜",
@@ -5609,9 +5645,9 @@
       "submenu": "bar-media"
     },
     {
-      "key": "b2ef19521b5573ab850c2103fd1b89b595d3f219bb1abc2883fd9b57a01d1e08",
+      "key": "912602b2c464210fd0591f7a88b1126817cd4a033cf238fa1aae1a17168f7e95",
       "provider": "menus:bar",
-      "identifier": "bar:10",
+      "identifier": "bar:11",
       "text": "Online lyrics",
       "subtext": ">",
       "icon": "󰍡",
@@ -5632,9 +5668,9 @@
       "submenu": "bar-lyrics"
     },
     {
-      "key": "912602b2c464210fd0591f7a88b1126817cd4a033cf238fa1aae1a17168f7e95",
+      "key": "cdb811c23af1a8be7d2c900f8312a58fe8413ade49bd101512dd07e7998ddb4c",
       "provider": "menus:bar",
-      "identifier": "bar:11",
+      "identifier": "bar:12",
       "text": "Position",
       "subtext": ">",
       "icon": "󰆾",
@@ -5656,9 +5692,9 @@
       "submenu": "bar-position"
     },
     {
-      "key": "cdb811c23af1a8be7d2c900f8312a58fe8413ade49bd101512dd07e7998ddb4c",
+      "key": "db032401abb0177b771defbdd91c9fd0d115d340531860229442131a56c5fc69",
       "provider": "menus:bar",
-      "identifier": "bar:12",
+      "identifier": "bar:13",
       "text": "Reduce motion",
       "subtext": ">",
       "icon": "󰍜",
@@ -5677,9 +5713,9 @@
       "submenu": "bar-motion"
     },
     {
-      "key": "db032401abb0177b771defbdd91c9fd0d115d340531860229442131a56c5fc69",
+      "key": "d4012161999ad4ef7d0593bc7f8104b16e2206d6a7a1acb0e547279028df5644",
       "provider": "menus:bar",
-      "identifier": "bar:13",
+      "identifier": "bar:14",
       "text": "Side style",
       "subtext": ">",
       "icon": "󰓩",

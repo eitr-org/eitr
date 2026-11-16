@@ -148,7 +148,7 @@ class LiveRegressionTests(unittest.TestCase):
 
     def test_centered_and_tabs_slopes_start_at_the_content(self):
         window = self.source('bar/BarWindow.qml')
-        self.assertIn('readonly property real centerExtent: host.verticalBar ? 56 : centerInfo.width\n', window)
+        self.assertIn('readonly property real centerExtent: Math.max(host.verticalBar ? 56 : centerInfo.width,\n        momentExtent)\n', window)
         self.assertIn('readonly property real tabsPadding: 0\n', window)
         self.assertIn('readonly property real endPadding: host.verticalBar ? 8 : 4\n', window)
 

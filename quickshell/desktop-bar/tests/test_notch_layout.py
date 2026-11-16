@@ -36,6 +36,8 @@ class NotchLayoutTests(unittest.TestCase):
             '                readonly property real tabsPadding:', 1)[1].split(
             '                readonly property var outerGaps:', 1)[0]
         reveal = shell_source.split('                readonly property real weatherExtent:', 1)[1].split('                readonly property real centerExtent:', 1)[0]
+        # The moment extent belongs to Centered and refers to the bar's hover state, which this fixture lacks.
+        reveal = reveal.split('                property real momentExtent:', 1)[0]
         reveal = 'readonly property real weatherExtent:' + reveal
         self.assertIn('readonly property real weatherReveal: notchLayout ? weatherExtent : 0', reveal)
         tab = 'Item {\n visible: shell.notchLayout' + tab

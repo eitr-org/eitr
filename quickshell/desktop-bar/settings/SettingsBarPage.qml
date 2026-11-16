@@ -277,7 +277,7 @@ Column {
             description: Eitr.I18n.tr("Show brief notifications, levels and song changes in the bar.")
             foreground: view.foreground
             accent: view.accent
-            checked: styleModel.barMoments
+            checked: styleModel.barMoments !== false
             onToggled: checked => {
                 if (view.live) styleModel.settingRequested("moments", checked ? "true" : "false");
             }
