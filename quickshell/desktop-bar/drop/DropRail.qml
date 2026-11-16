@@ -18,6 +18,8 @@ Item {
     property real gap: 20
     property real pillSize: 32
     property string clockFormat: PluginRegistry.clockFormat
+    // The card's colour: the pill tint is too faint for a tooltip.
+    property color tooltipBackground: background
     readonly property real naturalLength: entries.length * pillSize + Math.max(0, entries.length - 1) * gap
     // Bumped as pills are created and destroyed, so the click areas follow them.
     property int pillRevision: 0
@@ -128,7 +130,7 @@ Item {
                     BarTooltip {
                         target: pill; hovered: hover.hovered && rail.opened
                         text: slot.modelData.title + (plugin.item && plugin.item.detail ? " · " + plugin.item.detail : "")
-                        foreground: rail.foreground; background: rail.background
+                        foreground: rail.foreground; background: rail.tooltipBackground
                     }
                 }
                 // The mask follows only the visible intersection, including during a flick.

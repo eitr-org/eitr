@@ -35,7 +35,7 @@ Item {
         horizontal: rails.horizontal
         gap: PanelStyle.selectionRowGap
         opened: rails.owner.opened; ready: rails.owner.settled
-        foreground: rails.owner.foreground; background: rails.pillColor; accent: rails.owner.accent
+        foreground: rails.owner.foreground; background: rails.pillColor; tooltipBackground: rails.owner.surfaceColor; accent: rails.owner.accent
         x: rails.inset
         y: rails.inset
         width: horizontal ? rails.width - 2 * rails.inset : pillSize
@@ -51,7 +51,7 @@ Item {
         gap: PanelStyle.selectionRowGap
         clockFormat: rails.owner.barHost.host.barClock
         opened: rails.owner.opened; ready: rails.owner.settled
-        foreground: rails.owner.foreground; background: rails.pillColor; accent: rails.owner.accent
+        foreground: rails.owner.foreground; background: rails.pillColor; tooltipBackground: rails.owner.surfaceColor; accent: rails.owner.accent
         x: horizontal ? rails.inset : rails.width - pillSize - rails.inset
         y: horizontal ? rails.height - pillSize - rails.inset : rails.inset
         width: horizontal ? rails.width - 2 * rails.inset : pillSize

@@ -58,7 +58,9 @@ PopupWindow {
     Rectangle {
         anchors.fill: parent
         radius: DesktopStyle.radius(4)
-        color: tip.background
+        // Always opaque: a popup has no blur behind it, so the bar's translucent colour would
+        // leave the text over whatever is underneath.
+        color: Qt.rgba(tip.background.r, tip.background.g, tip.background.b, 1)
         border.color: Qt.rgba(tip.foreground.r, tip.foreground.g, tip.foreground.b, 0.18)
         Text {
             id: label
