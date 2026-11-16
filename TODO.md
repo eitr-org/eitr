@@ -75,19 +75,14 @@ item says what decides the next step. Remove an item when it ships;
   plugin apps (reinstalled on restore), and optionally Git, cloud and WiFi accounts.
   Browser profiles are left out (people sign in again). A one-time move first; scheduled
   backups later. Plan: `eitr-testing/codex-wip/backup-restore/PLAN.md`.
-- **Local AI in the AI Usage panel (idea 2026-11-15).** The local assistant (Ollama, `eitr-ollama.service`)
-  has no panel entry today. Add a local section beside the cloud assistants: service running
-  or stopped (start/stop), the loaded model and its memory, installed models with size,
-  download (with progress) and delete, the default model, and an Open Chat button (SUPER + A).
-  A new DesktopData domain reading Ollama's local API on `127.0.0.1:11434`, only while the
-  panel is open; nothing shown when it is not set up.
-- **Plugin ideas (from Omarchy and Ryoku's popular plugins, 2026-11-15).** Official plugins in
-  `eitr-org/eitr-plugins`, not core features:
-  - Phone and Apple devices: send files, notifications and clipboard to and from a phone
-    (KDE Connect, which also works with iPhones through its iOS app) and AirDrop-style
-    sharing with Macs and iPhones.
-  - Radio globe: browse live radio stations on a spinning globe and play them, beside the
-    existing Lofi Radio.
+- **Plugins: Radio Globe, Phone Link, Ollama (built 2026-11-16).** Branches `radio-globe`,
+  `phone-link` and `ollama` of `eitr-org/eitr-plugins`; all three together in the private
+  `eitr-plugins-night-test` repository for the owner's test. Next: the owner installs and tries
+  them (real streams, a paired phone, a real model download), then merge to main. AirDrop is
+  out of scope (needs special WiFi hardware). The Ollama panel cannot change the local model
+  yet: the core fixes `qwen3:4b`.
+- **AI Usage as a built-in plugin (idea 2026-11-16).** Like Weather (`distro/plugins/bundled`):
+  installed by default, removable for people who do not use AI.
 
 # 2. To test with the owner
 
