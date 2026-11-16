@@ -9,13 +9,15 @@ case "$kind:$action" in
   volume:mute) osd=(--output-volume=mute-toggle --max-volume=100) ;;
   brightness:up) osd=(--brightness +2) ;;
   brightness:down) osd=(--brightness -2) ;;
+  # From the bar's brightness moment: an exact level, shown by the moment itself.
+  brightness:set) target="${3:?level required}"; [[ "$target" =~ ^[0-9]+$ ]] && (( target <= 100 )) || exit 2; osd=() ;;
   *) exit 2 ;;
 esac
 config_root="${XDG_CONFIG_HOME:-$HOME/.config}"
 settings="$config_root/quickshell/desktop-bar/bar-settings.json"
 # Missing settings use the same default as the bar; unreadable/future files keep the OSD.
-if { [[ -e "$settings" ]] && ! jq -e 'type == "object" and (.version // 1) == 1 and (.moments != false)' "$settings" >/dev/null 2>&1; } \
-    || jq -e '.enabled == true' "$config_root/eitr/focus.json" >/dev/null 2>&1; then
+if (( ${#osd[@]} )) && { { [[ -e "$settings" ]] && ! jq -e 'type == "object" and (.version // 1) == 1 and (.moments != false)' "$settings" >/dev/null 2>&1; } \
+    || jq -e '.enabled == true' "$config_root/eitr/focus.json" >/dev/null 2>&1; }; then
   exec swayosd-client "${osd[@]}"
 fi
 if [[ "$kind" == volume ]]; then
@@ -29,6 +31,7 @@ else
   # Match swayosd's backlight path, excluding keyboard LEDs. No per-key Python.
   step=+2%
   [[ "$action" == down ]] && step=2%-
+  [[ "$action" == set ]] && step="${target}%"
   result="$(brightnessctl --class=backlight --min-value=1 --machine-readable set "$step")"
   IFS=, read -r _device _class _current percentage _maximum <<< "$result"
   level="${percentage%\%}"

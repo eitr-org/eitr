@@ -19,7 +19,10 @@ Item {
     property real pillSize: 32
     property string clockFormat: PluginRegistry.clockFormat
     readonly property real naturalLength: entries.length * pillSize + Math.max(0, entries.length - 1) * gap
+    // Bumped as pills are created and destroyed, so the click areas follow them.
+    property int pillRevision: 0
     readonly property var inputSurfaces: {
+        pillRevision;
         const result = [];
         for (let index = 0; index < pills.count; index++) {
             // A pill being created or destroyed has no item yet.
@@ -55,6 +58,8 @@ Item {
         boundsBehavior: Flickable.StopAtBounds
         Repeater {
             id: pills
+            onItemAdded: rail.pillRevision++
+            onItemRemoved: rail.pillRevision++
             model: rail.entries
             Item {
                 id: slot
