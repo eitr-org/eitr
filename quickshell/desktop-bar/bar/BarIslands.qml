@@ -10,6 +10,7 @@ Item {
 
     id: islandSurfaces
     visible: !FocusMode.enabled
+    readonly property alias clockSurface: clockPill
     anchors.fill: parent
     // grow: where a pill's card extends, toward the free space ("start", "end" or "center").
     IslandSurface { id: logoPill; first: host.verticalBar ? barHost.verticalControlCenterLogo : barHost.leftGroup.controlCenterLogo }
@@ -37,7 +38,7 @@ Item {
     }
     property real afterLogo: overflow(logoPill)
     property real afterWorkspaces: overflow(workspacesPill)
-    property real aroundClock: overflow(clockPill) / 2
+    property real aroundClock: Math.max(overflow(clockPill), clockPill.momentGrowth) / 2
     property real beforeClockPlugins: overflow(clockPluginsPill)
     Behavior on afterLogo { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     Behavior on afterWorkspaces { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
@@ -81,10 +82,16 @@ Item {
             }
             return Qt.point(horizontal, vertical);
         }
-        x: host.verticalBar ? 0 : leading.x - 4
-        y: host.verticalBar ? leading.y - 4 : 0
-        width: host.verticalBar ? barHost.normalThickness : trailing.x + last.width - leading.x + 8
-        height: host.verticalBar ? trailing.y + last.height - leading.y + 8 : barHost.normalThickness
+        readonly property real momentGrowth: this === clockPill && first.momentExtent !== undefined
+            ? Math.max(0, first.momentExtent - (host.verticalBar ? first.height : first.width)) : 0
+        x: host.verticalBar ? 0 : leading.x - 4 - momentGrowth / 2
+        y: host.verticalBar ? leading.y - 4 - momentGrowth / 2 : 0
+        width: host.verticalBar ? barHost.normalThickness : trailing.x + last.width - leading.x + 8 + momentGrowth
+        height: host.verticalBar ? trailing.y + last.height - leading.y + 8 + momentGrowth : barHost.normalThickness
+        Behavior on x { enabled: first === (host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo); NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+        Behavior on y { enabled: first === (host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo); NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+        Behavior on width { enabled: first === (host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo); NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+        Behavior on height { enabled: first === (host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo); NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
         // Pills are always fully rounded, whatever the corner preference.
         radius: Math.min(width, height) / 2
         // Attached: straight sides into the screen edge, square against it.

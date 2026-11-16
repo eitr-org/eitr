@@ -6,6 +6,11 @@ import "../PanelStyle.js" as PanelStyle
 Rectangle {
     id: clock
     property var host
+    property var moment: null
+    property real momentRoom: compact ? height : width
+    readonly property real momentExtent: moment ? Math.min(momentView.naturalExtent, momentRoom) : (compact ? height : width)
+    readonly property bool hovered: mouse.containsMouse || momentHover.hovered
+    signal momentActivated(var entry)
 
     property date now: new Date()
     property bool compact: false
@@ -37,7 +42,7 @@ Rectangle {
 
         anchors.centerIn: parent
         visible: !clock.compact
-        opacity: 1 - clock.flash
+        opacity: clock.moment ? 0 : 1 - clock.flash
         // Qt counts hours 0-23 in any format without AP, so the 12-hour time-only clock
         // computes its hour itself.
         text: clock.timeOnly ? (host.barClock === "24h" ? Qt.formatDateTime(clock.now, "HH:mm")
@@ -56,7 +61,7 @@ Rectangle {
 
         anchors.centerIn: parent
         visible: clock.compact
-        opacity: 1 - clock.flash
+        opacity: clock.moment ? 0 : 1 - clock.flash
         spacing: 2
         Text {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -90,7 +95,7 @@ Rectangle {
 
     Text {
         anchors.centerIn: parent
-        visible: clock.flash > 0.01
+        visible: !clock.moment && clock.flash > 0.01
         opacity: clock.flash
         scale: 0.7 + 0.3 * clock.flash
         transform: Translate { y: (1 - clock.flash) * 12 }
@@ -111,11 +116,21 @@ Rectangle {
         onClicked: mouse => mouse.button === Qt.RightButton ? clock.rightClicked() : clock.clicked()
     }
 
+    BarMoment {
+        id: momentView
+        anchors.centerIn: parent
+        host: clock.host; payload: clock.moment
+        width: clock.compact ? clock.width : clock.momentExtent
+        height: clock.compact ? clock.momentExtent : clock.height
+        HoverHandler { id: momentHover; enabled: !!clock.moment }
+        onActivated: entry => clock.momentActivated(entry)
+    }
+
     BarTooltip {
         background: host.workspaceMenuBg
         foreground: host.fg
         target: clock
-        hovered: mouse.containsMouse
+        hovered: mouse.containsMouse && !clock.moment
         text: clock.compact ? Qt.formatDateTime(clock.now, Eitr.I18n.tr("ddd MMM dd")) : Eitr.I18n.tr("Calendar")
     }
 

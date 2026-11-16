@@ -339,7 +339,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   the pill's free side and pushes neighbouring pills aside; the pill hides under the
   card until it has shrunk back.
   Every status icon is always shown, without Full’s show/hide toggle.
-- Dynamic: brief queued notification, level, song, Bluetooth and keyboard moments; three full-pill islands side by side at the screen centre (always fully
+- Dynamic: uses the shared BarMoments owner for notification, level, song, Bluetooth and keyboard moments; three full-pill islands side by side at the screen centre (always fully
   rounded, ignoring the corner preference): logo, time-only clock exactly centred at
   rest, network/battery; while a player is present, a media island (controls and
   equalizer) sits between logo and clock. Hover expands one island along the bar (the clock island then
@@ -367,7 +367,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   auto-hidden bar out until its popups go; the timer ring and next-event mark sit in
   `CaptureIndicator` beside the clock, so each layout makes room as for the recording dot;
   low-battery flashes show over the time (`ClockButton`), the workspace number only where
-  the workspaces are hidden. Volume and brightness keep their own popup except in Dynamic, where moments temporarily replace the time.
+  the workspaces are hidden. BarMoments owns moments once per bar in every layout, controlled by the default-on `moments` boolean. Moments replace clock text (or visible media for songs), hold on hover and defer for panels; Focus suppresses them. Full/Tabs keep neighbours fixed; collapsed Centered, Islands and Drop grow around the screen-centred clock. Level keys use swayosd only with moments off or Focus on.
 - Keep calendar height fixed with six week rows. Weather city choices are
   session-only; the city close button restores the default geolocation.
 - Media is hidden when no eligible player exists; meetings are excluded. Keep

@@ -77,7 +77,7 @@ TIMER = '''
                         if (bar.lastKind !== "notifications") throw new Error("Click aimed at notification did not open its centre");
                         dynamic.trackPointer(false, Qt.point(0, 0));
                         dynamic.moments.queueState = {active:null, queue:[]};
-                        bar.dynamicLayout = false;
+                        shell.barMoments = false;
                         dynamic.moments.submit({kind:"volume", level:99});
                         if (dynamic.moments.current || dynamic.moments.queueState.queue.length)
                             throw new Error("Another layout received a moment");
@@ -91,7 +91,7 @@ TIMER = '''
 '''
 
 
-class DynamicMomentRenderTests(unittest.TestCase):
+class BarMomentRenderTests(unittest.TestCase):
     def test_moments_all_edges_and_themes(self):
         with tempfile.TemporaryDirectory(prefix='eitr-moments-') as directory:
             folder = Path(directory)
@@ -110,6 +110,7 @@ class DynamicMomentRenderTests(unittest.TestCase):
             reserved = source.split('readonly property real reservedThickness: ', 1)[1].split('\n', 1)[0]
             base = base.replace('GEOMETRY', geometry.replace('host.', 'shell.')).replace('RESERVED', reserved)
             # No inherited capture activity: rest is the time alone for comparison.
+            base = base.replace('property string barClock:', 'property bool barMoments: true\n    property string barClock:')
             base = base.replace('property bool shown: true', 'property bool shown: false')
             base = base.replace('width: 24; height: 24', 'width: 24; height: 24; implicitWidth: 24; implicitHeight: 24')
             for edge in (*EDGES, "compact"):

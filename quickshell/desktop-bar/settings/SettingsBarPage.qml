@@ -272,6 +272,17 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-bar-moments" }
+            text: Eitr.I18n.tr("Bar moments")
+            description: Eitr.I18n.tr("Show brief notifications, levels and song changes in the bar.")
+            foreground: view.foreground
+            accent: view.accent
+            checked: styleModel.barMoments
+            onToggled: checked => {
+                if (view.live) styleModel.settingRequested("moments", checked ? "true" : "false");
+            }
+        }
+        ToggleRow {
             SettingsTarget { objectName: "setting-bar-dock" }
             text: Eitr.I18n.tr("Dock")
             description: Eitr.I18n.tr("Show the application dock.")

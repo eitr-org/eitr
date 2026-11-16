@@ -23,6 +23,18 @@
     "submenu": "bar-autohide"
   },
   {
+    "text": "Bar moments",
+    "subtext": ">",
+    "icon": "󰂚",
+    "keywords": [
+      "notifications",
+      "volume",
+      "brightness",
+      "songs"
+    ],
+    "submenu": "bar-moments"
+  },
+  {
     "text": "Blur strength",
     "subtext": ">",
     "icon": "󰐾",

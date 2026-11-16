@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Dynamic owns its level display; every other layout retains swayosd's behavior.
+# Bar moments own level feedback in every layout, except while Focus is enabled.
 set -euo pipefail
 kind="${1:?level kind required}"
 action="${2:?level action required}"
@@ -12,7 +12,9 @@ case "$kind:$action" in
   *) exit 2 ;;
 esac
 config_root="${XDG_CONFIG_HOME:-$HOME/.config}"
-if ! jq -e '(.version // 1) == 1 and .layout == "dynamic"' "$config_root/quickshell/desktop-bar/bar-settings.json" >/dev/null 2>&1 \
+settings="$config_root/quickshell/desktop-bar/bar-settings.json"
+# Missing settings use the same default as the bar; unreadable/future files keep the OSD.
+if { [[ -e "$settings" ]] && ! jq -e 'type == "object" and (.version // 1) == 1 and (.moments != false)' "$settings" >/dev/null 2>&1; } \
     || jq -e '.enabled == true' "$config_root/eitr/focus.json" >/dev/null 2>&1; then
   exec swayosd-client "${osd[@]}"
 fi

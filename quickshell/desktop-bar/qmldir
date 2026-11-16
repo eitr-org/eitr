@@ -296,3 +296,7 @@ DynamicMomentSources 1.0 bar/DynamicMomentSources.qml
 DropRail 1.0 drop/DropRail.qml
 DropRails 1.0 drop/DropRails.qml
 DropPluginPage 1.0 drop/DropPluginPage.qml
+BarMoment 1.0 bar/BarMoment.qml
+BarMoments 1.0 bar/BarMoments.qml
+BarMomentSources 1.0 bar/BarMomentSources.qml
+BarMomentPlacement bar/BarMomentPlacement.qml

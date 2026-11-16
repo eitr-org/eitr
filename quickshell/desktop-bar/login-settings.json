@@ -12,12 +12,17 @@
       "mediaStyle": "bars",
       "dock": "yes",
       "clock": "12h",
+      "moments": true,
       "blur-strength": "medium",
       "lyrics": "no",
       "islandStyle": "floating",
       "sideStyle": "slopes"
     },
     "options": {
+      "moments": [
+        false,
+        true
+      ],
       "blur-strength": [
         "light",
         "medium",

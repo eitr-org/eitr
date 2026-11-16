@@ -23,7 +23,7 @@ class ClockSlotRenderTests(unittest.TestCase):
             (folder / 'Stub.qml').write_text(layout_fixture('stub'))
             for kind in kinds - {'Item', 'Row', 'Column', 'Behavior', 'NumberAnimation', 'PluginBarItems', 'ClockButton'}:
                 (folder / (kind + '.qml')).write_text('import QtQuick\nStub {}\n')
-            for name, source in [('ClockButton', 'bar/ClockButton.qml'), ('PluginBarItems', 'plugins/PluginBarItems.qml')]:
+            for name, source in [('BarMoment', 'bar/BarMoment.qml'), ('ClockButton', 'bar/ClockButton.qml'), ('PluginBarItems', 'plugins/PluginBarItems.qml')]:
                 (folder / (name + '.qml')).write_text((BAR / source).read_text().replace('import ".."\n', '')
                     .replace('"../PanelStyle.js"', '"PanelStyle.js"'))
             (folder / 'PanelStyle.js').write_text((BAR / 'PanelStyle.js').read_text())

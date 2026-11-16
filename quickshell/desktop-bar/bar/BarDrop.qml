@@ -35,11 +35,14 @@ Item {
     // The time plus room for the pill's activity (bell and recording dot before it, the
     // note after it). The pill shifts toward the side with more, so the time itself
     // keeps the screen's exact centre: timeOffset places it within the pill.
-    readonly property real pillExtent: !vertical && activity.lyricsOpen ? activity.lyricsExtent
-        : clockExtent + 8 + activity.leadingSpace + activity.trailingSpace
+    readonly property var clock: vertical ? barHost.verticalCalendarIcon : barHost.centerInfo
+    readonly property bool momentActive: !!clock.moment
+    readonly property bool showingLyrics: activity.lyricsOpen && !momentActive
+    readonly property real pillExtent: momentActive ? Math.max(clockExtent, clock.momentExtent) + 8
+        : !vertical && showingLyrics ? activity.lyricsExtent : clockExtent + 8 + activity.leadingSpace + activity.trailingSpace
     // Eased like the pill's length, so the side that is not growing holds still.
     // The open dashboard's card is centred, so it takes no shift.
-    property real shift: pill.morphed ? 0 : (activity.trailingSpace - activity.leadingSpace) / 2
+    property real shift: pill.morphed || momentActive ? 0 : (activity.trailingSpace - activity.leadingSpace) / 2
     Behavior on shift { enabled: pill.eased; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     readonly property real timeOffset: drop.length / 2 - (vertical ? pill.y + pill.height / 2 : pill.x + pill.width / 2)
     // The first 40% of the reveal is the fall out of the edge, the rest the swell.
@@ -110,7 +113,7 @@ Item {
         DropPillActivity {
             id: activity
             parent: pill.content
-            visible: drop.holding
+            visible: drop.holding && !drop.momentActive
             opacity: drop.contentOpacity
             enabled: drop.reveal >= 1 && !pill.morphed
             host: drop.host; barHost: drop.barHost
@@ -161,7 +164,7 @@ Item {
     states: [
         State {
             name: "horizontal"; when: drop.holding && !drop.vertical
-            PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity * (activity.lyricsOpen ? 0 : 1); enabled: drop.reveal >= 1 && !activity.lyricsOpen }
+            PropertyChanges { target: barHost.barHorizontalCenter; parent: pill.content; opacity: drop.contentOpacity * (drop.showingLyrics ? 0 : 1); enabled: drop.reveal >= 1 && !drop.showingLyrics }
             PropertyChanges { target: barHost.centerInfo; timeOnly: true }
             PropertyChanges { target: barHost.leftGroup; opacity: 0; enabled: false }
             PropertyChanges { target: barHost.rightSide; opacity: 0; enabled: false }

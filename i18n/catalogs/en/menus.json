@@ -791,5 +791,8 @@
   "Browse themes, plugins and lockscreens": "Browse themes, plugins and lockscreens",
   "Choose how app windows open": "Choose how app windows open",
   "Edit keyboard shortcuts and restore defaults": "Edit keyboard shortcuts and restore defaults",
-  "Window Rules": "Window Rules"
+  "Window Rules": "Window Rules",
+  "Bar moments": "Bar moments",
+  "Show brief notifications, levels and song changes in the bar.": "Show brief notifications, levels and song changes in the bar.",
+  "Use separate volume and brightness popups": "Use separate volume and brightness popups"
 }

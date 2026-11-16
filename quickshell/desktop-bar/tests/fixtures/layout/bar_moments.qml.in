@@ -1,0 +1,239 @@
+import QtQuick
+import Quickshell
+import QtTest
+import "." as Bar
+ShellRoot {
+    id: shell
+    property string layout: LAYOUT
+    property string barEdge: EDGE
+    property bool verticalBar: barEdge === "left"
+    property bool barMoments: true
+    property bool barPinned: false
+    property bool barVisible: true
+    property bool barPointerHeld: false
+    property bool barAutoHide: false
+    property string barClock: "24h"
+    property string barMediaStyle: "bars"
+    property string barSideStyle: "slopes"
+    property bool dictating: false
+    property bool transcribing: false
+    property var dictationLevels: []
+    property int barHeight: 30
+    property int tabStripThickness: 7
+    property int tabBendRound: 4
+    property real workspaceItemSize: 24
+    property real workspaceItemSpacing: 4
+    property var screenGaps: [12,12,12,12]
+    property var updates: ({checking:false, count:0})
+    property bool updatesJustFound: false
+    property bool centeredLayout: layout === "centered"
+    property bool notchLayout: layout === "tabs"
+    property color fg: LIGHT ? "#252936" : "#e9eef1"
+    property color activeBg: "#70ba9a"
+    property color workspaceMenuBg: LIGHT ? "#f5f0e7" : "#18212b"
+    function barBackground() { return workspaceMenuBg; }
+    function updateBarSetting(key, value) {}
+    function barDoubleClick(button) {}
+    FloatingWindow {
+        visible: true
+        implicitWidth: shell.verticalBar ? 180 : 1280
+        implicitHeight: shell.verticalBar ? 900 : 140
+        color: LIGHT ? "#e2ddcf" : "#0c1119"
+        Item {
+            id: bar
+            anchors.fill: parent
+            property bool dynamicLayout: false
+            property bool dropLayout: shell.layout === "drop"
+            property bool islandsLayout: shell.layout === "islands"
+            property bool centeredLayout: shell.centeredLayout
+            property bool notchLayout: shell.notchLayout
+            property bool expanded: !centeredLayout
+            property bool panelOpen: false
+            property bool overviewOpen: false
+            property bool pendingOverview: false
+            property var pendingPanel: null
+            property var dockPanels: []
+            property var dynamicSurfaces: null
+            property var dropSurfaces: dropLoader.item
+            property var islandSurfaces: islandsLoader.item
+            property var clockActivity: ({flash:0, flashText:"", flashColor:"red", bellOut:false, bellAngle:0, timing:false, meetingSoon:false})
+            property var notificationsRef: null
+            property var keyboardMenu: null
+            property var obsMenu: inert
+            property var dropDashboard: inert
+            property var autoHideRef: ({progress:1, shown:true})
+            property bool attachedIslands: false
+            property real normalThickness: shell.barHeight
+            property real thinThickness: normalThickness
+            property real edgeGap: islandsLayout || dropLayout ? 6 : 0
+            property real islandSpacing: 20
+            property real islandGap: 6
+            property real itemGap: 4
+            property real endPadding: 4
+            property real leadingReveal: 0
+            property real trailingReveal: 0
+            property real weatherReveal: 70
+            property real clockPluginExtent: shell.verticalBar ? vertical.clockPluginsItem.height + 3 : horizontal.clockPluginsItem.width + 6
+            property real momentExtent: MOMENT_EXTENT
+            property real centerExtent: CENTER_EXTENT
+            property real tabLeadingEnd: 340
+            property real tabTrailingStart: 1080
+            property real tabCenterStart: mediaStrip.x
+            property real tabCenterEnd: centerInfo.x + centerInfo.width + 76
+            property alias leftGroup: leftGroup
+            property alias rightSide: rightSide
+            property alias notificationIcon: notificationIcon
+            property alias stripItem: strip
+            property alias centerInfo: horizontal.centerInfoItem
+            property alias mediaStrip: horizontal.mediaStripItem
+            property alias barWeather: horizontal.barWeatherItem
+            property alias barCapture: horizontal.barCaptureItem
+            property alias barHorizontalCenter: horizontal
+            property alias verticalCalendarIcon: vertical.verticalCalendarIconItem
+            property alias verticalMedia: vertical.verticalMediaItem
+            property alias verticalMiddle: vertical
+            property alias verticalCapture: vertical.verticalCaptureItem
+            property alias verticalEnd: rightSide
+            property alias verticalStart: leftGroup
+            property var verticalWeatherIcon: vertical.verticalWeatherIconItem
+            property var verticalControlCenterLogo: leftGroup
+            property var verticalOverviewIcon: leftGroup
+            property var verticalWorkspaces: leftGroup
+            property var verticalHardware: leftGroup
+            property var clockPlugins: shell.verticalBar ? vertical.clockPluginsItem : horizontal.clockPluginsItem
+            property alias moments: moments
+            function toggleKind(kind) { lastKind = kind; }
+            property string lastKind: ""
+            function togglePanel(panel) {}
+            function showPanel(panel) {}
+            function showKind(kind) {}
+            function showControlCenter(page) {}
+            function openPluginPanel(plugin, panel, target) {}
+            function panel(kind) { return inert; }
+            Bar.BarMoments { id: moments; host: shell; barHost: bar }
+            Bar.BarMomentPlacement { host: shell; barHost: bar; owner: moments }
+            Bar.Stub { id: inert; visible: false; width:0; height:0; function show(page) {} }
+            Loader { active: bar.centeredLayout; sourceComponent: Bar.BarCenteredOutline { host: shell; barHost: bar } }
+            Item {
+                id: strip
+                GEOMETRY
+                Rectangle { anchors.fill: parent; color: !bar.centeredLayout && !bar.notchLayout && !bar.islandsLayout && !bar.dropLayout ? shell.barBackground() : "transparent" }
+                Loader { active: bar.notchLayout; anchors.fill: parent; sourceComponent: Bar.BarTabs { host: shell; barHost: bar } }
+                Loader { id: islandsLoader; active: bar.islandsLayout; anchors.fill: parent; sourceComponent: Bar.BarIslands { host: shell; barHost: bar } }
+                Item {
+                    id: leftGroup
+                    x: 16; y: 3; width: 310; height:24
+                    visible: !bar.centeredLayout && !shell.verticalBar
+                    property alias controlCenterLogo: logo
+                    property alias overviewIcon: workspaces
+                    property alias workspaceButtonRow: workspaces
+                    property alias hardwareStatus: hardware
+                    Text { id: logo; text: "ᛖ"; width:24; height:24; color:shell.fg; verticalAlignment:Text.AlignVCenter }
+                    Text { id: workspaces; x:44; width:150; height:24; text:"▦   1  2  3  4  5"; color:shell.fg; verticalAlignment:Text.AlignVCenter }
+                    Text { id: hardware; x:214; width:80; height:24; text:"▥   ◉   ♙"; color:shell.fg; verticalAlignment:Text.AlignVCenter }
+                }
+                Item {
+                    id: rightSide
+                    x: 1090; y:3; width:150; height:24
+                    visible: !bar.centeredLayout && !shell.verticalBar
+                    Text { text:"󰤨   󰂯      󰁹"; color:shell.fg; anchors.centerIn:parent; font.family:Bar.DesktopFonts.family }
+                }
+                Item { id: notificationIcon; x:1250; y:3; width:24; height:24; visible:!bar.centeredLayout && !shell.verticalBar
+                    Text { text:"󰂚"; color:shell.fg; anchors.centerIn:parent; font.family:Bar.DesktopFonts.family }
+                }
+                Bar.BarHorizontalCenter {
+                    id: horizontal; visible: !shell.verticalBar
+                    host: shell; barHost: bar
+                    hardwareStatusRef: hardware; workspacesRef: workspaces
+                    mediaMenuRef: inert; obsMenuRef: inert; recordingMenuRef: inert
+                    verticalCalendarIconRef: vertical.verticalCalendarIconItem
+                    verticalWeatherIconRef: vertical.verticalWeatherIconItem
+                }
+                Bar.BarVerticalCenter {
+                    id: vertical; visible: shell.verticalBar
+                    host: shell; barHost: bar
+                    barWeatherRef: horizontal.barWeatherItem
+                    calendarMenuRef: horizontal.calendarMenuItem; weatherMenuRef: horizontal.weatherMenuItem
+                    mediaMenuRef: inert; mediaStripRef: horizontal.mediaStripItem
+                    obsMenuRef: inert; recordingMenuRef: inert
+                }
+                Loader { id: dropLoader; active: bar.dropLayout; anchors.fill: parent; sourceComponent: Bar.BarDrop { host: shell; barHost: bar } }
+            }
+            property var neighbourBaseline: []
+            property int step: -1
+            property var samples: [
+                {kind:"notification", id:1, icon:"󰂚", text:"Screenshot saved to Pictures — a long notification preview"},
+                {kind:"volume", icon:"", text:"Volume", level:64},
+                {kind:"song", icon:"󰝚", text:"Northern Lights · Eitr Ensemble"}
+            ]
+            function positions() {
+                return [bar.mediaStrip, horizontal.clockPluginsItem, bar.barWeather].map(item => {
+                    const point = item.mapToItem(bar, 0, 0);
+                    return [point.x, point.y, item.width, item.height];
+                });
+            }
+            TestEvent { id: pointer }
+            Timer {
+                id: capture; interval:450; running:true
+                onTriggered: {
+                    try {
+                        const clock = shell.verticalBar ? bar.verticalCalendarIcon : bar.centerInfo;
+                        const point = clock.mapToItem(bar, clock.width / 2, clock.height / 2);
+                        if (Math.abs((shell.verticalBar ? point.y : point.x) - (shell.verticalBar ? bar.height : bar.width) / 2) > 0.1)
+                            throw new Error("Clock moved away from screen centre: " + shell.layout + " " + point.x + "," + point.y);
+                        if (bar.step === -1) bar.neighbourBaseline = bar.positions();
+                        else {
+                            if (!moments.current || moments.current.kind !== bar.samples[bar.step].kind) throw new Error("Missing moment");
+                            if (shell.layout === "full" || shell.layout === "tabs") {
+                                if (JSON.stringify(bar.neighbourBaseline) !== JSON.stringify(bar.positions())) throw new Error("Moment moved a neighbour");
+                                if (clock.momentExtent > (shell.verticalBar ? clock.height : clock.width) + 8) throw new Error("Moment overlaps neighbour");
+                            }
+                            // Outside Dynamic every moment, the song included, shows in the clock slot.
+                            if (!clock.moment) throw new Error("Clock did not show moment");
+                            if (moments.songMoment) throw new Error("Song went to the media strip outside Dynamic");
+                            if (bar.centeredLayout && bar.expanded) throw new Error("Moment expanded the rest of Centered");
+                        }
+                        const kind = bar.step < 0 ? "rest" : bar.samples[bar.step].kind;
+                        bar.grabToImage(result => {
+                            result.saveToFile(CAPTURE + "/moment-" + shell.layout + "-" + kind + "-" + THEME + SUFFIX + ".png");
+                            if (++bar.step === bar.samples.length) { guards.start(); return; }
+                            moments.queueState = {active:null, queue:[]};
+                            moments.submit(bar.samples[bar.step]);
+                            capture.restart();
+                        });
+                    } catch (error) { console.error(error); Qt.exit(1); }
+                }
+            }
+            Timer {
+                id: guards; interval:120; property int stage:0
+                onTriggered: {
+                    try {
+                        if (stage === 0) {
+                            moments.queueState = {active:null, queue:[]};
+                            moments.submit(bar.samples[0]);
+                            const clock = shell.verticalBar ? bar.verticalCalendarIcon : bar.centerInfo;
+                            pointer.mouseMove(clock, clock.width/2, clock.height/2, 1, Qt.NoButton, Qt.NoModifier);
+                        } else if (stage === 1) {
+                            if (!moments.current || moments.current.deadline !== 0) throw new Error("Hover did not hold moment");
+                            bar.panelOpen = true;
+                            if (moments.current) throw new Error("Panel did not defer held moment");
+                            pointer.mouseMove(bar, bar.width - 2, bar.height - 2, 1, Qt.NoButton, Qt.NoModifier);
+                            bar.panelOpen = false;
+                            Bar.FocusMode.enabled = true;
+                            if (moments.current) throw new Error("Focus showed moment");
+                            Bar.FocusMode.enabled = false;
+                            shell.barMoments = false;
+                            moments.submit(bar.samples[1]);
+                            if (moments.current || moments.queueState.queue.length) throw new Error("Disabled moments queued or showed");
+                            shell.barMoments = true;
+                            moments.submit(bar.samples[1]);
+                            if (!moments.current) throw new Error("Re-enabled moments did not resume");
+                            console.log("BAR_MOMENTS_OK"); Qt.quit(); return;
+                        }
+                        stage++; restart();
+                    } catch (error) { console.error(error); Qt.exit(1); }
+                }
+            }
+        }
+    }
+}

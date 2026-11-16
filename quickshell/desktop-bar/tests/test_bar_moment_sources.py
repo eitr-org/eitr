@@ -11,6 +11,8 @@ import Quickshell.Io
 import "." as Bar
 ShellRoot {
     id: shell
+    property bool barMoments: true
+    property bool verticalBar: false
     QtObject { id: island; property bool hovered: false; property bool expanded: false; property bool morphed: false }
     QtObject { id: mediaIsland; property bool hovered: false; property bool expanded: false; property bool morphed: false }
     QtObject { id: notification; property int id: 1; property string summary: "Original"; property int urgency: 1; property string image: ""; property var hints: ({}) }
@@ -20,7 +22,7 @@ ShellRoot {
     QtObject { id: player; property string trackTitle: "First song"; property string trackArtist: "Artist"; property bool isPlaying: true }
     QtObject { id: strip; property var player: player }
     QtObject { id: bar; property bool dynamicLayout: true; property var notificationsRef: notices; property var keyboardMenu: keyboard; property var mediaStrip: strip }
-    Bar.DynamicMoments { id: moments; host: shell; barHost: bar; middle: island; media: mediaIsland }
+    Bar.BarMoments { id: moments; host: shell; barHost: bar; middle: island; media: mediaIsland }
     QtObject { id: audio; property real volume: 0.5; property bool muted: false }
     QtObject { id: device; property bool connected: false; property string icon: "audio-headphones"; property string name: "Headphones"; property string address: "fixture"; property bool batteryAvailable: true; property real battery: 0.8 }
     QtObject { id: adapter; property var devices: ({values:[device]}) }
@@ -76,11 +78,11 @@ ShellRoot {
                     island.morphed = false; Bar.FocusMode.enabled = true;
                 } else if (shell.stage === 12) {
                     require(!moments.current, "Focus showed moment");
-                    Bar.FocusMode.enabled = false; clear(); bar.dynamicLayout = false;
+                    Bar.FocusMode.enabled = false; clear(); shell.barMoments = false;
                     notification.summary = "Other layout"; player.trackTitle = "Other song";
                 } else if (shell.stage === 13) {
                     require(!moments.current && !moments.queueState.queue.length, "Other layout received moment");
-                    bar.dynamicLayout = true;
+                    shell.barMoments = true;
                     sources().adapter = adapter; sources().audio = audio;
                 } else if (shell.stage === 14) {
                     require(!moments.current, "Initial Bluetooth or audio state created moment");
@@ -110,7 +112,7 @@ ShellRoot {
 }'''
 
 
-class DynamicMomentSourceTests(unittest.TestCase):
+class BarMomentSourceTests(unittest.TestCase):
     def test_events_and_interaction_guards(self):
         with tempfile.TemporaryDirectory(prefix='eitr-moment-events-') as directory:
             folder = Path(directory)

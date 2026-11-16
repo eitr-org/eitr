@@ -1,5 +1,5 @@
 const assert = require("node:assert/strict");
-const queue = require("../bar/DynamicMoments.js");
+const queue = require("../bar/BarMoments.js");
 const free = () => false;
 let state = queue.create();
 state = queue.push(state, {kind: "song", text: "Old song"}, 0, free);

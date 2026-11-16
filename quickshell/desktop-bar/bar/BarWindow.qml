@@ -107,7 +107,7 @@ PanelWindow {
     property bool hoverExpanded: false
     readonly property bool pointerInside: barHover.hovered || (centeredHover && centeredHover.hovered)
     onPointerInsideChanged: {
-        if (pointerInside) { collapseDelay.stop(); hoverExpanded = true; }
+        if (pointerInside) { collapseDelay.stop(); if (!moments.current) hoverExpanded = true; }
         else collapseDelay.restart();
     }
     readonly property bool expanded: !centeredLayout || host.barPinned || hoverExpanded || panelOpen || pendingPanel !== null || host.barPointerHeld
@@ -132,7 +132,11 @@ PanelWindow {
     readonly property real weatherExtent: host.verticalBar ? (verticalWeatherIcon.height > 0 ? 3 + verticalWeatherIcon.height : 0) : (barWeather.width > 0 ? 6 + barWeather.width : 0)
     readonly property real weatherReveal: notchLayout ? weatherExtent : 0
     // Centered: the slopes start right at the clock (its button keeps 8 px of padding).
-    readonly property real centerExtent: host.verticalBar ? 56 : centerInfo.width
+    property real momentExtent: centeredLayout && !expanded
+        ? (host.verticalBar ? verticalCalendarIcon.momentExtent : centerInfo.momentExtent) : 0
+    Behavior on momentExtent { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+    readonly property real centerExtent: Math.max(host.verticalBar ? 56 : centerInfo.width,
+        momentExtent)
     Timer {
         id: collapseDelay
         interval: 350
@@ -249,8 +253,11 @@ PanelWindow {
         // into the edge in one motion instead of first folding back into the pill.
         // A new notification also brings the bar out until its popups have gone.
         held: bar.dockPanels.some(panel => panel === bar.dropDashboard ? panel.opened : panel.visible) || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || host.barPointerHeld
-            || clockActivity.alerting || !!(bar.dynamicSurfaces && bar.dynamicSurfaces.moments.current)
+            || clockActivity.alerting || !!moments.current
     }
+    readonly property alias moments: moments
+    BarMoments { id: moments; host: bar.host; barHost: bar }
+    BarMomentPlacement { host: bar.host; barHost: bar; owner: moments }
     readonly property alias clockActivity: clockActivity
     ClockActivityState { id: clockActivity; host: bar.host; barHost: bar }
     // An empty item the input mask adds and drops as the auto-hide slide settles.

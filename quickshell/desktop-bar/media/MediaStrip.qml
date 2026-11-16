@@ -9,6 +9,7 @@ Item {
     id: media
     required property color foreground
     required property color background
+    property bool momentActive: false
     property real availableWidth: 260
     property real itemSpacing: 1
     property real indicatorSpacing: 6
@@ -51,6 +52,8 @@ Item {
 
     Row {
         id: controls
+        opacity: media.momentActive ? 0 : 1
+        enabled: !media.momentActive
         x: media.indicatorReveal + media.indicatorSpacing
         height: parent.height
         spacing: media.itemSpacing
@@ -75,7 +78,7 @@ Item {
     }
     MediaIndicator {
         id: playbackIndicator
-        visible: !media.lyricsOpen && media.indicatorReveal <= width + 0.5
+        visible: !media.momentActive && !media.lyricsOpen && media.indicatorReveal <= width + 0.5
         onDraggedLeft: if (media.host && media.playing) media.lyricsOpen = true
         style: media.mediaStyle
         playing: media.playing
@@ -88,7 +91,7 @@ Item {
 
     LyricLine {
         id: lyric
-        visible: media.lyricsOpen
+        visible: !media.momentActive && media.lyricsOpen
         width: media.indicatorReveal; height: parent.height
         clip: true
         host: media.host; player: media.player; active: media.lyricsOpen

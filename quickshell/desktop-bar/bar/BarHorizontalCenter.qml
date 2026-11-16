@@ -21,6 +21,7 @@ Item {
     readonly property alias calendarMenuItem: calendarMenu
     readonly property alias weatherMenuItem: weatherMenu
     readonly property alias clockPluginsItem: clockPlugins
+    anchors.alignWhenCentered: false
     anchors.fill: parent
     PluginBarItems {
         id: clockPlugins

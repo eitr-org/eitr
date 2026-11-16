@@ -22,8 +22,9 @@ import subprocess
 
 
 SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
-DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes"}
+DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "moments": True, "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes"}
 OPTIONS = {
+    "moments": {False, True},
     "blur-strength": {"light", "medium", "strong"},
     "appearance": set(ids(BAR_APPEARANCES)),
     "layout": set(ids(BAR_LAYOUTS)),
@@ -51,7 +52,7 @@ def read_settings():
     if data.get("layout") == "split":
         data["layout"] = "centered"
     return {**data, **{
-        key: data.get(key) if isinstance(data.get(key), str) and data[key] in choices else DEFAULTS[key]
+        key: data.get(key) if type(data.get(key)) is type(DEFAULTS[key]) and data[key] in choices else DEFAULTS[key]
         for key, choices in OPTIONS.items()
     }}
 
@@ -60,7 +61,9 @@ def save_settings(data):
     settings = read_settings()
     previous_appearance = settings["appearance"]
     for key, value in data.items():
-        if key not in OPTIONS or value not in OPTIONS[key]:
+        if key == "moments" and value in ("true", "false"):
+            value = value == "true"
+        if key not in OPTIONS or type(value) is not type(DEFAULTS[key]) or value not in OPTIONS[key]:
             raise ValueError('Invalid {key}: {value}'.format(key=f'{key}', value=f'{value}'))
         settings[key] = value
     SETTINGS.parent.mkdir(parents=True, exist_ok=True)
@@ -101,9 +104,10 @@ def main():
         elif sys.argv[1:] == ["status"]:
             result = read_settings()
         elif len(sys.argv) == 3 and sys.argv[1] == "get" and sys.argv[2] in OPTIONS:
-            print(read_settings()[sys.argv[2]])
+            value = read_settings()[sys.argv[2]]
+            print(json.dumps(value) if isinstance(value, bool) else value)
             return 0
-        elif len(sys.argv) in {5, 6, 7, 8, 9, 10, 11, 12} and sys.argv[1] == "set-all":
+        elif len(sys.argv) in {5, 6, 7, 8, 9, 10, 11, 12, 13} and sys.argv[1] == "set-all":
             result = save_settings(dict(zip(DEFAULTS, sys.argv[2:])))
         elif len(sys.argv) == 4 and sys.argv[1] == "set":
             result = save_settings({sys.argv[2]: sys.argv[3]})
@@ -115,7 +119,7 @@ def main():
             result = save_settings({key: value})
             apply_live(key, value)
         else:
-            raise ValueError("Usage: bar-settings.py status|set KEY VALUE|set-all APPEARANCE LAYOUT EDGE [PINNED [SCREENS [AUTOHIDE [REDUCE_MOTION [MEDIA_STYLE [DOCK [CLOCK]]]]]]]")
+            raise ValueError("Usage: bar-settings.py status|set KEY VALUE|set-all APPEARANCE LAYOUT EDGE [PINNED [SCREENS [AUTOHIDE [REDUCE_MOTION [MEDIA_STYLE [DOCK [CLOCK [MOMENTS]]]]]]]]")
         print(json.dumps(result))
     except (OSError, ValueError, subprocess.SubprocessError) as error:
         print(error, file=sys.stderr)

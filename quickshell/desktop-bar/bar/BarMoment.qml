@@ -14,7 +14,7 @@ Item {
     readonly property bool level: !!payload && (payload.kind === "volume" || payload.kind === "brightness")
     readonly property real naturalExtent: vertical ? (level ? 92 : 40)
         : level ? 208 : Math.min(320, metrics.width + 68)
-    // Hover suppresses the moment, but a click aimed at its preview still opens it.
+    // Retain a notification click aimed at a fading preview.
     property bool retainAction: false
     property bool actionArmed: false
     onRetainActionChanged: if (!retainAction) actionArmed = false

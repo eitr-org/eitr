@@ -330,6 +330,10 @@
     "Bar item": [
       "distro/store-kinds.json"
     ],
+    "Bar moments": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Battery & Power": [
       "quickshell/desktop-bar/panels/BatteryMenu.qml"
     ],
@@ -393,7 +397,7 @@
       "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "Brightness": [
-      "quickshell/desktop-bar/bar/DynamicMomentSources.qml",
+      "quickshell/desktop-bar/bar/BarMomentSources.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Brightness unavailable": [
@@ -672,7 +676,7 @@
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
     "Connected": [
-      "quickshell/desktop-bar/bar/DynamicMomentSources.qml",
+      "quickshell/desktop-bar/bar/BarMomentSources.qml",
       "quickshell/desktop-bar/components/BluetoothConnector.qml",
       "quickshell/desktop-bar/components/WifiNetworkRow.qml"
     ],
@@ -943,7 +947,7 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Disconnected": [
-      "quickshell/desktop-bar/bar/DynamicMomentSources.qml"
+      "quickshell/desktop-bar/bar/BarMomentSources.qml"
     ],
     "Discover": [
       "quickshell/desktop-bar/store/StoreState.qml"
@@ -1647,7 +1651,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Mute": [
-      "quickshell/desktop-bar/bar/DynamicMomentSources.qml",
+      "quickshell/desktop-bar/bar/BarMomentSources.qml",
       "quickshell/desktop-bar/components/AudioLevelControl.qml",
       "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
@@ -2715,6 +2719,9 @@
     "Show above windows": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
+    "Show brief notifications, levels and song changes in the bar.": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+    ],
     "Show help notifications when a program crashes.": [
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
@@ -3273,7 +3280,7 @@
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Volume": [
-      "quickshell/desktop-bar/bar/DynamicMomentSources.qml",
+      "quickshell/desktop-bar/bar/BarMomentSources.qml",
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"
@@ -3811,6 +3818,10 @@
     ],
     "Back to the first login, files too": [
       "elephant/menu-rows/factory-reset.json"
+    ],
+    "Bar moments": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-moments.lua"
     ],
     "Bars": [
       "elephant/menus/bar-media.lua"
@@ -4975,6 +4986,7 @@
     ],
     "Off": [
       "elephant/menus/bar-lyrics.lua",
+      "elephant/menus/bar-moments.lua",
       "elephant/menus/bar-pinned.lua",
       "elephant/menus/focus.lua",
       "elephant/menus/scrolling-follow-focus.lua",
@@ -4992,6 +5004,7 @@
     ],
     "On": [
       "elephant/menus/bar-lyrics.lua",
+      "elephant/menus/bar-moments.lua",
       "elephant/menus/bar-pinned.lua",
       "elephant/menus/focus.lua",
       "elephant/menus/scrolling-follow-focus.lua",
@@ -5713,6 +5726,9 @@
     "Show a Google, Outlook or iCal calendar beside your reminders": [
       "elephant/menu-rows/calendars.json"
     ],
+    "Show brief notifications, levels and song changes in the bar.": [
+      "elephant/menus/bar-moments.lua"
+    ],
     "Show lyrics only when the player sends them": [
       "elephant/menus/bar-lyrics.lua"
     ],
@@ -6083,6 +6099,9 @@
     ],
     "Use one third of the screen": [
       "tools/choice-lists.json"
+    ],
+    "Use separate volume and brightness popups": [
+      "elephant/menus/bar-moments.lua"
     ],
     "Use the Eitr website's colours": [
       "tools/choice-lists.json"

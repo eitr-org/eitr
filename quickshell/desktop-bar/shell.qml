@@ -109,6 +109,7 @@ ShellRoot {
     property string barMediaStyle: "bars"
     property string barClock: "12h"
     // Drop's online lyrics from LRCLIB, off until the owner allows it.
+    property bool barMoments: true
     property bool barLyrics: false
     // "all" puts a bar on every display; the main one keeps notifications.
     property string barScreens: "main"

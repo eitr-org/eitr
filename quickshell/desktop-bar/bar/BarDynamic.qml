@@ -19,8 +19,7 @@ Item {
     Timer { id: takeItems; interval: 0; onTriggered: dynamic.holding = dynamic.visible }
     Component.onCompleted: if (visible) takeItems.restart()
     Component.onDestruction: { holding = false; state = ""; }
-    readonly property alias moments: moments
-    DynamicMoments { id: moments; host: dynamic.host; barHost: dynamic.barHost; middle: middle; media: media }
+    readonly property var moments: barHost.moments
     readonly property var middleMoment: moments.current && moments.current.kind !== "song" ? moments.current : null
     readonly property var mediaMoment: moments.current && moments.current.kind === "song" ? moments.current : null
     readonly property var surfaces: [leading, media, middle, trailing]
@@ -212,7 +211,7 @@ Item {
             && panel !== barHost.controlCenter && (panel.visible || panel === barHost.pendingPanel))
             || (dynamic.controlCenterOpen && dynamic.controlCenterOwner === "right")
     }
-    DynamicMoment {
+    BarMoment {
         id: clockMoment
         parent: middle
         host: dynamic.host; payload: dynamic.middleMoment
@@ -225,7 +224,7 @@ Item {
             if (entry && entry.kind === "notification") barHost.toggleKind("notifications");
         }
     }
-    DynamicMoment {
+    BarMoment {
         id: songMoment
         parent: media
         host: dynamic.host; payload: dynamic.mediaMoment

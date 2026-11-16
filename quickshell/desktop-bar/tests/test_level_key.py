@@ -34,20 +34,20 @@ class LevelKeyTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         return self.log.read_text().strip()
 
-    def test_all_other_layouts_keep_the_exact_osd_commands(self):
+    def test_disabled_moments_keep_the_exact_osd_commands(self):
         commands = [('volume', 'up', '--output-volume=2 --max-volume=100'),
                     ('volume', 'down', '--output-volume=-2 --max-volume=100'),
                     ('volume', 'mute', '--output-volume=mute-toggle --max-volume=100'),
                     ('brightness', 'up', '--brightness +2'), ('brightness', 'down', '--brightness -2')]
-        for layout in ('unified', 'centered', 'notch', 'islands', 'drop'):
-            self.settings.write_text(json.dumps({'layout': layout}))
+        for layout in ('unified', 'centered', 'notch', 'islands', 'dynamic', 'drop'):
+            self.settings.write_text(json.dumps({'layout': layout, 'moments': False}))
             for kind, action, arguments in commands:
                 with self.subTest(layout=layout, action=action, kind=kind):
                     self.assertEqual(self.run_key(kind, action), 'swayosd-client ' + arguments)
         self.assertFalse((self.folder / 'eitr-level-moment.json').exists())
 
-    def test_dynamic_changes_without_osd_and_publishes_an_event(self):
-        self.settings.write_text(json.dumps({'version': 1, 'layout': 'dynamic'}))
+    def test_enabled_moments_change_levels_without_osd_in_every_layout(self):
+        self.settings.write_text(json.dumps({'version': 1, 'layout': 'dynamic', 'moments': True}))
         self.assertEqual(self.run_key('volume', 'up'), 'wpctl set-volume --limit 1 @DEFAULT_AUDIO_SINK@ 2%+')
         self.assertEqual(self.run_key('volume', 'down'), 'wpctl set-volume --limit 1 @DEFAULT_AUDIO_SINK@ 2%-')
         self.assertEqual(self.run_key('volume', 'mute'), 'wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle')
@@ -58,12 +58,19 @@ class LevelKeyTests(unittest.TestCase):
         self.assertEqual(event['level'], 42)
         self.assertGreater(event['at'], 0)
 
-    def test_focus_missing_invalid_or_future_settings_keep_osd(self):
+    def test_focus_invalid_or_future_settings_keep_osd(self):
         for contents in ('', '{broken', '[]', '{"version":2,"layout":"dynamic"}'):
             self.settings.write_text(contents)
             self.assertTrue(self.run_key('volume', 'up').startswith('swayosd-client'))
         self.settings.unlink()
-        self.assertTrue(self.run_key('brightness', 'down').startswith('swayosd-client'))
+        self.assertTrue(self.run_key('brightness', 'down').startswith('brightnessctl'))
+        for layout in ('unified', 'centered', 'notch', 'islands', 'dynamic', 'drop'):
+            for enabled in (True, False):
+                self.settings.write_text(json.dumps({'layout': layout, 'moments': enabled}))
+                for focused in (True, False):
+                    (self.folder / 'eitr/focus.json').write_text(json.dumps({'enabled': focused}))
+                    osd = self.run_key('volume', 'up').startswith('swayosd-client')
+                    self.assertEqual(osd, not enabled or focused, (layout, enabled, focused))
         self.settings.write_text('{"layout":"dynamic"}')
         (self.folder / 'eitr/focus.json').write_text('{"enabled":true}')
         self.assertTrue(self.run_key('volume', 'up').startswith('swayosd-client'))
