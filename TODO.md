@@ -63,6 +63,13 @@ item says what decides the next step. Remove an item when it ships;
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the
   community index had no entries yet) and its validation workflow. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
+- **Plugin ideas (from Omarchy and Ryoku's popular plugins, 2026-11-15).** Official plugins in
+  `eitr-org/eitr-plugins`, not core features:
+  - Phone and Apple devices: send files, notifications and clipboard to and from a phone
+    (KDE Connect, which also works with iPhones through its iOS app) and AirDrop-style
+    sharing with Macs and iPhones.
+  - Radio globe: browse live radio stations on a spinning globe and play them, beside the
+    existing Lofi Radio.
 
 # 2. To test with the owner
 
