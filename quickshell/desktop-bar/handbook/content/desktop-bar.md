@@ -55,7 +55,7 @@ Click Drop's time pill and the pill itself grows into a dashboard. Drag a page s
 | Page | What it holds |
 | :--- | :--- |
 | Calendar and weather | The weather beside the month. Click the weather for the full forecast and a city search; click a day for its plans and to add a reminder at a time that day. |
-| Media | The cover ringed by bars that follow the music, the song, its lyrics, the controls and a progress bar. Shown while something plays. |
+| Media | The cover ringed by bars that follow the music, the song, its lyrics, the controls and a progress bar. Shown while something plays. A live stream, such as a radio station, shows Live instead of the progress bar and no lyrics. |
 | OBS | Recording and streaming status with pause, stop and go live, a chapter mark, the recordings folder and OBS itself. Shown while OBS is open. |
 | Quick controls | WiFi, Bluetooth, Sound and Microphone open their networks and devices in place; Airplane, Silence, Night Light, Idle Lock, Record and Settings; volume, microphone and (on laptops) brightness. |
 | Timer and focus | A countdown, a stopwatch, or 25-minute focus sessions with 5-minute breaks. It keeps running with the dashboard closed and notifies you at the end. |

@@ -11,7 +11,8 @@ Item {
     required property var player
     required property bool active
     property color foreground: host.fg
-    LyricsSource { id: source; host: lyric.host; player: lyric.player; active: lyric.active }
+    // A live stream (a player that cannot seek) has no song to look up; it shows its title.
+    LyricsSource { id: source; host: lyric.host; player: lyric.player; active: lyric.active && !!lyric.player && lyric.player.canSeek }
     property real position: 0
     Timer {
         interval: 250; repeat: true; triggeredOnStart: true

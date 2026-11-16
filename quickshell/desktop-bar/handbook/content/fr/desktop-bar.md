@@ -59,7 +59,7 @@ Cliquez sur la capsule de l’heure de Goutte et la capsule elle-même grandit e
 | Page | Contenu |
 | :--- | :--- |
 | Calendrier et météo | La météo à côté du mois. Cliquez sur la météo pour les prévisions complètes et la recherche d’une ville ; cliquez sur un jour pour ses rendez-vous et ajouter un rappel à une heure de ce jour. |
-| Médias | La pochette entourée de barres qui suivent la musique, le morceau, ses paroles, les commandes et une barre de progression. Seulement pendant la lecture. |
+| Médias | La pochette entourée de barres qui suivent la musique, le morceau, ses paroles, les commandes et une barre de progression. Seulement pendant la lecture. Un flux en direct, comme une radio, affiche En direct à la place de la barre de progression, sans paroles. |
 | OBS | L’état de l’enregistrement et de la diffusion avec pause, arrêt et passage en direct, un repère de chapitre, le dossier des enregistrements et OBS. Tant qu’OBS est ouvert. |
 | Réglages rapides | WiFi, Bluetooth, Son et Microphone ouvrent sur place leurs réseaux et appareils ; Mode avion, Silence, Éclairage nocturne, Verrouillage d’inactivité, Enregistrer et Paramètres ; volume, microphone et (sur portable) luminosité. |
 | Minuteur et concentration | Un compte à rebours, un chronomètre ou des sessions de concentration de 25 minutes avec 5 minutes de pause. Il continue tableau de bord fermé et vous prévient à la fin. |

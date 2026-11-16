@@ -49,7 +49,7 @@ Ein Klick auf die Uhrzeit-Fläche von Tropfen lässt die Fläche selbst zu einem
 | Seite | Inhalt |
 | :--- | :--- |
 | Kalender und Wetter | Das Wetter neben dem Monat. Ein Klick aufs Wetter zeigt die ganze Vorhersage und eine Ortssuche; ein Klick auf einen Tag zeigt seine Termine und ein Feld für eine Erinnerung an diesem Tag. |
-| Medien | Das Cover, umgeben von Balken im Takt der Musik, der Song, sein Text, die Steuerung und ein Fortschrittsbalken. Nur während etwas läuft. |
+| Medien | Das Cover, umgeben von Balken im Takt der Musik, der Song, sein Text, die Steuerung und ein Fortschrittsbalken. Nur während etwas läuft. Ein Livestream, etwa ein Radiosender, zeigt Live statt des Fortschrittsbalkens und keinen Text. |
 | OBS | Aufnahme- und Streamstatus mit Pause, Stopp und Live gehen, einer Kapitelmarke, dem Aufnahmeordner und OBS selbst. Solange OBS offen ist. |
 | Schnelleinstellungen | WiFi, Bluetooth, Ton und Mikrofon öffnen ihre Netze und Geräte an Ort und Stelle; Flugmodus, Stumm, Nachtlicht, Bildschirmsperre, Aufnahme und Einstellungen; Lautstärke, Mikrofon und (am Laptop) Helligkeit. |
 | Timer und Fokus | Ein Countdown, eine Stoppuhr oder 25-minütige Fokus-Sitzungen mit 5 Minuten Pause. Läuft bei geschlossenem Dashboard weiter und benachrichtigt dich am Ende. |

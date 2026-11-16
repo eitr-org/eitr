@@ -19,11 +19,14 @@ Item {
     required property bool active
     readonly property bool playing: !!player && player.isPlaying
     readonly property real length: player && player.lengthSupported ? Math.max(1, player.length) : 0
+    // A player that cannot seek is playing a live stream, such as a radio station: its
+    // reported length is only what it has buffered, and it has no song to find lyrics for.
+    readonly property bool live: !!player && !player.canSeek
     // The lyrics button first asks before any song is looked up online.
     property bool asking: false
     onActiveChanged: if (!active) asking = false
     required property var host
-    LyricsSource { id: lyricsSource; host: page.host; player: page.player; active: page.active }
+    LyricsSource { id: lyricsSource; host: page.host; player: page.player; active: page.active && !page.live }
     property real position: 0
     implicitHeight: 290
 
@@ -153,7 +156,7 @@ Item {
             anchors.centerIn: lyrics
             width: lyrics.width
             horizontalAlignment: Text.AlignHCenter; wrapMode: Text.Wrap
-            visible: !lyrics.available && !page.asking
+            visible: !lyrics.available && !page.asking && !page.live
             text: lyricsSource.state === "loading" ? Eitr.I18n.tr("Looking for lyrics…")
                 : lyricsSource.state === "none" ? Eitr.I18n.tr("No lyrics found for this song")
                 : lyricsSource.state === "unavailable" ? Eitr.I18n.tr("Lyrics are unavailable right now")
@@ -212,7 +215,7 @@ Item {
                     readonly property bool available: !!player && player.canControl && (
                         modelData.action === "shuffle" ? player.shuffleSupported
                         : modelData.action === "loop" ? player.loopSupported
-                        : modelData.action === "lyrics" ? true
+                        : modelData.action === "lyrics" ? !page.live
                         : modelData.action === "previous" ? player.canGoPrevious
                         : modelData.action === "next" ? player.canGoNext : player.canTogglePlaying)
                     readonly property bool lit: !!player && (modelData.action === "shuffle" ? player.shuffle
@@ -261,8 +264,15 @@ Item {
             property real dragValue: 0
             readonly property bool canSeek: !!page.player && page.player.canControl && page.player.canSeek && page.player.positionSupported && page.length > 0
             readonly property real fraction: page.length > 0 ? Math.max(0, Math.min(1, (pressed ? dragValue : page.position) / page.length)) : 0
+            Text {
+                y: 6; visible: page.live
+                text: "● " + Eitr.I18n.tr("Live")
+                color: page.accent
+                font.family: DesktopFonts.family; font.pixelSize: 11; font.bold: true
+            }
             Rectangle {
                 id: track
+                visible: !page.live
                 y: 4; width: parent.width; height: 4; radius: 2
                 color: Qt.alpha(page.foreground, 0.15)
                 Rectangle { width: parent.width * seek.fraction; height: parent.height; radius: 2; color: page.accent }
@@ -274,12 +284,12 @@ Item {
                 }
             }
             Text {
-                y: 14; text: page.timeLabel(seek.pressed ? seek.dragValue : page.position)
+                y: 14; visible: !page.live; text: page.timeLabel(seek.pressed ? seek.dragValue : page.position)
                 color: page.foreground; opacity: PanelStyle.secondaryTextOpacity
                 font.family: DesktopFonts.family; font.pixelSize: 11; font.features: PanelStyle.tabularFigures
             }
             Text {
-                y: 14; anchors.right: parent.right
+                y: 14; anchors.right: parent.right; visible: !page.live
                 text: page.length > 0 ? page.timeLabel(page.length) : "--:--"
                 color: page.foreground; opacity: PanelStyle.secondaryTextOpacity
                 font.family: DesktopFonts.family; font.pixelSize: 11; font.features: PanelStyle.tabularFigures

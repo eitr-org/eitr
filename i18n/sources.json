@@ -1480,6 +1480,9 @@
     "Link speed": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
+    "Live": [
+      "quickshell/desktop-bar/media/MediaPage.qml"
+    ],
     "Loading...": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/panels/KeyboardLayoutMenu.qml",
