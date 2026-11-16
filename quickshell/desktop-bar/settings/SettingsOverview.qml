@@ -7,6 +7,7 @@ import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 import "../ChoiceLists.js" as ChoiceLists
 import "../JsonState.js" as JsonState
+import "../NetworkStatus.js" as NetworkStatus
 
 Flickable {
     id: overview
@@ -22,11 +23,7 @@ Flickable {
     // Download and upload speed across the network adapters, in bytes per second (null until the second read).
     readonly property var traffic: (DesktopData.topics["throughput.network"] || {}).data || ({})
     function speed(bytes) {
-        if (typeof bytes !== "number") return "—";
-        const units = [Eitr.I18n.tr("%1 B/s"), Eitr.I18n.tr("%1 KB/s"), Eitr.I18n.tr("%1 MB/s"), Eitr.I18n.tr("%1 GB/s")];
-        let unit = 0;
-        while (bytes >= 1000 && unit < units.length - 1) { bytes /= 1000; unit++; }
-        return units[unit].arg(bytes >= 100 || unit === 0 ? Math.round(bytes) : bytes.toFixed(1));
+        return NetworkStatus.speed(bytes, [Eitr.I18n.tr("%1 B/s"), Eitr.I18n.tr("%1 KB/s"), Eitr.I18n.tr("%1 MB/s"), Eitr.I18n.tr("%1 GB/s")]);
     }
     property var themePalette: ({})
     property string version: ""

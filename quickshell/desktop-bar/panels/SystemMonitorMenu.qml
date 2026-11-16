@@ -2,6 +2,7 @@ import ".."
 import Eitr as Eitr
 import QtQuick
 import "../PanelStyle.js" as PanelStyle
+import "../NetworkStatus.js" as NetworkStatus
 import Quickshell
 
 ThemedPopup {
@@ -35,6 +36,23 @@ ThemedPopup {
         });
     }
     onHardwareSnapshotChanged: receiveSnapshot()
+    // Network comes last, from the bar's own network data: speed is read only while the panel is open.
+    property string trafficToken: ""
+    readonly property var traffic: (DesktopData.topics["throughput.network"] || {}).data || ({})
+    readonly property var networkSummary: (DesktopData.topics["network.summary"] || {}).data || ({})
+    function speed(bytes) {
+        return NetworkStatus.speed(bytes, [Eitr.I18n.tr("%1 B/s"), Eitr.I18n.tr("%1 KB/s"), Eitr.I18n.tr("%1 MB/s"), Eitr.I18n.tr("%1 GB/s")]);
+    }
+    readonly property string connection: networkSummary.wired ? Eitr.I18n.tr("Wired")
+        : NetworkStatus.connectionName(networkSummary) || Eitr.I18n.tr("Not connected")
+    readonly property var networkSection: ({
+        title: Eitr.I18n.tr("Network"), icon: "\u{F0200}", name: connection, usage: null,
+        figure: "↓ " + speed(traffic.download),
+        rows: [[Eitr.I18n.tr("Connection"), connection],
+               [Eitr.I18n.tr("Download"), speed(traffic.download)],
+               [Eitr.I18n.tr("Upload"), speed(traffic.upload)],
+               [Eitr.I18n.tr("Adapters"), (traffic.interfaces || []).join(", ") || "—"]]
+    })
     Component.onDestruction: DesktopData.releaseOwner(menu)
     implicitWidth: 468
     implicitHeight: Math.min(content.implicitHeight + verticalContentInset, maximumHeight)
@@ -42,10 +60,13 @@ ThemedPopup {
     onOpenedChanged: {
         if (opened) {
             hardwareToken = DesktopData.observe("hardware.details", menu);
+            trafficToken = DesktopData.observe("throughput.network", menu);
             receiveSnapshot();
         } else {
             DesktopData.release(hardwareToken);
+            DesktopData.release(trafficToken);
             hardwareToken = "";
+            trafficToken = "";
         }
     }
     Flickable {
@@ -67,7 +88,7 @@ ThemedPopup {
             }
             // One big number per component; its details unfold on click.
             Repeater {
-                model: menu.sections
+                model: menu.sections.length ? menu.sections.concat([menu.networkSection]) : []
                 Column {
                     id: section
                     required property var modelData
@@ -95,7 +116,7 @@ ThemedPopup {
                             width: 28
                             anchors.verticalCenter: parent.verticalCenter
                             horizontalAlignment: Text.AlignHCenter
-                            text: menu.sectionIcons[section.modelData.title] || "󰍛"
+                            text: section.modelData.icon || menu.sectionIcons[section.modelData.title] || "󰍛"
                             color: menu.foreground
                             font.family: DesktopFonts.family
                             font.pixelSize: 20
@@ -128,7 +149,8 @@ ThemedPopup {
                             anchors.right: chevron.left
                             anchors.rightMargin: 8
                             anchors.verticalCenter: parent.verticalCenter
-                            text: section.modelData.usage === null ? "--" : Math.round(section.modelData.usage) + "%"
+                            text: section.modelData.figure !== undefined ? section.modelData.figure
+                                : section.modelData.usage === null ? "--" : Math.round(section.modelData.usage) + "%"
                             color: menu.foreground
                             font.family: DesktopFonts.family
                             font.pixelSize: PanelStyle.figureSize

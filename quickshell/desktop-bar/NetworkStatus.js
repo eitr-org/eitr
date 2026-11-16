@@ -16,7 +16,24 @@ function signalGlyph(strength, backend) {
     return icons[index < 0 ? 4 : index];
 }
 
-if (typeof module !== "undefined") module.exports = {glyph, signalGlyph, createOwner};
+// The connected WiFi network's name, "" when none (wired or offline).
+function connectionName(snapshot) {
+    for (const device of (snapshot && snapshot.devices) || []) {
+        const connected = (device.networks || []).find(network => network.connected);
+        if (connected) return connected.name;
+    }
+    return "";
+}
+
+// Bytes per second as text, in decimal units; units holds the translated "%1 B/s" .. "%1 GB/s".
+function speed(bytes, units) {
+    if (typeof bytes !== "number") return "—";
+    let unit = 0;
+    while (bytes >= 1000 && unit < units.length - 1) { bytes /= 1000; unit++; }
+    return units[unit].arg(bytes >= 100 || unit === 0 ? Math.round(bytes) : bytes.toFixed(1));
+}
+
+if (typeof module !== "undefined") module.exports = {glyph, signalGlyph, createOwner, connectionName, speed};
 
 // The same demand and refresh state machine drives the shell and fake readers.
 function createOwner(start, stop, changed) {

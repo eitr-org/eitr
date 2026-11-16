@@ -1,18 +1,22 @@
 {
   "qml": {
     "%1 B/s": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml",
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "%1 GB/s": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml",
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "%1 Hz": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "%1 KB/s": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml",
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "%1 MB/s": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml",
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "%1 cores · %2 threads": [
@@ -100,6 +104,9 @@
     ],
     "Action and description": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
+    ],
+    "Adapters": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
     "Add": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml",
@@ -673,6 +680,9 @@
     "Connecting...": [
       "quickshell/desktop-bar/components/BluetoothConnector.qml"
     ],
+    "Connection": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
+    ],
     "Connection failed; verify credentials and certificate settings": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
@@ -978,6 +988,9 @@
     ],
     "Down": [
       "tools/choice-lists.json"
+    ],
+    "Download": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
     "Drag to any angle, or turn by 45°.": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
@@ -1652,6 +1665,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Network": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml",
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "Network Settings…": [
@@ -1801,6 +1815,7 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Not connected": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Not installed": [
@@ -3185,6 +3200,9 @@
     "Updating": [
       "quickshell/desktop-bar/components/PanelLoadingIndicator.qml"
     ],
+    "Upload": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
+    ],
     "Upside down": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
@@ -3364,6 +3382,9 @@
     ],
     "Windows": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Wired": [
+      "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
     "Workspace": [
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"

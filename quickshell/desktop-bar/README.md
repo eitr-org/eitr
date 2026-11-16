@@ -577,7 +577,7 @@ images and images in the open center are pinned; visible images may exceed
 the budget until hidden. Image retention ends at bar reload as before. `notifications` IPC
 provides `toggle`, `dnd`, `clear`, `clearApp`, and `status`.
 
-Click the Hardware icon to open the shared CPU/GPU/RAM/Storage popup. It refreshes every
+Click the Hardware icon to open the shared CPU/GPU/RAM/Storage/Network popup. It refreshes every
 two seconds while any hardware panel is visible and closes on an outside click or Escape. CPU load,
 cores, frequency and temperature, GPU usage, VRAM and power, and RAM/swap totals
 are read locally. Storage identifies only the drive backing `/`, including

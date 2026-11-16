@@ -6,7 +6,7 @@ Os cartões de notificação mostram a data e a hora locais de chegada abaixo do
 
 Abra Configurações > Sobre para ver versão do Eitr, codinome, canal, kernel e licença, além do processador, da placa de vídeo, da placa-mãe, da memória instalada e de cada unidade conectada com sua capacidade. A visão Sistema mostra seu perfil, o uso atual do hardware e a velocidade da rede (download e upload). Para detalhes de hardware, Uso de IA e clima, clique nos ícones da barra; o Walker também os encontra pelo nome.
 
-**Hardware** mostra CPU, GPU, RAM e armazenamento da unidade que contém `/`; outros discos não entram nesse total. Dados de sensores ou GPU ausentes aparecem como indisponíveis.
+**Hardware** mostra CPU, GPU, RAM e armazenamento da unidade que contém `/`; outros discos não entram nesse total. Dados de sensores ou GPU ausentes aparecem como indisponíveis. **Rede** vem por último: a conexão atual e a velocidade de download e upload dos adaptadores de rede, lidas só enquanto o painel está aberto.
 
 Em Configurações > Sobre, escolha Emblema ou Runas em «Logo do Sobre» para alterar a página Sobre no terminal. A escolha fica salva neste computador e usa Emblema por padrão; ambos seguem a cor de destaque do tema atual.
 

@@ -11,7 +11,9 @@ In Settings > About, choose Emblem or Runes under About logo to change the termi
 
 **Hardware** shows CPU, GPU,
 RAM and storage for the drive backing `/`; other disks are not combined into
-that total. Missing sensor/GPU telemetry is marked unavailable.
+that total. Missing sensor/GPU telemetry is marked unavailable. **Network** comes last: the
+current connection and the download and upload speed of the network adapters, read only
+while the panel is open.
 
 **AI Usage** detects installed/configured clients. Cached usage appears first;
 refresh does not launch sign-in or conversations. It shows each account's

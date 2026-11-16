@@ -28,7 +28,7 @@ shots=Path(os.environ['EITR_PANEL_REVIEW_RENDERS'])
 shots.mkdir(parents=True, exist_ok=True)
 panels={
 'AiUsageMenu':('', 'panel.usage = {providers:[{name:"Claude",accounts:[{label:"Preview",plan:"Pro",windows:[{label:"Session",used:42}]}]}]};'),
-'SystemMonitorMenu':('', 'panel.error=""; panel.sections = [{title:"CPU",usage:23,name:"Fixture CPU",details:[]}];'),
+'SystemMonitorMenu':('', 'panel.error=""; panel.sections = [{title:"CPU",usage:23,name:"Fixture CPU",rows:[]},{title:"Storage",usage:61,name:"Fixture drive",rows:[]}];'),
 'WifiMenu':('networkService: mock', ''), 'BluetoothMenu':('', ''), 'BrightnessMenu':('', ''),
 'AudioMenu':('', ''), 'KeyboardLayoutMenu':('', 'panel.layouts = [{index:0,label:"English (US)",short:"US"},{index:1,label:"Portuguese (Brazil)",short:"BR"}];'),
 'ObsMenu':('', ''), 'RecordingMenu':('controller: mock', 'panel.details={recordingSeconds:42,recordingBytes:3200000};'),

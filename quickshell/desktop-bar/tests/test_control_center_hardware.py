@@ -185,6 +185,7 @@ class HardwareSubscriberTests(unittest.TestCase):
             root = Path(directory)
             (root / 'SystemMonitorMenu.qml').write_text((panel[:panel.index('    Flickable {')] + '}\n').replace('import ".."\n', '').replace('"../', '"'))
             shutil.copy(bar / 'PanelStyle.js', root / 'PanelStyle.js')
+            shutil.copy(bar / 'NetworkStatus.js', root / 'NetworkStatus.js')
             (root / 'ThemedPopup.qml').write_text("""
 import QtQuick
 Item {
@@ -235,7 +236,7 @@ ShellRoot {
                 harness.second = panel.createObject(harness);
                 harness.check(DesktopData.tokens.length === 0, "closed panels have no demand");
                 harness.first.opened = true; harness.second.opened = true;
-                harness.check(DesktopData.tokens.length === 2, "two subscribers");
+                harness.check(DesktopData.tokens.length === 4, "two subscribers, each to hardware and network speed");
                 DesktopData.topics = {"hardware.details": {status: "ready", data: {
                     identity: {cpu: "fixture"}, sections: [{title: "CPU", usage: 75}]}}};
             } else if (harness.phase === 1) {
@@ -245,7 +246,7 @@ ShellRoot {
                 harness.check(harness.first.error === "Hardware information unavailable", "translated error boundary");
                 harness.check(harness.first.sections[0].usage === 75, "retain last sections");
                 harness.first.opened = false;
-                harness.check(DesktopData.tokens.length === 1, "close releases demand");
+                harness.check(DesktopData.tokens.length === 2, "close releases demand");
                 harness.second.destroy();
             } else {
                 harness.check(DesktopData.tokens.length === 0, "destruction releases demand");
