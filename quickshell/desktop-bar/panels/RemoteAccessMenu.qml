@@ -38,7 +38,7 @@ ThemedPopup {
                 menu.openSettings("streaming");
             }
             onActionRequested: function(sourceMenu, source) {
-                menu.opened = false;
+                menu.dismissPopup();
                 Quickshell.execDetached(["python3", Quickshell.shellDir + "/scripts/menu-action.py", sourceMenu, source]);
             }
         }
