@@ -34,6 +34,7 @@ Region {
     IslandMask { surfaces: barHost.islandSurfaces ? barHost.islandSurfaces.children : [] }
     IslandMask { surfaces: barHost.dynamicSurfaces ? barHost.dynamicSurfaces.surfaces : [] }
     IslandMask { surfaces: barHost.dropSurfaces ? barHost.dropSurfaces.surfaces : [] }
+    IslandMask { surfaces: barHost.dropDashboard ? barHost.dropDashboard.railSurfaces : [] }
     CenteredBarMask { surface: barHost.centeredOutline; edge: host.barEdge; depth: barHost.normalThickness; bendRound: host.tabBendRound; straight: host.barSideStyle === "straight" }
     Region { item: host.notchLayout && !FocusMode.enabled ? leadingTabRef : null }
     Region { item: host.notchLayout && !FocusMode.enabled ? notchTabRef : null }

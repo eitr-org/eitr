@@ -4,7 +4,7 @@
 
 La barra completa. El logotipo de Eitr abre el Centro de control; le siguen Vista general, los marcadores de espacios de trabajo, Uso de IA, Hardware y Bloqueo automático. La fecha y la hora quedan centradas, con la multimedia delante y el tiempo detrás. **Mostrar iconos** muestra u oculta los iconos de estado de la derecha; las notificaciones van al final.
 
-Los elementos de plugins pueden aparecer después del bloqueo automático, antes del reloj, después del reloj o en el grupo de estado. Elija la posición en Ajustes > Plugins > el plugin > En la barra. Los límites son cuatro después del bloqueo automático, dos a cada lado del reloj y ocho en estado, por orden de colocación; los elementos adicionales quedan ocultos en la posición elegida. Centered y Dynamic los muestran al expandirse; Tabs e Islands los incluyen; Drop oculta los elementos de plugins de la barra. El reloj permanece centrado en la pantalla. World clock es un plugin oficial opcional que respeta la preferencia de 12/24 horas.
+Los elementos de plugins pueden aparecer después del bloqueo automático, antes del reloj, después del reloj o en el grupo de estado. Elija la posición en Ajustes > Plugins > el plugin > En la barra. Los límites son cuatro después del bloqueo automático, dos a cada lado del reloj y ocho en estado, por orden de colocación; los elementos adicionales quedan ocultos en la posición elegida. Centered y Dynamic los muestran al expandirse; Tabs e Islands los incluyen; Drop muestra los elementos de plugins colocados en el riel del panel. El reloj permanece centrado en la pantalla. World clock es un plugin oficial opcional que respeta la preferencia de 12/24 horas.
 
 Weather es un plugin oficial integrado, instalado por defecto después del reloj. Elimínelo en Eitr Store > Instalados > Plugins para ocultar el tiempo en todas partes, incluida la página de inicio de Drop. Sigue eliminado tras las actualizaciones; vuelva a instalarlo desde Descubrir usando la copia incluida en el paquete, sin descarga. La búsqueda de ciudades es temporal durante la sesión.
 
@@ -53,6 +53,8 @@ Dinámico amplía brevemente sus islas para mostrar notificaciones y miniaturas 
 ## El panel de Gota
 
 Haz clic en la cápsula de la hora de Gota y la propia cápsula crece hasta un panel. Arrastra una página hacia un lado (a la derecha avanza, a la izquierda retrocede, y ambas dan la vuelta) o usa las flechas o el desplazamiento horizontal. Esc o un clic fuera lo cierra. Nada en él abre otro panel: los detalles se abren en el mismo sitio con una flecha para volver.
+
+El riel junto a la tarjeta permite ir directamente a cualquier página disponible; la cápsula seleccionada usa el color de acento. El riel opuesto muestra todos los elementos de plugins colocados, por orden de colocación, con sus propios iconos y descripciones emergentes. Pulse un elemento con panel para abrirlo aquí y use Atrás para volver. Los rieles quedan a izquierda/derecha con barras superiores o inferiores, y arriba/abajo con barras laterales; los espacios dejan pasar los clics. Los rieles largos se desplazan; las cápsulas salen tras abrir y se retraen al cerrar, al instante con Reducir movimiento.
 
 | Página | Qué contiene |
 | :--- | :--- |

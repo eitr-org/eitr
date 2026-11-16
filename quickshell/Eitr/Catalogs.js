@@ -1078,7 +1078,10 @@ var qml = {
     "Runs a background service": "Runs a background service",
     "Source": "Source",
     "Walker rows": "Walker rows",
-    "Widget": "Widget"
+    "Widget": "Widget",
+    "Calendar and weather": "Calendar and weather",
+    "Performance": "Performance",
+    "Quick controls": "Quick controls"
   },
   "pt_BR": {
     "%1 B/s": "%1 B/s",
@@ -2123,7 +2126,10 @@ var qml = {
     "Runs a background service": "Executa um serviço em segundo plano",
     "Source": "Origem",
     "Walker rows": "Linhas do Walker",
-    "Widget": "Widget"
+    "Widget": "Widget",
+    "Calendar and weather": "Calendário e clima",
+    "Quick controls": "Controles rápidos",
+    "Performance": "Desempenho"
   },
   "es": {
     "%1 B/s": "%1 B/s",
@@ -3168,7 +3174,10 @@ var qml = {
     "Runs a background service": "Ejecuta un servicio en segundo plano",
     "Source": "Origen",
     "Walker rows": "Filas de Walker",
-    "Widget": "Widget"
+    "Widget": "Widget",
+    "Calendar and weather": "Calendario y tiempo",
+    "Quick controls": "Controles rápidos",
+    "Performance": "Rendimiento"
   },
   "de": {
     "%1 B/s": "%1 B/s",
@@ -4213,7 +4222,10 @@ var qml = {
     "Runs a background service": "Führt einen Hintergrunddienst aus",
     "Source": "Quelle",
     "Walker rows": "Walker-Einträge",
-    "Widget": "Widget"
+    "Widget": "Widget",
+    "Calendar and weather": "Kalender und Wetter",
+    "Quick controls": "Schnellsteuerung",
+    "Performance": "Leistung"
   },
   "fr": {
     "%1 B/s": "%1 o/s",
@@ -5258,7 +5270,10 @@ var qml = {
     "Runs a background service": "Exécute un service en arrière-plan",
     "Source": "Source",
     "Walker rows": "Lignes Walker",
-    "Widget": "Widget"
+    "Widget": "Widget",
+    "Calendar and weather": "Calendrier et météo",
+    "Quick controls": "Commandes rapides",
+    "Performance": "Performances"
   },
   "ja": {
     "%1 B/s": "%1 B/s",
@@ -6303,7 +6318,10 @@ var qml = {
     "Runs a background service": "バックグラウンドサービスを実行",
     "Source": "提供元",
     "Walker rows": "Walkerの行",
-    "Widget": "ウィジェット"
+    "Widget": "ウィジェット",
+    "Calendar and weather": "カレンダーと天気",
+    "Quick controls": "クイック操作",
+    "Performance": "パフォーマンス"
   },
   "zh_CN": {
     "%1 B/s": "%1 B/s",
@@ -7348,7 +7366,10 @@ var qml = {
     "Runs a background service": "运行后台服务",
     "Source": "来源",
     "Walker rows": "Walker 行",
-    "Widget": "小组件"
+    "Widget": "小组件",
+    "Calendar and weather": "日历与天气",
+    "Quick controls": "快捷控制",
+    "Performance": "性能"
   },
   "ko": {
     "%1 B/s": "%1 B/s",
@@ -8393,6 +8414,9 @@ var qml = {
     "Runs a background service": "백그라운드 서비스 실행",
     "Source": "출처",
     "Walker rows": "Walker 행",
-    "Widget": "위젯"
+    "Widget": "위젯",
+    "Calendar and weather": "달력과 날씨",
+    "Quick controls": "빠른 제어",
+    "Performance": "성능"
   }
 };

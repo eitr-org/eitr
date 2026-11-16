@@ -167,7 +167,7 @@ four panes per monitor and a thin Quickshell tab strip. Turning it off restores
 the normal bar and effects, spreading windows two per workspace. See the
 [Focus Handbook chapter](quickshell/desktop-bar/handbook/content/focus.md) for keys, monitor behavior and recovery.
 
-The desktop bar offers Full, Centered, Tabs, Islands, Dynamic and Drop layouts. Dynamic has independently expanding islands with a screen-centred clock and brief notification, level, song, Bluetooth and keyboard moments; see [Desktop Bar](quickshell/desktop-bar/README.md).
+The desktop bar offers Full, Centered, Tabs, Islands, Dynamic and Drop layouts; Drop’s dashboard has page and plugin rails, with plugin panels opening in place. Dynamic has independently expanding islands with a screen-centred clock and brief notification, level, song, Bluetooth and keyboard moments; see [Desktop Bar](quickshell/desktop-bar/README.md).
 
 Settings (**SUPER + ,**) provides System, Desktop and Devices pages with shared
 inline controls, plus Keybinds, Default apps, Users (accounts, your picture and password), Security,

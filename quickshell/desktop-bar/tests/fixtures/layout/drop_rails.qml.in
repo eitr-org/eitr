@@ -1,0 +1,110 @@
+            Bar.DropDashboard {
+                id: dashboard
+                parent: bar
+                target: shell.verticalBar ? clockVertical : clock
+                barEdge: shell.barEdge
+                barHost: bar; player: null
+                foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
+            }
+            Bar.IslandMask { id: railMask; surfaces: dashboard.railSurfaces }
+            function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+            function buttons(root) {
+                let result = root.spaceClicks !== undefined ? [root] : [];
+                for (const child of root.children || []) result = result.concat(buttons(child));
+                return result;
+            }
+            function checkRails() {
+                const pages = find(dashboard, "dropPageRail"), plugins = find(dashboard, "dropPluginRail");
+                if (pages.entries.map(entry => entry.id).join() !== dashboard.pages.join()) throw new Error("Wrong available pages/order");
+                if (plugins.entries.length !== (PLUGINS ? 4 : 0) || plugins.visible !== PLUGINS) throw new Error("Wrong placed plugins");
+                if (pages.horizontal !== shell.verticalBar) throw new Error("Rail axis wrong");
+                for (const region of railMask.regions) {
+                    if (!region.item) continue;
+                    const item = region.item, position = item.mapToItem(bar, 0, 0);
+                    if (position.x < 0 || position.y < 0 || position.x + item.width > bar.width || position.y + item.height > bar.height) throw new Error("Rail outside screen");
+                    const at = item.mapToItem(dashboard, 0, 0);
+                    if (shell.verticalBar ? at.y >= 0 && at.y < dashboard.height : at.x >= 0 && at.x < dashboard.width) throw new Error("Rail overlaps card");
+                }
+                const live = railMask.regions.filter(region => region.item);
+                if (live.length !== pages.entries.length + plugins.entries.length) throw new Error("Pill missing from input region: " + live.length);
+                const pageButtons = buttons(pages);
+                if (pageButtons.length !== pages.entries.length) throw new Error("Page buttons missing");
+                for (let index = 0; index < pageButtons.length; index++) {
+                    const button = pageButtons[index];
+                    pointer.mouseClick(button, button.width / 2, button.height / 2, Qt.LeftButton, Qt.NoModifier, 1);
+                    if (pages.current !== dashboard.page || dashboard.page !== pages.entries[index].id) throw new Error("Page click lost selection");
+                }
+                pointer.keyClick(Qt.Key_Right, Qt.NoModifier, 1);
+                if (dashboard.page !== "home" || pages.current !== "home") throw new Error("Rail focus blocked keyboard navigation");
+                dashboard.player = ({}); bar.obsMenu = {obsState: {recording: true}};
+                if (dashboard.pages.slice(0, 3).join() !== "home,media,obs") throw new Error("Optional pages missing");
+                if (pages.entries.map(entry => entry.id).join() !== dashboard.pages.join()) throw new Error("Optional rail order wrong");
+                dashboard.player = null; bar.obsMenu = {obsState:{}};
+                dashboard.go("home", 1);
+            }
+            TestEvent { id: pointer }
+            Component.onCompleted: {
+                Bar.DesktopStyle.reduceMotion = true;
+                const slots = ["start", "clock", "clockEnd", "status"];
+                Bar.PluginRegistry.entries = slots.map((slot, index) => ({kind:"barItems", plugin:"aurora", id:"item-" + index, title:"Aurora", source:PLUGIN_SOURCE, qml:"Sample.qml", disabled:false, icon:"󰥔", panel:index === 3 ? "" : "main"})).concat([
+                    {kind:"panels", plugin:"aurora", id:"main", title:"Aurora", disabled:false, icon:"󰥔", source:PANEL_SOURCE, qml:"SamplePanel.qml", width:720, maxHeight:280},
+                    {kind:"panels", plugin:"aurora", id:"nested", title:"Aurora details", disabled:false, icon:"󰥔", source:PANEL_SOURCE, qml:"SamplePanel.qml", width:680, maxHeight:200}]);
+                Bar.PluginRegistry.placements = {barItems:PLUGINS ? slots.map((slot, index) => ({plugin:"aurora", id:"item-" + index, slot:slot})) : [], widgets:[]};
+                dashboard.opened = true;
+            }
+            property int phase: 0
+            Timer {
+                id: steps; interval: 650; running: true; repeat: true
+                onTriggered: {
+                    try {
+                        if (bar.phase === 0) {
+                            bar.checkRails();
+                            bar.grabToImage(result => {
+                            result.saveToFile(CAPTURE + ".png");
+                            if (PLUGINS) {
+                                const rail = bar.find(dashboard, "dropPluginRail");
+                                // Click the plugin's actual PluginComponent surface.
+                                function host(root) { if (root.activate !== undefined) return root; for (const child of root.children || []) { const found = host(child); if (found) return found; } return null; }
+                                const item = host(rail);
+                                const passive = (function last(root) {
+                                    let result = root.activate !== undefined && !root.entry.panel ? root : null;
+                                    for (const child of root.children || []) result = last(child) || result;
+                                    return result;
+                                })(rail);
+                                pointer.mouseClick(passive, passive.width / 2, passive.height / 2, Qt.LeftButton, Qt.NoModifier, 1);
+                                if (dashboard.pluginEntry) throw new Error("Item without panel opened one");
+                                if (!item || item.detail !== "Ready" || !item.live) throw new Error("Plugin bar QML not loaded/observed");
+                                pointer.mouseClick(item, item.width / 2, item.height / 2, Qt.LeftButton, Qt.NoModifier, 1);
+                                if (!dashboard.pluginEntry || dashboard.pluginEntry.id !== "main") throw new Error("Plugin did not open in place");
+                            }
+                            });
+                        } else if (bar.phase === 1) {
+                            if (PLUGINS) {
+                                const panel = bar.find(dashboard, "samplePluginPanel");
+                                if (!panel || !panel.observed || dashboard.width !== Math.min(720, bar.width - dashboard.exteriorInsets[1] - dashboard.exteriorInsets[3] - 24)) throw new Error("Panel loader/manifest width failed: " + dashboard.width);
+                                bar.grabToImage(result => {
+                                result.saveToFile(CAPTURE + "-plugin.png");
+                                dashboard.openPlugin("aurora", "nested", true);
+                                if (dashboard.pluginHistory.length !== 1 || !dashboard.backPlugin() || dashboard.pluginEntry.id !== "main") throw new Error("Nested plugin back failed");
+                                const back = bar.find(dashboard, "dropPluginBack");
+                                pointer.mouseClick(back, back.width / 2, back.height / 2, Qt.LeftButton, Qt.NoModifier, 1);
+                                if (dashboard.pluginEntry || dashboard.page !== "home") throw new Error("Back did not restore dashboard");
+                                });
+                            }
+                        } else if (bar.phase === 2) {
+                            dashboard.step(-1);
+                            if (dashboard.page !== "notifications") throw new Error("Wrap navigation failed");
+                            dashboard.step(1);
+                            if (dashboard.page !== "home") throw new Error("Forward navigation failed");
+                            dashboard.opened = false;
+                        } else {
+                            if (railMask.regions.some(region => region.item)) throw new Error("Closed rails take input");
+                            console.log("DROP_RAILS_OK"); Qt.quit(); stop();
+                        }
+                        bar.phase++;
+                    } catch (error) { console.error(error); Qt.exit(1); }
+                }
+            }
+        }
+    }
+}

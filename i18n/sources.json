@@ -68,6 +68,7 @@
     "AI Usage": [
       "quickshell/desktop-bar/bar/BarLeftGroup.qml",
       "quickshell/desktop-bar/bar/BarVerticalPlacement.qml",
+      "quickshell/desktop-bar/drop/DropRails.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
@@ -309,6 +310,7 @@
       "quickshell/desktop-bar/components/DayAgenda.qml",
       "quickshell/desktop-bar/drop/DropAiPage.qml",
       "quickshell/desktop-bar/drop/DropControlsPage.qml",
+      "quickshell/desktop-bar/drop/DropPluginPage.qml",
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml",
       "quickshell/desktop-bar/panels/AssistantChat.qml",
       "quickshell/desktop-bar/plugins/PluginArea.qml",
@@ -423,6 +425,9 @@
     ],
     "Calendar": [
       "quickshell/desktop-bar/bar/ClockButton.qml"
+    ],
+    "Calendar and weather": [
+      "quickshell/desktop-bar/drop/DropRails.qml"
     ],
     "Cancel": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
@@ -1578,6 +1583,7 @@
     ],
     "Media": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
+      "quickshell/desktop-bar/drop/DropRails.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml"
     ],
@@ -1852,6 +1858,7 @@
     ],
     "Notifications": [
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/drop/DropRails.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/notifications/NotificationList.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js",
@@ -1867,6 +1874,7 @@
     "OBS Studio": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/drop/DropRails.qml",
       "quickshell/desktop-bar/panels/ObsMenu.qml"
     ],
     "OBS command failed": [
@@ -2108,6 +2116,9 @@
     "Pending updates: %1": [
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
+    "Performance": [
+      "quickshell/desktop-bar/drop/DropRails.qml"
+    ],
     "PgUp/PgDn to scroll · Escape or × to close": [
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
@@ -2223,6 +2234,9 @@
     "Quick Actions": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
+    ],
+    "Quick controls": [
+      "quickshell/desktop-bar/drop/DropRails.qml"
     ],
     "Quickshell reload failed": [
       "quickshell/desktop-bar/components/ReloadErrorPopup.qml"
@@ -3059,6 +3073,7 @@
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
     ],
     "Timer & Focus": [
+      "quickshell/desktop-bar/drop/DropRails.qml",
       "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Timer finished": [

@@ -4,7 +4,7 @@
 
 A barra completa. O logotipo do Eitr abre a Central de controle; depois vêm Visão geral, os marcadores de espaços de trabalho, Uso de IA, Hardware e Bloqueio automático. A data e a hora ficam centralizadas, com a mídia antes e o clima depois. **Mostrar ícones** exibe ou oculta os ícones de status à direita; as notificações ficam por último.
 
-Os itens de plugins podem aparecer após Bloqueio automático, antes do relógio, após o relógio ou no grupo de status. Escolha a posição em Configurações > Plugins > o plugin > Na barra. Os limites são quatro após Bloqueio automático, dois de cada lado do relógio e oito no status, na ordem de posicionamento; os itens extras ficam ocultos na posição escolhida. Centered e Dynamic os revelam quando expandidos; Tabs e Islands os incluem; Drop oculta os itens de plugins na barra. O relógio permanece centralizado na tela. World clock é um plugin oficial opcional que segue a preferência de 12/24 horas da barra.
+Os itens de plugins podem aparecer após Bloqueio automático, antes do relógio, após o relógio ou no grupo de status. Escolha a posição em Configurações > Plugins > o plugin > Na barra. Os limites são quatro após Bloqueio automático, dois de cada lado do relógio e oito no status, na ordem de posicionamento; os itens extras ficam ocultos na posição escolhida. Centered e Dynamic os revelam quando expandidos; Tabs e Islands os incluem; Drop mostra os itens de plugins posicionados no trilho do painel. O relógio permanece centralizado na tela. World clock é um plugin oficial opcional que segue a preferência de 12/24 horas da barra.
 
 Weather é um plugin oficial integrado, instalado por padrão após o relógio. Remova-o em Eitr Store > Instalados > Plugins para ocultar o clima em todos os lugares, inclusive na página inicial de Drop. Ele continua removido após atualizações; instale-o novamente em Descobrir usando a cópia do pacote, sem download. A busca de cidades é temporária e dura apenas a sessão.
 
@@ -53,6 +53,8 @@ O Dinâmico expande brevemente suas ilhas para mostrar notificações e miniatur
 ## O painel da Gota
 
 Clique na cápsula da hora da Gota e a própria cápsula cresce até um painel. Arraste uma página para o lado (para a direita avança, para a esquerda volta, e as duas dão a volta) ou use as setas ou a rolagem horizontal. Esc ou um clique fora fecha. Nada nele abre outro painel: os detalhes abrem no mesmo lugar com uma seta para voltar.
+
+O trilho de páginas ao lado do cartão leva diretamente a qualquer página disponível; a cápsula selecionada usa a cor de destaque. O trilho oposto mostra todos os itens de plugins posicionados na barra, na ordem de posicionamento, com seus próprios ícones e dicas. Clique em um item com painel para abri-lo aqui e use Voltar para retornar. Os trilhos ficam à esquerda/direita nas barras superiores ou inferiores e acima/abaixo nas barras laterais, com espaços que deixam os cliques passar. Trilhos longos rolam; as cápsulas deslizam após a abertura e recolhem ao fechar, instantaneamente com Reduzir movimento.
 
 | Página | O que tem |
 | :--- | :--- |

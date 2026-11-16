@@ -4,7 +4,7 @@
 
 The Full bar. The Eitr logo opens Control Center; Overview, the workspace markers, AI Usage, Hardware and Idle Lock follow it. The date and time stay centered, with media before them and the weather after them. **Show Icons** reveals or hides the status icons on the right; Notifications come last.
 
-Plugin bar items can appear after Idle Lock, before the clock, after the clock or in the status group. Choose a position in Settings > Plugins > the plugin > On the bar. The limits are four after Idle Lock, two on each side of the clock and eight in status, in placement order; extra items stay hidden in their chosen position. Centered and Dynamic reveal them while expanded; Tabs and Islands include them; Drop hides bar plugin items. The clock stays screen-centred. World clock is an optional official plugin and follows the bar's 12/24-hour preference.
+Plugin bar items can appear after Idle Lock, before the clock, after the clock or in the status group. Choose a position in Settings > Plugins > the plugin > On the bar. The limits are four after Idle Lock, two on each side of the clock and eight in status, in placement order; extra items stay hidden in their chosen position. Centered and Dynamic reveal them while expanded; Tabs and Islands include them; Drop shows placed plugin items in its dashboard rail. The clock stays screen-centred. World clock is an optional official plugin and follows the bar's 12/24-hour preference.
 
 Weather is an official, built-in plugin, installed by default after the clock. Remove it in Eitr Store > Installed > Plugins to hide weather everywhere, including Drop's home page. It stays removed after updates; install it again from Discover using the bundled copy, with no download. Its city search remains temporary for the session.
 
@@ -51,6 +51,8 @@ Dynamic briefly grows its islands for notification previews and screenshot thumb
 ## Drop's dashboard
 
 Click Drop's time pill and the pill itself grows into a dashboard. Drag a page sideways (right goes forward, left back, both wrap), or use the arrow keys or horizontal scrolling. Esc or a click outside closes it. Nothing on it opens another panel: details open in place with a back arrow.
+
+The page rail beside the card jumps directly to any available page; the selected pill uses the accent colour. The opposite rail shows all placed plugin bar items in placement order, with their own icons and tooltips. Click an item with a panel to open it here, then use Back to return. Rails sit left/right for top or bottom bars and above/below for side bars, with gaps that pass clicks through. Long rails scroll; pills slide out after opening and retract on closing, instantly with Reduce motion.
 
 | Page | What it holds |
 | :--- | :--- |

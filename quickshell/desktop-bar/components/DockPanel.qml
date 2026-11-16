@@ -13,6 +13,8 @@ Item {
     property string attachmentEdge: "top"
     property string alignment: "right"
     property real leadingOffset: 0
+    // Optional controls outside the panel need room on screen without enlarging its card.
+    property var exteriorInsets: [0, 0, 0, 0]
     function openSettings(destination) {
         if (embedded) return;
         if (hostWindow && hostWindow.host) hostWindow.host.showSettings(destination);
@@ -165,8 +167,8 @@ Item {
     // kept a stale window when the bar's screen was unplugged, and Qt crashed on it.
     parent: inlineParent || (hostWindow && (opened || revealProgress > 0) ? hostWindow.contentItem : null)
     z: 100
-    width: detached && parent && strip ? Math.min(desiredWidth, parent.width - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout || hostWindow.dropLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "left" ? edgeInsets[1] : edgeInsets[3]) : edgeInsets[1] + edgeInsets[3])) : desiredWidth
-    height: detached && parent && strip ? Math.min(desiredHeight, parent.height - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout || hostWindow.dropLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "top" ? edgeInsets[2] : edgeInsets[0]) : edgeInsets[0] + edgeInsets[2])) : desiredHeight
+    width: detached && parent && strip ? Math.min(desiredWidth, parent.width - exteriorInsets[1] - exteriorInsets[3] - (attachmentEdge === "left" || attachmentEdge === "right" ? strip.width + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout || hostWindow.dropLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "left" ? edgeInsets[1] : edgeInsets[3]) : edgeInsets[1] + edgeInsets[3])) : desiredWidth
+    height: detached && parent && strip ? Math.min(desiredHeight, parent.height - exteriorInsets[0] - exteriorInsets[2] - (attachmentEdge === "top" || attachmentEdge === "bottom" ? strip.height + attachmentGap + ((hostWindow.islandsLayout || hostWindow.dynamicLayout || hostWindow.dropLayout) ? hostWindow.islandGap : 0) + (attachmentEdge === "top" ? edgeInsets[2] : edgeInsets[0]) : edgeInsets[0] + edgeInsets[2])) : desiredHeight
     PanelSizeBehavior on width { ownerPanel: panel }
     PanelSizeBehavior on height { ownerPanel: panel }
     x: {

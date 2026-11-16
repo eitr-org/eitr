@@ -293,3 +293,6 @@ BeautifyContent capture/BeautifyContent.qml
 DynamicMoment 1.0 bar/DynamicMoment.qml
 DynamicMoments 1.0 bar/DynamicMoments.qml
 DynamicMomentSources 1.0 bar/DynamicMomentSources.qml
+DropRail 1.0 drop/DropRail.qml
+DropRails 1.0 drop/DropRails.qml
+DropPluginPage 1.0 drop/DropPluginPage.qml

@@ -4,7 +4,7 @@ Ces commandes sont également disponibles directement dans les paramètres.
 
 <!-- eitr-figure: bar-anatomy -->
 
-Les éléments de plugins peuvent apparaître après le verrouillage automatique, avant ou après l’horloge, ou dans le groupe d’état. Choisissez leur position dans Paramètres > Plugins > le plugin > Dans la barre. Les limites sont de quatre après le verrouillage automatique, deux de chaque côté de l’horloge et huit dans l’état, selon l’ordre de placement ; les éléments supplémentaires restent masqués à leur position choisie. Centered et Dynamic les révèlent une fois développés ; Tabs et Islands les incluent ; Drop masque les éléments de plugins de la barre. L’horloge reste centrée sur l’écran. World clock est un plugin officiel facultatif qui suit le format 12/24 heures de la barre.
+Les éléments de plugins peuvent apparaître après le verrouillage automatique, avant ou après l’horloge, ou dans le groupe d’état. Choisissez leur position dans Paramètres > Plugins > le plugin > Dans la barre. Les limites sont de quatre après le verrouillage automatique, deux de chaque côté de l’horloge et huit dans l’état, selon l’ordre de placement ; les éléments supplémentaires restent masqués à leur position choisie. Centered et Dynamic les révèlent une fois développés ; Tabs et Islands les incluent ; Drop affiche les éléments de plugins placés dans le rail du tableau de bord. L’horloge reste centrée sur l’écran. World clock est un plugin officiel facultatif qui suit le format 12/24 heures de la barre.
 
 Weather est un plugin officiel intégré, installé par défaut après l’horloge. Supprimez-le dans Eitr Store > Installés > Plugins pour masquer la météo partout, y compris sur l’accueil de Drop. Il reste supprimé après les mises à jour ; réinstallez-le depuis Découvrir avec la copie du paquet, sans téléchargement. La recherche de villes reste temporaire pour la session.
 
@@ -55,6 +55,8 @@ Dynamique agrandit brièvement ses îlots pour les notifications et miniatures d
 ## Le tableau de bord de Goutte
 
 Cliquez sur la capsule de l’heure de Goutte et la capsule elle-même grandit en tableau de bord. Faites glisser une page sur le côté (vers la droite pour avancer, vers la gauche pour revenir, en boucle) ou utilisez les flèches ou le défilement horizontal. Échap ou un clic à côté le ferme. Rien n’y ouvre un autre panneau : les détails s’ouvrent sur place avec une flèche de retour.
+
+Le rail près de la carte permet de rejoindre directement chaque page disponible ; la capsule sélectionnée utilise la couleur d’accent. Le rail opposé affiche tous les éléments de plugins placés, dans leur ordre de placement, avec leurs propres icônes et infobulles. Cliquez sur un élément doté d’un panneau pour l’ouvrir ici, puis utilisez Retour. Les rails se trouvent à gauche/droite pour une barre en haut ou en bas, et au-dessus/en dessous pour une barre latérale ; les espaces laissent passer les clics. Les longs rails défilent ; les capsules sortent après l’ouverture et se rétractent à la fermeture, instantanément avec Réduire les animations.
 
 | Page | Contenu |
 | :--- | :--- |

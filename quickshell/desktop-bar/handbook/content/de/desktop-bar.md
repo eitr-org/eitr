@@ -4,7 +4,7 @@
 
 Die volle Leiste. Das Eitr-Logo öffnet das Kontrollzentrum; danach folgen Übersicht, Arbeitsflächenmarkierungen, KI-Nutzung, Hardware und automatische Sperre. Datum und Uhrzeit bleiben mittig, die Medien davor und das Wetter dahinter. **Symbole anzeigen** blendet die Statussymbole rechts ein oder aus; die Benachrichtigungen stehen ganz am Ende.
 
-Plugin-Elemente können nach der Leerlaufsperre, vor oder nach der Uhr oder in der Statusgruppe erscheinen. Wählen Sie die Position unter Einstellungen > Plugins > das Plugin > In der Leiste. Die Grenzen betragen vier nach der Leerlaufsperre, zwei auf jeder Seite der Uhr und acht im Statusbereich, in Platzierungsreihenfolge; weitere Elemente bleiben an ihrer gewählten Position verborgen. Centered und Dynamic zeigen sie im erweiterten Zustand; Tabs und Islands enthalten sie; Drop blendet Plugin-Elemente in der Leiste aus. Die Uhr bleibt in der Bildschirmmitte. World clock ist ein optionales offizielles Plugin und folgt dem 12-/24-Stundenformat der Leiste.
+Plugin-Elemente können nach der Leerlaufsperre, vor oder nach der Uhr oder in der Statusgruppe erscheinen. Wählen Sie die Position unter Einstellungen > Plugins > das Plugin > In der Leiste. Die Grenzen betragen vier nach der Leerlaufsperre, zwei auf jeder Seite der Uhr und acht im Statusbereich, in Platzierungsreihenfolge; weitere Elemente bleiben an ihrer gewählten Position verborgen. Centered und Dynamic zeigen sie im erweiterten Zustand; Tabs und Islands enthalten sie; Drop zeigt platzierte Plugin-Elemente in der Seitenleiste des Dashboards. Die Uhr bleibt in der Bildschirmmitte. World clock ist ein optionales offizielles Plugin und folgt dem 12-/24-Stundenformat der Leiste.
 
 Weather ist ein offizielles integriertes Plugin und wird standardmäßig nach der Uhr installiert. Entfernen Sie es unter Eitr Store > Installiert > Plugins, um das Wetter überall auszublenden, auch auf Drops Startseite. Es bleibt nach Updates entfernt; unter Entdecken kann es ohne Download aus der Paketkopie erneut installiert werden. Die Stadtsuche gilt nur für die Sitzung.
 
@@ -45,6 +45,8 @@ Dynamisch vergrößert seine Inseln kurz für Benachrichtigungsvorschauen und Bi
 ## Das Dashboard von Tropfen
 
 Ein Klick auf die Uhrzeit-Fläche von Tropfen lässt die Fläche selbst zu einem Dashboard wachsen. Ziehe eine Seite zur Seite (rechts vorwärts, links zurück, beides im Kreis) oder nutze die Pfeiltasten oder horizontales Scrollen. Esc oder ein Klick daneben schließt es. Nichts darin öffnet ein anderes Panel: Details öffnen sich an Ort und Stelle mit einem Zurück-Pfeil.
+
+Die Seitenleiste neben der Karte führt direkt zu jeder verfügbaren Seite; die ausgewählte Kapsel nutzt die Akzentfarbe. Gegenüber erscheinen alle platzierten Plugin-Elemente in Platzierungsreihenfolge mit ihren eigenen Symbolen und Kurzinfos. Ein Klick auf ein Element mit Panel öffnet es hier; Zurück führt wieder zum Dashboard. Bei Leisten oben oder unten liegen die Reihen links/rechts, bei seitlichen Leisten darüber/darunter. Lücken lassen Klicks durch. Lange Reihen lassen sich scrollen; die Kapseln gleiten nach dem Öffnen heraus und beim Schließen zurück, bei reduzierter Bewegung sofort.
 
 | Seite | Inhalt |
 | :--- | :--- |

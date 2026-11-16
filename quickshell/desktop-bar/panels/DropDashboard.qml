@@ -13,8 +13,36 @@ ThemedPopup {
     required property var barHost
     required property var player
     centered: true
-    implicitWidth: 580
-    implicitHeight: content.implicitHeight + verticalContentInset
+    Keys.onLeftPressed: step(-1)
+    Keys.onRightPressed: step(1)
+    Keys.onEscapePressed: if (!backPlugin()) opened = false
+    implicitWidth: Math.max(580, pluginEntry && pluginEntry.width ? pluginEntry.width : 0)
+    implicitHeight: Math.max(viewport.current.implicitHeight + verticalContentInset, verticalAttachment ? 0 : Math.min(rails.minimumLength, 620))
+    exteriorInsets: verticalAttachment ? [rails.reserve, 0, rails.reserve, 0] : [0, rails.reserve, 0, rails.reserve]
+    readonly property var railSurfaces: rails.inputSurfaces
+    property Item railItem: DropRails { id: rails; parent: dashboard; owner: dashboard; z: -1 }
+    property var pluginEntry: null
+    property var pluginHistory: []
+    function openPlugin(plugin, panel, remember) {
+        const entry = PluginRegistry.entries.find(candidate => candidate.plugin === plugin && candidate.id === panel && candidate.kind === "panels" && !candidate.disabled);
+        if (!entry) return;
+        pluginHistory = remember && pluginEntry ? pluginHistory.concat([pluginEntry]) : [];
+        pluginEntry = entry;
+    }
+    function backPlugin() {
+        if (!pluginEntry) return false;
+        pluginEntry = pluginHistory.length ? pluginHistory[pluginHistory.length - 1] : null;
+        pluginHistory = pluginHistory.slice(0, -1);
+        return true;
+    }
+    escapeHandler: backPlugin
+    property Connections pluginChanges: Connections {
+        target: PluginRegistry
+        function onEntriesChanged() {
+            dashboard.pluginHistory = [];
+            if (dashboard.pluginEntry) dashboard.pluginEntry = PluginRegistry.entries.find(candidate => candidate.plugin === dashboard.pluginEntry.plugin && candidate.id === dashboard.pluginEntry.id && candidate.kind === "panels" && !candidate.disabled) || null;
+        }
+    }
     property date now: new Date()
     // Pages start their data reads only once the card has finished growing (like the
     // Control Center): results arriving mid-animation would rebuild it and make it stutter.
@@ -46,7 +74,7 @@ ThemedPopup {
         pendingDay = day;
         show("home");
     }
-    onOpenedChanged: if (opened) { page = startPage; startPage = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; home.selectedDay = null; home.weatherOpen = false; if (pendingDay) { home.selectedDay = pendingDay; pendingDay = null; } }
+    onOpenedChanged: { pluginEntry = null; pluginHistory = []; if (opened) { page = startPage; startPage = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; home.selectedDay = null; home.weatherOpen = false; if (pendingDay) { home.selectedDay = pendingDay; pendingDay = null; } } }
     onPagesChanged: if (pages.indexOf(page) < 0) page = "home"
 
     function neighbour(direction) {
@@ -54,6 +82,7 @@ ThemedPopup {
     }
     // Forward (1) brings the next page in from the left, as a drag to the right does.
     function go(target, direction) {
+        pluginEntry = null; pluginHistory = [];
         if (target === page || pages.length < 2) return;
         const side = direction > 0 ? -1 : 1;
         otherPage = page;
@@ -77,16 +106,22 @@ ThemedPopup {
             id: viewport
             width: parent.width
             clip: true
-            readonly property Item current: ({home: home, media: media, obs: obs, controls: controls, timer: timer, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
-            height: current.implicitHeight
+            readonly property Item current: dashboard.pluginEntry ? pluginPage : ({home: home, media: media, obs: obs, controls: controls, timer: timer, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
+            height: Math.min(current.implicitHeight, Math.max(0, dashboard.height - dashboard.verticalContentInset))
             Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
             function place(id) {
                 return id === dashboard.page ? dashboard.shift : dashboard.shift + dashboard.otherSide * dashboard.span;
             }
             function shown(id) {
-                return id === dashboard.page || (id === dashboard.otherPage && (slide.running || drag.active));
+                return !dashboard.pluginEntry && (id === dashboard.page || (id === dashboard.otherPage && (slide.running || drag.active)));
             }
 
+            DropPluginPage {
+                id: pluginPage
+                visible: !!dashboard.pluginEntry
+                width: viewport.width
+                owner: dashboard
+            }
             DropHomePage {
                 id: home
                 x: viewport.place("home"); visible: viewport.shown("home")
@@ -153,13 +188,14 @@ ThemedPopup {
                 foreground: dashboard.foreground; background: dashboard.background; accent: dashboard.accent
                 onActivated: dashboard.opened = false
                 // Reading here counts as the notification center being open.
-                readonly property bool reading: dashboard.opened && dashboard.page === "notifications"
+                readonly property bool reading: dashboard.opened && visible && !dashboard.pluginEntry && dashboard.page === "notifications"
                 onReadingChanged: service.centerOpen = reading
             }
             // Dragging sideways anywhere on a page moves it; a short drag springs back.
             DragHandler {
                 id: drag
                 target: null
+                enabled: !dashboard.pluginEntry
                 xAxis.enabled: true; yAxis.enabled: false
                 cursorShape: Qt.ClosedHandCursor
                 onTranslationChanged: {
