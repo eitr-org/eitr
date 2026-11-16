@@ -530,7 +530,8 @@ colors, images, shaders and animations. Relative QML asset paths (for example
 `Image { source: "images/logo.png" }`) resolve inside the plugin's own directory,
 relative to the QML file; assets are part of the reviewed repository.
 
-Panels accept `surface: "none" | "panel"` (default `none`) and boolean `header`
+Panels accept `surface: "none" | "panel"` (default `none`), integer `width` (320-720 px,
+default 400), integer `maxHeight` (200-720 px of content before it scrolls, default 360) and boolean `header`
 (default `true`). The plugin area is a free canvas: no host fill, border, tint
 or content inset is added unless `panel` is requested. Control Center retains
 its existing page surface behind that canvas; bar panels have a transparent

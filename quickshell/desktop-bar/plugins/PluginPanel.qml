@@ -22,8 +22,10 @@ ThemedPopup {
     }
     escapeHandler: back
     onOpenedChanged: if (!opened) history = []
-    implicitWidth: 400
-    implicitHeight: Math.min(360, content.implicitHeight) + header.height + verticalContentInset
+    // A panel may ask for more room in its manifest (width, maxHeight); its content scrolls beyond that.
+    readonly property int contentLimit: entry && entry.maxHeight ? entry.maxHeight : 360
+    implicitWidth: entry && entry.width ? entry.width : 400
+    implicitHeight: Math.min(contentLimit, content.implicitHeight) + header.height + verticalContentInset
     Connections {
         target: PluginRegistry
         function onEntriesChanged() {
@@ -48,7 +50,7 @@ ThemedPopup {
     ScrollView {
         y: header.height
         id: scroll
-        width: parent.width; height: Math.min(360, content.implicitHeight)
+        width: parent.width; height: Math.min(panel.contentLimit, content.implicitHeight)
         contentWidth: availableWidth; clip: true
         PluginComponent {
             id: content

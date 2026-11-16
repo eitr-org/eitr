@@ -294,7 +294,7 @@ def validate_ui(root, ui):
             if kind == 'tiles':
                 optional += ('look',)
             elif kind == 'panels':
-                optional += ('surface', 'header')
+                optional += ('surface', 'header', 'width', 'maxHeight')
             elif kind == 'widgets':
                 optional += ('minWidth', 'minHeight', 'defaultWidth', 'defaultHeight', 'surface')
             object_keys(entry, ('id', 'title', 'qml'), optional)
@@ -308,6 +308,10 @@ def validate_ui(root, ui):
                 raise ValueError('Invalid tile look')
             if kind == 'panels' and type(entry.get('header', True)) is not bool:
                 raise ValueError('Panel header must be a boolean')
+            if kind == 'panels' and (type(entry.get('width', 400)) is not int or not 320 <= entry.get('width', 400) <= 720):
+                raise ValueError('Panel width must be an integer from 320 to 720')
+            if kind == 'panels' and (type(entry.get('maxHeight', 360)) is not int or not 200 <= entry.get('maxHeight', 360) <= 720):
+                raise ValueError('Panel maxHeight must be an integer from 200 to 720')
             if kind in ('widgets', 'panels') and entry.get('surface', 'none') not in ('panel', 'none'):
                 raise ValueError('Invalid visual surface')
             if kind == 'widgets':

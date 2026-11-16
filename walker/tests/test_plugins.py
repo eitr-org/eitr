@@ -1578,6 +1578,8 @@ class LivePluginTests(unittest.TestCase):
                 ('tiles', 'look', ('eitr', 'custom'), ('theme', False, None, [])),
                 ('panels', 'surface', ('none', 'panel'), ('blur', True, None, [])),
                 ('panels', 'header', (True, False), ('false', 0, 1, None)),
+                ('panels', 'width', (320, 560, 720), (319, 721, '400', True, None)),
+                ('panels', 'maxHeight', (200, 720), (199, 721, 360.0, False, None)),
                 ('widgets', 'surface', ('none', 'panel'), ('blur', True, None, []))):
             entry = value['ui'][kind][0]
             for choice in valid:
