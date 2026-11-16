@@ -19,9 +19,6 @@
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml",
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
-    "%1 cores · %2 threads": [
-      "quickshell/desktop-bar/drop/DropPerformancePage.qml"
-    ],
     "%1 days": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
@@ -308,7 +305,6 @@
     ],
     "Back": [
       "quickshell/desktop-bar/components/DayAgenda.qml",
-      "quickshell/desktop-bar/drop/DropAiPage.qml",
       "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/drop/DropPluginPage.qml",
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml",
@@ -586,7 +582,6 @@
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
     ],
     "Claude Code": [
-      "quickshell/desktop-bar/drop/DropAiPage.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -902,7 +897,6 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Detecting configured AI clients…": [
-      "quickshell/desktop-bar/drop/DropAiPage.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "Devices": [
@@ -1512,7 +1506,6 @@
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
     "Loading…": [
-      "quickshell/desktop-bar/drop/DropPerformancePage.qml",
       "quickshell/desktop-bar/store/StoreGrid.qml",
       "quickshell/desktop-bar/store/StoreReview.qml"
     ],
@@ -1807,7 +1800,6 @@
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
     "No readable AI usage available. Sign in to Claude Code, Codex, or Grok, or try refreshing later.": [
-      "quickshell/desktop-bar/drop/DropAiPage.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
@@ -2406,12 +2398,6 @@
       "quickshell/desktop-bar/components/SettingsPointerCard.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
-    "Resets in {days}d {hours}h": [
-      "quickshell/desktop-bar/drop/DropAiPage.qml"
-    ],
-    "Resets in {hours}h {minutes}m": [
-      "quickshell/desktop-bar/drop/DropAiPage.qml"
-    ],
     "Resolution": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -2642,7 +2628,6 @@
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
     ],
     "Session": [
-      "quickshell/desktop-bar/drop/DropAiPage.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
@@ -2912,7 +2897,6 @@
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
     "Swap": [
-      "quickshell/desktop-bar/drop/DropPerformancePage.qml",
       "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml"
     ],
     "Swap the left and right mouse buttons.": [
@@ -3264,9 +3248,6 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
-    "VRAM": [
-      "quickshell/desktop-bar/drop/DropPerformancePage.qml"
-    ],
     "Version": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -3484,9 +3465,6 @@
     "fingerprint fido tpm firewall authentication": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
-    "free": [
-      "quickshell/desktop-bar/drop/DropPerformancePage.qml"
-    ],
     "gaps corners rounded square shape animations effects tiling scrolling columns direction focus width": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -3547,9 +3525,6 @@
     ],
     "style colors palette cursor fonts terminal opacity wallpaper": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
-    ],
-    "used": [
-      "quickshell/desktop-bar/drop/DropPerformancePage.qml"
     ],
     "user": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml",

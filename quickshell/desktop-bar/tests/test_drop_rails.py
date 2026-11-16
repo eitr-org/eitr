@@ -153,8 +153,8 @@ QtObject {
                  'drop/DropObsPage.qml': 'property var obs; property bool active',
                  'drop/DropControlsPage.qml': 'property var barHost; property bool watching',
                  'controls/FocusTimerControls.qml': '',
-                 'drop/DropPerformancePage.qml': 'property bool watching',
-                 'drop/DropAiPage.qml': 'property var barHost; property bool watching',
+                 'panels/SystemMonitorMenu.qml': 'property var inlineParent; property var target; property int maximumHeight; property bool opened',
+                 'panels/AiUsageMenu.qml': 'property var inlineParent; property var target; property int maximumHeight; property bool opened',
                  'notifications/NotificationList.qml': 'property var service; property real contentHeight: 150; signal activated()'}
         for relative, properties in pages.items():
             path = folder / relative

@@ -63,7 +63,7 @@ O trilho de páginas dentro do cartão leva diretamente a qualquer página dispo
 | OBS | Status da gravação e da transmissão com pausar, parar e entrar ao vivo, uma marca de capítulo, a pasta de gravações e o OBS. Enquanto o OBS está aberto. |
 | Controles rápidos | WiFi, Bluetooth, Som e Microfone abrem as redes e os dispositivos no mesmo lugar; Modo avião, Silêncio, Luz noturna, Bloqueio por inatividade, Gravar e Configurações; volume, microfone e (em notebooks) brilho. |
 | Temporizador e foco | Uma contagem regressiva, um cronômetro ou sessões de foco de 25 minutos com pausas de 5. Continua com o painel fechado e avisa você no fim. |
-| Desempenho, Uso de IA e Notificações | CPU, GPU, RAM e armazenamento; os limites de cada assistente (clique em um para ver todos); a lista de notificações. |
+| Desempenho, Uso de IA e Notificações | Os próprios painéis Hardware e Uso de IA da barra, ali mesmo; a lista de notificações. |
 
 Em todos os modos, o relógio mostra ao lado o que está acontecendo, no lugar do ponto de gravação: uma marca de calendário quando um evento começa em menos de dez minutos (clique para os planos desse dia) e um anel enquanto um temporizador ou uma sessão de foco corre (clique para Central de controle > Ferramentas > Timer e Foco). Uma notificação nova toca duas vezes o sino da barra; onde o sino está oculto (Centralizada recolhida, Dinâmico em repouso), um sino desliza ao lado do relógio no lugar dele. A bateria de um notebook substitui a hora por um instante pela porcentagem em vermelho em 15% e 5%; onde os espaços de trabalho estão ocultos, o mesmo vale para o número do espaço de trabalho para o qual você troca.
 

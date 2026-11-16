@@ -63,7 +63,7 @@ El riel dentro de la tarjeta permite ir directamente a cualquier página disponi
 | OBS | Estado de grabación y emisión con pausa, detener y emitir en directo, una marca de capítulo, la carpeta de grabaciones y OBS. Mientras OBS está abierto. |
 | Controles rápidos | WiFi, Bluetooth, Sonido y Micrófono abren sus redes y dispositivos en el mismo sitio; Modo avión, Silencio, Luz nocturna, Bloqueo por inactividad, Grabar y Configuración; volumen, micrófono y (en portátiles) brillo. |
 | Temporizador y concentración | Una cuenta atrás, un cronómetro o sesiones de concentración de 25 minutos con descansos de 5. Sigue con el panel cerrado y te avisa al terminar. |
-| Rendimiento, Uso de IA y Notificaciones | CPU, GPU, RAM y almacenamiento; los límites de cada asistente (haz clic en uno para verlos todos); la lista de notificaciones. |
+| Rendimiento, Uso de IA y Notificaciones | Los propios paneles de Hardware y Uso de IA de la barra, aquí mismo; la lista de notificaciones. |
 
 En todos los modos, el reloj muestra a su lado lo que pasa, donde se sitúa el punto de grabación: una marca de calendario cuando un evento empieza en menos de diez minutos (haz clic para ver los planes de ese día) y un anillo mientras corre un temporizador o una sesión de concentración (haz clic para Centro de control > Herramientas > Temporizador y concentración). Una notificación nueva hace sonar dos veces la campana de la barra; donde la campana está oculta (Centrada mientras está plegada, Dinámico en reposo), aparece en su lugar una campana junto al reloj. La batería de un portátil sustituye un momento la hora por su porcentaje en rojo al 15 % y al 5 %; donde los espacios de trabajo están ocultos, también aparece el número del espacio al que cambias.
 

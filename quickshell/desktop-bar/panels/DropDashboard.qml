@@ -165,21 +165,41 @@ ThemedPopup {
                 width: viewport.width
                 foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }
-            DropPerformancePage {
+            // Hardware and AI Usage are the bar's own panels, embedded as pages (the way
+            // Settings embeds the Brightness panel), so there is one implementation of each.
+            Loader {
                 id: performance
                 x: viewport.place("performance"); visible: viewport.shown("performance")
                 width: viewport.width
-                watching: dashboard.settled && visible
-                foreground: dashboard.foreground; accent: dashboard.accent
+                height: item ? item.implicitHeight : 0
+                active: dashboard.opened
+                sourceComponent: Component {
+                    SystemMonitorMenu {
+                        inlineParent: performance
+                        target: null
+                        anchors.fill: parent
+                        maximumHeight: Math.max(240, dashboard.barHost.screen.height * 0.6)
+                        foreground: dashboard.foreground; background: dashboard.background; accent: dashboard.accent
+                        opened: dashboard.settled && performance.visible
+                    }
+                }
             }
-
-            DropAiPage {
+            Loader {
                 id: ai
                 x: viewport.place("ai"); visible: viewport.shown("ai")
                 width: viewport.width
-                barHost: dashboard.barHost
-                watching: dashboard.settled && visible
-                foreground: dashboard.foreground; accent: dashboard.accent
+                height: item ? item.implicitHeight : 0
+                active: dashboard.opened
+                sourceComponent: Component {
+                    AiUsageMenu {
+                        inlineParent: ai
+                        target: null
+                        anchors.fill: parent
+                        maximumHeight: Math.max(240, dashboard.barHost.screen.height * 0.6)
+                        foreground: dashboard.foreground; background: dashboard.background; accent: dashboard.accent
+                        opened: dashboard.settled && ai.visible
+                    }
+                }
             }
             // The notification center's own list, with its Do Not Disturb and Clear buttons.
             NotificationList {

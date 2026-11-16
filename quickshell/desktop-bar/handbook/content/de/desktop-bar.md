@@ -55,7 +55,7 @@ Die Seitenleiste in der Karte führt direkt zu jeder verfügbaren Seite; die aus
 | OBS | Aufnahme- und Streamstatus mit Pause, Stopp und Live gehen, einer Kapitelmarke, dem Aufnahmeordner und OBS selbst. Solange OBS offen ist. |
 | Schnelleinstellungen | WiFi, Bluetooth, Ton und Mikrofon öffnen ihre Netze und Geräte an Ort und Stelle; Flugmodus, Stumm, Nachtlicht, Bildschirmsperre, Aufnahme und Einstellungen; Lautstärke, Mikrofon und (am Laptop) Helligkeit. |
 | Timer und Fokus | Ein Countdown, eine Stoppuhr oder 25-minütige Fokus-Sitzungen mit 5 Minuten Pause. Läuft bei geschlossenem Dashboard weiter und benachrichtigt dich am Ende. |
-| Leistung, KI-Nutzung und Benachrichtigungen | CPU, GPU, RAM und Speicher; die Limits jedes Assistenten (ein Klick zeigt alle); die Benachrichtigungsliste. |
+| Leistung, KI-Nutzung und Benachrichtigungen | Die Panels Hardware und KI-Nutzung der Leiste, direkt hier; die Benachrichtigungsliste. |
 
 In jedem Layout zeigt die Uhr neben sich, was gerade passiert, dort, wo der Aufnahmepunkt sitzt: eine Kalendermarke, wenn ein Termin in weniger als zehn Minuten beginnt (Klick öffnet die Pläne dieses Tages), und einen Ring, während ein Timer oder eine Fokussitzung läuft (Klick öffnet Kontrollzentrum > Werkzeuge > Timer & Fokus). Eine neue Benachrichtigung lässt die Glocke der Leiste zweimal klingeln; wo die Glocke ausgeblendet ist (Zentriert im eingeklappten Zustand, Dynamisch in Ruhe), gleitet stattdessen eine Glocke neben der Uhr heraus. Ein Laptop-Akku ersetzt die Uhrzeit bei 15 % und 5 % kurz durch seinen Prozentwert in Rot; wo die Arbeitsflächen ausgeblendet sind, gilt das auch für die Nummer der Arbeitsfläche, zu der du wechselst.
 
