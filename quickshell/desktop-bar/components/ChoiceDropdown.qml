@@ -61,8 +61,10 @@ Item {
     function normalized(text) { return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase(); }
     function typeAhead(event) {
         event.accepted = false;
+        // A space while a name is being typed is part of it ("united states"); on its own it selects.
+        const spacing = event.text === " " && typeBuffer !== "" && Date.now() - lastTypedAt < 800;
         if (!event.text || event.modifiers & (Qt.ControlModifier | Qt.AltModifier | Qt.MetaModifier)
-                || !/[^\s\x00-\x1f]/.test(event.text)) return;
+                || (!spacing && !/[^\s\x00-\x1f]/.test(event.text))) return;
         const typed = normalized(event.text);
         const now = Date.now();
         const recent = now - lastTypedAt < 800;
@@ -323,7 +325,9 @@ Item {
                 Accessible.checked: selected
                 Keys.onReturnPressed: control.commit(control.highlightedIndex)
                 Keys.onEnterPressed: control.commit(control.highlightedIndex)
-                Keys.onSpacePressed: control.commit(control.highlightedIndex)
+                // While a name is being typed Space is part of it; otherwise it selects the row.
+                spaceClicks: false
+                Keys.onSpacePressed: event => { control.typeAhead(event); if (!event.accepted) control.commit(control.highlightedIndex); }
                 onClicked: control.commit(index)
                 ChoiceEntryContent { anchors.fill: parent; visible: control.appIcons; choice: row.modelData; foreground: row.foreground }
                 HoverHandler {

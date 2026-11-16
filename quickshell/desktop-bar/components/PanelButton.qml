@@ -34,7 +34,9 @@ Rectangle {
     enabled: available && !loading
     Keys.onReturnPressed: if (enabled) clicked()
     Keys.onEnterPressed: if (enabled) clicked()
-    Keys.onSpacePressed: if (enabled) clicked()
+    // A dropdown row turns this off to read Space as part of a typed name first.
+    property bool spaceClicks: true
+    Keys.onSpacePressed: if (enabled && spaceClicks) clicked()
     width: icon ? 28 : 68
     height: 32
     radius: DesktopStyle.radius(PanelStyle.controlRadius)

@@ -2,6 +2,7 @@ import ".."
 import Eitr as Eitr
 import QtQuick
 import "../PanelStyle.js" as PanelStyle
+import "../MediaModel.js" as MediaModel
 
 // The playing track over its cover: player name, title and artist, a seek bar whose
 // played part carries waves from the real audio spectrum, and previous/play/next.
@@ -254,8 +255,9 @@ Rectangle {
                 id: control
                 required property var modelData
                 readonly property bool toggles: modelData.action === "togglePlaying"
-                readonly property bool available: !!card.player && card.player.canControl && card.player[modelData.allowed]
-                readonly property string glyph: toggles ? (card.playing ? "󰏤" : "󰐊") : modelData.glyph
+                readonly property bool available: toggles ? MediaModel.canPlayControl(card.player)
+                    : !!card.player && card.player.canControl && card.player[modelData.allowed]
+                readonly property string glyph: toggles ? MediaModel.playGlyph(card.player, card.playing) : modelData.glyph
                 readonly property bool motion: !DesktopStyle.reduceMotion
                 width: Math.round(44 * card.unit); height: width; radius: width / 2
                 color: Qt.alpha(card.ink, press.pressed && available ? 0.32 : press.containsMouse && available ? 0.24 : 0.14)

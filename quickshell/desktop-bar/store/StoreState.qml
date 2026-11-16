@@ -250,7 +250,7 @@ Item {
     readonly property int pageSize: 24
     property int shown: pageSize
     onCursorChanged: if (cursor >= shown - columns) shown = Math.ceil((cursor + columns + 1) / pageSize) * pageSize
-    readonly property int columns: Math.max(1, Math.min(3, Math.floor((width - sidebarWidth - 48) / 230)))
+    readonly property int columns: Math.max(1, Math.min(4, Math.floor((width - sidebarWidth - 48) / 230)))
     function filtered(items) { return items.filter(item => StoreSearch.matches(item, query) && StoreSearch.filters(item, kinds.find(entry => entry.id === (item.storeKind || kind)), sourceFilter, tone, filterValues)); }
     readonly property var locals: filtered(installed)
     readonly property var discoveries: filtered(availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: item.kind, channel: item.channel})))

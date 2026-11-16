@@ -5,6 +5,7 @@ import Quickshell.Widgets
 import Quickshell.Services.Mpris
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
+import "../MediaModel.js" as MediaModel
 
 // The Media panel and Drop's Media page: the cover in a circle, ringed by bars that
 // follow the music; beside it the song, its lyrics when the player sends them, the
@@ -21,7 +22,7 @@ Item {
     readonly property real length: player && player.lengthSupported ? Math.max(1, player.length) : 0
     // A player that cannot seek is playing a live stream, such as a radio station: its
     // reported length is only what it has buffered, and it has no song to find lyrics for.
-    readonly property bool live: !!player && !player.canSeek
+    readonly property bool live: MediaModel.isLive(player)
     // The lyrics button first asks before any song is looked up online.
     property bool asking: false
     onActiveChanged: if (!active) asking = false
@@ -217,7 +218,7 @@ Item {
                         : modelData.action === "loop" ? player.loopSupported
                         : modelData.action === "lyrics" ? !page.live
                         : modelData.action === "previous" ? player.canGoPrevious
-                        : modelData.action === "next" ? player.canGoNext : player.canTogglePlaying)
+                        : modelData.action === "next" ? player.canGoNext : MediaModel.canPlayControl(player))
                     readonly property bool lit: !!player && (modelData.action === "shuffle" ? player.shuffle
                         : modelData.action === "loop" ? player.loopState !== MprisLoopState.None
                         : modelData.action === "lyrics" ? lyricsSource.online || page.asking : false)
@@ -229,7 +230,7 @@ Item {
                     Behavior on scale { NumberAnimation { duration: DesktopStyle.motionDuration(140); easing.type: Easing.OutBack } }
                     Text {
                         anchors.centerIn: parent
-                        text: control.main ? (page.playing ? "󰏤" : "󰐊")
+                        text: control.main ? MediaModel.playGlyph(control.player, page.playing)
                             : control.modelData.action === "loop" && control.player && control.player.loopState === MprisLoopState.Track ? "󰑘" : control.modelData.glyph
                         color: control.main ? PanelStyle.readableInk(page.accent, page.foreground, page.background)
                             : control.lit ? page.accent : page.foreground
@@ -248,6 +249,7 @@ Item {
                             else if (control.modelData.action === "loop")
                                 player.loopState = player.loopState === MprisLoopState.None ? MprisLoopState.Playlist
                                     : player.loopState === MprisLoopState.Playlist ? MprisLoopState.Track : MprisLoopState.None;
+                            else if (control.main) MediaModel.playControl(player);
                             else player[control.modelData.action]();
                         }
                     }

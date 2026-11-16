@@ -61,10 +61,10 @@ Item {
             onTriggered: media.player.previous()
         }
         MediaControl {
-            text: media.playing ? "󰏤" : "󰐊"
-            tooltip: media.playing ? Eitr.I18n.tr("Pause") : Eitr.I18n.tr("Play")
-            available: !!media.player && media.player.canControl && media.player.canTogglePlaying
-            onTriggered: media.player.togglePlaying()
+            text: MediaModel.playGlyph(media.player, media.playing)
+            tooltip: MediaModel.isLive(media.player) ? Eitr.I18n.tr("Stop") : media.playing ? Eitr.I18n.tr("Pause") : Eitr.I18n.tr("Play")
+            available: MediaModel.canPlayControl(media.player)
+            onTriggered: MediaModel.playControl(media.player)
         }
         MediaControl {
             text: "󰒭"

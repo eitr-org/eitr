@@ -2849,6 +2849,7 @@
     "Stop": [
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml",
+      "quickshell/desktop-bar/media/MediaStrip.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
     "Stop Recording": [

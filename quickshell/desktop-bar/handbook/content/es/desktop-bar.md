@@ -57,7 +57,7 @@ Haz clic en la cápsula de la hora de Gota y la propia cápsula crece hasta un p
 | Página | Qué contiene |
 | :--- | :--- |
 | Calendario y tiempo | El tiempo junto al mes. Haz clic en el tiempo para ver el pronóstico completo y buscar una ciudad; haz clic en un día para ver sus planes y añadir un recordatorio a una hora de ese día. |
-| Multimedia | La portada rodeada de barras que siguen la música, la canción, su letra, los controles y una barra de progreso. Solo mientras suena algo. Una emisión en directo, como una radio, muestra En directo en lugar de la barra de progreso y no busca letra. |
+| Multimedia | La portada rodeada de barras que siguen la música, la canción, su letra, los controles y una barra de progreso. Solo mientras suena algo. Una emisión en directo, como una radio, muestra En directo en lugar de la barra de progreso, Detener en lugar de pausa, y no busca letra. |
 | OBS | Estado de grabación y emisión con pausa, detener y emitir en directo, una marca de capítulo, la carpeta de grabaciones y OBS. Mientras OBS está abierto. |
 | Controles rápidos | WiFi, Bluetooth, Sonido y Micrófono abren sus redes y dispositivos en el mismo sitio; Modo avión, Silencio, Luz nocturna, Bloqueo por inactividad, Grabar y Configuración; volumen, micrófono y (en portátiles) brillo. |
 | Temporizador y concentración | Una cuenta atrás, un cronómetro o sesiones de concentración de 25 minutos con descansos de 5. Sigue con el panel cerrado y te avisa al terminar. |

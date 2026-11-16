@@ -147,6 +147,11 @@ ShellRoot {
    wait(850); keyClick(Qt.Key_R); equal(dropdown.highlightedIndex, 4);
    check(dropdown.keyboardHighlight); equal(dropdown.current, "alpine");
    keyClick(Qt.Key_Escape); check(!dropdown.expanded);
+   // A space while typing is part of the name.
+   wait(850); dropdown.forceActiveFocus();
+   keyClick("r"); keyClick("o"); keyClick("w"); keyClick(" "); keyClick("1"); keyClick("2");
+   check(dropdown.expanded); equal(dropdown.highlightedIndex, 16); equal(dropdown.current, "alpine");
+   keyClick(Qt.Key_Return); wait(50); equal(dropdown.current, "row12"); check(!dropdown.expanded);
   }
   function test_02_popupGeometry() {
    for (const layout of ["unified", "centered", "notch", "islands", "dynamic", "drop"]) {

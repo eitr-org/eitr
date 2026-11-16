@@ -36,7 +36,8 @@ class BarSectionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='eitr-bar-sections-') as directory:
             folder = Path(directory)
             for name in SECTIONS:
-                (folder / (name + '.qml')).write_text((BAR / 'bar' / (name + '.qml')).read_text().replace('import ".."\n', ''))
+                (folder / (name + '.qml')).write_text((BAR / 'bar' / (name + '.qml')).read_text().replace('import ".."\n', '').replace('"../', '"'))
+            (folder / 'MediaModel.js').write_text((BAR / 'MediaModel.js').read_text())
             # All dependencies are inert; this test never loads the desktop or starts a data service.
             (folder / 'qmldir').write_text('singleton DesktopStyle DesktopStyle.qml\n'
                                           'singleton DisplayService DisplayService.qml\n')

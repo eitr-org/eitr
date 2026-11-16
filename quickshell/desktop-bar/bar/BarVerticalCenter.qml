@@ -1,6 +1,7 @@
 import ".."
 import QtQuick
 import Eitr as Eitr
+import "../MediaModel.js" as MediaModel
 
 Item {
     required property var host
@@ -54,9 +55,9 @@ Item {
         }
         VerticalBarIcon {
             host: verticalMiddle.host
-            icon: mediaStripRef.playing ? "󰏤" : "󰐊"; tooltip: mediaStripRef.title; open: true
-            clickable: !!mediaStripRef.player && mediaStripRef.player.canTogglePlaying
-            onClicked: mediaStripRef.player.togglePlaying()
+            icon: MediaModel.playGlyph(mediaStripRef.player, mediaStripRef.playing); tooltip: mediaStripRef.title; open: true
+            clickable: MediaModel.canPlayControl(mediaStripRef.player)
+            onClicked: MediaModel.playControl(mediaStripRef.player)
         }
         VerticalBarIcon {
             host: verticalMiddle.host

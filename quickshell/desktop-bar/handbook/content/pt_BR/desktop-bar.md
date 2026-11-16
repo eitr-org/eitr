@@ -57,7 +57,7 @@ Clique na cápsula da hora da Gota e a própria cápsula cresce até um painel. 
 | Página | O que tem |
 | :--- | :--- |
 | Calendário e clima | O clima ao lado do mês. Clique no clima para a previsão completa e a busca de cidades; clique em um dia para ver os planos e adicionar um lembrete em um horário desse dia. |
-| Mídia | A capa cercada por barras que seguem a música, a música, a letra, os controles e uma barra de progresso. Só enquanto algo toca. Uma transmissão ao vivo, como uma rádio, mostra Ao vivo no lugar da barra de progresso e não busca letra. |
+| Mídia | A capa cercada por barras que seguem a música, a música, a letra, os controles e uma barra de progresso. Só enquanto algo toca. Uma transmissão ao vivo, como uma rádio, mostra Ao vivo no lugar da barra de progresso, Parar no lugar de pausar, e não busca letra. |
 | OBS | Status da gravação e da transmissão com pausar, parar e entrar ao vivo, uma marca de capítulo, a pasta de gravações e o OBS. Enquanto o OBS está aberto. |
 | Controles rápidos | WiFi, Bluetooth, Som e Microfone abrem as redes e os dispositivos no mesmo lugar; Modo avião, Silêncio, Luz noturna, Bloqueio por inatividade, Gravar e Configurações; volume, microfone e (em notebooks) brilho. |
 | Temporizador e foco | Uma contagem regressiva, um cronômetro ou sessões de foco de 25 minutos com pausas de 5. Continua com o painel fechado e avisa você no fim. |

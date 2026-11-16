@@ -16,7 +16,7 @@ class ClockSlotRenderTests(unittest.TestCase):
             folder = Path(directory)
             kinds = set()
             for name in ('BarHorizontalCenter', 'BarVerticalCenter'):
-                text = (BAR / 'bar' / (name + '.qml')).read_text().replace('import ".."\n', '')
+                text = (BAR / 'bar' / (name + '.qml')).read_text().replace('import ".."\n', '').replace('"../MediaModel.js"', '"MediaModel.js"')
                 (folder / (name + '.qml')).write_text(text)
                 kinds.update(re.findall(r'^\s*([A-Z]\w+)\s*\{', text, re.M))
             kinds.add('BarTooltip')
@@ -27,6 +27,7 @@ class ClockSlotRenderTests(unittest.TestCase):
                 (folder / (name + '.qml')).write_text((BAR / source).read_text().replace('import ".."\n', '')
                     .replace('"../PanelStyle.js"', '"PanelStyle.js"'))
             (folder / 'PanelStyle.js').write_text((BAR / 'PanelStyle.js').read_text())
+            (folder / 'MediaModel.js').write_text((BAR / 'MediaModel.js').read_text())
             (folder / 'DesktopStyle.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function radius(value) { return value; } function motionDuration(value) { return 0; } }')
             (folder / 'DesktopFonts.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property string family: "DejaVu Sans Mono" }')
             (folder / 'PluginRegistry.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property var clockBarItems: [{title:"World clock"}]; property var barItems: []; function slotItems(slot) { return slot === "clock" ? clockBarItems : []; } }')

@@ -1,6 +1,7 @@
 import ".."
 import QtQuick
 import "Lyrics.js" as Lyrics
+import "../MediaModel.js" as MediaModel
 
 // One line of lyrics on the bar (Drop's pill, the media wave): the line being sung, each new
 // one rising in as the last fades. It follows the player's position while active; without
@@ -11,8 +12,8 @@ Item {
     required property var player
     required property bool active
     property color foreground: host.fg
-    // A live stream (a player that cannot seek) has no song to look up; it shows its title.
-    LyricsSource { id: source; host: lyric.host; player: lyric.player; active: lyric.active && !!lyric.player && lyric.player.canSeek }
+    // A live stream has no song to look up; it shows its title.
+    LyricsSource { id: source; host: lyric.host; player: lyric.player; active: lyric.active && !MediaModel.isLive(lyric.player) }
     property real position: 0
     Timer {
         interval: 250; repeat: true; triggeredOnStart: true

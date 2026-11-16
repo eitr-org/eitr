@@ -32,3 +32,19 @@ for (const line of ['', '1;2;3', '1;2;3;4;5', 'NaN;2;3;4', '-1;2;3;4', ';2;3;4']
 assert.equal(audio.height(0), 3);
 assert.equal(audio.height(1), 14);
 assert.equal(audio.height(2), 14);
+
+// A live stream (cannot seek or pause) gets Stop; an ordinary player keeps play/pause.
+{
+    const stopped = [];
+    const radio = {canSeek: false, canPause: false, canControl: true, canTogglePlaying: false, stop: () => stopped.push('radio')};
+    const song = {canSeek: true, canPause: true, canControl: true, canTogglePlaying: true, togglePlaying: () => stopped.push('song')};
+    assert.equal(model.isLive(radio), true);
+    assert.equal(model.isLive(song), false);
+    assert.equal(model.isLive(null), false);
+    assert.equal(model.canPlayControl(radio), true);
+    assert.equal(model.playGlyph(radio, true), '\u{F04DB}');
+    assert.equal(model.playGlyph(song, true), '\u{F03E4}');
+    assert.equal(model.playGlyph(song, false), '\u{F040A}');
+    model.playControl(radio); model.playControl(song);
+    assert.deepEqual(stopped, ['radio', 'song']);
+}
