@@ -151,13 +151,22 @@ ThemedPopup {
                 active: dashboard.opened && visible
                 foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }
-            DropControlsPage {
+            // Built once the Control Center exists: its WiFi, Bluetooth and display controls
+            // are this page's data, and the bar may create the dashboard first.
+            Loader {
                 id: controls
                 x: viewport.place("controls"); visible: viewport.shown("controls")
                 width: viewport.width
-                barHost: dashboard.barHost
-                watching: dashboard.settled && visible
-                foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
+                height: item ? item.implicitHeight : 0
+                active: !!dashboard.barHost.controlCenter
+                sourceComponent: Component {
+                    DropControlsPage {
+                        width: controls.width
+                        barHost: dashboard.barHost
+                        watching: dashboard.settled && controls.visible
+                        foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
+                    }
+                }
             }
             FocusTimerControls {
                 id: timer
