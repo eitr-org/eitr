@@ -69,6 +69,12 @@ item says what decides the next step. Remove an item when it ships;
   plugin apps (reinstalled on restore), and optionally Git, cloud and WiFi accounts.
   Browser profiles are left out (people sign in again). A one-time move first; scheduled
   backups later. Plan: `eitr-testing/codex-wip/backup-restore/PLAN.md`.
+- **Local AI in the AI Usage panel (idea 2026-11-15).** Ratatoskr (Ollama, `eitr-ollama.service`)
+  has no panel entry today. Add a local section beside the cloud assistants: service running
+  or stopped (start/stop), the loaded model and its memory, installed models with size,
+  download (with progress) and delete, the default model, and an Open Chat button (SUPER + A).
+  A new DesktopData domain reading Ollama's local API on `127.0.0.1:11434`, only while the
+  panel is open; nothing shown when Ratatoskr is not set up.
 - **Plugin ideas (from Omarchy and Ryoku's popular plugins, 2026-11-15).** Official plugins in
   `eitr-org/eitr-plugins`, not core features:
   - Phone and Apple devices: send files, notifications and clipboard to and from a phone
