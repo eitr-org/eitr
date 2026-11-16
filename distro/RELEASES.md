@@ -172,13 +172,13 @@ picture, accent and greeting into the Theme Wallpaper or Material design. All
 three stay in `~/.local/share/eitr/`, are listed as Yours and can be deleted.
 Not yet tried on the owner's live desktop.
 
-## Ratatoskr (unreleased)
+## Ollama (unreleased)
 
-Development > Default Assistant always offers Ratatoskr, a local, experimental assistant:
+Development > Default Assistant always offers Ollama, a local, experimental assistant:
 Ollama (`ollama`) and `qwen3:4b` (Apache-2.0), downloaded once after one confirmation and run
 by the on-demand user service `eitr-ollama.service` on `127.0.0.1` only. Voice
 reminders use it with JSON-constrained answers and the same validator; it is never
-an assistants-together helper. Delete on the Ratatoskr row confirms with Enter (Esc cancels), then deletes the service, models
+an assistants-together helper. Delete on the Ollama row confirms with Enter (Esc cancels), then deletes the service, models
 and a package setup installed. Not yet tried on real hardware.
 
 ## Repeating reminders (unreleased)

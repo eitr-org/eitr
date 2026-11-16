@@ -2338,8 +2338,41 @@ msgstr "公式Eitrプラグイン"
 msgid "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
 msgstr "eitr-org/eitr-plugins からの公式Eitrプラグイン（Eitrプロジェクトによってレビュー済み）。他のすべてのプラグインと同様に、アカウントの全権限で実行されます。"
 
+msgid "Ollama (offline, experimental)"
+msgstr "Ollama (オフライン、試験運用)"
+
+msgid "Ollama ({model}) runs only on this PC. Type /bye to close."
+msgstr "Ollama ({model}) はこのPC上でのみ実行されます。閉じるには /bye と入力してください。"
+
+msgid "Ollama could not answer: {reason}"
+msgstr "Ollamaが応答できませんでした: {reason}"
+
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "Ollamaをインストールできませんでした。デフォルトのアシスタントは変更されていません。"
+
+msgid "Ollama could not complete the request."
+msgstr "Ollamaはリクエストを完了できませんでした。"
+
+msgid "Ollama is not set up."
+msgstr "Ollamaは設定されていません。"
+
+msgid "Ollama is not set up. Choose it in Development > AI > Default Assistant."
+msgstr "Ollamaは設定されていません。「開発 > AI > デフォルトアシスタント」で選択してください。"
+
+msgid "Ollama is ready and is now your default assistant."
+msgstr "Ollamaの準備が完了し、デフォルトのアシスタントになりました。"
+
+msgid "Ollama is unavailable."
+msgstr "Ollamaは利用できません。"
+
+msgid "Ollama service did not start. Check it with: systemctl --user status {unit}"
+msgstr "Ollamaサービスが起動しませんでした。次のコマンドで確認してください: systemctl --user status {unit}"
+
+msgid "Ollama timed out."
+msgstr "Ollamaがタイムアウトしました。"
+
+msgid "Ollama was removed."
+msgstr "Ollamaは削除されました。"
 
 msgid "On"
 msgstr "オン"
@@ -2674,39 +2707,6 @@ msgstr "リスク: {flag}"
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "無線機能が他の場所でブロックされています。WiFi/Bluetoothで個別に有効化してください。"
 
-msgid "Ratatoskr (offline, experimental)"
-msgstr "Ratatoskr (オフライン、試験運用)"
-
-msgid "Ratatoskr ({model}) runs only on this PC. Type /bye to close."
-msgstr "Ratatoskr ({model}) はこのPC上でのみ実行されます。閉じるには /bye と入力してください。"
-
-msgid "Ratatoskr could not answer: {reason}"
-msgstr "Ratatoskrが応答できませんでした: {reason}"
-
-msgid "Ratatoskr could not complete the request."
-msgstr "Ratatoskrはリクエストを完了できませんでした。"
-
-msgid "Ratatoskr is not set up."
-msgstr "Ratatoskrは設定されていません。"
-
-msgid "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant."
-msgstr "Ratatoskrは設定されていません。「開発 > AI > デフォルトアシスタント」で選択してください。"
-
-msgid "Ratatoskr is ready and is now your default assistant."
-msgstr "Ratatoskrの準備が完了し、デフォルトのアシスタントになりました。"
-
-msgid "Ratatoskr is unavailable."
-msgstr "Ratatoskrは利用できません。"
-
-msgid "Ratatoskr service did not start. Check it with: systemctl --user status {unit}"
-msgstr "Ratatoskrサービスが起動しませんでした。次のコマンドで確認してください: systemctl --user status {unit}"
-
-msgid "Ratatoskr timed out."
-msgstr "Ratatoskrがタイムアウトしました。"
-
-msgid "Ratatoskr was removed."
-msgstr "Ratatoskrは削除されました。"
-
 msgid "Re-enable visuals"
 msgstr "視覚効果を再度有効化"
 
@@ -2815,11 +2815,11 @@ msgstr "削除"
 msgid "Remove '{name}'"
 msgstr "「{name}」を削除"
 
-msgid "Remove Ratatoskr"
-msgstr "Ratatoskrを削除"
+msgid "Remove Ollama"
+msgstr "Ollamaを削除"
 
-msgid "Remove Ratatoskr?"
-msgstr "Ratatoskrを削除しますか？"
+msgid "Remove Ollama?"
+msgstr "Ollamaを削除しますか？"
 
 msgid "Remove bar item"
 msgstr "バーの項目を削除"
@@ -3157,8 +3157,8 @@ msgstr "デバイスをペアリングする前に、ローカル設定ページ
 msgid "Set password for {username}."
 msgstr "{username} のパスワードを設定します。"
 
-msgid "Set up Ratatoskr?"
-msgstr "Ratatoskrを設定しますか？"
+msgid "Set up Ollama?"
+msgstr "Ollamaを設定しますか？"
 
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "最初にOBSで全画面モニターキャプチャを設定してください"
@@ -4357,8 +4357,8 @@ msgstr "現在のお客様の個人設定 ( ~/.config や ~/.ssh などの隠し
 msgid "Your default assistant is unchanged."
 msgstr "デフォルトのアシスタントは変更されていません。"
 
-msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
-msgstr "デフォルトのアシスタント {assistant} はまだプラグインを安全にチェックできません。Ratatoskr と Claude は対応しています。"
+msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ollama and Claude can."
+msgstr "デフォルトのアシスタント {assistant} はまだプラグインを安全にチェックできません。Ollama と Claude は対応しています。"
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "メールアプリで {REPORTS_EMAIL} 宛てのメッセージを開きました。{path} を添付し、発生した状況を記入して送信してください。"

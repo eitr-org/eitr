@@ -460,7 +460,7 @@
   "Quick Actions": "빠른 동작",
   "Ragnarök": "Ragnarök",
   "Rank recent HTTPS package mirrors": "최근 HTTPS 패키지 미러 순위 매기기",
-  "Ratatoskr (local, experimental)": "Ratatoskr (로컬, 실험적)",
+  "Ollama (local, experimental)": "Ollama (로컬, 실험적)",
   "Read a QR code in a selected area and copy it": "선택한 영역에서 QR 코드를 읽고 복사",
   "Read-only checks with suggested fixes; copy a redacted report": "권장 수정 사항이 포함된 읽기 전용 검사; 마스킹된 보고서 복사",
   "Read-only from {host} · Enter refreshes, Delete removes": "{host}에서 읽기 전용 · Enter로 새로고침, Delete로 제거",

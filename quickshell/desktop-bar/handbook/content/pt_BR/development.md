@@ -32,7 +32,7 @@ Cada assistente na nuvem tem um submenu Contas em Desenvolvimento > IA. Padrão 
 
 Enter confirma; Esc cancela. Selecione uma conta para alternar manualmente as próximas sessões interativas, Pergunte à IA e os auxiliares somente leitura; sessões em execução mantêm sua conta. Delete remove uma conta adicionada e sua configuração local após confirmação; Padrão não pode ser removida. Remover a conta selecionada retorna a Padrão sem encerrar o login de outra conta.
 
-Antigravity oferece apenas Padrão porque sua CLI não permite substituir a pasta de configuração. Ratatoskr tem uma conta local. Nomes e seleção ficam neste PC em `eitr/ai-accounts.json` (0600); as pastas separadas ficam em `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). Uso de IA agrupa as contas com uso legível por assistente e oculta o uso ilegível ou não compatível.
+Antigravity oferece apenas Padrão porque sua CLI não permite substituir a pasta de configuração. Ollama tem uma conta local. Nomes e seleção ficam neste PC em `eitr/ai-accounts.json` (0600); as pastas separadas ficam em `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). Uso de IA agrupa as contas com uso legível por assistente e oculta o uso ilegível ou não compatível.
 
 As seções começam fechadas no login e mantêm seu estado aberto ou fechado durante a sessão.
 
@@ -66,13 +66,13 @@ O Pi aceita contas separadas com `PI_CODING_AGENT_DIR` e recebe as instruções 
 
 A habilidade **Eitr** incluída ensina mudanças seguras no desktop e aponta para este manual offline. `eitr-config seed` copia a mesma fonte para `~/.claude/skills/eitr/SKILL.md` para Claude Code e `~/.agents/skills/eitr/SKILL.md` para Codex, Gemini CLI e OpenCode quando a descoberta de habilidades está ativa. `eitr-config update` atualiza cópias intactas, preserva cópias criadas ou editadas pelo usuário e grava novos padrões em `.eitr-new` para revisão. Instalações existentes recebem habilidades ausentes no login. As instruções de inicialização de cada CLI continuam ativas; nenhum login em provedor é realizado.
 
-### Ratatoskr
+### Ollama
 
-Desenvolvimento > IA > Assistente padrão sempre oferece **Ratatoskr (local, experimental)**, que não precisa de conta nem assinatura. Na primeira vez, um terminal explica os downloads únicos antes de mudar qualquer coisa: o pacote do Arch `ollama` (cerca de 15 MB) e o modelo de linguagem `qwen3:4b` (cerca de 2,5 GB, licença Apache-2.0). Uma única confirmação (Enter confirma; Esc cancela) instala o pacote, cria o serviço de usuário `eitr-ollama.service`, baixa o modelo mostrando o progresso e o define como padrão. Se uma etapa falhar, a saída fica na tela e o padrão anterior é mantido.
+Desenvolvimento > IA > Assistente padrão sempre oferece **Ollama (local, experimental)**, que não precisa de conta nem assinatura. Na primeira vez, um terminal explica os downloads únicos antes de mudar qualquer coisa: o pacote do Arch `ollama` (cerca de 15 MB) e o modelo de linguagem `qwen3:4b` (cerca de 2,5 GB, licença Apache-2.0). Uma única confirmação (Enter confirma; Esc cancela) instala o pacote, cria o serviço de usuário `eitr-ollama.service`, baixa o modelo mostrando o progresso e o define como padrão. Se uma etapa falhar, a saída fica na tela e o padrão anterior é mantido.
 
 Tudo fica neste PC: o serviço escuta só em `127.0.0.1:11434`, inicia quando necessário e guarda os modelos em `~/.local/share/eitr/ollama`. Ele é visivelmente menos confiável que os assistentes na nuvem, principalmente com frases incomuns, e mais lento no processador. Os lembretes por voz validam as respostas dele como as de qualquer outro assistente, então uma resposta errada não muda nada. **SUPER + A** abre um chat com o modelo; `/bye` o fecha. Ele nunca é ajudante dos assistentes trabalhando juntos e não tem entrada em Uso de IA.
 
-Selecione **Ratatoskr** no mesmo menu e pressione **Delete**. A remoção pergunta uma vez e então exclui o serviço e os modelos, redefine o padrão se ele era o local e desinstala o `ollama` se a configuração o instalou. A chave e o histórico de chat do próprio Ollama em `~/.ollama` são mantidos.
+Selecione **Ollama** no mesmo menu e pressione **Delete**. A remoção pergunta uma vez e então exclui o serviço e os modelos, redefine o padrão se ele era o local e desinstala o `ollama` se a configuração o instalou. A chave e o histórico de chat do próprio Ollama em `~/.ollama` são mantidos.
 
 ## Monitoramento
 

@@ -276,7 +276,7 @@
     "optional_provider_accounts_are_separate": "オプション / プロバイダーアカウントは完全に分離",
     "an_assistant_by_choice": "意志を持って使うアシスタント。",
     "a_boundary_by_design": "設計された安全な境界線。",
-    "install_ai_clis_offers_claude_code_codex_github_copilot": "必要に応じてClaude Code、Codex、Gemini CLIなどのコーディングアシスタントを導入できます。実験的なローカルアシスタントRatatoskrを試すことも可能です。",
+    "install_ai_clis_offers_claude_code_codex_github_copilot": "必要に応じてClaude Code、Codex、Gemini CLIなどのコーディングアシスタントを導入できます。実験的なローカルアシスタントOllamaを試すことも可能です。",
     "choose_a_machine_local_default_in_development_default_a": "デフォルトのアシスタントは",
     "it_starts_trusted_in_your_home_folder_with_full_access_": "で起動します。ホームフォルダー内では確認なしでファイル変更やコマンド実行を行えるフルアクセスで開始されますが、毎回確認を求める設定に戻すこともできます。",
     "let_assistants_work_together_is_off_by_default_supporte": "オプションのアシスタント連携機能を有効にすると、対応アシスタントがサインイン済みの別のアシスタントに読み取り専用でセカンドオピニオンを求めることができます。",

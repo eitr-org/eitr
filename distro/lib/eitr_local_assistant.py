@@ -94,7 +94,7 @@ def responding():
 
 def ensure_running(wait=START_TIMEOUT):
     if not unit_path().is_file():
-        raise ValueError(tr('Ratatoskr is not set up.'))
+        raise ValueError(tr('Ollama is not set up.'))
     active = systemctl('is-active', '--quiet', UNIT).returncode == 0
     if responding():
         if active:
@@ -108,13 +108,13 @@ def ensure_running(wait=START_TIMEOUT):
         if responding():
             return
         time.sleep(0.25)
-    raise ValueError(tr('Ratatoskr service did not start. Check it with: systemctl --user status {unit}', unit=UNIT))
+    raise ValueError(tr('Ollama service did not start. Check it with: systemctl --user status {unit}', unit=UNIT))
 
 
 def ask(question, *, response_format=None, timeout=TIMEOUT, context_tokens=None):
     """One tool-free local answer, with optional JSON format and explicit context budget."""
     if not installed():
-        raise ValueError(tr('Ratatoskr is not set up.'))
+        raise ValueError(tr('Ollama is not set up.'))
     ensure_running()
     # Qwen3 reasons aloud by default; one-shot answers skip it (faster, plain text or JSON).
     body = {'model': MODEL, 'prompt': question, 'stream': False, 'think': False}
@@ -129,21 +129,21 @@ def ask(question, *, response_format=None, timeout=TIMEOUT, context_tokens=None)
         with opener().open(request, timeout=timeout) as response:
             payload = json.loads(response.read(16 * 1024 * 1024))
     except TimeoutError:
-        raise ValueError(tr('Ratatoskr timed out.')) from None
+        raise ValueError(tr('Ollama timed out.')) from None
     except urllib.error.HTTPError as error:
         with error:
             try:
                 reason = json.loads(error.read(4096)).get('error')
             except (OSError, ValueError, AttributeError):
                 reason = None
-        raise ValueError(tr('Ratatoskr could not answer: {reason}',
+        raise ValueError(tr('Ollama could not answer: {reason}',
                             reason=reason if isinstance(reason, str) and reason else error.reason)) from None
     except urllib.error.URLError as error:
         if isinstance(error.reason, TimeoutError):
-            raise ValueError(tr('Ratatoskr timed out.')) from None
-        raise ValueError(tr('Ratatoskr is unavailable.')) from None
+            raise ValueError(tr('Ollama timed out.')) from None
+        raise ValueError(tr('Ollama is unavailable.')) from None
     except (OSError, ValueError):
-        raise ValueError(tr('Ratatoskr could not complete the request.')) from None
+        raise ValueError(tr('Ollama could not complete the request.')) from None
     answer = payload.get('response') if isinstance(payload, dict) else None
     if not isinstance(answer, str) or not answer.strip():
         raise ValueError(tr('The assistant returned no answer.'))
@@ -160,7 +160,7 @@ def launch(arguments):
     executable = binary()
     try:
         if not installed():
-            raise ValueError(tr('Ratatoskr is not set up. Choose it in Development > AI > Default Assistant.'))
+            raise ValueError(tr('Ollama is not set up. Choose it in Development > AI > Default Assistant.'))
         ensure_running()
     except ValueError as error:
         print(error, file=sys.stderr)
@@ -171,7 +171,7 @@ def launch(arguments):
             except (EOFError, KeyboardInterrupt):
                 pass
         return 1
-    print(tr('Ratatoskr ({model}) runs only on this PC. Type /bye to close.', model=MODEL), flush=True)
+    print(tr('Ollama ({model}) runs only on this PC. Type /bye to close.', model=MODEL), flush=True)
     if arguments:
         subprocess.run([str(executable), 'run', MODEL, '--', ' '.join(arguments)], env=environment(), check=False)
     os.execve(str(executable), [str(executable), 'run', MODEL], environment())
@@ -179,7 +179,7 @@ def launch(arguments):
 
 
 def explain():
-    print(tr('Ratatoskr (offline, experimental)'))
+    print(tr('Ollama (offline, experimental)'))
     print()
     for line in (tr('It downloads Ollama (Arch package ollama, about 15 MB) and a language model ({model}, about 2.5 GB) once.', model=MODEL),
                  tr('It runs only on this PC: your requests never leave it, and no account is needed.'),
@@ -193,7 +193,7 @@ def setup(confirm):
     """Install, start and pull, then make it the default. CONFIRM asks the single question."""
     from eitr_assistants import set_default
     explain()
-    if not confirm(tr('Set up Ratatoskr?')):
+    if not confirm(tr('Set up Ollama?')):
         print(tr('Nothing changed.'))
         return 0
     if binary() is None:
@@ -218,7 +218,7 @@ def setup(confirm):
         print(error, file=sys.stderr)
         print(tr('Your default assistant is unchanged.'), file=sys.stderr)
         return 1
-    print(tr('Ratatoskr is ready and is now your default assistant.'))
+    print(tr('Ollama is ready and is now your default assistant.'))
     return 0
 
 
@@ -236,7 +236,7 @@ def remove(confirm):
     except (OSError, ValueError):
         record = {}
     package = record.get('installed_package') is True and binary() is not None
-    print(tr('Remove Ratatoskr'))
+    print(tr('Remove Ollama'))
     print()
     print('  • ' + tr('Stops and deletes its background service ({unit}).', unit=UNIT))
     folder = models()
@@ -246,7 +246,7 @@ def remove(confirm):
     if package:
         print('  • ' + tr('Uninstalls the Ollama package that setup installed (asks for your password).'))
     print()
-    if not confirm(tr('Remove Ratatoskr?')):
+    if not confirm(tr('Remove Ollama?')):
         print(tr('Nothing changed.'))
         return 0
     if unit_path().exists():
@@ -269,5 +269,5 @@ def remove(confirm):
             print(tr('The Ollama package is still installed; remove it with: sudo pacman -R ollama'), file=sys.stderr)
             return result.returncode
     record_path().unlink(missing_ok=True)
-    print(tr('Ratatoskr was removed.'))
+    print(tr('Ollama was removed.'))
     return 0

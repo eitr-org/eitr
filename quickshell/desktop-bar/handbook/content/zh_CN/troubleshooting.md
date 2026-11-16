@@ -87,7 +87,7 @@ EITR 自身的代码安装在 `/usr/share/eitr` 下并随 `eitr-desktop` 软件�
 当您切换主题以及每次软件包更新后，主题文件（如 `kitty/theme.conf` 和 Walker 样式）均会重新生成；以前的副本保存在 `~/.local/state/eitr/generated-backups` 下。当更新更改设置的存储方式时，会在登录时转换一次；转换失败会报告并在下次登录时重试（`~/.local/state/eitr/migrations.log`）。
 `eitr-config status` 列出当前生效的设置和替代项。
 
-失败的任务终端在选定默认助手时提供 **A: 咨询 AI**；按 **Esc** 关闭。内存中仅保留最后 200 行输出，在共享前移除 ANSI 转义字符并隐藏明显的机密信息：云端助手会将此输出发送给其提供商，而 Ratatoskr 将其保留在本地计算机上。
+失败的任务终端在选定默认助手时提供 **A: 咨询 AI**；按 **Esc** 关闭。内存中仅保留最后 200 行输出，在共享前移除 ANSI 转义字符并隐藏明显的机密信息：云端助手会将此输出发送给其提供商，而 Ollama 将其保留在本地计算机上。
 
 硬件在各屏幕和“硬件”面板之间使用同一个代理采样器。打开硬件面板会立即刷新，随后在任何硬件面板处于打开状态时每两秒刷新一次。关闭最后一个面板会停止采样。CPU、根分区磁盘和 GPU 标识在代理会话期间保持缓存，包括不可用或超时的 GPU 探测。读取失败时，上次正常的部分保持可见。独立的 `system-details.py` CLI 依然可用；`eitr-shell desktop-bar ipc call -- data status` 包含 `hardware.details` 诊断信息。
 

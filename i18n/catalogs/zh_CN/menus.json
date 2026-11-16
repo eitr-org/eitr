@@ -460,7 +460,7 @@
   "Quick Actions": "快捷操作",
   "Ragnarök": "Ragnarök",
   "Rank recent HTTPS package mirrors": "对最近的 HTTPS 软件包镜像源测速测优",
-  "Ratatoskr (local, experimental)": "Ratatoskr（本地，实验性）",
+  "Ollama (local, experimental)": "Ollama（本地，实验性）",
   "Read a QR code in a selected area and copy it": "识别选中区域内的二维码并复制",
   "Read-only checks with suggested fixes; copy a redacted report": "只读检查并提供修复建议；可复制去敏报告",
   "Read-only from {host} · Enter refreshes, Delete removes": "来自 {host} 的只读项 · Enter 刷新，Delete 移除",

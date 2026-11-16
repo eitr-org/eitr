@@ -1892,6 +1892,9 @@
       "quickshell/desktop-bar/services/UpdatesStatus.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
+    "Ollama (local, experimental)": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "On the bar": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
@@ -2215,9 +2218,6 @@
     ],
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": [
       "quickshell/desktop-bar/services/NetworkService.qml"
-    ],
-    "Ratatoskr (local, experimental)": [
-      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Re-enable": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
@@ -4940,6 +4940,9 @@
     "Official Eitr plugin": [
       "elephant/menus/plugin-actions.lua"
     ],
+    "Ollama (local, experimental)": [
+      "elephant/menus/ai-default.lua"
+    ],
     "On": [
       "elephant/menus/bar-lyrics.lua",
       "elephant/menus/bar-pinned.lua",
@@ -5131,9 +5134,6 @@
     ],
     "Rank recent HTTPS package mirrors": [
       "elephant/menu-rows/system-maintenance.json"
-    ],
-    "Ratatoskr (local, experimental)": [
-      "elephant/menus/ai-default.lua"
     ],
     "Read a QR code in a selected area and copy it": [
       "elephant/menu-rows/tools.json"
@@ -9287,7 +9287,41 @@
     "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions.": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Ollama (offline, experimental)": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ollama ({model}) runs only on this PC. Type /bye to close.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ollama could not answer: {reason}": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
     "Ollama could not be installed. Your default assistant is unchanged.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ollama could not complete the request.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ollama is not set up.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ollama is not set up. Choose it in Development > AI > Default Assistant.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ollama is ready and is now your default assistant.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ollama is unavailable.": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ollama service did not start. Check it with: systemctl --user status {unit}": [
+      "distro/lib/eitr_local_assistant.py"
+    ],
+    "Ollama timed out.": [
+      "distro/lib/eitr_local_assistant.py",
+      "distro/lib/eitr_plugin_review.py"
+    ],
+    "Ollama was removed.": [
       "distro/lib/eitr_local_assistant.py"
     ],
     "On": [
@@ -9630,40 +9664,6 @@
     "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": [
       "quickshell/desktop-bar/scripts/airplane.py"
     ],
-    "Ratatoskr (offline, experimental)": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Ratatoskr ({model}) runs only on this PC. Type /bye to close.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Ratatoskr could not answer: {reason}": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Ratatoskr could not complete the request.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Ratatoskr is not set up.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Ratatoskr is ready and is now your default assistant.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Ratatoskr is unavailable.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Ratatoskr service did not start. Check it with: systemctl --user status {unit}": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
-    "Ratatoskr timed out.": [
-      "distro/lib/eitr_local_assistant.py",
-      "distro/lib/eitr_plugin_review.py"
-    ],
-    "Ratatoskr was removed.": [
-      "distro/lib/eitr_local_assistant.py"
-    ],
     "Re-enable visuals": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -9774,10 +9774,10 @@
     "Remove '{name}'": [
       "walker/scripts/actions/tools/calendars.py"
     ],
-    "Remove Ratatoskr": [
+    "Remove Ollama": [
       "distro/lib/eitr_local_assistant.py"
     ],
-    "Remove Ratatoskr?": [
+    "Remove Ollama?": [
       "distro/lib/eitr_local_assistant.py"
     ],
     "Remove bar item": [
@@ -10120,7 +10120,7 @@
     "Set password for {username}.": [
       "walker/scripts/actions/system/users.py"
     ],
-    "Set up Ratatoskr?": [
+    "Set up Ollama?": [
       "distro/lib/eitr_local_assistant.py"
     ],
     "Set up full-screen monitor capture in OBS first": [
@@ -11344,7 +11344,7 @@
     "Your default assistant is unchanged.": [
       "distro/lib/eitr_local_assistant.py"
     ],
-    "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.": [
+    "Your default assistant, {assistant}, can't check plugins safely yet. Ollama and Claude can.": [
       "distro/lib/eitr_plugin_review.py"
     ],
     "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send.": [

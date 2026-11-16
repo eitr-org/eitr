@@ -30,7 +30,7 @@ Choisissez l’assistant par défaut dans Paramètres > Assistant IA.
 
 L’icône de discussion près des onglets ouvre une conversation jetable avec l’assistant par défaut choisi dans Développement > IA. Elle reste masquée sans assistant ou lorsque la politique de l’organisation les désactive. Entrée envoie ; Maj+Entrée insère un saut de ligne. Échap ou Retour ramène aux pages. Nouvelle discussion, quitter la discussion ou fermer le Centre de contrôle efface les messages et annule toute réponse en attente.
 
-Les réponses proposent du Markdown sélectionnable et Copier. La conversation reste en mémoire ; Eitr n’écrit aucun historique ni journal. Sous la saisie figure le fournisseur cloud ou la mention que Ratatoskr tourne sur ce PC. Les fournisseurs reçoivent les messages et les échanges précédents. Le résumé de la machine contient version/canal d’Eitr, noyau, CPU/GPU/RAM et thème comme contexte non fiable.
+Les réponses proposent du Markdown sélectionnable et Copier. La conversation reste en mémoire ; Eitr n’écrit aucun historique ni journal. Sous la saisie figure le fournisseur cloud ou la mention que Ollama tourne sur ce PC. Les fournisseurs reçoivent les messages et les échanges précédents. Le résumé de la machine contient version/canal d’Eitr, noyau, CPU/GPU/RAM et thème comme contexte non fiable.
 
 Aucun nom d’utilisateur ou de machine, fichier, courriel, nom WiFi, titre de fenêtre ou presse-papiers n’est collecté. L’assistant utilise le mode sans interface en lecture seule avec le compte sélectionné ; il ne peut pas modifier le système. Les erreurs apparaissent dans la discussion.
 

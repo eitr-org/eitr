@@ -22,7 +22,7 @@ LIMIT = 24 * 1024
 LIMITS = {'local': LIMIT, 'claude': 400 * 1024}
 SNAPSHOT_LIMIT = 32 * 1024 * 1024
 TIMEOUT = 180
-NAMES = {'local': 'Ratatoskr', 'claude': 'Claude', 'codex': 'Codex', 'gemini': 'Gemini',
+NAMES = {'local': 'Ollama', 'claude': 'Claude', 'codex': 'Codex', 'gemini': 'Gemini',
          'copilot': 'Copilot', 'grok': 'Grok', 'opencode': 'OpenCode', 'agy': 'Antigravity', 'pi': 'Pi'}
 
 
@@ -44,7 +44,7 @@ def unsupported_message():
     if not identifier or identifier in LIMITS:
         return ''
     name = NAMES.get(identifier, identifier)
-    return tr("Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can.",
+    return tr("Your default assistant, {assistant}, can't check plugins safely yet. Ollama and Claude can.",
               assistant=name)
 
 
@@ -146,7 +146,7 @@ def check(root, selected='.', *, temporary=None):
         return [tr(NOTICE), '', *[printable(plain(line)) for line in answer.splitlines()]]
     except (OSError, ValueError, subprocess.SubprocessError) as error:
         reason = ''
-        if isinstance(error, (TimeoutError, subprocess.TimeoutExpired)) or str(error) == tr('Ratatoskr timed out.'):
+        if isinstance(error, (TimeoutError, subprocess.TimeoutExpired)) or str(error) == tr('Ollama timed out.'):
             reason = tr('The assistant timed out.')
         elif str(error) == tr('The assistant returned no answer.') or str(error) == 'Empty answer':
             reason = tr('The assistant returned no answer.')

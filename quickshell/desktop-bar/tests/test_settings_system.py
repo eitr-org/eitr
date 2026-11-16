@@ -83,7 +83,7 @@ class SettingsSystemTests(unittest.TestCase):
             result = settings.assistants()
         self.assertEqual(result['choices'], [{'value': 'codex', 'label': 'Example assistant'}])
         self.assertEqual((result['current'], result['access'], result['collaboration']), ('codex', 'ask', True))
-        self.assertEqual([item['title'] for item in result['items']], ['Example assistant', 'Missing assistant', 'Ratatoskr (local, experimental)'])
+        self.assertEqual([item['title'] for item in result['items']], ['Example assistant', 'Missing assistant', 'Ollama (local, experimental)'])
         local = result['items'][-1]['controls']
         self.assertEqual([control['title'] for control in local], ['Set Up'])
         self.assertIn('setup-local', local[0]['command'])

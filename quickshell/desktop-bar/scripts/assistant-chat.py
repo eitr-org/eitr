@@ -18,7 +18,7 @@ from eitr_paths import code, config
 from eitr_policy import require
 
 PROVIDERS = {'claude': 'Anthropic', 'codex': 'OpenAI', 'copilot': 'GitHub',
-             'gemini': 'Google', 'grok': 'xAI', 'local': 'Ratatoskr'}
+             'gemini': 'Google', 'grok': 'xAI', 'local': 'Ollama'}
 
 
 def selection():
@@ -27,7 +27,7 @@ def selection():
     identifier = default_assistant()
     if identifier not in PROVIDERS:
         raise ValueError(tr('Choose a default assistant in Development > AI'))
-    return {'identifier': identifier, 'name': LABELS.get(identifier, 'Ratatoskr'),
+    return {'identifier': identifier, 'name': LABELS.get(identifier, 'Ollama'),
             'provider': PROVIDERS[identifier], 'local': identifier == 'local'}
 
 

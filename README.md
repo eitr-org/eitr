@@ -121,8 +121,8 @@ on an active session. Installs, updates and resets are tested in virtual machine
 Plugin runtime diagnostics appear in **Control Center > Plugins**: an error state, the first message and **View error details**, with one-click disabling retained. The session list is bounded and de-duplicated; file URLs identify plugin QML warnings and exceptions. Messages without plugin URLs cannot be attributed reliably. Plugins run inside the desktop with its permissions, without a sandbox; install only trusted plugins. The existing installation review shows the full-permissions warning, including for plugins outside the official collection. See `distro/PLUGINS.md` for diagnostic limits.
 
 Before installing a Git plugin, the review offers **Ask the AI to check** when
-Ratatoskr or Claude is the installed default assistant. It reviews text from a temporary
-copy without tools (locally with Ratatoskr, through its provider with Claude). The report is advice, never approval;
+Ollama or Claude is the installed default assistant. It reviews text from a temporary
+copy without tools (locally with Ollama, through its provider with Claude). The report is advice, never approval;
 the full-permissions warning and Enter/Install or Esc/Cancel remain. Decisions
 stay available during the check. Unsupported defaults get an explanation instead of an AI action. Install extra data-only themes through Eitr Store. See
 [distro/PLUGINS.md](distro/PLUGINS.md#ai-advice-before-installation) for limits

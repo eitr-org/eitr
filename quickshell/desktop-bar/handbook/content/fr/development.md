@@ -32,7 +32,7 @@ Chaque assistant cloud possède un sous-menu Comptes dans Développement > IA. P
 
 Enter confirme ; Esc annule. Sélectionnez un compte pour changer manuellement les prochaines sessions interactives, Demander à l’IA et les assistants en lecture seule ; les sessions ouvertes conservent leur compte. Delete supprime un compte ajouté et sa configuration locale après confirmation ; Par défaut ne peut pas être supprimé.
 
-Supprimer le compte sélectionné revient à Par défaut sans déconnecter un autre compte. Antigravity propose uniquement Par défaut car sa CLI ne permet pas de changer le dossier de configuration. Ratatoskr possède un compte local. Les noms et la sélection restent sur ce PC dans `eitr/ai-accounts.json` (0600) ; les dossiers séparés sont sous `$XDG_DATA_HOME/eitr/ai-accounts/` (0700).
+Supprimer le compte sélectionné revient à Par défaut sans déconnecter un autre compte. Antigravity propose uniquement Par défaut car sa CLI ne permet pas de changer le dossier de configuration. Ollama possède un compte local. Les noms et la sélection restent sur ce PC dans `eitr/ai-accounts.json` (0600) ; les dossiers séparés sont sous `$XDG_DATA_HOME/eitr/ai-accounts/` (0700).
 
 Utilisation de l’IA regroupe les comptes dont l’utilisation est lisible par assistant et masque l’utilisation illisible ou non prise en charge. Les sections sont fermées à la connexion et conservent leur état ouvert ou fermé pendant la session.
 
@@ -68,13 +68,13 @@ Pi permet des comptes séparés avec `PI_CODING_AGENT_DIR` et reçoit les consig
 
 La compétence **Eitr** fournie explique comment modifier le bureau sans danger et renvoie à ce manuel hors ligne. `eitr-config seed` copie la même source dans `~/.claude/skills/eitr/SKILL.md` pour Claude Code et `~/.agents/skills/eitr/SKILL.md` pour Codex, Gemini CLI et OpenCode lorsque la découverte des compétences est active. `eitr-config update` actualise les copies intactes, conserve celles créées ou modifiées par l’utilisateur et écrit les nouvelles valeurs dans `.eitr-new` pour examen. Les installations existantes reçoivent les compétences manquantes à la connexion. Les consignes de démarrage propres aux CLI restent actives ; aucune connexion à un fournisseur n’est effectuée.
 
-### Ratatoskr
+### Ollama
 
-Développement > IA > Assistant par défaut propose toujours **Ratatoskr (local, expérimental)**, sans compte ni abonnement. La première fois, un terminal explique les téléchargements uniques avant toute modification : le paquet Arch `ollama` (environ 15 Mo) et le modèle de langage `qwen3:4b` (environ 2,5 Go, licence Apache-2.0). Une seule confirmation (Entrée confirme ; Échap annule) installe le paquet, crée le service utilisateur `eitr-ollama.service`, télécharge le modèle en affichant la progression et le définit par défaut. Si une étape échoue, sa sortie reste à l’écran et l’assistant par défaut précédent est conservé.
+Développement > IA > Assistant par défaut propose toujours **Ollama (local, expérimental)**, sans compte ni abonnement. La première fois, un terminal explique les téléchargements uniques avant toute modification : le paquet Arch `ollama` (environ 15 Mo) et le modèle de langage `qwen3:4b` (environ 2,5 Go, licence Apache-2.0). Une seule confirmation (Entrée confirme ; Échap annule) installe le paquet, crée le service utilisateur `eitr-ollama.service`, télécharge le modèle en affichant la progression et le définit par défaut. Si une étape échoue, sa sortie reste à l’écran et l’assistant par défaut précédent est conservé.
 
 Tout reste sur ce PC : le service n’écoute que sur `127.0.0.1:11434`, démarre au besoin et garde ses modèles dans `~/.local/share/eitr/ollama`. Il est nettement moins fiable que les assistants cloud, surtout avec des formulations inhabituelles, et plus lent sur le processeur. Les rappels vocaux vérifient ses réponses comme celles de tout autre assistant : une mauvaise réponse ne change rien. **SUPER + A** ouvre une discussion avec le modèle ; `/bye` la ferme. Il n’est jamais proposé comme aide aux assistants qui travaillent ensemble et n’a pas d’entrée dans Utilisation de l’IA.
 
-Sélectionnez **Ratatoskr** dans le même menu et appuyez sur **Delete**. La suppression demande une confirmation, puis supprime le service et les modèles, réinitialise l’assistant par défaut s’il était local et désinstalle `ollama` si la configuration l’a installé. La clé et l’historique de discussion propres à Ollama dans `~/.ollama` sont conservés.
+Sélectionnez **Ollama** dans le même menu et appuyez sur **Delete**. La suppression demande une confirmation, puis supprime le service et les modèles, réinitialise l’assistant par défaut s’il était local et désinstalle `ollama` si la configuration l’a installé. La clé et l’historique de discussion propres à Ollama dans `~/.ollama` sont conservés.
 
 ## Supervision
 

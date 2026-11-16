@@ -28,7 +28,7 @@ Timer e Foco (uma contagem regressiva, um cronômetro ou sessões de foco de 25 
 
 O ícone de conversa ao lado das abas abre uma conversa descartável com o assistente padrão, escolhido em Desenvolvimento > IA. Fica oculto sem um padrão ou quando a política da organização desativa assistentes. Enter envia; Shift+Enter insere uma quebra de linha. Escape ou Voltar retorna às páginas. Nova conversa, sair da conversa ou fechar o Centro de Controle apaga as mensagens e cancela uma resposta pendente.
 
-As respostas permitem selecionar Markdown e copiar. A conversa fica na memória; o Eitr não grava histórico nem registros. A linha abaixo da entrada identifica o provedor na nuvem ou informa que o Ratatoskr roda neste PC. Provedores recebem as mensagens e os turnos anteriores. O resumo da máquina inclui versão/canal do Eitr, kernel, CPU/GPU/RAM e tema como contexto não confiável.
+As respostas permitem selecionar Markdown e copiar. A conversa fica na memória; o Eitr não grava histórico nem registros. A linha abaixo da entrada identifica o provedor na nuvem ou informa que o Ollama roda neste PC. Provedores recebem as mensagens e os turnos anteriores. O resumo da máquina inclui versão/canal do Eitr, kernel, CPU/GPU/RAM e tema como contexto não confiável.
 
 Não são coletados nomes de usuário ou máquina, arquivos, emails, nomes de WiFi, títulos de janelas ou área de transferência. O assistente usa a execução sem interface somente de leitura com a conta selecionada; não pode alterar o sistema. Falhas aparecem na conversa.
 

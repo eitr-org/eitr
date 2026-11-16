@@ -32,7 +32,7 @@ Jeder Cloud-Assistent hat unter Entwicklung > KI ein Untermenü Konten. Standard
 
 Wählen Sie ein Konto, um künftige interaktive Sitzungen, KI fragen und schreibgeschützte Helfer manuell umzustellen; laufende Sitzungen behalten ihr Konto. Delete entfernt ein hinzugefügtes Konto samt lokaler Konfiguration nach Bestätigung; Standard lässt sich nicht entfernen. Das Entfernen des gewählten Kontos kehrt zu Standard zurück, ohne ein anderes Konto abzumelden. Antigravity bietet nur Standard, da seine CLI keinen anderen Konfigurationsordner unterstützt.
 
-Ratatoskr hat ein lokales Konto. Namen und Auswahl bleiben auf diesem PC in `eitr/ai-accounts.json` (0600); separate Ordner liegen unter `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). KI-Nutzung gruppiert lesbare Konten nach Assistent und blendet nicht lesbare oder nicht unterstützte Nutzung aus. Abschnitte sind bei der Anmeldung geschlossen und behalten ihren geöffneten oder geschlossenen Zustand für die Sitzung.
+Ollama hat ein lokales Konto. Namen und Auswahl bleiben auf diesem PC in `eitr/ai-accounts.json` (0600); separate Ordner liegen unter `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). KI-Nutzung gruppiert lesbare Konten nach Assistent und blendet nicht lesbare oder nicht unterstützte Nutzung aus. Abschnitte sind bei der Anmeldung geschlossen und behalten ihren geöffneten oder geschlossenen Zustand für die Sitzung.
 
 Entwicklung > KI bietet ein Menü für jeden installierten Assistenten: Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode und Pi. Installiere sie unter Installieren > KI-CLIs; ohne installierte Assistenten verweist Entwicklung > KI dorthin.
 
@@ -58,13 +58,13 @@ Install > AI CLIs bietet auch **OpenCode** (`opencode`, offizielles Arch-Paket) 
 
 Der mitgelieferte **Eitr**-Skill erklärt sichere Desktopänderungen und verweist auf dieses Offline-Handbuch. `eitr-config seed` kopiert dieselbe Quelle nach `~/.claude/skills/eitr/SKILL.md` für Claude Code und `~/.agents/skills/eitr/SKILL.md` für Codex, Gemini CLI und OpenCode bei aktivierter Skill-Erkennung. `eitr-config update` aktualisiert unveränderte Kopien, bewahrt eigene oder bearbeitete Kopien und schreibt geänderte Vorgaben zur Prüfung nach `.eitr-new`. Bestehende Installationen erhalten fehlende Skills bei der Anmeldung. Die bisherigen CLI-Startanweisungen bleiben aktiv; es erfolgt keine Anmeldung bei einem Anbieter.
 
-### Ratatoskr
+### Ollama
 
-Entwicklung > KI > Standardassistent bietet immer **Ratatoskr (lokal, experimentell)** an; dafür brauchst du weder Konto noch Abonnement. Beim ersten Mal erklärt ein Terminal die einmaligen Downloads, bevor sich etwas ändert: das Arch-Paket `ollama` (etwa 15 MB) und das Sprachmodell `qwen3:4b` (etwa 2,5 GB, Apache-2.0-Lizenz). Eine Bestätigung (Enter bestätigt; Esc bricht ab) installiert das Paket, legt den Benutzerdienst `eitr-ollama.service` an, lädt das Modell mit sichtbarem Fortschritt herunter und macht es zum Standard. Schlägt ein Schritt fehl, bleibt seine Ausgabe sichtbar und der bisherige Standard erhalten.
+Entwicklung > KI > Standardassistent bietet immer **Ollama (lokal, experimentell)** an; dafür brauchst du weder Konto noch Abonnement. Beim ersten Mal erklärt ein Terminal die einmaligen Downloads, bevor sich etwas ändert: das Arch-Paket `ollama` (etwa 15 MB) und das Sprachmodell `qwen3:4b` (etwa 2,5 GB, Apache-2.0-Lizenz). Eine Bestätigung (Enter bestätigt; Esc bricht ab) installiert das Paket, legt den Benutzerdienst `eitr-ollama.service` an, lädt das Modell mit sichtbarem Fortschritt herunter und macht es zum Standard. Schlägt ein Schritt fehl, bleibt seine Ausgabe sichtbar und der bisherige Standard erhalten.
 
 Alles bleibt auf diesem PC: Der Dienst lauscht nur auf `127.0.0.1:11434`, startet bei Bedarf und speichert seine Modelle in `~/.local/share/eitr/ollama`. Er ist spürbar weniger zuverlässig als die Cloud-Assistenten, besonders bei ungewöhnlichen Formulierungen, und auf dem Prozessor langsamer. Sprach-Erinnerungen prüfen seine Antworten wie die jedes anderen Assistenten, eine falsche Antwort ändert also nichts. **SUPER + A** öffnet einen Chat mit dem Modell; `/bye` schließt ihn. Er ist nie Helfer für zusammenarbeitende Assistenten und hat keinen Eintrag in der KI-Nutzung.
 
-Wähle **Ratatoskr** im selben Menü und drücke **Delete**. Das Entfernen fragt einmal nach, löscht dann Dienst und Modelle, setzt den Standard zurück, falls er lokal war, und deinstalliert `ollama`, falls die Einrichtung es installiert hat. Ollamas eigener Schlüssel und Chatverlauf in `~/.ollama` bleiben erhalten.
+Wähle **Ollama** im selben Menü und drücke **Delete**. Das Entfernen fragt einmal nach, löscht dann Dienst und Modelle, setzt den Standard zurück, falls er lokal war, und deinstalliert `ollama`, falls die Einrichtung es installiert hat. Ollamas eigener Schlüssel und Chatverlauf in `~/.ollama` bleiben erhalten.
 
 ## Monitoring
 

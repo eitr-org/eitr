@@ -1,7 +1,7 @@
 # Interactive assistant startup
 
 Eitr interactive launchers start in the user's home, after selecting the account
-environment. Ratatoskr and headless read-only calls retain their own behavior.
+environment. Ollama and headless read-only calls retain their own behavior.
 Startup does not write per-CLI instruction files. The packaged Eitr skill is
 seeded separately as described below. Trusting home also trusts its descendants
 according to the CLI's own trust rules. Existing trust entries remain intact.
@@ -86,15 +86,15 @@ New only. No assistant conversation or sign-in was started during verification.
 ## Advice before Git plugin installation
 
 Use the installed default assistant only; never fall back to another assistant.
-Ratatoskr and Claude qualify. Unsupported defaults get a short translated message
-naming the assistant and stating that Ratatoskr and Claude can check. Development
+Ollama and Claude qualify. Unsupported defaults get a short translated message
+naming the assistant and stating that Ollama and Claude can check. Development
 and assistant policies still apply. Assistant Access does not change this runner.
 Crash Help's normal interactive launcher is not used.
 
 Every qualifying model receives serialized repository text in its prompt and has
 no tools at all: no shell, file reads, web, MCP or subagents. Repository instructions
 cannot grant capabilities. No user secrets, credentials, configuration contents or
-local machine paths are added to the prompt. Ratatoskr uses its fixed tool-free
+local machine paths are added to the prompt. Ollama uses its fixed tool-free
 loopback `/api/generate` endpoint. Claude uses the selected Claude account through
 `eitr_ai_accounts.environment`, and sends the text to its provider.
 
@@ -104,7 +104,7 @@ because its startup logger attempted to write to the real data directory.
 
 | Assistant | Qualifies | Installed-help evidence / reason |
 | --- | --- | --- |
-| Ratatoskr | Yes | Tool-free text generation API; no assistant CLI or tool dispatcher. |
+| Ollama | Yes | Tool-free text generation API; no assistant CLI or tool dispatcher. |
 | Claude | Yes | `--tools ""` explicitly disables all tools; `--safe-mode` disables customizations including hooks, installed plugins, skills, MCP and custom agents. `--setting-sources ""` omits user/project/local settings; `--strict-mcp-config` without `--mcp-config` loads no MCP servers. |
 | Codex | No | Root and `exec --help` have no documented disable-all-tools flag. Read-only sandbox and approval settings still permit tools. |
 | Gemini | No | `--help` has no documented disable-all-tools mode; plan mode and sandboxing do not remove tools. |
@@ -129,8 +129,8 @@ admin-managed policy still applies. No real Claude session was used for tests.
 A trusted Python worker copies the whole downloaded repository, excludes Git
 metadata, rejects symlinks/special files and identifies the selected folder for
 indexed repositories. Binary contents are listed as uninspected. The serialized
-text budget is 400 KiB for Claude and 24 KiB for Ratatoskr, including JSON and
-instructions. Ratatoskr requests a 32,768-token context and 4,096 output tokens.
+text budget is 400 KiB for Claude and 24 KiB for Ollama, including JSON and
+instructions. Ollama requests a 32,768-token context and 4,096 output tokens.
 Copies are capped at 32 MiB and 1,000 files; oversized inputs are refused, not
 truncated. The worker runs outside curses with a 180-second deadline. Enter or
 Escape kills/reaps a pending worker and its Claude child, then removes the copy.

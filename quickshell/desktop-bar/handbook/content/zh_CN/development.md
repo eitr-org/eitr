@@ -32,7 +32,7 @@
 
 选择一个账户可以手动切换未来的交互式会话、“咨询 AI”和只读辅助工具；正在运行的会话保留其原有账户。经确认后，“删除”会移除添加的账户及其本地配置；“默认”无法移除。移除当前选定的账户会返回到“默认”，且绝不会将另一个账户注销。Antigravity 仅提供“默认”，因为其 CLI 不支持配置文件目录覆盖。
 
-Ratatoskr 拥有一个本地账户。账户标签和选择保存在本机的 `eitr/ai-accounts.json` (0600) 中；独立的文件夹位于 `$XDG_DATA_HOME/eitr/ai-accounts/` (0700) 下。“AI 使用量”按助手将可读账户分组，并隐藏不可读或不受支持的用量数据。各分段在登录时初始处于关闭状态，并在会话期间保留其打开或关闭状态。
+Ollama 拥有一个本地账户。账户标签和选择保存在本机的 `eitr/ai-accounts.json` (0600) 中；独立的文件夹位于 `$XDG_DATA_HOME/eitr/ai-accounts/` (0700) 下。“AI 使用量”按助手将可读账户分组，并隐藏不可读或不受支持的用量数据。各分段在登录时初始处于关闭状态，并在会话期间保留其打开或关闭状态。
 
 “开发 > AI”为每个已安装的助手提供菜单：Antigravity CLI、Claude Code、Codex、Gemini CLI、GitHub Copilot CLI、Grok Build、OpenCode 和 Pi。可从“安装 > AI CLI”安装它们；如果未安装任何助手，“开发 > AI”会链接到此处。
 
@@ -60,13 +60,13 @@ Antigravity CLI、Claude Code、Codex、Gemini CLI、GitHub Copilot CLI、Grok B
 
 打包的 **Eitr** 技能指导如何安全地进行桌面更改并指向本离线手册。当启用技能发现时，`eitr-config seed` 将相同源复制到 Claude Code 的 `~/.claude/skills/eitr/SKILL.md` 以及 Codex、Gemini CLI 和 OpenCode 的 `~/.agents/skills/eitr/SKILL.md`。`eitr-config update` 刷新未编辑的副本，保留用户创建或编辑的副本，并将更改的默认值写入 `.eitr-new` 以供审核。现有安装在登录时接收缺失的技能。每个 CLI 的启动指令保持活动状态；不执行登录操作。
 
-### Ratatoskr（本地，实验性）
+### Ollama（本地，实验性）
 
-“开发 > AI > 默认助手”始终提供 **Ratatoskr（本地，实验性）**，它不需要账户或订阅。首次使用时，终端会在更改任何内容之前说明一次性下载内容：Arch 软件包 `ollama`（约 15 MB）和语言模型 `qwen3:4b`（约 2.5 GB，Apache-2.0 许可证）。一次确认（按 Enter 确认；按 Esc 取消）将安装软件包、创建用户服务 `eitr-ollama.service`、下载模型（附带可见进度）并将其设为默认。如果某一步骤失败，其输出保留在屏幕上并保留先前的默认设置。
+“开发 > AI > 默认助手”始终提供 **Ollama（本地，实验性）**，它不需要账户或订阅。首次使用时，终端会在更改任何内容之前说明一次性下载内容：Arch 软件包 `ollama`（约 15 MB）和语言模型 `qwen3:4b`（约 2.5 GB，Apache-2.0 许可证）。一次确认（按 Enter 确认；按 Esc 取消）将安装软件包、创建用户服务 `eitr-ollama.service`、下载模型（附带可见进度）并将其设为默认。如果某一步骤失败，其输出保留在屏幕上并保留先前的默认设置。
 
 一切内容均保留在本机上：服务仅监听 `127.0.0.1:11434`，在需要时启动，并将其模型保存在 `~/.local/share/eitr/ollama` 中。它明显不如云端助手稳定，尤其是在遇到不寻常的措辞时，并且在处理器上运行较慢。语音提醒像对待其他任何助手一样检查其回答，因此错误的回答不会更改任何内容。**SUPER + A** 打开与模型的聊天；输入 `/bye` 可关闭。它绝不作为助手协同工作的辅助工具，也没有“AI 使用量”条目。
 
-在同一菜单中选择 **Ratatoskr** 并按 **Delete**。移除会提示确认一次，然后删除服务和模型，重置默认设置（如果原先是本地），并卸载 `ollama`（如果是安装程序安装的）。Ollama 自身在 `~/.ollama` 中的密钥和聊天记录予以保留。
+在同一菜单中选择 **Ollama** 并按 **Delete**。移除会提示确认一次，然后删除服务和模型，重置默认设置（如果原先是本地），并卸载 `ollama`（如果是安装程序安装的）。Ollama 自身在 `~/.ollama` 中的密钥和聊天记录予以保留。
 
 ## 监控
 

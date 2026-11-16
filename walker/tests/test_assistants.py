@@ -117,7 +117,7 @@ class AssistantTests(unittest.TestCase):
         for key, expected in [('\r', True), ('\n', True), ('\x1b', False), ('y', False)]:
             with patch.object(assistants.sys.stdin, 'isatty', return_value=True), \
                     patch('eitr_terminal.read_key', return_value=key), contextlib.redirect_stdout(io.StringIO()):
-                self.assertEqual(namespace['confirm']('Remove Ratatoskr?'), expected)
+                self.assertEqual(namespace['confirm']('Remove Ollama?'), expected)
 
     def test_noninteractive_never_installs(self):
         with patch.object(assistants, 'executable', return_value=None), \

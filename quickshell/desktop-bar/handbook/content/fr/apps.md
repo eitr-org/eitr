@@ -79,7 +79,7 @@ Les navigateurs utilisent HDR uniquement lorsque le HDR du bureau est activé po
 
 Maintenez **SUPER + Shift + D**, parlez puis relâchez, ou saisissez du texte dans Principal > Outils > Rappels > Parler à l’assistant…. Eitr transcrit localement avec le modèle hors ligne de la dictée, puis consulte l’assistant choisi dans Développement > IA > Assistant par défaut. Seuls la transcription et le contexte des rappels vont à son fournisseur ; l’audio reste local et est supprimé après transcription.
 
-L’assistant fonctionne sans fenêtre par la voie en lecture seule d’Eitr. Eitr valide son JSON et exécute les actions ; l’assistant ne reçoit aucun outil permettant des modifications. Avec Ratatoskr (Développement > IA > Assistant par défaut), la transcription ne quitte jamais ce PC.
+L’assistant fonctionne sans fenêtre par la voie en lecture seule d’Eitr. Eitr valide son JSON et exécute les actions ; l’assistant ne reçoit aucun outil permettant des modifications. Avec Ollama (Développement > IA > Assistant par défaut), la transcription ne quitte jamais ce PC.
 
 Dites « Rappelle-moi d’appeler demain à 15 h » ou « Dentiste le 30 octobre à 15 h, prévenir 30 minutes avant ». Les rendez-vous déclenchent un avis une heure avant par défaut (ou selon le délai demandé), puis à l’heure prévue ; les rappels simples seulement à leur heure.
 
@@ -125,9 +125,9 @@ Le catalogue installe et met à jour les plugins dans la fenêtre. Les cartes Of
 
 Les plugins disposent de toutes les permissions du compte. Entrée confirme et Échap annule. Le commit installé est exactement celui vérifié ; Communauté utilise le commit fixé dans l’index. La vérification expire après 15 minutes et est supprimée à la fermeture du catalogue. Installés > Ajouter depuis une adresse Git accepte HTTPS ou SSH pour les plugins et les thèmes de données, sans terminal.
 
-Dans la vérification d’installation, appuyez sur A pour demander à votre assistant par défaut d’examiner une copie temporaire du dépôt sous forme de texte, sans outils. Ratatoskr et Claude peuvent vérifier les plugins ; si l’assistant par défaut n’est pas pris en charge, son nom est indiqué dans la vérification.
+Dans la vérification d’installation, appuyez sur A pour demander à votre assistant par défaut d’examiner une copie temporaire du dépôt sous forme de texte, sans outils. Ollama et Claude peuvent vérifier les plugins ; si l’assistant par défaut n’est pas pris en charge, son nom est indiqué dans la vérification.
 
-Claude envoie le texte à son fournisseur ; Ratatoskr le conserve sur ce PC. Faites défiler le rapport avec PgUp/PgDn. L’IA peut manquer des problèmes : c’est un conseil, pas une approbation, et l’avertissement sur les droits complets reste valable. Enter installe et Esc annule, même pendant la vérification. Les erreurs, les réponses vides et le délai de 180 secondes laissent la vérification normale disponible.
+Claude envoie le texte à son fournisseur ; Ollama le conserve sur ce PC. Faites défiler le rapport avec PgUp/PgDn. L’IA peut manquer des problèmes : c’est un conseil, pas une approbation, et l’avertissement sur les droits complets reste valable. Enter installe et Esc annule, même pendant la vérification. Les erreurs, les réponses vides et le délai de 180 secondes laissent la vérification normale disponible.
 
 Rien n’est installé automatiquement.
 

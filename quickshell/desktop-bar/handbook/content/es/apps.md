@@ -75,7 +75,7 @@ Los navegadores usan HDR solo cuando el HDR del escritorio está activado para s
 
 Mantén **SUPER + Shift + D**, habla y suelta, o escribe en Principal > Herramientas > Recordatorios > Dile al asistente…. Eitr transcribe localmente con el modelo sin conexión del dictado y consulta al asistente elegido en Desarrollo > IA > Asistente predeterminado. Solo la transcripción y el contexto de los recordatorios van a su proveedor; el audio queda local y se elimina tras transcribirlo.
 
-El asistente funciona sin ventana por la vía de solo lectura de Eitr. Eitr valida su JSON y ejecuta las acciones; el asistente no recibe herramientas para cambiar nada. Con Ratatoskr (Desarrollo > IA > Asistente predeterminado), la transcripción nunca sale de este PC.
+El asistente funciona sin ventana por la vía de solo lectura de Eitr. Eitr valida su JSON y ejecuta las acciones; el asistente no recibe herramientas para cambiar nada. Con Ollama (Desarrollo > IA > Asistente predeterminado), la transcripción nunca sale de este PC.
 
 Di «Recuérdame llamar mañana a las 15:00» o «Dentista el 30 de octubre a las 15:00, avisa 30 minutos antes». Las citas avisan una hora antes por defecto (o con el margen indicado) y a la hora del evento; los recordatorios simples solo a su hora. Si faltan datos o hay ambigüedad, se abre un terminal con opciones numeradas completas.
 
@@ -119,7 +119,7 @@ El catálogo instala y actualiza plugins dentro de la ventana. Las tarjetas Ofic
 
 Los plugins tienen todos los permisos de tu cuenta. Enter confirma y Escape cancela. Se instala exactamente el commit revisado; Comunidad usa el commit fijado en el índice. La revisión caduca en 15 minutos y se descarta al cerrar el catálogo. Instalados > Añadir desde una dirección Git acepta HTTPS o SSH para plugins y temas de datos, sin terminal.
 
-En la revisión de instalación, pulsa A para pedir a tu asistente predeterminado que revise una copia temporal del repositorio como texto, sin herramientas. Ratatoskr y Claude pueden revisar plugins; si el asistente predeterminado no es compatible, la revisión indica su nombre. Claude envía el texto a su proveedor; Ratatoskr lo mantiene en este equipo.
+En la revisión de instalación, pulsa A para pedir a tu asistente predeterminado que revise una copia temporal del repositorio como texto, sin herramientas. Ollama y Claude pueden revisar plugins; si el asistente predeterminado no es compatible, la revisión indica su nombre. Claude envía el texto a su proveedor; Ollama lo mantiene en este equipo.
 
 Desplaza el informe con PgUp/PgDn. La IA puede pasar por alto problemas: es un consejo, no una aprobación, y la advertencia sobre permisos completos sigue vigente. Enter instala y Esc cancela, incluso durante la comprobación. Los errores, las respuestas vacías y el límite de 180 segundos mantienen disponible la revisión normal.
 

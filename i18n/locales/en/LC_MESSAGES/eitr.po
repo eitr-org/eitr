@@ -2338,8 +2338,41 @@ msgstr "Official Eitr plugin"
 msgid "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
 msgstr "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
 
+msgid "Ollama (offline, experimental)"
+msgstr "Ollama (offline, experimental)"
+
+msgid "Ollama ({model}) runs only on this PC. Type /bye to close."
+msgstr "Ollama ({model}) runs only on this PC. Type /bye to close."
+
+msgid "Ollama could not answer: {reason}"
+msgstr "Ollama could not answer: {reason}"
+
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "Ollama could not be installed. Your default assistant is unchanged."
+
+msgid "Ollama could not complete the request."
+msgstr "Ollama could not complete the request."
+
+msgid "Ollama is not set up."
+msgstr "Ollama is not set up."
+
+msgid "Ollama is not set up. Choose it in Development > AI > Default Assistant."
+msgstr "Ollama is not set up. Choose it in Development > AI > Default Assistant."
+
+msgid "Ollama is ready and is now your default assistant."
+msgstr "Ollama is ready and is now your default assistant."
+
+msgid "Ollama is unavailable."
+msgstr "Ollama is unavailable."
+
+msgid "Ollama service did not start. Check it with: systemctl --user status {unit}"
+msgstr "Ollama service did not start. Check it with: systemctl --user status {unit}"
+
+msgid "Ollama timed out."
+msgstr "Ollama timed out."
+
+msgid "Ollama was removed."
+msgstr "Ollama was removed."
 
 msgid "On"
 msgstr "On"
@@ -2674,39 +2707,6 @@ msgstr "RISK: {flag}"
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 
-msgid "Ratatoskr (offline, experimental)"
-msgstr "Ratatoskr (offline, experimental)"
-
-msgid "Ratatoskr ({model}) runs only on this PC. Type /bye to close."
-msgstr "Ratatoskr ({model}) runs only on this PC. Type /bye to close."
-
-msgid "Ratatoskr could not answer: {reason}"
-msgstr "Ratatoskr could not answer: {reason}"
-
-msgid "Ratatoskr could not complete the request."
-msgstr "Ratatoskr could not complete the request."
-
-msgid "Ratatoskr is not set up."
-msgstr "Ratatoskr is not set up."
-
-msgid "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant."
-msgstr "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant."
-
-msgid "Ratatoskr is ready and is now your default assistant."
-msgstr "Ratatoskr is ready and is now your default assistant."
-
-msgid "Ratatoskr is unavailable."
-msgstr "Ratatoskr is unavailable."
-
-msgid "Ratatoskr service did not start. Check it with: systemctl --user status {unit}"
-msgstr "Ratatoskr service did not start. Check it with: systemctl --user status {unit}"
-
-msgid "Ratatoskr timed out."
-msgstr "Ratatoskr timed out."
-
-msgid "Ratatoskr was removed."
-msgstr "Ratatoskr was removed."
-
 msgid "Re-enable visuals"
 msgstr "Re-enable visuals"
 
@@ -2815,11 +2815,11 @@ msgstr "Remove"
 msgid "Remove '{name}'"
 msgstr "Remove '{name}'"
 
-msgid "Remove Ratatoskr"
-msgstr "Remove Ratatoskr"
+msgid "Remove Ollama"
+msgstr "Remove Ollama"
 
-msgid "Remove Ratatoskr?"
-msgstr "Remove Ratatoskr?"
+msgid "Remove Ollama?"
+msgstr "Remove Ollama?"
 
 msgid "Remove bar item"
 msgstr "Remove bar item"
@@ -3157,8 +3157,8 @@ msgstr "Set a Sunshine username and password in the local settings page before p
 msgid "Set password for {username}."
 msgstr "Set password for {username}."
 
-msgid "Set up Ratatoskr?"
-msgstr "Set up Ratatoskr?"
+msgid "Set up Ollama?"
+msgstr "Set up Ollama?"
 
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Set up full-screen monitor capture in OBS first"
@@ -4357,8 +4357,8 @@ msgstr "Your current personal settings, the hidden files such as ~/.config and ~
 msgid "Your default assistant is unchanged."
 msgstr "Your default assistant is unchanged."
 
-msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
-msgstr "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
+msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ollama and Claude can."
+msgstr "Your default assistant, {assistant}, can't check plugins safely yet. Ollama and Claude can."
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."

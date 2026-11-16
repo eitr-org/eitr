@@ -130,7 +130,7 @@ def prompt(transcript, existing, history):
 
 
 # Small local models copy times from context and stumble over timestamp maths, so
-# Ratatoskr only names the time as a phrase that Eitr's own parser
+# Ollama only names the time as a phrase that Eitr's own parser
 # (the one typed reminders use) turns into dates; the result is then validated
 # like any other assistant's answer.
 LOCAL_PROTOCOL = """Return ONLY one JSON object, one of:
@@ -168,7 +168,7 @@ def local_prompt(transcript, existing):
 
 
 def expand_local(payload, now=None, transcript=''):
-    """Ratatoskr's short answer, expanded into the full protocol."""
+    """Ollama's short answer, expanded into the full protocol."""
     if not isinstance(payload, dict) or payload.get('action') != 'create':
         return payload
     if not set(payload) <= {'action', 'title', 'when', 'appointment'} or not {'title', 'when'} <= set(payload):
@@ -247,7 +247,7 @@ def process(transcript):
     for turn in range(5):
         answer = extract(assistant_ask(identifier, prompt(transcript, reminders.load(), history), announce=False, response_format='json'))
         if isinstance(answer, dict) and answer.get('action') == 'create' and 'when' in answer:
-            # A date without a time: Eitr's parser and clock fill it in, as for Ratatoskr.
+            # A date without a time: Eitr's parser and clock fill it in, as for Ollama.
             answer = expand_local(answer, transcript=transcript)
         payload = validate(answer, reminders.load())
         if payload['action'] != 'ask':

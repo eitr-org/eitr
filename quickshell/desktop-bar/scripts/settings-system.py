@@ -130,13 +130,13 @@ def assistants():
         items.append({'title': definition['label'], 'detail': 'Installed' if installed else 'Not installed', 'controls': controls})
     local_ready = eitr_local_assistant.installed()
     if local_ready:
-        choices.append({'value': eitr_local_assistant.IDENTIFIER, 'label': 'Ratatoskr (local, experimental)'})
+        choices.append({'value': eitr_local_assistant.IDENTIFIER, 'label': 'Ollama (local, experimental)'})
     local_controls = [] if local_ready else [{'title': 'Set Up', 'detail': 'Set up an assistant that runs only on this PC',
                                               'command': terminal('walker/scripts/actions/ai-assistant.py', 'setup-local')}]
     if local_ready or eitr_local_assistant.present():
-        local_controls.append({'title': 'Remove', 'detail': 'Ratatoskr (local, experimental)',
+        local_controls.append({'title': 'Remove', 'detail': 'Ollama (local, experimental)',
                                'command': terminal('walker/scripts/actions/ai-assistant.py', 'remove-local')})
-    items.append({'title': 'Ratatoskr (local, experimental)', 'detail': 'Runs only on this PC; less reliable than cloud assistants',
+    items.append({'title': 'Ollama (local, experimental)', 'detail': 'Runs only on this PC; less reliable than cloud assistants',
                   'controls': local_controls})
     return {'items': items, 'choices': choices, 'current': default_assistant(), 'access': assistant_access(),
             'collaboration': collaboration_enabled()}

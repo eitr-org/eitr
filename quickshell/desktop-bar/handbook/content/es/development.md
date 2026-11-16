@@ -32,7 +32,7 @@ Cada asistente en la nube tiene un submenú Cuentas en Desarrollo > IA. Predeter
 
 Enter confirma; Esc cancela. Seleccione una cuenta para cambiar manualmente las próximas sesiones interactivas, Preguntar a la IA y los asistentes de solo lectura; las sesiones abiertas conservan su cuenta. Delete elimina una cuenta añadida y su configuración local tras confirmar; Predeterminada no se puede eliminar. Eliminar la cuenta seleccionada vuelve a Predeterminada sin cerrar otra sesión.
 
-Antigravity solo ofrece Predeterminada porque su CLI no permite cambiar la carpeta de configuración. Ratatoskr tiene una cuenta local. Los nombres y la selección se guardan en este PC en `eitr/ai-accounts.json` (0600); las carpetas separadas están en `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). Uso de IA agrupa las cuentas con uso legible por asistente y oculta el uso ilegible o no compatible.
+Antigravity solo ofrece Predeterminada porque su CLI no permite cambiar la carpeta de configuración. Ollama tiene una cuenta local. Los nombres y la selección se guardan en este PC en `eitr/ai-accounts.json` (0600); las carpetas separadas están en `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). Uso de IA agrupa las cuentas con uso legible por asistente y oculta el uso ilegible o no compatible.
 
 Las secciones empiezan cerradas al iniciar sesión y conservan su estado abierto o cerrado durante la sesión.
 
@@ -68,13 +68,13 @@ La habilidad **Eitr** incluida explica cómo cambiar el escritorio de forma segu
 
 Las instalaciones existentes reciben las habilidades ausentes al iniciar sesión. Las instrucciones de inicio de cada CLI siguen activas; no se inicia sesión con ningún proveedor.
 
-### Ratatoskr
+### Ollama
 
-Desarrollo > IA > Asistente predeterminado siempre ofrece **Ratatoskr (local, experimental)**, que no necesita cuenta ni suscripción. La primera vez, un terminal explica las descargas únicas antes de cambiar nada: el paquete de Arch `ollama` (unos 15 MB) y el modelo de lenguaje `qwen3:4b` (unos 2,5 GB, licencia Apache-2.0). Una sola confirmación (Enter confirma; Esc cancela) instala el paquete, crea el servicio de usuario `eitr-ollama.service`, descarga el modelo mostrando el progreso y lo deja como predeterminado. Si un paso falla, su salida queda en pantalla y se conserva el predeterminado anterior.
+Desarrollo > IA > Asistente predeterminado siempre ofrece **Ollama (local, experimental)**, que no necesita cuenta ni suscripción. La primera vez, un terminal explica las descargas únicas antes de cambiar nada: el paquete de Arch `ollama` (unos 15 MB) y el modelo de lenguaje `qwen3:4b` (unos 2,5 GB, licencia Apache-2.0). Una sola confirmación (Enter confirma; Esc cancela) instala el paquete, crea el servicio de usuario `eitr-ollama.service`, descarga el modelo mostrando el progreso y lo deja como predeterminado. Si un paso falla, su salida queda en pantalla y se conserva el predeterminado anterior.
 
 Todo queda en este PC: el servicio escucha solo en `127.0.0.1:11434`, se inicia cuando hace falta y guarda sus modelos en `~/.local/share/eitr/ollama`. Es notablemente menos fiable que los asistentes en la nube, sobre todo con frases poco habituales, y más lento en el procesador. Los recordatorios por voz validan sus respuestas como las de cualquier otro asistente, así que una respuesta incorrecta no cambia nada. **SUPER + A** abre un chat con el modelo; `/bye` lo cierra. Nunca es ayudante de los asistentes que trabajan juntos y no tiene entrada en Uso de IA.
 
-Selecciona **Ratatoskr** en el mismo menú y pulsa **Delete**. La eliminación pregunta una vez y luego elimina el servicio y los modelos, restablece el predeterminado si era el local y desinstala `ollama` si lo instaló la configuración. La clave propia y el historial de chat de Ollama en `~/.ollama` se conservan.
+Selecciona **Ollama** en el mismo menú y pulsa **Delete**. La eliminación pregunta una vez y luego elimina el servicio y los modelos, restablece el predeterminado si era el local y desinstala `ollama` si lo instaló la configuración. La clave propia y el historial de chat de Ollama en `~/.ollama` se conservan.
 
 ## Monitorización
 

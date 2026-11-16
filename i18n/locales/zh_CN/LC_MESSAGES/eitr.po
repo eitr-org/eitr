@@ -2338,8 +2338,41 @@ msgstr "Eitr 官方插件"
 msgid "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
 msgstr "来自 eitr-org/eitr-plugins 的 Eitr 官方插件，已由 Eitr 项目审查。与所有插件一样，它以您账户的完整权限运行。"
 
+msgid "Ollama (offline, experimental)"
+msgstr "Ollama（离线，实验性）"
+
+msgid "Ollama ({model}) runs only on this PC. Type /bye to close."
+msgstr "Ollama ({model}) 仅在此电脑上运行。输入 /bye 关闭。"
+
+msgid "Ollama could not answer: {reason}"
+msgstr "Ollama 无法回答：{reason}"
+
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "无法安装 Ollama。您的默认助手保持不变。"
+
+msgid "Ollama could not complete the request."
+msgstr "Ollama 无法完成请求。"
+
+msgid "Ollama is not set up."
+msgstr "Ollama 未设置。"
+
+msgid "Ollama is not set up. Choose it in Development > AI > Default Assistant."
+msgstr "Ollama 未设置。请在“开发 > AI > 默认助手”中选择它。"
+
+msgid "Ollama is ready and is now your default assistant."
+msgstr "Ollama 已就绪，现已成为您的默认助手。"
+
+msgid "Ollama is unavailable."
+msgstr "Ollama 不可用。"
+
+msgid "Ollama service did not start. Check it with: systemctl --user status {unit}"
+msgstr "Ollama 服务未启动。使用以下命令检查：systemctl --user status {unit}"
+
+msgid "Ollama timed out."
+msgstr "Ollama 超时。"
+
+msgid "Ollama was removed."
+msgstr "Ollama 已移除。"
 
 msgid "On"
 msgstr "已开启"
@@ -2674,39 +2707,6 @@ msgstr "风险：{flag}"
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "无线电已在其他位置被阻止；请在 WiFi/蓝牙中单独启用。"
 
-msgid "Ratatoskr (offline, experimental)"
-msgstr "Ratatoskr（离线，实验性）"
-
-msgid "Ratatoskr ({model}) runs only on this PC. Type /bye to close."
-msgstr "Ratatoskr ({model}) 仅在此电脑上运行。输入 /bye 关闭。"
-
-msgid "Ratatoskr could not answer: {reason}"
-msgstr "Ratatoskr 无法回答：{reason}"
-
-msgid "Ratatoskr could not complete the request."
-msgstr "Ratatoskr 无法完成请求。"
-
-msgid "Ratatoskr is not set up."
-msgstr "Ratatoskr 未设置。"
-
-msgid "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant."
-msgstr "Ratatoskr 未设置。请在“开发 > AI > 默认助手”中选择它。"
-
-msgid "Ratatoskr is ready and is now your default assistant."
-msgstr "Ratatoskr 已就绪，现已成为您的默认助手。"
-
-msgid "Ratatoskr is unavailable."
-msgstr "Ratatoskr 不可用。"
-
-msgid "Ratatoskr service did not start. Check it with: systemctl --user status {unit}"
-msgstr "Ratatoskr 服务未启动。使用以下命令检查：systemctl --user status {unit}"
-
-msgid "Ratatoskr timed out."
-msgstr "Ratatoskr 超时。"
-
-msgid "Ratatoskr was removed."
-msgstr "Ratatoskr 已移除。"
-
 msgid "Re-enable visuals"
 msgstr "重新启用视觉效果"
 
@@ -2815,11 +2815,11 @@ msgstr "移除"
 msgid "Remove '{name}'"
 msgstr "移除“{name}”"
 
-msgid "Remove Ratatoskr"
-msgstr "移除 Ratatoskr"
+msgid "Remove Ollama"
+msgstr "移除 Ollama"
 
-msgid "Remove Ratatoskr?"
-msgstr "移除 Ratatoskr？"
+msgid "Remove Ollama?"
+msgstr "移除 Ollama？"
 
 msgid "Remove bar item"
 msgstr "移除状态栏项"
@@ -3157,8 +3157,8 @@ msgstr "在配对任何设备之前，请先在本地设置页面中设置 Sunsh
 msgid "Set password for {username}."
 msgstr "设置 {username} 的密码。"
 
-msgid "Set up Ratatoskr?"
-msgstr "设置 Ratatoskr？"
+msgid "Set up Ollama?"
+msgstr "设置 Ollama？"
 
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "请先在 OBS 中设置全屏显示器捕获"
@@ -4357,8 +4357,8 @@ msgstr "您当前的个人设置（如 ~/.config 和 ~/.ssh 等隐藏文件）�
 msgid "Your default assistant is unchanged."
 msgstr "您的默认助手保持不变。"
 
-msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
-msgstr "您的默认助手 {assistant} 尚无法安全地检查插件。Ratatoskr 和 Claude 可以。"
+msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ollama and Claude can."
+msgstr "您的默认助手 {assistant} 尚无法安全地检查插件。Ollama 和 Claude 可以。"
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "您的电子邮件应用已打开一封收件人为 {REPORTS_EMAIL} 的邮件。附上 {path}，描述发生的情况，然后发送。"

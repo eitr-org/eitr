@@ -625,7 +625,7 @@
   "RECORDING · {size}": "녹화 중 · {size}",
   "RESTART": "다시 시작",
   "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "무선 장치가 다른 곳에서 차단되었습니다. WiFi/Bluetooth에서 개별적으로 활성화하세요.",
-  "Ratatoskr (local, experimental)": "Ratatoskr (로컬, 실험적)",
+  "Ollama (local, experimental)": "Ollama (로컬, 실험적)",
   "Re-enable": "다시 활성화",
   "Re-enable with eitr plugin enable-ui {plugin}": "eitr plugin enable-ui {plugin} 명령으로 다시 활성화",
   "Read-only help from your connected assistants. Turning it on explains what is shared and asks first.": "연결된 어시스턴트의 읽기 전용 도움말입니다. 켜면 공유되는 내용을 설명하고 먼저 확인합니다.",

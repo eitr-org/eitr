@@ -625,7 +625,7 @@
   "RECORDING · {size}": "录制中 · {size}",
   "RESTART": "重新启动",
   "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "无线电已在其他位置被阻止；请在 WiFi/蓝牙中单独启用。",
-  "Ratatoskr (local, experimental)": "Ratatoskr（本地，实验性）",
+  "Ollama (local, experimental)": "Ollama（本地，实验性）",
   "Re-enable": "重新启用",
   "Re-enable with eitr plugin enable-ui {plugin}": "使用 eitr plugin enable-ui {plugin} 重新启用",
   "Read-only help from your connected assistants. Turning it on explains what is shared and asks first.": "来自已连接助手的只读协助。开启时会说明共享内容并事先询问。",

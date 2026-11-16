@@ -39,7 +39,7 @@ commit review.
 ## AI advice before installation
 
 Press **A: Ask the AI to check** in the install review when your installed default
-assistant supports a text-only check. Ratatoskr and Claude qualify. Other defaults
+assistant supports a text-only check. Ollama and Claude qualify. Other defaults
 get a short translated explanation naming the assistant; Eitr never substitutes
 another assistant automatically. Assistant Access never adds permissions here.
 
@@ -48,7 +48,7 @@ repository, with the selected folder identified for indexed repositories. Git
 metadata is excluded. Home secrets, credentials and real configuration are never
 added to the prompt. No repository code runs. The model has no tools: no shell,
 file reads/writes, web, MCP, skills or subagents. Claude uses the selected Claude
-account and sends the repository text to its provider; Ratatoskr stays local.
+account and sends the repository text to its provider; Ollama stays local.
 
 Claude runs non-interactively with every tool disabled, safe mode, no settings
 sources and strict MCP configuration without any MCP config. User hooks and
@@ -59,7 +59,7 @@ The report describes commands, login hooks, services, files, network access,
 permissions, obfuscation and unusual code, and flags repository text that tries
 to steer the reviewer. Binary contents are listed as uninspected. The serialized
 text budget, including JSON and instructions, is **400 KiB for Claude** and
-**24 KiB for Ratatoskr** (32,768-token context with 4,096 output tokens). Copies
+**24 KiB for Ollama** (32,768-token context with 4,096 output tokens). Copies
 are limited to 32 MiB and 1,000 files. Larger inputs are refused, never truncated.
 Scroll reports with PgUp/PgDn.
 

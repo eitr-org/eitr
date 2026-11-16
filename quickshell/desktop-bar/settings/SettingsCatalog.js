@@ -127,7 +127,7 @@ var settings = [
     {"id": "assistant-gemini-cli-gemini-api-key-or-google-cloud-company-account", "label": "Gemini CLI (Gemini API key or Google Cloud/company account)", "page": "assistant", "tab": "assistants", "keywords": "gemini cli (gemini api key or google cloud/company account)"},
     {"id": "assistant-opencode", "label": "OpenCode", "page": "assistant", "tab": "assistants", "keywords": "opencode"},
     {"id": "assistant-pi", "label": "Pi", "page": "assistant", "tab": "assistants", "keywords": "pi"},
-    {"id": "assistant-ratatoskr-local-experimental", "label": "Ratatoskr (local, experimental)", "page": "assistant", "tab": "assistants", "keywords": "ratatoskr (local, experimental)"},
+    {"id": "assistant-ollama-local-experimental", "label": "Ollama (local, experimental)", "page": "assistant", "tab": "assistants", "keywords": "ollama (local, experimental)"},
     {"id": "streaming-pair-a-device", "label": "Pair a Device", "page": "streaming", "tab": "", "keywords": "pair a device"},
     {"id": "streaming-sharing-status", "label": "Sharing Status", "page": "streaming", "tab": "", "keywords": "sharing status"},
     {"id": "streaming-detailed-status", "label": "Detailed Status", "page": "streaming", "tab": "", "keywords": "detailed status"},

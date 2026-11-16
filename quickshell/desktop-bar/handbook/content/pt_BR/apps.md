@@ -75,7 +75,7 @@ A reprodução HDR no navegador também depende do suporte e das configurações
 
 Segure **SUPER + Shift + D**, fale e solte, ou digite em Principal > Ferramentas > Lembretes > Fale com o assistente…. O Eitr transcreve localmente com o mesmo modelo offline do ditado e consulta o assistente escolhido em Desenvolvimento > IA > Assistente padrão. Só a transcrição e o contexto dos lembretes vão ao provedor; o áudio fica local e é apagado após a transcrição.
 
-O assistente roda sem janela pelo caminho somente leitura do Eitr. O Eitr valida o JSON e executa as ações; o assistente não recebe ferramentas para alterar nada. Com Ratatoskr (Desenvolvimento > IA > Assistente padrão), a transcrição nunca sai deste PC.
+O assistente roda sem janela pelo caminho somente leitura do Eitr. O Eitr valida o JSON e executa as ações; o assistente não recebe ferramentas para alterar nada. Com Ollama (Desenvolvimento > IA > Assistente padrão), a transcrição nunca sai deste PC.
 
 Diga “Me lembre de ligar amanhã às 15h” ou “Dentista em 30 de outubro às 15h, avise 30 minutos antes”. Compromissos avisam uma hora antes por padrão (ou com a antecedência pedida) e no horário; lembretes simples só no horário. Dados ausentes ou ambiguidade abrem um terminal com opções numeradas completas. Digite o número ou sua própria resposta, ou dite com SUPER + D; Esc cancela. Uma data sem horário abre o relógio com qualquer assistente. Uma notificação informa o resultado. Você também pode pedir para listar ou cancelar lembretes.
 
@@ -117,7 +117,7 @@ O catálogo instala e atualiza plugins na própria janela. Os cartões Oficial e
 
 Plugins têm todas as permissões da sua conta. Enter confirma e Escape cancela. A instalação usa exatamente o commit revisado; na Comunidade, usa o commit fixado pelo índice. A revisão expira em 15 minutos e é descartada ao fechar o catálogo. Instalados > Adicionar de um endereço Git aceita HTTPS ou SSH para plugins e temas de dados, sem terminal.
 
-Na revisão da instalação, pressione A para pedir ao assistente padrão que verifique uma cópia temporária do repositório como texto, sem ferramentas. Ratatoskr e Claude podem verificar plugins; se o assistente padrão não for compatível, a revisão informa seu nome. Claude envia o texto ao seu provedor; Ratatoskr o mantém neste computador.
+Na revisão da instalação, pressione A para pedir ao assistente padrão que verifique uma cópia temporária do repositório como texto, sem ferramentas. Ollama e Claude podem verificar plugins; se o assistente padrão não for compatível, a revisão informa seu nome. Claude envia o texto ao seu provedor; Ollama o mantém neste computador.
 
 Role o relatório com PgUp/PgDn. A IA pode deixar passar problemas: é uma orientação, não uma aprovação, e o aviso de permissões totais continua valendo. Enter instala e Esc cancela, inclusive durante a verificação. Erros, respostas vazias e o limite de 180 segundos mantêm a revisão normal disponível. Nada é instalado automaticamente.
 

@@ -2112,7 +2112,7 @@ class AIReviewTests(unittest.TestCase):
                     patch.object(review.subprocess, 'run') as run:
                 message = review.unsupported_message()
                 self.assertIn(review.NAMES[identifier], message)
-                self.assertIn("can't check plugins safely yet. Ratatoskr and Claude can.", message)
+                self.assertIn("can't check plugins safely yet. Ollama and Claude can.", message)
                 self.assertIn(message, cli.install_review_lines(None, {}, ''))
                 self.assertIn(message, review.check(Path('/unused')))
                 self.assertFalse(review.available())

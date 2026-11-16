@@ -71,7 +71,7 @@ Verlieren helle Bereiche Details, senke den Spitzenwert; wirkt das Bild matt, er
 
 Halte **SUPER + Shift + D**, sprich und lasse los, oder tippe unter Hauptmenü > Werkzeuge > Erinnerungen > Dem Assistenten etwas sagen…. Eitr transkribiert lokal mit dem Offline-Modell der Diktierfunktion und fragt den unter Entwicklung > KI > Standardassistent gewählten Assistenten. Nur Transkript und Erinnerungskontext gehen an dessen Anbieter; Audio bleibt lokal und wird nach der Transkription gelöscht.
 
-Der Assistent läuft ohne Fenster über Eitrs schreibgeschützten Aufruf. Eitr prüft dessen JSON und führt Erinnerungsaktionen selbst aus; der Assistent erhält keine Werkzeuge zum Ändern von Daten. Mit Ratatoskr (Entwicklung > KI > Standardassistent) verlässt das Transkript diesen PC nie.
+Der Assistent läuft ohne Fenster über Eitrs schreibgeschützten Aufruf. Eitr prüft dessen JSON und führt Erinnerungsaktionen selbst aus; der Assistent erhält keine Werkzeuge zum Ändern von Daten. Mit Ollama (Entwicklung > KI > Standardassistent) verlässt das Transkript diesen PC nie.
 
 Sage etwa „Erinnere mich morgen um 15 Uhr an einen Anruf“ oder „Zahnarzt am 30. Oktober um 15 Uhr, 30 Minuten vorher erinnern“. Termine melden sich standardmäßig eine Stunde vorher (oder mit dem gewünschten Vorlauf) und zur Terminzeit; einfache Erinnerungen nur zur angegebenen Zeit. Bei fehlenden Angaben oder Mehrdeutigkeit erscheint ein Terminal mit vollständig ausgeschriebenen nummerierten Optionen.
 
@@ -111,7 +111,7 @@ Der Katalog installiert und aktualisiert Plugins im Fenster. Karten unter Offizi
 
 Enter bestätigt, Escape bricht ab. Installiert wird genau der geprüfte Commit; Community verwendet den im Index festgelegten Commit. Die Prüfung läuft nach 15 Minuten ab und wird beim Schließen verworfen. Installiert > Von einer Git-Adresse hinzufügen akzeptiert HTTPS oder SSH für Plugins und datenbasierte Themes, ohne Terminal.
 
-Drücke in der Installationsprüfung A, damit dein Standardassistent eine temporäre Kopie des Repositorys als Text ohne Werkzeuge prüft. Ratatoskr und Claude können Plugins prüfen; ein nicht unterstützter Standardassistent wird in der Prüfung benannt. Claude sendet den Text an seinen Anbieter; Ratatoskr behält ihn auf diesem PC. Mit PgUp/PgDn blätterst du im Bericht.
+Drücke in der Installationsprüfung A, damit dein Standardassistent eine temporäre Kopie des Repositorys als Text ohne Werkzeuge prüft. Ollama und Claude können Plugins prüfen; ein nicht unterstützter Standardassistent wird in der Prüfung benannt. Claude sendet den Text an seinen Anbieter; Ollama behält ihn auf diesem PC. Mit PgUp/PgDn blätterst du im Bericht.
 
 Die KI kann Probleme übersehen: Dies ist ein Hinweis, keine Freigabe; die Warnung zu vollen Zugriffsrechten gilt weiter. Enter installiert und Esc bricht ab, auch während der Prüfung. Bei Fehlern, leeren Antworten oder nach 180 Sekunden bleibt die normale Prüfung verfügbar. Nichts wird automatisch installiert.
 

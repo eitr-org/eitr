@@ -51,7 +51,7 @@ Each cloud assistant has an Accounts submenu under Development > AI. Default use
 
 Select an account to switch future interactive sessions, Ask the AI and read-only helpers manually; running sessions keep their account. Delete removes an added account and its local configuration after confirmation; Default cannot be removed. Removing the selected account returns to Default and never logs another account out. Antigravity offers only Default because its CLI has no supported config-folder override.
 
-Ratatoskr has one local account. Account labels and selection stay on this PC in `eitr/ai-accounts.json` (0600); separate folders live under `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). AI Usage groups readable accounts by assistant and hides unreadable or unsupported usage. Sections start closed at login and keep their open or closed state for the session.
+Ollama has one local account. Account labels and selection stay on this PC in `eitr/ai-accounts.json` (0600); separate folders live under `$XDG_DATA_HOME/eitr/ai-accounts/` (0700). AI Usage groups readable accounts by assistant and hides unreadable or unsupported usage. Sections start closed at login and keep their open or closed state for the session.
 
 Development > AI offers a menu for each installed assistant: Antigravity CLI, Claude Code, Codex, Gemini CLI, GitHub Copilot CLI, Grok Build, OpenCode and Pi. Install them from Install > AI CLIs; with none installed, Development > AI links there.
 
@@ -86,13 +86,13 @@ Install > AI CLIs also offers **OpenCode** (`opencode`, official Arch package) a
 
 The packaged **Eitr** skill teaches safe desktop changes and points to this offline Handbook. `eitr-config seed` copies the same source to `~/.claude/skills/eitr/SKILL.md` for Claude Code and `~/.agents/skills/eitr/SKILL.md` for Codex, Gemini CLI and OpenCode when skill discovery is enabled. `eitr-config update` refreshes unedited copies, keeps user-created or edited copies, and writes changed defaults to `.eitr-new` for review. Existing installations receive missing skills at login. Per-CLI startup instructions remain active; no sign-in is performed.
 
-### Ratatoskr (local, experimental)
+### Ollama (local, experimental)
 
-Development > AI > Default Assistant always offers **Ratatoskr (local, experimental)**, which needs no account or subscription. The first time, a terminal explains the one-time downloads before anything changes: the Arch package `ollama` (about 15 MB) and the language model `qwen3:4b` (about 2.5 GB, Apache-2.0 licence). One confirmation (Enter confirms; Esc cancels) installs the package, creates the user service `eitr-ollama.service`, downloads the model with visible progress and makes it the default. If a step fails, its output stays on screen and the previous default is kept.
+Development > AI > Default Assistant always offers **Ollama (local, experimental)**, which needs no account or subscription. The first time, a terminal explains the one-time downloads before anything changes: the Arch package `ollama` (about 15 MB) and the language model `qwen3:4b` (about 2.5 GB, Apache-2.0 licence). One confirmation (Enter confirms; Esc cancels) installs the package, creates the user service `eitr-ollama.service`, downloads the model with visible progress and makes it the default. If a step fails, its output stays on screen and the previous default is kept.
 
 Everything stays on this PC: the service listens only on `127.0.0.1:11434`, starts when needed and keeps its models in `~/.local/share/eitr/ollama`. It is noticeably less reliable than the cloud assistants, especially with unusual phrasing, and slower on the processor. Voice reminders check its answers like any other assistant's, so a wrong answer changes nothing. **SUPER + A** opens a chat with the model; `/bye` closes it. It is never a helper for assistants working together and has no AI Usage entry.
 
-Select **Ratatoskr** in the same menu and press **Delete**. Removal asks once, then deletes the service and the models, resets the default if it was local and uninstalls `ollama` if setup installed it. Ollama's own key and chat history in `~/.ollama` are kept.
+Select **Ollama** in the same menu and press **Delete**. Removal asks once, then deletes the service and the models, resets the default if it was local and uninstalls `ollama` if setup installed it. Ollama's own key and chat history in `~/.ollama` are kept.
 
 ## Monitoring
 

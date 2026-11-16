@@ -2338,8 +2338,41 @@ msgstr "공식 Eitr 플러그인"
 msgid "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
 msgstr "eitr-org/eitr-plugins의 공식 Eitr 플러그인으로, Eitr 프로젝트의 검토를 거쳤습니다. 모든 플러그인과 마찬가지로 사용자 계정의 모든 권한으로 실행됩니다."
 
+msgid "Ollama (offline, experimental)"
+msgstr "Ollama (오프라인, 실험적)"
+
+msgid "Ollama ({model}) runs only on this PC. Type /bye to close."
+msgstr "Ollama ({model})는 이 PC에서만 실행됩니다. 닫으려면 /bye를 입력하세요."
+
+msgid "Ollama could not answer: {reason}"
+msgstr "Ollama가 답변할 수 없습니다: {reason}"
+
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "Ollama를 설치할 수 없습니다. 기본 어시스턴트는 변경되지 않았습니다."
+
+msgid "Ollama could not complete the request."
+msgstr "Ollama가 요청을 완료할 수 없습니다."
+
+msgid "Ollama is not set up."
+msgstr "Ollama가 설정되지 않았습니다."
+
+msgid "Ollama is not set up. Choose it in Development > AI > Default Assistant."
+msgstr "Ollama가 설정되지 않았습니다. 개발 > AI > 기본 어시스턴트에서 선택하세요."
+
+msgid "Ollama is ready and is now your default assistant."
+msgstr "Ollama가 준비되었으며 이제 기본 어시스턴트입니다."
+
+msgid "Ollama is unavailable."
+msgstr "Ollama를 사용할 수 없습니다."
+
+msgid "Ollama service did not start. Check it with: systemctl --user status {unit}"
+msgstr "Ollama 서비스가 시작되지 않았습니다. 다음 명령으로 확인하세요: systemctl --user status {unit}"
+
+msgid "Ollama timed out."
+msgstr "Ollama 요청 시간이 초과되었습니다."
+
+msgid "Ollama was removed."
+msgstr "Ollama가 제거되었습니다."
 
 msgid "On"
 msgstr "켜짐"
@@ -2674,39 +2707,6 @@ msgstr "위험: {flag}"
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "무선 장치가 다른 곳에서 차단되었습니다. WiFi/Bluetooth에서 개별적으로 활성화하세요."
 
-msgid "Ratatoskr (offline, experimental)"
-msgstr "Ratatoskr (오프라인, 실험적)"
-
-msgid "Ratatoskr ({model}) runs only on this PC. Type /bye to close."
-msgstr "Ratatoskr ({model})는 이 PC에서만 실행됩니다. 닫으려면 /bye를 입력하세요."
-
-msgid "Ratatoskr could not answer: {reason}"
-msgstr "Ratatoskr가 답변할 수 없습니다: {reason}"
-
-msgid "Ratatoskr could not complete the request."
-msgstr "Ratatoskr가 요청을 완료할 수 없습니다."
-
-msgid "Ratatoskr is not set up."
-msgstr "Ratatoskr가 설정되지 않았습니다."
-
-msgid "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant."
-msgstr "Ratatoskr가 설정되지 않았습니다. 개발 > AI > 기본 어시스턴트에서 선택하세요."
-
-msgid "Ratatoskr is ready and is now your default assistant."
-msgstr "Ratatoskr가 준비되었으며 이제 기본 어시스턴트입니다."
-
-msgid "Ratatoskr is unavailable."
-msgstr "Ratatoskr를 사용할 수 없습니다."
-
-msgid "Ratatoskr service did not start. Check it with: systemctl --user status {unit}"
-msgstr "Ratatoskr 서비스가 시작되지 않았습니다. 다음 명령으로 확인하세요: systemctl --user status {unit}"
-
-msgid "Ratatoskr timed out."
-msgstr "Ratatoskr 요청 시간이 초과되었습니다."
-
-msgid "Ratatoskr was removed."
-msgstr "Ratatoskr가 제거되었습니다."
-
 msgid "Re-enable visuals"
 msgstr "시각 효과 다시 활성화"
 
@@ -2815,11 +2815,11 @@ msgstr "제거"
 msgid "Remove '{name}'"
 msgstr "'{name}' 제거"
 
-msgid "Remove Ratatoskr"
-msgstr "Ratatoskr 제거"
+msgid "Remove Ollama"
+msgstr "Ollama 제거"
 
-msgid "Remove Ratatoskr?"
-msgstr "Ratatoskr를 제거하시겠습니까?"
+msgid "Remove Ollama?"
+msgstr "Ollama를 제거하시겠습니까?"
 
 msgid "Remove bar item"
 msgstr "바 항목 제거"
@@ -3157,8 +3157,8 @@ msgstr "장치를 페어링하기 전에 로컬 설정 페이지에서 Sunshine 
 msgid "Set password for {username}."
 msgstr "{username}의 비밀번호를 설정합니다."
 
-msgid "Set up Ratatoskr?"
-msgstr "Ratatoskr를 설정하시겠습니까?"
+msgid "Set up Ollama?"
+msgstr "Ollama를 설정하시겠습니까?"
 
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "먼저 OBS에서 전체 화면 모니터 캡처를 설정하세요"
@@ -4357,8 +4357,8 @@ msgstr "~/.config 및 ~/.ssh와 같은 숨김 파일을 포함한 현재 개인 
 msgid "Your default assistant is unchanged."
 msgstr "기본 어시스턴트가 변경되지 않았습니다."
 
-msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
-msgstr "기본 어시스턴트인 {assistant}은(는) 아직 플러그인을 안전하게 검사할 수 없습니다. Ratatoskr와 Claude는 가능합니다."
+msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ollama and Claude can."
+msgstr "기본 어시스턴트인 {assistant}은(는) 아직 플러그인을 안전하게 검사할 수 없습니다. Ollama와 Claude는 가능합니다."
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "이메일 앱에서 {REPORTS_EMAIL}(으)로 보내는 메시지가 열렸습니다. {path}을(를) 첨부하고 발생한 상황을 작성한 후 전송하세요."

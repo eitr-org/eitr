@@ -125,7 +125,7 @@ Browsers use HDR only when desktop HDR is on for their monitor; they never switc
 
 Hold **SUPER + Shift + D**, speak and release, or open Main > Tools > Reminders > Tell the assistant… to type. Eitr transcribes locally using the same offline model as dictation, then asks your Development > AI > Default Assistant to interpret the request. Only the transcript and reminder context go to that assistant's provider; audio stays local and is deleted after transcription.
 
-The assistant runs headless through Eitr's read-only path; Eitr validates its JSON and executes reminder actions itself, without giving the assistant tools to change anything. With Ratatoskr (Development > AI > Default Assistant), the transcript never leaves this PC.
+The assistant runs headless through Eitr's read-only path; Eitr validates its JSON and executes reminder actions itself, without giving the assistant tools to change anything. With Ollama (Development > AI > Default Assistant), the transcript never leaves this PC.
 
 Say “Remind me tomorrow at 15:00 to call” or “Dentist on October 30 at 15:00, alert 30 minutes before”. Appointments alert one hour before by default (or your chosen lead) and at the event; plain reminders alert at their time. A date without a time opens the clock, with any assistant. Other missing details or ambiguity open a terminal with full numbered choices. Type a number or your own answer, or dictate it with SUPER + D; Esc cancels. A notification reports the result. Ask to list or cancel reminders as well.
 
@@ -163,7 +163,7 @@ Then the review starts with the trust warning and any warnings (a background ser
 
 Nothing from the plugin runs before approval. `eitr plugin add URL` asks the same two questions (Enter continues, Esc cancels) and refuses to run without a terminal. Main > Install > Plugins > Installed Plugins lists installed plugin folders; each installed plugin has a folder for its actions, visuals, removal and available updates.
 
-In the install review, press A to ask your default assistant to check a temporary copy of the repository as text, without tools. Ratatoskr and Claude can check plugins; an unsupported default is named in the review. Claude sends the text to its provider; Ratatoskr keeps it on this PC.
+In the install review, press A to ask your default assistant to check a temporary copy of the repository as text, without tools. Ollama and Claude can check plugins; an unsupported default is named in the review. Claude sends the text to its provider; Ollama keeps it on this PC.
 
 Scroll the report with PgUp/PgDn. AI can miss things: this is advice, not approval, and the full-permissions warning still applies. Enter installs and Esc cancels, including while the check runs. Errors, empty answers and a 180-second timeout leave the normal review available. Nothing is installed automatically. The catalog also supports data-only Git theme packages.
 

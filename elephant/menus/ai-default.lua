@@ -35,17 +35,17 @@ function GetEntries()
             Actions = {open = quote(paths.code("walker/bin/walker")) .. " --provider menus:ai-install"}})
     end
     if localState == "ready" then
-        table.insert(options, {i18n.mark("Ratatoskr (local, experimental)"), "local", "󰒋",
+        table.insert(options, {i18n.mark("Ollama (local, experimental)"), "local", "󰒋",
             i18n.mark("Runs only on this PC; less reliable than cloud assistants")})
     else
-        table.insert(entries, {Text = "Ratatoskr (local, experimental)", Icon = "󰒋",
+        table.insert(entries, {Text = "Ollama (local, experimental)", Icon = "󰒋",
             Subtext = "Set up an assistant that runs only on this PC",
             Actions = {open = task("setup-local")}})
     end
     for _, entry in ipairs(choices(script, "assistant", options)) do table.insert(entries, entry) end
     if localState ~= "none" then
         for _, entry in ipairs(entries) do
-            if entry.Value == "local" or entry.Text == "Ratatoskr (local, experimental)" then
+            if entry.Value == "local" or entry.Text == "Ollama (local, experimental)" then
                 entry.Actions.ai_local_delete = task("remove-local")
             end
         end

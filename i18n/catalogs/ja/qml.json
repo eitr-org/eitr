@@ -625,7 +625,7 @@
   "RECORDING · {size}": "録画中 · {size}",
   "RESTART": "再起動",
   "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "無線機能が他でブロックされています。Wi-Fi/Bluetoothで個別に有効化してください。",
-  "Ratatoskr (local, experimental)": "Ratatoskr（ローカル、実験的）",
+  "Ollama (local, experimental)": "Ollama（ローカル、実験的）",
   "Re-enable": "再度有効化",
   "Re-enable with eitr plugin enable-ui {plugin}": "eitr plugin enable-ui {plugin} で再度有効化",
   "Read-only help from your connected assistants. Turning it on explains what is shared and asks first.": "接続されたアシスタントからの読み取り専用サポート。オンにすると共有される内容が説明され、事前に確認を求めます。",

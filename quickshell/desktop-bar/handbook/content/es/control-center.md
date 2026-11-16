@@ -30,7 +30,7 @@ Elige el predeterminado en Configuración > Asistente de IA.
 
 El icono de chat junto a las pestañas abre una conversación desechable con el asistente predeterminado elegido en Desarrollo > IA. Se oculta si no hay uno o si la política de la organización desactiva los asistentes. Enter envía; Shift+Enter inserta un salto de línea. Escape o Atrás vuelve a las páginas. Nuevo chat, salir del chat o cerrar el Centro de control borra los mensajes y cancela las respuestas pendientes.
 
-Las respuestas ofrecen Markdown seleccionable y Copiar. La conversación permanece en memoria; Eitr no escribe historial ni registros. Debajo de la entrada se identifica al proveedor en la nube o se indica que Ratatoskr se ejecuta en este PC. Los proveedores reciben los mensajes y los turnos anteriores. El resumen del equipo incluye versión/canal de Eitr, kernel, CPU/GPU/RAM y tema como contexto no confiable.
+Las respuestas ofrecen Markdown seleccionable y Copiar. La conversación permanece en memoria; Eitr no escribe historial ni registros. Debajo de la entrada se identifica al proveedor en la nube o se indica que Ollama se ejecuta en este PC. Los proveedores reciben los mensajes y los turnos anteriores. El resumen del equipo incluye versión/canal de Eitr, kernel, CPU/GPU/RAM y tema como contexto no confiable.
 
 No se recopilan nombres de usuario o equipo, archivos, correos, nombres WiFi, títulos de ventanas ni portapapeles. El asistente usa la ejecución sin interfaz de solo lectura con la cuenta seleccionada y no puede modificar el sistema. Los fallos aparecen en el chat.
 

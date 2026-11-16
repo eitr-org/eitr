@@ -625,7 +625,7 @@
   "RECORDING · {size}": "AUFNAHME · {size}",
   "RESTART": "NEU STARTEN",
   "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth.": "Die Funkverbindungen wurden anderweitig gesperrt; aktivieren Sie sie einzeln unter WiFi/Bluetooth.",
-  "Ratatoskr (local, experimental)": "Ratatoskr (lokal, experimentell)",
+  "Ollama (local, experimental)": "Ollama (lokal, experimentell)",
   "Re-enable": "Wieder aktivieren",
   "Re-enable with eitr plugin enable-ui {plugin}": "Mit eitr plugin enable-ui {plugin} wieder aktivieren",
   "Read-only help from your connected assistants. Turning it on explains what is shared and asks first.": "Nur lesende Hilfe von deinen verbundenen Assistenten. Beim Einschalten wird erklärt, was geteilt wird, und zuerst nachgefragt.",

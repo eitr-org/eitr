@@ -2338,8 +2338,41 @@ msgstr "Offizielles Eitr-Plugin"
 msgid "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
 msgstr "Offizielles Eitr-Plugin aus eitr-org/eitr-plugins, vom Eitr-Projekt geprüft. Wie jedes Plugin läuft es mit den vollen Rechten Ihres Kontos."
 
+msgid "Ollama (offline, experimental)"
+msgstr "Ollama (offline, experimentell)"
+
+msgid "Ollama ({model}) runs only on this PC. Type /bye to close."
+msgstr "Ollama ({model}) läuft nur auf diesem PC. Gib /bye ein, um ihn zu schließen."
+
+msgid "Ollama could not answer: {reason}"
+msgstr "Ollama konnte nicht antworten: {reason}"
+
 msgid "Ollama could not be installed. Your default assistant is unchanged."
 msgstr "Ollama konnte nicht installiert werden. Dein Standardassistent bleibt unverändert."
+
+msgid "Ollama could not complete the request."
+msgstr "Ollama konnte die Anfrage nicht abschließen."
+
+msgid "Ollama is not set up."
+msgstr "Ollama ist nicht eingerichtet."
+
+msgid "Ollama is not set up. Choose it in Development > AI > Default Assistant."
+msgstr "Ollama ist nicht eingerichtet. Wähle ihn unter Entwicklung > KI > Standardassistent."
+
+msgid "Ollama is ready and is now your default assistant."
+msgstr "Ollama ist bereit und jetzt dein Standardassistent."
+
+msgid "Ollama is unavailable."
+msgstr "Ollama ist nicht verfügbar."
+
+msgid "Ollama service did not start. Check it with: systemctl --user status {unit}"
+msgstr "Der Dienst des Ollama ist nicht gestartet. Prüfe ihn mit: systemctl --user status {unit}"
+
+msgid "Ollama timed out."
+msgstr "Das Zeitlimit des Ollama wurde überschritten."
+
+msgid "Ollama was removed."
+msgstr "Ollama wurde entfernt."
 
 msgid "On"
 msgstr "Ein"
@@ -2674,39 +2707,6 @@ msgstr "RISIKO: {flag}"
 msgid "Radios were blocked elsewhere; enable them individually in WiFi/Bluetooth."
 msgstr "Die Funkverbindungen wurden anderweitig gesperrt; aktivieren Sie sie einzeln unter WiFi/Bluetooth."
 
-msgid "Ratatoskr (offline, experimental)"
-msgstr "Ratatoskr (offline, experimentell)"
-
-msgid "Ratatoskr ({model}) runs only on this PC. Type /bye to close."
-msgstr "Ratatoskr ({model}) läuft nur auf diesem PC. Gib /bye ein, um ihn zu schließen."
-
-msgid "Ratatoskr could not answer: {reason}"
-msgstr "Ratatoskr konnte nicht antworten: {reason}"
-
-msgid "Ratatoskr could not complete the request."
-msgstr "Ratatoskr konnte die Anfrage nicht abschließen."
-
-msgid "Ratatoskr is not set up."
-msgstr "Ratatoskr ist nicht eingerichtet."
-
-msgid "Ratatoskr is not set up. Choose it in Development > AI > Default Assistant."
-msgstr "Ratatoskr ist nicht eingerichtet. Wähle ihn unter Entwicklung > KI > Standardassistent."
-
-msgid "Ratatoskr is ready and is now your default assistant."
-msgstr "Ratatoskr ist bereit und jetzt dein Standardassistent."
-
-msgid "Ratatoskr is unavailable."
-msgstr "Ratatoskr ist nicht verfügbar."
-
-msgid "Ratatoskr service did not start. Check it with: systemctl --user status {unit}"
-msgstr "Der Dienst des Ratatoskr ist nicht gestartet. Prüfe ihn mit: systemctl --user status {unit}"
-
-msgid "Ratatoskr timed out."
-msgstr "Das Zeitlimit des Ratatoskr wurde überschritten."
-
-msgid "Ratatoskr was removed."
-msgstr "Ratatoskr wurde entfernt."
-
 msgid "Re-enable visuals"
 msgstr "Visuelle Komponenten wieder aktivieren"
 
@@ -2815,10 +2815,10 @@ msgstr "Entfernen"
 msgid "Remove '{name}'"
 msgstr "„{name}“ entfernen"
 
-msgid "Remove Ratatoskr"
+msgid "Remove Ollama"
 msgstr "Lokalen Assistenten entfernen"
 
-msgid "Remove Ratatoskr?"
+msgid "Remove Ollama?"
 msgstr "Lokalen Assistenten entfernen?"
 
 msgid "Remove bar item"
@@ -3157,7 +3157,7 @@ msgstr "Legen Sie vor jeder Kopplung einen Sunshine-Benutzernamen und ein Passwo
 msgid "Set password for {username}."
 msgstr "Passwort für {username} setzen."
 
-msgid "Set up Ratatoskr?"
+msgid "Set up Ollama?"
 msgstr "Lokalen Assistenten einrichten?"
 
 msgid "Set up full-screen monitor capture in OBS first"
@@ -4357,8 +4357,8 @@ msgstr "Deine aktuellen persönlichen Einstellungen, also versteckte Dateien wie
 msgid "Your default assistant is unchanged."
 msgstr "Dein Standardassistent bleibt unverändert."
 
-msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ratatoskr and Claude can."
-msgstr "Dein Standardassistent {assistant} kann Plugins noch nicht sicher prüfen. Ratatoskr und Claude können das."
+msgid "Your default assistant, {assistant}, can't check plugins safely yet. Ollama and Claude can."
+msgstr "Dein Standardassistent {assistant} kann Plugins noch nicht sicher prüfen. Ollama und Claude können das."
 
 msgid "Your email app opened a message to {REPORTS_EMAIL}. Attach {path}, add what happened, and send."
 msgstr "Ihr E-Mail-Programm hat eine Nachricht an {REPORTS_EMAIL} geöffnet. Hängen Sie {path} an, beschreiben Sie das Problem und senden Sie die Nachricht."
