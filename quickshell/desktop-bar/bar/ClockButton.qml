@@ -110,7 +110,9 @@ Rectangle {
         id: mouse
 
         anchors.fill: parent
-        hoverEnabled: true
+        // A moment covering the time takes the pointer; this area would never hear it leave
+        // and its tooltip would stay. It tracks hover again once the moment ends.
+        hoverEnabled: !clock.moment
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onClicked: mouse => mouse.button === Qt.RightButton ? clock.rightClicked() : clock.clicked()
