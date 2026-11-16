@@ -441,17 +441,17 @@ bind_key("F9", hl.dsp.exec_cmd("playerctl next"))
 -- Hardware keys
 bind_key(
 	"XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("swayosd-client --output-volume=2 --max-volume=100"),
+	hl.dsp.exec_cmd(paths.code("quickshell/desktop-bar/scripts/level-key.sh") .. " volume up"),
 	{ locked = true, repeating = true }
 )
 bind_key(
 	"XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("swayosd-client --output-volume=-2 --max-volume=100"),
+	hl.dsp.exec_cmd(paths.code("quickshell/desktop-bar/scripts/level-key.sh") .. " volume down"),
 	{ locked = true, repeating = true }
 )
 bind_key(
 	"XF86AudioMute",
-	hl.dsp.exec_cmd("swayosd-client --output-volume=mute-toggle --max-volume=100"),
+	hl.dsp.exec_cmd(paths.code("quickshell/desktop-bar/scripts/level-key.sh") .. " volume mute"),
 	{ locked = true }
 )
 bind_key(
@@ -471,8 +471,8 @@ bind_key("XF86KbdBrightnessDown", hl.dsp.exec_cmd("brightnessctl --device='*::kb
 -- Lid with an external monitor: the laptop screen turns off (hypr/scripts/lid.sh; experimental).
 hl.bind("switch:on:Lid Switch", hl.dsp.exec_cmd(paths.code("hypr/scripts/lid.sh") .. " close"), { locked = true })
 hl.bind("switch:off:Lid Switch", hl.dsp.exec_cmd(paths.code("hypr/scripts/lid.sh") .. " open"), { locked = true })
-bind_key("XF86MonBrightnessUp", hl.dsp.exec_cmd("swayosd-client --brightness +2"), { locked = true, repeating = true })
-bind_key("XF86MonBrightnessDown", hl.dsp.exec_cmd("swayosd-client --brightness -2"), { locked = true, repeating = true })
+bind_key("XF86MonBrightnessUp", hl.dsp.exec_cmd(paths.code("quickshell/desktop-bar/scripts/level-key.sh") .. " brightness up"), { locked = true, repeating = true })
+bind_key("XF86MonBrightnessDown", hl.dsp.exec_cmd(paths.code("quickshell/desktop-bar/scripts/level-key.sh") .. " brightness down"), { locked = true, repeating = true })
 
 bind_key("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 bind_key("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })

@@ -19,6 +19,10 @@ Item {
     Timer { id: takeItems; interval: 0; onTriggered: dynamic.holding = dynamic.visible }
     Component.onCompleted: if (visible) takeItems.restart()
     Component.onDestruction: { holding = false; state = ""; }
+    readonly property alias moments: moments
+    DynamicMoments { id: moments; host: dynamic.host; barHost: dynamic.barHost; middle: middle; media: media }
+    readonly property var middleMoment: moments.current && moments.current.kind !== "song" ? moments.current : null
+    readonly property var mediaMoment: moments.current && moments.current.kind === "song" ? moments.current : null
     readonly property var surfaces: [leading, media, middle, trailing]
     readonly property alias leadingIsland: leading
     readonly property alias mediaIsland: media
@@ -43,9 +47,16 @@ Item {
     // The room the media island takes before the clock island, gap included.
     readonly property real mediaRun: mediaAvailable ? media.targetExtent + spacing : 0
     readonly property real weatherLength: weatherExtent > 0 ? host.workspaceItemSpacing + weatherExtent : 0
+    readonly property real clockRestExtent: clockExtent + 8 + 2 * captureLength
+    // Elide moments into the symmetric space left around the clock on short edges.
+    readonly property real momentRoom: Math.max(clockRestExtent, length - 2 * Math.max(
+        insetStart + leading.restingExtent + spacing + (mediaAvailable ? mediaExtent + spacing : 0),
+        insetEnd + trailing.restingExtent + spacing))
+    readonly property real songRoom: Math.max(mediaExtent, length / 2 - clockRestExtent / 2
+        - insetStart - leading.restingExtent - 2 * spacing)
     readonly property real middleExtent: clockExtent + 8 + 2 * Math.max(captureLength + barHost.clockPluginExtent, weatherLength)
     // Space the clock island takes when the side islands expand: a card's full size, or its widest hover.
-    readonly property real middleRoom: middle.morphed ? middle.targetExtent : middleExtent
+    readonly property real middleRoom: middle.morphed ? middle.targetExtent : Math.max(middleExtent, middle.restingExtent)
     readonly property real middleTrailing: middle.expanded ? weatherLength : 0
     property real weatherReveal: middleTrailing
     Behavior on weatherReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
@@ -163,7 +174,8 @@ Item {
         x: vertical ? depthOffset : Math.max(insetStart, middle.x - spacing - width)
         y: vertical ? Math.max(insetStart, middle.y - spacing - height) : depthOffset
         panel: dynamic.openPanel(media)
-        restingExtent: dynamic.mediaExtent
+        restingExtent: mediaMoment ? Math.max(dynamic.mediaExtent, Math.min(songMoment.naturalExtent, songRoom)) : dynamic.mediaExtent
+        momentActive: !!mediaMoment
         fullExtent: restingExtent
         held: !!barHost.mediaMenu && (barHost.mediaMenu.visible || barHost.pendingPanel === barHost.mediaMenu)
     }
@@ -173,7 +185,8 @@ Item {
         x: vertical ? depthOffset : dynamic.middleStartFor(leading.extent, extent, trailing.extent)
         y: vertical ? dynamic.middleStartFor(leading.extent, extent, trailing.extent) : depthOffset
         panel: dynamic.openPanel(middle)
-        restingExtent: clockExtent + 8 + 2 * captureLength
+        restingExtent: Math.max(clockRestExtent, middleMoment ? Math.min(clockMoment.naturalExtent, momentRoom) : 0)
+        momentActive: !!middleMoment
         // Beside a card from another island, expand only into the space that is left.
         fullExtent: Math.max(restingExtent, Math.min(middleExtent, length - 2 * Math.max(
             insetStart + (leading.morphed ? leading.targetExtent : leading.restingExtent) + spacing + dynamic.mediaRun,
@@ -193,6 +206,29 @@ Item {
         held: barHost.dockPanels.some(panel => !dynamic.owns(panel, leftPanels) && !dynamic.owns(panel, middlePanels)
             && panel !== barHost.controlCenter && (panel.visible || panel === barHost.pendingPanel))
             || (dynamic.controlCenterOpen && dynamic.controlCenterOwner === "right")
+    }
+    DynamicMoment {
+        id: clockMoment
+        parent: middle
+        host: dynamic.host; payload: dynamic.middleMoment
+        x: vertical && middle.farEdge ? middle.width - width : 0
+        y: !vertical && middle.farEdge ? middle.height - height : 0
+        width: vertical ? middle.thickness : middle.width
+        height: vertical ? middle.height : middle.thickness
+        retainAction: middle.hovered && !middle.morphed && !middle.held && shown && shown.kind === "notification"
+        onActivated: entry => {
+            if (entry && entry.kind === "notification") barHost.toggleKind("notifications");
+        }
+    }
+    DynamicMoment {
+        id: songMoment
+        parent: media
+        host: dynamic.host; payload: dynamic.mediaMoment
+        x: vertical && media.farEdge ? media.width - width : 0
+        y: !vertical && media.farEdge ? media.height - height : 0
+        width: vertical ? media.thickness : media.width
+        height: vertical ? media.height : media.thickness
+        onActivated: barHost.togglePanel(barHost.mediaMenu)
     }
     Item {
         parent: trailing

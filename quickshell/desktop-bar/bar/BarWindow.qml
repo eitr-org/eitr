@@ -249,7 +249,7 @@ PanelWindow {
         // into the edge in one motion instead of first folding back into the pill.
         // A new notification also brings the bar out until its popups have gone.
         held: bar.dockPanels.some(panel => panel === bar.dropDashboard ? panel.opened : panel.visible) || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || host.barPointerHeld
-            || clockActivity.alerting
+            || clockActivity.alerting || !!(bar.dynamicSurfaces && bar.dynamicSurfaces.moments.current)
     }
     readonly property alias clockActivity: clockActivity
     ClockActivityState { id: clockActivity; host: bar.host; barHost: bar }

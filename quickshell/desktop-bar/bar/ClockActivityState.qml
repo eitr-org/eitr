@@ -8,7 +8,7 @@ import "../ReminderModel.js" as ReminderModel
 // bell twice (the bar's own bell, or one that slides out beside the clock where the layout
 // hides it); a timer or focus session and an event starting within ten minutes put a mark
 // beside the clock; changing workspace (where the workspaces are hidden) and a running-low
-// battery briefly show over the time. Volume and brightness keep their own popup. CaptureIndicator and Drop's pill draw it;
+// battery briefly show over the time. Volume and brightness use their own popup except for Dynamic moments. CaptureIndicator and Drop's pill draw it;
 // ClockButton draws the flash.
 Item {
     id: activity

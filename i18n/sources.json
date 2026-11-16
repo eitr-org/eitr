@@ -384,6 +384,7 @@
       "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "Brightness": [
+      "quickshell/desktop-bar/bar/DynamicMomentSources.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Brightness unavailable": [
@@ -659,6 +660,7 @@
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml"
     ],
     "Connected": [
+      "quickshell/desktop-bar/bar/DynamicMomentSources.qml",
       "quickshell/desktop-bar/components/BluetoothConnector.qml",
       "quickshell/desktop-bar/components/WifiNetworkRow.qml"
     ],
@@ -924,6 +926,9 @@
       "quickshell/desktop-bar/components/WifiNetworkRow.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Disconnected": [
+      "quickshell/desktop-bar/bar/DynamicMomentSources.qml"
     ],
     "Discover": [
       "quickshell/desktop-bar/store/StoreState.qml"
@@ -1620,6 +1625,7 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Mute": [
+      "quickshell/desktop-bar/bar/DynamicMomentSources.qml",
       "quickshell/desktop-bar/components/AudioLevelControl.qml",
       "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
@@ -3230,6 +3236,7 @@
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Volume": [
+      "quickshell/desktop-bar/bar/DynamicMomentSources.qml",
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml"

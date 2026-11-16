@@ -13,6 +13,7 @@ Rectangle {
     property real contentExtent: extent
     property bool trailingAnchor: false
     property bool held: false
+    property bool momentActive: false
     property bool hoverExpanded: false
     readonly property bool expanded: hoverExpanded || held || host.barPointerHeld
     // An open panel owned by this island: the island itself grows into the panel's
@@ -88,8 +89,8 @@ Rectangle {
         x: host.verticalBar && island.farEdge ? parent.width - width : 0
         y: !host.verticalBar && island.farEdge ? parent.height - height : 0
         // Faded and disabled, not hidden: the island's panels follow its icons' visibility.
-        opacity: island.morphed ? 0 : 1
-        enabled: !island.morphed
+        opacity: island.morphed || island.momentActive ? 0 : 1
+        enabled: !island.morphed && !island.momentActive
         Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(120) } }
         clip: true
         interactive: island.expanded && island.contentExtent > island.extent

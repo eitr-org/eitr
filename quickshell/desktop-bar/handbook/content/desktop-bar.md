@@ -44,6 +44,8 @@ Choose a layout in Settings > Desktop Bar. All six work on every screen edge.
 | Dynamic | Dynamic starts with three islands: logo, clock and network/battery, plus a media island between the logo and the clock while something plays. Hover one to expand it; opening a panel grows that island into the panel. |
 | Drop | Drop shows only the time in one pill at the centre of the edge. Click it to grow its dashboard; right-click goes straight to the quick controls. With auto-hide, nothing stays on screen until a drop falls from the edge and swells into the pill. |
 
+Dynamic briefly grows its islands for notification previews and screenshot thumbnails, volume and brightness keys, song changes, Bluetooth connections and disconnections, and keyboard layout switches. Song titles appear in the media island; other moments temporarily replace the time in the centred clock island. Critical previews stay until their popup is dismissed; clicking a notification moment opens the notification centre. Moments wait while their island is hovered or has a panel open, or Focus is on; queued moments expire after six seconds. Side bars show compact icons and levels. Other layouts keep their usual volume and brightness popups.
+
 **Island style** (Settings > Desktop Bar > Layout, or Walker > Settings > Desktop > Desktop Bar > Island style) chooses how Islands, Dynamic and Drop meet the screen edge: Floating keeps the pills half the outer gap off the edge; Attached puts them against it, square on the edge side with straight sides, and their panels grow from the edge too. **Side style** chooses how Tabs and Centered meet the edge: 45° slopes, or straight sides (straight Tabs also drop the thin strip between the tabs).
 
 ## Drop's dashboard

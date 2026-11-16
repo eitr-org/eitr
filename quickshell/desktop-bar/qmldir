@@ -290,3 +290,6 @@ StoreSearchHeader 1.0 store/StoreSearchHeader.qml
 StoreFilterMenu 1.0 store/StoreFilterMenu.qml
 ChoiceEntryContent 1.0 components/ChoiceEntryContent.qml
 BeautifyContent capture/BeautifyContent.qml
+DynamicMoment 1.0 bar/DynamicMoment.qml
+DynamicMoments 1.0 bar/DynamicMoments.qml
+DynamicMomentSources 1.0 bar/DynamicMomentSources.qml

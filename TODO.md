@@ -52,11 +52,10 @@ item says what decides the next step. Remove an item when it ships;
   over to the session's Sunshine after sign-in), and headless use (a virtual display sized
   to the Moonlight client); wake on LAN is left to people who want it. On hold; the agreed
   design, including several users on one PC, is in `eitr-testing/codex-wip/remote-access-next/PLAN.md`.
-- **Dynamic island, next.** Live activities in the clock island beyond the capture
-  indicator (volume/brightness replacing swayosd only in Dynamic, notification
-  previews, media title), a hover card for the clock (large time and week strip), and
-  the wallpaper/theme carousel growing out of the clock island. Islands arrows (‹ ›)
-  like Dynamic if the owner wants them.
+- **Dynamic island, next.** Short notification, volume/brightness, song, Bluetooth and
+  keyboard moments are implemented. Next: a hover card for the clock (large time and week
+  strip), and the wallpaper/theme carousel growing out of the clock island. Islands arrows
+  (‹ ›) like Dynamic if the owner wants them.
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
   done (Tools > Reminders > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).
