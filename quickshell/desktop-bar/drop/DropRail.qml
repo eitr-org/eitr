@@ -21,7 +21,11 @@ Item {
     readonly property real naturalLength: entries.length * pillSize + Math.max(0, entries.length - 1) * gap
     readonly property var inputSurfaces: {
         const result = [];
-        for (let index = 0; index < pills.count; index++) result.push(pills.itemAt(index).inputTarget);
+        for (let index = 0; index < pills.count; index++) {
+            // A pill being created or destroyed has no item yet.
+            const pill = pills.itemAt(index);
+            if (pill && pill.inputTarget) result.push(pill.inputTarget);
+        }
         return result;
     }
     function ensureCurrent() {
