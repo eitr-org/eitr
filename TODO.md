@@ -56,6 +56,10 @@ item says what decides the next step. Remove an item when it ships;
   keyboard moments are implemented. Next: a hover card for the clock (large time and week
   strip), and the wallpaper/theme carousel growing out of the clock island. Islands arrows
   (‹ ›) like Dynamic if the owner wants them.
+- **Bar icon organizer (idea 2026-11-16).** A Settings > Desktop Bar page that finds every bar
+  icon, plugin icons included, and lets people drag them into the order and side they want
+  (left group, right group, beside the clock), with a reset to the default order. Every
+  layout (Full, Tabs, Islands, Dynamic, Drop) follows the saved order.
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
   done (Tools > Reminders > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).
