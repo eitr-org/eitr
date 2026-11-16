@@ -75,10 +75,11 @@ item says what decides the next step. Remove an item when it ships;
   plugin apps (reinstalled on restore), and optionally Git, cloud and WiFi accounts.
   Browser profiles are left out (people sign in again). A one-time move first; scheduled
   backups later. Plan: `eitr-testing/codex-wip/backup-restore/PLAN.md`.
-- **Plugins: Radio Globe, Phone Link, Ollama (built 2026-11-16).** Branches `radio-globe`,
-  `phone-link` and `ollama` of `eitr-org/eitr-plugins`; all three together in the private
-  `eitr-plugins-night-test` repository for the owner's test. Next: the owner installs and tries
-  them (real streams, a paired phone, a real model download), then merge to main. AirDrop is
+- **Plugins: Radio Globe, Phone Link, Ollama (built 2026-11-16).** Kept private until the
+  owner has tested them: all three in the private `eitr-plugins-night-test` repository, and one
+  local branch each in `eitr-testing/codex-wip/plugins-night/`. Next: the owner installs and
+  tries them (real streams, a paired phone, a real model download), then they go to
+  `eitr-org/eitr-plugins` main. AirDrop is
   out of scope (needs special WiFi hardware). The Ollama panel cannot change the local model
   yet: the core fixes `qwen3:4b`.
 - **AI Usage as a built-in plugin (idea 2026-11-16).** Like Weather (`distro/plugins/bundled`):
