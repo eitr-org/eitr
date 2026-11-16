@@ -6,7 +6,7 @@ Les cartes de notification affichent la date et l’heure locales d’arrivée s
 
 Ouvrez Paramètres > À propos pour la version d’Eitr, le nom de code, le canal, le noyau et la licence, ainsi que le processeur, la carte graphique, la carte mère, la mémoire installée et chaque disque connecté avec sa capacité. La vue Système montre votre profil, l’utilisation actuelle du matériel et la vitesse du réseau (téléchargement et envoi). Pour les détails matériels, l’utilisation de l’IA et la météo, cliquez sur les icônes de la barre ; Walker les trouve aussi par nom.
 
-**Matériel** indique CPU, GPU, RAM et stockage du disque contenant `/`. Les autres disques ne sont pas additionnés à ce total. Les données manquantes des capteurs ou du GPU sont indiquées comme indisponibles. **Réseau** vient en dernier : la connexion actuelle et le débit de téléchargement et d’envoi des adaptateurs réseau, lus uniquement pendant que le panneau est ouvert.
+**Matériel** indique CPU, GPU, RAM et stockage du disque contenant `/`. Les autres disques ne sont pas additionnés à ce total. Les données manquantes des capteurs ou du GPU sont indiquées comme indisponibles. **Réseau** vient en dernier : la connexion actuelle et le débit de téléchargement et d’envoi des adaptateurs réseau, lus uniquement pendant que le panneau est ouvert. Un pourcentage passe à l’orange dès 75 % et au rouge dès 90 % ; cliquez sur une section pour voir sa barre et ses détails.
 
 Dans Paramètres > À propos, choisissez Emblème ou Runes sous « Logo À propos » pour modifier la page À propos du terminal. Le choix est enregistré sur cet ordinateur et utilise Emblème par défaut ; les deux suivent la couleur d’accent du thème actuel.
 

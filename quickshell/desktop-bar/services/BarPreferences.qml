@@ -150,6 +150,7 @@ Scope {
                     host.themeMenuFg = palette.menuForeground;
                     host.themeFg = palette.menuForeground;
                     DesktopStyle.criticalColor = palette.critical;
+                    DesktopStyle.warningColor = (palette.palette || {}).color3 || "#e5a03c";
                 } catch (e) {}
             }
         }

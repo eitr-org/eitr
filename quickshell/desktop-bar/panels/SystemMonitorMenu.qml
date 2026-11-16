@@ -38,6 +38,10 @@ ThemedPopup {
     onHardwareSnapshotChanged: receiveSnapshot()
     // Network comes last, from the bar's own network data: speed is read only while the panel is open.
     property string trafficToken: ""
+    // Usage colours: the panel's own below 75%, warning from 75%, critical from 90%.
+    function levelColor(usage) {
+        return usage === null || usage === undefined || usage < 75 ? foreground : usage < 90 ? DesktopStyle.warningColor : DesktopStyle.criticalColor;
+    }
     readonly property var allSections: sections.length ? sections.concat([networkSection]) : []
     readonly property var traffic: (DesktopData.topics["throughput.network"] || {}).data || ({})
     readonly property var networkSummary: (DesktopData.topics["network.summary"] || {}).data || ({})
@@ -154,7 +158,7 @@ ThemedPopup {
                             anchors.verticalCenter: parent.verticalCenter
                             text: section.modelData.figure !== undefined ? section.modelData.figure
                                 : section.modelData.usage === null ? "--" : Math.round(section.modelData.usage) + "%"
-                            color: menu.foreground
+                            color: menu.levelColor(section.modelData.usage)
                             font.family: DesktopFonts.family
                             font.pixelSize: PanelStyle.figureSize
                             font.weight: Font.DemiBold
@@ -180,8 +184,9 @@ ThemedPopup {
                             onClicked: menu.toggle(section.modelData.title)
                         }
                     }
+                    // The usage bar is part of the details, shown when the section unfolds.
                     Rectangle {
-                        visible: section.modelData.usage !== null
+                        visible: section.expanded && section.modelData.usage !== null
                         width: parent.width
                         height: visible ? 4 : 0
                         radius: 2
@@ -190,7 +195,7 @@ ThemedPopup {
                             width: parent.width * Math.max(0, Math.min(100, section.modelData.usage || 0)) / 100
                             height: parent.height
                             radius: 2
-                            color: menu.foreground
+                            color: menu.levelColor(section.modelData.usage)
                         }
                     }
                     Column {

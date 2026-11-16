@@ -6,7 +6,7 @@ Benachrichtigungskarten zeigen unter dem Titel das lokale Eingangsdatum und die 
 
 Öffne Einstellungen > Über für Eitr-Version, Codename, Aktualisierungskanal, Kernel und Lizenz sowie Prozessor, Grafik, Mainboard, eingebauten Arbeitsspeicher und jedes angeschlossene Laufwerk mit seiner Kapazität. Die Systemübersicht zeigt dein Profil, die aktuelle Hardwareauslastung und die Netzwerkgeschwindigkeit (Download und Upload). Für Hardwaredetails, KI-Nutzung und Wetter klicke auf die Leistensymbole; Walker findet sie auch nach Namen.
 
-**Hardware** zeigt CPU, GPU, RAM und den Speicher des Laufwerks, auf dem `/` liegt. Andere Laufwerke werden nicht in diese Summe einbezogen. Fehlende Sensor- oder GPU-Daten werden als nicht verfügbar gekennzeichnet. **Netzwerk** steht am Ende: die aktuelle Verbindung und die Download- und Upload-Geschwindigkeit der Netzwerkadapter, nur gelesen, solange das Panel offen ist.
+**Hardware** zeigt CPU, GPU, RAM und den Speicher des Laufwerks, auf dem `/` liegt. Andere Laufwerke werden nicht in diese Summe einbezogen. Fehlende Sensor- oder GPU-Daten werden als nicht verfügbar gekennzeichnet. **Netzwerk** steht am Ende: die aktuelle Verbindung und die Download- und Upload-Geschwindigkeit der Netzwerkadapter, nur gelesen, solange das Panel offen ist. Eine Auslastung wird ab 75 % orange und ab 90 % rot; ein Klick auf einen Abschnitt zeigt seinen Balken und die Details.
 
 Unter Einstellungen > Über können Sie unter „Über-Logo“ Emblem oder Runen für die Über-Seite im Terminal wählen. Die Auswahl bleibt auf diesem Rechner gespeichert; standardmäßig wird Emblem verwendet. Beide folgen der Akzentfarbe des aktuellen Designs.
 
