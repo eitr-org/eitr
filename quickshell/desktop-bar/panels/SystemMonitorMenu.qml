@@ -38,6 +38,7 @@ ThemedPopup {
     onHardwareSnapshotChanged: receiveSnapshot()
     // Network comes last, from the bar's own network data: speed is read only while the panel is open.
     property string trafficToken: ""
+    readonly property var allSections: sections.length ? sections.concat([networkSection]) : []
     readonly property var traffic: (DesktopData.topics["throughput.network"] || {}).data || ({})
     readonly property var networkSummary: (DesktopData.topics["network.summary"] || {}).data || ({})
     function speed(bytes) {
@@ -87,12 +88,14 @@ ThemedPopup {
                 font.pixelSize: PanelStyle.controlSize
             }
             // One big number per component; its details unfold on click.
+            // The model is the count, not the list: a refresh replaces the list every two seconds,
+            // and rebuilding the sections would reset the pointer under the cursor each time.
             Repeater {
-                model: menu.sections.length ? menu.sections.concat([menu.networkSection]) : []
+                model: menu.allSections.length
                 Column {
                     id: section
-                    required property var modelData
                     required property int index
+                    readonly property var modelData: menu.allSections[index] || ({title: "", name: "", usage: null, rows: []})
                     readonly property bool expanded: !!menu.expanded[modelData.title]
                     width: content.width
                     spacing: 8
