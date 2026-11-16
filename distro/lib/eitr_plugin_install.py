@@ -113,8 +113,24 @@ def commit(root):
     return git(root, 'rev-parse', 'HEAD')
 
 
+def remove_bytecode(root):
+    """Delete Python bytecode caches that older Eitr versions let plugin helpers write.
+
+    Only `__pycache__` folders holding nothing but regular .pyc files go; anything else stays
+    and fails the comparison below."""
+    for folder, directories, files in os.walk(root):
+        current = Path(folder)
+        if current == Path(root):
+            directories[:] = [name for name in directories if name != '.git']
+        if current.name != '__pycache__' or current.is_symlink() or directories:
+            continue
+        if files and all(name.endswith('.pyc') and not (current / name).is_symlink() and (current / name).is_file() for name in files):
+            shutil.rmtree(current)
+
+
 def verify_tree(root, revision):
     """Compare every worktree byte and executable bit with the reviewed Git tree."""
+    remove_bytecode(root)
     if (root / '.git').is_symlink() or not (root / '.git').is_dir():
         raise ValueError('Plugin Git metadata must stay inside its stage')
     list(plugin_files(root))

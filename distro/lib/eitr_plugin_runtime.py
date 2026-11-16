@@ -31,13 +31,18 @@ from eitr_plugin_bundled import BundledPlugins
 HOOK_TIMEOUT = 30
 UI_FAILURE_LIMIT = 3
 
+def plugin_environment():
+    """The desktop's environment for a plugin command, which never writes bytecode into its reviewed folder."""
+    return dict(os.environ, PYTHONDONTWRITEBYTECODE='1')
+
+
 def unit_content(root, spec):
     def quote(value):
         return '"' + value.replace('\\', '\\\\').replace('"', '\\"').replace('%', '%%').replace('$', '$$') + '"'
     argv = command(root, spec['service'])
     return ('[Unit]\nDescription=Eitr plugin ' + spec['id'] + '\n\n[Service]\nType=simple\nExecStart='
             + ' '.join(quote(argument) for argument in argv)
-            + '\nNoNewPrivileges=yes'
+            + '\nNoNewPrivileges=yes\nEnvironment=PYTHONDONTWRITEBYTECODE=1'
             # A device or network the service needs may not be ready yet when it starts.
             + '\nRestart=on-failure\nRestartSec=5\n\n[Install]\nWantedBy=default.target\n')
 
@@ -160,7 +165,7 @@ class PluginRuntime:
         # A temporary file bounds memory even when a command writes excessive output.
         with tempfile.TemporaryFile() as output:
             process = subprocess.Popen(command(root, entry['dataCommand']), cwd=root, start_new_session=True,
-                                       stdin=subprocess.DEVNULL, stdout=output, stderr=subprocess.DEVNULL)
+                                       env=plugin_environment(), stdin=subprocess.DEVNULL, stdout=output, stderr=subprocess.DEVNULL)
             try:
                 status = process.wait(timeout=10)
             except subprocess.TimeoutExpired:
@@ -207,6 +212,7 @@ class PluginRuntime:
                     environment = {key: value for key, value in os.environ.items() if not key.startswith('EITR_EVENT')
                                    and key not in ('EITR_THEME', 'EITR_WALLPAPER')}
                     environment['EITR_EVENT'] = event
+                    environment['PYTHONDONTWRITEBYTECODE'] = '1'
                     context = {'theme-changed': 'EITR_THEME', 'wallpaper-changed': 'EITR_WALLPAPER'}.get(event)
                     if context and context in os.environ:
                         environment[context] = os.environ[context]
@@ -239,7 +245,7 @@ class PluginRuntime:
         if root.is_symlink() or commit(root) != record['commit']:
             raise ValueError('Plugin differs from its approved commit')
         spec = manifest(root)
-        subprocess.Popen(command(root, spec['rows'][index]), cwd=root, start_new_session=True)
+        subprocess.Popen(command(root, spec['rows'][index]), cwd=root, env=plugin_environment(), start_new_session=True)
 
 
 class Plugins(BundledPlugins, _PluginInstall, PluginRuntime, PluginPlacements):

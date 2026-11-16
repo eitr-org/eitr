@@ -262,6 +262,19 @@ class PluginTests(unittest.TestCase):
         self.assertTrue(self.manager.add(self.url, lambda url: True, lambda *details: True))
         return self.manager.records()['example']['commit']
 
+    def test_review_check_removes_bytecode_a_helper_left_but_nothing_else(self):
+        approved = self.install()
+        root = self.manager.root('example')
+        cache = root / '__pycache__'
+        cache.mkdir()
+        (cache / 'helper.cpython-314.pyc').write_bytes(b'bytecode')
+        install_owner.verify_tree(root, approved)
+        self.assertFalse(cache.exists())
+        cache.mkdir()
+        (cache / 'notes.txt').write_text('not bytecode')
+        with self.assertRaisesRegex(ValueError, 'differ'):
+            install_owner.verify_tree(root, approved)
+
     def test_check_reports_json_without_approval_or_worktree_changes(self):
         approved = self.install()
         self.assertEqual(self.manager.check_updates(), {'example': 0})

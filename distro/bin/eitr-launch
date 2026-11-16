@@ -83,6 +83,8 @@ def main(argv=None, executable=None):
     library = root / 'lib' if (root / 'lib').is_dir() else root / 'distro/lib'
     environment['EITR_LIBRARY_ROOT'] = str(library)
     environment['PYTHONPATH'] = str(library) + os.pathsep + environment.get('PYTHONPATH', '')
+    # Helpers, plugin commands included, never write bytecode beside code that must stay as reviewed.
+    environment['PYTHONDONTWRITEBYTECODE'] = '1'
     environment['QML_IMPORT_PATH'] = str(root / 'quickshell') + os.pathsep + environment.get('QML_IMPORT_PATH', '')
     if repo:
         environment['PYTHONPATH'] = str(root / 'distro/lib') + os.pathsep + environment.get('PYTHONPATH', '')

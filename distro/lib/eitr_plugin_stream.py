@@ -52,6 +52,7 @@ def supervise_stream(argv, root, parent):
     if os.getppid() != parent:
         return
     process = subprocess.Popen(argv, cwd=root, start_new_session=True, stdin=subprocess.DEVNULL,
+                               env=dict(os.environ, PYTHONDONTWRITEBYTECODE='1'),
                                stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     try:
         parser = Lines()

@@ -2,7 +2,7 @@
   "limit": 400,
   "files": {
     "distro/lib/eitr_plugin_install.py": {
-      "lines": 1036,
+      "lines": 1052,
       "reason": "One approved plugin transaction, including package provenance and shared ownership transfer."
     },
     "distro/lib/eitr_profile.py": {
