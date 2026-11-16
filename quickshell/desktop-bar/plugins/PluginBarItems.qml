@@ -55,7 +55,8 @@ Grid {
             BarTooltip {
                 target: slot; hovered: hover.hovered
                 text: (slot.entry.capabilities || []).includes("weather")
-                    ? Eitr.I18n.tr("Weather") + (items.vertical && slot.detail ? " · " + slot.detail : "") : slot.entry.title; foreground: items.foreground; background: items.background
+                    ? Eitr.I18n.tr("Weather") + (items.vertical && slot.detail ? " · " + slot.detail : "")
+                    : slot.entry.title + (slot.detail ? " · " + slot.detail : ""); foreground: items.foreground; background: items.background
             }
         }
     }

@@ -254,7 +254,7 @@ Every root component must be a QtQuick Item and declare
 - `loading`, `dataText`, `dataError`: command progress, UTF-8 stdout and helper
   error text. Commands time out after ten seconds and output above 64 KiB is
   refused. Do not use this helper for unbounded output or background jobs.
-- `detail`: writable optional tile caption.
+- `detail`: writable optional tile caption; on a bar item, the text after the title in its tooltip.
 - `openPanel(id)`: in-panel navigation to a panel belonging to the same plugin.
 - `reportError(message)`: reports a fatal component error and unloads it.
 
@@ -382,7 +382,8 @@ uses the space for its calendar. Temporary city choices remain session-only.
 
 Status bar items occupy fixed icon slots at the end of the existing right-side group, just before the notifications, with its
 normal hidden/show toggle (always shown in Tabs). They have no hover fill and
-use short themed tooltips. Their content is clipped to the slot. Declared panels
+use short themed tooltips: the plugin's title, followed by `api.detail` when the item sets it
+("Phone Link · Phone · 80%"), so a bar item needs no tooltip of its own. Their content is clipped to the slot. Declared panels
 use the same attached Full or detached Centered/Tabs geometry, Escape and
 outside-click dismissal as built-in controls; their surface is opt-in. The clock's independent screen
 centre anchors remain unchanged on every edge and layout.
