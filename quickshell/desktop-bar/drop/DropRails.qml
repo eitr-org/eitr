@@ -23,9 +23,9 @@ Item {
         {id: "obs", glyph: "󰑋", title: Eitr.I18n.tr("OBS Studio")},
         {id: "controls", glyph: "󰒓", title: Eitr.I18n.tr("Quick controls")},
         {id: "streaming", glyph: "󰢹", title: Eitr.I18n.tr("Streaming")},
-        {id: "timer", glyph: "󱎫", title: Eitr.I18n.tr("Timer & Focus")},
         {id: "performance", glyph: "󰍛", title: Eitr.I18n.tr("Performance")},
         {id: "ai", glyph: "", title: Eitr.I18n.tr("AI Usage")},
+        {id: "assistant", glyph: "󰭹", title: Eitr.I18n.tr("Assistant")},
         {id: "notifications", glyph: "󰂚", title: Eitr.I18n.tr("Notifications")}
     ].filter(entry => owner.pages.includes(entry.id))
     DropRail {

@@ -17,16 +17,21 @@ Column {
             title: Eitr.I18n.tr("WiFi"); glyph: section.centerRef.wifiGlyph
             detail: section.centerRef.wifiControl.connected ? section.centerRef.wifiControl.connected.name : ""
             selected: !!section.centerRef.wifiControl.device && section.centerRef.wifiControl.device.powered
-            available: !!section.centerRef.wifiControl.device && !section.centerRef.wifiControl.busy && !section.centerRef.airplane.enabled
-            onClicked: section.centerRef.wifiControl.act(section.centerRef, "power", section.centerRef.wifiControl.device.path, section.centerRef.wifiControl.device.powered ? "false" : "true")
+            available: !!section.centerRef.wifiControl.device
+            // Opens its networks in place; the switch there turns WiFi on or off.
+            details: true
+            onClicked: section.centerRef.detail = "wifi"
+            onDetailsRequested: section.centerRef.detail = "wifi"
         }
         ControlCenterToggleTile { centerRef: section.centerRef;
             title: Eitr.I18n.tr("Bluetooth"); glyph: "󰂯"
             detail: section.centerRef.bluetoothDevices.length === 1 ? section.centerRef.bluetoothDevices[0].name
                 : section.centerRef.bluetoothDevices.length > 1 ? Eitr.I18n.tr("{count} devices", {count: section.centerRef.bluetoothDevices.length}) : ""
             selected: !!section.centerRef.bluetoothControl.adapter && section.centerRef.bluetoothControl.adapter.enabled
-            available: !!section.centerRef.bluetoothControl.adapter && !section.centerRef.airplane.enabled
-            onClicked: section.centerRef.bluetoothControl.adapter.enabled = !section.centerRef.bluetoothControl.adapter.enabled
+            available: !!section.centerRef.bluetoothControl.adapter
+            details: true
+            onClicked: section.centerRef.detail = "bluetooth"
+            onDetailsRequested: section.centerRef.detail = "bluetooth"
         }
         ControlCenterToggleTile { centerRef: section.centerRef;
             title: Eitr.I18n.tr("Airplane"); glyph: "󰀝"; selected: !!section.centerRef.airplane.enabled

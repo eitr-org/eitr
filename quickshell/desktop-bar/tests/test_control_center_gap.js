@@ -8,7 +8,7 @@ const dock = fs.readFileSync(`${__dirname}/../components/DockPanel.qml`, 'utf8')
 assert.doesNotMatch(source, /\n    leadingOffset:/);
 const offset = dock.match(/property real leadingOffset: ([^\n]+)/)[1];
 for (const barPosition of ['top', 'bottom', 'left', 'right']) {
-    const context = {barPosition, screenMargins: [10, 11, 12, 13], detached: false,
+    const context = {barPosition, screenMargins: [10, 11, 12, 13], detached: false, embedded: false,
         hostWindow: {height: 1080}, strip: {height: 30}};
     context.edgeClearance = vm.runInNewContext(clearance, context);
     const h = vm.runInNewContext(height, context);

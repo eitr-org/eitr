@@ -169,7 +169,6 @@
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "Airplane": [
-      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
@@ -254,6 +253,9 @@
     "Ask the AI to check": [
       "quickshell/desktop-bar/store/StoreReview.qml"
     ],
+    "Assistant": [
+      "quickshell/desktop-bar/drop/DropRails.qml"
+    ],
     "Assistant Access": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -305,10 +307,10 @@
     ],
     "Back": [
       "quickshell/desktop-bar/components/DayAgenda.qml",
-      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/drop/DropPluginPage.qml",
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml",
       "quickshell/desktop-bar/panels/AssistantChat.qml",
+      "quickshell/desktop-bar/panels/ControlCenterDetail.qml",
       "quickshell/desktop-bar/plugins/PluginArea.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml",
       "quickshell/desktop-bar/plugins/PluginPanel.qml",
@@ -357,10 +359,10 @@
     "Bluetooth": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
-      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
+      "quickshell/desktop-bar/panels/ControlCenterDetail.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
@@ -1287,7 +1289,6 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "Idle Lock": [
-      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
@@ -1595,8 +1596,9 @@
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Microphone": [
-      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml",
+      "quickshell/desktop-bar/panels/ControlCenterDetail.qml",
+      "quickshell/desktop-bar/panels/ControlCenterSliders.qml",
       "quickshell/desktop-bar/panels/ObsMenu.qml",
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
@@ -1701,7 +1703,6 @@
       "quickshell/desktop-bar/media/MediaCard.qml"
     ],
     "Night Light": [
-      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
       "quickshell/desktop-bar/panels/NightLightSection.qml",
@@ -1959,6 +1960,9 @@
     ],
     "Open OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
+    ],
+    "Open Settings": [
+      "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Open System Monitor": [
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
@@ -2267,7 +2271,6 @@
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
     "Record": [
-      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml",
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -2653,7 +2656,6 @@
       "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
     ],
     "Settings": [
-      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/SettingsContent.qml",
       "quickshell/desktop-bar/settings/SettingsWindow.qml"
@@ -2754,9 +2756,6 @@
     "Signal": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
-    "Silence": [
-      "quickshell/desktop-bar/drop/DropControlsPage.qml"
-    ],
     "Silence popups while keeping notification history.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
@@ -2788,9 +2787,9 @@
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Sound": [
-      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
+      "quickshell/desktop-bar/panels/ControlCenterDetail.qml",
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -3062,7 +3061,6 @@
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
     ],
     "Timer & Focus": [
-      "quickshell/desktop-bar/drop/DropRails.qml",
       "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Timer finished": [
@@ -3333,9 +3331,9 @@
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
     "WiFi": [
-      "quickshell/desktop-bar/drop/DropControlsPage.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml",
+      "quickshell/desktop-bar/panels/ControlCenterDetail.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "WiFi adapter is unavailable; refresh the panel": [

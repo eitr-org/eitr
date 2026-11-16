@@ -14,12 +14,12 @@ a section's title to open or close it, remembered until you log out. Where the b
 
 The General page. The buttons on the left switch between General, Plugins and Tools; the gear below them opens Settings. A toggle that is on fills with the theme accent.
 
-- **Connectivity:** WiFi and Bluetooth power toggles, plus Airplane mode.
+- **Connectivity:** WiFi and Bluetooth open their networks and devices in place, each with its own on/off switch and a back arrow; plus Airplane mode.
 - **Quick Actions:** automatic Idle Lock, Do Not Disturb, Game Mode (effects, blur
   and popups off and the performance profile on, until you turn it off) and Night
   Light.
 - **Screen:** Hide Bar (SUPER+Shift+Space brings it back) and Start Screensaver run once.
-- **Sound:** volume and microphone gain/mute, and two optional switches, off by
+- **Sound:** Sound and Microphone open their devices in place; volume and microphone gain/mute, and two optional switches, off by
   default: **Notification sounds** (a chime, a different one for urgent
   notifications; low-priority ones stay silent) and, on PCs with a battery,
   **Charger sounds** when the charger connects or disconnects. Neither plays during

@@ -6,7 +6,7 @@ import "../PanelStyle.js" as PanelStyle
 // Drop's dashboard, opened by clicking its time pill: a row of pages dragged sideways
 // (dragging right goes forward, left goes back, both wrapping). It opens on Calendar and
 // weather, then Media (skipped while nothing plays), OBS (while it is open or capturing),
-// quick controls, Timer & Focus, Performance, AI Usage and
+// quick controls, Streaming, Performance, AI Usage and
 // Notifications. Arrow keys and horizontal scrolling switch pages too.
 ThemedPopup {
     id: dashboard
@@ -52,7 +52,13 @@ ThemedPopup {
     readonly property bool settled: opened && revealProgress >= 1
     Timer { interval: 1000; running: dashboard.opened; repeat: true; triggeredOnStart: true; onTriggered: dashboard.now = new Date() }
 
-    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", "timer", "performance", "ai", "notifications"].filter(Boolean)
+    // The Control Center's chat, when an assistant is set up and policy allows it.
+    readonly property bool assistantAvailable: {
+        const center = barHost.controlCenter;
+        return !!center && !!center.chatAssistant.identifier && center.organizationPolicy.development !== false
+            && center.organizationPolicy.assistants_together !== false;
+    }
+    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", "performance", "ai", dashboard.assistantAvailable ? "assistant" : "", "notifications"].filter(Boolean)
     readonly property var obsState: barHost.obsMenu ? barHost.obsMenu.obsState : ({})
     readonly property bool obsShown: !!obsState.recording || !!obsState.streaming || ObsStatus.hasWindow
     property string page: "home"
@@ -111,7 +117,7 @@ ThemedPopup {
             id: viewport
             width: parent.width
             clip: true
-            readonly property Item current: dashboard.pluginEntry ? pluginPage : ({home: home, media: media, obs: obs, controls: controls, streaming: streaming, timer: timer, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
+            readonly property Item current: dashboard.pluginEntry ? pluginPage : ({home: home, media: media, obs: obs, controls: controls, streaming: streaming, performance: performance, ai: ai, assistant: assistant, notifications: notifications})[dashboard.page] || home
             height: Math.min(current.implicitHeight, Math.max(0, dashboard.height - dashboard.verticalContentInset - (dashboard.verticalAttachment ? 2 * dashboard.railRoom : 0)))
             Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
             function place(id) {
@@ -151,31 +157,53 @@ ThemedPopup {
                 active: dashboard.opened && visible
                 foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
             }
-            // Built once the Control Center exists: its WiFi, Bluetooth and display controls
-            // are this page's data, and the bar may create the dashboard first.
+            // Quick controls is the Control Center's General page, embedded: one set of tiles,
+            // opening WiFi, Bluetooth and the sound devices in place. It shares the bar's
+            // Control Center controllers, so it is built once that one exists.
             Loader {
                 id: controls
+                readonly property var main: dashboard.barHost.controlCenter
                 x: viewport.place("controls"); visible: viewport.shown("controls")
                 width: viewport.width
                 height: item ? item.implicitHeight : 0
-                active: !!dashboard.barHost.controlCenter
+                active: dashboard.opened && !!main
                 sourceComponent: Component {
-                    DropControlsPage {
-                        width: controls.width
-                        barHost: dashboard.barHost
-                        watching: dashboard.settled && controls.visible
-                        foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
+                    ControlCenter {
+                        inlineParent: controls
+                        target: null
+                        anchors.fill: parent
+                        barRef: dashboard.barHost
+                        service: controls.main.service
+                        wifiControl: controls.main.wifiControl; bluetoothControl: controls.main.bluetoothControl; displayControl: controls.main.displayControl
+                        wifiGlyph: controls.main.wifiGlyph
+                        battery: controls.main.battery; mediaPlayer: controls.main.mediaPlayer
+                        idleEnabled: controls.main.idleEnabled; idleBusy: controls.main.idleBusy
+                        foreground: dashboard.foreground; background: dashboard.background; accent: dashboard.accent
+                        opened: dashboard.settled && controls.visible
+                        onIdleToggleRequested: controls.main.idleToggleRequested()
+                        onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
+                        onPanelRequested: function(kind) { dashboard.opened = false; controls.main.panelRequested(kind); }
+                        onSettingsRequested: function(page) { dashboard.barHost.host.showSettings(page); }
+                        onCloseRequested: dashboard.opened = false
                     }
                 }
             }
-            FocusTimerControls {
-                id: timer
-                x: viewport.place("timer"); visible: viewport.shown("timer")
+            // The Control Center's assistant chat, as its own page.
+            Loader {
+                id: assistant
+                x: viewport.place("assistant"); visible: viewport.shown("assistant")
                 width: viewport.width
-                foreground: dashboard.foreground; accent: dashboard.accent; background: dashboard.background
+                height: 420
+                active: dashboard.opened && dashboard.pages.includes("assistant")
+                sourceComponent: Component {
+                    AssistantChat {
+                        anchors.fill: parent
+                        foreground: dashboard.foreground; background: dashboard.background
+                        assistant: dashboard.barHost.controlCenter.chatAssistant
+                        onClosed: dashboard.go("home", -1)
+                    }
+                }
             }
-            // Hardware and AI Usage are the bar's own panels, embedded as pages (the way
-            // Settings embeds the Brightness panel), so there is one implementation of each.
             Loader {
                 id: streaming
                 x: viewport.place("streaming"); visible: viewport.shown("streaming")

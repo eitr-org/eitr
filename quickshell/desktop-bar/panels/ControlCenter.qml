@@ -13,8 +13,15 @@ ThemedPopup {
     waitForFreshData: true
     keyTarget: content
     escapeHandler: () => {
+        if (center.detail !== "") { center.detail = ""; return true; }
         return center.page === "plugins" ? pluginManager.back() : plugins.back();
     }
+    // The bar this Control Center belongs to (WiFi details reach Settings through it).
+    property var barRef: null
+    // A control opened in place on General ("wifi", "bluetooth", "sound", "microphone") or "".
+    property string detail: ""
+    // Asked to close the surface around it (Drop's dashboard) when embedded.
+    signal closeRequested()
     required property var service
     required property var wifiControl
     required property var bluetoothControl
@@ -51,8 +58,8 @@ ThemedPopup {
     signal panelRequested(string kind)
     // Opens the Settings window at a page ("" for its overview).
     signal settingsRequested(string page)
-    implicitWidth: Math.min(520, hostWindow ? hostWindow.width - ((barPosition === "left" || barPosition === "right") && strip ? strip.width : 0) : 520)
-    implicitHeight: hostWindow ? hostWindow.height - (barPosition === "top" || barPosition === "bottom" ? (strip ? strip.height : 30) : 0) - (detached ? 0 : edgeClearance) : 800
+    implicitWidth: embedded ? 520 : Math.min(520, hostWindow ? hostWindow.width - ((barPosition === "left" || barPosition === "right") && strip ? strip.width : 0) : 520)
+    implicitHeight: embedded ? content.implicitHeight : hostWindow ? hostWindow.height - (barPosition === "top" || barPosition === "bottom" ? (strip ? strip.height : 30) : 0) - (detached ? 0 : edgeClearance) : 800
     barEdge: barPosition
     leftAligned: true
     function refresh() {
@@ -61,13 +68,20 @@ ThemedPopup {
     property bool powerOpen: false
     readonly property var bluetoothDevices: bluetoothControl.adapter && bluetoothControl.adapter.enabled
         ? bluetoothControl.adapter.devices.values.filter(device => device.connected) : []
-    function runAfterClose(command) { pendingCommand = command; opened = false; }
+    function runAfterClose(command) {
+        if (embedded) { Quickshell.execDetached(command); closeRequested(); return; }
+        pendingCommand = command; opened = false;
+    }
     // The same command as that Walker menu row (scripts/menu-action.py), after closing.
     function menuAction(menu, row) { runAfterClose(["python3", Quickshell.shellDir + "/scripts/menu-action.py", menu, row]); }
     function setFold(title, open) { let next = Object.assign({}, folds); next[title] = open; folds = next; }
     readonly property string timerFold: Eitr.I18n.tr("Timer & Focus")
     property var organizationPolicy: ({})
-    function openSettings(page) { opened = false; settingsRequested(page); }
+    function openSettings(page) {
+        if (embedded) closeRequested();
+        else opened = false;
+        settingsRequested(page);
+    }
     // Fetch once in the background after the bar starts, so even the first opening
     // shows its data instead of rebuilding lists halfway through the animation.
     Timer { interval: 8000; running: true; onTriggered: { center.refresh(); chatStatus.running = true; } }
@@ -100,6 +114,7 @@ ThemedPopup {
         }
     }
     onVisibleChanged: if (!visible) {
+        detail = "";
         powerOpen = false;
         page = "general";
         pluginManager.reset();
@@ -165,12 +180,14 @@ ThemedPopup {
         anchors.topMargin: 0; anchors.bottomMargin: 0
         spacing: 12
         ControlCenterNavigation {
+            // Embedded (Drop), the surrounding rail already navigates.
+            visible: !center.embedded
             centerRef: center
-            onPageSelected: function(page) { center.chatOpen = false; chatView.reset(); center.page = page; }
+            onPageSelected: function(page) { center.chatOpen = false; chatView.reset(); center.detail = ""; center.page = page; }
             onChatRequested: { center.chatOpen = true; chatView.focusInput(); }
             onSettingsRequested: center.openSettings("")
         }
-        Rectangle { Layout.fillHeight: true; Layout.preferredWidth: 1; color: Qt.alpha(center.foreground, PanelStyle.dividerAlpha) }
+        Rectangle { visible: !center.embedded; Layout.fillHeight: true; Layout.preferredWidth: 1; color: Qt.alpha(center.foreground, PanelStyle.dividerAlpha) }
         Item {
             Layout.fillWidth: true; Layout.fillHeight: true
             AssistantChat {
@@ -195,12 +212,23 @@ ThemedPopup {
                         foreground: center.foreground; accent: center.accent
                     }
                     Text { visible: center.actionError !== ""; width: parent.width; wrapMode: Text.WordWrap; text: center.actionError; color: center.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
-                    ControlCenterConnectivity { centerRef: center }
-                    ControlCenterSliders { centerRef: center }
+                    Loader {
+                        width: parent.width
+                        active: center.detail !== ""
+                        visible: active
+                        sourceComponent: Component {
+                            ControlCenterDetail {
+                                centerRef: center; kind: center.detail; watching: center.opened
+                                onClosed: center.detail = ""
+                            }
+                        }
+                    }
+                    ControlCenterConnectivity { centerRef: center; visible: center.page === "general" && center.detail === "" }
+                    ControlCenterSliders { centerRef: center; visible: center.page === "general" && center.detail === "" }
                     PluginArea {
                         id: plugins
                         width: parent.width
-                        visible: center.page === "general" && tiles.length > 0
+                        visible: center.page === "general" && center.detail === "" && tiles.length > 0
                         active: center.opened && center.page === "general"
                         foreground: center.foreground; background: center.background; accent: center.accent
                     }
@@ -210,7 +238,14 @@ ThemedPopup {
                         foreground: center.foreground; background: center.background; accent: center.accent
                     }
                     ControlCenterTools { centerRef: center }
-                    ControlCenterPower { centerRef: center }
+                    ControlCenterPower { centerRef: center; visible: center.page === "general" && center.detail === "" }
+                    // Embedded, the rail with the Settings button is hidden; this link replaces it.
+                    PanelFooterLink {
+                        visible: center.embedded && center.detail === ""
+                        text: Eitr.I18n.tr("Open Settings")
+                        foreground: center.foreground
+                        onClicked: center.openSettings("")
+                    }
                 }
             }
         }

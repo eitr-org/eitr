@@ -116,7 +116,7 @@ Item {
                 visible: activity.timing
                 width: activity.vertical ? activity.width : activity.slot; height: activity.vertical ? activity.slot : activity.height
                 TimerRing { anchors.centerIn: parent; foreground: activity.host.fg }
-                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: activity.barHost.panel("dashboard").show("timer") }
+                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: activity.barHost.showControlCenter("timer") }
             }
             // The note, next to the time. Dragging it right opens the lyrics; a plain click
             // opens the Media page.

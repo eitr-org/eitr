@@ -107,7 +107,8 @@ class ControlCenterContracts(unittest.TestCase):
         for page in ('style: Eitr.I18n.tr("Style")', 'settings: Eitr.I18n.tr("Settings")', 'key: "style"', 'key: "settings"'):
             self.assertNotIn(page, center)
         self.assertIn('onSettingsRequested: center.openSettings("")', center)
-        self.assertIn('function openSettings(page) { opened = false; settingsRequested(page); }', center)
+        self.assertIn('function openSettings(page) {', center)
+        self.assertIn('settingsRequested(page);', center)
         self.assertIn('Accessible.name: Eitr.I18n.tr("All settings")', center)
 
     def test_media_popup_is_drops_media_page(self):
@@ -130,7 +131,8 @@ class ControlCenterContracts(unittest.TestCase):
         center = control_center_source(root)
         self.assertIn('onVisibleChanged: if (!visible)', center)
         self.assertNotIn('key: "toggles"', center)
-        self.assertNotIn('details: true', center)
+        # WiFi, Bluetooth, Sound and Microphone open in place (ControlCenterDetail).
+        self.assertEqual(center.count('details: true'), 4)
         self.assertIn('glyph: center.wifiGlyph', center)
         self.assertNotIn('kind: "workspace"', center)
         self.assertIn('kind: "workspace"', (root / 'panels/WorkspaceStyleMenu.qml').read_text())

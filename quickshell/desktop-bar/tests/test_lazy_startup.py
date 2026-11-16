@@ -119,6 +119,7 @@ Item {
  signal lockRequested()
  signal panelRequested(string kind)
  signal settingsRequested(string page)
+ property var barRef
  function setFold(name, open) { timerSet = open; }
  function runAfterClose(command) {}
 }

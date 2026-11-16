@@ -99,7 +99,6 @@ DropAudioDetail 1.0 drop/DropAudioDetail.qml
 DropBluetoothDetail 1.0 drop/DropBluetoothDetail.qml
 DropCard 1.0 drop/DropCard.qml
 DayAgenda 1.0 components/DayAgenda.qml
-DropControlsPage 1.0 drop/DropControlsPage.qml
 DropHomePage 1.0 drop/DropHomePage.qml
 MediaLyrics 1.0 media/MediaLyrics.qml
 LyricLine 1.0 media/LyricLine.qml
@@ -141,6 +140,7 @@ BarHorizontalStatus bar/BarHorizontalStatus.qml
 BarHorizontalCenter bar/BarHorizontalCenter.qml
 BarWindow bar/BarWindow.qml
 ControlCenterSection panels/ControlCenterSection.qml
+ControlCenterDetail 1.0 panels/ControlCenterDetail.qml
 ControlCenterFold panels/ControlCenterFold.qml
 ControlCenterGridAction panels/ControlCenterGridAction.qml
 ControlCenterToggleTile panels/ControlCenterToggleTile.qml

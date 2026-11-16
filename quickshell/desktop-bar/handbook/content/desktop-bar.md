@@ -59,9 +59,9 @@ The page rail inside the card, along its side, jumps directly to any available p
 | Calendar and weather | The weather beside the month. Click the weather for the full forecast and a city search; click a day for its plans and to add a reminder at a time that day. |
 | Media | The cover ringed by bars that follow the music, the song, its lyrics, the controls and a progress bar. Shown while something plays. A live stream, such as a radio station, shows Live instead of the progress bar, Stop instead of pause, and no lyrics. |
 | OBS | Recording and streaming status with pause, stop and go live, a chapter mark, the recordings folder and OBS itself. Shown while OBS is open. |
-| Quick controls | WiFi, Bluetooth, Sound and Microphone open their networks and devices in place; Airplane, Silence, Night Light, Idle Lock, Record and Settings; volume, microphone and (on laptops) brightness. |
+| Quick controls | The Control Center's General page: WiFi, Bluetooth, Sound and Microphone open in place, quick actions, volume and brightness. |
 | Streaming | The bar's own Streaming panel, to share this PC with Moonlight devices. Shown once sharing is set up. |
-| Timer and focus | A countdown, a stopwatch, or 25-minute focus sessions with 5-minute breaks. It keeps running with the dashboard closed and notifies you at the end. |
+| Assistant | The Control Center's assistant chat, shown when an assistant is set up. |
 | Performance, AI Usage and Notifications | The bar's own Hardware and AI Usage panels, shown in place; the notification list. |
 
 In every layout the clock shows what is happening beside it, where the recording dot sits: a calendar mark when an event starts within ten minutes (click it for that day's plans) and a ring while a timer or focus session runs (click it for Control Center > Tools > Timer & Focus). A new notification rings the bar's bell twice; where the bell is hidden (Centered while collapsed, Dynamic at rest) a bell slides out beside the clock instead. A laptop's battery briefly replaces the time with its percentage in red at 15% and 5%; where the workspaces are hidden, so does the number of the workspace you switch to.

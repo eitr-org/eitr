@@ -122,6 +122,7 @@ Item {
             battery: panels.host.battery; mediaPlayer: panels.barHost.mediaStrip.player
             idleEnabled: panels.host.idleLockEnabled; idleBusy: panels.barHost.idleLockProcessRef.running
             barPosition: panels.host.barEdge
+            barRef: panels.barHost
             onIdleToggleRequested: if (!panels.barHost.idleLockProcessRef.running) panels.barHost.idleLockProcessRef.running = true
             onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
             onPanelRequested: function(kind) { panelIpc.show(kind); }
