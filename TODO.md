@@ -60,6 +60,9 @@ item says what decides the next step. Remove an item when it ships;
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
   done (Tools > Reminders > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).
+- **Reminders: alarms (idea 2026-11-15).** A wake-up alarm: the reminder stays on screen with a
+  song and an animated effect until stopped, with Stop and Snooze. The owner will record the
+  effect they want; build after that.
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the
   community index had no entries yet) and its validation workflow. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
