@@ -52,7 +52,7 @@ Choose a layout in Settings > Desktop Bar. All six work on every screen edge.
 
 Click Drop's time pill and the pill itself grows into a dashboard. Drag a page sideways (right goes forward, left back, both wrap), or use the arrow keys or horizontal scrolling. Esc or a click outside closes it. Nothing on it opens another panel: details open in place with a back arrow.
 
-The page rail beside the card jumps directly to any available page; the selected pill uses the accent colour. The opposite rail shows all placed plugin bar items in placement order, with their own icons and tooltips. Click an item with a panel to open it here, then use Back to return. Rails sit left/right for top or bottom bars and above/below for side bars, with gaps that pass clicks through. Long rails scroll; pills slide out after opening and retract on closing, instantly with Reduce motion.
+The page rail inside the card, along its side, jumps directly to any available page; the selected pill uses the accent colour. The opposite rail shows the placed plugin bar items in placement order, except Weather, which the first page already shows, with their own icons and tooltips. Click an item with a panel to open it here, then use Back to return. Rails sit left/right for top or bottom bars and above/below for side bars, with gaps that pass clicks through. Long rails scroll; pills slide out after opening and retract on closing, instantly with Reduce motion.
 
 | Page | What it holds |
 | :--- | :--- |

@@ -16,11 +16,14 @@ ThemedPopup {
     Keys.onLeftPressed: step(-1)
     Keys.onRightPressed: step(1)
     Keys.onEscapePressed: if (!backPlugin()) opened = false
-    implicitWidth: Math.max(580, pluginEntry && pluginEntry.width ? pluginEntry.width : 0)
-    implicitHeight: Math.max(viewport.current.implicitHeight + verticalContentInset, verticalAttachment ? 0 : Math.min(rails.minimumLength, 620))
-    exteriorInsets: verticalAttachment ? [rails.reserve, 0, rails.reserve, 0] : [0, rails.reserve, 0, rails.reserve]
+    // The rails sit inside the card along its sides (top and bottom on a side bar), and the
+    // pages keep their own width between them.
+    readonly property real railRoom: rails.reserve
+    implicitWidth: Math.max(580, pluginEntry && pluginEntry.width ? pluginEntry.width : 0) + (verticalAttachment ? 0 : 2 * railRoom)
+    implicitHeight: Math.max(viewport.current.implicitHeight + verticalContentInset + (verticalAttachment ? 2 * railRoom : 0),
+        verticalAttachment ? 0 : Math.min(rails.minimumLength, 620) + verticalContentInset)
     readonly property var railSurfaces: rails.inputSurfaces
-    property Item railItem: DropRails { id: rails; parent: dashboard; owner: dashboard; z: -1 }
+    property Item railItem: DropRails { id: rails; parent: dashboard; owner: dashboard }
     property var pluginEntry: null
     property var pluginHistory: []
     function openPlugin(plugin, panel, remember) {
@@ -96,7 +99,9 @@ ThemedPopup {
 
     Column {
         id: content
-        width: parent.width
+        x: dashboard.verticalAttachment ? 0 : dashboard.railRoom
+        y: dashboard.verticalAttachment ? dashboard.railRoom : 0
+        width: parent.width - (dashboard.verticalAttachment ? 0 : 2 * dashboard.railRoom)
         spacing: 12
         focus: true
         Keys.onLeftPressed: dashboard.step(-1)
@@ -107,7 +112,7 @@ ThemedPopup {
             width: parent.width
             clip: true
             readonly property Item current: dashboard.pluginEntry ? pluginPage : ({home: home, media: media, obs: obs, controls: controls, timer: timer, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
-            height: Math.min(current.implicitHeight, Math.max(0, dashboard.height - dashboard.verticalContentInset))
+            height: Math.min(current.implicitHeight, Math.max(0, dashboard.height - dashboard.verticalContentInset - (dashboard.verticalAttachment ? 2 * dashboard.railRoom : 0)))
             Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
             function place(id) {
                 return id === dashboard.page ? dashboard.shift : dashboard.shift + dashboard.otherSide * dashboard.span;

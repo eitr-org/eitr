@@ -54,7 +54,7 @@ Escolha um layout em Configurações > Barra da área de trabalho. Os seis funci
 
 Clique na cápsula da hora da Gota e a própria cápsula cresce até um painel. Arraste uma página para o lado (para a direita avança, para a esquerda volta, e as duas dão a volta) ou use as setas ou a rolagem horizontal. Esc ou um clique fora fecha. Nada nele abre outro painel: os detalhes abrem no mesmo lugar com uma seta para voltar.
 
-O trilho de páginas ao lado do cartão leva diretamente a qualquer página disponível; a cápsula selecionada usa a cor de destaque. O trilho oposto mostra todos os itens de plugins posicionados na barra, na ordem de posicionamento, com seus próprios ícones e dicas. Clique em um item com painel para abri-lo aqui e use Voltar para retornar. Os trilhos ficam à esquerda/direita nas barras superiores ou inferiores e acima/abaixo nas barras laterais, com espaços que deixam os cliques passar. Trilhos longos rolam; as cápsulas deslizam após a abertura e recolhem ao fechar, instantaneamente com Reduzir movimento.
+O trilho de páginas dentro do cartão leva diretamente a qualquer página disponível; a cápsula selecionada usa a cor de destaque. O trilho oposto mostra os itens de plugins posicionados na barra, exceto o clima, que a primeira página já mostra, na ordem de posicionamento, com seus próprios ícones e dicas. Clique em um item com painel para abri-lo aqui e use Voltar para retornar. Os trilhos ficam à esquerda/direita nas barras superiores ou inferiores e acima/abaixo nas barras laterais, com espaços que deixam os cliques passar. Trilhos longos rolam; as cápsulas deslizam após a abertura e recolhem ao fechar, instantaneamente com Reduzir movimento.
 
 | Página | O que tem |
 | :--- | :--- |

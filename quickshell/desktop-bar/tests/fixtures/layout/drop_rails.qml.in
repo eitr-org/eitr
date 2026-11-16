@@ -23,7 +23,11 @@
                     const item = region.item, position = item.mapToItem(bar, 0, 0);
                     if (position.x < 0 || position.y < 0 || position.x + item.width > bar.width || position.y + item.height > bar.height) throw new Error("Rail outside screen");
                     const at = item.mapToItem(dashboard, 0, 0);
-                    if (shell.verticalBar ? at.y >= 0 && at.y < dashboard.height : at.x >= 0 && at.x < dashboard.width) throw new Error("Rail overlaps card");
+                    // Inside the card, in the room kept beside (or above and below) the pages.
+                    if (at.x < 0 || at.y < 0 || at.x + item.width > dashboard.width + 0.5 || at.y + item.height > dashboard.height + 0.5) throw new Error("Rail outside card");
+                    const start = shell.verticalBar ? at.y : at.x, end = start + (shell.verticalBar ? item.height : item.width);
+                    const span = shell.verticalBar ? dashboard.height : dashboard.width;
+                    if (end > dashboard.railRoom + 0.5 && start < span - dashboard.railRoom - 0.5) throw new Error("Rail overlaps the page");
                 }
                 const live = railMask.regions.filter(region => region.item);
                 if (live.length !== pages.entries.length + plugins.entries.length) throw new Error("Pill missing from input region: " + live.length);
@@ -81,7 +85,7 @@
                         } else if (bar.phase === 1) {
                             if (PLUGINS) {
                                 const panel = bar.find(dashboard, "samplePluginPanel");
-                                if (!panel || !panel.observed || dashboard.width !== Math.min(720, bar.width - dashboard.exteriorInsets[1] - dashboard.exteriorInsets[3] - 24)) throw new Error("Panel loader/manifest width failed: " + dashboard.width);
+                                if (!panel || !panel.observed || dashboard.width !== Math.min(720 + (shell.verticalBar ? 0 : 2 * dashboard.railRoom), bar.width - 24)) throw new Error("Panel loader/manifest width failed: " + dashboard.width);
                                 bar.grabToImage(result => {
                                 result.saveToFile(CAPTURE + "-plugin.png");
                                 dashboard.openPlugin("aurora", "nested", true);

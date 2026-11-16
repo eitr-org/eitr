@@ -54,7 +54,7 @@ Elige una disposición en Configuración > Barra del escritorio. Las seis funcio
 
 Haz clic en la cápsula de la hora de Gota y la propia cápsula crece hasta un panel. Arrastra una página hacia un lado (a la derecha avanza, a la izquierda retrocede, y ambas dan la vuelta) o usa las flechas o el desplazamiento horizontal. Esc o un clic fuera lo cierra. Nada en él abre otro panel: los detalles se abren en el mismo sitio con una flecha para volver.
 
-El riel junto a la tarjeta permite ir directamente a cualquier página disponible; la cápsula seleccionada usa el color de acento. El riel opuesto muestra todos los elementos de plugins colocados, por orden de colocación, con sus propios iconos y descripciones emergentes. Pulse un elemento con panel para abrirlo aquí y use Atrás para volver. Los rieles quedan a izquierda/derecha con barras superiores o inferiores, y arriba/abajo con barras laterales; los espacios dejan pasar los clics. Los rieles largos se desplazan; las cápsulas salen tras abrir y se retraen al cerrar, al instante con Reducir movimiento.
+El riel dentro de la tarjeta permite ir directamente a cualquier página disponible; la cápsula seleccionada usa el color de acento. El riel opuesto muestra los elementos de plugins colocados, salvo el tiempo, que ya muestra la primera página, por orden de colocación, con sus propios iconos y descripciones emergentes. Pulse un elemento con panel para abrirlo aquí y use Atrás para volver. Los rieles quedan a izquierda/derecha con barras superiores o inferiores, y arriba/abajo con barras laterales; los espacios dejan pasar los clics. Los rieles largos se desplazan; las cápsulas salen tras abrir y se retraen al cerrar, al instante con Reducir movimiento.
 
 | Página | Qué contiene |
 | :--- | :--- |

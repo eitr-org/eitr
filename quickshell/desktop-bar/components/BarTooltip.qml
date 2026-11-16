@@ -12,7 +12,7 @@ PopupWindow {
     required property color foreground
     property bool ready: false
 
-    visible: hovered && ready && text !== ""
+    visible: hovered && ready && !resting && text !== ""
     color: "transparent"
     implicitWidth: Math.min(360, label.implicitWidth + 18)
     implicitHeight: label.implicitHeight + 12
@@ -21,7 +21,16 @@ PopupWindow {
     // later, and falling back to the centred position first would make it jump.
     property point pointerPosition: Qt.point(-1, -1)
     readonly property point livePointer: pointer.point.position
-    onLivePointerChanged: if (pointer.hovered) pointerPosition = livePointer
+    onLivePointerChanged: {
+        if (pointer.hovered) pointerPosition = livePointer;
+        resting = false;
+        if (hovered) rest.restart();
+    }
+    // Hides after a few seconds without pointer movement, so a hover the target never saw
+    // end (the window lost the pointer while something covered the target) cannot leave
+    // the tip on screen; moving the pointer over the target shows it again.
+    property bool resting: false
+    Timer { id: rest; interval: 4000; onTriggered: tip.resting = true }
     anchor.rect.x: pointerPosition.x >= 0 ? pointerPosition.x + 12 : (target.width - implicitWidth) / 2
     anchor.rect.y: pointerPosition.x >= 0 ? pointerPosition.y + 18 : target.height + 6
     anchor.edges: Edges.Top | Edges.Left
@@ -35,8 +44,9 @@ PopupWindow {
 
     onHoveredChanged: {
         ready = false;
-        if (hovered) delay.restart();
-        else delay.stop();
+        resting = false;
+        if (hovered) { delay.restart(); rest.restart(); }
+        else { delay.stop(); rest.stop(); }
     }
 
     Timer {

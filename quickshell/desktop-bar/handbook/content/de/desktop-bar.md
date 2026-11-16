@@ -46,7 +46,7 @@ Wähle ein Layout unter Einstellungen > Desktopleiste. Alle sechs funktionieren 
 
 Ein Klick auf die Uhrzeit-Fläche von Tropfen lässt die Fläche selbst zu einem Dashboard wachsen. Ziehe eine Seite zur Seite (rechts vorwärts, links zurück, beides im Kreis) oder nutze die Pfeiltasten oder horizontales Scrollen. Esc oder ein Klick daneben schließt es. Nichts darin öffnet ein anderes Panel: Details öffnen sich an Ort und Stelle mit einem Zurück-Pfeil.
 
-Die Seitenleiste neben der Karte führt direkt zu jeder verfügbaren Seite; die ausgewählte Kapsel nutzt die Akzentfarbe. Gegenüber erscheinen alle platzierten Plugin-Elemente in Platzierungsreihenfolge mit ihren eigenen Symbolen und Kurzinfos. Ein Klick auf ein Element mit Panel öffnet es hier; Zurück führt wieder zum Dashboard. Bei Leisten oben oder unten liegen die Reihen links/rechts, bei seitlichen Leisten darüber/darunter. Lücken lassen Klicks durch. Lange Reihen lassen sich scrollen; die Kapseln gleiten nach dem Öffnen heraus und beim Schließen zurück, bei reduzierter Bewegung sofort.
+Die Seitenleiste in der Karte führt direkt zu jeder verfügbaren Seite; die ausgewählte Kapsel nutzt die Akzentfarbe. Gegenüber erscheinen die platzierten Plugin-Elemente außer dem Wetter, das die erste Seite schon zeigt, in Platzierungsreihenfolge mit ihren eigenen Symbolen und Kurzinfos. Ein Klick auf ein Element mit Panel öffnet es hier; Zurück führt wieder zum Dashboard. Bei Leisten oben oder unten liegen die Reihen links/rechts, bei seitlichen Leisten darüber/darunter. Lücken lassen Klicks durch. Lange Reihen lassen sich scrollen; die Kapseln gleiten nach dem Öffnen heraus und beim Schließen zurück, bei reduzierter Bewegung sofort.
 
 | Seite | Inhalt |
 | :--- | :--- |
