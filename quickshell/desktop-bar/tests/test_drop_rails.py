@@ -183,3 +183,17 @@ Item {
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class DropPageSizeTests(unittest.TestCase):
+    def test_every_page_gives_the_card_its_height(self):
+        """The card follows the page's implicitHeight; a fixed height alone leaves it empty."""
+        import re
+        source = (Path(__file__).resolve().parents[1] / 'panels' / 'DropDashboard.qml').read_text()
+        loaders = re.findall(r'Loader \{\s*id: (\w+)\s*x: viewport\.place\("\w+"\)(.*?)\n            \}\n', source, re.S)
+        self.assertIn('assistant', [name for name, _ in loaders])
+        for name, body in loaders:
+            with self.subTest(page=name):
+                self.assertIn('height: item ? item.implicitHeight : 0', body)
+                if name == 'assistant':
+                    self.assertIn('implicitHeight: 420', body)

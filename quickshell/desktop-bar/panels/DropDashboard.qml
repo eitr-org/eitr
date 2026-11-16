@@ -219,11 +219,12 @@ ThemedPopup {
                 id: assistant
                 x: viewport.place("assistant"); visible: viewport.shown("assistant")
                 width: viewport.width
-                height: 420
+                height: item ? item.implicitHeight : 0
                 active: dashboard.opened && dashboard.pages.includes("assistant")
                 sourceComponent: Component {
                     AssistantChat {
-                        anchors.fill: parent
+                        // The chat fills what it is given and reports no size; the card sizes from this.
+                        implicitHeight: 420
                         foreground: dashboard.foreground; background: dashboard.background
                         assistant: dashboard.barHost.controlCenter.chatAssistant
                         onClosed: dashboard.go("home", -1)
