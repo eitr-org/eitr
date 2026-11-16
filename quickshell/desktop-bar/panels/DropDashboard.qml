@@ -19,9 +19,9 @@ ThemedPopup {
     // The rails sit inside the card along its sides (top and bottom on a side bar), and the
     // pages keep their own width between them.
     readonly property real railRoom: rails.reserve
-    implicitWidth: Math.max(580, pluginEntry && pluginEntry.width ? pluginEntry.width : 0) + (verticalAttachment ? 0 : 2 * railRoom)
-    implicitHeight: Math.max(viewport.current.implicitHeight + verticalContentInset + (verticalAttachment ? 2 * railRoom : 0),
-        verticalAttachment ? 0 : Math.min(rails.minimumLength, 620) + verticalContentInset)
+    implicitWidth: Math.max(580, pluginEntry && pluginEntry.width ? pluginEntry.width : 0) + (verticalAttachment ? 0 : railRoom)
+    // The page sets the height; a longer rail scrolls instead of growing the card.
+    implicitHeight: viewport.current.implicitHeight + verticalContentInset + (verticalAttachment ? railRoom : 0)
     readonly property var railSurfaces: rails.inputSurfaces
     property Item railItem: DropRails { id: rails; parent: dashboard; owner: dashboard }
     property var pluginEntry: null
@@ -58,7 +58,7 @@ ThemedPopup {
         return !!center && !!center.chatAssistant.identifier && center.organizationPolicy.development !== false
             && center.organizationPolicy.assistants_together !== false;
     }
-    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", "performance", "ai", dashboard.assistantAvailable ? "assistant" : "", "notifications"].filter(Boolean)
+    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", "performance", "ai", dashboard.assistantAvailable ? "assistant" : "", "plugins", "notifications"].filter(Boolean)
     readonly property var obsState: barHost.obsMenu ? barHost.obsMenu.obsState : ({})
     readonly property bool obsShown: !!obsState.recording || !!obsState.streaming || ObsStatus.hasWindow
     property string page: "home"
@@ -107,7 +107,7 @@ ThemedPopup {
         id: content
         x: dashboard.verticalAttachment ? 0 : dashboard.railRoom
         y: dashboard.verticalAttachment ? dashboard.railRoom : 0
-        width: parent.width - (dashboard.verticalAttachment ? 0 : 2 * dashboard.railRoom)
+        width: parent.width - (dashboard.verticalAttachment ? 0 : dashboard.railRoom)
         spacing: 12
         focus: true
         Keys.onLeftPressed: dashboard.step(-1)
@@ -117,8 +117,8 @@ ThemedPopup {
             id: viewport
             width: parent.width
             clip: true
-            readonly property Item current: dashboard.pluginEntry ? pluginPage : ({home: home, media: media, obs: obs, controls: controls, streaming: streaming, performance: performance, ai: ai, assistant: assistant, notifications: notifications})[dashboard.page] || home
-            height: Math.min(current.implicitHeight, Math.max(0, dashboard.height - dashboard.verticalContentInset - (dashboard.verticalAttachment ? 2 * dashboard.railRoom : 0)))
+            readonly property Item current: dashboard.pluginEntry ? pluginPage : ({home: home, media: media, obs: obs, controls: controls, streaming: streaming, performance: performance, ai: ai, assistant: assistant, plugins: plugins, notifications: notifications})[dashboard.page] || home
+            height: Math.min(current.implicitHeight, Math.max(0, dashboard.height - dashboard.verticalContentInset - (dashboard.verticalAttachment ? dashboard.railRoom : 0)))
             Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
             function place(id) {
                 return id === dashboard.page ? dashboard.shift : dashboard.shift + dashboard.otherSide * dashboard.span;
@@ -183,6 +183,32 @@ ThemedPopup {
                         onIdleToggleRequested: controls.main.idleToggleRequested()
                         onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
                         onPanelRequested: function(kind) { dashboard.opened = false; controls.main.panelRequested(kind); }
+                        onSettingsRequested: function(page) { dashboard.barHost.host.showSettings(page); }
+                        onCloseRequested: dashboard.opened = false
+                    }
+                }
+            }
+            // The Control Center's Plugins page, embedded like Quick controls.
+            Loader {
+                id: plugins
+                x: viewport.place("plugins"); visible: viewport.shown("plugins")
+                width: viewport.width
+                height: item ? item.implicitHeight : 0
+                active: dashboard.opened && !!controls.main
+                sourceComponent: Component {
+                    ControlCenter {
+                        inlineParent: plugins
+                        target: null
+                        anchors.fill: parent
+                        page: "plugins"
+                        barRef: dashboard.barHost
+                        service: controls.main.service
+                        wifiControl: controls.main.wifiControl; bluetoothControl: controls.main.bluetoothControl; displayControl: controls.main.displayControl
+                        wifiGlyph: controls.main.wifiGlyph
+                        battery: controls.main.battery; mediaPlayer: controls.main.mediaPlayer
+                        idleEnabled: controls.main.idleEnabled; idleBusy: controls.main.idleBusy
+                        foreground: dashboard.foreground; background: dashboard.background; accent: dashboard.accent
+                        opened: dashboard.settled && plugins.visible
                         onSettingsRequested: function(page) { dashboard.barHost.host.showSettings(page); }
                         onCloseRequested: dashboard.opened = false
                     }

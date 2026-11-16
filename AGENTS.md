@@ -353,7 +353,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   stays on screen: a drop in the bar's colour falls out of the edge and swells into the
   pill (closing the dashboard retracts card and bar in one motion). Click grows the pill
   into its dashboard (`panels/DropDashboard.qml`, pages in `drop/`), right-click
-  opens it on Quick controls; pages swipe sideways and wrap; Quick controls is the embedded Control Center General page (its WiFi, Bluetooth, Sound and Microphone tiles open in place, also in the Control Center itself); page/plugin rails sit inside the card along its sides (top/bottom on side edges; Weather has no plugin pill), use per-pill input regions, and open plugin panels in place with Back. The dashboard never opens
+  opens it on Quick controls; pages swipe sideways and wrap; Quick controls and Plugins are embedded Control Center pages, plugin items follow the pages on one scrolling left rail; (its WiFi, Bluetooth, Sound and Microphone tiles open in place, also in the Control Center itself); the rail sits inside the card on its leading side (top on side edges; Weather has no plugin pill), use per-pill input regions, and open plugin panels in place with Back. The dashboard never opens
   another panel: everything (weather, a day's plans, WiFi/Bluetooth/audio devices, an
   assistant's limits) opens in place with a back arrow. `bar/DropPillActivity.qml` adds
   activity around the time (before it recording, next event, timer ring, the update check and found updates while their notification shows, and the note; the

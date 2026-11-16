@@ -14,9 +14,12 @@
                 return result;
             }
             function checkRails() {
-                const pages = find(dashboard, "dropPageRail"), plugins = find(dashboard, "dropPluginRail");
-                if (pages.entries.map(entry => entry.id).join() !== dashboard.pages.join()) throw new Error("Wrong available pages/order");
-                if (plugins.entries.length !== (PLUGINS ? 4 : 0) || plugins.visible !== PLUGINS) throw new Error("Wrong placed plugins");
+                // One rail: the pages, then the placed plugin items.
+                const pages = find(dashboard, "dropPageRail");
+                const pageIds = pages.entries.filter(entry => !entry.plugin).map(entry => entry.id);
+                if (pageIds.join() !== dashboard.pages.join()) throw new Error("Wrong available pages/order");
+                if (pages.entries.filter(entry => entry.plugin).length !== (PLUGINS ? 4 : 0)) throw new Error("Wrong placed plugins");
+                if (pages.entries.slice(0, pageIds.length).some(entry => entry.plugin)) throw new Error("Plugins must follow the pages");
                 if (pages.horizontal !== shell.verticalBar) throw new Error("Rail axis wrong");
                 for (const region of railMask.regions) {
                     if (!region.item) continue;
@@ -30,11 +33,18 @@
                     if (end > dashboard.railRoom + 0.5 && start < span - dashboard.railRoom - 0.5) throw new Error("Rail overlaps the page");
                 }
                 const live = railMask.regions.filter(region => region.item);
-                if (live.length !== pages.entries.length + plugins.entries.length) throw new Error("Pill missing from input region: " + live.length);
-                const pageButtons = buttons(pages);
-                if (pageButtons.length !== pages.entries.length) throw new Error("Page buttons missing");
+                // Only pills in view take clicks; a rail longer than the card scrolls.
+                if (live.length < 1 || live.length > pages.entries.length) throw new Error("Pill missing from input region: " + live.length);
+                const viewport = (function flick(root) { if (root.contentY !== undefined && root.flickableDirection !== undefined) return root; for (const child of root.children || []) { const found = flick(child); if (found) return found; } return null; })(pages);
+                // Plugin slots keep a hidden page button; only page pills show theirs.
+                const pageButtons = buttons(pages).filter(button => button.visible);
+                if (pageButtons.length !== pageIds.length) throw new Error("Page buttons missing");
                 for (let index = 0; index < pageButtons.length; index++) {
                     const button = pageButtons[index];
+                    // A pill scrolled out of the card is reached by scrolling; click the ones in view.
+                    const at = button.mapToItem(viewport, 0, 0);
+                    const inView = pages.horizontal ? at.x >= 0 && at.x + button.width <= viewport.width : at.y >= 0 && at.y + button.height <= viewport.height;
+                    if (!inView) { pages.chosen(pageIds[index]); continue; }
                     pointer.mouseClick(button, button.width / 2, button.height / 2, Qt.LeftButton, Qt.NoModifier, 1);
                     if (pages.current !== dashboard.page || dashboard.page !== pages.entries[index].id) throw new Error("Page click lost selection");
                 }
@@ -42,7 +52,7 @@
                 if (dashboard.page !== "home" || pages.current !== "home") throw new Error("Rail focus blocked keyboard navigation");
                 dashboard.player = ({}); bar.obsMenu = {obsState: {recording: true}};
                 if (dashboard.pages.slice(0, 3).join() !== "home,media,obs") throw new Error("Optional pages missing");
-                if (pages.entries.map(entry => entry.id).join() !== dashboard.pages.join()) throw new Error("Optional rail order wrong");
+                if (pages.entries.filter(entry => !entry.plugin).map(entry => entry.id).join() !== dashboard.pages.join()) throw new Error("Optional rail order wrong");
                 dashboard.player = null; bar.obsMenu = {obsState:{}};
                 dashboard.go("home", 1);
             }
@@ -66,7 +76,7 @@
                             bar.grabToImage(result => {
                             result.saveToFile(CAPTURE + ".png");
                             if (PLUGINS) {
-                                const rail = bar.find(dashboard, "dropPluginRail");
+                                const rail = bar.find(dashboard, "dropPageRail");
                                 // Click the plugin's actual PluginComponent surface.
                                 function host(root) { if (root.activate !== undefined) return root; for (const child of root.children || []) { const found = host(child); if (found) return found; } return null; }
                                 const item = host(rail);
@@ -85,7 +95,7 @@
                         } else if (bar.phase === 1) {
                             if (PLUGINS) {
                                 const panel = bar.find(dashboard, "samplePluginPanel");
-                                if (!panel || !panel.observed || dashboard.width !== Math.min(720 + (shell.verticalBar ? 0 : 2 * dashboard.railRoom), bar.width - 24)) throw new Error("Panel loader/manifest width failed: " + dashboard.width);
+                                if (!panel || !panel.observed || dashboard.width !== Math.min(720 + (shell.verticalBar ? 0 : dashboard.railRoom), bar.width - 24)) throw new Error("Panel loader/manifest width failed: " + dashboard.width);
                                 bar.grabToImage(result => {
                                 result.saveToFile(CAPTURE + "-plugin.png");
                                 dashboard.openPlugin("aurora", "nested", true);

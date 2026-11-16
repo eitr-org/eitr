@@ -116,7 +116,8 @@ ThemedPopup {
     onVisibleChanged: if (!visible) {
         detail = "";
         powerOpen = false;
-        page = "general";
+        // Embedded, the page is the one its host chose (Drop has a Plugins page).
+        if (!embedded) page = "general";
         pluginManager.reset();
         scroll.contentY = 0;
         if (pendingCommand.length) {

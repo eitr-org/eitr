@@ -52,7 +52,7 @@ Choose a layout in Settings > Desktop Bar. All six work on every screen edge.
 
 Click Drop's time pill and the pill itself grows into a dashboard. Drag a page sideways (right goes forward, left back, both wrap), or use the arrow keys or horizontal scrolling. Esc or a click outside closes it. Nothing on it opens another panel: details open in place with a back arrow.
 
-The page rail inside the card, along its side, jumps directly to any available page; the selected pill uses the accent colour. The opposite rail shows the placed plugin bar items in placement order, except Weather, which the first page already shows, with their own icons and tooltips. Click an item with a panel to open it here, then use Back to return. Rails sit left/right for top or bottom bars and above/below for side bars, with gaps that pass clicks through. Long rails scroll; pills slide out after opening and retract on closing, instantly with Reduce motion.
+The page rail inside the card, along its side, jumps directly to any available page; the selected pill uses the accent colour. Below the pages, the same rail shows the placed plugin bar items in placement order, except Weather, which the first page already shows, with their own icons and tooltips. Click an item with a panel to open it here, then use Back to return. Rails sit left/right for top or bottom bars and above/below for side bars, with gaps that pass clicks through. Long rails scroll; pills slide out after opening and retract on closing, instantly with Reduce motion.
 
 | Page | What it holds |
 | :--- | :--- |
@@ -62,6 +62,7 @@ The page rail inside the card, along its side, jumps directly to any available p
 | Quick controls | The Control Center's General page: WiFi, Bluetooth, Sound and Microphone open in place, quick actions, volume and brightness. |
 | Streaming | The bar's own Streaming panel, to share this PC with Moonlight devices. Shown once sharing is set up. |
 | Assistant | The Control Center's assistant chat, shown when an assistant is set up. |
+| Plugins | The Control Center's Plugins page: installed plugins and their settings. |
 | Performance, AI Usage and Notifications | The bar's own Hardware and AI Usage panels, shown in place; the notification list. |
 
 In every layout the clock shows what is happening beside it, where the recording dot sits: a calendar mark when an event starts within ten minutes (click it for that day's plans) and a ring while a timer or focus session runs (click it for Control Center > Tools > Timer & Focus). A new notification rings the bar's bell twice; where the bell is hidden (Centered while collapsed, Dynamic at rest) a bell slides out beside the clock instead. A laptop's battery briefly replaces the time with its percentage in red at 15% and 5%; where the workspaces are hidden, so does the number of the workspace you switch to.

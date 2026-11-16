@@ -54,7 +54,7 @@ Escolha um layout em Configurações > Barra da área de trabalho. Os seis funci
 
 Clique na cápsula da hora da Gota e a própria cápsula cresce até um painel. Arraste uma página para o lado (para a direita avança, para a esquerda volta, e as duas dão a volta) ou use as setas ou a rolagem horizontal. Esc ou um clique fora fecha. Nada nele abre outro painel: os detalhes abrem no mesmo lugar com uma seta para voltar.
 
-O trilho de páginas dentro do cartão leva diretamente a qualquer página disponível; a cápsula selecionada usa a cor de destaque. O trilho oposto mostra os itens de plugins posicionados na barra, exceto o clima, que a primeira página já mostra, na ordem de posicionamento, com seus próprios ícones e dicas. Clique em um item com painel para abri-lo aqui e use Voltar para retornar. Os trilhos ficam à esquerda/direita nas barras superiores ou inferiores e acima/abaixo nas barras laterais, com espaços que deixam os cliques passar. Trilhos longos rolam; as cápsulas deslizam após a abertura e recolhem ao fechar, instantaneamente com Reduzir movimento.
+O trilho de páginas dentro do cartão leva diretamente a qualquer página disponível; a cápsula selecionada usa a cor de destaque. Abaixo das páginas, o mesmo trilho mostra os itens de plugins posicionados na barra, exceto o clima, que a primeira página já mostra, na ordem de posicionamento, com seus próprios ícones e dicas. Clique em um item com painel para abri-lo aqui e use Voltar para retornar. Os trilhos ficam à esquerda/direita nas barras superiores ou inferiores e acima/abaixo nas barras laterais, com espaços que deixam os cliques passar. Trilhos longos rolam; as cápsulas deslizam após a abertura e recolhem ao fechar, instantaneamente com Reduzir movimento.
 
 | Página | O que tem |
 | :--- | :--- |
@@ -64,6 +64,7 @@ O trilho de páginas dentro do cartão leva diretamente a qualquer página dispo
 | Controles rápidos | A página Geral da Central de controle: WiFi, Bluetooth, Som e Microfone abrem ali mesmo, ações rápidas, volume e brilho. |
 | Streaming | O próprio painel de Streaming da barra, para compartilhar este PC com dispositivos Moonlight. Aparece depois que o compartilhamento é configurado. |
 | Assistente | O chat com o assistente da Central de controle, quando há um assistente configurado. |
+| Plugins | A página Plugins da Central de controle: os plugins instalados e suas configurações. |
 | Desempenho, Uso de IA e Notificações | Os próprios painéis Hardware e Uso de IA da barra, ali mesmo; a lista de notificações. |
 
 Em todos os modos, o relógio mostra ao lado o que está acontecendo, no lugar do ponto de gravação: uma marca de calendário quando um evento começa em menos de dez minutos (clique para os planos desse dia) e um anel enquanto um temporizador ou uma sessão de foco corre (clique para Central de controle > Ferramentas > Timer e Foco). Uma notificação nova toca duas vezes o sino da barra; onde o sino está oculto (Centralizada recolhida, Dinâmico em repouso), um sino desliza ao lado do relógio no lugar dele. A bateria de um notebook substitui a hora por um instante pela porcentagem em vermelho em 15% e 5%; onde os espaços de trabalho estão ocultos, o mesmo vale para o número do espaço de trabalho para o qual você troca.

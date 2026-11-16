@@ -2146,6 +2146,7 @@
     ],
     "Plugins": [
       "distro/store-kinds.json",
+      "quickshell/desktop-bar/drop/DropRails.qml",
       "quickshell/desktop-bar/panels/ControlCenter.qml",
       "quickshell/desktop-bar/plugins/PluginArea.qml"
     ],

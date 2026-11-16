@@ -46,7 +46,7 @@ Wähle ein Layout unter Einstellungen > Desktopleiste. Alle sechs funktionieren 
 
 Ein Klick auf die Uhrzeit-Fläche von Tropfen lässt die Fläche selbst zu einem Dashboard wachsen. Ziehe eine Seite zur Seite (rechts vorwärts, links zurück, beides im Kreis) oder nutze die Pfeiltasten oder horizontales Scrollen. Esc oder ein Klick daneben schließt es. Nichts darin öffnet ein anderes Panel: Details öffnen sich an Ort und Stelle mit einem Zurück-Pfeil.
 
-Die Seitenleiste in der Karte führt direkt zu jeder verfügbaren Seite; die ausgewählte Kapsel nutzt die Akzentfarbe. Gegenüber erscheinen die platzierten Plugin-Elemente außer dem Wetter, das die erste Seite schon zeigt, in Platzierungsreihenfolge mit ihren eigenen Symbolen und Kurzinfos. Ein Klick auf ein Element mit Panel öffnet es hier; Zurück führt wieder zum Dashboard. Bei Leisten oben oder unten liegen die Reihen links/rechts, bei seitlichen Leisten darüber/darunter. Lücken lassen Klicks durch. Lange Reihen lassen sich scrollen; die Kapseln gleiten nach dem Öffnen heraus und beim Schließen zurück, bei reduzierter Bewegung sofort.
+Die Seitenleiste in der Karte führt direkt zu jeder verfügbaren Seite; die ausgewählte Kapsel nutzt die Akzentfarbe. Unter den Seiten zeigt dieselbe Leiste die platzierten Plugin-Elemente außer dem Wetter, das die erste Seite schon zeigt, in Platzierungsreihenfolge mit ihren eigenen Symbolen und Kurzinfos. Ein Klick auf ein Element mit Panel öffnet es hier; Zurück führt wieder zum Dashboard. Bei Leisten oben oder unten liegen die Reihen links/rechts, bei seitlichen Leisten darüber/darunter. Lücken lassen Klicks durch. Lange Reihen lassen sich scrollen; die Kapseln gleiten nach dem Öffnen heraus und beim Schließen zurück, bei reduzierter Bewegung sofort.
 
 | Seite | Inhalt |
 | :--- | :--- |
@@ -56,6 +56,7 @@ Die Seitenleiste in der Karte führt direkt zu jeder verfügbaren Seite; die aus
 | Schnelleinstellungen | Die Seite Allgemein der Steuerzentrale: WiFi, Bluetooth, Ton und Mikrofon öffnen sich direkt hier, Schnellaktionen, Lautstärke und Helligkeit. |
 | Streaming | Das Streaming-Panel der Leiste, um diesen PC mit Moonlight-Geräten zu teilen. Erscheint, sobald die Freigabe eingerichtet ist. |
 | Assistent | Der Assistenten-Chat der Steuerzentrale, sobald ein Assistent eingerichtet ist. |
+| Plugins | Die Seite Plugins der Steuerzentrale: installierte Plugins und ihre Einstellungen. |
 | Leistung, KI-Nutzung und Benachrichtigungen | Die Panels Hardware und KI-Nutzung der Leiste, direkt hier; die Benachrichtigungsliste. |
 
 In jedem Layout zeigt die Uhr neben sich, was gerade passiert, dort, wo der Aufnahmepunkt sitzt: eine Kalendermarke, wenn ein Termin in weniger als zehn Minuten beginnt (Klick öffnet die Pläne dieses Tages), und einen Ring, während ein Timer oder eine Fokussitzung läuft (Klick öffnet Kontrollzentrum > Werkzeuge > Timer & Fokus). Eine neue Benachrichtigung lässt die Glocke der Leiste zweimal klingeln; wo die Glocke ausgeblendet ist (Zentriert im eingeklappten Zustand, Dynamisch in Ruhe), gleitet stattdessen eine Glocke neben der Uhr heraus. Ein Laptop-Akku ersetzt die Uhrzeit bei 15 % und 5 % kurz durch seinen Prozentwert in Rot; wo die Arbeitsflächen ausgeblendet sind, gilt das auch für die Nummer der Arbeitsfläche, zu der du wechselst.

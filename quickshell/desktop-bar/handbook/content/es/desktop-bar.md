@@ -54,7 +54,7 @@ Elige una disposición en Configuración > Barra del escritorio. Las seis funcio
 
 Haz clic en la cápsula de la hora de Gota y la propia cápsula crece hasta un panel. Arrastra una página hacia un lado (a la derecha avanza, a la izquierda retrocede, y ambas dan la vuelta) o usa las flechas o el desplazamiento horizontal. Esc o un clic fuera lo cierra. Nada en él abre otro panel: los detalles se abren en el mismo sitio con una flecha para volver.
 
-El riel dentro de la tarjeta permite ir directamente a cualquier página disponible; la cápsula seleccionada usa el color de acento. El riel opuesto muestra los elementos de plugins colocados, salvo el tiempo, que ya muestra la primera página, por orden de colocación, con sus propios iconos y descripciones emergentes. Pulse un elemento con panel para abrirlo aquí y use Atrás para volver. Los rieles quedan a izquierda/derecha con barras superiores o inferiores, y arriba/abajo con barras laterales; los espacios dejan pasar los clics. Los rieles largos se desplazan; las cápsulas salen tras abrir y se retraen al cerrar, al instante con Reducir movimiento.
+El riel dentro de la tarjeta permite ir directamente a cualquier página disponible; la cápsula seleccionada usa el color de acento. Debajo de las páginas, el mismo riel muestra los elementos de plugins colocados, salvo el tiempo, que ya muestra la primera página, por orden de colocación, con sus propios iconos y descripciones emergentes. Pulse un elemento con panel para abrirlo aquí y use Atrás para volver. Los rieles quedan a izquierda/derecha con barras superiores o inferiores, y arriba/abajo con barras laterales; los espacios dejan pasar los clics. Los rieles largos se desplazan; las cápsulas salen tras abrir y se retraen al cerrar, al instante con Reducir movimiento.
 
 | Página | Qué contiene |
 | :--- | :--- |
@@ -64,6 +64,7 @@ El riel dentro de la tarjeta permite ir directamente a cualquier página disponi
 | Controles rápidos | La página General del Centro de control: WiFi, Bluetooth, Sonido y Micrófono se abren aquí mismo, acciones rápidas, volumen y brillo. |
 | Streaming | El propio panel de Streaming de la barra, para compartir este PC con dispositivos Moonlight. Aparece una vez configurado el uso compartido. |
 | Asistente | El chat con el asistente del Centro de control, cuando hay un asistente configurado. |
+| Plugins | La página Plugins del Centro de control: los plugins instalados y sus ajustes. |
 | Rendimiento, Uso de IA y Notificaciones | Los propios paneles de Hardware y Uso de IA de la barra, aquí mismo; la lista de notificaciones. |
 
 En todos los modos, el reloj muestra a su lado lo que pasa, donde se sitúa el punto de grabación: una marca de calendario cuando un evento empieza en menos de diez minutos (haz clic para ver los planes de ese día) y un anillo mientras corre un temporizador o una sesión de concentración (haz clic para Centro de control > Herramientas > Temporizador y concentración). Una notificación nueva hace sonar dos veces la campana de la barra; donde la campana está oculta (Centrada mientras está plegada, Dinámico en reposo), aparece en su lugar una campana junto al reloj. La batería de un portátil sustituye un momento la hora por su porcentaje en rojo al 15 % y al 5 %; donde los espacios de trabajo están ocultos, también aparece el número del espacio al que cambias.
