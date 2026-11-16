@@ -60,6 +60,7 @@ The page rail inside the card, along its side, jumps directly to any available p
 | Media | The cover ringed by bars that follow the music, the song, its lyrics, the controls and a progress bar. Shown while something plays. A live stream, such as a radio station, shows Live instead of the progress bar, Stop instead of pause, and no lyrics. |
 | OBS | Recording and streaming status with pause, stop and go live, a chapter mark, the recordings folder and OBS itself. Shown while OBS is open. |
 | Quick controls | WiFi, Bluetooth, Sound and Microphone open their networks and devices in place; Airplane, Silence, Night Light, Idle Lock, Record and Settings; volume, microphone and (on laptops) brightness. |
+| Streaming | The bar's own Streaming panel, to share this PC with Moonlight devices. Shown once sharing is set up. |
 | Timer and focus | A countdown, a stopwatch, or 25-minute focus sessions with 5-minute breaks. It keeps running with the dashboard closed and notifies you at the end. |
 | Performance, AI Usage and Notifications | The bar's own Hardware and AI Usage panels, shown in place; the notification list. |
 

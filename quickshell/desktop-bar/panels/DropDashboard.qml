@@ -52,7 +52,7 @@ ThemedPopup {
     readonly property bool settled: opened && revealProgress >= 1
     Timer { interval: 1000; running: dashboard.opened; repeat: true; triggeredOnStart: true; onTriggered: dashboard.now = new Date() }
 
-    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", "timer", "performance", "ai", "notifications"].filter(Boolean)
+    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", "timer", "performance", "ai", "notifications"].filter(Boolean)
     readonly property var obsState: barHost.obsMenu ? barHost.obsMenu.obsState : ({})
     readonly property bool obsShown: !!obsState.recording || !!obsState.streaming || ObsStatus.hasWindow
     property string page: "home"
@@ -111,7 +111,7 @@ ThemedPopup {
             id: viewport
             width: parent.width
             clip: true
-            readonly property Item current: dashboard.pluginEntry ? pluginPage : ({home: home, media: media, obs: obs, controls: controls, timer: timer, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
+            readonly property Item current: dashboard.pluginEntry ? pluginPage : ({home: home, media: media, obs: obs, controls: controls, streaming: streaming, timer: timer, performance: performance, ai: ai, notifications: notifications})[dashboard.page] || home
             height: Math.min(current.implicitHeight, Math.max(0, dashboard.height - dashboard.verticalContentInset - (dashboard.verticalAttachment ? 2 * dashboard.railRoom : 0)))
             Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
             function place(id) {
@@ -176,6 +176,26 @@ ThemedPopup {
             }
             // Hardware and AI Usage are the bar's own panels, embedded as pages (the way
             // Settings embeds the Brightness panel), so there is one implementation of each.
+            Loader {
+                id: streaming
+                x: viewport.place("streaming"); visible: viewport.shown("streaming")
+                width: viewport.width
+                height: item ? item.implicitHeight : 0
+                active: dashboard.opened && dashboard.pages.includes("streaming")
+                sourceComponent: Component {
+                    RemoteAccessMenu {
+                        kind: "streaming"
+                        service: dashboard.barHost.remoteServiceRef
+                        onObservationChanged: observing => dashboard.barHost.host.remoteObservers += observing ? 1 : -1
+                        inlineParent: streaming
+                        target: null
+                        anchors.fill: parent
+                        maximumHeight: Math.max(240, dashboard.barHost.screen.height * 0.6)
+                        foreground: dashboard.foreground; background: dashboard.background; accent: dashboard.accent
+                        opened: dashboard.settled && streaming.visible
+                    }
+                }
+            }
             Loader {
                 id: performance
                 x: viewport.place("performance"); visible: viewport.shown("performance")

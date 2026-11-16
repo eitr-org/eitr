@@ -54,6 +54,7 @@ Die Seitenleiste in der Karte führt direkt zu jeder verfügbaren Seite; die aus
 | Medien | Das Cover, umgeben von Balken im Takt der Musik, der Song, sein Text, die Steuerung und ein Fortschrittsbalken. Nur während etwas läuft. Ein Livestream, etwa ein Radiosender, zeigt Live statt des Fortschrittsbalkens, Stopp statt Pause und keinen Text. |
 | OBS | Aufnahme- und Streamstatus mit Pause, Stopp und Live gehen, einer Kapitelmarke, dem Aufnahmeordner und OBS selbst. Solange OBS offen ist. |
 | Schnelleinstellungen | WiFi, Bluetooth, Ton und Mikrofon öffnen ihre Netze und Geräte an Ort und Stelle; Flugmodus, Stumm, Nachtlicht, Bildschirmsperre, Aufnahme und Einstellungen; Lautstärke, Mikrofon und (am Laptop) Helligkeit. |
+| Streaming | Das Streaming-Panel der Leiste, um diesen PC mit Moonlight-Geräten zu teilen. Erscheint, sobald die Freigabe eingerichtet ist. |
 | Timer und Fokus | Ein Countdown, eine Stoppuhr oder 25-minütige Fokus-Sitzungen mit 5 Minuten Pause. Läuft bei geschlossenem Dashboard weiter und benachrichtigt dich am Ende. |
 | Leistung, KI-Nutzung und Benachrichtigungen | Die Panels Hardware und KI-Nutzung der Leiste, direkt hier; die Benachrichtigungsliste. |
 

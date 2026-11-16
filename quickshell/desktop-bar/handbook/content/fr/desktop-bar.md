@@ -64,6 +64,7 @@ Le rail à l’intérieur de la carte permet de rejoindre directement chaque pag
 | Médias | La pochette entourée de barres qui suivent la musique, le morceau, ses paroles, les commandes et une barre de progression. Seulement pendant la lecture. Un flux en direct, comme une radio, affiche En direct à la place de la barre de progression, Arrêter au lieu de pause, sans paroles. |
 | OBS | L’état de l’enregistrement et de la diffusion avec pause, arrêt et passage en direct, un repère de chapitre, le dossier des enregistrements et OBS. Tant qu’OBS est ouvert. |
 | Réglages rapides | WiFi, Bluetooth, Son et Microphone ouvrent sur place leurs réseaux et appareils ; Mode avion, Silence, Éclairage nocturne, Verrouillage d’inactivité, Enregistrer et Paramètres ; volume, microphone et (sur portable) luminosité. |
+| Streaming | Le panneau Streaming de la barre, pour partager ce PC avec des appareils Moonlight. Affiché une fois le partage configuré. |
 | Minuteur et concentration | Un compte à rebours, un chronomètre ou des sessions de concentration de 25 minutes avec 5 minutes de pause. Il continue tableau de bord fermé et vous prévient à la fin. |
 | Performances, Utilisation de l’IA et Notifications | Les panneaux Matériel et Utilisation de l’IA de la barre, affichés ici ; la liste des notifications. |
 

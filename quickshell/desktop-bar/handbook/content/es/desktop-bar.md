@@ -62,6 +62,7 @@ El riel dentro de la tarjeta permite ir directamente a cualquier página disponi
 | Multimedia | La portada rodeada de barras que siguen la música, la canción, su letra, los controles y una barra de progreso. Solo mientras suena algo. Una emisión en directo, como una radio, muestra En directo en lugar de la barra de progreso, Detener en lugar de pausa, y no busca letra. |
 | OBS | Estado de grabación y emisión con pausa, detener y emitir en directo, una marca de capítulo, la carpeta de grabaciones y OBS. Mientras OBS está abierto. |
 | Controles rápidos | WiFi, Bluetooth, Sonido y Micrófono abren sus redes y dispositivos en el mismo sitio; Modo avión, Silencio, Luz nocturna, Bloqueo por inactividad, Grabar y Configuración; volumen, micrófono y (en portátiles) brillo. |
+| Streaming | El propio panel de Streaming de la barra, para compartir este PC con dispositivos Moonlight. Aparece una vez configurado el uso compartido. |
 | Temporizador y concentración | Una cuenta atrás, un cronómetro o sesiones de concentración de 25 minutos con descansos de 5. Sigue con el panel cerrado y te avisa al terminar. |
 | Rendimiento, Uso de IA y Notificaciones | Los propios paneles de Hardware y Uso de IA de la barra, aquí mismo; la lista de notificaciones. |
 
