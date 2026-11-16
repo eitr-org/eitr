@@ -128,12 +128,5 @@ Rectangle {
         onActivated: entry => clock.momentActivated(entry)
     }
 
-    BarTooltip {
-        background: host.workspaceMenuBg
-        foreground: host.fg
-        target: clock
-        hovered: mouse.containsMouse && !clock.moment
-        text: clock.compact ? Qt.formatDateTime(clock.now, Eitr.I18n.tr("ddd MMM dd")) : Eitr.I18n.tr("Calendar")
-    }
 
 }

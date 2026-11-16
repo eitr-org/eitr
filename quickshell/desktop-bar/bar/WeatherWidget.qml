@@ -83,9 +83,9 @@ Item {
         background: host.workspaceMenuBg
         foreground: host.fg
         target: weather
-        hovered: weatherMouse.containsMouse
-        // Vertical bars show only the icon; the temperature moves to the tooltip.
-        text: weather.compact && weather.temperature ? Eitr.I18n.tr("Weather") + " · " + weather.temperature : Eitr.I18n.tr("Weather")
+        // Tooltips are for icons: only a vertical bar's icon-only weather needs one, for the temperature.
+        hovered: weatherMouse.containsMouse && weather.compact
+        text: weather.temperature ? Eitr.I18n.tr("Weather") + " · " + weather.temperature : Eitr.I18n.tr("Weather")
     }
 
 }

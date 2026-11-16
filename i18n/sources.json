@@ -423,9 +423,6 @@
     "Calculator": [
       "quickshell/calculator/CalculatorView.qml"
     ],
-    "Calendar": [
-      "quickshell/desktop-bar/bar/ClockButton.qml"
-    ],
     "Calendar and weather": [
       "quickshell/desktop-bar/drop/DropRails.qml"
     ],
@@ -3452,9 +3449,6 @@
     ],
     "clock islands tabs workspaces dots glyph numbers runes layout position media dock auto-hide": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
-    ],
-    "ddd MMM dd": [
-      "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
     "ddd MMM dd HH:mm": [
       "quickshell/desktop-bar/bar/ClockButton.qml"

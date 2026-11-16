@@ -53,7 +53,9 @@ Grid {
             onPanelRequested: function(plugin, panel) { items.panelRequested(plugin, panel, slot); }
             HoverHandler { id: hover }
             BarTooltip {
-                target: slot; hovered: hover.hovered
+                // Tooltips are for icons: text items beside the clock (a world clock) and the
+                // horizontal weather explain themselves.
+                target: slot; hovered: hover.hovered && ((slot.entry.capabilities || []).includes("weather") ? items.vertical : !(items.placementSlot === "clock" || items.placementSlot === "clockEnd"))
                 text: (slot.entry.capabilities || []).includes("weather")
                     ? Eitr.I18n.tr("Weather") + (items.vertical && slot.detail ? " · " + slot.detail : "")
                     : slot.entry.title + (slot.detail ? " · " + slot.detail : ""); foreground: items.foreground; background: items.background
