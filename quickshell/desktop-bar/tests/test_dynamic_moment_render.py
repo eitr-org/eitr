@@ -71,7 +71,7 @@ TIMER = '''
                 id: clickPreview; interval: 180
                 onTriggered: {
                     try {
-                        if (dynamic.moments.current) throw new Error("Hovered moment remained visible");
+                        if (!dynamic.moments.current || dynamic.moments.current.deadline !== 0) throw new Error("Hovered moment was not held");
                         pointer.mouseClick(dynamic.middleIsland, dynamic.middleIsland.width / 2, dynamic.middleIsland.height / 2,
                             Qt.LeftButton, Qt.NoModifier, 1);
                         if (bar.lastKind !== "notifications") throw new Error("Click aimed at notification did not open its centre");

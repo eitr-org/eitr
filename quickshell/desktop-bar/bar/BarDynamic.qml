@@ -47,14 +47,19 @@ Item {
     // The room the media island takes before the clock island, gap included.
     readonly property real mediaRun: mediaAvailable ? media.targetExtent + spacing : 0
     readonly property real weatherLength: weatherExtent > 0 ? host.workspaceItemSpacing + weatherExtent : 0
-    readonly property real clockRestExtent: clockExtent + 8 + 2 * captureLength
+    readonly property real clockRestExtent: clockExtent + 8 + captureLength
+    // The clock island grows only where something appears (capture and plugins before the
+    // time, weather after it) while the time keeps the screen centre: the island is moved
+    // along by half the difference. A moment or a card is centred as a whole.
+    readonly property real leadingPart: captureLength + (middle.expanded ? barHost.clockPluginExtent : 0)
+    readonly property real clockShift: middleMoment || middle.morphed ? 0 : (weatherReveal - leadingPart) / 2
     // Elide moments into the symmetric space left around the clock on short edges.
     readonly property real momentRoom: Math.max(clockRestExtent, length - 2 * Math.max(
         insetStart + leading.restingExtent + spacing + (mediaAvailable ? mediaExtent + spacing : 0),
         insetEnd + trailing.restingExtent + spacing))
     readonly property real songRoom: Math.max(mediaExtent, length / 2 - clockRestExtent / 2
         - insetStart - leading.restingExtent - 2 * spacing)
-    readonly property real middleExtent: clockExtent + 8 + 2 * Math.max(captureLength + barHost.clockPluginExtent, weatherLength)
+    readonly property real middleExtent: clockExtent + 8 + captureLength + barHost.clockPluginExtent + weatherLength
     // Space the clock island takes when the side islands expand: a card's full size, or its widest hover.
     readonly property real middleRoom: middle.morphed ? middle.targetExtent : Math.max(middleExtent, middle.restingExtent)
     readonly property real middleTrailing: middle.expanded ? weatherLength : 0
@@ -131,14 +136,14 @@ Item {
     // gap away from it, kept on screen.
     // The clock island is centred unless a side card needs the room: then it moves along,
     // and the island after it follows, keeping the gaps.
-    function middleStartFor(leadingExtent, middleExtent, trailingExtent) {
-        const centred = (length - middleExtent) / 2;
+    function middleStartFor(leadingExtent, middleExtent, trailingExtent, shift) {
+        const centred = (length - middleExtent) / 2 + (shift || 0);
         const lowest = insetStart + leadingExtent + spacing + mediaRun;
         const highest = length - insetEnd - trailingExtent - spacing - middleExtent;
         return Math.max(lowest, Math.min(centred, highest));
     }
     function settledStart(island) {
-        const middleStart = middleStartFor(leading.targetExtent, middle.targetExtent, trailing.targetExtent);
+        const middleStart = middleStartFor(leading.targetExtent, middle.targetExtent, trailing.targetExtent, clockShift);
         if (island === middle) return middleStart;
         if (island === media) return Math.max(insetStart, middleStart - spacing - media.targetExtent);
         if (island === leading) return Math.max(insetStart, middleStart - mediaRun - spacing - leading.targetExtent);
@@ -182,8 +187,8 @@ Item {
     DynamicIsland {
         id: middle
         host: dynamic.host; barHost: dynamic.barHost
-        x: vertical ? depthOffset : dynamic.middleStartFor(leading.extent, extent, trailing.extent)
-        y: vertical ? dynamic.middleStartFor(leading.extent, extent, trailing.extent) : depthOffset
+        x: vertical ? depthOffset : dynamic.middleStartFor(leading.extent, extent, trailing.extent, dynamic.clockShift)
+        y: vertical ? dynamic.middleStartFor(leading.extent, extent, trailing.extent, dynamic.clockShift) : depthOffset
         panel: dynamic.openPanel(middle)
         restingExtent: Math.max(clockRestExtent, middleMoment ? Math.min(clockMoment.naturalExtent, momentRoom) : 0)
         momentActive: !!middleMoment
@@ -283,7 +288,7 @@ Item {
             PropertyChanges { target: barHost.leftGroup; parent: leading.content; x: 4; y: (leading.thickness - barHost.leftGroup.height) / 2 }
             PropertyChanges { target: barHost.leftGroup; width: barHost.leftGroup.implicitWidth }
             PropertyChanges { target: barHost.barHorizontalCenter; parent: middle.content }
-            PropertyChanges { target: barHost.centerInfo; timeOnly: !middle.expanded; anchors.centerIn: null; x: (barHost.centerInfo.parent.width - barHost.centerInfo.width) / 2; y: (middle.thickness - barHost.centerInfo.height) / 2 }
+            PropertyChanges { target: barHost.centerInfo; timeOnly: !middle.expanded; anchors.centerIn: null; x: (barHost.centerInfo.parent.width - barHost.centerInfo.width) / 2 - dynamic.clockShift; y: (middle.thickness - barHost.centerInfo.height) / 2 }
             PropertyChanges { target: barHost.rightSide; parent: trailing.content }
             PropertyChanges { target: barHost.notificationIcon; parent: trailing.content }
             PropertyChanges { target: barHost.notificationIcon; anchors.rightMargin: 4; opacity: trailing.expanded ? 1 : 0; enabled: trailing.expanded }
@@ -296,7 +301,7 @@ Item {
             name: "vertical"; when: dynamic.holding && dynamic.vertical
             PropertyChanges { target: barHost.verticalStart; parent: leading.content; y: 4 }
             PropertyChanges { target: barHost.verticalMiddle; parent: middle.content; anchors.centerIn: null; x: 0; y: (middle.content.height - barHost.verticalMiddle.height) / 2 }
-            PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: !middle.expanded; anchors.centerIn: null; x: (barHost.verticalCalendarIcon.parent.width - barHost.verticalCalendarIcon.width) / 2; y: (barHost.verticalCalendarIcon.parent.height - barHost.verticalCalendarIcon.height) / 2 }
+            PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: !middle.expanded; anchors.centerIn: null; x: (barHost.verticalCalendarIcon.parent.width - barHost.verticalCalendarIcon.width) / 2; y: (barHost.verticalCalendarIcon.parent.height - barHost.verticalCalendarIcon.height) / 2 - dynamic.clockShift }
             PropertyChanges { target: barHost.verticalEnd; parent: trailing.content }
             PropertyChanges { target: barHost.verticalEnd; anchors.bottomMargin: 4; opacity: trailing.expanded ? 1 : 0; enabled: trailing.expanded }
             AnchorChanges { target: barHost.verticalMedia; anchors.bottom: undefined; anchors.horizontalCenter: undefined }

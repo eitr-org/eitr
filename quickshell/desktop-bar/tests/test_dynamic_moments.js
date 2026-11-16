@@ -51,3 +51,19 @@ assert.equal(state.active.kind, "brightness");
 state = queue.advance(state, 1504, free);
 assert.equal(state.active.kind, "notification");
 console.log("Dynamic queue: priorities, preemption, repeat replacement, expiry, critical dismissal and interaction waiting passed");
+
+// The pointer holds a moment: no deadline while hovered, a short linger after.
+{
+    const Queue = queue;
+    let state = Queue.push(Queue.create(), {kind: "notification", id: 1, text: "Held"}, 1000, () => false, () => false);
+    assert.equal(state.active.deadline, 5000);
+    state = Queue.advance(state, 2000, () => true, () => true);
+    assert.equal(state.active.text, "Held");
+    assert.equal(state.active.deadline, 0);
+    state = Queue.advance(state, 9000, () => true, () => true);
+    assert.equal(state.active.text, "Held");
+    state = Queue.advance(state, 9500, () => false, () => false);
+    assert.equal(state.active.deadline, 11000);
+    state = Queue.advance(state, 11000, () => false, () => false);
+    assert.equal(state.active, null);
+}

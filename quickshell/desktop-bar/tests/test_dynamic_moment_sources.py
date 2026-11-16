@@ -16,7 +16,7 @@ ShellRoot {
     QtObject { id: notification; property int id: 1; property string summary: "Original"; property int urgency: 1; property string image: ""; property var hints: ({}) }
     QtObject { id: critical; property int id: 2; property string summary: "Critical"; property int urgency: 2; property string image: ""; property var hints: ({}) }
     QtObject { id: notices; property bool doNotDisturb: false; property var popups: [notification]; property var timestamps: ({}) }
-    QtObject { id: keyboard; property string activeCode: "us"; property var layouts: [{code:"us"}, {code:"br"}] }
+    QtObject { id: keyboard; property int activeLayout: 0; property var layouts: [{index: 0, code:"us", label: "English (US)"}, {index: 1, code:"us", label: "English (US International)"}] }
     QtObject { id: player; property string trackTitle: "First song"; property string trackArtist: "Artist"; property bool isPlaying: true }
     QtObject { id: strip; property var player: player }
     QtObject { id: bar; property bool dynamicLayout: true; property var notificationsRef: notices; property var keyboardMenu: keyboard; property var mediaStrip: strip }
@@ -38,10 +38,10 @@ ShellRoot {
             try {
                 if (shell.stage === 0) {
                     require(!moments.current, "Initial state created a moment");
-                    keyboard.activeCode = "br";
+                    keyboard.activeLayout = 1;
                 } else if (shell.stage === 1) {
-                    require(moments.current.kind === "layout" && moments.current.text === "US → BR", "Layout event missing");
-                    clear(); keyboard.layouts = [{code:"us"}]; keyboard.activeCode = "us";
+                    require(moments.current.kind === "layout" && moments.current.text === "English (US International)", "Layout event missing");
+                    clear(); keyboard.layouts = [{index: 0, code:"us", label: "English (US)"}]; keyboard.activeLayout = 0;
                 } else if (shell.stage === 2) {
                     require(!moments.current, "Single-layout event shown");
                     player.isPlaying = false;

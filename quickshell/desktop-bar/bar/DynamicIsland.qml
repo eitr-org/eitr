@@ -68,10 +68,12 @@ Rectangle {
         });
     }
     onHoveredChanged: {
-        if (hovered) { collapse.stop(); hoverExpanded = true; }
+        if (hovered && !momentActive) { collapse.stop(); hoverExpanded = true; }
         else collapse.restart();
     }
     Timer { id: collapse; interval: 350; onTriggered: island.hoverExpanded = false }
+    // A moment the pointer held gives way to the hover view once it ends.
+    onMomentActiveChanged: if (!momentActive && hovered) { collapse.stop(); hoverExpanded = true; }
     BarGestureArea {
         anchors.fill: parent
         hostWindow: barHost

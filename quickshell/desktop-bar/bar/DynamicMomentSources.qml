@@ -14,7 +14,7 @@ Item {
     required property var barHost
     required property var owner
     property bool ready: false
-    Component.onCompleted: Qt.callLater(() => { seenTrack = track; ready = true; syncPopups(); })
+    Component.onCompleted: Qt.callLater(() => { seenTrack = track; seenLayout = layout; ready = true; syncPopups(); })
     readonly property var notifications: barHost.notificationsRef || null
     readonly property var popups: notifications ? notifications.popups : []
     readonly property var popupVersions: popups.map(notification => JSON.stringify([notification.id,
@@ -96,11 +96,15 @@ Item {
         }
     }
     readonly property var keyboard: barHost.keyboardMenu || null
-    readonly property string layout: keyboard ? keyboard.activeCode : ""
-    property string seenLayout: ""
+    // Tracks the active layout by position: two layouts can share a code (US and US International).
+    readonly property int layout: keyboard ? keyboard.activeLayout : -1
+    property int seenLayout: -1
     onLayoutChanged: {
-        if (ready && seenLayout && layout && layout !== seenLayout && keyboard.layouts.length > 1)
-            owner.submit({kind: "layout", icon: "󰌌", text: seenLayout.toUpperCase() + " → " + layout.toUpperCase()});
+        if (ready && seenLayout >= 0 && layout >= 0 && layout !== seenLayout && keyboard.layouts.length > 1) {
+            // Read from the list: the menu's own active label may not have caught up yet.
+            const entry = keyboard.layouts.find(candidate => candidate.index === layout) || {};
+            owner.submit({kind: "layout", icon: "󰌌", text: entry.label || String(entry.code || "").toUpperCase()});
+        }
         seenLayout = layout;
     }
     readonly property var player: barHost.mediaStrip ? barHost.mediaStrip.player : null

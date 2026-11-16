@@ -186,10 +186,11 @@ ShellRoot {
                 const point = clockItem.mapToItem(bar, clockItem.width / 2, clockItem.height / 2);
                 const actual = shell.verticalBar ? point.y : point.x;
                 const expected = (shell.verticalBar ? height : width) / 2;
-                // The clock and its island remain exactly centred, including with an asymmetric clock-slot item.
+                // The clock stays exactly centred; its island grows only on the side that has
+                // something (capture before the time, weather after it), shifted by clockShift.
                 const middle = dynamic.middleIsland;
                 const islandCentre = middle.mapToItem(bar, middle.width / 2, middle.height / 2);
-                if (Math.abs((shell.verticalBar ? islandCentre.y : islandCentre.x) - expected) > 0.01) throw new Error("Clock island not centred");
+                if (Math.abs((shell.verticalBar ? islandCentre.y : islandCentre.x) - expected - dynamic.clockShift) > 0.01) throw new Error("Clock island off its shift");
                 if (Math.abs(actual - expected) > 0.01) throw new Error("Clock moved: " + actual + " vs " + expected);
                 // Capture shows at rest beside the clock; media has its own island between the
                 // logo and the clock while a player is present.

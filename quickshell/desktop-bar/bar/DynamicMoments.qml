@@ -15,12 +15,14 @@ Item {
     readonly property bool middleBlocked: middle.hovered || middle.expanded || middle.morphed
     readonly property bool mediaBlocked: media.hovered || media.expanded || media.morphed
     function blocked(island) { return !accepting || (island === "media" ? mediaBlocked : middleBlocked); }
+    // The pointer on an island keeps the moment it shows (see DynamicMoments.js advance).
+    function holding(island) { return accepting && (island === "media" ? media.hovered && !media.morphed : middle.hovered && !middle.morphed); }
     function submit(payload) {
         if (!barHost.dynamicLayout) return;
-        queueState = Queue.push(queueState, payload, Date.now(), blocked);
+        queueState = Queue.push(queueState, payload, Date.now(), blocked, holding);
         schedule();
     }
-    function refresh() { queueState = Queue.advance(queueState, Date.now(), blocked); schedule(); }
+    function refresh() { queueState = Queue.advance(queueState, Date.now(), blocked, holding); schedule(); }
     function schedule() {
         expiry.stop();
         const delay = Queue.wakeAt(queueState, Date.now());

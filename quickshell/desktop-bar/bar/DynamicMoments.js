@@ -4,11 +4,15 @@ var durations = {volume: 1500, brightness: 1500, notification: 4000, bluetooth: 
 function create() { return {active: null, queue: []}; }
 function island(moment) { return moment.kind === "song" ? "media" : "middle"; }
 function priority(moment) { return moment.critical ? priorities.critical : priorities[moment.kind]; }
-function advance(state, now, blocked) {
+// A moment under the pointer is held: its time stops, and it lingers briefly once the pointer leaves.
+function advance(state, now, blocked, holding) {
     let active = state.active;
     let queue = state.queue.filter(moment => now - moment.created < 6000);
+    const held = !!active && !!holding && holding(island(active));
+    if (held) active = Object.assign({}, active, {deadline: 0, held: true});
+    else if (active && active.held) active = Object.assign({}, active, {held: false, deadline: active.critical ? 0 : now + 1500});
     if (active && active.deadline && active.deadline <= now) active = null;
-    if (active && blocked(island(active))) {
+    if (active && !held && blocked(island(active))) {
         if (now - active.created < 6000) queue.push(active);
         active = null;
     }
@@ -21,13 +25,13 @@ function advance(state, now, blocked) {
     }
     return {active: active, queue: queue};
 }
-function push(state, payload, now, blocked) {
+function push(state, payload, now, blocked, holding) {
     const moment = Object.assign({}, payload, {created: now, deadline: 0});
     if (!priorities[moment.kind]) return state;
     const same = entry => entry.kind === moment.kind && !!entry.critical === !!moment.critical;
     const next = {active: state.active && !same(state.active) ? state.active : null,
         queue: state.queue.filter(entry => !same(entry)).concat([moment])};
-    return advance(next, now, blocked);
+    return advance(next, now, blocked, holding);
 }
 function retainNotifications(state, ids) {
     const keep = moment => moment.kind !== "notification" || ids.indexOf(moment.id) !== -1;

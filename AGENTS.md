@@ -343,7 +343,8 @@ existing design and workflows rather than replacing them with upstream defaults.
   rounded, ignoring the corner preference): logo, time-only clock exactly centred at
   rest, network/battery; while a player is present, a media island (controls and
   equalizer) sits between logo and clock. Hover expands one island along the bar (the clock island then
-  shows date, AM/PM and weather and stays centred as a whole); 320 ms, instant with
+  shows date, AM/PM and weather; the time stays centred and the island grows only on the
+  side that gains content); a moment under the pointer is held; 320 ms, instant with
   Reduce motion, collapse after 350 ms. Opening a panel grows its island into the panel
   (no separate surface) and the other islands slide aside. Reserve resting depth plus
   half the outer gap; empty space passes clicks through.
