@@ -63,6 +63,12 @@ item says what decides the next step. Remove an item when it ships;
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the
   community index had no entries yet) and its validation workflow. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
+- **Backup and Restore (planned 2026-11-15).** Move a desktop to a fresh Eitr install: one
+  encrypted file (age passphrase) holding the chosen Eitr and app settings, personal folders
+  (asked one by one with their sizes), the lists of installed official, AUR, Flatpak and
+  plugin apps (reinstalled on restore), and optionally Git, cloud and WiFi accounts.
+  Browser profiles are left out (people sign in again). A one-time move first; scheduled
+  backups later. Plan: `eitr-testing/codex-wip/backup-restore/PLAN.md`.
 - **Plugin ideas (from Omarchy and Ryoku's popular plugins, 2026-11-15).** Official plugins in
   `eitr-org/eitr-plugins`, not core features:
   - Phone and Apple devices: send files, notifications and clipboard to and from a phone
