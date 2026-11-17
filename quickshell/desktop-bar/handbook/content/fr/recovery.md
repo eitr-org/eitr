@@ -1,6 +1,6 @@
 # Instantanés de récupération d’Eitr
 
-Les instantanés sont des points de récupération, **pas des sauvegardes sur un autre appareil**. Une panne du disque peut détruire ensemble le système et ses instantanés. Conservez des sauvegardes indépendantes.
+Les instantanés sont des points de récupération, **pas des sauvegardes sur un autre appareil**. Une panne du disque peut détruire ensemble le système et ses instantanés. Conservez des sauvegardes indépendantes : consultez [Sauvegarde et restauration](handbook:backup-restore) dans le Manuel EITR (Paramètres > Système > Sauvegarde et restauration, ou `eitr backup`) pour créer des archives chiffrées portables de vos réglages, dossiers et applications.
 
 Eitr prend en charge Snapper sur une racine Btrfs où `/usr`, `/etc` et `/var/lib/pacman` se trouvent dans le même sous-volume racine. `/home` peut être séparé : un instantané de la racine ne le couvre pas. Les dispositions non prises en charge bloquent les mises à jour avant toute modification. `install.sh` ne formate aucun disque et ne réorganise pas les sous-volumes existants. Seul `eitr-guided-install`, sur l’ISO, efface le disque que vous confirmez et crée cette disposition (voir l’installation guidée dans le README).
 

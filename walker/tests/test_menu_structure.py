@@ -113,7 +113,7 @@ class MenuStructureTests(unittest.TestCase):
     def test_system_contains_updates_checks_and_reports(self):
         entries = menu("system")["entries"]
         self.assertEqual([entry["text"] for entry in entries],
-                         ["Maintenance", "Update Channel", "About", "Check This PC", "Report a Problem", "System Update"])
+                         ["Maintenance", "Update Channel", "About", "Backup and Restore", "Check This PC", "Report a Problem", "System Update"])
         self.assertEqual(menu("update-channel")["parent"], "system")
         self.assertFalse((MENUS / "update.lua").exists())
         self.assertTrue(entries[-1]["actions"]["open"].endswith("update.sh system"))

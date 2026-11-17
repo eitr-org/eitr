@@ -107,7 +107,7 @@ class HandbookWelcomeTests(unittest.TestCase):
     def test_setup_cards_open_existing_settings_pages(self):
         chapters = json.loads((ROOT / "handbook/chapters.json").read_text())
         setup = chapters[0]["welcome"]["setup"]
-        self.assertEqual([card["id"] for card in setup], ["wifi", "appearance", "keyboard", "picture", "displays"])
+        self.assertEqual([card["id"] for card in setup], ["wifi", "appearance", "keyboard", "picture", "displays", "backup"])
         self.assertTrue(all(card["icon"] for card in setup), "every setup card needs its glyph")
         index = (ROOT / "settings/SettingsIndex.js").read_text()
         pages = json.JSONDecoder().raw_decode(index.split("\nvar pages = ", 1)[1])[0]

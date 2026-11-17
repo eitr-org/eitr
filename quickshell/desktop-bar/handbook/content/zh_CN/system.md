@@ -39,6 +39,7 @@
 | 用户 | [用户](handbook:security) |
 | 安全 | [安全](handbook:security) |
 | 更新 | [更新](handbook:maintenance) |
+| 备份与还原 | [备份与还原](handbook:backup-restore) |
 | 检查此电脑 | [检查此电脑](handbook:troubleshooting) |
 | 关于 | [关于](handbook:information) |
 

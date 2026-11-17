@@ -797,5 +797,7 @@
   "Let your paired devices reach the login screen": "페어링된 기기가 로그인 화면에 연결할 수 있게 합니다",
   "Only share after you sign in": "로그인한 후에만 공유합니다",
   "Share the Login Screen": "로그인 화면 공유",
-  "Stop Sharing the Login Screen": "로그인 화면 공유 중지"
+  "Stop Sharing the Login Screen": "로그인 화면 공유 중지",
+  "Back up or restore settings, apps and folders": "설정, 앱 및 폴더를 백업하거나 복원합니다",
+  "Backup and Restore": "백업 및 복원"
 }

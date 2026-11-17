@@ -22,6 +22,7 @@ No desktop, cada item abre sua página nas Configurações.
 - **Teclado**: Adicione, ordene e troque seus layouts de teclado.
 - **Foto de perfil**: Escolha a imagem exibida com a sua conta.
 - **Telas**: Defina a resolução e a escala de cada tela conectada.
+- **Restaurar de um backup**: Traga de volta suas configurações, pastas e aplicativos de um arquivo `.eitrbackup` salvo.
 <!-- /eitr-welcome:setup -->
 
 ## Bom saber

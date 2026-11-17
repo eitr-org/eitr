@@ -1,6 +1,6 @@
 # Instantáneas de recuperación de Eitr
 
-Las instantáneas son puntos de recuperación, **no copias de seguridad en otro dispositivo**. Si el disco falla, el sistema y sus instantáneas pueden perderse juntos. Mantén copias de seguridad independientes.
+Las instantáneas son puntos de recuperación, **no copias de seguridad en otro dispositivo**. Si el disco falla, el sistema y sus instantáneas pueden perderse juntos. Mantén copias de seguridad independientes: consulta [Copia y restauración](handbook:backup-restore) en el Manual de EITR (Configuración > Sistema > Copia y restauración, o `eitr backup`) para crear archivos cifrados portátiles con tus ajustes, carpetas y aplicaciones.
 
 Eitr admite Snapper en una raíz Btrfs con `/usr`, `/etc` y `/var/lib/pacman` dentro del mismo subvolumen raíz. `/home` puede estar separado: una instantánea de la raíz no lo incluye. Los esquemas de subvolúmenes no compatibles bloquean las actualizaciones antes de modificar nada. `install.sh` no formatea discos ni reorganiza subvolúmenes existentes; solo `eitr-guided-install` de la ISO borra el disco que confirmes y crea este esquema (consulta la sección de instalación guiada del README).
 

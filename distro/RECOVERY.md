@@ -1,7 +1,8 @@
 # Eitr recovery snapshots
 
 Snapshots are recovery points, **not off-machine backups**. A failed disk can
-destroy the system and its snapshots together. Keep independent backups.
+destroy the system and its snapshots together. Keep independent backups: see
+[Backup and Restore](handbook:backup-restore) in the EITR Handbook (Settings > System > Backup and Restore, or `eitr backup`) for portable encrypted archives of your settings, folders and apps.
 
 Eitr currently supports Snapper on a Btrfs root with `/usr`, `/etc` and
 `/var/lib/pacman` in the same root subvolume. `/home` may be separate: it is not

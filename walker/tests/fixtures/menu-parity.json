@@ -2839,6 +2839,21 @@
         }
       },
       {
+        "text": "Backup and Restore",
+        "subtext": "Back up or restore settings, apps and folders",
+        "keywords": [
+          "backup",
+          "restore",
+          "archive",
+          "migration",
+          "undo"
+        ],
+        "icon": "󰁯",
+        "actions": {
+          "open": "kitty --class system-backup -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py eitr-backup wizard"
+        }
+      },
+      {
         "text": "Check This PC",
         "subtext": "Read-only checks with suggested fixes; copy a redacted report",
         "keywords": [
@@ -10065,6 +10080,31 @@
       "key": "884bbea8bd618410c3a772fa5d46086b73cd22c0a05f36a805644c9078650a82",
       "provider": "menus:system",
       "identifier": "system:3",
+      "text": "Backup and Restore",
+      "subtext": "Back up or restore settings, apps and folders",
+      "icon": "󰁯",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "backup",
+        "restore",
+        "archive",
+        "migration",
+        "undo",
+        "Backup and Restore",
+        "Backup and Restore",
+        "Back up or restore settings, apps and folders"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "b8e6d0bef865e4f8451088558a01394f9e8db4b6c6f1c6d868873dd63fdc019c",
+      "provider": "menus:system",
+      "identifier": "system:4",
       "text": "Check This PC",
       "subtext": "Read-only checks with suggested fixes; copy a redacted report",
       "icon": "󰒓",
@@ -10087,9 +10127,9 @@
       ]
     },
     {
-      "key": "b8e6d0bef865e4f8451088558a01394f9e8db4b6c6f1c6d868873dd63fdc019c",
+      "key": "cb1740393666ef9bbe62a2812a8ad4f13dacee4f468d32c2208ddb916cdd435f",
       "provider": "menus:system",
-      "identifier": "system:4",
+      "identifier": "system:5",
       "text": "Report a Problem",
       "subtext": "Collect a report and send it by email or GitHub",
       "icon": "󰃤",
@@ -10113,9 +10153,9 @@
       ]
     },
     {
-      "key": "cb1740393666ef9bbe62a2812a8ad4f13dacee4f468d32c2208ddb916cdd435f",
+      "key": "a2b7fb29da4dbe68e42d8d5b7200b6b2a6c171f928af3091855c4ef7add4395c",
       "provider": "menus:system",
-      "identifier": "system:5",
+      "identifier": "system:6",
       "text": "System Update",
       "subtext": "Snapshot, then update Arch, AUR, Flatpak and Eitr",
       "icon": "󰜉",

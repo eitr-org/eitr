@@ -22,6 +22,7 @@ Auf dem Desktop öffnet jeder Eintrag seine Seite in den Einstellungen.
 - **Tastatur**: Füge Tastaturlayouts hinzu, ordne sie und wechsle zwischen ihnen.
 - **Profilbild**: Wähle das Bild, das zu deinem Konto gehört.
 - **Bildschirme**: Lege Auflösung und Skalierung jedes angeschlossenen Bildschirms fest.
+- **Aus Sicherung wiederherstellen**: Einstellungen, Ordner und Apps aus einer gespeicherten `.eitrbackup`-Datei zurückholen.
 <!-- /eitr-welcome:setup -->
 
 ## Gut zu wissen

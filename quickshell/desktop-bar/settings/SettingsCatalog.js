@@ -157,5 +157,7 @@ var settings = [
     {"id": "notifications-charger", "label": "Charger sounds", "page": "notifications", "tab": "", "keywords": "charger sounds"},
     {"id": "displays-schedule-start", "label": "Start", "page": "displays", "tab": "nightlight", "keywords": "night light schedule start"},
     {"id": "displays-schedule-end", "label": "End", "page": "displays", "tab": "nightlight", "keywords": "night light schedule end"},
-    {"id": "displays-schedule-auto", "label": "Auto", "page": "displays", "tab": "nightlight", "keywords": "night light schedule auto"}
+    {"id": "displays-schedule-auto", "label": "Auto", "page": "displays", "tab": "nightlight", "keywords": "night light schedule auto"},
+    {"id": "backup-create", "label": "Create backup", "page": "backup", "tab": "", "keywords": "backup create archive export"},
+    {"id": "backup-restore", "label": "Restore from backup", "page": "backup", "tab": "", "keywords": "backup restore import undo"}
 ];

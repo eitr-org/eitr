@@ -39,6 +39,7 @@
 | ユーザー | [ユーザー](handbook:security) |
 | セキュリティ | [セキュリティ](handbook:security) |
 | アップデート | [アップデート](handbook:maintenance) |
+| バックアップと復元 | [バックアップと復元](handbook:backup-restore) |
 | このPCを確認 | [このPCを確認](handbook:troubleshooting) |
 | このPCについて | [このPCについて](handbook:information) |
 

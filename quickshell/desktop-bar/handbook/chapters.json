@@ -13,7 +13,8 @@
         {"id": "appearance", "route": "appearance/theme", "icon": "󰸌"},
         {"id": "keyboard", "route": "input", "icon": "󰌌"},
         {"id": "picture", "route": "user", "icon": "󰀄"},
-        {"id": "displays", "route": "displays", "icon": "󰍹"}
+        {"id": "displays", "route": "displays", "icon": "󰍹"},
+        {"id": "backup", "route": "backup", "icon": "󰁯"}
       ]
     }
   },
@@ -198,6 +199,14 @@
     "group": "System",
     "summary": "System Update versus advanced pacman/yay updates, cleanup and snapshots",
     "source": "quickshell/desktop-bar/handbook/content/maintenance.md"
+  },
+  {
+    "id": "backup-restore",
+    "title": "Backup and Restore",
+    "icon": "󰁯",
+    "group": "System",
+    "summary": "Move settings, folders and apps to a new Eitr install in one encrypted file",
+    "source": "quickshell/desktop-bar/handbook/content/backup-restore.md"
   },
   {
     "id": "troubleshooting",

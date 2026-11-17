@@ -39,6 +39,7 @@
 | 사용자 | [사용자](handbook:security) |
 | 보안 | [보안](handbook:security) |
 | 업데이트 | [업데이트](handbook:maintenance) |
+| 백업 및 복원 | [백업 및 복원](handbook:backup-restore) |
 | 이 PC 확인 | [이 PC 확인](handbook:troubleshooting) |
 | 정보 | [정보](handbook:information) |
 

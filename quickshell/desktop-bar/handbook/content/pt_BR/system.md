@@ -39,6 +39,7 @@ Use os nomes de página abaixo. Os capítulos vinculados explicam os passos.
 | Usuários | [Usuários](handbook:security) |
 | Segurança | [Segurança](handbook:security) |
 | Atualizações | [Atualizações](handbook:maintenance) |
+| Backup e restauração | [Backup e restauração](handbook:backup-restore) |
 | Verificar este PC | [Verificar este PC](handbook:troubleshooting) |
 | Sobre | [Sobre](handbook:information) |
 

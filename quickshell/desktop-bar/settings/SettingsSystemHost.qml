@@ -25,6 +25,8 @@ Flickable {
     property string channel: ""
     property var accountPicture: (DesktopData.topics["account.picture"] || {}).data || ({})
     property var updates: DesktopData.topics["updates.status"] || ({})
+    property var backupStatus: ({hasBackup: false, lastBackup: null, lastBackupExists: false, lastRestore: null, undoPoints: []})
+    property string backupError: ""
     function dismiss() {
         if (page === "user" && pageLoader.item && pageLoader.item.managementSheet.opened) { pageLoader.item.managementSheet.close(); return true; }
         if (removeSheet && removeSheet.opened) { removeSheet.close(); return true; }
@@ -85,6 +87,8 @@ Flickable {
             DesktopData.observe("updates.status", hostView);
             channelQuery.running = true;
         }
+        if (page === "backup")
+            backupQueryProcess.running = true;
     }
     onActiveChanged: demand()
     onPageChanged: {
@@ -117,6 +121,7 @@ Flickable {
         target: hostView.Window.window
         function onActiveChanged() {
             if (hostView.Window.window.active && hostView.page === "user") helper.refresh();
+            if (hostView.live && hostView.Window.window.active && hostView.page === "backup") backupQueryProcess.running = true;
         }
     }
     SettingsHelper {
@@ -176,6 +181,22 @@ Flickable {
                 hostView.checks = result.data.checks;
         }
     }
+    Process {
+        id: backupQueryProcess
+        command: ["python3", Eitr.Paths.library("eitr_backup/cli.py"), "status", "--json"]
+        stdout: StdioCollector {
+            id: backupOutput
+        }
+        onExited: function (code) {
+            const result = JsonState.parse(backupOutput.text, code, {
+                hasBackup: "boolean",
+                undoPoints: "array"
+            });
+            hostView.backupError = result.ok ? "" : result.error;
+            if (result.ok)
+                hostView.backupStatus = result.data;
+        }
+    }
     component Label: Text {
         width: parent.width
         color: hostView.foreground
@@ -187,6 +208,7 @@ Flickable {
     property alias defaults: defaults
     property alias check: check
     property alias chooser: chooser
+    property alias backupQuery: backupQueryProcess
     Component { id: windowrulesComponent; SettingsWindowRulesPage { context: hostView } }
     Component { id: keybindsComponent; SettingsKeybindsPage { context: hostView } }
     Component { id: defaultappsComponent; SettingsDefaultAppsPage { context: hostView } }
@@ -194,6 +216,7 @@ Flickable {
     Component { id: securityComponent; SettingsSecurityPage { context: hostView } }
     Component { id: assistantsComponent; SettingsAssistantPage { context: hostView } }
     Component { id: updatesComponent; SettingsUpdatesPage { context: hostView } }
+    Component { id: backupComponent; SettingsBackupPage { context: hostView } }
     Component { id: checkpcComponent; SettingsCheckPage { context: hostView } }
     Component { id: aboutComponent; SettingsAboutPage { context: hostView } }
     Column {
@@ -216,7 +239,7 @@ Flickable {
             id: pageLoader
             width: parent.width
             height: item ? item.implicitHeight : 0
-            sourceComponent: ({"window-rules": windowrulesComponent, "keybinds": keybindsComponent, "default-apps": defaultappsComponent, "user": userComponent, "security": securityComponent, "assistant": assistantsComponent, "updates": updatesComponent, "check-pc": checkpcComponent, "about": aboutComponent})[hostView.page] || null
+            sourceComponent: ({"window-rules": windowrulesComponent, "keybinds": keybindsComponent, "default-apps": defaultappsComponent, "user": userComponent, "security": securityComponent, "assistant": assistantsComponent, "updates": updatesComponent, "backup": backupComponent, "check-pc": checkpcComponent, "about": aboutComponent})[hostView.page] || null
         }
         Label {
             visible: helper.active && helper.error !== ""
@@ -232,7 +255,7 @@ Flickable {
             text: Eitr.I18n.tr("Learn more")
             foreground: hostView.foreground
             onClicked: if (hostView.live)
-                Quickshell.execDetached(["bash", Eitr.Paths.code("quickshell/desktop-bar/scripts/handbook.sh"), "open", hostView.page === "keybinds" ? "shortcuts" : hostView.page === "security" || hostView.page === "user" ? "security" : hostView.page === "updates" || hostView.page === "check-pc" ? "maintenance" : hostView.page === "about" ? "information" : hostView.page === "assistant" ? "development" : "control-center"])
+                Quickshell.execDetached(["bash", Eitr.Paths.code("quickshell/desktop-bar/scripts/handbook.sh"), "open", hostView.page === "keybinds" ? "shortcuts" : hostView.page === "security" || hostView.page === "user" ? "security" : hostView.page === "updates" || hostView.page === "check-pc" ? "maintenance" : hostView.page === "backup" ? "backup-restore" : hostView.page === "about" ? "information" : hostView.page === "assistant" ? "development" : "control-center"])
         }
     }
 }

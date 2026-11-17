@@ -797,5 +797,7 @@
   "Let your paired devices reach the login screen": "ペアリング済みのデバイスからログイン画面に接続できるようにします",
   "Only share after you sign in": "サインイン後にのみ共有します",
   "Share the Login Screen": "ログイン画面を共有",
-  "Stop Sharing the Login Screen": "ログイン画面の共有を停止"
+  "Stop Sharing the Login Screen": "ログイン画面の共有を停止",
+  "Back up or restore settings, apps and folders": "設定、アプリ、フォルダーをバックアップまたは復元",
+  "Backup and Restore": "バックアップと復元"
 }

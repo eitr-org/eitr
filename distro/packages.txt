@@ -36,6 +36,8 @@ jq
 unzip
 zip
 7zip
+zstd
+age
 wl-clipboard
 wtype
 whisper-cpp

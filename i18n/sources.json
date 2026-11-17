@@ -247,6 +247,9 @@
       "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Archive not found at that location (external drive may be disconnected or moved).": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
+    ],
     "Ask anything…": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
@@ -328,6 +331,12 @@
     ],
     "Background service": [
       "quickshell/desktop-bar/store/StoreState.qml"
+    ],
+    "Backup actions": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
+    ],
+    "Backup and Restore": [
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Bar item": [
       "distro/store-kinds.json"
@@ -531,6 +540,9 @@
     ],
     "Choose plugins": [
       "quickshell/desktop-bar/store/StoreReview.qml"
+    ],
+    "Choose settings, personal folders and apps to save into an encrypted archive.": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
     "Choose stable builds or try new builds first.": [
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
@@ -809,6 +821,16 @@
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml",
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
+    "Create an encrypted backup or restore settings, folders and apps.": [
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Create backup": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Create backup…": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
+    ],
     "Current": [
       "quickshell/desktop-bar/store/StoreCatalogCard.qml",
       "quickshell/desktop-bar/store/StoreDetail.qml"
@@ -907,6 +929,9 @@
     ],
     "Desktop theme": [
       "quickshell/desktop-bar/store/StoreCatalogCard.qml"
+    ],
+    "Destination: %1": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
     "Detailed Status": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -1097,6 +1122,9 @@
     "Enable plugin": [
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
+    ],
+    "Encrypted archives store your Eitr preferences, app settings, chosen folders and installed app lists in one file.": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
     "End": [
       "quickshell/desktop-bar/panels/NightLightSection.qml",
@@ -1363,6 +1391,9 @@
     "Input volume": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Inspect an encrypted archive, restore files with undo and reinstall apps.": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
+    ],
     "Install": [
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
       "quickshell/desktop-bar/store/StoreCatalogCard.qml",
@@ -1485,6 +1516,12 @@
     ],
     "Larger": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
+    ],
+    "Last backup: %1 · %2": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
+    ],
+    "Latest backup": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
     "Layout": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
@@ -1773,6 +1810,9 @@
     ],
     "No applications are playing audio.": [
       "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
+    ],
+    "No backup created yet.": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
     "No community items yet": [
       "quickshell/desktop-bar/components/CatalogEmptyState.qml"
@@ -2283,6 +2323,9 @@
     "Protection": [
       "quickshell/desktop-bar/settings/SettingsSecurityPage.qml"
     ],
+    "Puts back %1 replaced files and removes %2 added ones": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
+    ],
     "QR Code": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -2366,6 +2409,7 @@
     ],
     "Refresh": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml",
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
     ],
     "Refresh rate": [
@@ -2489,6 +2533,16 @@
     ],
     "Restore Sharing Setup": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Restore from backup": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Restore undo points": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
+    ],
+    "Restore…": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
     "Results": [
       "quickshell/desktop-bar/panels/Handbook.qml"
@@ -3244,6 +3298,9 @@
       "quickshell/desktop-bar/settings/SettingsOverview.qml",
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
+    "Undo": [
+      "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
+    ],
     "Unlock": [
       "quickshell/lockscreen/shell.qml"
     ],
@@ -3535,6 +3592,9 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "audio microphone volume": [
+      "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "backup restore archive export import age migration undo": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "browser terminal files file manager text editor image viewer video player music mail pdf mime": [
@@ -3890,6 +3950,12 @@
     ],
     "Back to the first login, files too": [
       "elephant/menu-rows/factory-reset.json"
+    ],
+    "Back up or restore settings, apps and folders": [
+      "elephant/menu-rows/system.json"
+    ],
+    "Backup and Restore": [
+      "elephant/menu-rows/system.json"
     ],
     "Bar moments": [
       "elephant/menu-rows/bar.json",
@@ -6360,6 +6426,9 @@
     "Audio, microphone, brightness, displays, keyboard, battery and power profiles": [
       "quickshell/desktop-bar/handbook/chapters.json"
     ],
+    "Backup and Restore": [
+      "quickshell/desktop-bar/handbook/chapters.json"
+    ],
     "Bar auto-hide on/off, or show a hidden bar": [
       "tools/handbook-build.py"
     ],
@@ -6630,6 +6699,9 @@
     ],
     "Move column right (scrolling only)": [
       "tools/handbook-build.py"
+    ],
+    "Move settings, folders and apps to a new Eitr install in one encrypted file": [
+      "quickshell/desktop-bar/handbook/chapters.json"
     ],
     "Move to a screen edge": [
       "tools/handbook-build.py"
@@ -7132,6 +7204,9 @@
     "(none)": [
       "distro/lib/eitr_wizard.py"
     ],
+    "+: add folder": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
     "/boot is a separate partition: snapshot entries boot the current kernel. After a kernel update, restore the matching boot archive as RECOVERY.md describes.": [
       "distro/system/eitr-system.py"
     ],
@@ -7231,10 +7306,17 @@
       "distro/archinstall/installer-ui.py"
     ],
     "AUR builds must run as a normal user": [
+      "distro/lib/eitr_backup/packages.py",
       "walker/scripts/actions/install/software_packages.py"
+    ],
+    "AUR install exited with status {code}": [
+      "distro/lib/eitr_backup/packages.py"
     ],
     "AUR package not found": [
       "walker/scripts/actions/install/software_packages.py"
+    ],
+    "AUR packages": [
+      "distro/lib/eitr_backup/wizard_ui.py"
     ],
     "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing.": [
       "walker/scripts/actions/install/software_packages.py"
@@ -7336,6 +7418,12 @@
     "Add bar item": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Add folder…": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Add personal folder": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
     "Add widget · {monitor}": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -7407,6 +7495,18 @@
     "App clients": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "App settings": [
+      "distro/lib/eitr_backup/catalog.py"
+    ],
+    "App settings (~/.config)": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "App settings folders: {count}": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "App settings to restore": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
     "Application deployments": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -7428,14 +7528,50 @@
     "Applying…": [
       "walker/scripts/actions/style/own.py"
     ],
+    "Approve installation? [y/N/Esc] ": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
     "Apps": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Apps to reinstall": [
+      "distro/lib/eitr_backup/wizard_restore.py"
     ],
     "Apps were closed because memory ran out; close apps you are not using, and report a problem if it keeps happening.": [
       "distro/lib/eitr_selfcheck.py"
     ],
+    "Apps: installed={n}, already_present={a}, skipped={s}, failed={f}": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Apps: official={off}, aur={aur}, flatpak={fp}, plugins={pl}, store={st}": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Arch posted news since your last update:": [
       "walker/scripts/actions/system/arch-news.py"
+    ],
+    "Archive": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Archive is missing manifest.json as its first entry.": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Archive manifest is missing or malformed.": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Archive manifest must be a regular file.": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Archive path for restore mode": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Archive size: {size}": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Archive version: {v}": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "Arrows / Tab: move  Enter: answer  Esc: cancel": [
       "distro/lib/eitr_wizard.py"
@@ -7509,8 +7645,45 @@
     "Background service: {service}": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Backup": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Backup and Restore": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Backup archive decompression failed.": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Backup archive does not contain a valid manifest.": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Backup archive does not contain manifest.json.": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Backup archive is corrupted.": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Backup archive not found: {path}": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Backup archive output file is empty.": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Backup archive path": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Backup created: {path}": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Backup format version {found} is newer than this Eitr version supports ({supported}). Update Eitr before restoring.": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
     "Backup of the current Limine menu: {backup}": [
       "distro/system/eitr-system.py"
+    ],
+    "Backup passphrase": [
+      "distro/lib/eitr_backup/wizard.py",
+      "distro/lib/eitr_backup/wizard_restore.py"
     ],
     "Backup {name} is incomplete: missing {missing_files}": [
       "distro/system/eitr-system.py"
@@ -7551,6 +7724,9 @@
     "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot": [
       "quickshell/desktop-bar/scripts/wifi-popup.py"
     ],
+    "Browse / enter file path…": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
     "Browse bucket": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -7559,6 +7735,18 @@
     ],
     "Browser profile": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Browser profiles are excluded from backups: {path}": [
+      "distro/lib/eitr_backup/catalog.py"
+    ],
+    "Browser profiles, cache/lock/socket files, SSH/GPG/cloud/Git credentials": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Browser profiles, caches, sockets and SSH/GPG/cloud credentials are excluded.": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Browsers: profiles are omitted for security — sign back in to your accounts and sync.": [
+      "distro/lib/eitr_backup/restore.py"
     ],
     "Buckets": [
       "walker/scripts/menus/cloud/providers.py"
@@ -7586,6 +7774,9 @@
     ],
     "Cache Sizes": [
       "walker/scripts/actions/system/cleanup.sh"
+    ],
+    "Caches and browser profiles are skipped automatically.": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "Calendar added": [
       "walker/scripts/actions/tools/calendars.py"
@@ -7641,8 +7832,20 @@
     "Cannot make the last administrator a standard account": [
       "distro/lib/eitr_accounts.py"
     ],
+    "Cannot open archive": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Cannot overwrite existing directory with file: {path}": [
+      "distro/lib/eitr_backup/restore.py"
+    ],
+    "Cannot read passphrase from fd {fd}: {error}": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Cannot read window rules: {error}": [
       "distro/lib/eitr_window_rules.py"
+    ],
+    "Cannot read {path}: {error}": [
+      "distro/lib/eitr_backup/archive.py"
     ],
     "Cannot remove the last administrator": [
       "distro/lib/eitr_accounts.py"
@@ -7670,6 +7873,11 @@
     ],
     "Catalog operation failed": [
       "quickshell/desktop-bar/scripts/catalog-domain.py"
+    ],
+    "Categories: {list}": [
+      "distro/lib/eitr_backup/cli.py",
+      "distro/lib/eitr_backup/wizard.py",
+      "distro/lib/eitr_backup/wizard_restore.py"
     ],
     "Center": [
       "tools/choice-lists.json"
@@ -7740,12 +7948,27 @@
     "Choose an existing folder without Git glob characters": [
       "walker/scripts/actions/development/git_accounts_model.py"
     ],
+    "Choose an external drive instead": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
     "Choose an installed assistant.": [
       "distro/lib/eitr_ai_accounts.py",
       "distro/lib/eitr_assistants.py"
     ],
     "Choose another default first; the system icon font must remain installed": [
       "walker/scripts/actions/style/fonts.py"
+    ],
+    "Choose another destination": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Choose apps to record": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Choose backup archive": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Choose folders one by one. Sizes load in the background.": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "Choose iwd or NetworkManager": [
       "distro/system/network-backend.py"
@@ -7761,6 +7984,12 @@
     ],
     "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks.": [
       "walker/scripts/actions/system/mirrors.py"
+    ],
+    "Choose what to restore": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Choose where to save the encrypted backup archive.": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "Chromium default requires add.packages chromium or its recipe": [
       "distro/lib/eitr_profile.py"
@@ -7800,6 +8029,9 @@
     ],
     "Cloud": [
       "walker/scripts/menus/cloud/contexts.py"
+    ],
+    "Cloud & Git credentials: reconnect gh, gcloud, aws, az and Git account setups as needed.": [
+      "distro/lib/eitr_backup/restore.py"
     ],
     "Cloud Functions": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -7852,8 +8084,29 @@
     "Comfortable": [
       "distro/lib/eitr_appearance.py"
     ],
+    "Comma-separated app settings folders to restore": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Comma-separated category IDs": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Comma-separated category IDs to restore": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Comma-separated personal folders to restore": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Comma-separated personal folders under $HOME": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Comma-separated ~/.config app directories": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Command failed (exit {status})": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Commit": [
+      "distro/lib/eitr_backup/wizard_ui.py"
     ],
     "Commit author email": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -7876,6 +8129,9 @@
     "Compartments": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Compression with zstd failed.": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
     "Compute Instances": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -7892,6 +8148,9 @@
     "Configuration file": [
       "walker/scripts/actions/install/vpn.py"
     ],
+    "Configuration folders in ~/.config without caches or browser profiles": [
+      "distro/lib/eitr_backup/catalog.py"
+    ],
     "Configure this source in OBS first": [
       "quickshell/desktop-bar/scripts/obs_options.py"
     ],
@@ -7901,6 +8160,9 @@
     "Confirm": [
       "walker/scripts/actions/development/git-accounts.py",
       "walker/scripts/actions/install/software.py"
+    ],
+    "Confirm same-disk warning non-interactively": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "Conflicting iwd backend setting in {path}; review it before switching.": [
       "distro/system/network-backend.py"
@@ -8003,6 +8265,9 @@
     "Create User…": [
       "walker/scripts/actions/system/users.py"
     ],
+    "Create a backup archive": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
     "Create a lockscreen with your own picture. It stays on this computer.": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -8014,6 +8279,21 @@
     ],
     "Create a web app: a launcher that opens a site in its own window.": [
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Create an encrypted backup archive": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Create, inspect, restore or undo Eitr backups.": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Created backup: {path} ({size})": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Created: {date} by {user}@{host}": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Creating encrypted backup…": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "Creating the after-update snapshot…": [
       "walker/scripts/actions/system/update.sh"
@@ -8057,8 +8337,14 @@
     "Cursor theme {theme} is not installed. Install the corresponding cursor package first.": [
       "walker/scripts/actions/style/cursor.py"
     ],
+    "Custom backup destination": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
     "Custom or masked tailscaled service: review manually": [
       "distro/system/eitr_remote.py"
+    ],
+    "Custom path…": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "Custom static-IP/VPN setups need manual review before switching.": [
       "walker/scripts/actions/system/network-backend.py"
@@ -8099,6 +8385,9 @@
     ],
     "Date": [
       "fastfetch/eitr.py"
+    ],
+    "Decrypting and validating backup archive…": [
+      "distro/lib/eitr_backup/restore.py"
     ],
     "Default": [
       "distro/lib/eitr_ai_accounts.py",
@@ -8153,8 +8442,26 @@
     "Desktop Audio": [
       "quickshell/desktop-bar/scripts/obs_options.py"
     ],
+    "Desktop preferences, deliberate overrides and your own themes or wallpapers": [
+      "distro/lib/eitr_backup/catalog.py"
+    ],
     "Desktop: Afterglow / Clockwork Tape, installed offline before reboot": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Destination": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Destination directory or archive filename": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Destination has {free} free, need at least {needed}.": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Destination unavailable": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Destination {path} is on the same disk as your home folder. Continue? [y/N] ": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.": [
       "distro/archinstall/eitr-guided-install"
@@ -8197,6 +8504,9 @@
     "Do not put login credentials in the address.": [
       "distro/lib/eitr_own_pictures.py",
       "walker/scripts/actions/install/webapps.py"
+    ],
+    "Do not record installed apps": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "DocumentDB": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -8273,6 +8583,9 @@
     "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Eitr settings": [
+      "distro/lib/eitr_backup/catalog.py"
+    ],
     "Eitr software": [
       "walker/scripts/actions/install/software.py"
     ],
@@ -8306,6 +8619,9 @@
     "Encryption": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Encryption helper failed.": [
+      "distro/lib/eitr_backup/age_stream.py"
+    ],
     "Encryption: DISABLED": [
       "distro/archinstall/installer-ui.py"
     ],
@@ -8321,6 +8637,12 @@
     "Enter a color as six hex digits, for example #2bb87a.": [
       "distro/lib/eitr_own_lockscreens.py",
       "distro/lib/eitr_own_themes.py"
+    ],
+    "Enter a directory path or a full filename ending in {ext}.": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Enter a folder path inside your home directory.": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "Enter a hostname, not a URL, port or shell option": [
       "walker/scripts/actions/development/git_accounts_model.py"
@@ -8345,11 +8667,20 @@
     "Enter the other picture's file or https address.": [
       "walker/scripts/actions/style/own.py"
     ],
+    "Enter the passphrase to decrypt and inspect the archive.": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Enter the path to the .eitrbackup file.": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
     "Enter: answer  Left / Tab: back  Esc: cancel": [
       "distro/lib/eitr_wizard.py"
     ],
     "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel": [
       "distro/lib/eitr_wizard.py"
+    ],
+    "Enter: confirm  Left: back  PgUp/PgDn: scroll  Esc: cancel": [
+      "distro/lib/eitr_backup/wizard_ui.py"
     ],
     "Enter: confirm · Esc: cancel": [
       "walker/scripts/actions/install/software_packages.py"
@@ -8363,11 +8694,23 @@
     "Enter: copy the redacted report · Esc: close": [
       "distro/lib/eitr_selfcheck.py"
     ],
+    "Enter: create encrypted backup  ·  Nothing is written until you confirm": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Enter: next": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
     "Enter: open Network Backend · Esc: close": [
       "walker/scripts/actions/install/vpn.py"
     ],
     "Enter: run System Update now (with its snapshot), then install · Esc: cancel": [
       "walker/scripts/actions/install/software_packages.py"
+    ],
+    "Enter: start now  ·  Nothing is written until you confirm": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
+    "Enter: start restore  ·  Nothing is written until you confirm": [
+      "distro/lib/eitr_backup/wizard_restore.py"
     ],
     "Enterprise WiFi requires username, password, CA certificate and server domain": [
       "quickshell/desktop-bar/scripts/wifi-networkmanager.py"
@@ -8381,6 +8724,9 @@
     "Erase the whole disk ({size_text}) and install Eitr": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Esc: cancel": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
     "Event hook added or changed: {event}": [
       "distro/lib/eitr_plugin_install.py"
     ],
@@ -8392,6 +8738,18 @@
     ],
     "Everything is up to date.": [
       "walker/scripts/actions/system/update.sh"
+    ],
+    "Excluded automatically": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Excluded cache path rejected: {path}": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Excluded sensitive or temporary path rejected: {path}": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Excluded system or secret folder cannot be added: {path}": [
+      "distro/lib/eitr_backup/catalog.py"
     ],
     "Executable files: {count}": [
       "walker/scripts/actions/install/plugins.py"
@@ -8429,6 +8787,9 @@
     "Factory reset point: {created} (accounts: {names})": [
       "distro/system/factory-reset.py"
     ],
+    "Failed to read backup archive: {error}": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
     "File became executable: {path}": [
       "distro/lib/eitr_plugin_install.py"
     ],
@@ -8437,6 +8798,9 @@
     ],
     "File or folder to restore (for example ~/Documents/report.odt)": [
       "walker/scripts/actions/system/restore-file.py"
+    ],
+    "Files: {count} ({size} uncompressed)": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "Filesystem {uuid} on {device}": [
       "distro/system/factory-reset.py"
@@ -8468,6 +8832,9 @@
     "Flathub apps install at the first start with a network connection.": [
       "distro/lib/eitr_profile.py"
     ],
+    "Flatpak apps": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
     "Flatpak apps could not be updated; the system update itself finished.": [
       "walker/scripts/actions/system/update.sh"
     ],
@@ -8477,8 +8844,14 @@
     "Folder": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Folder does not exist: {path}": [
+      "distro/lib/eitr_backup/catalog.py"
+    ],
     "Folder for {label}": [
       "walker/scripts/actions/development/git-accounts.py"
+    ],
+    "Folder must be inside your home directory: {path}": [
+      "distro/lib/eitr_backup/catalog.py"
     ],
     "Folder path": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -8520,8 +8893,14 @@
     "Found in your Git configuration": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Free space: {free}": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
     "Friday": [
       "walker/scripts/actions/tools/reminder_rules.py"
+    ],
+    "From {user}@{host} on {date}": [
+      "distro/lib/eitr_backup/wizard_restore.py"
     ],
     "Full": [
       "tools/choice-lists.json"
@@ -8604,6 +8983,9 @@
     "Hardware detection failed; see the log above": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "Hardware-local display and Hyprland overrides for this PC": [
+      "distro/lib/eitr_backup/catalog.py"
+    ],
     "Have you set Sunshine’s username and password in the browser?": [
       "walker/scripts/actions/system/remote-access.py"
     ],
@@ -8668,6 +9050,15 @@
     "Import a WireGuard configuration…": [
       "walker/scripts/actions/install/vpn.py"
     ],
+    "Include hardware-local Hyprland/display files": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Included data": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Incorrect passphrase for backup archive.": [
+      "distro/lib/eitr_backup/age_stream.py"
+    ],
     "Initramfs: mkinitcpio not found; make sure your initramfs unlocks with systemd-cryptsetup.": [
       "distro/system/eitr-system.py"
     ],
@@ -8676,6 +9067,9 @@
     ],
     "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock).": [
       "distro/system/eitr-system.py"
+    ],
+    "Inspect backup contents and manifest": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it.": [
       "walker/scripts/actions/install/webapps.py"
@@ -8738,11 +9132,21 @@
     "Installed": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Installed apps": [
+      "distro/lib/eitr_backup/catalog.py",
+      "distro/lib/eitr_backup/wizard.py"
+    ],
     "Installed plugins could not be checked against the new policy: {error}": [
       "distro/lib/eitr_profile_apply.py"
     ],
     "Installer must use HTTPS": [
       "walker/scripts/actions/install/software_catalog.py"
+    ],
+    "Installing AUR package {index}/{total}: {name}…": [
+      "distro/lib/eitr_backup/packages.py"
+    ],
+    "Installing Flatpak app {index}/{total}: {name}…": [
+      "distro/lib/eitr_backup/packages.py"
     ],
     "Installing alongside is unavailable: {reason}": [
       "distro/archinstall/installer-ui.py"
@@ -8752,6 +9156,9 @@
     ],
     "Installing the selected software. Profile additions may need the internet. Keep the computer powered on.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Installing {count} official package(s) in one transaction…": [
+      "distro/lib/eitr_backup/packages.py"
     ],
     "Instance status": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -8767,6 +9174,7 @@
       "distro/system/eitr-system.py"
     ],
     "Invalid Flatpak ID": [
+      "distro/lib/eitr_backup/packages.py",
       "walker/scripts/actions/install/software_packages.py"
     ],
     "Invalid Flatpak application ID": [
@@ -8844,6 +9252,7 @@
       "distro/lib/eitr_profile.py"
     ],
     "Invalid package name": [
+      "distro/lib/eitr_backup/packages.py",
       "walker/scripts/actions/install/software_catalog.py"
     ],
     "Invalid password": [
@@ -8882,6 +9291,9 @@
     ],
     "Invalid repository server URL": [
       "distro/lib/eitr_profile.py"
+    ],
+    "Invalid restore backup identifier: {id}": [
+      "distro/lib/eitr_backup/restore.py"
     ],
     "Invalid rule fields": [
       "distro/lib/eitr_window_rules.py"
@@ -8959,6 +9371,9 @@
     "Keep the greeting under 80 characters.": [
       "distro/lib/eitr_own_lockscreens.py"
     ],
+    "Keep this destination (I will copy it off this PC)": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
     "Kept user layout link override: {target}": [
       "distro/lib/generated.py"
     ],
@@ -9014,6 +9429,12 @@
     "Large": [
       "tools/choice-lists.json"
     ],
+    "Last backup: {date} ({path})": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Last backup: {date} -> {path} ({size})": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Later": [
       "walker/scripts/actions/system/restart-check.py"
     ],
@@ -9026,8 +9447,14 @@
     "Latest log streams": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
+    "Launch interactive terminal backup/restore wizard": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Left": [
       "tools/choice-lists.json"
+    ],
+    "Left: back": [
+      "distro/lib/eitr_backup/wizard_ui.py"
     ],
     "Let assistants work together": [
       "walker/scripts/actions/assistant-collaboration.py"
@@ -9064,6 +9491,9 @@
     ],
     "List services": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Lists of explicit official, AUR, Flatpak, plugin and Store items": [
+      "distro/lib/eitr_backup/catalog.py"
     ],
     "Live data command added or changed: {kind} · {id} · {command}": [
       "distro/lib/eitr_plugin_install.py"
@@ -9110,6 +9540,9 @@
     ],
     "Lowercase name. This user will have sudo access.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Machine setup": [
+      "distro/lib/eitr_backup/catalog.py"
     ],
     "Magenta": [
       "walker/scripts/actions/style/own.py"
@@ -9226,6 +9659,9 @@
       "walker/scripts/actions/install/plugins.py",
       "walker/scripts/actions/install/vpn.py"
     ],
+    "No AUR helper (yay or paru) installed": [
+      "distro/lib/eitr_backup/packages.py"
+    ],
     "No LUKS-encrypted partition was found.": [
       "walker/scripts/actions/system/security.py"
     ],
@@ -9243,6 +9679,9 @@
     ],
     "No account named {user}": [
       "distro/system/home-snapshots.py"
+    ],
+    "No backup recorded yet.": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "No battery charge limit control on this machine.": [
       "distro/system/eitr-system.py"
@@ -9271,6 +9710,9 @@
     "No encrypted partition selected; nothing was changed.": [
       "walker/scripts/actions/system/security.py"
     ],
+    "No interactive terminal for passphrase; pass --passphrase-fd.": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "No keyboard found": [
       "quickshell/desktop-bar/scripts/keyboard-layout.py"
     ],
@@ -9278,6 +9720,7 @@
       "distro/system/factory-reset.py"
     ],
     "No matches": [
+      "distro/lib/eitr_backup/wizard_ui.py",
       "distro/lib/eitr_wizard.py"
     ],
     "No other display named {value}": [
@@ -9352,6 +9795,15 @@
     "Not enabled": [
       "quickshell/desktop-bar/scripts/settings-system.py"
     ],
+    "Not enough free space at {path}: {free} available, {needed} needed.": [
+      "distro/lib/eitr_backup/sizes.py"
+    ],
+    "Not enough space": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Not found in repositories": [
+      "distro/lib/eitr_backup/packages.py"
+    ],
     "Not one of your lockscreens": [
       "distro/lib/eitr_own_lockscreens.py"
     ],
@@ -9399,6 +9851,9 @@
     "Nothing was sent. Read it and remove anything you do not want to share.": [
       "walker/scripts/actions/system/report-problem.py"
     ],
+    "Notice: third-party repository (not reviewed by Eitr)": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
     "Number or your own answer (Esc to cancel): ": [
       "walker/scripts/actions/tools/voice-command.py"
     ],
@@ -9434,6 +9889,12 @@
     ],
     "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions.": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Official packages": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
+    "Official: {off}  ·  AUR: {aur}  ·  Flatpak: {fp}  ·  Plugins: {pl}  ·  Store: {st}": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "Ollama (offline, experimental)": [
       "distro/lib/eitr_local_assistant.py"
@@ -9501,6 +9962,9 @@
     ],
     "Open Console": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Open directly into create or restore": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "Open folder": [
       "quickshell/desktop-bar/scripts/obs-control.py"
@@ -9602,6 +10066,19 @@
     "Part of the system was updated after the PC started; restart to start using it.": [
       "distro/lib/eitr_selfcheck.py"
     ],
+    "Passphrase cannot be empty.": [
+      "distro/lib/eitr_backup/archive.py",
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Passphrase from fd {fd} is empty.": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Passphrase: ": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Passphrases did not match.": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Password": [
       "distro/archinstall/installer-ui.py",
       "walker/scripts/actions/system/users.py"
@@ -9621,11 +10098,24 @@
     "Paste the secret iCal address (https://…)": [
       "walker/scripts/actions/tools/calendars.py"
     ],
+    "Path to .eitrbackup archive": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Peer Tailscale address or name: ": [
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Percentages cannot exceed 100": [
       "distro/lib/eitr_window_rules.py"
+    ],
+    "Personal folders": [
+      "distro/lib/eitr_backup/catalog.py",
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Personal folders to restore": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Personal folders: {list}": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel": [
       "walker/scripts/actions/install/plugins.py"
@@ -9638,6 +10128,9 @@
     ],
     "Pick a reminder to cancel": [
       "walker/scripts/actions/tools/reminders.py"
+    ],
+    "Pick another archive": [
+      "distro/lib/eitr_backup/wizard_restore.py"
     ],
     "Picture": [
       "walker/scripts/actions/style/own.py"
@@ -9684,6 +10177,12 @@
     "Plugin: {name}": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Plugins": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
+    "Plugins and Store items will pause for normal review approval.": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
     "Plugins are turned off by your organization.": [
       "distro/lib/eitr_plugin_install.py",
       "walker/scripts/actions/install/plugins.py"
@@ -9721,11 +10220,17 @@
     "Preparing package installation…": [
       "walker/scripts/actions/install/software_packages.py"
     ],
+    "Preparing plugin review: {name}…": [
+      "distro/lib/eitr_backup/packages.py"
+    ],
     "Preparing the restored system (the running system is not changed yet)": [
       "distro/system/factory-reset.py"
     ],
     "Preparing the update…": [
       "walker/scripts/actions/system/update.sh"
+    ],
+    "Preparing theme review: {name}…": [
+      "distro/lib/eitr_backup/packages.py"
     ],
     "Press Enter to confirm; Esc to cancel.": [
       "distro/lib/eitr_ai_accounts.py",
@@ -9743,6 +10248,18 @@
     ],
     "Primary IPs": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Print manifest as JSON": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Print restore summary as JSON": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Print result as JSON": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Print status as JSON": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "Private SSH key": [
       "walker/scripts/actions/development/git-accounts.py"
@@ -9818,6 +10335,9 @@
     "Re-enable visuals": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Read passphrase from an open file descriptor": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Reads the system audio spectrum (levels only, no audio is recorded or sent)": [
       "distro/lib/eitr_plugin_install.py",
       "walker/scripts/actions/install/plugins.py"
@@ -9867,6 +10387,9 @@
     "Refusing to replace custom symlink: {path}": [
       "distro/system/network-backend.py"
     ],
+    "Refusing to write through escaping symlink: {path}": [
+      "distro/lib/eitr_backup/restore.py"
+    ],
     "Region": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -9899,6 +10422,9 @@
     ],
     "Reminder times must be in the future.": [
       "walker/scripts/actions/tools/voice-command.py"
+    ],
+    "Reminder: this file is on the same disk as your home folder. Move it to external storage before erasing or reinstalling.": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "Reminders": [
       "walker/scripts/actions/tools/reminders.py",
@@ -9983,8 +10509,14 @@
     "Repeat new password: ": [
       "walker/scripts/actions/system/security.py"
     ],
+    "Repeat passphrase: ": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Repeat the password.": [
       "distro/lib/eitr_wizard.py"
+    ],
+    "Replaced files are backed up under ~/.local/state/eitr/restore-backups/ so you can run undo.": [
+      "distro/lib/eitr_backup/wizard_restore.py"
     ],
     "Report a problem": [
       "walker/scripts/actions/system/crash-help.py"
@@ -10010,6 +10542,9 @@
     "Repository: {url}": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "Required tool '{tool}' is not installed.": [
+      "distro/lib/eitr_backup/age_stream.py"
+    ],
     "Reset the shared visual failure counter": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -10032,17 +10567,44 @@
     "Restart to finish updating.": [
       "walker/scripts/actions/system/restart-check.py"
     ],
+    "Restore": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Restore complete ({count} files). Undo ID: {undo_id}": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Restore from a backup archive": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Restore plan": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
+    "Restore settings, folders and apps from a backup archive": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Restore undo identifier": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Restore undo point not found: {id}": [
+      "distro/lib/eitr_backup/restore.py"
+    ],
     "Restore {name} from…": [
       "walker/scripts/actions/system/restore-file.py"
     ],
     "Restored": [
       "walker/scripts/actions/system/restore-file.py"
     ],
+    "Restored {count} file(s). Undo ID: {undo_id}": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Restored {service_names} PAM files from {backup}": [
       "distro/system/eitr-system.py"
     ],
     "Restoring the boot files": [
       "distro/system/factory-reset.py"
+    ],
+    "Restoring {count} file(s)…": [
+      "distro/lib/eitr_backup/restore.py"
     ],
     "Resume Picker": [
       "walker/scripts/actions/ai-assistant.py"
@@ -10055,11 +10617,23 @@
     "Review /etc/default/limine first, then run: sudo systemctl start {unit}": [
       "distro/system/eitr-system.py"
     ],
+    "Review backup": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Review declined": [
+      "distro/lib/eitr_backup/packages.py"
+    ],
     "Review installation": [
       "distro/archinstall/installer-ui.py"
     ],
+    "Review restore": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
     "Review status and settings": [
       "quickshell/desktop-bar/scripts/settings-system.py"
+    ],
+    "Review {kind}: {name}": [
+      "distro/lib/eitr_backup/wizard_ui.py"
     ],
     "Right": [
       "tools/choice-lists.json"
@@ -10138,6 +10712,9 @@
     "SQL databases": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "SSH & GPG keys: copy or re-register hardware and private keys stored outside backups.": [
+      "distro/lib/eitr_backup/restore.py"
+    ],
     "SSH key": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
@@ -10149,6 +10726,9 @@
     ],
     "Safety": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Same disk as your home folder": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "Saturday": [
       "walker/scripts/actions/tools/reminder_rules.py"
@@ -10208,6 +10788,7 @@
       "walker/scripts/menus/cloud/navigation.py"
     ],
     "Search: {query}": [
+      "distro/lib/eitr_backup/wizard_ui.py",
       "distro/lib/eitr_wizard.py"
     ],
     "Second warning: this resets the computer named \"{host}\".": [
@@ -10225,8 +10806,17 @@
     "Security key enrolled. Enable FIDO2 authentication separately; keep your password available.": [
       "walker/scripts/actions/system/security.py"
     ],
+    "Select a .eitrbackup file to inspect.": [
+      "distro/lib/eitr_backup/wizard_restore.py"
+    ],
     "Select an account": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Select at least one backup category.": [
+      "distro/lib/eitr_backup/operations.py"
+    ],
+    "Select at least one option to continue.": [
+      "distro/lib/eitr_backup/wizard_ui.py"
     ],
     "Select at least one package": [
       "walker/scripts/actions/install/software_packages.py"
@@ -10327,6 +10917,9 @@
     "Shell": [
       "fastfetch/eitr.py"
     ],
+    "Shipped or generated system file rejected from backup: {path}": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
     "Show above windows": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -10335,6 +10928,9 @@
     ],
     "Show it with": [
       "walker/scripts/actions/style/own.py"
+    ],
+    "Show last backup and available undo points": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "Sign In": [
       "walker/scripts/menus/cloud/providers.py"
@@ -10383,6 +10979,9 @@
     ],
     "Size needs two positive integers or percentages": [
       "distro/lib/eitr_window_rules.py"
+    ],
+    "Skip reinstalling recorded packages/apps": [
+      "distro/lib/eitr_backup/cli.py"
     ],
     "Skipped snapshot boot entries.": [
       "distro/bootloader/setup.sh"
@@ -10460,6 +11059,15 @@
     "Some programs crashed in the last week; report a problem if one keeps crashing.": [
       "distro/lib/eitr_selfcheck.py"
     ],
+    "Source": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
+    "Space: toggle": [
+      "distro/lib/eitr_backup/wizard_ui.py"
+    ],
+    "Specify a backup archive file to restore.": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Split across monitors": [
       "tools/choice-lists.json"
     ],
@@ -10532,6 +11140,9 @@
     ],
     "Storage volumes": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Store items": [
+      "distro/lib/eitr_backup/wizard_ui.py"
     ],
     "Strong": [
       "distro/lib/eitr_appearance.py"
@@ -11063,8 +11674,14 @@
     "Too many questions; nothing changed.": [
       "walker/scripts/actions/tools/voice-command.py"
     ],
+    "Top-level folders in your home directory, chosen one by one": [
+      "distro/lib/eitr_backup/catalog.py"
+    ],
     "Try again": [
       "distro/lib/eitr_wizard.py"
+    ],
+    "Try passphrase again": [
+      "distro/lib/eitr_backup/wizard_restore.py"
     ],
     "Tuesday": [
       "walker/scripts/actions/tools/reminder_rules.py"
@@ -11108,8 +11725,17 @@
     "Type APPLY PROFILE to make these system changes: ": [
       "distro/lib/eitr_profile_apply.py"
     ],
+    "Type a folder or .eitrbackup file path": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Type to filter by name or source, Space to toggle.": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
     "Type to search": [
       "distro/lib/eitr_wizard.py"
+    ],
+    "Type to search (Ctrl+A: toggle all)": [
+      "distro/lib/eitr_backup/wizard_ui.py"
     ],
     "Type yes to connect them (Enter cancels): ": [
       "walker/scripts/actions/assistant-collaboration.py"
@@ -11142,6 +11768,15 @@
       "fastfetch/eitr.py",
       "quickshell/desktop-bar/scripts/settings-system.py"
     ],
+    "Undid restore {undo_id}: restored {prev} previous file(s), removed {added} added file(s).": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Undo a previous restore transaction": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
+    "Undo points:": [
+      "distro/lib/eitr_backup/cli.py"
+    ],
     "Undo with Restore Sharing Setup. Existing Sunshine settings are kept.": [
       "distro/system/eitr_remote.py"
     ],
@@ -11156,6 +11791,12 @@
     ],
     "Unexpected FIDO2 registration": [
       "walker/scripts/actions/system/security.py"
+    ],
+    "Unexpected machine setup path rejected: {path}": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Unexpected top-level archive member rejected: {path}": [
+      "distro/lib/eitr_backup/archive.py"
     ],
     "Uninstall {label}?": [
       "walker/scripts/actions/install/software.py"
@@ -11190,11 +11831,17 @@
     "Unknown Hyprland key: {key}": [
       "distro/lib/eitr_keybinds.py"
     ],
+    "Unknown Store item type": [
+      "distro/lib/eitr_backup/packages.py"
+    ],
     "Unknown account": [
       "walker/scripts/menus/cloud/providers.py"
     ],
     "Unknown action": [
       "distro/lib/eitr_keybinds.py"
+    ],
+    "Unknown backup category rejected: {category}": [
+      "distro/lib/eitr_backup/archive.py"
     ],
     "Unknown monitoring service": [
       "walker/scripts/actions/development/monitoring.py"
@@ -11226,8 +11873,17 @@
     "Unreadable answers file {path}: {error}": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "Unsafe archive member path rejected: {path}": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
     "Unsafe stick path: {name}": [
       "distro/lib/eitr_profile.py"
+    ],
+    "Unsafe symlink target rejected: {path}": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Unsafe undo journal entry rejected: {path}": [
+      "distro/lib/eitr_backup/restore.py"
     ],
     "Unsupported PAM file: {path}": [
       "distro/system/eitr-system.py"
@@ -11241,11 +11897,20 @@
     "Unsupported application launcher path": [
       "walker/scripts/actions/install/software_catalog.py"
     ],
+    "Unsupported archive entry type rejected: {path}": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
+    "Unsupported backup archive version: {version}": [
+      "distro/lib/eitr_backup/archive.py"
+    ],
     "Unsupported enterprise method": [
       "distro/system/network-backend.py"
     ],
     "Unsupported power profile: {name}": [
       "quickshell/desktop-bar/scripts/power-profile.py"
+    ],
+    "Unsupported special tar entry rejected: {path}": [
+      "distro/lib/eitr_backup/archive.py"
     ],
     "Unsupported uninstall source": [
       "walker/scripts/actions/install/software_packages.py"
@@ -11347,6 +12012,9 @@
     "Use {picked} for {label}?": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Used with age to encrypt your archive. Never saved to disk; minimum 8 characters.": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
     "User access keys": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -11429,6 +12097,12 @@
     "Wallpaper must be PNG, JPEG or WebP": [
       "distro/lib/eitr_profile.py"
     ],
+    "Warning: same disk as home folder; copy to external media before reinstalling.": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "Warning: saving only on this disk will not protect your backup if this drive fails or is erased during reinstall.": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
     "Warnings:": [
       "walker/scripts/actions/install/plugins.py"
     ],
@@ -11458,6 +12132,9 @@
     ],
     "Weekly": [
       "walker/scripts/actions/tools/reminder_rules.py"
+    ],
+    "What to back up": [
+      "distro/lib/eitr_backup/wizard.py"
     ],
     "When? (10m, 18:30, every day 08:00)": [
       "walker/scripts/actions/tools/reminders.py"
@@ -11548,6 +12225,9 @@
     "binary": [
       "walker/scripts/actions/install/plugins.py"
     ],
+    "calculating…": [
+      "distro/lib/eitr_backup/sizes.py"
+    ],
     "cannot list monitors: {error}": [
       "walker/scripts/actions/wallpaper/transition.py"
     ],
@@ -11583,6 +12263,12 @@
     ],
     "finding the hidden fjord": [
       "distro/lib/spinner.sh"
+    ],
+    "flatpak exited with status {code}": [
+      "distro/lib/eitr_backup/packages.py"
+    ],
+    "flatpak is not installed": [
+      "distro/lib/eitr_backup/packages.py"
     ],
     "following the northern star": [
       "distro/lib/spinner.sh"
@@ -11620,6 +12306,12 @@
     ],
     "offline stick file": [
       "distro/lib/eitr_profile.py"
+    ],
+    "pacman exited with status {code}": [
+      "distro/lib/eitr_backup/packages.py"
+    ],
+    "pacman is not available": [
+      "distro/lib/eitr_backup/packages.py"
     ],
     "pacman.conf has no [eitr] repository to add the testing channel before": [
       "distro/system/eitr-system.py"
@@ -11716,6 +12408,12 @@
     ],
     "{count} events from the last week to the next 60 days.": [
       "walker/scripts/actions/tools/calendars.py"
+    ],
+    "{count} files ({size} uncompressed)": [
+      "distro/lib/eitr_backup/wizard.py"
+    ],
+    "{count} files ({size})": [
+      "distro/lib/eitr_backup/wizard_restore.py"
     ],
     "{count} occurrences": [
       "walker/scripts/actions/tools/reminder_rules.py"
@@ -11846,6 +12544,12 @@
     ],
     "{name}: {count} events from the last week to the next 60 days.": [
       "walker/scripts/actions/tools/calendars.py"
+    ],
+    "{path} (external)": [
+      "distro/lib/eitr_backup/sizes.py"
+    ],
+    "{path} (local folder)": [
+      "distro/lib/eitr_backup/sizes.py"
     ],
     "{path} has no usable free space": [
       "distro/archinstall/eitr-guided-install"

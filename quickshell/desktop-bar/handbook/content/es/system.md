@@ -39,6 +39,7 @@ Usa los siguientes nombres de página. Los capítulos enlazados explican los pas
 | Usuarios | [Usuarios](handbook:security) |
 | Seguridad | [Seguridad](handbook:security) |
 | Actualizaciones | [Actualizaciones](handbook:maintenance) |
+| Copia y restauración | [Copia y restauración](handbook:backup-restore) |
 | Comprobar este PC | [Comprobar este PC](handbook:troubleshooting) |
 | Acerca de | [Acerca de](handbook:information) |
 

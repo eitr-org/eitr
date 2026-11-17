@@ -22,6 +22,7 @@ On the desktop, each of these opens its page in Settings.
 - **Keyboard**: Add, order and switch your keyboard layouts.
 - **Profile picture**: Choose the picture shown with your account.
 - **Displays**: Set the resolution and scale of each connected screen.
+- **Restore from a backup**: Bring back your settings, folders and apps from a saved `.eitrbackup` file.
 <!-- /eitr-welcome:setup -->
 
 ## Good to know

@@ -65,6 +65,7 @@ GROUPS = [
         ("firewall", "show, turn on or turn off the firewall"),
         ("snapshots", "list the recovery snapshots, or what each update changed"),
         ("restore", "an earlier version of a file or folder from the home snapshots"),
+        ("backup", "back up or restore settings, folders and apps (eitr-backup)"),
         ("reset", "factory reset, with the same warnings as the menu"),
         ("report", "prepare a problem report to read and send"),
     ]),
@@ -216,7 +217,7 @@ def parser():
     hook_run.add_argument("event", choices=sorted(HOOKS))
     hook_run.add_argument("arguments", nargs="*")
 
-    for name, tool in (("config", "eitr-config"), ("git", "eitr-git")):
+    for name, tool in (("backup", "eitr-backup"), ("config", "eitr-config"), ("git", "eitr-git")):
         passthrough = commands.add_parser(name, help='run {tool}'.format(tool=f'{tool}'), add_help=False)
         passthrough.add_argument("arguments", nargs=argparse.REMAINDER)
     return top
@@ -319,7 +320,7 @@ def plan(arguments, code=None, config=None):
             lines.append(f"  {event:<12} {state:<15} {when}")
         lines += ["", "Output and failures are logged to ~/.local/state/eitr/hooks.log."]
         return "\n".join(lines)
-    if command in ("config", "git"):
+    if command in ("backup", "config", "git"):
         return [f"eitr-{command}", *arguments.arguments]
     return overview()
 

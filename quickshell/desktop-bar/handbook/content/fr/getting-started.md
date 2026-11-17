@@ -22,6 +22,7 @@ Sur le bureau, chacun ouvre sa page dans les Paramètres.
 - **Clavier** : Ajoutez, ordonnez et changez vos dispositions de clavier.
 - **Photo de profil** : Choisissez l’image associée à votre compte.
 - **Écrans** : Réglez la résolution et l’échelle de chaque écran connecté.
+- **Restaurer depuis une sauvegarde** : Récupérez vos réglages, dossiers et applications depuis un fichier `.eitrbackup` enregistré.
 <!-- /eitr-welcome:setup -->
 
 ## Bon à savoir

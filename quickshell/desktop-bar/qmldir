@@ -225,6 +225,7 @@ SettingsUserPage settings/SettingsUserPage.qml
 SettingsSecurityPage settings/SettingsSecurityPage.qml
 SettingsAssistantPage settings/SettingsAssistantPage.qml
 SettingsUpdatesPage settings/SettingsUpdatesPage.qml
+SettingsBackupPage settings/SettingsBackupPage.qml
 SettingsCheckPage settings/SettingsCheckPage.qml
 SettingsAboutPage settings/SettingsAboutPage.qml
 SettingsSummaryCards settings/SettingsSummaryCards.qml

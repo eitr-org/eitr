@@ -94,6 +94,9 @@ msgstr "'{spoken}' は有効な時刻形式ではありません。10m、1h30m�
 msgid "(none)"
 msgstr "(なし)"
 
+msgid "+: add folder"
+msgstr "+: フォルダーを追加"
+
 msgid "/boot is a separate partition: snapshot entries boot the current kernel. After a kernel update, restore the matching boot archive as RECOVERY.md describes."
 msgstr "/boot は独立したパーティションです: スナップショットエントリは現在のカーネルを起動します。カーネルアップデート後は、RECOVERY.md の記載に従って対応するブートアーカイブを復元してください。"
 
@@ -193,8 +196,14 @@ msgstr "{path} 上のすべてのパーティションとファイルが完全�
 msgid "AUR builds must run as a normal user"
 msgstr "AURビルドは一般ユーザーとして実行する必要があります"
 
+msgid "AUR install exited with status {code}"
+msgstr "AURインストールがステータス {code} で終了しました"
+
 msgid "AUR package not found"
 msgstr "AURパッケージが見つかりません"
+
+msgid "AUR packages"
+msgstr "AURパッケージ"
 
 msgid "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing."
 msgstr "AURパッケージはコミュニティによって作成されており、EitrまたはArch Linuxによるレビューは行われていません。インストールする前にビルドファイルを確認してください。"
@@ -295,6 +304,12 @@ msgstr "Azureアカウントを追加"
 msgid "Add bar item"
 msgstr "バーの項目を追加"
 
+msgid "Add folder…"
+msgstr "フォルダーを追加…"
+
+msgid "Add personal folder"
+msgstr "個人フォルダーを追加"
+
 msgid "Add widget · {monitor}"
 msgstr "ウィジェットを追加 · {monitor}"
 
@@ -364,6 +379,18 @@ msgstr "App Services"
 msgid "App clients"
 msgstr "アプリクライアント"
 
+msgid "App settings"
+msgstr "アプリ設定"
+
+msgid "App settings (~/.config)"
+msgstr "アプリ設定 (~/.config)"
+
+msgid "App settings folders: {count}"
+msgstr "アプリ設定フォルダー: {count}"
+
+msgid "App settings to restore"
+msgstr "復元するアプリ設定"
+
 msgid "Application deployments"
 msgstr "アプリケーションデプロイ"
 
@@ -385,14 +412,50 @@ msgstr "適用中…"
 msgid "Applying…"
 msgstr "適用中…"
 
+msgid "Approve installation? [y/N/Esc] "
+msgstr "インストールを承認しますか？ [y/N/Esc] "
+
 msgid "Apps"
 msgstr "アプリ"
+
+msgid "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}"
+msgstr "インストール済: {n}  ·  既存: {a}  ·  スキップ: {s}  ·  失敗: {f}"
+
+msgid "Apps to reinstall"
+msgstr "再インストールするアプリ"
 
 msgid "Apps were closed because memory ran out; close apps you are not using, and report a problem if it keeps happening."
 msgstr "メモリが不足したためアプリが終了されました。使用していないアプリを閉じ、問題が再発する場合は報告してください。"
 
+msgid "Apps: installed={n}, already_present={a}, skipped={s}, failed={f}"
+msgstr "アプリ: 導入={n}, 既存={a}, スキップ={s}, 失敗={f}"
+
+msgid "Apps: official={off}, aur={aur}, flatpak={fp}, plugins={pl}, store={st}"
+msgstr "アプリ: 公式={off}, aur={aur}, flatpak={fp}, plugins={pl}, store={st}"
+
 msgid "Arch posted news since your last update:"
 msgstr "前回のアップデート以降にArchからニュースが投稿されました:"
+
+msgid "Archive"
+msgstr "アーカイブ"
+
+msgid "Archive is missing manifest.json as its first entry."
+msgstr "アーカイブの先頭に manifest.json がありません。"
+
+msgid "Archive manifest is missing or malformed."
+msgstr "アーカイブのマニフェストが見つからないか不正です。"
+
+msgid "Archive manifest must be a regular file."
+msgstr "アーカイブのマニフェストは通常ファイルである必要があります。"
+
+msgid "Archive path for restore mode"
+msgstr "復元モード用のアーカイブパス"
+
+msgid "Archive size: {size}"
+msgstr "アーカイブサイズ: {size}"
+
+msgid "Archive version: {v}"
+msgstr "アーカイブバージョン: {v}"
 
 msgid "Arrows / Tab: move  Enter: answer  Esc: cancel"
 msgstr "矢印 / Tab: 移動  Enter: 回答  Esc: キャンセル"
@@ -466,8 +529,44 @@ msgstr "バックグラウンドサービスを削除しました"
 msgid "Background service: {service}"
 msgstr "バックグラウンドサービス: {service}"
 
+msgid "Backup"
+msgstr "バックアップ"
+
+msgid "Backup and Restore"
+msgstr "バックアップと復元"
+
+msgid "Backup archive decompression failed."
+msgstr "バックアップアーカイブの展開に失敗しました。"
+
+msgid "Backup archive does not contain a valid manifest."
+msgstr "バックアップアーカイブに有効なマニフェストがありません。"
+
+msgid "Backup archive does not contain manifest.json."
+msgstr "バックアップアーカイブに manifest.json が含まれていません。"
+
+msgid "Backup archive is corrupted."
+msgstr "バックアップアーカイブが破損しています。"
+
+msgid "Backup archive not found: {path}"
+msgstr "バックアップアーカイブが見つかりません: {path}"
+
+msgid "Backup archive output file is empty."
+msgstr "バックアップアーカイブの出力ファイルが空です。"
+
+msgid "Backup archive path"
+msgstr "バックアップアーカイブのパス"
+
+msgid "Backup created: {path}"
+msgstr "バックアップを作成しました: {path}"
+
+msgid "Backup format version {found} is newer than this Eitr version supports ({supported}). Update Eitr before restoring."
+msgstr "バックアップ形式バージョン {found} はこのEitrの対応上限 ({supported}) より新しいため復元できません。Eitrを更新してからやり直してください。"
+
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "現在のLimineメニューのバックアップ: {backup}"
+
+msgid "Backup passphrase"
+msgstr "バックアップパスフレーズ"
 
 msgid "Backup {name} is incomplete: missing {missing_files}"
 msgstr "バックアップ {name} は不完全です: {missing_files} が見つかりません"
@@ -508,6 +607,9 @@ msgstr "{loader} では起動可能なスナップショットはサポートさ
 msgid "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot"
 msgstr "両方のネットワークバックエンドが実行されています。「設定 > デバイス > 接続 > ネットワークバックエンド」でいずれかを選択し、再起動してください"
 
+msgid "Browse / enter file path…"
+msgstr "パスを参照 / 入力…"
+
 msgid "Browse bucket"
 msgstr "バケットを参照"
 
@@ -516,6 +618,18 @@ msgstr "ブラウザは firefox または chromium である必要がありま�
 
 msgid "Browser profile"
 msgstr "ブラウザプロファイル"
+
+msgid "Browser profiles are excluded from backups: {path}"
+msgstr "ブラウザープロファイルはバックアップから除外されます: {path}"
+
+msgid "Browser profiles, cache/lock/socket files, SSH/GPG/cloud/Git credentials"
+msgstr "ブラウザープロファイル、キャッシュ/ロック/ソケット、SSH/GPG/クラウド/Git認証情報"
+
+msgid "Browser profiles, caches, sockets and SSH/GPG/cloud credentials are excluded."
+msgstr "ブラウザープロファイル、キャッシュ、ソケット、SSH/GPG/クラウド認証情報は除外されます。"
+
+msgid "Browsers: profiles are omitted for security — sign back in to your accounts and sync."
+msgstr "ブラウザー: セキュリティのためプロファイルは含まれません — 各アカウントへ再ログインしてください。"
 
 msgid "Buckets"
 msgstr "バケット"
@@ -543,6 +657,9 @@ msgstr "CLIを利用できません"
 
 msgid "Cache Sizes"
 msgstr "キャッシュサイズ"
+
+msgid "Caches and browser profiles are skipped automatically."
+msgstr "キャッシュとブラウザープロファイルは自動的にスキップされます。"
 
 msgid "Calendar added"
 msgstr "カレンダーを追加しました"
@@ -595,8 +712,20 @@ msgstr "パッケージ依存関係データベース {database} を検査でき
 msgid "Cannot make the last administrator a standard account"
 msgstr "最後の管理者を標準アカウントにすることはできません"
 
+msgid "Cannot open archive"
+msgstr "アーカイブを開けません"
+
+msgid "Cannot overwrite existing directory with file: {path}"
+msgstr "既存のディレクトリをファイルで上書きできません: {path}"
+
+msgid "Cannot read passphrase from fd {fd}: {error}"
+msgstr "fd {fd} からパスフレーズを読み取れません: {error}"
+
 msgid "Cannot read window rules: {error}"
 msgstr "ウィンドウルールを読み込めません: {error}"
+
+msgid "Cannot read {path}: {error}"
+msgstr "{path} を読み取れません: {error}"
 
 msgid "Cannot remove the last administrator"
 msgstr "最後の管理者を削除することはできません"
@@ -624,6 +753,9 @@ msgstr "カタログバックエンドを利用できません"
 
 msgid "Catalog operation failed"
 msgstr "カタログの操作に失敗しました"
+
+msgid "Categories: {list}"
+msgstr "カテゴリ: {list}"
 
 msgid "Center"
 msgstr "中央"
@@ -694,11 +826,26 @@ msgstr "権限が600以下のユーザー所有の秘密鍵を選択してくだ
 msgid "Choose an existing folder without Git glob characters"
 msgstr "Gitワイルドカード文字を含まない既存のフォルダを選択してください"
 
+msgid "Choose an external drive instead"
+msgstr "代わりに外付けドライブを選択"
+
 msgid "Choose an installed assistant."
 msgstr "インストール済みのアシスタントを選択してください。"
 
 msgid "Choose another default first; the system icon font must remain installed"
 msgstr "先に別のデフォルトを選択してください。システムアイコンフォントはインストールしたままにする必要があります"
+
+msgid "Choose another destination"
+msgstr "別の保存先を選択"
+
+msgid "Choose apps to record"
+msgstr "記録するアプリを選択"
+
+msgid "Choose backup archive"
+msgstr "バックアップアーカイブを選択"
+
+msgid "Choose folders one by one. Sizes load in the background."
+msgstr "フォルダーを1つずつ選びます。サイズはバックグラウンドで集計されます。"
 
 msgid "Choose iwd or NetworkManager"
 msgstr "iwd または NetworkManager を選択してください"
@@ -714,6 +861,12 @@ msgstr "一覧にあるデザインのいずれかを選択してください。
 
 msgid "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks."
 msgstr "ダウンロード速度に基づいて最新のHTTPSミラーを選択します。以前のリストはバックアップされ、全世界のミラーがフォールバックとして保持されます。"
+
+msgid "Choose what to restore"
+msgstr "復元する内容を選択"
+
+msgid "Choose where to save the encrypted backup archive."
+msgstr "暗号化バックアップアーカイブの保存先を選んでください。"
 
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "Chromiumをデフォルトにするには add.packages chromium またはそのレシピが必要です"
@@ -753,6 +906,9 @@ msgstr "中断された以前のアップデートのリカバリポイントを
 
 msgid "Cloud"
 msgstr "クラウド"
+
+msgid "Cloud & Git credentials: reconnect gh, gcloud, aws, az and Git account setups as needed."
+msgstr "クラウドとGitの認証情報: 必要に応じて gh、gcloud、aws、az や Git アカウントを再設定してください。"
 
 msgid "Cloud Functions"
 msgstr "Cloud Functions"
@@ -805,8 +961,29 @@ msgstr "{name} のカラー"
 msgid "Comfortable"
 msgstr "ゆったり"
 
+msgid "Comma-separated app settings folders to restore"
+msgstr "復元するアプリ設定フォルダー（カンマ区切り）"
+
+msgid "Comma-separated category IDs"
+msgstr "カテゴリID（カンマ区切り）"
+
+msgid "Comma-separated category IDs to restore"
+msgstr "復元するカテゴリID（カンマ区切り）"
+
+msgid "Comma-separated personal folders to restore"
+msgstr "復元する個人フォルダー（カンマ区切り）"
+
+msgid "Comma-separated personal folders under $HOME"
+msgstr "$HOME 配下の個人フォルダー（カンマ区切り）"
+
+msgid "Comma-separated ~/.config app directories"
+msgstr "~/.config 内のアプリディレクトリ（カンマ区切り）"
+
 msgid "Command failed (exit {status})"
 msgstr "コマンドが失敗しました（終了コード {status}）"
+
+msgid "Commit"
+msgstr "コミット"
 
 msgid "Commit author email"
 msgstr "コミット作成者のメールアドレス"
@@ -829,6 +1006,9 @@ msgstr "Commits:"
 msgid "Compartments"
 msgstr "コンパートメント"
 
+msgid "Compression with zstd failed."
+msgstr "zstd による圧縮に失敗しました。"
+
 msgid "Compute Instances"
 msgstr "コンピュートインスタンス"
 
@@ -844,6 +1024,9 @@ msgstr "プレビュー中に設定が変更されました: {path}"
 msgid "Configuration file"
 msgstr "設定ファイル"
 
+msgid "Configuration folders in ~/.config without caches or browser profiles"
+msgstr "キャッシュやブラウザープロファイルを除いた ~/.config 内の設定フォルダー"
+
 msgid "Configure this source in OBS first"
 msgstr "先にOBSでこのソースを設定してください"
 
@@ -852,6 +1035,9 @@ msgstr "{design_count} 個のパッケージ提供ログインデザイン用の
 
 msgid "Confirm"
 msgstr "確認"
+
+msgid "Confirm same-disk warning non-interactively"
+msgstr "同一ディスク警告を非対話で確認する"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "{path} に競合するiwdバックエンド設定があります。切り替える前に確認してください。"
@@ -949,6 +1135,9 @@ msgstr "クラッシュの概要"
 msgid "Create User…"
 msgstr "ユーザーを作成…"
 
+msgid "Create a backup archive"
+msgstr "バックアップアーカイブを作成"
+
 msgid "Create a lockscreen with your own picture. It stays on this computer."
 msgstr "自分の画像を使ってロック画面を作成します。画像はこのコンピューターにのみ保持されます。"
 
@@ -960,6 +1149,21 @@ msgstr "画像からテーマを作成します。このコンピューターに
 
 msgid "Create a web app: a launcher that opens a site in its own window."
 msgstr "ウェブアプリを作成: 独自のウィンドウでサイトを開くランチャー。"
+
+msgid "Create an encrypted backup archive"
+msgstr "暗号化バックアップアーカイブを作成"
+
+msgid "Create, inspect, restore or undo Eitr backups."
+msgstr "Eitrバックアップの作成、確認、復元、取り消しを行います。"
+
+msgid "Created backup: {path} ({size})"
+msgstr "バックアップを作成しました: {path} ({size})"
+
+msgid "Created: {date} by {user}@{host}"
+msgstr "作成日時: {date} ({user}@{host})"
+
+msgid "Creating encrypted backup…"
+msgstr "暗号化バックアップを作成中…"
 
 msgid "Creating the after-update snapshot…"
 msgstr "アップデート後のスナップショットを作成中…"
@@ -1003,8 +1207,14 @@ msgstr "カーソル設定を保存しました。更新に失敗しました: {
 msgid "Cursor theme {theme} is not installed. Install the corresponding cursor package first."
 msgstr "カーソルテーマ {theme} がインストールされていません。対応するカーソルパッケージを先にインストールしてください。"
 
+msgid "Custom backup destination"
+msgstr "カスタム保存先"
+
 msgid "Custom or masked tailscaled service: review manually"
 msgstr "カスタムまたはマスクされたtailscaledサービス: 手動で確認してください"
+
+msgid "Custom path…"
+msgstr "カスタムパス…"
 
 msgid "Custom static-IP/VPN setups need manual review before switching."
 msgstr "カスタムの静的IP/VPN設定は切り替える前に手動で確認する必要があります。"
@@ -1044,6 +1254,9 @@ msgstr "データベース"
 
 msgid "Date"
 msgstr "日付"
+
+msgid "Decrypting and validating backup archive…"
+msgstr "バックアップアーカイブを復号・検証中…"
 
 msgid "Default"
 msgstr "デフォルト"
@@ -1096,8 +1309,26 @@ msgstr "デザイン"
 msgid "Desktop Audio"
 msgstr "デスクトップ音声"
 
+msgid "Desktop preferences, deliberate overrides and your own themes or wallpapers"
+msgstr "デスクトップ設定、意図的な上書き設定、自作テーマや壁紙"
+
 msgid "Desktop: Afterglow / Clockwork Tape, installed offline before reboot"
 msgstr "デスクトップ: Afterglow / Clockwork Tape、再起動前にオフラインでインストール"
+
+msgid "Destination"
+msgstr "保存先"
+
+msgid "Destination directory or archive filename"
+msgstr "保存先ディレクトリまたはアーカイブ名"
+
+msgid "Destination has {free} free, need at least {needed}."
+msgstr "保存先の空き容量は {free} ですが、少なくとも {needed} 必要です。"
+
+msgid "Destination unavailable"
+msgstr "保存先を利用できません"
+
+msgid "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
+msgstr "保存先 {path} はホームフォルダーと同じディスク上にあります。続行しますか？ [y/N] "
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "詳細ログ: /var/log/archinstall。失敗したステップ以降は何も変更されていません。"
@@ -1137,6 +1368,9 @@ msgstr "暗号化しない: パスワードなしでファイルを読み取る�
 
 msgid "Do not put login credentials in the address."
 msgstr "アドレスにログイン認証情報を含めないでください。"
+
+msgid "Do not record installed apps"
+msgstr "インストール済みアプリを記録しない"
 
 msgid "DocumentDB"
 msgstr "DocumentDB"
@@ -1213,6 +1447,9 @@ msgstr "Eitrがパスワードを要求するのは、システムアップデ�
 msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 msgstr "Eitrはこのプラグインをレビューしていません。コードは作成者に帰属し、Eitrのものではありません。信頼できる人物やリポジトリのプラグインのみを追加してください。"
 
+msgid "Eitr settings"
+msgstr "Eitr設定"
+
 msgid "Eitr software"
 msgstr "Eitrソフトウェア"
 
@@ -1246,6 +1483,9 @@ msgstr "暗号化パーティション番号: "
 msgid "Encryption"
 msgstr "暗号化"
 
+msgid "Encryption helper failed."
+msgstr "暗号化ヘルパーに失敗しました。"
+
 msgid "Encryption: DISABLED"
 msgstr "暗号化: 無効"
 
@@ -1260,6 +1500,12 @@ msgstr "登録状態は既存のディスクロック解除フローで確認し
 
 msgid "Enter a color as six hex digits, for example #2bb87a."
 msgstr "色を6桁の16進数で入力してください（例: #2bb87a）。"
+
+msgid "Enter a directory path or a full filename ending in {ext}."
+msgstr "ディレクトリパスまたは {ext} で終わるファイルパスを入力してください。"
+
+msgid "Enter a folder path inside your home directory."
+msgstr "ホームディレクトリ内のフォルダーパスを入力してください。"
 
 msgid "Enter a hostname, not a URL, port or shell option"
 msgstr "URL、ポート、シェルオプションではなく、ホスト名を入力してください"
@@ -1282,11 +1528,20 @@ msgstr "設定ファイルのフルパスを入力してください。"
 msgid "Enter the other picture's file or https address."
 msgstr "別の画像のファイルパスまたは https アドレスを入力してください。"
 
+msgid "Enter the passphrase to decrypt and inspect the archive."
+msgstr "アーカイブを復号して確認するためのパスフレーズを入力してください。"
+
+msgid "Enter the path to the .eitrbackup file."
+msgstr ".eitrbackup ファイルのパスを入力してください。"
+
 msgid "Enter: answer  Left / Tab: back  Esc: cancel"
 msgstr "Enter: 回答  左 / Tab: 戻る  Esc: キャンセル"
 
 msgid "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
 msgstr "Enter: 適用  左: 戻る  PgUp/PgDn: スクロール  Esc: キャンセル"
+
+msgid "Enter: confirm  Left: back  PgUp/PgDn: scroll  Esc: cancel"
+msgstr "Enter: 確定  左: 戻る  PgUp/PgDn: スクロール  Esc: 中止"
 
 msgid "Enter: confirm · Esc: cancel"
 msgstr "Enter: 確認 · Esc: キャンセル"
@@ -1300,11 +1555,23 @@ msgstr "Enter: 続行  Esc: キャンセル"
 msgid "Enter: copy the redacted report · Esc: close"
 msgstr "Enter: 伏字化されたレポートをコピー · Esc: 閉じる"
 
+msgid "Enter: create encrypted backup  ·  Nothing is written until you confirm"
+msgstr "Enter: 暗号化バックアップを作成  ·  確定するまで何も書き込まれません"
+
+msgid "Enter: next"
+msgstr "Enter: 次へ"
+
 msgid "Enter: open Network Backend · Esc: close"
 msgstr "Enter: ネットワークバックエンドを開く · Esc: 閉じる"
 
 msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
 msgstr "Enter: 今すぐシステムアップデートを実行（スナップショット付き）してインストール · Esc: キャンセル"
+
+msgid "Enter: start now  ·  Nothing is written until you confirm"
+msgstr "Enter: 開始  ·  確定するまで何も書き込まれません"
+
+msgid "Enter: start restore  ·  Nothing is written until you confirm"
+msgstr "Enter: 復元を開始  ·  確定するまで何も書き込まれません"
 
 msgid "Enterprise WiFi requires username, password, CA certificate and server domain"
 msgstr "エンタープライズWiFiにはユーザー名、パスワード、CA証明書、およびサーバーのドメインが必要です"
@@ -1318,6 +1585,9 @@ msgstr "エンタープライズプロファイルが存在します。認証情
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "ディスク全体（{size_text}）を消去してEitrをインストール"
 
+msgid "Esc: cancel"
+msgstr "Esc: 中止"
+
 msgid "Event hook added or changed: {event}"
 msgstr "イベントフックを追加または変更しました: {event}"
 
@@ -1329,6 +1599,18 @@ msgstr "このリポジトリのすべてのプラグインは既にインスト
 
 msgid "Everything is up to date."
 msgstr "すべて最新の状態です。"
+
+msgid "Excluded automatically"
+msgstr "自動で除外"
+
+msgid "Excluded cache path rejected: {path}"
+msgstr "除外対象のキャッシュパスを拒否しました: {path}"
+
+msgid "Excluded sensitive or temporary path rejected: {path}"
+msgstr "除外対象の機密/一時パスを拒否しました: {path}"
+
+msgid "Excluded system or secret folder cannot be added: {path}"
+msgstr "除外されたシステム/機密フォルダーは追加できません: {path}"
 
 msgid "Executable files: {count}"
 msgstr "実行可能ファイル: {count}"
@@ -1366,6 +1648,9 @@ msgstr "{usernames} の出荷時リセットポイントを保存しました。
 msgid "Factory reset point: {created} (accounts: {names})"
 msgstr "出荷時リセットポイント: {created}（アカウント: {names}）"
 
+msgid "Failed to read backup archive: {error}"
+msgstr "バックアップアーカイブの読み込みに失敗しました: {error}"
+
 msgid "File became executable: {path}"
 msgstr "ファイルが実行可能になりました: {path}"
 
@@ -1374,6 +1659,9 @@ msgstr "ファイルマネージャー"
 
 msgid "File or folder to restore (for example ~/Documents/report.odt)"
 msgstr "復元するファイルまたはフォルダ（例: ~/Documents/report.odt）"
+
+msgid "Files: {count} ({size} uncompressed)"
+msgstr "ファイル数: {count}（非圧縮 {size}）"
 
 msgid "Filesystem {uuid} on {device}"
 msgstr "{device} 上のファイルシステム {uuid}"
@@ -1405,6 +1693,9 @@ msgstr "画面に合わせる"
 msgid "Flathub apps install at the first start with a network connection."
 msgstr "Flathubアプリはネットワーク接続がある最初の起動時にインストールされます。"
 
+msgid "Flatpak apps"
+msgstr "Flatpakアプリ"
+
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "Flatpakアプリをアップデートできませんでした。システムアップデート自体は完了しました。"
 
@@ -1414,8 +1705,14 @@ msgstr "フローティングは true または false で指定してくださ�
 msgid "Folder"
 msgstr "フォルダー"
 
+msgid "Folder does not exist: {path}"
+msgstr "フォルダーが存在しません: {path}"
+
 msgid "Folder for {label}"
 msgstr "{label} のフォルダー"
+
+msgid "Folder must be inside your home directory: {path}"
+msgstr "フォルダーはホームディレクトリ内にある必要があります: {path}"
 
 msgid "Folder path"
 msgstr "フォルダーパス"
@@ -1456,8 +1753,14 @@ msgstr "フォーマット"
 msgid "Found in your Git configuration"
 msgstr "Git設定内に見つかりました"
 
+msgid "Free space: {free}"
+msgstr "空き容量: {free}"
+
 msgid "Friday"
 msgstr "金曜日"
+
+msgid "From {user}@{host} on {date}"
+msgstr "{user}@{host} ({date})"
 
 msgid "Full"
 msgstr "フル"
@@ -1540,6 +1843,9 @@ msgstr "ハードウェア"
 msgid "Hardware detection failed; see the log above"
 msgstr "ハードウェアの検出に失敗しました。上記のログを確認してください"
 
+msgid "Hardware-local display and Hyprland overrides for this PC"
+msgstr "このPC固有のディスプレイとHyprlandの上書き設定"
+
 msgid "Have you set Sunshine’s username and password in the browser?"
 msgstr "ブラウザでSunshineのユーザー名とパスワードを設定しましたか？"
 
@@ -1603,6 +1909,15 @@ msgstr "VPNファイルをインポート…"
 msgid "Import a WireGuard configuration…"
 msgstr "WireGuard設定をインポート…"
 
+msgid "Include hardware-local Hyprland/display files"
+msgstr "PC固有のHyprland/ディスプレイ設定を含める"
+
+msgid "Included data"
+msgstr "含まれるデータ"
+
+msgid "Incorrect passphrase for backup archive."
+msgstr "バックアップアーカイブのパスフレーズが正しくありません。"
+
 msgid "Initramfs: mkinitcpio not found; make sure your initramfs unlocks with systemd-cryptsetup."
 msgstr "Initramfs: mkinitcpio が見つかりません。initramfsが systemd-cryptsetup でロック解除されることを確認してください。"
 
@@ -1611,6 +1926,9 @@ msgstr "Initramfs: systemd の sd-encrypt フックが存在します。起動�
 
 msgid "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 msgstr "Initramfs: busybox の 'encrypt' フックはTPM2トークンを使用できません。先に systemd および sd-encrypt フックに切り替えてください（RECOVERY.md の TPM disk unlock を参照）。"
+
+msgid "Inspect backup contents and manifest"
+msgstr "バックアップ内容とマニフェストを確認"
 
 msgid "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it."
 msgstr "開くには「インストール」>「ブラウザ」からChrome、Chromium、Edge、Brave、またはVivaldiをインストールしてください。"
@@ -1672,11 +1990,20 @@ msgstr "今すぐ {package} をインストールしますか？"
 msgid "Installed"
 msgstr "インストール済み"
 
+msgid "Installed apps"
+msgstr "インストール済みアプリ"
+
 msgid "Installed plugins could not be checked against the new policy: {error}"
 msgstr "インストール済みプラグインを新しいポリシーと照合して確認できませんでした: {error}"
 
 msgid "Installer must use HTTPS"
 msgstr "インストーラーはHTTPSを使用する必要があります"
+
+msgid "Installing AUR package {index}/{total}: {name}…"
+msgstr "AURパッケージ導入中 {index}/{total}: {name}…"
+
+msgid "Installing Flatpak app {index}/{total}: {name}…"
+msgstr "Flatpakアプリ導入中 {index}/{total}: {name}…"
 
 msgid "Installing alongside is unavailable: {reason}"
 msgstr "並行インストールは利用できません: {reason}"
@@ -1686,6 +2013,9 @@ msgstr "並行インストールでは、既存のすべてのパーティショ
 
 msgid "Installing the selected software. Profile additions may need the internet. Keep the computer powered on."
 msgstr "選択したソフトウェアをインストールしています。プロファイルの追加にはインターネット接続が必要な場合があります。コンピューターの電源を入れたままにしてください。"
+
+msgid "Installing {count} official package(s) in one transaction…"
+msgstr "{count} 個の公式パッケージを一括インストール中…"
 
 msgid "Instance status"
 msgstr "インスタンスの状態"
@@ -1810,6 +2140,9 @@ msgstr "無効な繰り返しルールです。"
 msgid "Invalid repository server URL"
 msgstr "無効なリポジトリサーバーURL"
 
+msgid "Invalid restore backup identifier: {id}"
+msgstr "不正な復元取り消し ID: {id}"
+
 msgid "Invalid rule fields"
 msgstr "ルールのフィールドが無効です"
 
@@ -1885,6 +2218,9 @@ msgstr "保持する"
 msgid "Keep the greeting under 80 characters."
 msgstr "挨拶文は80文字以内にしてください。"
 
+msgid "Keep this destination (I will copy it off this PC)"
+msgstr "この保存先を使う（あとでPC外へコピーする）"
+
 msgid "Kept user layout link override: {target}"
 msgstr "ユーザーレイアウトのリンク上書きを保持しました: {target}"
 
@@ -1936,6 +2272,12 @@ msgstr "言語: {language} / キーボード: {keyboard}"
 msgid "Large"
 msgstr "大"
 
+msgid "Last backup: {date} ({path})"
+msgstr "前回のバックアップ: {date} ({path})"
+
+msgid "Last backup: {date} -> {path} ({size})"
+msgstr "前回のバックアップ: {date} -> {path} ({size})"
+
 msgid "Later"
 msgstr "後で"
 
@@ -1948,8 +2290,14 @@ msgstr "最新のイメージタグ"
 msgid "Latest log streams"
 msgstr "最新のログストリーム"
 
+msgid "Launch interactive terminal backup/restore wizard"
+msgstr "対話式のバックアップ/復元ウィザードを起動"
+
 msgid "Left"
 msgstr "左"
+
+msgid "Left: back"
+msgstr "左: 戻る"
 
 msgid "Let assistants work together"
 msgstr "アシスタントの連携を許可"
@@ -1986,6 +2334,9 @@ msgstr "リポジトリを一覧表示"
 
 msgid "List services"
 msgstr "サービスを一覧表示"
+
+msgid "Lists of explicit official, AUR, Flatpak, plugin and Store items"
+msgstr "明示的に導入した公式・AUR・Flatpak・プラグイン・Store項目の一覧"
 
 msgid "Live data command added or changed: {kind} · {id} · {command}"
 msgstr "ライブデータコマンドを追加または変更しました: {kind} · {id} · {command}"
@@ -2031,6 +2382,9 @@ msgstr "以下をよく確認してください:"
 
 msgid "Lowercase name. This user will have sudo access."
 msgstr "小文字の名前。このユーザーにはsudo権限が付与されます。"
+
+msgid "Machine setup"
+msgstr "マシン設定"
 
 msgid "Magenta"
 msgstr "マゼンタ"
@@ -2137,6 +2491,9 @@ msgstr "次に、Eitrはプラグインを実行せずにダウンロードし�
 msgid "No"
 msgstr "いいえ"
 
+msgid "No AUR helper (yay or paru) installed"
+msgstr "AURヘルパー（yay または paru）がありません"
+
 msgid "No LUKS-encrypted partition was found."
 msgstr "LUKS暗号化パーティションが見つかりませんでした。"
 
@@ -2154,6 +2511,9 @@ msgstr "WiFiバックエンドが実行されていません"
 
 msgid "No account named {user}"
 msgstr "{user} という名前のアカウントはありません"
+
+msgid "No backup recorded yet."
+msgstr "バックアップの記録はまだありません。"
 
 msgid "No battery charge limit control on this machine."
 msgstr "このマシンにはバッテリー充電制限の制御機能がありません。"
@@ -2181,6 +2541,9 @@ msgstr "メールアプリが開きませんでした。Webメールから {REPO
 
 msgid "No encrypted partition selected; nothing was changed."
 msgstr "暗号化パーティションが選択されていません。何も変更されませんでした。"
+
+msgid "No interactive terminal for passphrase; pass --passphrase-fd."
+msgstr "パスフレーズ入力用の対話端末がありません。--passphrase-fd を指定してください。"
 
 msgid "No keyboard found"
 msgstr "キーボードが見つかりません"
@@ -2260,6 +2623,15 @@ msgstr "利用不可: {error}"
 msgid "Not enabled"
 msgstr "無効"
 
+msgid "Not enough free space at {path}: {free} available, {needed} needed."
+msgstr "{path} の空き容量が不足しています: 利用可能 {free}、必要 {needed}。"
+
+msgid "Not enough space"
+msgstr "空き容量不足"
+
+msgid "Not found in repositories"
+msgstr "リポジトリに見つかりません"
+
 msgid "Not one of your lockscreens"
 msgstr "所有しているロック画面ではありません"
 
@@ -2302,6 +2674,9 @@ msgstr "何もインストールされませんでした。ダウンロードさ
 msgid "Nothing was sent. Read it and remove anything you do not want to share."
 msgstr "何も送信されませんでした。内容を確認し、共有したくない情報を削除してください。"
 
+msgid "Notice: third-party repository (not reviewed by Eitr)"
+msgstr "注意: サードパーティ製リポジトリ（Eitr未審査）"
+
 msgid "Number or your own answer (Esc to cancel): "
 msgstr "番号または独自の回答を入力（Esc でキャンセル）: "
 
@@ -2337,6 +2712,12 @@ msgstr "公式Eitrプラグイン"
 
 msgid "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
 msgstr "eitr-org/eitr-plugins からの公式Eitrプラグイン（Eitrプロジェクトによってレビュー済み）。他のすべてのプラグインと同様に、アカウントの全権限で実行されます。"
+
+msgid "Official packages"
+msgstr "公式パッケージ"
+
+msgid "Official: {off}  ·  AUR: {aur}  ·  Flatpak: {fp}  ·  Plugins: {pl}  ·  Store: {st}"
+msgstr "公式: {off}  ·  AUR: {aur}  ·  Flatpak: {fp}  ·  プラグイン: {pl}  ·  Store: {st}"
 
 msgid "Ollama (offline, experimental)"
 msgstr "Ollama (オフライン、試験運用)"
@@ -2403,6 +2784,9 @@ msgstr "不透明度は0.2から1.0の間で指定してください"
 
 msgid "Open Console"
 msgstr "コンソールを開く"
+
+msgid "Open directly into create or restore"
+msgstr "作成または復元モードを直接開く"
 
 msgid "Open folder"
 msgstr "フォルダーを開く"
@@ -2503,6 +2887,18 @@ msgstr "まず共有にデバイスをペアリングしてください。ログ
 msgid "Part of the system was updated after the PC started; restart to start using it."
 msgstr "PCの起動後にシステムの一部が更新されました。使用を開始するには再起動してください。"
 
+msgid "Passphrase cannot be empty."
+msgstr "パスフレーズを空にすることはできません。"
+
+msgid "Passphrase from fd {fd} is empty."
+msgstr "fd {fd} のパスフレーズが空です。"
+
+msgid "Passphrase: "
+msgstr "パスフレーズ: "
+
+msgid "Passphrases did not match."
+msgstr "パスフレーズが一致しませんでした。"
+
 msgid "Password"
 msgstr "パスワード"
 
@@ -2521,11 +2917,23 @@ msgstr "https:// または webcal:// のiCalアドレスを貼り付けてくだ
 msgid "Paste the secret iCal address (https://…)"
 msgstr "シークレットiCalアドレス (https://…) を貼り付けてください"
 
+msgid "Path to .eitrbackup archive"
+msgstr ".eitrbackup アーカイブのパス"
+
 msgid "Peer Tailscale address or name: "
 msgstr "ピアのTailscaleアドレスまたは名前: "
 
 msgid "Percentages cannot exceed 100"
 msgstr "割合は100を超えられません"
+
+msgid "Personal folders"
+msgstr "個人フォルダー"
+
+msgid "Personal folders to restore"
+msgstr "復元する個人フォルダー"
+
+msgid "Personal folders: {list}"
+msgstr "個人フォルダー: {list}"
 
 msgid "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel"
 msgstr "PgUp/PgDn: スクロール  Enter: レビュー用にダウンロード  Left: 戻る  Esc: キャンセル"
@@ -2538,6 +2946,9 @@ msgstr "Piには組み込みの権限確認プロンプトがありません。�
 
 msgid "Pick a reminder to cancel"
 msgstr "キャンセルするリマインダーを選択してください"
+
+msgid "Pick another archive"
+msgstr "別のアーカイブを選択"
 
 msgid "Picture"
 msgstr "画像"
@@ -2584,6 +2995,12 @@ msgstr "プラグイン {id}: 現在のバージョンを維持しました。"
 msgid "Plugin: {name}"
 msgstr "プラグイン: {name}"
 
+msgid "Plugins"
+msgstr "プラグイン"
+
+msgid "Plugins and Store items will pause for normal review approval."
+msgstr "プラグインとStore項目は通常のレビュー承認のため一時停止します。"
+
 msgid "Plugins are turned off by your organization."
 msgstr "組織によってプラグインが無効化されています。"
 
@@ -2620,11 +3037,17 @@ msgstr "Flatpakの更新を準備中…"
 msgid "Preparing package installation…"
 msgstr "パッケージのインストールを準備中…"
 
+msgid "Preparing plugin review: {name}…"
+msgstr "プラグインレビューを準備中: {name}…"
+
 msgid "Preparing the restored system (the running system is not changed yet)"
 msgstr "復元システムを準備中 (実行中のシステムはまだ変更されていません)"
 
 msgid "Preparing the update…"
 msgstr "更新を準備中…"
+
+msgid "Preparing theme review: {name}…"
+msgstr "テーマレビューを準備中: {name}…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Enterで確定、Escでキャンセル。"
@@ -2640,6 +3063,18 @@ msgstr "Escで閉じます。"
 
 msgid "Primary IPs"
 msgstr "プライマリIP"
+
+msgid "Print manifest as JSON"
+msgstr "マニフェストをJSONで出力"
+
+msgid "Print restore summary as JSON"
+msgstr "復元サマリーをJSONで出力"
+
+msgid "Print result as JSON"
+msgstr "結果をJSONで出力"
+
+msgid "Print status as JSON"
+msgstr "状態をJSONで出力"
 
 msgid "Private SSH key"
 msgstr "SSH秘密鍵"
@@ -2713,6 +3148,9 @@ msgstr "無線機能が他の場所でブロックされています。WiFi/Blue
 msgid "Re-enable visuals"
 msgstr "視覚効果を再度有効化"
 
+msgid "Read passphrase from an open file descriptor"
+msgstr "開いているファイル記述子からパスフレーズを読む"
+
 msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
 msgstr "システム音声のスペクトルを読み取ります (レベルのみ、音声の録音や送信は行われません)"
 
@@ -2761,6 +3199,9 @@ msgstr "シンボリックリンクされた設定パスは拒否されました
 msgid "Refusing to replace custom symlink: {path}"
 msgstr "カスタムシンボリックリンクの置換を拒否しました: {path}"
 
+msgid "Refusing to write through escaping symlink: {path}"
+msgstr "ホーム外を指すシンボリックリンク経由の書き込みを拒否しました: {path}"
+
 msgid "Region"
 msgstr "リージョン"
 
@@ -2793,6 +3234,9 @@ msgstr "リマインダーを設定しました: {title} · {time} · アラー�
 
 msgid "Reminder times must be in the future."
 msgstr "リマインダーの日時は未来である必要があります。"
+
+msgid "Reminder: this file is on the same disk as your home folder. Move it to external storage before erasing or reinstalling."
+msgstr "注意: このファイルはホームフォルダーと同じディスクにあります。再インストール前に外付けドライブへ退避してください。"
 
 msgid "Reminders"
 msgstr "リマインダー"
@@ -2875,8 +3319,14 @@ msgstr "新しいパスワードを再入力"
 msgid "Repeat new password: "
 msgstr "新しいパスワードを再入力: "
 
+msgid "Repeat passphrase: "
+msgstr "パスフレーズを再入力: "
+
 msgid "Repeat the password."
 msgstr "パスワードを再入力してください。"
+
+msgid "Replaced files are backed up under ~/.local/state/eitr/restore-backups/ so you can run undo."
+msgstr "上書きされるファイルは取り消し用に ~/.local/state/eitr/restore-backups/ へ退避されます。"
 
 msgid "Report a problem"
 msgstr "問題を報告"
@@ -2902,6 +3352,9 @@ msgstr "リポジトリを利用できません。再試行してください"
 msgid "Repository: {url}"
 msgstr "リポジトリ: {url}"
 
+msgid "Required tool '{tool}' is not installed."
+msgstr "必要なツール '{tool}' がインストールされていません。"
+
 msgid "Reset the shared visual failure counter"
 msgstr "共有の視覚障害カウンターをリセット"
 
@@ -2923,17 +3376,44 @@ msgstr "再起動して更新を完了"
 msgid "Restart to finish updating."
 msgstr "再起動して更新を完了してください。"
 
+msgid "Restore"
+msgstr "復元"
+
+msgid "Restore complete ({count} files). Undo ID: {undo_id}"
+msgstr "復元が完了しました（{count} ファイル）。取り消し ID: {undo_id}"
+
+msgid "Restore from a backup archive"
+msgstr "バックアップアーカイブから復元"
+
+msgid "Restore plan"
+msgstr "復元プラン"
+
+msgid "Restore settings, folders and apps from a backup archive"
+msgstr "バックアップアーカイブから設定、フォルダー、アプリを復元"
+
+msgid "Restore undo identifier"
+msgstr "復元取り消し ID"
+
+msgid "Restore undo point not found: {id}"
+msgstr "復元の取り消しポイントが見つかりません: {id}"
+
 msgid "Restore {name} from…"
 msgstr "{name} の復元元…"
 
 msgid "Restored"
 msgstr "復元完了"
 
+msgid "Restored {count} file(s). Undo ID: {undo_id}"
+msgstr "{count} 個のファイルを復元しました。取り消し ID: {undo_id}"
+
 msgid "Restored {service_names} PAM files from {backup}"
 msgstr "{backup} から {service_names} のPAMファイルを復元しました"
 
 msgid "Restoring the boot files"
 msgstr "ブートファイルを復元中"
+
+msgid "Restoring {count} file(s)…"
+msgstr "{count} 個のファイルを復元中…"
 
 msgid "Resume Picker"
 msgstr "セッション再開ピッカー"
@@ -2944,11 +3424,23 @@ msgstr "確認"
 msgid "Review /etc/default/limine first, then run: sudo systemctl start {unit}"
 msgstr "最初に /etc/default/limine を確認し、その後実行してください: sudo systemctl start {unit}"
 
+msgid "Review backup"
+msgstr "バックアップの確認"
+
+msgid "Review declined"
+msgstr "レビューで拒否されました"
+
 msgid "Review installation"
 msgstr "インストール内容の確認"
 
+msgid "Review restore"
+msgstr "復元の確認"
+
 msgid "Review status and settings"
 msgstr "ステータスと設定の確認"
+
+msgid "Review {kind}: {name}"
+msgstr "{kind} をレビュー: {name}"
 
 msgid "Right"
 msgstr "右"
@@ -3025,6 +3517,9 @@ msgstr "SQLサーバー"
 msgid "SQL databases"
 msgstr "SQLデータベース"
 
+msgid "SSH & GPG keys: copy or re-register hardware and private keys stored outside backups."
+msgstr "SSH/GPG鍵: バックアップ外で保管している秘密鍵やハードウェア鍵を再登録してください。"
+
 msgid "SSH key"
 msgstr "SSH鍵"
 
@@ -3036,6 +3531,9 @@ msgstr "SSOログイン"
 
 msgid "Safety"
 msgstr "安全性"
+
+msgid "Same disk as your home folder"
+msgstr "ホームフォルダーと同じディスク"
 
 msgid "Saturday"
 msgstr "土曜日"
@@ -3112,8 +3610,17 @@ msgstr "セキュリティグループ"
 msgid "Security key enrolled. Enable FIDO2 authentication separately; keep your password available."
 msgstr "セキュリティキーを登録しました。FIDO2認証は別途有効化してください。パスワードは引き続き使用できるようにしておいてください。"
 
+msgid "Select a .eitrbackup file to inspect."
+msgstr "確認する .eitrbackup ファイルを選択してください。"
+
 msgid "Select an account"
 msgstr "アカウントを選択"
+
+msgid "Select at least one backup category."
+msgstr "バックアップカテゴリを少なくとも1つ選択してください。"
+
+msgid "Select at least one option to continue."
+msgstr "続行するには少なくとも1つ選択してください。"
 
 msgid "Select at least one package"
 msgstr "少なくとも1つのパッケージを選択してください"
@@ -3214,6 +3721,9 @@ msgstr "このネットワークセキュリティタイプの共有はサポー
 msgid "Shell"
 msgstr "シェル"
 
+msgid "Shipped or generated system file rejected from backup: {path}"
+msgstr "システム同梱または生成ファイルはバックアップ対象外のため拒否されました: {path}"
+
 msgid "Show above windows"
 msgstr "ウィンドウの前面に表示"
 
@@ -3222,6 +3732,9 @@ msgstr "ウィンドウの背面に表示"
 
 msgid "Show it with"
 msgstr "表示方法"
+
+msgid "Show last backup and available undo points"
+msgstr "最新のバックアップと取り消しポイントを表示"
 
 msgid "Sign In"
 msgstr "サインイン"
@@ -3270,6 +3783,9 @@ msgstr "サイズが大きすぎます"
 
 msgid "Size needs two positive integers or percentages"
 msgstr "サイズには正の整数または割合が2つ必要です"
+
+msgid "Skip reinstalling recorded packages/apps"
+msgstr "記録されたパッケージ/アプリの再インストールをスキップ"
 
 msgid "Skipped snapshot boot entries."
 msgstr "スナップショットのブートエントリをスキップしました。"
@@ -3346,6 +3862,15 @@ msgstr "インストール済みの一部のプラグインがブロックされ
 msgid "Some programs crashed in the last week; report a problem if one keeps crashing."
 msgstr "先週クラッシュしたプログラムがあります。クラッシュが続く場合は問題を報告してください。"
 
+msgid "Source"
+msgstr "ソース"
+
+msgid "Space: toggle"
+msgstr "Space: 切替"
+
+msgid "Specify a backup archive file to restore."
+msgstr "復元するバックアップアーカイブを指定してください。"
+
 msgid "Split across monitors"
 msgstr "モニター間で分割"
 
@@ -3417,6 +3942,9 @@ msgstr "ストレージバケット"
 
 msgid "Storage volumes"
 msgstr "ストレージボリューム"
+
+msgid "Store items"
+msgstr "Store項目"
 
 msgid "Strong"
 msgstr "強"
@@ -3934,8 +4462,14 @@ msgstr "推測が容易すぎます: パターンやユーザー名を避けて�
 msgid "Too many questions; nothing changed."
 msgstr "質問が多すぎます。何も変更されませんでした。"
 
+msgid "Top-level folders in your home directory, chosen one by one"
+msgstr "ホームディレクトリ直下のフォルダーを個別に選択"
+
 msgid "Try again"
 msgstr "再試行"
+
+msgid "Try passphrase again"
+msgstr "パスフレーズを再入力"
 
 msgid "Tuesday"
 msgstr "火曜日"
@@ -3979,8 +4513,17 @@ msgstr "1、2、3、4のいずれかを入力するか、Enterを押してくだ
 msgid "Type APPLY PROFILE to make these system changes: "
 msgstr "これらのシステム変更を適用するには APPLY PROFILE と入力してください: "
 
+msgid "Type a folder or .eitrbackup file path"
+msgstr "フォルダーまたは .eitrbackup のパスを入力"
+
+msgid "Type to filter by name or source, Space to toggle."
+msgstr "入力して名前やソースで絞り込み、Spaceで切り替えます。"
+
 msgid "Type to search"
 msgstr "入力して検索"
+
+msgid "Type to search (Ctrl+A: toggle all)"
+msgstr "入力して検索 (Ctrl+A: 全選択切替)"
 
 msgid "Type yes to connect them (Enter cancels): "
 msgstr "接続するには yes と入力してください (Enterでキャンセル): "
@@ -4012,6 +4555,15 @@ msgstr "セッションを一覧表示できません。"
 msgid "Unavailable"
 msgstr "利用不可"
 
+msgid "Undid restore {undo_id}: restored {prev} previous file(s), removed {added} added file(s)."
+msgstr "復元 {undo_id} を取り消しました: 以前の {prev} 件を戻し、追加された {added} 件を削除しました。"
+
+msgid "Undo a previous restore transaction"
+msgstr "以前の復元操作を取り消す"
+
+msgid "Undo points:"
+msgstr "取り消しポイント:"
+
 msgid "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
 msgstr "「共有設定を復元」で元に戻せます。既存のSunshine設定は保持されます。"
 
@@ -4026,6 +4578,12 @@ msgstr "元に戻すには: sudo {helper} auth-restore {name}"
 
 msgid "Unexpected FIDO2 registration"
 msgstr "予期しないFIDO2登録です"
+
+msgid "Unexpected machine setup path rejected: {path}"
+msgstr "想定外のマシン設定パスを拒否しました: {path}"
+
+msgid "Unexpected top-level archive member rejected: {path}"
+msgstr "アーカイブ最上位の不正な項目を拒否しました: {path}"
 
 msgid "Uninstall {label}?"
 msgstr "{label} をアンインストールしますか？"
@@ -4060,11 +4618,17 @@ msgstr "不明なHDR値 {value}"
 msgid "Unknown Hyprland key: {key}"
 msgstr "不明な Hyprland キー: {key}"
 
+msgid "Unknown Store item type"
+msgstr "不明なStore項目タイプ"
+
 msgid "Unknown account"
 msgstr "不明なアカウント"
 
 msgid "Unknown action"
 msgstr "不明なアクションです"
+
+msgid "Unknown backup category rejected: {category}"
+msgstr "不明なバックアップカテゴリを拒否しました: {category}"
 
 msgid "Unknown monitoring service"
 msgstr "不明なモニタリングサービス"
@@ -4096,8 +4660,17 @@ msgstr "未管理のリモートアクセスルールが存在します"
 msgid "Unreadable answers file {path}: {error}"
 msgstr "回答ファイル {path} を読み取れません: {error}"
 
+msgid "Unsafe archive member path rejected: {path}"
+msgstr "安全でないアーカイブパスを拒否しました: {path}"
+
 msgid "Unsafe stick path: {name}"
 msgstr "USBメモリの安全でないパス: {name}"
+
+msgid "Unsafe symlink target rejected: {path}"
+msgstr "安全でないシンボリックリンク先を拒否しました: {path}"
+
+msgid "Unsafe undo journal entry rejected: {path}"
+msgstr "安全でない取り消しジャーナル項目を拒否しました: {path}"
 
 msgid "Unsupported PAM file: {path}"
 msgstr "サポートされていないPAMファイル: {path}"
@@ -4111,11 +4684,20 @@ msgstr "サポートされていないアクション識別子です"
 msgid "Unsupported application launcher path"
 msgstr "サポートされていないアプリケーションランチャーパスです"
 
+msgid "Unsupported archive entry type rejected: {path}"
+msgstr "未対応のアーカイブ項目タイプを拒否しました: {path}"
+
+msgid "Unsupported backup archive version: {version}"
+msgstr "未対応のバックアップアーカイブバージョン: {version}"
+
 msgid "Unsupported enterprise method"
 msgstr "サポートされていないエンタープライズ方式です"
 
 msgid "Unsupported power profile: {name}"
 msgstr "サポートされていない電源プロファイル: {name}"
+
+msgid "Unsupported special tar entry rejected: {path}"
+msgstr "未対応の特殊tarエントリを拒否しました: {path}"
 
 msgid "Unsupported uninstall source"
 msgstr "サポートされていないアンインストール元です"
@@ -4216,6 +4798,9 @@ msgstr "独自のアカウントが設定されていないすべてのフォル
 msgid "Use {picked} for {label}?"
 msgstr "{label} に {picked} を使用しますか？"
 
+msgid "Used with age to encrypt your archive. Never saved to disk; minimum 8 characters."
+msgstr "ageによる暗号化に使用します。ディスクに保存されず、8文字以上が必要です。"
+
 msgid "User access keys"
 msgstr "ユーザーアクセスキー"
 
@@ -4294,6 +4879,12 @@ msgstr "壁紙ファイルが見つかりません"
 msgid "Wallpaper must be PNG, JPEG or WebP"
 msgstr "壁紙はPNG、JPEG、またはWebPである必要があります"
 
+msgid "Warning: same disk as home folder; copy to external media before reinstalling."
+msgstr "警告: ホームフォルダーと同じディスクです。再インストール前に外部媒体へコピーしてください。"
+
+msgid "Warning: saving only on this disk will not protect your backup if this drive fails or is erased during reinstall."
+msgstr "警告: このディスク上だけに保存すると、故障や再インストール時の初期化で失われます。"
+
 msgid "Warnings:"
 msgstr "警告:"
 
@@ -4323,6 +4914,9 @@ msgstr "水曜日"
 
 msgid "Weekly"
 msgstr "毎週"
+
+msgid "What to back up"
+msgstr "バックアップ内容"
 
 msgid "When? (10m, 18:30, every day 08:00)"
 msgstr "日時は？(10m、18:30、every day 08:00)"
@@ -4411,6 +5005,9 @@ msgstr "フギンとムニンに尋ねています"
 msgid "binary"
 msgstr "バイナリ"
 
+msgid "calculating…"
+msgstr "計算中…"
+
 msgid "cannot list monitors: {error}"
 msgstr "モニターを一覧表示できません: {error}"
 
@@ -4447,6 +5044,12 @@ msgstr "大ガラスに餌を与えています"
 msgid "finding the hidden fjord"
 msgstr "隠されたフィヨルドを探しています"
 
+msgid "flatpak exited with status {code}"
+msgstr "flatpak がステータス {code} で終了しました"
+
+msgid "flatpak is not installed"
+msgstr "flatpak がインストールされていません"
+
 msgid "following the northern star"
 msgstr "北極星に従っています"
 
@@ -4482,6 +5085,12 @@ msgstr "暗号化されていません"
 
 msgid "offline stick file"
 msgstr "USBメモリ内のオフラインファイル"
+
+msgid "pacman exited with status {code}"
+msgstr "pacman がステータス {code} で終了しました"
+
+msgid "pacman is not available"
+msgstr "pacman を利用できません"
 
 msgid "pacman.conf has no [eitr] repository to add the testing channel before"
 msgstr "pacman.conf にテストチャンネルの追加先となる [eitr] リポジトリがありません"
@@ -4578,6 +5187,12 @@ msgstr "{config} に不完全なEITRスタイルブロックがあります。�
 
 msgid "{count} events from the last week to the next 60 days."
 msgstr "先週から今後60日までの {count} 件の予定。"
+
+msgid "{count} files ({size} uncompressed)"
+msgstr "{count} ファイル（非圧縮 {size}）"
+
+msgid "{count} files ({size})"
+msgstr "{count} ファイル ({size})"
 
 msgid "{count} occurrences"
 msgstr "{count} 回"
@@ -4707,6 +5322,12 @@ msgstr "{name}: {charge_percent}% で充電を停止します"
 
 msgid "{name}: {count} events from the last week to the next 60 days."
 msgstr "{name}: 先週から今後60日までの {count} 件の予定。"
+
+msgid "{path} (external)"
+msgstr "{path} (外付け)"
+
+msgid "{path} (local folder)"
+msgstr "{path} (ローカルフォルダー)"
 
 msgid "{path} has no usable free space"
 msgstr "{path} に使用可能な空き容量がありません"

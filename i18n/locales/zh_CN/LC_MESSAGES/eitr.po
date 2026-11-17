@@ -94,6 +94,9 @@ msgstr "'{spoken}' 不是有效时间：请尝试 10m、1h30m 或 18:30。"
 msgid "(none)"
 msgstr "(无)"
 
+msgid "+: add folder"
+msgstr "+: 添加文件夹"
+
 msgid "/boot is a separate partition: snapshot entries boot the current kernel. After a kernel update, restore the matching boot archive as RECOVERY.md describes."
 msgstr "/boot 是独立分区：快照条目将引导当前内核。内核更新后，请按照 RECOVERY.md 中的说明恢复匹配的 boot 归档文件。"
 
@@ -193,8 +196,14 @@ msgstr "{path} 上的所有分区和文件都将被销毁。\n"
 msgid "AUR builds must run as a normal user"
 msgstr "AUR 构建必须由普通用户运行"
 
+msgid "AUR install exited with status {code}"
+msgstr "AUR 安装已退出，状态码 {code}"
+
 msgid "AUR package not found"
 msgstr "未找到 AUR 软件包"
+
+msgid "AUR packages"
+msgstr "AUR 软件包"
 
 msgid "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing."
 msgstr "AUR 软件包由社区制作，未经 Eitr 或 Arch Linux 审核。安装前请阅读构建文件。"
@@ -295,6 +304,12 @@ msgstr "添加 Azure 账户"
 msgid "Add bar item"
 msgstr "添加栏条目"
 
+msgid "Add folder…"
+msgstr "添加文件夹…"
+
+msgid "Add personal folder"
+msgstr "添加个人文件夹"
+
 msgid "Add widget · {monitor}"
 msgstr "添加小组件 · {monitor}"
 
@@ -364,6 +379,18 @@ msgstr "应用服务"
 msgid "App clients"
 msgstr "应用客户端"
 
+msgid "App settings"
+msgstr "应用设置"
+
+msgid "App settings (~/.config)"
+msgstr "应用设置 (~/.config)"
+
+msgid "App settings folders: {count}"
+msgstr "应用设置文件夹：{count}"
+
+msgid "App settings to restore"
+msgstr "要还原的应用设置"
+
 msgid "Application deployments"
 msgstr "应用部署"
 
@@ -385,14 +412,50 @@ msgstr "正在应用…"
 msgid "Applying…"
 msgstr "正在应用…"
 
+msgid "Approve installation? [y/N/Esc] "
+msgstr "确认安装？[y/N/Esc] "
+
 msgid "Apps"
 msgstr "应用"
+
+msgid "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}"
+msgstr "已安装：{n}  ·  已存在：{a}  ·  已跳过：{s}  ·  失败：{f}"
+
+msgid "Apps to reinstall"
+msgstr "要重装的应用"
 
 msgid "Apps were closed because memory ran out; close apps you are not using, and report a problem if it keeps happening."
 msgstr "由于内存耗尽，部分应用已被关闭；请关闭不使用的应用，若持续发生请报告问题。"
 
+msgid "Apps: installed={n}, already_present={a}, skipped={s}, failed={f}"
+msgstr "应用：已安装={n}，已存在={a}，已跳过={s}，失败={f}"
+
+msgid "Apps: official={off}, aur={aur}, flatpak={fp}, plugins={pl}, store={st}"
+msgstr "应用：官方={off}，aur={aur}，flatpak={fp}，插件={pl}，商店={st}"
+
 msgid "Arch posted news since your last update:"
 msgstr "自上次更新以来 Arch 发布的新闻："
+
+msgid "Archive"
+msgstr "归档文件"
+
+msgid "Archive is missing manifest.json as its first entry."
+msgstr "归档文件首个条目缺少 manifest.json。"
+
+msgid "Archive manifest is missing or malformed."
+msgstr "归档清单缺失或格式无效。"
+
+msgid "Archive manifest must be a regular file."
+msgstr "归档清单必须是常规文件。"
+
+msgid "Archive path for restore mode"
+msgstr "用于还原模式的归档路径"
+
+msgid "Archive size: {size}"
+msgstr "归档大小：{size}"
+
+msgid "Archive version: {v}"
+msgstr "归档版本：{v}"
 
 msgid "Arrows / Tab: move  Enter: answer  Esc: cancel"
 msgstr "Arrows / Tab: 移动  Enter: 回答  Esc: 取消"
@@ -466,8 +529,44 @@ msgstr "后台服务已移除"
 msgid "Background service: {service}"
 msgstr "后台服务：{service}"
 
+msgid "Backup"
+msgstr "备份"
+
+msgid "Backup and Restore"
+msgstr "备份与还原"
+
+msgid "Backup archive decompression failed."
+msgstr "解压备份归档失败。"
+
+msgid "Backup archive does not contain a valid manifest."
+msgstr "备份归档未包含有效的清单。"
+
+msgid "Backup archive does not contain manifest.json."
+msgstr "备份归档中不含 manifest.json。"
+
+msgid "Backup archive is corrupted."
+msgstr "备份归档已损坏。"
+
+msgid "Backup archive not found: {path}"
+msgstr "未找到备份归档：{path}"
+
+msgid "Backup archive output file is empty."
+msgstr "备份归档输出文件为空。"
+
+msgid "Backup archive path"
+msgstr "备份归档路径"
+
+msgid "Backup created: {path}"
+msgstr "已创建备份：{path}"
+
+msgid "Backup format version {found} is newer than this Eitr version supports ({supported}). Update Eitr before restoring."
+msgstr "备份格式版本 {found} 高于当前 Eitr 支持的版本（{supported}）。请先更新 Eitr 再还原。"
+
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "当前 Limine 菜单的备份：{backup}"
+
+msgid "Backup passphrase"
+msgstr "备份口令"
 
 msgid "Backup {name} is incomplete: missing {missing_files}"
 msgstr "备份 {name} 不完整：缺少 {missing_files}"
@@ -508,6 +607,9 @@ msgstr "{loader} 不支持可引导快照。{reason} 未更改任何内容。"
 msgid "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot"
 msgstr "两个网络后端都在运行；请在“设置 > 设备 > 连接 > 网络后端”中选择一个并重启"
 
+msgid "Browse / enter file path…"
+msgstr "浏览 / 输入文件路径…"
+
 msgid "Browse bucket"
 msgstr "浏览存储桶"
 
@@ -516,6 +618,18 @@ msgstr "浏览器必须是 firefox 或 chromium（使用 add.packages 安装）"
 
 msgid "Browser profile"
 msgstr "浏览器配置文件"
+
+msgid "Browser profiles are excluded from backups: {path}"
+msgstr "浏览器配置文件已从备份中排除：{path}"
+
+msgid "Browser profiles, cache/lock/socket files, SSH/GPG/cloud/Git credentials"
+msgstr "浏览器配置、缓存/锁/套接字文件，以及 SSH/GPG/云/Git 凭据"
+
+msgid "Browser profiles, caches, sockets and SSH/GPG/cloud credentials are excluded."
+msgstr "已自动排除浏览器配置文件、缓存、套接字及 SSH/GPG/云端凭据。"
+
+msgid "Browsers: profiles are omitted for security — sign back in to your accounts and sync."
+msgstr "浏览器：出于安全考虑未包含配置文件 — 请重新登录账户并开启同步。"
 
 msgid "Buckets"
 msgstr "Buckets"
@@ -543,6 +657,9 @@ msgstr "CLI 不可用"
 
 msgid "Cache Sizes"
 msgstr "缓存大小"
+
+msgid "Caches and browser profiles are skipped automatically."
+msgstr "系统会自动跳过缓存与浏览器配置文件。"
 
 msgid "Calendar added"
 msgstr "日历已添加"
@@ -595,8 +712,20 @@ msgstr "无法检查软件包依赖数据库 {database}：{error}"
 msgid "Cannot make the last administrator a standard account"
 msgstr "无法将最后一个管理员变更为标准账户"
 
+msgid "Cannot open archive"
+msgstr "无法打开归档文件"
+
+msgid "Cannot overwrite existing directory with file: {path}"
+msgstr "无法用文件覆盖已存在的目录：{path}"
+
+msgid "Cannot read passphrase from fd {fd}: {error}"
+msgstr "无法从文件描述符 {fd} 读取口令：{error}"
+
 msgid "Cannot read window rules: {error}"
 msgstr "无法读取窗口规则：{error}"
+
+msgid "Cannot read {path}: {error}"
+msgstr "无法读取 {path}：{error}"
 
 msgid "Cannot remove the last administrator"
 msgstr "无法移除最后一个管理员"
@@ -624,6 +753,9 @@ msgstr "目录后端不可用"
 
 msgid "Catalog operation failed"
 msgstr "目录操作失败"
+
+msgid "Categories: {list}"
+msgstr "类别：{list}"
 
 msgid "Center"
 msgstr "居中"
@@ -694,11 +826,26 @@ msgstr "请选择用户拥有的、权限为 600 或更严格的私钥"
 msgid "Choose an existing folder without Git glob characters"
 msgstr "请选择不含 Git 通配符的现有文件夹"
 
+msgid "Choose an external drive instead"
+msgstr "改选外接存储设备"
+
 msgid "Choose an installed assistant."
 msgstr "选择已安装的助手。"
 
 msgid "Choose another default first; the system icon font must remain installed"
 msgstr "请先选择另一个默认项；系统图标字体必须保持安装状态"
+
+msgid "Choose another destination"
+msgstr "选择其他目标位置"
+
+msgid "Choose apps to record"
+msgstr "选择要记录的应用"
+
+msgid "Choose backup archive"
+msgstr "选择备份归档"
+
+msgid "Choose folders one by one. Sizes load in the background."
+msgstr "逐项选择文件夹，系统会在后台计算大小。"
 
 msgid "Choose iwd or NetworkManager"
 msgstr "选择 iwd 或 NetworkManager"
@@ -714,6 +861,12 @@ msgstr "请从列出的设计中选择一项。"
 
 msgid "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks."
 msgstr "按下载速度选择最新的 HTTPS 镜像源。之前的列表已备份；全球镜像源仍保留作为回退。"
+
+msgid "Choose what to restore"
+msgstr "选择要还原的内容"
+
+msgid "Choose where to save the encrypted backup archive."
+msgstr "选择保存加密备份归档的位置。"
 
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "将 Chromium 设为默认需要 add.packages chromium 或其配方"
@@ -753,6 +906,9 @@ msgstr "正在关闭之前中断更新的恢复点。"
 
 msgid "Cloud"
 msgstr "云"
+
+msgid "Cloud & Git credentials: reconnect gh, gcloud, aws, az and Git account setups as needed."
+msgstr "云与 Git 凭据：按需重新登录 gh、gcloud、aws、az 并配置 Git 账户。"
 
 msgid "Cloud Functions"
 msgstr "云函数"
@@ -805,8 +961,29 @@ msgstr "{name} 的颜色"
 msgid "Comfortable"
 msgstr "适中"
 
+msgid "Comma-separated app settings folders to restore"
+msgstr "要还原的应用设置文件夹（逗号分隔）"
+
+msgid "Comma-separated category IDs"
+msgstr "类别 ID（逗号分隔）"
+
+msgid "Comma-separated category IDs to restore"
+msgstr "要还原的类别 ID（逗号分隔）"
+
+msgid "Comma-separated personal folders to restore"
+msgstr "要还原的个人文件夹（逗号分隔）"
+
+msgid "Comma-separated personal folders under $HOME"
+msgstr "$HOME 下的个人文件夹（逗号分隔）"
+
+msgid "Comma-separated ~/.config app directories"
+msgstr "~/.config 应用目录（逗号分隔）"
+
 msgid "Command failed (exit {status})"
 msgstr "命令执行失败（退出码 {status}）"
+
+msgid "Commit"
+msgstr "提交"
 
 msgid "Commit author email"
 msgstr "Commit 作者邮箱"
@@ -829,6 +1006,9 @@ msgstr "Commits:"
 msgid "Compartments"
 msgstr "区间"
 
+msgid "Compression with zstd failed."
+msgstr "使用 zstd 压缩失败。"
+
 msgid "Compute Instances"
 msgstr "计算实例"
 
@@ -844,6 +1024,9 @@ msgstr "预览期间配置已更改：{path}"
 msgid "Configuration file"
 msgstr "配置文件"
 
+msgid "Configuration folders in ~/.config without caches or browser profiles"
+msgstr "~/.config 中不含缓存或浏览器配置的设置目录"
+
 msgid "Configure this source in OBS first"
 msgstr "请先在 OBS 中配置此来源"
 
@@ -852,6 +1035,9 @@ msgstr "已为 {design_count} 个软件包提供的登录设计完成选择配�
 
 msgid "Confirm"
 msgstr "确认"
+
+msgid "Confirm same-disk warning non-interactively"
+msgstr "非交互确认同一磁盘警告"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "{path} 中存在冲突的 iwd 后端设置；切换前请进行检查。"
@@ -949,6 +1135,9 @@ msgstr "崩溃摘要"
 msgid "Create User…"
 msgstr "创建用户…"
 
+msgid "Create a backup archive"
+msgstr "创建备份归档"
+
 msgid "Create a lockscreen with your own picture. It stays on this computer."
 msgstr "使用您自己的图片创建锁屏。它仅保存在此电脑上。"
 
@@ -960,6 +1149,21 @@ msgstr "从图片创建主题。它仅保存在此电脑上。"
 
 msgid "Create a web app: a launcher that opens a site in its own window."
 msgstr "创建 Web 应用：在独立窗口中打开网站的启动器。"
+
+msgid "Create an encrypted backup archive"
+msgstr "创建加密备份归档"
+
+msgid "Create, inspect, restore or undo Eitr backups."
+msgstr "创建、检查、还原或撤销 Eitr 备份。"
+
+msgid "Created backup: {path} ({size})"
+msgstr "已创建备份：{path}（{size}）"
+
+msgid "Created: {date} by {user}@{host}"
+msgstr "创建时间：{date}（{user}@{host}）"
+
+msgid "Creating encrypted backup…"
+msgstr "正在创建加密备份…"
 
 msgid "Creating the after-update snapshot…"
 msgstr "正在创建更新后快照…"
@@ -1003,8 +1207,14 @@ msgstr "光标首选项已保存；刷新失败：{error}"
 msgid "Cursor theme {theme} is not installed. Install the corresponding cursor package first."
 msgstr "光标主题 {theme} 未安装。请先安装相应的光标软件包。"
 
+msgid "Custom backup destination"
+msgstr "自定义备份目标"
+
 msgid "Custom or masked tailscaled service: review manually"
 msgstr "自定义或被屏蔽的 tailscaled 服务：请手动检查"
+
+msgid "Custom path…"
+msgstr "自定义路径…"
 
 msgid "Custom static-IP/VPN setups need manual review before switching."
 msgstr "自定义静态 IP/VPN 配置在切换前需要手动检查。"
@@ -1044,6 +1254,9 @@ msgstr "数据库"
 
 msgid "Date"
 msgstr "日期"
+
+msgid "Decrypting and validating backup archive…"
+msgstr "正在解密并验证备份归档…"
 
 msgid "Default"
 msgstr "默认"
@@ -1096,8 +1309,26 @@ msgstr "设计"
 msgid "Desktop Audio"
 msgstr "桌面音频"
 
+msgid "Desktop preferences, deliberate overrides and your own themes or wallpapers"
+msgstr "桌面偏好、手动覆盖配置及自建主题或壁纸"
+
 msgid "Desktop: Afterglow / Clockwork Tape, installed offline before reboot"
 msgstr "桌面：Afterglow / Clockwork Tape，重启前离线安装"
+
+msgid "Destination"
+msgstr "目标位置"
+
+msgid "Destination directory or archive filename"
+msgstr "目标目录或归档文件名"
+
+msgid "Destination has {free} free, need at least {needed}."
+msgstr "目标位置仅有 {free} 可用，至少需要 {needed}。"
+
+msgid "Destination unavailable"
+msgstr "目标位置不可用"
+
+msgid "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
+msgstr "目标路径 {path} 与主目录位于同一磁盘上，是否继续？[y/N] "
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "详细日志：/var/log/archinstall。失败步骤之后未更改任何内容。"
@@ -1137,6 +1368,9 @@ msgstr "不加密：无需密码即可读取文件"
 
 msgid "Do not put login credentials in the address."
 msgstr "请勿在地址中包含登录凭据。"
+
+msgid "Do not record installed apps"
+msgstr "不记录已安装应用"
 
 msgid "DocumentDB"
 msgstr "DocumentDB"
@@ -1213,6 +1447,9 @@ msgstr "Eitr 仅在因您触发的操作（如“系统更新”）而打开的�
 msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 msgstr "Eitr 未对该插件进行审查。其代码归其作者所有，而非 Eitr。请仅添加来自您信任的人或仓库的插件。"
 
+msgid "Eitr settings"
+msgstr "Eitr 设置"
+
 msgid "Eitr software"
 msgstr "Eitr 软件"
 
@@ -1246,6 +1483,9 @@ msgstr "加密分区编号： "
 msgid "Encryption"
 msgstr "加密"
 
+msgid "Encryption helper failed."
+msgstr "加密助手执行失败。"
+
 msgid "Encryption: DISABLED"
 msgstr "加密：已禁用"
 
@@ -1260,6 +1500,12 @@ msgstr "注册状态需要在现有的磁盘解锁流程中查看"
 
 msgid "Enter a color as six hex digits, for example #2bb87a."
 msgstr "输入由六位十六进制数字表示的颜色，例如 #2bb87a。"
+
+msgid "Enter a directory path or a full filename ending in {ext}."
+msgstr "请输入目录路径或以 {ext} 结尾的完整文件名。"
+
+msgid "Enter a folder path inside your home directory."
+msgstr "请输入主目录内的文件夹路径。"
 
 msgid "Enter a hostname, not a URL, port or shell option"
 msgstr "输入主机名，而非 URL、端口或 shell 选项"
@@ -1282,11 +1528,20 @@ msgstr "输入配置文件的完整路径。"
 msgid "Enter the other picture's file or https address."
 msgstr "输入另一张图片的文件路径或 https 地址。"
 
+msgid "Enter the passphrase to decrypt and inspect the archive."
+msgstr "请输入口令以解密并查看归档内容。"
+
+msgid "Enter the path to the .eitrbackup file."
+msgstr "请输入 .eitrbackup 文件路径。"
+
 msgid "Enter: answer  Left / Tab: back  Esc: cancel"
 msgstr "Enter: 回答  Left / Tab: 返回  Esc: 取消"
 
 msgid "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
 msgstr "Enter: 应用  Left: 返回  PgUp/PgDn: 滚动  Esc: 取消"
+
+msgid "Enter: confirm  Left: back  PgUp/PgDn: scroll  Esc: cancel"
+msgstr "Enter: 确认  左: 返回  PgUp/PgDn: 翻页  Esc: 取消"
 
 msgid "Enter: confirm · Esc: cancel"
 msgstr "Enter: 确认 · Esc: 取消"
@@ -1300,11 +1555,23 @@ msgstr "Enter: 继续  Esc: 取消"
 msgid "Enter: copy the redacted report · Esc: close"
 msgstr "Enter: 复制已隐去敏感信息的报告 · Esc: 关闭"
 
+msgid "Enter: create encrypted backup  ·  Nothing is written until you confirm"
+msgstr "Enter: 创建加密备份  ·  确认前不会写入任何文件"
+
+msgid "Enter: next"
+msgstr "Enter: 下一步"
+
 msgid "Enter: open Network Backend · Esc: close"
 msgstr "Enter: 打开网络后端 · Esc: 关闭"
 
 msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
 msgstr "Enter: 立即运行“系统更新”（带有快照），然后安装 · Esc: 取消"
+
+msgid "Enter: start now  ·  Nothing is written until you confirm"
+msgstr "Enter: 立即开始  ·  确认前不会写入任何文件"
+
+msgid "Enter: start restore  ·  Nothing is written until you confirm"
+msgstr "Enter: 开始还原  ·  确认前不会写入任何文件"
 
 msgid "Enterprise WiFi requires username, password, CA certificate and server domain"
 msgstr "企业级 WiFi 需要用户名、密码、CA 证书和服务器域名"
@@ -1318,6 +1585,9 @@ msgstr "企业配置文件已存在；更换凭据前请先在面板中忽略此
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "擦除整个磁盘（{size_text}）并安装 Eitr"
 
+msgid "Esc: cancel"
+msgstr "Esc: 取消"
+
 msgid "Event hook added or changed: {event}"
 msgstr "事件钩子已添加或更改：{event}"
 
@@ -1329,6 +1599,18 @@ msgstr "此仓库中的所有插件均已安装。请在“控制中心 > 插件
 
 msgid "Everything is up to date."
 msgstr "所有内容均已是最新。"
+
+msgid "Excluded automatically"
+msgstr "自动排除"
+
+msgid "Excluded cache path rejected: {path}"
+msgstr "已拒绝排除的缓存路径：{path}"
+
+msgid "Excluded sensitive or temporary path rejected: {path}"
+msgstr "已拒绝排除的敏感或临时路径：{path}"
+
+msgid "Excluded system or secret folder cannot be added: {path}"
+msgstr "无法添加被排除的系统或敏感文件夹：{path}"
 
 msgid "Executable files: {count}"
 msgstr "可执行文件：{count}"
@@ -1366,6 +1648,9 @@ msgstr "已为 {usernames} 保存出厂重置点。"
 msgid "Factory reset point: {created} (accounts: {names})"
 msgstr "出厂重置点：{created}（账户：{names}）"
 
+msgid "Failed to read backup archive: {error}"
+msgstr "读取备份归档失败：{error}"
+
 msgid "File became executable: {path}"
 msgstr "文件已变为可执行文件：{path}"
 
@@ -1374,6 +1659,9 @@ msgstr "文件管理器"
 
 msgid "File or folder to restore (for example ~/Documents/report.odt)"
 msgstr "要恢复的文件或文件夹（例如 ~/Documents/report.odt）"
+
+msgid "Files: {count} ({size} uncompressed)"
+msgstr "文件：{count} 个（未压缩 {size}）"
 
 msgid "Filesystem {uuid} on {device}"
 msgstr "{device} 上的文件系统 {uuid}"
@@ -1405,6 +1693,9 @@ msgstr "适应"
 msgid "Flathub apps install at the first start with a network connection."
 msgstr "Flathub 应用将在首次连接网络启动时进行安装。"
 
+msgid "Flatpak apps"
+msgstr "Flatpak 应用"
+
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "无法更新 Flatpak 应用；系统更新本身已完成。"
 
@@ -1414,8 +1705,14 @@ msgstr "浮动必须为 true 或 false"
 msgid "Folder"
 msgstr "文件夹"
 
+msgid "Folder does not exist: {path}"
+msgstr "文件夹不存在：{path}"
+
 msgid "Folder for {label}"
 msgstr "{label} 的文件夹"
+
+msgid "Folder must be inside your home directory: {path}"
+msgstr "文件夹必须位于主目录内：{path}"
 
 msgid "Folder path"
 msgstr "文件夹路径"
@@ -1456,8 +1753,14 @@ msgstr "格式"
 msgid "Found in your Git configuration"
 msgstr "在您的 Git 配置中找到"
 
+msgid "Free space: {free}"
+msgstr "可用空间：{free}"
+
 msgid "Friday"
 msgstr "星期五"
+
+msgid "From {user}@{host} on {date}"
+msgstr "来自 {user}@{host}（{date}）"
 
 msgid "Full"
 msgstr "完整"
@@ -1540,6 +1843,9 @@ msgstr "硬件"
 msgid "Hardware detection failed; see the log above"
 msgstr "硬件检测失败；请查看上方日志"
 
+msgid "Hardware-local display and Hyprland overrides for this PC"
+msgstr "此电脑的本地显示器与 Hyprland 覆盖配置"
+
 msgid "Have you set Sunshine’s username and password in the browser?"
 msgstr "您是否已在浏览器中设置了 Sunshine 的用户名和密码？"
 
@@ -1603,6 +1909,15 @@ msgstr "导入 VPN 文件…"
 msgid "Import a WireGuard configuration…"
 msgstr "导入 WireGuard 配置…"
 
+msgid "Include hardware-local Hyprland/display files"
+msgstr "包含本机硬件 Hyprland/显示器文件"
+
+msgid "Included data"
+msgstr "包含的数据"
+
+msgid "Incorrect passphrase for backup archive."
+msgstr "备份归档口令不正确。"
+
 msgid "Initramfs: mkinitcpio not found; make sure your initramfs unlocks with systemd-cryptsetup."
 msgstr "Initramfs：未找到 mkinitcpio；请确保您的 initramfs 使用 systemd-cryptsetup 进行解锁。"
 
@@ -1611,6 +1926,9 @@ msgstr "Initramfs：存在 systemd sd-encrypt 钩子；将在引导时尝试使�
 
 msgid "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 msgstr "Initramfs：busybox 的“encrypt”钩子无法使用 TPM2 令牌。请先切换到 systemd 和 sd-encrypt 钩子（参见 RECOVERY.md 中的“TPM 磁盘解锁”）。"
+
+msgid "Inspect backup contents and manifest"
+msgstr "检查备份内容与清单"
 
 msgid "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it."
 msgstr "从“安装 > 浏览器”安装 Chrome、Chromium、Edge、Brave 或 Vivaldi 以打开它。"
@@ -1672,11 +1990,20 @@ msgstr "立即安装 {package}？"
 msgid "Installed"
 msgstr "已安装"
 
+msgid "Installed apps"
+msgstr "已安装应用"
+
 msgid "Installed plugins could not be checked against the new policy: {error}"
 msgstr "无法根据新策略检查已安装的插件：{error}"
 
 msgid "Installer must use HTTPS"
 msgstr "安装程序必须使用 HTTPS"
+
+msgid "Installing AUR package {index}/{total}: {name}…"
+msgstr "正在安装 AUR 软件包 {index}/{total}：{name}…"
+
+msgid "Installing Flatpak app {index}/{total}: {name}…"
+msgstr "正在安装 Flatpak 应用 {index}/{total}：{name}…"
 
 msgid "Installing alongside is unavailable: {reason}"
 msgstr "并存安装不可用：{reason}"
@@ -1686,6 +2013,9 @@ msgstr "并存安装将保留每个现有分区。"
 
 msgid "Installing the selected software. Profile additions may need the internet. Keep the computer powered on."
 msgstr "正在安装所选软件。配置文件的补充项可能需要连接互联网。请保持电脑开机。"
+
+msgid "Installing {count} official package(s) in one transaction…"
+msgstr "正在单次事务中安装 {count} 个官方软件包…"
 
 msgid "Instance status"
 msgstr "实例状态"
@@ -1810,6 +2140,9 @@ msgstr "无效的重复规则。"
 msgid "Invalid repository server URL"
 msgstr "无效的仓库服务器 URL"
 
+msgid "Invalid restore backup identifier: {id}"
+msgstr "无效的还原撤销 ID：{id}"
+
 msgid "Invalid rule fields"
 msgstr "规则字段无效"
 
@@ -1885,6 +2218,9 @@ msgstr "保留"
 msgid "Keep the greeting under 80 characters."
 msgstr "问候语请保持在 80 个字符以内。"
 
+msgid "Keep this destination (I will copy it off this PC)"
+msgstr "保留此目标（我会将其移出此电脑）"
+
 msgid "Kept user layout link override: {target}"
 msgstr "已保留用户布局链接覆盖：{target}"
 
@@ -1936,6 +2272,12 @@ msgstr "语言：{language} / 键盘：{keyboard}"
 msgid "Large"
 msgstr "大"
 
+msgid "Last backup: {date} ({path})"
+msgstr "上次备份：{date}（{path}）"
+
+msgid "Last backup: {date} -> {path} ({size})"
+msgstr "上次备份：{date} -> {path}（{size}）"
+
 msgid "Later"
 msgstr "稍后"
 
@@ -1948,8 +2290,14 @@ msgstr "最新镜像标签"
 msgid "Latest log streams"
 msgstr "最新日志流"
 
+msgid "Launch interactive terminal backup/restore wizard"
+msgstr "启动交互式终端备份与还原向导"
+
 msgid "Left"
 msgstr "左"
+
+msgid "Left: back"
+msgstr "左: 返回"
 
 msgid "Let assistants work together"
 msgstr "允许助手协同工作"
@@ -1986,6 +2334,9 @@ msgstr "列出仓库"
 
 msgid "List services"
 msgstr "列出服务"
+
+msgid "Lists of explicit official, AUR, Flatpak, plugin and Store items"
+msgstr "显式安装的官方、AUR、Flatpak、插件与商店项目列表"
 
 msgid "Live data command added or changed: {kind} · {id} · {command}"
 msgstr "实时数据命令已添加或更改：{kind} · {id} · {command}"
@@ -2031,6 +2382,9 @@ msgstr "仔细查看："
 
 msgid "Lowercase name. This user will have sudo access."
 msgstr "小写名称。该用户将拥有 sudo 访问权限。"
+
+msgid "Machine setup"
+msgstr "本机硬件设置"
 
 msgid "Magenta"
 msgstr "洋红色"
@@ -2137,6 +2491,9 @@ msgstr "接下来，Eitr 会在不运行插件的情况下下载该插件，并�
 msgid "No"
 msgstr "否"
 
+msgid "No AUR helper (yay or paru) installed"
+msgstr "未安装 AUR 助手（yay 或 paru）"
+
 msgid "No LUKS-encrypted partition was found."
 msgstr "未找到 LUKS 加密分区。"
 
@@ -2154,6 +2511,9 @@ msgstr "没有正在运行的 WiFi 后端"
 
 msgid "No account named {user}"
 msgstr "没有名为 {user} 的账户"
+
+msgid "No backup recorded yet."
+msgstr "尚未记录任何备份。"
 
 msgid "No battery charge limit control on this machine."
 msgstr "此机器不支持电池充电限制控制。"
@@ -2181,6 +2541,9 @@ msgstr "未打开邮件应用。请从您的网页邮箱发送至 {REPORTS_EMAIL
 
 msgid "No encrypted partition selected; nothing was changed."
 msgstr "未选择加密分区；未更改任何内容。"
+
+msgid "No interactive terminal for passphrase; pass --passphrase-fd."
+msgstr "没有可用于输入口令的交互式终端；请传入 --passphrase-fd。"
 
 msgid "No keyboard found"
 msgstr "未找到键盘"
@@ -2260,6 +2623,15 @@ msgstr "不可用：{error}"
 msgid "Not enabled"
 msgstr "未启用"
 
+msgid "Not enough free space at {path}: {free} available, {needed} needed."
+msgstr "{path} 可用空间不足：可用 {free}，需要 {needed}。"
+
+msgid "Not enough space"
+msgstr "空间不足"
+
+msgid "Not found in repositories"
+msgstr "仓库中未找到"
+
 msgid "Not one of your lockscreens"
 msgstr "不属于您的锁屏"
 
@@ -2302,6 +2674,9 @@ msgstr "未安装任何内容；下载的副本已被删除。"
 msgid "Nothing was sent. Read it and remove anything you do not want to share."
 msgstr "未发送任何内容。请阅读并移除您不想共享的任何信息。"
 
+msgid "Notice: third-party repository (not reviewed by Eitr)"
+msgstr "注意：第三方仓库（未经 Eitr 审核）"
+
 msgid "Number or your own answer (Esc to cancel): "
 msgstr "输入编号或您自己的回答（按 Esc 取消）： "
 
@@ -2337,6 +2712,12 @@ msgstr "Eitr 官方插件"
 
 msgid "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
 msgstr "来自 eitr-org/eitr-plugins 的 Eitr 官方插件，已由 Eitr 项目审查。与所有插件一样，它以您账户的完整权限运行。"
+
+msgid "Official packages"
+msgstr "官方软件包"
+
+msgid "Official: {off}  ·  AUR: {aur}  ·  Flatpak: {fp}  ·  Plugins: {pl}  ·  Store: {st}"
+msgstr "官方：{off}  ·  AUR：{aur}  ·  Flatpak：{fp}  ·  插件：{pl}  ·  商店：{st}"
 
 msgid "Ollama (offline, experimental)"
 msgstr "Ollama（离线，实验性）"
@@ -2403,6 +2784,9 @@ msgstr "不透明度必须在0.2到1.0之间"
 
 msgid "Open Console"
 msgstr "打开控制台"
+
+msgid "Open directly into create or restore"
+msgstr "直接打开创建或还原模式"
 
 msgid "Open folder"
 msgstr "打开文件夹"
@@ -2503,6 +2887,18 @@ msgstr "请先为共享配对一台设备；登录界面接受同样的设备。
 msgid "Part of the system was updated after the PC started; restart to start using it."
 msgstr "系统的一部分在电脑启动后已更新；重启以开始使用。"
 
+msgid "Passphrase cannot be empty."
+msgstr "口令不能为空。"
+
+msgid "Passphrase from fd {fd} is empty."
+msgstr "来自文件描述符 {fd} 的口令为空。"
+
+msgid "Passphrase: "
+msgstr "口令："
+
+msgid "Passphrases did not match."
+msgstr "两次输入的口令不一致。"
+
 msgid "Password"
 msgstr "密码"
 
@@ -2521,11 +2917,23 @@ msgstr "粘贴 https:// 或 webcal:// iCal 地址。"
 msgid "Paste the secret iCal address (https://…)"
 msgstr "粘贴私密 iCal 地址 (https://…)"
 
+msgid "Path to .eitrbackup archive"
+msgstr ".eitrbackup 归档文件路径"
+
 msgid "Peer Tailscale address or name: "
 msgstr "对端 Tailscale 地址或名称: "
 
 msgid "Percentages cannot exceed 100"
 msgstr "百分比不能超过100"
+
+msgid "Personal folders"
+msgstr "个人文件夹"
+
+msgid "Personal folders to restore"
+msgstr "要还原的个人文件夹"
+
+msgid "Personal folders: {list}"
+msgstr "个人文件夹：{list}"
 
 msgid "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel"
 msgstr "PgUp/PgDn：滚动  Enter：下载以供审查  Left：返回  Esc：取消"
@@ -2538,6 +2946,9 @@ msgstr "Pi 没有内置的权限提示。选择其他助手以使用“更改前
 
 msgid "Pick a reminder to cancel"
 msgstr "选择要取消的提醒"
+
+msgid "Pick another archive"
+msgstr "选择其他归档"
 
 msgid "Picture"
 msgstr "图片"
@@ -2584,6 +2995,12 @@ msgstr "插件 {id}：保留当前版本。"
 msgid "Plugin: {name}"
 msgstr "插件：{name}"
 
+msgid "Plugins"
+msgstr "插件"
+
+msgid "Plugins and Store items will pause for normal review approval."
+msgstr "插件和商店项目会暂停等待常规审核确认。"
+
 msgid "Plugins are turned off by your organization."
 msgstr "插件已被您的组织关闭。"
 
@@ -2620,11 +3037,17 @@ msgstr "正在准备 Flatpak 更新…"
 msgid "Preparing package installation…"
 msgstr "正在准备软件包安装…"
 
+msgid "Preparing plugin review: {name}…"
+msgstr "正在准备插件审核：{name}…"
+
 msgid "Preparing the restored system (the running system is not changed yet)"
 msgstr "正在准备恢复的系统（正在运行的系统尚未更改）"
 
 msgid "Preparing the update…"
 msgstr "正在准备更新…"
+
+msgid "Preparing theme review: {name}…"
+msgstr "正在准备主题审核：{name}…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "按 Enter 确认；按 Esc 取消。"
@@ -2640,6 +3063,18 @@ msgstr "按 Esc 关闭。"
 
 msgid "Primary IPs"
 msgstr "主 IP"
+
+msgid "Print manifest as JSON"
+msgstr "以 JSON 输出清单"
+
+msgid "Print restore summary as JSON"
+msgstr "以 JSON 输出还原摘要"
+
+msgid "Print result as JSON"
+msgstr "以 JSON 输出结果"
+
+msgid "Print status as JSON"
+msgstr "以 JSON 输出状态"
 
 msgid "Private SSH key"
 msgstr "SSH 私钥"
@@ -2713,6 +3148,9 @@ msgstr "无线电已在其他位置被阻止；请在 WiFi/蓝牙中单独启用
 msgid "Re-enable visuals"
 msgstr "重新启用视觉效果"
 
+msgid "Read passphrase from an open file descriptor"
+msgstr "从已打开的文件描述符读取口令"
+
 msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
 msgstr "读取系统音频频谱（仅电平，不记录或发送任何音频）"
 
@@ -2761,6 +3199,9 @@ msgstr "拒绝使用符号链接的配置路径：{item}"
 msgid "Refusing to replace custom symlink: {path}"
 msgstr "拒绝替换自定义符号链接：{path}"
 
+msgid "Refusing to write through escaping symlink: {path}"
+msgstr "拒绝通过逃逸符号链接写入：{path}"
+
 msgid "Region"
 msgstr "区域"
 
@@ -2793,6 +3234,9 @@ msgstr "提醒已设置：{title} · {time} · 提示 {alerts}"
 
 msgid "Reminder times must be in the future."
 msgstr "提醒时间必须在未来。"
+
+msgid "Reminder: this file is on the same disk as your home folder. Move it to external storage before erasing or reinstalling."
+msgstr "提醒：此文件与主目录在同一磁盘上。重装或抹掉磁盘前请移至外接存储设备。"
 
 msgid "Reminders"
 msgstr "提醒"
@@ -2875,8 +3319,14 @@ msgstr "重复新密码"
 msgid "Repeat new password: "
 msgstr "重复新密码: "
 
+msgid "Repeat passphrase: "
+msgstr "重复口令："
+
 msgid "Repeat the password."
 msgstr "请重复密码。"
+
+msgid "Replaced files are backed up under ~/.local/state/eitr/restore-backups/ so you can run undo."
+msgstr "被替换的原文件会先备份至 ~/.local/state/eitr/restore-backups/，便于之后撤销还原。"
 
 msgid "Report a problem"
 msgstr "报告问题"
@@ -2902,6 +3352,9 @@ msgstr "仓库不可用；重试"
 msgid "Repository: {url}"
 msgstr "仓库：{url}"
 
+msgid "Required tool '{tool}' is not installed."
+msgstr "缺少必需工具 '{tool}'。"
+
 msgid "Reset the shared visual failure counter"
 msgstr "重置共享视觉故障计数器"
 
@@ -2923,17 +3376,44 @@ msgstr "重启以完成更新"
 msgid "Restart to finish updating."
 msgstr "重启以完成更新。"
 
+msgid "Restore"
+msgstr "还原"
+
+msgid "Restore complete ({count} files). Undo ID: {undo_id}"
+msgstr "还原完成（共 {count} 个文件）。撤销 ID：{undo_id}"
+
+msgid "Restore from a backup archive"
+msgstr "从备份归档还原"
+
+msgid "Restore plan"
+msgstr "还原计划"
+
+msgid "Restore settings, folders and apps from a backup archive"
+msgstr "从备份归档还原设置、文件夹和应用"
+
+msgid "Restore undo identifier"
+msgstr "还原撤销 ID"
+
+msgid "Restore undo point not found: {id}"
+msgstr "未找到还原撤销点：{id}"
+
 msgid "Restore {name} from…"
 msgstr "从…恢复 {name}"
 
 msgid "Restored"
 msgstr "已恢复"
 
+msgid "Restored {count} file(s). Undo ID: {undo_id}"
+msgstr "已还原 {count} 个文件。撤销 ID：{undo_id}"
+
 msgid "Restored {service_names} PAM files from {backup}"
 msgstr "已从 {backup} 恢复 {service_names} PAM 文件"
 
 msgid "Restoring the boot files"
 msgstr "正在恢复启动文件"
+
+msgid "Restoring {count} file(s)…"
+msgstr "正在还原 {count} 个文件…"
 
 msgid "Resume Picker"
 msgstr "恢复会话选择器"
@@ -2944,11 +3424,23 @@ msgstr "审查"
 msgid "Review /etc/default/limine first, then run: sudo systemctl start {unit}"
 msgstr "请先审查 /etc/default/limine，然后运行：sudo systemctl start {unit}"
 
+msgid "Review backup"
+msgstr "确认备份内容"
+
+msgid "Review declined"
+msgstr "审核未通过"
+
 msgid "Review installation"
 msgstr "审查安装"
 
+msgid "Review restore"
+msgstr "确认还原计划"
+
 msgid "Review status and settings"
 msgstr "审查状态与设置"
+
+msgid "Review {kind}: {name}"
+msgstr "审核 {kind}：{name}"
 
 msgid "Right"
 msgstr "向右"
@@ -3025,6 +3517,9 @@ msgstr "SQL 服务器"
 msgid "SQL databases"
 msgstr "SQL 数据库"
 
+msgid "SSH & GPG keys: copy or re-register hardware and private keys stored outside backups."
+msgstr "SSH 与 GPG 密钥：请手动恢复或重新注册备份外保存的私钥及硬件密钥。"
+
 msgid "SSH key"
 msgstr "SSH 密钥"
 
@@ -3036,6 +3531,9 @@ msgstr "SSO 登录"
 
 msgid "Safety"
 msgstr "安全性"
+
+msgid "Same disk as your home folder"
+msgstr "与主目录处于同一磁盘"
 
 msgid "Saturday"
 msgstr "星期六"
@@ -3112,8 +3610,17 @@ msgstr "安全组"
 msgid "Security key enrolled. Enable FIDO2 authentication separately; keep your password available."
 msgstr "安全密钥已注册。请单独启用 FIDO2 身份验证；请确保您的密码可用。"
 
+msgid "Select a .eitrbackup file to inspect."
+msgstr "选择一个要检查的 .eitrbackup 文件。"
+
 msgid "Select an account"
 msgstr "选择账户"
+
+msgid "Select at least one backup category."
+msgstr "请至少选择一个备份类别。"
+
+msgid "Select at least one option to continue."
+msgstr "请至少选择一项以继续。"
 
 msgid "Select at least one package"
 msgstr "选择至少一个软件包"
@@ -3214,6 +3721,9 @@ msgstr "不支持共享此网络安全类型"
 msgid "Shell"
 msgstr "Shell"
 
+msgid "Shipped or generated system file rejected from backup: {path}"
+msgstr "已拒绝系统自带或派生的文件：{path}"
+
 msgid "Show above windows"
 msgstr "在窗口上方显示"
 
@@ -3222,6 +3732,9 @@ msgstr "在窗口后方显示"
 
 msgid "Show it with"
 msgstr "显示方式"
+
+msgid "Show last backup and available undo points"
+msgstr "显示上次备份及可用的撤销点"
 
 msgid "Sign In"
 msgstr "登录"
@@ -3270,6 +3783,9 @@ msgstr "大小过大"
 
 msgid "Size needs two positive integers or percentages"
 msgstr "大小需要两个正整数或百分比"
+
+msgid "Skip reinstalling recorded packages/apps"
+msgstr "跳过重装记录的软件包/应用"
 
 msgid "Skipped snapshot boot entries."
 msgstr "已跳过快照启动条目。"
@@ -3346,6 +3862,15 @@ msgstr "部分已安装的插件已被阻止且不会运行；请在“已安装
 msgid "Some programs crashed in the last week; report a problem if one keeps crashing."
 msgstr "上周有程序发生崩溃；如果某个程序持续崩溃，请报告问题。"
 
+msgid "Source"
+msgstr "来源"
+
+msgid "Space: toggle"
+msgstr "空格: 切换勾选"
+
+msgid "Specify a backup archive file to restore."
+msgstr "请指定要还原的备份归档文件。"
+
 msgid "Split across monitors"
 msgstr "跨显示器拆分"
 
@@ -3417,6 +3942,9 @@ msgstr "存储桶"
 
 msgid "Storage volumes"
 msgstr "存储卷"
+
+msgid "Store items"
+msgstr "商店项目"
 
 msgid "Strong"
 msgstr "强烈"
@@ -3934,8 +4462,14 @@ msgstr "太容易被猜出：避免使用规律图案及您的用户名。"
 msgid "Too many questions; nothing changed."
 msgstr "问题过多；未进行任何更改。"
 
+msgid "Top-level folders in your home directory, chosen one by one"
+msgstr "主目录下的顶层文件夹，逐项挑选"
+
 msgid "Try again"
 msgstr "重试"
+
+msgid "Try passphrase again"
+msgstr "重新输入口令"
 
 msgid "Tuesday"
 msgstr "星期二"
@@ -3979,8 +4513,17 @@ msgstr "输入 1、2、3 或 4，或者按 Enter。"
 msgid "Type APPLY PROFILE to make these system changes: "
 msgstr "键入 APPLY PROFILE 以应用这些系统更改: "
 
+msgid "Type a folder or .eitrbackup file path"
+msgstr "输入文件夹或 .eitrbackup 文件路径"
+
+msgid "Type to filter by name or source, Space to toggle."
+msgstr "输入名称或来源过滤，按空格切换勾选。"
+
 msgid "Type to search"
 msgstr "输入以搜索"
+
+msgid "Type to search (Ctrl+A: toggle all)"
+msgstr "输入搜索 (Ctrl+A: 全选/取消)"
 
 msgid "Type yes to connect them (Enter cancels): "
 msgstr "键入 yes 连接它们（按 Enter 取消）: "
@@ -4012,6 +4555,15 @@ msgstr "无法列出会话。"
 msgid "Unavailable"
 msgstr "不可用"
 
+msgid "Undid restore {undo_id}: restored {prev} previous file(s), removed {added} added file(s)."
+msgstr "已撤销还原 {undo_id}：恢复了 {prev} 个原文件，移除了 {added} 个新增文件。"
+
+msgid "Undo a previous restore transaction"
+msgstr "撤销之前的还原操作"
+
+msgid "Undo points:"
+msgstr "撤销点："
+
 msgid "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
 msgstr "可使用“恢复共享设置”撤销。现有的 Sunshine 设置将被保留。"
 
@@ -4026,6 +4578,12 @@ msgstr "使用以下命令撤销：sudo {helper} auth-restore {name}"
 
 msgid "Unexpected FIDO2 registration"
 msgstr "非预期的 FIDO2 注册"
+
+msgid "Unexpected machine setup path rejected: {path}"
+msgstr "已拒绝非预期的本机设置路径：{path}"
+
+msgid "Unexpected top-level archive member rejected: {path}"
+msgstr "已拒绝非预期的归档顶层条目：{path}"
 
 msgid "Uninstall {label}?"
 msgstr "卸载 {label}？"
@@ -4060,11 +4618,17 @@ msgstr "未知的 HDR 值 {value}"
 msgid "Unknown Hyprland key: {key}"
 msgstr "未知的 Hyprland 按键：{key}"
 
+msgid "Unknown Store item type"
+msgstr "未知的商店项目类型"
+
 msgid "Unknown account"
 msgstr "未知账户"
 
 msgid "Unknown action"
 msgstr "未知操作"
+
+msgid "Unknown backup category rejected: {category}"
+msgstr "已拒绝未知的备份类别：{category}"
 
 msgid "Unknown monitoring service"
 msgstr "未知的监控服务"
@@ -4096,8 +4660,17 @@ msgstr "存在未受管的远程访问规则"
 msgid "Unreadable answers file {path}: {error}"
 msgstr "无法读取答案文件 {path}：{error}"
 
+msgid "Unsafe archive member path rejected: {path}"
+msgstr "已拒绝不安全的归档成员路径：{path}"
+
 msgid "Unsafe stick path: {name}"
 msgstr "不安全的 U 盘路径：{name}"
+
+msgid "Unsafe symlink target rejected: {path}"
+msgstr "已拒绝不安全的符号链接目标：{path}"
+
+msgid "Unsafe undo journal entry rejected: {path}"
+msgstr "已拒绝不安全的撤销日志条目：{path}"
 
 msgid "Unsupported PAM file: {path}"
 msgstr "不受支持的 PAM 文件：{path}"
@@ -4111,11 +4684,20 @@ msgstr "不支持的操作标识符"
 msgid "Unsupported application launcher path"
 msgstr "不受支持的应用程序启动器路径"
 
+msgid "Unsupported archive entry type rejected: {path}"
+msgstr "已拒绝不支持的归档条目类型：{path}"
+
+msgid "Unsupported backup archive version: {version}"
+msgstr "不支持的备份归档版本：{version}"
+
 msgid "Unsupported enterprise method"
 msgstr "不受支持的企业级验证方法"
 
 msgid "Unsupported power profile: {name}"
 msgstr "不受支持的电源配置文件：{name}"
+
+msgid "Unsupported special tar entry rejected: {path}"
+msgstr "已拒绝不支持的特殊 tar 条目：{path}"
 
 msgid "Unsupported uninstall source"
 msgstr "不受支持的卸载来源"
@@ -4216,6 +4798,9 @@ msgstr "在所有没有独立账户的文件夹中使用 {label}？"
 msgid "Use {picked} for {label}?"
 msgstr "对 {label} 使用 {picked}？"
 
+msgid "Used with age to encrypt your archive. Never saved to disk; minimum 8 characters."
+msgstr "用于通过 age 加密归档。不会保存至磁盘；至少 8 个字符。"
+
 msgid "User access keys"
 msgstr "用户访问密钥"
 
@@ -4294,6 +4879,12 @@ msgstr "未找到壁纸文件"
 msgid "Wallpaper must be PNG, JPEG or WebP"
 msgstr "壁纸必须是 PNG、JPEG 或 WebP 格式"
 
+msgid "Warning: same disk as home folder; copy to external media before reinstalling."
+msgstr "警告：与主目录在同一磁盘；重装前请先拷贝至外部介质。"
+
+msgid "Warning: saving only on this disk will not protect your backup if this drive fails or is erased during reinstall."
+msgstr "警告：仅保存在此磁盘上，在硬盘损坏或重装抹盘时无法保护您的备份。"
+
 msgid "Warnings:"
 msgstr "警告："
 
@@ -4323,6 +4914,9 @@ msgstr "星期三"
 
 msgid "Weekly"
 msgstr "每周"
+
+msgid "What to back up"
+msgstr "选择备份内容"
 
 msgid "When? (10m, 18:30, every day 08:00)"
 msgstr "何时？(10m, 18:30, every day 08:00)"
@@ -4411,6 +5005,9 @@ msgstr "询问福金与雾尼"
 msgid "binary"
 msgstr "二进制"
 
+msgid "calculating…"
+msgstr "计算中…"
+
 msgid "cannot list monitors: {error}"
 msgstr "无法列出显示器：{error}"
 
@@ -4447,6 +5044,12 @@ msgstr "喂养渡鸦"
 msgid "finding the hidden fjord"
 msgstr "寻找隐秘峡湾"
 
+msgid "flatpak exited with status {code}"
+msgstr "flatpak 已退出，状态码 {code}"
+
+msgid "flatpak is not installed"
+msgstr "未安装 flatpak"
+
 msgid "following the northern star"
 msgstr "追随北极星"
 
@@ -4482,6 +5085,12 @@ msgstr "未加密"
 
 msgid "offline stick file"
 msgstr "U 盘离线文件"
+
+msgid "pacman exited with status {code}"
+msgstr "pacman 已退出，状态码 {code}"
+
+msgid "pacman is not available"
+msgstr "pacman 不可用"
 
 msgid "pacman.conf has no [eitr] repository to add the testing channel before"
 msgstr "pacman.conf 没有用于在其前添加测试通道的 [eitr] 仓库"
@@ -4578,6 +5187,12 @@ msgstr "{config} 包含未完成的 EITR 样式块；请手动修复。未进行
 
 msgid "{count} events from the last week to the next 60 days."
 msgstr "从上周到未来 60 天共有 {count} 个日程。"
+
+msgid "{count} files ({size} uncompressed)"
+msgstr "{count} 个文件（未压缩 {size}）"
+
+msgid "{count} files ({size})"
+msgstr "{count} 个文件（{size}）"
 
 msgid "{count} occurrences"
 msgstr "{count} 次发生"
@@ -4707,6 +5322,12 @@ msgstr "{name}：在 {charge_percent}% 时停止充电"
 
 msgid "{name}: {count} events from the last week to the next 60 days."
 msgstr "{name}：从上周到未来 60 天共有 {count} 个日程。"
+
+msgid "{path} (external)"
+msgstr "{path}（外接）"
+
+msgid "{path} (local folder)"
+msgstr "{path}（本地文件夹）"
 
 msgid "{path} has no usable free space"
 msgstr "{path} 没有可用空间"

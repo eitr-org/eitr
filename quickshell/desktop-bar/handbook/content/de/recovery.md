@@ -1,6 +1,6 @@
 # Wiederherstellungs-Snapshots von Eitr
 
-Snapshots sind Wiederherstellungspunkte, **keine Sicherungen auf einem anderen Gerät**. Ein Laufwerksausfall kann System und Snapshots gemeinsam zerstören. Bewahre unabhängige Sicherungen auf.
+Snapshots sind Wiederherstellungspunkte, **keine Sicherungen auf einem anderen Gerät**. Ein Laufwerksausfall kann System und Snapshots gemeinsam zerstören. Bewahre unabhängige Sicherungen auf: siehe [Sicherung und Wiederherstellung](handbook:backup-restore) im EITR-Handbuch (Einstellungen > System > Sicherung und Wiederherstellung, oder `eitr backup`) für portierbare verschlüsselte Archive deiner Einstellungen, Ordner und Apps.
 
 Eitr unterstützt Snapper auf einem Btrfs-Root-Dateisystem, in dem `/usr`, `/etc` und `/var/lib/pacman` im selben Root-Subvolume liegen. `/home` darf getrennt sein; ein Root-Snapshot umfasst es nicht. Nicht unterstützte Anordnungen verhindern die Aktualisierung, bevor Änderungen erfolgen. `install.sh` formatiert keine Laufwerke und ordnet vorhandene Subvolumes nicht um. Nur `eitr-guided-install` auf der ISO löscht das von dir bestätigte Laufwerk und erstellt diese Anordnung (siehe geführte Installation im README).
 

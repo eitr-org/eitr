@@ -78,7 +78,7 @@ ShellRoot {
         source = catalog.replace('var settings =', 'var Catalog = {settings:').replace('];', ']};') + source
         script = source + '''
 const assert = require('node:assert/strict');
-assert.equal(pages.length, 21);
+assert.equal(pages.length, 22);
 assert(!pages.some(page => ["themes", "plugins"].includes(page.id)));
 assert(pages.every(page => page.rune && page.description));
 assert.equal(pages[0].id, 'system');
@@ -312,7 +312,7 @@ QtObject {
                 for diagnostic in ('TypeError:', 'ReferenceError:', 'Unable to assign', 'Binding loop', 'Error:', 'Required property'):
                     self.assertNotIn(diagnostic, output)
                 for page in ('appearance', 'bar', 'windows', 'lockscreen', 'notifications', 'focus',
-                             'displays', 'sound', 'connections', 'input', 'keybinds', 'window-rules', 'default-apps', 'user', 'user-manage', 'user-users', 'security', 'assistants', 'updates', 'check-pc', 'about'):
+                             'displays', 'sound', 'connections', 'input', 'keybinds', 'window-rules', 'default-apps', 'user', 'user-manage', 'user-users', 'security', 'assistants', 'updates', 'backup', 'check-pc', 'about'):
                     self.assertTrue((output_folder / f'{theme}-{page}.png').is_file(), page)
 
     def test_user_picture_sheet_and_overview_avatar(self):

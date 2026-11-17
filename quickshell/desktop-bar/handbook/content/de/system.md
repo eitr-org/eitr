@@ -39,6 +39,7 @@ Verwende die folgenden Seitennamen. Anleitungen stehen in den verlinkten Kapitel
 | Benutzer | [Benutzer](handbook:security) |
 | Sicherheit | [Sicherheit](handbook:security) |
 | Aktualisierungen | [Aktualisierungen](handbook:maintenance) |
+| Sicherung & Wiederherstellung | [Sicherung und Wiederherstellung](handbook:backup-restore) |
 | Diesen PC prüfen | [Diesen PC prüfen](handbook:troubleshooting) |
 | Über | [Über](handbook:information) |
 

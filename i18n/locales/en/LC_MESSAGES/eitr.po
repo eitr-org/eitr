@@ -94,6 +94,9 @@ msgstr "'{spoken}' is not a time: try 10m, 1h30m or 18:30."
 msgid "(none)"
 msgstr "(none)"
 
+msgid "+: add folder"
+msgstr "+: add folder"
+
 msgid "/boot is a separate partition: snapshot entries boot the current kernel. After a kernel update, restore the matching boot archive as RECOVERY.md describes."
 msgstr "/boot is a separate partition: snapshot entries boot the current kernel. After a kernel update, restore the matching boot archive as RECOVERY.md describes."
 
@@ -193,8 +196,14 @@ msgstr "ALL partitions and files on {path} will be destroyed.\n"
 msgid "AUR builds must run as a normal user"
 msgstr "AUR builds must run as a normal user"
 
+msgid "AUR install exited with status {code}"
+msgstr "AUR install exited with status {code}"
+
 msgid "AUR package not found"
 msgstr "AUR package not found"
+
+msgid "AUR packages"
+msgstr "AUR packages"
 
 msgid "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing."
 msgstr "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing."
@@ -295,6 +304,12 @@ msgstr "Add an Azure account"
 msgid "Add bar item"
 msgstr "Add bar item"
 
+msgid "Add folder…"
+msgstr "Add folder…"
+
+msgid "Add personal folder"
+msgstr "Add personal folder"
+
 msgid "Add widget · {monitor}"
 msgstr "Add widget · {monitor}"
 
@@ -364,6 +379,18 @@ msgstr "App Services"
 msgid "App clients"
 msgstr "App clients"
 
+msgid "App settings"
+msgstr "App settings"
+
+msgid "App settings (~/.config)"
+msgstr "App settings (~/.config)"
+
+msgid "App settings folders: {count}"
+msgstr "App settings folders: {count}"
+
+msgid "App settings to restore"
+msgstr "App settings to restore"
+
 msgid "Application deployments"
 msgstr "Application deployments"
 
@@ -385,14 +412,50 @@ msgstr "Applying it…"
 msgid "Applying…"
 msgstr "Applying…"
 
+msgid "Approve installation? [y/N/Esc] "
+msgstr "Approve installation? [y/N/Esc] "
+
 msgid "Apps"
 msgstr "Apps"
+
+msgid "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}"
+msgstr "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}"
+
+msgid "Apps to reinstall"
+msgstr "Apps to reinstall"
 
 msgid "Apps were closed because memory ran out; close apps you are not using, and report a problem if it keeps happening."
 msgstr "Apps were closed because memory ran out; close apps you are not using, and report a problem if it keeps happening."
 
+msgid "Apps: installed={n}, already_present={a}, skipped={s}, failed={f}"
+msgstr "Apps: installed={n}, already_present={a}, skipped={s}, failed={f}"
+
+msgid "Apps: official={off}, aur={aur}, flatpak={fp}, plugins={pl}, store={st}"
+msgstr "Apps: official={off}, aur={aur}, flatpak={fp}, plugins={pl}, store={st}"
+
 msgid "Arch posted news since your last update:"
 msgstr "Arch posted news since your last update:"
+
+msgid "Archive"
+msgstr "Archive"
+
+msgid "Archive is missing manifest.json as its first entry."
+msgstr "Archive is missing manifest.json as its first entry."
+
+msgid "Archive manifest is missing or malformed."
+msgstr "Archive manifest is missing or malformed."
+
+msgid "Archive manifest must be a regular file."
+msgstr "Archive manifest must be a regular file."
+
+msgid "Archive path for restore mode"
+msgstr "Archive path for restore mode"
+
+msgid "Archive size: {size}"
+msgstr "Archive size: {size}"
+
+msgid "Archive version: {v}"
+msgstr "Archive version: {v}"
 
 msgid "Arrows / Tab: move  Enter: answer  Esc: cancel"
 msgstr "Arrows / Tab: move  Enter: answer  Esc: cancel"
@@ -466,8 +529,44 @@ msgstr "Background service removed"
 msgid "Background service: {service}"
 msgstr "Background service: {service}"
 
+msgid "Backup"
+msgstr "Backup"
+
+msgid "Backup and Restore"
+msgstr "Backup and Restore"
+
+msgid "Backup archive decompression failed."
+msgstr "Backup archive decompression failed."
+
+msgid "Backup archive does not contain a valid manifest."
+msgstr "Backup archive does not contain a valid manifest."
+
+msgid "Backup archive does not contain manifest.json."
+msgstr "Backup archive does not contain manifest.json."
+
+msgid "Backup archive is corrupted."
+msgstr "Backup archive is corrupted."
+
+msgid "Backup archive not found: {path}"
+msgstr "Backup archive not found: {path}"
+
+msgid "Backup archive output file is empty."
+msgstr "Backup archive output file is empty."
+
+msgid "Backup archive path"
+msgstr "Backup archive path"
+
+msgid "Backup created: {path}"
+msgstr "Backup created: {path}"
+
+msgid "Backup format version {found} is newer than this Eitr version supports ({supported}). Update Eitr before restoring."
+msgstr "Backup format version {found} is newer than this Eitr version supports ({supported}). Update Eitr before restoring."
+
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "Backup of the current Limine menu: {backup}"
+
+msgid "Backup passphrase"
+msgstr "Backup passphrase"
 
 msgid "Backup {name} is incomplete: missing {missing_files}"
 msgstr "Backup {name} is incomplete: missing {missing_files}"
@@ -508,6 +607,9 @@ msgstr "Bootable snapshots are not supported with {loader}. {reason} Nothing was
 msgid "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot"
 msgstr "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot"
 
+msgid "Browse / enter file path…"
+msgstr "Browse / enter file path…"
+
 msgid "Browse bucket"
 msgstr "Browse bucket"
 
@@ -516,6 +618,18 @@ msgstr "Browser must be firefox or chromium (install it with add.packages)"
 
 msgid "Browser profile"
 msgstr "Browser profile"
+
+msgid "Browser profiles are excluded from backups: {path}"
+msgstr "Browser profiles are excluded from backups: {path}"
+
+msgid "Browser profiles, cache/lock/socket files, SSH/GPG/cloud/Git credentials"
+msgstr "Browser profiles, cache/lock/socket files, SSH/GPG/cloud/Git credentials"
+
+msgid "Browser profiles, caches, sockets and SSH/GPG/cloud credentials are excluded."
+msgstr "Browser profiles, caches, sockets and SSH/GPG/cloud credentials are excluded."
+
+msgid "Browsers: profiles are omitted for security — sign back in to your accounts and sync."
+msgstr "Browsers: profiles are omitted for security — sign back in to your accounts and sync."
 
 msgid "Buckets"
 msgstr "Buckets"
@@ -543,6 +657,9 @@ msgstr "CLI unavailable"
 
 msgid "Cache Sizes"
 msgstr "Cache Sizes"
+
+msgid "Caches and browser profiles are skipped automatically."
+msgstr "Caches and browser profiles are skipped automatically."
 
 msgid "Calendar added"
 msgstr "Calendar added"
@@ -595,8 +712,20 @@ msgstr "Cannot inspect package dependency database {database}: {error}"
 msgid "Cannot make the last administrator a standard account"
 msgstr "Cannot make the last administrator a standard account"
 
+msgid "Cannot open archive"
+msgstr "Cannot open archive"
+
+msgid "Cannot overwrite existing directory with file: {path}"
+msgstr "Cannot overwrite existing directory with file: {path}"
+
+msgid "Cannot read passphrase from fd {fd}: {error}"
+msgstr "Cannot read passphrase from fd {fd}: {error}"
+
 msgid "Cannot read window rules: {error}"
 msgstr "Cannot read window rules: {error}"
+
+msgid "Cannot read {path}: {error}"
+msgstr "Cannot read {path}: {error}"
 
 msgid "Cannot remove the last administrator"
 msgstr "Cannot remove the last administrator"
@@ -624,6 +753,9 @@ msgstr "Catalog backend unavailable"
 
 msgid "Catalog operation failed"
 msgstr "Catalog operation failed"
+
+msgid "Categories: {list}"
+msgstr "Categories: {list}"
 
 msgid "Center"
 msgstr "Center"
@@ -694,11 +826,26 @@ msgstr "Choose a user-owned private key with permission 600 or stricter"
 msgid "Choose an existing folder without Git glob characters"
 msgstr "Choose an existing folder without Git glob characters"
 
+msgid "Choose an external drive instead"
+msgstr "Choose an external drive instead"
+
 msgid "Choose an installed assistant."
 msgstr "Choose an installed assistant."
 
 msgid "Choose another default first; the system icon font must remain installed"
 msgstr "Choose another default first; the system icon font must remain installed"
+
+msgid "Choose another destination"
+msgstr "Choose another destination"
+
+msgid "Choose apps to record"
+msgstr "Choose apps to record"
+
+msgid "Choose backup archive"
+msgstr "Choose backup archive"
+
+msgid "Choose folders one by one. Sizes load in the background."
+msgstr "Choose folders one by one. Sizes load in the background."
 
 msgid "Choose iwd or NetworkManager"
 msgstr "Choose iwd or NetworkManager"
@@ -714,6 +861,12 @@ msgstr "Choose one of the listed designs."
 
 msgid "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks."
 msgstr "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks."
+
+msgid "Choose what to restore"
+msgstr "Choose what to restore"
+
+msgid "Choose where to save the encrypted backup archive."
+msgstr "Choose where to save the encrypted backup archive."
 
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "Chromium default requires add.packages chromium or its recipe"
@@ -753,6 +906,9 @@ msgstr "Closing the recovery point of an interrupted earlier update."
 
 msgid "Cloud"
 msgstr "Cloud"
+
+msgid "Cloud & Git credentials: reconnect gh, gcloud, aws, az and Git account setups as needed."
+msgstr "Cloud & Git credentials: reconnect gh, gcloud, aws, az and Git account setups as needed."
 
 msgid "Cloud Functions"
 msgstr "Cloud Functions"
@@ -805,8 +961,29 @@ msgstr "Colors of {name}"
 msgid "Comfortable"
 msgstr "Comfortable"
 
+msgid "Comma-separated app settings folders to restore"
+msgstr "Comma-separated app settings folders to restore"
+
+msgid "Comma-separated category IDs"
+msgstr "Comma-separated category IDs"
+
+msgid "Comma-separated category IDs to restore"
+msgstr "Comma-separated category IDs to restore"
+
+msgid "Comma-separated personal folders to restore"
+msgstr "Comma-separated personal folders to restore"
+
+msgid "Comma-separated personal folders under $HOME"
+msgstr "Comma-separated personal folders under $HOME"
+
+msgid "Comma-separated ~/.config app directories"
+msgstr "Comma-separated ~/.config app directories"
+
 msgid "Command failed (exit {status})"
 msgstr "Command failed (exit {status})"
+
+msgid "Commit"
+msgstr "Commit"
 
 msgid "Commit author email"
 msgstr "Commit author email"
@@ -829,6 +1006,9 @@ msgstr "Commits:"
 msgid "Compartments"
 msgstr "Compartments"
 
+msgid "Compression with zstd failed."
+msgstr "Compression with zstd failed."
+
 msgid "Compute Instances"
 msgstr "Compute Instances"
 
@@ -844,6 +1024,9 @@ msgstr "Configuration changed during preview: {path}"
 msgid "Configuration file"
 msgstr "Configuration file"
 
+msgid "Configuration folders in ~/.config without caches or browser profiles"
+msgstr "Configuration folders in ~/.config without caches or browser profiles"
+
 msgid "Configure this source in OBS first"
 msgstr "Configure this source in OBS first"
 
@@ -852,6 +1035,9 @@ msgstr "Configured selection for {design_count} package-owned login designs."
 
 msgid "Confirm"
 msgstr "Confirm"
+
+msgid "Confirm same-disk warning non-interactively"
+msgstr "Confirm same-disk warning non-interactively"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "Conflicting iwd backend setting in {path}; review it before switching."
@@ -949,6 +1135,9 @@ msgstr "Crash summary"
 msgid "Create User…"
 msgstr "Create User…"
 
+msgid "Create a backup archive"
+msgstr "Create a backup archive"
+
 msgid "Create a lockscreen with your own picture. It stays on this computer."
 msgstr "Create a lockscreen with your own picture. It stays on this computer."
 
@@ -960,6 +1149,21 @@ msgstr "Create a theme from a picture. It stays on this computer."
 
 msgid "Create a web app: a launcher that opens a site in its own window."
 msgstr "Create a web app: a launcher that opens a site in its own window."
+
+msgid "Create an encrypted backup archive"
+msgstr "Create an encrypted backup archive"
+
+msgid "Create, inspect, restore or undo Eitr backups."
+msgstr "Create, inspect, restore or undo Eitr backups."
+
+msgid "Created backup: {path} ({size})"
+msgstr "Created backup: {path} ({size})"
+
+msgid "Created: {date} by {user}@{host}"
+msgstr "Created: {date} by {user}@{host}"
+
+msgid "Creating encrypted backup…"
+msgstr "Creating encrypted backup…"
 
 msgid "Creating the after-update snapshot…"
 msgstr "Creating the after-update snapshot…"
@@ -1003,8 +1207,14 @@ msgstr "Cursor preference saved; refresh failed: {error}"
 msgid "Cursor theme {theme} is not installed. Install the corresponding cursor package first."
 msgstr "Cursor theme {theme} is not installed. Install the corresponding cursor package first."
 
+msgid "Custom backup destination"
+msgstr "Custom backup destination"
+
 msgid "Custom or masked tailscaled service: review manually"
 msgstr "Custom or masked tailscaled service: review manually"
+
+msgid "Custom path…"
+msgstr "Custom path…"
 
 msgid "Custom static-IP/VPN setups need manual review before switching."
 msgstr "Custom static-IP/VPN setups need manual review before switching."
@@ -1044,6 +1254,9 @@ msgstr "Databases"
 
 msgid "Date"
 msgstr "Date"
+
+msgid "Decrypting and validating backup archive…"
+msgstr "Decrypting and validating backup archive…"
 
 msgid "Default"
 msgstr "Default"
@@ -1096,8 +1309,26 @@ msgstr "Design"
 msgid "Desktop Audio"
 msgstr "Desktop Audio"
 
+msgid "Desktop preferences, deliberate overrides and your own themes or wallpapers"
+msgstr "Desktop preferences, deliberate overrides and your own themes or wallpapers"
+
 msgid "Desktop: Afterglow / Clockwork Tape, installed offline before reboot"
 msgstr "Desktop: Afterglow / Clockwork Tape, installed offline before reboot"
+
+msgid "Destination"
+msgstr "Destination"
+
+msgid "Destination directory or archive filename"
+msgstr "Destination directory or archive filename"
+
+msgid "Destination has {free} free, need at least {needed}."
+msgstr "Destination has {free} free, need at least {needed}."
+
+msgid "Destination unavailable"
+msgstr "Destination unavailable"
+
+msgid "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
+msgstr "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
@@ -1137,6 +1368,9 @@ msgstr "Do not encrypt: files are readable without a password"
 
 msgid "Do not put login credentials in the address."
 msgstr "Do not put login credentials in the address."
+
+msgid "Do not record installed apps"
+msgstr "Do not record installed apps"
 
 msgid "DocumentDB"
 msgstr "DocumentDB"
@@ -1213,6 +1447,9 @@ msgstr "Eitr asks for your password only in a terminal it opened for a step you 
 msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 msgstr "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 
+msgid "Eitr settings"
+msgstr "Eitr settings"
+
 msgid "Eitr software"
 msgstr "Eitr software"
 
@@ -1246,6 +1483,9 @@ msgstr "Encrypted partition number: "
 msgid "Encryption"
 msgstr "Encryption"
 
+msgid "Encryption helper failed."
+msgstr "Encryption helper failed."
+
 msgid "Encryption: DISABLED"
 msgstr "Encryption: DISABLED"
 
@@ -1260,6 +1500,12 @@ msgstr "Enrollment status requires the existing disk-unlock flow"
 
 msgid "Enter a color as six hex digits, for example #2bb87a."
 msgstr "Enter a color as six hex digits, for example #2bb87a."
+
+msgid "Enter a directory path or a full filename ending in {ext}."
+msgstr "Enter a directory path or a full filename ending in {ext}."
+
+msgid "Enter a folder path inside your home directory."
+msgstr "Enter a folder path inside your home directory."
 
 msgid "Enter a hostname, not a URL, port or shell option"
 msgstr "Enter a hostname, not a URL, port or shell option"
@@ -1282,11 +1528,20 @@ msgstr "Enter the full path to the configuration file."
 msgid "Enter the other picture's file or https address."
 msgstr "Enter the other picture's file or https address."
 
+msgid "Enter the passphrase to decrypt and inspect the archive."
+msgstr "Enter the passphrase to decrypt and inspect the archive."
+
+msgid "Enter the path to the .eitrbackup file."
+msgstr "Enter the path to the .eitrbackup file."
+
 msgid "Enter: answer  Left / Tab: back  Esc: cancel"
 msgstr "Enter: answer  Left / Tab: back  Esc: cancel"
 
 msgid "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
 msgstr "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
+
+msgid "Enter: confirm  Left: back  PgUp/PgDn: scroll  Esc: cancel"
+msgstr "Enter: confirm  Left: back  PgUp/PgDn: scroll  Esc: cancel"
 
 msgid "Enter: confirm · Esc: cancel"
 msgstr "Enter: confirm · Esc: cancel"
@@ -1300,11 +1555,23 @@ msgstr "Enter: continue  Esc: cancel"
 msgid "Enter: copy the redacted report · Esc: close"
 msgstr "Enter: copy the redacted report · Esc: close"
 
+msgid "Enter: create encrypted backup  ·  Nothing is written until you confirm"
+msgstr "Enter: create encrypted backup  ·  Nothing is written until you confirm"
+
+msgid "Enter: next"
+msgstr "Enter: next"
+
 msgid "Enter: open Network Backend · Esc: close"
 msgstr "Enter: open Network Backend · Esc: close"
 
 msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
 msgstr "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
+
+msgid "Enter: start now  ·  Nothing is written until you confirm"
+msgstr "Enter: start now  ·  Nothing is written until you confirm"
+
+msgid "Enter: start restore  ·  Nothing is written until you confirm"
+msgstr "Enter: start restore  ·  Nothing is written until you confirm"
 
 msgid "Enterprise WiFi requires username, password, CA certificate and server domain"
 msgstr "Enterprise WiFi requires username, password, CA certificate and server domain"
@@ -1318,6 +1585,9 @@ msgstr "Enterprise profile exists; forget it in the panel before replacing crede
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "Erase the whole disk ({size_text}) and install Eitr"
 
+msgid "Esc: cancel"
+msgstr "Esc: cancel"
+
 msgid "Event hook added or changed: {event}"
 msgstr "Event hook added or changed: {event}"
 
@@ -1329,6 +1599,18 @@ msgstr "Every plugin in this repository is already installed. Update or remove t
 
 msgid "Everything is up to date."
 msgstr "Everything is up to date."
+
+msgid "Excluded automatically"
+msgstr "Excluded automatically"
+
+msgid "Excluded cache path rejected: {path}"
+msgstr "Excluded cache path rejected: {path}"
+
+msgid "Excluded sensitive or temporary path rejected: {path}"
+msgstr "Excluded sensitive or temporary path rejected: {path}"
+
+msgid "Excluded system or secret folder cannot be added: {path}"
+msgstr "Excluded system or secret folder cannot be added: {path}"
 
 msgid "Executable files: {count}"
 msgstr "Executable files: {count}"
@@ -1366,6 +1648,9 @@ msgstr "Factory reset point saved for {usernames}."
 msgid "Factory reset point: {created} (accounts: {names})"
 msgstr "Factory reset point: {created} (accounts: {names})"
 
+msgid "Failed to read backup archive: {error}"
+msgstr "Failed to read backup archive: {error}"
+
 msgid "File became executable: {path}"
 msgstr "File became executable: {path}"
 
@@ -1374,6 +1659,9 @@ msgstr "File manager"
 
 msgid "File or folder to restore (for example ~/Documents/report.odt)"
 msgstr "File or folder to restore (for example ~/Documents/report.odt)"
+
+msgid "Files: {count} ({size} uncompressed)"
+msgstr "Files: {count} ({size} uncompressed)"
 
 msgid "Filesystem {uuid} on {device}"
 msgstr "Filesystem {uuid} on {device}"
@@ -1405,6 +1693,9 @@ msgstr "Fit"
 msgid "Flathub apps install at the first start with a network connection."
 msgstr "Flathub apps install at the first start with a network connection."
 
+msgid "Flatpak apps"
+msgstr "Flatpak apps"
+
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "Flatpak apps could not be updated; the system update itself finished."
 
@@ -1414,8 +1705,14 @@ msgstr "Float must be true or false"
 msgid "Folder"
 msgstr "Folder"
 
+msgid "Folder does not exist: {path}"
+msgstr "Folder does not exist: {path}"
+
 msgid "Folder for {label}"
 msgstr "Folder for {label}"
+
+msgid "Folder must be inside your home directory: {path}"
+msgstr "Folder must be inside your home directory: {path}"
 
 msgid "Folder path"
 msgstr "Folder path"
@@ -1456,8 +1753,14 @@ msgstr "Format"
 msgid "Found in your Git configuration"
 msgstr "Found in your Git configuration"
 
+msgid "Free space: {free}"
+msgstr "Free space: {free}"
+
 msgid "Friday"
 msgstr "Friday"
+
+msgid "From {user}@{host} on {date}"
+msgstr "From {user}@{host} on {date}"
 
 msgid "Full"
 msgstr "Full"
@@ -1540,6 +1843,9 @@ msgstr "Hardware"
 msgid "Hardware detection failed; see the log above"
 msgstr "Hardware detection failed; see the log above"
 
+msgid "Hardware-local display and Hyprland overrides for this PC"
+msgstr "Hardware-local display and Hyprland overrides for this PC"
+
 msgid "Have you set Sunshine’s username and password in the browser?"
 msgstr "Have you set Sunshine’s username and password in the browser?"
 
@@ -1603,6 +1909,15 @@ msgstr "Import a VPN file…"
 msgid "Import a WireGuard configuration…"
 msgstr "Import a WireGuard configuration…"
 
+msgid "Include hardware-local Hyprland/display files"
+msgstr "Include hardware-local Hyprland/display files"
+
+msgid "Included data"
+msgstr "Included data"
+
+msgid "Incorrect passphrase for backup archive."
+msgstr "Incorrect passphrase for backup archive."
+
 msgid "Initramfs: mkinitcpio not found; make sure your initramfs unlocks with systemd-cryptsetup."
 msgstr "Initramfs: mkinitcpio not found; make sure your initramfs unlocks with systemd-cryptsetup."
 
@@ -1611,6 +1926,9 @@ msgstr "Initramfs: systemd sd-encrypt hook present; it tries the TPM2 token at b
 
 msgid "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 msgstr "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
+
+msgid "Inspect backup contents and manifest"
+msgstr "Inspect backup contents and manifest"
 
 msgid "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it."
 msgstr "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it."
@@ -1672,11 +1990,20 @@ msgstr "Install {package} now?"
 msgid "Installed"
 msgstr "Installed"
 
+msgid "Installed apps"
+msgstr "Installed apps"
+
 msgid "Installed plugins could not be checked against the new policy: {error}"
 msgstr "Installed plugins could not be checked against the new policy: {error}"
 
 msgid "Installer must use HTTPS"
 msgstr "Installer must use HTTPS"
+
+msgid "Installing AUR package {index}/{total}: {name}…"
+msgstr "Installing AUR package {index}/{total}: {name}…"
+
+msgid "Installing Flatpak app {index}/{total}: {name}…"
+msgstr "Installing Flatpak app {index}/{total}: {name}…"
 
 msgid "Installing alongside is unavailable: {reason}"
 msgstr "Installing alongside is unavailable: {reason}"
@@ -1686,6 +2013,9 @@ msgstr "Installing alongside keeps every existing partition."
 
 msgid "Installing the selected software. Profile additions may need the internet. Keep the computer powered on."
 msgstr "Installing the selected software. Profile additions may need the internet. Keep the computer powered on."
+
+msgid "Installing {count} official package(s) in one transaction…"
+msgstr "Installing {count} official package(s) in one transaction…"
 
 msgid "Instance status"
 msgstr "Instance status"
@@ -1810,6 +2140,9 @@ msgstr "Invalid repeat rule."
 msgid "Invalid repository server URL"
 msgstr "Invalid repository server URL"
 
+msgid "Invalid restore backup identifier: {id}"
+msgstr "Invalid restore backup identifier: {id}"
+
 msgid "Invalid rule fields"
 msgstr "Invalid rule fields"
 
@@ -1885,6 +2218,9 @@ msgstr "Keep it"
 msgid "Keep the greeting under 80 characters."
 msgstr "Keep the greeting under 80 characters."
 
+msgid "Keep this destination (I will copy it off this PC)"
+msgstr "Keep this destination (I will copy it off this PC)"
+
 msgid "Kept user layout link override: {target}"
 msgstr "Kept user layout link override: {target}"
 
@@ -1936,6 +2272,12 @@ msgstr "Language: {language} / Keyboard: {keyboard}"
 msgid "Large"
 msgstr "Large"
 
+msgid "Last backup: {date} ({path})"
+msgstr "Last backup: {date} ({path})"
+
+msgid "Last backup: {date} -> {path} ({size})"
+msgstr "Last backup: {date} -> {path} ({size})"
+
 msgid "Later"
 msgstr "Later"
 
@@ -1948,8 +2290,14 @@ msgstr "Latest image tags"
 msgid "Latest log streams"
 msgstr "Latest log streams"
 
+msgid "Launch interactive terminal backup/restore wizard"
+msgstr "Launch interactive terminal backup/restore wizard"
+
 msgid "Left"
 msgstr "Left"
+
+msgid "Left: back"
+msgstr "Left: back"
 
 msgid "Let assistants work together"
 msgstr "Let assistants work together"
@@ -1986,6 +2334,9 @@ msgstr "List repositories"
 
 msgid "List services"
 msgstr "List services"
+
+msgid "Lists of explicit official, AUR, Flatpak, plugin and Store items"
+msgstr "Lists of explicit official, AUR, Flatpak, plugin and Store items"
 
 msgid "Live data command added or changed: {kind} · {id} · {command}"
 msgstr "Live data command added or changed: {kind} · {id} · {command}"
@@ -2031,6 +2382,9 @@ msgstr "Look closely at:"
 
 msgid "Lowercase name. This user will have sudo access."
 msgstr "Lowercase name. This user will have sudo access."
+
+msgid "Machine setup"
+msgstr "Machine setup"
 
 msgid "Magenta"
 msgstr "Magenta"
@@ -2137,6 +2491,9 @@ msgstr "Next, Eitr downloads the plugin without running it and shows its exact a
 msgid "No"
 msgstr "No"
 
+msgid "No AUR helper (yay or paru) installed"
+msgstr "No AUR helper (yay or paru) installed"
+
 msgid "No LUKS-encrypted partition was found."
 msgstr "No LUKS-encrypted partition was found."
 
@@ -2154,6 +2511,9 @@ msgstr "No WiFi backend is running"
 
 msgid "No account named {user}"
 msgstr "No account named {user}"
+
+msgid "No backup recorded yet."
+msgstr "No backup recorded yet."
 
 msgid "No battery charge limit control on this machine."
 msgstr "No battery charge limit control on this machine."
@@ -2181,6 +2541,9 @@ msgstr "No email app opened. Write to {REPORTS_EMAIL} from your webmail and atta
 
 msgid "No encrypted partition selected; nothing was changed."
 msgstr "No encrypted partition selected; nothing was changed."
+
+msgid "No interactive terminal for passphrase; pass --passphrase-fd."
+msgstr "No interactive terminal for passphrase; pass --passphrase-fd."
 
 msgid "No keyboard found"
 msgstr "No keyboard found"
@@ -2260,6 +2623,15 @@ msgstr "Not available: {error}"
 msgid "Not enabled"
 msgstr "Not enabled"
 
+msgid "Not enough free space at {path}: {free} available, {needed} needed."
+msgstr "Not enough free space at {path}: {free} available, {needed} needed."
+
+msgid "Not enough space"
+msgstr "Not enough space"
+
+msgid "Not found in repositories"
+msgstr "Not found in repositories"
+
 msgid "Not one of your lockscreens"
 msgstr "Not one of your lockscreens"
 
@@ -2302,6 +2674,9 @@ msgstr "Nothing was installed; the downloaded copy was deleted."
 msgid "Nothing was sent. Read it and remove anything you do not want to share."
 msgstr "Nothing was sent. Read it and remove anything you do not want to share."
 
+msgid "Notice: third-party repository (not reviewed by Eitr)"
+msgstr "Notice: third-party repository (not reviewed by Eitr)"
+
 msgid "Number or your own answer (Esc to cancel): "
 msgstr "Number or your own answer (Esc to cancel): "
 
@@ -2337,6 +2712,12 @@ msgstr "Official Eitr plugin"
 
 msgid "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
 msgstr "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
+
+msgid "Official packages"
+msgstr "Official packages"
+
+msgid "Official: {off}  ·  AUR: {aur}  ·  Flatpak: {fp}  ·  Plugins: {pl}  ·  Store: {st}"
+msgstr "Official: {off}  ·  AUR: {aur}  ·  Flatpak: {fp}  ·  Plugins: {pl}  ·  Store: {st}"
 
 msgid "Ollama (offline, experimental)"
 msgstr "Ollama (offline, experimental)"
@@ -2403,6 +2784,9 @@ msgstr "Opacity must be between 0.2 and 1.0"
 
 msgid "Open Console"
 msgstr "Open Console"
+
+msgid "Open directly into create or restore"
+msgstr "Open directly into create or restore"
 
 msgid "Open folder"
 msgstr "Open folder"
@@ -2503,6 +2887,18 @@ msgstr "Pair a device with your sharing first; the login screen accepts the same
 msgid "Part of the system was updated after the PC started; restart to start using it."
 msgstr "Part of the system was updated after the PC started; restart to start using it."
 
+msgid "Passphrase cannot be empty."
+msgstr "Passphrase cannot be empty."
+
+msgid "Passphrase from fd {fd} is empty."
+msgstr "Passphrase from fd {fd} is empty."
+
+msgid "Passphrase: "
+msgstr "Passphrase: "
+
+msgid "Passphrases did not match."
+msgstr "Passphrases did not match."
+
 msgid "Password"
 msgstr "Password"
 
@@ -2521,11 +2917,23 @@ msgstr "Paste an https:// or webcal:// iCal address."
 msgid "Paste the secret iCal address (https://…)"
 msgstr "Paste the secret iCal address (https://…)"
 
+msgid "Path to .eitrbackup archive"
+msgstr "Path to .eitrbackup archive"
+
 msgid "Peer Tailscale address or name: "
 msgstr "Peer Tailscale address or name: "
 
 msgid "Percentages cannot exceed 100"
 msgstr "Percentages cannot exceed 100"
+
+msgid "Personal folders"
+msgstr "Personal folders"
+
+msgid "Personal folders to restore"
+msgstr "Personal folders to restore"
+
+msgid "Personal folders: {list}"
+msgstr "Personal folders: {list}"
 
 msgid "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel"
 msgstr "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel"
@@ -2538,6 +2946,9 @@ msgstr "Pi has no built-in permission prompts. Choose another assistant for Ask 
 
 msgid "Pick a reminder to cancel"
 msgstr "Pick a reminder to cancel"
+
+msgid "Pick another archive"
+msgstr "Pick another archive"
 
 msgid "Picture"
 msgstr "Picture"
@@ -2584,6 +2995,12 @@ msgstr "Plugin {id}: kept the current version."
 msgid "Plugin: {name}"
 msgstr "Plugin: {name}"
 
+msgid "Plugins"
+msgstr "Plugins"
+
+msgid "Plugins and Store items will pause for normal review approval."
+msgstr "Plugins and Store items will pause for normal review approval."
+
 msgid "Plugins are turned off by your organization."
 msgstr "Plugins are turned off by your organization."
 
@@ -2620,11 +3037,17 @@ msgstr "Preparing Flatpak updates…"
 msgid "Preparing package installation…"
 msgstr "Preparing package installation…"
 
+msgid "Preparing plugin review: {name}…"
+msgstr "Preparing plugin review: {name}…"
+
 msgid "Preparing the restored system (the running system is not changed yet)"
 msgstr "Preparing the restored system (the running system is not changed yet)"
 
 msgid "Preparing the update…"
 msgstr "Preparing the update…"
+
+msgid "Preparing theme review: {name}…"
+msgstr "Preparing theme review: {name}…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Press Enter to confirm; Esc to cancel."
@@ -2640,6 +3063,18 @@ msgstr "Press Esc to close."
 
 msgid "Primary IPs"
 msgstr "Primary IPs"
+
+msgid "Print manifest as JSON"
+msgstr "Print manifest as JSON"
+
+msgid "Print restore summary as JSON"
+msgstr "Print restore summary as JSON"
+
+msgid "Print result as JSON"
+msgstr "Print result as JSON"
+
+msgid "Print status as JSON"
+msgstr "Print status as JSON"
 
 msgid "Private SSH key"
 msgstr "Private SSH key"
@@ -2713,6 +3148,9 @@ msgstr "Radios were blocked elsewhere; enable them individually in WiFi/Bluetoot
 msgid "Re-enable visuals"
 msgstr "Re-enable visuals"
 
+msgid "Read passphrase from an open file descriptor"
+msgstr "Read passphrase from an open file descriptor"
+
 msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
 msgstr "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
 
@@ -2761,6 +3199,9 @@ msgstr "Refusing a symlinked configuration path: {item}"
 msgid "Refusing to replace custom symlink: {path}"
 msgstr "Refusing to replace custom symlink: {path}"
 
+msgid "Refusing to write through escaping symlink: {path}"
+msgstr "Refusing to write through escaping symlink: {path}"
+
 msgid "Region"
 msgstr "Region"
 
@@ -2793,6 +3234,9 @@ msgstr "Reminder set: {title} · {time} · alerts {alerts}"
 
 msgid "Reminder times must be in the future."
 msgstr "Reminder times must be in the future."
+
+msgid "Reminder: this file is on the same disk as your home folder. Move it to external storage before erasing or reinstalling."
+msgstr "Reminder: this file is on the same disk as your home folder. Move it to external storage before erasing or reinstalling."
 
 msgid "Reminders"
 msgstr "Reminders"
@@ -2875,8 +3319,14 @@ msgstr "Repeat new password"
 msgid "Repeat new password: "
 msgstr "Repeat new password: "
 
+msgid "Repeat passphrase: "
+msgstr "Repeat passphrase: "
+
 msgid "Repeat the password."
 msgstr "Repeat the password."
+
+msgid "Replaced files are backed up under ~/.local/state/eitr/restore-backups/ so you can run undo."
+msgstr "Replaced files are backed up under ~/.local/state/eitr/restore-backups/ so you can run undo."
 
 msgid "Report a problem"
 msgstr "Report a problem"
@@ -2902,6 +3352,9 @@ msgstr "Repository unavailable; retry"
 msgid "Repository: {url}"
 msgstr "Repository: {url}"
 
+msgid "Required tool '{tool}' is not installed."
+msgstr "Required tool '{tool}' is not installed."
+
 msgid "Reset the shared visual failure counter"
 msgstr "Reset the shared visual failure counter"
 
@@ -2923,17 +3376,44 @@ msgstr "Restart to finish updating"
 msgid "Restart to finish updating."
 msgstr "Restart to finish updating."
 
+msgid "Restore"
+msgstr "Restore"
+
+msgid "Restore complete ({count} files). Undo ID: {undo_id}"
+msgstr "Restore complete ({count} files). Undo ID: {undo_id}"
+
+msgid "Restore from a backup archive"
+msgstr "Restore from a backup archive"
+
+msgid "Restore plan"
+msgstr "Restore plan"
+
+msgid "Restore settings, folders and apps from a backup archive"
+msgstr "Restore settings, folders and apps from a backup archive"
+
+msgid "Restore undo identifier"
+msgstr "Restore undo identifier"
+
+msgid "Restore undo point not found: {id}"
+msgstr "Restore undo point not found: {id}"
+
 msgid "Restore {name} from…"
 msgstr "Restore {name} from…"
 
 msgid "Restored"
 msgstr "Restored"
 
+msgid "Restored {count} file(s). Undo ID: {undo_id}"
+msgstr "Restored {count} file(s). Undo ID: {undo_id}"
+
 msgid "Restored {service_names} PAM files from {backup}"
 msgstr "Restored {service_names} PAM files from {backup}"
 
 msgid "Restoring the boot files"
 msgstr "Restoring the boot files"
+
+msgid "Restoring {count} file(s)…"
+msgstr "Restoring {count} file(s)…"
 
 msgid "Resume Picker"
 msgstr "Resume Picker"
@@ -2944,11 +3424,23 @@ msgstr "Review"
 msgid "Review /etc/default/limine first, then run: sudo systemctl start {unit}"
 msgstr "Review /etc/default/limine first, then run: sudo systemctl start {unit}"
 
+msgid "Review backup"
+msgstr "Review backup"
+
+msgid "Review declined"
+msgstr "Review declined"
+
 msgid "Review installation"
 msgstr "Review installation"
 
+msgid "Review restore"
+msgstr "Review restore"
+
 msgid "Review status and settings"
 msgstr "Review status and settings"
+
+msgid "Review {kind}: {name}"
+msgstr "Review {kind}: {name}"
 
 msgid "Right"
 msgstr "Right"
@@ -3025,6 +3517,9 @@ msgstr "SQL Servers"
 msgid "SQL databases"
 msgstr "SQL databases"
 
+msgid "SSH & GPG keys: copy or re-register hardware and private keys stored outside backups."
+msgstr "SSH & GPG keys: copy or re-register hardware and private keys stored outside backups."
+
 msgid "SSH key"
 msgstr "SSH key"
 
@@ -3036,6 +3531,9 @@ msgstr "SSO Login"
 
 msgid "Safety"
 msgstr "Safety"
+
+msgid "Same disk as your home folder"
+msgstr "Same disk as your home folder"
 
 msgid "Saturday"
 msgstr "Saturday"
@@ -3112,8 +3610,17 @@ msgstr "Security groups"
 msgid "Security key enrolled. Enable FIDO2 authentication separately; keep your password available."
 msgstr "Security key enrolled. Enable FIDO2 authentication separately; keep your password available."
 
+msgid "Select a .eitrbackup file to inspect."
+msgstr "Select a .eitrbackup file to inspect."
+
 msgid "Select an account"
 msgstr "Select an account"
+
+msgid "Select at least one backup category."
+msgstr "Select at least one backup category."
+
+msgid "Select at least one option to continue."
+msgstr "Select at least one option to continue."
 
 msgid "Select at least one package"
 msgstr "Select at least one package"
@@ -3214,6 +3721,9 @@ msgstr "Sharing this network security type is not supported"
 msgid "Shell"
 msgstr "Shell"
 
+msgid "Shipped or generated system file rejected from backup: {path}"
+msgstr "Shipped or generated system file rejected from backup: {path}"
+
 msgid "Show above windows"
 msgstr "Show above windows"
 
@@ -3222,6 +3732,9 @@ msgstr "Show behind windows"
 
 msgid "Show it with"
 msgstr "Show it with"
+
+msgid "Show last backup and available undo points"
+msgstr "Show last backup and available undo points"
 
 msgid "Sign In"
 msgstr "Sign In"
@@ -3270,6 +3783,9 @@ msgstr "Size is too large"
 
 msgid "Size needs two positive integers or percentages"
 msgstr "Size needs two positive integers or percentages"
+
+msgid "Skip reinstalling recorded packages/apps"
+msgstr "Skip reinstalling recorded packages/apps"
 
 msgid "Skipped snapshot boot entries."
 msgstr "Skipped snapshot boot entries."
@@ -3346,6 +3862,15 @@ msgstr "Some installed plugins are blocked and do not run; review them in Instal
 msgid "Some programs crashed in the last week; report a problem if one keeps crashing."
 msgstr "Some programs crashed in the last week; report a problem if one keeps crashing."
 
+msgid "Source"
+msgstr "Source"
+
+msgid "Space: toggle"
+msgstr "Space: toggle"
+
+msgid "Specify a backup archive file to restore."
+msgstr "Specify a backup archive file to restore."
+
 msgid "Split across monitors"
 msgstr "Split across monitors"
 
@@ -3417,6 +3942,9 @@ msgstr "Storage Buckets"
 
 msgid "Storage volumes"
 msgstr "Storage volumes"
+
+msgid "Store items"
+msgstr "Store items"
 
 msgid "Strong"
 msgstr "Strong"
@@ -3934,8 +4462,14 @@ msgstr "Too easy to guess: avoid patterns and your user name."
 msgid "Too many questions; nothing changed."
 msgstr "Too many questions; nothing changed."
 
+msgid "Top-level folders in your home directory, chosen one by one"
+msgstr "Top-level folders in your home directory, chosen one by one"
+
 msgid "Try again"
 msgstr "Try again"
+
+msgid "Try passphrase again"
+msgstr "Try passphrase again"
 
 msgid "Tuesday"
 msgstr "Tuesday"
@@ -3979,8 +4513,17 @@ msgstr "Type 1, 2, 3 or 4, or press Enter."
 msgid "Type APPLY PROFILE to make these system changes: "
 msgstr "Type APPLY PROFILE to make these system changes: "
 
+msgid "Type a folder or .eitrbackup file path"
+msgstr "Type a folder or .eitrbackup file path"
+
+msgid "Type to filter by name or source, Space to toggle."
+msgstr "Type to filter by name or source, Space to toggle."
+
 msgid "Type to search"
 msgstr "Type to search"
+
+msgid "Type to search (Ctrl+A: toggle all)"
+msgstr "Type to search (Ctrl+A: toggle all)"
 
 msgid "Type yes to connect them (Enter cancels): "
 msgstr "Type yes to connect them (Enter cancels): "
@@ -4012,6 +4555,15 @@ msgstr "Unable to list sessions."
 msgid "Unavailable"
 msgstr "Unavailable"
 
+msgid "Undid restore {undo_id}: restored {prev} previous file(s), removed {added} added file(s)."
+msgstr "Undid restore {undo_id}: restored {prev} previous file(s), removed {added} added file(s)."
+
+msgid "Undo a previous restore transaction"
+msgstr "Undo a previous restore transaction"
+
+msgid "Undo points:"
+msgstr "Undo points:"
+
 msgid "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
 msgstr "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
 
@@ -4026,6 +4578,12 @@ msgstr "Undo with: sudo {helper} auth-restore {name}"
 
 msgid "Unexpected FIDO2 registration"
 msgstr "Unexpected FIDO2 registration"
+
+msgid "Unexpected machine setup path rejected: {path}"
+msgstr "Unexpected machine setup path rejected: {path}"
+
+msgid "Unexpected top-level archive member rejected: {path}"
+msgstr "Unexpected top-level archive member rejected: {path}"
 
 msgid "Uninstall {label}?"
 msgstr "Uninstall {label}?"
@@ -4060,11 +4618,17 @@ msgstr "Unknown HDR value {value}"
 msgid "Unknown Hyprland key: {key}"
 msgstr "Unknown Hyprland key: {key}"
 
+msgid "Unknown Store item type"
+msgstr "Unknown Store item type"
+
 msgid "Unknown account"
 msgstr "Unknown account"
 
 msgid "Unknown action"
 msgstr "Unknown action"
+
+msgid "Unknown backup category rejected: {category}"
+msgstr "Unknown backup category rejected: {category}"
 
 msgid "Unknown monitoring service"
 msgstr "Unknown monitoring service"
@@ -4096,8 +4660,17 @@ msgstr "Unmanaged remote-access rules exist"
 msgid "Unreadable answers file {path}: {error}"
 msgstr "Unreadable answers file {path}: {error}"
 
+msgid "Unsafe archive member path rejected: {path}"
+msgstr "Unsafe archive member path rejected: {path}"
+
 msgid "Unsafe stick path: {name}"
 msgstr "Unsafe stick path: {name}"
+
+msgid "Unsafe symlink target rejected: {path}"
+msgstr "Unsafe symlink target rejected: {path}"
+
+msgid "Unsafe undo journal entry rejected: {path}"
+msgstr "Unsafe undo journal entry rejected: {path}"
 
 msgid "Unsupported PAM file: {path}"
 msgstr "Unsupported PAM file: {path}"
@@ -4111,11 +4684,20 @@ msgstr "Unsupported action identifier"
 msgid "Unsupported application launcher path"
 msgstr "Unsupported application launcher path"
 
+msgid "Unsupported archive entry type rejected: {path}"
+msgstr "Unsupported archive entry type rejected: {path}"
+
+msgid "Unsupported backup archive version: {version}"
+msgstr "Unsupported backup archive version: {version}"
+
 msgid "Unsupported enterprise method"
 msgstr "Unsupported enterprise method"
 
 msgid "Unsupported power profile: {name}"
 msgstr "Unsupported power profile: {name}"
+
+msgid "Unsupported special tar entry rejected: {path}"
+msgstr "Unsupported special tar entry rejected: {path}"
 
 msgid "Unsupported uninstall source"
 msgstr "Unsupported uninstall source"
@@ -4216,6 +4798,9 @@ msgstr "Use {label} in every folder without its own account?"
 msgid "Use {picked} for {label}?"
 msgstr "Use {picked} for {label}?"
 
+msgid "Used with age to encrypt your archive. Never saved to disk; minimum 8 characters."
+msgstr "Used with age to encrypt your archive. Never saved to disk; minimum 8 characters."
+
 msgid "User access keys"
 msgstr "User access keys"
 
@@ -4294,6 +4879,12 @@ msgstr "Wallpaper file not found"
 msgid "Wallpaper must be PNG, JPEG or WebP"
 msgstr "Wallpaper must be PNG, JPEG or WebP"
 
+msgid "Warning: same disk as home folder; copy to external media before reinstalling."
+msgstr "Warning: same disk as home folder; copy to external media before reinstalling."
+
+msgid "Warning: saving only on this disk will not protect your backup if this drive fails or is erased during reinstall."
+msgstr "Warning: saving only on this disk will not protect your backup if this drive fails or is erased during reinstall."
+
 msgid "Warnings:"
 msgstr "Warnings:"
 
@@ -4323,6 +4914,9 @@ msgstr "Wednesday"
 
 msgid "Weekly"
 msgstr "Weekly"
+
+msgid "What to back up"
+msgstr "What to back up"
 
 msgid "When? (10m, 18:30, every day 08:00)"
 msgstr "When? (10m, 18:30, every day 08:00)"
@@ -4411,6 +5005,9 @@ msgstr "asking Huginn and Muninn"
 msgid "binary"
 msgstr "binary"
 
+msgid "calculating…"
+msgstr "calculating…"
+
 msgid "cannot list monitors: {error}"
 msgstr "cannot list monitors: {error}"
 
@@ -4447,6 +5044,12 @@ msgstr "feeding the ravens"
 msgid "finding the hidden fjord"
 msgstr "finding the hidden fjord"
 
+msgid "flatpak exited with status {code}"
+msgstr "flatpak exited with status {code}"
+
+msgid "flatpak is not installed"
+msgstr "flatpak is not installed"
+
 msgid "following the northern star"
 msgstr "following the northern star"
 
@@ -4482,6 +5085,12 @@ msgstr "not encrypted"
 
 msgid "offline stick file"
 msgstr "offline stick file"
+
+msgid "pacman exited with status {code}"
+msgstr "pacman exited with status {code}"
+
+msgid "pacman is not available"
+msgstr "pacman is not available"
 
 msgid "pacman.conf has no [eitr] repository to add the testing channel before"
 msgstr "pacman.conf has no [eitr] repository to add the testing channel before"
@@ -4578,6 +5187,12 @@ msgstr "{config} has an unfinished EITR style block; fix it by hand. Nothing was
 
 msgid "{count} events from the last week to the next 60 days."
 msgstr "{count} events from the last week to the next 60 days."
+
+msgid "{count} files ({size} uncompressed)"
+msgstr "{count} files ({size} uncompressed)"
+
+msgid "{count} files ({size})"
+msgstr "{count} files ({size})"
 
 msgid "{count} occurrences"
 msgstr "{count} occurrences"
@@ -4707,6 +5322,12 @@ msgstr "{name}: stops charging at {charge_percent}%"
 
 msgid "{name}: {count} events from the last week to the next 60 days."
 msgstr "{name}: {count} events from the last week to the next 60 days."
+
+msgid "{path} (external)"
+msgstr "{path} (external)"
+
+msgid "{path} (local folder)"
+msgstr "{path} (local folder)"
 
 msgid "{path} has no usable free space"
 msgstr "{path} has no usable free space"

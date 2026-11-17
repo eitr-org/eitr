@@ -22,6 +22,7 @@ En el escritorio, cada uno abre su página en Configuración.
 - **Teclado**: Añade, ordena y cambia tus distribuciones de teclado.
 - **Foto de perfil**: Elige la imagen que acompaña a tu cuenta.
 - **Pantallas**: Ajusta la resolución y la escala de cada pantalla conectada.
+- **Restaurar desde una copia**: Recupera tus ajustes, carpetas y aplicaciones desde un archivo `.eitrbackup` guardado.
 <!-- /eitr-welcome:setup -->
 
 ## Conviene saber

@@ -39,6 +39,7 @@ Use the page names below. See the linked chapters for instructions.
 | Users | [Users](handbook:security) |
 | Security | [Security](handbook:security) |
 | Updates | [Updates](handbook:maintenance) |
+| Backup and Restore | [Backup and Restore](handbook:backup-restore) |
 | Check This PC | [Check This PC](handbook:troubleshooting) |
 | About | [About](handbook:information) |
 

@@ -137,6 +137,13 @@ var pages = [
     },
     {
         "group": "System",
+        "id": "backup",
+        "title": "Backup and Restore",
+        "description": "Create an encrypted backup or restore settings, folders and apps.",
+        "keywords": "backup restore archive export import age migration undo"
+    },
+    {
+        "group": "System",
         "id": "check-pc",
         "title": "Check This PC",
         "description": "Diagnostics and checks for this computer.",
@@ -186,7 +193,7 @@ var groups = [
     {name: "Accounts & Security", rune: "ᚱ"},
     {name: "System", rune: "ᚲ"}
 ];
-var pageRunes = ["ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ", "ᚾ", "ᛁ", "ᛃ", "ᛇ", "ᛈ", "ᛉ", "ᛊ", "ᛏ", "ᛒ", "ᛖ", "ᛗ", "ᛚ"];
+var pageRunes = ["ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ", "ᚾ", "ᛁ", "ᛃ", "ᛇ", "ᛈ", "ᛉ", "ᛊ", "ᛏ", "ᛒ", "ᛖ", "ᛗ", "ᛚ", "ᛜ"];
 pages.forEach((page, index) => { page.rune = pageRunes[index]; });
 function groupFor(page) { return groups.find(group => group.name === page.group) || groups[0]; }
 function entry(identifier) { return pages.find(page => page.id === resolve(identifier).page) || pages[0]; }

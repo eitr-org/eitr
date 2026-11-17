@@ -94,6 +94,9 @@ msgstr "'{spoken}'은(는) 올바른 시간이 아닙니다: 10m, 1h30m 또는 1
 msgid "(none)"
 msgstr "(없음)"
 
+msgid "+: add folder"
+msgstr "+: 폴더 추가"
+
 msgid "/boot is a separate partition: snapshot entries boot the current kernel. After a kernel update, restore the matching boot archive as RECOVERY.md describes."
 msgstr "/boot가 별도의 파티션입니다: 스냅샷 항목은 현재 커널로 부팅됩니다. 커널 업데이트 후에는 RECOVERY.md의 설명에 따라 일치하는 부팅 아카이브를 복원하세요."
 
@@ -193,8 +196,14 @@ msgstr "{path}의 모든 파티션과 파일이 파괴됩니다.\n"
 msgid "AUR builds must run as a normal user"
 msgstr "AUR 빌드는 일반 사용자로 실행해야 합니다"
 
+msgid "AUR install exited with status {code}"
+msgstr "AUR 설치가 상태 {code}(으)로 종료되었습니다"
+
 msgid "AUR package not found"
 msgstr "AUR 패키지를 찾을 수 없음"
+
+msgid "AUR packages"
+msgstr "AUR 패키지"
 
 msgid "AUR packages are made by the community and are not reviewed by Eitr or Arch Linux. Read the build file before installing."
 msgstr "AUR 패키지는 커뮤니티에서 제작되며 Eitr 또는 Arch Linux에서 검토하지 않습니다. 설치하기 전에 빌드 파일을 읽어보세요."
@@ -295,6 +304,12 @@ msgstr "Azure 계정 추가"
 msgid "Add bar item"
 msgstr "바 항목 추가"
 
+msgid "Add folder…"
+msgstr "폴더 추가…"
+
+msgid "Add personal folder"
+msgstr "개인 폴더 추가"
+
 msgid "Add widget · {monitor}"
 msgstr "위젯 추가 · {monitor}"
 
@@ -364,6 +379,18 @@ msgstr "App Services"
 msgid "App clients"
 msgstr "앱 클라이언트"
 
+msgid "App settings"
+msgstr "앱 설정"
+
+msgid "App settings (~/.config)"
+msgstr "앱 설정 (~/.config)"
+
+msgid "App settings folders: {count}"
+msgstr "앱 설정 폴더: {count}"
+
+msgid "App settings to restore"
+msgstr "복원할 앱 설정"
+
 msgid "Application deployments"
 msgstr "애플리케이션 배포"
 
@@ -385,14 +412,50 @@ msgstr "적용 중…"
 msgid "Applying…"
 msgstr "적용 중…"
 
+msgid "Approve installation? [y/N/Esc] "
+msgstr "설치를 승인할까요? [y/N/Esc] "
+
 msgid "Apps"
 msgstr "앱"
+
+msgid "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}"
+msgstr "설치됨: {n}  ·  이미 있음: {a}  ·  건너뜀: {s}  ·  실패: {f}"
+
+msgid "Apps to reinstall"
+msgstr "다시 설치할 앱"
 
 msgid "Apps were closed because memory ran out; close apps you are not using, and report a problem if it keeps happening."
 msgstr "메모리가 부족하여 앱이 종료되었습니다. 사용하지 않는 앱을 닫고, 문제가 계속 발생하면 보고하세요."
 
+msgid "Apps: installed={n}, already_present={a}, skipped={s}, failed={f}"
+msgstr "앱: 설치={n}, 기존={a}, 건너뜀={s}, 실패={f}"
+
+msgid "Apps: official={off}, aur={aur}, flatpak={fp}, plugins={pl}, store={st}"
+msgstr "앱: 공식={off}, aur={aur}, flatpak={fp}, plugins={pl}, store={st}"
+
 msgid "Arch posted news since your last update:"
 msgstr "마지막 업데이트 이후 Arch 소식이 게시되었습니다:"
+
+msgid "Archive"
+msgstr "아카이브"
+
+msgid "Archive is missing manifest.json as its first entry."
+msgstr "아카이브의 첫 번째 항목에 manifest.json이 없습니다."
+
+msgid "Archive manifest is missing or malformed."
+msgstr "아카이브 매니페스트가 없거나 손상되었습니다."
+
+msgid "Archive manifest must be a regular file."
+msgstr "아카이브 매니페스트는 일반 파일이어야 합니다."
+
+msgid "Archive path for restore mode"
+msgstr "복원 모드용 아카이브 경로"
+
+msgid "Archive size: {size}"
+msgstr "아카이브 크기: {size}"
+
+msgid "Archive version: {v}"
+msgstr "아카이브 버전: {v}"
 
 msgid "Arrows / Tab: move  Enter: answer  Esc: cancel"
 msgstr "화살표 / Tab: 이동  Enter: 응답  Esc: 취소"
@@ -466,8 +529,44 @@ msgstr "백그라운드 서비스가 제거됨"
 msgid "Background service: {service}"
 msgstr "백그라운드 서비스: {service}"
 
+msgid "Backup"
+msgstr "백업"
+
+msgid "Backup and Restore"
+msgstr "백업 및 복원"
+
+msgid "Backup archive decompression failed."
+msgstr "백업 아카이브 압축 해제에 실패했습니다."
+
+msgid "Backup archive does not contain a valid manifest."
+msgstr "백업 아카이브에 올바른 매니페스트가 없습니다."
+
+msgid "Backup archive does not contain manifest.json."
+msgstr "백업 아카이브에 manifest.json이 포함되어 있지 않습니다."
+
+msgid "Backup archive is corrupted."
+msgstr "백업 아카이브가 손상되었습니다."
+
+msgid "Backup archive not found: {path}"
+msgstr "백업 아카이브를 찾을 수 없습니다: {path}"
+
+msgid "Backup archive output file is empty."
+msgstr "백업 아카이브 출력 파일이 비어 있습니다."
+
+msgid "Backup archive path"
+msgstr "백업 아카이브 경로"
+
+msgid "Backup created: {path}"
+msgstr "백업을 생성했습니다: {path}"
+
+msgid "Backup format version {found} is newer than this Eitr version supports ({supported}). Update Eitr before restoring."
+msgstr "백업 형식 버전 {found}은(는) 이 Eitr 버전이 지원하는 ({supported})보다 최신입니다. 복원 전에 Eitr를 업데이트하세요."
+
 msgid "Backup of the current Limine menu: {backup}"
 msgstr "현재 Limine 메뉴 백업: {backup}"
+
+msgid "Backup passphrase"
+msgstr "백업 암호"
 
 msgid "Backup {name} is incomplete: missing {missing_files}"
 msgstr "{name} 백업이 불완전함: 누락된 파일 {missing_files}"
@@ -508,6 +607,9 @@ msgstr "{loader}에서는 부팅 가능한 스냅샷이 지원되지 않습니�
 msgid "Both network backends are running; select one in Settings > Devices > Connections > Network Backend and reboot"
 msgstr "두 네트워크 백엔드가 모두 실행 중입니다. 설정 > 장치 > 연결 > 네트워크 백엔드에서 하나를 선택하고 재부팅하세요"
 
+msgid "Browse / enter file path…"
+msgstr "파일 경로 찾아보기 / 입력…"
+
 msgid "Browse bucket"
 msgstr "버킷 찾아보기"
 
@@ -516,6 +618,18 @@ msgstr "브라우저는 firefox 또는 chromium이어야 합니다(add.packages�
 
 msgid "Browser profile"
 msgstr "브라우저 프로필"
+
+msgid "Browser profiles are excluded from backups: {path}"
+msgstr "브라우저 프로필은 백업에서 제외됩니다: {path}"
+
+msgid "Browser profiles, cache/lock/socket files, SSH/GPG/cloud/Git credentials"
+msgstr "브라우저 프로필, 캐시/잠금/소켓 파일, SSH/GPG/클라우드/Git 자격 증명"
+
+msgid "Browser profiles, caches, sockets and SSH/GPG/cloud credentials are excluded."
+msgstr "브라우저 프로필, 캐시, 소켓 및 SSH/GPG/클라우드 자격 증명은 제외됩니다."
+
+msgid "Browsers: profiles are omitted for security — sign back in to your accounts and sync."
+msgstr "브라우저: 보안을 위해 프로필이 제외되었습니다 — 계정에 다시 로그인해 동기화하세요."
 
 msgid "Buckets"
 msgstr "버킷"
@@ -543,6 +657,9 @@ msgstr "CLI를 사용할 수 없음"
 
 msgid "Cache Sizes"
 msgstr "캐시 크기"
+
+msgid "Caches and browser profiles are skipped automatically."
+msgstr "캐시와 브라우저 프로필은 자동으로 건너뜁니다."
 
 msgid "Calendar added"
 msgstr "캘린더가 추가됨"
@@ -595,8 +712,20 @@ msgstr "패키지 의존성 데이터베이스 {database}을(를) 검사할 수 
 msgid "Cannot make the last administrator a standard account"
 msgstr "마지막 관리자를 표준 계정으로 변경할 수 없습니다"
 
+msgid "Cannot open archive"
+msgstr "아카이브를 열 수 없음"
+
+msgid "Cannot overwrite existing directory with file: {path}"
+msgstr "기존 디렉터리를 파일로 덮어쓸 수 없습니다: {path}"
+
+msgid "Cannot read passphrase from fd {fd}: {error}"
+msgstr "fd {fd}에서 암호를 읽을 수 없습니다: {error}"
+
 msgid "Cannot read window rules: {error}"
 msgstr "창 규칙을 읽을 수 없습니다: {error}"
+
+msgid "Cannot read {path}: {error}"
+msgstr "{path}을(를) 읽을 수 없습니다: {error}"
 
 msgid "Cannot remove the last administrator"
 msgstr "마지막 관리자를 제거할 수 없습니다"
@@ -624,6 +753,9 @@ msgstr "카탈로그 백엔드를 사용할 수 없습니다"
 
 msgid "Catalog operation failed"
 msgstr "카탈로그 작업이 실패했습니다"
+
+msgid "Categories: {list}"
+msgstr "범주: {list}"
 
 msgid "Center"
 msgstr "가운데"
@@ -694,11 +826,26 @@ msgstr "권한이 600 이하로 엄격하게 설정된 사용자 소유의 개�
 msgid "Choose an existing folder without Git glob characters"
 msgstr "Git 와일드카드 문자가 없는 기존 폴더를 선택하세요"
 
+msgid "Choose an external drive instead"
+msgstr "대신 외장 드라이브 선택"
+
 msgid "Choose an installed assistant."
 msgstr "설치된 어시스턴트를 선택하세요."
 
 msgid "Choose another default first; the system icon font must remain installed"
 msgstr "먼저 다른 기본값을 선택하세요. 시스템 아이콘 글꼴은 계속 설치되어 있어야 합니다"
+
+msgid "Choose another destination"
+msgstr "다른 대상 선택"
+
+msgid "Choose apps to record"
+msgstr "기록할 앱 선택"
+
+msgid "Choose backup archive"
+msgstr "백업 아카이브 선택"
+
+msgid "Choose folders one by one. Sizes load in the background."
+msgstr "폴더를 하나씩 선택하세요. 크기는 백그라운드에서 불러옵니다."
 
 msgid "Choose iwd or NetworkManager"
 msgstr "iwd 또는 NetworkManager를 선택하세요"
@@ -714,6 +861,12 @@ msgstr "나열된 디자인 중 하나를 선택하세요."
 
 msgid "Choose recent HTTPS mirrors by download speed. The previous list is backed up; worldwide mirrors remain as fallbacks."
 msgstr "다운로드 속도에 따라 최근 HTTPS 미러를 선택하세요. 이전 목록은 백업되며 전 세계 미러는 대체 수단으로 유지됩니다."
+
+msgid "Choose what to restore"
+msgstr "복원할 항목 선택"
+
+msgid "Choose where to save the encrypted backup archive."
+msgstr "암호화 백업 아카이브를 저장할 위치를 선택하세요."
 
 msgid "Chromium default requires add.packages chromium or its recipe"
 msgstr "Chromium을 기본값으로 사용하려면 add.packages chromium 또는 해당 레시피가 필요합니다"
@@ -753,6 +906,9 @@ msgstr "이전에 중단된 업데이트의 복구 시점을 닫는 중입니다
 
 msgid "Cloud"
 msgstr "클라우드"
+
+msgid "Cloud & Git credentials: reconnect gh, gcloud, aws, az and Git account setups as needed."
+msgstr "클라우드 및 Git 자격 증명: 필요 시 gh, gcloud, aws, az 및 Git 계정을 다시 연결하세요."
 
 msgid "Cloud Functions"
 msgstr "Cloud Functions"
@@ -805,8 +961,29 @@ msgstr "{name}의 색상"
 msgid "Comfortable"
 msgstr "편안함"
 
+msgid "Comma-separated app settings folders to restore"
+msgstr "복원할 앱 설정 폴더(쉼표로 구분)"
+
+msgid "Comma-separated category IDs"
+msgstr "범주 ID(쉼표로 구분)"
+
+msgid "Comma-separated category IDs to restore"
+msgstr "복원할 범주 ID(쉼표로 구분)"
+
+msgid "Comma-separated personal folders to restore"
+msgstr "복원할 개인 폴더(쉼표로 구분)"
+
+msgid "Comma-separated personal folders under $HOME"
+msgstr "$HOME 아래 개인 폴더(쉼표로 구분)"
+
+msgid "Comma-separated ~/.config app directories"
+msgstr "~/.config 앱 디렉터리(쉼표로 구분)"
+
 msgid "Command failed (exit {status})"
 msgstr "명령이 실패함(종료 코드 {status})"
+
+msgid "Commit"
+msgstr "커밋"
 
 msgid "Commit author email"
 msgstr "커밋 작성자 이메일"
@@ -829,6 +1006,9 @@ msgstr "커밋:"
 msgid "Compartments"
 msgstr "컴파트먼트"
 
+msgid "Compression with zstd failed."
+msgstr "zstd 압축에 실패했습니다."
+
 msgid "Compute Instances"
 msgstr "컴퓨트 인스턴스"
 
@@ -844,6 +1024,9 @@ msgstr "미리보기 중에 구성이 변경됨: {path}"
 msgid "Configuration file"
 msgstr "구성 파일"
 
+msgid "Configuration folders in ~/.config without caches or browser profiles"
+msgstr "캐시와 브라우저 프로필을 제외한 ~/.config 내 구성 폴더"
+
 msgid "Configure this source in OBS first"
 msgstr "먼저 OBS에서 이 소스를 구성하세요"
 
@@ -852,6 +1035,9 @@ msgstr "패키지에서 제공하는 {design_count}개의 로그인 디자인에
 
 msgid "Confirm"
 msgstr "확인"
+
+msgid "Confirm same-disk warning non-interactively"
+msgstr "동일 디스크 경고를 비대화형으로 확인"
 
 msgid "Conflicting iwd backend setting in {path}; review it before switching."
 msgstr "{path}에 충돌하는 iwd 백엔드 설정이 있습니다. 전환하기 전에 검토하세요."
@@ -949,6 +1135,9 @@ msgstr "비정상 종료 요약"
 msgid "Create User…"
 msgstr "사용자 만들기…"
 
+msgid "Create a backup archive"
+msgstr "백업 아카이브 만들기"
+
 msgid "Create a lockscreen with your own picture. It stays on this computer."
 msgstr "자신만의 이미지로 잠금 화면을 만드세요. 이 컴퓨터에만 저장됩니다."
 
@@ -960,6 +1149,21 @@ msgstr "이미지에서 테마를 만드세요. 이 컴퓨터에만 저장됩니
 
 msgid "Create a web app: a launcher that opens a site in its own window."
 msgstr "웹 앱 만들기: 사이트를 자체 창에서 여는 실행기입니다."
+
+msgid "Create an encrypted backup archive"
+msgstr "암호화된 백업 아카이브 만들기"
+
+msgid "Create, inspect, restore or undo Eitr backups."
+msgstr "Eitr 백업을 생성, 검사, 복원하거나 되돌립니다."
+
+msgid "Created backup: {path} ({size})"
+msgstr "백업 생성됨: {path} ({size})"
+
+msgid "Created: {date} by {user}@{host}"
+msgstr "생성됨: {date} · {user}@{host}"
+
+msgid "Creating encrypted backup…"
+msgstr "암호화 백업 생성 중…"
 
 msgid "Creating the after-update snapshot…"
 msgstr "업데이트 후 스냅샷 생성 중…"
@@ -1003,8 +1207,14 @@ msgstr "커서 설정이 저장되었으나 새로고침 실패: {error}"
 msgid "Cursor theme {theme} is not installed. Install the corresponding cursor package first."
 msgstr "커서 테마 {theme}이(가) 설치되어 있지 않습니다. 먼저 해당 커서 패키지를 설치하세요."
 
+msgid "Custom backup destination"
+msgstr "사용자 지정 백업 위치"
+
 msgid "Custom or masked tailscaled service: review manually"
 msgstr "사용자 지정 또는 마스킹된 tailscaled 서비스: 수동으로 검토하세요"
+
+msgid "Custom path…"
+msgstr "사용자 지정 경로…"
 
 msgid "Custom static-IP/VPN setups need manual review before switching."
 msgstr "사용자 지정 고정 IP/VPN 설정은 전환하기 전에 수동 검토가 필요합니다."
@@ -1044,6 +1254,9 @@ msgstr "데이터베이스"
 
 msgid "Date"
 msgstr "날짜"
+
+msgid "Decrypting and validating backup archive…"
+msgstr "백업 아카이브 복호화 및 검증 중…"
 
 msgid "Default"
 msgstr "기본값"
@@ -1096,8 +1309,26 @@ msgstr "디자인"
 msgid "Desktop Audio"
 msgstr "데스크톱 오디오"
 
+msgid "Desktop preferences, deliberate overrides and your own themes or wallpapers"
+msgstr "데스크톱 환경설정, 의도된 재정의 및 사용자 테마·배경화면"
+
 msgid "Desktop: Afterglow / Clockwork Tape, installed offline before reboot"
 msgstr "데스크톱: Afterglow / Clockwork Tape, 재부팅 전 오프라인으로 설치됨"
+
+msgid "Destination"
+msgstr "대상"
+
+msgid "Destination directory or archive filename"
+msgstr "대상 디렉터리 또는 아카이브 파일 이름"
+
+msgid "Destination has {free} free, need at least {needed}."
+msgstr "대상의 남은 공간은 {free}이지만 최소 {needed}이(가) 필요합니다."
+
+msgid "Destination unavailable"
+msgstr "대상을 사용할 수 없음"
+
+msgid "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
+msgstr "대상 {path}이(가) 홈 폴더와 같은 디스크에 있습니다. 계속할까요? [y/N] "
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "상세 로그: /var/log/archinstall. 실패한 단계 이후에는 아무것도 변경되지 않았습니다."
@@ -1137,6 +1368,9 @@ msgstr "암호화 안 함: 비밀번호 없이 파일을 읽을 수 있음"
 
 msgid "Do not put login credentials in the address."
 msgstr "주소에 로그인 자격 증명을 포함하지 마세요."
+
+msgid "Do not record installed apps"
+msgstr "설치된 앱을 기록하지 않음"
 
 msgid "DocumentDB"
 msgstr "DocumentDB"
@@ -1213,6 +1447,9 @@ msgstr "Eitr는 시스템 업데이트처럼 사용자가 시작한 단계를 �
 msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 msgstr "Eitr는 이를 검토하지 않았습니다. 해당 코드는 Eitr가 아닌 작성자의 소유입니다. 신뢰하는 사용자와 저장소의 플러그인만 추가하세요."
 
+msgid "Eitr settings"
+msgstr "Eitr 설정"
+
 msgid "Eitr software"
 msgstr "Eitr 소프트웨어"
 
@@ -1246,6 +1483,9 @@ msgstr "암호화된 파티션 번호: "
 msgid "Encryption"
 msgstr "암호화"
 
+msgid "Encryption helper failed."
+msgstr "암호화 도우미가 실패했습니다."
+
 msgid "Encryption: DISABLED"
 msgstr "암호화: 비활성화됨"
 
@@ -1260,6 +1500,12 @@ msgstr "등록 상태를 확인하려면 기존 디스크 잠금 해제 절차�
 
 msgid "Enter a color as six hex digits, for example #2bb87a."
 msgstr "#2bb87a와 같이 6자리 16진수로 색상을 입력하세요."
+
+msgid "Enter a directory path or a full filename ending in {ext}."
+msgstr "디렉터리 경로 또는 {ext}(으)로 끝나는 전체 파일 경로를 입력하세요."
+
+msgid "Enter a folder path inside your home directory."
+msgstr "홈 디렉터리 내부의 폴더 경로를 입력하세요."
 
 msgid "Enter a hostname, not a URL, port or shell option"
 msgstr "URL, 포트 또는 셸 옵션이 아닌 호스트 이름을 입력하세요"
@@ -1282,11 +1528,20 @@ msgstr "구성 파일의 전체 경로를 입력하세요."
 msgid "Enter the other picture's file or https address."
 msgstr "다른 사진의 파일 경로 또는 https 주소를 입력하세요."
 
+msgid "Enter the passphrase to decrypt and inspect the archive."
+msgstr "아카이브를 복호화해 확인하려면 암호를 입력하세요."
+
+msgid "Enter the path to the .eitrbackup file."
+msgstr ".eitrbackup 파일 경로를 입력하세요."
+
 msgid "Enter: answer  Left / Tab: back  Esc: cancel"
 msgstr "Enter: 답변  Left / Tab: 뒤로  Esc: 취소"
 
 msgid "Enter: apply  Left: back  PgUp/PgDn: scroll  Esc: cancel"
 msgstr "Enter: 적용  Left: 뒤로  PgUp/PgDn: 스크롤  Esc: 취소"
+
+msgid "Enter: confirm  Left: back  PgUp/PgDn: scroll  Esc: cancel"
+msgstr "Enter: 확인  왼쪽: 뒤로  PgUp/PgDn: 스크롤  Esc: 취소"
 
 msgid "Enter: confirm · Esc: cancel"
 msgstr "Enter: 확인 · Esc: 취소"
@@ -1300,11 +1555,23 @@ msgstr "Enter: 계속  Esc: 취소"
 msgid "Enter: copy the redacted report · Esc: close"
 msgstr "Enter: 마스킹된 보고서 복사 · Esc: 닫기"
 
+msgid "Enter: create encrypted backup  ·  Nothing is written until you confirm"
+msgstr "Enter: 암호화 백업 생성  ·  확인 전까지 아무것도 기록되지 않습니다"
+
+msgid "Enter: next"
+msgstr "Enter: 다음"
+
 msgid "Enter: open Network Backend · Esc: close"
 msgstr "Enter: 네트워크 백엔드 열기 · Esc: 닫기"
 
 msgid "Enter: run System Update now (with its snapshot), then install · Esc: cancel"
 msgstr "Enter: 지금 시스템 업데이트 실행(스냅샷 포함) 후 설치 · Esc: 취소"
+
+msgid "Enter: start now  ·  Nothing is written until you confirm"
+msgstr "Enter: 지금 시작  ·  확인 전까지 아무것도 기록되지 않습니다"
+
+msgid "Enter: start restore  ·  Nothing is written until you confirm"
+msgstr "Enter: 복원 시작  ·  확인 전까지 아무것도 기록되지 않습니다"
 
 msgid "Enterprise WiFi requires username, password, CA certificate and server domain"
 msgstr "기업용 WiFi에는 사용자 이름, 비밀번호, CA 인증서 및 서버 도메인이 필요합니다"
@@ -1318,6 +1585,9 @@ msgstr "기업용 프로필이 이미 존재합니다. 자격 증명을 변경�
 msgid "Erase the whole disk ({size_text}) and install Eitr"
 msgstr "전체 디스크({size_text})를 지우고 Eitr 설치"
 
+msgid "Esc: cancel"
+msgstr "Esc: 취소"
+
 msgid "Event hook added or changed: {event}"
 msgstr "이벤트 훅 추가 또는 변경됨: {event}"
 
@@ -1329,6 +1599,18 @@ msgstr "이 저장소의 모든 플러그인이 이미 설치되어 있습니다
 
 msgid "Everything is up to date."
 msgstr "모든 항목이 최신 상태입니다."
+
+msgid "Excluded automatically"
+msgstr "자동 제외"
+
+msgid "Excluded cache path rejected: {path}"
+msgstr "제외된 캐시 경로 거부됨: {path}"
+
+msgid "Excluded sensitive or temporary path rejected: {path}"
+msgstr "제외된 민감/임시 경로 거부됨: {path}"
+
+msgid "Excluded system or secret folder cannot be added: {path}"
+msgstr "제외된 시스템 또는 비밀 폴더는 추가할 수 없습니다: {path}"
 
 msgid "Executable files: {count}"
 msgstr "실행 파일: {count}개"
@@ -1366,6 +1648,9 @@ msgstr "{usernames}의 공장 초기화 지점이 저장되었습니다."
 msgid "Factory reset point: {created} (accounts: {names})"
 msgstr "공장 초기화 지점: {created} (계정: {names})"
 
+msgid "Failed to read backup archive: {error}"
+msgstr "백업 아카이브 읽기 실패: {error}"
+
 msgid "File became executable: {path}"
 msgstr "파일이 실행 가능 상태로 변경됨: {path}"
 
@@ -1374,6 +1659,9 @@ msgstr "파일 관리자"
 
 msgid "File or folder to restore (for example ~/Documents/report.odt)"
 msgstr "복원할 파일 또는 폴더(예: ~/Documents/report.odt)"
+
+msgid "Files: {count} ({size} uncompressed)"
+msgstr "파일: {count}개(압축 해제 시 {size})"
 
 msgid "Filesystem {uuid} on {device}"
 msgstr "{device}의 파일 시스템 {uuid}"
@@ -1405,6 +1693,9 @@ msgstr "맞춤"
 msgid "Flathub apps install at the first start with a network connection."
 msgstr "Flathub 앱은 네트워크 연결이 있는 첫 시작 시 설치됩니다."
 
+msgid "Flatpak apps"
+msgstr "Flatpak 앱"
+
 msgid "Flatpak apps could not be updated; the system update itself finished."
 msgstr "Flatpak 앱을 업데이트할 수 없습니다. 시스템 업데이트 자체는 완료되었습니다."
 
@@ -1414,8 +1705,14 @@ msgstr "띄우기는 true 또는 false여야 합니다"
 msgid "Folder"
 msgstr "폴더"
 
+msgid "Folder does not exist: {path}"
+msgstr "폴더가 존재하지 않습니다: {path}"
+
 msgid "Folder for {label}"
 msgstr "{label}용 폴더"
+
+msgid "Folder must be inside your home directory: {path}"
+msgstr "폴더는 홈 디렉터리 안에 있어야 합니다: {path}"
 
 msgid "Folder path"
 msgstr "폴더 경로"
@@ -1456,8 +1753,14 @@ msgstr "형식"
 msgid "Found in your Git configuration"
 msgstr "Git 구성에서 발견됨"
 
+msgid "Free space: {free}"
+msgstr "남은 공간: {free}"
+
 msgid "Friday"
 msgstr "금요일"
+
+msgid "From {user}@{host} on {date}"
+msgstr "{user}@{host} · {date}"
 
 msgid "Full"
 msgstr "Full"
@@ -1540,6 +1843,9 @@ msgstr "하드웨어"
 msgid "Hardware detection failed; see the log above"
 msgstr "하드웨어 감지에 실패했습니다. 위의 로그를 참조하세요"
 
+msgid "Hardware-local display and Hyprland overrides for this PC"
+msgstr "이 PC 전용 디스플레이 및 Hyprland 재정의 설정"
+
 msgid "Have you set Sunshine’s username and password in the browser?"
 msgstr "브라우저에서 Sunshine의 사용자 이름과 비밀번호를 설정했습니까?"
 
@@ -1603,6 +1909,15 @@ msgstr "VPN 파일 가져오기…"
 msgid "Import a WireGuard configuration…"
 msgstr "WireGuard 구성 가져오기…"
 
+msgid "Include hardware-local Hyprland/display files"
+msgstr "하드웨어 로컬 Hyprland/디스플레이 파일 포함"
+
+msgid "Included data"
+msgstr "포함된 데이터"
+
+msgid "Incorrect passphrase for backup archive."
+msgstr "백업 아카이브의 암호가 올바르지 않습니다."
+
 msgid "Initramfs: mkinitcpio not found; make sure your initramfs unlocks with systemd-cryptsetup."
 msgstr "Initramfs: mkinitcpio를 찾을 수 없습니다. initramfs가 systemd-cryptsetup으로 잠금 해제되는지 확인하세요."
 
@@ -1611,6 +1926,9 @@ msgstr "Initramfs: systemd sd-encrypt 훅이 존재하며 부팅 시 TPM2 토큰
 
 msgid "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 msgstr "Initramfs: busybox 'encrypt' 훅은 TPM2 토큰을 사용할 수 없습니다. 먼저 systemd 및 sd-encrypt 훅으로 전환하세요(RECOVERY.md, TPM disk unlock 참조)."
+
+msgid "Inspect backup contents and manifest"
+msgstr "백업 내용 및 매니페스트 검사"
 
 msgid "Install Chrome, Chromium, Edge, Brave or Vivaldi from Install > Browsers to open it."
 msgstr "이를 열려면 설치 > 브라우저에서 Chrome, Chromium, Edge, Brave 또는 Vivaldi를 설치하세요."
@@ -1672,11 +1990,20 @@ msgstr "지금 {package}을(를) 설치하시겠습니까?"
 msgid "Installed"
 msgstr "설치됨"
 
+msgid "Installed apps"
+msgstr "설치된 앱"
+
 msgid "Installed plugins could not be checked against the new policy: {error}"
 msgstr "새 정책에 대해 설치된 플러그인을 확인할 수 없습니다: {error}"
 
 msgid "Installer must use HTTPS"
 msgstr "설치 관리자는 HTTPS를 사용해야 합니다"
+
+msgid "Installing AUR package {index}/{total}: {name}…"
+msgstr "AUR 패키지 설치 중 {index}/{total}: {name}…"
+
+msgid "Installing Flatpak app {index}/{total}: {name}…"
+msgstr "Flatpak 앱 설치 중 {index}/{total}: {name}…"
 
 msgid "Installing alongside is unavailable: {reason}"
 msgstr "나란히 설치를 사용할 수 없음: {reason}"
@@ -1686,6 +2013,9 @@ msgstr "나란히 설치하면 기존의 모든 파티션이 유지됩니다."
 
 msgid "Installing the selected software. Profile additions may need the internet. Keep the computer powered on."
 msgstr "선택한 소프트웨어를 설치하는 중입니다. 프로필 추가 항목에는 인터넷이 필요할 수 있습니다. 컴퓨터 전원을 켜 둔 상태로 유지하세요."
+
+msgid "Installing {count} official package(s) in one transaction…"
+msgstr "공식 패키지 {count}개를 단일 트랜잭션으로 설치 중…"
 
 msgid "Instance status"
 msgstr "인스턴스 상태"
@@ -1810,6 +2140,9 @@ msgstr "유효하지 않은 반복 규칙입니다."
 msgid "Invalid repository server URL"
 msgstr "유효하지 않은 저장소 서버 URL"
 
+msgid "Invalid restore backup identifier: {id}"
+msgstr "올바르지 않은 복원 백업 ID: {id}"
+
 msgid "Invalid rule fields"
 msgstr "잘못된 규칙 필드"
 
@@ -1885,6 +2218,9 @@ msgstr "유지"
 msgid "Keep the greeting under 80 characters."
 msgstr "인사말은 80자 미만으로 유지하세요."
 
+msgid "Keep this destination (I will copy it off this PC)"
+msgstr "이 대상 유지(이 PC 밖으로 복사하겠습니다)"
+
 msgid "Kept user layout link override: {target}"
 msgstr "사용자 레이아웃 링크 재정의 유지됨: {target}"
 
@@ -1936,6 +2272,12 @@ msgstr "언어: {language} / 키보드: {keyboard}"
 msgid "Large"
 msgstr "큼"
 
+msgid "Last backup: {date} ({path})"
+msgstr "최근 백업: {date} ({path})"
+
+msgid "Last backup: {date} -> {path} ({size})"
+msgstr "최근 백업: {date} -> {path} ({size})"
+
 msgid "Later"
 msgstr "나중에"
 
@@ -1948,8 +2290,14 @@ msgstr "최신 이미지 태그"
 msgid "Latest log streams"
 msgstr "최신 로그 스트림"
 
+msgid "Launch interactive terminal backup/restore wizard"
+msgstr "대화형 터미널 백업/복원 마법사 실행"
+
 msgid "Left"
 msgstr "왼쪽"
+
+msgid "Left: back"
+msgstr "왼쪽: 뒤로"
 
 msgid "Let assistants work together"
 msgstr "어시스턴트가 함께 작업하도록 허용"
@@ -1986,6 +2334,9 @@ msgstr "저장소 목록 표시"
 
 msgid "List services"
 msgstr "서비스 목록 표시"
+
+msgid "Lists of explicit official, AUR, Flatpak, plugin and Store items"
+msgstr "명시적으로 설치한 공식, AUR, Flatpak, 플러그인 및 Store 항목 목록"
 
 msgid "Live data command added or changed: {kind} · {id} · {command}"
 msgstr "실시간 데이터 명령어가 추가되거나 변경됨: {kind} · {id} · {command}"
@@ -2031,6 +2382,9 @@ msgstr "다음 항목을 주의 깊게 살펴보세요:"
 
 msgid "Lowercase name. This user will have sudo access."
 msgstr "소문자 이름입니다. 이 사용자는 sudo 권한을 갖습니다."
+
+msgid "Machine setup"
+msgstr "기기 설정"
 
 msgid "Magenta"
 msgstr "마젠타"
@@ -2137,6 +2491,9 @@ msgstr "다음으로, Eitr는 플러그인을 실행하지 않고 다운로드�
 msgid "No"
 msgstr "아니요"
 
+msgid "No AUR helper (yay or paru) installed"
+msgstr "AUR 도우미(yay 또는 paru)가 설치되어 있지 않음"
+
 msgid "No LUKS-encrypted partition was found."
 msgstr "LUKS 암호화된 파티션을 찾을 수 없습니다."
 
@@ -2154,6 +2511,9 @@ msgstr "실행 중인 WiFi 백엔드가 없습니다"
 
 msgid "No account named {user}"
 msgstr "{user} 계정이 없습니다"
+
+msgid "No backup recorded yet."
+msgstr "아직 기록된 백업이 없습니다."
 
 msgid "No battery charge limit control on this machine."
 msgstr "이 기기에는 배터리 충전 제한 제어 기능이 없습니다."
@@ -2181,6 +2541,9 @@ msgstr "열린 이메일 앱이 없습니다. 웹메일에서 {REPORTS_EMAIL} �
 
 msgid "No encrypted partition selected; nothing was changed."
 msgstr "선택된 암호화 파티션이 없습니다. 변경된 사항이 없습니다."
+
+msgid "No interactive terminal for passphrase; pass --passphrase-fd."
+msgstr "암호를 입력할 대화형 터미널이 없습니다. --passphrase-fd를 전달하세요."
 
 msgid "No keyboard found"
 msgstr "키보드를 찾을 수 없음"
@@ -2260,6 +2623,15 @@ msgstr "사용 불가: {error}"
 msgid "Not enabled"
 msgstr "활성화되지 않음"
 
+msgid "Not enough free space at {path}: {free} available, {needed} needed."
+msgstr "{path}의 남은 공간이 부족합니다: 사용 가능 {free}, 필요 {needed}."
+
+msgid "Not enough space"
+msgstr "공간 부족"
+
+msgid "Not found in repositories"
+msgstr "저장소에서 찾을 수 없음"
+
 msgid "Not one of your lockscreens"
 msgstr "사용자의 잠금 화면이 아닙니다"
 
@@ -2302,6 +2674,9 @@ msgstr "설치된 항목이 없습니다. 다운로드된 사본이 삭제되었
 msgid "Nothing was sent. Read it and remove anything you do not want to share."
 msgstr "전송된 내용이 없습니다. 내용을 확인하고 공유를 원치 않는 항목을 제거하세요."
 
+msgid "Notice: third-party repository (not reviewed by Eitr)"
+msgstr "알림: 서드파티 저장소(Eitr 검토 안 됨)"
+
 msgid "Number or your own answer (Esc to cancel): "
 msgstr "번호 또는 직접 입력 (Esc: 취소): "
 
@@ -2337,6 +2712,12 @@ msgstr "공식 Eitr 플러그인"
 
 msgid "Official Eitr plugin from eitr-org/eitr-plugins, reviewed by the Eitr project. Like every plugin, it runs with your account’s full permissions."
 msgstr "eitr-org/eitr-plugins의 공식 Eitr 플러그인으로, Eitr 프로젝트의 검토를 거쳤습니다. 모든 플러그인과 마찬가지로 사용자 계정의 모든 권한으로 실행됩니다."
+
+msgid "Official packages"
+msgstr "공식 패키지"
+
+msgid "Official: {off}  ·  AUR: {aur}  ·  Flatpak: {fp}  ·  Plugins: {pl}  ·  Store: {st}"
+msgstr "공식: {off}  ·  AUR: {aur}  ·  Flatpak: {fp}  ·  플러그인: {pl}  ·  Store: {st}"
 
 msgid "Ollama (offline, experimental)"
 msgstr "Ollama (오프라인, 실험적)"
@@ -2403,6 +2784,9 @@ msgstr "불투명도는 0.2에서 1.0 사이여야 합니다"
 
 msgid "Open Console"
 msgstr "콘솔 열기"
+
+msgid "Open directly into create or restore"
+msgstr "만들기 또는 복원으로 바로 열기"
 
 msgid "Open folder"
 msgstr "폴더 열기"
@@ -2503,6 +2887,18 @@ msgstr "먼저 공유에 기기를 페어링하세요. 로그인 화면은 같�
 msgid "Part of the system was updated after the PC started; restart to start using it."
 msgstr "PC가 시작된 후 시스템 일부가 업데이트되었습니다. 적용하려면 다시 시작하세요."
 
+msgid "Passphrase cannot be empty."
+msgstr "암호는 비워 둘 수 없습니다."
+
+msgid "Passphrase from fd {fd} is empty."
+msgstr "fd {fd}의 암호가 비어 있습니다."
+
+msgid "Passphrase: "
+msgstr "암호: "
+
+msgid "Passphrases did not match."
+msgstr "암호가 일치하지 않습니다."
+
 msgid "Password"
 msgstr "비밀번호"
 
@@ -2521,11 +2917,23 @@ msgstr "https:// 또는 webcal:// iCal 주소를 붙여넣으세요."
 msgid "Paste the secret iCal address (https://…)"
 msgstr "비밀 iCal 주소를 붙여넣으세요 (https://…)"
 
+msgid "Path to .eitrbackup archive"
+msgstr ".eitrbackup 아카이브 경로"
+
 msgid "Peer Tailscale address or name: "
 msgstr "피어 Tailscale 주소 또는 이름: "
 
 msgid "Percentages cannot exceed 100"
 msgstr "백분율은 100을 초과할 수 없습니다"
+
+msgid "Personal folders"
+msgstr "개인 폴더"
+
+msgid "Personal folders to restore"
+msgstr "복원할 개인 폴더"
+
+msgid "Personal folders: {list}"
+msgstr "개인 폴더: {list}"
 
 msgid "PgUp/PgDn: scroll  Enter: download for review  Left: back  Esc: cancel"
 msgstr "PgUp/PgDn: 스크롤  Enter: 검토용 다운로드  왼쪽: 뒤로  Esc: 취소"
@@ -2538,6 +2946,9 @@ msgstr "Pi에는 내장된 권한 확인 프롬프트가 없습니다. '변경 �
 
 msgid "Pick a reminder to cancel"
 msgstr "취소할 미리 알림을 선택하세요"
+
+msgid "Pick another archive"
+msgstr "다른 아카이브 선택"
 
 msgid "Picture"
 msgstr "사진"
@@ -2584,6 +2995,12 @@ msgstr "플러그인 {id}: 현재 버전을 유지했습니다."
 msgid "Plugin: {name}"
 msgstr "플러그인: {name}"
 
+msgid "Plugins"
+msgstr "플러그인"
+
+msgid "Plugins and Store items will pause for normal review approval."
+msgstr "플러그인과 Store 항목은 일반 검토 승인을 위해 일시 정지합니다."
+
 msgid "Plugins are turned off by your organization."
 msgstr "조직에 의해 플러그인이 비활성화되었습니다."
 
@@ -2620,11 +3037,17 @@ msgstr "Flatpak 업데이트 준비 중…"
 msgid "Preparing package installation…"
 msgstr "패키지 설치 준비 중…"
 
+msgid "Preparing plugin review: {name}…"
+msgstr "플러그인 검토 준비 중: {name}…"
+
 msgid "Preparing the restored system (the running system is not changed yet)"
 msgstr "복원된 시스템 준비 중 (실행 중인 시스템은 아직 변경되지 않음)"
 
 msgid "Preparing the update…"
 msgstr "업데이트 준비 중…"
+
+msgid "Preparing theme review: {name}…"
+msgstr "테마 검토 준비 중: {name}…"
 
 msgid "Press Enter to confirm; Esc to cancel."
 msgstr "Enter를 누르면 확인하고 Esc를 누르면 취소합니다."
@@ -2640,6 +3063,18 @@ msgstr "닫으려면 Esc를 누르세요."
 
 msgid "Primary IPs"
 msgstr "기본 IP"
+
+msgid "Print manifest as JSON"
+msgstr "매니페스트를 JSON으로 출력"
+
+msgid "Print restore summary as JSON"
+msgstr "복원 요약을 JSON으로 출력"
+
+msgid "Print result as JSON"
+msgstr "결과를 JSON으로 출력"
+
+msgid "Print status as JSON"
+msgstr "상태를 JSON으로 출력"
 
 msgid "Private SSH key"
 msgstr "개인 SSH 키"
@@ -2713,6 +3148,9 @@ msgstr "무선 장치가 다른 곳에서 차단되었습니다. WiFi/Bluetooth�
 msgid "Re-enable visuals"
 msgstr "시각 효과 다시 활성화"
 
+msgid "Read passphrase from an open file descriptor"
+msgstr "열린 파일 서술자에서 암호 읽기"
+
 msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
 msgstr "시스템 오디오 스펙트럼을 읽습니다 (레벨만 읽으며 오디오는 녹음되거나 전송되지 않음)"
 
@@ -2761,6 +3199,9 @@ msgstr "심볼릭 링크된 설정 경로 거부됨: {item}"
 msgid "Refusing to replace custom symlink: {path}"
 msgstr "사용자 지정 심볼릭 링크 대체 거부됨: {path}"
 
+msgid "Refusing to write through escaping symlink: {path}"
+msgstr "외부로 탈출하는 심볼릭 링크를 통한 쓰기 거부됨: {path}"
+
 msgid "Region"
 msgstr "리전"
 
@@ -2793,6 +3234,9 @@ msgstr "미리 알림 설정됨: {title} · {time} · 알림 {alerts}"
 
 msgid "Reminder times must be in the future."
 msgstr "미리 알림 시간은 미래여야 합니다."
+
+msgid "Reminder: this file is on the same disk as your home folder. Move it to external storage before erasing or reinstalling."
+msgstr "알림: 이 파일은 홈 폴더와 같은 디스크에 있습니다. 지우거나 재설치하기 전에 외장 저장소로 옮기세요."
 
 msgid "Reminders"
 msgstr "미리 알림"
@@ -2875,8 +3319,14 @@ msgstr "새 비밀번호 다시 입력"
 msgid "Repeat new password: "
 msgstr "새 비밀번호 다시 입력: "
 
+msgid "Repeat passphrase: "
+msgstr "암호 다시 입력: "
+
 msgid "Repeat the password."
 msgstr "비밀번호를 다시 입력하세요."
+
+msgid "Replaced files are backed up under ~/.local/state/eitr/restore-backups/ so you can run undo."
+msgstr "교체되는 파일은 되돌릴 수 있도록 ~/.local/state/eitr/restore-backups/에 보관됩니다."
 
 msgid "Report a problem"
 msgstr "문제 신고"
@@ -2902,6 +3352,9 @@ msgstr "저장소를 사용할 수 없음; 다시 시도하세요"
 msgid "Repository: {url}"
 msgstr "저장소: {url}"
 
+msgid "Required tool '{tool}' is not installed."
+msgstr "필수 도구 '{tool}'이(가) 설치되어 있지 않습니다."
+
 msgid "Reset the shared visual failure counter"
 msgstr "공유 시각 오류 카운터 초기화"
 
@@ -2923,17 +3376,44 @@ msgstr "업데이트를 완료하려면 다시 시작하세요"
 msgid "Restart to finish updating."
 msgstr "업데이트를 완료하려면 다시 시작하세요."
 
+msgid "Restore"
+msgstr "복원"
+
+msgid "Restore complete ({count} files). Undo ID: {undo_id}"
+msgstr "복원 완료({count}개 파일). 실행 취소 ID: {undo_id}"
+
+msgid "Restore from a backup archive"
+msgstr "백업 아카이브에서 복원"
+
+msgid "Restore plan"
+msgstr "복원 계획"
+
+msgid "Restore settings, folders and apps from a backup archive"
+msgstr "백업 아카이브에서 설정, 폴더 및 앱 복원"
+
+msgid "Restore undo identifier"
+msgstr "복원 실행 취소 ID"
+
+msgid "Restore undo point not found: {id}"
+msgstr "복원 실행 취소 지점을 찾을 수 없습니다: {id}"
+
 msgid "Restore {name} from…"
 msgstr "다음에서 {name} 복원…"
 
 msgid "Restored"
 msgstr "복원됨"
 
+msgid "Restored {count} file(s). Undo ID: {undo_id}"
+msgstr "{count}개 파일 복원됨. 실행 취소 ID: {undo_id}"
+
 msgid "Restored {service_names} PAM files from {backup}"
 msgstr "{backup}에서 {service_names} PAM 파일을 복원했습니다"
 
 msgid "Restoring the boot files"
 msgstr "부팅 파일 복원 중"
+
+msgid "Restoring {count} file(s)…"
+msgstr "{count}개 파일 복원 중…"
 
 msgid "Resume Picker"
 msgstr "재개 선택기"
@@ -2944,11 +3424,23 @@ msgstr "검토"
 msgid "Review /etc/default/limine first, then run: sudo systemctl start {unit}"
 msgstr "먼저 /etc/default/limine을 검토한 후 다음을 실행하세요: sudo systemctl start {unit}"
 
+msgid "Review backup"
+msgstr "백업 검토"
+
+msgid "Review declined"
+msgstr "검토 거부됨"
+
 msgid "Review installation"
 msgstr "설치 검토"
 
+msgid "Review restore"
+msgstr "복원 검토"
+
 msgid "Review status and settings"
 msgstr "상태 및 설정 검토"
+
+msgid "Review {kind}: {name}"
+msgstr "{kind} 검토: {name}"
 
 msgid "Right"
 msgstr "오른쪽"
@@ -3025,6 +3517,9 @@ msgstr "SQL 서버"
 msgid "SQL databases"
 msgstr "SQL 데이터베이스"
 
+msgid "SSH & GPG keys: copy or re-register hardware and private keys stored outside backups."
+msgstr "SSH 및 GPG 키: 백업 외부에 보관된 하드웨어/개인 키를 다시 등록하세요."
+
 msgid "SSH key"
 msgstr "SSH 키"
 
@@ -3036,6 +3531,9 @@ msgstr "SSO 로그인"
 
 msgid "Safety"
 msgstr "안전"
+
+msgid "Same disk as your home folder"
+msgstr "홈 폴더와 같은 디스크"
 
 msgid "Saturday"
 msgstr "토요일"
@@ -3112,8 +3610,17 @@ msgstr "보안 그룹"
 msgid "Security key enrolled. Enable FIDO2 authentication separately; keep your password available."
 msgstr "보안 키가 등록되었습니다. FIDO2 인증을 별도로 활성화하세요. 비밀번호를 계속 사용할 수 있도록 준비해 두세요."
 
+msgid "Select a .eitrbackup file to inspect."
+msgstr "검사할 .eitrbackup 파일을 선택하세요."
+
 msgid "Select an account"
 msgstr "계정 선택"
+
+msgid "Select at least one backup category."
+msgstr "백업 범주를 하나 이상 선택하세요."
+
+msgid "Select at least one option to continue."
+msgstr "계속하려면 옵션을 하나 이상 선택하세요."
 
 msgid "Select at least one package"
 msgstr "패키지를 하나 이상 선택하세요"
@@ -3214,6 +3721,9 @@ msgstr "이 네트워크 보안 유형 공유는 지원되지 않습니다"
 msgid "Shell"
 msgstr "Shell"
 
+msgid "Shipped or generated system file rejected from backup: {path}"
+msgstr "배포되었거나 생성된 시스템 파일은 백업에서 거부됨: {path}"
+
 msgid "Show above windows"
 msgstr "창 위에 표시"
 
@@ -3222,6 +3732,9 @@ msgstr "창 뒤에 표시"
 
 msgid "Show it with"
 msgstr "다음으로 표시"
+
+msgid "Show last backup and available undo points"
+msgstr "최근 백업 및 사용 가능한 실행 취소 지점 표시"
 
 msgid "Sign In"
 msgstr "로그인"
@@ -3270,6 +3783,9 @@ msgstr "크기가 너무 큽니다"
 
 msgid "Size needs two positive integers or percentages"
 msgstr "크기에는 양의 정수 또는 백분율 두 개가 필요합니다"
+
+msgid "Skip reinstalling recorded packages/apps"
+msgstr "기록된 패키지/앱 다시 설치 건너뛰기"
 
 msgid "Skipped snapshot boot entries."
 msgstr "스냅샷 부팅 항목을 건너뛰었습니다."
@@ -3346,6 +3862,15 @@ msgstr "설치된 일부 플러그인이 차단되어 실행되지 않습니다.
 msgid "Some programs crashed in the last week; report a problem if one keeps crashing."
 msgstr "지난주에 일부 프로그램이 비정상 종료되었습니다. 계속 비정상 종료되면 문제를 신고하세요."
 
+msgid "Source"
+msgstr "출처"
+
+msgid "Space: toggle"
+msgstr "Space: 선택 전환"
+
+msgid "Specify a backup archive file to restore."
+msgstr "복원할 백업 아카이브 파일을 지정하세요."
+
 msgid "Split across monitors"
 msgstr "모니터 간 분할"
 
@@ -3417,6 +3942,9 @@ msgstr "스토리지 버킷"
 
 msgid "Storage volumes"
 msgstr "스토리지 볼륨"
+
+msgid "Store items"
+msgstr "Store 항목"
 
 msgid "Strong"
 msgstr "강하게"
@@ -3934,8 +4462,14 @@ msgstr "추측하기 너무 쉽습니다: 특정 패턴이나 사용자 이름�
 msgid "Too many questions; nothing changed."
 msgstr "질문이 너무 많습니다. 변경된 사항이 없습니다."
 
+msgid "Top-level folders in your home directory, chosen one by one"
+msgstr "홈 디렉터리의 최상위 폴더를 하나씩 선택"
+
 msgid "Try again"
 msgstr "다시 시도"
+
+msgid "Try passphrase again"
+msgstr "암호 다시 시도"
 
 msgid "Tuesday"
 msgstr "화요일"
@@ -3979,8 +4513,17 @@ msgstr "1, 2, 3 또는 4를 입력하거나 Enter를 누르세요."
 msgid "Type APPLY PROFILE to make these system changes: "
 msgstr "이 시스템 변경 사항을 적용하려면 APPLY PROFILE을 입력하세요: "
 
+msgid "Type a folder or .eitrbackup file path"
+msgstr "폴더 또는 .eitrbackup 파일 경로 입력"
+
+msgid "Type to filter by name or source, Space to toggle."
+msgstr "이름이나 출처로 검색하려면 입력하고, Space로 선택을 전환하세요."
+
 msgid "Type to search"
 msgstr "입력하여 검색"
+
+msgid "Type to search (Ctrl+A: toggle all)"
+msgstr "검색하려면 입력 (Ctrl+A: 전체 전환)"
 
 msgid "Type yes to connect them (Enter cancels): "
 msgstr "이들을 연결하려면 yes를 입력하세요(Enter를 누르면 취소): "
@@ -4012,6 +4555,15 @@ msgstr "세션 목록을 표시할 수 없습니다."
 msgid "Unavailable"
 msgstr "사용할 수 없음"
 
+msgid "Undid restore {undo_id}: restored {prev} previous file(s), removed {added} added file(s)."
+msgstr "복원 {undo_id} 실행 취소: 이전 파일 {prev}개 복구, 추가된 파일 {added}개 삭제."
+
+msgid "Undo a previous restore transaction"
+msgstr "이전 복원 작업 되돌리기"
+
+msgid "Undo points:"
+msgstr "실행 취소 지점:"
+
 msgid "Undo with Restore Sharing Setup. Existing Sunshine settings are kept."
 msgstr "공유 설정 복원으로 되돌릴 수 있습니다. 기존 Sunshine 설정은 유지됩니다."
 
@@ -4026,6 +4578,12 @@ msgstr "되돌리기: sudo {helper} auth-restore {name}"
 
 msgid "Unexpected FIDO2 registration"
 msgstr "예상치 못한 FIDO2 등록"
+
+msgid "Unexpected machine setup path rejected: {path}"
+msgstr "예기치 않은 기기 설정 경로 거부됨: {path}"
+
+msgid "Unexpected top-level archive member rejected: {path}"
+msgstr "예기치 않은 최상위 아카이브 항목 거부됨: {path}"
 
 msgid "Uninstall {label}?"
 msgstr "{label}을(를) 제거하시겠습니까?"
@@ -4060,11 +4618,17 @@ msgstr "알 수 없는 HDR 값 {value}"
 msgid "Unknown Hyprland key: {key}"
 msgstr "알 수 없는 Hyprland 키: {key}"
 
+msgid "Unknown Store item type"
+msgstr "알 수 없는 Store 항목 유형"
+
 msgid "Unknown account"
 msgstr "알 수 없는 계정"
 
 msgid "Unknown action"
 msgstr "알 수 없는 동작"
+
+msgid "Unknown backup category rejected: {category}"
+msgstr "알 수 없는 백업 범주 거부됨: {category}"
 
 msgid "Unknown monitoring service"
 msgstr "알 수 없는 모니터링 서비스"
@@ -4096,8 +4660,17 @@ msgstr "관리되지 않는 원격 액세스 규칙이 있습니다"
 msgid "Unreadable answers file {path}: {error}"
 msgstr "응답 파일 {path}을(를) 읽을 수 없음: {error}"
 
+msgid "Unsafe archive member path rejected: {path}"
+msgstr "안전하지 않은 아카이브 경로 거부됨: {path}"
+
 msgid "Unsafe stick path: {name}"
 msgstr "안전하지 않은 USB 드라이브 경로: {name}"
+
+msgid "Unsafe symlink target rejected: {path}"
+msgstr "안전하지 않은 심볼릭 링크 대상 거부됨: {path}"
+
+msgid "Unsafe undo journal entry rejected: {path}"
+msgstr "안전하지 않은 실행 취소 저널 항목 거부됨: {path}"
 
 msgid "Unsupported PAM file: {path}"
 msgstr "지원되지 않는 PAM 파일: {path}"
@@ -4111,11 +4684,20 @@ msgstr "지원되지 않는 작업 식별자"
 msgid "Unsupported application launcher path"
 msgstr "지원되지 않는 애플리케이션 런처 경로"
 
+msgid "Unsupported archive entry type rejected: {path}"
+msgstr "지원하지 않는 아카이브 항목 유형 거부됨: {path}"
+
+msgid "Unsupported backup archive version: {version}"
+msgstr "지원하지 않는 백업 아카이브 버전: {version}"
+
 msgid "Unsupported enterprise method"
 msgstr "지원되지 않는 기업용 방식"
 
 msgid "Unsupported power profile: {name}"
 msgstr "지원되지 않는 전원 프로필: {name}"
+
+msgid "Unsupported special tar entry rejected: {path}"
+msgstr "지원하지 않는 특수 tar 항목 거부됨: {path}"
 
 msgid "Unsupported uninstall source"
 msgstr "지원되지 않는 제거 소스"
@@ -4216,6 +4798,9 @@ msgstr "자체 계정이 없는 모든 폴더에서 {label}을(를) 사용하시
 msgid "Use {picked} for {label}?"
 msgstr "{label}에 {picked}을(를) 사용하시겠습니까?"
 
+msgid "Used with age to encrypt your archive. Never saved to disk; minimum 8 characters."
+msgstr "age 아카이브 암호화에 사용됩니다. 디스크에 저장되지 않으며 최소 8자입니다."
+
 msgid "User access keys"
 msgstr "사용자 액세스 키"
 
@@ -4294,6 +4879,12 @@ msgstr "배경화면 파일을 찾을 수 없습니다"
 msgid "Wallpaper must be PNG, JPEG or WebP"
 msgstr "배경화면은 PNG, JPEG 또는 WebP 형식이어야 합니다"
 
+msgid "Warning: same disk as home folder; copy to external media before reinstalling."
+msgstr "경고: 홈 폴더와 같은 디스크입니다. 재설치 전에 외장 미디어로 복사하세요."
+
+msgid "Warning: saving only on this disk will not protect your backup if this drive fails or is erased during reinstall."
+msgstr "경고: 이 디스크에만 저장하면 디스크 고장이나 재설치 시 백업이 보호되지 않습니다."
+
 msgid "Warnings:"
 msgstr "경고:"
 
@@ -4323,6 +4914,9 @@ msgstr "수요일"
 
 msgid "Weekly"
 msgstr "매주"
+
+msgid "What to back up"
+msgstr "백업할 항목"
 
 msgid "When? (10m, 18:30, every day 08:00)"
 msgstr "언제인가요? (10m, 18:30, every day 08:00)"
@@ -4411,6 +5005,9 @@ msgstr "후긴과 무닌에게 묻는 중"
 msgid "binary"
 msgstr "바이너리"
 
+msgid "calculating…"
+msgstr "계산 중…"
+
 msgid "cannot list monitors: {error}"
 msgstr "모니터 목록을 표시할 수 없음: {error}"
 
@@ -4447,6 +5044,12 @@ msgstr "까마귀들에게 먹이를 주는 중"
 msgid "finding the hidden fjord"
 msgstr "숨겨진 피오르드를 찾는 중"
 
+msgid "flatpak exited with status {code}"
+msgstr "flatpak이 상태 {code}(으)로 종료되었습니다"
+
+msgid "flatpak is not installed"
+msgstr "flatpak이 설치되어 있지 않습니다"
+
 msgid "following the northern star"
 msgstr "북극성을 따라가는 중"
 
@@ -4482,6 +5085,12 @@ msgstr "암호화되지 않음"
 
 msgid "offline stick file"
 msgstr "오프라인 USB 드라이브 파일"
+
+msgid "pacman exited with status {code}"
+msgstr "pacman이 상태 {code}(으)로 종료되었습니다"
+
+msgid "pacman is not available"
+msgstr "pacman을 사용할 수 없습니다"
 
 msgid "pacman.conf has no [eitr] repository to add the testing channel before"
 msgstr "pacman.conf에 testing 채널을 앞에 추가할 [eitr] 저장소가 없습니다"
@@ -4578,6 +5187,12 @@ msgstr "{config}에 완료되지 않은 EITR 스타일 블록이 있습니다. �
 
 msgid "{count} events from the last week to the next 60 days."
 msgstr "지난주부터 향후 60일까지 {count}개의 이벤트."
+
+msgid "{count} files ({size} uncompressed)"
+msgstr "파일 {count}개(압축 해제 시 {size})"
+
+msgid "{count} files ({size})"
+msgstr "파일 {count}개 ({size})"
 
 msgid "{count} occurrences"
 msgstr "{count}개 일정"
@@ -4707,6 +5322,12 @@ msgstr "{name}: {charge_percent}%에서 충전 중지"
 
 msgid "{name}: {count} events from the last week to the next 60 days."
 msgstr "{name}: 지난주부터 향후 60일까지 {count}개의 이벤트."
+
+msgid "{path} (external)"
+msgstr "{path} (외장)"
+
+msgid "{path} (local folder)"
+msgstr "{path} (로컬 폴더)"
 
 msgid "{path} has no usable free space"
 msgstr "{path}에 사용 가능한 여유 공간이 없습니다"

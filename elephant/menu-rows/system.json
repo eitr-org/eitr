@@ -27,6 +27,21 @@
     }
   },
   {
+    "text": "Backup and Restore",
+    "subtext": "Back up or restore settings, apps and folders",
+    "keywords": [
+      "backup",
+      "restore",
+      "archive",
+      "migration",
+      "undo"
+    ],
+    "icon": "󰁯",
+    "actions": {
+      "open": "kitty --class system-backup -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py eitr-backup wizard"
+    }
+  },
+  {
     "text": "Check This PC",
     "subtext": "Read-only checks with suggested fixes; copy a redacted report",
     "keywords": [

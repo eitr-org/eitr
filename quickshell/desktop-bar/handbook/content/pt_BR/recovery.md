@@ -1,6 +1,6 @@
 # Snapshots de recuperação do Eitr
 
-Snapshots são pontos de recuperação, **não backups em outro dispositivo**. Uma falha no disco pode destruir o sistema e seus snapshots juntos. Mantenha backups independentes.
+Snapshots são pontos de recuperação, **não backups em outro dispositivo**. Uma falha no disco pode destruir o sistema e seus snapshots juntos. Mantenha backups independentes: veja [Backup e restauração](handbook:backup-restore) no Manual do EITR (Configurações > Sistema > Backup e restauração, ou `eitr backup`) para criar arquivos criptografados portáteis com suas configurações, pastas e aplicativos.
 
 O Eitr oferece suporte ao Snapper em uma raiz Btrfs com `/usr`, `/etc` e `/var/lib/pacman` no mesmo subvolume raiz. `/home` pode ser separado: ele não é coberto pelo snapshot da raiz. Layouts incompatíveis bloqueiam a atualização antes de qualquer alteração. `install.sh` não formata discos nem reorganiza subvolumes existentes; somente `eitr-guided-install`, na ISO, apaga o disco que você confirmar e cria esse layout (veja a seção de instalação guiada no README).
 

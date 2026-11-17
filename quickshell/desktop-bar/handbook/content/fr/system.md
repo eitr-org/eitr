@@ -39,6 +39,7 @@ Utilisez les noms de page ci-dessous. Les chapitres liés expliquent les étapes
 | Utilisateurs | [Utilisateurs](handbook:security) |
 | Sécurité | [Sécurité](handbook:security) |
 | Mises à jour | [Mises à jour](handbook:maintenance) |
+| Sauvegarde et restauration | [Sauvegarde et restauration](handbook:backup-restore) |
 | Vérifier ce PC | [Vérifier ce PC](handbook:troubleshooting) |
 | À propos | [À propos](handbook:information) |
 
