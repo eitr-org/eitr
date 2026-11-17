@@ -1,12 +1,12 @@
 # Remote access
 
 Open Settings > Streaming for Sunshine and Moonlight, or Walker > Settings > Devices > Streaming for the same actions. Hosting is off until you enable it.
-This milestone controls your signed-in, awake Eitr desktop. Headless use, access
-before login and wake on LAN are separate future work. While sharing, the remote
+This milestone controls your signed-in, awake Eitr desktop. Headless use and wake on
+LAN are separate future work. While sharing, the remote
 screen shows the lockscreen when this PC locks; anyone connected sees it and can
 type the password, so stop sharing before stepping away when privacy matters.
 
-Setup folders group the configuration actions. Streaming > Sharing Setup contains Set Up Sharing, Sharing Settings, Start at Login, Turn Off Start at Login, Detailed Status and Restore Sharing Setup. Everyday sharing actions (Start Sharing, Stop Sharing, Pair a Device, Sharing Status and Connect to another PC) stay directly in Streaming.
+Setup folders group the configuration actions. Streaming > Sharing Setup contains Set Up Sharing, Sharing Settings, Start at Login, Turn Off Start at Login, Share the Login Screen, Stop Sharing the Login Screen, Detailed Status and Restore Sharing Setup. Everyday sharing actions (Start Sharing, Stop Sharing, Pair a Device, Sharing Status and Connect to another PC) stay directly in Streaming.
 
 Detailed Status opens a diagnostic terminal that stays open until you press Esc.
 
@@ -62,6 +62,14 @@ retained.
 Sunshine runs with the KMS capability only as root or the sharing account: setup sets the executable to `root:eitr-sharing` mode `0750` and adds your account to that system group. Sign out and back in before starting sharing so the user service receives the new group. Setup leaves any running sharing process active; a restart before the next login can fail.
 
 Stop Sharing retains setup permissions. Restore Sharing Setup removes group membership and all binary capabilities and returns the executable to `root:root` mode `0755`, including when restoring older setup records. After a package update, Set Up Sharing repairs ownership and mode before granting the capability again.
+
+## Sharing the login screen
+
+Settings > Streaming > Share the login screen (also Streaming > Sharing Setup > Share the Login Screen) lets Moonlight reach this PC while the login screen shows, after a restart or a sign-out, so you can sign in remotely. It changes the system for everyone, so it asks for the administrator password and a typed confirmation. Stop Sharing the Login Screen undoes it and leaves nothing behind; Restore Sharing Setup turns it off too.
+
+It needs Set Up Sharing, one Start Sharing with Sunshine's password set, and at least one paired device. The login screen accepts exactly the devices paired with your sharing, under the same PC name and certificate, so Moonlight sees the same PC before and after you sign in. A device you unpair from your sharing is also refused at the login screen from its next start. Anyone holding a paired device can see the login screen, but signing in still needs an account password.
+
+A separate Sunshine, running as the system account `eitr-loginshare`, works only while nobody is signed in on this PC. The moment someone signs in it stops and the stream ends: reconnect to reach that person's own sharing if it starts at login, or nothing if they have not set sharing up. Devices paired with one person never see another person's desktop. Signing out starts the login-screen sharing again. There is no sound at the login screen.
 
 ## Moonlight on a Mac
 

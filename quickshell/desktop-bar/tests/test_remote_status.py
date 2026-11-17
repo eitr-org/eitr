@@ -26,7 +26,11 @@ class RemoteStatusTests(unittest.TestCase):
             result = status.streaming_status()
         self.assertTrue(result['running'])
         self.assertTrue(result['startAtLogin'])
-        self.assertEqual(query.call_args.args[0][:4], ['systemctl', '--user', 'show', 'eitr-sunshine.service'])
+        self.assertTrue(result['loginScreen'])
+        commands = [call.args[0] for call in query.call_args_list]
+        self.assertEqual(commands[0][:4], ['systemctl', '--user', 'show', 'eitr-sunshine.service'])
+        # Share the Login Screen is a system unit, read without starting it.
+        self.assertEqual(commands[1], ['systemctl', 'is-enabled', '--quiet', 'eitr-login-share.service'])
 
     def test_panel_actions_keep_setup_in_walker_and_exclude_self_links(self):
         with patch.dict(os.environ, EITR_CODE_ROOT=str(ROOT)), patch.object(status, 'table', return_value={}):

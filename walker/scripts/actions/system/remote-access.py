@@ -134,6 +134,11 @@ def host(action):
         run(['systemctl', '--user', 'enable', SERVICE])
     elif action == 'no-login':
         run(['systemctl', '--user', 'disable', SERVICE])
+    elif action == 'login-screen':
+        # The administrator password and a typed confirmation guard this system-wide change.
+        root('login-on')
+    elif action == 'no-login-screen':
+        root('login-off')
     elif action == 'undo':
         if confirm(tr('Stop sharing and restore the original system permissions?')):
             run(['systemctl', '--user', 'disable', '--now', SERVICE])
@@ -270,7 +275,7 @@ def away(action, peer=None):
 
 
 # Turning remote access off always works, even when a policy disables it.
-STOPPING = {('host', 'stop'), ('host', 'no-login'), ('host', 'undo'), ('away', 'disconnect'), ('away', 'undo')}
+STOPPING = {('host', 'stop'), ('host', 'no-login'), ('host', 'no-login-screen'), ('host', 'undo'), ('away', 'disconnect'), ('away', 'undo')}
 
 
 def main(arguments):
@@ -280,7 +285,8 @@ def main(arguments):
     if arguments == ['serve']:
         launch_host()
     elif len(arguments) == 2 and arguments[0] == 'host':
-        if arguments[1] not in ('setup', 'start', 'stop', 'login', 'no-login', 'undo', 'settings', 'pair', 'status'):
+        if arguments[1] not in ('setup', 'start', 'stop', 'login', 'no-login', 'login-screen', 'no-login-screen',
+                                    'undo', 'settings', 'pair', 'status'):
             raise ValueError('Unknown sharing action')
         host(arguments[1])
     elif len(arguments) == 2 and arguments[0] == 'away':

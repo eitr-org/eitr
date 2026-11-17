@@ -87,6 +87,7 @@ package() {
   install -Dm644 distro/system/eitr_plugin_packages_root.py "$pkgdir/usr/lib/eitr/eitr_plugin_packages_root.py"
   install -Dm644 distro/system/eitr_vpn_root.py "$pkgdir/usr/lib/eitr/eitr_vpn_root.py"
   install -Dm644 distro/system/eitr_remote.py "$pkgdir/usr/lib/eitr/eitr_remote.py"
+  install -Dm644 distro/system/eitr_remote_login.py "$pkgdir/usr/lib/eitr/eitr_remote_login.py"
   install -Dm755 distro/system/eitr-system.py "$pkgdir/usr/lib/eitr/eitr-system"
   # sudo's first-use lecture would greet every new user in the System Update terminal.
   install -dm750 "$pkgdir/etc/sudoers.d"
@@ -103,6 +104,8 @@ package() {
   # Enabled by the installer: refreshes the boot menu colours at shutdown.
   install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-boot-menu.service
   install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-firewall.service
+  # Disabled until Share the Login Screen is turned on (eitr-system remote-login-on).
+  install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-login-share.service
   install -Dm755 distro/system/boot-guard.py "$pkgdir/usr/lib/eitr/eitr-boot-guard"
   install -Dm755 distro/system/home-snapshots.py "$pkgdir/usr/lib/eitr/eitr-home-snapshots"
   install -Dm644 -t "$pkgdir/usr/lib/systemd/system" distro/system/eitr-home-exclusions.service

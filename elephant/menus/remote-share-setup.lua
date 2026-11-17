@@ -7,17 +7,27 @@ Icon = ""
 FixedOrder = true
 GetEntries = dofile(paths.code("elephant/scoped-menu.lua"))("remote-share-setup")
 
+local function enabled(command)
+    local handle = io.popen(command .. " 2>/dev/null")
+    local result = handle and handle:read("*l") == "enabled"
+    if handle then handle:close() end
+    return result
+end
+
 local entries = GetEntries
 GetEntries = function(query)
     local result = entries(query)
-    local handle = io.popen("systemctl --user is-enabled eitr-sunshine.service 2>/dev/null")
-    local enabled = handle and handle:read("*l") == "enabled"
-    if handle then handle:close() end
-    local choice = enabled and "login" or "no-login"
+    -- The current choice of each pair: sharing at sign-in, and on the login screen.
+    local choices = {
+        enabled("systemctl --user is-enabled eitr-sunshine.service") and "login" or "no-login",
+        enabled("systemctl is-enabled eitr-login-share.service") and "login-screen" or "no-login-screen",
+    }
     for _, entry in ipairs(result) do
-        if entry.Actions and entry.Actions.open and entry.Actions.open:match(" host " .. choice .. "$") then
-            entry.Icon = "\239\128\140"
-            entry.State = {"current"}
+        for _, choice in ipairs(choices) do
+            if entry.Actions and entry.Actions.open and entry.Actions.open:match(" host " .. choice .. "$") then
+                entry.Icon = "\239\128\140"
+                entry.State = {"current"}
+            end
         end
     end
     return result

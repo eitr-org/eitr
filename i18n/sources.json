@@ -2757,6 +2757,10 @@
     "Share WiFi": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
+    "Share the login screen": [
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Share this PC with Sunshine or connect with Moonlight.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -3508,6 +3512,9 @@
     ],
     "Your own lockscreens using this design are hidden until you reinstall it.": [
       "quickshell/desktop-bar/store/StoreRemove.qml"
+    ],
+    "Your paired devices can reach this PC before anyone signs in": [
+      "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
     "Your system at a glance.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -4818,6 +4825,9 @@
     "Let assistants work together": [
       "elephant/menus/ai-tools.lua"
     ],
+    "Let your paired devices reach the login screen": [
+      "elephant/menu-rows/remote-share-setup.json"
+    ],
     "Light": [
       "elephant/menu-rows/theme.json",
       "elephant/menus/theme-light.lua"
@@ -5086,6 +5096,9 @@
     "Online lyrics": [
       "elephant/menu-rows/bar.json",
       "elephant/menus/bar-lyrics.lua"
+    ],
+    "Only share after you sign in": [
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Opacity": [
       "elephant/menu-rows/terminal.json",
@@ -5769,6 +5782,9 @@
       "elephant/menu-rows/tools.json",
       "elephant/menus/share.lua"
     ],
+    "Share the Login Screen": [
+      "elephant/menu-rows/remote-share-setup.json"
+    ],
     "Shared numbers": [
       "tools/choice-lists.json"
     ],
@@ -5943,6 +5959,9 @@
     ],
     "Stop Sharing": [
       "elephant/menu-rows/remote-access.json"
+    ],
+    "Stop Sharing the Login Screen": [
+      "elephant/menu-rows/remote-share-setup.json"
     ],
     "Stop Sunshine and close its streaming ports": [
       "elephant/menu-rows/remote-access.json"
@@ -9577,6 +9596,9 @@
     "Pages Projects": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Pair a device with your sharing first; the login screen accepts the same devices.": [
+      "distro/system/eitr_remote_login.py"
+    ],
     "Part of the system was updated after the PC started; restart to start using it.": [
       "distro/lib/eitr_selfcheck.py"
     ],
@@ -9889,7 +9911,8 @@
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Remote access belongs to another desktop user": [
-      "distro/system/eitr_remote.py"
+      "distro/system/eitr_remote.py",
+      "distro/system/eitr_remote_login.py"
     ],
     "Removal would affect the default font or system icons": [
       "walker/scripts/actions/style/fonts.py"
@@ -10064,6 +10087,7 @@
     ],
     "Run Sharing Setup first.": [
       "distro/system/eitr_remote.py",
+      "distro/system/eitr_remote_login.py",
       "walker/scripts/actions/system/remote-access.py"
     ],
     "Run as your desktop user without GIT_CONFIG_GLOBAL": [
@@ -10273,6 +10297,9 @@
     "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
+    "Share the Login Screen is off.": [
+      "distro/system/eitr_remote_login.py"
+    ],
     "Shared numbers": [
       "tools/choice-lists.json"
     ],
@@ -10341,6 +10368,9 @@
     ],
     "Sign-in method": [
       "walker/scripts/menus/cloud/accounts.py"
+    ],
+    "Signing in still needs an account password. Sharing stops the moment someone signs in.": [
+      "distro/system/eitr_remote_login.py"
     ],
     "Sites": [
       "walker/scripts/menus/cloud/providers.py"
@@ -10448,6 +10478,9 @@
     ],
     "Start and end times must differ": [
       "walker/scripts/actions/toggle/nightlight.py"
+    ],
+    "Start sharing once and set Sunshine’s password first.": [
+      "distro/system/eitr_remote_login.py"
     ],
     "Start sharing this PC?": [
       "walker/scripts/actions/system/remote-access.py"
@@ -10760,6 +10793,9 @@
     ],
     "The lockscreen could not be changed.": [
       "distro/lib/eitr_lockscreen_packages.py"
+    ],
+    "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": [
+      "distro/system/eitr_remote_login.py"
     ],
     "The login wallpaper must be a JPEG under 25 MB": [
       "quickshell/lockscreen/scripts/sddm-select.py"

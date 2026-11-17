@@ -2497,6 +2497,9 @@ msgstr "Pakete"
 msgid "Pages Projects"
 msgstr "Pages-Projekte"
 
+msgid "Pair a device with your sharing first; the login screen accepts the same devices."
+msgstr "Koppeln Sie zuerst ein Gerät mit Ihrer Freigabe; der Anmeldebildschirm akzeptiert dieselben Geräte."
+
 msgid "Part of the system was updated after the PC started; restart to start using it."
 msgstr "Ein Teil des Systems wurde nach dem Start des PCs aktualisiert; starte neu, um ihn zu verwenden."
 
@@ -3181,6 +3184,9 @@ msgstr "Einrichtungsschritte"
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Mehrere Bootloader sind eingerichtet ({listing}). Entfernen Sie veraltete Loader-Dateien oder richten Sie Snapshot-Starteinträge manuell ein. Nichts wurde geändert."
 
+msgid "Share the Login Screen is off."
+msgstr "Anmeldebildschirm freigeben ist aus."
+
 msgid "Shared numbers"
 msgstr "Gemeinsame Nummern"
 
@@ -3249,6 +3255,9 @@ msgstr "Anmelde- und Website-Status"
 
 msgid "Sign-in method"
 msgstr "Anmeldeverfahren"
+
+msgid "Signing in still needs an account password. Sharing stops the moment someone signs in."
+msgstr "Zum Anmelden ist weiterhin ein Kontopasswort nötig. Die Freigabe endet, sobald sich jemand anmeldet."
 
 msgid "Sites"
 msgstr "Websites"
@@ -3354,6 +3363,9 @@ msgstr "Standard"
 
 msgid "Start and end times must differ"
 msgstr "Start- und Endzeit müssen unterschiedlich sein"
+
+msgid "Start sharing once and set Sunshine’s password first."
+msgstr "Starten Sie die Freigabe zuerst einmal und legen Sie das Sunshine-Passwort fest."
 
 msgid "Start sharing this PC?"
 msgstr "Diesen PC freigeben?"
@@ -3660,6 +3672,9 @@ msgstr "Das Layout für dein Bild, deine Farbe und Begrüßung."
 
 msgid "The lockscreen could not be changed."
 msgstr "Der Sperrbildschirm konnte nicht geändert werden."
+
+msgid "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them."
+msgstr "Der Anmeldebildschirm kann dann von den mit Ihrer Freigabe gekoppelten Geräten gestreamt werden, von jedem, der sie in der Hand hat."
 
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "Der Anmeldehintergrund muss eine JPEG-Datei unter 25 MB sein"

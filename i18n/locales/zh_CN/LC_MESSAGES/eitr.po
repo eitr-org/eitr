@@ -2497,6 +2497,9 @@ msgstr "软件包"
 msgid "Pages Projects"
 msgstr "Pages 项目"
 
+msgid "Pair a device with your sharing first; the login screen accepts the same devices."
+msgstr "请先为共享配对一台设备；登录界面接受同样的设备。"
+
 msgid "Part of the system was updated after the PC started; restart to start using it."
 msgstr "系统的一部分在电脑启动后已更新；重启以开始使用。"
 
@@ -3181,6 +3184,9 @@ msgstr "设置步骤"
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "配置了多个启动引导加载程序 ({listing})。请移除陈旧的引导文件或手动配置快照启动条目。未进行任何更改。"
 
+msgid "Share the Login Screen is off."
+msgstr "共享登录界面已关闭。"
+
 msgid "Shared numbers"
 msgstr "共享编号"
 
@@ -3249,6 +3255,9 @@ msgstr "登录与站点状态"
 
 msgid "Sign-in method"
 msgstr "登录方式"
+
+msgid "Signing in still needs an account password. Sharing stops the moment someone signs in."
+msgstr "登录仍需要账户密码。有人登录后共享会立即停止。"
 
 msgid "Sites"
 msgstr "站点"
@@ -3354,6 +3363,9 @@ msgstr "标准"
 
 msgid "Start and end times must differ"
 msgstr "开始时间和结束时间必须不同"
+
+msgid "Start sharing once and set Sunshine’s password first."
+msgstr "请先启动一次共享并设置 Sunshine 的密码。"
 
 msgid "Start sharing this PC?"
 msgstr "开始共享此电脑？"
@@ -3660,6 +3672,9 @@ msgstr "放置您的图片、颜色和问候语的布局。"
 
 msgid "The lockscreen could not be changed."
 msgstr "无法更改锁屏。"
+
+msgid "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them."
+msgstr "之后，持有与共享配对设备的任何人都可以串流登录界面。"
 
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "登录壁纸必须是小于 25 MB 的 JPEG 图片"

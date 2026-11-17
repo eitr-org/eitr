@@ -47,11 +47,13 @@ item says what decides the next step. Remove an item when it ships;
     Removing a tunnel asks for the password through `pkexec rm`; an `eitr-system` action
     would show a clearer prompt.
 - **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
-  (2026-11-11). Owner's choices (2026-11-12): Sunshine on the login screen behind its own
-  switch beside Start at Login (a system Sunshine with KMS capture while SDDM shows, handing
-  over to the session's Sunshine after sign-in), and headless use (a virtual display sized
-  to the Moonlight client); wake on LAN is left to people who want it. On hold; the agreed
-  design, including several users on one PC, is in `eitr-testing/codex-wip/remote-access-next/PLAN.md`.
+  (2026-11-11). Share the Login Screen is built (2026-11-17, `distro/system/eitr_remote_login.py`,
+  `distro/REMOTE-ACCESS.md`): a system Sunshine while nobody is signed in, with the sharing
+  account's identity and paired devices. VM-tested 2026-11-17: boot, sign-in (stops 2 ms after
+  logind's new session), sign-out, hand-over to and from the user's own Sharing at login, a
+  second account, switch off and Restore Sharing Setup. Next: a real Moonlight connection to
+  the login screen on the owner's NVIDIA PC. Headless use (a virtual display sized to the Moonlight client) stays planned in
+  `eitr-testing/codex-wip/remote-access-next/PLAN.md`; wake on LAN is left to people who want it.
 - **Dynamic island, next.** Short notification, volume/brightness, song, Bluetooth and
   keyboard moments are implemented. Next: a hover card for the clock (large time and week
   strip), and the wallpaper/theme carousel growing out of the clock island. Islands arrows

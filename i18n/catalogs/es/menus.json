@@ -793,5 +793,9 @@
   "gh or glab for this account only": "gh o glab solo para esta cuenta",
   "iwd": "iwd",
   "{service} · {url}": "{service} · {url}",
-  "Run timers, a stopwatch and focus sessions": "Usa temporizadores, cronómetro y foco"
+  "Run timers, a stopwatch and focus sessions": "Usa temporizadores, cronómetro y foco",
+  "Let your paired devices reach the login screen": "Tus dispositivos emparejados llegan al inicio de sesión",
+  "Only share after you sign in": "Compartir solo después de iniciar sesión",
+  "Share the Login Screen": "Compartir la pantalla de inicio de sesión",
+  "Stop Sharing the Login Screen": "Dejar de compartir la pantalla de inicio de sesión"
 }

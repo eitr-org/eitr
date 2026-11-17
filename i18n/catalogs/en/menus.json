@@ -793,5 +793,9 @@
   "Bar moments": "Bar moments",
   "Show brief notifications, levels and song changes in the bar.": "Show brief notifications, levels and song changes in the bar.",
   "Use separate volume and brightness popups": "Use separate volume and brightness popups",
-  "Run timers, a stopwatch and focus sessions": "Run timers, a stopwatch and focus sessions"
+  "Run timers, a stopwatch and focus sessions": "Run timers, a stopwatch and focus sessions",
+  "Let your paired devices reach the login screen": "Let your paired devices reach the login screen",
+  "Only share after you sign in": "Only share after you sign in",
+  "Share the Login Screen": "Share the Login Screen",
+  "Stop Sharing the Login Screen": "Stop Sharing the Login Screen"
 }

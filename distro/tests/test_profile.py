@@ -207,7 +207,7 @@ class PolicyEnforcement(unittest.TestCase):
             # Shutting remote access down is never refused.
             with patch.object(root_remote, 'sharing') as sharing:
                 root_remote.dispatch('close', 'tester')
-            sharing.assert_called_once_with('tester', False)
+            sharing.assert_called_once_with('tester', False, 'session')
             with patch.object(remote, 'run'), patch.object(remote, 'root'):
                 remote.main(['host', 'stop'])
 

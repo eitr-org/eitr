@@ -27,9 +27,10 @@ Column {
     readonly property var switchSources: ["Start Sharing", "Stop Sharing"]
     readonly property var visibleSources: ["Pair a Device", "Connect to another PC"]
     readonly property var loginSources: ["Start at Login", "Turn Off Start at Login"]
+    readonly property var loginScreenSources: ["Share the Login Screen", "Stop Sharing the Login Screen"]
     readonly property var moreActions: actions.filter(entry => entry.source !== firstStep
         && switchSources.indexOf(entry.source) < 0 && visibleSources.indexOf(entry.source) < 0
-        && loginSources.indexOf(entry.source) < 0)
+        && loginSources.indexOf(entry.source) < 0 && loginScreenSources.indexOf(entry.source) < 0)
     signal actionRequested(string menu, string source)
     signal settingsRequested()
     spacing: 14
@@ -147,6 +148,47 @@ Column {
             enabled: !content.busy
             foreground: content.foreground; accent: content.accent
             onClicked: content.run(content.loginSources[checked ? 0 : 1])
+        }
+    }
+    // Share the Login Screen: a system change, so its rows open a terminal for the password.
+    Item {
+        visible: content.installed && content.detail.loginScreen !== undefined
+        width: parent.width
+        height: visible ? Math.max(32, loginScreenText.implicitHeight + 8) : 0
+        Column {
+            id: loginScreenText
+            anchors.left: parent.left
+            anchors.right: loginScreenSwitch.left
+            anchors.rightMargin: 12
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: 2
+            Text {
+                width: parent.width
+                text: Eitr.I18n.tr("Share the login screen")
+                SettingsTarget { objectName: "setting-streaming-share-the-login-screen" }
+                color: content.foreground
+                font.family: DesktopFonts.family
+                font.pixelSize: PanelStyle.bodySize
+                wrapMode: Text.Wrap
+            }
+            Text {
+                width: parent.width
+                text: Eitr.I18n.tr("Your paired devices can reach this PC before anyone signs in")
+                color: content.foreground
+                opacity: PanelStyle.secondaryTextOpacity
+                font.family: DesktopFonts.family
+                font.pixelSize: PanelStyle.captionSize
+                wrapMode: Text.Wrap
+            }
+        }
+        PanelSwitch {
+            id: loginScreenSwitch
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            checked: !!content.detail.loginScreen
+            enabled: !content.busy
+            foreground: content.foreground; accent: content.accent
+            onClicked: content.run(content.loginScreenSources[checked ? 0 : 1])
         }
     }
     // The everyday actions stay one click away.

@@ -793,5 +793,9 @@
   "gh or glab for this account only": "仅为此账户使用 gh 或 glab",
   "iwd": "iwd",
   "{service} · {url}": "{service} · {url}",
-  "Run timers, a stopwatch and focus sessions": "运行计时器、秒表和专注会话"
+  "Run timers, a stopwatch and focus sessions": "运行计时器、秒表和专注会话",
+  "Let your paired devices reach the login screen": "让已配对的设备连接到登录界面",
+  "Only share after you sign in": "仅在登录后共享",
+  "Share the Login Screen": "共享登录界面",
+  "Stop Sharing the Login Screen": "停止共享登录界面"
 }

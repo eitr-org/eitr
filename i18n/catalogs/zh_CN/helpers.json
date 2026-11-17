@@ -1581,5 +1581,10 @@
   "{subscription_count} subscription(s) are ready in the Azure menu.": "Azure 菜单中已有 {subscription_count} 个订阅就绪。",
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit} 已启用；自下次启动起，快照条目将写入 {entries_path}。",
   "{unit} manages networking; review that custom setup first.": "{unit} 负责管理网络；请先审查该自定义设置。",
-  "… and {count} more": "… 以及另外 {count} 个"
+  "… and {count} more": "… 以及另外 {count} 个",
+  "Pair a device with your sharing first; the login screen accepts the same devices.": "请先为共享配对一台设备；登录界面接受同样的设备。",
+  "Share the Login Screen is off.": "共享登录界面已关闭。",
+  "Signing in still needs an account password. Sharing stops the moment someone signs in.": "登录仍需要账户密码。有人登录后共享会立即停止。",
+  "Start sharing once and set Sunshine’s password first.": "请先启动一次共享并设置 Sunshine 的密码。",
+  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "之后，持有与共享配对设备的任何人都可以串流登录界面。"
 }

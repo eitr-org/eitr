@@ -2,7 +2,7 @@
 
 Abra Configurações > Streaming para Sunshine e Moonlight, ou Walker > Configurações > Dispositivos > Streaming para as mesmas ações. O compartilhamento fica desligado até
 você ativá-lo. Esta etapa controla a sessão do Eitr já iniciada e acordada. Uso sem
-monitor, acesso antes do login e wake on LAN ficam para depois. Se este computador
+monitor e wake on LAN ficam para depois. Se este computador
 bloquear durante o compartilhamento, a tela remota mostra a tela de bloqueio:
 quem estiver conectado a vê e pode digitar a senha. Pare o compartilhamento antes
 de se ausentar quando a privacidade for importante.
@@ -58,6 +58,14 @@ configuração. O registro original de restauração é preservado.
 O Sunshine usa a capacidade KMS apenas como root ou pela conta que configurou o compartilhamento: a configuração define `root:eitr-sharing`, modo `0750`, e adiciona sua conta ao grupo do sistema. Saia e entre novamente antes de iniciar o compartilhamento para atualizar os grupos do serviço de usuário. A configuração mantém o processo em execução; reiniciá-lo antes de entrar novamente pode falhar.
 
 Parar mantém as permissões. Restaurar remove a associação ao grupo e todas as capacidades do executável, retornando a `root:root`, modo `0755`, inclusive para registros antigos. Após uma atualização do pacote, Configurar compartilhamento corrige proprietário e modo antes de conceder novamente a capacidade.
+
+## Compartilhar a tela de login
+
+Configurações > Streaming > Compartilhar a tela de login (também Streaming > Configuração do compartilhamento > Compartilhar a tela de login) deixa o Moonlight acessar este PC enquanto a tela de login aparece, depois de reiniciar ou sair, para você entrar à distância. Isso muda o sistema para todos, então pede a senha de administrador e uma confirmação digitada. Parar de compartilhar a tela de login desfaz tudo sem deixar nada para trás; Restaurar configuração de compartilhamento também desliga.
+
+É preciso ter feito Configurar compartilhamento, iniciado o compartilhamento uma vez com a senha do Sunshine definida e pareado pelo menos um dispositivo. A tela de login aceita exatamente os dispositivos pareados com o seu compartilhamento, com o mesmo nome de PC e certificado, então o Moonlight vê o mesmo PC antes e depois de você entrar. Um dispositivo que você desparear também é recusado na tela de login a partir do próximo início. Quem estiver com um dispositivo pareado vê a tela de login, mas entrar ainda exige a senha de uma conta.
+
+Um Sunshine separado, com a conta de sistema `eitr-loginshare`, funciona só enquanto ninguém entrou neste PC. Assim que alguém entra, ele para e a transmissão termina: conecte de novo para chegar ao compartilhamento dessa pessoa, se ele iniciar ao entrar, ou a nada, se ela não configurou. Dispositivos pareados com uma pessoa nunca veem a área de trabalho de outra. Ao sair, o compartilhamento da tela de login volta a funcionar. Não há som na tela de login.
 
 ## Moonlight no Mac
 

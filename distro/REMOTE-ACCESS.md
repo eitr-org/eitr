@@ -78,3 +78,35 @@ input-device access through logind, independently of the KMS executable grant.
 Replacing that shared mechanism with a group-only rule could break other local
 input applications and requires separate compatibility testing; this change does
 not claim that virtual input itself is exclusive to the sharing account.
+
+## Share the Login Screen
+
+`eitr-system remote-login-on USER` (Settings > Streaming, Sharing Setup) needs the
+sharing account's setup journal, its password step (`armed`) and at least one paired
+device. After a typed confirmation it creates the system account `eitr-loginshare`
+(groups `eitr-sharing`, `video`, `render`; the sharing group check allows exactly this
+extra member), records `login-screen.json` and enables `eitr-login-share.service`.
+
+The service runs `eitr-system remote-login-run` as root. It watches logind (D-Bus
+session signals, plus a check every 3 seconds) and runs Sunshine as `eitr-loginshare`
+only while no `user`-class session exists on seat0; SSH sessions have no seat and do not
+count. The moment one appears it stops Sunshine (SIGTERM, then SIGKILL after 5 s), closes
+the ports and removes the account's `/dev/uinput` ACL. When the last session ends it waits
+until the sharing account's own Sunshine has exited, then starts again.
+
+Before each start it copies the sharing account's `sunshine_state.json` and
+`credentials/` (read without following links) into `/var/lib/eitr/login-share/` (0700, owned by
+`eitr-loginshare`; outside the root-only `remote-access/` so the account can reach it) and
+writes its own `sunshine.conf`: `upnp=off`, web UI local only, KMS capture,
+`stream_audio=false`, no tray (there is no D-Bus session at the greeter), every path inside
+that folder. A Sunshine that keeps exiting is retried after a pause that doubles up to
+five minutes. Moonlight
+therefore sees the same host before and after sign-in, and unpairing a device in the
+user's Sunshine removes it here at the next start.
+
+Ports are opened through the same `sharing()` as the user's service, tagged with an owner
+(`session` or `login-screen`). A close from one side never shuts ports the other side has
+opened since, so the hand-over at sign-in and sign-out cannot close the new owner's
+ports whichever order the two services run in. Restore Sharing Setup and
+`remote-login-off` (always allowed, even under a policy) disable the unit, delete the
+account, the folder and the journal, and leave nothing behind.

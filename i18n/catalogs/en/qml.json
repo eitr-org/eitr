@@ -1061,5 +1061,7 @@
   "Lap {number}": "Lap {number}",
   "Lengths follow Settings › Focus.": "Lengths follow Settings › Focus.",
   "Name (optional)": "Name (optional)",
-  "{focus} min focus · {rest} min break": "{focus} min focus · {rest} min break"
+  "{focus} min focus · {rest} min break": "{focus} min focus · {rest} min break",
+  "Share the login screen": "Share the login screen",
+  "Your paired devices can reach this PC before anyone signs in": "Your paired devices can reach this PC before anyone signs in"
 }

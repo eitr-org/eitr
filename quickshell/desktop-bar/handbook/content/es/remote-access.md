@@ -2,7 +2,7 @@
 
 Abra Configuración > Streaming para Sunshine y Moonlight, o Walker > Configuración > Dispositivos > Streaming para las mismas acciones. Compartir permanece desactivado hasta
 que lo active. Se controla la sesión de Eitr iniciada y despierta. El uso sin
-monitor, antes del inicio de sesión y wake on LAN quedan para después. Si este equipo
+monitor y wake on LAN quedan para después. Si este equipo
 se bloquea mientras comparte, la pantalla remota muestra la pantalla de bloqueo:
 quien esté conectado la ve y puede escribir la contraseña. Deje de compartir
 antes de ausentarse si necesita privacidad.
@@ -56,6 +56,14 @@ configuración. Se conserva el registro original de restauración.
 Sunshine usa la capacidad KMS solo como root o con la cuenta que configuró el uso compartido: la configuración establece `root:eitr-sharing`, modo `0750`, y añade tu cuenta al grupo del sistema. Cierra sesión y vuelve a entrar antes de iniciar para actualizar los grupos del servicio de usuario. La configuración mantiene el proceso activo; reiniciarlo antes de volver a entrar puede fallar.
 
 Detener conserva los permisos. Restaurar elimina la pertenencia al grupo y todas las capacidades del ejecutable y restablece `root:root`, modo `0755`, también para registros antiguos. Tras actualizar el paquete, Configurar uso compartido corrige propietario y modo antes de conceder la capacidad.
+
+## Compartir la pantalla de inicio de sesión
+
+Configuración > Streaming > Compartir la pantalla de inicio de sesión (también Streaming > Configuración para compartir > Compartir la pantalla de inicio de sesión) permite que Moonlight llegue a este PC mientras se muestra la pantalla de inicio de sesión, tras un reinicio o un cierre de sesión, para que puedas iniciar sesión a distancia. Cambia el sistema para todos, así que pide la contraseña de administrador y una confirmación escrita. Dejar de compartir la pantalla de inicio de sesión lo deshace sin dejar nada atrás; Restaurar configuración de uso compartido también lo apaga.
+
+Necesita Configurar uso compartido, haber usado una vez Iniciar uso compartido con la contraseña de Sunshine definida y al menos un dispositivo emparejado. La pantalla de inicio de sesión acepta exactamente los dispositivos emparejados con tu uso compartido, con el mismo nombre de PC y certificado, así que Moonlight ve el mismo PC antes y después de iniciar sesión. Un dispositivo que desemparejes también se rechaza en la pantalla de inicio de sesión desde el siguiente arranque. Quien tenga un dispositivo emparejado puede ver la pantalla de inicio de sesión, pero para entrar sigue haciendo falta la contraseña de una cuenta.
+
+Un Sunshine aparte, con la cuenta de sistema `eitr-loginshare`, funciona solo mientras nadie ha iniciado sesión en este PC. En cuanto alguien inicia sesión se detiene y la transmisión termina: vuelve a conectar para llegar al uso compartido de esa persona si arranca al iniciar sesión, o a nada si no lo ha configurado. Los dispositivos emparejados con una persona nunca ven el escritorio de otra. Al cerrar sesión, el uso compartido de la pantalla de inicio de sesión vuelve a arrancar. En la pantalla de inicio de sesión no hay sonido.
 
 ## Moonlight en un Mac
 

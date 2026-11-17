@@ -25,14 +25,16 @@ class RemoteLayoutTests(unittest.TestCase):
                 renders.mkdir(parents=True, exist_ok=True)
                 capture = renders / (theme + '.png')
                 background, foreground = ('#18212b', '#e9eef1') if theme == 'dark' else ('#f5f0e7', '#252936')
-                state = {'streaming': {'status': 'Freigabe aktiv', 'running': True, 'startAtLogin': False, 'facts': [
+                state = {'streaming': {'status': 'Freigabe aktiv', 'running': True, 'startAtLogin': False, 'loginScreen': True, 'facts': [
                     {'label': 'Erfassung', 'value': 'KMS'},
                     {'label': 'Einstellungen', 'value': 'https://localhost:47990'}],
                     'actions': [{'menu': 'remote-access', 'source': source,
                                  'title': title, 'description': 'Eine ausführliche Beschreibung', 'icon': '\uf021'}
                                 for source, title in [('Start Sharing', 'Freigabe starten'), ('Stop Sharing', 'Freigabe beenden'),
                                                       ('Pair a Device', 'Gerät koppeln'), ('Connect to another PC', 'Mit anderem PC verbinden'),
-                                                      ('Detailed Status', 'Detaillierter Status'), ('Restore Sharing Setup', 'Freigabeeinrichtung wiederherstellen')]]}}
+                                                      ('Detailed Status', 'Detaillierter Status'), ('Restore Sharing Setup', 'Freigabeeinrichtung wiederherstellen'),
+                                                      ('Share the Login Screen', 'Anmeldebildschirm freigeben'),
+                                                      ('Stop Sharing the Login Screen', 'Anmeldebildschirm nicht mehr freigeben')]]}}
                 fixture = folder / 'fixture.qml'
                 fixture.write_text('''import QtQuick
 import Quickshell

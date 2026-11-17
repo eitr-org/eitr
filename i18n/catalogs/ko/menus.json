@@ -793,5 +793,9 @@
   "gh or glab for this account only": "이 계정 전용 gh 또는 glab",
   "iwd": "iwd",
   "{service} · {url}": "{service} · {url}",
-  "Run timers, a stopwatch and focus sessions": "타이머, 스톱워치, 집중 세션을 실행합니다"
+  "Run timers, a stopwatch and focus sessions": "타이머, 스톱워치, 집중 세션을 실행합니다",
+  "Let your paired devices reach the login screen": "페어링된 기기가 로그인 화면에 연결할 수 있게 합니다",
+  "Only share after you sign in": "로그인한 후에만 공유합니다",
+  "Share the Login Screen": "로그인 화면 공유",
+  "Stop Sharing the Login Screen": "로그인 화면 공유 중지"
 }

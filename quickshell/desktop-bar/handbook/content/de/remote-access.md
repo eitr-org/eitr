@@ -2,7 +2,7 @@
 
 Öffnen Sie Einstellungen > Streaming für Sunshine und Moonlight oder Walker > Einstellungen > Geräte > Streaming für dieselben Aktionen. Die Freigabe bleibt bis zur
 Aktivierung ausgeschaltet. Unterstützt wird der angemeldete, wache Eitr-Desktop.
-Betrieb ohne Monitor, Zugriff vor der Anmeldung und wake on LAN folgen später.
+Betrieb ohne Monitor und wake on LAN folgen später.
 Sperrt sich dieser PC während der Freigabe, zeigt der entfernte Bildschirm den
 Sperrbildschirm; wer verbunden ist, sieht ihn und kann das Passwort eingeben.
 Beenden Sie die Freigabe, bevor Sie weggehen, wenn Vertraulichkeit wichtig ist.
@@ -53,6 +53,14 @@ den Grund: Freigabe erneut einrichten oder nach der ersten Einrichtung ab- und w
 anmelden. Das ursprüngliche Wiederherstellungsprotokoll bleibt erhalten.
 
 Sunshine verwendet die KMS-Capability nur als root oder mit dem Freigabekonto: Die Einrichtung setzt `root:eitr-sharing`, Modus `0750`, und nimmt dein Konto in diese Systemgruppe auf. Melde dich vor dem Start ab und wieder an, damit der Benutzerdienst die neue Gruppe erhält. Die Einrichtung lässt laufende Prozesse aktiv; ein Neustart vor der nächsten Anmeldung kann fehlschlagen. Stoppen behält die Berechtigungen. Zurücksetzen entfernt die Gruppenmitgliedschaft und alle Datei-Capabilities und setzt `root:root`, Modus `0755`, auch bei älteren Einrichtungsdaten. Nach Paketupdates repariert die Einrichtung Eigentümer und Modus vor der erneuten Vergabe der Capability.
+
+## Den Anmeldebildschirm freigeben
+
+Einstellungen > Streaming > Anmeldebildschirm freigeben (auch Streaming > Freigabe-Einrichtung > Anmeldebildschirm freigeben) lässt Moonlight diesen PC erreichen, während der Anmeldebildschirm angezeigt wird, nach einem Neustart oder einer Abmeldung, sodass Sie sich aus der Ferne anmelden können. Das ändert das System für alle, daher fragt es nach dem Administratorpasswort und einer getippten Bestätigung. Anmeldebildschirm nicht mehr freigeben macht es rückgängig und hinterlässt nichts; auch Freigabeeinrichtung zurücksetzen schaltet es aus.
+
+Voraussetzungen: Freigabe einrichten, einmal Freigabe starten mit gesetztem Sunshine-Passwort und mindestens ein gekoppeltes Gerät. Der Anmeldebildschirm akzeptiert genau die mit Ihrer Freigabe gekoppelten Geräte, mit demselben PC-Namen und Zertifikat, sodass Moonlight vor und nach der Anmeldung denselben PC sieht. Ein Gerät, das Sie aus Ihrer Freigabe entfernen, wird ab dem nächsten Start auch am Anmeldebildschirm abgewiesen. Wer ein gekoppeltes Gerät hat, sieht den Anmeldebildschirm, für die Anmeldung ist aber weiterhin ein Kontopasswort nötig.
+
+Ein eigenes Sunshine unter dem Systemkonto `eitr-loginshare` läuft nur, solange niemand an diesem PC angemeldet ist. Sobald sich jemand anmeldet, stoppt es und der Stream endet: Verbinden Sie sich neu, um die Freigabe dieser Person zu erreichen, falls sie bei der Anmeldung startet, sonst nichts. Mit einer Person gekoppelte Geräte sehen nie den Desktop einer anderen. Nach der Abmeldung startet die Freigabe des Anmeldebildschirms wieder. Am Anmeldebildschirm gibt es keinen Ton.
 
 ## Moonlight auf einem Mac
 

@@ -121,6 +121,7 @@ var settings = [
     {"id": "security-remove-tpm-unlock", "label": "Remove TPM Unlock", "page": "security", "tab": "protection", "keywords": "remove tpm unlock"},
     {"id": "security-show-disk-unlock-methods", "label": "Show Disk Unlock Methods", "page": "security", "tab": "protection", "keywords": "show disk unlock methods"},
     {"id": "streaming-start-at-login", "label": "Start at login", "page": "streaming", "tab": "", "keywords": "start at login"},
+    {"id": "streaming-share-the-login-screen", "label": "Share the login screen", "page": "streaming", "tab": "", "keywords": "login screen greeter sddm before sign in"},
     {"id": "displays-mirror", "label": "Mirror", "page": "displays", "tab": "displays", "keywords": "mirror"},
     {"id": "assistant-github-copilot-cli", "label": "GitHub Copilot CLI", "page": "assistant", "tab": "assistants", "keywords": "github copilot cli"},
     {"id": "assistant-codex", "label": "Codex", "page": "assistant", "tab": "assistants", "keywords": "codex"},

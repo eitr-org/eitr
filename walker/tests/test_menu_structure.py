@@ -36,7 +36,8 @@ class MenuStructureTests(unittest.TestCase):
         for removed in ("remote-share.lua", "remote-away.lua", "remote-away-setup.lua"):
             self.assertFalse((MENUS / removed).exists(), removed)
         sharing = {row["text"] for row in menu("remote-share-setup")["entries"]}
-        self.assertEqual(sharing, {"Set Up Sharing", "Sharing Settings", "Start at Login", "Turn Off Start at Login", "Detailed Status", "Restore Sharing Setup"})
+        self.assertEqual(sharing, {"Set Up Sharing", "Sharing Settings", "Start at Login", "Turn Off Start at Login", "Share the Login Screen",
+                                   "Stop Sharing the Login Screen", "Detailed Status", "Restore Sharing Setup"})
 
     def test_agent_workspaces_open_herdr_and_cmux(self):
         workspaces = menu("agent-workspaces")

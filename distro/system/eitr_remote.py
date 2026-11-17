@@ -16,6 +16,7 @@ RULES = Path('/run/eitr/firewall.d/remote-access.nft')
 GUARD = Path('/etc/eitr/remote-access.nft')
 BINARY = Path('/usr/bin/sunshine')
 SHARING_GROUP = 'eitr-sharing'
+LOGIN_ACCOUNT = 'eitr-loginshare'  # Share the Login Screen's account (eitr_remote_login)
 UNIT = 'tailscaled.service'
 PORTS = 'tcp dport { 47984, 47989, 48010 }'
 UDP = 'udp dport 47998-48000'
@@ -89,7 +90,7 @@ def sharing_group(name):
         group = grp.getgrnam(SHARING_GROUP)
     except KeyError:
         raise RuntimeError(tr('Update the eitr-sunshine package to create the sharing group.')) from None
-    others = set(group.gr_mem) - {name}
+    others = set(group.gr_mem) - {name, LOGIN_ACCOUNT}
     others.update(user.pw_name for user in pwd.getpwall()
                   if user.pw_gid == group.gr_gid and user.pw_name != name)
     if others:
@@ -246,11 +247,16 @@ def firewall_active():
                           capture_output=True).returncode == 0
 
 
-def sharing(name, enabled):
+def sharing(name, enabled, owner=None):
+    """Open or close the stream ports. `owner` is the signed-in desktop ('session') or the
+    login screen ('login-screen'); a close from one never shuts ports the other opened since."""
     account(name)
     original = journal('sunshine')
     if not original or original['user'] != name:
         raise RuntimeError(tr('Run Sharing Setup first.'))
+    current = journal('sharing') or {}
+    if not enabled and owner and current.get('owner') not in (None, owner) and RULES.exists():
+        return
     if not enabled or not original.get('armed'):
         RULES.unlink(missing_ok=True)
         # Keep the early guard while the process finishes stopping. The empty
@@ -269,7 +275,7 @@ def sharing(name, enabled):
     routes += json.loads(output(['ip', '-j', '-6', 'route', 'show', 'scope', 'link']))
     interfaces = {interface.name for interface in (ROOT / 'sys/class/net').glob('*') if (interface / 'device').exists()}
     openings, guard = firewall_text(scopes(routes, interfaces), tailscale=journal('tailscale') is not None)
-    save('sharing', {'user': name, 'openings': openings})
+    save('sharing', {'user': name, 'openings': openings, 'owner': owner})
     try:
         write(GUARD, guard, 0o644)
         run(['nft', '-c', '-f', str(GUARD)])
@@ -290,6 +296,9 @@ def undo_sunshine(name, ask=True):
         raise RuntimeError(tr('Remote access belongs to another desktop user'))
     if ask:
         confirmed()
+    if journal('login-screen'):
+        import eitr_remote_login
+        eitr_remote_login.disable(name, ask=False)
     if GUARD.exists() or RULES.exists():
         sharing(name, False)
     if BINARY.exists():
@@ -369,19 +378,23 @@ def reopen_sharing(name):
     opens or closes the Tailscale interface without restarting Sunshine."""
     sunshine = journal('sunshine')
     if RULES.exists() and sunshine and sunshine['user'] == name:
-        sharing(name, True)
+        sharing(name, True, (journal('sharing') or {}).get('owner'))
 
 
 # Closing ports and undoing setup always work, so a policy added after sharing
 # was set up can still shut it down.
-STOPPING = {'close', 'undo', 'tailscale-undo'}
+STOPPING = {'close', 'undo', 'tailscale-undo', 'login-off'}
 
 
 def dispatch(action, name):
     if action not in STOPPING and action != 'refresh':
         from eitr_policy import require
         require('remote_access')
+    if action.startswith('login-'):
+        import eitr_remote_login
+        eitr_remote_login.dispatch(action.removeprefix('login-'), name)
+        return
     operations = {'setup': setup, 'undo': undo_sunshine, 'arm': arm,
-                  'refresh': refresh, 'open': lambda user: sharing(user, True), 'close': lambda user: sharing(user, False),
+                  'refresh': refresh, 'open': lambda user: sharing(user, True, 'session'), 'close': lambda user: sharing(user, False, 'session'),
                   'tailscale': tailscale, 'tailscale-undo': lambda user: tailscale(user, True)}
     operations[action](name)

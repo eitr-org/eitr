@@ -2497,6 +2497,9 @@ msgstr "Paquetes"
 msgid "Pages Projects"
 msgstr "Proyectos Pages"
 
+msgid "Pair a device with your sharing first; the login screen accepts the same devices."
+msgstr "Primero empareja un dispositivo con tu uso compartido; la pantalla de inicio de sesión acepta los mismos dispositivos."
+
 msgid "Part of the system was updated after the PC started; restart to start using it."
 msgstr "Parte del sistema se actualizó después de iniciar el PC; reinicia para empezar a usarla."
 
@@ -3181,6 +3184,9 @@ msgstr "Pasos de configuración"
 msgid "Several boot loaders are configured ({listing}). Remove stale loader files or configure snapshot boot entries manually. Nothing was changed."
 msgstr "Hay varios gestores de arranque configurados ({listing}). Elimina los archivos obsoletos o configura manualmente las entradas de instantáneas. No se cambió nada."
 
+msgid "Share the Login Screen is off."
+msgstr "Compartir la pantalla de inicio de sesión está desactivado."
+
 msgid "Shared numbers"
 msgstr "Números compartidos"
 
@@ -3249,6 +3255,9 @@ msgstr "Estado de sesión y del sitio"
 
 msgid "Sign-in method"
 msgstr "Método de acceso"
+
+msgid "Signing in still needs an account password. Sharing stops the moment someone signs in."
+msgstr "Para iniciar sesión sigue haciendo falta la contraseña de una cuenta. El uso compartido se detiene en cuanto alguien inicia sesión."
 
 msgid "Sites"
 msgstr "Sitios"
@@ -3354,6 +3363,9 @@ msgstr "Estándar"
 
 msgid "Start and end times must differ"
 msgstr "Las horas de inicio y fin deben ser distintas"
+
+msgid "Start sharing once and set Sunshine’s password first."
+msgstr "Primero inicia el uso compartido una vez y define la contraseña de Sunshine."
 
 msgid "Start sharing this PC?"
 msgstr "¿Empezar a compartir este PC?"
@@ -3660,6 +3672,9 @@ msgstr "El diseño donde van tu imagen, color y saludo."
 
 msgid "The lockscreen could not be changed."
 msgstr "No se pudo cambiar la pantalla de bloqueo."
+
+msgid "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them."
+msgstr "La pantalla de inicio de sesión podrá transmitirse desde los dispositivos emparejados con tu uso compartido, por cualquiera que los tenga."
 
 msgid "The login wallpaper must be a JPEG under 25 MB"
 msgstr "El fondo de acceso debe ser un JPEG de menos de 25 MB"

@@ -1,0 +1,14 @@
+[Unit]
+Description=Eitr: share the login screen while nobody is signed in
+After=network-online.target display-manager.service eitr-firewall.service
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/lib/eitr/eitr-system remote-login-run
+Restart=on-failure
+RestartSec=5
+KillMode=mixed
+TimeoutStopSec=15
+
+[Install]
+WantedBy=graphical.target

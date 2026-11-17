@@ -1805,6 +1805,14 @@
         }
       },
       {
+        "text": "Share the Login Screen",
+        "subtext": "Let your paired devices reach the login screen",
+        "icon": "󰍹",
+        "actions": {
+          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host login-screen"
+        }
+      },
+      {
         "text": "Sharing Settings",
         "subtext": "Set the Sunshine password and configure streaming",
         "icon": "󰒓",
@@ -1821,6 +1829,14 @@
         "icon": "󰍂",
         "actions": {
           "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host login"
+        }
+      },
+      {
+        "text": "Stop Sharing the Login Screen",
+        "subtext": "Only share after you sign in",
+        "icon": "󰶐",
+        "actions": {
+          "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host no-login-screen"
         }
       },
       {
@@ -7762,6 +7778,28 @@
       "key": "131c1ccceff1db88d7e82a4be8538782707b665ab24149a54643be9add86c7c7",
       "provider": "menus:remote-share-setup",
       "identifier": "remote-share-setup:3",
+      "text": "Share the Login Screen",
+      "subtext": "Let your paired devices reach the login screen",
+      "icon": "󰍹",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Share the Login Screen",
+        "Share the Login Screen",
+        "Let your paired devices reach the login screen"
+      ],
+      "menus": [
+        "remote-access",
+        "system-devices",
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "4f4c56987343aba60ac33005145827fa9ab62b25859490d6e45e855060c378d8",
+      "provider": "menus:remote-share-setup",
+      "identifier": "remote-share-setup:4",
       "text": "Sharing Settings",
       "subtext": "Set the Sunshine password and configure streaming",
       "icon": "󰒓",
@@ -7782,9 +7820,9 @@
       ]
     },
     {
-      "key": "4f4c56987343aba60ac33005145827fa9ab62b25859490d6e45e855060c378d8",
+      "key": "efee7120727f252ca5e912355dbc2f0874de29b22baa75d5e5b12c68ed1450c8",
       "provider": "menus:remote-share-setup",
-      "identifier": "remote-share-setup:4",
+      "identifier": "remote-share-setup:5",
       "text": "Start at Login",
       "subtext": "Enable sharing when you sign in",
       "icon": "󰍂",
@@ -7804,9 +7842,31 @@
       ]
     },
     {
-      "key": "efee7120727f252ca5e912355dbc2f0874de29b22baa75d5e5b12c68ed1450c8",
+      "key": "b7cf4f61c34714f38a8f505c7721022e65603ec7af2180b6f9fe06319dad2f7f",
       "provider": "menus:remote-share-setup",
-      "identifier": "remote-share-setup:5",
+      "identifier": "remote-share-setup:6",
+      "text": "Stop Sharing the Login Screen",
+      "subtext": "Only share after you sign in",
+      "icon": "󰶐",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "Stop Sharing the Login Screen",
+        "Stop Sharing the Login Screen",
+        "Only share after you sign in"
+      ],
+      "menus": [
+        "remote-access",
+        "system-devices",
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "a667927d9b46fb9709a732263890f2c0bd4730a7d3d88ef71f347ad18b29315c",
+      "provider": "menus:remote-share-setup",
+      "identifier": "remote-share-setup:7",
       "text": "Turn Off Start at Login",
       "subtext": "Keep sharing manual",
       "icon": "󰍃",

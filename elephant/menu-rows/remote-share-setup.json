@@ -24,6 +24,14 @@
     }
   },
   {
+    "text": "Share the Login Screen",
+    "subtext": "Let your paired devices reach the login screen",
+    "icon": "󰍹",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host login-screen"
+    }
+  },
+  {
     "text": "Sharing Settings",
     "subtext": "Set the Sunshine password and configure streaming",
     "icon": "󰒓",
@@ -40,6 +48,14 @@
     "icon": "󰍂",
     "actions": {
       "open": "python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host login"
+    }
+  },
+  {
+    "text": "Stop Sharing the Login Screen",
+    "subtext": "Only share after you sign in",
+    "icon": "󰶐",
+    "actions": {
+      "open": "kitty -e python3 /usr/share/eitr/walker/scripts/actions/task-terminal.py python3 /usr/share/eitr/walker/scripts/actions/system/remote-access.py host no-login-screen"
     }
   },
   {

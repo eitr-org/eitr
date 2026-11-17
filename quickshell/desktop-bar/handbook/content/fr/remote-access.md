@@ -2,7 +2,7 @@
 
 Ouvrez Paramètres > Streaming pour Sunshine et Moonlight, ou Walker > Paramètres > Périphériques > Streaming pour les mêmes actions. Le partage reste désactivé jusqu’à
 son activation. Cette étape contrôle le bureau Eitr connecté et éveillé.
-Le fonctionnement sans écran, avant connexion et wake on LAN viendront plus tard.
+Le fonctionnement sans écran et wake on LAN viendront plus tard.
 Si cet ordinateur se verrouille pendant le partage, l’écran distant affiche
 l’écran de verrouillage : la personne connectée le voit et peut saisir le mot de
 passe. Arrêtez le partage avant de vous absenter si la confidentialité compte.
@@ -57,6 +57,14 @@ première configuration. Le journal d’annulation initial est conservé.
 Sunshine utilise la capacité KMS uniquement comme root ou avec le compte de partage : la configuration applique `root:eitr-sharing`, mode `0750`, et ajoute votre compte à ce groupe système. Déconnectez-vous puis reconnectez-vous avant de démarrer pour actualiser les groupes du service utilisateur. La configuration laisse le processus actif ; un redémarrage avant la prochaine connexion peut échouer.
 
 Arrêter conserve les permissions. Rétablir retire le compte du groupe et toutes les capacités du fichier, puis applique `root:root`, mode `0755`, même pour les anciens journaux. Après une mise à jour du paquet, la configuration répare le propriétaire et le mode avant de réattribuer la capacité.
+
+## Partager l’écran de connexion
+
+Paramètres > Streaming > Partager l’écran de connexion (aussi Streaming > Configuration du partage > Partager l’écran de connexion) permet à Moonlight d’atteindre ce PC pendant que l’écran de connexion s’affiche, après un redémarrage ou une déconnexion, pour vous connecter à distance. Cela modifie le système pour tout le monde : le mot de passe administrateur et une confirmation saisie sont demandés. Ne plus partager l’écran de connexion l’annule sans rien laisser ; Rétablir la configuration du partage le désactive aussi.
+
+Il faut avoir lancé Configurer le partage, démarré une fois le partage avec le mot de passe de Sunshine défini, et associé au moins un appareil. L’écran de connexion accepte exactement les appareils associés à votre partage, avec le même nom de PC et le même certificat : Moonlight voit le même PC avant et après la connexion. Un appareil dissocié de votre partage est aussi refusé à l’écran de connexion dès le démarrage suivant. Toute personne qui détient un appareil associé voit l’écran de connexion, mais se connecter demande toujours le mot de passe d’un compte.
+
+Un Sunshine distinct, sous le compte système `eitr-loginshare`, ne fonctionne que tant que personne n’est connecté sur ce PC. Dès qu’une personne se connecte, il s’arrête et le flux se termine : reconnectez-vous pour atteindre son propre partage s’il démarre à la connexion, sinon rien. Les appareils associés à une personne ne voient jamais le bureau d’une autre. La déconnexion relance le partage de l’écran de connexion. Il n’y a pas de son à l’écran de connexion.
 
 ## Moonlight sur un Mac
 

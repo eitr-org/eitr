@@ -793,5 +793,9 @@
   "gh or glab for this account only": "gh oder glab nur für dieses Konto",
   "iwd": "iwd",
   "{service} · {url}": "{service} · {url}",
-  "Run timers, a stopwatch and focus sessions": "Timer, Stoppuhr und Fokussitzungen starten"
+  "Run timers, a stopwatch and focus sessions": "Timer, Stoppuhr und Fokussitzungen starten",
+  "Let your paired devices reach the login screen": "Gekoppelte Geräte erreichen den Anmeldebildschirm",
+  "Only share after you sign in": "Erst nach der Anmeldung freigeben",
+  "Share the Login Screen": "Anmeldebildschirm freigeben",
+  "Stop Sharing the Login Screen": "Anmeldebildschirm nicht mehr freigeben"
 }

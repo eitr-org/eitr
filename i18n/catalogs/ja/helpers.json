@@ -1581,5 +1581,10 @@
   "{subscription_count} subscription(s) are ready in the Azure menu.": "Azureメニューで {subscription_count} 件のサブスクリプションの準備が完了しました。",
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit} が有効です。次回の起動からスナップショットエントリが {entries_path} に書き込まれます。",
   "{unit} manages networking; review that custom setup first.": "{unit} がネットワークを管理しています。最初にそのカスタム設定を確認してください。",
-  "… and {count} more": "…他 {count} 件"
+  "… and {count} more": "…他 {count} 件",
+  "Pair a device with your sharing first; the login screen accepts the same devices.": "まず共有にデバイスをペアリングしてください。ログイン画面は同じデバイスを受け付けます。",
+  "Share the Login Screen is off.": "ログイン画面の共有はオフです。",
+  "Signing in still needs an account password. Sharing stops the moment someone signs in.": "サインインには引き続きアカウントのパスワードが必要です。誰かがサインインした時点で共有は停止します。",
+  "Start sharing once and set Sunshine’s password first.": "まず一度共有を開始し、Sunshine のパスワードを設定してください。",
+  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "ログイン画面は、共有にペアリングされたデバイスから、それを持つ誰でもストリーミングできるようになります。"
 }

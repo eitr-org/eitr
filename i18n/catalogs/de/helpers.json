@@ -1581,5 +1581,10 @@
   "{subscription_count} subscription(s) are ready in the Azure menu.": "{subscription_count} Abonnement(s) sind im Azure-Menü bereit.",
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit} ist aktiviert; Snapshot-Einträge werden ab dem nächsten Start nach {entries_path} geschrieben.",
   "{unit} manages networking; review that custom setup first.": "{unit} verwaltet das Netzwerk; prüfen Sie zuerst diese eigene Konfiguration.",
-  "… and {count} more": "… und {count} weitere"
+  "… and {count} more": "… und {count} weitere",
+  "Pair a device with your sharing first; the login screen accepts the same devices.": "Koppeln Sie zuerst ein Gerät mit Ihrer Freigabe; der Anmeldebildschirm akzeptiert dieselben Geräte.",
+  "Share the Login Screen is off.": "Anmeldebildschirm freigeben ist aus.",
+  "Signing in still needs an account password. Sharing stops the moment someone signs in.": "Zum Anmelden ist weiterhin ein Kontopasswort nötig. Die Freigabe endet, sobald sich jemand anmeldet.",
+  "Start sharing once and set Sunshine’s password first.": "Starten Sie die Freigabe zuerst einmal und legen Sie das Sunshine-Passwort fest.",
+  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "Der Anmeldebildschirm kann dann von den mit Ihrer Freigabe gekoppelten Geräten gestreamt werden, von jedem, der sie in der Hand hat."
 }

@@ -1581,5 +1581,10 @@
   "Invalid {field}": "Invalid {field}",
   "Unknown Hyprland key: {key}": "Unknown Hyprland key: {key}",
   "{key} is used by {title}": "{key} is used by {title}",
-  "The lockscreen could not be changed.": "The lockscreen could not be changed."
+  "The lockscreen could not be changed.": "The lockscreen could not be changed.",
+  "Pair a device with your sharing first; the login screen accepts the same devices.": "Pair a device with your sharing first; the login screen accepts the same devices.",
+  "Share the Login Screen is off.": "Share the Login Screen is off.",
+  "Signing in still needs an account password. Sharing stops the moment someone signs in.": "Signing in still needs an account password. Sharing stops the moment someone signs in.",
+  "Start sharing once and set Sunshine’s password first.": "Start sharing once and set Sunshine’s password first.",
+  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them."
 }

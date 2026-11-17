@@ -29,6 +29,11 @@ def menu_actions(menu):
             for owner, row in sources if row.get('actions') and row['text'] != 'Sharing Status']
 
 
+def login_screen():
+    """Share the Login Screen: whether its system service is on (eitr_remote_login)."""
+    return query(['systemctl', 'is-enabled', '--quiet', 'eitr-login-share.service']).returncode == 0
+
+
 def streaming_status():
     state = {'installed': bool(shutil.which('sunshine')), 'moonlightInstalled': bool(shutil.which('moonlight')), 'running': False,
              'facts': [{'label': tr('Host'), 'value': 'Sunshine'},
@@ -43,6 +48,7 @@ def streaming_status():
         properties = dict(line.split('=', 1) for line in response.stdout.splitlines() if '=' in line)
         state['running'] = properties.get('ActiveState') == 'active'
         state['startAtLogin'] = properties.get('UnitFileState') == 'enabled'
+        state['loginScreen'] = login_screen()
         state['facts'] = [
             {'label': tr('Host'), 'value': 'Sunshine'},
             {'label': tr('Client'), 'value': 'Moonlight'},
