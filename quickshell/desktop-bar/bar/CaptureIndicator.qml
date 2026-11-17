@@ -59,9 +59,9 @@ Item {
             height: 24
             Rectangle {
                 visible: !capture.listening
-                anchors.right: capture.centered ? undefined : parent.right
-                anchors.rightMargin: 2
-                anchors.horizontalCenter: capture.centered ? parent.horizontalCenter : undefined
+                // Placed by x, not by swapping anchors: switching layouts left both anchors
+                // set for a moment, and they stretched the dot into a bar.
+                x: capture.centered ? (parent.width - width) / 2 : parent.width - width - 2
                 anchors.verticalCenter: parent.verticalCenter
                 width: 6
                 height: 6
@@ -79,8 +79,7 @@ Item {
             // microphone while listening and pulsing while transcribing.
             Row {
                 visible: capture.listening
-                anchors.right: capture.centered ? undefined : parent.right
-                anchors.horizontalCenter: capture.centered ? parent.horizontalCenter : undefined
+                x: capture.centered ? (parent.width - width) / 2 : parent.width - width
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: 1
                 Repeater {
