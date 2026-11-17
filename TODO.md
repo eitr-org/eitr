@@ -80,6 +80,13 @@ item says what decides the next step. Remove an item when it ships;
   - **World:** the World clock plugin's cities when it is installed, without duplicating it.
   Timers and alarms keep running with the app closed (owned by the bar's data service, not
   the window), survive a bar restart, and Focus and moments behave as today.
+- **Desktop widget ideas (2026-11-17).** New official plugin widgets in `eitr-org/eitr-plugins`,
+  placed and moved like the Visualizer (`distro/PLUGINS.md`, Desktop widgets):
+  - **Notes:** a sticky note on the desktop to type into, kept between logins.
+  - **Hardware:** CPU, GPU, RAM, storage and network at a glance, from the bar's own hardware
+    data (no second reader).
+  - **More Visualizer styles:** today Wave and Bars; add a circle (bars around a ring) and
+    other shapes.
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the
   community index had no entries yet) and its validation workflow. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
