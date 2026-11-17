@@ -21,7 +21,6 @@ Column {
             // Opens its networks in place; the switch there turns WiFi on or off.
             details: true
             onClicked: section.centerRef.detail = "wifi"
-            onDetailsRequested: section.centerRef.detail = "wifi"
         }
         ControlCenterToggleTile { centerRef: section.centerRef;
             title: Eitr.I18n.tr("Bluetooth"); glyph: "󰂯"
@@ -31,7 +30,6 @@ Column {
             available: !!section.centerRef.bluetoothControl.adapter
             details: true
             onClicked: section.centerRef.detail = "bluetooth"
-            onDetailsRequested: section.centerRef.detail = "bluetooth"
         }
         ControlCenterToggleTile { centerRef: section.centerRef;
             title: Eitr.I18n.tr("Airplane"); glyph: "󰀝"; selected: !!section.centerRef.airplane.enabled

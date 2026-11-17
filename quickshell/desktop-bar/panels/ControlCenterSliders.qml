@@ -23,14 +23,12 @@ Column {
             selected: !!section.sink && !!section.sink.audio && !section.sink.audio.muted
             details: true
             onClicked: section.centerRef.detail = "sound"
-            onDetailsRequested: section.centerRef.detail = "sound"
         }
         ControlCenterToggleTile { centerRef: section.centerRef
             title: Eitr.I18n.tr("Microphone"); glyph: section.source && section.source.audio && section.source.audio.muted ? "󰍭" : "󰍬"
             selected: !!section.source && !!section.source.audio && !section.source.audio.muted
             details: true
             onClicked: section.centerRef.detail = "microphone"
-            onDetailsRequested: section.centerRef.detail = "microphone"
         }
     }
     AudioLevelControl { width: parent.width; node: Pipewire.defaultAudioSink; showName: false; textSize: 12; iconSize: 16; foreground: section.centerRef.foreground; background: section.centerRef.background; accent: section.centerRef.accent }

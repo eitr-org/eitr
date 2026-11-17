@@ -21,9 +21,9 @@ Rectangle {
     property string detail: ""
     property bool selected: false
     property bool available: true
+    // Clicking opens details in place; a chevron at the end says so.
     property bool details: false
     signal clicked()
-    signal detailsRequested()
     Layout.fillWidth: true; Layout.preferredHeight: PanelStyle.selectionRowHeight
     radius: DesktopStyle.radius(PanelStyle.controlRadius)
     color: filled ? Qt.alpha(tile.accent, tileMouse.containsMouse || tile.activeFocus ? 0.85 : 1)
@@ -48,10 +48,11 @@ Rectangle {
     MouseArea { id: tileMouse; anchors.fill: parent; enabled: tile.available; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: { tile.forceActiveFocus(); tile.clicked(); } }
     HoverHandler { id: tooltipHover; enabled: tile.tooltip !== "" }
     BarTooltip { target: tile; hovered: tooltipHover.hovered; text: tile.tooltip; foreground: tile.foreground; background: tile.tooltipBackground }
-    PanelButton {
-        textSize: 12; iconSize: 16
+    // The whole tile opens its details; the chevron only says so.
+    Text {
         visible: tile.details; anchors.right: parent.right; anchors.rightMargin: PanelStyle.selectionActionInset; anchors.verticalCenter: parent.verticalCenter
-        width: PanelStyle.selectionActionWidth; height: PanelStyle.selectionActionHeight; icon: true; text: "›"; compactIconBackground: true
-        foreground: tile.ink; onClicked: tile.detailsRequested()
+        width: PanelStyle.selectionActionWidth; horizontalAlignment: Text.AlignHCenter
+        text: "›"; color: tile.ink; opacity: PanelStyle.secondaryTextOpacity
+        font.family: DesktopFonts.family; font.pixelSize: 16
     }
 }
