@@ -29,7 +29,9 @@ QtObject {
                         dict(id='northern-art', name='Northern art', description='Drawn northern skies', kind='community',
                              light=True, channel='community', repository='https://example.invalid/art', folder='art/northern',
                              maintainer='Example artist', license='MIT', previewUrl=image, size=1048576)]
-                target = Path(os.environ.get('EITR_STORE_RENDERS', ROOT.parent / 'renders'))
+                # Captures stay in the temporary folder unless EITR_STORE_RENDERS asks to keep them;
+                # the folder beside the checkout is not writable in CI and is no place for test output.
+                target = Path(os.environ.get('EITR_STORE_RENDERS') or folder / 'renders')
                 target.mkdir(parents=True, exist_ok=True)
                 fixture = r'''import QtQuick
 import Quickshell
