@@ -24,6 +24,7 @@ Item {
         {id: "media", glyph: "󰝚", title: Eitr.I18n.tr("Media")},
         {id: "obs", glyph: "󰑋", title: Eitr.I18n.tr("OBS Studio")},
         {id: "controls", glyph: "󰒓", title: Eitr.I18n.tr("Quick controls")},
+        {id: "display", glyph: "󰍹", title: Eitr.I18n.tr("Display")},
         {id: "streaming", glyph: "󰢹", title: Eitr.I18n.tr("Streaming")},
         {id: "performance", glyph: "󰍛", title: Eitr.I18n.tr("Performance")},
         {id: "ai", glyph: "", title: Eitr.I18n.tr("AI Usage")},

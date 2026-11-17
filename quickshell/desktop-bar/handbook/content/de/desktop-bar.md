@@ -54,6 +54,7 @@ Die Seitenleiste in der Karte führt direkt zu jeder verfügbaren Seite; die aus
 | Medien | Das Cover, umgeben von Balken im Takt der Musik, der Song, sein Text, die Steuerung und ein Fortschrittsbalken. Nur während etwas läuft. Ein Livestream, etwa ein Radiosender, zeigt Live statt des Fortschrittsbalkens, Stopp statt Pause und keinen Text. |
 | OBS | Aufnahme- und Streamstatus mit Pause, Stopp und Live gehen, einer Kapitelmarke, dem Aufnahmeordner und OBS selbst. Solange OBS offen ist. |
 | Schnelleinstellungen | Die Seite Allgemein der Steuerzentrale: WiFi, Bluetooth, Ton und Mikrofon öffnen sich direkt hier, Schnellaktionen, Lautstärke und Helligkeit. |
+| Bildschirm | Das Bildschirm-Panel der Leiste: Helligkeit, Ihre Bildschirme, Nachtlicht und Energieprofil. |
 | Streaming | Das Streaming-Panel der Leiste, um diesen PC mit Moonlight-Geräten zu teilen. Erscheint, sobald die Freigabe eingerichtet ist. |
 | Assistent | Der Assistenten-Chat der Steuerzentrale, sobald ein Assistent eingerichtet ist. |
 | Plugins | Die Seite Plugins der Steuerzentrale: installierte Plugins und ihre Einstellungen. |

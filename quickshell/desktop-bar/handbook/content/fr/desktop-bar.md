@@ -64,6 +64,7 @@ Le rail à l’intérieur de la carte permet de rejoindre directement chaque pag
 | Médias | La pochette entourée de barres qui suivent la musique, le morceau, ses paroles, les commandes et une barre de progression. Seulement pendant la lecture. Un flux en direct, comme une radio, affiche En direct à la place de la barre de progression, Arrêter au lieu de pause, sans paroles. |
 | OBS | L’état de l’enregistrement et de la diffusion avec pause, arrêt et passage en direct, un repère de chapitre, le dossier des enregistrements et OBS. Tant qu’OBS est ouvert. |
 | Réglages rapides | La page Général du Centre de contrôle : WiFi, Bluetooth, Son et Microphone s’ouvrent sur place, actions rapides, volume et luminosité. |
+| Écran | Le panneau Écran de la barre : luminosité, vos écrans, Éclairage nocturne et le profil d’énergie. |
 | Streaming | Le panneau Streaming de la barre, pour partager ce PC avec des appareils Moonlight. Affiché une fois le partage configuré. |
 | Assistant | La discussion avec l’assistant du Centre de contrôle, quand un assistant est configuré. |
 | Plugins | La page Plugins du Centre de contrôle : les plugins installés et leurs réglages. |

@@ -155,6 +155,7 @@ QtObject {
                  'controls/FocusTimerControls.qml': '',
                  'panels/SystemMonitorMenu.qml': 'property var inlineParent; property var target; property int maximumHeight; property bool opened',
                  'panels/AiUsageMenu.qml': 'property var inlineParent; property var target; property int maximumHeight; property bool opened',
+                 'panels/BrightnessMenu.qml': 'property var inlineParent; property var target; property int maximumHeight; property bool opened; signal primarySelected()',
                  'notifications/NotificationList.qml': 'property var service; property real contentHeight: 150; signal activated()'}
         for relative, properties in pages.items():
             path = folder / relative

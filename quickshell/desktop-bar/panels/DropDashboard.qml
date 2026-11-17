@@ -58,7 +58,7 @@ ThemedPopup {
         return !!center && !!center.chatAssistant.identifier && center.organizationPolicy.development !== false
             && center.organizationPolicy.assistants_together !== false;
     }
-    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", "performance", "ai", dashboard.assistantAvailable ? "assistant" : "", "plugins", "notifications"].filter(Boolean)
+    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", "display", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", "performance", "ai", dashboard.assistantAvailable ? "assistant" : "", "plugins", "notifications"].filter(Boolean)
     readonly property var obsState: barHost.obsMenu ? barHost.obsMenu.obsState : ({})
     readonly property bool obsShown: !!obsState.recording || !!obsState.streaming || ObsStatus.hasWindow
     property string page: "home"
@@ -117,7 +117,7 @@ ThemedPopup {
             id: viewport
             width: parent.width
             clip: true
-            readonly property Item current: dashboard.pluginEntry ? pluginPage : ({home: home, media: media, obs: obs, controls: controls, streaming: streaming, performance: performance, ai: ai, assistant: assistant, plugins: plugins, notifications: notifications})[dashboard.page] || home
+            readonly property Item current: dashboard.pluginEntry ? pluginPage : ({home: home, media: media, obs: obs, controls: controls, display: display, streaming: streaming, performance: performance, ai: ai, assistant: assistant, plugins: plugins, notifications: notifications})[dashboard.page] || home
             height: Math.min(current.implicitHeight, Math.max(0, dashboard.height - dashboard.verticalContentInset - (dashboard.verticalAttachment ? dashboard.railRoom : 0)))
             Behavior on height { NumberAnimation { duration: DesktopStyle.motionDuration(240); easing.type: Easing.OutCubic } }
             function place(id) {
@@ -211,6 +211,25 @@ ThemedPopup {
                         opened: dashboard.settled && plugins.visible
                         onSettingsRequested: function(page) { dashboard.barHost.host.showSettings(page); }
                         onCloseRequested: dashboard.opened = false
+                    }
+                }
+            }
+            // The bar's own Display panel: brightness, displays and the power profile.
+            Loader {
+                id: display
+                x: viewport.place("display"); visible: viewport.shown("display")
+                width: viewport.width
+                height: item ? item.implicitHeight : 0
+                active: dashboard.opened
+                sourceComponent: Component {
+                    BrightnessMenu {
+                        inlineParent: display
+                        target: null
+                        anchors.fill: parent
+                        maximumHeight: Math.max(240, dashboard.barHost.screen.height * 0.6)
+                        foreground: dashboard.foreground; background: dashboard.background; accent: dashboard.accent
+                        opened: dashboard.settled && display.visible
+                        onPrimarySelected: DisplayService.refresh()
                     }
                 }
             }

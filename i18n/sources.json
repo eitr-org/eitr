@@ -957,6 +957,7 @@
     "Display": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml",
+      "quickshell/desktop-bar/drop/DropRails.qml",
       "quickshell/desktop-bar/panels/BrightnessMenu.qml",
       "quickshell/desktop-bar/panels/ControlCenterSliders.qml",
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"

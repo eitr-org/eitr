@@ -60,6 +60,7 @@ The page rail inside the card, along its side, jumps directly to any available p
 | Media | The cover ringed by bars that follow the music, the song, its lyrics, the controls and a progress bar. Shown while something plays. A live stream, such as a radio station, shows Live instead of the progress bar, Stop instead of pause, and no lyrics. |
 | OBS | Recording and streaming status with pause, stop and go live, a chapter mark, the recordings folder and OBS itself. Shown while OBS is open. |
 | Quick controls | The Control Center's General page: WiFi, Bluetooth, Sound and Microphone open in place, quick actions, volume and brightness. |
+| Display | The bar's own Display panel: brightness, your displays, Night Light and the power profile. |
 | Streaming | The bar's own Streaming panel, to share this PC with Moonlight devices. Shown once sharing is set up. |
 | Assistant | The Control Center's assistant chat, shown when an assistant is set up. |
 | Plugins | The Control Center's Plugins page: installed plugins and their settings. |

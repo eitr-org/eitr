@@ -31,8 +31,8 @@ Column {
     MonitorMap {
         width: content.width
         height: visible ? implicitHeight : 0
-        // The map is a Settings view; the bar's Display panel keeps to the list.
-        visible: content.menu.embedded && content.menu.settingsSection !== "nightlight"
+        // The map is a Settings view; the bar's Display panel (also inside Drop) keeps to the list.
+        visible: content.menu.embedded && content.menu.settingsSection === "displays"
         compact: false
         monitors: content.menu.monitors
         settings: content.menu.displaySettings.monitors || []

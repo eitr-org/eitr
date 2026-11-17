@@ -62,6 +62,7 @@ O trilho de páginas dentro do cartão leva diretamente a qualquer página dispo
 | Mídia | A capa cercada por barras que seguem a música, a música, a letra, os controles e uma barra de progresso. Só enquanto algo toca. Uma transmissão ao vivo, como uma rádio, mostra Ao vivo no lugar da barra de progresso, Parar no lugar de pausar, e não busca letra. |
 | OBS | Status da gravação e da transmissão com pausar, parar e entrar ao vivo, uma marca de capítulo, a pasta de gravações e o OBS. Enquanto o OBS está aberto. |
 | Controles rápidos | A página Geral da Central de controle: WiFi, Bluetooth, Som e Microfone abrem ali mesmo, ações rápidas, volume e brilho. |
+| Tela | O próprio painel de Tela da barra: brilho, suas telas, Luz noturna e o perfil de energia. |
 | Streaming | O próprio painel de Streaming da barra, para compartilhar este PC com dispositivos Moonlight. Aparece depois que o compartilhamento é configurado. |
 | Assistente | O chat com o assistente da Central de controle, quando há um assistente configurado. |
 | Plugins | A página Plugins da Central de controle: os plugins instalados e suas configurações. |

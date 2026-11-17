@@ -62,6 +62,7 @@ El riel dentro de la tarjeta permite ir directamente a cualquier página disponi
 | Multimedia | La portada rodeada de barras que siguen la música, la canción, su letra, los controles y una barra de progreso. Solo mientras suena algo. Una emisión en directo, como una radio, muestra En directo en lugar de la barra de progreso, Detener en lugar de pausa, y no busca letra. |
 | OBS | Estado de grabación y emisión con pausa, detener y emitir en directo, una marca de capítulo, la carpeta de grabaciones y OBS. Mientras OBS está abierto. |
 | Controles rápidos | La página General del Centro de control: WiFi, Bluetooth, Sonido y Micrófono se abren aquí mismo, acciones rápidas, volumen y brillo. |
+| Pantalla | El propio panel de Pantalla de la barra: brillo, sus pantallas, Luz nocturna y el perfil de energía. |
 | Streaming | El propio panel de Streaming de la barra, para compartir este PC con dispositivos Moonlight. Aparece una vez configurado el uso compartido. |
 | Asistente | El chat con el asistente del Centro de control, cuando hay un asistente configurado. |
 | Plugins | La página Plugins del Centro de control: los plugins instalados y sus ajustes. |
