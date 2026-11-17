@@ -147,7 +147,7 @@ Eitr 在带有签名的 `eitr-desktop` 软件包内部随附了插件阻止列�
 
 服务仅接受 `run` 和可选的 `arguments`。命令使用 argv，绝不使用 shell 字符串。`run` 必须指明仓库内部的可执行文件：绝对路径和 `..` 会被拒绝，插件内部任何位置的符号链接也是如此。未知或重复的 JSON 键会被拒绝。子模块不会被初始化。
 
-`distro/plugins/example/` 中的微型示例包含一个清单和 `notify.sh`、一个通知操作、一个主题钩子，没有服务。将其复制到您自己的 Git 仓库中，提交它并发布 HTTPS Git URL 即可体验完整的安装流程。该示例作为文档随附；它不会自动安装。对于视觉插件，`https://github.com/eitr-org/eitr-plugins` 的官方集合包含 Visualizer。
+`distro/plugins/example/` 中的微型示例包含一个清单和 `notify.sh`、一个通知操作、一个主题钩子，没有服务。将其复制到您自己的 Git 仓库中，提交它并发布 HTTPS Git URL 即可体验完整的安装流程。该示例作为文档随附；它不会自动安装。对于桌面小组件和视觉插件，`https://github.com/eitr-org/eitr-plugins` 的官方集合包含 Visualizer、Notes 和 Hardware。
 
 对于仅包含脚本的清单声明 `schemaVersion: 1`，对于下述可选的 `ui` 部分声明 `schemaVersion: 2`。没有版本的较早清单仍可作为 v1 工作，在审核中会有提示；高于 2 的版本需要更新的 Eitr。作者指南 `distro/PLUGINS.md`（打包为 `PLUGINS.md`）定义了稳定的版本 1 规范。
 
@@ -174,6 +174,8 @@ Eitr 在带有签名的 `eitr-desktop` 软件包内部随附了插件阻止列�
 透明背景没有宿主颜色、边框或模糊；编辑手柄保持可见。新的架构 v2 插件需要正方形 PNG/SVG 图标（最多 512 KiB，PNG 64–1024 px）；可选的预览图为 PNG/JPEG，每轴最多 2 MiB 和 3840 px，主页为 HTTPS。现有的无图标插件使用通用图标并在审核中附带说明。作者 API 增加了 `api.setMenu([{id, text, checked, group}])` 和 `api.menuTriggered(id)` 用于类似“波形/跳动条”等选项。有关验证和 API 详细信息，请参阅 `distro/PLUGINS.md`。
 
 架构 v2 插件可以请求 `audio-spectrum`。审核说明它仅读取系统音频电平：不录制或发送任何音频，宿主也绝不捕获麦克风。添加此功能会引发风险 (RISK) 标记。所有可见的使用方共享一个播放频谱提供程序；插件请求 8–128 个跳动条和高达每秒 60 帧。
+
+架构 v2 插件还可以请求 `hardware`（仅在小组件可见时通过 Eitr 现有数据代理读取 CPU、GPU、内存、存储和网络指标），这会在审核中引发风险 (RISK) 标记。桌面小组件可以按每个副本单独保存状态（例如 Notes 的颜色与文本或 Hardware 的紧凑/详细模式，取消放置该副本时随之删除），并在点击时按需获取键盘焦点，按 Escape 或点击外部即释放。
 
 当没有可见的使用方时它会停止。声明的 `dataStream` 命令在其组件可见时传递实时文本行，限制为每秒 60 行且每行 4096 字节。审核界面会列出它，更改会引发风险 (RISK) 标记。隐藏的组件会停止其数据流和子进程组；故障时通过退避重试。
 

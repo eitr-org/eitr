@@ -165,7 +165,7 @@ Un service accepte seulement `run` et éventuellement `arguments`. Les commandes
 
 Les sous-modules ne sont pas initialisés.
 
-L’exemple dans `distro/plugins/example/` contient un manifeste et `notify.sh`, une action de notification et un hook de thème, sans service. Copiez-le dans votre dépôt Git, créez un commit et publiez une URL Git HTTPS pour essayer le parcours complet. Il est fourni comme documentation, sans installation automatique. Pour un plugin visuel, la collection officielle sur `https://github.com/eitr-org/eitr-plugins` contient le Visualizer.
+L’exemple dans `distro/plugins/example/` contient un manifeste et `notify.sh`, une action de notification et un hook de thème, sans service. Copiez-le dans votre dépôt Git, créez un commit et publiez une URL Git HTTPS pour essayer le parcours complet. Il est fourni comme documentation, sans installation automatique. Pour les widgets de bureau et les plugins visuels, la collection officielle sur `https://github.com/eitr-org/eitr-plugins` contient Visualizer, Notes et Hardware.
 
 Déclarez `schemaVersion: 1` pour les manifestes de scripts ou `schemaVersion: 2` pour la section facultative `ui` ci-dessous. Les anciens sans version restent en v1, avec un rappel lors de la vérification ; les versions supérieures à 2 nécessitent un Eitr plus récent. Le guide des auteurs `distro/PLUGINS.md` (installé sous `PLUGINS.md`) définit le contrat stable de la version 1.
 
@@ -184,6 +184,8 @@ Actions, hooks et services restent indépendants. Plugins apparaît après les s
 L’exemple v2 propose une tuile Hello et un panneau d’état. Les plugins v1 restent compatibles sans changement. Le schéma et l’API limitée de style/données figurent dans `distro/PLUGINS.md` ; cette API est une interface prise en charge, pas une frontière de sécurité.
 
 Un plugin de schéma v2 peut demander `audio-spectrum`. La révision indique qu’il lit seulement les niveaux du son système : aucun son n’est enregistré ni envoyé, et l’hôte ne capture jamais le microphone. L’ajout de cette capacité déclenche un avertissement RISK. Tous les consommateurs visibles partagent un fournisseur du spectre de lecture ; les plugins demandent de 8 à 128 barres et jusqu’à 60 images par seconde.
+
+Un plugin de schéma v2 peut aussi demander `hardware` (lit les métriques CPU, GPU, RAM, stockage et réseau depuis le courtier existant d’Eitr uniquement tant que le widget est visible), ce qui déclenche un avertissement RISK lors de la révision. Les widgets placés peuvent enregistrer un état distinct par copie (comme la couleur et le texte dans Notes ou le mode Compact/Detailed dans Hardware, supprimé au retrait de la copie) et accepter le focus clavier à la demande au clic avant de le relâcher avec Échap ou un clic extérieur.
 
 Il s’arrête lorsqu’aucun consommateur n’est visible. Une commande `dataStream` déclarée fournit des lignes de texte tant que son composant est visible, avec une limite de 60 lignes par seconde et 4096 octets par ligne. La révision montre la commande et les changements déclenchent des avertissements RISK. Les composants masqués arrêtent les flux et les groupes de processus enfants ; les échecs sont réessayés avec un délai croissant.
 

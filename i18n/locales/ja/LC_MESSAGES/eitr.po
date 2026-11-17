@@ -3151,6 +3151,9 @@ msgstr "視覚効果を再度有効化"
 msgid "Read passphrase from an open file descriptor"
 msgstr "開いているファイル記述子からパスフレーズを読む"
 
+msgid "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)"
+msgstr "システムのハードウェアおよびネットワークスループット指標（CPU、GPU、RAM、ストレージ、アダプター速度）を読み取ります"
+
 msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
 msgstr "システム音声のスペクトルを読み取ります (レベルのみ、音声の録音や送信は行われません)"
 

@@ -780,13 +780,17 @@ Bottom-layer window by default, or an opt-in click-through Top-layer window; Plu
 adds explicit edit handles. PluginGeometry snaps and clamps logical geometry to
 Hyprland's monitor reserved area. Missing monitors retain their saved entries.
 `eitr/plugin-placements.json` is an ignored machine-local preference, version 3 (versions 1 and 2 migrate on read),
-with widget copies keyed by plugin/id/instance (each with its own monitor and rotation) and bar items by plugin/id. Edit mode is
+with widget copies keyed by plugin/id/instance (each with its own monitor and rotation) and bar items by plugin/id. Per-instance widget data is persisted atomically under `$XDG_DATA_HOME/eitr/plugin-data/<plugin>/<id>/<instance>.json` and deleted when that copy is unplaced. Edit mode is
 session-only. PluginBarItems uses fixed 24 px slots and 4 px spacing supplied by
 the shell's shared metrics, inside the right group on every edge. PluginPanel
 uses ThemedPopup/DockPanel for attached or detached surfaces and dismissal.
 
 SpectrumProvider owns one on-demand cava process for media and plugins;
-SpectrumConsumer resamples and caps delivery. PluginComponent supervises declared
+SpectrumConsumer resamples and caps delivery. HardwareConsumer observes DesktopData
+`hardware.details` and `throughput.network` on demand for widgets declaring the `hardware`
+capability while live and releases subscriptions on hide or teardown. Behind-windows widgets can opt into
+temporary `OnDemand` keyboard focus (`api.acceptsKeyboard`/`api.keyboardFocus`/`api.releaseKeyboard()`),
+dropping back to `WlrKeyboardFocus.None` on Escape or outside focus loss. PluginComponent supervises declared
 line streams through eitr_plugin_stream.py. Placement v2 stores aboveWindows;
 Top-layer widgets pass clicks through outside edit mode and hide on fullscreen
 monitors. See distro/PLUGINS.md for API limits and trust boundaries.

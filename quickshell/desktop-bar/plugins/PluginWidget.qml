@@ -18,6 +18,15 @@ Item {
     property real originX: 0
     property real originY: 0
     readonly property var menuEntries: component.menuEntries
+    readonly property bool acceptsKeyboard: component.acceptsKeyboard
+    readonly property bool keyboardFocus: component.keyboardFocus
+    readonly property bool keyboardDismissed: component.keyboardDismissed
+    readonly property bool pointerHovered: widgetHover.hovered
+    function releaseKeyboardFocus() { component.releaseKeyboardFocus(); }
+    HoverHandler {
+        id: widgetHover
+        onHoveredChanged: if (!hovered) component.clearKeyboardDismissed()
+    }
     function pointerPosition(area, mouse) {
         return area.mapToGlobal(mouse.x, mouse.y);
     }
@@ -47,7 +56,7 @@ Item {
     }
     focus: editing
     Keys.onEscapePressed: PluginRegistry.editing = false
-    onEditingChanged: if (editing) forceActiveFocus()
+    onEditingChanged: if (editing) { component.releaseKeyboardFocus(); forceActiveFocus(); }
     // Size steps need the display's bounds, so the desktop surface applies them.
     function menuAction(action) {
         if (action === "smaller") sizeRequested(0.9);

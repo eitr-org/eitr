@@ -8,7 +8,7 @@ import json
 import re
 import secrets
 
-from eitr_paths import config
+from eitr_paths import config, data
 from eitr_plugin_manifest import identifier, object_keys, string, unique_object
 
 
@@ -138,6 +138,8 @@ class PluginPlacements:
             path = config('eitr/plugin-placements.json')
             path.parent.mkdir(parents=True, exist_ok=True)
             self.write(path, values)
+            if remove and kind == 'widgets' and result:
+                self._remove_instance_data(plugin_id, entry_id, result)
             return result
 
     def _change_widget(self, widgets, entry, plugin_id, entry_id, monitor, instance, new, remove,
@@ -154,7 +156,9 @@ class PluginPlacements:
             target = next((placement for placement in copies if placement['monitor'] == monitor), None)
         if remove:
             if target is not None:
+                removed = target['instance']
                 widgets.remove(target)
+                return removed
             return instance
         if (toggle_layer or duplicate) and target is None:
             raise ValueError('Widget must be placed first')
@@ -179,6 +183,17 @@ class PluginPlacements:
         if not target.get('rotation'):
             target.pop('rotation', None)
         return target['instance']
+
+    @staticmethod
+    def _remove_instance_data(plugin_id, entry_id, instance):
+        root = data('eitr/plugin-data')
+        entry_dir = root / plugin_id / entry_id
+        target = entry_dir / f'{instance}.json'
+        if target.is_symlink() or target.is_file():
+            target.unlink(missing_ok=True)
+        for directory in (entry_dir, root / plugin_id):
+            if directory.is_dir() and not directory.is_symlink() and not any(directory.iterdir()):
+                directory.rmdir()
 
     @staticmethod
     def _new_instance(widgets):

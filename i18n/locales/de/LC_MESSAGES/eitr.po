@@ -3151,6 +3151,9 @@ msgstr "Visuelle Komponenten wieder aktivieren"
 msgid "Read passphrase from an open file descriptor"
 msgstr "Passwort aus offenem Dateideskriptor lesen"
 
+msgid "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)"
+msgstr "Liest Systemhardware- und Netzwerkdurchsatzmetriken (CPU, GPU, RAM, Speicher und Adaptergeschwindigkeiten)"
+
 msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
 msgstr "Liest das Systemklangspektrum (nur Pegel, kein Ton wird aufgenommen oder gesendet)"
 

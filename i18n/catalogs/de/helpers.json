@@ -1793,5 +1793,6 @@
   "Share the Login Screen is off.": "Anmeldebildschirm freigeben ist aus.",
   "Signing in still needs an account password. Sharing stops the moment someone signs in.": "Zum Anmelden ist weiterhin ein Kontopasswort nötig. Die Freigabe endet, sobald sich jemand anmeldet.",
   "Start sharing once and set Sunshine’s password first.": "Starten Sie die Freigabe zuerst einmal und legen Sie das Sunshine-Passwort fest.",
-  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "Der Anmeldebildschirm kann dann von den mit Ihrer Freigabe gekoppelten Geräten gestreamt werden, von jedem, der sie in der Hand hat."
+  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "Der Anmeldebildschirm kann dann von den mit Ihrer Freigabe gekoppelten Geräten gestreamt werden, von jedem, der sie in der Hand hat.",
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "Liest Systemhardware- und Netzwerkdurchsatzmetriken (CPU, GPU, RAM, Speicher und Adaptergeschwindigkeiten)"
 }

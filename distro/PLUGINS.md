@@ -255,6 +255,11 @@ Every root component must be a QtQuick Item and declare
   error text. Commands time out after ten seconds and output above 64 KiB is
   refused. Do not use this helper for unbounded output or background jobs.
 - `detail`: writable optional tile caption; on a bar item, the text after the title in its tooltip.
+- `instance`: read-only string identifier for the current widget copy (empty outside widgets).
+- `surface`: read-only `"panel"` or `"none"` surface mode configured for the entry.
+- `instanceData`, `instanceDataReady`, `instanceDataLoaded()`, `saveInstanceData(value)`: per-instance JSON storage (up to 256 KiB) saved atomically under `$XDG_DATA_HOME/eitr/plugin-data/<plugin>/<id>/<instance>.json` and deleted when that widget copy is removed.
+- `acceptsKeyboard`, `keyboardFocus`, `releaseKeyboard()`, `keyboardReleased()`: desktop behind-windows keyboard opt-in (`WlrKeyboardFocus.OnDemand`) when hovered/focused, dropping immediately back to `WlrKeyboardFocus.None` on `releaseKeyboard()` or clicking elsewhere.
+- `hardware`: read-only live CPU/GPU/RAM/storage/network snapshot when capability `"hardware"` is declared and the widget is live (`null` otherwise).
 - `openPanel(id)`: in-panel navigation to a panel belonging to the same plugin.
 - `reportError(message)`: reports a fatal component error and unloads it.
 
@@ -295,7 +300,7 @@ support `dataCommand` and `refreshInterval`. Bar items may name a declared `pane
 The example's ClockWidget.qml and StatusDot.qml demonstrate both kinds.
 
 Widgets use individual bottom-layer Wayland surfaces, behind ordinary windows,
-with input limited to each widget rectangle by default. Their appearance belongs to the author. Eitr backgrounds and theme helpers are optional. The placed widget’s **Edit position** action exposes
+with input limited to each widget rectangle by default. Their appearance belongs to the author. Eitr backgrounds and theme helpers are optional. Widgets do not expose a programmatic duplicate call; additional copies are created through the host's **Duplicate** action in the right-click menu or Control Center. Behind-windows widgets that accept text input set `api.acceptsKeyboard = true` so clicks grant temporary `OnDemand` keyboard focus without stealing global shortcuts on idle hover, and call `api.releaseKeyboard()` (for example on `Escape`) or lose focus when clicking elsewhere. The placed widget’s **Edit position** action exposes
 move and resize handles on a stable monitor-sized editing surface; **Done** leaves edit mode. Motion follows the pointer without snapping until release. Geometry then snaps to the
 Hyprland inner gap and is clamped to the monitor's usable area, including reserved
 edges. If the screen is smaller than a declared minimum, fitting the screen wins.
@@ -398,9 +403,25 @@ limitations still apply; URL-attributed warnings are diagnostic and do not incre
 ### Audio spectrum (schema version 2)
 
 Declare `"capabilities": ["audio-spectrum"]` at the manifest root. The `weather`
-host capability is also supported. Unknown names, duplicates and non-array values
+and `hardware` host capabilities are also supported. Unknown names, duplicates and non-array values
 are refused. Version 1 cannot declare capabilities. Installation review describes it
 as “Reads the system audio spectrum (levels only, no audio is recorded or sent)”.
+
+### Hardware (schema version 2)
+
+Declare `"capabilities": ["hardware"]` at the manifest root to read `api.hardware`
+without spawning a separate hardware reader. Installation review describes it as
+“Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)”.
+
+While the widget copy is live (`active`, `observing`, visible, enabled and without error),
+the host observes `DesktopData` topics `hardware.details` and `throughput.network` (plus
+any loaded `network.summary` connection label) through `HardwareConsumer` and releases
+the subscription automatically when hidden, unplaced or destroyed. `api.hardware` is `null`
+when idle or undeclared, and otherwise exposes:
+
+- `status`, `error`, `identity`
+- `sections`: array of `{title, name, usage, rows}` for CPU, GPU (if available), RAM and root Storage
+- `network`: `{status, download, upload, interfaces, connection}` in bytes/sec (nullable before the second delta sample)
 Adding it raises an update RISK flag. This is playback-monitor analysis only:
 the host fixes PipeWire `source = auto` (sink capture), with no microphone or
 input-source API. No audio samples are exposed, stored or transmitted.

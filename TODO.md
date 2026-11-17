@@ -70,11 +70,8 @@ item says what decides the next step. Remove an item when it ships;
     **Snooze** (the owner will record the effect they want; build that part after).
     Reminders' existing schedule and notifications stay the source of truth, so an alarm is a
     reminder that rings.
-- **Desktop widget ideas (2026-11-17).** New official plugin widgets in `eitr-org/eitr-plugins`,
-  placed and moved like the Visualizer (`distro/PLUGINS.md`, Desktop widgets):
-  - **Notes:** a sticky note on the desktop to type into, kept between logins.
-  - **Hardware:** CPU, GPU, RAM, storage and network at a glance, from the bar's own hardware
-    data (no second reader).
+- **Desktop widget ideas (2026-11-17).** Remaining official plugin widget item in `eitr-org/eitr-plugins`
+  (`distro/PLUGINS.md`, Desktop widgets; **Notes** and **Hardware** are implemented):
   - **More Visualizer styles:** today Wave and Bars; add a circle (bars around a ring) and
     other shapes.
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the

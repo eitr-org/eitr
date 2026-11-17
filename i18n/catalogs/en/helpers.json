@@ -1793,5 +1793,6 @@
   "Enter: next": "Enter: next",
   "Esc: cancel": "Esc: cancel",
   "Left: back": "Left: back",
-  "Space: toggle": "Space: toggle"
+  "Space: toggle": "Space: toggle",
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)"
 }

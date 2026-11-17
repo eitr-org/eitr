@@ -6,12 +6,17 @@ import re
 import xml.etree.ElementTree as ET
 from urllib.parse import urlsplit
 
-from eitr_i18n import tr
+from eitr_i18n import mark, tr
 
 
 
 SLUG = re.compile(r'[a-z0-9]+(?:-[a-z0-9]+)*\Z')
 HOOK_EVENTS = ('theme-changed', 'wallpaper-changed', 'after-update', 'login')
+CAPABILITIES = ('audio-spectrum', 'weather', 'hardware')
+CAPABILITY_FLAGS = {
+    'audio-spectrum': mark('Reads the system audio spectrum (levels only, no audio is recorded or sent)'),
+    'hardware': mark('Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)'),
+}
 
 def printable(text):
     return ''.join(character if character.isprintable() else '?' for character in text)
@@ -182,7 +187,7 @@ def manifest(root):
         if homepage.scheme != 'https' or not homepage.hostname or homepage.username or homepage.password:
             raise ValueError('Plugin homepage must be an HTTPS URL without credentials')
     capabilities = value.get('capabilities', [])
-    if not isinstance(capabilities, list) or any(not isinstance(capability, str) or capability not in ('audio-spectrum', 'weather') for capability in capabilities) or len(capabilities) != len(set(capabilities)):
+    if not isinstance(capabilities, list) or any(not isinstance(capability, str) or capability not in CAPABILITIES for capability in capabilities) or len(capabilities) != len(set(capabilities)):
         raise ValueError('Invalid plugin capabilities')
     identifier(value['id'])
     for field in ('name', 'author', 'version'):

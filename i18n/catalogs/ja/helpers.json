@@ -1793,5 +1793,6 @@
   "Share the Login Screen is off.": "ログイン画面の共有はオフです。",
   "Signing in still needs an account password. Sharing stops the moment someone signs in.": "サインインには引き続きアカウントのパスワードが必要です。誰かがサインインした時点で共有は停止します。",
   "Start sharing once and set Sunshine’s password first.": "まず一度共有を開始し、Sunshine のパスワードを設定してください。",
-  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "ログイン画面は、共有にペアリングされたデバイスから、それを持つ誰でもストリーミングできるようになります。"
+  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "ログイン画面は、共有にペアリングされたデバイスから、それを持つ誰でもストリーミングできるようになります。",
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "システムのハードウェアおよびネットワークスループット指標（CPU、GPU、RAM、ストレージ、アダプター速度）を読み取ります"
 }

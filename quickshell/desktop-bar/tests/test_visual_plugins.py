@@ -966,6 +966,150 @@ ShellRoot {
                     self.assertNotIn('TypeError', result.stdout + result.stderr)
                     self.assertTrue(capture.is_file())
 
+    def test_instance_data_isolation_surface_and_keyboard_focus(self):
+        executable = shutil.which('quickshell')
+        with tempfile.TemporaryDirectory(prefix='eitr-widget-instance-') as directory:
+            folder = Path(directory)
+            shutil.copytree(ROOT / 'quickshell/Eitr', folder / 'Eitr')
+            shutil.copytree(BAR, folder / 'desktop-bar')
+            plugin_dir = folder / 'test-note'
+            plugin_dir.mkdir(parents=True)
+            note_qml = plugin_dir / 'NoteStub.qml'
+            note_qml.write_text('''import QtQuick
+Item {
+    id: stub
+    required property var api
+    objectName: api.instance
+    property int releasedCount: 0
+    Component.onCompleted: api.acceptsKeyboard = true
+    Connections {
+        target: api
+        function onKeyboardReleased() { stub.releasedCount += 1; }
+    }
+}
+''')
+            fixture = folder / 'shell.qml'
+            fixture.write_text(f'''import QtQuick
+import Quickshell
+import "desktop-bar/plugins" as Plugins
+
+ShellRoot {{
+    id: root
+
+    FloatingWindow {{
+        visible: true
+        implicitWidth: 640
+        implicitHeight: 360
+
+        Item {{
+            anchors.fill: parent
+
+            Plugins.PluginWidget {{
+                id: copyOne
+                x: 10; y: 10; width: 240; height: 220
+                originX: x; originY: y
+                editing: false
+                foreground: "#ebeef5"
+                background: "#161821"
+                accent: "#d5b55c"
+                entry: ({{ plugin: "notes", id: "note", title: "Note", surface: "none", kind: "widgets", geometry: ({{ instance: "aaaa1111", x: 10, y: 10, width: 240, height: 220 }}), disabled: false, capabilities: [], environment: ({{}}), qml: "NoteStub.qml", source: "{note_qml.as_uri()}" }})
+            }}
+
+            Plugins.PluginWidget {{
+                id: copyTwo
+                x: 260; y: 10; width: 240; height: 220
+                originX: x; originY: y
+                editing: false
+                foreground: "#ebeef5"
+                background: "#161821"
+                accent: "#d5b55c"
+                entry: ({{ plugin: "notes", id: "note", title: "Note", surface: "panel", kind: "widgets", geometry: ({{ instance: "bbbb2222", x: 260, y: 10, width: 240, height: 220 }}), disabled: false, capabilities: [], environment: ({{}}), qml: "NoteStub.qml", source: "{note_qml.as_uri()}" }})
+            }}
+        }}
+    }}
+
+    function findApi(item) {{
+        if (!item) return null;
+        if ("api" in item && item.api) return item.api;
+        for (let idx = 0; idx < (item.children ? item.children.length : 0); idx++) {{
+            const found = findApi(item.children[idx]);
+            if (found) return found;
+        }}
+        return null;
+    }}
+
+    Timer {{
+        interval: 150; running: true; repeat: false
+        onTriggered: {{
+            const api1 = root.findApi(copyOne);
+            const api2 = root.findApi(copyTwo);
+            if (!api1 || !api2) {{
+                console.log("STATE_ERR missing apis");
+                Qt.quit();
+                return;
+            }}
+            api1.saveInstanceData({{ text: "alpha copy" }});
+            api2.saveInstanceData({{ text: "beta copy" }});
+            const acceptsBefore = copyOne.acceptsKeyboard;
+            api1.keyboardFocus = true;
+            const focusActive = copyOne.keyboardFocus;
+            api1.releaseKeyboard();
+            const dismissedAfterRelease = copyOne.keyboardDismissed;
+            const focusAfterRelease = copyOne.keyboardFocus;
+            api1.keyboardFocus = true;
+            copyOne.editing = true;
+            const focusOnEdit = copyOne.keyboardFocus;
+            console.log("STATE:" + JSON.stringify({{
+                s1: api1.surface,
+                s2: api2.surface,
+                i1: api1.instance,
+                i2: api2.instance,
+                acceptsBefore: acceptsBefore,
+                focusActive: focusActive,
+                dismissedAfterRelease: dismissedAfterRelease,
+                focusAfterRelease: focusAfterRelease,
+                focusOnEdit: focusOnEdit
+            }}));
+            checkTimer.start();
+        }}
+    }}
+
+    Timer {{
+        id: checkTimer
+        interval: 100; repeat: false
+        onTriggered: Qt.quit()
+    }}
+}}
+''')
+            env = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                       QML_IMPORT_PATH=str(folder), DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent',
+                       HYPRLAND_INSTANCE_SIGNATURE='', XDG_RUNTIME_DIR=str(folder))
+            for kind in ('CONFIG', 'CACHE', 'STATE', 'DATA'):
+                env[f'XDG_{kind}_HOME'] = str(folder / kind.lower())
+            for name in ('WAYLAND_DISPLAY', 'DISPLAY', 'QS_CONFIG_PATH', 'QS_CONFIG_NAME'):
+                env.pop(name, None)
+            result = subprocess.run([executable, '--no-color', '--no-duplicate', '-p', str(fixture)],
+                                    env=env, capture_output=True, text=True, timeout=15)
+            output = result.stdout + result.stderr
+            self.assertEqual(result.returncode, 0, output)
+            state_lines = [line for line in output.splitlines() if 'STATE:' in line]
+            self.assertTrue(state_lines, output)
+            payload = json.loads(state_lines[-1].split('STATE:', 1)[1])
+            self.assertEqual((payload['s1'], payload['s2']), ('none', 'panel'))
+            self.assertEqual((payload['i1'], payload['i2']), ('aaaa1111', 'bbbb2222'))
+            self.assertTrue(payload['acceptsBefore'])
+            self.assertTrue(payload['focusActive'])
+            self.assertTrue(payload['dismissedAfterRelease'])
+            self.assertFalse(payload['focusAfterRelease'])
+            self.assertFalse(payload['focusOnEdit'])
+            data_root = Path(env['XDG_DATA_HOME']) / 'eitr/plugin-data/notes/note'
+            self.assertEqual(json.loads((data_root / 'aaaa1111.json').read_text())['text'], 'alpha copy')
+            self.assertEqual(json.loads((data_root / 'bbbb2222.json').read_text())['text'], 'beta copy')
+            desktop_qml = (BAR / 'plugins/PluginDesktop.qml').read_text()
+            self.assertIn('WlrKeyboardFocus.Exclusive', desktop_qml)
+            self.assertIn('WlrKeyboardFocus.OnDemand', desktop_qml)
+            self.assertIn('WlrKeyboardFocus.None', desktop_qml)
+
     def test_pointer_handles_reach_geometry_save(self):
         with tempfile.TemporaryDirectory(prefix='eitr-widget-input-') as directory:
             folder = Path(directory)

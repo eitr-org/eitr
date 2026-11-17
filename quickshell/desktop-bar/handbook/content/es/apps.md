@@ -155,7 +155,7 @@ Versión 1: La raíz contiene `eitr-plugin.json`. Solo se aceptan estas claves: 
 
 Un servicio solo acepta `run` y `arguments` opcional. Los comandos usan argv, nunca cadenas de shell. `run` debe indicar un ejecutable dentro del repositorio: se rechazan rutas absolutas, `..` y cualquier enlace simbólico dentro del plugin. Se rechazan claves JSON desconocidas o duplicadas. No se inicializan submódulos.
 
-El ejemplo en `distro/plugins/example/` contiene manifiesto y `notify.sh`, una acción de notificación, un hook de tema y ningún servicio. Cópialo a tu repositorio Git, crea un commit y publica una URL Git HTTPS para probar la instalación completa. Se distribuye como documentación; no se instala automáticamente. Para un plugin visual, la colección oficial en `https://github.com/eitr-org/eitr-plugins` incluye el Visualizer.
+El ejemplo en `distro/plugins/example/` contiene manifiesto y `notify.sh`, una acción de notificación, un hook de tema y ningún servicio. Cópialo a tu repositorio Git, crea un commit y publica una URL Git HTTPS para probar la instalación completa. Se distribuye como documentación; no se instala automáticamente. Para widgets de escritorio y plugins visuales, la colección oficial en `https://github.com/eitr-org/eitr-plugins` incluye Visualizer, Notes y Hardware.
 
 Declara `schemaVersion: 1` para manifiestos de scripts o `schemaVersion: 2` para la sección opcional `ui` descrita abajo. Los antiguos sin versión siguen como v1, con un aviso en la revisión; las versiones superiores a 2 requieren un Eitr más reciente. La guía para autores `distro/PLUGINS.md` (instalada como `PLUGINS.md`) define el contrato estable de la versión 1.
 
@@ -174,6 +174,8 @@ Acciones, hooks y servicios son independientes. Plugins aparece después de las 
 El ejemplo v2 incluye un mosaico Hello y un panel de estado. Los plugins v1 siguen siendo compatibles sin cambios. El esquema y la API limitada de estilo/datos están en `distro/PLUGINS.md`; la API es una interfaz compatible, no una barrera de seguridad.
 
 Un plugin de esquema v2 puede solicitar `audio-spectrum`. La revisión indica que solo lee niveles del audio del sistema: no se graba ni se envía audio y el anfitrión nunca captura el micrófono. Añadir esta capacidad genera un aviso RISK. Todos los consumidores visibles comparten un proveedor del espectro de reproducción; los plugins solicitan de 8 a 128 barras y hasta 60 fotogramas por segundo.
+
+Un plugin de esquema v2 también puede solicitar `hardware` (lee métricas de CPU, GPU, RAM, almacenamiento y red desde el propio servicio de Eitr solo mientras el widget está visible), lo que genera un aviso RISK en la revisión. Los widgets pueden guardar datos independientes por copia colocada (como color y texto en Notes o diseño Compact/Detailed en Hardware, eliminados al quitarla) y aceptar foco de teclado bajo demanda al hacer clic, soltándolo con Escape o al hacer clic fuera.
 
 Se detiene cuando no hay consumidores visibles. Un comando `dataStream` declarado entrega líneas de texto mientras su componente está visible, con un límite de 60 líneas por segundo y 4096 bytes por línea. La revisión muestra el comando y los cambios generan avisos RISK. Los componentes ocultos detienen los flujos y los grupos de procesos hijos; los fallos se reintentan con espera progresiva.
 

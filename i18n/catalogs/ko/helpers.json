@@ -1793,5 +1793,6 @@
   "Share the Login Screen is off.": "로그인 화면 공유가 꺼져 있습니다.",
   "Signing in still needs an account password. Sharing stops the moment someone signs in.": "로그인에는 여전히 계정 암호가 필요합니다. 누군가 로그인하는 즉시 공유가 중지됩니다.",
   "Start sharing once and set Sunshine’s password first.": "먼저 공유를 한 번 시작하고 Sunshine 암호를 설정하세요.",
-  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "이후 공유에 페어링된 기기를 가진 누구나 로그인 화면을 스트리밍할 수 있습니다."
+  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "이후 공유에 페어링된 기기를 가진 누구나 로그인 화면을 스트리밍할 수 있습니다.",
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "시스템 하드웨어 및 네트워크 처리량 지표(CPU, GPU, RAM, 스토리지, 어댑터 속도)를 읽습니다"
 }

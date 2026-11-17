@@ -10370,9 +10370,11 @@
     "Read passphrase from an open file descriptor": [
       "distro/lib/eitr_backup/cli.py"
     ],
+    "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": [
+      "distro/lib/eitr_plugin_manifest.py"
+    ],
     "Reads the system audio spectrum (levels only, no audio is recorded or sent)": [
-      "distro/lib/eitr_plugin_install.py",
-      "walker/scripts/actions/install/plugins.py"
+      "distro/lib/eitr_plugin_manifest.py"
     ],
     "Ready. Both resets restart the computer immediately.": [
       "distro/system/factory-reset.py"

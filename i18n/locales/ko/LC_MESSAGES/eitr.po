@@ -3151,6 +3151,9 @@ msgstr "시각 효과 다시 활성화"
 msgid "Read passphrase from an open file descriptor"
 msgstr "열린 파일 서술자에서 암호 읽기"
 
+msgid "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)"
+msgstr "시스템 하드웨어 및 네트워크 처리량 지표(CPU, GPU, RAM, 스토리지, 어댑터 속도)를 읽습니다"
+
 msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
 msgstr "시스템 오디오 스펙트럼을 읽습니다 (레벨만 읽으며 오디오는 녹음되거나 전송되지 않음)"
 

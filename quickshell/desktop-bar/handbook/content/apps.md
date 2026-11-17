@@ -208,7 +208,7 @@ Version 1: The repository root contains `eitr-plugin.json`. Only these keys are 
 
 A service accepts only `run` and optional `arguments`. Commands use argv, never shell strings. `run` must name an executable inside the repository: absolute paths and `..` are refused, and so is a symlink anywhere in the plugin. Unknown or duplicate JSON keys are refused. Submodules are not initialized.
 
-The tiny example in `distro/plugins/example/` contains a manifest and `notify.sh`, one notification action, a theme hook and no service. Copy it into your own Git repository, commit it and publish an HTTPS Git URL to try the complete installation flow. The example is shipped as documentation; it is not installed automatically. For a visual plugin, the official collection at `https://github.com/eitr-org/eitr-plugins` holds the Visualizer.
+The tiny example in `distro/plugins/example/` contains a manifest and `notify.sh`, one notification action, a theme hook and no service. Copy it into your own Git repository, commit it and publish an HTTPS Git URL to try the complete installation flow. The example is shipped as documentation; it is not installed automatically. For desktop widgets and visual plugins, the official collection at `https://github.com/eitr-org/eitr-plugins` holds Visualizer, Notes, and Hardware.
 
 Declare `schemaVersion: 1` for script-only manifests or `schemaVersion: 2` for the optional `ui` section below. Older manifests without a version still work as v1, with a reminder in review; versions above 2 need a newer Eitr. The author guide `distro/PLUGINS.md` (packaged as `PLUGINS.md`) defines the stable version 1 contract.
 
@@ -254,6 +254,13 @@ audio levels only: no audio is recorded or sent, and the host never captures the
 microphone. Adding this capability raises a RISK flag. All visible consumers
 share one playback spectrum provider; plugins request 8–128 bars and up to
 60 frames per second.
+
+A schema v2 plugin can also request `hardware` to read CPU, GPU, RAM, root
+storage and network metrics from Eitr's existing broker only while visible,
+raising a RISK flag during installation review. Placed desktop widgets can save
+per-instance state (such as note colors and text in Notes or Compact/Detailed
+layout in Hardware, removed when that copy is unplaced) and opt into on-demand
+keyboard focus on click, releasing it on Escape or clicking outside.
 
 It stops when no consumer is visible. A declared
 `dataStream` command delivers live text lines while its component is visible,

@@ -71,7 +71,7 @@ class SubscriptionLifetimeTests(unittest.TestCase):
         bar = Path(__file__).resolve().parents[1]
         with tempfile.TemporaryDirectory(prefix="eitr-lifetimes-") as directory:
             root = Path(directory)
-            for name in ("plugins/PluginComponent.qml", "services/UpdatesStatus.qml", "components/SpectrumConsumer.qml",
+            for name in ("plugins/PluginComponent.qml", "services/UpdatesStatus.qml", "components/HardwareConsumer.qml", "components/SpectrumConsumer.qml",
                          "PanelStyle.js", "Spectrum.js", "DesktopDataProtocol.js"):
                 (root / Path(name).name).write_text((bar / name).read_text().replace('import ".."\n', '').replace('"../', '"'))
             (root / "WeatherWidget.qml").write_text('import QtQuick\nItem { property var host; property bool autoRefresh; property bool compact; property string temperature; signal clicked() }')
@@ -117,7 +117,7 @@ function release(owner) { consumers = consumers.filter(existing => existing !== 
 function update() {}''',
             }
             registry = ['singleton DesktopData DesktopData.qml', 'PluginComponent PluginComponent.qml',
-                        'UpdatesStatus UpdatesStatus.qml', 'SpectrumConsumer SpectrumConsumer.qml', 'BarTooltip BarTooltip.qml', 'WeatherWidget WeatherWidget.qml',
+                        'UpdatesStatus UpdatesStatus.qml', 'HardwareConsumer HardwareConsumer.qml', 'SpectrumConsumer SpectrumConsumer.qml', 'BarTooltip BarTooltip.qml', 'WeatherWidget WeatherWidget.qml',
                         'ChoiceDropdown ChoiceDropdown.qml', 'PanelButton PanelButton.qml', 'PanelTextField PanelTextField.qml', 'PanelSwitch PanelSwitch.qml']
             for name, body in stubs.items():
                 (root / (name + '.qml')).write_text('pragma Singleton\nimport QtQuick\nQtObject {\n' + body + '\n}\n')
@@ -218,4 +218,148 @@ ShellRoot {
             self.assertEqual(result.returncode, 0, output)
             self.assertIn("LIFETIME PASS", output)
             for error in ("LIFETIME FAIL", "ReferenceError", "TypeError", "Error:"):
+                self.assertNotIn(error, output)
+
+    @unittest.skipUnless(shutil.which("quickshell"), "Quickshell unavailable")
+    def test_hardware_capability_subscription_lifetime(self):
+        bar = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory(prefix="eitr-hw-lifetimes-") as directory:
+            root = Path(directory)
+            for name in ("plugins/PluginComponent.qml", "services/UpdatesStatus.qml", "components/HardwareConsumer.qml", "components/SpectrumConsumer.qml",
+                         "PanelStyle.js", "Spectrum.js", "DesktopDataProtocol.js"):
+                (root / Path(name).name).write_text((bar / name).read_text().replace('import ".."\n', '').replace('"../', '"'))
+            (root / "WeatherWidget.qml").write_text('import QtQuick\nItem { property var host; property bool autoRefresh; property bool compact; property string temperature; signal clicked() }')
+            for control in ("ChoiceDropdown", "PanelButton", "PanelTextField", "PanelSwitch"):
+                (root / (control + ".qml")).write_text('import QtQuick\nItem { property color foreground; property color background; property color gold; property color accent; property string text }')
+            (root / "DesktopData.qml").write_text('''pragma Singleton
+import QtQuick
+import "DesktopDataProtocol.js" as Protocol
+QtObject {
+    id: data
+    property var topics: ({
+        "hardware.details": { status: "ready", error: "", data: { identity: {}, sections: [{ title: "CPU", name: "Test CPU", usage: 42, rows: [] }], network: {} } },
+        "throughput.network": { status: "ready", error: "", data: { download: 1024, upload: 512, interfaces: ["enp0"] } }
+    })
+    property var wire: ({})
+    property var observedTopics: []
+    property var client: Protocol.createClient(send, function() {})
+    function send(frame) {
+        if (frame.op === "subscribe") {
+            wire[frame.token] = frame.topic;
+            observedTopics = Object.values(wire);
+        }
+        if (frame.op === "unsubscribe") {
+            delete wire[frame.token];
+            observedTopics = Object.values(wire);
+        }
+    }
+    function observe(topic, owner) { return client.observe(topic, owner); }
+    function releaseOwner(owner) { client.releaseOwner(owner); }
+    function count() { return Object.keys(client.tokens).length; }
+    function hello(epoch) { client.receive(JSON.stringify({v: 1, op: "hello", epoch: epoch})); }
+    Component.onCompleted: hello("boot")
+}
+''')
+            stubs = {
+                "DesktopFonts": 'property string family: "sans-serif"',
+                "DesktopStyle": 'function radius(value) { return value; }',
+                "PluginRegistry": 'property var palette: ({})\nproperty string clockFormat: "24h"\nfunction registerSource(entry) {}\nfunction recordError(plugin, source, line, error) { console.log("REG_ERR", plugin, source, error); }',
+                "SpectrumProvider": 'property var consumers: []\nproperty bool audioActive: false\nproperty var levels: []\nproperty var config: ({smoothing: false})\nfunction acquire(owner) {}\nfunction release(owner) {}\nfunction update() {}',
+            }
+            registry = ['singleton DesktopData DesktopData.qml', 'PluginComponent PluginComponent.qml',
+                        'UpdatesStatus UpdatesStatus.qml', 'HardwareConsumer HardwareConsumer.qml', 'SpectrumConsumer SpectrumConsumer.qml', 'BarTooltip BarTooltip.qml', 'WeatherWidget WeatherWidget.qml',
+                        'ChoiceDropdown ChoiceDropdown.qml', 'PanelButton PanelButton.qml', 'PanelTextField PanelTextField.qml', 'PanelSwitch PanelSwitch.qml']
+            for name, body in stubs.items():
+                (root / (name + '.qml')).write_text('pragma Singleton\nimport QtQuick\nQtObject {\n' + body + '\n}\n')
+                registry.append(f'singleton {name} {name}.qml')
+            (root / 'qmldir').write_text('\n'.join(registry) + '\n')
+            (root / 'BarTooltip.qml').write_text('import QtQuick\nQtObject { property var target; property bool hovered; property string text; property color foreground; property color background }\n')
+            (root / 'HwWidget.qml').write_text('import QtQuick\nItem { required property var api }\n')
+            (root / 'shell.qml').write_text(f'''import QtQuick
+import Quickshell
+import "." as Local
+ShellRoot {{
+    id: root
+    FloatingWindow {{
+        visible: true
+        implicitWidth: 320
+        implicitHeight: 200
+        Item {{
+            anchors.fill: parent
+            Local.PluginComponent {{
+                id: undeclared
+                active: true; observing: true; visible: true; enabled: true; opacity: 1
+                foreground: "#ebeef5"; background: "#161821"; accent: "#d5b55c"
+                entry: ({{ plugin: "plain", id: "plain", title: "Plain", kind: "widgets", surface: "panel", geometry: ({{ instance: "11111111" }}), disabled: false, capabilities: [], environment: ({{}}), qml: "HwWidget.qml", source: "{(root / 'HwWidget.qml').as_uri()}" }})
+            }}
+            Local.PluginComponent {{
+                id: declared
+                active: true; observing: true; visible: true; enabled: true; opacity: 1
+                foreground: "#ebeef5"; background: "#161821"; accent: "#d5b55c"
+                entry: ({{ plugin: "hw", id: "hardware", title: "HW", kind: "widgets", surface: "panel", geometry: ({{ instance: "22222222" }}), disabled: false, capabilities: ["hardware"], environment: ({{}}), qml: "HwWidget.qml", source: "{(root / 'HwWidget.qml').as_uri()}" }})
+            }}
+        }}
+    }}
+    function findApi(item) {{
+        if (!item) return null;
+        if ("api" in item && item.api) return item.api;
+        for (let idx = 0; idx < (item.children ? item.children.length : 0); idx++) {{
+            const found = findApi(item.children[idx]);
+            if (found) return found;
+        }}
+        return null;
+    }}
+    Timer {{
+        interval: 120; running: true; repeat: false
+        onTriggered: {{
+            try {{
+                const plainApi = root.findApi(undeclared);
+                const hwApi = root.findApi(declared);
+                if (!plainApi || !hwApi) throw new Error("HW_FAIL apis missing");
+                const before = Local.DesktopData.observedTopics.slice().sort().join(",");
+                const undeclaredHw = plainApi.hardware;
+                const liveCpu = hwApi.hardware && hwApi.hardware.sections.length === 1 ? hwApi.hardware.sections[0].usage : -1;
+                const liveDown = hwApi.hardware && hwApi.hardware.network ? hwApi.hardware.network.download : -1;
+                declared.visible = false;
+                const hiddenCount = Local.DesktopData.count();
+                const hiddenHw = hwApi.hardware;
+                declared.visible = true;
+                const reshownCount = Local.DesktopData.count();
+                declared.destroy();
+                Qt.callLater(function() {{
+                    try {{
+                        const destroyedCount = Local.DesktopData.count();
+                        if (undeclaredHw !== null) throw new Error("HW_FAIL undeclared");
+                        if (before !== "hardware.details,throughput.network") throw new Error("HW_FAIL topics: " + before);
+                        if (liveCpu !== 42 || liveDown !== 1024) throw new Error("HW_FAIL payload: cpu=" + liveCpu + " down=" + liveDown);
+                        if (hiddenCount !== 0 || hiddenHw !== null) throw new Error("HW_FAIL hide: count=" + hiddenCount);
+                        if (reshownCount !== 2 || destroyedCount !== 0) throw new Error("HW_FAIL destroy: reshown=" + reshownCount + " destroyed=" + destroyedCount);
+                        console.log("HW_LIFETIME_PASS");
+                    }} catch (err) {{
+                        console.log("HW_FAIL " + err);
+                    }} finally {{
+                        Qt.quit();
+                    }}
+                }});
+            }} catch (err) {{
+                console.log("HW_FAIL " + err);
+                Qt.quit();
+            }}
+        }}
+    }}
+}}
+''')
+            environment = dict(os.environ, QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software",
+                               QML_IMPORT_PATH=str(bar.parent), DBUS_SESSION_BUS_ADDRESS="unix:path=/nonexistent",
+                               HYPRLAND_INSTANCE_SIGNATURE="", XDG_RUNTIME_DIR=str(root))
+            for kind in ("CONFIG", "CACHE", "STATE", "DATA"):
+                environment[f"XDG_{kind}_HOME"] = str(root / kind.lower())
+            for name in ("WAYLAND_DISPLAY", "DISPLAY", "QS_CONFIG_PATH", "QS_CONFIG_NAME"):
+                environment.pop(name, None)
+            result = subprocess.run(["quickshell", "--no-color", "-p", str(root / "shell.qml")],
+                                    env=environment, capture_output=True, text=True, timeout=12)
+            output = result.stdout + result.stderr
+            self.assertEqual(result.returncode, 0, output)
+            self.assertIn("HW_LIFETIME_PASS", output)
+            for error in ("HW_FAIL", "ReferenceError", "TypeError", "Error:"):
                 self.assertNotIn(error, output)

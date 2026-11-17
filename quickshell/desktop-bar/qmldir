@@ -91,6 +91,7 @@ PluginDesktop plugins/PluginDesktop.qml
 PluginBarItems plugins/PluginBarItems.qml
 PluginPanel plugins/PluginPanel.qml
 PluginManagement plugins/PluginManagement.qml
+HardwareConsumer components/HardwareConsumer.qml
 SpectrumConsumer components/SpectrumConsumer.qml
 PluginManager 1.0 plugins/PluginManager.qml
 PluginWidgetMenu 1.0 plugins/PluginWidgetMenu.qml

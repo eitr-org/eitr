@@ -19,6 +19,7 @@ import eitr_policy
 from eitr_i18n import mark, tr
 from eitr_paths import cache, config, data, state
 from eitr_plugin_manifest import (
+    CAPABILITY_FLAGS,
     identifier,
     index_entries,
     manifest,
@@ -189,8 +190,9 @@ def live_flags(spec, previous=None):
     added_packages = set(spec.get('packages', [])) - set((previous or {}).get('packages', []))
     if added_packages:
         flags.append(tr('System packages added: {packages}', packages=', '.join(sorted(added_packages))))
-    if 'audio-spectrum' in spec.get('capabilities', []) and 'audio-spectrum' not in (previous or {}).get('capabilities', []):
-        flags.append(tr('Reads the system audio spectrum (levels only, no audio is recorded or sent)'))
+    for capability, notice in CAPABILITY_FLAGS.items():
+        if capability in spec.get('capabilities', []) and capability not in (previous or {}).get('capabilities', []):
+            flags.append(tr(notice))
     for kind, entries in spec.get('ui', {}).items():
         for entry in entries:
             old = next((item for item in (previous or {}).get('ui', {}).get(kind, []) if item['id'] == entry['id']), {})

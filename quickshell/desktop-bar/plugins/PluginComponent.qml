@@ -1,6 +1,7 @@
 import ".."
 pragma ComponentBehavior: Bound
 import QtQuick
+import Quickshell
 import Quickshell.Io
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
@@ -25,8 +26,21 @@ Item {
     readonly property bool barItem: entry.kind === "barItems"
     property string error: ""
     readonly property var menuEntries: api.menuEntries
+    property bool keyboardDismissed: false
+    readonly property bool acceptsKeyboard: api.acceptsKeyboard
+    readonly property bool keyboardFocus: api.keyboardFocus
+    function clearKeyboardDismissed() { keyboardDismissed = false; }
+    function releaseKeyboardFocus() {
+        if (api.keyboardFocus) {
+            api.keyboardFocus = false;
+            api.keyboardReleased();
+        }
+    }
     function menuSelect(id) { api.menuTriggered(id); }
-    onActiveChanged: if (!active) { error = ""; api.detail = ""; api.menuEntries = []; }
+    onActiveChanged: if (!active) {
+        error = ""; api.detail = ""; api.menuEntries = [];
+        api.keyboardFocus = false; api.acceptsKeyboard = false; keyboardDismissed = false;
+    }
     signal panelRequested(string plugin, string panel)
     signal failed(string plugin)
     readonly property bool tile: entry.kind === "tiles"
@@ -54,11 +68,81 @@ Item {
         }
         failed(entry.plugin);
     }
+    readonly property string dataRoot: {
+        const configured = Quickshell.env("XDG_DATA_HOME");
+        return configured && configured.startsWith("/") ? configured : Quickshell.env("HOME") + "/.local/share";
+    }
+    readonly property bool hasInstanceStorage: !!host.entry && host.entry.kind === "widgets"
+        && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(host.entry.plugin || "")
+        && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(host.entry.id || "")
+        && /^[0-9a-f]{8}$/.test(api.instance)
+    readonly property string instanceDataPath: hasInstanceStorage
+        ? dataRoot + "/eitr/plugin-data/" + host.entry.plugin + "/" + host.entry.id + "/" + api.instance + ".json" : ""
+    property var instanceDataValue: ({})
+    property bool instanceDataReady: !hasInstanceStorage
+    onInstanceDataPathChanged: {
+        instanceDataValue = ({});
+        instanceDataReady = instanceDataPath === "";
+        if (instanceDataPath === "") api.instanceDataLoaded();
+    }
+    FileView {
+        id: instanceStore
+        path: host.instanceDataPath
+        atomicWrites: true
+        watchChanges: false
+        printErrors: false
+        onLoaded: {
+            try {
+                const parsed = JSON.parse(text());
+                host.instanceDataValue = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : ({});
+            } catch (parseError) {
+                host.instanceDataValue = ({});
+            }
+            host.instanceDataReady = true;
+            api.instanceDataLoaded();
+        }
+        onLoadFailed: {
+            host.instanceDataValue = ({});
+            host.instanceDataReady = true;
+            api.instanceDataLoaded();
+        }
+    }
+    readonly property bool hasHardwareCapability: !!(host.entry && (host.entry.capabilities || []).indexOf("hardware") !== -1)
+    HardwareConsumer {
+        id: hardwareConsumer
+        active: host.live && host.hasHardwareCapability
+    }
     QtObject {
         id: api
         property string detail: ""
         property var menuEntries: []
         signal menuTriggered(string id)
+        readonly property string instance: host.entry && host.entry.geometry && host.entry.geometry.instance ? String(host.entry.geometry.instance) : ""
+        readonly property string surface: host.surface ? "panel" : "none"
+        readonly property var instanceData: host.instanceDataValue
+        readonly property bool instanceDataReady: host.instanceDataReady
+        signal instanceDataLoaded()
+        function saveInstanceData(value) {
+            if (!host.hasInstanceStorage || value === null || typeof value !== "object" || Array.isArray(value)) return false;
+            try {
+                const encoded = JSON.stringify(value);
+                if (!encoded || encoded.length > 262144) return false;
+                host.instanceDataValue = JSON.parse(encoded);
+                instanceStore.setText(encoded + "\n");
+                return true;
+            } catch (saveError) {
+                return false;
+            }
+        }
+        property bool acceptsKeyboard: false
+        property bool keyboardFocus: false
+        signal keyboardReleased()
+        onKeyboardFocusChanged: if (keyboardFocus) host.keyboardDismissed = false
+        function releaseKeyboard() {
+            host.keyboardDismissed = true;
+            host.releaseKeyboardFocus();
+        }
+        readonly property var hardware: host.hasHardwareCapability ? hardwareConsumer.hardware : null
         function setMenu(entries) {
             if (!Array.isArray(entries) || entries.length > 20) return;
             const ids = [];

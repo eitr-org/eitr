@@ -3151,6 +3151,9 @@ msgstr "重新启用视觉效果"
 msgid "Read passphrase from an open file descriptor"
 msgstr "从已打开的文件描述符读取口令"
 
+msgid "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)"
+msgstr "读取系统硬件和网络吞吐量指标（CPU、GPU、内存、存储和适配器速度）"
+
 msgid "Reads the system audio spectrum (levels only, no audio is recorded or sent)"
 msgstr "读取系统音频频谱（仅电平，不记录或发送任何音频）"
 

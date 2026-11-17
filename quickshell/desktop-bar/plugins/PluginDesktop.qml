@@ -65,9 +65,11 @@ Scope {
                     exclusionMode: ExclusionMode.Ignore
                     WlrLayershell.namespace: content.surface === "none" ? "eitr-plugin-transparent" : "eitr-plugin-widget"
                     readonly property bool aboveWindows: !!placement.aboveWindows
+                    readonly property bool textFocusActive: !aboveWindows && (content.keyboardFocus || (content.acceptsKeyboard && content.pointerHovered && !content.keyboardDismissed))
                     visible: content.editing || !aboveWindows || !display.fullscreen
                     WlrLayershell.layer: content.editing ? WlrLayer.Overlay : aboveWindows ? WlrLayer.Top : WlrLayer.Bottom
-                    WlrLayershell.keyboardFocus: content.editing ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+                    WlrLayershell.keyboardFocus: content.editing ? WlrKeyboardFocus.Exclusive
+                        : textFocusActive ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
                     // Input follows the turned widget itself (strips inside its bounding box), so the
                     // box's empty corners still reach the desktop; editing takes the whole box and
                     // above-window widgets pass clicks through.

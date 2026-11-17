@@ -145,7 +145,7 @@ Version 1: Im Stamm liegt `eitr-plugin.json`. Nur diese Schlüssel sind erlaubt:
 
 Ein Dienst akzeptiert nur `run` und optional `arguments`. Befehle verwenden argv, niemals Shell-Zeichenketten. `run` muss eine ausführbare Datei im Repository bezeichnen: Absolute Pfade und `..` werden abgelehnt, ebenso jeder Symlink irgendwo im Plugin. Unbekannte oder doppelte JSON-Schlüssel werden abgelehnt. Submodule werden nicht initialisiert.
 
-Das Beispiel unter `distro/plugins/example/` enthält Manifest und `notify.sh`, eine Benachrichtigungsaktion, einen Theme-Hook und keinen Dienst. Kopiere es in dein Git-Repository, erstelle einen Commit und veröffentliche eine HTTPS-Git-URL, um den gesamten Installationsablauf zu testen. Es wird als Dokumentation geliefert und nicht automatisch installiert. Ein visuelles Plugin, den Visualizer, enthält die offizielle Sammlung unter `https://github.com/eitr-org/eitr-plugins`.
+Das Beispiel unter `distro/plugins/example/` enthält Manifest und `notify.sh`, eine Benachrichtigungsaktion, einen Theme-Hook und keinen Dienst. Kopiere es in dein Git-Repository, erstelle einen Commit und veröffentliche eine HTTPS-Git-URL, um den gesamten Installationsablauf zu testen. Es wird als Dokumentation geliefert und nicht automatisch installiert. Für Desktop-Widgets und visuelle Plugins enthält die offizielle Sammlung unter `https://github.com/eitr-org/eitr-plugins` Visualizer, Notes und Hardware.
 
 Für Skript-Manifeste gilt `schemaVersion: 1`, für den optionalen Abschnitt `ui` unten `schemaVersion: 2`. Ohne dieses Feld bleiben ältere Plugins kompatibel; die Prüfung zeigt einen Hinweis. Versionen über 2 benötigen ein neueres Eitr. Der Autorenleitfaden `distro/PLUGINS.md` (installiert als `PLUGINS.md`) beschreibt den stabilen Vertrag der Version 1.
 
@@ -162,6 +162,8 @@ Aktionen, Hooks und Dienste bleiben unabhängig. Plugins stehen nach den bestehe
 Schema und schmale Stil-/Daten-API stehen in `distro/PLUGINS.md`; die API ist eine unterstützte Schnittstelle, keine Sicherheitsgrenze.
 
 Ein Plugin mit Schema v2 kann `audio-spectrum` anfordern. Die Prüfung erklärt, dass nur Pegel des Systemklangs gelesen werden: Es wird kein Ton aufgenommen oder gesendet, und der Host erfasst niemals das Mikrofon. Diese neue Fähigkeit erzeugt einen RISK-Hinweis. Alle sichtbaren Verbraucher teilen einen Anbieter für das Wiedergabespektrum; Plugins fordern 8–128 Balken und bis zu 60 Bilder pro Sekunde an.
+
+Ein Plugin mit Schema v2 kann außerdem `hardware` anfordern (liest CPU-, GPU-, RAM-, Speicher- und Netzwerkwerte über den bestehenden Eitr-Broker nur solange das Widget sichtbar ist), was bei der Prüfung einen RISK-Hinweis erzeugt. Platzierte Desktop-Widgets können eigenen Zustand pro Kopie speichern (etwa Farbe und Text in Notes oder Kompakt/Detailliert in Hardware; beim Entfernen der Kopie wird er gelöscht) und Tastaturfokus bei Bedarf per Klick annehmen sowie mit Escape oder einem Klick nach außen wieder freigeben.
 
 Ohne sichtbare Verbraucher stoppt er. Ein deklarierter `dataStream`-Befehl liefert Textzeilen, solange seine Komponente sichtbar ist, begrenzt auf 60 Zeilen pro Sekunde und 4096 Bytes pro Zeile. Die Prüfung zeigt den Befehl; Änderungen erzeugen RISK-Hinweise. Verborgene Komponenten stoppen Streams und Kindprozessgruppen; nach Fehlern erfolgen neue Versuche mit wachsender Wartezeit. Einzelheiten für Autoren stehen in `distro/PLUGINS.md`.
 

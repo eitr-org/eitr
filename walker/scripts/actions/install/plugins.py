@@ -26,6 +26,7 @@ from eitr_forms import Terminal
 from eitr_paths import code
 from eitr_i18n import tr, mark
 from eitr_i18n import mark as menu_mark
+from eitr_plugin_manifest import CAPABILITY_FLAGS
 from eitr_plugins import (REPORT_URL, Plugins, add_flags, commit, executable_files, git, printable,
                           repository_url, short_author, qml_files)
 from eitr_terminal import read_key, read_line_or_escape, wait_for_escape
@@ -72,8 +73,9 @@ def live_review_lines(spec):
     lines += [field + ': ' + printable(spec[field]) for field in ('icon', 'preview', 'homepage') if field in spec]
     if not spec.get('icon'):
         lines.append(tr('No plugin icon; a generic icon will be shown.'))
-    if 'audio-spectrum' in spec.get('capabilities', []):
-        lines.append(tr('Reads the system audio spectrum (levels only, no audio is recorded or sent)'))
+    for capability, notice in CAPABILITY_FLAGS.items():
+        if capability in spec.get('capabilities', []):
+            lines.append(tr(notice))
     for entries in spec.get('ui', {}).values():
         for entry in entries:
             for field in ('dataCommand', 'dataStream'):

@@ -1793,5 +1793,6 @@
   "Share the Login Screen is off.": "Compartir la pantalla de inicio de sesión está desactivado.",
   "Signing in still needs an account password. Sharing stops the moment someone signs in.": "Para iniciar sesión sigue haciendo falta la contraseña de una cuenta. El uso compartido se detiene en cuanto alguien inicia sesión.",
   "Start sharing once and set Sunshine’s password first.": "Primero inicia el uso compartido una vez y define la contraseña de Sunshine.",
-  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "La pantalla de inicio de sesión podrá transmitirse desde los dispositivos emparejados con tu uso compartido, por cualquiera que los tenga."
+  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "La pantalla de inicio de sesión podrá transmitirse desde los dispositivos emparejados con tu uso compartido, por cualquiera que los tenga.",
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "Lee métricas de hardware del sistema y rendimiento de red (CPU, GPU, RAM, almacenamiento y velocidades de adaptadores)"
 }

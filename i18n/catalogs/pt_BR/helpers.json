@@ -1793,5 +1793,6 @@
   "Share the Login Screen is off.": "Compartilhar a tela de login está desligado.",
   "Signing in still needs an account password. Sharing stops the moment someone signs in.": "Entrar ainda exige a senha de uma conta. O compartilhamento para assim que alguém entra.",
   "Start sharing once and set Sunshine’s password first.": "Inicie o compartilhamento uma vez e defina a senha do Sunshine primeiro.",
-  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "A tela de login poderá então ser transmitida pelos dispositivos pareados com o seu compartilhamento, por quem estiver com eles."
+  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "A tela de login poderá então ser transmitida pelos dispositivos pareados com o seu compartilhamento, por quem estiver com eles.",
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "Lê métricas de hardware do sistema e taxa de transferência da rede (CPU, GPU, RAM, armazenamento e velocidades dos adaptadores)"
 }

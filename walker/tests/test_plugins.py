@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'distro/lib'))
 import eitr_plugins as plugins
 import eitr_plugin_install as install_owner
-from eitr_paths import config, state
+from eitr_paths import config, data, state
 
 
 class PluginTests(unittest.TestCase):
@@ -1462,6 +1462,28 @@ class VisualPluginTests(unittest.TestCase):
         self.assertEqual(sorted(removes), ['Remove widget · DP-1 · Clock · 1', 'Remove widget · DP-1 · Clock · 2'])
         self.assertTrue(any(row['text'] == 'Add widget · DP-1 · Clock' and '--new' in row['actions']['open'] for row in rows))
 
+    def test_unplace_removes_per_instance_data_only_for_unplaced_copy(self):
+        import eitr_plugin_placements
+        self.publish(self.visual())
+        self.install()
+        first = self.manager.place('example', 'clock', 'DP-1', new=True)
+        second = self.manager.place('example', 'clock', 'DP-1', new=True)
+        first_data = data('eitr/plugin-data/example/clock/' + first + '.json')
+        second_data = data('eitr/plugin-data/example/clock/' + second + '.json')
+        first_data.parent.mkdir(parents=True, exist_ok=True)
+        first_data.write_text('{"text": "first copy"}')
+        second_data.write_text('{"text": "second copy"}')
+
+        cli = self.cli()
+        with patch.object(cli, 'Plugins', return_value=self.manager), patch('sys.stdout', new_callable=io.StringIO):
+            cli.main(['unplace', 'example', 'clock', '--instance', first])
+
+        self.assertFalse(first_data.exists())
+        self.assertTrue(second_data.exists())
+        # Unsafe identifiers or traversal fragments are ignored cleanly.
+        eitr_plugin_placements.PluginPlacements._remove_instance_data('example', 'clock', '../escape')
+        self.assertTrue(second_data.exists())
+
     def test_version_two_widgets_migrate_to_copies(self):
         self.publish(self.visual())
         self.install()
@@ -1815,6 +1837,35 @@ time.sleep(60)
                         supervisor.kill()
                         supervisor.wait()
                     supervisor.stdout.close()
+
+    def test_hardware_capability_validation_and_review(self):
+        import eitr_plugin_install
+        import eitr_plugin_manifest
+        self.assertIn('hardware', eitr_plugin_manifest.CAPABILITIES)
+        with tempfile.TemporaryDirectory() as folder:
+            plugin_dir = Path(folder)
+            spec = dict(self.visual(), rows=[], capabilities=['hardware'])
+            for section in ('widgets', 'barItems', 'panels'):
+                for item in spec.get('ui', {}).get(section, []):
+                    qml = plugin_dir / item['qml']
+                    qml.parent.mkdir(parents=True, exist_ok=True)
+                    qml.write_text('import QtQuick\nItem { required property var api }\n')
+            (plugin_dir / 'icon.svg').write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"/>')
+            (plugin_dir / 'notify.sh').write_text('#!/bin/sh\nexit 0\n')
+            (plugin_dir / 'notify.sh').chmod(0o755)
+            (plugin_dir / 'eitr-plugin.json').write_text(json.dumps(spec))
+            validated = eitr_plugin_manifest.manifest(plugin_dir)
+            self.assertEqual(validated['capabilities'], ['hardware'])
+            flags = eitr_plugin_install.live_flags(validated)
+            self.assertIn(eitr_plugin_manifest.CAPABILITY_FLAGS['hardware'], flags)
+            lines = self.cli().live_review_lines(validated)
+            self.assertIn(eitr_plugin_manifest.CAPABILITY_FLAGS['hardware'], lines)
+
+            for bad in (['hardware', 'hardware'], ['hardware', 'unknown-cap']):
+                bad_spec = dict(self.visual(), rows=[], capabilities=bad)
+                (plugin_dir / 'eitr-plugin.json').write_text(json.dumps(bad_spec))
+                with self.assertRaises(ValueError):
+                    eitr_plugin_manifest.manifest(plugin_dir)
 
 
 class AIReviewTests(unittest.TestCase):

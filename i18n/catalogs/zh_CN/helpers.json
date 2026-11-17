@@ -1793,5 +1793,6 @@
   "Share the Login Screen is off.": "共享登录界面已关闭。",
   "Signing in still needs an account password. Sharing stops the moment someone signs in.": "登录仍需要账户密码。有人登录后共享会立即停止。",
   "Start sharing once and set Sunshine’s password first.": "请先启动一次共享并设置 Sunshine 的密码。",
-  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "之后，持有与共享配对设备的任何人都可以串流登录界面。"
+  "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "之后，持有与共享配对设备的任何人都可以串流登录界面。",
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "读取系统硬件和网络吞吐量指标（CPU、GPU、内存、存储和适配器速度）"
 }
