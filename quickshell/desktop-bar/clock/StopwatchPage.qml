@@ -4,243 +4,117 @@ import QtQuick
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-// Stopwatch page: start, pause, resume, lap, reset, large tenths display,
-// and newest-first laps comparing each lap to the previous one using theme colours.
-Flickable {
-    id: stopwatchPage
+// Stopwatch: the hand sweeps once a minute and each lap leaves a notch on the bezel; the
+// time with tenths in the centre, laps newest first below (each against the one before:
+// faster in the accent, slower dimmed).
+Item {
+    id: page
     required property color foreground
-    required property color background
     required property color accent
-    contentHeight: contentColumn.implicitHeight + 18
-    clip: true
-    boundsBehavior: Flickable.StopAtBounds
-
     readonly property bool isRunning: ClockTimers.stopwatchRunning
     readonly property bool isPaused: ClockTimers.stopwatchPaused
     readonly property bool isActive: ClockTimers.stopwatchActive
-    readonly property real elapsedMs: ClockTimers.stopwatchElapsed
     readonly property var laps: ClockTimers.stopwatchLaps
 
-    component SwButton: PanelButton {
-        id: swBtn
-        property real minWidth: 96
-        width: Math.max(minWidth, Math.ceil(metrics.advanceWidth) + 28)
-        height: 36
-        foreground: stopwatchPage.foreground
-        TextMetrics {
-            id: metrics
-            font.family: DesktopFonts.family
-            font.pixelSize: swBtn.textSize
-            text: swBtn.text
+    ChronoDial {
+        id: dial
+        width: parent.width
+        height: Math.min(parent.width, parent.height - 190)
+        foreground: page.foreground
+        accent: page.accent
+        showHand: true
+        hand: (ClockTimers.stopwatchElapsed % 60000) / 60000
+        notches: page.laps.slice(0, 12).map(lap => (lap.totalMs % 60000) / 60000)
+
+        Column {
+            anchors.centerIn: parent
+            spacing: 2
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: page.isRunning ? Eitr.I18n.tr("Running") : page.isPaused ? Eitr.I18n.tr("Paused") : Eitr.I18n.tr("Ready")
+                color: page.foreground; opacity: PanelStyle.secondaryTextOpacity
+                font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+            }
+            Text {
+                objectName: "clock-stopwatch-time"
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: ClockTimers.formatStopwatch(ClockTimers.stopwatchElapsed)
+                color: page.foreground
+                font.family: DesktopFonts.family; font.pixelSize: 34; font.bold: true
+                font.features: PanelStyle.tabularFigures
+            }
         }
     }
 
-    Column {
-        id: contentColumn
-        width: stopwatchPage.width
-        spacing: 18
+    Item {
+        id: below
+        anchors.bottom: parent.bottom
+        width: parent.width
+        height: parent.height - dial.height - 12
 
-        FamilyPageHeader {
-            foreground: stopwatchPage.foreground
-            rune: "ᛏ"
-            group: Eitr.I18n.tr("Clock")
-            title: Eitr.I18n.tr("Stopwatch")
-            description: Eitr.I18n.tr("Measure elapsed time and compare laps against the previous split.")
-        }
-
-        ControlCard {
-            surface: SettingsPalette.surface
-            line: SettingsPalette.line
-            gold: SettingsInk.gold
-            carved: true
-            foreground: stopwatchPage.foreground
-            title: Eitr.I18n.tr("Elapsed time")
-
-            Column {
-                width: parent.width
-                spacing: 18
-
-                Item {
-                    width: parent.width
-                    height: 188
-
-                    ProgressRing {
-                        anchors.centerIn: parent
-                        width: 180; height: 180
-                        progress: stopwatchPage.isActive ? (stopwatchPage.elapsedMs % 60000) / 60000 : 0
-                        trackColor: Qt.alpha(stopwatchPage.foreground, 0.12)
-                        accentColor: stopwatchPage.accent
-                        lineWidth: 8
-                        ringPadding: 10
-                        minimumArc: stopwatchPage.isActive ? 0.015 : 0
-                        animateProgress: false
-                    }
-
-                    Column {
-                        anchors.centerIn: parent
-                        spacing: 2
-
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: ClockTimers.formatStopwatch(stopwatchPage.elapsedMs)
-                            color: stopwatchPage.foreground
-                            font.family: DesktopFonts.family
-                            font.pixelSize: 34
-                            font.weight: Font.Bold
-                            font.features: PanelStyle.tabularFigures
-                        }
-
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: stopwatchPage.isRunning ? Eitr.I18n.tr("Running")
-                                : stopwatchPage.isPaused ? Eitr.I18n.tr("Paused")
-                                : Eitr.I18n.tr("Ready")
-                            color: stopwatchPage.foreground
-                            opacity: PanelStyle.secondaryTextOpacity
-                            font.family: DesktopFonts.family
-                            font.pixelSize: PanelStyle.captionSize
-                        }
-                    }
+        ListView {
+            anchors { left: parent.left; right: parent.right; top: parent.top; bottom: keys.top; bottomMargin: 8 }
+            clip: true
+            boundsBehavior: Flickable.StopAtBounds
+            model: page.laps
+            delegate: Item {
+                id: lap
+                required property var modelData
+                required property int index
+                width: ListView.view.width
+                height: 30
+                Rectangle {
+                    visible: lap.index > 0
+                    width: parent.width; height: 1
+                    color: Qt.alpha(page.foreground, PanelStyle.dividerAlpha)
                 }
-
-                Row {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    spacing: 10
-
-                    SwButton {
-                        selected: true
-                        text: stopwatchPage.isRunning ? Eitr.I18n.tr("Pause")
-                            : stopwatchPage.isPaused ? Eitr.I18n.tr("Resume")
-                            : Eitr.I18n.tr("Start")
-                        onClicked: {
-                            if (stopwatchPage.isRunning) ClockTimers.pauseStopwatch();
-                            else if (stopwatchPage.isPaused) ClockTimers.resumeStopwatch();
-                            else ClockTimers.startStopwatch();
-                        }
-                    }
-
-                    SwButton {
-                        outlined: true
-                        available: stopwatchPage.isRunning || (stopwatchPage.isActive && stopwatchPage.elapsedMs > 0)
-                        text: Eitr.I18n.tr("Lap")
-                        onClicked: ClockTimers.lapStopwatch()
-                    }
-
-                    SwButton {
-                        outlined: true
-                        available: stopwatchPage.isActive
-                        text: Eitr.I18n.tr("Reset")
-                        onClicked: ClockTimers.resetStopwatch()
-                    }
+                Text {
+                    x: 8; anchors.verticalCenter: parent.verticalCenter
+                    text: Eitr.I18n.tr("Lap {number}", {number: lap.modelData.number})
+                    color: page.foreground; opacity: PanelStyle.secondaryTextOpacity
+                    font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+                    font.features: PanelStyle.tabularFigures
+                }
+                Text {
+                    x: parent.width * 0.38; anchors.verticalCenter: parent.verticalCenter
+                    text: ClockTimers.formatStopwatch(lap.modelData.splitMs)
+                    color: page.foreground
+                    font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.bold: true
+                    font.features: PanelStyle.tabularFigures
+                }
+                Text {
+                    anchors { right: parent.right; rightMargin: 8; verticalCenter: parent.verticalCenter }
+                    text: lap.modelData.deltaText || ""
+                    color: lap.modelData.trend === "faster" ? page.accent : page.foreground
+                    opacity: lap.modelData.trend === "faster" ? 1 : PanelStyle.secondaryTextOpacity
+                    font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
+                    font.features: PanelStyle.tabularFigures
                 }
             }
         }
 
-        ControlCard {
-            visible: stopwatchPage.laps.length > 0
-            surface: SettingsPalette.surface
-            line: SettingsPalette.line
-            gold: SettingsInk.gold
-            carved: true
-            foreground: stopwatchPage.foreground
-            title: Eitr.I18n.tr("Laps")
-
-            Item {
-                width: parent.width
-                height: 22
-
-                Text {
-                    width: 64
-                    text: Eitr.I18n.tr("Lap")
-                    color: stopwatchPage.foreground; opacity: PanelStyle.secondaryTextOpacity
-                    font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
-                }
-                Text {
-                    x: 72
-                    width: 140
-                    text: Eitr.I18n.tr("Lap time")
-                    color: stopwatchPage.foreground; opacity: PanelStyle.secondaryTextOpacity
-                    font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
-                }
-                Text {
-                    x: 220
-                    width: 120
-                    text: Eitr.I18n.tr("Difference")
-                    color: stopwatchPage.foreground; opacity: PanelStyle.secondaryTextOpacity
-                    font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
-                }
-                Text {
-                    anchors.right: parent.right
-                    text: Eitr.I18n.tr("Total")
-                    color: stopwatchPage.foreground; opacity: PanelStyle.secondaryTextOpacity
-                    font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
-                }
+        Row {
+            id: keys
+            anchors { horizontalCenter: parent.horizontalCenter; bottom: parent.bottom }
+            spacing: 8
+            PanelButton {
+                width: 120; height: 36
+                outlined: true
+                available: page.isActive
+                foreground: page.foreground
+                text: page.isRunning ? Eitr.I18n.tr("Lap") : Eitr.I18n.tr("Reset")
+                onClicked: page.isRunning ? ClockTimers.lapStopwatch() : ClockTimers.resetStopwatch()
             }
-
-            Repeater {
-                model: stopwatchPage.laps
-                Column {
-                    required property var modelData
-                    width: parent.width
-                    spacing: 0
-
-                    Rectangle {
-                        width: parent.width
-                        height: 1
-                        color: Qt.alpha(stopwatchPage.foreground, PanelStyle.dividerAlpha)
-                    }
-
-                    Item {
-                        width: parent.width
-                        height: 36
-
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            width: 64
-                            text: "#" + modelData.number
-                            color: stopwatchPage.foreground
-                            opacity: PanelStyle.secondaryTextOpacity
-                            font.family: DesktopFonts.family
-                            font.pixelSize: PanelStyle.bodySize
-                            font.features: PanelStyle.tabularFigures
-                        }
-
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            x: 72
-                            width: 140
-                            text: ClockTimers.formatStopwatch(modelData.splitMs)
-                            color: stopwatchPage.foreground
-                            font.family: DesktopFonts.family
-                            font.pixelSize: PanelStyle.bodySize
-                            font.weight: Font.Medium
-                            font.features: PanelStyle.tabularFigures
-                        }
-
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            x: 220
-                            width: 120
-                            text: modelData.deltaText || "—"
-                            color: modelData.trend === "faster" ? stopwatchPage.accent : stopwatchPage.foreground
-                            opacity: modelData.trend === "faster" ? 1.0 : PanelStyle.secondaryTextOpacity
-                            font.family: DesktopFonts.family
-                            font.pixelSize: PanelStyle.bodySize
-                            font.weight: modelData.trend === "faster" ? Font.Medium : Font.Normal
-                            font.features: PanelStyle.tabularFigures
-                        }
-
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            anchors.right: parent.right
-                            text: ClockTimers.formatStopwatch(modelData.totalMs)
-                            color: stopwatchPage.foreground
-                            opacity: PanelStyle.secondaryTextOpacity
-                            font.family: DesktopFonts.family
-                            font.pixelSize: PanelStyle.bodySize
-                            font.features: PanelStyle.tabularFigures
-                        }
-                    }
+            PanelButton {
+                objectName: "clock-stopwatch-toggle"
+                width: 120; height: 36
+                selected: true
+                foreground: page.foreground
+                text: page.isRunning ? Eitr.I18n.tr("Pause") : page.isPaused ? Eitr.I18n.tr("Resume") : Eitr.I18n.tr("Start")
+                onClicked: {
+                    if (page.isRunning) ClockTimers.pauseStopwatch();
+                    else if (page.isPaused) ClockTimers.resumeStopwatch();
+                    else ClockTimers.startStopwatch();
                 }
             }
         }

@@ -38,6 +38,7 @@
     {"pattern": "distro/applications/eitr-store.desktop", "class": "C", "runtime": true},
     {"pattern": "distro/applications/eitr-settings.desktop", "class": "C", "runtime": true},
     {"pattern": "distro/applications/eitr-handbook.desktop", "class": "C", "runtime": true},
+    {"pattern": "distro/applications/eitr-clock.desktop", "class": "C", "runtime": true},
     {"pattern": "distro/icons/*.svg", "class": "C", "runtime": true},
     {"pattern": "tools/store-kinds.py", "class": "C", "runtime": false},
     {"pattern": "quickshell/desktop-bar/tests/test_store_search.js", "class": "C", "runtime": false},

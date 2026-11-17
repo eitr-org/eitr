@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Clock
+GenericName=Clock
+Comment=Run timers, a stopwatch and focus sessions
+Icon=eitr-clock
+Exec=eitr-shell desktop-bar ipc call -- clock show ""
+Keywords=timer;stopwatch;pomodoro;focus;countdown;
+Categories=Utility;Clock;
+Terminal=false
+StartupNotify=false

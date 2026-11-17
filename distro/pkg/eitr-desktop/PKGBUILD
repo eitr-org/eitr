@@ -112,9 +112,10 @@ package() {
   install -Dm644 distro/system/networkd-wait-online-any.conf \
     "$pkgdir/usr/lib/systemd/system/systemd-networkd-wait-online.service.d/eitr.conf"
   install -Dm644 -t "$pkgdir/usr/share/applications" distro/applications/eitr-calculator.desktop \
-    distro/applications/eitr-store.desktop distro/applications/eitr-settings.desktop distro/applications/eitr-handbook.desktop
+    distro/applications/eitr-store.desktop distro/applications/eitr-settings.desktop distro/applications/eitr-handbook.desktop \
+    distro/applications/eitr-clock.desktop
   install -Dm644 -t "$pkgdir/usr/share/icons/hicolor/scalable/apps" \
-    distro/icons/eitr-settings.svg distro/icons/eitr-store.svg distro/icons/eitr-handbook.svg
+    distro/icons/eitr-settings.svg distro/icons/eitr-store.svg distro/icons/eitr-handbook.svg distro/icons/eitr-clock.svg
   install -Dm755 distro/bin/eitr "$pkgdir/usr/bin/eitr"
   install -Dm755 distro/bin/eitr-config "$pkgdir/usr/bin/eitr-config"
   install -Dm755 distro/bin/eitr-launch "$pkgdir/usr/bin/eitr-launch"

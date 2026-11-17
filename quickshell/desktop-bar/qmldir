@@ -298,7 +298,8 @@ BarMoments 1.0 bar/BarMoments.qml
 ClockWindow 1.0 clock/ClockWindow.qml
 ClockContent 1.0 clock/ClockContent.qml
 TimersPage 1.0 clock/TimersPage.qml
-TimerCard 1.0 clock/TimerCard.qml
+TimerRow 1.0 clock/TimerRow.qml
+ChronoDial 1.0 clock/ChronoDial.qml
 StopwatchPage 1.0 clock/StopwatchPage.qml
 FocusPage 1.0 clock/FocusPage.qml
 BarMomentSources 1.0 bar/BarMomentSources.qml

@@ -3,13 +3,15 @@ import QtQuick
 import Quickshell.Io
 import Eitr as Eitr
 
-// Clock window in the Settings/Store family: Timers, Stopwatch and Focus.
-// Remembers the last viewed page within the desktop session.
+// The Clock: a small chronograph window with Timers, Stopwatch and Focus.
+// It lives in the bar so the clock's ring shares its state, and remembers the last
+// page within the desktop session.
 FamilyWindow {
     id: window
     property string page: "timers"
     property bool live: true
     title: Eitr.I18n.tr("Clock")
+    defaultSize: Qt.size(420, 660)
 
     function normalizePage(value) {
         return ["timers", "stopwatch", "focus"].indexOf(value) >= 0 ? value : "";

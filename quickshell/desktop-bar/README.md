@@ -225,7 +225,7 @@ removal controls, disabled when only one layout remains. General ends
 with icon-only Lock, Logout, Suspend, Reboot, and Shutdown actions with tooltips.
 Capture launches the existing screenshot, OCR, QR, color-picker, and OBS tools;
 selection/capture commands wait for the panel to finish closing first.
-Control Center > Tools keeps a compact Timer & Focus summary that starts a 5-minute countdown or focus session and opens the Clock window (`clock/ClockWindow.qml`: Timers, Stopwatch, Focus).
+Control Center > Tools keeps a compact Timer & Focus summary that starts a 5-minute countdown or focus session and opens the Clock window (`clock/ClockWindow.qml`: Timers, Stopwatch and Focus around one chronograph dial, `clock/ChronoDial.qml`, without the family sidebar).
 
 DesktopFonts reads the machine-local `~/.config/eitr/font.json` and updates bar
 and panel text when it changes. Nerd Font icons retain their dedicated fallback.
@@ -1211,7 +1211,7 @@ a usage reader are omitted from cached usage just as fresh CLI collection omits 
 
 ### Catalog data ownership
 
-`SettingsWindow`, `Handbook`, `Catalog` and `ClockWindow` are `FamilyWindow`s (`settings/FamilyWindow.qml`):
+`SettingsWindow`, `Handbook`, `Catalog` and `ClockWindow` (which draws its own dial instead of the sidebar) are `FamilyWindow`s (`settings/FamilyWindow.qml`):
 a `LibraryWindow` whose opaque colour and roles come from `SettingsPalette`, so they
 follow the theme or, when Settings chooses it, the website palette. They share
 `FamilySidebar` (the header box with the Eitr logo, a Cinzel title and gold subtitle,

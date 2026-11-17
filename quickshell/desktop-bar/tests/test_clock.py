@@ -401,6 +401,7 @@ QtObject {{
             out_stopwatch = capture_path("CLOCK", directory, f"clock-stopwatch-{theme}.png")
             out_focus = capture_path("CLOCK", directory, f"clock-focus-{theme}.png")
             out_cc = capture_path("CLOCK", directory, f"clock-control-center-{theme}.png")
+            out_keypad = capture_path("CLOCK", directory, f"clock-new-timer-{theme}.png")
 
             fixture = """import QtQuick
 import QtTest
@@ -445,12 +446,35 @@ ShellRoot {
    ccHost.visible = false;
 
    clock.show("timers");
-   clock.implicitWidth = 1040; clock.implicitHeight = 760;
    wait(220);
    const content = clock.contentItem.children.find(child => child && child.objectName === "clock-content");
    if (!content || !clock.opened) throw new Error("clock content not loaded");
    content.grabToImage(result => { if (!result.saveToFile("OUT_TIMERS")) throw new Error("timers grab"); });
    wait(80);
+
+   function named(item, name) {
+    if (!item) return null;
+    if (item.objectName === name) return item;
+    for (let index = 0; index < item.children.length; index += 1) { const found = named(item.children[index], name); if (found) return found; }
+    return null;
+   }
+   const timersPage = named(content, "clock-timers");
+   if (timersPage.setting) throw new Error("timers should show the saved timers");
+   timersPage.adding = true;
+   content.forceActiveFocus();
+   wait(60);
+   const before = Bar.ClockTimers.timers.length;
+   keyClick(Qt.Key_PageUp); keyClick(Qt.Key_PageUp);
+   for (let step = 0; step < 5; step += 1) keyClick(Qt.Key_Up);
+   wait(40);
+   if (named(content, "clock-dial").minutes !== 25) throw new Error("arrow keys should set 25 minutes");
+   content.grabToImage(result => { if (!result.saveToFile("OUT_KEYPAD")) throw new Error("setting grab"); });
+   wait(80);
+   keyClick(Qt.Key_Return);
+   wait(60);
+   if (Bar.ClockTimers.timers.length !== before + 1) throw new Error("Enter did not add a timer");
+   if (!Bar.ClockTimers.timers.some(entry => entry.durationMs === 1500000)) throw new Error("25 minute timer missing");
+   if (timersPage.setting) throw new Error("starting should return to the timers");
 
    clock.show("stopwatch");
    wait(200);
@@ -492,6 +516,7 @@ ShellRoot {
                 "OUT_STOPWATCH": str(out_stopwatch),
                 "OUT_FOCUS": str(out_focus),
                 "OUT_CC": str(out_cc),
+                "OUT_KEYPAD": str(out_keypad),
             }
             for old, new in replacements.items():
                 fixture = fixture.replace(old, new)
@@ -501,7 +526,7 @@ ShellRoot {
             self.assertIn("CLOCK_UI_OK", output)
             for label in ("TypeError:", "ReferenceError:", "Binding loop", "Error:"):
                 self.assertNotIn(label, output)
-            for path in (out_timers, out_stopwatch, out_focus, out_cc):
+            for path in (out_timers, out_keypad, out_stopwatch, out_focus, out_cc):
                 self.assertTrue(path.is_file() and path.stat().st_size > 4000, f"Empty capture {path}")
 
     def test_dark_theme(self):

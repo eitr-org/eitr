@@ -37,9 +37,6 @@
     "02 / NEO ORBITAL": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
-    "0:00 · Timer finished": [
-      "quickshell/desktop-bar/clock/TimerCard.qml"
-    ],
     "5m Timer": [
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
     ],
@@ -108,12 +105,6 @@
     ],
     "Action and description": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
-    ],
-    "Active & recent timers": [
-      "quickshell/desktop-bar/clock/TimersPage.qml"
-    ],
-    "Active timers": [
-      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "Adapters": [
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
@@ -318,6 +309,7 @@
       "quickshell/desktop-bar/panels/NightLightSection.qml"
     ],
     "Back": [
+      "quickshell/desktop-bar/clock/TimersPage.qml",
       "quickshell/desktop-bar/components/DayAgenda.qml",
       "quickshell/desktop-bar/drop/DropPluginPage.qml",
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml",
@@ -620,11 +612,7 @@
       "quickshell/desktop-bar/components/DayAgenda.qml"
     ],
     "Clock": [
-      "quickshell/desktop-bar/clock/ClockContent.qml",
       "quickshell/desktop-bar/clock/ClockWindow.qml",
-      "quickshell/desktop-bar/clock/FocusPage.qml",
-      "quickshell/desktop-bar/clock/StopwatchPage.qml",
-      "quickshell/desktop-bar/clock/TimersPage.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -941,9 +929,6 @@
     "Dictating": [
       "quickshell/desktop-bar/bar/CaptureIndicator.qml"
     ],
-    "Difference": [
-      "quickshell/desktop-bar/clock/StopwatchPage.qml"
-    ],
     "Dim and lock automatically while idle.": [
       "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
@@ -1026,6 +1011,9 @@
     "Download": [
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
+    "Drag the hand": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
+    ],
     "Drag to any angle, or turn by 45°.": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
@@ -1097,9 +1085,6 @@
     "Eitr website": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
-    "Elapsed time": [
-      "quickshell/desktop-bar/clock/StopwatchPage.qml"
-    ],
     "Emblem": [
       "tools/choice-lists.json"
     ],
@@ -1118,7 +1103,8 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Ended": [
-      "quickshell/desktop-bar/clock/TimerCard.qml"
+      "quickshell/desktop-bar/clock/TimerRow.qml",
+      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "Enroll Fingerprint": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -1189,7 +1175,6 @@
     ],
     "Focus": [
       "quickshell/desktop-bar/clock/ClockContent.qml",
-      "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml",
@@ -1202,9 +1187,6 @@
     "Focus length": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
-    ],
-    "Focus session": [
-      "quickshell/desktop-bar/clock/FocusPage.qml"
     ],
     "Focus sessions": [
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
@@ -1495,10 +1477,7 @@
     "Lap": [
       "quickshell/desktop-bar/clock/StopwatchPage.qml"
     ],
-    "Lap time": [
-      "quickshell/desktop-bar/clock/StopwatchPage.qml"
-    ],
-    "Laps": [
+    "Lap {number}": [
       "quickshell/desktop-bar/clock/StopwatchPage.qml"
     ],
     "Large": [
@@ -1536,6 +1515,9 @@
     "Left-handed buttons": [
       "quickshell/desktop-bar/components/SettingsPointerCard.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Lengths follow Settings › Focus.": [
+      "quickshell/desktop-bar/clock/FocusPage.qml"
     ],
     "Let assistants work together": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
@@ -1636,9 +1618,6 @@
     "Material Light": [
       "quickshell/lockscreen/design-gallery.qml"
     ],
-    "Measure elapsed time and compare laps against the previous split.": [
-      "quickshell/desktop-bar/clock/StopwatchPage.qml"
-    ],
     "Media": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
       "quickshell/desktop-bar/drop/DropRails.qml",
@@ -1724,6 +1703,9 @@
     ],
     "Name": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
+    ],
+    "Name (optional)": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "Natural scrolling": [
       "quickshell/desktop-bar/components/SettingsPointerCard.qml",
@@ -1870,9 +1852,6 @@
     "No reminders": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
-    "No timers running. Pick a quick length above or set a custom duration.": [
-      "quickshell/desktop-bar/clock/TimersPage.qml"
-    ],
     "No wallpapers": [
       "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
@@ -1929,9 +1908,6 @@
       "quickshell/desktop-bar/notifications/NotificationList.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
-    ],
-    "Notifications chime at each transition unless Do Not Disturb is on.": [
-      "quickshell/desktop-bar/clock/FocusPage.qml"
     ],
     "Number of workspaces": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -2170,7 +2146,7 @@
     "Pause": [
       "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/clock/StopwatchPage.qml",
-      "quickshell/desktop-bar/clock/TimerCard.qml",
+      "quickshell/desktop-bar/clock/TimersPage.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml",
       "quickshell/desktop-bar/media/MediaCard.qml",
@@ -2187,7 +2163,7 @@
     "Paused": [
       "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/clock/StopwatchPage.qml",
-      "quickshell/desktop-bar/clock/TimerCard.qml",
+      "quickshell/desktop-bar/clock/TimerRow.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml"
     ],
@@ -2450,7 +2426,7 @@
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
     ],
     "Remove timer": [
-      "quickshell/desktop-bar/clock/TimerCard.qml"
+      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "Remove unused plugin-installed packages: {packages}?": [
       "quickshell/desktop-bar/store/StoreRemove.qml"
@@ -2503,7 +2479,7 @@
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
     ],
     "Restart": [
-      "quickshell/desktop-bar/clock/TimerCard.qml",
+      "quickshell/desktop-bar/clock/TimersPage.qml",
       "quickshell/desktop-bar/services/ClockTimers.qml",
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
@@ -2520,7 +2496,7 @@
     "Resume": [
       "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/clock/StopwatchPage.qml",
-      "quickshell/desktop-bar/clock/TimerCard.qml",
+      "quickshell/desktop-bar/clock/TimersPage.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml"
     ],
@@ -2574,9 +2550,6 @@
       "quickshell/desktop-bar/plugins/PluginWidget.qml",
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
-    ],
-    "Run multiple countdowns at once. Running timers stay sorted by time left.": [
-      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "Rune groups": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
@@ -2977,7 +2950,6 @@
     ],
     "Stopwatch": [
       "quickshell/desktop-bar/clock/ClockContent.qml",
-      "quickshell/desktop-bar/clock/StopwatchPage.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
     ],
     "Streaming": [
@@ -3178,12 +3150,8 @@
     "Timer finished: {name}": [
       "quickshell/desktop-bar/services/ClockTimers.qml"
     ],
-    "Timer name (optional)": [
-      "quickshell/desktop-bar/clock/TimersPage.qml"
-    ],
     "Timers": [
-      "quickshell/desktop-bar/clock/ClockContent.qml",
-      "quickshell/desktop-bar/clock/TimersPage.qml"
+      "quickshell/desktop-bar/clock/ClockContent.qml"
     ],
     "Today": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -3193,9 +3161,6 @@
     ],
     "Top": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
-    ],
-    "Total": [
-      "quickshell/desktop-bar/clock/StopwatchPage.qml"
     ],
     "Total download: %1": [
       "quickshell/desktop-bar/store/StoreInstallReview.qml"
@@ -3601,17 +3566,11 @@
     "health troubleshooting": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
-    "hr": [
-      "quickshell/desktop-bar/clock/TimersPage.qml"
-    ],
     "keyboard pointer language": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "lock idle": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
-    ],
-    "min": [
-      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "monitor refresh brightness rotation scale night light schedule temperature": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -3631,9 +3590,6 @@
     ],
     "restart": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
-    ],
-    "sec": [
-      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "session": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
@@ -3680,7 +3636,7 @@
     "{day} · WEEK {week} · {year}": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
-    "{focus} minutes of focus, then a {rest}-minute break. Lengths follow Settings › Focus.": [
+    "{focus} min focus · {rest} min break": [
       "quickshell/desktop-bar/clock/FocusPage.qml"
     ],
     "{minutes} min": [

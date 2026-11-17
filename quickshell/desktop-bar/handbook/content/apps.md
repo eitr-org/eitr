@@ -151,11 +151,11 @@ In the Calendar Sources menu, Enter on a calendar refreshes it now and Delete re
 
 ## Clock
 
-Open Clock from Walker (Main > Tools > Clock), Control Center > Tools > Open Clock, or by clicking a running timer ring beside the desktop clock. Escape closes the window and it remembers your last page during the session. State is saved atomically in `$XDG_STATE_HOME/eitr/clock.json` so timers, the stopwatch and focus sessions survive bar restarts; timers that expire while the bar is closed appear as ended and notify once on launch.
+Open Clock from Apps (**SUPER + Space**), Walker (Main > Tools > Clock), Control Center > Tools > Open Clock, or by clicking a running timer ring beside the desktop clock. It is a small chronograph: one turn of the dial is an hour, and the switch at the bottom changes between Timers, Stopwatch and Focus. Escape closes it (or first leaves a new timer being set), and it remembers your last page during the session. State is saved atomically in `$XDG_STATE_HOME/eitr/clock.json` so timers, the stopwatch and focus sessions survive bar restarts; timers that expire while the bar is closed appear as ended and notify once on launch.
 
-- **Timers:** Start quick presets (1, 5, 10 or 25 minutes) or custom hours, minutes and seconds with an optional name. Running countdowns stay ordered by time left, with pause/resume, restart and remove controls. Finished timers chime once (unless Do Not Disturb is on) and post a critical notification with a **Restart** button.
-- **Stopwatch:** Start, pause, resume, lap and reset with tenths accuracy. Laps list newest first with each lap difference compared against the previous lap.
-- **Focus:** Run alternating work and break intervals with a round counter, pause/resume, break skipping and transition notifications. Focus and break durations follow Settings > Focus.
+- **Timers:** Drag the hand round the dial to set a length (each extra turn adds an hour), or scroll on the dial, use the arrow keys (a minute) and Page Up/Down (ten minutes), or press 1, 5, 10 or 25 min; add an optional name and press Start or Enter. Each timer is then a ring on the dial, ordered by time left; click one in the list to show it in the centre with pause/resume, restart and remove. **New timer** sets another. Finished timers chime once (unless Do Not Disturb is on) and post a critical notification with a **Restart** button.
+- **Stopwatch:** Start, pause, resume, lap and reset with tenths accuracy. The hand sweeps once a minute and each lap leaves a dot on the dial's edge; laps list newest first with each lap's difference from the previous one.
+- **Focus:** Run alternating work and break intervals with a round counter, pause/resume, break skipping and transition notifications. The focus time and the break are arcs on the dial, and the hand shows where the session is. Focus and break durations follow Settings > Focus.
 
 ## Plugins
 
