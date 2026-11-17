@@ -108,7 +108,6 @@ Abre Reloj desde Walker (Principal > Herramientas > Reloj), Centro de control > 
 - **Temporizadores:** Inicia duraciones rápidas (1, 5, 10 o 25 minutos) o horas, minutos y segundos personalizados con nombre opcional. Las cuentas activas se ordenan por tiempo restante, con pausa/reanudación, reinicio y eliminación. Al terminar suenan una vez (salvo en No molestar) y muestran una notificación crítica con **Reiniciar**.
 - **Cronómetro:** Inicia, pausa, reanuda, marca vueltas y reinicia con precisión de décimas. Las vueltas se muestran con la más reciente primero y la diferencia respecto a la vuelta anterior.
 - **Focus:** Alterna intervalos de trabajo y descanso con contador de rondas, pausa/reanudación, salto de descanso y avisos de cambio. Las duraciones siguen Configuración > Focus.
-- **Mundo:** Lista en solo lectura las ciudades guardadas por el plugin oficial de Reloj mundial en el formato de 12/24 horas de la barra, con diferencia de día y desfase local; si el plugin no está instalado, **Abrir Eitr Store** abre Eitr Store en Descubrir > Plugins.
 
 ## Plugins
 

@@ -46,15 +46,14 @@
   },
   {
     "text": "Clock",
-    "subtext": "Run timers, a stopwatch, focus sessions and world clocks",
+    "subtext": "Run timers, a stopwatch and focus sessions",
     "keywords": [
       "clock",
       "timer",
       "stopwatch",
       "pomodoro",
       "focus",
-      "countdown",
-      "world"
+      "countdown"
     ],
     "icon": "󰔛",
     "actions": {

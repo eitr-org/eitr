@@ -527,7 +527,6 @@
   "Route 53": "Route 53",
   "Route tables": "路由表",
   "Run AI coding agents side by side and see who needs you": "并排运行 AI 编程代理并查看谁需要您",
-  "Run timers, a stopwatch, focus sessions and world clocks": "运行计时器、秒表、专注会话和世界时钟",
   "Rune Rain": "符文雨",
   "Runes falling in the theme's colours; any key stops them": "主题颜色的符文飘落；按任意键停止",
   "Running tasks": "运行中的任务",
@@ -793,5 +792,6 @@
   "Zone details": "区域详情",
   "gh or glab for this account only": "仅为此账户使用 gh 或 glab",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Run timers, a stopwatch and focus sessions": "运行计时器、秒表和专注会话"
 }

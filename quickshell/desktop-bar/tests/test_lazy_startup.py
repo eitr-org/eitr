@@ -56,8 +56,8 @@ class LazyWindowTests(unittest.TestCase):
     if (find(catalog.contentItem, "catalog-content").kind !== "plugins") throw new Error("second IPC route");
     clock.testClockIpc.show("");
     if (clock.page !== "stopwatch") throw new Error("clock remembered page");
-    clock.testClockIpc.show("world");
-    if (clock.page !== "world") throw new Error("clock explicit page");
+    clock.testClockIpc.show("focus");
+    if (clock.page !== "focus") throw new Error("clock explicit page");
     catalog.showThemes("light");
     if (find(catalog.contentItem, "catalog-content").kind !== "themes") throw new Error("theme route after interaction");
     settings.testSettingsIpc.palette("dark");

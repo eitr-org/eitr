@@ -114,7 +114,6 @@ Ouvrez Horloge depuis Walker (Principal > Outils > Horloge), Centre de contrôle
 - **Minuteurs :** Lancez des préréglages rapides (1, 5, 10 ou 25 minutes) ou une durée personnalisée en heures, minutes et secondes avec un nom facultatif. Les comptes à rebours actifs restent triés par temps restant, avec pause/reprise, redémarrage et suppression. Une fois terminés, ils sonnent une fois (sauf en Ne pas déranger) et publient une notification critique avec **Redémarrer**.
 - **Chronomètre :** Démarrez, mettez en pause, reprenez, enregistrez des tours et réinitialisez au dixième de seconde. Les tours s’affichent du plus récent au plus ancien avec l’écart par rapport au tour précédent.
 - **Focus :** Enchaînez travail et pauses avec compteur de cycles, pause/reprise, saut de pause et notifications de transition. Les durées suivent Paramètres > Focus.
-- **Monde :** Affiche en lecture seule les villes enregistrées par l’extension officielle Horloge mondiale au format 12/24 heures de la barre, avec l’écart de jour et le décalage local ; sans l’extension, **Ouvrir Eitr Store** ouvre Eitr Store sur Découvrir > Plugins.
 
 ## Plugins
 

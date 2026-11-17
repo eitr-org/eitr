@@ -3,18 +3,16 @@ import QtQuick
 import Quickshell.Io
 import Eitr as Eitr
 
-// Clock window in the Settings/Store family: Timers, Stopwatch, Focus, and World.
+// Clock window in the Settings/Store family: Timers, Stopwatch and Focus.
 // Remembers the last viewed page within the desktop session.
 FamilyWindow {
     id: window
     property string page: "timers"
-    property string clockFormat: "24h"
     property bool live: true
-    signal storeRequested(string kind, string tab)
     title: Eitr.I18n.tr("Clock")
 
     function normalizePage(value) {
-        return ["timers", "stopwatch", "focus", "world"].indexOf(value) >= 0 ? value : "";
+        return ["timers", "stopwatch", "focus"].indexOf(value) >= 0 ? value : "";
     }
 
     onPageChanged: {
@@ -56,13 +54,8 @@ FamilyWindow {
             accent: SettingsPalette.accent
             opened: window.opened
             page: window.page
-            clockFormat: window.clockFormat
             live: window.live
             onPageChanged: window.page = page
-            onStoreRequested: function(kind, tab) {
-                window.closeClock();
-                window.storeRequested(kind, tab);
-            }
             onCloseRequested: window.closeClock()
         }
     }

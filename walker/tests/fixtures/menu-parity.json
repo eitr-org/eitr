@@ -3068,15 +3068,14 @@
       },
       {
         "text": "Clock",
-        "subtext": "Run timers, a stopwatch, focus sessions and world clocks",
+        "subtext": "Run timers, a stopwatch and focus sessions",
         "keywords": [
           "clock",
           "timer",
           "stopwatch",
           "pomodoro",
           "focus",
-          "countdown",
-          "world"
+          "countdown"
         ],
         "icon": "󰔛",
         "actions": {
@@ -10480,7 +10479,7 @@
       "provider": "menus:tools",
       "identifier": "tools:4",
       "text": "Clock",
-      "subtext": "Run timers, a stopwatch, focus sessions and world clocks",
+      "subtext": "Run timers, a stopwatch and focus sessions",
       "icon": "󰔛",
       "actions": [
         "open"
@@ -10492,10 +10491,9 @@
         "pomodoro",
         "focus",
         "countdown",
-        "world",
         "Clock",
         "Clock",
-        "Run timers, a stopwatch, focus sessions and world clocks"
+        "Run timers, a stopwatch and focus sessions"
       ],
       "menus": [
         "main"

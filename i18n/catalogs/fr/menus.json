@@ -527,7 +527,6 @@
   "Route 53": "Route 53",
   "Route tables": "Tables de routage",
   "Run AI coding agents side by side and see who needs you": "Agents IA côte à côte, et voir lequel a besoin de vous",
-  "Run timers, a stopwatch, focus sessions and world clocks": "Minuteurs, chronomètre, concentration et horloge mondiale",
   "Rune Rain": "Pluie de runes",
   "Runes falling in the theme's colours; any key stops them": "Des runes tombent aux couleurs du thème ; une touche les arrête",
   "Running tasks": "Tâches en cours",
@@ -793,5 +792,6 @@
   "Zone details": "Détails de la zone",
   "gh or glab for this account only": "gh ou glab pour ce compte uniquement",
   "iwd": "Iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Run timers, a stopwatch and focus sessions": "Minuteurs, chronomètre et concentration"
 }

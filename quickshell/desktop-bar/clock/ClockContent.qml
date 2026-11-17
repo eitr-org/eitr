@@ -12,16 +12,13 @@ Rectangle {
     required property color accent
     property bool opened: false
     property string page: "timers"
-    property string clockFormat: "24h"
     property bool live: true
     signal closeRequested()
-    signal storeRequested(string kind, string tab)
 
     readonly property var pages: [
         {id: "timers", title: Eitr.I18n.tr("Timers"), rune: "ᛉ", group: Eitr.I18n.tr("Clock"), groupRune: "ᛞ"},
         {id: "stopwatch", title: Eitr.I18n.tr("Stopwatch"), rune: "ᛏ", group: Eitr.I18n.tr("Clock"), groupRune: "ᛞ"},
-        {id: "focus", title: Eitr.I18n.tr("Focus"), rune: "ᚠ", group: Eitr.I18n.tr("Clock"), groupRune: "ᛞ"},
-        {id: "world", title: Eitr.I18n.tr("World"), rune: "ᛟ", group: Eitr.I18n.tr("Clock"), groupRune: "ᛞ"}
+        {id: "focus", title: Eitr.I18n.tr("Focus"), rune: "ᚠ", group: Eitr.I18n.tr("Clock"), groupRune: "ᛞ"}
     ]
 
     Binding { target: SettingsInk; property: "background"; value: content.background }
@@ -91,23 +88,6 @@ Rectangle {
             accent: content.accent
             visible: content.page === "focus"
             opacity: visible ? 1 : 0
-            Behavior on opacity {
-                enabled: !DesktopStyle.reduceMotion
-                NumberAnimation { duration: DesktopStyle.motionDuration(120) }
-            }
-        }
-
-        WorldPage {
-            anchors.fill: parent
-            foreground: content.foreground
-            background: content.background
-            accent: content.accent
-            clockFormat: content.clockFormat
-            active: content.opened && content.page === "world"
-            live: content.live
-            visible: content.page === "world"
-            opacity: visible ? 1 : 0
-            onStoreRequested: function(kind, tab) { content.storeRequested(kind, tab); }
             Behavior on opacity {
                 enabled: !DesktopStyle.reduceMotion
                 NumberAnimation { duration: DesktopStyle.motionDuration(120) }

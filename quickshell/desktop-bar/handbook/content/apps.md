@@ -156,7 +156,6 @@ Open Clock from Walker (Main > Tools > Clock), Control Center > Tools > Open Clo
 - **Timers:** Start quick presets (1, 5, 10 or 25 minutes) or custom hours, minutes and seconds with an optional name. Running countdowns stay ordered by time left, with pause/resume, restart and remove controls. Finished timers chime once (unless Do Not Disturb is on) and post a critical notification with a **Restart** button.
 - **Stopwatch:** Start, pause, resume, lap and reset with tenths accuracy. Laps list newest first with each lap difference compared against the previous lap.
 - **Focus:** Run alternating work and break intervals with a round counter, pause/resume, break skipping and transition notifications. Focus and break durations follow Settings > Focus.
-- **World:** Lists cities saved by the official World Clock plugin in the bar's 12/24-hour format with day differences and local offsets, read-only; without the plugin installed, **Open Eitr Store** opens Eitr Store on Discover > Plugins.
 
 ## Plugins
 

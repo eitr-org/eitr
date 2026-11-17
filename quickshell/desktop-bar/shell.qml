@@ -39,9 +39,7 @@ ShellRoot {
     ClockWindow {
         id: clockWindow
         foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
-        clockFormat: shell.barClock
         onOpenedChanged: if (opened) shell.handbookOpened()
-        onStoreRequested: function(kind, tab) { catalogWindow.show(kind, tab); }
     }
     readonly property var _clockTimersRef: ClockTimers
     readonly property var _focusTimerRef: FocusTimer

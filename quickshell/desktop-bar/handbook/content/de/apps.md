@@ -102,7 +102,6 @@ Im Menü Kalenderquellen aktualisiert Enter einen Kalender sofort, und Entf entf
 - **Timer:** Starte Schnellzeiten (1, 5, 10 oder 25 Minuten) oder eigene Stunden, Minuten und Sekunden mit optionalem Namen. Laufende Countdowns bleiben nach Restzeit sortiert, mit Pause/Fortsetzen, Neu starten und Entfernen. Abgelaufene Timer klingen einmal (sofern Nicht stören aus ist) und senden eine dringende Benachrichtigung mit **Neu starten**.
 - **Stoppuhr:** Starte, pausiere, setze fort, nimm Runden auf und setze mit Zehntelsekunden-Genauigkeit zurück. Runden erscheinen mit der neuesten zuerst und zeigen den Abstand zur vorherigen Runde.
 - **Focus:** Starte wechselnde Arbeits- und Pausenphasen mit Rundenzähler, Pause/Fortsetzen, Pause überspringen und Wechselbenachrichtigungen. Arbeits- und Pausenlängen folgen Einstellungen > Focus.
-- **Welt:** Zeigt vom offiziellen Weltuhr-Plugin gespeicherte Städte im 12-/24-Stunden-Format der Leiste samt Tagesunterschied und Ortsversatz schreibgeschützt an; ist das Plugin nicht installiert, öffnet **Eitr Store öffnen** den Eitr Store unter Entdecken > Plugins.
 
 ## Plugins
 

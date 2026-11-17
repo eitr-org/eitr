@@ -65,8 +65,8 @@ item says what decides the next step. Remove an item when it ships;
   sign-in (OAuth, with Google's app verification).
 - **Clock app (phase 1 done 2026-11-17; alarms next).** One Eitr app (`clock/ClockWindow.qml`)
   opened from Walker (Main > Tools > Clock), the timer ring beside the clock (every layout and
-  Drop's pill) and Control Center > Tools; no new bar icon. Timers, Stopwatch, Focus and World
-  are done; their state survives bar restarts (`$XDG_STATE_HOME/eitr/clock.json`).
+  Drop's pill) and Control Center > Tools; no new bar icon. Timers, Stopwatch and Focus
+  are done (World clock stays a plugin); their state survives bar restarts (`$XDG_STATE_HOME/eitr/clock.json`).
   - **Next, phase 2 (Alarms):** time, name, repeat days and a sound; one switch each. Ringing,
     the alarm takes the screen with the song and an animated effect until **Stop** or
     **Snooze** (the owner will record the effect they want; build that part after).

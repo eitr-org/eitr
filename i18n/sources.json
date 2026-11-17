@@ -625,7 +625,6 @@
       "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/clock/StopwatchPage.qml",
       "quickshell/desktop-bar/clock/TimersPage.qml",
-      "quickshell/desktop-bar/clock/WorldPage.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -1394,9 +1393,6 @@
     "Install the Eitr network helper first; see distro/NETWORKING.md": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
-    "Install the official World Clock plugin from Eitr Store to follow saved cities here.": [
-      "quickshell/desktop-bar/clock/WorldPage.qml"
-    ],
     "Installed": [
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
       "quickshell/desktop-bar/store/StoreCatalogCard.qml",
@@ -1570,9 +1566,6 @@
     "Loading…": [
       "quickshell/desktop-bar/store/StoreGrid.qml",
       "quickshell/desktop-bar/store/StoreReview.qml"
-    ],
-    "Local time": [
-      "quickshell/desktop-bar/clock/WorldPage.qml"
     ],
     "Lock": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
@@ -1877,9 +1870,6 @@
     "No reminders": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
-    "No saved cities yet. Add cities in the World Clock plugin settings to see them here.": [
-      "quickshell/desktop-bar/clock/WorldPage.qml"
-    ],
     "No timers running. Pick a quick length above or set a custom duration.": [
       "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
@@ -2045,9 +2035,6 @@
     ],
     "Open Clock": [
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
-    ],
-    "Open Eitr Store": [
-      "quickshell/desktop-bar/clock/WorldPage.qml"
     ],
     "Open OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
@@ -2648,12 +2635,6 @@
     "Saved as {name}": [
       "quickshell/desktop-bar/capture/BeautifyContent.qml"
     ],
-    "Saved cities": [
-      "quickshell/desktop-bar/clock/WorldPage.qml"
-    ],
-    "Saved cities from the World Clock plugin, shown in your bar time format.": [
-      "quickshell/desktop-bar/clock/WorldPage.qml"
-    ],
     "Scale": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -3207,9 +3188,6 @@
     "Today": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
-    "Tomorrow": [
-      "quickshell/desktop-bar/clock/WorldPage.qml"
-    ],
     "Tools": [
       "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
@@ -3287,9 +3265,6 @@
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml",
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
-    ],
-    "Unable to read saved cities": [
-      "quickshell/desktop-bar/clock/WorldPage.qml"
     ],
     "Unable to unlock. Try again.": [
       "quickshell/lockscreen/themes/eitr/Main.qml"
@@ -3550,18 +3525,8 @@
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
     ],
-    "World": [
-      "quickshell/desktop-bar/clock/ClockContent.qml",
-      "quickshell/desktop-bar/clock/WorldPage.qml"
-    ],
-    "World Clock plugin": [
-      "quickshell/desktop-bar/clock/WorldPage.qml"
-    ],
     "YEAR": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
-    ],
-    "Yesterday": [
-      "quickshell/desktop-bar/clock/WorldPage.qml"
     ],
     "You": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml",
@@ -5554,7 +5519,7 @@
     "Run AI coding agents side by side and see who needs you": [
       "elephant/menu-rows/agent-workspaces.json"
     ],
-    "Run timers, a stopwatch, focus sessions and world clocks": [
+    "Run timers, a stopwatch and focus sessions": [
       "elephant/menu-rows/tools.json"
     ],
     "Rune Rain": [

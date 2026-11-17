@@ -1,17 +1,13 @@
-"""Unit and offscreen Quickshell tests for Clock, ClockTimers, FocusTimer, World, and renders."""
+"""Unit and offscreen Quickshell tests for Clock, ClockTimers, FocusTimer and renders."""
 import json
 import os
 from pathlib import Path
-import shutil
-import subprocess
-import sys
 import tempfile
 import time
 import unittest
 
 from layout_render import BAR, capture_path, copy_runtime, render, render_environment
 
-SCRIPT = BAR / "scripts/world-clock.py"
 ALARM_SOUND = "/usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga"
 
 
@@ -42,10 +38,6 @@ def make_probe_bin(folder: Path, restart_match: str = "") -> Path:
 
 def copy_clock_runtime(folder: Path) -> None:
     copy_runtime(folder)
-    scripts_dir = folder / "scripts"
-    scripts_dir.mkdir(parents=True, exist_ok=True)
-    shutil.copy(SCRIPT, scripts_dir / "world-clock.py")
-    (scripts_dir / "world-clock.py").chmod(0o755)
     (folder / "services/DesktopData.qml").write_text(
         """pragma Singleton
 import QtQuick
@@ -60,78 +52,6 @@ QtObject {
 }
 """
     )
-
-
-class WorldClockHelperTests(unittest.TestCase):
-    def test_missing_config_returns_empty_and_does_not_create_file(self):
-        with tempfile.TemporaryDirectory() as directory:
-            config = Path(directory) / "eitr/plugins/world-clock.json"
-            result = subprocess.run(
-                [sys.executable, str(SCRIPT), "--config", str(config), "--now", "1763380800", "--local-zone", "UTC"],
-                check=True,
-                capture_output=True,
-                text=True,
-            )
-            payload = json.loads(result.stdout)
-            self.assertEqual(payload, {"cities": [], "error": ""})
-            self.assertFalse(config.exists())
-
-    def test_resolves_times_day_deltas_offsets_and_leaves_file_untouched(self):
-        with tempfile.TemporaryDirectory() as directory:
-            config = Path(directory) / "world-clock.json"
-            original_payload = {
-                "barCount": 3,
-                "cities": [
-                    {"zone": "Asia/Tokyo", "label": "TYO", "name": "Tokyo", "country": "JP"},
-                    {"zone": "America/Los_Angeles", "label": "LAX", "name": "Los Angeles", "country": "US"},
-                    {"zone": "Asia/Kolkata"},
-                    {"zone": "Invalid/Not_A_Zone", "label": "BAD"},
-                ],
-            }
-            config.write_text(json.dumps(original_payload), encoding="utf-8")
-            before_stat = config.stat()
-            before_bytes = config.read_bytes()
-
-            # 2026-11-17 02:30 UTC: Tokyo is 11:30 same day; LA is 18:30 previous day (PST UTC-8); Kolkata is 08:00 (+5h 30m).
-            result = subprocess.run(
-                [sys.executable, str(SCRIPT), "--config", str(config), "--now", "2026-11-17T02:30:00+00:00", "--local-zone", "UTC"],
-                check=True,
-                capture_output=True,
-                text=True,
-            )
-            payload = json.loads(result.stdout)
-            self.assertEqual(payload["error"], "")
-            cities = payload["cities"]
-            self.assertEqual([city["zone"] for city in cities], ["Asia/Tokyo", "America/Los_Angeles", "Asia/Kolkata"])
-            self.assertEqual(cities[0]["time24"], "11:30")
-            self.assertEqual(cities[0]["time12"], "11:30 AM")
-            self.assertEqual(cities[0]["dayDelta"], 0)
-            self.assertEqual(cities[0]["offsetMinutes"], 540)
-            self.assertEqual(cities[0]["flag"], "🇯🇵")
-            self.assertEqual(cities[1]["time24"], "18:30")
-            self.assertEqual(cities[1]["time12"], "6:30 PM")
-            self.assertEqual(cities[1]["dayDelta"], -1)
-            self.assertEqual(cities[1]["offsetMinutes"], -480)
-            self.assertEqual(cities[2]["name"], "Kolkata")
-            self.assertEqual(cities[2]["offsetMinutes"], 330)
-            self.assertEqual(config.read_bytes(), before_bytes)
-            self.assertEqual(config.stat().st_mtime_ns, before_stat.st_mtime_ns)
-
-    def test_offsets_last_until_the_next_daylight_saving_change(self):
-        """The page computes times from UTC offsets and asks again only when one changes."""
-        with tempfile.TemporaryDirectory() as directory:
-            config = Path(directory) / "world-clock.json"
-            config.write_text(json.dumps({"cities": [{"zone": "America/New_York"}, {"zone": "Asia/Tokyo"}]}), encoding="utf-8")
-            result = subprocess.run(
-                [sys.executable, str(SCRIPT), "--config", str(config), "--now", "2027-03-10T12:00:00+00:00", "--local-zone", "UTC"],
-                check=True, capture_output=True, text=True,
-            )
-            new_york, tokyo = json.loads(result.stdout)["cities"]
-            self.assertEqual((new_york["utcOffsetMinutes"], tokyo["utcOffsetMinutes"]), (-300, 540))
-            # New York springs forward at 2:00 local on 2027-03-14 (07:00 UTC); Tokyo has no change,
-            # so its offset holds for the eight days looked ahead.
-            self.assertEqual(new_york["validUntil"], 1805007600)
-            self.assertEqual(tokyo["validUntil"], 1805371200)
 
 
 class ClockServiceAndBarTests(unittest.TestCase):
@@ -424,23 +344,12 @@ ShellRoot {
 
 
 class ClockWindowAndRenderTests(unittest.TestCase):
-    def _run_window_suite(self, theme: str, foreground: str, background: str, accent: str, plugin_installed: bool) -> None:
+    def _run_window_suite(self, theme: str, foreground: str, background: str, accent: str, reduce_motion: bool) -> None:
         with tempfile.TemporaryDirectory(prefix=f"eitr-clock-ui-{theme}-") as directory:
             folder = Path(directory)
             copy_clock_runtime(folder)
-            (folder / "eitr/plugins").mkdir(parents=True, exist_ok=True)
-            (folder / "eitr/plugins/world-clock.json").write_text(json.dumps({
-                "barCount": 3,
-                "cities": [
-                    {"zone": "Europe/Lisbon", "label": "LIS", "name": "Lisbon", "country": "PT"},
-                    {"zone": "Asia/Tokyo", "label": "TYO", "name": "Tokyo", "country": "JP"},
-                    {"zone": "America/New_York", "label": "NYC", "name": "New York", "country": "US"},
-                ],
-            }), encoding="utf-8")
-
-            installed_json = json.dumps([
-                {"id": "world-clock", "official": True, "enabled": True, "blocked": ""}
-            ]) if plugin_installed else "[]"
+            (folder / "eitr").mkdir(parents=True, exist_ok=True)
+            installed_json = "[]"
             (folder / "plugins/PluginRegistry.qml").write_text(f"""pragma Singleton
 import ".."
 import QtQuick
@@ -491,7 +400,6 @@ QtObject {{
             out_timers = capture_path("CLOCK", directory, f"clock-timers-{theme}.png")
             out_stopwatch = capture_path("CLOCK", directory, f"clock-stopwatch-{theme}.png")
             out_focus = capture_path("CLOCK", directory, f"clock-focus-{theme}.png")
-            out_world = capture_path("CLOCK", directory, f"clock-world-{theme}.png")
             out_cc = capture_path("CLOCK", directory, f"clock-control-center-{theme}.png")
 
             fixture = """import QtQuick
@@ -500,18 +408,11 @@ import Quickshell
 import "." as Bar
 ShellRoot {
  id: root
- property string requestedStoreKind: ""
- property string requestedStoreTab: ""
  Bar.ClockWindow {
   id: clock
   foreground: "FOREGROUND"
   background: "BACKGROUND"
   accent: "ACCENT"
-  clockFormat: "24h"
-  onStoreRequested: function(kind, tab) {
-   root.requestedStoreKind = kind;
-   root.requestedStoreTab = tab;
-  }
  }
  FloatingWindow {
   id: ccHost
@@ -561,16 +462,6 @@ ShellRoot {
    content.grabToImage(result => { if (!result.saveToFile("OUT_FOCUS")) throw new Error("focus grab"); });
    wait(80);
 
-   clock.show("world");
-   wait(450);
-   content.grabToImage(result => { if (!result.saveToFile("OUT_WORLD")) throw new Error("world grab"); });
-   wait(80);
-
-   if ("PLUGIN_INSTALLED" === "false") {
-    content.storeRequested("plugins", "discover");
-    wait(60);
-    if (root.requestedStoreKind !== "plugins" || root.requestedStoreTab !== "discover") throw new Error("store route");
-   }
    clock.show("focus");
    wait(80);
    clock.show("");
@@ -596,12 +487,10 @@ ShellRoot {
                 "BACKGROUND": background,
                 "ACCENT": accent,
                 "LIGHT_BOOL": "true" if theme == "light" else "false",
-                "REDUCE_MOTION": "true" if not plugin_installed else "false",
-                "PLUGIN_INSTALLED": "true" if plugin_installed else "false",
+                "REDUCE_MOTION": "true" if reduce_motion else "false",
                 "OUT_TIMERS": str(out_timers),
                 "OUT_STOPWATCH": str(out_stopwatch),
                 "OUT_FOCUS": str(out_focus),
-                "OUT_WORLD": str(out_world),
                 "OUT_CC": str(out_cc),
             }
             for old, new in replacements.items():
@@ -612,14 +501,14 @@ ShellRoot {
             self.assertIn("CLOCK_UI_OK", output)
             for label in ("TypeError:", "ReferenceError:", "Binding loop", "Error:"):
                 self.assertNotIn(label, output)
-            for path in (out_timers, out_stopwatch, out_focus, out_world, out_cc):
+            for path in (out_timers, out_stopwatch, out_focus, out_cc):
                 self.assertTrue(path.is_file() and path.stat().st_size > 4000, f"Empty capture {path}")
 
-    def test_dark_theme_with_world_clock_plugin_installed(self):
-        self._run_window_suite("dark", "#e4e5ef", "#191b25", "#759456", plugin_installed=True)
+    def test_dark_theme(self):
+        self._run_window_suite("dark", "#e4e5ef", "#191b25", "#759456", reduce_motion=False)
 
-    def test_light_theme_with_empty_world_clock_store_cta_and_reduce_motion(self):
-        self._run_window_suite("light", "#202431", "#f5f3ee", "#5f7f44", plugin_installed=False)
+    def test_light_theme_with_reduce_motion(self):
+        self._run_window_suite("light", "#202431", "#f5f3ee", "#5f7f44", reduce_motion=True)
 
 
 if __name__ == "__main__":

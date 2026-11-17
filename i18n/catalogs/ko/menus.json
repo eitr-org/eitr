@@ -527,7 +527,6 @@
   "Route 53": "Route 53",
   "Route tables": "라우팅 테이블",
   "Run AI coding agents side by side and see who needs you": "AI 코딩 에이전트를 나란히 실행하고 도움이 필요한 에이전트 확인",
-  "Run timers, a stopwatch, focus sessions and world clocks": "타이머, 스톱워치, 집중 세션, 세계 시계를 실행합니다",
   "Rune Rain": "룬 비",
   "Runes falling in the theme's colours; any key stops them": "테마 색상으로 떨어지는 룬 문자; 아무 키나 누르면 중지됨",
   "Running tasks": "실행 중인 작업",
@@ -793,5 +792,6 @@
   "Zone details": "영역 세부 정보",
   "gh or glab for this account only": "이 계정 전용 gh 또는 glab",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Run timers, a stopwatch and focus sessions": "타이머, 스톱워치, 집중 세션을 실행합니다"
 }

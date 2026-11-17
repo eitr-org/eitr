@@ -301,6 +301,5 @@ TimersPage 1.0 clock/TimersPage.qml
 TimerCard 1.0 clock/TimerCard.qml
 StopwatchPage 1.0 clock/StopwatchPage.qml
 FocusPage 1.0 clock/FocusPage.qml
-WorldPage 1.0 clock/WorldPage.qml
 BarMomentSources 1.0 bar/BarMomentSources.qml
 BarMomentPlacement bar/BarMomentPlacement.qml
