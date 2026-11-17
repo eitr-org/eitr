@@ -99,6 +99,15 @@ Eventos da última semana até os próximos 60 dias aparecem ao lado dos lembret
 
 No menu Fontes de calendários, Enter atualiza um calendário na hora e Delete o remove depois da confirmação. A sincronização nos dois sentidos (criar ou editar eventos do provedor) não é suportada. O terminal fica aberto enquanto você copia o link no navegador; Enter na revisão adiciona o calendário e Esc cancela.
 
+## Relógio
+
+Abra o Relógio pelo Walker (Principal > Ferramentas > Relógio), Central de controle > Ferramentas > Abrir Relógio ou clicando no anel de temporizador ao lado do relógio da barra. Escape fecha a janela e a última página acessada fica salva durante a sessão. O estado é gravado atomicamente em `$XDG_STATE_HOME/eitr/clock.json` para que temporizadores, cronômetro e sessões de foco sobrevivam à reinicialização da barra; temporizadores encerrados enquanto a barra estava fechada aparecem concluídos e notificam uma vez ao iniciar.
+
+- **Temporizadores:** Inicie durações rápidas (1, 5, 10 ou 25 minutos) ou horas, minutos e segundos personalizados com nome opcional. Contagens ativas ficam ordenadas pelo tempo restante, com pausar/retomar, reiniciar e remover. Ao terminar, tocam uma vez (exceto em Não perturbe) e enviam uma notificação crítica com **Reiniciar**.
+- **Cronômetro:** Inicie, pause, retome, marque voltas e zere com precisão de décimos. As voltas aparecem da mais recente para a mais antiga com a diferença em relação à volta anterior.
+- **Focus:** Alterne intervalos de trabalho e pausa com contador de ciclos, pausar/retomar, pular pausa e avisos de transição. As durações seguem Configurações > Focus.
+- **Mundo:** Lista em somente leitura as cidades salvas pelo plugin oficial Relógio mundial no formato de 12/24 horas da barra, com diferença de dia e fuso local; sem o plugin instalado, **Abrir Eitr Store** abre a Eitr Store em Descobrir > Plugins.
+
 ## Plugins
 
 Um plugin é um repositório Git com scripts, itens do Walker, peças visuais opcionais (blocos, painéis, widgets da área de trabalho e itens da barra) e, opcionalmente, um serviço do usuário; um repositório pode conter vários plugins. Um plugin é executado como você, com todas as permissões da sua conta: pode ler seus arquivos, chaves SSH e dados do navegador, enviá-los para qualquer lugar e continuar rodando.

@@ -22,7 +22,7 @@ O Modo avião lembra quais conexões bloqueou e restaura apenas essas. Não pert
 
 ## Ferramentas
 
-Timer e Foco (uma contagem regressiva, um cronômetro ou sessões de foco de 25 minutos com pausas de 5 minutos; um anel ao lado do relógio mostra que está rodando e o abre), capturas (seleção, tela inteira, janela ou seleção direto para a área de transferência), gravação (controles do OBS, Gravar, Gravar + Áudio e Parar), OCR, códigos QR, seletor de cores, Transcodificar, lembretes e compartilhamento com LocalSend. O painel fecha antes de uma seleção ou gravação começar.
+Timer e Foco (um resumo compacto mostrando o temporizador, a fase de foco ou o cronômetro ativo, botões rápidos para iniciar/parar um timer de 5 minutos ou foco e Abrir Relógio), capturas (seleção, tela inteira, janela ou seleção direto para a área de transferência), gravação (controles do OBS, Gravar, Gravar + Áudio e Parar), OCR, códigos QR, seletor de cores, Transcodificar, lembretes e compartilhamento com LocalSend. O painel fecha antes de uma seleção ou gravação começar.
 
 ## Conversa rápida
 

@@ -89,7 +89,7 @@ Item {
         activity: barHost.clockActivity
         vertical: true
         onMeetingClicked: calendarMenuRef.showDay(new Date())
-        onTimerClicked: barHost.showControlCenter("timer")
+        onTimerClicked: barHost.showClock(barHost.clockActivity ? barHost.clockActivity.timerPage : "timers")
         onBellClicked: barHost.showKind("notifications")
         // Stacked in the vertical bar's column, the dot is centred in every layout.
         centered: true

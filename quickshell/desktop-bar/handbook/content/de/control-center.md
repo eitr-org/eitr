@@ -22,7 +22,7 @@ Der Flugmodus merkt sich gesperrte Funkverbindungen und stellt nur diese wieder 
 
 ## Werkzeuge
 
-Timer & Fokus (ein Countdown, eine Stoppuhr oder Fokussitzungen von 25 Minuten mit 5-minütigen Pausen; ein Ring neben der Uhr zeigt, dass er läuft, und öffnet ihn), Screenshots (Auswahl, Vollbild, Fenster oder Auswahl direkt in die Zwischenablage), Aufnahme (OBS-Steuerung, Aufnehmen, Aufnehmen + Audio und Stopp), OCR, QR-Codes, Farbauswahl, Transkodieren, Erinnerungen und LocalSend-Freigabe. Das Panel schließt vor Beginn einer Auswahl oder Aufnahme.
+Timer & Fokus (eine kompakte Übersicht für den laufenden Timer, die Fokusphase oder Stoppuhr, Schnellschaltflächen zum Starten/Stoppen eines 5-Minuten-Timers oder von Focus sowie Uhr öffnen), Screenshots (Auswahl, Vollbild, Fenster oder Auswahl direkt in die Zwischenablage), Aufnahme (OBS-Steuerung, Aufnehmen, Aufnehmen + Audio und Stopp), OCR, QR-Codes, Farbauswahl, Transkodieren, Erinnerungen und LocalSend-Freigabe. Das Panel schließt vor Beginn einer Auswahl oder Aufnahme.
 
 ## Schnellchat
 

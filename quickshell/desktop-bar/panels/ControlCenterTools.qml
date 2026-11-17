@@ -12,8 +12,9 @@ Column {
     ControlCenterFold { centerRef: section.centerRef;
     title: section.centerRef.timerFold
     FocusTimerControls {
-        width: parent.width; ringSize: 112
+        width: parent.width
         foreground: section.centerRef.foreground; accent: section.centerRef.accent; background: section.centerRef.background
+        onClockRequested: function(page) { section.centerRef.openClock(page); }
     }
     }
     ControlCenterFold { centerRef: section.centerRef;

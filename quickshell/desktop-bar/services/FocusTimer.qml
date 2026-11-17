@@ -1,98 +1,246 @@
 pragma Singleton
 import ".."
 import QtQuick
-import Quickshell
 import Quickshell.Io
 import Eitr as Eitr
+import "../ClockModel.js" as ClockModel
 
-// One timer for Drop's dashboard and pill: a countdown, a stopwatch, or focus sessions (25
-// minutes of focus, then a 5-minute break). It keeps running with the dashboard closed;
-// a finished countdown or focus phase sends a notification, which rings the clock's bell,
-// with buttons to go on: snooze or restart a countdown, skip a break, start focusing again.
+// Focus sessions (defaults 25 minutes focus / 5 minutes break, lengths persisted
+// in $XDG_CONFIG_HOME/eitr/focus-sessions.json; focus.json belongs to the Focus style preset,
+// which rewrites it whole). Session progress
+// survives bar restarts via ClockTimers ($XDG_STATE_HOME/eitr/clock.json).
 QtObject {
     id: timer
-    // "timer", "stopwatch" or "focus"; idle when nothing runs.
-    property string mode: "timer"
+
     property bool running: false
     property bool paused: false
     readonly property bool active: running || paused
-    // A countdown's length and the time it had already run before the last pause (ms).
-    property real duration: 0
-    property real banked: 0
-    property real startedAt: 0
-    property real now: Date.now()
-    // Focus: "focus" or "break", and how many focus sessions finished today's run.
     property string phase: "focus"
     property int rounds: 0
     property int focusMinutes: 25
     property int breakMinutes: 5
-    // The last countdown's length, for "Start again".
-    property int lastMinutes: 5
-    readonly property real elapsed: banked + (running ? now - startedAt : 0)
-    readonly property real remaining: Math.max(0, duration - elapsed)
-    // 0..1 through a countdown or focus phase; a stopwatch fills once a minute.
-    readonly property real progress: mode === "stopwatch" ? (elapsed % 60000) / 60000 : duration > 0 ? Math.min(1, elapsed / duration) : 0
+    property real duration: 0
+    property real banked: 0
+    property real startedAt: 0
+    property var preferenceData: ({version: 1})
+    property bool preferenceLoaded: false
+    property bool _pendingLengths: false
 
-    property Timer tick: Timer {
-        interval: 250; repeat: true; running: timer.running
-        onTriggered: {
-            timer.now = Date.now();
-            if (timer.mode !== "stopwatch" && timer.remaining <= 0) timer.finish();
-        }
+    readonly property real elapsed: active ? banked + (running ? Math.max(0, ClockTimers.now - startedAt) : 0) : 0
+    readonly property real remaining: active ? Math.max(0, duration - elapsed) : 0
+    readonly property real progress: duration > 0 && active ? Math.min(1, elapsed / duration) : 0
+
+    function snapshot() {
+        return {
+            active: active,
+            running: running,
+            paused: paused,
+            phase: phase,
+            rounds: rounds,
+            breakMinutes: breakMinutes,
+            durationMs: duration,
+            bankedMs: banked,
+            startedAtMs: running ? startedAt : 0
+        };
     }
-    function begin(kind, milliseconds) {
-        mode = kind; duration = milliseconds; banked = 0;
-        now = Date.now(); startedAt = now; paused = false; running = true;
+
+    function sync() {
+        ClockTimers.setFocusState(snapshot());
     }
-    function startTimer(minutes) { lastMinutes = minutes; begin("timer", minutes * 60000); }
-    function startStopwatch() { begin("stopwatch", 0); }
-    function startFocus() { phase = "focus"; rounds = 0; begin("focus", focusMinutes * 60000); }
+
+    function begin(milliseconds) {
+        const current = ClockTimers.refreshNow();
+        duration = Math.max(1000, milliseconds);
+        banked = 0;
+        startedAt = current;
+        paused = false;
+        running = true;
+        sync();
+    }
+
+    function startFocus() {
+        phase = "focus";
+        rounds = 0;
+        begin(focusMinutes * 60000);
+    }
+
     function pause() {
         if (!running) return;
-        now = Date.now(); banked += now - startedAt; running = false; paused = true;
+        const current = ClockTimers.refreshNow();
+        banked += Math.max(0, current - startedAt);
+        running = false;
+        paused = true;
+        sync();
     }
+
     function resume() {
         if (!paused) return;
-        now = Date.now(); startedAt = now; paused = false; running = true;
+        startedAt = ClockTimers.refreshNow();
+        paused = false;
+        running = true;
+        sync();
     }
-    function stop() { running = false; paused = false; banked = 0; duration = 0; }
+
+    function stop() {
+        running = false;
+        paused = false;
+        banked = 0;
+        duration = 0;
+        phase = "focus";
+        sync();
+    }
+
+    function skipBreak() {
+        if (!active || phase !== "break") return;
+        phase = "focus";
+        begin(focusMinutes * 60000);
+    }
+
+    function writeLengths() {
+        preferenceData = Object.assign({}, preferenceData, {
+            version: 1,
+            focusMinutes: focusMinutes,
+            breakMinutes: breakMinutes
+        });
+        preference.setText(JSON.stringify(preferenceData, null, 2) + "\n");
+    }
+
+    function setLengths(nextFocusMinutes, nextBreakMinutes) {
+        const parsedFocus = Math.max(1, Math.min(180, Math.round(Number(nextFocusMinutes) || 25)));
+        const parsedBreak = Math.max(1, Math.min(60, Math.round(Number(nextBreakMinutes) || 5)));
+        focusMinutes = parsedFocus;
+        breakMinutes = parsedBreak;
+        if (preferenceLoaded) writeLengths();
+        else _pendingLengths = true;
+    }
+
     function finish() {
-        if (mode === "focus" && phase === "focus") {
-            rounds += 1; phase = "break";
-            notify(Eitr.I18n.tr("Time for a break"), Eitr.I18n.tr("{minutes} minutes, then back to focus.", {minutes: breakMinutes}),
-                [["skip", Eitr.I18n.tr("Skip break")]]);
-            begin("focus", breakMinutes * 60000);
+        if (phase === "focus") {
+            rounds += 1;
+            phase = "break";
+            notifyBreakStarted();
+            begin(breakMinutes * 60000);
             return;
         }
-        stop();
-        if (mode === "focus") notify(Eitr.I18n.tr("Break is over"), Eitr.I18n.tr("Start another focus session when you are ready."),
-            [["focus", Eitr.I18n.tr("Start focus")]]);
-        else notify(Eitr.I18n.tr("Timer finished"), "",
-            [["snooze", Eitr.I18n.tr("Snooze 5 min")], ["again", Eitr.I18n.tr("Start again")]]);
-        if (mode === "focus") phase = "focus";
+        running = false;
+        paused = false;
+        banked = 0;
+        duration = 0;
+        phase = "focus";
+        sync();
+        notifyBreakFinished();
     }
-    // A button on the notification: what it does.
+
+    function notifyBreakStarted() {
+        notify(
+            Eitr.I18n.tr("Time for a break"),
+            Eitr.I18n.tr("{minutes} minutes, then back to focus.", {minutes: breakMinutes}),
+            [["skip", Eitr.I18n.tr("Skip break")]]
+        );
+    }
+
+    function notifyBreakFinished() {
+        notify(
+            Eitr.I18n.tr("Break is over"),
+            Eitr.I18n.tr("Start another focus session when you are ready."),
+            [["focus", Eitr.I18n.tr("Start focus")]]
+        );
+    }
+
     function act(choice) {
-        if (choice === "snooze") startTimer(5);
-        else if (choice === "again") startTimer(lastMinutes);
-        else if (choice === "skip" || choice === "focus") { phase = "focus"; begin("focus", focusMinutes * 60000); }
+        if (choice === "skip" || choice === "focus") {
+            phase = "focus";
+            begin(focusMinutes * 60000);
+        }
     }
-    // The bell comes from the notification card's fallback (no icon name: an unknown one
-    // draws a broken image). notify-send waits for a button and prints its key; a newer
-    // notice replaces one still waiting.
+
+    // No icon name triggers the notification card's bell fallback.
     function notify(title, body, actions) {
         alert.running = false;
         alert.command = ["notify-send", "-a", "Eitr", "-u", "critical", "--wait"]
             .concat(...actions.map(action => ["-A", action[0] + "=" + action[1]])).concat([title, body]);
         alert.running = true;
     }
+
+    function applyRestored(focusState, eventName) {
+        const state = focusState || ClockModel.emptyFocus();
+        running = state.running === true;
+        paused = state.paused === true;
+        phase = state.phase === "break" ? "break" : "focus";
+        rounds = state.rounds || 0;
+        duration = state.durationMs || 0;
+        banked = state.bankedMs || 0;
+        startedAt = state.startedAtMs || 0;
+        if (eventName === "break-started") notifyBreakStarted();
+        else if (eventName === "break-finished") notifyBreakFinished();
+    }
+
+    function clock(milliseconds) {
+        return ClockModel.formatClock(milliseconds);
+    }
+
+    Component.onCompleted: {
+        if (ClockTimers.stateLoaded) {
+            const eventName = ClockTimers.consumeRestoredFocusEvent();
+            if (ClockTimers.focusSnapshot.active || eventName) {
+                applyRestored(ClockTimers.focusSnapshot, eventName);
+            }
+        }
+    }
+
+    property Connections timerSync: Connections {
+        target: ClockTimers
+        function onNowChanged() {
+            if (timer.running && timer.remaining <= 0) timer.finish();
+        }
+        function onFocusRestored(focusState, eventName) {
+            timer.applyRestored(focusState, eventName);
+            ClockTimers.consumeRestoredFocusEvent();
+        }
+    }
+
     property Process alert: Process {
         stdout: StdioCollector { onStreamFinished: timer.act(text.trim()) }
     }
-    // 1:05:09, 25:00 or 0:42.
-    function clock(milliseconds) {
-        const seconds = Math.ceil(Math.max(0, milliseconds) / 1000 - 0.001);
-        const hours = Math.floor(seconds / 3600), minutes = Math.floor(seconds / 60) % 60, rest = seconds % 60;
-        return (hours ? hours + ":" + String(minutes).padStart(2, "0") : String(minutes)) + ":" + String(rest).padStart(2, "0");
+
+    property FileView preference: FileView {
+        path: Eitr.Paths.config("eitr/focus-sessions.json")
+        watchChanges: true
+        atomicWrites: true
+        printErrors: false
+        onFileChanged: reload()
+        onLoaded: {
+            timer.preferenceLoaded = true;
+            try {
+                const loaded = Eitr.Paths.settings(text());
+                timer.preferenceData = loaded;
+                if (timer._pendingLengths) {
+                    timer._pendingLengths = false;
+                    timer.writeLengths();
+                    return;
+                }
+                const focusLen = Number(loaded.focusMinutes);
+                const breakLen = Number(loaded.breakMinutes);
+                if (Number.isFinite(focusLen) && focusLen >= 1) timer.focusMinutes = Math.round(focusLen);
+                if (Number.isFinite(breakLen) && breakLen >= 1) timer.breakMinutes = Math.round(breakLen);
+            } catch (_error) {
+                timer.preferenceData = {version: 1};
+                if (timer._pendingLengths) {
+                    timer._pendingLengths = false;
+                    timer.writeLengths();
+                }
+            }
+        }
+        onLoadFailed: {
+            timer.preferenceLoaded = true;
+            timer.preferenceData = {version: 1};
+            if (timer._pendingLengths) {
+                timer._pendingLengths = false;
+                timer.writeLengths();
+                return;
+            }
+            timer.focusMinutes = 25;
+            timer.breakMinutes = 5;
+        }
     }
 }

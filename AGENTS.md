@@ -365,7 +365,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   new notification rings the bar's bell (a bell slides out beside the clock where the
   layout hides its own: Drop, Centered collapsed, Dynamic at rest) and holds an
   auto-hidden bar out until its popups go; the timer ring and next-event mark sit in
-  `CaptureIndicator` beside the clock, so each layout makes room as for the recording dot;
+  `CaptureIndicator` beside the clock (clicking the timer ring opens `Clock` on the matching page, while Control Center > Tools keeps a compact Timer & Focus row), so each layout makes room as for the recording dot;
   low-battery flashes show over the time (`ClockButton`), the workspace number only where
   the workspaces are hidden. BarMoments owns moments once per bar in every layout, controlled by the default-on `moments` boolean. Moments replace clock text (or visible media for songs), hold on hover and defer for panels; Focus suppresses them. Full/Tabs keep neighbours fixed; collapsed Centered, Islands and Drop grow around the screen-centred clock. Level keys use swayosd only with moments off or Focus on.
 - Keep calendar height fixed with six week rows. Weather city choices are

@@ -95,6 +95,15 @@ Termine von letzter Woche bis in 60 Tagen erscheinen neben den Erinnerungen mit 
 
 Im Menü Kalenderquellen aktualisiert Enter einen Kalender sofort, und Entf entfernt ihn nach einer Bestätigung. Zwei-Wege-Synchronisierung (Termine beim Anbieter anlegen oder ändern) wird nicht unterstützt. Das Terminal bleibt beim Kopieren im Browser geöffnet; Enter in der Übersicht fügt den Kalender hinzu, Esc bricht ab.
 
+## Uhr
+
+Öffne Uhr über Walker (Haupt > Werkzeuge > Uhr), Kontrollzentrum > Werkzeuge > Uhr öffnen oder per Klick auf einen laufenden Timer-Ring neben der Leisten-Uhr. Escape schließt das Fenster, und die zuletzt geöffnete Seite bleibt für die Sitzung erhalten. Der Zustand wird atomar in `$XDG_STATE_HOME/eitr/clock.json` gespeichert, sodass Timer, Stoppuhr und Fokussitzungen einen Leisten-Neustart überleben; während eines Neustarts abgelaufene Timer erscheinen als beendet und benachrichtigen einmalig beim Start.
+
+- **Timer:** Starte Schnellzeiten (1, 5, 10 oder 25 Minuten) oder eigene Stunden, Minuten und Sekunden mit optionalem Namen. Laufende Countdowns bleiben nach Restzeit sortiert, mit Pause/Fortsetzen, Neu starten und Entfernen. Abgelaufene Timer klingen einmal (sofern Nicht stören aus ist) und senden eine dringende Benachrichtigung mit **Neu starten**.
+- **Stoppuhr:** Starte, pausiere, setze fort, nimm Runden auf und setze mit Zehntelsekunden-Genauigkeit zurück. Runden erscheinen mit der neuesten zuerst und zeigen den Abstand zur vorherigen Runde.
+- **Focus:** Starte wechselnde Arbeits- und Pausenphasen mit Rundenzähler, Pause/Fortsetzen, Pause überspringen und Wechselbenachrichtigungen. Arbeits- und Pausenlängen folgen Einstellungen > Focus.
+- **Welt:** Zeigt vom offiziellen Weltuhr-Plugin gespeicherte Städte im 12-/24-Stunden-Format der Leiste samt Tagesunterschied und Ortsversatz schreibgeschützt an; ist das Plugin nicht installiert, öffnet **Eitr Store öffnen** den Eitr Store unter Entdecken > Plugins.
+
 ## Plugins
 
 Ein Plugin ist ein Git-Repository mit Skripten, Walker-Einträgen, optionalen visuellen Elementen (Kacheln, Panels, Desktop-Widgets und Leistenelemente) und optional einem Benutzerdienst; ein Repository kann mehrere Plugins enthalten. Ein Plugin läuft als du, mit allen Berechtigungen deines Kontos: Es kann deine Dateien, SSH-Schlüssel und Browserdaten lesen, sie überallhin senden und sich am Laufen halten. Eitr hat seinen Code nicht geprüft; der Code gehört seinem Autor, nicht Eitr, und jeder Plugin-Eintrag sagt das, zum Beispiel Plugin von Ada · nicht von Eitr geprüft. Füge nur Plugins von Personen und Repositorys hinzu, denen du vertraust.

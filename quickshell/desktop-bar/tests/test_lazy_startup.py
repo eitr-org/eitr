@@ -15,6 +15,7 @@ class LazyWindowTests(unittest.TestCase):
             for relative, aliases in (
                 ('settings/SettingsWindow.qml', ['SettingsIpc']),
                 ('panels/Catalog.qml', ['StoreIpc', 'CatalogIpc']),
+                ('clock/ClockWindow.qml', ['ClockIpc']),
                 ('services/WelcomeSession.qml', ['HandbookIpc']),
                 ('capture/BeautifyWindow.qml', ['BeautifyIpc']),
             ):
@@ -31,27 +32,32 @@ class LazyWindowTests(unittest.TestCase):
   property int catalogWaits: 0
   onTriggered: {
    if (phase === 0) {
-    if (settings.opened || catalog.opened || find(catalog.contentItem, "catalog-content")) throw new Error("eager window content");
+    if (settings.opened || catalog.opened || clock.opened || find(catalog.contentItem, "catalog-content") || find(clock.contentItem, "clock-content")) throw new Error("eager window content");
     const status = JSON.parse(welcome.testHandbookIpc.status());
     if (status.opened || status.chapters !== 0) throw new Error("eager handbook catalog");
     settings.testSettingsIpc.show("appearance");
     catalog.testStoreIpc.show("wallpapers", "installed");
+    clock.testClockIpc.show("stopwatch");
     find(catalog.contentItem, "catalog-content").live = false;
     welcome.testHandbookIpc.open("getting-started");
    } else if (phase === 1) {
-    if (!settings.opened || settings.page !== "appearance" || !catalog.opened) throw new Error("window IPC open");
+    if (!settings.opened || settings.page !== "appearance" || !catalog.opened || !clock.opened || clock.page !== "stopwatch") throw new Error("window IPC open");
     if (catalog.kind !== "wallpapers" || catalog.tab !== "installed") throw new Error("store route");
     const status = JSON.parse(welcome.testHandbookIpc.status());
     if (!status.chapters && !status.error && catalogWaits++ < 20) return;
     if (!status.opened || !status.chapters || status.error) throw new Error("handbook IPC open " + JSON.stringify(status));
-    settings.testSettingsIpc.close(); catalog.testStoreIpc.close(); welcome.testHandbookIpc.close();
+    settings.testSettingsIpc.close(); catalog.testStoreIpc.close(); clock.testClockIpc.close(); welcome.testHandbookIpc.close();
    } else if (phase === 2) {
-    settings.testSettingsIpc.toggle(); catalog.testCatalogIpc.toggle(); welcome.testHandbookIpc.toggle();
-    if (settings.page !== "appearance" || catalog.kind !== "wallpapers" || catalog.tab !== "installed") throw new Error("retained navigation");
+    settings.testSettingsIpc.toggle(); catalog.testCatalogIpc.toggle(); clock.testClockIpc.toggle(); welcome.testHandbookIpc.toggle();
+    if (settings.page !== "appearance" || catalog.kind !== "wallpapers" || catalog.tab !== "installed" || clock.page !== "stopwatch") throw new Error("retained navigation");
     welcome.testHandbookIpc.scroll(20);
    } else if (phase === 3) {
     catalog.testCatalogIpc.show("plugins", "discover");
     if (find(catalog.contentItem, "catalog-content").kind !== "plugins") throw new Error("second IPC route");
+    clock.testClockIpc.show("");
+    if (clock.page !== "stopwatch") throw new Error("clock remembered page");
+    clock.testClockIpc.show("world");
+    if (clock.page !== "world") throw new Error("clock explicit page");
     catalog.showThemes("light");
     if (find(catalog.contentItem, "catalog-content").kind !== "themes") throw new Error("theme route after interaction");
     settings.testSettingsIpc.palette("dark");
@@ -119,6 +125,7 @@ Item {
  signal lockRequested()
  signal panelRequested(string kind)
  signal settingsRequested(string page)
+ signal clockRequested(string page)
  property var barRef
  function setFold(name, open) { timerSet = open; }
  function runAfterClose(command) {}
@@ -145,6 +152,7 @@ ShellRoot {
  function barBackground() { return "black"; }
  function activeBar(fallback) { return bar; }
  function showSettings(page) {}
+ function showClock(page) {}
  Item {
   id: bar
   property bool isMainBar: true

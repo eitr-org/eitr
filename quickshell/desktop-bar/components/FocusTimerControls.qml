@@ -4,114 +4,167 @@ import QtQuick
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-// Timer & Focus (Drop's dashboard page and the Control Center's Tools): a large ring with the
-// time left (or the stopwatch's time), the choice of countdown, stopwatch or focus sessions,
-// quick lengths for a countdown, and start, pause and stop. FocusTimer keeps time, so it
-// carries on with the panel closed.
-Item {
-    id: page
+// Compact Control Center > Tools summary for ClockTimers and FocusTimer:
+// shows the active countdown, focus phase, or stopwatch, starts or stops
+// quick presets, and opens the full Clock window.
+Column {
+    id: panel
     required property color foreground
     required property color accent
     required property color background
-    property string choice: FocusTimer.active ? FocusTimer.mode : "timer"
-    property int minutes: 5
-    property real ringSize: 200
-    implicitHeight: Math.max(ringSize + 48, controls.implicitHeight + 12)
+    property real ringSize: 44
+    signal clockRequested(string page)
+    spacing: 10
 
-    // The ring and the time.
-    Canvas {
-        id: ring
-        x: 6; anchors.verticalCenter: parent.verticalCenter
-        width: page.ringSize; height: page.ringSize
-        readonly property real progress: FocusTimer.active ? FocusTimer.progress : 0
-        onProgressChanged: requestPaint()
-        onPaint: {
-            const context = getContext("2d");
-            context.reset();
-            const middle = width / 2, radius = middle - 12;
-            context.lineWidth = 8; context.lineCap = "round";
-            context.strokeStyle = Qt.alpha(page.foreground, 0.1);
-            context.beginPath(); context.arc(middle, middle, radius, 0, Math.PI * 2); context.stroke();
-            if (progress <= 0) return;
-            context.strokeStyle = FocusTimer.phase === "break" && FocusTimer.mode === "focus" ? Qt.lighter(page.accent, 1.3) : page.accent;
-            context.beginPath(); context.arc(middle, middle, radius, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * progress); context.stroke();
+    readonly property var liveActivity: ClockTimers.activity
+    readonly property bool pausedStopwatchOnly: !liveActivity.active && ClockTimers.stopwatchPaused
+    readonly property bool hasActivity: liveActivity.active || pausedStopwatchOnly
+    readonly property string activeKind: liveActivity.active ? liveActivity.kind : (pausedStopwatchOnly ? "stopwatch" : "")
+    readonly property string activePage: liveActivity.active ? liveActivity.page : (pausedStopwatchOnly ? "stopwatch" : "timers")
+    readonly property bool activeRunning: liveActivity.active ? liveActivity.running : false
+    readonly property bool activeIsBreak: liveActivity.active && liveActivity.isBreak
+    readonly property real activeProgress: liveActivity.active ? liveActivity.progress
+        : (pausedStopwatchOnly ? (ClockTimers.stopwatchElapsed % 60000) / 60000 : 0)
+    readonly property string activeTimeText: liveActivity.active ? liveActivity.timeText
+        : (pausedStopwatchOnly ? ClockTimers.formatStopwatch(ClockTimers.stopwatchElapsed) : "")
+
+    readonly property string statusTitle: {
+        if (activeKind === "timer") {
+            const label = liveActivity.name && liveActivity.name.length > 0 ? liveActivity.name : Eitr.I18n.tr("Timer");
+            return liveActivity.paused ? label + " · " + Eitr.I18n.tr("Paused") : label;
         }
+        if (activeKind === "focus") {
+            const label = FocusTimer.phase === "break"
+                ? Eitr.I18n.tr("Break")
+                : Eitr.I18n.tr("Focus · round {round}", {round: FocusTimer.rounds + 1});
+            return FocusTimer.paused ? label + " · " + Eitr.I18n.tr("Paused") : label;
+        }
+        if (activeKind === "stopwatch") {
+            return ClockTimers.stopwatchPaused
+                ? Eitr.I18n.tr("Stopwatch") + " · " + Eitr.I18n.tr("Paused")
+                : Eitr.I18n.tr("Stopwatch");
+        }
+        return Eitr.I18n.tr("Nothing running");
+    }
+
+    function stopCurrent() {
+        if (activeKind === "timer") ClockTimers.removeTimer(liveActivity.timerId);
+        else if (activeKind === "focus") FocusTimer.stop();
+        else if (activeKind === "stopwatch") ClockTimers.resetStopwatch();
+    }
+
+    function togglePauseCurrent() {
+        if (activeKind === "timer") {
+            if (liveActivity.running) ClockTimers.pauseTimer(liveActivity.timerId);
+            else ClockTimers.resumeTimer(liveActivity.timerId);
+        } else if (activeKind === "focus") {
+            if (FocusTimer.running) FocusTimer.pause();
+            else FocusTimer.resume();
+        } else if (activeKind === "stopwatch") {
+            if (ClockTimers.stopwatchRunning) ClockTimers.pauseStopwatch();
+            else ClockTimers.resumeStopwatch();
+        }
+    }
+
+    component ActionButton: PanelButton {
+        id: actionButton
+        property real minWidth: 84
+        width: Math.max(minWidth, Math.ceil(metrics.advanceWidth) + 28)
+        height: 32
+        foreground: panel.foreground
+        TextMetrics {
+            id: metrics
+            font.family: DesktopFonts.family
+            font.pixelSize: actionButton.textSize
+            text: actionButton.text
+        }
+    }
+
+    Row {
+        width: parent.width
+        spacing: 12
+
+        ProgressRing {
+            id: ring
+            width: panel.ringSize; height: panel.ringSize
+            anchors.verticalCenter: parent.verticalCenter
+            progress: panel.activeProgress
+            trackColor: Qt.alpha(panel.foreground, 0.14)
+            accentColor: panel.activeIsBreak ? Qt.lighter(panel.accent, 1.3) : panel.accent
+            lineWidth: 4
+            ringPadding: 4
+            minimumArc: panel.hasActivity ? 0.02 : 0
+        }
+
         Column {
-            anchors.centerIn: parent
+            width: parent.width - ring.width - parent.spacing
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: 2
+
             Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: !FocusTimer.active ? (page.choice === "stopwatch" ? "0:00" : page.choice === "focus" ? FocusTimer.focusMinutes + ":00" : page.minutes + ":00")
-                    : FocusTimer.clock(FocusTimer.mode === "stopwatch" ? FocusTimer.elapsed : FocusTimer.remaining)
-                color: page.foreground; font.family: DesktopFonts.family; font.pixelSize: Math.round(page.ringSize * 0.19); font.weight: Font.Bold
-                font.features: PanelStyle.tabularFigures
+                width: parent.width
+                elide: Text.ElideRight
+                text: panel.statusTitle
+                color: panel.foreground
+                opacity: panel.hasActivity ? 1.0 : PanelStyle.secondaryTextOpacity
+                font.family: DesktopFonts.family
+                font.pixelSize: PanelStyle.bodySize
+                font.weight: panel.hasActivity ? Font.Medium : Font.Normal
             }
+
             Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: FocusTimer.paused ? Eitr.I18n.tr("Paused")
-                    : FocusTimer.active && FocusTimer.mode === "focus" ? (FocusTimer.phase === "break" ? Eitr.I18n.tr("Break") : Eitr.I18n.tr("Focus · round {round}", {round: FocusTimer.rounds + 1}))
-                    : FocusTimer.active ? (FocusTimer.mode === "stopwatch" ? Eitr.I18n.tr("Stopwatch") : Eitr.I18n.tr("Timer")) : ""
-                color: page.foreground; opacity: PanelStyle.secondaryTextOpacity
-                font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+                width: parent.width
+                elide: Text.ElideRight
+                text: panel.hasActivity
+                    ? panel.activeTimeText
+                    : Eitr.I18n.tr("Start a 5-minute timer or {focus}-minute focus", {focus: FocusTimer.focusMinutes})
+                color: panel.foreground
+                opacity: panel.hasActivity ? 1.0 : PanelStyle.secondaryTextOpacity
+                font.family: DesktopFonts.family
+                font.pixelSize: panel.hasActivity ? PanelStyle.headingSize : PanelStyle.captionSize
+                font.weight: panel.hasActivity ? Font.Bold : Font.Normal
+                font.features: panel.hasActivity ? PanelStyle.tabularFigures : ({})
             }
         }
     }
 
-    Column {
-        id: controls
-        x: ring.x + ring.width + 28; width: parent.width - x - 6
-        anchors.verticalCenter: parent.verticalCenter
-        spacing: 16
-        TabStrip {
-            width: parent.width
-            foreground: page.foreground; gold: page.accent
-            enabled: !FocusTimer.active
-            opacity: enabled ? 1 : 0.5
-            choices: [{id: "timer", label: Eitr.I18n.tr("Timer")}, {id: "stopwatch", label: Eitr.I18n.tr("Stopwatch")}, {id: "focus", label: Eitr.I18n.tr("Focus")}]
-            current: page.choice
-            onChosen: value => page.choice = value
+    Flow {
+        width: parent.width
+        spacing: 8
+
+        ActionButton {
+            visible: !panel.hasActivity
+            outlined: true
+            text: Eitr.I18n.tr("5m Timer")
+            onClicked: ClockTimers.addQuickTimer(5, "")
         }
-        // Countdown lengths.
-        Flow {
-            visible: page.choice === "timer" && !FocusTimer.active
-            width: parent.width; spacing: 6
-            Repeater {
-                model: [1, 3, 5, 10, 15, 25, 45, 60]
-                PanelButton {
-                    required property int modelData
-                    width: 56; height: 30; outlined: true
-                    selected: page.minutes === modelData
-                    text: modelData + "m"; foreground: page.foreground
-                    onClicked: page.minutes = modelData
-                }
-            }
+
+        ActionButton {
+            visible: !panel.hasActivity
+            outlined: true
+            text: Eitr.I18n.tr("Focus")
+            onClicked: FocusTimer.startFocus()
         }
-        Text {
-            visible: page.choice === "focus" && !FocusTimer.active
-            width: parent.width; wrapMode: Text.Wrap
-            text: Eitr.I18n.tr("{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.", {focus: FocusTimer.focusMinutes, rest: FocusTimer.breakMinutes})
-            color: page.foreground; opacity: PanelStyle.secondaryTextOpacity
-            font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize
+
+        ActionButton {
+            visible: panel.hasActivity
+            selected: true
+            text: panel.activeRunning ? Eitr.I18n.tr("Pause") : Eitr.I18n.tr("Resume")
+            onClicked: panel.togglePauseCurrent()
         }
-        Row {
-            spacing: 10
-            PanelButton {
-                width: 110; height: 38; selected: true
-                text: !FocusTimer.active ? Eitr.I18n.tr("Start") : FocusTimer.paused ? Eitr.I18n.tr("Resume") : Eitr.I18n.tr("Pause")
-                foreground: page.foreground
-                onClicked: {
-                    if (FocusTimer.paused) FocusTimer.resume();
-                    else if (FocusTimer.running) FocusTimer.pause();
-                    else if (page.choice === "stopwatch") FocusTimer.startStopwatch();
-                    else if (page.choice === "focus") FocusTimer.startFocus();
-                    else FocusTimer.startTimer(page.minutes);
-                }
-            }
-            PanelButton {
-                visible: FocusTimer.active
-                width: 90; height: 38; outlined: true
-                text: Eitr.I18n.tr("Stop"); foreground: page.foreground
-                onClicked: FocusTimer.stop()
-            }
+
+        ActionButton {
+            visible: panel.hasActivity
+            outlined: true
+            text: Eitr.I18n.tr("Stop")
+            onClicked: panel.stopCurrent()
+        }
+
+        ActionButton {
+            minWidth: 104
+            outlined: true
+            text: Eitr.I18n.tr("Open Clock")
+            onClicked: panel.clockRequested(panel.activePage)
         }
     }
 }

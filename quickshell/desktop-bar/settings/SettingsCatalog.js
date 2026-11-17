@@ -48,6 +48,8 @@ var settings = [
     {"id": "notifications-every-display", "label": "Popups on Every Display", "page": "notifications", "tab": "", "keywords": "popups every display monitor main screen"},
     {"id": "notifications-crash-notifications", "label": "Crash Notifications", "page": "notifications", "tab": "", "keywords": "crash notifications"},
     {"id": "focus-focus", "label": "Focus", "page": "focus", "tab": "", "keywords": "focus"},
+    {"id": "focus-length", "label": "Focus length", "page": "focus", "tab": "", "keywords": "focus session timer duration work"},
+    {"id": "focus-break-length", "label": "Break length", "page": "focus", "tab": "", "keywords": "focus session timer break rest"},
     {"id": "connections-wi-fi", "label": "Wi-Fi", "page": "connections", "tab": "wifi", "keywords": "wi-fi wifi wireless network"},
     {"id": "connections-disconnect", "label": "Disconnect", "page": "connections", "tab": "wifi", "keywords": "disconnect"},
     {"id": "connections-scan", "label": "Scan", "page": "connections", "tab": "wifi", "keywords": "scan"},

@@ -107,6 +107,15 @@ Les événements avec heure préviennent à leur début avec le son des rappels 
 
 Dans le menu Sources de calendriers, Entrée actualise un calendrier tout de suite et Suppr le retire après confirmation. La synchronisation dans les deux sens (créer ou modifier des événements chez le fournisseur) n’est pas prise en charge. Le terminal reste ouvert pendant la copie du lien dans le navigateur ; Entrée sur le récapitulatif ajoute le calendrier et Échap annule.
 
+## Horloge
+
+Ouvrez Horloge depuis Walker (Principal > Outils > Horloge), Centre de contrôle > Outils > Ouvrir Horloge ou en cliquant sur l’anneau d’un minuteur près de l’horloge de la barre. Échap ferme la fenêtre et la dernière page consultée reste mémorisée pendant la session. L’état est enregistré de façon atomique dans `$XDG_STATE_HOME/eitr/clock.json` afin que les minuteurs, le chronomètre et les sessions de concentration survivent au redémarrage de la barre ; les minuteurs expirés pendant l’arrêt apparaissent terminés et notifient une seule fois au lancement.
+
+- **Minuteurs :** Lancez des préréglages rapides (1, 5, 10 ou 25 minutes) ou une durée personnalisée en heures, minutes et secondes avec un nom facultatif. Les comptes à rebours actifs restent triés par temps restant, avec pause/reprise, redémarrage et suppression. Une fois terminés, ils sonnent une fois (sauf en Ne pas déranger) et publient une notification critique avec **Redémarrer**.
+- **Chronomètre :** Démarrez, mettez en pause, reprenez, enregistrez des tours et réinitialisez au dixième de seconde. Les tours s’affichent du plus récent au plus ancien avec l’écart par rapport au tour précédent.
+- **Focus :** Enchaînez travail et pauses avec compteur de cycles, pause/reprise, saut de pause et notifications de transition. Les durées suivent Paramètres > Focus.
+- **Monde :** Affiche en lecture seule les villes enregistrées par l’extension officielle Horloge mondiale au format 12/24 heures de la barre, avec l’écart de jour et le décalage local ; sans l’extension, **Ouvrir Eitr Store** ouvre Eitr Store sur Découvrir > Plugins.
+
 ## Plugins
 
 Un plugin est un dépôt Git contenant des scripts, des entrées Walker, des éléments visuels facultatifs (tuiles, panneaux, widgets de bureau et éléments de barre) et éventuellement un service utilisateur ; un dépôt peut contenir plusieurs plugins. Un plugin s’exécute en votre nom, avec toutes les permissions de votre compte : il peut lire vos fichiers, vos clés SSH et les données de votre navigateur, les envoyer n’importe où et continuer à tourner.

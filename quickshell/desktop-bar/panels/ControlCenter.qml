@@ -58,6 +58,8 @@ ThemedPopup {
     signal panelRequested(string kind)
     // Opens the Settings window at a page ("" for its overview).
     signal settingsRequested(string page)
+    // Opens the Clock window at a page ("" restores its last page).
+    signal clockRequested(string page)
     implicitWidth: embedded ? 520 : Math.min(520, hostWindow ? hostWindow.width - ((barPosition === "left" || barPosition === "right") && strip ? strip.width : 0) : 520)
     implicitHeight: embedded ? content.implicitHeight : hostWindow ? hostWindow.height - (barPosition === "top" || barPosition === "bottom" ? (strip ? strip.height : 30) : 0) - (detached ? 0 : edgeClearance) : 800
     barEdge: barPosition
@@ -81,6 +83,11 @@ ThemedPopup {
         if (embedded) closeRequested();
         else opened = false;
         settingsRequested(page);
+    }
+    function openClock(page) {
+        if (embedded) closeRequested();
+        else opened = false;
+        clockRequested(page);
     }
     // Fetch once in the background after the bar starts, so even the first opening
     // shows its data instead of rebuilding lists halfway through the animation.

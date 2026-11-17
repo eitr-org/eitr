@@ -127,6 +127,7 @@ Item {
             onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
             onPanelRequested: function(kind) { panelIpc.show(kind); }
             onSettingsRequested: function(page) { panels.host.showSettings(page); }
+            onClockRequested: function(page) { panels.host.showClock(page); }
         }
     }
 

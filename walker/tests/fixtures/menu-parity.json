@@ -3067,6 +3067,23 @@
         "submenu": "share"
       },
       {
+        "text": "Clock",
+        "subtext": "Run timers, a stopwatch, focus sessions and world clocks",
+        "keywords": [
+          "clock",
+          "timer",
+          "stopwatch",
+          "pomodoro",
+          "focus",
+          "countdown",
+          "world"
+        ],
+        "icon": "󰔛",
+        "actions": {
+          "open": "eitr-shell desktop-bar ipc call -- clock show \"\""
+        }
+      },
+      {
         "text": "Color",
         "subtext": "Pick a color on screen and copy its code",
         "keywords": [
@@ -3101,21 +3118,6 @@
         "icon": "󰐲",
         "actions": {
           "open": "/usr/share/eitr/walker/scripts/actions/capture/qr.sh"
-        }
-      },
-      {
-        "text": "Timer & Focus",
-        "subtext": "Start a countdown, a stopwatch or focus sessions",
-        "keywords": [
-          "timer",
-          "stopwatch",
-          "pomodoro",
-          "focus",
-          "countdown"
-        ],
-        "icon": "󰔛",
-        "actions": {
-          "open": "eitr-shell desktop-bar ipc call -- controlCenter show timer"
         }
       },
       {
@@ -10477,6 +10479,32 @@
       "key": "49498bea6024939e8e3a9a8f0b45ac61fd16b29754051c8f3173143f0e96af62",
       "provider": "menus:tools",
       "identifier": "tools:4",
+      "text": "Clock",
+      "subtext": "Run timers, a stopwatch, focus sessions and world clocks",
+      "icon": "󰔛",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "clock",
+        "timer",
+        "stopwatch",
+        "pomodoro",
+        "focus",
+        "countdown",
+        "world",
+        "Clock",
+        "Clock",
+        "Run timers, a stopwatch, focus sessions and world clocks"
+      ],
+      "menus": [
+        "main"
+      ]
+    },
+    {
+      "key": "bef1ab9e7ff488c2cbaa2d0963a1af4885de94616661fcbc8578966c84c5c0e1",
+      "provider": "menus:tools",
+      "identifier": "tools:5",
       "text": "Color",
       "subtext": "Pick a color on screen and copy its code",
       "icon": "󰈊",
@@ -10495,9 +10523,9 @@
       ]
     },
     {
-      "key": "bef1ab9e7ff488c2cbaa2d0963a1af4885de94616661fcbc8578966c84c5c0e1",
+      "key": "b75c9c1a4c5d965fed89becda0813573fd74b21c3a0d302a74466246be691169",
       "provider": "menus:tools",
-      "identifier": "tools:5",
+      "identifier": "tools:6",
       "text": "OCR Text",
       "subtext": "Copy the text inside a selected area",
       "icon": "󰴑",
@@ -10517,9 +10545,9 @@
       ]
     },
     {
-      "key": "b75c9c1a4c5d965fed89becda0813573fd74b21c3a0d302a74466246be691169",
+      "key": "f40d8114c4d80847aeed52efa19eb51d3a8c76617111097388cc08afc844977c",
       "provider": "menus:tools",
-      "identifier": "tools:6",
+      "identifier": "tools:7",
       "text": "QR Code",
       "subtext": "Read a QR code in a selected area and copy it",
       "icon": "󰐲",
@@ -10532,30 +10560,6 @@
         "QR Code",
         "QR Code",
         "Read a QR code in a selected area and copy it"
-      ],
-      "menus": [
-        "main"
-      ]
-    },
-    {
-      "key": "f40d8114c4d80847aeed52efa19eb51d3a8c76617111097388cc08afc844977c",
-      "provider": "menus:tools",
-      "identifier": "tools:7",
-      "text": "Timer & Focus",
-      "subtext": "Start a countdown, a stopwatch or focus sessions",
-      "icon": "󰔛",
-      "actions": [
-        "open"
-      ],
-      "keywords": [
-        "timer",
-        "stopwatch",
-        "pomodoro",
-        "focus",
-        "countdown",
-        "Timer & Focus",
-        "Timer & Focus",
-        "Start a countdown, a stopwatch or focus sessions"
       ],
       "menus": [
         "main"

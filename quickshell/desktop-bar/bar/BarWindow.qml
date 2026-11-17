@@ -364,6 +364,7 @@ PanelWindow {
     function showControlCenter(page) { return barPanels.showControlCenter(page); }
     function toggleControlCenter() { return barPanels.toggleControlCenter(); }
     function showKind(kind) { return barPanels.showKind(kind); }
+    function showClock(page) { return host ? host.showClock(page) : undefined; }
     function clickPlugin(plugin) { return barPanels.clickPlugin(plugin); }
     function inspectPanels() { return barPanels.inspectPanels(); }
 

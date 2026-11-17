@@ -45,6 +45,23 @@
     "submenu": "share"
   },
   {
+    "text": "Clock",
+    "subtext": "Run timers, a stopwatch, focus sessions and world clocks",
+    "keywords": [
+      "clock",
+      "timer",
+      "stopwatch",
+      "pomodoro",
+      "focus",
+      "countdown",
+      "world"
+    ],
+    "icon": "󰔛",
+    "actions": {
+      "open": "eitr-shell desktop-bar ipc call -- clock show \"\""
+    }
+  },
+  {
     "text": "Color",
     "subtext": "Pick a color on screen and copy its code",
     "keywords": [
@@ -79,21 +96,6 @@
     "icon": "󰐲",
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/actions/capture/qr.sh"
-    }
-  },
-  {
-    "text": "Timer & Focus",
-    "subtext": "Start a countdown, a stopwatch or focus sessions",
-    "keywords": [
-      "timer",
-      "stopwatch",
-      "pomodoro",
-      "focus",
-      "countdown"
-    ],
-    "icon": "󰔛",
-    "actions": {
-      "open": "eitr-shell desktop-bar ipc call -- controlCenter show timer"
     }
   },
   {

@@ -184,6 +184,7 @@ ThemedPopup {
                         onLockRequested: runAfterClose(["bash", Eitr.Paths.code("hypr/scripts/manual-lock.sh")])
                         onPanelRequested: function(kind) { dashboard.opened = false; controls.main.panelRequested(kind); }
                         onSettingsRequested: function(page) { dashboard.barHost.host.showSettings(page); }
+                        onClockRequested: function(page) { dashboard.barHost.host.showClock(page); }
                         onCloseRequested: dashboard.opened = false
                     }
                 }

@@ -149,6 +149,15 @@ Events from the last week to the next 60 days appear beside reminders with the c
 
 In the Calendar Sources menu, Enter on a calendar refreshes it now and Delete removes it after you confirm. Two-way sync (creating or editing provider events) is not supported. The terminal stays open while you copy the link in your browser; Enter on the review adds it and Esc cancels.
 
+## Clock
+
+Open Clock from Walker (Main > Tools > Clock), Control Center > Tools > Open Clock, or by clicking a running timer ring beside the desktop clock. Escape closes the window and it remembers your last page during the session. State is saved atomically in `$XDG_STATE_HOME/eitr/clock.json` so timers, the stopwatch and focus sessions survive bar restarts; timers that expire while the bar is closed appear as ended and notify once on launch.
+
+- **Timers:** Start quick presets (1, 5, 10 or 25 minutes) or custom hours, minutes and seconds with an optional name. Running countdowns stay ordered by time left, with pause/resume, restart and remove controls. Finished timers chime once (unless Do Not Disturb is on) and post a critical notification with a **Restart** button.
+- **Stopwatch:** Start, pause, resume, lap and reset with tenths accuracy. Laps list newest first with each lap difference compared against the previous lap.
+- **Focus:** Run alternating work and break intervals with a round counter, pause/resume, break skipping and transition notifications. Focus and break durations follow Settings > Focus.
+- **World:** Lists cities saved by the official World Clock plugin in the bar's 12/24-hour format with day differences and local offsets, read-only; without the plugin installed, **Open Eitr Store** opens Eitr Store on Discover > Plugins.
+
 ## Plugins
 
 A plugin is a Git repository containing scripts, Walker rows, optional visual pieces (tiles, panels, desktop widgets and bar items) and optionally one user service; one repository can hold several plugins. A plugin runs as you, with your account’s full permissions: it can read your files, SSH keys and browser data, send them anywhere and keep itself running.

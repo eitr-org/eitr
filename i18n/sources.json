@@ -37,6 +37,12 @@
     "02 / NEO ORBITAL": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
+    "0:00 · Timer finished": [
+      "quickshell/desktop-bar/clock/TimerCard.qml"
+    ],
+    "5m Timer": [
+      "quickshell/desktop-bar/components/FocusTimerControls.qml"
+    ],
     "A light tap on the touchpad clicks.": [
       "quickshell/desktop-bar/components/SettingsPointerCard.qml"
     ],
@@ -102,6 +108,12 @@
     ],
     "Action and description": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"
+    ],
+    "Active & recent timers": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
+    ],
+    "Active timers": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "Adapters": [
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
@@ -389,10 +401,15 @@
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
     ],
     "Break": [
+      "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
     ],
     "Break is over": [
       "quickshell/desktop-bar/services/FocusTimer.qml"
+    ],
+    "Break length": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
+      "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
     ],
     "Brightness": [
       "quickshell/desktop-bar/bar/BarMomentSources.qml",
@@ -590,6 +607,9 @@
     "Clear all": [
       "quickshell/desktop-bar/notifications/NotificationList.qml"
     ],
+    "Clear ended": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
+    ],
     "Clear search": [
       "quickshell/desktop-bar/store/StoreSearchHeader.qml"
     ],
@@ -600,6 +620,12 @@
       "quickshell/desktop-bar/components/DayAgenda.qml"
     ],
     "Clock": [
+      "quickshell/desktop-bar/clock/ClockContent.qml",
+      "quickshell/desktop-bar/clock/ClockWindow.qml",
+      "quickshell/desktop-bar/clock/FocusPage.qml",
+      "quickshell/desktop-bar/clock/StopwatchPage.qml",
+      "quickshell/desktop-bar/clock/TimersPage.qml",
+      "quickshell/desktop-bar/clock/WorldPage.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -647,6 +673,9 @@
     ],
     "Community": [
       "quickshell/desktop-bar/store/StoreState.qml"
+    ],
+    "Completed rounds: {rounds}": [
+      "quickshell/desktop-bar/clock/FocusPage.qml"
     ],
     "Configure this source in OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
@@ -913,6 +942,9 @@
     "Dictating": [
       "quickshell/desktop-bar/bar/CaptureIndicator.qml"
     ],
+    "Difference": [
+      "quickshell/desktop-bar/clock/StopwatchPage.qml"
+    ],
     "Dim and lock automatically while idle.": [
       "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml"
     ],
@@ -1066,6 +1098,9 @@
     "Eitr website": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
+    "Elapsed time": [
+      "quickshell/desktop-bar/clock/StopwatchPage.qml"
+    ],
     "Emblem": [
       "tools/choice-lists.json"
     ],
@@ -1082,6 +1117,9 @@
     "End": [
       "quickshell/desktop-bar/panels/NightLightSection.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Ended": [
+      "quickshell/desktop-bar/clock/TimerCard.qml"
     ],
     "Enroll Fingerprint": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -1151,6 +1189,8 @@
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
     ],
     "Focus": [
+      "quickshell/desktop-bar/clock/ClockContent.qml",
+      "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml",
@@ -1160,7 +1200,18 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
+    "Focus length": [
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
+      "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
+    ],
+    "Focus session": [
+      "quickshell/desktop-bar/clock/FocusPage.qml"
+    ],
+    "Focus sessions": [
+      "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
+    ],
     "Focus · round {round}": [
+      "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
     ],
     "Follow focus": [
@@ -1343,6 +1394,9 @@
     "Install the Eitr network helper first; see distro/NETWORKING.md": [
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
+    "Install the official World Clock plugin from Eitr Store to follow saved cities here.": [
+      "quickshell/desktop-bar/clock/WorldPage.qml"
+    ],
     "Installed": [
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
       "quickshell/desktop-bar/store/StoreCatalogCard.qml",
@@ -1442,6 +1496,15 @@
     "LOGIN": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
     ],
+    "Lap": [
+      "quickshell/desktop-bar/clock/StopwatchPage.qml"
+    ],
+    "Lap time": [
+      "quickshell/desktop-bar/clock/StopwatchPage.qml"
+    ],
+    "Laps": [
+      "quickshell/desktop-bar/clock/StopwatchPage.qml"
+    ],
     "Large": [
       "tools/choice-lists.json"
     ],
@@ -1507,6 +1570,9 @@
     "Loading…": [
       "quickshell/desktop-bar/store/StoreGrid.qml",
       "quickshell/desktop-bar/store/StoreReview.qml"
+    ],
+    "Local time": [
+      "quickshell/desktop-bar/clock/WorldPage.qml"
     ],
     "Lock": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
@@ -1576,6 +1642,9 @@
     ],
     "Material Light": [
       "quickshell/lockscreen/design-gallery.qml"
+    ],
+    "Measure elapsed time and compare laps against the previous split.": [
+      "quickshell/desktop-bar/clock/StopwatchPage.qml"
     ],
     "Media": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
@@ -1685,6 +1754,9 @@
     ],
     "New password": [
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
+    ],
+    "New timer": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "Next": [
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml",
@@ -1805,6 +1877,12 @@
     "No reminders": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
+    "No saved cities yet. Add cities in the World Clock plugin settings to see them here.": [
+      "quickshell/desktop-bar/clock/WorldPage.qml"
+    ],
+    "No timers running. Pick a quick length above or set a custom duration.": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
+    ],
     "No wallpapers": [
       "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
@@ -1843,6 +1921,9 @@
     "Nothing planned": [
       "quickshell/desktop-bar/components/DayAgenda.qml"
     ],
+    "Nothing running": [
+      "quickshell/desktop-bar/components/FocusTimerControls.qml"
+    ],
     "Notification history and Do Not Disturb.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -1858,6 +1939,9 @@
       "quickshell/desktop-bar/notifications/NotificationList.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
+    ],
+    "Notifications chime at each transition unless Do Not Disturb is on.": [
+      "quickshell/desktop-bar/clock/FocusPage.qml"
     ],
     "Number of workspaces": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -1958,6 +2042,12 @@
     "Open AI Usage": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Open Clock": [
+      "quickshell/desktop-bar/components/FocusTimerControls.qml"
+    ],
+    "Open Eitr Store": [
+      "quickshell/desktop-bar/clock/WorldPage.qml"
     ],
     "Open OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
@@ -2091,6 +2181,9 @@
       "quickshell/desktop-bar/drop/DropWifiDetail.qml"
     ],
     "Pause": [
+      "quickshell/desktop-bar/clock/FocusPage.qml",
+      "quickshell/desktop-bar/clock/StopwatchPage.qml",
+      "quickshell/desktop-bar/clock/TimerCard.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml",
       "quickshell/desktop-bar/media/MediaCard.qml",
@@ -2105,6 +2198,9 @@
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Paused": [
+      "quickshell/desktop-bar/clock/FocusPage.qml",
+      "quickshell/desktop-bar/clock/StopwatchPage.qml",
+      "quickshell/desktop-bar/clock/TimerCard.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml"
     ],
@@ -2267,6 +2363,8 @@
     ],
     "Ready": [
       "distro/plugins/example/HelloTile.qml",
+      "quickshell/desktop-bar/clock/FocusPage.qml",
+      "quickshell/desktop-bar/clock/StopwatchPage.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml"
     ],
     "Reboot": [
@@ -2364,6 +2462,9 @@
     "Remove this account? Keeping the home folder preserves its files.": [
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml"
     ],
+    "Remove timer": [
+      "quickshell/desktop-bar/clock/TimerCard.qml"
+    ],
     "Remove unused plugin-installed packages: {packages}?": [
       "quickshell/desktop-bar/store/StoreRemove.qml"
     ],
@@ -2390,6 +2491,7 @@
       "quickshell/desktop-bar/panels/PolkitDialog.qml"
     ],
     "Reset": [
+      "quickshell/desktop-bar/clock/StopwatchPage.qml",
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml",
       "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml"
     ],
@@ -2410,7 +2512,12 @@
     "Resolution, scaling and connected displays.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Rest duration between focus rounds.": [
+      "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
+    ],
     "Restart": [
+      "quickshell/desktop-bar/clock/TimerCard.qml",
+      "quickshell/desktop-bar/services/ClockTimers.qml",
       "quickshell/lockscreen/themes/theme-wallpaper/Main.qml"
     ],
     "Restore Original Network Configuration": [
@@ -2424,6 +2531,9 @@
       "quickshell/desktop-bar/panels/Handbook.qml"
     ],
     "Resume": [
+      "quickshell/desktop-bar/clock/FocusPage.qml",
+      "quickshell/desktop-bar/clock/StopwatchPage.qml",
+      "quickshell/desktop-bar/clock/TimerCard.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml"
     ],
@@ -2478,11 +2588,17 @@
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Run multiple countdowns at once. Running timers stay sorted by time left.": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
+    ],
     "Rune groups": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
     "Runes": [
       "tools/choice-lists.json"
+    ],
+    "Running": [
+      "quickshell/desktop-bar/clock/StopwatchPage.qml"
     ],
     "Runs a background service": [
       "distro/store-kinds.json"
@@ -2531,6 +2647,12 @@
     ],
     "Saved as {name}": [
       "quickshell/desktop-bar/capture/BeautifyContent.qml"
+    ],
+    "Saved cities": [
+      "quickshell/desktop-bar/clock/WorldPage.qml"
+    ],
+    "Saved cities from the World Clock plugin, shown in your bar time format.": [
+      "quickshell/desktop-bar/clock/WorldPage.qml"
     ],
     "Scale": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
@@ -2771,6 +2893,7 @@
       "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Skip break": [
+      "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "Skip this occurrence": [
@@ -2781,9 +2904,6 @@
     ],
     "Smaller": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
-    ],
-    "Snooze 5 min": [
-      "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "Soften the desktop behind terminal windows.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -2808,15 +2928,17 @@
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
     "Start": [
-      "quickshell/desktop-bar/components/FocusTimerControls.qml",
+      "quickshell/desktop-bar/clock/FocusPage.qml",
+      "quickshell/desktop-bar/clock/StopwatchPage.qml",
+      "quickshell/desktop-bar/clock/TimersPage.qml",
       "quickshell/desktop-bar/panels/NightLightSection.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Start Screensaver": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
-    "Start again": [
-      "quickshell/desktop-bar/services/FocusTimer.qml"
+    "Start a 5-minute timer or {focus}-minute focus": [
+      "quickshell/desktop-bar/components/FocusTimerControls.qml"
     ],
     "Start another focus session when you are ready.": [
       "quickshell/desktop-bar/services/FocusTimer.qml"
@@ -2851,6 +2973,7 @@
       "quickshell/desktop-bar/welcome/WelcomeTour.qml"
     ],
     "Stop": [
+      "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml",
       "quickshell/desktop-bar/media/MediaStrip.qml",
@@ -2872,6 +2995,8 @@
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
     ],
     "Stopwatch": [
+      "quickshell/desktop-bar/clock/ClockContent.qml",
+      "quickshell/desktop-bar/clock/StopwatchPage.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
     ],
     "Streaming": [
@@ -3060,22 +3185,39 @@
       "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
     "Timer": [
-      "quickshell/desktop-bar/components/FocusTimerControls.qml"
+      "quickshell/desktop-bar/components/FocusTimerControls.qml",
+      "quickshell/desktop-bar/services/ClockTimers.qml"
     ],
     "Timer & Focus": [
       "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Timer finished": [
-      "quickshell/desktop-bar/services/FocusTimer.qml"
+      "quickshell/desktop-bar/services/ClockTimers.qml"
+    ],
+    "Timer finished: {name}": [
+      "quickshell/desktop-bar/services/ClockTimers.qml"
+    ],
+    "Timer name (optional)": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
+    ],
+    "Timers": [
+      "quickshell/desktop-bar/clock/ClockContent.qml",
+      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "Today": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
+    ],
+    "Tomorrow": [
+      "quickshell/desktop-bar/clock/WorldPage.qml"
     ],
     "Tools": [
       "quickshell/desktop-bar/panels/ControlCenter.qml"
     ],
     "Top": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Total": [
+      "quickshell/desktop-bar/clock/StopwatchPage.qml"
     ],
     "Total download: %1": [
       "quickshell/desktop-bar/store/StoreInstallReview.qml"
@@ -3145,6 +3287,9 @@
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml",
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml",
       "quickshell/lockscreen/themes/nothing/Main.qml"
+    ],
+    "Unable to read saved cities": [
+      "quickshell/desktop-bar/clock/WorldPage.qml"
     ],
     "Unable to unlock. Try again.": [
       "quickshell/lockscreen/themes/eitr/Main.qml"
@@ -3388,6 +3533,9 @@
     "Wired": [
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
+    "Work duration before each break.": [
+      "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
+    ],
     "Workspace": [
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
     ],
@@ -3402,8 +3550,18 @@
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
     ],
+    "World": [
+      "quickshell/desktop-bar/clock/ClockContent.qml",
+      "quickshell/desktop-bar/clock/WorldPage.qml"
+    ],
+    "World Clock plugin": [
+      "quickshell/desktop-bar/clock/WorldPage.qml"
+    ],
     "YEAR": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
+    ],
+    "Yesterday": [
+      "quickshell/desktop-bar/clock/WorldPage.qml"
     ],
     "You": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml",
@@ -3478,11 +3636,17 @@
     "health troubleshooting": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "hr": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
+    ],
     "keyboard pointer language": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "lock idle": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "min": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "monitor refresh brightness rotation scale night light schedule temperature": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -3502,6 +3666,9 @@
     ],
     "restart": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
+    ],
+    "sec": [
+      "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
     "session": [
       "quickshell/lockscreen/themes/girl-coffee/Main.qml"
@@ -3548,8 +3715,12 @@
     "{day} · WEEK {week} · {year}": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
-    "{focus} minutes of focus, then a {rest}-minute break. You'll get a notification at each change.": [
-      "quickshell/desktop-bar/components/FocusTimerControls.qml"
+    "{focus} minutes of focus, then a {rest}-minute break. Lengths follow Settings › Focus.": [
+      "quickshell/desktop-bar/clock/FocusPage.qml"
+    ],
+    "{minutes} min": [
+      "quickshell/desktop-bar/clock/TimersPage.qml",
+      "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
     ],
     "{minutes} minutes, then back to focus.": [
       "quickshell/desktop-bar/services/FocusTimer.qml"
@@ -3571,6 +3742,9 @@
     ],
     "{rate} Hz": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "{time} timer": [
+      "quickshell/desktop-bar/services/ClockTimers.qml"
     ],
     "{width}×{height} · {rate} Hz": [
       "quickshell/desktop-bar/panels/DisplayListSection.qml"
@@ -3965,6 +4139,7 @@
     ],
     "Clock": [
       "elephant/menu-rows/bar.json",
+      "elephant/menu-rows/tools.json",
       "elephant/menus/bar-clock.lua"
     ],
     "Close Window": [
@@ -5379,6 +5554,9 @@
     "Run AI coding agents side by side and see who needs you": [
       "elephant/menu-rows/agent-workspaces.json"
     ],
+    "Run timers, a stopwatch, focus sessions and world clocks": [
+      "elephant/menu-rows/tools.json"
+    ],
     "Rune Rain": [
       "elephant/menu-rows/fun.json"
     ],
@@ -5819,9 +5997,6 @@
     "Start a Pi session in a project": [
       "elephant/menu-rows/ai-pi.json"
     ],
-    "Start a countdown, a stopwatch or focus sessions": [
-      "elephant/menu-rows/tools.json"
-    ],
     "Start a session with a name to resume later": [
       "elephant/menu-rows/ai-claude.json",
       "elephant/menu-rows/ai-copilot.json",
@@ -5975,9 +6150,6 @@
     ],
     "Time with AM or PM, like 09:30 PM": [
       "elephant/menus/bar-clock.lua"
-    ],
-    "Timer & Focus": [
-      "elephant/menu-rows/tools.json"
     ],
     "Tmux Commands": [
       "elephant/menu-rows/learn.json"

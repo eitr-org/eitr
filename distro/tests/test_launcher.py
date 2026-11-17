@@ -47,6 +47,9 @@ class LauncherTests(unittest.TestCase):
                         with self.subTest(target=target, arguments=arguments, separator=separator):
                             command, _ = self.run_launcher('eitr-shell', ['desktop-bar', 'ipc', 'call', *separator, target, 'show', *arguments])
                             self.assertEqual(command[-4:], [target, 'show', *expected])
+        with patch.object(launch, 'running_instance', side_effect=lambda component, selected: selected):
+            command, _ = self.run_launcher('eitr-shell', ['desktop-bar', 'ipc', 'call', '--', 'clock', 'show'])
+            self.assertEqual(command[-3:], ['clock', 'show', ''])
 
     def test_daemonized_starts_wait_for_each_other(self):
         with tempfile.TemporaryDirectory() as runtime, \

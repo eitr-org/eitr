@@ -107,6 +107,9 @@ def main(argv=None, executable=None):
             if rest[target_index:target_index + 2] in (['store', 'show'], ['catalog', 'show']):
                 supplied = len(rest) - target_index - 2
                 rest += [''] * max(0, 2 - supplied)
+            elif rest[target_index:target_index + 2] == ['clock', 'show']:
+                supplied = len(rest) - target_index - 2
+                rest += [''] * max(0, 1 - supplied)
         selected = str(shell_path(component, root))
         # Package upgrades replace files under the code root mid-transaction; a live
         # reload then fails. Only checkouts and personal overrides reload live; the

@@ -30,11 +30,21 @@ ShellRoot {
     function showSettings(page) { settingsWindow.show(page); }
     function showCatalog() { catalogWindow.show(); }
     function showThemes(tone) { catalogWindow.showThemes(tone); }
+    function showClock(page) { clockWindow.show(page); }
     Catalog {
         id: catalogWindow
         foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
         onOpenedChanged: if (opened) shell.handbookOpened()
     }
+    ClockWindow {
+        id: clockWindow
+        foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
+        clockFormat: shell.barClock
+        onOpenedChanged: if (opened) shell.handbookOpened()
+        onStoreRequested: function(kind, tab) { catalogWindow.show(kind, tab); }
+    }
+    readonly property var _clockTimersRef: ClockTimers
+    readonly property var _focusTimerRef: FocusTimer
     LiveWallpaper {}
     ScreenshotPins { foreground: shell.fg; background: shell.barBackground() }
     BeautifyWindow { foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg }

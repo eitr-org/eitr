@@ -51,9 +51,10 @@ Item {
         ScriptAction { script: if (activity.popupCount === 0) activity.alerting = false }
     }
 
-    // A timer or focus session running, and the next event when it is less than ten
-    // minutes away (checked each minute).
-    readonly property bool timing: FocusTimer.active
+    // A timer, focus phase, or running stopwatch, and the next event when it is less than
+    // ten minutes away (checked each minute).
+    readonly property bool timing: ClockTimers.activityActive
+    readonly property string timerPage: ClockTimers.activityPage
     property bool meetingSoon: false
     property string meetingTitle: ""
     function checkMeeting() {

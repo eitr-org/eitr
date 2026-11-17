@@ -52,8 +52,10 @@ ShellRoot {
  function targetScreens() { return Quickshell.screens; }
  function barBackground() { return "#181824"; }
  function showSettings(page) { settings.show(page); }
+ function showClock(page) { clock.show(page); }
  Bar.SettingsWindow { id: settings; networkService: null; notifications: null; live: false; foreground: host.fg; background: host.barBackground(); accent: host.activeBg }
  Bar.Catalog { id: catalog; foreground: host.fg; background: host.barBackground(); accent: host.activeBg }
+ Bar.ClockWindow { id: clock; live: false; foreground: host.fg; background: host.barBackground(); accent: host.activeBg }
  Bar.WelcomeSession { id: welcome; host: host }
  Bar.BeautifyWindow { id: beautify; foreground: host.fg; background: host.barBackground(); accent: host.activeBg }
  TEST_BODY

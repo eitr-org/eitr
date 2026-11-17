@@ -78,7 +78,7 @@ Item {
         onRecordingClicked: barHost.togglePanel(recordingMenuRef)
         activity: barHost.clockActivity
         onMeetingClicked: calendarMenu.showDay(new Date())
-        onTimerClicked: barHost.showControlCenter("timer")
+        onTimerClicked: barHost.showClock(barHost.clockActivity ? barHost.clockActivity.timerPage : "timers")
         onBellClicked: barHost.showKind("notifications")
         centered: barHost.islandsLayout || barHost.dynamicLayout
     }

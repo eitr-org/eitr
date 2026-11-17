@@ -9,10 +9,15 @@ QtObject {
         const configured = Quickshell.env("XDG_CONFIG_HOME");
         return configured && configured.startsWith("/") ? configured : Quickshell.env("HOME") + "/.config";
     }
+    readonly property string stateRoot: {
+        const configured = Quickshell.env("XDG_STATE_HOME");
+        return configured && configured.startsWith("/") ? configured : Quickshell.env("HOME") + "/.local/state";
+    }
     function code(relative) { return codeRoot + "/" + relative; }
     // A Python library module: the package installs distro/lib as lib/, a checkout keeps it in distro/lib.
     function library(name) { return codeRoot + (codeRoot === "/usr/share/eitr" ? "/lib/" : "/distro/lib/") + name; }
     function config(relative) { return configRoot + "/" + relative; }
+    function state(relative) { return stateRoot + "/" + relative; }
     function settings(text) {
         const value = JSON.parse(text);
         if (!value || typeof value !== "object" || Array.isArray(value)

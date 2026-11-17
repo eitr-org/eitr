@@ -63,23 +63,15 @@ item says what decides the next step. Remove an item when it ships;
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
   done (Tools > Reminders > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).
-- **Clock app (idea 2026-11-16).** One Eitr app for time, opened from Walker, from the timer
-  ring and next-event mark beside the clock (Drop's pill too) and from Control Center > Tools;
-  no new bar icon. GNOME Clocks is inspiration only: Eitr's own look (shared panel styles,
-  controls and theme colours, the bar's ring progress, the large clock font), not its layout.
-  Pages:
-  - **Alarms:** time, name, repeat days and a sound; one switch each. Ringing, the alarm takes
-    the screen with the song and an animated effect until **Stop** or **Snooze** (the owner
-    will record the effect they want; build that part after). Reminders' existing schedule and
-    notifications stay the source of truth, so an alarm is a reminder that rings.
-  - **Timers:** several named timers at once, with quick presets (5, 10, 25 min), pause,
-    restart and remove; the ring beside the clock shows the one ending first.
-  - **Stopwatch:** start, pause, laps with the difference to the previous lap.
-  - **Focus:** today's Timer & Focus from Control Center > Tools moves here (sessions, breaks,
-    Do Not Disturb while focusing); Control Center keeps a compact start/stop row.
-  - **World:** the World clock plugin's cities when it is installed, without duplicating it.
-  Timers and alarms keep running with the app closed (owned by the bar's data service, not
-  the window), survive a bar restart, and Focus and moments behave as today.
+- **Clock app (phase 1 done 2026-11-17; alarms next).** One Eitr app (`clock/ClockWindow.qml`)
+  opened from Walker (Main > Tools > Clock), the timer ring beside the clock (every layout and
+  Drop's pill) and Control Center > Tools; no new bar icon. Timers, Stopwatch, Focus and World
+  are done; their state survives bar restarts (`$XDG_STATE_HOME/eitr/clock.json`).
+  - **Next, phase 2 (Alarms):** time, name, repeat days and a sound; one switch each. Ringing,
+    the alarm takes the screen with the song and an animated effect until **Stop** or
+    **Snooze** (the owner will record the effect they want; build that part after).
+    Reminders' existing schedule and notifications stay the source of truth, so an alarm is a
+    reminder that rings.
 - **Desktop widget ideas (2026-11-17).** New official plugin widgets in `eitr-org/eitr-plugins`,
   placed and moved like the Visualizer (`distro/PLUGINS.md`, Desktop widgets):
   - **Notes:** a sticky note on the desktop to type into, kept between logins.

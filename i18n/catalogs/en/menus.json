@@ -776,8 +776,6 @@
   "Look up lyrics on LRCLIB; sends each song's title, artist and album": "Look up lyrics on LRCLIB; sends each song's title, artist and album",
   "Online lyrics": "Online lyrics",
   "Show lyrics only when the player sends them": "Show lyrics only when the player sends them",
-  "Start a countdown, a stopwatch or focus sessions": "Start a countdown, a stopwatch or focus sessions",
-  "Timer & Focus": "Timer & Focus",
   "Attached": "Attached",
   "Floating": "Floating",
   "Island style": "Island style",
@@ -794,5 +792,6 @@
   "Window Rules": "Window Rules",
   "Bar moments": "Bar moments",
   "Show brief notifications, levels and song changes in the bar.": "Show brief notifications, levels and song changes in the bar.",
-  "Use separate volume and brightness popups": "Use separate volume and brightness popups"
+  "Use separate volume and brightness popups": "Use separate volume and brightness popups",
+  "Run timers, a stopwatch, focus sessions and world clocks": "Run timers, a stopwatch, focus sessions and world clocks"
 }

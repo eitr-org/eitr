@@ -33,6 +33,7 @@ Item {
     // and the glyphs ride its edge, so they move exactly with it.
     readonly property bool bellOut: shared.bellOut
     readonly property bool timing: shared.timing
+    readonly property string timerPage: (shared && shared.timerPage) || "timers"
     readonly property bool meetingSoon: shared.meetingSoon
     readonly property bool checkingUpdates: !!host.updates.checking
     readonly property bool updatesFound: !checkingUpdates && host.updatesJustFound && host.updates.count > 0
@@ -116,7 +117,7 @@ Item {
                 visible: activity.timing
                 width: activity.vertical ? activity.width : activity.slot; height: activity.vertical ? activity.slot : activity.height
                 TimerRing { anchors.centerIn: parent; foreground: activity.host.fg }
-                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: activity.barHost.showControlCenter("timer") }
+                MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: activity.barHost.showClock(activity.timerPage || "timers") }
             }
             // The note, next to the time. Dragging it right opens the lyrics; a plain click
             // opens the Media page.
