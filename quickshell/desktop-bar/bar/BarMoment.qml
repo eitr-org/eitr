@@ -30,6 +30,13 @@ Item {
             return;
         }
         actionArmed = false;
+        // A new level of the same kind updates in place: a cross-fade between two nearly equal
+        // moments dims them halfway, so each volume step would blink.
+        if (shown && shown.kind === payload.kind && (payload.kind === "volume" || payload.kind === "brightness")) {
+            if (previous && previous.kind === payload.kind) previous = null;
+            shown = payload;
+            return;
+        }
         previous = shown; shown = payload;
         fade.stop(); mix = DesktopStyle.reduceMotion ? 1 : 0; fade.start();
     }
@@ -90,6 +97,9 @@ Item {
                 width: moment.vertical ? parent.width : parent.width * fraction
                 height: moment.vertical ? parent.height * fraction : parent.height
                 radius: 2; color: moment.host.fg
+                // Steps slide to the new level instead of jumping.
+                Behavior on width { enabled: !moment.vertical; NumberAnimation { duration: DesktopStyle.motionDuration(90); easing.type: Easing.OutCubic } }
+                Behavior on height { enabled: moment.vertical; NumberAnimation { duration: DesktopStyle.motionDuration(90); easing.type: Easing.OutCubic } }
             }
         }
     }
