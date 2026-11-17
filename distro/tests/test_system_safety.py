@@ -245,6 +245,9 @@ class BootMenuStyleTests(unittest.TestCase):
                         patch.object(system, "SECURE_BOOT_VARIABLE", self.root / "SecureBoot"),
                         patch.object(system, "output", return_value=str(self.esp)),
                         patch.object(system, "run"), patch.object(system, "in_chroot", return_value=False),
+                        # Removing the style disables its unit; the real systemctl would ask polkit
+                        # for the administrator password on the desktop running the tests.
+                        patch.object(system.subprocess, "run", return_value=system.subprocess.CompletedProcess([], 0)),
                         patch.object(system.pwd, "getpwnam", return_value=account),
                         patch.dict(system.os.environ, {"SUDO_USER": "alice"})):
             patcher.start()
