@@ -92,9 +92,10 @@ item says what decides the next step. Remove an item when it ships;
 
 - **hyprpaper crash without a GPU.** hyprpaper segfaults in VMs without 3D
   acceleration (hyprwm/hyprtoolkit#144); the bar draws the still wallpaper on any
-  screen hyprpaper does not answer for. A contributor turned the owner's diagnosis into
-  hyprwm/hyprtoolkit#149 (2026-11-09); a bot closed it under the vouching policy, so it
-  waits for a maintainer. Drop the note once a fixed hyprtoolkit ships.
+  screen hyprpaper does not answer for. The fix from the owner's diagnosis merged as
+  hyprwm/hyprtoolkit#155 (`fa61bbc`, 2026-11-13) but is not released yet (latest v0.6.0,
+  Arch `0.6.0-3`). When a release containing it reaches Arch, confirm hyprpaper runs in a
+  VM without 3D and drop this note.
 - **Search indexing.** eitr.info is verified in Google Search Console and Bing
   Webmaster Tools. Bing reads the sitemap (2026-10-29); Google's sitemap entry was
   stuck on "Couldn't fetch" and the owner resubmitted it (2026-10-29): check it reads
