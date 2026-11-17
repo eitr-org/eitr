@@ -64,8 +64,14 @@ Item {
     readonly property real middleTrailing: middle.expanded ? weatherLength : 0
     property real weatherReveal: middleTrailing
     Behavior on weatherReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+    readonly property bool separateNotification: !!barHost.notificationIcon
+        && !inside(barHost.notificationIcon, barHost.rightSide)
+        && !inside(barHost.notificationIcon, barHost.leftGroup)
+        && !inside(barHost.notificationIcon, barHost.barHorizontalCenter)
+        && barHost.notificationIcon !== (barHost.verticalNotificationIcon || null)
     readonly property real leadingExtent: (vertical ? barHost.verticalStart.height : barHost.leftGroup.implicitWidth) + 8
-    readonly property real trailingExtent: (vertical ? barHost.verticalEnd.height : barHost.rightSide.width + host.workspaceItemSpacing + barHost.notificationIcon.width) + 8
+    readonly property real trailingExtent: (vertical ? barHost.verticalEnd.height
+        : barHost.rightSide.width + (separateNotification ? host.workspaceItemSpacing + barHost.notificationIcon.width : 0)) + 8
     HoverHandler {
         id: pointer
         onHoveredChanged: hoverUpdate.restart()
@@ -97,12 +103,28 @@ Item {
         function onPendingPanelChanged() { dynamic.rememberOwner(barHost.pendingPanel); }
     }
     readonly property bool controlCenterOpen: !!barHost.controlCenter && (barHost.controlCenter.visible || barHost.pendingPanel === barHost.controlCenter)
+    function groupOf(panel) {
+        const icon = panel ? (panel.morphAnchor || panel.attachmentTarget || null) : null;
+        if (!icon) return null;
+        if (inside(icon, barHost.leftGroup) || inside(icon, barHost.verticalStart)) return leading;
+        if (inside(icon, barHost.barHorizontalCenter) || inside(icon, barHost.verticalMiddle)) return middle;
+        if (inside(icon, barHost.rightSide) || inside(icon, barHost.verticalEnd) || icon === barHost.notificationIcon) return trailing;
+        return null;
+    }
     // Each panel belongs to one island, which grows into it while it is open.
     function islandFor(panel) {
-        if (owns(panel, leftPanels) || (panel === barHost.controlCenter && controlCenterOwner === "left")) return leading;
+        if (!panel) return null;
+        if (panel === barHost.controlCenter) return controlCenterOwner === "left" ? leading : trailing;
         if (panel === barHost.mediaMenu) return mediaAvailable ? media : middle;
+        const grouped = groupOf(panel);
+        if (grouped) return grouped;
+        if (owns(panel, leftPanels)) return leading;
         if (owns(panel, middlePanels)) return middle;
         return owns(panel, barHost.dockPanels) ? trailing : null;
+    }
+    function hasHeldPanel(island) {
+        return (barHost.dockPanels || []).some(panel =>
+            panel !== barHost.controlCenter && (panel.visible || panel === barHost.pendingPanel) && islandFor(panel) === island);
     }
     // While switching panels the next one is pending: the island goes straight to its size.
     function openPanel(island) {
@@ -110,6 +132,7 @@ Item {
         return showing || null;
     }
     function inside(item, ancestor) {
+        if (!item || !ancestor) return false;
         for (let current = item; current; current = current.parent) if (current === ancestor) return true;
         return false;
     }
@@ -169,7 +192,7 @@ Item {
         restingExtent: host.workspaceItemSize + 8
         contentExtent: leadingExtent
         fullExtent: Math.max(restingExtent, Math.min(leadingExtent, (length - middleRoom) / 2 - insetStart - spacing - mediaRun))
-        held: dynamic.active(leftPanels) || barHost.pendingOverview || barHost.overviewOpen || (dynamic.controlCenterOpen && dynamic.controlCenterOwner === "left")
+        held: dynamic.hasHeldPanel(leading) || barHost.pendingOverview || barHost.overviewOpen || (dynamic.controlCenterOpen && dynamic.controlCenterOwner === "left")
     }
     DynamicIsland {
         id: media
@@ -195,7 +218,7 @@ Item {
         fullExtent: Math.max(restingExtent, Math.min(middleExtent, length - 2 * Math.max(
             insetStart + (leading.morphed ? leading.targetExtent : leading.restingExtent) + spacing + dynamic.mediaRun,
             insetEnd + (trailing.morphed ? trailing.targetExtent : trailing.restingExtent) + spacing)))
-        held: dynamic.active(middlePanels)
+        held: dynamic.hasHeldPanel(middle)
     }
     DynamicIsland {
         id: trailing
@@ -207,9 +230,7 @@ Item {
         contentExtent: trailingExtent
         trailingAnchor: true
         fullExtent: Math.max(restingExtent, Math.min(trailingExtent, (length - middleRoom) / 2 - insetEnd - spacing))
-        held: barHost.dockPanels.some(panel => !dynamic.owns(panel, leftPanels) && !dynamic.owns(panel, middlePanels)
-            && panel !== barHost.controlCenter && (panel.visible || panel === barHost.pendingPanel))
-            || (dynamic.controlCenterOpen && dynamic.controlCenterOwner === "right")
+        held: dynamic.hasHeldPanel(trailing) || (dynamic.controlCenterOpen && dynamic.controlCenterOwner === "right")
     }
     BarMoment {
         id: clockMoment
@@ -289,9 +310,7 @@ Item {
             PropertyChanges { target: barHost.barHorizontalCenter; parent: middle.content }
             PropertyChanges { target: barHost.centerInfo; timeOnly: !middle.expanded; anchors.centerIn: null; x: (barHost.centerInfo.parent.width - barHost.centerInfo.width) / 2 - dynamic.clockShift; y: (middle.thickness - barHost.centerInfo.height) / 2 }
             PropertyChanges { target: barHost.rightSide; parent: trailing.content }
-            PropertyChanges { target: barHost.notificationIcon; parent: trailing.content }
-            PropertyChanges { target: barHost.notificationIcon; anchors.rightMargin: 4; opacity: trailing.expanded ? 1 : 0; enabled: trailing.expanded }
-            PropertyChanges { target: barHost.rightSide; opacity: trailing.expanded ? 1 : 0; enabled: trailing.expanded }
+            PropertyChanges { target: barHost.rightSide; anchors.rightMargin: dynamic.separateNotification ? host.workspaceItemSpacing : 4; opacity: trailing.expanded ? 1 : 0; enabled: trailing.expanded }
             AnchorChanges { target: barHost.mediaStrip; anchors.right: undefined; anchors.verticalCenter: undefined }
             PropertyChanges { target: barHost.mediaStrip; parent: media.content; x: 8; y: (media.thickness - barHost.mediaStrip.height) / 2 }
             PropertyChanges { target: barHost.mediaStrip; availableWidth: 460; opacity: 1; enabled: true }
@@ -308,4 +327,14 @@ Item {
             PropertyChanges { target: barHost.verticalMedia; visible: dynamic.mediaAvailable }
         }
     ]
+    // Legacy fixtures mount notificationIcon outside rightSide; only reparent it when separate.
+    Item {
+        id: legacyNotificationDock
+        visible: false
+        states: State {
+            name: "docked"; when: dynamic.holding && !dynamic.vertical && dynamic.separateNotification
+            PropertyChanges { target: barHost.notificationIcon; parent: trailing.content }
+            PropertyChanges { target: barHost.notificationIcon; anchors.rightMargin: 4; opacity: trailing.expanded ? 1 : 0; enabled: trailing.expanded }
+        }
+    }
 }

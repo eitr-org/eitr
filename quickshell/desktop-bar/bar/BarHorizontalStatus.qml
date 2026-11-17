@@ -8,7 +8,7 @@ Row {
     required property var barCaptureRef
     required property var batteryMenuRef
     required property var networkOwnerRef
-    required property var notificationIconRef
+    property var notificationIconRef: null
     required property var remoteAccessServiceRef
     required property var verticalBluetoothIconRef
     required property var verticalCaptureRef
@@ -20,21 +20,12 @@ Row {
     required property var verticalWifiIconRef
     readonly property alias rightSideItem: rightSide
     readonly property alias statusToggleItem: statusToggle
-    readonly property alias wifiIconItem: wifiIcon
     readonly property alias wifiMenuItem: wifiMenu
-    readonly property alias bluetoothIconItem: bluetoothIcon
     readonly property alias bluetoothMenuItem: bluetoothMenu
-    readonly property alias brightnessIconItem: brightnessIcon
     readonly property alias brightnessMenuItem: brightnessMenu
-    readonly property alias volumeIconItem: volumeIcon
     readonly property alias volumeMenuItem: volumeMenu
-    readonly property alias streamingIconItem: streamingIcon
     readonly property alias streamingMenuItem: streamingMenu
-    readonly property alias obsIconItem: obsIcon
-    readonly property alias keyboardIconItem: keyboardIcon
     readonly property alias keyboardMenuItem: keyboardMenu
-    readonly property alias updatesIconItem: updatesIcon
-    readonly property alias batteryBarIconItem: batteryBarIcon
     readonly property alias obsMenuItem: obsMenu
     readonly property alias recordingMenuItem: recordingMenu
 
@@ -47,224 +38,134 @@ Row {
     Behavior on shownOpacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
 
     spacing: rightSide.host.workspaceItemSpacing
-    anchors.right: notificationIconRef.left
-    anchors.rightMargin: rightSide.host.workspaceItemSpacing
+    anchors.right: parent.right
+    anchors.rightMargin: barHost.islandsLayout ? rightSide.host.screenGaps[1] + 4 : barHost.centeredLayout ? barHost.endPadding : 13
     anchors.verticalCenter: parent.verticalCenter
 
-    StatusIcon {
+    Item {
+        visible: rightItems.hasHideable && statusToggle.visible
+        width: statusToggle.width
+        height: statusToggle.height
+        StatusIcon {
+            host: rightSide.host
+            id: statusToggle
+            visible: !barHost.centeredLayout && !rightSide.host.notchLayout && !barHost.dynamicLayout && !barHost.dropLayout && !barHost.islandsLayout
+            tooltip: rightSide.host.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
 
-        host: rightSide.host
-        id: statusToggle
-        visible: !barHost.centeredLayout && !rightSide.host.notchLayout && !barHost.dynamicLayout && !barHost.dropLayout && !barHost.islandsLayout
-        tooltip: rightSide.host.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
-
-        icon: rightSide.host.statusOpen ? "›" : "‹"
-        open: true
-        clickable: true
-        iconSize: 21
-        glyphOffsetY: -1
-        onClicked: rightSide.host.statusOpen = !rightSide.host.statusOpen
+            icon: rightSide.host.statusOpen ? "›" : "‹"
+            open: rightItems.hasHideable
+            clickable: true
+            iconSize: 21
+            glyphOffsetY: -1
+            onClicked: rightSide.host.statusOpen = !rightSide.host.statusOpen
+        }
     }
 
-    StatusCommand {
-
+    BarZoneItems {
+        id: rightItems
         host: rightSide.host
-        id: wifiIcon
-        text: rightSide.host.wifiGlyph
-        hoverLabel: "WiFi"
-        fontSize: 16
+        barHost: rightSide.barHost
+        zone: "right"
+        vertical: false
         open: rightSide.host.iconsOpen
-        slotWidth: rightSide.host.workspaceItemSize
-        fixedWidth: rightSide.host.workspaceItemSize
-        clickable: true
-        onClicked: barHost.togglePanel(wifiMenu)
-        onOpenChanged: if (!open) wifiMenu.opened = false
+        onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
     }
 
     WifiMenu {
         id: wifiMenu
+        readonly property string wifiZone: barHost.iconZone ? (barHost.iconZone("wifi") || "right") : "right"
         networkService: networkOwnerRef
         surfaceColor: rightSide.host.barBackground()
-        target: rightSide.host.verticalBar ? verticalWifiIconRef : (rightSide.host.iconsOpen ? wifiIcon : notificationIconRef)
+        target: barHost.iconTarget ? barHost.iconTarget("wifi", rightSide.host.verticalBar ? verticalWifiIconRef : notificationIconRef) : (rightSide.host.verticalBar ? verticalWifiIconRef : notificationIconRef)
         barEdge: rightSide.host.barEdge
+        leftAligned: wifiZone === "left"
+        centered: wifiZone === "clockStart" || wifiZone === "clockEnd"
         accent: rightSide.host.activeBg
         foreground: rightSide.host.fg
         background: rightSide.host.workspaceMenuBg
-    }
-
-    StatusIcon {
-
-        host: rightSide.host
-        id: bluetoothIcon
-        icon: "󰂯"
-        tooltip: Eitr.I18n.tr("Bluetooth")
-        open: rightSide.host.iconsOpen
-        clickable: true
-        onClicked: barHost.togglePanel(bluetoothMenu)
-        onOpenChanged: if (!open) bluetoothMenu.opened = false
     }
 
     BluetoothMenu {
         id: bluetoothMenu
+        readonly property string bluetoothZone: barHost.iconZone ? (barHost.iconZone("bluetooth") || "right") : "right"
         surfaceColor: rightSide.host.barBackground()
-        target: rightSide.host.verticalBar ? verticalBluetoothIconRef : (rightSide.host.iconsOpen ? bluetoothIcon : notificationIconRef)
+        target: barHost.iconTarget ? barHost.iconTarget("bluetooth", rightSide.host.verticalBar ? verticalBluetoothIconRef : notificationIconRef) : (rightSide.host.verticalBar ? verticalBluetoothIconRef : notificationIconRef)
         barEdge: rightSide.host.barEdge
+        leftAligned: bluetoothZone === "left"
+        centered: bluetoothZone === "clockStart" || bluetoothZone === "clockEnd"
         accent: rightSide.host.activeBg
         foreground: rightSide.host.fg
         background: rightSide.host.workspaceMenuBg
     }
 
-    StatusIcon {
-
-        host: rightSide.host
-        id: brightnessIcon
-        icon: "󰍹"
-        tooltip: Eitr.I18n.tr("Display")
-        open: rightSide.host.iconsOpen
-        clickable: true
-        onClicked: barHost.togglePanel(brightnessMenu)
-        onOpenChanged: if (!open) brightnessMenu.opened = false
-    }
-
     BrightnessMenu {
         id: brightnessMenu
+        readonly property string displayZone: barHost.iconZone ? (barHost.iconZone("display") || "right") : "right"
         maximumHeight: barHost.screen.height - 70
         surfaceColor: rightSide.host.barBackground()
-        target: rightSide.host.verticalBar ? verticalDisplayIconRef : (rightSide.host.iconsOpen ? brightnessIcon : notificationIconRef)
+        target: barHost.iconTarget ? barHost.iconTarget("display", rightSide.host.verticalBar ? verticalDisplayIconRef : notificationIconRef) : (rightSide.host.verticalBar ? verticalDisplayIconRef : notificationIconRef)
         barEdge: rightSide.host.barEdge
+        leftAligned: displayZone === "left"
+        centered: displayZone === "clockStart" || displayZone === "clockEnd"
         accent: rightSide.host.activeBg
         foreground: rightSide.host.fg
         background: rightSide.host.workspaceMenuBg
         onPrimarySelected: DisplayService.refresh()
     }
 
-    StatusIcon {
-
-        host: rightSide.host
-        id: volumeIcon
-        icon: "\u{F02CE}"
-        tooltip: Eitr.I18n.tr("Audio/Mic")
-        open: rightSide.host.iconsOpen
-        clickable: true
-        onClicked: barHost.togglePanel(volumeMenu)
-        onOpenChanged: if (!open) volumeMenu.opened = false
-    }
-
     AudioMenu {
         id: volumeMenu
+        readonly property string audioZone: barHost.iconZone ? (barHost.iconZone("audio") || "right") : "right"
         surfaceColor: rightSide.host.barBackground()
         maximumHeight: barHost.screen.height - 70
-        target: rightSide.host.verticalBar ? verticalVolumeIconRef : (rightSide.host.iconsOpen ? volumeIcon : notificationIconRef)
+        target: barHost.iconTarget ? barHost.iconTarget("audio", rightSide.host.verticalBar ? verticalVolumeIconRef : notificationIconRef) : (rightSide.host.verticalBar ? verticalVolumeIconRef : notificationIconRef)
         barEdge: rightSide.host.barEdge
+        leftAligned: audioZone === "left"
+        centered: audioZone === "clockStart" || audioZone === "clockEnd"
         accent: rightSide.host.activeBg
         foreground: rightSide.host.fg
         background: rightSide.host.workspaceMenuBg
     }
 
-    StatusIcon {
-        host: rightSide.host
-        id: streamingIcon
-        visible: remoteAccessServiceRef.allowed
-        icon: "󰢹"
-        tooltip: Eitr.I18n.tr("Streaming")
-        open: rightSide.host.iconsOpen
-        clickable: true
-        onClicked: barHost.togglePanel(streamingMenu)
-        onOpenChanged: if (!open) streamingMenu.opened = false
-    }
     RemoteAccessMenu {
         id: streamingMenu
+        readonly property string streamingZone: barHost.iconZone ? (barHost.iconZone("streaming") || "right") : "right"
         kind: "streaming"
         service: remoteAccessServiceRef
         onObservationChanged: observing => rightSide.host.remoteObservers += observing ? 1 : -1
         maximumHeight: barHost.screen.height - 70
         surfaceColor: rightSide.host.barBackground()
-        target: rightSide.host.verticalBar ? verticalStreamingIconRef : streamingIcon
+        target: barHost.iconTarget ? barHost.iconTarget("streaming", rightSide.host.verticalBar ? verticalStreamingIconRef : notificationIconRef) : (rightSide.host.verticalBar ? verticalStreamingIconRef : notificationIconRef)
         barEdge: rightSide.host.barEdge
+        leftAligned: streamingZone === "left"
+        centered: streamingZone === "clockStart" || streamingZone === "clockEnd"
         accent: rightSide.host.activeBg
         foreground: rightSide.host.fg
         background: rightSide.host.workspaceMenuBg
-    }
-
-    StatusIcon {
-
-        host: rightSide.host
-        id: obsIcon
-        icon: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? "󰏤" : "󰑋") : "󰻂"
-        iconSize: obsMenu.obsState.recording && !obsMenu.obsState.paused ? 22 : 16
-        tooltip: obsMenu.obsState.recording ? (obsMenu.obsState.paused ? Eitr.I18n.tr("Recording paused") : Eitr.I18n.tr("Recording")) : Eitr.I18n.tr("OBS Studio")
-        open: rightSide.host.iconsOpen
-        clickable: true
-        onClicked: barHost.togglePanel(obsMenu)
-        onOpenChanged: if (!open) obsMenu.opened = false
-    }
-
-    StatusIcon {
-
-        host: rightSide.host
-        id: keyboardIcon
-        // Like macOS's input menu: the active layout's code, shown
-        // only when there is more than one layout to switch between.
-        icon: keyboardMenu.activeCode || "󰌌"
-        iconSize: 11
-        tooltip: keyboardMenu.activeLabel ? Eitr.I18n.tr("Keyboard · {layout}", {layout: keyboardMenu.activeLabel}) : Eitr.I18n.tr("Keyboard")
-        open: rightSide.host.iconsOpen && keyboardMenu.layouts.length > 1
-        clickable: true
-        onClicked: barHost.togglePanel(keyboardMenu)
-        onOpenChanged: if (!open) keyboardMenu.opened = false
     }
 
     KeyboardLayoutMenu {
         id: keyboardMenu
+        readonly property string keyboardZone: barHost.iconZone ? (barHost.iconZone("keyboard") || "right") : "right"
         surfaceColor: rightSide.host.barBackground()
-        target: rightSide.host.verticalBar ? verticalKeyboardIconRef : (rightSide.host.iconsOpen ? keyboardIcon : notificationIconRef)
+        target: barHost.iconTarget ? barHost.iconTarget("keyboard", rightSide.host.verticalBar ? verticalKeyboardIconRef : notificationIconRef) : (rightSide.host.verticalBar ? verticalKeyboardIconRef : notificationIconRef)
         barEdge: rightSide.host.barEdge
+        leftAligned: keyboardZone === "left"
+        centered: keyboardZone === "clockStart" || keyboardZone === "clockEnd"
         accent: rightSide.host.activeBg
         foreground: rightSide.host.fg
         background: rightSide.host.workspaceMenuBg
     }
 
-    StatusIcon {
-
-        host: rightSide.host
-        id: updatesIcon
-        icon: rightSide.host.updatesIcon
-        iconSize: 17
-        spinning: rightSide.host.updates.checking
-        tooltip: rightSide.host.updatesTooltip
-        open: rightSide.host.iconsOpen
-        clickable: true
-        rightClickable: true
-        onClicked: function(button) {
-            if (button === Qt.RightButton) rightSide.host.checkUpdates();
-            else rightSide.host.openSystemUpdate();
-        }
-    }
-
-    StatusIcon {
-
-        host: rightSide.host
-        id: batteryBarIcon
-        icon: rightSide.host.batteryIcon
-        tooltip: Math.round(rightSide.host.battery.percent) + "% · " + rightSide.host.battery.status
-        open: rightSide.host.battery.available; visible: rightSide.host.battery.available
-        clickable: true; onClicked: barHost.toggleKind("battery")
-    }
-
-    // Plugin icons come last in the hideable group, right before the notifications.
-    PluginBarItems {
-        clockFormat: rightSide.host.barClock
-        foreground: rightSide.host.fg; background: rightSide.host.barBackground(); accent: rightSide.host.activeBg
-        open: rightSide.host.iconsOpen; slotSize: rightSide.host.workspaceItemSize; slotSpacing: rightSide.host.workspaceItemSpacing
-        onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
-    }
-
     ObsMenu {
         id: obsMenu
+        readonly property string obsZone: barHost.iconZone ? (barHost.iconZone("obs") || "right") : "right"
         surfaceColor: rightSide.host.barBackground()
         onCaptureStarting: recordingMenu.opened = false
-        target: rightSide.host.verticalBar ? verticalObsIconRef : obsIcon
+        target: barHost.iconTarget ? barHost.iconTarget("obs", rightSide.host.verticalBar ? verticalObsIconRef : notificationIconRef) : (rightSide.host.verticalBar ? verticalObsIconRef : notificationIconRef)
         barEdge: rightSide.host.barEdge
+        leftAligned: obsZone === "left"
+        centered: obsZone === "clockStart" || obsZone === "clockEnd"
         accent: rightSide.host.activeBg
         foreground: rightSide.host.fg
         background: rightSide.host.workspaceMenuBg
@@ -281,5 +182,4 @@ Row {
         foreground: rightSide.host.fg
         background: rightSide.host.workspaceMenuBg
     }
-
 }

@@ -107,18 +107,16 @@ Item {
         open: true; clickable: true
         onClicked: verticalMiddle.host.updateBarSetting("pinned", verticalMiddle.host.barPinned ? "no" : "yes")
     }
-    PluginBarItems {
+    BarZoneItems {
         id: clockPlugins
-        clockSlot: true
-        observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
+        host: verticalMiddle.host
+        barHost: verticalMiddle.barHost
+        zone: "clockStart"
         vertical: true
-        clockFormat: verticalMiddle.host.barClock
-        slotSize: verticalMiddle.host.workspaceItemSize
+        observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
         slotSpacing: barHost.itemGap
-        foreground: verticalMiddle.host.fg
-        background: verticalMiddle.host.barBackground()
-        accent: verticalMiddle.host.activeBg
         open: !barHost.dropLayout && barHost.expanded
+        clipReveal: true
         reveal: barHost.dynamicLayout ? ((barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false) ? 1 : 0) : 1
         Behavior on reveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
         opacity: reveal
@@ -148,15 +146,16 @@ Item {
         width: parent.width
         height: barHost.dropLayout || verticalWeatherIcon.height <= 0 ? 0 : barHost.dynamicLayout ? (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.weatherReveal : 0) : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
         clip: barHost.dropLayout || barHost.notchLayout || barHost.dynamicLayout
-        PluginBarItems {
+        BarZoneItems {
             id: verticalWeatherIcon
-            placementSlot: "clockEnd"
-            observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
+            host: verticalMiddle.host
+            barHost: verticalMiddle.barHost
+            zone: "clockEnd"
             vertical: true
+            observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
             y: parent.height - height
             anchors.horizontalCenter: parent.horizontalCenter
-            foreground: verticalMiddle.host.fg; background: verticalMiddle.host.barBackground(); accent: verticalMiddle.host.activeBg
-            clockFormat: verticalMiddle.host.barClock
+            slotSpacing: barHost.itemGap
             open: !barHost.dropLayout && barHost.expanded
             onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
         }

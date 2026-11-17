@@ -6,16 +6,6 @@ BarSection {
     readonly property alias clockPluginsItem: barVerticalCenter.clockPluginsItem
     required property var host
     readonly property alias verticalEndItem: barVerticalStatus.verticalEndItem
-    readonly property alias verticalWifiIconItem: barVerticalStatus.verticalWifiIconItem
-    readonly property alias verticalBluetoothIconItem: barVerticalStatus.verticalBluetoothIconItem
-    readonly property alias verticalDisplayIconItem: barVerticalStatus.verticalDisplayIconItem
-    readonly property alias verticalVolumeIconItem: barVerticalStatus.verticalVolumeIconItem
-    readonly property alias verticalStreamingIconItem: barVerticalStatus.verticalStreamingIconItem
-    readonly property alias verticalObsIconItem: barVerticalStatus.verticalObsIconItem
-    readonly property alias verticalKeyboardIconItem: barVerticalStatus.verticalKeyboardIconItem
-    readonly property alias verticalUpdatesIconItem: barVerticalStatus.verticalUpdatesIconItem
-    readonly property alias verticalBatteryIconItem: barVerticalStatus.verticalBatteryIconItem
-    readonly property alias verticalNotificationIconItem: barVerticalStatus.verticalNotificationIconItem
     readonly property alias verticalMiddleItem: barVerticalCenter.verticalMiddleItem
     readonly property alias verticalMediaItem: barVerticalCenter.verticalMediaItem
     readonly property alias verticalCaptureItem: barVerticalCenter.verticalCaptureItem
@@ -25,11 +15,8 @@ BarSection {
     required property var barHost
     readonly property alias barVerticalCenterItem: barVerticalCenter
     readonly property alias barVerticalStatusItem: barVerticalStatus
-    readonly property alias verticalAiIconItem: verticalAiIcon
     readonly property alias verticalControlCenterLogoItem: verticalControlCenterLogo
     readonly property alias verticalHardwareItem: verticalHardware
-    readonly property alias verticalHardwareIconItem: verticalHardwareIcon
-    readonly property alias verticalIdleLockIconItem: verticalIdleLockIcon
     readonly property alias verticalOverviewIconItem: verticalOverviewIcon
     readonly property alias verticalStartItem: verticalStart
     readonly property alias verticalWorkspacesItem: verticalWorkspaces
@@ -89,22 +76,21 @@ BarSection {
                 }
             }
         }
-        Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing + (barHost.islandSurfaces ? barHost.islandSurfaces.afterWorkspaces : 0) : 0; visible: barHost.islandsLayout }
+        Item { width: 1; height: barHost.islandsLayout ? barHost.islandSpacing - 2 * host.workspaceItemSpacing + (barHost.islandSurfaces ? barHost.islandSurfaces.afterWorkspaces : 0) : 0; visible: barHost.islandsLayout && verticalLeftItems.height > 0 }
         Column {
             id: verticalHardware
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: host.workspaceItemSpacing
-            VerticalBarIcon { host: verticalSurface.host; id: verticalAiIcon; icon: ""; iconSize: 16; tooltip: Eitr.I18n.tr("AI Usage"); open: true; clickable: true; onClicked: barHost.togglePanel(barHost.aiMenu) }
-            VerticalBarIcon { host: verticalSurface.host; id: verticalHardwareIcon; icon: "󰍛"; iconSize: 18; tooltip: Eitr.I18n.tr("Hardware"); open: true; clickable: true; onClicked: barHost.togglePanel(barHost.hardwareMenu) }
-            VerticalBarIcon { host: verticalSurface.host; id: verticalIdleLockIcon; icon: host.idleLockGlyph; iconSize: 17; tooltip: host.idleLockTooltip; open: true; clickable: true; onClicked: host.switchIdleLock() }
-            PluginBarItems {
+            visible: verticalLeftItems.height > 0
+            BarZoneItems {
+                id: verticalLeftItems
+                host: verticalSurface.host
+                barHost: verticalSurface.barHost
+                zone: "left"
                 vertical: true
-                placementSlot: "start"
                 observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.leadingIsland.expanded : false)
-                clockFormat: host.barClock
-                foreground: host.fg; background: host.barBackground(); accent: host.activeBg
                 open: !barHost.dropLayout && barHost.expanded
-                slotSize: host.workspaceItemSize; slotSpacing: host.workspaceItemSpacing
+                anchors.horizontalCenter: parent.horizontalCenter
                 onPanelRequested: function(plugin, panel, target) { barHost.openPluginPanel(plugin, panel, target); }
             }
 

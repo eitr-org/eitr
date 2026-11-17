@@ -165,7 +165,7 @@ class LiveRegressionTests(unittest.TestCase):
 
     def test_cards_grow_from_their_own_icon(self):
         center = self.source('bar/BarHorizontalCenter.qml')
-        self.assertIn('morphAnchor: centerSection.host.verticalBar ? verticalWeatherIconRef : barWeather', center)
+        self.assertIn('morphAnchor: barHost.iconTarget ? barHost.iconTarget("weather:weather", centerSection.host.verticalBar ? verticalWeatherIconRef : barWeather)', center)
         dock = self.source('components/DockPanel.qml')
         self.assertIn('pillFor(morphAnchor || attachmentTarget)', dock)
         self.assertIn('const iconOf = panel => panel.morphAnchor || panel.attachmentTarget;', self.source('bar/BarDynamic.qml'))

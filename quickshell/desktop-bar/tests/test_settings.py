@@ -311,7 +311,7 @@ QtObject {
                 self.assertIn('PAGES_OK', output)
                 for diagnostic in ('TypeError:', 'ReferenceError:', 'Unable to assign', 'Binding loop', 'Error:', 'Required property'):
                     self.assertNotIn(diagnostic, output)
-                for page in ('appearance', 'bar', 'windows', 'lockscreen', 'notifications', 'focus',
+                for page in ('appearance', 'bar', 'bar-icons', 'windows', 'lockscreen', 'notifications', 'focus',
                              'displays', 'sound', 'connections', 'input', 'keybinds', 'window-rules', 'default-apps', 'user', 'user-manage', 'user-users', 'security', 'assistants', 'updates', 'backup', 'check-pc', 'about'):
                     self.assertTrue((output_folder / f'{theme}-{page}.png').is_file(), page)
 

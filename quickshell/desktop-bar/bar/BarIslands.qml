@@ -15,14 +15,14 @@ Item {
     // grow: where a pill's card extends, toward the free space ("start", "end" or "center").
     IslandSurface { id: logoPill; first: host.verticalBar ? barHost.verticalControlCenterLogo : barHost.leftGroup.controlCenterLogo }
     IslandSurface { id: workspacesPill; first: host.verticalBar ? barHost.verticalOverviewIcon : barHost.leftGroup.overviewIcon; last: host.verticalBar ? barHost.verticalWorkspaces : barHost.leftGroup.workspaceButtonRow }
-    IslandSurface { first: host.verticalBar ? barHost.verticalHardware : barHost.leftGroup.hardwareStatus }
+    IslandSurface { first: host.verticalBar ? barHost.verticalHardware : barHost.leftGroup.hardwareStatus; shown: host.verticalBar ? barHost.verticalHardware.height > 0 : barHost.leftGroup.hardwareStatus.width > 0 }
     IslandSurface { id: clockPill; first: host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo; grow: "center" }
     // Before the clock: the card grows away from the clock and pushes the pills before it.
     IslandSurface { id: clockPluginsPill; first: barHost.clockPlugins; shown: barHost.clockPluginExtent > 0; grow: "end" }
     IslandSurface { first: host.verticalBar ? barHost.verticalWeatherIcon : barHost.barWeather; shown: host.verticalBar ? barHost.verticalWeatherIcon.height > 0 : barHost.barWeather.width > 0 }
     IslandSurface { first: host.verticalBar ? barHost.verticalMedia : barHost.mediaStrip; shown: host.verticalBar ? barHost.verticalMedia.visible : barHost.mediaStrip.visible; grow: "end" }
     IslandSurface { first: host.verticalBar ? barHost.verticalCapture : barHost.barCapture; shown: host.verticalBar ? barHost.verticalCapture.shown : barHost.barCapture.shown; grow: "end" }
-    IslandSurface { first: host.verticalBar ? barHost.verticalEnd : barHost.rightSide; last: host.verticalBar ? barHost.verticalEnd : barHost.notificationIcon; grow: "end" }
+    IslandSurface { first: host.verticalBar ? barHost.verticalEnd : barHost.rightSide; last: host.verticalBar ? barHost.verticalEnd : (barHost.notificationIcon && barHost.notificationIcon.parent === barHost.rightSide.parent ? barHost.notificationIcon : barHost.rightSide); shown: host.verticalBar ? barHost.verticalEnd.height > 0 : (barHost.rightSide.width > 0 || (barHost.notificationIcon && barHost.notificationIcon.parent === barHost.rightSide.parent && barHost.notificationIcon.visible && barHost.notificationIcon.width > 0)); grow: "end" }
     // The pill that is currently grown into a card: it and its icons hide underneath,
     // since a Blur card is see-through.
     readonly property Item cardedPill: {

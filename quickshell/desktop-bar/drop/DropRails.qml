@@ -16,7 +16,7 @@ Item {
     readonly property var inputSurfaces: pages.inputSurfaces
     // Placed plugin bar items follow the pages on the same rail (Weather already fills the
     // first page). The rail scrolls, without a scroll bar, when it is longer than the card.
-    readonly property var pluginEntries: PluginRegistry.placedBarItems.filter(entry => !(entry.capabilities || []).includes("weather"))
+    readonly property var pluginEntries: (BarIconOrder.customized ? BarIconOrder.orderedPlugins : PluginRegistry.placedBarItems).filter(entry => !(entry.capabilities || []).includes("weather"))
     // Inside the card the pills need their own tint to stand out from it.
     readonly property color pillColor: Qt.alpha(owner.foreground, PanelStyle.selectionAlpha(false, false) + 0.06)
     readonly property var pageEntries: [

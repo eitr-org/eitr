@@ -16,6 +16,10 @@ Scope {
     function nextAppearance(current) { return ChoiceLists.next(ChoiceLists.barAppearances, current); }
     function nextLayout(current) { return ChoiceLists.next(ChoiceLists.barLayouts, current); }
     function updateBarSetting(key, value) {
+        if (key === "iconOrder") {
+            host.barIconOrderJson = (value === "reset" || value === "null" || value === "") ? "" : String(value);
+            return;
+        }
         var choices = {appearance: ChoiceLists.ids(ChoiceLists.barAppearances), layout: ChoiceLists.ids(ChoiceLists.barLayouts), edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"], lyrics: ["yes", "no"], moments: ["true", "false"], islandStyle: ["floating", "attached"], sideStyle: ["slopes", "straight"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") host.barAppearance = value;
@@ -81,6 +85,7 @@ Scope {
                 host.barAutoHide = settings.autohide === "yes";
                 host.barDock = settings.dock !== "no";
                 DesktopStyle.reduceMotion = settings.reduceMotion === "yes";
+                host.barIconOrderJson = data.iconOrder && typeof data.iconOrder === "object" ? JSON.stringify(data.iconOrder) : "";
     }
     FileView {
         id: barSettingsFile

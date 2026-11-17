@@ -45,8 +45,11 @@ class KeyboardLayoutTests(unittest.TestCase):
         self.assertIn('--notify add', (repo / 'elephant/keyboard-catalog.lua').read_text())
         horizontal = (root / 'bar/BarHorizontalStatus.qml').read_text()
         vertical = (root / 'bar/BarVerticalStatus.qml').read_text()
-        self.assertIn('keyboardMenu.layouts.length > 1', horizontal)
-        self.assertIn('keyboardMenuRef.layouts.length > 1', vertical)
+        zone_items = (root / 'bar/BarZoneItems.qml').read_text()
+        self.assertIn('barHost.keyboardMenu.layouts.length', zone_items)
+        self.assertIn('zoneGrid.keyboardCount > 1', zone_items)
+        self.assertIn('zone: "right"', horizontal)
+        self.assertIn('zone: "right"', vertical)
 
     def test_reorder_preserves_layout_variant_pairs_and_validates_indices(self):
         with patch.object(module, 'apply_pairs') as apply:

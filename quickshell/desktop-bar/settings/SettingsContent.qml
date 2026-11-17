@@ -29,6 +29,7 @@ Rectangle {
     color: Qt.rgba(background.r, background.g, background.b, 1)
     focus: opened
     Keys.onEscapePressed: {
+        if (desktopHost.visible && desktopHost.dismiss()) return;
         if (devicesPage.visible && devicesPage.dismiss()) return;
         if (systemPage.visible && systemPage.dismiss()) return;
         closeRequested();
@@ -108,6 +109,7 @@ Rectangle {
             onPageRequested: page => settings.navigate(page)
         }
         SettingsDesktopHost {
+            id: desktopHost
             anchors.fill: parent
             visible: ["appearance", "bar", "windows", "lockscreen", "notifications", "focus"].includes(settings.page)
             page: settings.page; title: settings.current.title; tab: settings.tab

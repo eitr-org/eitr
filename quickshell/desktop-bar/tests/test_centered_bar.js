@@ -78,7 +78,10 @@ for (const [id, property] of [['barPin', 'anchors.rightMargin'], ['barCapture', 
     ['verticalMedia', 'spacing'], ['mediaStrip', 'itemSpacing'], ['mediaStrip', 'indicatorSpacing']]) {
     assert.equal(vm.runInNewContext(itemProperty(id, property), centeredContext), 4, `${id}.${property}`);
 }
-assert.equal(vm.runInNewContext(itemProperty('notificationIcon', 'anchors.rightMargin'), centeredContext), 12);
+assert.equal(vm.runInNewContext(itemProperty('rightSide', 'anchors.rightMargin'), {
+    barHost: {centeredLayout: true, islandsLayout: false, endPadding: 12},
+    rightSide: {host: {screenGaps: [0, 8, 0, 0]}},
+}), 12);
 assert.equal(vm.runInNewContext(itemProperty('verticalStart', 'y'), centeredContext), 12);
 assert.equal(vm.runInNewContext(itemProperty('verticalEnd', 'anchors.bottomMargin'), centeredContext), 12);
 const os = require('node:os');
@@ -110,7 +113,7 @@ try {
                         leftGroup: {workspaces: {width: span(workspaceSizes)}, hardwareStatus: {width: span(hardwareSizes)}},
                         mediaStrip: {player: withMedia ? {} : null, present: withMedia, visible: withMedia, width: span(mediaSizes)},
                         barPin: {width: 24}, barCapture: {width: shown ? 22 : 0, shown},
-                        barWeather: {width: 50}, rightSide: {width: span(slots(9))}, notificationIcon: {width: 24},
+                        barWeather: {width: 50}, rightSide: {width: span([...slots(9), 24])},
                         verticalStart: {height: span([...workspaceSizes, ...hardwareSizes])}, verticalEnd: {height: span([...slots(9), 24])},
                         verticalPin: {height: 24}, verticalCapture: {shown, height: shown ? 24 : 0},
                         verticalMedia: {height: span(mediaSizes)}, verticalWeatherIcon: {height: 24}};

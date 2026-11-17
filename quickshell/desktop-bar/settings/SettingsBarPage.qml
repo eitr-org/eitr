@@ -4,17 +4,19 @@ import Eitr as Eitr
 import "../ChoiceLists.js" as ChoiceLists
 
 Column {
+    id: barPage
     required property var context
     readonly property var view: context
     readonly property var styleModel: context.styleState
     readonly property var workspaceHelper: context.workspaceHelper
+    function dismiss() { return iconsTabPage.visible && iconsTabPage.dismiss ? iconsTabPage.dismiss() : false; }
     width: parent ? parent.width : 0
     spacing: 18
     TabStrip { foreground: SettingsPalette.foreground; gold: SettingsPalette.gold; carved: true;
         width: parent.width
         visible: view.page === "bar"
         height: visible ? 42 : 0
-        choices: [{id: "layout", label: Eitr.I18n.tr("Layout")}, {id: "look", label: Eitr.I18n.tr("Look")}, {id: "behaviour", label: Eitr.I18n.tr("Behaviour")}]
+        choices: [{id: "layout", label: Eitr.I18n.tr("Layout")}, {id: "look", label: Eitr.I18n.tr("Look")}, {id: "icons", label: Eitr.I18n.tr("Icons")}, {id: "behaviour", label: Eitr.I18n.tr("Behaviour")}]
         current: view.tab || "layout"
         onChosen: value => { view.tabRequested(value); view.contentY = 0; }
     }
@@ -334,5 +336,11 @@ Column {
                 }
             }
         }
+    }
+    SettingsBarIconsPage {
+        id: iconsTabPage
+        context: barPage.context
+        width: parent.width
+        visible: !!barPage.view && barPage.view.page === "bar" && barPage.view.tab === "icons"
     }
 }

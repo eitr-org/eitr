@@ -8,11 +8,11 @@ PanelWindow {
 
     readonly property var barVerticalCenter: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.barVerticalCenterItem : emptyVertical
     readonly property var barVerticalStatus: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.barVerticalStatusItem : emptyVertical
-    readonly property var verticalAiIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalAiIconItem : emptyVertical
+    readonly property var verticalAiIcon: verticalIcons["ai"] || emptyVertical
     readonly property var verticalControlCenterLogo: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalControlCenterLogoItem : emptyVertical
     readonly property var verticalHardware: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalHardwareItem : emptyVertical
-    readonly property var verticalHardwareIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalHardwareIconItem : emptyVertical
-    readonly property var verticalIdleLockIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalIdleLockIconItem : emptyVertical
+    readonly property var verticalHardwareIcon: verticalIcons["hardware"] || emptyVertical
+    readonly property var verticalIdleLockIcon: verticalIcons["idleLock"] || emptyVertical
     readonly property var verticalOverviewIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalOverviewIconItem : emptyVertical
     readonly property var verticalStart: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalStartItem : emptyVertical
     readonly property var verticalSurface: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item : emptyVertical
@@ -24,9 +24,25 @@ PanelWindow {
     readonly property alias barHorizontalStatus: barHorizontalPlacement.barHorizontalStatusItem
     readonly property alias hardwareMenu: barHorizontalPlacement.hardwareMenuItem
     readonly property alias leftGroup: barHorizontalPlacement.leftGroupItem
-    readonly property alias notificationIcon: barHorizontalPlacement.notificationIconItem
+    readonly property var notificationIcon: horizontalIcons["notifications"] || rightSide
     readonly property alias surface: barHorizontalPlacement
     readonly property alias workspaceMenu: barHorizontalPlacement.workspaceMenuItem
+
+    property var horizontalIcons: ({})
+    property var verticalIcons: ({})
+    function setIconItem(vertical, id, item, expectingMatch) {
+        const next = BarIconOrder.updateRegistry(vertical ? verticalIcons : horizontalIcons, id, item, expectingMatch);
+        if (!next) return;
+        if (vertical) verticalIcons = next; else horizontalIcons = next;
+    }
+    function registerIconItem(vertical, id, item) { setIconItem(vertical, id, item, null); }
+    function unregisterIconItem(vertical, id, item) { setIconItem(vertical, id, null, item); }
+    function iconZone(id) { return BarIconOrder.zoneOf(id); }
+    function iconItem(id) { return (host.verticalBar ? verticalIcons[id] : horizontalIcons[id]) || null; }
+    function iconTarget(id, fallback, hiddenFallback) {
+        return BarIconOrder.resolveTarget(iconItem(id), iconZone(id), host.iconsOpen, host.verticalBar,
+            hiddenFallback || notificationIcon || rightSide, fallback || stripItem);
+    }
 
     readonly property var islandSurfaces: barIslandsLoader.item
 
@@ -76,7 +92,9 @@ PanelWindow {
     }
     readonly property real tabLeadingEnd: (host.verticalBar
         ? tabItemStart(verticalStart) + verticalStart.height
-        : tabItemStart(leftGroup.hardwareStatus) + leftGroup.hardwareStatus.width) + tabsPadding
+        : leftGroup.hardwareStatus.width > 0
+            ? tabItemStart(leftGroup.hardwareStatus) + leftGroup.hardwareStatus.width
+            : tabItemStart(leftGroup.workspaces) + leftGroup.workspaces.width) + tabsPadding
     readonly property real tabTrailingStart: tabItemStart(host.verticalBar ? verticalEnd : rightSide) - tabsPadding
     readonly property var clockPlugins: host.verticalBar ? (barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.clockPluginsItem : emptyVertical) : barHorizontalPlacement.clockPluginsItem
     readonly property real clockPluginExtent: (host.verticalBar ? clockPlugins.implicitHeight : clockPlugins.implicitWidth) > 0
@@ -116,10 +134,10 @@ PanelWindow {
     readonly property real centerPadding: (centerExtent - (host.verticalBar ? verticalCalendarIcon.height : centerInfo.width)) / 2
     readonly property real leadingExtent: clockPluginExtent + endPadding - centerPadding + (host.verticalBar
         ? verticalStart.height + itemGap + (mediaStrip.present ? verticalMedia.height + itemGap : 0) + verticalPin.height + itemGap + (verticalCapture.shown ? verticalCapture.height + itemGap : 0)
-        : leftGroup.workspaces.width + itemGap + leftGroup.hardwareStatus.width + itemGap + (mediaStrip.visible ? mediaStrip.width + itemGap : 0) + barPin.width + itemGap + (barCapture.shown ? barCapture.width + itemGap : 0))
+        : leftGroup.workspaces.width + (leftGroup.hardwareStatus.width > 0 ? itemGap + leftGroup.hardwareStatus.width : 0) + itemGap + (mediaStrip.visible ? mediaStrip.width + itemGap : 0) + barPin.width + itemGap + (barCapture.shown ? barCapture.width + itemGap : 0))
     readonly property real trailingExtent: endPadding - centerPadding + (host.verticalBar
-        ? (verticalWeatherIcon.height > 0 ? itemGap + verticalWeatherIcon.height : 0) + itemGap + verticalEnd.height
-        : (barWeather.width > 0 ? itemGap + barWeather.width : 0) + itemGap + rightSide.width + itemGap + notificationIcon.width)
+        ? (verticalWeatherIcon.height > 0 ? itemGap + verticalWeatherIcon.height : 0) + (verticalEnd.height > 0 ? itemGap + verticalEnd.height : 0)
+        : (barWeather.width > 0 ? itemGap + barWeather.width : 0) + (rightSide.width > 0 ? itemGap + rightSide.width : 0))
     // Collapsed, Centered still opens room before the clock for what is happening beside it.
     readonly property bool activityShown: host.verticalBar ? verticalCapture.shown : barCapture.shown
     readonly property real collapsedLeading: activityShown
@@ -309,33 +327,33 @@ PanelWindow {
     readonly property var verticalCalendarIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalCalendarIconItem : emptyVertical
     readonly property var verticalWeatherIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalWeatherIconItem : emptyVertical
     readonly property var verticalEnd: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalEndItem : emptyVertical
-    readonly property var verticalWifiIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalWifiIconItem : emptyVertical
-    readonly property var verticalBluetoothIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalBluetoothIconItem : emptyVertical
-    readonly property var verticalDisplayIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalDisplayIconItem : emptyVertical
-    readonly property var verticalVolumeIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalVolumeIconItem : emptyVertical
-    readonly property var verticalStreamingIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalStreamingIconItem : emptyVertical
-    readonly property var verticalObsIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalObsIconItem : emptyVertical
-    readonly property var verticalKeyboardIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalKeyboardIconItem : emptyVertical
-    readonly property var verticalUpdatesIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalUpdatesIconItem : emptyVertical
-    readonly property var verticalBatteryIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalBatteryIconItem : emptyVertical
-    readonly property var verticalNotificationIcon: barVerticalPlacementLoader.item ? barVerticalPlacementLoader.item.verticalNotificationIconItem : emptyVertical
+    readonly property var verticalWifiIcon: verticalIcons["wifi"] || emptyVertical
+    readonly property var verticalBluetoothIcon: verticalIcons["bluetooth"] || emptyVertical
+    readonly property var verticalDisplayIcon: verticalIcons["display"] || emptyVertical
+    readonly property var verticalVolumeIcon: verticalIcons["audio"] || emptyVertical
+    readonly property var verticalStreamingIcon: verticalIcons["streaming"] || emptyVertical
+    readonly property var verticalObsIcon: verticalIcons["obs"] || emptyVertical
+    readonly property var verticalKeyboardIcon: verticalIcons["keyboard"] || emptyVertical
+    readonly property var verticalUpdatesIcon: verticalIcons["updates"] || emptyVertical
+    readonly property var verticalBatteryIcon: verticalIcons["battery"] || emptyVertical
+    readonly property var verticalNotificationIcon: verticalIcons["notifications"] || emptyVertical
     readonly property alias rightSide: barHorizontalPlacement.rightSideItem
     readonly property alias statusToggle: barHorizontalPlacement.statusToggleItem
-    readonly property alias wifiIcon: barHorizontalPlacement.wifiIconItem
+    readonly property var wifiIcon: horizontalIcons["wifi"] || null
     readonly property alias wifiMenu: barHorizontalPlacement.wifiMenuItem
-    readonly property alias bluetoothIcon: barHorizontalPlacement.bluetoothIconItem
+    readonly property var bluetoothIcon: horizontalIcons["bluetooth"] || null
     readonly property alias bluetoothMenu: barHorizontalPlacement.bluetoothMenuItem
-    readonly property alias brightnessIcon: barHorizontalPlacement.brightnessIconItem
+    readonly property var brightnessIcon: horizontalIcons["display"] || null
     readonly property alias brightnessMenu: barHorizontalPlacement.brightnessMenuItem
-    readonly property alias volumeIcon: barHorizontalPlacement.volumeIconItem
+    readonly property var volumeIcon: horizontalIcons["audio"] || null
     readonly property alias volumeMenu: barHorizontalPlacement.volumeMenuItem
-    readonly property alias streamingIcon: barHorizontalPlacement.streamingIconItem
+    readonly property var streamingIcon: horizontalIcons["streaming"] || null
     readonly property alias streamingMenu: barHorizontalPlacement.streamingMenuItem
-    readonly property alias obsIcon: barHorizontalPlacement.obsIconItem
-    readonly property alias keyboardIcon: barHorizontalPlacement.keyboardIconItem
+    readonly property var obsIcon: horizontalIcons["obs"] || null
+    readonly property var keyboardIcon: horizontalIcons["keyboard"] || null
     readonly property alias keyboardMenu: barHorizontalPlacement.keyboardMenuItem
-    readonly property alias updatesIcon: barHorizontalPlacement.updatesIconItem
-    readonly property alias batteryBarIcon: barHorizontalPlacement.batteryBarIconItem
+    readonly property var updatesIcon: horizontalIcons["updates"] || null
+    readonly property var batteryBarIcon: horizontalIcons["battery"] || null
     readonly property alias obsMenu: barHorizontalPlacement.obsMenuItem
     readonly property alias recordingMenu: barHorizontalPlacement.recordingMenuItem
     readonly property alias centerInfo: barHorizontalPlacement.centerInfoItem
@@ -355,7 +373,7 @@ PanelWindow {
     Component.onDestruction: host.unregisterBar(bar)
     function openPluginPanel(plugin, panel, target) {
         if (plugin === "weather" && panel === "forecast" && PluginRegistry.weatherEnabled) {
-            weatherMenu.morphAnchor = target;
+            if (target) weatherMenu.morphAnchor = target;
             togglePanel(weatherMenu);
             return;
         }

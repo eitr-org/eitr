@@ -138,6 +138,8 @@ ShellRoot {
     readonly property bool centeredLayout: barLayout === "centered"
     readonly property bool iconsOpen: centeredLayout || notchLayout || dynamicLayout || dropLayout || islandsLayout || statusOpen
     property string barEdge: "top"
+    property string barIconOrderJson: ""
+    Binding { target: BarIconOrder; property: "savedOrderJson"; value: shell.barIconOrderJson }
     property bool settingsDirty: false
     property string dragCandidate: ""
     property bool barPointerHeld: false

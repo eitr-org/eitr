@@ -9,22 +9,19 @@ SHELL = (ROOT / "shell.qml").read_text() + frame_source(ROOT)
 
 class IdleLockBindingsTests(unittest.TestCase):
     def test_left_group_icons_toggle_without_a_panel(self):
-        left = (ROOT / "bar/BarLeftGroup.qml").read_text()
-        horizontal = left.split("id: idleLockButton", 1)[1].split("}", 1)[0]
-        vertical = SHELL.split("id: verticalIdleLockIcon", 1)[1].split("\n", 1)[0]
-        for name, block, owner in (("horizontal", horizontal, "host"), ("vertical", vertical, "shell")):
-            with self.subTest(icon=name):
-                self.assertIn("onClicked: " + owner + ".switchIdleLock()", block)
-                self.assertIn(owner + ".idleLockTooltip", block)
+        zone_items = (ROOT / "bar/BarZoneItems.qml").read_text()
+        self.assertIn('if (itemId === "idleLock")', zone_items)
+        self.assertIn('zoneGrid.host.switchIdleLock()', zone_items)
+        self.assertIn('zoneGrid.host.idleLockTooltip', zone_items)
         self.assertIn("function switchIdleLock() { if (!toggleIdleLock.running) toggleIdleLock.running = true; }", SHELL)
         self.assertNotIn("idleLockMenu", SHELL)
         self.assertFalse((ROOT / "IdleLockMenu.qml").exists())
 
     def test_icons_follow_ai_usage_on_the_left(self):
-        left = (ROOT / "bar/BarLeftGroup.qml").read_text().split("id: statusRow", 1)[1]
-        self.assertLess(left.index("id: aiButton"), left.index("id: idleLockButton"))
-        vertical = SHELL.split("id: verticalHardware", 1)[1].split("Item {", 1)[0]
-        self.assertLess(vertical.index("id: verticalAiIcon"), vertical.index("id: verticalIdleLockIcon"))
+        order_source = (ROOT / "BarIconOrder.js").read_text()
+        self.assertLess(order_source.index('"ai"'), order_source.index('"idleLock"'))
+        self.assertIn('zone: "left"', (ROOT / "bar/BarLeftGroup.qml").read_text())
+        self.assertIn('zone: "left"', (ROOT / "bar/BarVerticalPlacement.qml").read_text())
 
     def test_shared_status_icon_forwards_the_actual_button(self):
         component = (ROOT / "bar/StatusIcon.qml").read_text()

@@ -11,6 +11,7 @@ ThemedPopup {
     property var entry: null
     property bool clockSlot: false
     property string placementSlot: "status"
+    leftAligned: placementSlot === "start"
     property string clockFormat: PluginRegistry.clockFormat
     surfaceColor: entry && entry.surface === "panel" ? background : "transparent"
     property var history: []

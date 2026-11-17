@@ -36,6 +36,10 @@ Item {
     property bool rightClickable: false
     property bool spinning: false
     property bool vertical: false
+    property bool verticalContent: false
+    property bool verticalBar: false
+    property bool iconSlot: false
+    readonly property real barContentHeight: 24
     property bool observing: true
     property bool autoRefresh: false
     property real temp: 21
@@ -59,6 +63,10 @@ Item {
     property string barEdge: "top"
     property string kind: ""
     property bool centered: false
+    property bool leftAligned: false
+    property var entry: null
+    property var notificationService: null
+    signal openRequested()
     property real maximumHeight: 1000
     property color surfaceColor: "black"
     property color foreground: "white"

@@ -7,21 +7,12 @@ BarSection {
     required property var host
     readonly property alias rightSideItem: barHorizontalStatus.rightSideItem
     readonly property alias statusToggleItem: barHorizontalStatus.statusToggleItem
-    readonly property alias wifiIconItem: barHorizontalStatus.wifiIconItem
     readonly property alias wifiMenuItem: barHorizontalStatus.wifiMenuItem
-    readonly property alias bluetoothIconItem: barHorizontalStatus.bluetoothIconItem
     readonly property alias bluetoothMenuItem: barHorizontalStatus.bluetoothMenuItem
-    readonly property alias brightnessIconItem: barHorizontalStatus.brightnessIconItem
     readonly property alias brightnessMenuItem: barHorizontalStatus.brightnessMenuItem
-    readonly property alias volumeIconItem: barHorizontalStatus.volumeIconItem
     readonly property alias volumeMenuItem: barHorizontalStatus.volumeMenuItem
-    readonly property alias streamingIconItem: barHorizontalStatus.streamingIconItem
     readonly property alias streamingMenuItem: barHorizontalStatus.streamingMenuItem
-    readonly property alias obsIconItem: barHorizontalStatus.obsIconItem
-    readonly property alias keyboardIconItem: barHorizontalStatus.keyboardIconItem
     readonly property alias keyboardMenuItem: barHorizontalStatus.keyboardMenuItem
-    readonly property alias updatesIconItem: barHorizontalStatus.updatesIconItem
-    readonly property alias batteryBarIconItem: barHorizontalStatus.batteryBarIconItem
     readonly property alias obsMenuItem: barHorizontalStatus.obsMenuItem
     readonly property alias recordingMenuItem: barHorizontalStatus.recordingMenuItem
     readonly property alias centerInfoItem: barHorizontalCenter.centerInfoItem
@@ -38,7 +29,6 @@ BarSection {
     readonly property alias barHorizontalStatusItem: barHorizontalStatus
     readonly property alias hardwareMenuItem: hardwareMenu
     readonly property alias leftGroupItem: leftGroup
-    readonly property alias notificationIconItem: notificationIcon
     readonly property alias workspaceMenuItem: workspaceMenu
     id: surface
     anchors.fill: parent
@@ -93,9 +83,12 @@ BarSection {
 
         SystemMonitorMenu {
             id: hardwareMenu
+            readonly property string hardwareZone: barHost.iconZone("hardware") || "left"
             surfaceColor: host.barBackground()
             maximumHeight: barHost.screen.height - 70
-            target: host.verticalBar ? barHost.verticalHardwareIcon : leftGroup.hardwareIcon
+            leftAligned: hardwareZone === "left"
+            centered: hardwareZone === "clockStart" || hardwareZone === "clockEnd"
+            target: barHost.iconTarget("hardware", null, null)
             barEdge: host.barEdge
             accent: host.activeBg
             foreground: host.fg
@@ -104,10 +97,12 @@ BarSection {
 
         AiUsageMenu {
             id: aiMenu
+            readonly property string aiZone: barHost.iconZone("ai") || "left"
             surfaceColor: host.barBackground()
             maximumHeight: barHost.screen.height - 70
-            leftAligned: true
-            target: host.verticalBar ? barHost.verticalAiIcon : leftGroup.aiIcon
+            leftAligned: aiZone === "left"
+            centered: aiZone === "clockStart" || aiZone === "clockEnd"
+            target: barHost.iconTarget("ai", null, null)
             barEdge: host.barEdge
             accent: host.activeBg
             foreground: host.fg
@@ -123,7 +118,6 @@ BarSection {
             barCaptureRef: barHost.barCapture
             batteryMenuRef: barHost.batteryMenu
             networkOwnerRef: barHost.networkServiceRef
-            notificationIconRef: notificationIcon
             remoteAccessServiceRef: barHost.remoteServiceRef
             verticalBluetoothIconRef: barHost.verticalBluetoothIcon
             verticalCaptureRef: barHost.verticalCapture
@@ -134,22 +128,6 @@ BarSection {
             verticalVolumeIconRef: barHost.verticalVolumeIcon
             verticalWifiIconRef: barHost.verticalWifiIcon
         }
-
-    NotificationWidget {
-
-        host: surface.host
-
-        notificationService: barHost.notificationsRef
-        id: notificationIcon
-        swing: barHost.clockActivity.bellAngle
-        onOpenRequested: barHost.toggleKind("notifications")
-        opacity: barHost.expanded ? 1 : 0
-        enabled: barHost.expanded
-        visible: !host.verticalBar
-        anchors.right: parent.right
-        anchors.rightMargin: barHost.islandsLayout ? host.screenGaps[1] + 4 : barHost.centeredLayout ? barHost.endPadding : 13
-        anchors.verticalCenter: parent.verticalCenter
-    }
 
     BarHorizontalCenter {
         id: barHorizontalCenter

@@ -101,6 +101,7 @@ Item {
  property string placementSlot
  property bool clockSlot: false
  property bool centered: false
+ property bool leftAligned: false
  property var entry
  property real maximumHeight: 900
  property var screenMargins
@@ -172,6 +173,8 @@ ShellRoot {
   property var centerInfo: null
   property var verticalBatteryIcon: null
   property var batteryBarIcon: null
+  function iconZone(id) { return ""; }
+  function iconTarget(id, fallback) { return fallback; }
   property var host: shell
   property var dropDashboard: panels.dropDashboardItem
   property var current: null

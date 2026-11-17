@@ -22,6 +22,7 @@ import subprocess
 
 
 SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
+ICON_ORDER_ZONES = ("left", "clockStart", "clockEnd", "right")
 DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "moments": True, "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes"}
 OPTIONS = {
     "moments": {False, True},
@@ -47,20 +48,83 @@ OPTIONS = {
 }
 
 
+def _sanitize_icon_order(raw):
+    if not isinstance(raw, dict) or not any(isinstance(raw.get(zone), list) for zone in ICON_ORDER_ZONES):
+        return None
+    cleaned = {zone: [] for zone in ICON_ORDER_ZONES}
+    seen = set()
+    for zone in ICON_ORDER_ZONES:
+        entries = raw.get(zone)
+        if not isinstance(entries, list):
+            continue
+        for entry in entries:
+            if isinstance(entry, str) and entry and entry not in seen:
+                seen.add(entry)
+                cleaned[zone].append(entry)
+    return cleaned
+
+
+def _validate_icon_order(value):
+    if value is None or value in ("null", "reset", ""):
+        return None
+    if isinstance(value, str):
+        try:
+            value = json.loads(value)
+        except json.JSONDecodeError as error:
+            raise ValueError(f"Invalid iconOrder: {error}") from error
+    if not isinstance(value, dict):
+        raise ValueError(f"Invalid iconOrder: {value}")
+    unknown = set(value) - set(ICON_ORDER_ZONES)
+    if unknown:
+        raise ValueError(f"Invalid iconOrder zones: {', '.join(sorted(unknown))}")
+    cleaned = {zone: [] for zone in ICON_ORDER_ZONES}
+    seen = set()
+    for zone in ICON_ORDER_ZONES:
+        if zone not in value:
+            continue
+        entries = value[zone]
+        if not isinstance(entries, list):
+            raise ValueError(f"Invalid iconOrder list for {zone}")
+        for entry in entries:
+            if not isinstance(entry, str) or not entry:
+                raise ValueError(f"Invalid iconOrder id in {zone}: {entry}")
+            if entry in seen:
+                raise ValueError(f"Duplicate iconOrder id: {entry}")
+            seen.add(entry)
+            cleaned[zone].append(entry)
+    return cleaned
+
+
 def read_settings():
     data = read_json(SETTINGS)
     if data.get("layout") == "split":
         data["layout"] = "centered"
-    return {**data, **{
+    result = {**data, **{
         key: data.get(key) if type(data.get(key)) is type(DEFAULTS[key]) and data[key] in choices else DEFAULTS[key]
         for key, choices in OPTIONS.items()
     }}
+    if "iconOrder" in result:
+        sanitized = _sanitize_icon_order(result["iconOrder"])
+        if sanitized is None:
+            result.pop("iconOrder", None)
+        else:
+            result["iconOrder"] = sanitized
+    return result
 
 
 def save_settings(data):
     settings = read_settings()
     previous_appearance = settings["appearance"]
+    remove_icon_order = False
     for key, value in data.items():
+        if key == "iconOrder":
+            validated = _validate_icon_order(value)
+            if validated is None:
+                settings.pop("iconOrder", None)
+                remove_icon_order = True
+            else:
+                settings["iconOrder"] = validated
+            continue
         if key == "moments" and value in ("true", "false"):
             value = value == "true"
         if key not in OPTIONS or type(value) is not type(DEFAULTS[key]) or value not in OPTIONS[key]:
@@ -69,8 +133,11 @@ def save_settings(data):
     SETTINGS.parent.mkdir(parents=True, exist_ok=True)
     fd, temp_name = tempfile.mkstemp(prefix=".bar-settings-", dir=SETTINGS.parent)
     try:
+        payload = {**read_json(SETTINGS), **settings, "version": 1}
+        if remove_icon_order:
+            payload.pop("iconOrder", None)
         with os.fdopen(fd, "w", encoding="utf-8") as handle:
-            json.dump({**read_json(SETTINGS), **settings, "version": 1}, handle, indent=2)
+            json.dump(payload, handle, indent=2)
             handle.write("\n")
         os.replace(temp_name, SETTINGS)
     finally:
@@ -103,15 +170,16 @@ def main():
                                         for value in sorted(values)] for key, values in OPTIONS.items()}}
         elif sys.argv[1:] == ["status"]:
             result = read_settings()
-        elif len(sys.argv) == 3 and sys.argv[1] == "get" and sys.argv[2] in OPTIONS:
-            value = read_settings()[sys.argv[2]]
-            print(json.dumps(value) if isinstance(value, bool) else value)
+        elif len(sys.argv) == 3 and sys.argv[1] == "get" and (sys.argv[2] in OPTIONS or sys.argv[2] == "iconOrder"):
+            value = read_settings().get(sys.argv[2])
+            print(json.dumps(value) if isinstance(value, (bool, dict)) or value is None else value)
             return 0
         elif len(sys.argv) in {5, 6, 7, 8, 9, 10, 11, 12, 13} and sys.argv[1] == "set-all":
             result = save_settings(dict(zip(DEFAULTS, sys.argv[2:])))
         elif len(sys.argv) == 4 and sys.argv[1] == "set":
             result = save_settings({sys.argv[2]: sys.argv[3]})
-            apply_live(sys.argv[2], sys.argv[3])
+            live_value = (json.dumps(result["iconOrder"], separators=(",", ":")) if "iconOrder" in result else "null") if sys.argv[2] == "iconOrder" else sys.argv[3]
+            apply_live(sys.argv[2], live_value)
         elif len(sys.argv) == 3 and sys.argv[1] == "toggle" and sys.argv[2] in {"appearance", "layout"}:
             key = sys.argv[2]
             current = read_settings()[key]

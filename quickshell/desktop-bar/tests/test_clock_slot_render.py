@@ -15,17 +15,18 @@ class ClockSlotRenderTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='eitr-clock-slot-') as directory:
             folder = Path(directory)
             kinds = set()
-            for name in ('BarHorizontalCenter', 'BarVerticalCenter'):
-                text = (BAR / 'bar' / (name + '.qml')).read_text().replace('import ".."\n', '').replace('"../MediaModel.js"', '"MediaModel.js"')
+            for name in ('BarHorizontalCenter', 'BarVerticalCenter', 'BarZoneItems'):
+                text = (BAR / 'bar' / (name + '.qml')).read_text().replace('import ".."\n', '').replace('"../', '"')
                 (folder / (name + '.qml')).write_text(text)
                 kinds.update(re.findall(r'^\s*([A-Z]\w+)\s*\{', text, re.M))
-            kinds.add('BarTooltip')
+            kinds.update({'BarTooltip', 'StatusCommand', 'NotificationWidget', 'StatusIcon', 'VerticalBarIcon', 'PluginComponent'})
             (folder / 'Stub.qml').write_text(layout_fixture('stub'))
-            for kind in kinds - {'Item', 'Row', 'Column', 'Behavior', 'NumberAnimation', 'PluginBarItems', 'ClockButton'}:
+            for kind in kinds - {'Item', 'Row', 'Column', 'Grid', 'Repeater', 'Loader', 'Component', 'Connections', 'Behavior', 'NumberAnimation', 'HoverHandler', 'PluginBarItems', 'ClockButton', 'BarZoneItems', 'BarTooltip', 'PluginComponent'}:
                 (folder / (kind + '.qml')).write_text('import QtQuick\nStub {}\n')
-            for name, source in [('BarMoment', 'bar/BarMoment.qml'), ('ClockButton', 'bar/ClockButton.qml'), ('PluginBarItems', 'plugins/PluginBarItems.qml')]:
+            for name, source in [('BarMoment', 'bar/BarMoment.qml'), ('ClockButton', 'bar/ClockButton.qml'), ('PluginBarItems', 'plugins/PluginBarItems.qml'), ('BarIconOrder', 'services/BarIconOrder.qml')]:
                 (folder / (name + '.qml')).write_text((BAR / source).read_text().replace('import ".."\n', '')
-                    .replace('"../PanelStyle.js"', '"PanelStyle.js"'))
+                    .replace('"../', '"'))
+            (folder / 'BarIconOrder.js').write_text((BAR / 'BarIconOrder.js').read_text())
             (folder / 'PanelStyle.js').write_text((BAR / 'PanelStyle.js').read_text())
             (folder / 'MediaModel.js').write_text((BAR / 'MediaModel.js').read_text())
             (folder / 'DesktopStyle.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function radius(value) { return value; } function motionDuration(value) { return 0; } }')
@@ -50,7 +51,7 @@ Item {
             (folder / 'BarTooltip.qml').write_text('import QtQuick\nItem { property color background; property color foreground; property Item target; property bool hovered; property string text }')
             registry = []
             for component in folder.glob('*.qml'):
-                prefix = 'singleton ' if component.stem in ('DesktopStyle', 'DesktopFonts', 'PluginRegistry') else ''
+                prefix = 'singleton ' if component.stem in ('DesktopStyle', 'DesktopFonts', 'PluginRegistry', 'BarIconOrder') else ''
                 registry.append(prefix + component.stem + ' ' + component.name)
             (folder / 'qmldir').write_text('\n'.join(registry) + '\n')
             for layout in ('Full', 'Centered', 'Tabs', 'Islands', 'Dynamic', 'Drop'):
@@ -189,6 +190,7 @@ ShellRoot {
     property var dictationLevels: []
     property string barMediaStyle: "bars"
     property real workspaceItemSize: 24
+    property real workspaceItemSpacing: 4
     property color fg: LIGHT ? "#252936" : "#e9eef1"
     property color activeBg: "#70ba9a"
     property color workspaceMenuBg: LIGHT ? "#f5f0e7" : "#18212b"

@@ -12,12 +12,16 @@ singleton ObsStatus 1.0 services/ObsStatus.qml
 singleton DesktopData services/DesktopData.qml
 singleton PowerService 1.0 services/PowerService.qml
 singleton DisplayService 1.0 services/DisplayService.qml
+singleton BarIconOrder 1.0 services/BarIconOrder.qml
 AiUsageMenu panels/AiUsageMenu.qml
 AppearancePicker panels/AppearancePicker.qml
 AudioLevelControl components/AudioLevelControl.qml
 AudioMenu panels/AudioMenu.qml
 BarGestureArea bar/BarGestureArea.qml
+BarIconPreviewStrip components/BarIconPreviewStrip.qml
+BarIconZoneRow components/BarIconZoneRow.qml
 BarSection bar/BarSection.qml
+BarZoneItems bar/BarZoneItems.qml
 BarTooltip components/BarTooltip.qml
 BatteryMenu panels/BatteryMenu.qml
 BluetoothMenu panels/BluetoothMenu.qml
@@ -209,6 +213,7 @@ FamilyPageHeader settings/FamilyPageHeader.qml
 SettingsStreamingPage settings/SettingsStreamingPage.qml
 SettingsAppearancePage settings/SettingsAppearancePage.qml
 SettingsBarPage settings/SettingsBarPage.qml
+SettingsBarIconsPage settings/SettingsBarIconsPage.qml
 SettingsWindowsPage settings/SettingsWindowsPage.qml
 SettingsLockscreenPage settings/SettingsLockscreenPage.qml
 SettingsNotificationsPage settings/SettingsNotificationsPage.qml

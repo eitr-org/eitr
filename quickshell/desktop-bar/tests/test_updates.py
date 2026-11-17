@@ -44,11 +44,13 @@ class UpdatesTests(unittest.TestCase):
         run.assert_called_once_with(["yay", "-Qua", "--dbpath", "/run/db"])
 
     def test_bar_icon_sits_between_obs_and_notifications_and_refreshes_after_updates(self):
-        shell = (ROOT / "bar/BarHorizontalStatus.qml").read_text() + (ROOT / "bar/BarHorizontalPlacement.qml").read_text() + (ROOT / "bar/BarVerticalStatus.qml").read_text()
-        self.assertLess(shell.index("id: obsIcon"), shell.index("id: updatesIcon"))
-        self.assertLess(shell.index("id: updatesIcon"), shell.index("id: notificationIcon"))
-        self.assertLess(shell.index("id: verticalObsIcon"), shell.index("id: verticalUpdatesIcon"))
-        self.assertLess(shell.index("id: verticalUpdatesIcon"), shell.index("id: verticalNotificationIcon"))
+        order_source = (ROOT / "BarIconOrder.js").read_text()
+        self.assertLess(order_source.index('"obs"'), order_source.index('"updates"'))
+        self.assertLess(order_source.index('"updates"'), order_source.index('"notifications"'))
+        zone_items = (ROOT / "bar/BarZoneItems.qml").read_text()
+        self.assertIn('itemId === "updates"', zone_items)
+        self.assertIn('zone: "right"', (ROOT / "bar/BarHorizontalStatus.qml").read_text())
+        self.assertIn('zone: "right"', (ROOT / "bar/BarVerticalStatus.qml").read_text())
         update = (ROOT.parents[1] / "walker/scripts/actions/system/update.sh").read_text()
         self.assertIn("ipc call -- updates refresh", update)
         # A full update that succeeded marks the bar up to date without another check.

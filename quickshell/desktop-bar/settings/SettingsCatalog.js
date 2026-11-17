@@ -33,6 +33,8 @@ var settings = [
     {"id": "bar-position", "label": "Position", "page": "bar", "tab": "layout", "keywords": "position"},
     {"id": "bar-appearance", "label": "Appearance", "page": "bar", "tab": "look", "keywords": "appearance"},
     {"id": "bar-media-style", "label": "Media style", "page": "bar", "tab": "look", "keywords": "media style"},
+    {"id": "bar-icons-order", "label": "Icons", "page": "bar", "tab": "icons", "keywords": "icons order zones left clock right drag reorder organize"},
+    {"id": "bar-icons-reset", "label": "Reset order", "page": "bar", "tab": "icons", "keywords": "reset default icon order"},
     {"id": "windows-reduce-motion", "label": "Reduce motion", "page": "windows", "tab": "", "keywords": "reduce motion"},
     {"id": "windows-layout", "label": "Window layout", "page": "windows", "tab": "", "keywords": "window layout tiling scrolling columns dwindle"},
     {"id": "windows-scroll-direction", "label": "Direction", "page": "windows", "tab": "", "keywords": "scrolling direction columns right left up down"},

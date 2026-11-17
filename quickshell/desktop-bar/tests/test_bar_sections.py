@@ -32,26 +32,34 @@ class BarSectionTests(unittest.TestCase):
         shell = frame_source(BAR)
         aliases = shell.split('                // Centre and status items remain available', 1)[1]
         aliases = aliases.split('                NotificationPopups {', 1)[0]
-        aliases = '\n'.join(line for line in aliases.splitlines() if 'property alias' in line)
+        aliases = '\n'.join(
+            line for line in aliases.splitlines()
+            if 'property alias' in line or 'horizontalIcons[' in line or 'verticalIcons[' in line
+        )
         with tempfile.TemporaryDirectory(prefix='eitr-bar-sections-') as directory:
             folder = Path(directory)
-            for name in SECTIONS:
+            for name in SECTIONS + ('BarZoneItems',):
                 (folder / (name + '.qml')).write_text((BAR / 'bar' / (name + '.qml')).read_text().replace('import ".."\n', '').replace('"../', '"'))
+            (folder / 'BarIconOrder.qml').write_text((BAR / 'services/BarIconOrder.qml').read_text().replace('import ".."\n', '').replace('"../', '"'))
+            (folder / 'BarIconOrder.js').write_text((BAR / 'BarIconOrder.js').read_text())
             (folder / 'MediaModel.js').write_text((BAR / 'MediaModel.js').read_text())
             # All dependencies are inert; this test never loads the desktop or starts a data service.
             (folder / 'qmldir').write_text('singleton DesktopStyle DesktopStyle.qml\n'
-                                          'singleton DisplayService DisplayService.qml\n')
+                                          'singleton DisplayService DisplayService.qml\n'
+                                          'singleton PluginRegistry PluginRegistry.qml\n'
+                                          'singleton BarIconOrder BarIconOrder.qml\n')
             (folder / 'DesktopStyle.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function motionDuration(value) { return 0; } }\n')
             (folder / 'DisplayService.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function refresh() {} }\n')
+            (folder / 'PluginRegistry.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property var placedBarItems: []; property var entries: []; function slotItems(slot) { return []; } }\n')
             (folder / 'Stub.qml').write_text(layout_fixture('stub'))
-            kinds = set()
-            for name in SECTIONS:
+            kinds = {'StatusCommand', 'NotificationWidget', 'StatusIcon', 'PluginComponent', 'BarTooltip'}
+            for name in SECTIONS + ('BarZoneItems',):
                 kinds.update(re.findall(r'^\s*([A-Z]\w+)\s*\{', (BAR / 'bar' / (name + '.qml')).read_text(), re.M))
-            for kind in kinds - {'Item', 'Row', 'Column', 'Behavior', 'NumberAnimation'}:
+            for kind in kinds - {'Item', 'Row', 'Column', 'Grid', 'Repeater', 'Loader', 'Component', 'Connections', 'Behavior', 'NumberAnimation', 'BarZoneItems'}:
                 (folder / (kind + '.qml')).write_text('import QtQuick\nStub {}\n')
             with (folder / 'qmldir').open('a') as registry:
                 for component in folder.glob('*.qml'):
-                    if component.stem not in ('DesktopStyle', 'DisplayService'):
+                    if component.stem not in ('DesktopStyle', 'DisplayService', 'PluginRegistry', 'BarIconOrder'):
                         registry.write(f'{component.stem} {component.name}\n')
             horizontal = '\n'.join(qml_block(shell, name + ' {') for name in SECTIONS[:2])
             vertical = '\n'.join(qml_block(shell, name + ' {') for name in SECTIONS[2:])

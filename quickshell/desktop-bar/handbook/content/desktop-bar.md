@@ -2,9 +2,9 @@
 
 <!-- eitr-figure: bar-anatomy -->
 
-The Full bar. The Eitr logo opens Control Center; Overview, the workspace markers, AI Usage, Hardware and Idle Lock follow it. The date and time stay centered, with media before them and the weather after them. **Show Icons** reveals or hides the status icons on the right; Notifications come last.
+The Full bar. The Eitr logo opens Control Center; Overview, the workspace markers, AI Usage, Hardware and Idle Lock follow it by default. The date and time stay centered, with media before them and the weather after them. **Show Icons** reveals or hides the status icons on the right; Notifications come last by default.
 
-Plugin bar items can appear after Idle Lock, before the clock, after the clock or in the status group. Choose a position in Settings > Plugins > the plugin > On the bar. The limits are four after Idle Lock, two on each side of the clock and eight in status, in placement order; extra items stay hidden in their chosen position. Centered and Dynamic reveal them while expanded; Tabs and Islands include them; Drop shows placed plugin items in its dashboard rail. The clock stays screen-centred. World clock is an optional official plugin and follows the bar's 12/24-hour preference.
+Plugin bar items can appear after Idle Lock, before the clock, after the clock or in the status group. Choose a position in Settings > Plugins > the plugin > On the bar, or organize every built-in and plugin icon together under **Settings > Desktop Bar > Icons**. There, a live preview reflects changes immediately: drag any icon chip (or focus a chip, press Space or Enter to pick it up, move with the arrow keys within or between **Left side**, **Before the clock**, **After the clock**, and **Right side**, then press Enter/Space to drop or Esc to cancel) and click **Reset to default** to clear the saved `iconOrder` in `bar-settings.json`. Fixed bar items (the Eitr logo, Overview, workspaces, media strip, centered pin, capture indicator and clock) remain anchored, panels open on the side matching the icon's current zone across every layout and edge, and new icons appear in their default zone without losing existing customization. Without custom ordering, the plugin limits are four after Idle Lock, two on each side of the clock and eight in status, in placement order; extra items stay hidden in their chosen position. Centered and Dynamic reveal them while expanded; Tabs and Islands include them; Drop shows placed plugin items in its dashboard rail. The clock stays screen-centred. World clock is an optional official plugin and follows the bar's 12/24-hour preference.
 
 Weather is an official, built-in plugin, installed by default after the clock. Remove it in Eitr Store > Installed > Plugins to hide weather everywhere, including Drop's home page. It stays removed after updates; install it again from Discover using the bundled copy, with no download. Its city search remains temporary for the session.
 
@@ -22,7 +22,7 @@ The updates icon, before Notifications, checks shortly after login and every six
 - Double-right-click empty space to cycle Full → Centered → Tabs → Islands → Dynamic → Drop → Full.
 - Drag empty space toward the top, bottom, left or right to move the bar. Left and right bars are as thin as top and bottom ones: the clock shows the hour over the minutes with a calendar icon, and the weather shows its icon; hover them for the date and temperature.
 - **Clock** under Settings > Desktop Bar shows 12-hour time with AM/PM (the default) or 24-hour time, on every bar edge.
-- The same settings are under **Settings > Desktop Bar**, in its Layout, Look and Behaviour tabs.
+- The same settings are under **Settings > Desktop Bar**, in its Layout, Look, Icons and Behaviour tabs.
 - **Displays** (Show on) puts the bar on the main display only, the default, or
   on every display. With a bar on every display, each one marks the workspace
   shown on its own screen, shortcuts such as SUPER + I open on the display you
@@ -52,7 +52,7 @@ Choose a layout in Settings > Desktop Bar. All six work on every screen edge.
 
 Click Drop's time pill and the pill itself grows into a dashboard. Drag a page sideways (right goes forward, left back, both wrap), or use the arrow keys or horizontal scrolling. Esc or a click outside closes it. Nothing on it opens another panel: details open in place with a back arrow.
 
-The page rail inside the card, along its side, jumps directly to any available page; the selected pill uses the accent colour. Below the pages, the same rail shows the placed plugin bar items in placement order, except Weather, which the first page already shows, with their own icons and tooltips. Click an item with a panel to open it here, then use Back to return. Rails sit left/right for top or bottom bars and above/below for side bars, with gaps that pass clicks through. Long rails scroll; pills slide out after opening and retract on closing, instantly with Reduce motion.
+The page rail inside the card, along its side, jumps directly to any available page; the selected pill uses the accent colour. Below the pages, the same rail shows the placed plugin bar items (following the organized zone order when customized, or placement order by default), except Weather, which the first page already shows, with their own icons and tooltips. Click an item with a panel to open it here, then use Back to return. Rails sit left/right for top or bottom bars and above/below for side bars, with gaps that pass clicks through. Long rails scroll; pills slide out after opening and retract on closing, instantly with Reduce motion.
 
 | Page | What it holds |
 | :--- | :--- |

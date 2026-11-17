@@ -36,7 +36,7 @@ ShellRoot {
  }
  Timer {
   interval: 180; running: true; repeat: true
-  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "windows", "windows/scrolling", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "window-rules", "default-apps", "user", "user/manage", "user/users", "security", "updates", "backup", "check-pc", "about"]
+  property var pages: ["system", "appearance", "appearance/fonts", "appearance/terminal", "streaming", "assistants", "connections/bluetooth", "displays/nightlight", "bar", "bar/icons", "windows", "windows/scrolling", "lockscreen", "notifications", "focus", "displays", "sound", "connections", "input", "keybinds", "window-rules", "default-apps", "user", "user/manage", "user/users", "security", "updates", "backup", "check-pc", "about"]
   property int current: 0
   property int phase: 0
   property bool saved: false
@@ -99,7 +99,7 @@ ShellRoot {
      for (const child of item.children || []) count += targets(child);
      return count;
     };
-    if (["appearance", "appearance/fonts", "appearance/terminal", "bar", "windows", "windows/scrolling", "sound", "input"].includes(pages[current]) && targets(content) === 0) throw new Error("Empty Settings page: " + pages[current]);
+    if (["appearance", "appearance/fonts", "appearance/terminal", "bar", "bar/icons", "windows", "windows/scrolling", "sound", "input"].includes(pages[current]) && targets(content) === 0) throw new Error("Empty Settings page: " + pages[current]);
 
     if (pages[current].split("/")[0] === "user") {
      const tabs = fixture.find(content, "settings-user-tabs");

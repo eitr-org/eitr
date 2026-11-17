@@ -118,6 +118,7 @@ Flickable {
         wrapMode: Text.WordWrap
         width: parent.width
     }
+    function dismiss() { return pageLoader.item && pageLoader.item.dismiss ? pageLoader.item.dismiss() : false; }
     property alias styleState: state
     property alias notificationState: notificationState
     property alias themeModel: themeModel
@@ -137,6 +138,7 @@ Flickable {
         spacing: 18
         SettingsPageHeader { page: hostView.page; foreground: hostView.foreground }
         Loader {
+            id: pageLoader
             width: parent.width
             height: item ? item.implicitHeight : 0
             sourceComponent: ({"appearance": appearanceComponent, "bar": barComponent, "windows": windowsComponent, "lockscreen": lockscreenComponent, "notifications": notificationsComponent, "focus": focusComponent})[hostView.page] || null

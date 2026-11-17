@@ -131,7 +131,9 @@ Column {
         Column {
             id: barItem
             required property var modelData
-            readonly property string chosenSlot: (management.placed(modelData)[0] || {}).slot || modelData.slot || "status"
+            readonly property string placementSlot: (management.placed(modelData)[0] || {}).slot || modelData.slot || "status"
+            readonly property string chosenSlot: management.placed(modelData).length > 0 && BarIconOrder.customized
+                ? BarIconOrder.pluginSlot(modelData.plugin, modelData.id, placementSlot) : placementSlot
             width: management.width; spacing: PanelStyle.selectionRowGap
             ToggleRow {
                 width: parent.width; text: barItem.modelData.title
@@ -152,7 +154,13 @@ Column {
                     {value:"clock", label:Eitr.I18n.tr("Before the clock")},
                     {value:"clockEnd", label:Eitr.I18n.tr("After the clock")},
                     {value:"status", label:Eitr.I18n.tr("Right side")}]
-                onChosen: value => PluginRegistry.change("place", barItem.modelData, {slot: value})
+                onChosen: value => {
+                    PluginRegistry.change("place", barItem.modelData, {slot: value});
+                    if (BarIconOrder.customized) {
+                        const nextJson = BarIconOrder.setCustomSlotJson(barItem.modelData.plugin, barItem.modelData.id, value);
+                        Quickshell.execDetached(["python3", Eitr.Paths.code("quickshell/desktop-bar/scripts/bar-settings.py"), "set", "iconOrder", nextJson]);
+                    }
+                }
             }
         }
     }

@@ -23,18 +23,16 @@ Item {
     readonly property alias clockPluginsItem: clockPlugins
     anchors.alignWhenCentered: false
     anchors.fill: parent
-    PluginBarItems {
+    BarZoneItems {
         id: clockPlugins
-        clockSlot: true
-        observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
+        host: centerSection.host
+        barHost: centerSection.barHost
+        zone: "clockStart"
         vertical: false
-        clockFormat: centerSection.host.barClock
-        slotSize: centerSection.host.workspaceItemSize
+        observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
         slotSpacing: barHost.itemGap
-        foreground: centerSection.host.fg
-        background: centerSection.host.barBackground()
-        accent: centerSection.host.activeBg
         open: !barHost.dropLayout && barHost.expanded
+        clipReveal: true
         reveal: barHost.dynamicLayout ? ((barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false) ? 1 : 0) : 1
         Behavior on reveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
         opacity: reveal
@@ -124,13 +122,15 @@ Item {
         width: barHost.dropLayout || barWeather.width <= 0 ? 0 : barHost.dynamicLayout ? (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.weatherReveal : 0) : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
         height: barWeather.height
         clip: barHost.dropLayout || barHost.notchLayout || barHost.dynamicLayout
-        PluginBarItems {
+        BarZoneItems {
             id: barWeather
-            placementSlot: "clockEnd"
+            host: centerSection.host
+            barHost: centerSection.barHost
+            zone: "clockEnd"
+            vertical: false
             observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
             x: parent.width - width
-            foreground: centerSection.host.fg; background: centerSection.host.barBackground(); accent: centerSection.host.activeBg
-            clockFormat: centerSection.host.barClock
+            slotSpacing: barHost.itemGap
             open: !barHost.dropLayout && barHost.expanded
             opacity: barHost.expanded ? 1 : 0
             enabled: barHost.expanded
@@ -151,11 +151,13 @@ Item {
 
     WeatherMenu {
         id: weatherMenu
+        readonly property string weatherZone: barHost.iconZone ? (barHost.iconZone("weather:weather") || "clockEnd") : "clockEnd"
         surfaceColor: centerSection.host.barBackground()
-        target: centerSection.host.verticalBar ? verticalWeatherIconRef : centerInfo
-        morphAnchor: centerSection.host.verticalBar ? verticalWeatherIconRef : barWeather
+        target: barHost.iconTarget ? barHost.iconTarget("weather:weather", centerSection.host.verticalBar ? verticalWeatherIconRef : centerInfo) : (centerSection.host.verticalBar ? verticalWeatherIconRef : centerInfo)
+        morphAnchor: barHost.iconTarget ? barHost.iconTarget("weather:weather", centerSection.host.verticalBar ? verticalWeatherIconRef : barWeather) : (centerSection.host.verticalBar ? verticalWeatherIconRef : barWeather)
         barEdge: centerSection.host.barEdge
-        centered: true
+        leftAligned: weatherZone === "left"
+        centered: weatherZone === "clockStart" || weatherZone === "clockEnd"
         accent: centerSection.host.activeBg
         foreground: centerSection.host.fg
         background: centerSection.host.workspaceMenuBg

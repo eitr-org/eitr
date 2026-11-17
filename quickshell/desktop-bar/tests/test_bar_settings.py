@@ -460,5 +460,48 @@ ShellRoot {
             for value in ('first', 'second', 'third', 'fourth'):
                 self.assertIn('VALUE=' + value, output, output)
 
+    def test_icon_order_persistence_validation_and_reset(self):
+        with tempfile.TemporaryDirectory() as directory, \
+                patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"), \
+                patch.object(bar_settings, "apply_live") as apply_live:
+            self.assertNotIn("iconOrder", bar_settings.read_settings())
+            custom = {
+                "left": ["hardware", "idleLock"],
+                "clockStart": ["ai"],
+                "clockEnd": ["weather:weather"],
+                "right": ["wifi", "bluetooth", "display", "audio", "streaming", "obs", "keyboard", "updates", "battery", "notifications"],
+            }
+            saved = bar_settings.save_settings({"iconOrder": json.dumps(custom)})
+            self.assertEqual(saved["iconOrder"], custom)
+            self.assertEqual(bar_settings.read_settings()["iconOrder"], custom)
+
+            # Resetting via reset/null removes iconOrder cleanly from disk.
+            with patch("sys.argv", ["bar-settings.py", "set", "iconOrder", "reset"]), patch("builtins.print"):
+                self.assertEqual(bar_settings.main(), 0)
+            self.assertNotIn("iconOrder", bar_settings.read_settings())
+            self.assertNotIn("iconOrder", json.loads(bar_settings.SETTINGS.read_text()))
+            apply_live.assert_called_with("iconOrder", "null")
+
+            # Validation rejects bad zones, non-list entries, and duplicates.
+            for invalid in (
+                'not-json{',
+                {"badZone": ["ai"]},
+                {"left": "ai"},
+                {"left": ["ai", "ai"]},
+                {"left": ["ai"], "right": ["ai"]},
+                {"left": [123]},
+            ):
+                with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                    bar_settings.save_settings({"iconOrder": invalid})
+
+            # Defensive read sanitization drops invalid zone types or duplicate IDs.
+            bar_settings.SETTINGS.write_text(json.dumps({
+                "iconOrder": {"left": ["ai", "", "ai", 7], "clockStart": "bad", "right": ["wifi", "ai"]}
+            }))
+            self.assertEqual(bar_settings.read_settings()["iconOrder"], {
+                "left": ["ai"], "clockStart": [], "clockEnd": [], "right": ["wifi"]
+            })
+
+
 if __name__ == "__main__":
     unittest.main()

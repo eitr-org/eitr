@@ -65,6 +65,29 @@ ShellRoot {
             property var screen: ({height: 1080})
             function togglePanel(panel) { panel.opened = !panel.opened; }
             function openPluginPanel(plugin, panel, target) {}
+            property Item stripItem: strip
+            property var notificationsRef: ({count: 0, doNotDisturb: false})
+            property var remoteServiceRef: remoteAccessService
+            property var horizontalIcons: ({})
+            property var verticalIcons: ({})
+            Item { id: emptyVertical }
+            function registerIconItem(vertical, id, item) {
+                const next = BarIconOrder.updateRegistry(vertical ? verticalIcons : horizontalIcons, id, item, null);
+                if (!next) return;
+                if (vertical) verticalIcons = next; else horizontalIcons = next;
+            }
+            function unregisterIconItem(vertical, id, item) {
+                const next = BarIconOrder.updateRegistry(vertical ? verticalIcons : horizontalIcons, id, null, item);
+                if (!next) return;
+                if (vertical) verticalIcons = next; else horizontalIcons = next;
+            }
+            function iconZone(id) { return BarIconOrder.zoneOf(id); }
+            function iconItem(id) { return (shell.verticalBar ? verticalIcons[id] : horizontalIcons[id]) || null; }
+            readonly property var notificationIcon: horizontalIcons["notifications"] || rightSide
+            function iconTarget(id, fallback, hiddenFallback) {
+                return BarIconOrder.resolveTarget(iconItem(id), iconZone(id), shell.iconsOpen, shell.verticalBar,
+                    hiddenFallback || bar.notificationIcon || bar.rightSide, fallback || stripItem);
+            }
 ALIASES
             Item {
                 id: strip
@@ -78,7 +101,6 @@ ALIASES
                 QtObject { id: leftGroup; readonly property Item workspaces: mockWorkspaces; readonly property Item hardwareStatus: mockStatus }
                 Item {
                     anchors.fill: parent; visible: !shell.verticalBar
-                    Stub { id: notificationIcon; anchors.right: parent.right; text: "N" }
 HORIZONTAL
                 }
                 Item { anchors.fill: parent; visible: shell.verticalBar
@@ -121,7 +143,7 @@ VERTICAL
                             [bar.volumeMenu, bar.verticalVolumeIcon, bar.volumeIcon],
                             [bar.keyboardMenu, bar.verticalKeyboardIcon, bar.keyboardIcon]];
                         for (const entry of statusTargets) {
-                            const expectedTarget = shell.verticalBar ? entry[1] : shell.iconsOpen ? entry[2] : notificationIcon;
+                            const expectedTarget = shell.verticalBar ? entry[1] : shell.iconsOpen ? entry[2] : bar.notificationIcon;
                             if (entry[0].target !== expectedTarget) throw new Error("Status panel target changed");
                         }
                         if (bar.recordingMenu.target !== (shell.verticalBar ? bar.verticalCapture : bar.barCapture)

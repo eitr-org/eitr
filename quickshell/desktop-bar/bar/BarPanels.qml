@@ -56,9 +56,12 @@ Item {
         asynchronous: true
         sourceComponent: NotificationCenter {
             id: notificationCenter
+            readonly property string notifyZone: panels.barHost.iconZone("notifications") || "right"
             service: panels.barHost.notificationsRef
             maximumHeight: panels.barHost.screen.height - 70
-            target: panels.host.verticalBar ? panels.barHost.verticalNotificationIcon : panels.barHost.notificationIcon
+            target: panels.barHost.iconTarget("notifications", panels.host.verticalBar ? panels.barHost.verticalNotificationIcon : panels.barHost.notificationIcon)
+            leftAligned: notifyZone === "left"
+            centered: notifyZone === "clockStart" || notifyZone === "clockEnd"
             barEdge: panels.host.barEdge
             surfaceColor: panels.host.barBackground()
             foreground: panels.host.fg
@@ -83,12 +86,12 @@ Item {
 
     // Opens a placed plugin bar item's panel as its click does (IPC `panels plugin`).
     function clickPlugin(plugin) {
-        function find(item) {
-            if (item.barItem === true && item.entry && item.entry.plugin === plugin && item.visible) return item;
-            for (const child of item.children || []) { const found = find(child); if (found) return found; }
+        function find(item, visibleOnly) {
+            if (item.barItem === true && item.entry && item.entry.plugin === plugin && (!visibleOnly || item.visible)) return item;
+            for (const child of item.children || []) { const found = find(child, visibleOnly); if (found) return found; }
             return null;
         }
-        const item = find(panels.barHost.contentItem);
+        const item = find(panels.barHost.contentItem, true) || find(panels.barHost.contentItem, false);
         if (item && item.entry.panel) panels.barHost.openPluginPanel(plugin, item.entry.panel, item);
         return item !== null;
     }
@@ -97,10 +100,15 @@ Item {
         var entry = PluginRegistry.entries.find(entry => entry.plugin === plugin && entry.id === panel && entry.kind === "panels");
         if (!entry) return;
         const placed = PluginRegistry.placedBarItems.find(item => item.plugin === plugin && item.panel === panel);
-        panels.pluginPanelItem.placementSlot = target && target.entry ? target.entry.slot || "status" : placed ? placed.slot : "status";
-        panels.pluginPanelItem.clockSlot = panels.pluginPanelItem.placementSlot === "clock" || panels.pluginPanelItem.placementSlot === "clockEnd";
+        const targetId = target && target.entry ? BarIconOrder.pluginId(target.entry) : (placed ? BarIconOrder.pluginId(placed) : "");
+        const fallbackSlot = target && target.entry ? target.entry.slot || "status" : placed ? placed.slot || "status" : "status";
+        const effectiveSlot = placed ? BarIconOrder.pluginSlot(placed.plugin, placed.id, fallbackSlot)
+            : (target && target.entry ? BarIconOrder.pluginSlot(target.entry.plugin, target.entry.id, fallbackSlot) : fallbackSlot);
+        panels.pluginPanelItem.placementSlot = effectiveSlot;
+        panels.pluginPanelItem.leftAligned = effectiveSlot === "start";
+        panels.pluginPanelItem.clockSlot = effectiveSlot === "clock" || effectiveSlot === "clockEnd";
         panels.pluginPanelItem.centered = panels.pluginPanelItem.clockSlot;
-        panels.pluginPanelItem.target = target;
+        panels.pluginPanelItem.target = targetId ? panels.barHost.iconTarget(targetId, target || panels.barHost.stripItem) : (target || panels.barHost.stripItem);
         // Clearing first restarts the shared panel's content and data for the new plugin.
         if (panels.pluginPanelItem.entry && (panels.pluginPanelItem.entry.plugin !== entry.plugin || panels.pluginPanelItem.entry.id !== entry.id)) panels.pluginPanelItem.entry = null;
         panels.pluginPanelItem.entry = entry;
@@ -164,7 +172,10 @@ Item {
         asynchronous: true
         sourceComponent: BatteryMenu {
             id: batteryMenu
-            target: panels.host.verticalBar ? panels.barHost.verticalBatteryIcon : panels.barHost.batteryBarIcon
+            readonly property string batteryZone: panels.barHost.iconZone("battery") || "right"
+            target: panels.barHost.iconTarget("battery", panels.host.verticalBar ? panels.barHost.verticalBatteryIcon : panels.barHost.batteryBarIcon)
+            leftAligned: batteryZone === "left"
+            centered: batteryZone === "clockStart" || batteryZone === "clockEnd"
             barEdge: panels.host.barEdge; surfaceColor: panels.host.barBackground()
             foreground: panels.host.fg; background: panels.host.workspaceMenuBg; accent: panels.host.activeBg
             battery: panels.host.battery; displayControl: panels.barHost.brightnessMenu

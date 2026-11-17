@@ -17,9 +17,12 @@ RowLayout {
     readonly property alias hardwareStatus: statusRow
     readonly property alias controlCenterLogo: logo
     readonly property alias overviewIcon: overview
-    readonly property alias aiIcon: aiButton
-    readonly property alias hardwareIcon: hardwareButton
-    readonly property alias idleLockIcon: idleLockButton
+    readonly property alias aiIcon: group.resolvedAiIcon
+    readonly property alias hardwareIcon: group.resolvedHardwareIcon
+    readonly property alias idleLockIcon: group.resolvedIdleLockIcon
+    readonly property Item resolvedAiIcon: barWindow && barWindow.horizontalIcons ? (barWindow.horizontalIcons["ai"] || null) : null
+    readonly property Item resolvedHardwareIcon: barWindow && barWindow.horizontalIcons ? (barWindow.horizontalIcons["hardware"] || null) : null
+    readonly property Item resolvedIdleLockIcon: barWindow && barWindow.horizontalIcons ? (barWindow.horizontalIcons["idleLock"] || null) : null
     spacing: 0
     Row {
         id: workspaceRow
@@ -90,54 +93,17 @@ RowLayout {
         enabled: barWindow.expanded
         Behavior on shownOpacity { NumberAnimation { duration: DesktopStyle.motionDuration(180) } }
         Layout.alignment: Qt.AlignVCenter
-        Layout.leftMargin: barWindow.islandsLayout ? barWindow.islandSpacing + (barWindow.islandSurfaces ? barWindow.islandSurfaces.afterWorkspaces : 0) : host.workspaceItemSpacing
+        Layout.leftMargin: leftZoneItems.width > 0 ? (barWindow.islandsLayout ? barWindow.islandSpacing + (barWindow.islandSurfaces ? barWindow.islandSurfaces.afterWorkspaces : 0) : host.workspaceItemSpacing) : 0
         spacing: host.workspaceItemSpacing
 
-        StatusIcon {
-
+        BarZoneItems {
+            id: leftZoneItems
             host: group.host
-            id: aiButton
-            slotWidth: host.workspaceItemSize
-            icon: ""
-            iconSize: 16
-            tooltip: Eitr.I18n.tr("AI Usage")
-            open: true
-            clickable: true
-            onClicked: barWindow.togglePanel(aiPanel)
-        }
-
-        StatusIcon {
-
-            host: group.host
-            id: hardwareButton
-            slotWidth: host.workspaceItemSize
-            icon: "󰍛"
-            iconSize: 18
-            tooltip: Eitr.I18n.tr("Hardware")
-            open: true
-            clickable: true
-            onClicked: barWindow.togglePanel(hardwarePanel)
-        }
-
-        // A plain switch: a click turns automatic idle locking on or off.
-        StatusIcon {
-            host: group.host
-            id: idleLockButton
-            slotWidth: host.workspaceItemSize
-            icon: host.idleLockGlyph
-            iconSize: 17
-            tooltip: host.idleLockTooltip
-            open: true
-            clickable: true
-            onClicked: host.switchIdleLock()
-        }
-        PluginBarItems {
-            placementSlot: "start"
-            clockFormat: host.barClock
-            foreground: host.fg; background: host.barBackground(); accent: host.activeBg
+            barHost: group.barWindow
+            zone: "left"
+            vertical: false
             open: !barWindow.dropLayout && barWindow.expanded
             observing: !barWindow.dynamicLayout || (barWindow.dynamicSurfaces ? barWindow.dynamicSurfaces.leadingIsland.expanded : false)
-            slotSize: host.workspaceItemSize; slotSpacing: host.workspaceItemSpacing
             onPanelRequested: function(plugin, panel, target) { barWindow.openPluginPanel(plugin, panel, target); }
         }
     }

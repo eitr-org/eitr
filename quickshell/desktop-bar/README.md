@@ -327,8 +327,8 @@ shows only its icon (the temperature is in its tooltip), and popups open inward.
 The `clock` setting in `bar-settings.json` (`12h`, the default, or `24h`), under
 Settings > Desktop > Desktop Bar > Clock and the Settings window's Desktop Bar page, picks the time format
 for every edge.
-AI Usage, Hardware and Idle Lock sit together after the workspaces; right-hand controls
-retain their manual show/hide toggle in Full only. Centered, Tabs, Islands and Dynamic keep them visible without a toggle; Drop shows them in its dashboard’s plugin rail. Both side groups share 24 px icon slots
+AI Usage, Hardware and Idle Lock sit together after the workspaces by default; right-hand controls
+retain their manual show/hide toggle in Full only. Centered, Tabs, Islands and Dynamic keep them visible without a toggle; Drop shows placed plugin items in its dashboard’s plugin rail. Settings > Desktop Bar > Icons (`BarIconOrder.qml`, persisted as `iconOrder` in `bar-settings.json`, or Reset to default) organizes built-in and active plugin icons across the left, clock-start, clock-end and right zones across every layout and screen edge, with panels opening from the moved icon’s zone. Both side groups share 24 px icon slots
 and 4 px spacing, with centered alignment on every bar edge. Active workspace
 glyphs use the accent color without a filled background in every style; the
 style menus show the same markers.
