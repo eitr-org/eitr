@@ -18,25 +18,28 @@ spec.loader.exec_module(action)
 
 class FactoryResetActionTests(unittest.TestCase):
     def run_reset(self, mode, answers):
+        """`answers`: the first warning's key (Enter continues, Esc cancels), then the typed phrase."""
         calls = []
-        with patch("builtins.input", side_effect=answers), patch("builtins.print"), \
+        keys, typed = answers[:1], answers[1:]
+        with patch("eitr_terminal.read_key", side_effect=keys), \
+                patch("builtins.input", side_effect=typed), patch("builtins.print"), \
                 patch.object(action.subprocess, "run", side_effect=lambda args, **kwargs: calls.append(args)):
             action.main(mode)
         return calls
 
-    def test_enter_at_the_first_warning_cancels(self):
+    def test_escape_at_the_first_warning_cancels(self):
         for mode in ("everything", "keep-files"):
-            self.assertEqual(self.run_reset(mode, [""]), [])
-            self.assertEqual(self.run_reset(mode, ["no"]), [])
+            self.assertEqual(self.run_reset(mode, ["\x1b"]), [])
+            self.assertEqual(self.run_reset(mode, ["\x03"]), [])
 
     def test_second_warning_requires_the_exact_phrase(self):
         for typed in ("", "reset my computer", "RESET MY COMPUTER ", "yes"):
             with self.subTest(typed=typed):
-                calls = self.run_reset("everything", ["y", typed])
+                calls = self.run_reset("everything", ["\r", typed])
                 self.assertEqual(calls, [["sudo", action.HELPER, "status"]])
 
     def test_confirmed_reset_passes_mode_and_phrase_to_the_helper(self):
-        calls = self.run_reset("keep-files", ["yes", "RESET MY COMPUTER"])
+        calls = self.run_reset("keep-files", ["\r", "RESET MY COMPUTER"])
         self.assertEqual(calls, [["sudo", action.HELPER, "status"],
                                  ["sudo", action.HELPER, "reset", "--mode", "keep-files",
                                   "--confirm", "RESET MY COMPUTER"]])

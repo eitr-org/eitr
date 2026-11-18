@@ -3,6 +3,7 @@
 The root-owned helper validates everything again before changing anything."""
 import eitr_bootstrap
 from eitr_i18n import mark, tr
+from eitr_terminal import confirm
 import shutil
 import socket
 import subprocess
@@ -49,7 +50,8 @@ def cancelled():
 
 def reset(mode):
     show(FIRST_WARNINGS[mode])
-    if input(tr('Continue?') + ' [y/N]: ').strip().lower() not in ("y", "yes"):
+    # Enter only passes this first warning; the reset itself still needs the typed confirmation.
+    if not confirm(tr('Continue?')):
         cancelled()
         return
     helper("status")

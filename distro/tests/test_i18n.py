@@ -237,20 +237,20 @@ class OutputBoundaryTests(unittest.TestCase):
                     self.assertEqual(command.call_count, 2)
                     self.assertEqual(command.call_args.args[0][0], "sudo")
 
-    def test_factory_reset_prompt_tokens_match_both_checks(self):
+    def test_factory_reset_needs_enter_then_the_typed_confirmation(self):
         reset = self.load("walker/scripts/actions/system/factory-reset.py")
         root_reset = self.load("distro/system/factory-reset.py")
         self.assertEqual(reset.CONFIRMATION, root_reset.CONFIRMATION)
         for locale in ("en", "pt_BR", "es", "de", "fr"):
             with self.subTest(locale=locale), patch.dict(os.environ, LC_ALL="", LC_MESSAGES=locale), \
                     patch.object(reset, "show"), patch.object(reset, "helper") as helper, \
-                    patch("builtins.input", return_value="n") as prompt, patch("sys.stdout", io.StringIO()):
+                    patch.object(reset, "confirm", return_value=False), patch("sys.stdout", io.StringIO()):
                 reset.reset("everything")
                 helper.assert_not_called()
-                self.assertIn("[y/N]", prompt.call_args.args[0])
             with patch.dict(os.environ, LC_ALL="", LC_MESSAGES=locale), \
                     patch.object(reset, "show"), patch.object(reset, "helper") as helper, \
-                    patch("builtins.input", side_effect=["yes", reset.CONFIRMATION]) as prompt:
+                    patch.object(reset, "confirm", return_value=True), \
+                    patch("builtins.input", return_value=reset.CONFIRMATION) as prompt:
                 reset.reset("everything")
                 self.assertIn(reset.CONFIRMATION, prompt.call_args.args[0])
                 self.assertEqual(helper.call_args.args, ("reset", "--mode", "everything", "--confirm", reset.CONFIRMATION))
