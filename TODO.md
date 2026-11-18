@@ -13,39 +13,17 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
-- **VPN plugins, Taildrop and Tailscale out of the default install (agreed 2026-11-09,
-  to do together with the owner).**
-  - Three official plugins in `eitr-org/eitr-plugins`: Tailscale (today's bar icon, panel
-    and actions, plus Taildrop: send files to the person's other Tailscale machines from
-    a menu, incoming files arriving as a notification; operator setup moves from the core
-    root helper to the plugin's own reviewed step), WireGuard (import a config,
-    connect/disconnect, status) and NetworkManager VPN (OpenVPN/OpenConnect profiles;
-    explains the NetworkManager backend when on iwd).
-  - Plugin format has an optional `packages` field (on testing since 2026-11-10; a real
-    install and removal with the administrator password still needs a VM test): official
-    Arch/Eitr repositories only. The install review lists them; after approval they install with the
-    administrator password, ideally inside the Eitr Store session, otherwise a
-    terminal that returns to it. Packages already installed are detected and not
-    reinstalled. Removing the plugin offers to remove only the packages it installed
-    that nothing else needs.
-  - Plugins never install silently. A one-time update step installs the official
-    Tailscale plugin (pinned, reviewed) on desktops that already have Tailscale, with a
-    notification; Tailscale is never uninstalled automatically. New installs no longer
-    include it.
-  - Install > VPN and Walker's Tailscale menus are gone; `walker/scripts/actions/install/vpn.py`,
-    `eitr_vpn` and `remote-access.py away setup|undo` (with its root helper) stay for the plugins.
-  - Order: plugin `packages` field (VM-tested), the three plugins, then remove Tailscale
-    from the core and ship the update step after the plugin passes a VM test.
-  - Status (2026-11-10): Tailscale is official (`eitr-org/eitr-plugins`) with its bar icon,
-    panel and Taildrop, the core icon and panel are gone, and a login step installs the
-    pinned plugin on desktops with Tailscale (2026-11-11: Walker's Tailscale menus and the
-    core panel's Tailscale branch removed; the plugin's panel covers them).
-  - Status (2026-11-14): WireGuard and NetworkManager VPN have bar icons and panels on the
-    `vpn-bar-panels` branch of `eitr-org/eitr-plugins` (WireGuard installed in the VM through
-    the normal review, its panel shown; real tunnels untested). Next: the owner reviews the
-    branch, a VM test with a real WireGuard peer and an OpenVPN profile, then merge to main.
-    Removing a tunnel asks for the password through `pkexec rm`; an `eitr-system` action
-    would show a clearer prompt.
+- **VPN plugins, what is left.** Tailscale, WireGuard and NetworkManager VPN are official
+  plugins on `eitr-org/eitr-plugins` main (WireGuard and NetworkManager VPN merged 2026-11-18
+  after a VM test: install with their packages, import, connect with a real WireGuard peer on
+  iwd and on NetworkManager, copy, disconnect, remove, update and plugin removal).
+  - An OpenVPN profile connected to a test server (TLS and address) but no data crossed that
+    server's tunnel; try a real OpenVPN server before calling OpenVPN traffic verified.
+  - Plugin package cleanup is nonrecursive (`pacman -R`, `distro/PLUGINS.md`): removing
+    NetworkManager VPN left `networkmanager-vpn-plugin-openvpn`, `-openconnect`, `openvpn` and
+    `libnma` as orphans. Decide whether cleanup should use `pacman -Rs`.
+  - Removing a wg-quick tunnel asks for the password through `pkexec rm`; an `eitr-system`
+    action would show a clearer prompt.
 - **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
   (2026-11-11). Share the Login Screen is built (2026-11-17, `distro/system/eitr_remote_login.py`,
   `distro/REMOTE-ACCESS.md`): a system Sunshine while nobody is signed in, with the sharing
