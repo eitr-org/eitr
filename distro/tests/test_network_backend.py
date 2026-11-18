@@ -115,6 +115,82 @@ class NetworkBackendTests(unittest.TestCase):
                 network.enterprise(request)
         self.assertFalse(network.IWD.exists())
 
+    def test_wifi_export_and_import_roundtrip_permissions_and_previous_state(self):
+        network.IWD.mkdir(parents=True)
+        nm_dir = network.ETC / "NetworkManager/system-connections"
+        nm_dir.mkdir(parents=True)
+        (network.IWD / "Home.psk").write_text("[Security]\nPassphrase=alpha\n", encoding="utf-8")
+        (network.IWD / "Cafe.open").write_text("[Security]\n", encoding="utf-8")
+        (network.IWD / "ignored.tmp").write_text("skip", encoding="utf-8")
+        (nm_dir / "Office.nmconnection").write_text("[connection]\nid=Office\ntype=wifi\n", encoding="utf-8")
+        (nm_dir / "Work VPN.nmconnection").write_text("[connection]\nid=Work\ntype=vpn\n[vpn-secrets]\npassword=x\n", encoding="utf-8")
+
+        exported = network.export_wifi()
+        by_key = {(item["backend"], item["name"]): base64.b64decode(item["content_b64"]).decode("utf-8")
+                  for item in exported["profiles"]}
+        self.assertEqual(set(by_key), {
+            ("iwd", "Cafe.open"),
+            ("iwd", "Home.psk"),
+            ("networkmanager", "Office.nmconnection"),
+        })
+        self.assertIn("Passphrase=alpha", by_key[("iwd", "Home.psk")])
+
+        # Modify existing Home.psk and import a new Guest.psk; verify 0600 mode, root chown and undo payload.
+        chown_calls = []
+        with patch.object(network.os, "geteuid", return_value=0), \
+                patch.object(network.os, "chown", side_effect=lambda p, u, g: chown_calls.append((u, g))):
+            res = network.import_wifi({
+                "profiles": [
+                    {"backend": "iwd", "name": "Home.psk", "content": "[Security]\nPassphrase=updated\n"},
+                    {"backend": "iwd", "name": "Guest.psk", "content": "[Security]\nPassphrase=guest\n"},
+                ]
+            })
+        self.assertEqual(res["imported"], 2)
+        self.assertEqual((network.IWD / "Home.psk").read_text(encoding="utf-8"), "[Security]\nPassphrase=updated\n")
+        self.assertEqual((network.IWD / "Guest.psk").stat().st_mode & 0o777, 0o600)
+        self.assertEqual((network.IWD / "Home.psk").stat().st_mode & 0o777, 0o600)
+        self.assertTrue(all(call == (0, 0) for call in chown_calls))
+
+        prev_map = {item["name"]: item for item in res["previous"]}
+        self.assertTrue(prev_map["Home.psk"]["existed"])
+        self.assertFalse(prev_map["Guest.psk"]["existed"])
+        self.assertEqual(base64.b64decode(prev_map["Home.psk"]["content_b64"]).decode("utf-8"),
+                         "[Security]\nPassphrase=alpha\n")
+
+    def test_networkmanager_import_accepts_only_wifi_profiles_and_reloads(self):
+        nm_dir = network.ETC / "NetworkManager/system-connections"
+        nm_dir.mkdir(parents=True)
+        for content in ("[connection]\nid=Work\ntype=vpn\n", "[connection]\nid=Wired\ntype=ethernet\n", "not a keyfile"):
+            with self.subTest(content=content), self.assertRaises(ValueError):
+                network.import_wifi({"profiles": [{"backend": "networkmanager", "name": "Work.nmconnection", "content": content}]})
+        self.assertFalse((nm_dir / "Work.nmconnection").exists())
+        with patch.object(network, "reload_networkmanager") as reload:
+            network.import_wifi({"profiles": [{"backend": "networkmanager", "name": "Home.nmconnection",
+                                               "content": "[connection]\nid=Home\ntype=802-11-wireless\n"}]})
+        reload.assert_called_once()
+
+    def test_wifi_helper_refuses_path_traversal_symlinks_and_oversized_files(self):
+        network.IWD.mkdir(parents=True)
+        for bad_name in ("../escape.psk", "../../etc/shadow.psk", "sub/net.psk", "back\\slash.psk",
+                         ".hidden.psk", ".psk", "wrong.txt", "Office.nmconnection"):
+            with self.subTest(bad_name=bad_name), self.assertRaises(ValueError):
+                network.import_wifi({"profiles": [{"backend": "iwd", "name": bad_name, "content": "x"}]})
+
+        # Oversized content is rejected.
+        huge = base64.b64encode(b"A" * (network.MAX_WIFI_PROFILE_BYTES + 1)).decode("ascii")
+        with self.assertRaises(ValueError):
+            network.import_wifi({"profiles": [{"backend": "iwd", "name": "Big.psk", "content_b64": huge}]})
+
+        # Symlinked destination file is rejected on import and export.
+        outside = network.ETC / "outside-secret"
+        outside.write_text("original", encoding="utf-8")
+        (network.IWD / "Evil.psk").symlink_to(outside)
+        with self.assertRaises(ValueError):
+            network.export_wifi()
+        with self.assertRaises(ValueError):
+            network.import_wifi({"profiles": [{"backend": "iwd", "name": "Evil.psk", "content": "overwrite"}]})
+        self.assertEqual(outside.read_text(encoding="utf-8"), "original")
+
 
 if __name__ == "__main__":
     unittest.main()

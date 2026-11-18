@@ -14,6 +14,10 @@ from eitr_backup.archive import extract_archive
 from eitr_backup.catalog import get_layout
 from eitr_backup.exclusions import is_never_home_path
 from eitr_backup.packages import reinstall_apps
+from eitr_backup.secrets import (
+    apply_restored_permissions, import_gpg_secret_keys, import_wifi_profiles,
+    partition_staged_files, rewrite_staged_git_paths, undo_wifi_profiles,
+)
 from eitr_backup.sizes import format_size
 from eitr_i18n import tr
 from eitr_paths import code, config, read_settings, state, theme_paths
@@ -60,7 +64,7 @@ def list_undo_points(state_dir=None):
         if not entry.is_dir() or not journal_path.is_file():
             continue
         data = _read_json(journal_path)
-        entries = data.get("entries", [])
+        entries = data.get("entries", []) + data.get("wifi_entries", [])
         replaced = sum(1 for item in entries if item.get("existed"))
         added = sum(1 for item in entries if not item.get("existed"))
         points.append({
@@ -116,7 +120,7 @@ def record_last_restore(archive_path, undo_id, file_count, *, state_dir=None):
     _private_json(path, data)
 
 
-def _check_target_parents(target, home):
+def _check_target_parents(target, home, *, forbid_any_symlink=False):
     """Refuse a write that a link in its parent folders would send outside home or into a
     folder backups never touch (keys, browsers): a crafted archive could plant such a link."""
     home_resolved = home.resolve()
@@ -125,6 +129,8 @@ def _check_target_parents(target, home):
     for part in rel.parts[:-1]:
         current = current / part
         if current.is_symlink():
+            if forbid_any_symlink:
+                raise BackupError(tr("Refusing to write through escaping symlink: {path}", path=str(current)))
             resolved = current.resolve(strict=False)
             if not (resolved == home_resolved or resolved.is_relative_to(home_resolved)):
                 raise BackupError(tr("Refusing to write through escaping symlink: {path}", path=str(current)))
@@ -174,23 +180,7 @@ def _atomic_restore_file(backup_copy, target, was_symlink, link_target, old_mode
         raise
 
 
-def _apply_permissions(home, staged_files):
-    ssh_dir = home / ".ssh"
-    if ssh_dir.is_dir() and not ssh_dir.is_symlink():
-        os.chmod(ssh_dir, 0o700)
-    for item in staged_files:
-        target = home / item.home_rel
-        if item.is_symlink or not target.exists():
-            continue
-        if item.home_rel.startswith(".ssh/"):
-            name = Path(item.home_rel).name
-            mode = 0o644 if name.endswith(".pub") else 0o600
-            os.chmod(target, mode)
-        elif item.mode is not None:
-            os.chmod(target, item.mode)
-
-
-def restore_files(staged_files, *, home=None, state_dir=None, archive_path=None):
+def restore_files(staged_files, *, home=None, state_dir=None, archive_path=None, gpg_files=(), wifi_files=()):
     """Apply staged files into home, saving replaced files in an undo journal."""
     home = Path(home or Path.home()).resolve()
     undo_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S") + "-" + secrets.token_hex(2)
@@ -202,7 +192,7 @@ def restore_files(staged_files, *, home=None, state_dir=None, archive_path=None)
     journal_entries = []
     for item in staged_files:
         target = home / item.home_rel
-        _check_target_parents(target, home)
+        _check_target_parents(target, home, forbid_any_symlink=getattr(item, "secret", False))
         if target.is_dir() and not target.is_symlink():
             raise BackupError(tr("Cannot overwrite existing directory with file: {path}", path=item.home_rel))
         if target.exists() or target.is_symlink():
@@ -220,12 +210,15 @@ def restore_files(staged_files, *, home=None, state_dir=None, archive_path=None)
             journal_entries.append({"home_rel": item.home_rel, "existed": False})
         _atomic_write_from_stage(item, target)
 
-    _apply_permissions(home, staged_files)
+    apply_restored_permissions(home, staged_files)
+    journal_entries.extend(import_gpg_secret_keys(gpg_files, home, undo_dir))
+    wifi_entries = import_wifi_profiles(wifi_files)
     journal = {
         "id": undo_id,
         "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "archive": str(archive_path) if archive_path else "",
         "entries": journal_entries,
+        "wifi_entries": wifi_entries,
     }
     _private_json(undo_dir / "journal.json", journal)
     return undo_id, journal
@@ -274,6 +267,12 @@ def undo_restore(undo_id, *, home=None, state_dir=None, config_dir=None, live=No
                 target.unlink(missing_ok=True)
                 removed_added += 1
             _remove_empty_parents(target, home)
+
+    wifi_entries = journal.get("wifi_entries", [])
+    if wifi_entries:
+        undo_wifi_profiles(wifi_entries)
+        restored_previous += sum(1 for item in wifi_entries if item.get("existed"))
+        removed_added += sum(1 for item in wifi_entries if not item.get("existed"))
 
     shutil.rmtree(undo_dir)
     regen = regenerate_and_reload(home=home, config_dir=config_dir, live=live)
@@ -367,34 +366,27 @@ def restore_backup(archive_path, passphrase, *, categories=None, app_settings=No
     try:
         notify(tr("Decrypting and validating backup archive…"))
         manifest, staged = extract_archive(
-            archive_path,
-            passphrase,
-            tmp_root,
-            layout,
-            home,
-            categories=categories,
-            app_settings=app_settings,
-            personal_folders=personal_folders,
+            archive_path, passphrase, tmp_root, layout, home,
+            categories=categories, app_settings=app_settings, personal_folders=personal_folders,
         )
         apps_summary = None
         if reinstall and (categories is None or "installed_apps" in categories):
             apps_summary = reinstall_apps(
-                manifest.get("apps", {}),
-                selected=selected_apps,
-                approve_callback=approve_callback,
-                progress=notify,
+                manifest.get("apps", {}), selected=selected_apps,
+                approve_callback=approve_callback, progress=notify,
             )
         notify(tr("Restoring {count} file(s)…", count=len(staged)))
-        undo_id, journal = restore_files(staged, home=home, state_dir=base_state, archive_path=archive_path)
+        regular_files, secret_home_files, gpg_files, wifi_files = partition_staged_files(staged)
+        rewrite_staged_git_paths(secret_home_files, manifest, home)
+        undo_id, _ = restore_files(
+            regular_files + secret_home_files, home=home, state_dir=base_state,
+            archive_path=archive_path, gpg_files=gpg_files, wifi_files=wifi_files,
+        )
         regen = regenerate_and_reload(home=home, config_dir=config_dir, live=live)
         record_last_restore(archive_path, undo_id, len(staged), state_dir=base_state)
         return {
-            "manifest": manifest,
-            "undo_id": undo_id,
-            "file_count": len(staged),
-            "apps": apps_summary,
-            "regenerated": regen,
-            "reminders": sign_in_reminders(),
+            "manifest": manifest, "undo_id": undo_id, "file_count": len(staged),
+            "apps": apps_summary, "regenerated": regen, "reminders": sign_in_reminders(),
         }
     finally:
         shutil.rmtree(tmp_root, ignore_errors=True)

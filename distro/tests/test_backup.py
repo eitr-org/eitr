@@ -568,6 +568,356 @@ if sys.argv[1:3] == ["list", "--app"]:
         self.assertFalse((bob / ".local/state/eitr/backup-status.json").exists())
         self.assertTrue(any(call[0] == "review" for call in FakeWizardRunner.calls))
 
+    def test_phase4_secret_categories_git_gpg_cloud_wifi_permissions_and_undo(self):
+        from eitr_backup.archive import validate_archive_member
+        from eitr_backup.catalog import CATEGORIES, SECRET_CATEGORY_IDS
+        from eitr_backup.operations import DEFAULT_CATEGORIES, build_backup_plan
+        from eitr_backup.secrets import discover_cloud_accounts, discover_git_accounts
+        from eitr_backup.wizard import _category_items, _format_create_review
+
+        # Secret categories are registered, marked secret and off by default.
+        self.assertEqual(SECRET_CATEGORY_IDS, ("git_accounts", "cloud_accounts", "wifi_networks"))
+        for spec in CATEGORIES:
+            if spec.id in SECRET_CATEGORY_IDS:
+                self.assertFalse(spec.default_enabled)
+                self.assertTrue(spec.secret)
+        items = {item["id"]: item for item in _category_items(set(DEFAULT_CATEGORIES))}
+        for sec_id in SECRET_CATEGORY_IDS:
+            self.assertIn(sec_id, items)
+            self.assertFalse(items[sec_id]["selected"])
+            self.assertTrue(items[sec_id]["secret"])
+
+        alice = self.root / "alice"
+        bob = self.root / "bob"
+        sys_root = self.root / "sys"
+        iwd_dir = sys_root / "iwd"
+        etc_dir = sys_root / "etc"
+        nm_dir = etc_dir / "NetworkManager/system-connections"
+        gpg_audit = self.root / "gpg-audit.log"
+        pkexec_audit = self.root / "pkexec-audit.log"
+        alice.mkdir()
+        bob.mkdir()
+        iwd_dir.mkdir(parents=True)
+        nm_dir.mkdir(parents=True)
+
+        # Fake gpg: verifies no passphrase on argv, exports armored secret key block, imports into $GNUPGHOME.
+        _write_exe(self.bin_dir / "gpg", """#!/usr/bin/env python3
+import os, pathlib, stat, sys
+with open(os.environ["FAKE_GPG_AUDIT"], "a", encoding="utf-8") as h:
+    h.write(" ".join(sys.argv[1:]) + "\\n")
+for arg in sys.argv[1:]:
+    if "passphrase" in arg.lower():
+        sys.stderr.write("forbidden passphrase argument on gpg argv\\n")
+        sys.exit(2)
+args = sys.argv[1:]
+if args == ["--export-secret-keys", "--armor"]:
+    sys.stdout.write("-----BEGIN PGP PRIVATE KEY BLOCK-----\\nFAKE-GPG-KEY-ALICE\\n-----END PGP PRIVATE KEY BLOCK-----\\n")
+    sys.exit(0)
+if args and args[0] == "--import":
+    src = pathlib.Path(args[1])
+    if stat.S_IMODE(src.stat().st_mode) != 0o600:
+        sys.stderr.write("expected 0600 staged gpg file\\n")
+        sys.exit(3)
+    data = src.read_text(encoding="utf-8")
+    gnupg = pathlib.Path(os.environ.get("GNUPGHOME") or (pathlib.Path(os.environ["HOME"]) / ".gnupg"))
+    (gnupg / "private-keys-v1.d").mkdir(parents=True, exist_ok=True)
+    (gnupg / "private-keys-v1.d/imported.key").write_text(data, encoding="utf-8")
+    (gnupg / "pubring.kbx").write_text("kbx:" + data.splitlines()[1] + "\\n", encoding="utf-8")
+    sys.exit(0)
+sys.exit(1)
+""")
+
+        # Fake pkexec: runs the real distro/system/network-backend.py against sys_root.
+        _write_exe(self.bin_dir / "pkexec", f"""#!/usr/bin/env python3
+import importlib.util, os, pathlib, sys
+from unittest.mock import patch
+with open(os.environ["FAKE_PKEXEC_AUDIT"], "a", encoding="utf-8") as h:
+    h.write(" ".join(sys.argv[1:]) + "\\n")
+sys.path.insert(0, {str(ROOT / "distro/lib")!r})
+spec = importlib.util.spec_from_file_location("network_backend", {str(ROOT / "distro/system/network-backend.py")!r})
+net = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(net)
+net.IWD = pathlib.Path(os.environ["FAKE_IWD_DIR"])
+net.ETC = pathlib.Path(os.environ["FAKE_ETC_DIR"])
+with patch.object(net.os, "geteuid", return_value=0), patch.object(net.os, "chown", return_value=None), \\
+        patch.object(sys, "argv", sys.argv[1:]):
+    net.main()
+""")
+
+        # 1. Populate Alice's Git accounts, SSH keys, and ~/.gitconfig.
+        acc_id = "a" * 32
+        alice_cfg = alice / ".config"
+        (alice / ".ssh").mkdir(mode=0o700)
+        key_file = alice / ".ssh/eitr-work"
+        pub_file = alice / ".ssh/eitr-work.pub"
+        key_file.write_text("-----BEGIN OPENSSH PRIVATE KEY-----\nalice-work-key\n", encoding="utf-8")
+        pub_file.write_text("ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAliceWork alice@work\n", encoding="utf-8")
+        os.chmod(key_file, 0o600)
+        os.chmod(pub_file, 0o644)
+        (alice / ".ssh/config").write_text("Host github.com\n  User git\n", encoding="utf-8")
+        (alice / ".ssh/known_hosts").write_text("github.com ssh-ed25519 AAAA\n", encoding="utf-8")
+        (alice / ".ssh/unreferenced_key").write_text("DO-NOT-BACKUP\n", encoding="utf-8")
+
+        (alice_cfg / "eitr/git-accounts/generations/rev1").mkdir(parents=True)
+        (alice_cfg / "eitr/git-accounts/cli" / acc_id).mkdir(parents=True)
+        (alice_cfg / "eitr/git-accounts/cli" / acc_id / "hosts.yml").write_text("oauth_token: gho_secret\n", encoding="utf-8")
+        (alice_cfg / "eitr/git-accounts/.lock").write_text("", encoding="utf-8")
+        (alice_cfg / "eitr/git-accounts.json").write_text(json.dumps({
+            "version": 1,
+            "default": acc_id,
+            "accounts": {
+                acc_id: {
+                    "provider": "github",
+                    "label": "Work",
+                    "name": "Alice",
+                    "email": "alice@work.example",
+                    "host": "github.com",
+                    "key": str(key_file),
+                }
+            },
+            "folders": [{"path": str(alice / "Development/work"), "account": acc_id}],
+            "revision": "rev1",
+        }, indent=2) + "\n", encoding="utf-8")
+        (alice_cfg / "eitr/git-accounts/active.gitconfig").write_text(
+            f'[include]\n\tpath = "{alice_cfg}/eitr/git-accounts/generations/rev1/index.gitconfig"\n',
+            encoding="utf-8",
+        )
+        (alice_cfg / "eitr/git-accounts/generations/rev1/index.gitconfig").write_text(
+            f'[include]\n\tpath = "{alice_cfg}/eitr/git-accounts/generations/rev1/{acc_id}.gitconfig"\n',
+            encoding="utf-8",
+        )
+        (alice_cfg / "eitr/git-accounts/generations/rev1" / f"{acc_id}.gitconfig").write_text(
+            '[user]\n\tname = "Alice"\n\temail = "alice@work.example"\n',
+            encoding="utf-8",
+        )
+        (alice / ".gitconfig").write_text(
+            f'# BEGIN EITR GIT ACCOUNTS\n[include]\n\tpath = "{alice_cfg}/eitr/git-accounts/active.gitconfig"\n# END EITR GIT ACCOUNTS\n',
+            encoding="utf-8",
+        )
+
+        # 2. Populate Alice's Cloud accounts + short-lived caches that must be skipped.
+        (alice / ".aws/sso/cache").mkdir(parents=True)
+        (alice / ".aws/cli/cache").mkdir(parents=True)
+        (alice / ".aws/config").write_text("[profile prod]\nregion = us-east-1\n", encoding="utf-8")
+        (alice / ".aws/credentials").write_text("[prod]\naws_access_key_id = AKIA123\n", encoding="utf-8")
+        (alice / ".aws/sso/cache/sso-token.json").write_text('{"accessToken": "skip-me"}', encoding="utf-8")
+        (alice / ".aws/cli/cache/assumed.json").write_text('{"Credentials": "skip-me"}', encoding="utf-8")
+
+        (alice_cfg / "gcloud/configurations").mkdir(parents=True)
+        (alice_cfg / "gcloud/legacy_credentials/alice@example.com").mkdir(parents=True)
+        (alice_cfg / "gcloud/logs/2026.11.18").mkdir(parents=True)
+        (alice_cfg / "gcloud/active_config").write_text("default\n", encoding="utf-8")
+        (alice_cfg / "gcloud/configurations/config_default").write_text("[core]\naccount = alice@example.com\n", encoding="utf-8")
+        (alice_cfg / "gcloud/access_tokens.db").write_bytes(b"SQLITE-ACCESS-TOKENS")
+        (alice_cfg / "gcloud/access_tokens.db-wal").write_bytes(b"WAL")
+        (alice_cfg / "gcloud/credentials.db").write_bytes(b"SQLITE-CREDS")
+        (alice_cfg / "gcloud/legacy_credentials/alice@example.com/adc.json").write_text("skip", encoding="utf-8")
+        (alice_cfg / "gcloud/logs/2026.11.18/cmd.log").write_text("skip", encoding="utf-8")
+
+        (alice / ".azure/logs").mkdir(parents=True)
+        (alice / ".azure/telemetry").mkdir(parents=True)
+        (alice / ".azure/azureProfile.json").write_text('{"subscriptions": []}\n', encoding="utf-8")
+        (alice / ".azure/config").write_text("[cloud]\nname = AzureCloud\n", encoding="utf-8")
+        (alice / ".azure/msal_token_cache.json").write_text('{"AccessToken": "skip"}', encoding="utf-8")
+        (alice / ".azure/msal_token_cache.bin").write_bytes(b"SKIP")
+        (alice / ".azure/accessTokens.json").write_text("[]", encoding="utf-8")
+        (alice / ".azure/msal_http_cache.bin").write_bytes(b"SKIP")
+        (alice / ".azure/logs/az.log").write_text("skip", encoding="utf-8")
+        (alice / ".azure/telemetry/cache.json").write_text("skip", encoding="utf-8")
+
+        (alice / ".kube/cache/discovery").mkdir(parents=True)
+        (alice / ".kube/http-cache").mkdir(parents=True)
+        (alice / ".kube/config").write_text("apiVersion: v1\nclusters: []\n", encoding="utf-8")
+        (alice / ".kube/cache/discovery/server.json").write_text("skip", encoding="utf-8")
+        (alice / ".kube/http-cache/resp").write_text("skip", encoding="utf-8")
+
+        (alice_cfg / "eitr/cloud-contexts.json").write_text('{"aws": {"prod": "Production"}}\n', encoding="utf-8")
+        (alice_cfg / "eitr/cloud-navigation.json").write_text('{"provider": "aws"}\n', encoding="utf-8")
+
+        # 3. Populate WiFi profiles in sys_root.
+        (iwd_dir / "HomeNet.psk").write_text("[Security]\nPassphrase=wifi-secret-123\n", encoding="utf-8")
+        (iwd_dir / "Campus.8021x").write_text("[Security]\nEAP-Method=PEAP\n", encoding="utf-8")
+        (nm_dir / "Office.nmconnection").write_text("[connection]\nid=Office\ntype=wifi\n[wifi-security]\npsk=office-secret\n", encoding="utf-8")
+
+        extra_env = {
+            "FAKE_GPG_AUDIT": str(gpg_audit),
+            "FAKE_PKEXEC_AUDIT": str(pkexec_audit),
+            "FAKE_IWD_DIR": str(iwd_dir),
+            "FAKE_ETC_DIR": str(etc_dir),
+        }
+        with patch.dict(os.environ, _home_env(alice, self.bin_dir, extra_env)):
+            git_entries = discover_git_accounts(alice, alice_cfg)
+            git_rels = {item.home_rel for item in git_entries}
+            self.assertEqual(git_rels, {
+                ".gitconfig",
+                ".config/eitr/git-accounts.json",
+                ".config/eitr/git-accounts/active.gitconfig",
+                ".config/eitr/git-accounts/generations/rev1/index.gitconfig",
+                f".config/eitr/git-accounts/generations/rev1/{acc_id}.gitconfig",
+                ".ssh/eitr-work",
+                ".ssh/eitr-work.pub",
+                ".ssh/config",
+                ".ssh/known_hosts",
+                ".gnupg/gpg-secret-keys.asc",
+            })
+            self.assertNotIn(".ssh/unreferenced_key", git_rels)
+            self.assertTrue(all(item.secret and item.mode == 0o600 for item in git_entries))
+
+            cloud_entries = discover_cloud_accounts(alice, alice_cfg)
+            cloud_rels = {item.home_rel for item in cloud_entries}
+            self.assertEqual(cloud_rels, {
+                ".aws/config",
+                ".aws/credentials",
+                ".config/gcloud/active_config",
+                ".config/gcloud/configurations/config_default",
+                ".azure/azureProfile.json",
+                ".azure/config",
+                ".kube/config",
+                ".config/eitr/cloud-contexts.json",
+                ".config/eitr/cloud-navigation.json",
+            })
+            self.assertTrue(all(item.secret and item.mode == 0o600 for item in cloud_entries))
+
+            # Build plan & verify review screen warning lists all three secret categories and secret entries.
+            manifest, _ = build_backup_plan(
+                categories=("eitr_settings", "git_accounts", "cloud_accounts", "wifi_networks"),
+                home=alice,
+                config_dir=alice_cfg,
+                data_dir=alice / ".local/share",
+                state_dir=alice / ".local/state",
+                layout=self.layout,
+            )
+            self.assertEqual(manifest["secret_categories"], ["git_accounts", "cloud_accounts", "wifi_networks"])
+            self.assertIn("wifi_networks/iwd/HomeNet.psk", manifest["secret_entries"])
+            self.assertIn("git_accounts/.ssh/eitr-work", manifest["secret_entries"])
+            review_sections = dict(_format_create_review(manifest, self.root / "usb/out.eitrbackup", alice))
+            self.assertIn("Secrets warning", review_sections)
+            warning_blob = "\n".join(review_sections["Secrets warning"])
+            for label in ("Git accounts", "Cloud accounts", "WiFi networks"):
+                self.assertIn(label, warning_blob)
+
+            # Create full encrypted archive with all 3 secret categories.
+            archive_info = create_backup(
+                self.root / "usb",
+                "backup-passphrase-1234",
+                categories=("git_accounts", "cloud_accounts", "wifi_networks"),
+                home=alice,
+                config_dir=alice_cfg,
+                data_dir=alice / ".local/share",
+                state_dir=alice / ".local/state",
+                layout=self.layout,
+                hostname="alice-box",
+            )
+            archive_path = Path(archive_info["archive"])
+
+        # Verify no secrets leaked into pkexec or gpg argv.
+        self.assertNotIn("wifi-secret-123", pkexec_audit.read_text(encoding="utf-8"))
+        self.assertNotIn("office-secret", pkexec_audit.read_text(encoding="utf-8"))
+        self.assertNotIn("backup-passphrase-1234", gpg_audit.read_text(encoding="utf-8"))
+
+        # Prepare Bob's home and target system WiFi with pre-existing files to verify non-silent backup & undo.
+        (bob / ".gitconfig").write_text("[user]\n\tname = OldBob\n", encoding="utf-8")
+        (bob / ".ssh").mkdir(mode=0o755)
+        (bob / ".ssh/config").write_text("Host old-bob\n", encoding="utf-8")
+        (bob / ".aws").mkdir(mode=0o755)
+        (bob / ".aws/config").write_text("[profile bob-old]\n", encoding="utf-8")
+        (bob / ".gnupg").mkdir(mode=0o755)
+        (bob / ".gnupg/pubring.kbx").write_text("kbx:OLD-BOB\n", encoding="utf-8")
+        (iwd_dir / "HomeNet.psk").write_text("[Security]\nPassphrase=old-bob-psk\n", encoding="utf-8")
+        (iwd_dir / "Campus.8021x").unlink()
+        (nm_dir / "Office.nmconnection").unlink()
+
+        with patch.dict(os.environ, _home_env(bob, self.bin_dir, extra_env)):
+            restore_res = restore_backup(
+                archive_path,
+                "backup-passphrase-1234",
+                reinstall=False,
+                home=bob,
+                state_dir=bob / ".local/state",
+                config_dir=bob / ".config",
+                layout=self.layout,
+                live=False,
+            )
+
+        # Verify cross-user path rewriting in git-accounts.json and ~/.gitconfig.
+        restored_git_model = json.loads((bob / ".config/eitr/git-accounts.json").read_text(encoding="utf-8"))
+        self.assertEqual(restored_git_model["accounts"][acc_id]["key"], str(bob / ".ssh/eitr-work"))
+        self.assertEqual(restored_git_model["folders"][0]["path"], str(bob / "Development/work"))
+        self.assertIn(str(bob / ".config/eitr/git-accounts/active.gitconfig"), (bob / ".gitconfig").read_text(encoding="utf-8"))
+
+        # Verify permissions on restored SSH, GPG, Cloud and WiFi files.
+        self.assertEqual(stat.S_IMODE((bob / ".ssh").stat().st_mode), 0o700)
+        for ssh_rel in (".ssh/eitr-work", ".ssh/eitr-work.pub", ".ssh/config", ".ssh/known_hosts"):
+            self.assertEqual(stat.S_IMODE((bob / ssh_rel).stat().st_mode), 0o600, ssh_rel)
+        self.assertEqual(stat.S_IMODE((bob / ".gnupg").stat().st_mode), 0o700)
+        self.assertEqual(stat.S_IMODE((bob / ".gnupg/private-keys-v1.d/imported.key").stat().st_mode), 0o600)
+        self.assertEqual(stat.S_IMODE((bob / ".gnupg/pubring.kbx").stat().st_mode), 0o600)
+        self.assertIn("FAKE-GPG-KEY-ALICE", (bob / ".gnupg/private-keys-v1.d/imported.key").read_text(encoding="utf-8"))
+        self.assertFalse((bob / ".gnupg/gpg-secret-keys.asc").exists())
+
+        for cloud_dir in (".aws", ".azure", ".kube", ".config/gcloud"):
+            self.assertEqual(stat.S_IMODE((bob / cloud_dir).stat().st_mode), 0o700, cloud_dir)
+        self.assertEqual(stat.S_IMODE((bob / ".aws/credentials").stat().st_mode), 0o600)
+        self.assertFalse((bob / ".aws/sso").exists())
+        self.assertFalse((bob / ".config/gcloud/access_tokens.db").exists())
+        self.assertFalse((bob / ".azure/msal_token_cache.json").exists())
+
+        self.assertEqual((iwd_dir / "HomeNet.psk").read_text(encoding="utf-8"), "[Security]\nPassphrase=wifi-secret-123\n")
+        self.assertEqual(stat.S_IMODE((iwd_dir / "HomeNet.psk").stat().st_mode), 0o600)
+        self.assertTrue((iwd_dir / "Campus.8021x").is_file())
+        self.assertEqual(stat.S_IMODE((iwd_dir / "Campus.8021x").stat().st_mode), 0o600)
+        self.assertTrue((nm_dir / "Office.nmconnection").is_file())
+        self.assertEqual(stat.S_IMODE((nm_dir / "Office.nmconnection").stat().st_mode), 0o600)
+
+        # Undo restore: verify all replaced secret files (including GPG and WiFi) are put back and added ones removed.
+        with patch.dict(os.environ, _home_env(bob, self.bin_dir, extra_env)):
+            undo_restore(
+                restore_res["undo_id"],
+                home=bob,
+                state_dir=bob / ".local/state",
+                config_dir=bob / ".config",
+                live=False,
+            )
+
+        self.assertEqual((bob / ".gitconfig").read_text(encoding="utf-8"), "[user]\n\tname = OldBob\n")
+        self.assertEqual((bob / ".ssh/config").read_text(encoding="utf-8"), "Host old-bob\n")
+        self.assertFalse((bob / ".ssh/eitr-work").exists())
+        self.assertFalse((bob / ".ssh/eitr-work.pub").exists())
+        self.assertEqual((bob / ".aws/config").read_text(encoding="utf-8"), "[profile bob-old]\n")
+        self.assertFalse((bob / ".aws/credentials").exists())
+        self.assertEqual((bob / ".gnupg/pubring.kbx").read_text(encoding="utf-8"), "kbx:OLD-BOB\n")
+        self.assertFalse((bob / ".gnupg/private-keys-v1.d/imported.key").exists())
+        self.assertEqual((iwd_dir / "HomeNet.psk").read_text(encoding="utf-8"), "[Security]\nPassphrase=old-bob-psk\n")
+        self.assertFalse((iwd_dir / "Campus.8021x").exists())
+        self.assertFalse((nm_dir / "Office.nmconnection").exists())
+
+        # Verify archive member validation rejects skipped cloud caches and invalid WiFi member paths.
+        for bad_member in (
+            "cloud_accounts/.aws/sso/cache/token.json",
+            "cloud_accounts/.config/gcloud/access_tokens.db",
+            "cloud_accounts/.azure/msal_token_cache.json",
+            "wifi_networks/iwd/../evil.psk",
+            "wifi_networks/iwd/bad.txt",
+            "wifi_networks/unknown/Home.psk",
+            "git_accounts/.config/eitr/git-accounts/cli/abc/hosts.yml",
+        ):
+            with self.subTest(bad_member=bad_member), self.assertRaises(BackupError):
+                validate_archive_member(bad_member, self.layout)
+
+        # Verify restore ordering: non-secret categories are partitioned before secret categories,
+        # and GPG/WiFi are separated into the final secret actions step.
+        from eitr_backup.archive import StagedFile
+        from eitr_backup.secrets import partition_staged_files
+        reg, sec, gpg, wifi = partition_staged_files([
+            StagedFile(".gitconfig", "git_accounts", 0o600, False, None, Path("/tmp/a"), secret=True),
+            StagedFile("wifi/Home.psk", "wifi_networks", 0o600, False, None, Path("/tmp/b"), secret=True),
+            StagedFile(".config/eitr/style.json", "eitr_settings", 0o644, False, None, Path("/tmp/c"), secret=False),
+            StagedFile(".gnupg/gpg-secret-keys.asc", "git_accounts", 0o600, False, None, Path("/tmp/d"), secret=True),
+        ])
+        self.assertEqual([x.category for x in reg + sec], ["eitr_settings", "git_accounts"])
+        self.assertEqual([x.home_rel for x in gpg], [".gnupg/gpg-secret-keys.asc"])
+        self.assertEqual([x.category for x in wifi], ["wifi_networks"])
+
 
 def _fd_open(fd):
     try:

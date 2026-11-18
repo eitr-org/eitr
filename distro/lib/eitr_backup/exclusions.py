@@ -1,4 +1,12 @@
 """Exclusion lists and layout-manifest classification rules for Eitr backups."""
+from pathlib import PurePosixPath
+
+from eitr_backup import BackupError
+from eitr_i18n import tr
+
+GPG_ARCHIVE_REL = ".gnupg/gpg-secret-keys.asc"
+IWD_SUFFIXES = (".psk", ".8021x", ".open")
+NM_SUFFIXES = (".nmconnection",)
 
 BROWSER_DIRS = frozenset({
     "brave", "bravesoftware", "chromium", "chromium-beta", "chromium-dev",
@@ -148,3 +156,93 @@ def eitr_owned_config_dirs(layout):
         if head not in ignored_heads and "/" in rule["pattern"]:
             dirs.add(head)
     return dirs
+
+
+# Short-lived cloud session caches skipped from cloud_accounts backups:
+# - AWS: ~/.aws/sso/cache/**, ~/.aws/cli/cache/** (and under ~/.config/aws)
+# - gcloud: ~/.config/gcloud/access_tokens.db*, ~/.config/gcloud/credentials.db*,
+#   ~/.config/gcloud/legacy_credentials/**, ~/.config/gcloud/logs/**
+# - Azure: ~/.azure/msal_token_cache*, ~/.azure/accessTokens.json,
+#   ~/.azure/msal_http_cache*, ~/.azure/{logs,telemetry,commands}/** (and under ~/.config/azure)
+# - Kubernetes: ~/.kube/cache/**, ~/.kube/http-cache/**
+CLOUD_SKIPPED_CACHES = (
+    ".aws/sso/cache", ".aws/cli/cache", ".config/aws/sso/cache", ".config/aws/cli/cache",
+    ".config/gcloud/access_tokens.db*", ".config/gcloud/credentials.db*",
+    ".config/gcloud/legacy_credentials", ".config/gcloud/logs",
+    ".azure/msal_token_cache*", ".azure/accessTokens.json", ".azure/msal_http_cache*",
+    ".azure/logs", ".azure/telemetry", ".azure/commands",
+    ".config/azure/msal_token_cache*", ".config/azure/accessTokens.json", ".config/azure/msal_http_cache*",
+    ".config/azure/logs", ".config/azure/telemetry", ".config/azure/commands",
+    ".kube/cache", ".kube/http-cache",
+)
+
+
+def is_skipped_cloud_cache(home_rel):
+    rel = home_rel.strip("/")
+    if rel.startswith(".config/eitr/cloud-accounts/"):
+        parts = PurePosixPath(rel).parts
+        if len(parts) > 5 and is_skipped_cloud_cache("/".join(parts[5:])):
+            return True
+    for prefix in (".aws/", ".config/aws/"):
+        if rel.startswith(prefix):
+            sub = rel.removeprefix(prefix)
+            if sub in ("sso/cache", "cli/cache") or sub.startswith(("sso/cache/", "cli/cache/")):
+                return True
+    if rel.startswith(".config/gcloud/"):
+        head = PurePosixPath(rel.removeprefix(".config/gcloud/")).parts[0]
+        if head in ("logs", "legacy_credentials") or head.startswith(("access_tokens.db", "credentials.db")):
+            return True
+    for prefix in (".azure/", ".config/azure/"):
+        if rel.startswith(prefix):
+            parts = PurePosixPath(rel.removeprefix(prefix)).parts
+            if parts[0] in ("logs", "telemetry", "commands", "accessTokens.json"):
+                return True
+            if parts[0].startswith(("msal_token_cache", "msal_http_cache")) or parts[-1].startswith(("msal_token_cache", "msal_http_cache")):
+                return True
+    if rel.startswith(".kube/") and PurePosixPath(rel.removeprefix(".kube/")).parts[0] in ("cache", "http-cache"):
+        return True
+    return False
+
+
+def validate_wifi_profile_name(backend, name):
+    if backend not in ("iwd", "networkmanager"):
+        raise BackupError(tr("Unsupported WiFi backend in backup: {backend}", backend=str(backend)))
+    if not isinstance(name, str) or not name or len(name.encode("utf-8")) > 255:
+        raise BackupError(tr("Unsafe WiFi profile filename rejected: {name}", name=str(name)))
+    if "/" in name or "\\" in name or "\x00" in name or name in (".", "..") or ".." in name or name.startswith("."):
+        raise BackupError(tr("Unsafe WiFi profile filename rejected: {name}", name=name))
+    suffixes = IWD_SUFFIXES if backend == "iwd" else NM_SUFFIXES
+    matched = next((suf for suf in suffixes if name.endswith(suf)), None)
+    if not matched or len(name) <= len(matched):
+        raise BackupError(tr("Unsupported WiFi profile filename rejected: {name}", name=name))
+    return name
+
+
+def validate_secret_archive_member(category, home_rel):
+    parts = PurePosixPath(home_rel).parts
+    if any(is_excluded_file_name(part) for part in parts) or any(is_excluded_dir_name(part) for part in parts[:-1]):
+        raise BackupError(tr("Excluded cache or lock path rejected: {path}", path=home_rel))
+    if category == "wifi_networks":
+        if len(parts) != 2:
+            raise BackupError(tr("Unexpected WiFi archive path rejected: {path}", path=home_rel))
+        validate_wifi_profile_name(parts[0], parts[1])
+        return "file", category, home_rel
+    if category == "git_accounts":
+        if home_rel in (".gitconfig", ".config/eitr/git-accounts.json", GPG_ARCHIVE_REL):
+            return "file", category, home_rel
+        if home_rel.startswith(".config/eitr/git-accounts/") and not home_rel.startswith(".config/eitr/git-accounts/cli/"):
+            return "file", category, home_rel
+        if home_rel.startswith(".ssh/") and len(parts) == 2:
+            return "file", category, home_rel
+        if not home_rel.startswith((".cache/", ".local/share/Trash/", ".local/share/keyrings/", ".mozilla/", ".zen/", ".floorp/")):
+            if not (home_rel.startswith(".config/") and is_browser_dir(parts[1])) and (home_rel.endswith(".gitconfig") or ".ssh/" in home_rel):
+                return "file", category, home_rel
+        raise BackupError(tr("Unexpected Git accounts path rejected: {path}", path=home_rel))
+    if category == "cloud_accounts":
+        if is_skipped_cloud_cache(home_rel):
+            raise BackupError(tr("Short-lived cloud login cache rejected from backup: {path}", path=home_rel))
+        allowed_roots = (".aws/", ".config/aws/", ".config/gcloud/", ".azure/", ".config/azure/", ".kube/", ".config/eitr/cloud-accounts/")
+        if home_rel in (".config/eitr/cloud-contexts.json", ".config/eitr/cloud-navigation.json") or home_rel.startswith(allowed_roots):
+            return "file", category, home_rel
+        raise BackupError(tr("Unexpected cloud accounts path rejected: {path}", path=home_rel))
+    raise BackupError(tr("Unknown backup category rejected: {category}", category=category))

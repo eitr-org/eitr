@@ -18,16 +18,19 @@
    - **개인 폴더**: 기본 선택 해제된 `$HOME` 최상위 폴더 및 `$HOME` 내부 하위 폴더용 **폴더 추가…**. 크기는 백그라운드에서 계산됩니다.
    - **설치된 앱**: 기본 Eitr 외에 추가한 공식 패키지, AUR, Flatpak, Eitr 플러그인 및 Store 항목 목록.
    - **기기 설정**: 기본 꺼짐; 이 PC에 종속된 디스플레이 및 `hypr/local.lua` 재정의.
+   - **Git 계정** (선택형 비밀 범주, 기본 꺼짐): `eitr/git-accounts.json`, `eitr/git-accounts` 아래의 관리형 포함 파일, `~/.gitconfig`, 각 계정이 지정한 SSH 키(개인 키와 `.pub`, `0600` 권한 유지), `~/.ssh/config`, `~/.ssh/known_hosts`, 그리고 `gpg --export-secret-keys --armor`로 내보낸 GPG 비밀 키(GPG가 자체 암호를 직접 묻습니다).
+   - **클라우드 계정** (선택형 비밀 범주, 기본 꺼짐): `~/.aws`, `~/.config/gcloud`, `~/.azure`, `~/.kube` 및 Eitr 클라우드 레이블(`eitr/cloud-contexts.json`, `eitr/cloud-navigation.json`).
+   - **WiFi 네트워크** (선택형 비밀 범주, 기본 꺼짐): `pkexec`를 통해 `/usr/lib/eitr/eitr-network`로 내보내는 저장된 iwd(`/var/lib/iwd/*.psk`, `*.8021x`, `*.open`) 및 NetworkManager(`/etc/NetworkManager/system-connections/*.nmconnection`) 프로필.
 2. 필요 시 개별 앱 설정 폴더 및 설치된 앱(검색·출처별 그룹화)의 체크를 해제합니다.
 3. 대상 위치를 선택합니다. 외장 드라이브가 `~/Backups`보다 먼저 표시됩니다. 같은 디스크를 고르면 경고를 표시하며, 남은 공간이 부족하면 쓰기 전에 거부합니다.
 4. 암호를 두 번 입력합니다. 암호는 명령 인수, 환경 변수, 파일 어디에도 저장되지 않습니다.
-5. **검토** 화면에서 요약을 확인하고 **Enter**를 눌러 원자적으로 기록하거나 **Esc**로 기록 없이 취소합니다.
+5. **검토** 화면에서 요약(비밀 범주와 항목이 포함되면 경고를 표시함)을 확인하고 **Enter**를 눌러 원자적으로 기록하거나 **Esc**로 기록 없이 취소합니다.
 
 ### 자동 제외 항목
 
 - 브라우저 프로필, 캐시, 잠금/소켓/임시 파일.
 - 배포된 시스템 코드, 기본값, 재생성 출력(복원 후 다시 생성됨).
-- 설정 외 계정 자격 증명: SSH/GPG 키, 키링, 클라우드 CLI(`~/.aws`, `~/.azure`, `~/.config/gcloud`, `~/.config/gh`), 저장된 Git/Wi-Fi 비밀.
+- 로그인 키링, Git CLI 토큰(`~/.config/gh`, `eitr/git-accounts/cli`) 및 단기 클라우드 세션 캐시: AWS SSO/CLI 캐시(`~/.aws/sso/cache`, `~/.aws/cli/cache`), gcloud 토큰 및 자격 증명 데이터베이스(`~/.config/gcloud/access_tokens.db*`, `~/.config/gcloud/credentials.db*`, `legacy_credentials`, `logs`), Azure 토큰 캐시(`~/.azure/msal_token_cache*`, `accessTokens.json`, `msal_http_cache*`, `logs`, `telemetry`, `commands`), Kubernetes 검색 캐시(`~/.kube/cache`, `~/.kube/http-cache`).
 
 ## 백업에서 복원하기
 
@@ -35,8 +38,8 @@
 2. 먼저 `manifest.json`만 읽어 디스크를 바꾸기 전에 범주·폴더·앱을 선택 해제할 수 있습니다.
 3. **검토** 단계에서 확인합니다. 교체되는 기존 파일은 `~/.local/state/eitr/restore-backups/<id>/`에 저널과 함께 먼저 보관됩니다.
 4. 패키지는 다음 순서로 다시 설치됩니다: 사용 가능한 공식 패키지는 단일 `pacman` 트랜잭션(누락된 항목은 건너뛰고 목록 표시), AUR 패키지는 `yay`로 하나씩(실패 시 계속 진행), Flatpak, 마지막으로 Eitr 플러그인과 Store 항목은 **일반 검토 승인을 거쳐** 설치됩니다.
-5. 복원된 모니터별 배경화면을 유지한 채 테마와 생성 구성을 다시 빌드하고, 실행 중이면 Hyprland를 다시 불러옵니다.
-6. 복원 후 브라우저, 클라우드 CLI(`gh`, `gcloud`, `aws`, `az`)에 다시 로그인하고 별도 보관한 SSH/GPG 키를 복구하세요.
+5. 일반 파일이 먼저 복원되고 비밀 범주는 마지막에 복원됩니다: SSH 및 GPG 디렉터리는 `0700` 권한을, SSH 키(개인 키와 `.pub`)·GPG 파일·클라우드 설정은 `0600` 권한을 유지하며, GPG 키는 `gpg --import`로 가져오고 WiFi 프로필은 `pkexec`를 통한 `/usr/lib/eitr/eitr-network`로 `root:root` `0600` 권한으로 기록됩니다.
+6. 복원된 모니터별 배경화면을 유지한 채 테마와 생성 구성을 다시 빌드하고, 실행 중이면 Hyprland를 다시 불러옵니다. 복원 후 브라우저와 단기 클라우드/Git CLI 세션(`gh`, `gcloud`, `aws`, `az`)에 다시 로그인하세요.
 
 ## 복원 되돌리기 (Undo)
 
@@ -44,7 +47,7 @@
 eitr backup undo <id>
 ```
 
-`<id>`는 **설정 > 시스템 > 백업 및 복원** 또는 `eitr-backup status`에서 확인할 수 있습니다. Undo는 덮어쓴 파일을 되돌리고 새로 추가된 파일을 지운 뒤 테마를 재생성합니다.
+`<id>`는 **설정 > 시스템 > 백업 및 복원** 또는 `eitr-backup status`에서 확인할 수 있습니다. Undo는 덮어쓴 파일(비밀 파일, GPG 키링, WiFi 프로필 포함)을 되돌리고 새로 추가된 파일을 지운 뒤 테마를 재생성합니다.
 
 ## CLI 참고
 

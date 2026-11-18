@@ -33,7 +33,6 @@ class CategorySpec:
     phase: int = 1
 
 
-# Phase 4 secret categories (git_accounts, cloud_accounts, wifi_networks) register here later.
 CATEGORIES = (
     CategorySpec(
         "eitr_settings",
@@ -65,9 +64,34 @@ CATEGORIES = (
         mark("Hardware-local display and Hyprland overrides for this PC"),
         False,
     ),
+    CategorySpec(
+        "git_accounts",
+        mark("Git accounts"),
+        mark("Git Accounts setup, ~/.gitconfig, named SSH keys, ~/.ssh config and GPG secret keys"),
+        False,
+        secret=True,
+        phase=4,
+    ),
+    CategorySpec(
+        "cloud_accounts",
+        mark("Cloud accounts"),
+        mark("AWS, gcloud, Azure, kubeconfig and Eitr cloud labels without short-lived login tokens"),
+        False,
+        secret=True,
+        phase=4,
+    ),
+    CategorySpec(
+        "wifi_networks",
+        mark("WiFi networks"),
+        mark("Saved iwd and NetworkManager WiFi profiles via the root network helper"),
+        False,
+        secret=True,
+        phase=4,
+    ),
 )
 
 CATEGORY_MAP = {item.id: item for item in CATEGORIES}
+SECRET_CATEGORY_IDS = tuple(item.id for item in CATEGORIES if item.secret)
 
 
 @dataclass(frozen=True)
@@ -80,6 +104,8 @@ class FileEntry:
     link_target: str | None
     mode: int
     size: int
+    secret: bool = False
+    data: bytes | None = None
 
 
 def get_layout(root=None):

@@ -15,6 +15,7 @@ import time
 
 from eitr_backup import ARCHIVE_EXTENSION, FORMAT_VERSION, BackupError, PassphraseError, UnsupportedFormatError
 from eitr_backup.age_stream import format_age_error, open_decrypt_pipeline, require_tool, spawn_age, stop_procs_early
+from eitr_backup.catalog import SECRET_CATEGORY_IDS
 from eitr_backup.exclusions import (
     MACHINE_SETUP_PATHS,
     is_excluded_dir_name,
@@ -22,10 +23,14 @@ from eitr_backup.exclusions import (
     is_never_home_path,
     is_shipped_or_generated,
 )
+from eitr_backup.secrets import validate_secret_archive_member
 from eitr_backup.sizes import available_space, require_destination_space
 from eitr_i18n import tr
 
-FILE_CATEGORIES = frozenset({"eitr_settings", "app_settings", "personal_folders", "machine_setup"})
+FILE_CATEGORIES = frozenset({
+    "eitr_settings", "app_settings", "personal_folders", "machine_setup",
+    "git_accounts", "cloud_accounts", "wifi_networks",
+})
 
 
 @dataclass(frozen=True)
@@ -36,6 +41,7 @@ class StagedFile:
     is_symlink: bool
     link_target: str | None
     staged_path: Path | None
+    secret: bool = False
 
 
 def sanitize_host(hostname=None):
@@ -66,6 +72,8 @@ def validate_manifest(data):
 def migrate_manifest(data):
     migrated = dict(data)
     migrated.setdefault("categories", [])
+    migrated.setdefault("secret_categories", [])
+    migrated.setdefault("secret_entries", [])
     migrated.setdefault("selected_app_settings", [])
     migrated.setdefault("selected_personal_folders", [])
     migrated.setdefault("apps", {})
@@ -97,6 +105,8 @@ def validate_archive_member(member_name, layout):
     category, home_rel = clean.split("/", 1)
     if category not in FILE_CATEGORIES:
         raise BackupError(tr("Unknown backup category rejected: {category}", category=category))
+    if category in SECRET_CATEGORY_IDS:
+        return validate_secret_archive_member(category, home_rel)
     parts = PurePosixPath(home_rel).parts
     if is_never_home_path(home_rel) or is_excluded_file_name(parts[-1]):
         raise BackupError(tr("Excluded sensitive or temporary path rejected: {path}", path=home_rel))
@@ -146,6 +156,11 @@ def _add_tar_entry(tar, entry):
         info.size = 0
         info.mtime = int(time.time())
         tar.addfile(info)
+        return
+    if entry.data is not None:
+        info.mtime = int(time.time())
+        info.size = len(entry.data)
+        tar.addfile(info, io.BytesIO(entry.data))
         return
     try:
         st = entry.source.lstat()
@@ -313,9 +328,9 @@ def extract_archive(archive_path, passphrase, staging_dir, layout, target_home, 
                                                  app_settings=app_settings, personal_folders=personal_folders):
                     continue
                 if member.issym():
-                    if not _safe_symlink_within_home(home_rel, member.linkname, target_home):
+                    if category in SECRET_CATEGORY_IDS or not _safe_symlink_within_home(home_rel, member.linkname, target_home):
                         raise BackupError(tr("Unsafe symlink target rejected: {path}", path=home_rel))
-                    staged.append(StagedFile(home_rel, category, 0o777, True, member.linkname, None))
+                    staged.append(StagedFile(home_rel, category, 0o777, True, member.linkname, None, secret=False))
                     continue
                 if not member.isreg():
                     raise BackupError(tr("Unsupported archive entry type rejected: {path}", path=member.name))
@@ -323,8 +338,11 @@ def extract_archive(archive_path, passphrase, staging_dir, layout, target_home, 
                 out_path.parent.mkdir(parents=True, exist_ok=True)
                 with out_path.open("wb") as dst:
                     shutil.copyfileobj(tar.extractfile(member), dst)
-                mode = stat.S_IMODE(member.mode) if member.mode else 0o644
-                staged.append(StagedFile(home_rel, category, mode, False, None, out_path))
+                is_secret = category in SECRET_CATEGORY_IDS
+                mode = 0o600 if is_secret else (stat.S_IMODE(member.mode) if member.mode else 0o644)
+                if is_secret:
+                    os.chmod(out_path, 0o600)
+                staged.append(StagedFile(home_rel, category, mode, False, None, out_path, secret=is_secret))
     except (tarfile.TarError, json.JSONDecodeError, UnicodeDecodeError) as exc:
         age_err = age_proc.stderr.read().decode("utf-8", errors="replace") if age_proc.poll() is not None else ""
         stop_procs_early((zstd_proc, age_proc))

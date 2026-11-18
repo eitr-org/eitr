@@ -86,6 +86,12 @@ def _cmd_create(args):
             categories.append("personal_folders")
         if args.machine_setup and "machine_setup" not in categories:
             categories.append("machine_setup")
+        if args.git_accounts and "git_accounts" not in categories:
+            categories.append("git_accounts")
+        if args.cloud_accounts and "cloud_accounts" not in categories:
+            categories.append("cloud_accounts")
+        if args.wifi_networks and "wifi_networks" not in categories:
+            categories.append("wifi_networks")
     dest = Path(args.destination).expanduser() if args.destination else (Path.home() / "Backups")
     if same_filesystem(dest, Path.home()) and not args.yes and not args.json and sys.stdin.isatty():
         from eitr_terminal import confirm
@@ -121,6 +127,8 @@ def _cmd_inspect(args):
              count=stats.get("file_count", 0),
              size=format_size(stats.get("total_bytes", 0))))
     print(tr("Categories: {list}", list=", ".join(manifest.get("categories", []))))
+    if manifest.get("secret_categories"):
+        print(tr("Secret categories: {list}", list=", ".join(manifest["secret_categories"])))
     apps = manifest.get("apps", {})
     print(tr("Apps: official={off}, aur={aur}, flatpak={fp}, plugins={pl}, store={st}",
              off=len(apps.get("official", [])),
@@ -203,6 +211,9 @@ def build_parser():
     p_create.add_argument("--app-settings", help=tr("Comma-separated ~/.config app directories"))
     p_create.add_argument("--folders", help=tr("Comma-separated personal folders under $HOME"))
     p_create.add_argument("--machine-setup", action="store_true", help=tr("Include hardware-local Hyprland/display files"))
+    p_create.add_argument("--git-accounts", action="store_true", help=tr("Include Git accounts, SSH keys/config and GPG secret keys"))
+    p_create.add_argument("--cloud-accounts", action="store_true", help=tr("Include AWS, gcloud, Azure and Kubernetes configurations"))
+    p_create.add_argument("--wifi-networks", action="store_true", help=tr("Include saved iwd and NetworkManager WiFi profiles"))
     p_create.add_argument("--no-apps", action="store_true", help=tr("Do not record installed apps"))
     p_create.add_argument("-y", "--yes", action="store_true", help=tr("Confirm same-disk warning non-interactively"))
     p_create.add_argument("--json", action="store_true", help=tr("Print result as JSON"))

@@ -7,6 +7,7 @@ from eitr_backup import ARCHIVE_EXTENSION
 from eitr_backup.archive import default_archive_name
 from eitr_backup.catalog import (
     CATEGORIES,
+    CATEGORY_MAP,
     discover_app_dirs,
     discover_personal_dir_candidates,
     validate_custom_folder,
@@ -35,9 +36,10 @@ def _category_items(selected_ids):
             "label": tr(spec.label),
             "selected": spec.id in selected_ids,
             "hint": tr(spec.description),
+            "secret": spec.secret,
+            "right": tr("secret") if spec.secret else "",
         }
         for spec in CATEGORIES
-        if not spec.secret
     ]
 
 
@@ -115,12 +117,28 @@ def _format_create_review(manifest, destination, home):
     ]
     if same_filesystem(destination, home):
         dest_lines.append(tr("Warning: same disk as home folder; copy to external media before reinstalling."))
-    return [
+    secret_cats = manifest.get("secret_categories", [])
+    sections = [
         (tr("Included data"), cat_lines),
         (tr("Installed apps"), app_lines),
-        (tr("Excluded automatically"), [tr("Browser profiles, cache/lock/socket files, SSH/GPG/cloud/Git credentials")]),
-        (tr("Destination"), dest_lines),
     ]
+    if secret_cats:
+        secret_labels = [tr(CATEGORY_MAP[cat].label) if cat in CATEGORY_MAP else cat for cat in secret_cats]
+        warn_lines = [
+            tr("Warning: secret categories included: {list}", list=", ".join(secret_labels)),
+            tr("Keep this archive and its passphrase private; anyone with both can access these credentials."),
+        ]
+        if manifest.get("secret_entries"):
+            warn_lines.append(tr("Secret entries: {list}", list=", ".join(manifest["secret_entries"])))
+        sections.append((tr("Secrets warning"), warn_lines))
+        excluded_text = tr("Browser profiles, cache/lock/socket files and short-lived cloud/SSO session tokens")
+    else:
+        excluded_text = tr("Browser profiles, cache/lock/socket files, SSH/GPG/cloud/Git/WiFi credentials")
+    sections.extend([
+        (tr("Excluded automatically"), [excluded_text]),
+        (tr("Destination"), dest_lines),
+    ])
+    return sections
 
 
 def collect_create_answers(screen, home=None):
@@ -160,7 +178,7 @@ def collect_create_answers(screen, home=None):
                 wizard.checklist(
                     tr("What to back up"),
                     state["categories"],
-                    note=tr("Browser profiles, caches, sockets and SSH/GPG/cloud credentials are excluded."),
+                    note=tr("Secret categories (Git, cloud, WiFi) are off by default. Browser profiles, caches and short-lived login tokens are always excluded."),
                     require_one=True,
                     allow_back=False,
                 )
@@ -254,6 +272,7 @@ def collect_create_answers(screen, home=None):
                     selected_apps=sel_pkg_map,
                     collected_apps=state["apps_data"],
                     home=home,
+                    preview=True,
                 )
                 state["preview_manifest"] = manifest
                 try:

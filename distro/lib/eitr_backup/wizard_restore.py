@@ -86,6 +86,8 @@ def collect_restore_answers(screen, archive_arg=None, home=None):
                     "id": cat_id,
                     "label": tr(CATEGORY_MAP[cat_id].label) if cat_id in CATEGORY_MAP else cat_id.replace("_", " ").title(),
                     "selected": True,
+                    "secret": bool(cat_id in CATEGORY_MAP and CATEGORY_MAP[cat_id].secret),
+                    "right": tr("secret") if (cat_id in CATEGORY_MAP and CATEGORY_MAP[cat_id].secret) else "",
                     "hint": tr("{count} files ({size})",
                                count=manifest["category_stats"].get(cat_id, {}).get("count", 0),
                                size=format_size(manifest["category_stats"].get(cat_id, {}).get("bytes", 0))),
@@ -142,6 +144,17 @@ def collect_restore_answers(screen, archive_arg=None, home=None):
                     tr("Plugins and Store items will pause for normal review approval."),
                 ]),
             ]
+            chosen_secrets = [cat for cat in chosen if cat in CATEGORY_MAP and CATEGORY_MAP[cat].secret]
+            if chosen_secrets:
+                secret_labels = [tr(CATEGORY_MAP[cat].label) for cat in chosen_secrets]
+                secret_entries = [
+                    entry for entry in manifest.get("secret_entries", [])
+                    if entry.split("/", 1)[0] in chosen_secrets
+                ]
+                warn_lines = [tr("Warning: secret categories included: {list}", list=", ".join(secret_labels))]
+                if secret_entries:
+                    warn_lines.append(tr("Secret entries: {list}", list=", ".join(secret_entries)))
+                sections.append((tr("Secrets warning"), warn_lines))
             try:
                 wizard.review_screen(
                     tr("Review restore"),

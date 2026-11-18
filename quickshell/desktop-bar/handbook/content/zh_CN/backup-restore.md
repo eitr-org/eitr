@@ -18,16 +18,19 @@
    - **个人文件夹**：`$HOME` 下的顶层文件夹（默认不勾选，可逐项选择），以及用于添加 `$HOME` 内子目录的 **添加文件夹…**。系统会在后台计算大小。
    - **已安装应用**：系统基础之外的官方仓库软件包、AUR 软件包、Flatpak 应用、已安装插件及商店项目列表。
    - **本机硬件设置**：默认关闭；适用于当前电脑的显示器与 `hypr/local.lua` 本地覆盖配置。
+   - **Git 账户**（可选机密项，默认关闭）：`eitr/git-accounts.json`、`eitr/git-accounts` 下的托管包含文件、`~/.gitconfig`、各账户指定的 SSH 密钥（私钥和 `.pub`，保持 `0600` 权限）、`~/.ssh/config`、`~/.ssh/known_hosts`，以及通过 `gpg --export-secret-keys --armor` 导出的 GPG 私钥（由 GPG 自行提示输入密钥口令）。
+   - **云账户**（可选机密项，默认关闭）：`~/.aws`、`~/.config/gcloud`、`~/.azure`、`~/.kube` 以及 Eitr 的云标签（`eitr/cloud-contexts.json`、`eitr/cloud-navigation.json`）。
+   - **WiFi 网络**（可选机密项，默认关闭）：通过 `pkexec` 调用 `/usr/lib/eitr/eitr-network` 导出的已保存 iwd（`/var/lib/iwd/*.psk`、`*.8021x`、`*.open`）与 NetworkManager（`/etc/NetworkManager/system-connections/*.nmconnection`）配置文件。
 2. 检查或取消勾选单个应用配置目录及已安装应用（支持按名称搜索及按来源分组）。
 3. 选择目标路径。外接存储设备会显示在 `~/Backups` 之前。仅保存到同一块磁盘时会提示警告；可用空间不足会在写入前拒绝继续。
 4. 输入两次加密口令。口令绝不会写入命令行参数、环境变量或任何文件。
-5. 在 **确认概览** 页面核对摘要后按 **Enter** 以原子方式写入归档，或按 **Esc** 取消且不写入任何文件。
+5. 在 **确认概览** 页面核对摘要（包含机密类别和机密条目时会显示警告）后按 **Enter** 以原子方式写入归档，或按 **Esc** 取消且不写入任何文件。
 
 ### 自动排除的内容
 
 - 浏览器配置文件、各类缓存、锁文件、套接字与临时文件。
 - 系统随附代码、默认配置及派生输出文件（将在还原后自动重建）。
-- 偏好之外的敏感凭据：SSH 与 GPG 密钥、登录密钥环、云端 CLI 配置（`~/.aws`、`~/.azure`、`~/.config/gcloud`、`~/.config/gh`）以及 Git/Wi-Fi 账户密钥。
+- 登录密钥环、Git CLI 令牌（`~/.config/gh`、`eitr/git-accounts/cli`）以及短期云会话缓存：AWS SSO 与 CLI 缓存（`~/.aws/sso/cache`、`~/.aws/cli/cache`）、gcloud 令牌与凭据数据库（`~/.config/gcloud/access_tokens.db*`、`~/.config/gcloud/credentials.db*`、`legacy_credentials`、`logs`）、Azure 令牌缓存（`~/.azure/msal_token_cache*`、`accessTokens.json`、`msal_http_cache*`、`logs`、`telemetry`、`commands`）以及 Kubernetes 发现缓存（`~/.kube/cache`、`~/.kube/http-cache`）。
 
 ## 从备份还原
 
@@ -35,8 +38,8 @@
 2. Eitr 会先读取 `manifest.json`，允许在写入磁盘前取消勾选类别、文件夹或单个应用。
 3. 在 **确认概览** 步骤确认。被替换的原文件会先带有日志备份至 `~/.local/state/eitr/restore-backups/<id>/`。
 4. 软件包按顺序重新安装：可用的官方软件包通过单次 `pacman` 事务安装（缺失的会跳过并列出），AUR 软件包通过 `yay` 逐个安装并在单项失败时继续，随后安装 Flatpak 应用，最后 Eitr 插件与商店项目**必须经过正常的审核确认**（绝不静默安装）。
-5. 重新生成主题和派生配置文件，同时保留已还原的多显示器壁纸配置；若处于活动会话，还会重新加载 Hyprland。
-6. 还原完成后，请重新登录浏览器、云端 CLI（`gh`、`gcloud`、`aws`、`az`）及离线保存的 SSH/GPG 密钥。
+5. 普通文件先还原，机密类别最后还原：SSH 与 GPG 目录保持 `0700` 权限，SSH 密钥（私钥和 `.pub`）、GPG 文件及云配置保持 `0600` 权限，GPG 密钥通过 `gpg --import` 导入，WiFi 配置文件通过 `pkexec` 调用 `/usr/lib/eitr/eitr-network` 以 `root:root` `0600` 权限写入。
+6. 重新生成主题和派生配置文件，同时保留已还原的多显示器壁纸配置；若处于活动会话，还会重新加载 Hyprland。还原完成后，请重新登录浏览器及短期云/Git CLI 会话（`gh`、`gcloud`、`aws`、`az`）。
 
 ## 撤销一次还原
 
@@ -44,7 +47,7 @@
 eitr backup undo <id>
 ```
 
-可在 **设置 > 系统 > 备份与还原** 中或运行 `eitr-backup status` 查看 `<id>`。Undo 会恢复被替换的原文件、删除新增文件并重新生成桌面主题。
+可在 **设置 > 系统 > 备份与还原** 中或运行 `eitr-backup status` 查看 `<id>`。Undo 会恢复被替换的原文件（包括机密文件、GPG 密钥环文件与 WiFi 配置文件）、删除新增文件并重新生成桌面主题。
 
 ## CLI 参考
 

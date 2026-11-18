@@ -295,6 +295,7 @@
     "archinstall did not write exactly one limine.conf",
     "limine.conf has no Arch Linux (linux) entry to rename",
     "pacman.conf has no [eitr] repository to add the testing channel before",
+    "secret",
     "the theme colours must be a small regular file owned by the desktop user",
     "via {host}{key}",
     "{count} occurrences",

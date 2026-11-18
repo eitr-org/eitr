@@ -17,6 +17,7 @@ from eitr_backup.catalog import (
 )
 from eitr_backup.packages import collect_installed_apps
 from eitr_backup.restore import record_last_backup
+from eitr_backup.secrets import discover_cloud_accounts, discover_git_accounts, discover_wifi_networks
 from eitr_i18n import tr
 from eitr_paths import config, data, state
 
@@ -61,6 +62,7 @@ def build_backup_plan(
     state_dir=None,
     layout=None,
     hostname=None,
+    preview=False,
 ):
     """Collect selected entries and build manifest metadata without writing files."""
     chosen_categories = [cat for cat in (categories or DEFAULT_CATEGORIES) if cat in CATEGORY_MAP]
@@ -97,6 +99,15 @@ def build_backup_plan(
     if "machine_setup" in chosen_categories:
         entries.extend(discover_machine_setup(home, config_dir, layout))
 
+    if "git_accounts" in chosen_categories:
+        entries.extend(discover_git_accounts(home, config_dir, preview=preview))
+
+    if "cloud_accounts" in chosen_categories:
+        entries.extend(discover_cloud_accounts(home, config_dir))
+
+    if "wifi_networks" in chosen_categories:
+        entries.extend(discover_wifi_networks(preview=preview))
+
     if "installed_apps" in chosen_categories:
         raw_apps = collected_apps if collected_apps is not None else collect_installed_apps()
         apps_payload = _filter_app_dict(raw_apps, selected_apps)
@@ -119,12 +130,17 @@ def build_backup_plan(
                     break
 
     total_bytes = count_entry_bytes(entries)
+    secret_categories = [cat for cat in chosen_categories if CATEGORY_MAP[cat].secret]
+    secret_entries = [entry.archive_path for entry in entries if entry.secret]
     manifest = {
         "format_version": FORMAT_VERSION,
         "created_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "source_host": sanitize_host(hostname),
         "source_user": getpass.getuser(),
+        "source_home": str(home),
         "categories": chosen_categories,
+        "secret_categories": secret_categories,
+        "secret_entries": secret_entries,
         "selected_app_settings": [app["id"] for app in app_setting_list],
         "selected_personal_folders": [folder["id"] for folder in folder_list],
         "category_stats": dict(cat_stats),
