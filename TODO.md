@@ -19,9 +19,8 @@ item says what decides the next step. Remove an item when it ships;
   iwd and on NetworkManager, copy, disconnect, remove, update and plugin removal).
   - An OpenVPN profile connected to a test server (TLS and address) but no data crossed that
     server's tunnel; try a real OpenVPN server before calling OpenVPN traffic verified.
-  - Plugin package cleanup is nonrecursive (`pacman -R`, `distro/PLUGINS.md`): removing
-    NetworkManager VPN left `networkmanager-vpn-plugin-openvpn`, `-openconnect`, `openvpn` and
-    `libnma` as orphans. Decide whether cleanup should use `pacman -Rs`.
+  - Plugin package cleanup now includes pulled-in dependencies (2026-11-18): VM-test removing
+    NetworkManager VPN again and check `pacman -Qdt` is empty afterwards.
   - Removing a wg-quick tunnel asks for the password through `pkexec rm`; an `eitr-system`
     action would show a clearer prompt.
 - **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
