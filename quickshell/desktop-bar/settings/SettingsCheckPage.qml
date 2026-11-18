@@ -48,4 +48,24 @@ Column {
             }
         }
     }
+    ControlCard { surface: SettingsPalette.surface; line: SettingsPalette.line; gold: SettingsInk.gold; carved: true;
+        title: Eitr.I18n.tr("Cleaning mode")
+        foreground: view.foreground
+        visible: view.page === "check-pc"
+        width: parent.width
+        spacing: 12
+        ControlRow {
+            SettingsTarget { objectName: "setting-check-pc-clean-my-eitr" }
+            controlWidth: 190
+            text: Eitr.I18n.tr("Clean My Eitr")
+            description: Eitr.I18n.tr("Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.")
+            foreground: view.foreground
+            PanelButton {
+                width: parent.width
+                foreground: view.foreground
+                text: Eitr.I18n.tr("Start")
+                onClicked: view.action("system", "Clean My Eitr")
+            }
+        }
+    }
 }

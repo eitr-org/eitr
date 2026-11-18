@@ -52,6 +52,7 @@ GROUPS = [
         ("update", "update the system (with a snapshot) or only pacman/AUR packages"),
         ("picture", "show, set or remove your round profile picture"),
         ("focus", "turn the distraction-free tabbed desktop on or off, or show its status"),
+        ("clean", "lock keyboard, mouse and touchpad for cleaning"),
         ("theme", "list themes, show the current one, or switch"),
         ("handbook", "open the Handbook, optionally at a chapter"),
         ("remind", "a reminder later or at a time (eitr remind 25m Tea), or the list"),
@@ -173,6 +174,9 @@ def parser():
     focus = commands.add_parser("focus", help="distraction-free tabbed desktop")
     focus.add_argument("action", nargs="?", default="status", choices=["on", "off", "toggle", "status"])
 
+    clean = commands.add_parser("clean", help="lock keyboard, mouse and touchpad for cleaning")
+    clean.add_argument("action", nargs="?", default="status", choices=["start", "stop", "status"])
+
     handbook = commands.add_parser("handbook", help='open the Handbook')
     handbook.add_argument("chapter", nargs="?", help='a chapter id, such as troubleshooting')
 
@@ -268,6 +272,8 @@ def plan(arguments, code=None, config=None):
         return ["python3", str(library_script(code, "eitr_avatar.py")), action, *([arguments.file] if action == "save" else [])]
     if command == "focus":
         return ["python3", str(library_script(code, "eitr_focus.py")), arguments.action]
+    if command == "clean":
+        return ["python3", str(library_script(code, "eitr_clean.py")), arguments.action]
     if command == "matrix":
         seconds = ["--seconds", str(arguments.seconds)] if arguments.seconds else []
         return ["python3", str(library_script(code, "eitr_matrix.py")), "--speed", arguments.speed, *seconds]

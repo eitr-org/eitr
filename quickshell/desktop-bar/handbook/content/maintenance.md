@@ -91,3 +91,8 @@ Read-only status: `/usr/lib/eitr/eitr-system mirrors-status` prints JSON with `l
 System Update checks plugin availability at the end without changing approved plugin versions. Review and install plugin updates separately from **Control Center > Plugins > Update Plugins**, **Install > Plugins > Update Plugins**, or `eitr plugin update`. Offline check failures are ignored quietly; after-update hooks are unchanged.
 
 Settings > Updates shows pending package updates and lets you refresh the list. For read-only health checks, see [Troubleshooting](handbook:troubleshooting).
+## Clean My Eitr
+
+**Clean My Eitr** locks keyboard, mouse and touchpad input behind a full-screen overlay on every display so you can wipe them safely. Start it from **Settings > Check This PC**, **Control Center > Tools**, **Walker > Settings > System > Clean My Eitr**, or `eitr clean start`.
+
+While active, compositor shortcuts and notification popups are suppressed, automatic idle locking is inhibited, and power, suspend, hibernate and lid-switch keys are blocked. Hold **Esc** for three seconds to exit, wait for the five-minute safety limit, or run `eitr clean stop` from another terminal (`eitr clean status` prints `on` or `off`).

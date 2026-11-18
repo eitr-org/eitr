@@ -65,6 +65,7 @@ var settings = [
     {"id": "updates-update-channel", "label": "Update Channel", "page": "updates", "tab": "", "keywords": "update channel"},
     {"id": "updates-system-update", "label": "System Update", "page": "updates", "tab": "", "keywords": "system update"},
     {"id": "check-pc-check-this-pc", "label": "Check This PC", "page": "check-pc", "tab": "", "keywords": "check this pc"},
+    {"id": "check-pc-clean-my-eitr", "label": "Clean My Eitr", "page": "check-pc", "tab": "", "keywords": "clean my eitr cleaning mode lock keyboard mouse touchpad wipe"},
     {"id": "assistant-open-ai-usage", "label": "Open AI Usage", "page": "assistant", "tab": "usage", "keywords": "open ai usage"},
     {"id": "assistant-default-assistant", "label": "Default Assistant", "page": "assistant", "tab": "general", "keywords": "default assistant"},
     {"id": "assistant-assistant-access", "label": "Assistant Access", "page": "assistant", "tab": "general", "keywords": "assistant access"},

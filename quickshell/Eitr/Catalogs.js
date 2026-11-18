@@ -1134,7 +1134,13 @@ var qml = {
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications",
     "Copy code": "Copy code",
     "Now using: %1": "Now using: %1",
-    "Open link": "Open link"
+    "Open link": "Open link",
+    "Clean My Eitr": "Clean My Eitr",
+    "Cleaning mode": "Cleaning mode",
+    "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.",
+    "Lock keyboard, mouse and touchpad for cleaning.": "Lock keyboard, mouse and touchpad for cleaning.",
+    "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.",
+    "Maintenance": "Maintenance"
   },
   "pt_BR": {
     "%1 B/s": "%1 B/s",
@@ -2235,7 +2241,13 @@ var qml = {
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação",
     "Copy code": "Copiar código",
     "Now using: %1": "Usando agora: %1",
-    "Open link": "Abrir link"
+    "Open link": "Abrir link",
+    "Clean My Eitr": "Limpar meu Eitr",
+    "Cleaning mode": "Modo de limpeza",
+    "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Teclado, mouse e touchpad estão bloqueados. Segure Esc por 3 segundos para sair.",
+    "Lock keyboard, mouse and touchpad for cleaning.": "Bloquear teclado, mouse e touchpad para limpar.",
+    "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Bloquear teclado, mouse e touchpad para limpar. Segure Esc por 3 segundos para sair.",
+    "Maintenance": "Manutenção"
   },
   "es": {
     "%1 B/s": "%1 B/s",
@@ -3336,7 +3348,13 @@ var qml = {
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
     "Copy code": "Copiar código",
     "Now using: %1": "Usando ahora: %1",
-    "Open link": "Abrir enlace"
+    "Open link": "Abrir enlace",
+    "Clean My Eitr": "Limpiar mi Eitr",
+    "Cleaning mode": "Modo de limpieza",
+    "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "El teclado, el ratón y el panel táctil están bloqueados. Mantén Esc durante 3 segundos para salir.",
+    "Lock keyboard, mouse and touchpad for cleaning.": "Bloquea el teclado, el ratón y el panel táctil para limpiar.",
+    "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Bloquea el teclado, el ratón y el panel táctil para limpiar. Mantén Esc durante 3 segundos para salir.",
+    "Maintenance": "Mantenimiento"
   },
   "de": {
     "%1 B/s": "%1 B/s",
@@ -4437,7 +4455,13 @@ var qml = {
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
     "Copy code": "Code kopieren",
     "Now using: %1": "Verwendet jetzt: %1",
-    "Open link": "Link öffnen"
+    "Open link": "Link öffnen",
+    "Clean My Eitr": "Mein Eitr reinigen",
+    "Cleaning mode": "Reinigungsmodus",
+    "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Tastatur, Maus und Touchpad sind gesperrt. Esc 3 Sekunden lang gedrückt halten, um zu beenden.",
+    "Lock keyboard, mouse and touchpad for cleaning.": "Tastatur, Maus und Touchpad zum Reinigen sperren.",
+    "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Tastatur, Maus und Touchpad zum Reinigen sperren. Esc 3 Sekunden lang gedrückt halten, um zu beenden.",
+    "Maintenance": "Instandhaltung"
   },
   "fr": {
     "%1 B/s": "%1 o/s",
@@ -5538,7 +5562,13 @@ var qml = {
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
     "Copy code": "Copier le code",
     "Now using: %1": "Utilise maintenant : %1",
-    "Open link": "Ouvrir le lien"
+    "Open link": "Ouvrir le lien",
+    "Clean My Eitr": "Nettoyer mon Eitr",
+    "Cleaning mode": "Mode nettoyage",
+    "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Le clavier, la souris et le pavé tactile sont verrouillés. Maintenez Échap pendant 3 secondes pour quitter.",
+    "Lock keyboard, mouse and touchpad for cleaning.": "Verrouiller le clavier, la souris et le pavé tactile pour nettoyer.",
+    "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Verrouiller le clavier, la souris et le pavé tactile pour nettoyer. Maintenez Échap pendant 3 secondes pour quitter.",
+    "Maintenance": "Entretien"
   },
   "ja": {
     "%1 B/s": "%1 B/s",
@@ -6639,7 +6669,13 @@ var qml = {
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  おやすみモード\n\n通知はありません",
     "Copy code": "コードをコピー",
     "Now using: %1": "使用中: %1",
-    "Open link": "リンクを開く"
+    "Open link": "リンクを開く",
+    "Clean My Eitr": "Eitrを掃除",
+    "Cleaning mode": "クリーニングモード",
+    "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "キーボード、マウス、タッチパッドはロックされています。終了するにはEscを3秒間長押ししてください。",
+    "Lock keyboard, mouse and touchpad for cleaning.": "掃除のためにキーボード、マウス、タッチパッドをロックします。",
+    "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "掃除のためにキーボード、マウス、タッチパッドをロックします。終了するにはEscを3秒間長押ししてください。",
+    "Maintenance": "メンテナンス"
   },
   "zh_CN": {
     "%1 B/s": "%1 B/s",
@@ -7740,7 +7776,13 @@ var qml = {
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  请勿打扰\n\n无通知",
     "Copy code": "复制验证码",
     "Now using: %1": "当前使用: %1",
-    "Open link": "打开链接"
+    "Open link": "打开链接",
+    "Clean My Eitr": "清理我的 Eitr",
+    "Cleaning mode": "清洁模式",
+    "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "键盘、鼠标和触摸板已锁定。按住 Esc 键 3 秒即可退出。",
+    "Lock keyboard, mouse and touchpad for cleaning.": "锁定键盘、鼠标和触摸板以便清洁。",
+    "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "锁定键盘、鼠标和触摸板以便清洁。按住 Esc 键 3 秒即可退出。",
+    "Maintenance": "维护"
   },
   "ko": {
     "%1 B/s": "%1 B/s",
@@ -8841,6 +8883,12 @@ var qml = {
     "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  방해 금지\n\n알림 없음",
     "Copy code": "코드 복사",
     "Now using: %1": "사용 중: %1",
-    "Open link": "링크 열기"
+    "Open link": "링크 열기",
+    "Clean My Eitr": "내 Eitr 청소",
+    "Cleaning mode": "청소 모드",
+    "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "키보드, 마우스 및 터치패드가 잠겨 있습니다. 종료하려면 Esc를 3초 동안 길게 누르세요.",
+    "Lock keyboard, mouse and touchpad for cleaning.": "청소를 위해 키보드, 마우스, 터치패드를 잠급니다.",
+    "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "청소를 위해 키보드, 마우스, 터치패드를 잠급니다. 종료하려면 Esc를 3초 동안 길게 누르세요.",
+    "Maintenance": "유지 관리"
   }
 };

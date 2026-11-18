@@ -51,3 +51,8 @@ Status somente de leitura: `/usr/lib/eitr/eitr-system mirrors-status` imprime JS
 A Atualização do sistema verifica novos commits dos plugins ao terminar, sem alterar versões aprovadas. Revise e instale separadamente em **Central de controle > Plugins > Atualizar plugins**, **Instalar > Plugins > Atualizar plugins** ou `eitr plugin update`. Falhas de rede são ignoradas silenciosamente; os hooks after-update permanecem iguais.
 
 Configurações > Atualizações mostra pacotes pendentes e permite renovar a lista. Para verificações somente de leitura, veja [Solução de problemas](handbook:troubleshooting).
+## Limpar meu Eitr
+
+**Limpar meu Eitr** bloqueia a entrada de teclado, mouse e touchpad atrás de uma sobreposição em tela cheia em todos os monitores para que você possa limpá-los com segurança. Inicie em **Configurações > Verificar este PC**, **Central de controle > Ferramentas**, **Walker > Configurações > Sistema > Limpar meu Eitr**, ou com `eitr clean start`.
+
+Enquanto estiver ativo, atalhos do compositor e pop-ups de notificação são suprimidos, o bloqueio automático por inatividade é inibido e as teclas de energia, suspensão, hibernação e tampa ficam bloqueadas. Segure **Esc** por três segundos para sair, aguarde o limite de segurança de cinco minutos ou execute `eitr clean stop` em outro terminal (`eitr clean status` imprime `on` ou `off`).

@@ -616,6 +616,15 @@
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Clean My Eitr": [
+      "quickshell/desktop-bar/panels/ControlCenterTools.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
+      "quickshell/desktop-bar/settings/SettingsCheckPage.qml"
+    ],
+    "Cleaning mode": [
+      "quickshell/desktop-bar/panels/CleanOverlayContent.qml",
+      "quickshell/desktop-bar/settings/SettingsCheckPage.qml"
+    ],
     "Clear": [
       "quickshell/desktop-bar/store/StoreSelection.qml",
       "tools/choice-lists.json"
@@ -1513,6 +1522,9 @@
     "Keyboard · {layout}": [
       "quickshell/desktop-bar/bar/BarZoneItems.qml"
     ],
+    "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": [
+      "quickshell/desktop-bar/panels/CleanOverlayContent.qml"
+    ],
     "Known devices": [
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
@@ -1614,6 +1626,12 @@
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
     ],
+    "Lock keyboard, mouse and touchpad for cleaning.": [
+      "quickshell/desktop-bar/panels/ControlCenterTools.qml"
+    ],
+    "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": [
+      "quickshell/desktop-bar/settings/SettingsCheckPage.qml"
+    ],
     "Lock the screen automatically when you're away.": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
@@ -1663,6 +1681,9 @@
     ],
     "Main display · others go around it": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
+    ],
+    "Maintenance": [
+      "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Manage": [
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
@@ -2984,7 +3005,8 @@
       "quickshell/desktop-bar/clock/StopwatchPage.qml",
       "quickshell/desktop-bar/clock/TimersPage.qml",
       "quickshell/desktop-bar/panels/NightLightSection.qml",
-      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
+      "quickshell/desktop-bar/settings/SettingsCheckPage.qml"
     ],
     "Start Screensaver": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
@@ -4164,6 +4186,9 @@
     "Claude": [
       "elephant/menus/ai-claude.lua"
     ],
+    "Clean My Eitr": [
+      "elephant/menu-rows/system.json"
+    ],
     "Cleanup": [
       "elephant/menu-rows/system-maintenance.json"
     ],
@@ -4982,6 +5007,9 @@
     ],
     "Lock and sleep": [
       "elephant/menu-rows/power.json"
+    ],
+    "Lock keyboard, mouse and touchpad for cleaning": [
+      "elephant/menu-rows/system.json"
     ],
     "Lock the screen": [
       "elephant/menu-rows/power.json"

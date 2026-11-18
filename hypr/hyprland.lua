@@ -300,7 +300,7 @@ hl.config({
 if not focus_bindings then
     for _, swipe in ipairs({{direction = "left", step = 1}, {direction = "right", step = -1}}) do
         hl.gesture({fingers = 3, direction = swipe.direction,
-            action = function() hl.dispatch(workspace_action("step", swipe.step)) end})
+            action = function() if hl.get_current_submap() ~= "clean" then hl.dispatch(workspace_action("step", swipe.step)) end end})
     end
 end
 
@@ -635,6 +635,7 @@ blurred_layer("swayosd", 0.3)
 -- Machine-Local Overrides --
 ------------------------------
 
+dofile(paths.code("hypr/clean-mode.lua"))(paths, shellQuote)
 if focus_bindings then focus_bindings() end
 
 local personal_rules = loadfile(paths.config .. "/hypr/window-rules.lua")

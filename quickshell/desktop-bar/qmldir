@@ -27,6 +27,8 @@ BatteryMenu panels/BatteryMenu.qml
 BluetoothMenu panels/BluetoothMenu.qml
 BrightnessMenu panels/BrightnessMenu.qml
 CalendarMenu panels/CalendarMenu.qml
+CleanOverlay panels/CleanOverlay.qml
+CleanOverlayContent panels/CleanOverlayContent.qml
 ControlCenter panels/ControlCenter.qml
 ControlCenterTile panels/ControlCenterTile.qml
 DisplaySettingsEditor panels/DisplaySettingsEditor.qml

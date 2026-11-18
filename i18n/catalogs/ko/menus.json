@@ -801,5 +801,7 @@
   "Back up or restore settings, apps and folders": "설정, 앱 및 폴더를 백업하거나 복원합니다",
   "Backup and Restore": "백업 및 복원",
   "Clear": "투명",
-  "Use a fully transparent bar": "완전히 투명한 바 사용"
+  "Use a fully transparent bar": "완전히 투명한 바 사용",
+  "Clean My Eitr": "내 Eitr 청소",
+  "Lock keyboard, mouse and touchpad for cleaning": "청소를 위해 키보드, 마우스, 터치패드를 잠금"
 }

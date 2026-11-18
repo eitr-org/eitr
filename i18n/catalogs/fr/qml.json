@@ -1097,5 +1097,11 @@
   "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
   "Copy code": "Copier le code",
   "Now using: %1": "Utilise maintenant : %1",
-  "Open link": "Ouvrir le lien"
+  "Open link": "Ouvrir le lien",
+  "Clean My Eitr": "Nettoyer mon Eitr",
+  "Cleaning mode": "Mode nettoyage",
+  "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Le clavier, la souris et le pavé tactile sont verrouillés. Maintenez Échap pendant 3 secondes pour quitter.",
+  "Lock keyboard, mouse and touchpad for cleaning.": "Verrouiller le clavier, la souris et le pavé tactile pour nettoyer.",
+  "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Verrouiller le clavier, la souris et le pavé tactile pour nettoyer. Maintenez Échap pendant 3 secondes pour quitter.",
+  "Maintenance": "Entretien"
 }

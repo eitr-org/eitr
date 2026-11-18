@@ -9,6 +9,9 @@ import "../NotificationLogic.js" as Logic
 Item {
     id: service
     property bool doNotDisturb: false
+    // Transient popup suppression (such as Cleaning mode) without altering saved DND.
+    property bool transientSuppress: false
+    readonly property bool popupsSuppressed: doNotDisturb || transientSuppress
     // Popups show on every display unless the person keeps them on the main one.
     property bool popupsOnAllDisplays: true
     property bool centerOpen: false
@@ -164,7 +167,7 @@ Item {
         settings.setText(JSON.stringify(preferenceData) + "\n");
         return popupsOnAllDisplays;
     }
-    onDoNotDisturbChanged: if (doNotDisturb) popupIds = []
+    onPopupsSuppressedChanged: if (popupsSuppressed) popupIds = []
     Binding { target: EventSounds; property: "doNotDisturb"; value: service.doNotDisturb }
     onCenterOpenChanged: { if (centerOpen) popupIds = []; trimImages(); Qt.callLater(pruneHistory); }
     function pruneHistory() {
@@ -261,7 +264,7 @@ Item {
             var times = Object.assign({}, service.timestamps);
             times[notification.id] = Date.now();
             service.timestamps = times;
-            if (!notification.lastGeneration && !service.doNotDisturb && !service.centerOpen) {
+            if (!notification.lastGeneration && !service.popupsSuppressed && !service.centerOpen) {
                 var duration = Logic.popupDuration(notification);
                 var deadlines = Object.assign({}, service.popupDeadlines);
                 deadlines[notification.id] = duration ? Date.now() + duration : 0;

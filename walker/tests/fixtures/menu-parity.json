@@ -2869,6 +2869,23 @@
         }
       },
       {
+        "text": "Clean My Eitr",
+        "subtext": "Lock keyboard, mouse and touchpad for cleaning",
+        "keywords": [
+          "clean",
+          "cleaning",
+          "keyboard",
+          "mouse",
+          "touchpad",
+          "wipe",
+          "lock"
+        ],
+        "icon": "󰃢",
+        "actions": {
+          "open": "eitr clean start"
+        }
+      },
+      {
         "text": "Report a Problem",
         "subtext": "Collect a report and send it by email or GitHub",
         "keywords": [
@@ -10130,6 +10147,33 @@
       "key": "cb1740393666ef9bbe62a2812a8ad4f13dacee4f468d32c2208ddb916cdd435f",
       "provider": "menus:system",
       "identifier": "system:5",
+      "text": "Clean My Eitr",
+      "subtext": "Lock keyboard, mouse and touchpad for cleaning",
+      "icon": "󰃢",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "clean",
+        "cleaning",
+        "keyboard",
+        "mouse",
+        "touchpad",
+        "wipe",
+        "lock",
+        "Clean My Eitr",
+        "Clean My Eitr",
+        "Lock keyboard, mouse and touchpad for cleaning"
+      ],
+      "menus": [
+        "settings",
+        "main"
+      ]
+    },
+    {
+      "key": "a2b7fb29da4dbe68e42d8d5b7200b6b2a6c171f928af3091855c4ef7add4395c",
+      "provider": "menus:system",
+      "identifier": "system:6",
       "text": "Report a Problem",
       "subtext": "Collect a report and send it by email or GitHub",
       "icon": "󰃤",
@@ -10153,9 +10197,9 @@
       ]
     },
     {
-      "key": "a2b7fb29da4dbe68e42d8d5b7200b6b2a6c171f928af3091855c4ef7add4395c",
+      "key": "c840bd03917de2ec808d33f233b5dc80ce9675e167bced11d1a2e7e9edf6a8cb",
       "provider": "menus:system",
-      "identifier": "system:6",
+      "identifier": "system:7",
       "text": "System Update",
       "subtext": "Snapshot, then update Arch, AUR, Flatpak and Eitr",
       "icon": "󰜉",

@@ -51,3 +51,8 @@ Walker > Settings > System > Maintenanceで、Choose Fastest Mirrorsを選択し
 System Updateは、最後に承認済みプラグインバージョンを変更することなく、プラグインの提供状況をチェックします。プラグインのアップデートの確認とインストールは、**Control Center > Plugins > Update Plugins**、**Install > Plugins > Update Plugins**、または`eitr plugin update`から個別に実行してください。オフライン時のチェック失敗は静かに無視されます。アップデート後フックは変更されません。
 
 Settings > Updatesには保留中のパッケージアップデートが表示され、リストを更新できます。読み取り専用のヘルスチェックについては、[トラブルシューティング](handbook:troubleshooting)を参照してください。
+## Eitrを掃除
+
+**Eitrを掃除**は、すべての画面に全画面オーバーレイを表示してキーボード、マウス、タッチパッドの入力をロックし、安全に拭き取れるようにします。**Settings > Check This PC**、**Control Center > Tools**、**Walker > Settings > System > Eitrを掃除**、または`eitr clean start`から開始できます。
+
+有効中はコンポジターのショートカットと通知ポップアップが抑制され、自動アイドルロックが無効化され、電源・サスペンド・ハイバネート・蓋スイッチのキーがブロックされます。終了するには**Esc**を3秒間長押しするか、5分の安全制限時間を待つか、別の端末から`eitr clean stop`を実行してください（`eitr clean status`は`on`または`off`を出力します）。

@@ -54,4 +54,10 @@ Column {
         ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Share Folder"); glyph: "󰉋"; onClicked: section.centerRef.menuAction("share", "Folder") }
     }
     }
+    ControlCenterFold { centerRef: section.centerRef;
+    title: Eitr.I18n.tr("Maintenance")
+    GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
+        ControlCenterGridAction { centerRef: section.centerRef; Layout.columnSpan: 2; title: Eitr.I18n.tr("Clean My Eitr"); tooltip: Eitr.I18n.tr("Lock keyboard, mouse and touchpad for cleaning."); glyph: "󰃢"; onClicked: section.centerRef.menuAction("system", "Clean My Eitr") }
+    }
+    }
 }

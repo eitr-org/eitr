@@ -14,7 +14,7 @@ ShellRoot {
     id: shell
     signal handbookOpened()
     NetworkService { id: networkOwner }
-    NotificationService { id: notificationsService }
+    NotificationService { id: notificationsService; transientSuppress: cleanOverlay.active }
     RemoteAccessService { id: remoteAccessService; observing: shell.remotePanelsOpen }
     WelcomeSession { host: shell }
     SettingsWindow {
@@ -58,6 +58,10 @@ ShellRoot {
     PolkitPrompt {
         foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
         defaultScreen: shell.targetScreens()[0] || null
+    }
+    CleanOverlay {
+        id: cleanOverlay
+        foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
     }
     ReloadErrorPopup {
         foreground: shell.fg

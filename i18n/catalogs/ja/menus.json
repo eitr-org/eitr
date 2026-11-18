@@ -801,5 +801,7 @@
   "Back up or restore settings, apps and folders": "設定、アプリ、フォルダーをバックアップまたは復元",
   "Backup and Restore": "バックアップと復元",
   "Clear": "クリア",
-  "Use a fully transparent bar": "完全に透明なバーを使用"
+  "Use a fully transparent bar": "完全に透明なバーを使用",
+  "Clean My Eitr": "Eitrを掃除",
+  "Lock keyboard, mouse and touchpad for cleaning": "掃除のためにキーボード、マウス、タッチパッドをロック"
 }

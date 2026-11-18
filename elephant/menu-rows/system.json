@@ -57,6 +57,23 @@
     }
   },
   {
+    "text": "Clean My Eitr",
+    "subtext": "Lock keyboard, mouse and touchpad for cleaning",
+    "keywords": [
+      "clean",
+      "cleaning",
+      "keyboard",
+      "mouse",
+      "touchpad",
+      "wipe",
+      "lock"
+    ],
+    "icon": "󰃢",
+    "actions": {
+      "open": "eitr clean start"
+    }
+  },
+  {
     "text": "Report a Problem",
     "subtext": "Collect a report and send it by email or GitHub",
     "keywords": [

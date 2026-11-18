@@ -1097,5 +1097,11 @@
   "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
   "Copy code": "Code kopieren",
   "Now using: %1": "Verwendet jetzt: %1",
-  "Open link": "Link öffnen"
+  "Open link": "Link öffnen",
+  "Clean My Eitr": "Mein Eitr reinigen",
+  "Cleaning mode": "Reinigungsmodus",
+  "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Tastatur, Maus und Touchpad sind gesperrt. Esc 3 Sekunden lang gedrückt halten, um zu beenden.",
+  "Lock keyboard, mouse and touchpad for cleaning.": "Tastatur, Maus und Touchpad zum Reinigen sperren.",
+  "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Tastatur, Maus und Touchpad zum Reinigen sperren. Esc 3 Sekunden lang gedrückt halten, um zu beenden.",
+  "Maintenance": "Instandhaltung"
 }

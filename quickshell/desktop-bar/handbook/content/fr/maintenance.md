@@ -57,3 +57,8 @@ Une nouvelle installation programme une tentative en arrière-plan deux minutes 
 La mise à jour du système vérifie les nouveaux commits des plugins à la fin sans changer les versions approuvées. Révisez-les et installez-les séparément dans **Centre de contrôle > Plugins > Mettre à jour les plugins**, **Installer > Plugins > Mettre à jour les plugins** ou avec `eitr plugin update`. Les erreurs réseau sont ignorées silencieusement ; les hooks after-update restent inchangés.
 
 Paramètres > Mises à jour affiche les paquets en attente et permet de renouveler la liste. Pour les vérifications en lecture seule, voir [Dépannage](handbook:troubleshooting).
+## Nettoyer mon Eitr
+
+**Nettoyer mon Eitr** verrouille le clavier, la souris et le pavé tactile derrière une superposition plein écran sur chaque moniteur afin de les essuyer en toute sécurité. Lancez-le depuis **Paramètres > Vérifier ce PC**, **Centre de contrôle > Outils**, **Walker > Paramètres > Système > Nettoyer mon Eitr**, ou avec `eitr clean start`.
+
+Tant qu’il est actif, les raccourcis du compositeur et les notifications contextuelles sont suspendus, le verrouillage automatique d’inactivité est inhibé et les touches d’alimentation, de mise en veille, d’hibernation et de capot sont bloquées. Maintenez **Esc** pendant trois secondes pour quitter, attendez la limite de sécurité de cinq minutes ou exécutez `eitr clean stop` depuis un autre terminal (`eitr clean status` affiche `on` ou `off`).

@@ -51,3 +51,8 @@ Nur lesender Status: `/usr/lib/eitr/eitr-system mirrors-status` gibt JSON mit `l
 Die Systemaktualisierung prüft am Ende auf neue Plugin-Commits, ohne bestätigte Versionen zu ändern. Prüfe und installiere sie separat unter **Kontrollzentrum > Plugins > Plugins aktualisieren**, **Installieren > Plugins > Plugins aktualisieren** oder mit `eitr plugin update`. Netzwerkfehler werden still ignoriert; after-update-Hooks bleiben unverändert.
 
 Einstellungen > Aktualisierungen zeigt ausstehende Pakete und kann die Liste erneuern. Schreibgeschützte Zustandsprüfungen erklärt [Fehlerbehebung](handbook:troubleshooting).
+## Mein Eitr reinigen
+
+**Mein Eitr reinigen** sperrt Tastatur-, Maus- und Touchpad-Eingaben hinter einer Vollbildüberlagerung auf jedem Bildschirm, damit du sie sicher abwischen kannst. Starte den Modus über **Einstellungen > Diesen PC prüfen**, **Kontrollzentrum > Werkzeuge**, **Walker > Einstellungen > System > Mein Eitr reinigen** oder mit `eitr clean start`.
+
+Solange er aktiv ist, sind Compositor-Kürzel und Benachrichtigungs-Popups unterdrückt, die automatische Leerlauf-Sperre gehemmt sowie Ein-/Aus-, Bereitschafts-, Ruhezustands- und Deckelschalter-Tasten blockiert. Halte **Esc** drei Sekunden lang gedrückt, um zu beenden, warte das fünfminütige Sicherheitslimit ab oder führe in einem anderen Terminal `eitr clean stop` aus (`eitr clean status` gibt `on` oder `off` aus).
