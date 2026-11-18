@@ -1094,5 +1094,8 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  刚刚",
   "󰂚  No notifications": "󰂚  无通知",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  请勿打扰\n\n无通知"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  请勿打扰\n\n无通知",
+  "Copy code": "复制验证码",
+  "Now using: %1": "当前使用: %1",
+  "Open link": "打开链接"
 }

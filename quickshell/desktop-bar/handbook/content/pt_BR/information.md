@@ -33,4 +33,6 @@ As notificações têm uma borda fina na cor de destaque do tema. As críticas u
 
 Clicar em uma notificação executa a ação principal dela. Uma sem ação abre o app que a enviou: a janela dele ou, no herdr, o terminal com o herdr no espaço de trabalho e na aba que a notificação cita. Cada cartão mostra o ícone próprio do app quando existe; senão, o sino.
 
+Quando uma notificação informa explicitamente um código de verificação, OTP ou PIN, o cartão oferece **Copiar código** para copiar os dígitos para a área de transferência sem copiar números de pedido, portas, preços, anos ou telefones. Quando o corpo contém um link `http://` ou `https://`, ele oferece **Abrir link** para abrir o primeiro link no navegador; outros esquemas URI são ignorados.
+
 Os pop-ups aparecem em todas as telas. Desligue Pop-ups em todas as telas em Configurações > Notificações para mostrá-los apenas na tela principal. A mesma página tem Não perturbe e Notificações de falhas.

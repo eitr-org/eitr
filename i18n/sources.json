@@ -758,10 +758,14 @@
       "distro/store-kinds.json"
     ],
     "Copied": [
+      "quickshell/desktop-bar/notifications/NotificationCard.qml",
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
     "Copied, ready to paste": [
       "quickshell/desktop-bar/capture/BeautifyContent.qml"
+    ],
+    "Copy code": [
+      "quickshell/desktop-bar/notifications/NotificationCard.qml"
     ],
     "Copy picture": [
       "quickshell/desktop-bar/capture/BeautifyContent.qml"
@@ -1971,6 +1975,9 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
+    "Now using: %1": [
+      "quickshell/desktop-bar/bar/BarMomentSources.qml"
+    ],
     "Number of workspaces": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
@@ -2081,6 +2088,9 @@
     ],
     "Open System Monitor": [
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
+    ],
+    "Open link": [
+      "quickshell/desktop-bar/notifications/NotificationCard.qml"
     ],
     "Open quick toggles, media and tools": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml"

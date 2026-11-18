@@ -24,6 +24,8 @@ ShellRoot {
     QtObject { id: bar; property bool dynamicLayout: true; property var notificationsRef: notices; property var keyboardMenu: keyboard; property var mediaStrip: strip }
     Bar.BarMoments { id: moments; host: shell; barHost: bar; middle: island; media: mediaIsland }
     QtObject { id: audio; property real volume: 0.5; property bool muted: false }
+    QtObject { id: sinkA; property bool ready: true; property int id: 101; property string name: "alsa_output.pci.analog"; property string description: "Built-in Audio Analog Stereo"; property string nickname: ""; property var properties: ({}); property var audio: null }
+    QtObject { id: sinkB; property bool ready: true; property int id: 102; property string name: "alsa_output.pci.hdmi"; property string description: "GA104 High Definition Audio Controller Digital Stereo (HDMI) [34GL750]"; property string nickname: "34GL750"; property var properties: ({}); property var audio: null }
     QtObject { id: device; property bool connected: false; property string icon: "audio-headphones"; property string name: "Headphones"; property string address: "fixture"; property bool batteryAvailable: true; property real battery: 0.8 }
     QtObject { id: adapter; property var devices: ({values:[device]}) }
     function sources() { return moments.children.find(child => child.syncPopups !== undefined); }
@@ -98,6 +100,17 @@ ShellRoot {
                     audio.muted = true;
                 } else if (shell.stage === 18) {
                     require(moments.current.icon === "󰖁", "Mute icon missing");
+                    clear(); sources().sink = sinkA;
+                } else if (shell.stage === 19) {
+                    require(!moments.current, "First ready sink created moment");
+                    sources().sink = sinkB;
+                } else if (shell.stage === 20) {
+                    require(moments.current && moments.current.kind === "audio" && moments.current.text === "Now using: 34GL750" && moments.current.icon === "\u{F0379}", "Audio output change moment missing");
+                    clear(); sources().sink = null;
+                } else if (shell.stage === 21) {
+                    sources().sink = sinkB;
+                } else if (shell.stage === 22) {
+                    require(!moments.current, "Flapping audio output was not debounced");
                     clear(); levelEvent.running = true;
                 } else {
                     require(moments.current && moments.current.kind === "brightness" && moments.current.level === 100, "Watched brightness event missing");

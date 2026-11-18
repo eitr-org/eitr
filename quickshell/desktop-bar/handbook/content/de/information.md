@@ -33,4 +33,6 @@ Benachrichtigungen haben einen dünnen Rahmen in der Akzentfarbe des Themes. Kri
 
 Ein Klick auf eine Benachrichtigung führt ihre Hauptaktion aus. Eine ohne Aktion öffnet die App, die sie gesendet hat: ihr Fenster oder bei herdr das Terminal mit herdr, auf dem Arbeitsbereich und Tab, die die Benachrichtigung nennt. Jede Karte zeigt das eigene Symbol der App, sonst die Glocke.
 
+Wenn eine Benachrichtigung ausdrücklich einen Bestätigungscode, ein OTP oder eine PIN nennt, bietet die Karte **Code kopieren** an, um nur die Ziffern in die Zwischenablage zu kopieren, ohne Bestellnummern, Ports, Preise, Jahreszahlen oder Telefonnummern zu erfassen. Enthält der Text einen `http://`- oder `https://`-Link, bietet sie **Link öffnen** an, um den ersten Link im Browser zu öffnen; andere URI-Schemata werden ignoriert.
+
 Popups erscheinen auf jedem Bildschirm. Schalte Popups auf jedem Bildschirm unter Einstellungen > Benachrichtigungen aus, damit sie nur auf dem Hauptbildschirm erscheinen. Dort findest du auch Nicht stören und Absturzbenachrichtigungen.

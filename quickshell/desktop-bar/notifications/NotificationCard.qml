@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Controls.Basic
 import Quickshell
 import "../PanelStyle.js" as PanelStyle
+import "../NotificationDetect.js" as NotificationDetect
 import "../NotificationLogic.js" as NotificationLogic
 
 Rectangle {
@@ -35,6 +36,10 @@ Rectangle {
         : (notification.desktopEntry ? DesktopEntries.byId(notification.desktopEntry) : null)
           || (notification.appName ? DesktopEntries.heuristicLookup(notification.appName) : null)
     readonly property var shown: NotificationLogic.presentation(notification)
+    readonly property var detected: notification ? NotificationDetect.scan(shown.summary, shown.body) : ({code: "", link: ""})
+    property bool codeCopied: false
+    onNotificationChanged: { codeCopied = false; copiedTimer.stop(); }
+    Timer { id: copiedTimer; interval: 1500; onTriggered: card.codeCopied = false }
     signal activated(int notificationId)
     // Without an action of its own, a click opens the app that sent the notification.
     function openApp() {
@@ -45,6 +50,17 @@ Rectangle {
         var id = notification.id;
         activated(id);
         action.invoke();
+    }
+    function copyCode() {
+        if (!detected.code) return;
+        Quickshell.execDetached(NotificationLogic.copyCommand(detected.code));
+        codeCopied = true;
+        copiedTimer.restart();
+    }
+    function openLink() {
+        if (!detected.link) return;
+        activated(notification.id);
+        Quickshell.execDetached(NotificationLogic.openLinkCommand(detected.link, Eitr.Paths.code("quickshell/desktop-bar/scripts/notification-open.py")));
     }
     implicitHeight: content.implicitHeight + 28
     radius: DesktopStyle.radius(PanelStyle.cornerRadius)
@@ -188,7 +204,13 @@ Rectangle {
         // equal columns, and an odd last action spans the row.
         Flow {
             id: actionGrid
-            readonly property var actions: card.notification ? card.notification.actions.filter(action => action.identifier !== "default" && action.identifier !== "inline-reply") : []
+            readonly property var nativeActions: card.notification ? card.notification.actions.filter(action => action.identifier !== "default" && action.identifier !== "inline-reply") : []
+            readonly property var actions: {
+                var items = nativeActions.map(action => ({kind: "action", identifier: action.identifier, text: action.text, action: action}));
+                if (card.detected.code) items.push({kind: "copy-code", identifier: "copy-code"});
+                if (card.detected.link) items.push({kind: "open-link", identifier: "open-link"});
+                return items;
+            }
             width: parent.width
             spacing: 6
             Repeater {
@@ -198,11 +220,20 @@ Rectangle {
                     required property int index
                     readonly property bool fullRow: actionGrid.actions.length === 1 || (index === actionGrid.actions.length - 1 && index % 2 === 0)
                     objectName: "notificationAction_" + modelData.identifier
-                    text: modelData.text
+                    text: modelData.kind === "copy-code" ? (card.codeCopied ? Eitr.I18n.tr("Copied") : Eitr.I18n.tr("Copy code"))
+                        : modelData.kind === "open-link" ? Eitr.I18n.tr("Open link")
+                        : modelData.text
+                    leadingIcon: modelData.kind === "copy-code" ? (card.codeCopied ? "\u{F012C}" : "\u{F018F}")
+                        : modelData.kind === "open-link" ? "\u{F0339}"
+                        : ""
                     width: fullRow ? actionGrid.width : (actionGrid.width - actionGrid.spacing) / 2
                     height: 32
                     foreground: card.foreground
-                    onClicked: card.invokeAction(modelData)
+                    onClicked: {
+                        if (modelData.kind === "copy-code") card.copyCode();
+                        else if (modelData.kind === "open-link") card.openLink();
+                        else card.invokeAction(modelData.action);
+                    }
                 }
             }
         }

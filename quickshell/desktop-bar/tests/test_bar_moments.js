@@ -67,3 +67,51 @@ console.log("Dynamic queue: priorities, preemption, repeat replacement, expiry, 
     state = Queue.advance(state, 11000, () => false, () => false);
     assert.equal(state.active, null);
 }
+
+// Audio output change deduplication: ignore startup and <1s flapping, allow real switches.
+{
+    let audio = queue.createAudioOutputState();
+    let res = queue.updateAudioOutput(audio, {key: "alsa_output.pci.analog", label: "Built-in Audio", icon: "󰓃"}, 100);
+    audio = res.state;
+    assert.equal(res.emit, null, "Initial device at startup must not emit");
+
+    let delayed = queue.createAudioOutputState();
+    delayed = queue.updateAudioOutput(delayed, null, 0).state;
+    res = queue.updateAudioOutput(delayed, {key: "alsa_output.pci.analog", label: "Built-in Audio", icon: "󰓃"}, 500);
+    assert.equal(res.emit, null, "First ready device after null startup must not emit");
+
+    res = queue.updateAudioOutput(audio, {key: "alsa_output.pci.analog", label: "Built-in Audio", icon: "󰓃"}, 200);
+    audio = res.state;
+    assert.equal(res.emit, null, "Unchanged device must not emit");
+
+    res = queue.updateAudioOutput(audio, {key: "bluez_output.1", label: "WH-1000XM5", icon: "󰋋"}, 2000);
+    audio = res.state;
+    assert.deepEqual(res.emit, {key: "bluez_output.1", label: "WH-1000XM5", icon: "󰋋"});
+
+    // Device drops and reappears within 1s: flapping is debounced.
+    audio = queue.updateAudioOutput(audio, null, 2400).state;
+    res = queue.updateAudioOutput(audio, {key: "bluez_output.1", label: "WH-1000XM5", icon: "󰋋"}, 2900);
+    audio = res.state;
+    assert.equal(res.emit, null, "Reappearance within 1s must be debounced");
+
+    // Transient switch to A and back to B within 1s: B is debounced.
+    res = queue.updateAudioOutput(audio, {key: "alsa_output.pci.analog", label: "Built-in Audio", icon: "󰓃"}, 4000);
+    audio = res.state;
+    assert.equal(res.emit.key, "alsa_output.pci.analog");
+    res = queue.updateAudioOutput(audio, {key: "bluez_output.1", label: "WH-1000XM5", icon: "󰋋"}, 4600);
+    audio = res.state;
+    assert.equal(res.emit, null, "Transient return within 1s must be debounced");
+
+    // Switching back >= 1s later is announced.
+    res = queue.updateAudioOutput(audio, {key: "alsa_output.pci.analog", label: "Built-in Audio", icon: "󰓃"}, 6000);
+    assert.deepEqual(res.emit, {key: "alsa_output.pci.analog", label: "Built-in Audio", icon: "󰓃"});
+
+    // Audio moments share queue priority/duration and replace previous audio moments.
+    let q = queue.push(queue.create(), {kind: "audio", icon: "󰋋", text: "Now using: Headphones"}, 0, free);
+    assert.equal(q.active.kind, "audio");
+    assert.equal(q.active.deadline, 3000);
+    q = queue.push(q, {kind: "audio", icon: "󰍹", text: "Now using: 34GL750"}, 200, free);
+    assert.equal(q.active.text, "Now using: 34GL750");
+    assert.equal(q.queue.length, 0);
+}
+console.log("Audio output moment dedup checks passed");

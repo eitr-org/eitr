@@ -231,4 +231,36 @@ TestCase {
         compare(fallback.visible, data.appIcon);
         compare(findChild(card, "notificationFallbackGlyph").visible, !data.appIcon);
     }
+    function test_copy_code_and_open_link() {
+        var notification = notice();
+        notification.hasInlineReply = false;
+        notification.actions = [];
+        notification.summary = "Sign in";
+        notification.body = "Your verification code: 12-34-56\nOpen https://example.com/auth";
+        var card = createTemporaryObject(cardComponent, test, {notification: notification});
+        wait(20);
+        compare(card.detected.code, "123456");
+        compare(card.detected.link, "https://example.com/auth");
+        var copyButton = findChild(card, "notificationAction_copy-code");
+        var linkButton = findChild(card, "notificationAction_open-link");
+        verify(copyButton && copyButton.visible);
+        verify(linkButton && linkButton.visible);
+        compare(copyButton.text, "Copy code");
+        compare(linkButton.text, "Open link");
+        mouseClick(copyButton);
+        verify(card.codeCopied);
+        compare(copyButton.text, "Copied");
+        compare(activatedId, 0);
+    }
+    function test_non_code_and_non_http_do_not_add_buttons() {
+        var notification = notice();
+        notification.hasInlineReply = false;
+        notification.actions = [];
+        notification.summary = "Order #482913";
+        notification.body = "Total $49.99 on port 8080 at 14:30. file:///etc/passwd";
+        var card = createTemporaryObject(cardComponent, test, {notification: notification});
+        wait(20);
+        compare(findChild(card, "notificationAction_copy-code"), null);
+        compare(findChild(card, "notificationAction_open-link"), null);
+    }
 }

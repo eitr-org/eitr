@@ -1131,7 +1131,10 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  now",
     "󰂚  No notifications": "󰂚  No notifications",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Do Not Disturb\n\nNo notifications",
+    "Copy code": "Copy code",
+    "Now using: %1": "Now using: %1",
+    "Open link": "Open link"
   },
   "pt_BR": {
     "%1 B/s": "%1 B/s",
@@ -2229,7 +2232,10 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  agora",
     "󰂚  No notifications": "󰂚  Nenhuma notificação",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Não perturbe\n\nNenhuma notificação",
+    "Copy code": "Copiar código",
+    "Now using: %1": "Usando agora: %1",
+    "Open link": "Abrir link"
   },
   "es": {
     "%1 B/s": "%1 B/s",
@@ -3327,7 +3333,10 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  ahora",
     "󰂚  No notifications": "󰂚  No hay notificaciones",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
+    "Copy code": "Copiar código",
+    "Now using: %1": "Usando ahora: %1",
+    "Open link": "Abrir enlace"
   },
   "de": {
     "%1 B/s": "%1 B/s",
@@ -4425,7 +4434,10 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  jetzt",
     "󰂚  No notifications": "󰂚  Keine Benachrichtigungen",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Nicht stören\n\nKeine Benachrichtigungen",
+    "Copy code": "Code kopieren",
+    "Now using: %1": "Verwendet jetzt: %1",
+    "Open link": "Link öffnen"
   },
   "fr": {
     "%1 B/s": "%1 o/s",
@@ -5523,7 +5535,10 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  maintenant",
     "󰂚  No notifications": "󰂚  Aucune notification",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  Ne pas déranger\n\nAucune notification",
+    "Copy code": "Copier le code",
+    "Now using: %1": "Utilise maintenant : %1",
+    "Open link": "Ouvrir le lien"
   },
   "ja": {
     "%1 B/s": "%1 B/s",
@@ -6621,7 +6636,10 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  今",
     "󰂚  No notifications": "󰂚  通知はありません",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  おやすみモード\n\n通知はありません"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  おやすみモード\n\n通知はありません",
+    "Copy code": "コードをコピー",
+    "Now using: %1": "使用中: %1",
+    "Open link": "リンクを開く"
   },
   "zh_CN": {
     "%1 B/s": "%1 B/s",
@@ -7719,7 +7737,10 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  刚刚",
     "󰂚  No notifications": "󰂚  无通知",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  请勿打扰\n\n无通知"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  请勿打扰\n\n无通知",
+    "Copy code": "复制验证码",
+    "Now using: %1": "当前使用: %1",
+    "Open link": "打开链接"
   },
   "ko": {
     "%1 B/s": "%1 B/s",
@@ -8817,6 +8838,9 @@ var qml = {
     "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
     "•  now": "•  방금",
     "󰂚  No notifications": "󰂚  알림 없음",
-    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  방해 금지\n\n알림 없음"
+    "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  방해 금지\n\n알림 없음",
+    "Copy code": "코드 복사",
+    "Now using: %1": "사용 중: %1",
+    "Open link": "링크 열기"
   }
 };

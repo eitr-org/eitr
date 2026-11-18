@@ -5,10 +5,13 @@ window whose class matches the app or its desktop entry. Herdr notifications com
 its background server, so they focus the terminal running a herdr client and switch
 herdr to the workspace and tab the notification names ("Doola · 1 · Automations")."""
 import argparse
+import ipaddress
 import json
 from pathlib import Path
+import re
 import shutil
 import subprocess
+from urllib.parse import urlsplit
 
 
 def run(command, timeout=3):
@@ -76,6 +79,51 @@ def herdr_names(body):
     return (names + ["", ""])[:2]
 
 
+def safe_http_url(raw):
+    """Return a normalized http(s) URL, or an empty string for any unsafe or non-http input."""
+    if not isinstance(raw, str) or not raw or len(raw) > 4096:
+        return ""
+    if re.search(r"[\x00-\x20\x7f-\x9f\\<>\"']", raw):
+        return ""
+    if re.search(r"%(?:0[0-9a-f]|1[0-9a-f]|7f|25|5c)|%(?![0-9a-f]{2})", raw, re.IGNORECASE):
+        return ""
+    parts = urlsplit(raw)
+    scheme = parts.scheme.lower()
+    if scheme not in {"http", "https"} or not parts.netloc or parts.username or parts.password or "@" in parts.netloc:
+        return ""
+    try:
+        port = parts.port
+    except ValueError:
+        return ""
+    if port is not None and not (1 <= port <= 65535):
+        return ""
+    host = (parts.hostname or "").lower().rstrip(".")
+    if not host or len(host) > 253:
+        return ""
+    if host != "localhost":
+        try:
+            ip = ipaddress.ip_address(host)
+        except ValueError:
+            if not re.fullmatch(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+", host):
+                return ""
+            if re.fullmatch(r"(?:0x[0-9a-f]*|[0-9]+)", host.rsplit(".", 1)[-1], re.IGNORECASE):
+                return ""
+        else:
+            if ip.version != 4 or any(re.match(r"^0\d", octet) for octet in host.split(".")):
+                return ""
+    authority = host + (f":{port}" if port is not None else "")
+    suffix = (parts.path or "/") + (f"?{parts.query}" if parts.query else "") + (f"#{parts.fragment}" if parts.fragment else "")
+    return f"{scheme}://{authority}{suffix}"
+
+
+def open_url(url):
+    try:
+        subprocess.Popen(["xdg-open", url], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+    except OSError:
+        return False
+    return True
+
+
 def focus(window):
     address = str(window.get("address", ""))
     if address.startswith("0x"):
@@ -88,7 +136,13 @@ def main(argv=None):
     parser.add_argument("--desktop-entry", default="")
     parser.add_argument("--pid", type=int, default=0)
     parser.add_argument("--body", default="")
+    parser.add_argument("--url", default="")
     options = parser.parse_args(argv)
+    if options.url:
+        url = safe_http_url(options.url)
+        if not url:
+            return 1
+        return 0 if open_url(url) else 1
     try:
         windows = json.loads(run(["hyprctl", "clients", "-j"]) or "[]")
     except ValueError:

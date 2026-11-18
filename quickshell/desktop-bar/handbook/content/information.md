@@ -58,6 +58,8 @@ of stacking another card.
 
 Clicking a notification runs its main action. One without an action opens the app that sent it: its window, or for herdr the terminal running herdr, switched to the workspace and tab the notification names. Each card shows the app's own icon when it has one, else the bell.
 
+When a notification explicitly names a verification code, OTP or PIN, the card offers **Copy code** to copy the digits to the clipboard without copying order numbers, ports, prices, years or phone numbers. When the body contains an `http://` or `https://` link, it offers **Open link** to open the first link in your browser; other URI schemes are ignored.
+
 Popups show on every display. Turn off Popups on Every Display in Settings > Notifications
 to keep them on the main display only. The same page has Do Not Disturb and Crash
 Notifications.

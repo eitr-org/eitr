@@ -15,12 +15,13 @@ TIMER = '''
                 {kind:"volume", icon:"", text:"Volume", level:64},
                 {kind:"brightness", icon:"󰃠", text:"Brightness", level:42},
                 {kind:"song", icon:"󰝚", text:"Northern Lights · Eitr Ensemble"},
+                {kind:"audio", icon:"󰋋", text:"Now using: WH-1000XM5"},
                 {kind:"bluetooth", icon:"󰋋", text:"Headphones · Connected · 80%"},
                 {kind:"layout", icon:"󰌌", text:"US → BR"},
                 {kind:"volume", icon:"󰖁", text:"Mute", level:0},
                 {kind:"notification", id:2, critical:true, icon:"󰂚", text:"Critical alert"}
             ]
-            property var names: ["notification", "volume", "brightness", "song", "bluetooth", "layout", "mute", "critical"]
+            property var names: ["notification", "volume", "brightness", "song", "audio", "bluetooth", "layout", "mute", "critical"]
             property int sampleIndex: -1
             property real restingWidth: 0
             Timer {
@@ -138,5 +139,5 @@ class BarMomentRenderTests(unittest.TestCase):
                         self.assertIn('DYNAMIC_MOMENTS_OK', output)
                         for error in ('ReferenceError', 'TypeError', 'Binding loop', 'Cannot anchor', 'Unable to assign', 'Error:'):
                             self.assertNotIn(error, output)
-                        for name in ('rest', 'notification', 'volume', 'brightness', 'song', 'bluetooth', 'layout', 'mute', 'critical'):
+                        for name in ('rest', 'notification', 'volume', 'brightness', 'song', 'audio', 'bluetooth', 'layout', 'mute', 'critical'):
                             self.assertTrue((capture / f'moment-{name}-{theme}{suffix}.png').is_file())

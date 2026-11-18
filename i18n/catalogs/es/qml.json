@@ -1094,5 +1094,8 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  ahora",
   "󰂚  No notifications": "󰂚  No hay notificaciones",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  No molestar\n\nNo hay notificaciones",
+  "Copy code": "Copiar código",
+  "Now using: %1": "Usando ahora: %1",
+  "Open link": "Abrir enlace"
 }

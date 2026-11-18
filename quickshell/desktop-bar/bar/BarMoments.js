@@ -1,6 +1,7 @@
 // Pure queue state. The QML owner supplies time and per-island interaction blocks.
-var priorities = {critical: 6, volume: 5, brightness: 5, notification: 4, bluetooth: 3, layout: 2, song: 1};
-var durations = {volume: 1500, brightness: 1500, notification: 4000, bluetooth: 3000, layout: 2000, song: 3000};
+var priorities = {critical: 6, volume: 5, brightness: 5, notification: 4, audio: 3, bluetooth: 3, layout: 2, song: 1};
+var durations = {volume: 1500, brightness: 1500, notification: 4000, audio: 3000, bluetooth: 3000, layout: 2000, song: 3000};
+var audioOutputDebounceMs = 1000;
 function create() { return {active: null, queue: []}; }
 function island(moment) { return moment.kind === "song" ? "media" : "middle"; }
 function priority(moment) { return moment.critical ? priorities.critical : priorities[moment.kind]; }
@@ -42,4 +43,42 @@ function wakeAt(state, now) {
     if (state.active && state.active.deadline) deadlines.push(state.active.deadline);
     return deadlines.length ? Math.max(1, Math.min.apply(null, deadlines) - now) : 0;
 }
-if (typeof module !== "undefined") module.exports = {create, push, advance, retainNotifications, wakeAt, island};
+function createAudioOutputState() {
+    return {initialized: false, currentKey: "", recent: {}};
+}
+// Ignore bar start-up and suppress the same device reappearing within the debounce window.
+function updateAudioOutput(state, device, now, debounceMs) {
+    const windowMs = debounceMs === undefined ? audioOutputDebounceMs : debounceMs;
+    const key = device && device.key ? String(device.key) : "";
+    const recent = {};
+    if (state && state.recent) {
+        Object.keys(state.recent).forEach(entry => {
+            if (now - state.recent[entry] < windowMs) recent[entry] = state.recent[entry];
+        });
+    }
+    if (state && state.currentKey && state.currentKey !== key) recent[state.currentKey] = now;
+    if (!key) {
+        return {state: {initialized: !!(state && state.initialized), currentKey: "", recent: recent}, emit: null};
+    }
+    if (!state || !state.initialized) {
+        recent[key] = now;
+        return {state: {initialized: true, currentKey: key, recent: recent}, emit: null};
+    }
+    if (key === state.currentKey) {
+        return {state: {initialized: true, currentKey: key, recent: recent}, emit: null};
+    }
+    const flapping = recent[key] !== undefined && now - recent[key] < windowMs;
+    recent[key] = now;
+    const label = device.label ? String(device.label) : key;
+    const icon = device.icon ? String(device.icon) : "\u{F04C3}";
+    return {
+        state: {initialized: true, currentKey: key, recent: recent},
+        emit: flapping ? null : {key: key, label: label, icon: icon}
+    };
+}
+if (typeof module !== "undefined") {
+    module.exports = {
+        create, push, advance, retainNotifications, wakeAt, island,
+        createAudioOutputState, updateAudioOutput, audioOutputDebounceMs
+    };
+}

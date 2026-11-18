@@ -108,4 +108,8 @@ QtObject {
             } catch (error) { devices.renamed = {}; }
         }
     }
+    property PreferenceWatch storeWatch: PreferenceWatch {
+        path: Eitr.Paths.config("eitr/audio-names.json")
+        onChanged: devices.store.reload()
+    }
 }

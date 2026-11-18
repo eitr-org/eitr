@@ -1094,5 +1094,8 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  今",
   "󰂚  No notifications": "󰂚  通知はありません",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  おやすみモード\n\n通知はありません"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  おやすみモード\n\n通知はありません",
+  "Copy code": "コードをコピー",
+  "Now using: %1": "使用中: %1",
+  "Open link": "リンクを開く"
 }

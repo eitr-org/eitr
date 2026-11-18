@@ -1094,5 +1094,8 @@
   "{width}×{height} · {rate} Hz": "{width}×{height} · {rate} Hz",
   "•  now": "•  방금",
   "󰂚  No notifications": "󰂚  알림 없음",
-  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  방해 금지\n\n알림 없음"
+  "󰂛  Do Not Disturb\n\nNo notifications": "󰂛  방해 금지\n\n알림 없음",
+  "Copy code": "코드 복사",
+  "Now using: %1": "사용 중: %1",
+  "Open link": "링크 열기"
 }

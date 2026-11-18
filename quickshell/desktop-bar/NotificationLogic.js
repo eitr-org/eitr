@@ -93,3 +93,11 @@ function openCommand(notification, script) {
     return ["python3", script, "--app", notification.appName || "", "--desktop-entry", notification.desktopEntry || "",
         "--pid", String(Number(hints["sender-pid"]) || 0), "--body", notification.body || ""];
 }
+
+function openLinkCommand(url, script) {
+    return ["python3", script, "--url", String(url || "")];
+}
+
+function copyCommand(code) {
+    return ["wl-copy", "--", String(code || "")];
+}

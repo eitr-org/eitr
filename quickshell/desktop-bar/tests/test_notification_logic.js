@@ -59,4 +59,6 @@ assert.equal(JSON.stringify(logic.presentation({appName: 'Herdr', summary: 'clau
 assert.equal(JSON.stringify(logic.presentation({appName: 'Herdr', summary: 'opencode needs you', body: 'Doola · 12'})), JSON.stringify({summary: 'OpenCode needs you', body: 'Doola'}));
 assert.equal(JSON.stringify(logic.presentation({appName: 'Herdr', summary: 'claude finished', body: 'Doola · 1 · Automations'})), JSON.stringify({summary: 'Claude finished', body: 'Doola · Automations'}));
 assert.equal(JSON.stringify(logic.presentation({appName: 'Slack', summary: 'claude finished', body: 'Personal · 2'})), JSON.stringify({summary: 'claude finished', body: 'Personal · 2'}));
+assert.deepEqual(Array.from(logic.openLinkCommand('https://example.com/a', '/s.py')), ['python3', '/s.py', '--url', 'https://example.com/a']);
+assert.deepEqual(Array.from(logic.copyCommand('482913')), ['wl-copy', '--', '482913']);
 console.log('Notification policy checks passed');

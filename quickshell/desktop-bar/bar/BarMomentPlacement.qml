@@ -32,6 +32,9 @@ Item {
             } else if (entry.kind === "song") {
                 if (barHost.dropLayout) barHost.panel("dashboard").show("media");
                 else barHost.toggleKind("media");
+            } else if (entry.kind === "audio") {
+                if (barHost.dropLayout) barHost.panel("dashboard").show("controls");
+                else if (barHost.showKind) barHost.showKind("volume");
             } else placement.clock.clicked();
         }
     }

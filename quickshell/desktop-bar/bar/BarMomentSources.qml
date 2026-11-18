@@ -7,6 +7,7 @@ import Quickshell.Services.Pipewire
 import Eitr as Eitr
 import "../NotificationLogic.js" as NotificationLogic
 import "../components/BluetoothDevices.js" as BluetoothDevices
+import "BarMoments.js" as Moments
 
 Item {
     id: sources
@@ -14,7 +15,7 @@ Item {
     required property var barHost
     required property var owner
     property bool ready: false
-    Component.onCompleted: Qt.callLater(() => { seenTrack = track; seenLayout = layout; ready = true; syncPopups(); })
+    Component.onCompleted: Qt.callLater(() => { seenTrack = track; seenLayout = layout; ready = true; syncPopups(); syncAudioOutput(); })
     readonly property var notifications: barHost.notificationsRef || null
     readonly property var popups: notifications ? notifications.popups : []
     readonly property var popupVersions: popups.map(notification => JSON.stringify([notification.id,
@@ -42,9 +43,29 @@ Item {
             if (sources.notifications.doNotDisturb) sources.owner.retainNotifications([]);
         }
     }
-    readonly property var sink: Pipewire.defaultAudioSink
-    PwObjectTracker { objects: [sources.sink] }
+    property var sink: Pipewire.defaultAudioSink
+    PwObjectTracker { objects: sources.sink && String(sources.sink).indexOf("PwNode") !== -1 ? [sources.sink] : [] }
     property var audio: sink && sink.ready ? sink.audio : null
+    readonly property var activeSink: sink && sink.ready ? sink : null
+    readonly property string activeSinkKey: activeSink ? (AudioDevices.key(activeSink) || String(activeSink.id || "")) : ""
+    property var outputState: Moments.createAudioOutputState()
+    function syncAudioOutput() {
+        const device = activeSink ? {
+            key: activeSinkKey,
+            label: AudioDevices.label(activeSink),
+            icon: AudioDevices.glyph(activeSink, false)
+        } : null;
+        const result = Moments.updateAudioOutput(outputState, device, Date.now());
+        outputState = result.state;
+        if (ready && result.emit) {
+            owner.submit({
+                kind: "audio",
+                icon: result.emit.icon,
+                text: Eitr.I18n.tr("Now using: %1", [result.emit.label])
+            });
+        }
+    }
+    onActiveSinkKeyChanged: syncAudioOutput()
     readonly property string audioState: audio ? Math.round(audio.volume * 100) + ":" + audio.muted : ""
     property string seenAudio: ""
     onAudioStateChanged: {

@@ -243,6 +243,7 @@ Item {
         retainAction: middle.hovered && !middle.morphed && !middle.held && shown && shown.kind === "notification"
         onActivated: entry => {
             if (entry && entry.kind === "notification") barHost.toggleKind("notifications");
+            else if (entry && entry.kind === "audio" && barHost.showKind) barHost.showKind("volume");
         }
     }
     BarMoment {

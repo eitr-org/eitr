@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 SCRIPT = Path(__file__).resolve().parents[1] / 'scripts' / 'notification-open.py'
 
@@ -61,6 +62,20 @@ class NotificationOpenTests(unittest.TestCase):
         self.assertEqual(self.module.herdr_names('Doola · 1 · Automations'), ['Doola', 'Automations'])
         self.assertEqual(self.module.herdr_names('Personal · 2'), ['Personal', ''])
         self.assertEqual(self.module.herdr_names(''), ['', ''])
+
+    def test_open_url_allows_only_safe_http_and_https(self):
+        self.assertEqual(self.module.safe_http_url('HTTPS://Example.COM/auth?a=1'), 'https://example.com/auth?a=1')
+        self.assertEqual(self.module.safe_http_url('http://localhost:3000/test'), 'http://localhost:3000/test')
+        self.assertEqual(self.module.safe_http_url('http://192.168.1.10:8080/'), 'http://192.168.1.10:8080/')
+        for bad in ('file:///etc/passwd', 'javascript:alert(1)', 'ftp://example.com', 'mailto:a@b.com',
+                    'https://user:pass@example.com', 'http://0x7f.0x0.0x0.0x1/', 'http://example.com\nbad'):
+            self.assertEqual(self.module.safe_http_url(bad), '', bad)
+            with patch.object(self.module, 'open_url') as launcher:
+                self.assertEqual(self.module.main(['--url', bad]), 1)
+                launcher.assert_not_called()
+        with patch.object(self.module, 'open_url', return_value=True) as launcher:
+            self.assertEqual(self.module.main(['--url', 'https://example.com/path']), 0)
+            launcher.assert_called_once_with('https://example.com/path')
 
 
 if __name__ == '__main__':

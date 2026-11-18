@@ -33,4 +33,6 @@ Les notifications ont une fine bordure dans la couleur d’accent du thème. Les
 
 Un clic sur une notification lance son action principale. Une notification sans action ouvre l’application qui l’a envoyée : sa fenêtre, ou pour herdr le terminal qui l’exécute, sur l’espace de travail et l’onglet indiqués par la notification. Chaque carte affiche l’icône de l’application quand elle en a une, sinon la cloche.
 
+Lorsqu’une notification mentionne explicitement un code de vérification, un OTP ou un code PIN, la carte propose **Copier le code** pour copier ses chiffres dans le presse-papiers sans reprendre les numéros de commande, ports, prix, années ou numéros de téléphone. Lorsque le corps contient un lien `http://` ou `https://`, elle propose **Ouvrir le lien** pour ouvrir le premier lien dans votre navigateur ; les autres schémas URI sont ignorés.
+
 Les notifications apparaissent sur chaque écran. Désactivez Notifications sur chaque écran dans Paramètres > Notifications pour les garder sur l'écran principal. La même page propose Ne pas déranger et Notifications de plantage.
