@@ -126,7 +126,8 @@ Item {
             foreground: panels.host.fg; background: panels.host.workspaceMenuBg; accent: panels.host.activeBg
             service: panels.barHost.notificationsRef
             wifiControl: panels.barHost.networkServiceRef; bluetoothControl: panels.barHost.bluetoothMenu; displayControl: panels.barHost.brightnessMenu
-            wifiGlyph: panels.host.verticalBar ? panels.barHost.verticalWifiIcon.text : panels.barHost.wifiIcon.text
+            // Zone icons are created with their zone, so the WiFi icon can be missing for a moment.
+            wifiGlyph: (panels.host.verticalBar ? panels.barHost.verticalWifiIcon : panels.barHost.wifiIcon)?.text ?? ""
             battery: panels.host.battery; mediaPlayer: panels.barHost.mediaStrip.player
             idleEnabled: panels.host.idleLockEnabled; idleBusy: panels.barHost.idleLockProcessRef.running
             barPosition: panels.host.barEdge
