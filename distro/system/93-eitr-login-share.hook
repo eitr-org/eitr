@@ -1,0 +1,11 @@
+[Trigger]
+Type = Path
+Operation = Upgrade
+Target = usr/lib/eitr/eitr_remote_login.py
+Target = usr/lib/eitr/eitr_remote.py
+Target = usr/bin/sunshine
+
+[Action]
+Description = Restarting login screen sharing with the updated code...
+When = PostTransaction
+Exec = /usr/bin/systemctl try-restart eitr-login-share.service

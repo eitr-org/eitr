@@ -265,5 +265,16 @@ class PortOwnerTests(unittest.TestCase):
         self.assertFalse(remote.RULES.exists())
 
 
+
+class PackageHookTests(unittest.TestCase):
+    def test_an_update_restarts_a_running_login_share_service(self):
+        hook = (ROOT / 'distro/system/93-eitr-login-share.hook').read_text()
+        self.assertIn('Target = usr/lib/eitr/eitr_remote_login.py', hook)
+        self.assertIn('Target = usr/bin/sunshine', hook)
+        # try-restart: a switched-off service stays off.
+        self.assertIn('Exec = /usr/bin/systemctl try-restart eitr-login-share.service', hook)
+        package = (ROOT / 'distro/pkg/eitr-desktop/PKGBUILD').read_text()
+        self.assertIn('"$pkgdir/usr/share/libalpm/hooks/93-eitr-login-share.hook"', package)
+
 if __name__ == '__main__':
     unittest.main()

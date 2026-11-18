@@ -51,8 +51,9 @@ item says what decides the next step. Remove an item when it ships;
   `distro/REMOTE-ACCESS.md`): a system Sunshine while nobody is signed in, with the sharing
   account's identity and paired devices. VM-tested 2026-11-17: boot, sign-in (stops 2 ms after
   logind's new session), sign-out, hand-over to and from the user's own Sharing at login, a
-  second account, switch off and Restore Sharing Setup. Next: a real Moonlight connection to
-  the login screen on the owner's NVIDIA PC. Headless use (a virtual display sized to the Moonlight client) stays planned in
+  second account, switch off and Restore Sharing Setup. On the owner's NVIDIA PC (2026-11-18)
+  Moonlight on a Mac streamed the login screen (X11 capture of SDDM's display) and was handed to
+  the user's own Sharing at sign-in. Headless use (a virtual display sized to the Moonlight client) stays planned in
   `eitr-testing/codex-wip/remote-access-next/PLAN.md`; wake on LAN is left to people who want it.
 - **Dynamic island, next.** Short notification, volume/brightness, song, Bluetooth and
   keyboard moments are implemented. Next: a hover card for the clock (large time and week

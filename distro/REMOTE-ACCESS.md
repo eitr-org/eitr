@@ -111,4 +111,5 @@ Ports are opened through the same `sharing()` as the user's service, tagged with
 opened since, so the hand-over at sign-in and sign-out cannot close the new owner's
 ports whichever order the two services run in. Restore Sharing Setup and
 `remote-login-off` (always allowed, even under a policy) disable the unit, delete the
-account, the folder and the journal, and leave nothing behind.
+account, the folder and the journal, and leave nothing behind. A package update restarts the service if it is
+running (`93-eitr-login-share.hook`, `systemctl try-restart`), so it never keeps old code.
