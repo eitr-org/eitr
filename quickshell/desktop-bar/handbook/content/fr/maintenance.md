@@ -62,3 +62,5 @@ Paramètres > Mises à jour affiche les paquets en attente et permet de renouvel
 **Nettoyer mon Eitr** verrouille le clavier, la souris et le pavé tactile derrière une superposition plein écran sur chaque moniteur afin de les essuyer en toute sécurité. Lancez-le depuis **Paramètres > Vérifier ce PC**, **Centre de contrôle > Outils**, **Walker > Paramètres > Système > Nettoyer mon Eitr**, ou avec `eitr clean start`.
 
 Tant qu’il est actif, les raccourcis du compositeur et les notifications contextuelles sont suspendus, le verrouillage automatique d’inactivité est inhibé et les touches d’alimentation, de mise en veille, d’hibernation et de capot sont bloquées. Maintenez **Esc** pendant trois secondes pour quitter, attendez la limite de sécurité de cinq minutes ou exécutez `eitr clean stop` depuis un autre terminal (`eitr clean status` affiche `on` ou `off`).
+
+Ctrl+Alt+F1 à F12 basculent toujours vers une console texte, comme sur tout bureau Linux ; appuyez sur **Ctrl+Alt+F1** (ou F2) pour revenir, le mode nettoyage reste actif.

@@ -56,3 +56,5 @@ Einstellungen > Aktualisierungen zeigt ausstehende Pakete und kann die Liste ern
 **Mein Eitr reinigen** sperrt Tastatur-, Maus- und Touchpad-Eingaben hinter einer Vollbildüberlagerung auf jedem Bildschirm, damit du sie sicher abwischen kannst. Starte den Modus über **Einstellungen > Diesen PC prüfen**, **Kontrollzentrum > Werkzeuge**, **Walker > Einstellungen > System > Mein Eitr reinigen** oder mit `eitr clean start`.
 
 Solange er aktiv ist, sind Compositor-Kürzel und Benachrichtigungs-Popups unterdrückt, die automatische Leerlauf-Sperre gehemmt sowie Ein-/Aus-, Bereitschafts-, Ruhezustands- und Deckelschalter-Tasten blockiert. Halte **Esc** drei Sekunden lang gedrückt, um zu beenden, warte das fünfminütige Sicherheitslimit ab oder führe in einem anderen Terminal `eitr clean stop` aus (`eitr clean status` gibt `on` oder `off` aus).
+
+Strg+Alt+F1 bis F12 wechseln weiterhin zu einer Textkonsole, wie auf jedem Linux-Desktop; mit **Strg+Alt+F1** (oder F2) kehren Sie zurück, und der Reinigungsmodus bleibt aktiv.

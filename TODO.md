@@ -67,12 +67,11 @@ item says what decides the next step. Remove an item when it ships;
   The Ollama panel cannot change the local model yet: the core fixes `qwen3:4b`.
 - **AI Usage as a built-in plugin (idea 2026-11-16).** Like Weather (`distro/plugins/bundled`):
   installed by default, removable for people who do not use AI.
-- **Clean My Eitr (built 2026-11-18).** Locks keyboard, mouse and touchpad for wiping via
-  `eitr clean start|stop|status`, Walker (`Settings > System > Clean My Eitr`), Control Center > Tools,
-  and Settings (`System > Check This PC`). Hyprland switches to an empty `clean` submap with a
-  3-second Escape hold and 5-minute safety timeout; Quickshell draws a blurred/tinted overlay on
-  every display with `IdleInhibitor`, transient notification suppression, and `systemd-inhibit`.
-  Remaining: VM-test Ctrl+Alt+F console switching, touchpad gestures and laptop Fn keys handled by firmware.
+- **Clean My Eitr, on a real laptop (VM-tested 2026-11-18).** In the VM the overlay, the
+  empty `clean` submap (SUPER shortcuts did nothing), the inhibitor, a short Esc tap staying
+  locked, a 3-second Esc hold leaving and `eitr clean stop` all worked; Ctrl+Alt+F still
+  switches consoles (no Hyprland option blocks it; documented in the Handbook). Still to try on
+  real hardware: touchpad gestures and laptop Fn keys handled by firmware.
 - **Ideas from Omarchy 4.5, Ryoku 1.1 and Caelestia (picked by the owner 2026-11-18).**
   Ryoku and Caelestia are GPL-3 and Omarchy MIT: adapted code keeps their notices.
   - **Keyboard layout on the lock and login screens** (Ryoku): show the active layout and

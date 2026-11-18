@@ -56,3 +56,5 @@ Configuración > Actualizaciones muestra paquetes pendientes y permite actualiza
 **Limpiar mi Eitr** bloquea la entrada de teclado, ratón y panel táctil tras una capa a pantalla completa en cada monitor para que puedas limpiarlos con seguridad. Inícialo desde **Configuración > Comprobar este PC**, **Centro de control > Herramientas**, **Walker > Configuración > Sistema > Limpiar mi Eitr**, o `eitr clean start`.
 
 Mientras está activo, se suprimen los atajos del compositor y las ventanas emergentes de notificación, se inhibe el bloqueo automático por inactividad y se bloquean las teclas de encendido, suspensión, hibernación y tapa. Mantén pulsada **Esc** durante tres segundos para salir, espera el límite de seguridad de cinco minutos o ejecuta `eitr clean stop` desde otra terminal (`eitr clean status` imprime `on` u `off`).
+
+Ctrl+Alt+F1 a F12 siguen cambiando a una consola de texto, como en cualquier escritorio Linux; pulsa **Ctrl+Alt+F1** (o F2) para volver, y el modo de limpieza sigue activo.

@@ -96,3 +96,5 @@ Settings > Updates shows pending package updates and lets you refresh the list. 
 **Clean My Eitr** locks keyboard, mouse and touchpad input behind a full-screen overlay on every display so you can wipe them safely. Start it from **Settings > Check This PC**, **Control Center > Tools**, **Walker > Settings > System > Clean My Eitr**, or `eitr clean start`.
 
 While active, compositor shortcuts and notification popups are suppressed, automatic idle locking is inhibited, and power, suspend, hibernate and lid-switch keys are blocked. Hold **Esc** for three seconds to exit, wait for the five-minute safety limit, or run `eitr clean stop` from another terminal (`eitr clean status` prints `on` or `off`).
+
+Ctrl+Alt+F1 to F12 still switch to a text console, as on every Linux desktop; press **Ctrl+Alt+F1** (or F2) to come back, and cleaning mode is still on.
