@@ -97,7 +97,9 @@ until the sharing account's own Sunshine has exited, then starts again.
 Before each start it copies the sharing account's `sunshine_state.json` and
 `credentials/` (read without following links) into `/var/lib/eitr/login-share/` (0700, owned by
 `eitr-loginshare`; outside the root-only `remote-access/` so the account can reach it) and
-writes its own `sunshine.conf`: `upnp=off`, web UI local only, KMS capture,
+writes its own `sunshine.conf`: `upnp=off`, web UI local only, X11 capture of SDDM's display
+(found from SDDM's Xorg and its listening socket, with a private copy of its key; on NVIDIA that
+X server does not expose the screen to KMS capture) or KMS when the greeter is not on X,
 `stream_audio=false`, no tray (there is no D-Bus session at the greeter), every path inside
 that folder. A Sunshine that keeps exiting is retried after a pause that doubles up to
 five minutes. Moonlight

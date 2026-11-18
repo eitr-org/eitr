@@ -73,7 +73,8 @@ class HandOverTests(unittest.TestCase):
         self.addCleanup(temporary.cleanup)
         self.root = Path(temporary.name)
         patches = [patch.object(login, 'STATE', self.root / 'login-screen'), patch.object(login, 'STATUS', self.root / 'run/status.json'),
-                   patch.object(login, 'copy_identity'), patch.object(login, 'user_sunshine_running', return_value=False)]
+                   patch.object(login, 'copy_identity'), patch.object(login, 'user_sunshine_running', return_value=False),
+                   patch.object(login, 'greeter_display', return_value=(':0', '/run/sddm/xauth_test'))]
         for patcher in patches:
             patcher.start()
             self.addCleanup(patcher.stop)
@@ -95,6 +96,10 @@ class HandOverTests(unittest.TestCase):
         options = popen.call_args.kwargs
         self.assertEqual(options['user'], login.ACCOUNT)
         self.assertEqual(options['env']['HOME'], str(login.STATE))
+        # SDDM's X login screen is captured through X11 with the account's copy of its key.
+        self.assertEqual(options['env']['DISPLAY'], ':0')
+        self.assertEqual(options['env']['XAUTHORITY'], str(login.STATE / 'xauthority'))
+        login.copy_identity.assert_called_with('tester', display=(':0', '/run/sddm/xauth_test'))
         self.assertEqual(popen.call_args.args[0], ['/usr/bin/sunshine', str(login.STATE / 'sunshine.conf')])
         self.assertIn(('sharing', ('tester', True), {'owner': 'login-screen'}), self.calls)
         self.assertIn(('sharing', ('tester', False), {'owner': 'login-screen'}), self.calls)
@@ -139,6 +144,28 @@ class IdentityTests(unittest.TestCase):
         self.assertEqual(settings['file_state'], str(target / 'sunshine_state.json'))
         self.assertEqual(json.loads((target / 'apps.json').read_text())['apps'][0]['name'], 'Desktop')
         self.assertEqual(login.paired_devices('tester'), 1)
+
+    def test_an_x_login_screen_is_captured_through_x11_with_a_private_key_copy(self):
+        target = self.root / 'login-screen'
+        key = self.root / 'xauth_sddm'
+        key.write_bytes(b'cookie')
+        login.copy_identity('tester', target, display=(':0', str(key)))
+        settings = dict(line.split(' = ', 1) for line in (target / 'sunshine.conf').read_text().splitlines())
+        self.assertEqual(settings['capture'], 'x11')
+        self.assertEqual((target / 'xauthority').read_bytes(), b'cookie')
+        self.assertEqual((target / 'xauthority').stat().st_mode & 0o777, 0o600)
+
+    def test_x_display_comes_from_the_servers_listening_socket(self):
+        process = self.root / 'proc/42'
+        (process / 'fd').mkdir(parents=True)
+        (process / 'fd/3').symlink_to('socket:[777]')
+        table = self.root / 'unix'
+        table.write_text('Num RefCount Protocol Flags Type St Inode Path\n'
+                         '0000: 00000002 00000000 00010000 0001 01 777 @/tmp/.X11-unix/X0\n')
+        real_path = login.Path
+        with patch.object(login, 'Path', side_effect=lambda value: table if value == '/proc/net/unix' else real_path(value)):
+            self.assertEqual(login.x_display(process), ':0')
+        self.assertIsNone(login.x_display(self.root / 'proc/missing'))
 
     def test_refuses_a_linked_file_in_the_users_home(self):
         state = self.home / '.config/sunshine/sunshine_state.json'

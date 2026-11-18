@@ -28,8 +28,8 @@ STATE = Path('/var/lib/eitr/login-share')
 STATUS = Path('/run/eitr/login-share.json')
 SUNSHINE_FILES = ('sunshine_state.json', 'credentials/cacert.pem', 'credentials/cakey.pem')
 # The greeter has no PipeWire or D-Bus session (Sunshine aborts on a tray without one),
-# and the web UI stays local like the user's.
-SETTINGS = {'upnp': 'off', 'origin_web_ui_allowed': 'pc', 'port': '47989', 'capture': 'kms', 'stream_audio': 'false',
+# and the web UI stays local like the user's. Capture is chosen at each start (greeter()).
+SETTINGS = {'upnp': 'off', 'origin_web_ui_allowed': 'pc', 'port': '47989', 'stream_audio': 'false',
             'system_tray': 'disabled'}
 STOP_SECONDS = 5
 # A Sunshine that keeps exiting is retried after a growing pause, up to this many seconds.
@@ -74,7 +74,54 @@ def read_private(path):
         return stream.read()
 
 
-def copy_identity(name, target=STATE):
+def x_display(process):
+    """The display an X server listens on (":0"), from its listening socket's name."""
+    inodes = set()
+    try:
+        descriptors = list((process / 'fd').iterdir())
+    except OSError:
+        return None
+    for descriptor in descriptors:
+        try:
+            target = os.readlink(descriptor)
+        except OSError:
+            continue
+        if target.startswith('socket:['):
+            inodes.add(target[8:-1])
+    try:
+        sockets = Path('/proc/net/unix').read_text().splitlines()[1:]
+    except OSError:
+        return None
+    for line in sockets:
+        fields = line.split()
+        if len(fields) >= 8 and fields[6] in inodes and '.X11-unix/X' in fields[7]:
+            number = fields[7].rsplit('/X', 1)[1]
+            if number.isdigit():
+                return ':' + number
+    return None
+
+
+def greeter_display():
+    """SDDM's X server for the login screen: (display, its access key file), or None.
+
+    The login screen is drawn by SDDM's own Xorg. On NVIDIA that X server does not expose its
+    screen to KMS capture (Sunshine finds no monitor), so the login screen is captured through
+    X11 on that display instead; a greeter that is not on X keeps KMS."""
+    for process in Path('/proc').iterdir():
+        try:
+            arguments = (process / 'cmdline').read_bytes().split(b'\0')
+        except OSError:
+            continue
+        if not arguments or not arguments[0].endswith(b'Xorg') or b'-auth' not in arguments:
+            continue
+        authority = arguments[arguments.index(b'-auth') + 1].decode() if arguments.index(b'-auth') + 1 < len(arguments) else ''
+        if not authority.startswith('/run/sddm/'):
+            continue
+        return x_display(process) or ':0', authority
+    return None
+
+
+def copy_identity(name, target=STATE, display=None):
     """The sharing account's Sunshine identity and paired devices, refreshed before each start."""
     source = Path(pwd.getpwnam(name).pw_dir) / '.config/sunshine'
     account = pwd.getpwnam(ACCOUNT)
@@ -87,7 +134,13 @@ def copy_identity(name, target=STATE):
         temporary.chmod(0o600)
         os.chown(temporary, account.pw_uid, account.pw_gid)
         temporary.replace(path)
-    settings = {**SETTINGS, 'file_state': target / 'sunshine_state.json', 'credentials_file': target / 'sunshine_state.json',
+    capture = {'capture': 'x11'} if display else {'capture': 'kms'}
+    if display:
+        # SDDM's key is root-only; the account gets its own copy, renewed with each greeter.
+        key = target / 'xauthority'
+        key.write_bytes(Path(display[1]).read_bytes())
+        key.chmod(0o600)
+    settings = {**SETTINGS, **capture, 'file_state': target / 'sunshine_state.json', 'credentials_file': target / 'sunshine_state.json',
                 'cert': target / 'credentials/cacert.pem', 'pkey': target / 'credentials/cakey.pem',
                 'file_apps': target / 'apps.json', 'log_path': target / 'sunshine.log',
                 'sunshine_name': os.uname().nodename}
@@ -173,13 +226,17 @@ class Runner:
     def start(self):
         if user_sunshine_running():
             return
-        copy_identity(self.name)
+        display = greeter_display()
+        copy_identity(self.name, display=display)
         subprocess.run(['setfacl', '-m', f'u:{ACCOUNT}:rw', '/dev/uinput'], check=False)
+        environment = {'HOME': str(STATE), 'PATH': '/usr/bin'}
+        if display:
+            environment.update(DISPLAY=display[0], XAUTHORITY=str(STATE / 'xauthority'))
         remote.sharing(self.name, True, owner='login-screen')
         self.started = time.monotonic()
         self.child = subprocess.Popen(['/usr/bin/sunshine', str(STATE / 'sunshine.conf')], cwd=STATE,
                                       user=ACCOUNT, group=ACCOUNT, extra_groups=[remote.SHARING_GROUP, 'video', 'render'],
-                                      env={'HOME': str(STATE), 'PATH': '/usr/bin'}, stdin=subprocess.DEVNULL)
+                                      env=environment, stdin=subprocess.DEVNULL)
         self.publish()
 
     def stop(self):
