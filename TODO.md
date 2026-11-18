@@ -92,9 +92,10 @@ item says what decides the next step. Remove an item when it ships;
 
 # 2. To test with the owner
 
-- **Wallpaper per display: the parts not tried yet.** The switch, preview, carousel and
-  theme resets passed the owner's test (2026-11-10); still untried: plugging a display
-  in and out, and each display's wallpaper coming back at login.
+- **Wallpaper per display: the last part not tried yet.** The switch, preview, carousel and
+  theme resets passed the owner's test (2026-11-10), and unplugging and replugging a display
+  (HDMI) brought its own wallpaper back (2026-11-17). Still untried: each display's wallpaper
+  coming back at login.
 
 # 3. Waiting on others
 
