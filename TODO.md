@@ -67,6 +67,15 @@ item says what decides the next step. Remove an item when it ships;
   The Ollama panel cannot change the local model yet: the core fixes `qwen3:4b`.
 - **AI Usage as a built-in plugin (idea 2026-11-16).** Like Weather (`distro/plugins/bundled`):
   installed by default, removable for people who do not use AI.
+- **Clean My Eitr (idea 2026-11-18).** Lock keyboard, mouse and touchpad so they can be
+  wiped. Started from Walker (System), Control Center > Tools and Settings. Hyprland switches
+  to an empty submap (`hl.define_submap`), so no shortcut fires; a blurred overlay on every
+  display catches clicks, scrolls and keys and says how to leave. The exit lives in Hyprland,
+  not the bar: holding Esc for 3 seconds (`hl.timer`, cancelled on release; consider a
+  two-key hold so a cloth on Esc cannot exit) returns to the normal map, with a filling ring
+  on the overlay. While active: a systemd inhibitor for the power, suspend and lid keys, no
+  idle lock, no notification pop-ups, and a time limit (about 5 minutes). VM-test Ctrl+Alt+F
+  console switching, touchpad gestures and laptop Fn keys handled by firmware.
 - **Ideas from Omarchy 4.5, Ryoku 1.1 and Caelestia (picked by the owner 2026-11-18).**
   Ryoku and Caelestia are GPL-3 and Omarchy MIT: adapted code keeps their notices.
   - **Keyboard layout on the lock and login screens** (Ryoku): show the active layout and
