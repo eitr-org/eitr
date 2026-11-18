@@ -162,24 +162,21 @@ class DesktopStyleTests(unittest.TestCase):
         card = (ROOT / "notifications/NotificationCard.qml").read_text()
         popup = (ROOT / "notifications/NotificationPopups.qml").read_text()
         self.assertIn("urgency === 0 ? 0.8 : 1", card)
-        self.assertIn("NotificationPriorityGlow {", card)
-        self.assertIn("NotificationPriorityGlow {", popup)
+        self.assertIn("NotificationPriorityBorder {", card)
+        self.assertIn("NotificationPriorityBorder {", popup)
         self.assertNotIn("border.width:", card)
         self.assertNotIn("border.width:", popup.split("id: popupCard", 1)[1])
 
-    def test_priority_glow_is_inside_and_does_not_intercept_clicks(self):
-        glow = (ROOT / "notifications/NotificationPriorityGlow.qml").read_text()
-        self.assertIn("glow.width - index * 2", glow)
-        self.assertIn("glow.height - index * 2", glow)
-        self.assertIn("Math.max(0, glow.cornerRadius - index)", glow)
-        self.assertIn("DesktopStyle.criticalColor", glow)
-        # Normal notifications glow in the theme accent; low-priority ones do not glow.
-        self.assertIn("urgency === 2 ? DesktopStyle.criticalColor : accent", glow)
-        self.assertIn("shown && urgency >= 1", glow)
+    def test_priority_border_is_one_pixel_in_accent_or_critical_colour(self):
+        border = (ROOT / "notifications/NotificationPriorityBorder.qml").read_text()
+        # Normal notifications get a 1 px accent outline; low-priority ones get none.
+        self.assertIn("border.width: active ? 1 : 0", border)
+        self.assertIn("urgency === 2 ? DesktopStyle.criticalColor : accent", border)
+        self.assertIn("shown && urgency >= 1", border)
+        self.assertIn('color: "transparent"', border)
         for name in ("NotificationCard.qml", "NotificationPopups.qml"):
-            self.assertIn("urgency:", (ROOT / qml_path(name)).read_text().split("NotificationPriorityGlow {", 1)[1].split("}", 1)[0])
-        self.assertNotIn("MouseArea", glow)
-        self.assertNotIn("MultiEffect", glow)
+            self.assertIn("urgency:", (ROOT / qml_path(name)).read_text().split("NotificationPriorityBorder {", 1)[1].split("}", 1)[0])
+        self.assertNotIn("MouseArea", border)
 
     def test_content_respects_live_gaps_while_surface_stays_attached(self):
         source = (ROOT / "components/PanelSurface.qml").read_text()

@@ -29,7 +29,7 @@ Clique no equalizador animado para abrir o painel Mídia: a capa cercada de barr
 
 **SUPER + Alt + N** executa a ação principal da notificação mais recente (o mesmo que clicar nela) e **SUPER + Alt + Shift + N** a dispensa. Uma notificação repetida (mesmo app, título e texto) substitui a anterior e mostra um contador como ×3, em vez de empilhar outro cartão.
 
-As notificações têm um brilho interno suave na cor de destaque do tema. As críticas usam o vermelho do tema; as de baixa prioridade ficam discretas, sem brilho. Não perturbe oculta os popups sem apagar o histórico. O histórico permanece na memória durante recargas da configuração, mas não ao reiniciar o processo. O conteúdo das notificações não é salvo em logs.
+As notificações têm uma borda fina na cor de destaque do tema. As críticas usam o vermelho do tema; as de baixa prioridade ficam discretas, sem borda. Não perturbe oculta os popups sem apagar o histórico. O histórico permanece na memória durante recargas da configuração, mas não ao reiniciar o processo. O conteúdo das notificações não é salvo em logs.
 
 Clicar em uma notificação executa a ação principal dela. Uma sem ação abre o app que a enviou: a janela dele ou, no herdr, o terminal com o herdr no espaço de trabalho e na aba que a notificação cita. Cada cartão mostra o ícone próprio do app quando existe; senão, o sino.
 

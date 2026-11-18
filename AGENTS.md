@@ -271,9 +271,9 @@ existing design and workflows rather than replacing them with upstream defaults.
   Corner choices (Square, Rounded, Extra Rounded) use the shared DesktopStyle
   preference for Eitr surfaces, Walker and compositor window decorations; theme
   regeneration and reloads must preserve it. Keep circular status dots and slider
-  thumbs circular. Notifications get a subtle inward-only glow (no hard outline
-  or exterior shadow): the theme accent for normal urgency, the theme's color1
-  for critical, none for subdued low-priority cards, in history and popups.
+  thumbs circular. Notifications get a 1 px outline (no glow or exterior shadow):
+  the theme accent for normal urgency, the theme's color1 for critical, none for
+  subdued low-priority cards, in history and popups.
   Changing values must not shift bar items. Match icon sizes visually, not just
   by font size, since glyph shapes differ.
 - The date/time stays exactly screen-centered regardless of neighboring items.

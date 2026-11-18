@@ -29,7 +29,7 @@ Klicke auf den animierten Equalizer für das Panel Medien: das Cover, umgeben vo
 
 **SUPER + Alt + N** führt die Hauptaktion der neuesten Benachrichtigung aus (wie ein Klick darauf), **SUPER + Alt + Shift + N** schließt sie. Eine wiederholte Benachrichtigung (gleiche App, gleicher Titel und Text) ersetzt die frühere und zeigt eine Anzahl wie ×3, statt eine weitere Karte zu stapeln.
 
-Benachrichtigungen leuchten sanft nach innen in der Akzentfarbe des Themes. Kritische verwenden stattdessen dessen Rot; solche mit niedriger Priorität bleiben dezent und ohne Leuchten. Nicht stören unterdrückt Popups, ohne den Verlauf zu löschen. Dieser bleibt bei Konfigurationsneuladungen im Speicher, aber nicht bei einem Prozessneustart. Benachrichtigungsinhalte werden nicht protokolliert.
+Benachrichtigungen haben einen dünnen Rahmen in der Akzentfarbe des Themes. Kritische verwenden stattdessen dessen Rot; solche mit niedriger Priorität bleiben dezent und ohne Rahmen. Nicht stören unterdrückt Popups, ohne den Verlauf zu löschen. Dieser bleibt bei Konfigurationsneuladungen im Speicher, aber nicht bei einem Prozessneustart. Benachrichtigungsinhalte werden nicht protokolliert.
 
 Ein Klick auf eine Benachrichtigung führt ihre Hauptaktion aus. Eine ohne Aktion öffnet die App, die sie gesendet hat: ihr Fenster oder bei herdr das Terminal mit herdr, auf dem Arbeitsbereich und Tab, die die Benachrichtigung nennt. Jede Karte zeigt das eigene Symbol der App, sonst die Glocke.
 

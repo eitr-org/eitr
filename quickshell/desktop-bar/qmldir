@@ -45,7 +45,7 @@ NotificationCenter notifications/NotificationCenter.qml
 NotificationGroup notifications/NotificationGroup.qml
 NotificationList notifications/NotificationList.qml
 NotificationPopups notifications/NotificationPopups.qml
-NotificationPriorityGlow notifications/NotificationPriorityGlow.qml
+NotificationPriorityBorder notifications/NotificationPriorityBorder.qml
 NotificationService notifications/NotificationService.qml
 ObsActionButton components/ObsActionButton.qml
 ObsMenu panels/ObsMenu.qml

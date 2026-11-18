@@ -51,7 +51,7 @@ Rectangle {
     color: filled ? Qt.alpha(foreground, 0.055) : "transparent"
     readonly property int urgency: notification && notification.urgency !== undefined ? notification.urgency : 1
     opacity: urgency === 0 ? 0.8 : 1
-    NotificationPriorityGlow {
+    NotificationPriorityBorder {
         anchors.fill: parent
         shown: card.filled
         urgency: card.urgency

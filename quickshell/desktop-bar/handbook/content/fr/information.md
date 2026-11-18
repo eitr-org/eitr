@@ -29,7 +29,7 @@ Cliquez sur l’égaliseur animé pour ouvrir le panneau Médias : la pochette e
 
 Le survol suspend leur expiration. **SUPER + Alt + N** lance l’action principale de la notification la plus récente (comme un clic dessus), et **SUPER + Alt + Shift + N** la ferme. Une notification répétée (même application, titre et texte) remplace la précédente et affiche un compteur comme ×3 au lieu d’empiler une autre carte.
 
-Les notifications ont une douce lueur intérieure dans la couleur d’accent du thème. Les critiques utilisent plutôt son rouge ; celles de faible priorité restent discrètes, sans lueur. Ne pas déranger masque les popups sans supprimer l’historique. Celui-ci reste en mémoire lors des rechargements de configuration, mais pas après le redémarrage du processus. Aucun contenu de notification n’est enregistré dans un journal.
+Les notifications ont une fine bordure dans la couleur d’accent du thème. Les critiques utilisent plutôt son rouge ; celles de faible priorité restent discrètes, sans bordure. Ne pas déranger masque les popups sans supprimer l’historique. Celui-ci reste en mémoire lors des rechargements de configuration, mais pas après le redémarrage du processus. Aucun contenu de notification n’est enregistré dans un journal.
 
 Un clic sur une notification lance son action principale. Une notification sans action ouvre l’application qui l’a envoyée : sa fenêtre, ou pour herdr le terminal qui l’exécute, sur l’espace de travail et l’onglet indiqués par la notification. Chaque carte affiche l’icône de l’application quand elle en a une, sinon la cloche.
 

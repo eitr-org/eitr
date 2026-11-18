@@ -29,7 +29,7 @@ Haz clic en el ecualizador animado para abrir el panel Multimedia: la portada ro
 
 **SUPER + Alt + N** ejecuta la acción principal de la notificación más reciente (lo mismo que pulsarla) y **SUPER + Alt + Shift + N** la descarta. Una notificación repetida (misma aplicación, título y texto) sustituye a la anterior y muestra un contador como ×3 en lugar de apilar otra tarjeta.
 
-Las notificaciones tienen un brillo interior suave con el color de acento del tema. Las críticas usan el rojo del tema y las de baja prioridad son discretas, sin brillo. No molestar oculta los avisos emergentes sin borrar el historial. Este permanece en memoria al recargar la configuración, pero no al reiniciar el proceso. No se guarda el contenido de las notificaciones en un registro.
+Las notificaciones tienen un borde fino con el color de acento del tema. Las críticas usan el rojo del tema y las de baja prioridad son discretas, sin borde. No molestar oculta los avisos emergentes sin borrar el historial. Este permanece en memoria al recargar la configuración, pero no al reiniciar el proceso. No se guarda el contenido de las notificaciones en un registro.
 
 Pulsar una notificación ejecuta su acción principal. Una sin acción abre la aplicación que la envió: su ventana o, en herdr, el terminal con herdr en el espacio de trabajo y la pestaña que nombra la notificación. Cada tarjeta muestra el icono propio de la aplicación si lo tiene; si no, la campana.
 

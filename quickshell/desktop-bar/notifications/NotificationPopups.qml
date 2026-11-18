@@ -67,7 +67,7 @@ PanelWindow {
                     height: notificationCard.implicitHeight + 20
                     radius: DesktopStyle.radius(PanelStyle.cornerRadius)
                     color: window.background
-                    NotificationPriorityGlow {
+                    NotificationPriorityBorder {
                         anchors.fill: parent
                         shown: !!popupCard.modelData
                         urgency: popupCard.modelData && popupCard.modelData.urgency !== undefined ? popupCard.modelData.urgency : 1
