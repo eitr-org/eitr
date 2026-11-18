@@ -290,7 +290,6 @@
   "Context changed; refresh the menu": "Context changed; refresh the menu",
   "Context: {context}": "Context: {context}",
   "Continue": "Continue",
-  "Continue the update? [y/N] ": "Continue the update? [y/N] ",
   "Continue?": "Continue?",
   "Copied the report.": "Copied the report.",
   "Copied to the clipboard.": "Copied to the clipboard.",
@@ -397,7 +396,6 @@
   "Edit image": "Edit image",
   "Edit widgets": "Edit widgets",
   "Edit {label}": "Edit {label}",
-  "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.": "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.",
   "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.",
   "Eitr software": "Eitr software",
   "Eitr {name} is not installed. Install the eitr-desktop package (see distro/README.md, Existing desktop).": "Eitr {name} is not installed. Install the eitr-desktop package (see distro/README.md, Existing desktop).",
@@ -1595,7 +1593,6 @@
   "App settings (~/.config)": "App settings (~/.config)",
   "App settings folders: {count}": "App settings folders: {count}",
   "App settings to restore": "App settings to restore",
-  "Approve installation? [y/N/Esc] ": "Approve installation? [y/N/Esc] ",
   "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}": "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}",
   "Apps to reinstall": "Apps to reinstall",
   "Apps: installed={n}, already_present={a}, skipped={s}, failed={f}": "Apps: installed={n}, already_present={a}, skipped={s}, failed={f}",
@@ -1662,7 +1659,6 @@
   "Destination directory or archive filename": "Destination directory or archive filename",
   "Destination has {free} free, need at least {needed}.": "Destination has {free} free, need at least {needed}.",
   "Destination unavailable": "Destination unavailable",
-  "Destination {path} is on the same disk as your home folder. Continue? [y/N] ": "Destination {path} is on the same disk as your home folder. Continue? [y/N] ",
   "Do not record installed apps": "Do not record installed apps",
   "Eitr settings": "Eitr settings",
   "Encryption helper failed.": "Encryption helper failed.",
@@ -1794,5 +1790,9 @@
   "Esc: cancel": "Esc: cancel",
   "Left: back": "Left: back",
   "Space: toggle": "Space: toggle",
-  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)"
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)",
+  "Continue the update?": "Continue the update?",
+  "Destination {path} is on the same disk as your home folder. Continue?": "Destination {path} is on the same disk as your home folder. Continue?",
+  "Approve installation?": "Approve installation?",
+  "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect.": "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect."
 }

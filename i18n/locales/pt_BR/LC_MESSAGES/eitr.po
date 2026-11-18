@@ -412,8 +412,8 @@ msgstr "Aplicando…"
 msgid "Applying…"
 msgstr "Aplicando…"
 
-msgid "Approve installation? [y/N/Esc] "
-msgstr "Aprovar instalação? [y/N/Esc] "
+msgid "Approve installation?"
+msgstr "Aprovar instalação?"
 
 msgid "Apps"
 msgstr "Aplicativos"
@@ -1072,8 +1072,8 @@ msgstr "Contexto: {context}"
 msgid "Continue"
 msgstr "Continuar"
 
-msgid "Continue the update? [y/N] "
-msgstr "Continuar a atualização? [y/N] "
+msgid "Continue the update?"
+msgstr "Continuar a atualização?"
 
 msgid "Continue?"
 msgstr "Continuar?"
@@ -1327,8 +1327,8 @@ msgstr "O destino tem {free} livres e precisa de pelo menos {needed}."
 msgid "Destination unavailable"
 msgstr "Destino indisponível"
 
-msgid "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
-msgstr "O destino {path} está no mesmo disco da sua pasta pessoal. Continuar? [y/N] "
+msgid "Destination {path} is on the same disk as your home folder. Continue?"
+msgstr "O destino {path} está no mesmo disco da sua pasta pessoal. Continuar?"
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Logs detalhados: /var/log/archinstall. Nada após a etapa que falhou foi alterado."
@@ -1441,8 +1441,8 @@ msgstr "Editar widgets"
 msgid "Edit {label}"
 msgstr "Editar {label}"
 
-msgid "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it."
-msgstr "O Eitr pede sua senha apenas em um terminal que ele abriu para uma etapa que você iniciou, como a Atualização do sistema, nunca em uma janela pop-up. Se um plugin pedir sua senha, não é o Eitr: não a digite."
+msgid "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect."
+msgstr "O Eitr só pede sua senha em uma etapa que você iniciou: em um terminal que ele abriu, como a Atualização do sistema, ou na janela de senha do sistema, que mostra o comando que será executado como administrador. Plugins também podem usar essa janela, então leia o comando mostrado e não digite sua senha para um que você não esperava."
 
 msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 msgstr "O Eitr não o revisou. O código é do autor, não do Eitr. Adicione apenas plugins de pessoas e repositórios em que você confia."

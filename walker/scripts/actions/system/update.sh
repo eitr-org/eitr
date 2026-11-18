@@ -16,15 +16,14 @@ update_flatpaks() {
   flatpak update --user --noninteractive || eitr_gettext 'Flatpak apps could not be updated; the system update itself finished.' >&2
 }
 # Arch announces upgrades that need a manual step on its news feed. When news
-# arrived since the last upgrade, ask first; Enter cancels before anything changes.
+# arrived since the last upgrade, ask first; Esc cancels before anything changes.
 # Automated updates (the VM tests) set EITR_SKIP_ARCH_NEWS=1.
 arch_news_ok() {
   [[ "${EITR_SKIP_ARCH_NEWS:-}" == 1 ]] && return 0
-  local status=0 answer=''
+  local status=0
   run_with_spinner "$(eitr_gettext 'Checking Arch Linux news…')" python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/system/arch-news.py" || status=$?
   (( status == 10 )) || return 0
-  read -r -p "$(eitr_gettext 'Continue the update? [y/N] ')" answer || true
-  [[ "$answer" =~ ^[Yy]([Ee][Ss])?$ ]]
+  python3 "${i18n_library%/*}/eitr_terminal.py" confirm "$(eitr_gettext 'Continue the update?')"
 }
 cancel() { rm -f "$packages"; eitr_gettext 'Update cancelled; nothing was changed.'; printf '\n'; exit 0; }
 # Only the distro's System Update path creates snapshots.

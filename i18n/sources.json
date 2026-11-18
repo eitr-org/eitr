@@ -7567,7 +7567,7 @@
     "Applying…": [
       "walker/scripts/actions/style/own.py"
     ],
-    "Approve installation? [y/N/Esc] ": [
+    "Approve installation?": [
       "distro/lib/eitr_backup/wizard_ui.py"
     ],
     "Apps": [
@@ -8238,7 +8238,7 @@
     "Continue": [
       "distro/archinstall/installer-ui.py"
     ],
-    "Continue the update? [y/N] ": [
+    "Continue the update?": [
       "walker/scripts/actions/system/update.sh"
     ],
     "Continue?": [
@@ -8499,7 +8499,7 @@
     "Destination unavailable": [
       "distro/lib/eitr_backup/wizard.py"
     ],
-    "Destination {path} is on the same disk as your home folder. Continue? [y/N] ": [
+    "Destination {path} is on the same disk as your home folder. Continue?": [
       "distro/lib/eitr_backup/cli.py"
     ],
     "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.": [
@@ -8616,7 +8616,7 @@
     "Edit {label}": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
-    "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.": [
+    "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect.": [
       "walker/scripts/actions/install/plugins.py"
     ],
     "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": [
@@ -8728,7 +8728,7 @@
       "distro/lib/eitr_wizard.py"
     ],
     "Enter: continue  Esc: cancel": [
-      "walker/scripts/actions/install/plugins.py"
+      "distro/lib/eitr_terminal.py"
     ],
     "Enter: copy the redacted report · Esc: close": [
       "distro/lib/eitr_selfcheck.py"

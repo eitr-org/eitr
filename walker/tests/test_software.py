@@ -542,10 +542,11 @@ class SoftwareRemovalTests(unittest.TestCase):
                         patch.object(software.subprocess, "run", return_value=SimpleNamespace(returncode=0, stdout=answer)) as run:
                     self.assertEqual(software.confirm("Review"), accepted)
                     self.assertIn(catalog["Confirm"], run.call_args.kwargs["input"])
-            for answer, accepted in (("yes", True), ("y", True), ("n", False), ("", False)):
-                with self.subTest(locale=locale, answer=answer), \
+            # Enter removes after the warning, Esc or Ctrl+C keeps everything; letters do nothing.
+            for keys, accepted in ((["\r"], True), (["y", "\r"], True), (["\x1b"], False), (["n", "\x03"], False)):
+                with self.subTest(locale=locale, keys=keys), \
                         patch("eitr_forms.tr", side_effect=lambda message: catalog.get(message, message)), \
-                        patch("builtins.input", return_value=answer), patch("builtins.print"), \
+                        patch("eitr_terminal.read_key", side_effect=keys), patch("builtins.print"), \
                         patch.object(software, "recipe_remove") as remove:
                     software.recipe_review("languages", "node")
                     self.assertEqual(remove.called, accepted)

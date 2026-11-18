@@ -55,7 +55,7 @@ assert(checked == 1)
         return helper
 
     def test_declining_reboot_saves_without_disconnecting_or_rebooting(self):
-        with patch.object(choice, "HELPER", self.helper()), patch("builtins.input", side_effect=["yes", "n"]), patch("builtins.print"), \
+        with patch.object(choice, "HELPER", self.helper()), patch.object(choice, "confirm", side_effect=[True, False]), patch("builtins.print"), \
                 patch.object(choice.subprocess, "run") as run:
             choice.main(["networkmanager"])
         commands = [call.args[0] for call in run.call_args_list]
@@ -64,13 +64,13 @@ assert(checked == 1)
                             for command in commands))
 
     def test_reboot_requires_separate_confirmation(self):
-        with patch.object(choice, "HELPER", self.helper()), patch("builtins.input", side_effect=["y", "y"]), patch("builtins.print"), \
+        with patch.object(choice, "HELPER", self.helper()), patch.object(choice, "confirm", side_effect=[True, True]), patch("builtins.print"), \
                 patch.object(choice.subprocess, "run") as run:
             choice.main(["iwd"])
         self.assertEqual(run.call_args_list[-1].args[0], ["systemctl", "reboot", "--no-wall"])
 
     def test_declining_selection_does_not_change_anything(self):
-        with patch.object(choice, "HELPER", self.helper()), patch("builtins.input", return_value="n"), patch("builtins.print"), \
+        with patch.object(choice, "HELPER", self.helper()), patch.object(choice, "confirm", return_value=False), patch("builtins.print"), \
                 patch.object(choice.subprocess, "run") as run:
             choice.main(["iwd"])
         self.assertTrue(all(call.args[0][:2] == ["systemctl", "is-active"] for call in run.call_args_list))

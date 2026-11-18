@@ -412,8 +412,8 @@ msgstr "Applying it…"
 msgid "Applying…"
 msgstr "Applying…"
 
-msgid "Approve installation? [y/N/Esc] "
-msgstr "Approve installation? [y/N/Esc] "
+msgid "Approve installation?"
+msgstr "Approve installation?"
 
 msgid "Apps"
 msgstr "Apps"
@@ -1072,8 +1072,8 @@ msgstr "Context: {context}"
 msgid "Continue"
 msgstr "Continue"
 
-msgid "Continue the update? [y/N] "
-msgstr "Continue the update? [y/N] "
+msgid "Continue the update?"
+msgstr "Continue the update?"
 
 msgid "Continue?"
 msgstr "Continue?"
@@ -1327,8 +1327,8 @@ msgstr "Destination has {free} free, need at least {needed}."
 msgid "Destination unavailable"
 msgstr "Destination unavailable"
 
-msgid "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
-msgstr "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
+msgid "Destination {path} is on the same disk as your home folder. Continue?"
+msgstr "Destination {path} is on the same disk as your home folder. Continue?"
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
@@ -1441,8 +1441,8 @@ msgstr "Edit widgets"
 msgid "Edit {label}"
 msgstr "Edit {label}"
 
-msgid "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it."
-msgstr "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it."
+msgid "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect."
+msgstr "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect."
 
 msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 msgstr "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."

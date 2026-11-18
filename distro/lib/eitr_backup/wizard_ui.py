@@ -3,7 +3,7 @@ import curses
 
 from eitr_backup.sizes import format_size
 from eitr_i18n import mark, tr
-from eitr_terminal import read_key
+from eitr_terminal import confirm
 from eitr_textwidth import cell_width, clip, wrap_text
 from eitr_wizard import Back, Cancelled, Wizard
 
@@ -53,15 +53,7 @@ def terminal_approve_item(kind, item, details):
             print(f"  {tr('Notice: third-party repository (not reviewed by Eitr)')}")
         for flag in details.get("flags", []):
             print(f"  RISK: {flag}")
-    print(tr("Approve installation? [y/N/Esc] "), end="", flush=True)
-    while True:
-        key = read_key()
-        if key in ("y", "Y"):
-            print("y")
-            return True
-        if key in ("n", "N", "\r", "\n", "\x1b", "\x03", ""):
-            print("n")
-            return False
+    return confirm(tr("Approve installation?"))
 
 
 def _item_matches(item, query):

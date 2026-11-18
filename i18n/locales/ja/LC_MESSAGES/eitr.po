@@ -412,8 +412,8 @@ msgstr "適用中…"
 msgid "Applying…"
 msgstr "適用中…"
 
-msgid "Approve installation? [y/N/Esc] "
-msgstr "インストールを承認しますか？ [y/N/Esc] "
+msgid "Approve installation?"
+msgstr "インストールを承認しますか？"
 
 msgid "Apps"
 msgstr "アプリ"
@@ -1072,8 +1072,8 @@ msgstr "コンテキスト: {context}"
 msgid "Continue"
 msgstr "続行"
 
-msgid "Continue the update? [y/N] "
-msgstr "アップデートを続行しますか？ [y/N] "
+msgid "Continue the update?"
+msgstr "アップデートを続行しますか？"
 
 msgid "Continue?"
 msgstr "続行しますか？"
@@ -1327,8 +1327,8 @@ msgstr "保存先の空き容量は {free} ですが、少なくとも {needed} 
 msgid "Destination unavailable"
 msgstr "保存先を利用できません"
 
-msgid "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
-msgstr "保存先 {path} はホームフォルダーと同じディスク上にあります。続行しますか？ [y/N] "
+msgid "Destination {path} is on the same disk as your home folder. Continue?"
+msgstr "保存先 {path} はホームフォルダーと同じディスク上にあります。続行しますか？"
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "詳細ログ: /var/log/archinstall。失敗したステップ以降は何も変更されていません。"
@@ -1441,8 +1441,8 @@ msgstr "ウィジェットを編集"
 msgid "Edit {label}"
 msgstr "{label} を編集"
 
-msgid "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it."
-msgstr "Eitrがパスワードを要求するのは、システムアップデートなど、ユーザーが開始した操作のために開かれたターミナル内のみであり、ポップアップウィンドウで要求することは絶対にありません。プラグインがパスワードを要求してきた場合、それはEitrではありません。絶対に入力しないでください。"
+msgid "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect."
+msgstr "Eitr がパスワードを尋ねるのは、あなたが開始した操作のときだけです。システムアップデートのように Eitr が開いたターミナル、または管理者として実行されるコマンドを表示するシステムのパスワードウィンドウで尋ねます。プラグインもこのウィンドウを使えるので、表示されたコマンドを確認し、予期しないコマンドにはパスワードを入力しないでください。"
 
 msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 msgstr "Eitrはこのプラグインをレビューしていません。コードは作成者に帰属し、Eitrのものではありません。信頼できる人物やリポジトリのプラグインのみを追加してください。"

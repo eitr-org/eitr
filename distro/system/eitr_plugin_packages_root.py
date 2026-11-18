@@ -5,23 +5,26 @@ from pathlib import Path
 import subprocess
 import tempfile
 
-from eitr_plugin_packages import REPOSITORIES, names, removable, repository, query
+from eitr_plugin_packages import REMOVE_LIMIT, REPOSITORIES, closed, names, repository, query
 
 
 def dispatch(action, stream):
     if os.geteuid() != 0:
         raise ValueError('Package management requires root')
-    packages = names(json.loads(stream.read(8193)))
+    limit = REMOVE_LIMIT if action == 'remove' else 32
+    packages = names(json.loads(stream.read(limit * 132 + 1)), limit=limit)
     if not packages:
         return
-    approved = {name: repository(name) for name in packages}
     if action == 'remove':
-        if removable(packages) != packages:
+        # Exactly the reviewed list, rechecked as root: dependencies only, and nothing outside
+        # the list requires or optionally uses any of them.
+        if closed(packages) != set(packages):
             raise ValueError('Only orphaned dependency packages may be removed')
         subprocess.run(['/usr/bin/pacman', '-R', '--noconfirm', '--', *packages], check=True)
         return
     if action != 'install':
         raise ValueError('Invalid package action')
+    approved = {name: repository(name) for name in packages}
     targets = [approved[name] + '/' + name for name in packages if query('-Q', name).returncode != 0]
     if not targets:
         return

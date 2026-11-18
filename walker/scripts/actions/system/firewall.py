@@ -2,6 +2,7 @@
 """Walker's Firewall: show whether it is on, then switch it only after a yes."""
 import eitr_bootstrap
 from eitr_i18n import mark, tr
+from eitr_terminal import confirm
 from pathlib import Path
 import subprocess
 import sys
@@ -20,8 +21,7 @@ def main():
     status = subprocess.run([HELPER, "firewall-status"])
     active = status.returncode == 0
     print("\n" + tr(EXPLANATION[active]))
-    answer = input((tr('Turn the firewall off?') if active else tr('Turn the firewall on?')) + ' [y/N]: ').strip().lower()
-    if answer not in ("y", "yes"):
+    if not confirm(tr('Turn the firewall off?') if active else tr('Turn the firewall on?')):
         print(tr('Nothing was changed.'))
         return
     subprocess.run(["sudo", HELPER, "firewall-off" if active else "firewall-on"], check=True)

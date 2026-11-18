@@ -53,7 +53,9 @@ def run_protected_update(mocks, answer="", environment_extra=None, migrated=True
 
 class UpdateWorkflowTests(unittest.TestCase):
     # A stand-in for arch-news.py that reports news (exit 10).
-    NEWS = 'python3() { if [[ "$1" == *arch-news.py ]]; then echo "Arch posted news"; return 10; fi; }\n'
+    # The real Enter/Esc prompt (eitr_terminal.py) answers the question from the test's input.
+    NEWS = ('python3() { if [[ "$1" == *arch-news.py ]]; then echo "Arch posted news"; return 10; fi; '
+            'if [[ "$1" == *eitr_terminal.py ]]; then command python3 "$@"; fi; }\n')
     UPDATING = 'sudo() { echo "sudo $*"; }\nyay() { echo "yay $*"; }\n'
 
     def test_up_to_date_desktop_still_installs_the_lockscreen_designs_once(self):
@@ -136,9 +138,10 @@ class UpdateWorkflowTests(unittest.TestCase):
             self.assertIn("Creating the before-update snapshot…", result.stderr)
             self.assertEqual("Creating the after-update snapshot…" in result.stderr, result.returncode == 0)
 
-    def test_translated_news_prompts_accept_literal_english_answers(self):
+    def test_translated_news_prompts_continue_on_enter_and_cancel_on_escape(self):
         for locale in ("pt_BR", "es", "de", "fr"):
-            for answer, continues in (("yes\n", True), ("n\n", False), ("\n", False)):
+            # Letters do nothing: "y" waits for Enter, "n" waits for Esc (here, the end of input).
+            for answer, continues in (("\n", True), ("y\n\n", True), ("\x1b\n", False), ("n\n", False)):
                 with self.subTest(locale=locale, answer=answer):
                     result = run_protected_update(self.NEWS + self.UPDATING, answer=answer,
                         environment_extra={"LC_ALL": "", "LC_MESSAGES": locale})
@@ -146,16 +149,16 @@ class UpdateWorkflowTests(unittest.TestCase):
                     self.assertEqual("snapshot-pre" in result.stdout, continues)
                     self.assertNotIn("Update cancelled; nothing was changed.", result.stdout)
 
-    def test_arch_news_and_enter_cancel_before_any_snapshot(self):
-        result = run_protected_update(self.NEWS + self.UPDATING, answer="\n")
+    def test_arch_news_and_escape_cancel_before_any_snapshot(self):
+        result = run_protected_update(self.NEWS + self.UPDATING, answer="\x1b\n")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("Arch posted news", result.stdout)
         self.assertIn("Update cancelled; nothing was changed.", result.stdout)
         self.assertNotIn("snapshot-pre", result.stdout)
         self.assertNotIn("pacman", result.stdout)
 
-    def test_arch_news_and_yes_continue_the_update(self):
-        result = run_protected_update(self.NEWS + self.UPDATING, answer="y\n")
+    def test_arch_news_and_enter_continue_the_update(self):
+        result = run_protected_update(self.NEWS + self.UPDATING, answer="\n")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("snapshot-pre", result.stdout)
         self.assertIn("pacman -Sy\n", result.stdout + "\n")

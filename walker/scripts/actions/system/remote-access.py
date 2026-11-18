@@ -82,7 +82,8 @@ def root(action):
 
 
 def confirm(message):
-    return input(message + ' [y/N] ').strip().lower() in ('y', 'yes')
+    from eitr_terminal import confirm as enter_or_escape
+    return enter_or_escape(message)
 
 
 def open_page(url):

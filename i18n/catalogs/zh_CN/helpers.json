@@ -136,7 +136,6 @@
   "Apply this system change? Type yes to continue: ": "是否应用此系统更改？键入 yes 继续： ",
   "Applying it…": "正在应用…",
   "Applying…": "正在应用…",
-  "Approve installation? [y/N/Esc] ": "确认安装？[y/N/Esc] ",
   "Apps": "应用",
   "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}": "已安装：{n}  ·  已存在：{a}  ·  已跳过：{s}  ·  失败：{f}",
   "Apps to reinstall": "要重装的应用",
@@ -356,7 +355,6 @@
   "Context changed; refresh the menu": "上下文已更改；请刷新菜单",
   "Context: {context}": "上下文：{context}",
   "Continue": "继续",
-  "Continue the update? [y/N] ": "是否继续更新？[y/N] ",
   "Continue?": "是否继续？",
   "Copied the report.": "已复制报告。",
   "Copied to the clipboard.": "已复制到剪贴板。",
@@ -441,7 +439,6 @@
   "Destination directory or archive filename": "目标目录或归档文件名",
   "Destination has {free} free, need at least {needed}.": "目标位置仅有 {free} 可用，至少需要 {needed}。",
   "Destination unavailable": "目标位置不可用",
-  "Destination {path} is on the same disk as your home folder. Continue? [y/N] ": "目标路径 {path} 与主目录位于同一磁盘上，是否继续？[y/N] ",
   "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.": "详细日志：/var/log/archinstall。失败步骤之后未更改任何内容。",
   "Direct": "直接",
   "Disabled by organization policy: {feature}": "已被组织策略禁用：{feature}",
@@ -479,7 +476,6 @@
   "Edit image": "编辑图片",
   "Edit widgets": "编辑小组件",
   "Edit {label}": "编辑 {label}",
-  "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.": "Eitr 仅在因您触发的操作（如“系统更新”）而打开的终端中请求您的密码，绝不会在弹窗中请求。如果插件向您索要密码，那绝非 Eitr：请勿输入密码。",
   "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": "Eitr 未对该插件进行审查。其代码归其作者所有，而非 Eitr。请仅添加来自您信任的人或仓库的插件。",
   "Eitr settings": "Eitr 设置",
   "Eitr software": "Eitr 软件",
@@ -1794,5 +1790,9 @@
   "Signing in still needs an account password. Sharing stops the moment someone signs in.": "登录仍需要账户密码。有人登录后共享会立即停止。",
   "Start sharing once and set Sunshine’s password first.": "请先启动一次共享并设置 Sunshine 的密码。",
   "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "之后，持有与共享配对设备的任何人都可以串流登录界面。",
-  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "读取系统硬件和网络吞吐量指标（CPU、GPU、内存、存储和适配器速度）"
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "读取系统硬件和网络吞吐量指标（CPU、GPU、内存、存储和适配器速度）",
+  "Continue the update?": "是否继续更新？",
+  "Destination {path} is on the same disk as your home folder. Continue?": "目标路径 {path} 与主目录位于同一磁盘上，是否继续？",
+  "Approve installation?": "确认安装？",
+  "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect.": "Eitr 只会在你启动的步骤中询问密码：在它打开的终端中（例如系统更新），或在系统密码窗口中，该窗口会显示将以管理员身份运行的命令。插件也可以使用这个窗口，因此请查看其中显示的命令，不要为意料之外的命令输入密码。"
 }

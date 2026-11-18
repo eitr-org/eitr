@@ -375,7 +375,7 @@ class HomeSnapshotMenuTests(unittest.TestCase):
         self.assertIn("Before=display-manager.service systemd-user-sessions.service",
                       (DISTRO / "system/eitr-home-exclusions.service").read_text())
         self.assertIn('"system/restore-file.py"', (DISTRO / "bin/eitr").read_text())
-        self.assertIn("[y/N]", (ROOT / "walker/scripts/actions/system/home-snapshots.py").read_text())
+        self.assertIn("from eitr_terminal import confirm", (ROOT / "walker/scripts/actions/system/home-snapshots.py").read_text())
 
 
 if __name__ == "__main__":

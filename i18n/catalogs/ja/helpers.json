@@ -136,7 +136,6 @@
   "Apply this system change? Type yes to continue: ": "このシステムの変更を適用しますか？続行するには yes と入力してください: ",
   "Applying it…": "適用中…",
   "Applying…": "適用中…",
-  "Approve installation? [y/N/Esc] ": "インストールを承認しますか？ [y/N/Esc] ",
   "Apps": "アプリ",
   "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}": "インストール済: {n}  ·  既存: {a}  ·  スキップ: {s}  ·  失敗: {f}",
   "Apps to reinstall": "再インストールするアプリ",
@@ -356,7 +355,6 @@
   "Context changed; refresh the menu": "コンテキストが変更されました。メニューを更新してください",
   "Context: {context}": "コンテキスト: {context}",
   "Continue": "続行",
-  "Continue the update? [y/N] ": "アップデートを続行しますか？ [y/N] ",
   "Continue?": "続行しますか？",
   "Copied the report.": "レポートをコピーしました。",
   "Copied to the clipboard.": "クリップボードにコピーしました。",
@@ -441,7 +439,6 @@
   "Destination directory or archive filename": "保存先ディレクトリまたはアーカイブ名",
   "Destination has {free} free, need at least {needed}.": "保存先の空き容量は {free} ですが、少なくとも {needed} 必要です。",
   "Destination unavailable": "保存先を利用できません",
-  "Destination {path} is on the same disk as your home folder. Continue? [y/N] ": "保存先 {path} はホームフォルダーと同じディスク上にあります。続行しますか？ [y/N] ",
   "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.": "詳細ログ: /var/log/archinstall。失敗したステップ以降は何も変更されていません。",
   "Direct": "直接",
   "Disabled by organization policy: {feature}": "組織のポリシーにより無効化されています: {feature}",
@@ -479,7 +476,6 @@
   "Edit image": "画像を編集",
   "Edit widgets": "ウィジェットを編集",
   "Edit {label}": "{label} を編集",
-  "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.": "Eitrがパスワードを要求するのは、システムアップデートなど、ユーザーが開始した操作のために開かれたターミナル内のみであり、ポップアップウィンドウで要求することは絶対にありません。プラグインがパスワードを要求してきた場合、それはEitrではありません。絶対に入力しないでください。",
   "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": "Eitrはこのプラグインをレビューしていません。コードは作成者に帰属し、Eitrのものではありません。信頼できる人物やリポジトリのプラグインのみを追加してください。",
   "Eitr settings": "Eitr設定",
   "Eitr software": "Eitrソフトウェア",
@@ -1794,5 +1790,9 @@
   "Signing in still needs an account password. Sharing stops the moment someone signs in.": "サインインには引き続きアカウントのパスワードが必要です。誰かがサインインした時点で共有は停止します。",
   "Start sharing once and set Sunshine’s password first.": "まず一度共有を開始し、Sunshine のパスワードを設定してください。",
   "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "ログイン画面は、共有にペアリングされたデバイスから、それを持つ誰でもストリーミングできるようになります。",
-  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "システムのハードウェアおよびネットワークスループット指標（CPU、GPU、RAM、ストレージ、アダプター速度）を読み取ります"
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "システムのハードウェアおよびネットワークスループット指標（CPU、GPU、RAM、ストレージ、アダプター速度）を読み取ります",
+  "Continue the update?": "アップデートを続行しますか？",
+  "Destination {path} is on the same disk as your home folder. Continue?": "保存先 {path} はホームフォルダーと同じディスク上にあります。続行しますか？",
+  "Approve installation?": "インストールを承認しますか？",
+  "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect.": "Eitr がパスワードを尋ねるのは、あなたが開始した操作のときだけです。システムアップデートのように Eitr が開いたターミナル、または管理者として実行されるコマンドを表示するシステムのパスワードウィンドウで尋ねます。プラグインもこのウィンドウを使えるので、表示されたコマンドを確認し、予期しないコマンドにはパスワードを入力しないでください。"
 }

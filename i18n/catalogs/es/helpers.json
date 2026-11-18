@@ -136,7 +136,6 @@
   "Apply this system change? Type yes to continue: ": "¿Aplicar este cambio del sistema? Escriba yes para continuar: ",
   "Applying it…": "Aplicándolo…",
   "Applying…": "Aplicando…",
-  "Approve installation? [y/N/Esc] ": "¿Aprobar instalación? [y/N/Esc] ",
   "Apps": "Aplicaciones",
   "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}": "Instaladas: {n}  ·  Ya presentes: {a}  ·  Omitidas: {s}  ·  Fallidas: {f}",
   "Apps to reinstall": "Apps a reinstalar",
@@ -356,7 +355,6 @@
   "Context changed; refresh the menu": "El contexto cambió; actualiza el menú",
   "Context: {context}": "Contexto: {context}",
   "Continue": "Continuar",
-  "Continue the update? [y/N] ": "¿Continuar la actualización? [y/N] ",
   "Continue?": "¿Continuar?",
   "Copied the report.": "Informe copiado.",
   "Copied to the clipboard.": "Copiado al portapapeles.",
@@ -441,7 +439,6 @@
   "Destination directory or archive filename": "Carpeta de destino o nombre de archivo",
   "Destination has {free} free, need at least {needed}.": "El destino tiene {free} libres y se necesitan al menos {needed}.",
   "Destination unavailable": "Destino no disponible",
-  "Destination {path} is on the same disk as your home folder. Continue? [y/N] ": "El destino {path} está en el mismo disco que tu carpeta personal. ¿Continuar? [y/N] ",
   "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.": "Registros detallados: /var/log/archinstall. No se modificó nada después del paso que falló.",
   "Direct": "Directa",
   "Disabled by organization policy: {feature}": "Desactivado por la política de organización: {feature}",
@@ -479,7 +476,6 @@
   "Edit image": "Editar imagen",
   "Edit widgets": "Editar widgets",
   "Edit {label}": "Editar {label}",
-  "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.": "Eitr pide tu contraseña solo en un terminal que abrió para un paso que tú iniciaste, como la Actualización del sistema, nunca en una ventana emergente. Si un plugin te pide la contraseña, no es Eitr: no la escribas.",
   "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": "Eitr no lo ha revisado. Su código es de su autor, no de Eitr. Añade solo plugins de personas y repositorios en los que confíes.",
   "Eitr settings": "Ajustes de Eitr",
   "Eitr software": "Software de Eitr",
@@ -1794,5 +1790,9 @@
   "Signing in still needs an account password. Sharing stops the moment someone signs in.": "Para iniciar sesión sigue haciendo falta la contraseña de una cuenta. El uso compartido se detiene en cuanto alguien inicia sesión.",
   "Start sharing once and set Sunshine’s password first.": "Primero inicia el uso compartido una vez y define la contraseña de Sunshine.",
   "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "La pantalla de inicio de sesión podrá transmitirse desde los dispositivos emparejados con tu uso compartido, por cualquiera que los tenga.",
-  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "Lee métricas de hardware del sistema y rendimiento de red (CPU, GPU, RAM, almacenamiento y velocidades de adaptadores)"
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "Lee métricas de hardware del sistema y rendimiento de red (CPU, GPU, RAM, almacenamiento y velocidades de adaptadores)",
+  "Continue the update?": "¿Continuar la actualización?",
+  "Destination {path} is on the same disk as your home folder. Continue?": "El destino {path} está en el mismo disco que tu carpeta personal. ¿Continuar?",
+  "Approve installation?": "¿Aprobar instalación?",
+  "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect.": "Eitr solo te pide la contraseña en un paso que tú iniciaste: en una terminal que abrió, como Actualización del sistema, o en la ventana de contraseña del sistema, que indica el comando que se ejecutará como administrador. Los plugins también pueden usar esa ventana, así que lee el comando que indica y no escribas tu contraseña para uno que no esperabas."
 }

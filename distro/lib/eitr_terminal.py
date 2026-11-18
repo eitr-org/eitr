@@ -69,5 +69,19 @@ def read_key():
     return key.decode('utf-8', errors='replace') or '\x1b'
 
 
+def confirm(question, marker='›'):
+    """Enter continues; Escape, Ctrl+C or the end of input cancels; other keys do nothing."""
+    print(f"{marker} {question} {tr('Enter: continue  Esc: cancel')} ", end='', flush=True)
+    while True:
+        key = read_key()
+        if key in ('\r', '\n'):
+            return True
+        if key in ('\x1b', '\x03', '\x04', ''):
+            return False
+
+
 if __name__ == '__main__':
+    # `eitr_terminal.py confirm QUESTION` exits 0 on Enter and 1 on Esc, for shell callers.
+    if sys.argv[1:2] == ['confirm'] and len(sys.argv) == 3:
+        raise SystemExit(0 if confirm(sys.argv[2]) else 1)
     wait_for_escape()

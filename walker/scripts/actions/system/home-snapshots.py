@@ -2,6 +2,7 @@
 """Walker's Home Folder Snapshots: show whether they are on, then switch after a yes."""
 import eitr_bootstrap
 from eitr_i18n import mark, tr
+from eitr_terminal import confirm
 import getpass
 from pathlib import Path
 import subprocess
@@ -20,8 +21,7 @@ def main():
         raise RuntimeError(tr('The root-owned Eitr helper is not installed; update the eitr-desktop package.'))
     active = subprocess.run([HELPER, "status"]).returncode == 0
     print("\n" + tr(EXPLANATION[active]))
-    answer = input((tr('Turn home snapshots off?') if active else tr('Turn home snapshots on?')) + ' [y/N]: ').strip().lower()
-    if answer not in ("y", "yes"):
+    if not confirm(tr('Turn home snapshots off?') if active else tr('Turn home snapshots on?')):
         print(tr('Nothing was changed.'))
         return
     command = ["sudo", HELPER, "off"] if active else ["sudo", HELPER, "on", getpass.getuser()]

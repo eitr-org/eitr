@@ -136,7 +136,6 @@
   "Apply this system change? Type yes to continue: ": "Appliquer cette modification système ? Saisissez yes pour continuer : ",
   "Applying it…": "Application…",
   "Applying…": "Application…",
-  "Approve installation? [y/N/Esc] ": "Approuver l’installation ? [y/N/Esc] ",
   "Apps": "Applications",
   "Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}": "Installées : {n}  ·  Déjà présentes : {a}  ·  Ignorées : {s}  ·  Échouées : {f}",
   "Apps to reinstall": "Applications à réinstaller",
@@ -356,7 +355,6 @@
   "Context changed; refresh the menu": "Le contexte a changé ; actualisez le menu",
   "Context: {context}": "Contexte : {context}",
   "Continue": "Continuer",
-  "Continue the update? [y/N] ": "Continuer la mise à jour ? [y/N] ",
   "Continue?": "Continuer ?",
   "Copied the report.": "Rapport copié.",
   "Copied to the clipboard.": "Copié dans le presse-papiers.",
@@ -441,7 +439,6 @@
   "Destination directory or archive filename": "Dossier de destination ou nom du fichier archive",
   "Destination has {free} free, need at least {needed}.": "La destination dispose de {free}, au moins {needed} sont requis.",
   "Destination unavailable": "Destination indisponible",
-  "Destination {path} is on the same disk as your home folder. Continue? [y/N] ": "La destination {path} est sur le même disque que votre dossier personnel. Continuer ? [y/N] ",
   "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.": "Journaux détaillés : /var/log/archinstall. Aucune modification après l’étape ayant échoué.",
   "Direct": "Directe",
   "Disabled by organization policy: {feature}": "Désactivé par la politique de l’organisation : {feature}",
@@ -479,7 +476,6 @@
   "Edit image": "Modifier l’image",
   "Edit widgets": "Modifier les widgets",
   "Edit {label}": "Modifier {label}",
-  "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.": "Eitr ne demande votre mot de passe que dans un terminal qu’il a ouvert pour une étape que vous avez lancée, comme la mise à jour du système, jamais dans une fenêtre surgissante. Si un plugin vous demande votre mot de passe, ce n’est pas Eitr : ne le saisissez pas.",
   "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": "Eitr ne l’a pas vérifié. Son code appartient à son auteur, pas à Eitr. N’ajoutez que des plugins de personnes et de dépôts de confiance.",
   "Eitr settings": "Réglages Eitr",
   "Eitr software": "Logiciels Eitr",
@@ -1794,5 +1790,9 @@
   "Signing in still needs an account password. Sharing stops the moment someone signs in.": "La connexion demande toujours le mot de passe d’un compte. Le partage s’arrête dès que quelqu’un se connecte.",
   "Start sharing once and set Sunshine’s password first.": "Démarrez d’abord le partage une fois et définissez le mot de passe de Sunshine.",
   "The login screen can then be streamed by the devices paired with your sharing, by anyone holding them.": "L’écran de connexion pourra alors être diffusé par les appareils associés à votre partage, par toute personne qui les détient.",
-  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "Lit les métriques du matériel système et du débit réseau (CPU, GPU, RAM, stockage et vitesses des cartes)"
+  "Reads system hardware and network throughput metrics (CPU, GPU, RAM, storage, and adapter speeds)": "Lit les métriques du matériel système et du débit réseau (CPU, GPU, RAM, stockage et vitesses des cartes)",
+  "Continue the update?": "Continuer la mise à jour ?",
+  "Destination {path} is on the same disk as your home folder. Continue?": "La destination {path} est sur le même disque que votre dossier personnel. Continuer ?",
+  "Approve installation?": "Approuver l’installation ?",
+  "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect.": "Eitr ne demande votre mot de passe que pour une étape que vous avez lancée : dans un terminal qu’il a ouvert, comme la mise à jour du système, ou dans la fenêtre de mot de passe du système, qui indique la commande qui sera exécutée en administrateur. Les plugins peuvent aussi utiliser cette fenêtre : lisez donc la commande indiquée et ne saisissez pas votre mot de passe pour une commande que vous n’attendiez pas."
 }

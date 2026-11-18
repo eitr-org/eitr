@@ -14,7 +14,7 @@ La mise à jour du système vérifie d’abord les paquets officiels avec checku
 
 Un bureau Arch existant sans la politique de la distribution n’a pas besoin de cette configuration pour être mis à jour. La mise à jour du système actualise aussi les applications Flatpak, comme GeForce NOW ; un échec de Flatpak est signalé sans annuler la mise à jour du système.
 
-Avant la mise à jour, la mise à jour du système et les mises à jour des paquets officiels depuis le terminal consultent les nouvelles d’Arch Linux depuis la dernière mise à jour. Arch y annonce les changements nécessitant une intervention manuelle. S’il y a des nouvelles, les titres et liens apparaissent avec **Continuer la mise à jour ? [y/N]**. Enter annule avant tout changement pour vous laisser lire l’annonce. Sans nouvelles ou sans internet, la procédure continue.
+Avant la mise à jour, la mise à jour du système et les mises à jour des paquets officiels depuis le terminal consultent les nouvelles d’Arch Linux depuis la dernière mise à jour. Arch y annonce les changements nécessitant une intervention manuelle. S’il y a des nouvelles, les titres et liens apparaissent avec **Continuer la mise à jour ?**. Esc annule avant tout changement pour vous laisser lire l’annonce ; Enter continue. Sans nouvelles ou sans internet, la procédure continue.
 
 **Paramètres > Mises à jour > Canal de mise à jour** affiche les deux canaux et marque le vôtre. Choisir l’autre demande votre mot de passe dans un terminal et change l’origine des mises à jour d’Eitr lui-même. Stable, par défaut, les reçoit après essai. Testing reçoit les nouveaux builds dès leur publication pour essayer les changements plus tôt ; le reste provient toujours d’Arch.
 

@@ -44,14 +44,14 @@ class RemoteAccessTests(unittest.TestCase):
         self.addCleanup(tty.stop)
 
     def test_cancel_never_starts_sharing(self):
-        with patch('builtins.input', return_value='no'), patch.object(remote, 'run') as run:
+        with patch.object(remote, 'confirm', return_value=False), patch.object(remote, 'run') as run:
             remote.host('start')
         run.assert_not_called()
 
     def test_after_the_grant_start_is_a_plain_toggle(self):
         remote.GRANTED.touch()
         self.stdin.isatty.return_value = False
-        with patch('builtins.input', side_effect=AssertionError('no questions')), \
+        with patch.object(remote, 'confirm', side_effect=AssertionError('no questions')), \
                 patch.object(remote, 'run') as run, patch.object(remote, 'root') as root:
             remote.host('start')
         run.assert_called_once_with(['systemctl', '--user', 'start', remote.SERVICE])
@@ -66,12 +66,12 @@ class RemoteAccessTests(unittest.TestCase):
         run.assert_not_called()
 
     def test_granting_remote_control_is_remembered(self):
-        with patch('builtins.input', return_value='y'), patch.object(remote, 'run'), \
+        with patch.object(remote, 'confirm', return_value=True), patch.object(remote, 'run'), \
                 patch.object(remote, 'root') as root, patch.object(remote, 'settings'):
             remote.host('start')
         root.assert_called_once_with('arm')
         self.assertTrue(remote.GRANTED.exists())
-        with patch('builtins.input', return_value='y'), patch.object(remote, 'run'), patch.object(remote, 'root'):
+        with patch.object(remote, 'confirm', return_value=True), patch.object(remote, 'run'), patch.object(remote, 'root'):
             remote.host('undo')
         self.assertFalse(remote.GRANTED.exists())
 
@@ -196,7 +196,7 @@ class RemoteAccessTests(unittest.TestCase):
         root.assert_not_called()
 
     def test_first_start_stops_if_password_step_is_declined(self):
-        with patch('builtins.input', side_effect=['yes', 'no']), \
+        with patch.object(remote, 'confirm', side_effect=[True, False]), \
                 patch.object(remote, 'run') as run, patch.object(remote, 'root') as root:
             remote.host('start')
         root.assert_not_called()

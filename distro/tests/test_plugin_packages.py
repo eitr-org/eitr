@@ -33,10 +33,44 @@ class PackageTests(unittest.TestCase):
             self.assertEqual(packages.install({}, ['earlier']), ['earlier', 'missing'])
             privileged.assert_called_once_with('install', ['missing'])
 
-    def test_only_orphan_dependencies_removed(self):
-        orphan = 'Required By : None\nOptional For : None\nInstall Reason : Installed as a dependency for another package\n'
-        with patch.object(packages, 'query', side_effect=[Mock(returncode=0, stdout=orphan), Mock(returncode=0, stdout=orphan.replace('Required By : None', 'Required By : app')), Mock(returncode=0, stdout=orphan.replace('Installed as a dependency for another package', 'Explicitly installed'))]):
-            self.assertEqual(packages.removable(['orphan', 'required', 'explicit', 'shared'], ['shared']), ['orphan'])
+    @staticmethod
+    def pacman(database, removals):
+        """A fake `pacman -Qi` / `pacman -Rsp` over {name: (reason, required_by, optional_for)}."""
+        def query(*arguments):
+            if arguments[0] == '-Rsp':
+                return Mock(returncode=0, stdout='\n'.join(removals.get(arguments[-1], [arguments[-1]])) + '\n')
+            blocks = []
+            for name in arguments[2:]:
+                if name in database:
+                    reason, required, optional = database[name]
+                    blocks.append(f'Name            : {name}\nRequired By     : {"  ".join(required) or "None"}\n'
+                                  f'Optional For    : {"  ".join(optional) or "None"}\n'
+                                  f'Install Reason  : {reason}\n')
+            return Mock(returncode=0, stdout='\n'.join(blocks))
+        return query
+
+    def test_cleanup_includes_pulled_in_dependencies_and_keeps_what_others_use(self):
+        dependency, explicit = packages.DEPENDENCY, 'Explicitly installed'
+        # Real shape: networkmanager-openvpn pulled in its plugin, openvpn and libnma.
+        database = {
+            'networkmanager-openvpn': (dependency, [], []),
+            'networkmanager-vpn-plugin-openvpn': (dependency, ['networkmanager-openvpn'], []),
+            'openvpn': (dependency, ['networkmanager-vpn-plugin-openvpn'], []),
+            'libnma': (dependency, ['networkmanager-vpn-plugin-openvpn'], ['other-app']),
+            'shared-lib': (dependency, ['networkmanager-vpn-plugin-openvpn', 'firefox'], []),
+            'my-tool': (explicit, ['networkmanager-vpn-plugin-openvpn'], []),
+            'required': (dependency, ['app'], []),
+        }
+        removals = {'networkmanager-openvpn': ['networkmanager-openvpn', 'networkmanager-vpn-plugin-openvpn',
+                                               'openvpn', 'libnma', 'shared-lib', 'my-tool']}
+        with patch.object(packages, 'query', side_effect=self.pacman(database, removals)):
+            self.assertEqual(packages.removable(['networkmanager-openvpn', 'required', 'shared'], ['shared']),
+                             ['networkmanager-openvpn', 'networkmanager-vpn-plugin-openvpn', 'openvpn'])
+            # libnma is optionally used, shared-lib required elsewhere, my-tool explicitly installed.
+            trio = {'networkmanager-openvpn', 'networkmanager-vpn-plugin-openvpn', 'openvpn'}
+            self.assertEqual(packages.closed(trio), trio)
+            # Part of the set alone is refused: its requirers would stay behind.
+            self.assertEqual(packages.closed(['openvpn']), set())
 
     def test_root_revalidates(self):
         with patch.object(root.os, 'geteuid', return_value=0), patch.object(root, 'repository', side_effect=ValueError('unknown')), patch.object(root.subprocess, 'run') as run:
@@ -49,10 +83,18 @@ class PackageTests(unittest.TestCase):
             run.assert_not_called()
 
     def test_root_refuses_cleanup_when_package_became_required(self):
-        with patch.object(root.os, 'geteuid', return_value=0), patch.object(root, 'repository', return_value='extra'), patch.object(root, 'removable', return_value=[]), patch.object(root.subprocess, 'run') as run:
+        with patch.object(root.os, 'geteuid', return_value=0), patch.object(root, 'closed', return_value=set()), patch.object(root.subprocess, 'run') as run:
             with self.assertRaises(ValueError):
                 root.dispatch('remove', io.StringIO('["wireguard-tools"]'))
             run.assert_not_called()
+
+    def test_root_removes_exactly_the_reviewed_closed_list(self):
+        reviewed = ['networkmanager-openvpn', 'networkmanager-vpn-plugin-openvpn', 'openvpn']
+        with patch.object(root.os, 'geteuid', return_value=0), patch.object(root, 'closed', return_value=set(reviewed)), \
+                patch.object(root, 'repository') as repository, patch.object(root.subprocess, 'run') as run:
+            root.dispatch('remove', io.StringIO(json.dumps(reviewed)))
+        run.assert_called_once_with(['/usr/bin/pacman', '-R', '--noconfirm', '--', *reviewed], check=True)
+        repository.assert_not_called()
 
     def test_root_does_not_reinstall_existing_package(self):
         with patch.object(root.os, 'geteuid', return_value=0), patch.object(root, 'repository', return_value='extra'), patch.object(root, 'query', return_value=Mock(returncode=0)), patch.object(root.subprocess, 'run') as run:

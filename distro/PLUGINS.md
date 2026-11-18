@@ -644,8 +644,9 @@ Updates adding packages require the same explicit review.
 Approval records keep the declared package names installed for each plugin. A small
 `plugin-package-installs.json` state journal preserves ownership if package installation
 succeeds but the subsequent plugin transaction fails; retry and removal reconcile it. Removal offers
-an optional cleanup of those packages only when no installed package requires or
-optionally uses them, no other plugin declares them, and their install reason
-remains dependency. Explicitly installed packages are kept. Shared ownership moves
-to another declaring plugin on removal. Cleanup rechecks eligibility as root and
-uses nonrecursive removal; declining cleanup keeps the system packages.
+an optional cleanup of those packages and of the dependencies they pulled in, listed in full
+before anything is removed. A package is listed only when its install reason is dependency,
+no other plugin declares it, and nothing outside the list requires or optionally uses it
+(`pacman -Rs` alone ignores optional use). Explicitly installed packages are kept. Shared
+ownership moves to another declaring plugin on removal. Cleanup rechecks the whole list as
+root and removes exactly that list; declining cleanup keeps the system packages.

@@ -2,6 +2,7 @@
 """Choose the next boot's network stack, with an explicit reboot prompt."""
 import eitr_bootstrap
 from eitr_i18n import tr
+from eitr_terminal import confirm
 from pathlib import Path
 import subprocess
 import sys
@@ -20,11 +21,11 @@ def main(args):
     print(tr('This changes the network backend only after rebooting.'))
     print(tr('Saved profiles are kept separately; you may need to reconnect after the first switch.'))
     print(tr('Custom static-IP/VPN setups need manual review before switching.'))
-    if input(tr('Save this choice for the next boot?') + ' [y/N] ').strip().lower() not in ("y", "yes"):
+    if not confirm(tr('Save this choice for the next boot?')):
         return
     command = ["sudo", str(HELPER), "restore"] if args[0] == "restore" else ["sudo", str(HELPER), "stage", args[0]]
     subprocess.run(command, check=True)
-    if input(tr('Reboot now to apply?') + ' [y/N] ').strip().lower() in ("y", "yes"):
+    if confirm(tr('Reboot now to apply?')):
         subprocess.run(["systemctl", "reboot", "--no-wall"], check=True)
 
 

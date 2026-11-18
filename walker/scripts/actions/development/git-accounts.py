@@ -158,7 +158,7 @@ def login(identifier, account):
     print(tr('  This login belongs only to this account, not your global CLI account.'))
     print(ui.dim(tr('  The token is stored in a private, unencrypted profile file, so accounts on the')))
     print(ui.dim(tr('  same host never share a keyring entry. Never share that directory.')))
-    if ui.ask(tr('Continue?'), 'y/N').casefold() not in ('y', 'yes'):
+    if not ui.confirm(tr('Continue?')):
         print(ui.dim(tr('Cancelled.')))
         return
     args = [command, 'auth', 'login', '--hostname', account['host'], '--git-protocol', 'ssh', '--insecure-storage']

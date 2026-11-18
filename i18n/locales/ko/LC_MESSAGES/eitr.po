@@ -412,8 +412,8 @@ msgstr "적용 중…"
 msgid "Applying…"
 msgstr "적용 중…"
 
-msgid "Approve installation? [y/N/Esc] "
-msgstr "설치를 승인할까요? [y/N/Esc] "
+msgid "Approve installation?"
+msgstr "설치를 승인할까요?"
 
 msgid "Apps"
 msgstr "앱"
@@ -1072,8 +1072,8 @@ msgstr "컨텍스트: {context}"
 msgid "Continue"
 msgstr "계속"
 
-msgid "Continue the update? [y/N] "
-msgstr "업데이트를 계속하시겠습니까? [y/N] "
+msgid "Continue the update?"
+msgstr "업데이트를 계속하시겠습니까?"
 
 msgid "Continue?"
 msgstr "계속하시겠습니까?"
@@ -1327,8 +1327,8 @@ msgstr "대상의 남은 공간은 {free}이지만 최소 {needed}이(가) 필�
 msgid "Destination unavailable"
 msgstr "대상을 사용할 수 없음"
 
-msgid "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
-msgstr "대상 {path}이(가) 홈 폴더와 같은 디스크에 있습니다. 계속할까요? [y/N] "
+msgid "Destination {path} is on the same disk as your home folder. Continue?"
+msgstr "대상 {path}이(가) 홈 폴더와 같은 디스크에 있습니다. 계속할까요?"
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "상세 로그: /var/log/archinstall. 실패한 단계 이후에는 아무것도 변경되지 않았습니다."
@@ -1441,8 +1441,8 @@ msgstr "위젯 편집"
 msgid "Edit {label}"
 msgstr "{label} 편집"
 
-msgid "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it."
-msgstr "Eitr는 시스템 업데이트처럼 사용자가 시작한 단계를 위해 자신이 연 터미널에서만 비밀번호를 요청하며, 팝업 창에서는 절대 요청하지 않습니다. 플러그인이 비밀번호를 요청한다면 Eitr가 아니므로 입력하지 마세요."
+msgid "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect."
+msgstr "Eitr는 사용자가 시작한 단계에서만 비밀번호를 요청합니다. 시스템 업데이트처럼 Eitr가 연 터미널에서, 또는 관리자로 실행될 명령을 보여 주는 시스템 비밀번호 창에서 요청합니다. 플러그인도 이 창을 사용할 수 있으므로 표시된 명령을 확인하고, 예상하지 못한 명령에는 비밀번호를 입력하지 마세요."
 
 msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 msgstr "Eitr는 이를 검토하지 않았습니다. 해당 코드는 Eitr가 아닌 작성자의 소유입니다. 신뢰하는 사용자와 저장소의 플러그인만 추가하세요."

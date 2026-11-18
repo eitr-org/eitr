@@ -14,21 +14,9 @@ size_of() {
   du -sh "$@" 2>/dev/null | sort -hr || true
 }
 
+# Enter continues and Esc cancels (eitr_terminal.py, the shared prompt).
 confirm() {
-  local prompt="$1"
-  local answer
-
-  printf "%s [y/N] " "$prompt"
-  read -r answer
-
-  case "$answer" in
-    y | Y | yes | YES)
-      return 0
-      ;;
-    *)
-      return 1
-      ;;
-  esac
+  python3 "${i18n_library%/*}/eitr_terminal.py" confirm "$1"
 }
 
 run_if_available() {

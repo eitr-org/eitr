@@ -123,8 +123,8 @@ class FirewallMenuTests(unittest.TestCase):
         row = next(row for row in rows if row["text"] == "Firewall")
         self.assertIn("walker/scripts/actions/system/firewall.py", row["actions"]["open"])
         script = (ROOT / "walker/scripts/actions/system/firewall.py").read_text()
-        self.assertIn("[y/N]", script)
-        self.assertIn('if answer not in ("y", "yes"):', script)
+        self.assertIn("from eitr_terminal import confirm", script)
+        self.assertNotIn("[y/N]", script)
 
 
 if __name__ == "__main__":

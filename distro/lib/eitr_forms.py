@@ -49,6 +49,7 @@ class Terminal:
             raise ValueError(tr('Choose a number from 1 to {option_count}', option_count=f'{len(options)}'))
         return int(answer) - 1
 
-    def confirm(self, question, default=True):
-        answer = self.ask(question, 'Y/n' if default else 'y/N').casefold()
-        return answer in ('y', 'yes') or (not answer and default)
+    def confirm(self, question):
+        """Enter continues and Esc cancels, as everywhere in Eitr (never y/N)."""
+        from eitr_terminal import confirm
+        return confirm(tr(question), marker=f'{self.accent}›\033[0m')

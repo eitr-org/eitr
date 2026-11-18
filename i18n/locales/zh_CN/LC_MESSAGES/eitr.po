@@ -412,8 +412,8 @@ msgstr "正在应用…"
 msgid "Applying…"
 msgstr "正在应用…"
 
-msgid "Approve installation? [y/N/Esc] "
-msgstr "确认安装？[y/N/Esc] "
+msgid "Approve installation?"
+msgstr "确认安装？"
 
 msgid "Apps"
 msgstr "应用"
@@ -1072,8 +1072,8 @@ msgstr "上下文：{context}"
 msgid "Continue"
 msgstr "继续"
 
-msgid "Continue the update? [y/N] "
-msgstr "是否继续更新？[y/N] "
+msgid "Continue the update?"
+msgstr "是否继续更新？"
 
 msgid "Continue?"
 msgstr "是否继续？"
@@ -1327,8 +1327,8 @@ msgstr "目标位置仅有 {free} 可用，至少需要 {needed}。"
 msgid "Destination unavailable"
 msgstr "目标位置不可用"
 
-msgid "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
-msgstr "目标路径 {path} 与主目录位于同一磁盘上，是否继续？[y/N] "
+msgid "Destination {path} is on the same disk as your home folder. Continue?"
+msgstr "目标路径 {path} 与主目录位于同一磁盘上，是否继续？"
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "详细日志：/var/log/archinstall。失败步骤之后未更改任何内容。"
@@ -1441,8 +1441,8 @@ msgstr "编辑小组件"
 msgid "Edit {label}"
 msgstr "编辑 {label}"
 
-msgid "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it."
-msgstr "Eitr 仅在因您触发的操作（如“系统更新”）而打开的终端中请求您的密码，绝不会在弹窗中请求。如果插件向您索要密码，那绝非 Eitr：请勿输入密码。"
+msgid "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect."
+msgstr "Eitr 只会在你启动的步骤中询问密码：在它打开的终端中（例如系统更新），或在系统密码窗口中，该窗口会显示将以管理员身份运行的命令。插件也可以使用这个窗口，因此请查看其中显示的命令，不要为意料之外的命令输入密码。"
 
 msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 msgstr "Eitr 未对该插件进行审查。其代码归其作者所有，而非 Eitr。请仅添加来自您信任的人或仓库的插件。"

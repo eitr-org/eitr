@@ -412,8 +412,8 @@ msgstr "Wird angewendet…"
 msgid "Applying…"
 msgstr "Wird angewendet…"
 
-msgid "Approve installation? [y/N/Esc] "
-msgstr "Installation genehmigen? [y/N/Esc] "
+msgid "Approve installation?"
+msgstr "Installation genehmigen?"
 
 msgid "Apps"
 msgstr "Apps"
@@ -1072,8 +1072,8 @@ msgstr "Kontext: {context}"
 msgid "Continue"
 msgstr "Weiter"
 
-msgid "Continue the update? [y/N] "
-msgstr "Aktualisierung fortsetzen? [y/N] "
+msgid "Continue the update?"
+msgstr "Aktualisierung fortsetzen?"
 
 msgid "Continue?"
 msgstr "Fortfahren?"
@@ -1327,8 +1327,8 @@ msgstr "Ziel hat {free} frei, benötigt werden mindestens {needed}."
 msgid "Destination unavailable"
 msgstr "Ziel nicht verfügbar"
 
-msgid "Destination {path} is on the same disk as your home folder. Continue? [y/N] "
-msgstr "Ziel {path} liegt auf demselben Datenträger wie dein Home-Ordner. Fortfahren? [y/N] "
+msgid "Destination {path} is on the same disk as your home folder. Continue?"
+msgstr "Ziel {path} liegt auf demselben Datenträger wie dein Home-Ordner. Fortfahren?"
 
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Ausführliche Protokolle: /var/log/archinstall. Nach dem fehlgeschlagenen Schritt wurde nichts geändert."
@@ -1441,8 +1441,8 @@ msgstr "Widgets bearbeiten"
 msgid "Edit {label}"
 msgstr "{label} bearbeiten"
 
-msgid "Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it."
-msgstr "Eitr fragt nach deinem Passwort nur in einem Terminal, das es für einen von dir gestarteten Schritt geöffnet hat, etwa die Systemaktualisierung, nie in einem Pop-up-Fenster. Fragt ein Plugin nach deinem Passwort, ist es nicht Eitr: gib es nicht ein."
+msgid "Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect."
+msgstr "Eitr fragt nur bei einem Schritt nach deinem Passwort, den du selbst gestartet hast: in einem Terminal, das es geöffnet hat, etwa bei der Systemaktualisierung, oder im Passwortfenster des Systems, das den Befehl nennt, der als Administrator ausgeführt wird. Auch Plugins können dieses Fenster verwenden: Lies also den genannten Befehl und gib dein Passwort nicht für einen ein, den du nicht erwartet hast."
 
 msgid "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust."
 msgstr "Eitr hat es nicht geprüft. Sein Code gehört seinem Autor, nicht Eitr. Füge nur Plugins von Personen und Repositorys hinzu, denen du vertraust."

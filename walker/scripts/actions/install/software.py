@@ -117,7 +117,7 @@ def recipe_review(group, identifier):
     else:
         raise ValueError('Unsupported removal review')
     try:
-        accepted = Terminal().confirm(tr('Continue?'), default=False)
+        accepted = Terminal().confirm(tr('Continue?'))
     except (EOFError, KeyboardInterrupt):
         return
     if accepted:

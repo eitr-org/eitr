@@ -12,6 +12,7 @@ from unittest.mock import patch
 import eitr_i18n
 import gettext
 import io
+from contextlib import redirect_stdout
 
 ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location("i18n_build", ROOT / "tools/i18n-build.py")
@@ -215,7 +216,7 @@ class OutputBoundaryTests(unittest.TestCase):
             self.assertEqual(output.getvalue(), "unset CLOUDSDK_CORE_PROJECT\nexport CLOUDSDK_ACTIVE_CONFIG_NAME='my config'\n")
             subprocess.run(["bash", "-n"], input=output.getvalue(), text=True, check=True)
 
-    def test_prompt_tokens_are_literal_and_negative_answer_never_runs_sudo(self):
+    def test_escape_never_runs_sudo_and_enter_does(self):
         for filename in ("firewall", "home-snapshots"):
             module = self.load("walker/scripts/actions/system/" + filename + ".py")
             for locale in ("en", "pt_BR", "es", "de", "fr"):
@@ -223,15 +224,14 @@ class OutputBoundaryTests(unittest.TestCase):
                         patch.dict(os.environ, LC_ALL="", LC_MESSAGES=locale), \
                         patch.object(module.Path, "is_file", return_value=True), \
                         patch.object(module.subprocess, "run") as command, \
-                        patch("builtins.input", return_value="n") as prompt, patch("sys.stdout", io.StringIO()):
+                        patch.object(module, "confirm", return_value=False), patch("sys.stdout", io.StringIO()):
                     command.return_value.returncode = 0
                     module.main()
-                    self.assertIn("[y/N]", prompt.call_args.args[0])
                     self.assertEqual(command.call_count, 1)
                 with patch.dict(os.environ, LC_ALL="", LC_MESSAGES=locale), \
                         patch.object(module.Path, "is_file", return_value=True), \
                         patch.object(module.subprocess, "run") as command, \
-                        patch("builtins.input", return_value="yes"), patch("sys.stdout", io.StringIO()):
+                        patch.object(module, "confirm", return_value=True), patch("sys.stdout", io.StringIO()):
                     command.return_value.returncode = 0
                     module.main()
                     self.assertEqual(command.call_count, 2)
@@ -255,16 +255,19 @@ class OutputBoundaryTests(unittest.TestCase):
                 self.assertIn(reset.CONFIRMATION, prompt.call_args.args[0])
                 self.assertEqual(helper.call_args.args, ("reset", "--mode", "everything", "--confirm", reset.CONFIRMATION))
 
-    def test_form_confirmations_keep_literal_english_answer_tokens(self):
+    def test_form_confirmations_use_enter_and_escape_in_every_language(self):
+        import eitr_terminal
         from eitr_forms import Terminal
         terminal = Terminal.__new__(Terminal)
+        terminal.accent = ""
         for locale in ("en", "pt_BR", "es", "de", "fr"):
-            for answer, expected in (("y", True), ("yes", True), ("n", False), ("", False)):
-                with self.subTest(locale=locale, answer=answer), \
+            # Letters (y, n, s, j, o) do nothing; Enter continues, Esc or Ctrl+C cancels.
+            for keys, expected in ((["y", "n", "\r"], True), (["\n"], True), (["s", "\x1b"], False), (["\x03"], False)):
+                with self.subTest(locale=locale, keys=keys), \
                         patch.dict(os.environ, LC_ALL="", LC_MESSAGES=locale), \
-                        patch.object(terminal, "ask", return_value=answer) as ask:
-                    self.assertEqual(terminal.confirm("Continue?", default=False), expected)
-                    self.assertEqual(ask.call_args.args[1], "y/N")
+                        patch.object(eitr_terminal, "read_key", side_effect=keys), \
+                        redirect_stdout(io.StringIO()):
+                    self.assertEqual(terminal.confirm("Continue?"), expected)
 
     def test_language_picker_only_writes_its_owned_preference(self):
         import eitr_language

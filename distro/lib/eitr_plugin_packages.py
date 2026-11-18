@@ -5,6 +5,8 @@ import subprocess
 from eitr_i18n import tr
 
 REPOSITORIES = {'core', 'extra', 'multilib', 'eitr'}
+# Most packages one cleanup may remove (a plugin's packages and what they pulled in).
+REMOVE_LIMIT = 256
 
 
 def names(value, limit=32):
@@ -102,28 +104,70 @@ def install(spec, previous=()):
     return caused
 
 
-def removable(caused, retained=()):
-    result = []
-    for name in names(list(caused), limit=4096):
-        if name in retained:
+DEPENDENCY = 'Installed as a dependency for another package'
+
+
+def facts(packages):
+    """`pacman -Qi` facts per installed package: install reason and who requires or optionally
+    uses it. Packages that are not installed are absent."""
+    packages = list(packages)
+    if not packages:
+        return {}
+    result, current = {}, None
+    for line in query('-Qi', '--', *packages).stdout.splitlines():
+        key, separator, value = line.partition(':')
+        if not separator:
             continue
-        info = query('-Qi', name)
-        fields = dict(line.split(':', 1) for line in info.stdout.splitlines() if ':' in line)
-        fields = {key.strip(): value.strip() for key, value in fields.items()}
-        if (info.returncode == 0 and fields.get('Required By') == 'None'
-                and fields.get('Optional For') == 'None'
-                and fields.get('Install Reason') == 'Installed as a dependency for another package'):
-            result.append(name)
+        key, value = key.strip(), value.strip()
+        if key == 'Name':
+            current = result.setdefault(value, {})
+        elif current is not None and key in ('Required By', 'Optional For'):
+            current[key] = set() if value == 'None' else set(value.split())
+        elif current is not None and key == 'Install Reason':
+            current[key] = value
     return result
+
+
+def closed(plan, retained=()):
+    """The largest part of `plan` that can go without touching anything else: every package was
+    installed as a dependency, is not retained, and only packages inside the part require or
+    optionally use it. pacman -Rs ignores optional use; this keeps what another app may use."""
+    plan, known = set(plan) - set(retained), facts(plan)
+    changed = True
+    while changed:
+        changed = False
+        for name in sorted(plan):
+            fact = known.get(name)
+            if (fact is None or fact.get('Install Reason') != DEPENDENCY
+                    or (fact.get('Required By', set()) | fact.get('Optional For', set())) - plan):
+                plan.discard(name)
+                changed = True
+    return plan
+
+
+def removable(caused, retained=()):
+    """What removing a plugin may clean up: the packages it installed and the dependencies they
+    pulled in, as long as nothing else requires or optionally uses them (shown to the person
+    in full before anything is removed)."""
+    seeds = [name for name in names(list(caused), limit=4096) if name not in retained]
+    plan = set(seeds)
+    for name in seeds:
+        preview = query('-Rsp', '--print-format', '%n', '--', name)
+        if preview.returncode == 0:
+            plan.update(line.strip() for line in preview.stdout.splitlines() if line.strip())
+    kept = closed(plan, retained)
+    return [name for name in seeds if name in kept] + sorted(kept - set(seeds))
 
 
 def root(action, packages):
     import json
     names(packages, limit=4096)
     try:
-        for offset in range(0, len(packages), 32):
+        # A cleanup goes in one call: root rechecks it as a whole, dependencies included.
+        size = REMOVE_LIMIT if action == 'remove' else 32
+        for offset in range(0, len(packages), size):
             subprocess.run(['/usr/bin/pkexec', '/usr/lib/eitr/eitr-system', 'plugin-packages-' + action],
-                           input=json.dumps(packages[offset:offset + 32]), text=True,
+                           input=json.dumps(packages[offset:offset + size]), text=True,
                            capture_output=True, check=True, timeout=240)
     except (OSError, subprocess.SubprocessError) as error:
         raise ValueError(tr('System package operation failed or was cancelled.')) from error

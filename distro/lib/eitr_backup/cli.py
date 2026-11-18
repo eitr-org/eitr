@@ -88,8 +88,8 @@ def _cmd_create(args):
             categories.append("machine_setup")
     dest = Path(args.destination).expanduser() if args.destination else (Path.home() / "Backups")
     if same_filesystem(dest, Path.home()) and not args.yes and not args.json and sys.stdin.isatty():
-        answer = input(tr("Destination {path} is on the same disk as your home folder. Continue? [y/N] ", path=dest))
-        if answer.strip().lower() not in {"y", "yes"}:
+        from eitr_terminal import confirm
+        if not confirm(tr("Destination {path} is on the same disk as your home folder. Continue?", path=dest)):
             return 130
     result = create_backup(
         dest,

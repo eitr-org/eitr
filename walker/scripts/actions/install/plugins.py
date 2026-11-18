@@ -63,7 +63,7 @@ def safety_lines(url):
             tr(OFFICIAL_TRUST) if eitr_plugins.official(url) else
             tr('Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.'),
             '',
-            tr('Eitr asks for your password only in a terminal it opened for a step you started, such as System Update, never in a pop-up window. If a plugin asks for your password, it is not Eitr: do not type it.'),
+            tr('Eitr asks for your password only for a step you started: in a terminal it opened, such as System Update, or in the system password window, which names the command that will run as administrator. Plugins can use that window too, so read the command it names and do not type your password for one you did not expect.'),
             '',
             tr('Next, Eitr downloads the plugin without running it and shows its exact author and commit.')]
 
@@ -296,15 +296,7 @@ def add_in_terminal(manager, url):
 
 def confirm(question):
     """Enter confirms, Escape (or Ctrl+C) cancels; other keys do nothing."""
-    print(f"{Terminal().accent}›\033[0m {question} {tr('Enter: continue  Esc: cancel')} ", end='', flush=True)
-    while True:
-        key = read_key()
-        if key in ('\r', '\n'):
-            print()
-            return True
-        if key in ('\x1b', '\x03', ''):
-            print()
-            return False
+    return Terminal().confirm(question)
 
 
 def count_text(change):
