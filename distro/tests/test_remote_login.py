@@ -61,6 +61,21 @@ class RunnerTests(unittest.TestCase):
         self.runner.step([GREETER], now=500)
         self.assertEqual(self.runner.next_start, 503)
 
+    def test_waits_for_the_login_screen_after_a_sign_out(self):
+        # Between sign-out and the new greeter, SDDM swaps X servers: nothing starts yet.
+        self.runner.step([MANAGER])
+        self.assertEqual(self.events, [])
+        self.runner.step([GREETER])
+        self.assertEqual(self.events, ['start'])
+
+    def test_follows_a_new_x_server_for_the_login_screen(self):
+        self.runner.child = SimpleNamespace(poll=lambda: None)
+        self.runner.display = (':0', '/run/sddm/xauth_old')
+        self.runner.stop.side_effect = lambda: (self.events.append('stop'), setattr(self.runner, 'child', None))
+        with patch.object(login, 'greeter_display', return_value=(':0', '/run/sddm/xauth_new')):
+            self.runner.step([GREETER])
+        self.assertEqual(self.events, ['stop', 'start'])
+
     def test_a_running_sunshine_is_left_alone(self):
         self.runner.child = SimpleNamespace(poll=lambda: None)
         self.runner.step([GREETER])

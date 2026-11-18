@@ -46,6 +46,12 @@ def owner():
     return previous['user']
 
 
+def greeter_shown(sessions):
+    """The login screen is up: its own session exists on the local seat. After a sign-out SDDM
+    restarts its X server first, so this waits for the new one rather than the one going away."""
+    return any(session.get('seat') == 'seat0' and session.get('class') == 'greeter' for session in sessions)
+
+
 def user_signed_in(sessions):
     """A signed-in desktop or console on the local seat; SSH sessions have no seat."""
     return any(session.get('seat') == 'seat0' and str(session.get('class', '')).startswith('user')
@@ -218,6 +224,8 @@ class Runner:
         self.pause = 0
         self.next_start = 0.0
         self.started = 0.0
+        # The X login screen (display, key file) Sunshine was started on, if any.
+        self.display = None
 
     def publish(self):
         """For diagnostics: whether the login screen is being shared right now (root only)."""
@@ -226,7 +234,7 @@ class Runner:
     def start(self):
         if user_sunshine_running():
             return
-        display = greeter_display()
+        display = self.display = greeter_display()
         copy_identity(self.name, display=display)
         subprocess.run(['setfacl', '-m', f'u:{ACCOUNT}:rw', '/dev/uinput'], check=False)
         environment = {'HOME': str(STATE), 'PATH': '/usr/bin'}
@@ -273,6 +281,12 @@ class Runner:
             self.pause = min(LONGEST_PAUSE, max(3, previous * 2))
             self.next_start = now + self.pause
             print(f'Sunshine exited with {self.child.returncode}; trying again in {self.pause} s', flush=True)
+            self.stop()
+        if not greeter_shown(current_sessions):
+            return
+        # SDDM gave the login screen a new X server (its key changes too): follow it.
+        if self.child is not None and self.display is not None and greeter_display() != self.display:
+            print('The login screen moved to a new X server; restarting Sunshine on it', flush=True)
             self.stop()
         if self.child is None and now >= self.next_start:
             self.start()
