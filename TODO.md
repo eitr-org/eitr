@@ -90,6 +90,33 @@ item says what decides the next step. Remove an item when it ships;
   The Ollama panel cannot change the local model yet: the core fixes `qwen3:4b`.
 - **AI Usage as a built-in plugin (idea 2026-11-16).** Like Weather (`distro/plugins/bundled`):
   installed by default, removable for people who do not use AI.
+- **Ideas from Omarchy 4.5, Ryoku 1.1 and Caelestia (picked by the owner 2026-11-18).**
+  Ryoku and Caelestia are GPL-3 and Omarchy MIT: adapted code keeps their notices.
+  - **Keyboard layout on the lock and login screens** (Ryoku): show the active layout and
+    switch it by click or Ctrl+Alt+Space, so a lock taken on a second layout still accepts
+    the password. Neither the lockscreen nor SDDM's `login/Main.qml` shows it today.
+  - **Lockscreen password field** (Caelestia): a show-password eye and Ctrl+U /
+    Ctrl+Backspace to clear, in every lock design.
+  - **Copy-code and open-link buttons on notifications** (Omarchy `shell/plugins/notifications/Detect.js`):
+    only when the text names a number as a code, so order numbers and ports are not offered;
+    tested on its own, added to `NotificationCard.qml`'s actions.
+  - **AI usage pace** (Ryoku): a trend arrow, ahead of or behind an even pace, and when a
+    limit would fill, from the reset time and window length AI Usage already reads.
+  - **Sound output change moment** (Caelestia): "Now using: Headphones" as a clock moment
+    when the default output changes, not a new pop-up.
+  - **Typing Japanese, Korean and Chinese** (Omarchy `docs/input-methods.md`): fcitx5 with a
+    theme-coloured candidate window and a shortcut to switch, packages in `distro/`
+    manifests, offered with those languages.
+  - Smaller:
+    - **Crash notifications** (Omarchy `omarchy-crash-watch`): a notice when an app
+      crashes, with a way to mute that app; Check This PC already reads the coredumps.
+    - **Battery warning levels** (Caelestia): the 10% and 5% warnings become settings.
+    - **Window info page** (Caelestia `modules/windowinfo/`): the active window's app, title,
+      process, size, floating and pinned state, with move/float/pin/close; a Control Center
+      or Walker page, no bar icon.
+    - **Disk and network speed tests** (Omarchy): a Control Center page.
+    - **Window previews in the edge dock** (Ryoku): reuse Overview's in-memory previews,
+      with an off switch (a Hyprland capture bug can drop the capture connection).
 
 # 2. To test with the owner
 
