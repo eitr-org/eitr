@@ -76,6 +76,10 @@ class CollaborationTests(unittest.TestCase):
         self.home = Path(self.temporary.name)
         self.addCleanup(patch.stopall)
         patch.object(Path, 'home', return_value=self.home).start()
+        # Every XDG folder too: the desktop session sets them, and they win over HOME, so a
+        # run that skipped home_isolation's module setup once wrote into the real state folder.
+        patch.dict(os.environ, {'XDG_STATE_HOME': str(self.home / '.local/state'), 'XDG_CONFIG_HOME': str(self.home / '.config'),
+                              'XDG_DATA_HOME': str(self.home / '.local/share'), 'XDG_CACHE_HOME': str(self.home / '.cache')}).start()
         patch.dict(os.environ, {'CODEX_HOME': str(self.home / '.codex'), 'HOME': str(self.home), 'COPILOT_HOME': '', 'GROK_HOME': '',
                               'CLAUDE_CONFIG_DIR': '', bridge.DEPTH: '', 'FAKE_MCP_STORE': str(self.home),
                               'GEMINI_API_KEY': '', 'GOOGLE_API_KEY': '', 'FAKE_MCP_FAIL': '', 'PATH': str(self.home / 'bin')}).start()
