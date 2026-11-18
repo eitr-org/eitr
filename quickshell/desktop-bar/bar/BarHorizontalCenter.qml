@@ -110,7 +110,7 @@ Item {
         availableWidth: barHost.centeredLayout
             ? Math.max(0, barHost.width / 2 - centerInfo.width / 2 - barHost.clockPluginExtent - workspacesRef.width - hardwareStatusRef.width - barPin.width - barCapture.width - barHost.itemGap * (barCapture.shown ? 5 : 4) - barHost.endPadding)
             : Math.max(0, centerInfo.x - barHost.clockPluginExtent - hardwareStatusRef.mapToItem(centerInfo.parent, hardwareStatusRef.width, 0).x - (barHost.islandsLayout ? 2 * barHost.islandSpacing + (barCapture.shown ? barCapture.width + barHost.islandSpacing : 0) : 24))
-        foreground: centerSection.host.fg
+        foreground: centerSection.host.barFg
         background: centerSection.host.workspaceMenuBg
         onDetailsRequested: barHost.toggleKind("media")
     }

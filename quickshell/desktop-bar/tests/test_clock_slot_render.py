@@ -195,6 +195,8 @@ ShellRoot {
     property color activeBg: "#70ba9a"
     property color workspaceMenuBg: LIGHT ? "#f5f0e7" : "#18212b"
     function barBackground() { return workspaceMenuBg; }
+    function barSurface() { return barBackground(); }
+    readonly property color barFg: fg
     function updateBarSetting(key, value) {}
     FloatingWindow {
         id: window

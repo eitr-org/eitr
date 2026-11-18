@@ -42,7 +42,7 @@ Item {
             style: verticalMiddle.host.barMediaStyle
             playing: mediaStripRef.playing
             active: verticalMiddle.host.barVisible && verticalMiddle.host.verticalBar && barHost.expanded
-            foreground: verticalMiddle.host.fg
+            foreground: verticalMiddle.host.barFg
             background: verticalMiddle.host.workspaceMenuBg
             title: mediaStripRef.title
             onDetailsRequested: barHost.toggleKind("media")

@@ -15,7 +15,7 @@ Item {
     property bool scenery: true
     readonly property real corner: DesktopStyle.radius(3)
     readonly property bool vertical: edge === "left" || edge === "right"
-    readonly property color surface: appearance === "website" ? SiteStyle.bg : appearance === "transparent" ? Qt.alpha(foreground, 0.15) : background
+    readonly property color surface: appearance === "website" ? SiteStyle.bg : appearance === "clear" ? Qt.alpha(foreground, 0.04) : appearance === "transparent" ? Qt.alpha(foreground, 0.15) : background
     readonly property color ink: appearance === "website" ? SiteStyle.bronze : foreground
 
     Rectangle {

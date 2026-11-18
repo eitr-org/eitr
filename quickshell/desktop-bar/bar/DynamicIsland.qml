@@ -42,7 +42,8 @@ Rectangle {
     height: host.verticalBar ? extent : depth
     // Islands are always full pills, whatever the corner preference; a card keeps 20 px corners.
     radius: Math.min(width, height, depth > thickness + 0.5 ? 40 : Infinity) / 2
-    readonly property color fill: host.barBackground()
+    // Clear shows only the wallpaper behind a pill, but a pill grown into a card is a panel.
+    readonly property color fill: depth > thickness + 0.5 ? host.barBackground() : host.barSurface()
     // Attached: straight sides into the screen edge, square against it, as island and card.
     color: !!barHost.attachedIslands ? "transparent" : fill
     Shape {

@@ -471,6 +471,8 @@ ShellRoot {{
     property int remoteObservers: 0
 
     function barBackground() {{ return "#e61f2330"; }}
+    function barSurface() {{ return barBackground(); }}
+    readonly property color barFg: fg
     function mainScreen() {{ return screenObj; }}
     function isActiveBar(b) {{ return true; }}
     function registerBar(b) {{}}

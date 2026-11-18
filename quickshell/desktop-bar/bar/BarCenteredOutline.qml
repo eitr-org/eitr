@@ -27,7 +27,7 @@ Shape {
     antialiasing: true
     ShapePath {
         strokeWidth: -1
-        fillColor: host.barBackground()
+        fillColor: host.barSurface()
         PathSvg { path: EdgeSlopes.outline(host.barEdge,
             host.verticalBar ? centeredOutline.height : centeredOutline.width,
             barHost.normalThickness, 0, host.tabBendRound,

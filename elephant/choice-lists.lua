@@ -62,6 +62,7 @@ return {
     bar_appearances = {
         {id = "solid", label = "Theme Color", description = "Use the current theme colour", icon = "\243\176\143\152"},
         {id = "transparent", label = "Blur", description = "Use a blurred transparent bar", icon = "\243\176\144\190"},
+        {id = "clear", label = "Clear", description = "Use a fully transparent bar", icon = "\243\177\142\148"},
         {id = "website", label = "Website", description = "Use the Eitr website's colours", icon = "\243\176\150\159"},
     },
     update_channels = {

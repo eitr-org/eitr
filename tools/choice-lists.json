@@ -163,6 +163,12 @@
       "description": "Use a blurred transparent bar"
     },
     {
+      "id": "clear",
+      "label": "Clear",
+      "icon": "F1394",
+      "description": "Use a fully transparent bar"
+    },
+    {
       "id": "website",
       "label": "Website",
       "icon": "F059F",

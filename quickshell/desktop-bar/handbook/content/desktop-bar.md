@@ -16,9 +16,12 @@ The updates icon, before Notifications, checks shortly after login and every six
 
 ## Change the bar layout
 
-- Double-left-click **empty bar space** to cycle Theme Color → Blur → Website (new
+- Double-left-click **empty bar space** to cycle Theme Color → Blur → Clear → Website (new
   installations start with Theme Color). Website uses the Eitr website's colors,
-  light or dark with the theme.
+  light or dark with the theme. Clear leaves only the wallpaper behind the bar.
+  Blur and Clear look at the wallpaper behind the bar and, where the theme's text
+  would be hard to read (a pale wallpaper with a dark theme), switch the bar's text
+  and icons to the theme's opposite colour. Panels keep the theme's colours.
 - Double-right-click empty space to cycle Full → Centered → Tabs → Islands → Dynamic → Drop → Full.
 - Drag empty space toward the top, bottom, left or right to move the bar. Left and right bars are as thin as top and bottom ones: the clock shows the hour over the minutes with a calendar icon, and the weather shows its icon; hover them for the date and temperature.
 - **Clock** under Settings > Desktop Bar shows 12-hour time with AM/PM (the default) or 24-hour time, on every bar edge.

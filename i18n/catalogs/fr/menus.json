@@ -799,5 +799,7 @@
   "Share the Login Screen": "Partager l’écran de connexion",
   "Stop Sharing the Login Screen": "Ne plus partager l’écran de connexion",
   "Back up or restore settings, apps and folders": "Sauvegardez ou restaurez réglages, apps et dossiers",
-  "Backup and Restore": "Sauvegarde et restauration"
+  "Backup and Restore": "Sauvegarde et restauration",
+  "Clear": "Transparente",
+  "Use a fully transparent bar": "Utiliser une barre entièrement transparente"
 }

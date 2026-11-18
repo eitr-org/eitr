@@ -62,6 +62,7 @@ BAR_LAYOUTS = (
 BAR_APPEARANCES = (
     {'id': 'solid', 'label': 'Theme Color', 'description': 'Use the current theme colour', 'icon': '\U000f03d8'},
     {'id': 'transparent', 'label': 'Blur', 'description': 'Use a blurred transparent bar', 'icon': '\U000f043e'},
+    {'id': 'clear', 'label': 'Clear', 'description': 'Use a fully transparent bar', 'icon': '\U000f1394'},
     {'id': 'website', 'label': 'Website', 'description': "Use the Eitr website's colours", 'icon': '\U000f059f'},
 )
 UPDATE_CHANNELS = (

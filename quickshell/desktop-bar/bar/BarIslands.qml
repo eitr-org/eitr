@@ -95,7 +95,7 @@ Item {
         // Pills are always fully rounded, whatever the corner preference.
         radius: Math.min(width, height) / 2
         // Attached: straight sides into the screen edge, square against it.
-        color: barHost.attachedIslands ? "transparent" : host.barBackground()
+        color: barHost.attachedIslands ? "transparent" : host.barSurface()
         Shape {
             id: attachedShape
             readonly property real round: parent.radius
@@ -104,7 +104,7 @@ Item {
             antialiasing: true
             ShapePath {
                 strokeWidth: -1
-                fillColor: host.barBackground()
+                fillColor: host.barSurface()
                 PathSvg { path: EdgeSlopes.attached(host.barEdge, attachedShape.width, attachedShape.height, attachedShape.round) }
             }
         }

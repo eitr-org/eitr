@@ -71,7 +71,7 @@ Item {
     // the time and falls back.
     property real flash: 0
     property string flashText: ""
-    property color flashColor: host.fg
+    property color flashColor: host.barFg
     function showFlash(text, color) {
         flashText = text; flashColor = color;
         flashing.restart();
@@ -92,7 +92,7 @@ Item {
     onWorkspaceIdChanged: {
         if (workspacesHidden && seenWorkspace !== 0 && workspaceId > 0 && workspaceId !== seenWorkspace) {
             const entry = host.workspaceRows(barHost.screen).find(row => row.id === workspaceId);
-            showFlash(String(entry ? entry.number : workspaceId), host.fg);
+            showFlash(String(entry ? entry.number : workspaceId), host.barFg);
         }
         if (workspaceId > 0) seenWorkspace = workspaceId;
     }

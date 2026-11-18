@@ -28,7 +28,7 @@ Item {
         anchors.centerIn: parent
         text: item.text
         textFormat: Text.RichText
-        color: host.fg
+        color: host.barFg
         font.family: DesktopFonts.family
         font.pixelSize: item.fontSize
         font.bold: true

@@ -244,7 +244,7 @@ Grid {
                     height: slotItem.itemOpen ? naturalHeight : 0
                     visible: slotItem.itemOpen
                     verticalContent: zoneGrid.naturalPluginSize && zoneGrid.vertical
-                    foreground: zoneGrid.host.fg
+                    foreground: zoneGrid.host.barFg
                     background: zoneGrid.host.barBackground ? zoneGrid.host.barBackground() : zoneGrid.host.workspaceMenuBg
                     accent: zoneGrid.host.activeBg
                     onPanelRequested: function(plugin, panel) { zoneGrid.panelRequested(plugin, panel, pluginSlot); }

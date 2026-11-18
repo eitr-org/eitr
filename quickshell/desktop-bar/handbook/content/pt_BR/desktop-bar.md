@@ -24,7 +24,7 @@ O ícone de atualizações, antes de Notificações, verifica pouco depois do lo
 
 ## Alterar o layout da barra
 
-- Dê dois cliques com o botão esquerdo no **espaço vazio da barra** para alternar entre Cor do tema → Desfoque → Site; novas instalações começam com Cor do tema. Site usa as cores do site do Eitr, claras ou escuras conforme o tema.
+- Dê dois cliques com o botão esquerdo no **espaço vazio da barra** para alternar entre Cor do tema → Desfoque → Transparente → Site; novas instalações começam com Cor do tema. Transparente deixa só o papel de parede atrás da barra. Desfoque e Transparente olham o papel de parede atrás da barra e, onde o texto do tema ficaria difícil de ler (um papel de parede claro com um tema escuro), trocam o texto e os ícones da barra para a cor oposta do tema. Os painéis mantêm as cores do tema. Site usa as cores do site do Eitr, claras ou escuras conforme o tema.
 - Dê dois cliques com o botão direito no espaço vazio para alternar Completa → Centralizada → Abas → Ilhas → Dinâmico → Gota → Completa.
 - Arraste um espaço vazio para cima, baixo, esquerda ou direita para mover a barra. À esquerda e à direita, a barra é tão fina quanto em cima e embaixo: o relógio mostra a hora acima dos minutos com um ícone de calendário, e o clima só o ícone; passe o ponteiro para ver a data e a temperatura.
 - **Relógio** em Configurações > Barra da área de trabalho mostra a hora no formato de 12 horas com AM/PM (padrão) ou de 24 horas, em qualquer borda.

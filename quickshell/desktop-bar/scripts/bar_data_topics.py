@@ -119,6 +119,18 @@ def _validate_throughput(result):
     fields(result, {"download": nullable_number, "upload": nullable_number, "interfaces": (list,)})
 
 
+def _validate_wallpaper(result):
+    monitors = result.get("monitors")
+    if not isinstance(monitors, dict):
+        raise ValueError("invalid-result")
+    for entry in monitors.values():
+        edges = entry.get("edges") if isinstance(entry, dict) else None
+        if not isinstance(edges, dict) or any(not isinstance(edges.get(edge), list) or len(edges[edge]) != 3
+                                               or not all(isinstance(colour, str) for colour in edges[edge])
+                                               for edge in ("top", "bottom", "left", "right")):
+            raise ValueError("invalid-result")
+
+
 def _validate_account(result):
     if any(key not in result for key in ("path", "initial", "name")):
         raise ValueError("invalid-result")
@@ -163,6 +175,7 @@ _DEFINITIONS = (
     TopicDefinition("network.details", "network", 2, None, _validate_network),
     TopicDefinition("network.latency", "network", 15, None, _validate_latency),
     TopicDefinition("throughput.network", "throughput", 2, None, _validate_throughput),
+    TopicDefinition("wallpaper.tone", "wallpaper", float("inf"), None, _validate_wallpaper),
     TopicDefinition("power.battery", "power", 30, None, _validate_power),
     TopicDefinition("power.profile", "power", 5, None, _validate_power),
     TopicDefinition("power.radios", "power", 5, None, _validate_power),

@@ -29,7 +29,7 @@ Rectangle {
         label: button.text
         active: button.active
         accent: host.activeBg
-        foreground: host.fg
+        foreground: host.barFg
         selectedForeground: host.activeFg
         fontSize: button.fontSize
         textOffsetY: button.textOffsetY

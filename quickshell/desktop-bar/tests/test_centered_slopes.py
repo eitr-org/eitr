@@ -45,6 +45,8 @@ ShellRoot {
     property string barEdge: EDGE
     property real tabBendRound: 6
     function barBackground() { return "#ffffff"; }
+    function barSurface() { return barBackground(); }
+    readonly property color barFg: "#e6e9ef"
     FloatingWindow {
         visible: true; implicitWidth: 500; implicitHeight: 500; color: "#000000"
         Item {

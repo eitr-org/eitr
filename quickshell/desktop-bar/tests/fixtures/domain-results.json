@@ -586,5 +586,39 @@
       "layouts": [],
       "active": -1
     }
+  ],
+  "wallpaper.tone": [
+    {
+      "monitors": {}
+    },
+    {
+      "monitors": {
+        "DP-3": {
+          "wallpaper": "/home/user/.config/theme/current/backgrounds/01.jpg",
+          "edges": {
+            "top": [
+              "#3f4d61",
+              "#576b7f",
+              "#748da7"
+            ],
+            "bottom": [
+              "#14141e",
+              "#14141e",
+              "#14141e"
+            ],
+            "left": [
+              "#3f4d61",
+              "#576b7f",
+              "#748da7"
+            ],
+            "right": [
+              "#3f4d61",
+              "#576b7f",
+              "#748da7"
+            ]
+          }
+        }
+      }
+    }
   ]
 }

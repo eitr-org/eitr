@@ -91,7 +91,7 @@ class BarSettingsTests(unittest.TestCase):
         layouts, appearances = choice_lists.ids(choice_lists.BAR_LAYOUTS), choice_lists.ids(choice_lists.BAR_APPEARANCES)
         start = layouts.index("islands")
         self.assertEqual(self.cycle("layout", "islands"), [layouts[(start + step) % len(layouts)] for step in range(1, len(layouts) + 1)])
-        self.assertEqual(self.cycle("appearance", "solid"), ["transparent", "website", "solid"])
+        self.assertEqual(self.cycle("appearance", "solid"), ["transparent", "clear", "website", "solid"])
         self.assertEqual(bar_settings.OPTIONS["layout"], set(layouts))
         self.assertEqual(bar_settings.OPTIONS["appearance"], set(appearances))
 
@@ -119,7 +119,7 @@ class BarSettingsTests(unittest.TestCase):
             for names in (layouts, appearances):
                 self.assertNotRegex(source, rf'"(?:{names})"\s*[,:?]\s*"(?:{names})"')
         # Walker stays opaque for every appearance except Blur.
-        self.assertIn('if [[ "$bar_appearance" != "transparent" ]]; then', (root / 'walker/scripts/themes/walker.sh').read_text())
+        self.assertIn('if [[ "$bar_appearance" != "transparent" && "$bar_appearance" != "clear" ]]; then', (root / 'walker/scripts/themes/walker.sh').read_text())
 
     def test_every_choice_label_and_description_is_translated(self):
         root = Path(__file__).resolve().parents[3]

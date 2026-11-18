@@ -209,7 +209,7 @@ Item {
     Component {
         id: weatherView
         WeatherWidget {
-            host: ({fg: api.foreground, workspaceMenuBg: api.background})
+            host: ({fg: api.foreground, barFg: api.foreground, workspaceMenuBg: api.background})
             autoRefresh: api.observed
             compact: api.compactBarItem
             onTemperatureChanged: api.detail = temperature

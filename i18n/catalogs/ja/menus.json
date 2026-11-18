@@ -799,5 +799,7 @@
   "Share the Login Screen": "ログイン画面を共有",
   "Stop Sharing the Login Screen": "ログイン画面の共有を停止",
   "Back up or restore settings, apps and folders": "設定、アプリ、フォルダーをバックアップまたは復元",
-  "Backup and Restore": "バックアップと復元"
+  "Backup and Restore": "バックアップと復元",
+  "Clear": "クリア",
+  "Use a fully transparent bar": "完全に透明なバーを使用"
 }

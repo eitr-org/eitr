@@ -67,7 +67,7 @@ Item {
                 anchors.centerIn: parent
                 visible: image.status !== Image.Ready
                 text: content.entry ? content.entry.icon || "" : ""
-                color: moment.host.fg
+                color: moment.host.barFg
                 font.family: DesktopFonts.family; font.pixelSize: 16
             }
         }
@@ -82,7 +82,7 @@ Item {
             rightPadding: 0
             verticalAlignment: Text.AlignVCenter
             elide: Text.ElideRight; textFormat: Text.PlainText
-            color: moment.host.fg
+            color: moment.host.barFg
             font.family: DesktopFonts.family; font.pixelSize: moment.vertical ? PanelStyle.captionSize : PanelStyle.bodySize
         }
         Rectangle {
@@ -91,12 +91,12 @@ Item {
             y: moment.vertical ? 62 : (parent.height - height) / 2
             width: moment.vertical ? 4 : Math.max(0, parent.width - 110)
             height: moment.vertical ? Math.max(0, parent.height - 72) : 3
-            radius: 2; color: Qt.alpha(moment.host.fg, 0.2)
+            radius: 2; color: Qt.alpha(moment.host.barFg, 0.2)
             Rectangle {
                 readonly property real fraction: content.entry ? Math.min(1, content.entry.level / 100) : 0
                 width: moment.vertical ? parent.width : parent.width * fraction
                 height: moment.vertical ? parent.height * fraction : parent.height
-                radius: 2; color: moment.host.fg
+                radius: 2; color: moment.host.barFg
                 // Steps slide to the new level instead of jumping.
                 Behavior on width { enabled: !moment.vertical; NumberAnimation { duration: DesktopStyle.motionDuration(90); easing.type: Easing.OutCubic } }
                 Behavior on height { enabled: moment.vertical; NumberAnimation { duration: DesktopStyle.motionDuration(90); easing.type: Easing.OutCubic } }

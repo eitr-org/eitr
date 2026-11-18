@@ -23,7 +23,7 @@ Rectangle {
     Text {
         anchors.fill: parent
         text: notifications.text
-        color: host.fg
+        color: host.barFg
         font.family: DesktopFonts.family
         font.pixelSize: 18
         font.bold: true

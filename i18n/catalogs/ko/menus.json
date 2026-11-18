@@ -799,5 +799,7 @@
   "Share the Login Screen": "로그인 화면 공유",
   "Stop Sharing the Login Screen": "로그인 화면 공유 중지",
   "Back up or restore settings, apps and folders": "설정, 앱 및 폴더를 백업하거나 복원합니다",
-  "Backup and Restore": "백업 및 복원"
+  "Backup and Restore": "백업 및 복원",
+  "Clear": "투명",
+  "Use a fully transparent bar": "완전히 투명한 바 사용"
 }

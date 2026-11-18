@@ -300,6 +300,7 @@ BeautifyContent capture/BeautifyContent.qml
 DropRail 1.0 drop/DropRail.qml
 DropRails 1.0 drop/DropRails.qml
 DropPluginPage 1.0 drop/DropPluginPage.qml
+BarInk 1.0 bar/BarInk.qml
 BarMoment 1.0 bar/BarMoment.qml
 BarMoments 1.0 bar/BarMoments.qml
 ClockWindow 1.0 clock/ClockWindow.qml

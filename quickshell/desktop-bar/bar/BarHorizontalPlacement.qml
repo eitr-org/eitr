@@ -34,7 +34,7 @@ BarSection {
     anchors.fill: parent
     visible: !host.verticalBar
     edge: host.barEdge
-    background: host.notchLayout || host.centeredLayout || host.islandsLayout || host.dynamicLayout || host.dropLayout ? "transparent" : host.barBackground()
+    background: host.notchLayout || host.centeredLayout || host.islandsLayout || host.dynamicLayout || host.dropLayout ? "transparent" : host.barSurface()
     radius: 0
 
     BarGestureArea {

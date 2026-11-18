@@ -151,6 +151,8 @@ ShellRoot {
  property var battery: ({})
  property bool idleLockEnabled: true
  function barBackground() { return "black"; }
+ function barSurface() { return barBackground(); }
+ readonly property color barFg: fg
  function activeBar(fallback) { return bar; }
  function showSettings(page) {}
  function showClock(page) {}

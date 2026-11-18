@@ -413,6 +413,8 @@ ShellRoot {
     property real tabStripThickness: 7
     property real tabBendRound: 6
     function barBackground() { return "BACKGROUND"; }
+    function barSurface() { return barBackground(); }
+    readonly property color barFg: "#e6e9ef"
     Component.onCompleted: {
         Bar.PluginRegistry.entries = ENTRIES;
         Bar.PluginRegistry.placements = {version: 1, widgets: [{plugin: "example", id: "clock", monitor: "missing-monitor", x: 24, y: 24, width: 240, height: 144}], barItems: [{plugin: "example", id: "status-dot"}]};

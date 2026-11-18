@@ -51,6 +51,8 @@ ShellRoot {
  signal handbookOpened()
  function targetScreens() { return Quickshell.screens; }
  function barBackground() { return "#181824"; }
+ function barSurface() { return barBackground(); }
+ readonly property color barFg: fg
  function showSettings(page) { settings.show(page); }
  function showClock(page) { clock.show(page); }
  Bar.SettingsWindow { id: settings; networkService: null; notifications: null; live: false; foreground: host.fg; background: host.barBackground(); accent: host.activeBg }

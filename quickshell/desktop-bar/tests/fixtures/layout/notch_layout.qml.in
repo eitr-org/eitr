@@ -15,6 +15,8 @@ property bool statusOpen: false
 readonly property bool iconsOpen: ICON_VISIBILITY
         property real workspaceItemSpacing: 4
 function barBackground() { return LIGHT ? "#eee9df" : "#202430"; }
+function barSurface() { return barBackground(); }
+readonly property color barFg: "#e6e9ef"
 FloatingWindow {
     id: bar
     visible: true; implicitWidth: 1600; implicitHeight: 1200

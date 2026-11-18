@@ -799,5 +799,7 @@
   "Share the Login Screen": "Anmeldebildschirm freigeben",
   "Stop Sharing the Login Screen": "Anmeldebildschirm nicht mehr freigeben",
   "Back up or restore settings, apps and folders": "Einstellungen, Apps und Ordner sichern oder wiederherstellen",
-  "Backup and Restore": "Sicherung und Wiederherstellung"
+  "Backup and Restore": "Sicherung und Wiederherstellung",
+  "Clear": "Klar",
+  "Use a fully transparent bar": "Vollständig transparente Leiste verwenden"
 }

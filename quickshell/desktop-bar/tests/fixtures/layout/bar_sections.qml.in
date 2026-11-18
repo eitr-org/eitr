@@ -24,6 +24,8 @@ ShellRoot {
     property real workspaceItemSpacing: 4
     property var screenGaps: [8, 8, 8, 8]
     property color fg: "white"
+    readonly property color barFg: fg
+    function barSurface() { return barBackground ? barBackground() : "transparent"; }
     property color activeBg: "cyan"
     property color workspaceMenuBg: "black"
     property string updatesIcon: "U"

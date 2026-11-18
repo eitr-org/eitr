@@ -26,7 +26,7 @@ L’icône des mises à jour, avant Notifications, vérifie peu après la connex
 
 ## Changer la disposition de la barre
 
-- Double-cliquez à gauche sur un **espace vide de la barre** pour passer de Couleur du thème à Flou puis à Site web ; les nouvelles installations démarrent avec Couleur du thème. Site web utilise les couleurs du site d’Eitr, claires ou sombres selon le thème.
+- Double-cliquez à gauche sur un **espace vide de la barre** pour passer de Couleur du thème à Flou, puis à Transparente et à Site web ; les nouvelles installations démarrent avec Couleur du thème. Site web utilise les couleurs du site d’Eitr, claires ou sombres selon le thème. Transparente ne laisse que le fond d’écran derrière la barre. Flou et Transparente regardent le fond d’écran derrière la barre et, là où le texte du thème serait difficile à lire (un fond clair avec un thème sombre), passent le texte et les icônes de la barre à la couleur opposée du thème. Les panneaux gardent les couleurs du thème.
 - Double-cliquez à droite sur un espace vide pour faire défiler Complète → Centrée → Onglets → Îlots → Dynamique → Goutte → Complète.
 - Faites glisser un espace vide vers le haut, le bas, la gauche ou la droite pour déplacer la barre. À gauche et à droite, la barre est aussi fine qu’en haut et en bas : l’horloge affiche l’heure au-dessus des minutes avec une icône de calendrier, et la météo seulement son icône ; survolez-les pour la date et la température.
 - **Horloge** dans Paramètres > Barre de bureau affiche l’heure sur 12 heures avec AM/PM (par défaut) ou sur 24 heures, sur chaque bord.

@@ -29,6 +29,7 @@
         "strong"
       ],
       "appearance": [
+        "clear",
         "solid",
         "transparent",
         "website"

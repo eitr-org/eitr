@@ -44,7 +44,7 @@ Item {
         property string tip: ""
         width: 22; height: 24
         horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter
-        color: capture.host.fg
+        color: capture.host.barFg
         font.family: DesktopFonts.family; font.pixelSize: 14
         MouseArea { id: markMouse; anchors.fill: parent; hoverEnabled: true; cursorShape: Qt.PointingHandCursor; onClicked: mark.activated() }
         BarTooltip { target: mark; hovered: markMouse.containsMouse && mark.tip !== ""; text: mark.tip; foreground: capture.host.fg; background: capture.host.workspaceMenuBg }
@@ -66,7 +66,7 @@ Item {
                 width: 6
                 height: 6
                 radius: 3
-                color: capture.recordingPaused ? host.fg : "#e05c68"
+                color: capture.recordingPaused ? host.barFg : "#e05c68"
                 RecordingGlow {
                     z: -1
                     anchors.centerIn: parent
@@ -124,7 +124,7 @@ Item {
         Item {
             visible: capture.timing
             width: 22; height: 24
-            TimerRing { anchors.centerIn: parent; foreground: capture.host.fg }
+            TimerRing { anchors.centerIn: parent; foreground: capture.host.barFg }
             MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: capture.timerClicked() }
         }
         Mark {

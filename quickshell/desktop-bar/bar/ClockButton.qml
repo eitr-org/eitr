@@ -49,7 +49,7 @@ Rectangle {
                 : ((clock.now.getHours() + 11) % 12 + 1) + Qt.formatDateTime(clock.now, ":mm"))
             : Qt.formatDateTime(clock.now, host.barClock === "24h" ? Eitr.I18n.tr("ddd MMM dd HH:mm") : Eitr.I18n.tr("ddd MMM dd hh:mm AP"))
         horizontalAlignment: Text.AlignHCenter
-        color: host.fg
+        color: host.barFg
         font.family: DesktopFonts.family
         font.pixelSize: PanelStyle.barTextSize
         font.bold: true
@@ -69,7 +69,7 @@ Rectangle {
                 : String((clock.now.getHours() + 11) % 12 + 1).padStart(2, "0") + Qt.formatDateTime(clock.now, "\nmm")
             horizontalAlignment: Text.AlignHCenter
             lineHeight: 0.9
-            color: host.fg
+            color: host.barFg
             font.family: DesktopFonts.family
             font.pixelSize: 13
             font.bold: true
@@ -78,7 +78,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             visible: host.barClock !== "24h" && !clock.timeOnly
             text: Qt.formatDateTime(clock.now, "AP")
-            color: host.fg
+            color: host.barFg
             font.family: DesktopFonts.family
             font.pixelSize: 9
             font.bold: true
@@ -87,7 +87,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             visible: !clock.timeOnly
             text: "\u{F00ED}"
-            color: host.fg
+            color: host.barFg
             font.family: DesktopFonts.family
             font.pixelSize: PanelStyle.barTextSize
         }
@@ -101,7 +101,7 @@ Rectangle {
         transform: Translate { y: (1 - clock.flash) * 12 }
         // A side bar is too narrow for a glyph and a number: it shows the number alone.
         text: !clock.activity ? "" : clock.compact ? clock.activity.flashText.replace(/^\S+ /, "") : clock.activity.flashText
-        color: clock.activity ? clock.activity.flashColor : host.fg
+        color: clock.activity ? clock.activity.flashColor : host.barFg
         font.family: DesktopFonts.family; font.weight: Font.Bold
         font.pixelSize: clock.compact ? 12 : 16
     }

@@ -44,7 +44,7 @@ Item {
         // One alpha silhouette also defines Hyprland's blur coverage.
         ShapePath {
             strokeWidth: -1
-            fillColor: host.barBackground()
+            fillColor: host.barSurface()
             PathSvg { path: {
                 return EdgeSlopes.outline(host.barEdge,
                     host.verticalBar ? tabsOutline.height : tabsOutline.width,

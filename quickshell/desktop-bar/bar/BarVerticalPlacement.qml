@@ -24,7 +24,7 @@ BarSection {
     anchors.fill: parent
     visible: host.verticalBar
     edge: host.barEdge
-    background: host.notchLayout || host.centeredLayout || host.islandsLayout || host.dynamicLayout || host.dropLayout ? "transparent" : host.barBackground()
+    background: host.notchLayout || host.centeredLayout || host.islandsLayout || host.dynamicLayout || host.dropLayout ? "transparent" : host.barSurface()
     radius: 0
 
     BarGestureArea {
@@ -54,7 +54,7 @@ BarSection {
             spacing: host.workspaceItemSpacing
             EitrLogo {
                 id: verticalControlCenterLogo
-                foreground: host.fg; background: host.workspaceMenuBg
+                foreground: host.barFg; background: host.workspaceMenuBg
                 slotWidth: host.workspaceItemSize
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: barHost.toggleControlCenter()

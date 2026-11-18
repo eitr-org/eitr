@@ -72,6 +72,8 @@ ShellRoot {
     property bool barPointerHeld: false
     property string dragCandidate: ""
     function barBackground() { return "black"; }
+    function barSurface() { return barBackground(); }
+    readonly property color barFg: "#e6e9ef"
     function barDoubleClick(button) {}
     function updateBarSetting(key, value) {}
     FloatingWindow {

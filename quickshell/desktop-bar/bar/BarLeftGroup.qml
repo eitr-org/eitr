@@ -38,7 +38,7 @@ RowLayout {
 
         EitrLogo {
             id: logo
-            foreground: host.fg; background: host.workspaceMenuBg
+            foreground: host.barFg; background: host.workspaceMenuBg
             slotWidth: host.workspaceItemSize
             anchors.verticalCenter: parent.verticalCenter
             onClicked: barWindow.toggleControlCenter()

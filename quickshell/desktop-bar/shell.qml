@@ -86,6 +86,9 @@ ShellRoot {
     readonly property color workspaceMenuFg: websiteAppearance ? SiteStyle.fg : themeMenuFg
     readonly property color bg: Qt.rgba(workspaceMenuBg.r, workspaceMenuBg.g, workspaceMenuBg.b, 0.38)
     readonly property color hoverBg: Qt.rgba(fg.r, fg.g, fg.b, 0.15)
+    // Text and icons on the bar itself; Blur and Clear pick it from the wallpaper (BarInk.qml).
+    BarInk { id: barInk; host: shell }
+    readonly property color barFg: barInk.colour
     property bool idleLockEnabled: false
     readonly property string idleLockGlyph: idleLockEnabled ? "󱫗" : "󱫖"
     readonly property string idleLockTooltip: idleLockEnabled ? Eitr.I18n.tr("Idle Lock: On") : Eitr.I18n.tr("Idle Lock: Off")
@@ -146,8 +149,13 @@ ShellRoot {
     readonly property bool verticalBar: barEdge === "left" || barEdge === "right"
     readonly property var desktopApplications: DesktopEntries.applications.values
 
+    // Panels, tooltips and pickers: Clear keeps Blur's tint there so they stay readable.
     function barBackground() {
-        return barAppearance === "transparent" ? bg : workspaceMenuBg;
+        return barAppearance === "transparent" || barAppearance === "clear" ? bg : workspaceMenuBg;
+    }
+    // The bar's own strip and pills: nothing at all in Clear.
+    function barSurface() {
+        return barAppearance === "clear" ? Qt.rgba(0, 0, 0, 0) : barBackground();
     }
 
     function barDoubleClick(button) {

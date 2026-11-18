@@ -799,5 +799,7 @@
   "Share the Login Screen": "共享登录界面",
   "Stop Sharing the Login Screen": "停止共享登录界面",
   "Back up or restore settings, apps and folders": "备份或还原设置、应用与文件夹",
-  "Backup and Restore": "备份与还原"
+  "Backup and Restore": "备份与还原",
+  "Clear": "透明",
+  "Use a fully transparent bar": "使用完全透明的栏"
 }

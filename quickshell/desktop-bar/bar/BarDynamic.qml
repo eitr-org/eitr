@@ -292,7 +292,7 @@ Item {
         TextMetrics { id: ink; font: label.font; text: restingGlyph.glyph }
         Text {
             id: label
-            text: restingGlyph.glyph; color: host.fg
+            text: restingGlyph.glyph; color: host.barFg
             font.family: DesktopFonts.family; font.pixelSize: 15; font.bold: true
             x: (restingGlyph.width - ink.tightBoundingRect.width) / 2 - ink.tightBoundingRect.x
             y: (restingGlyph.height - ink.tightBoundingRect.height) / 2 - label.baselineOffset - ink.tightBoundingRect.y

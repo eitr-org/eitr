@@ -92,6 +92,7 @@
     {"pattern": "quickshell/desktop-bar/scripts/lyrics-domain.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/audio-domain.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/throughput-domain.py", "class": "C", "runtime": true},
+    {"pattern": "quickshell/desktop-bar/scripts/wallpaper-domain.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/pointer-settings.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/scripts/notification-open.py", "class": "C", "runtime": true},
     {"pattern": "hypr/workspaces.lua", "class": "C", "runtime": true},

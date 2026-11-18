@@ -53,7 +53,7 @@ Item {
         spacing: 3
         Text {
             text: weather.text.split(" ")[0]
-            color: host.fg
+            color: host.barFg
             font.family: DesktopFonts.family
             font.pixelSize: weather.compact ? 12 : PanelStyle.barTextSize
             font.bold: true
@@ -61,7 +61,7 @@ Item {
         Text {
             visible: !weather.compact
             text: weather.temperature
-            color: host.fg
+            color: host.barFg
             font.family: DesktopFonts.family
             font.pixelSize: weather.compact ? 12 : PanelStyle.barTextSize
             font.bold: true

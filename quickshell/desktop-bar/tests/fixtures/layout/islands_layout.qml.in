@@ -17,6 +17,8 @@ ShellRoot {
     property string dragCandidate: ""
     property real surfaceAlpha: 1
     function barBackground() { return Qt.rgba(1, 1, 1, surfaceAlpha); }
+    function barSurface() { return barBackground(); }
+    readonly property color barFg: "#e6e9ef"
     function barDoubleClick(button) {}
     function updateBarSetting(key, value) {}
     FloatingWindow {

@@ -69,7 +69,7 @@ Item {
         TextMetrics { id: ink; font: glyph.font; text: glyph.text }
         horizontalAlignment: Text.AlignLeft; verticalAlignment: Text.AlignVCenter
         leftPadding: (width - ink.tightBoundingRect.width) / 2 - ink.tightBoundingRect.x
-        color: activity.host.fg
+        color: activity.host.barFg
         font.family: DesktopFonts.family; font.pixelSize: 14
         MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: parent.activated() }
     }
@@ -97,7 +97,7 @@ Item {
             }
             Glyph {
                 visible: activity.recording
-                text: "●"; color: activity.obsState.paused && !activity.obsState.streaming ? activity.host.fg : "#e05c68"
+                text: "●"; color: activity.obsState.paused && !activity.obsState.streaming ? activity.host.barFg : "#e05c68"
                 font.pixelSize: 10
                 onActivated: activity.barHost.panel("dashboard").show("obs")
                 RecordingGlow {
@@ -116,7 +116,7 @@ Item {
             Item {
                 visible: activity.timing
                 width: activity.vertical ? activity.width : activity.slot; height: activity.vertical ? activity.slot : activity.height
-                TimerRing { anchors.centerIn: parent; foreground: activity.host.fg }
+                TimerRing { anchors.centerIn: parent; foreground: activity.host.barFg }
                 MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: activity.barHost.showClock(activity.timerPage || "timers") }
             }
             // The note, next to the time. Dragging it right opens the lyrics; a plain click

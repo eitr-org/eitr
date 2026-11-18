@@ -617,7 +617,8 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Clear": [
-      "quickshell/desktop-bar/store/StoreSelection.qml"
+      "quickshell/desktop-bar/store/StoreSelection.qml",
+      "tools/choice-lists.json"
     ],
     "Clear all": [
       "quickshell/desktop-bar/notifications/NotificationList.qml"
@@ -4156,6 +4157,9 @@
     "Cleanup": [
       "elephant/menu-rows/system-maintenance.json"
     ],
+    "Clear": [
+      "tools/choice-lists.json"
+    ],
     "Clipboard": [
       "elephant/menu-rows/share.json"
     ],
@@ -6269,6 +6273,9 @@
       "elephant/menus/terminal-cursor-fire.lua"
     ],
     "Use a blurred transparent bar": [
+      "tools/choice-lists.json"
+    ],
+    "Use a fully transparent bar": [
       "tools/choice-lists.json"
     ],
     "Use half of the screen": [

@@ -16,7 +16,7 @@ Das Updatesymbol vor Benachrichtigungen prüft kurz nach der Anmeldung und alle 
 
 ## Das Leistenlayout ändern
 
-- Doppelklicke mit links auf **leere Leistenfläche**, um Designfarbe → Unschärfe → Website zu durchlaufen; Neuinstallationen beginnen mit Designfarbe. Website verwendet die Farben der Eitr-Website, hell oder dunkel passend zum Thema.
+- Doppelklicke mit links auf **leere Leistenfläche**, um Designfarbe → Unschärfe → Klar → Website zu durchlaufen; Neuinstallationen beginnen mit Designfarbe. Website verwendet die Farben der Eitr-Website, hell oder dunkel passend zum Thema. Klar lässt hinter der Leiste nur das Hintergrundbild. Unschärfe und Klar prüfen das Hintergrundbild hinter der Leiste und wechseln Text und Symbole der Leiste zur Gegenfarbe des Themas, wo dessen Textfarbe schwer lesbar wäre (ein helles Bild bei einem dunklen Thema). Panels behalten die Farben des Themas.
 - Ein rechter Doppelklick auf leere Fläche wechselt Voll → Zentriert → Laschen → Inseln → Dynamisch → Tropfen → Voll.
 - Ziehe leere Fläche nach oben, unten, links oder rechts, um die Leiste zu verschieben. Links und rechts ist die Leiste so schmal wie oben und unten: Die Uhr zeigt Stunde über Minuten mit einem Kalendersymbol, das Wetter nur sein Symbol; Datum und Temperatur erscheinen beim Darüberfahren.
 - **Uhr** unter Einstellungen > Desktopleiste zeigt die Zeit im 12-Stunden-Format mit AM/PM (Standard) oder im 24-Stunden-Format, an jedem Leistenrand.

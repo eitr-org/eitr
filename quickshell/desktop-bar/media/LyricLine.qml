@@ -11,7 +11,7 @@ Item {
     required property var host
     required property var player
     required property bool active
-    property color foreground: host.fg
+    property color foreground: host.barFg
     // A live stream has no song to look up; it shows its title.
     LyricsSource { id: source; host: lyric.host; player: lyric.player; active: lyric.active && !MediaModel.isLive(lyric.player) }
     property real position: 0

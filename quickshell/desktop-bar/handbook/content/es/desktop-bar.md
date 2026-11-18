@@ -24,7 +24,7 @@ El icono de actualizaciones, antes de Notificaciones, comprueba poco después de
 
 ## Cambiar la disposición de la barra
 
-- Haz doble clic izquierdo en el **espacio vacío de la barra** para recorrer Color del tema → Desenfoque → Sitio web; las instalaciones nuevas comienzan con Color del tema. Sitio web usa los colores del sitio de Eitr, claros u oscuros según el tema.
+- Haz doble clic izquierdo en el **espacio vacío de la barra** para recorrer Color del tema → Desenfoque → Transparente → Sitio web; las instalaciones nuevas comienzan con Color del tema. Sitio web usa los colores del sitio de Eitr, claros u oscuros según el tema. Transparente deja solo el fondo de pantalla detrás de la barra. Desenfoque y Transparente miran el fondo detrás de la barra y, donde el texto del tema se leería mal (un fondo claro con un tema oscuro), cambian el texto y los iconos de la barra al color opuesto del tema. Los paneles mantienen los colores del tema.
 - Haz doble clic derecho en el espacio vacío para recorrer Completa → Centrada → Pestañas → Islas → Dinámico → Gota → Completa.
 - Arrastra el espacio vacío hacia arriba, abajo, izquierda o derecha para mover la barra. A izquierda y derecha la barra es tan estrecha como arriba y abajo: el reloj muestra la hora sobre los minutos con un icono de calendario y el tiempo solo su icono; pasa el puntero para ver la fecha y la temperatura.
 - **Reloj** en Configuración > Barra del escritorio muestra la hora en formato de 12 horas con AM/PM (predeterminado) o de 24 horas, en cualquier borde.

@@ -47,14 +47,14 @@ Item {
             sourceSize: Qt.size(Math.ceil(width * Screen.devicePixelRatio), Math.ceil(height * Screen.devicePixelRatio))
             smooth: true
             layer.enabled: visible
-            layer.effect: MultiEffect { colorization: 1; colorizationColor: host.fg }
+            layer.effect: MultiEffect { colorization: 1; colorizationColor: host.barFg }
         }
         Text {
             id: glyph
             visible: item.iconSource == ""
             text: item.icon
             y: item.glyphOffsetY
-            color: host.fg
+            color: host.barFg
             font.family: DesktopFonts.family
             font.pixelSize: item.iconSize
             font.bold: true

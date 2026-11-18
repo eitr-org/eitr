@@ -312,7 +312,7 @@ Drop (`bar/BarDrop.qml`) shows one full pill with only the time, exactly centred
 Drag empty bar space toward top, bottom, left, or right to change its edge; a
 preview highlights the destination. The choices persist in `bar-settings.json`.
 Walker exposes the same settings under Settings > Desktop > Desktop Bar > Appearance,
-Displays, Layout, and Position. Appearance offers Blur, Theme Color and Website. Displays
+Displays, Layout, and Position. Appearance offers Blur, Clear, Theme Color and Website; Blur and Clear choose the bar's text from the wallpaper behind it (`bar/BarInk.qml`, `scripts/wallpaper-domain.py`). Displays
 shows the bar on the main display only (default) or on every display; then the
 focused display's bar answers IPC and shortcuts, each bar highlights its own
 display's workspace. Notification popups show on every display, also those without a
