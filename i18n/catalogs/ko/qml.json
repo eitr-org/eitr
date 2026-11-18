@@ -1127,7 +1127,6 @@
   "Pin": "고정",
   "Pinned": "고정됨",
   "Process": "프로세스",
-  "Read": "읽기",
   "Run Disk Test": "디스크 테스트 실행",
   "Run Network Test": "네트워크 테스트 실행",
   "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "루트 드라이브의 캐시 폴더에 있는 256 MB 임시 파일의 순차 쓰기 및 읽기.",
@@ -1139,6 +1138,7 @@
   "Untitled": "제목 없음",
   "Window Info": "창 정보",
   "Workspace %1 (%2)": "작업 공간 %1 (%2)",
-  "Write": "쓰기",
-  "Yes": "예"
+  "Yes": "예",
+  "Read speed": "읽기 속도",
+  "Write speed": "쓰기 속도"
 }

@@ -1127,7 +1127,6 @@
   "Pin": "ピン留め",
   "Pinned": "ピン留め済み",
   "Process": "プロセス",
-  "Read": "読み込み",
   "Run Disk Test": "ディスクテストを実行",
   "Run Network Test": "ネットワークテストを実行",
   "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "ルートドライブのキャッシュフォルダにある 256 MB の一時ファイルのシーケンシャル書き込みと読み込み。",
@@ -1139,6 +1138,7 @@
   "Untitled": "無題",
   "Window Info": "ウィンドウ情報",
   "Workspace %1 (%2)": "ワークスペース %1 (%2)",
-  "Write": "書き込み",
-  "Yes": "はい"
+  "Yes": "はい",
+  "Read speed": "読み込み速度",
+  "Write speed": "書き込み速度"
 }

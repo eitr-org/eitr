@@ -1127,7 +1127,6 @@
   "Pin": "Fixar",
   "Pinned": "Fixada",
   "Process": "Processo",
-  "Read": "Leitura",
   "Run Disk Test": "Executar teste de disco",
   "Run Network Test": "Executar teste de rede",
   "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "Gravação e leitura sequencial de um arquivo temporário de 256 MB na sua pasta de cache na unidade raiz.",
@@ -1139,6 +1138,7 @@
   "Untitled": "Sem título",
   "Window Info": "Info da janela",
   "Workspace %1 (%2)": "Área %1 (%2)",
-  "Write": "Gravação",
-  "Yes": "Sim"
+  "Yes": "Sim",
+  "Read speed": "Velocidade de leitura",
+  "Write speed": "Velocidade de gravação"
 }

@@ -1127,7 +1127,6 @@
   "Pin": "Anheften",
   "Pinned": "Angeheftet",
   "Process": "Prozess",
-  "Read": "Lesen",
   "Run Disk Test": "Datenträgertest starten",
   "Run Network Test": "Netzwerktest starten",
   "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "Sequentielles Schreiben und Lesen einer 256 MB großen temporären Datei in Ihrem Cache-Ordner auf dem Root-Laufwerk.",
@@ -1139,6 +1138,7 @@
   "Untitled": "Unbenannt",
   "Window Info": "Fensterinfo",
   "Workspace %1 (%2)": "Arbeitsbereich %1 (%2)",
-  "Write": "Schreiben",
-  "Yes": "Ja"
+  "Yes": "Ja",
+  "Read speed": "Lesegeschwindigkeit",
+  "Write speed": "Schreibgeschwindigkeit"
 }

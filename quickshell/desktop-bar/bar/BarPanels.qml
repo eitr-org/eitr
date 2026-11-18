@@ -196,16 +196,17 @@ Item {
         panels.barHost.showPanel(panels.controlCenterItem);
     }
     function toggleControlCenter() { panels.barHost.togglePanel(ensure("center")); }
+    // Window info and Speed test are Control Center Tools pages, opened in place.
+    function showToolDetail(kind) {
+        ensure("center");
+        panels.controlCenterItem.page = "tools";
+        panels.controlCenterItem.detail = kind;
+        panels.barHost.showPanel(panels.controlCenterItem);
+    }
     function showKind(kind) {
         if (kind === "weather" && !PluginRegistry.weatherEnabled) return;
         if (kind === "picture") { showControlCenter(kind); return; }
-        if (kind === "window-info" || kind === "speed-test") {
-            ensure("center");
-            panels.controlCenterItem.page = "tools";
-            panels.controlCenterItem.detail = kind;
-            panels.barHost.showPanel(panels.controlCenterItem);
-            return;
-        }
+        if (kind === "window-info" || kind === "speed-test") { showToolDetail(kind); return; }
         ensure(kind);
         var choices = {wifi: panels.barHost.wifiMenu, bluetooth: panels.barHost.bluetoothMenu, brightness: panels.barHost.brightnessMenu, display: panels.barHost.brightnessMenu, volume: panels.barHost.volumeMenu,
             mic: panels.barHost.volumeMenu, streaming: panels.barHost.streamingMenu, keyboard: panels.barHost.keyboardMenu, calendar: panels.barHost.calendarMenu,

@@ -1127,7 +1127,6 @@
   "Pin": "Pin",
   "Pinned": "Pinned",
   "Process": "Process",
-  "Read": "Read",
   "Run Disk Test": "Run Disk Test",
   "Run Network Test": "Run Network Test",
   "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.",
@@ -1139,6 +1138,7 @@
   "Untitled": "Untitled",
   "Window Info": "Window Info",
   "Workspace %1 (%2)": "Workspace %1 (%2)",
-  "Write": "Write",
-  "Yes": "Yes"
+  "Yes": "Yes",
+  "Read speed": "Read speed",
+  "Write speed": "Write speed"
 }

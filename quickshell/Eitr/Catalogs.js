@@ -1164,7 +1164,6 @@ var qml = {
     "Pin": "Pin",
     "Pinned": "Pinned",
     "Process": "Process",
-    "Read": "Read",
     "Run Disk Test": "Run Disk Test",
     "Run Network Test": "Run Network Test",
     "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.",
@@ -1176,8 +1175,9 @@ var qml = {
     "Untitled": "Untitled",
     "Window Info": "Window Info",
     "Workspace %1 (%2)": "Workspace %1 (%2)",
-    "Write": "Write",
-    "Yes": "Yes"
+    "Yes": "Yes",
+    "Read speed": "Read speed",
+    "Write speed": "Write speed"
   },
   "pt_BR": {
     "%1 B/s": "%1 B/s",
@@ -2308,7 +2308,6 @@ var qml = {
     "Pin": "Fixar",
     "Pinned": "Fixada",
     "Process": "Processo",
-    "Read": "Leitura",
     "Run Disk Test": "Executar teste de disco",
     "Run Network Test": "Executar teste de rede",
     "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "Gravação e leitura sequencial de um arquivo temporário de 256 MB na sua pasta de cache na unidade raiz.",
@@ -2320,8 +2319,9 @@ var qml = {
     "Untitled": "Sem título",
     "Window Info": "Info da janela",
     "Workspace %1 (%2)": "Área %1 (%2)",
-    "Write": "Gravação",
-    "Yes": "Sim"
+    "Yes": "Sim",
+    "Read speed": "Velocidade de leitura",
+    "Write speed": "Velocidade de gravação"
   },
   "es": {
     "%1 B/s": "%1 B/s",
@@ -3452,7 +3452,6 @@ var qml = {
     "Pin": "Fijar",
     "Pinned": "Fijada",
     "Process": "Proceso",
-    "Read": "Lectura",
     "Run Disk Test": "Ejecutar prueba de disco",
     "Run Network Test": "Ejecutar prueba de red",
     "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "Escritura y lectura secuencial de un archivo temporal de 256 MB en tu carpeta de caché en la unidad raíz.",
@@ -3464,8 +3463,9 @@ var qml = {
     "Untitled": "Sin título",
     "Window Info": "Info de ventana",
     "Workspace %1 (%2)": "Espacio %1 (%2)",
-    "Write": "Escritura",
-    "Yes": "Sí"
+    "Yes": "Sí",
+    "Read speed": "Velocidad de lectura",
+    "Write speed": "Velocidad de escritura"
   },
   "de": {
     "%1 B/s": "%1 B/s",
@@ -4596,7 +4596,6 @@ var qml = {
     "Pin": "Anheften",
     "Pinned": "Angeheftet",
     "Process": "Prozess",
-    "Read": "Lesen",
     "Run Disk Test": "Datenträgertest starten",
     "Run Network Test": "Netzwerktest starten",
     "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "Sequentielles Schreiben und Lesen einer 256 MB großen temporären Datei in Ihrem Cache-Ordner auf dem Root-Laufwerk.",
@@ -4608,8 +4607,9 @@ var qml = {
     "Untitled": "Unbenannt",
     "Window Info": "Fensterinfo",
     "Workspace %1 (%2)": "Arbeitsbereich %1 (%2)",
-    "Write": "Schreiben",
-    "Yes": "Ja"
+    "Yes": "Ja",
+    "Read speed": "Lesegeschwindigkeit",
+    "Write speed": "Schreibgeschwindigkeit"
   },
   "fr": {
     "%1 B/s": "%1 o/s",
@@ -5740,7 +5740,6 @@ var qml = {
     "Pin": "Épingler",
     "Pinned": "Épinglée",
     "Process": "Processus",
-    "Read": "Lecture",
     "Run Disk Test": "Lancer le test disque",
     "Run Network Test": "Lancer le test réseau",
     "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "Écriture et lecture séquentielles d'un fichier temporaire de 256 Mo dans votre dossier de cache sur le disque racine.",
@@ -5752,8 +5751,9 @@ var qml = {
     "Untitled": "Sans titre",
     "Window Info": "Infos fenêtre",
     "Workspace %1 (%2)": "Espace %1 (%2)",
-    "Write": "Écriture",
-    "Yes": "Oui"
+    "Yes": "Oui",
+    "Read speed": "Vitesse de lecture",
+    "Write speed": "Vitesse d’écriture"
   },
   "ja": {
     "%1 B/s": "%1 B/s",
@@ -6884,7 +6884,6 @@ var qml = {
     "Pin": "ピン留め",
     "Pinned": "ピン留め済み",
     "Process": "プロセス",
-    "Read": "読み込み",
     "Run Disk Test": "ディスクテストを実行",
     "Run Network Test": "ネットワークテストを実行",
     "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "ルートドライブのキャッシュフォルダにある 256 MB の一時ファイルのシーケンシャル書き込みと読み込み。",
@@ -6896,8 +6895,9 @@ var qml = {
     "Untitled": "無題",
     "Window Info": "ウィンドウ情報",
     "Workspace %1 (%2)": "ワークスペース %1 (%2)",
-    "Write": "書き込み",
-    "Yes": "はい"
+    "Yes": "はい",
+    "Read speed": "読み込み速度",
+    "Write speed": "書き込み速度"
   },
   "zh_CN": {
     "%1 B/s": "%1 B/s",
@@ -8028,7 +8028,6 @@ var qml = {
     "Pin": "置顶",
     "Pinned": "已置顶",
     "Process": "进程",
-    "Read": "读取",
     "Run Disk Test": "运行磁盘测试",
     "Run Network Test": "运行网络测试",
     "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "在根驱动器缓存文件夹中顺序写入和读取 256 MB 临时文件。",
@@ -8040,8 +8039,9 @@ var qml = {
     "Untitled": "无标题",
     "Window Info": "窗口信息",
     "Workspace %1 (%2)": "工作区 %1 (%2)",
-    "Write": "写入",
-    "Yes": "是"
+    "Yes": "是",
+    "Read speed": "读取速度",
+    "Write speed": "写入速度"
   },
   "ko": {
     "%1 B/s": "%1 B/s",
@@ -9172,7 +9172,6 @@ var qml = {
     "Pin": "고정",
     "Pinned": "고정됨",
     "Process": "프로세스",
-    "Read": "읽기",
     "Run Disk Test": "디스크 테스트 실행",
     "Run Network Test": "네트워크 테스트 실행",
     "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": "루트 드라이브의 캐시 폴더에 있는 256 MB 임시 파일의 순차 쓰기 및 읽기.",
@@ -9184,7 +9183,8 @@ var qml = {
     "Untitled": "제목 없음",
     "Window Info": "창 정보",
     "Workspace %1 (%2)": "작업 공간 %1 (%2)",
-    "Write": "쓰기",
-    "Yes": "예"
+    "Yes": "예",
+    "Read speed": "읽기 속도",
+    "Write speed": "쓰기 속도"
   }
 };

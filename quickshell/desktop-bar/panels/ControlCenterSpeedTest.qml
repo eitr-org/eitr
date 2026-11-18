@@ -126,7 +126,7 @@ Column {
                     Layout.fillWidth: true
                     spacing: 2
                     Text {
-                        text: Eitr.I18n.tr("Write")
+                        text: Eitr.I18n.tr("Write speed")
                         color: root.foreground
                         opacity: PanelStyle.secondaryTextOpacity
                         font.family: DesktopFonts.family
@@ -145,7 +145,7 @@ Column {
                     Layout.fillWidth: true
                     spacing: 2
                     Text {
-                        text: Eitr.I18n.tr("Read")
+                        text: Eitr.I18n.tr("Read speed")
                         color: root.foreground
                         opacity: PanelStyle.secondaryTextOpacity
                         font.family: DesktopFonts.family

@@ -2490,7 +2490,7 @@
     "Re-enable with eitr plugin enable-ui {plugin}": [
       "quickshell/desktop-bar/plugins/PluginComponent.qml"
     ],
-    "Read": [
+    "Read speed": [
       "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
     ],
     "Read-only help from your connected assistants. Turning it on explains what is shared and asks first.": [
@@ -3737,7 +3737,7 @@
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
     ],
-    "Write": [
+    "Write speed": [
       "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
     ],
     "YEAR": [
