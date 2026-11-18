@@ -24,6 +24,8 @@ O Modo avião lembra quais conexões bloqueou e restaura apenas essas. Não pert
 
 Timer e Foco (um resumo compacto mostrando o temporizador, a fase de foco ou o cronômetro ativo, botões rápidos para iniciar/parar um timer de 5 minutos ou foco e Abrir Relógio), capturas (seleção, tela inteira, janela ou seleção direto para a área de transferência), gravação (controles do OBS, Gravar, Gravar + Áudio e Parar), OCR, códigos QR, seletor de cores, Transcodificar, lembretes e compartilhamento com LocalSend. O painel fecha antes de uma seleção ou gravação começar.
 
+**Diagnóstico:** **Info da janela** inspeciona a última janela ativa (aplicativo, título, classe, PID, área de trabalho, geometria e estado flutuante/fixada/tela cheia) e permite alternar flutuante/lado a lado, fixar/desafixar, mover para outra área de trabalho ou fechar; também disponível em **Walker > Ferramentas > Info da janela**. **Teste de velocidade** executa sob demanda um teste sequencial de gravação/leitura de 256 MB em disco na pasta de cache da unidade raiz, ou um teste de latência, download e upload via HTTPS contra `speed.cloudflare.com`; ambos podem ser cancelados durante a execução.
+
 ## Conversa rápida
 
 O ícone de conversa ao lado das abas abre uma conversa descartável com o assistente padrão, escolhido em Desenvolvimento > IA. Fica oculto sem um padrão ou quando a política da organização desativa assistentes. Enter envia; Shift+Enter insere uma quebra de linha. Escape ou Voltar retorna às páginas. Nova conversa, sair da conversa ou fechar o Centro de Controle apaga as mensagens e cancela uma resposta pendente.

@@ -7,7 +7,7 @@ import QtQuick.Layouts
 Column {
     id: section
     required property var centerRef
-    visible: section.centerRef.page === "tools"; width: parent.width; spacing: 12
+    visible: section.centerRef.page === "tools" && section.centerRef.detail === ""; width: parent.width; spacing: 12
     // The same timer as Drop's dashboard; the clock's timer ring opens this fold.
     ControlCenterFold { centerRef: section.centerRef;
     title: section.centerRef.timerFold
@@ -58,6 +58,13 @@ Column {
     title: Eitr.I18n.tr("Maintenance")
     GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
         ControlCenterGridAction { centerRef: section.centerRef; Layout.columnSpan: 2; title: Eitr.I18n.tr("Clean My Eitr"); tooltip: Eitr.I18n.tr("Lock keyboard, mouse and touchpad for cleaning."); glyph: "󰃢"; onClicked: section.centerRef.menuAction("system", "Clean My Eitr") }
+    }
+    }
+    ControlCenterFold { centerRef: section.centerRef;
+    title: Eitr.I18n.tr("Diagnostics")
+    GridLayout { width: parent.width; columns: 2; columnSpacing: 8; rowSpacing: 8
+        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Window Info"); glyph: "󰖯"; onClicked: section.centerRef.detail = "window-info" }
+        ControlCenterGridAction { centerRef: section.centerRef; title: Eitr.I18n.tr("Speed Test"); glyph: "󰓅"; onClicked: section.centerRef.detail = "speed-test" }
     }
     }
 }

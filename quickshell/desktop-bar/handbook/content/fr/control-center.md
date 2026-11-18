@@ -24,6 +24,8 @@ Le Mode avion mémorise les radios bloquées et ne restaure que celles-ci. Ne pa
 
 Minuteur et concentration (un résumé compact affichant le minuteur, la phase de concentration ou le chronomètre actif, des boutons rapides pour démarrer/arrêter un minuteur de 5 minutes ou une session de concentration et Ouvrir Horloge), captures d’écran (sélection, écran entier, fenêtre ou sélection directement dans le presse-papiers), enregistrement (commandes OBS, Enregistrer, Enregistrer + Audio et Arrêter), OCR, QR codes, sélecteur de couleurs, Transcoder, rappels et partage LocalSend. Le panneau se ferme avant le début d’une sélection ou d’un enregistrement.
 
+**Diagnostics :** **Infos fenêtre** inspecte la dernière fenêtre active (application, titre, classe, PID, espace de travail, géométrie et état flottant/épinglé/plein écran) et permet de basculer flottant/tuile, épingler/désépingler, déplacer vers un autre espace de travail ou fermer ; également accessible depuis **Walker > Outils > Infos fenêtre**. **Test de débit** exécute à la demande un test séquentiel d'écriture/lecture de 256 Mo sur le disque dans votre dossier de cache sur le lecteur racine, ou un test réseau de latence, téléchargement et envoi en HTTPS vers `speed.cloudflare.com` ; les deux peuvent être annulés en cours.
+
 ## Discussion rapide
 
 Choisissez l’assistant par défaut dans Paramètres > Assistant IA.

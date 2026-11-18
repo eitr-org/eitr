@@ -177,9 +177,10 @@ class Broker:
         self.capture = CaptureController(self)
         self.domains = {}
         self.domain_jobs = {}
-        self.read_slots = {name: asyncio.Semaphore(2) for name in ("keyboard", "network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics", "audio", "throughput", "wallpaper")}
-        self.domain_locks = {name: threading.Lock() for name in ("keyboard", "network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics", "audio", "throughput", "wallpaper")}
+        self.read_slots = {name: asyncio.Semaphore(2) for name in ("keyboard", "network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics", "audio", "throughput", "wallpaper", "window", "speed")}
+        self.domain_locks = {name: threading.Lock() for name in ("keyboard", "network", "capture", "power", "display", "hardware", "remote", "weather", "ai", "updates", "catalog", "account", "lyrics", "audio", "throughput", "wallpaper", "window", "speed")}
         self.read_slots["weather"] = asyncio.Semaphore(1)
+        self.read_slots["speed"] = asyncio.Semaphore(1)
         self.ai_cooldowns = {}
         self.queries = {}
         self.catalog_queries = set()
@@ -701,6 +702,14 @@ class Broker:
         await self.query_domain(frame, cancelled, "audio", 8,
                                 lambda domain, deadline: domain.query(frame["name"], frame["args"], deadline))
 
+    async def query_window(self, frame, cancelled):
+        await self.query_domain(frame, cancelled, "window", 8,
+                                lambda domain, deadline: domain.query(frame["name"], frame["args"], deadline))
+
+    async def query_speed(self, frame, cancelled):
+        await self.query_domain(frame, cancelled, "speed", 45,
+                                lambda domain, deadline: domain.query(frame["name"], frame["args"], deadline, cancelled))
+
     async def query_domain(self, frame, cancelled, topic, seconds, call):
         """One request/reply read or action on a domain, within its deadline and admission slots."""
         request = frame["id"]
@@ -800,9 +809,43 @@ class Broker:
             self.jobs.add(task)
             task.add_done_callback(self.jobs.discard)
             return
-        if operation == "cancel" and topic in ("lyrics", "audio"):
+        if operation == "cancel" and topic in ("lyrics", "audio", "window", "speed"):
             if request in self.queries:
                 self.queries[request].set()
+            return
+        if operation == "query" and topic == "window":
+            args, name = frame.get("args"), frame.get("name")
+            if len(self.queries) - len(self.catalog_queries) >= 8:
+                self.emit(dict(v=1, op="reply", topic="window", id=request, epoch=self.epoch, error="busy", data={}))
+                return
+            if not request or request in self.query_history or name not in ("info", "float", "pin", "move", "close") or not isinstance(args, dict):
+                raise ValueError("invalid-query")
+            if not isinstance(args.get("address", ""), str) or len(args.get("address", "")) > 64:
+                raise ValueError("invalid-query")
+            if name == "move":
+                workspace = args.get("workspace")
+                if not ((type(workspace) is int and workspace > 0) or (isinstance(workspace, str) and 1 <= len(workspace) <= 64)):
+                    raise ValueError("invalid-query")
+            self.query_history.append(request)
+            cancelled = threading.Event()
+            self.queries[request] = cancelled
+            task = asyncio.create_task(self.query_window(frame, cancelled))
+            self.jobs.add(task)
+            task.add_done_callback(self.jobs.discard)
+            return
+        if operation == "query" and topic == "speed":
+            args, name = frame.get("args"), frame.get("name")
+            if len(self.queries) - len(self.catalog_queries) >= 8:
+                self.emit(dict(v=1, op="reply", topic="speed", id=request, epoch=self.epoch, error="busy", data={}))
+                return
+            if not request or request in self.query_history or name not in ("disk", "network") or not isinstance(args, dict):
+                raise ValueError("invalid-query")
+            self.query_history.append(request)
+            cancelled = threading.Event()
+            self.queries[request] = cancelled
+            task = asyncio.create_task(self.query_speed(frame, cancelled))
+            self.jobs.add(task)
+            task.add_done_callback(self.jobs.discard)
             return
         if operation == "query" and topic == "lyrics":
             args = frame.get("args")

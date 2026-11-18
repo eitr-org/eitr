@@ -24,6 +24,8 @@ El Modo avión recuerda qué conexiones bloqueó y restaura solo esas. No molest
 
 Temporizador y concentración (un resumen compacto que muestra el temporizador, la fase de concentración o el cronómetro activos, botones rápidos para iniciar/detener un temporizador de 5 minutos o una sesión de concentración y Abrir Reloj), capturas (selección, pantalla completa, ventana o selección directa al portapapeles), grabación (controles de OBS, Grabar, Grabar + Audio y Detener), OCR, códigos QR, selector de colores, Transcodificar, recordatorios y compartir con LocalSend. El panel se cierra antes de empezar una selección o grabación.
 
+**Diagnóstico:** **Info de ventana** inspecciona la última ventana activa (aplicación, título, clase, PID, espacio de trabajo, geometría y estado flotante/fijada/pantalla completa) y permite alternar entre flotar y mosaico, fijar/desfijar, moverla a otro espacio de trabajo o cerrarla; también disponible en **Walker > Herramientas > Info de ventana**. **Prueba de velocidad** ejecuta bajo demanda una prueba secuencial de escritura y lectura de 256 MB en disco en tu carpeta de caché de la unidad raíz, o una prueba de latencia, descarga y subida por HTTPS contra `speed.cloudflare.com`; ambas pueden cancelarse en curso.
+
 ## Chat rápido
 
 Elige el predeterminado en Configuración > Asistente de IA.

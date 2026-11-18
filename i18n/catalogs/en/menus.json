@@ -803,5 +803,7 @@
   "Clear": "Clear",
   "Use a fully transparent bar": "Use a fully transparent bar",
   "Clean My Eitr": "Clean My Eitr",
-  "Lock keyboard, mouse and touchpad for cleaning": "Lock keyboard, mouse and touchpad for cleaning"
+  "Lock keyboard, mouse and touchpad for cleaning": "Lock keyboard, mouse and touchpad for cleaning",
+  "Inspect the active window and adjust its state": "Inspect the active window and adjust its state",
+  "Window Info": "Window Info"
 }

@@ -165,6 +165,8 @@ BarPanels bar/BarPanels.qml
 BarTabs bar/BarTabs.qml
 BarInputMask bar/BarInputMask.qml
 ControlCenterNavigation panels/ControlCenterNavigation.qml
+ControlCenterWindowInfo 1.0 panels/ControlCenterWindowInfo.qml
+ControlCenterSpeedTest 1.0 panels/ControlCenterSpeedTest.qml
 Catalog 1.0 panels/Catalog.qml
 CatalogContent 1.0 panels/CatalogContent.qml
 LibraryWindow 1.0 components/LibraryWindow.qml

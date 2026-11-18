@@ -10,9 +10,28 @@ ShellRoot {
     Component.onCompleted: {
         Quickshell.watchFiles = Quickshell.env("EITR_LIVE_RELOAD") === "1";
         PluginRegistry.startDiagnostics();
+        shell.recordActiveWindow(Hyprland.activeToplevel);
     }
     id: shell
     signal handbookOpened()
+    property string lastActiveWindowAddress: ""
+    function recordActiveWindow(toplevel) {
+        if (!toplevel) return;
+        var addr = String(toplevel.address || "").trim();
+        if (addr && !addr.startsWith("0x")) addr = "0x" + addr;
+        if (/^0x[0-9a-fA-F]+$/.test(addr)) lastActiveWindowAddress = addr;
+    }
+    Connections {
+        target: Hyprland
+        function onActiveToplevelChanged() { shell.recordActiveWindow(Hyprland.activeToplevel); }
+        function onRawEvent(event) {
+            if (event && event.name === "activewindowv2" && event.data) {
+                var addr = String(event.data).trim();
+                if (addr && !addr.startsWith("0x")) addr = "0x" + addr;
+                if (/^0x[0-9a-fA-F]+$/.test(addr)) shell.lastActiveWindowAddress = addr;
+            }
+        }
+    }
     NetworkService { id: networkOwner }
     NotificationService { id: notificationsService; transientSuppress: cleanOverlay.active }
     RemoteAccessService { id: remoteAccessService; observing: shell.remotePanelsOpen }

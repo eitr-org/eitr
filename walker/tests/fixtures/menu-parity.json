@@ -3180,6 +3180,22 @@
         "actions": {
           "open": "/usr/share/eitr/walker/scripts/actions/capture/transcode.sh"
         }
+      },
+      {
+        "text": "Window Info",
+        "subtext": "Inspect the active window and adjust its state",
+        "keywords": [
+          "window",
+          "info",
+          "class",
+          "pid",
+          "float",
+          "pin"
+        ],
+        "icon": "󰖯",
+        "actions": {
+          "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh window-info"
+        }
       }
     ],
     "tpm-unlock": [
@@ -10725,6 +10741,31 @@
         "Transcode",
         "Transcode",
         "Convert an image or video to another format"
+      ],
+      "menus": [
+        "main"
+      ]
+    },
+    {
+      "key": "a6d9530ae5cdb715d19fedb6bbe4d0333ba52fbdacc88398bf218980adf242bb",
+      "provider": "menus:tools",
+      "identifier": "tools:9",
+      "text": "Window Info",
+      "subtext": "Inspect the active window and adjust its state",
+      "icon": "󰖯",
+      "actions": [
+        "open"
+      ],
+      "keywords": [
+        "window",
+        "info",
+        "class",
+        "pid",
+        "float",
+        "pin",
+        "Window Info",
+        "Window Info",
+        "Inspect the active window and adjust its state"
       ],
       "menus": [
         "main"

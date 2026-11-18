@@ -40,6 +40,8 @@ Timer & Focus (a compact summary showing the running timer, focus phase or stopw
 QR codes, the color picker, Transcode, reminders and LocalSend sharing. The panel
 closes before a selection or recording starts.
 
+**Diagnostics:** **Window Info** inspects the last active window (app, title, class, PID, workspace, geometry and floating/pinned/fullscreen state) and lets you float/tile, pin/unpin, move it to another workspace or close it; also available from **Walker > Tools > Window Info**. **Speed Test** runs an on-demand sequential 256 MB disk write/read test in your cache folder on the root drive, or a network latency, download and upload test against `speed.cloudflare.com` over HTTPS; both can be cancelled while running.
+
 ## Quick chat
 
 Choose your default in Settings > AI Assistant.

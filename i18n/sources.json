@@ -16,8 +16,12 @@
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "%1 MB/s": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml",
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml",
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
+    ],
+    "%1 Mbps": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
     ],
     "%1 days": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
@@ -30,6 +34,9 @@
     ],
     "%1 leaves your keyboard layouts. You can add it again later.": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
+    ],
+    "%1 ms": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
     ],
     "01 / TAPE": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
@@ -455,6 +462,7 @@
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
       "quickshell/desktop-bar/components/SettingsConfirmSheet.qml",
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml",
       "quickshell/desktop-bar/panels/PolkitDialog.qml",
       "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/panels/TimePicker.qml",
@@ -612,6 +620,9 @@
     "City search unavailable": [
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
     ],
+    "Class": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
+    ],
     "Claude Code": [
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -660,6 +671,7 @@
       "quickshell/desktop-bar/capture/BeautifyContent.qml",
       "quickshell/desktop-bar/dock/EdgeDock.qml",
       "quickshell/desktop-bar/panels/CatalogPluginSheet.qml",
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml",
       "quickshell/desktop-bar/settings/FamilySidebar.qml",
       "quickshell/desktop-bar/store/StoreDetail.qml",
       "quickshell/lockscreen/design-gallery.qml"
@@ -751,6 +763,9 @@
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "Contacts speed.cloudflare.com over HTTPS to measure latency, download and upload.": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
     "Continue": [
       "quickshell/desktop-bar/settings/SettingsAccountSheet.qml",
       "quickshell/desktop-bar/store/StoreReview.qml"
@@ -827,6 +842,9 @@
     "Could not load": [
       "quickshell/desktop-bar/plugins/PluginComponent.qml",
       "quickshell/desktop-bar/services/NetworkService.qml"
+    ],
+    "Could not read window information.": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
     ],
     "Could not save recording settings": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
@@ -973,6 +991,9 @@
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
       "quickshell/desktop-bar/settings/SettingsBluetoothPage.qml"
     ],
+    "Diagnostics": [
+      "quickshell/desktop-bar/panels/ControlCenterTools.qml"
+    ],
     "Diagnostics and checks for this computer.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -1020,6 +1041,15 @@
     "Discover official and community themes.": [
       "distro/store-kinds.json"
     ],
+    "Disk": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
+    "Disk test failed.": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
+    "Disk test timed out.": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
     "Display": [
       "quickshell/desktop-bar/bar/BarZoneItems.qml",
       "quickshell/desktop-bar/drop/DropRails.qml",
@@ -1058,6 +1088,7 @@
       "tools/choice-lists.json"
     ],
     "Download": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml",
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
     "Drag icons or press Space to move them between bar zones.": [
@@ -1225,10 +1256,14 @@
     "Fit": [
       "tools/choice-lists.json"
     ],
+    "Float": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
+    ],
     "Float the islands off the screen edge, or attach them to it.": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Floating": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml",
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
     ],
     "Focus": [
@@ -1237,6 +1272,9 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Focus a window before opening Control Center to inspect it.": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
     ],
     "Focus fit": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -1293,6 +1331,9 @@
     ],
     "Full width": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
+    ],
+    "Fullscreen": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
     ],
     "Fullscreen when one column": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -1559,6 +1600,9 @@
     "Last backup: %1 · %2": [
       "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
+    "Latency": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
     "Latest backup": [
       "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
@@ -1764,6 +1808,9 @@
     "Move down": [
       "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
     ],
+    "Move to workspace": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
+    ],
     "Move up": [
       "quickshell/desktop-bar/components/KeyboardLayoutRow.qml"
     ],
@@ -1801,11 +1848,18 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Network": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml",
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml",
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "Network Settings…": [
       "quickshell/desktop-bar/panels/WifiMenu.qml"
+    ],
+    "Network test failed.": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
+    "Network test timed out.": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
     ],
     "New Reminder": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
@@ -1846,6 +1900,9 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsDevicesPage.qml"
     ],
+    "No": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
+    ],
     "No Bluetooth adapter": [
       "quickshell/desktop-bar/drop/DropBluetoothDetail.qml",
       "quickshell/desktop-bar/panels/BluetoothMenu.qml",
@@ -1859,6 +1916,9 @@
     ],
     "No active displays": [
       "quickshell/desktop-bar/panels/DisplayListSection.qml"
+    ],
+    "No active window": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
     ],
     "No applications are playing audio.": [
       "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
@@ -2278,12 +2338,18 @@
     "Pi": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Pin": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
+    ],
     "Pin bar open": [
       "quickshell/desktop-bar/bar/BarHorizontalCenter.qml",
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml"
     ],
     "Ping": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Pinned": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
     ],
     "Pixel offsets, flipped screens and more in local.lua": [
       "quickshell/desktop-bar/panels/DisplayListSection.qml"
@@ -2325,6 +2391,7 @@
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Position": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml",
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml",
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
@@ -2373,6 +2440,9 @@
     "Previous track": [
       "quickshell/desktop-bar/media/MediaCard.qml"
     ],
+    "Process": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
+    ],
     "Profile picture": [
       "quickshell/desktop-bar/settings/SettingsUserPage.qml"
     ],
@@ -2420,6 +2490,9 @@
     "Re-enable with eitr plugin enable-ui {plugin}": [
       "quickshell/desktop-bar/plugins/PluginComponent.qml"
     ],
+    "Read": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
     "Read-only help from your connected assistants. Turning it on explains what is shared and asks first.": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
@@ -2462,6 +2535,7 @@
       "quickshell/desktop-bar/settings/SettingsWindowsPage.qml"
     ],
     "Refresh": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml",
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/desktop-bar/settings/SettingsBackupPage.qml",
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
@@ -2670,6 +2744,12 @@
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Run Disk Test": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
+    "Run Network Test": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
     "Rune groups": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml"
     ],
@@ -2821,6 +2901,9 @@
       "quickshell/desktop-bar/notifications/NotificationCard.qml",
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
+    "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
     "Server domain": [
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml"
     ],
@@ -2964,6 +3047,7 @@
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
     "Size": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml",
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
     "Size must be between 1 and %1.": [
@@ -2997,6 +3081,10 @@
     ],
     "Source": [
       "quickshell/desktop-bar/store/StoreState.qml"
+    ],
+    "Speed Test": [
+      "quickshell/desktop-bar/panels/ControlCenterDetail.qml",
+      "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Split across monitors": [
       "tools/choice-lists.json"
@@ -3260,6 +3348,9 @@
     "This welcome": [
       "quickshell/desktop-bar/welcome/WelcomePage.qml"
     ],
+    "Tile": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
+    ],
     "Tiling": [
       "tools/choice-lists.json"
     ],
@@ -3281,6 +3372,9 @@
     ],
     "Timers": [
       "quickshell/desktop-bar/clock/ClockContent.qml"
+    ],
+    "Title": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
     ],
     "Today": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -3373,6 +3467,9 @@
     "Undo": [
       "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
+    "Unknown": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
+    ],
     "Unlock": [
       "quickshell/lockscreen/shell.qml"
     ],
@@ -3383,9 +3480,15 @@
     "Unnamed device": [
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml"
     ],
+    "Unpin": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
+    ],
     "Unpin bar": [
       "quickshell/desktop-bar/bar/BarHorizontalCenter.qml",
       "quickshell/desktop-bar/bar/BarVerticalCenter.qml"
+    ],
+    "Untitled": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
     ],
     "Up": [
       "tools/choice-lists.json"
@@ -3424,6 +3527,7 @@
       "quickshell/desktop-bar/components/PanelLoadingIndicator.qml"
     ],
     "Upload": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml",
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
     ],
     "Upside down": [
@@ -3580,6 +3684,10 @@
       "quickshell/desktop-bar/overview/WorkspaceOverviewTile.qml",
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
+    "Window Info": [
+      "quickshell/desktop-bar/panels/ControlCenterDetail.qml",
+      "quickshell/desktop-bar/panels/ControlCenterTools.qml"
+    ],
     "Window Rules": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
@@ -3611,10 +3719,15 @@
       "quickshell/desktop-bar/settings/SettingsFocusPage.qml"
     ],
     "Workspace": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml",
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
     ],
     "Workspace %1": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml",
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
+    ],
+    "Workspace %1 (%2)": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
     ],
     "Workspace style": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
@@ -3624,8 +3737,14 @@
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/settings/SettingsWorkspacesCard.qml"
     ],
+    "Write": [
+      "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
+    ],
     "YEAR": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
+    ],
+    "Yes": [
+      "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
     ],
     "You": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml",
@@ -4822,6 +4941,9 @@
     ],
     "Input device and level": [
       "elephant/menu-rows/system-devices.json"
+    ],
+    "Inspect the active window and adjust its state": [
+      "elephant/menu-rows/tools.json"
     ],
     "Install": [
       "elephant/menu-rows/main.json",
@@ -6441,6 +6563,9 @@
     ],
     "Window": [
       "elephant/menu-rows/screenshot.json"
+    ],
+    "Window Info": [
+      "elephant/menu-rows/tools.json"
     ],
     "Window Rules": [
       "elephant/menu-rows/apps-keys.json"

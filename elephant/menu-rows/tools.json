@@ -110,5 +110,21 @@
     "actions": {
       "open": "/usr/share/eitr/walker/scripts/actions/capture/transcode.sh"
     }
+  },
+  {
+    "text": "Window Info",
+    "subtext": "Inspect the active window and adjust its state",
+    "keywords": [
+      "window",
+      "info",
+      "class",
+      "pid",
+      "float",
+      "pin"
+    ],
+    "icon": "󰖯",
+    "actions": {
+      "open": "bash /usr/share/eitr/quickshell/desktop-bar/scripts/show-panel.sh window-info"
+    }
   }
 ]

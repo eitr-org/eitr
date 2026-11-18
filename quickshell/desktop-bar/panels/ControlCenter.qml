@@ -18,7 +18,8 @@ ThemedPopup {
     }
     // The bar this Control Center belongs to (WiFi details reach Settings through it).
     property var barRef: null
-    // A control opened in place on General ("wifi", "bluetooth", "sound", "microphone") or "".
+    readonly property string lastActiveWindowAddress: barRef && barRef.host ? barRef.host.lastActiveWindowAddress : ""
+    // A control opened in place on General or Tools ("wifi", "bluetooth", "sound", "microphone", "window-info", "speed-test") or "".
     property string detail: ""
     // Asked to close the surface around it (Drop's dashboard) when embedded.
     signal closeRequested()

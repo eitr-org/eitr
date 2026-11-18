@@ -11,7 +11,7 @@ import "../PanelStyle.js" as PanelStyle
 Column {
     id: detail
     required property var centerRef
-    // "wifi", "bluetooth", "sound" or "microphone".
+    // "wifi", "bluetooth", "sound", "microphone", "window-info" or "speed-test".
     required property string kind
     required property bool watching
     signal closed()
@@ -38,7 +38,7 @@ Column {
         }
         Text {
             x: back.width + 8; anchors.verticalCenter: parent.verticalCenter
-            text: ({wifi: Eitr.I18n.tr("WiFi"), bluetooth: Eitr.I18n.tr("Bluetooth"), sound: Eitr.I18n.tr("Sound"), microphone: Eitr.I18n.tr("Microphone")})[detail.kind] || ""
+            text: ({wifi: Eitr.I18n.tr("WiFi"), bluetooth: Eitr.I18n.tr("Bluetooth"), sound: Eitr.I18n.tr("Sound"), microphone: Eitr.I18n.tr("Microphone"), "window-info": Eitr.I18n.tr("Window Info"), "speed-test": Eitr.I18n.tr("Speed Test")})[detail.kind] || ""
             color: detail.accent; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.weight: Font.Bold
             font.capitalization: Font.AllUppercase; font.letterSpacing: 1.2
         }
@@ -52,6 +52,7 @@ Column {
                 foreground: detail.foreground; background: detail.background
             }
             PanelSwitch {
+                visible: detail.kind === "wifi" || detail.kind === "bluetooth" || detail.kind === "sound" || detail.kind === "microphone"
                 anchors.verticalCenter: parent.verticalCenter
                 foreground: detail.foreground; accent: detail.accent
                 readonly property var node: detail.kind === "sound" ? detail.sink : detail.kind === "microphone" ? detail.source : null
@@ -70,9 +71,10 @@ Column {
     }
     Flickable {
         width: parent.width
-        height: Math.min(360, contentHeight)
+        height: Math.min(440, contentHeight)
         contentHeight: Math.max(wifiDetail.visible ? wifiDetail.implicitHeight : 0, bluetoothDetail.visible ? bluetoothDetail.implicitHeight : 0,
-            soundDetail.visible ? soundDetail.implicitHeight : 0)
+            soundDetail.visible ? soundDetail.implicitHeight : 0, windowInfoDetail.visible ? windowInfoDetail.implicitHeight : 0,
+            speedTestDetail.visible ? speedTestDetail.implicitHeight : 0)
         clip: true; boundsBehavior: Flickable.StopAtBounds
         DropWifiDetail {
             id: wifiDetail
@@ -93,6 +95,20 @@ Column {
             visible: detail.kind === "sound" || detail.kind === "microphone"
             microphone: detail.kind === "microphone"
             width: parent.width
+            foreground: detail.foreground; background: detail.background; accent: detail.accent
+        }
+        ControlCenterWindowInfo {
+            id: windowInfoDetail
+            visible: detail.kind === "window-info"; shown: visible && detail.watching
+            width: parent.width
+            centerRef: detail.centerRef
+            foreground: detail.foreground; background: detail.background; accent: detail.accent
+        }
+        ControlCenterSpeedTest {
+            id: speedTestDetail
+            visible: detail.kind === "speed-test"
+            width: parent.width
+            centerRef: detail.centerRef
             foreground: detail.foreground; background: detail.background; accent: detail.accent
         }
     }

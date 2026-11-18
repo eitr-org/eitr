@@ -24,6 +24,8 @@ Der Flugmodus merkt sich gesperrte Funkverbindungen und stellt nur diese wieder 
 
 Timer & Fokus (eine kompakte Übersicht für den laufenden Timer, die Fokusphase oder Stoppuhr, Schnellschaltflächen zum Starten/Stoppen eines 5-Minuten-Timers oder von Focus sowie Uhr öffnen), Screenshots (Auswahl, Vollbild, Fenster oder Auswahl direkt in die Zwischenablage), Aufnahme (OBS-Steuerung, Aufnehmen, Aufnehmen + Audio und Stopp), OCR, QR-Codes, Farbauswahl, Transkodieren, Erinnerungen und LocalSend-Freigabe. Das Panel schließt vor Beginn einer Auswahl oder Aufnahme.
 
+**Diagnose:** **Fensterinfo** untersucht das zuletzt aktive Fenster (App, Titel, Klasse, PID, Arbeitsbereich, Geometrie und Status für schwebend/angeheftet/Vollbild) und ermöglicht Schweben/Kacheln, Anheften/Lösen, Verschieben auf einen anderen Arbeitsbereich oder Schließen; auch über **Walker > Werkzeuge > Fensterinfo** erreichbar. **Geschwindigkeitstest** führt bei Bedarf einen sequentiellen 256-MB-Datenträgertest (Schreiben/Lesen) in Ihrem Cache-Ordner auf dem Root-Laufwerk oder einen Netzwerktest für Latenz, Download und Upload über HTTPS gegen `speed.cloudflare.com` durch; beide können während der Ausführung abgebrochen werden.
+
 ## Schnellchat
 
 Wähle deinen Standardassistenten unter Einstellungen > KI-Assistent.

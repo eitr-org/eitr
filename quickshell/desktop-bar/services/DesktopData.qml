@@ -25,6 +25,8 @@ QtObject {
     function queryWeather(name, args, owner, callback) { return client.queryWeather(name, args, owner, callback); }
     function queryLyrics(args, owner, callback) { return client.queryLyrics(args, owner, callback); }
     function queryAudio(name, args, owner, callback) { return client.queryAudio(name, args, owner, callback); }
+    function queryWindow(name, args, owner, callback) { return client.queryWindow(name, args, owner, callback); }
+    function querySpeed(name, args, owner, callback) { return client.querySpeed(name, args, owner, callback); }
     function accountAction(name, args, owner, callback) { return client.accountAction(name, args, owner, callback); }
     function queryCatalog(name, args, owner, callback) { return client.queryCatalog(name, args, owner, callback); }
     function cancelQuery(id) { client.cancelQuery(id); }

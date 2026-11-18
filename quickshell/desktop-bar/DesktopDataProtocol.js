@@ -88,6 +88,20 @@ function createClient(send, changed) {
         send({v: 1, op: "query", topic: "audio", name: name, args: args, id: id});
         return id;
     }
+    function queryWindow(name, args, owner, callback) {
+        if (!online) { callback("broker-unavailable", {}); return ""; }
+        const id = "window-" + (++sequence);
+        queries[id] = {owner: owner, callback: callback, topic: "window"};
+        send({v: 1, op: "query", topic: "window", name: name, args: args, id: id});
+        return id;
+    }
+    function querySpeed(name, args, owner, callback) {
+        if (!online) { callback("broker-unavailable", {}); return ""; }
+        const id = "speed-" + (++sequence);
+        queries[id] = {owner: owner, callback: callback, topic: "speed"};
+        send({v: 1, op: "query", topic: "speed", name: name, args: args, id: id});
+        return id;
+    }
     function accountAction(name, args, owner, callback) {
         if (!online) { callback("broker-unavailable", {}); return ""; }
         const id = "account-" + (++sequence);
