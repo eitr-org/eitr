@@ -62,7 +62,6 @@ ThemedPopup {
         onExited: function(code) {
             if (code === 0) {
                 menu.refresh();
-                if (!menu.embedded) menu.opened = false;
             } else {
                 try { menu.error = JSON.parse(operationOutput.text).error || Eitr.I18n.tr("Could not change layout"); }
                 catch (e) { menu.error = Eitr.I18n.tr("Could not change layout"); }

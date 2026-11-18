@@ -38,7 +38,10 @@ ThemedPopup {
                 menu.openSettings("streaming");
             }
             onActionRequested: function(sourceMenu, source) {
-                menu.dismissPopup();
+                // Switches act in place and the panel stays open; rows that open a terminal or the
+                // browser (setup, pairing, settings, status) make way for that window.
+                if (!["Start Sharing", "Stop Sharing", "Start at Login", "Turn Off Start at Login"].includes(source))
+                    menu.dismissPopup();
                 Quickshell.execDetached(["python3", Quickshell.shellDir + "/scripts/menu-action.py", sourceMenu, source]);
             }
         }

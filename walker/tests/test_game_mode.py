@@ -21,7 +21,10 @@ class GameModeTests(unittest.TestCase):
         (self.folder / "dnd").write_text("false")
         (self.folder / "profile").write_text("balanced")
         tools = {
-            "hyprctl": 'echo "hyprctl $*" >> "{calls}"',
+            # The user's own setup has blur off; game mode must hand that back unchanged.
+            "hyprctl": ('echo "hyprctl $*" >> "{calls}"\n'
+                        'if [ "$1" = getoption ]; then if [ "$2" = decoration:blur:enabled ]; then value=false; else value=true; fi; '
+                        'echo "{{\\"option\\": \\"$2\\", \\"bool\\": $value}}"; fi'),
             "eitr-shell": ('echo "eitr-shell $*" >> "{calls}"\n'
                            'if [ "$6" = status ]; then echo "{{\\"doNotDisturb\\": $(cat {folder}/dnd)}}"; fi\n'
                            'if [ "$6" = dnd ]; then if [ "$(cat {folder}/dnd)" = true ]; then echo false > {folder}/dnd; '
@@ -53,14 +56,25 @@ class GameModeTests(unittest.TestCase):
         self.assertEqual((self.folder / "profile").read_text().strip(), "performance")
         self.assertEqual(self.toggle("status"), "on")
         self.assertEqual(json.loads((self.folder / "eitr-game-mode.json").read_text()),
-                         {"dnd": True, "profile": "balanced"})
+                         {"dnd": True, "profile": "balanced", "effects": [True, False, True]})
 
     def test_off_restores_exactly_what_on_changed(self):
         self.toggle("on")
         self.toggle("off")
-        self.assertIn("hyprctl reload", self.calls_made())
+        calls = self.calls_made()
+        # Live, without reloading Hyprland: a reload would close an open bar panel.
+        self.assertNotIn("hyprctl reload", calls)
+        restored = [line for line in calls.splitlines() if line.startswith("hyprctl eval")][-1]
+        self.assertIn("animations = { enabled = true }, decoration = { blur = { enabled = false }, shadow = { enabled = true } }", restored)
         self.assertEqual((self.folder / "dnd").read_text().strip(), "false")
         self.assertEqual((self.folder / "profile").read_text().strip(), "balanced")
+        self.assertEqual(self.toggle("status"), "off")
+
+    def test_an_older_state_file_still_restores_by_reloading(self):
+        self.toggle("on")
+        (self.folder / "eitr-game-mode.json").write_text('{"dnd": false, "profile": ""}\n')
+        self.toggle("off")
+        self.assertIn("hyprctl reload", self.calls_made())
         self.assertEqual(self.toggle("status"), "off")
 
     def test_settings_already_in_place_are_left_alone(self):

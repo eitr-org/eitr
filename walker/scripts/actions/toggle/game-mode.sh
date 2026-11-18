@@ -1,14 +1,24 @@
 #!/usr/bin/env bash
 # Game mode: window animations, blur and shadows off, notification popups held
 # (do not disturb) and the performance power profile while it is on. Turning it
-# off restores only what turning it on changed: Hyprland reloads its own config,
-# and do not disturb and the power profile return to what they were.
+# off restores only what turning it on changed: the three Hyprland options, do not
+# disturb and the power profile return to what they were. Options are set live, never
+# by reloading Hyprland, which would close an open bar panel and reset other live state.
 #
 #   game-mode.sh [toggle|on|off|status]
 set -euo pipefail
 
 state="${XDG_RUNTIME_DIR:-/tmp}/eitr-game-mode.json"
 root="${EITR_CODE_ROOT:-/usr/share/eitr}"
+
+# "true" or "false" for a Hyprland boolean option as it is now.
+option() {
+  hyprctl getoption "$1" -j 2>/dev/null | python3 -c 'import json, sys; print(str(json.load(sys.stdin).get("bool", True)).lower())' 2>/dev/null || echo true
+}
+
+set_effects() {
+  hyprctl eval "hl.config({ animations = { enabled = $1 }, decoration = { blur = { enabled = $2 }, shadow = { enabled = $3 } } })" >/dev/null
+}
 
 notify() {
   notify-send --app-name=Eitr --icon="$root/fastfetch/assets/eitr-logo.png" "$1" "$2" >/dev/null 2>&1 || true
@@ -21,8 +31,9 @@ dnd_on() {
 
 turn_on() {
   python3 "${EITR_LIBRARY_ROOT:-$root/lib}/eitr_policy.py" require gaming
-  local changed_dnd=false previous_profile=''
-  hyprctl eval 'hl.config({ animations = { enabled = false }, decoration = { blur = { enabled = false }, shadow = { enabled = false } } })' >/dev/null
+  local changed_dnd=false previous_profile='' animations blur shadow
+  animations="$(option animations:enabled)"; blur="$(option decoration:blur:enabled)"; shadow="$(option decoration:shadow:enabled)"
+  set_effects false false false
   if [[ "$(dnd_on)" == False ]]; then
     eitr-shell desktop-bar ipc call -- notifications dnd >/dev/null 2>&1 && changed_dnd=true
   fi
@@ -34,16 +45,23 @@ turn_on() {
       previous_profile=''
     fi
   fi
-  printf '{"dnd": %s, "profile": "%s"}\n' "$changed_dnd" "$previous_profile" > "$state"
+  printf '{"dnd": %s, "profile": "%s", "effects": [%s, %s, %s]}\n' "$changed_dnd" "$previous_profile" "$animations" "$blur" "$shadow" > "$state"
   notify "Game mode on" "Animations, blur and notification popups are off until you turn it off."
 }
 
 turn_off() {
-  local changed_dnd previous_profile
+  local changed_dnd previous_profile effects
+  effects="$(python3 -c 'import json, sys; print(" ".join(str(value).lower() for value in json.load(open(sys.argv[1]))["effects"]))' "$state" 2>/dev/null || true)"
   changed_dnd="$(python3 -c 'import json, sys; print(json.load(open(sys.argv[1])).get("dnd", False))' "$state" 2>/dev/null || echo False)"
   previous_profile="$(python3 -c 'import json, sys; print(json.load(open(sys.argv[1])).get("profile", ""))' "$state" 2>/dev/null || true)"
   rm -f "$state"
-  hyprctl reload >/dev/null
+  # A state file from before effects were remembered falls back to reloading the config.
+  if [[ -n "$effects" ]]; then
+    # shellcheck disable=SC2086
+    set_effects $effects
+  else
+    hyprctl reload >/dev/null
+  fi
   if [[ "$changed_dnd" == True && "$(dnd_on)" == True ]]; then
     eitr-shell desktop-bar ipc call -- notifications dnd >/dev/null 2>&1 || true
   fi
