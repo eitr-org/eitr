@@ -11,6 +11,7 @@ Rectangle {
     property var auth: null
     property var users: null
     property var sessions: null
+    property var keyboardState: null
     property string variant: "tape"
     property date now: new Date()
     readonly property bool light: settings.themeMode === "light"
@@ -33,8 +34,8 @@ Rectangle {
     LoginController {
         id: login
         onUserIndexChanged: password.text = ""
-        sddm: root.auth; userModel: root.users; sessionModel: root.sessions
-        onLoginFailed: { error.text = "Unable to unlock. Try again."; password.forceActiveFocus(); }
+        sddm: root.auth; userModel: root.users; sessionModel: root.sessions; keyboard: root.keyboardState
+        onLoginFailed: { error.text = Eitr.I18n.tr("Unable to unlock. Try again."); password.text = ""; password.forceActiveFocus(); }
         onLoginSucceeded: { password.text = ""; error.text = ""; }
     }
 
@@ -239,16 +240,24 @@ Rectangle {
             Text { visible: !login.canPickUser; width: parent.width; elide: Text.ElideRight; text: login.userName || Eitr.I18n.tr("EITR"); font.family: root.family; font.pixelSize: 32 * root.unit; color: root.ink }
             Text { text: Eitr.I18n.tr("Your workspace awaits."); font.family: root.family; font.pixelSize: 12 * root.unit; color: root.muted }
             Rectangle {
-                width: parent.width; height: 50 * root.unit; radius: 5 * root.unit
+                width: parent.width - passwordControls.outerWidth; height: 50 * root.unit; radius: 5 * root.unit
                 color: root.surface; border.color: password.activeFocus ? Qt.alpha(root.accent, 0.65) : Qt.alpha(root.ink, 0.18)
                 Text { visible: password.text.length === 0; x: 17 * root.unit; anchors.verticalCenter: parent.verticalCenter; text: Eitr.I18n.tr("Password"); color: root.muted; font.family: root.family; font.pixelSize: 13 * root.unit }
                 TextInput {
                     id: password
-                    anchors.fill: parent; anchors.margins: 16 * root.unit
+                    anchors.fill: parent; anchors.margins: 16 * root.unit; anchors.rightMargin: passwordControls.rightReserve
                     verticalAlignment: TextInput.AlignVCenter; color: root.ink
                     font.family: root.family; font.pixelSize: 14 * root.unit
                     echoMode: TextInput.Password; selectByMouse: true; focus: true
+                    Keys.forwardTo: [passwordControls]
                     onAccepted: { error.text = ""; login.login(text); text = ""; }
+                }
+                PasswordControls {
+                    id: passwordControls
+                    controller: login; input: password; unit: root.unit
+                    ink: root.ink; surface: root.surface
+                    borderColor: Qt.alpha(root.ink, 0.18); fontFamily: root.family
+                    cornerRadius: parent.radius
                 }
             }
             Rectangle {

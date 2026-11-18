@@ -100,6 +100,8 @@ Com várias telas, a tela de login aparece apenas na maior; as outras ficam pret
 
 Trocar usuário (Ctrl+Alt+U) abre o login do SDDM e mantém a sessão original bloqueada. Ao voltar para a sessão bloqueada, clique uma vez no campo de senha antes de digitar. A ação só aparece quando há várias contas elegíveis e o SDDM permite a troca. As prévias e a galeria usam três contas fictícias e nunca autenticam.
 
+Todos os desenhos de bloqueio e login incluem um botão de olho dentro do campo de senha para mostrar ou ocultar a senha digitada (voltando a ficar oculta ao enviar, falhar ou trocar de conta), Ctrl+Backspace para apagar a palavra anterior e Ctrl+U para limpar o campo. Quando mais de um layout de teclado está configurado, o layout ativo aparece ao lado do campo de senha; clique nele ou pressione Ctrl+Alt+Space para alternar os layouts.
+
 ## Notas técnicas
 
 O menu de inicialização do Limine usa as cores do tema atual, o título EITR e uma fonte maior. Novas instalações configuram isso; após trocar o tema, o menu acompanha no próximo desligamento. Se não for possível ler seu tema, usa as cores do padrão. As entradas de inicialização nunca são alteradas, e `limine.conf` recebe um backup antes de cada mudança. O estilo não é aplicado com Secure Boot ativo, pois alterar uma configuração do Limine cujo hash foi cadastrado impediria a inicialização.

@@ -19,12 +19,11 @@ Rectangle {
     readonly property var loginAuth: typeof sddm !== "undefined" ? sddm : null
     readonly property var loginUsers: typeof userModel !== "undefined" ? userModel : null
     readonly property var loginSessions: typeof sessionModel !== "undefined" ? sessionModel : null
+    readonly property var loginKeyboard: typeof keyboard !== "undefined" ? keyboard : null
     LoginController {
         id: login
         onUserIndexChanged: pwd.text = ""
-        sddm: root.loginAuth
-        userModel: root.loginUsers
-        sessionModel: root.loginSessions
+        sddm: root.loginAuth; userModel: root.loginUsers; sessionModel: root.loginSessions; keyboard: root.loginKeyboard
         sessionIndex: root.sessionIndex
     }
 
@@ -54,7 +53,7 @@ Rectangle {
     width: Screen.width
     height: Screen.height
     color: "#6eb3ac"
-    Component.onCompleted: { fadeAnim.start(); keyboard.numLock = true }
+    Component.onCompleted: { fadeAnim.start(); if (typeof keyboard !== "undefined" && keyboard) keyboard.numLock = true }
 
     
 
@@ -326,6 +325,7 @@ Rectangle {
             Item {
                 anchors.left: parent.left
                 anchors.right: parent.right
+                anchors.rightMargin: passwordControls.outerWidth
                 height: 44 * s
 
                 Rectangle {
@@ -347,88 +347,50 @@ Rectangle {
                         radius: 12 * s
 
                         gradient: Gradient {
-                            GradientStop {
-                                position: 0
-                                color: "#0a000000"
-                            }
-
-                            GradientStop {
-                                position: 1
-                                color: "transparent"
-                            }
-
+                            GradientStop { position: 0; color: "#0a000000" }
+                            GradientStop { position: 1; color: "transparent" }
                         }
-
                     }
 
-                    Behavior on border.color {
-                        ColorAnimation {
-                            duration: 250
-                        }
-
-                    }
-
+                    Behavior on border.color { ColorAnimation { duration: 250 } }
                 }
 
                 Text {
-                    anchors.centerIn: parent
+                    anchors.centerIn: pwd
                     text: Eitr.I18n.tr("password")
                     color: root.cMuted
                     opacity: pwd.text.length === 0 ? 0.6 : 0
                     font.family: pf.name
                     font.pixelSize: 13 * s
                     font.letterSpacing: 2 * s
-
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 200
-                        }
-
-                    }
-
+                    Behavior on opacity { NumberAnimation { duration: 200 } }
                 }
 
                 TextInput {
                     id: pwd
-
                     property bool wasClicked: false
-
-                    color: root.cMuted
+                    color: passwordControls.revealed ? root.cInk : root.cMuted
                     font.family: pf.name
                     font.pixelSize: 14 * s
-                    font.letterSpacing: 8 * s
+                    font.letterSpacing: passwordControls.revealed ? 1 * s : 8 * s
                     echoMode: TextInput.Password
                     passwordCharacter: "•"
-                    onTextEdited: {
-                        errText.text = "";
-                        errText.visible = false;
-                    }
+                    onTextEdited: { errText.text = ""; errText.visible = false; }
                     focus: true
                     clip: true
                     horizontalAlignment: TextInput.AlignHCenter
                     verticalAlignment: TextInput.AlignVCenter
                     cursorVisible: false
-                    onActiveFocusChanged: {
-                        if (!activeFocus && text.length === 0) {
-                            wasClicked = false;
-                        }
-                    }
+                    Keys.forwardTo: [passwordControls]
+                    onActiveFocusChanged: { if (!activeFocus && text.length === 0) wasClicked = false; }
                     Keys.onReturnPressed: doLogin()
                     Keys.onEnterPressed: doLogin()
-
-                    anchors {
-                        fill: parent
-                        leftMargin: 20 * s
-                        rightMargin: 20 * s
-                    }
+                    anchors { fill: parent; leftMargin: 20 * s; rightMargin: passwordControls.rightReserve }
 
                     // Cursor
                     Rectangle {
                         id: needleCursor
-
-                        width: 1.5 * s
-                        height: 16 * s
-                        radius: 0.75 * s
+                        width: 1.5 * s; height: 16 * s; radius: 0.75 * s
                         color: root.cPink
                         anchors.verticalCenter: parent.verticalCenter
                         x: pwd.cursorRectangle.x
@@ -437,43 +399,24 @@ Rectangle {
                         SequentialAnimation {
                             loops: Animation.Infinite
                             running: needleCursor.visible
-
-                            NumberAnimation {
-                                target: needleCursor
-                                property: "opacity"
-                                from: 1
-                                to: 0.1
-                                duration: 450
-                            }
-
-                            NumberAnimation {
-                                target: needleCursor
-                                property: "opacity"
-                                from: 0.1
-                                to: 1
-                                duration: 450
-                            }
-
+                            NumberAnimation { target: needleCursor; property: "opacity"; from: 1; to: 0.1; duration: 450 }
+                            NumberAnimation { target: needleCursor; property: "opacity"; from: 0.1; to: 1; duration: 450 }
                         }
-
                     }
 
-                    cursorDelegate: Item {
-                        width: 0
-                        height: 0
-                    }
-
+                    cursorDelegate: Item { width: 0; height: 0 }
                 }
 
                 MouseArea {
                     anchors.fill: parent
                     cursorShape: Qt.ArrowCursor
-                    onClicked: {
-                        pwd.forceActiveFocus();
-                        pwd.wasClicked = true;
-                    }
+                    onClicked: { pwd.forceActiveFocus(); pwd.wasClicked = true; }
                 }
-
+                PasswordControls {
+                    id: passwordControls; controller: login; input: pwd; unit: root.s
+                    ink: root.cInk; surface: root.cField; borderColor: root.cCreamy
+                    borderWidth: 1.5 * root.s; fontFamily: pf.name; cornerRadius: 14 * root.s
+                }
             }
 
             Item {

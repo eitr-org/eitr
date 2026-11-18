@@ -48,7 +48,36 @@ ShellRoot {
     readonly property var userModel: users
     readonly property var sessionModel: sessions
     readonly property var keyboard: keyboardState
-    QtObject { id: keyboardState; property bool numLock: false }
+    QtObject {
+        id: keyboardState
+        property bool numLock: false
+        property var layouts: [
+            {index: 0, code: "US", shortName: "us", label: "English (US)", longName: "English (US)"},
+            {index: 1, code: "INT", shortName: "us", label: "English (US International)", longName: "English (US International)"}
+        ]
+        property int currentLayout: 0
+        function nextLayout() {
+            if (layouts.length > 1) currentLayout = (currentLayout + 1) % layouts.length;
+        }
+    }
+    Process {
+        running: true
+        command: ["python3", decodeURIComponent(Qt.resolvedUrl("../desktop-bar/scripts/keyboard-layout.py").toString().replace("file://", "")), "summary"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    const state = JSON.parse(text);
+                    if (Array.isArray(state.layouts) && state.layouts.length > 0) {
+                        keyboardState.layouts = state.layouts.map(entry => ({
+                            index: entry.index, code: entry.code, shortName: entry.code, label: entry.label, longName: entry.label
+                        }));
+                        const activeIndex = state.layouts.findIndex(entry => entry.index === state.active);
+                        keyboardState.currentLayout = activeIndex >= 0 ? activeIndex : 0;
+                    }
+                } catch (error) {}
+            }
+        }
+    }
     function choose(index) {
         if (index < 0 || index >= designs.length) return;
         selectedIndex = index;

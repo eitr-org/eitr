@@ -1103,5 +1103,7 @@
   "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "키보드, 마우스 및 터치패드가 잠겨 있습니다. 종료하려면 Esc를 3초 동안 길게 누르세요.",
   "Lock keyboard, mouse and touchpad for cleaning.": "청소를 위해 키보드, 마우스, 터치패드를 잠급니다.",
   "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "청소를 위해 키보드, 마우스, 터치패드를 잠급니다. 종료하려면 Esc를 3초 동안 길게 누르세요.",
-  "Maintenance": "유지 관리"
+  "Maintenance": "유지 관리",
+  "Show password": "비밀번호 표시",
+  "Hide password": "비밀번호 숨기기"
 }

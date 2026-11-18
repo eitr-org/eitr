@@ -153,6 +153,8 @@ The lockscreen shows the locked session’s real name when available and only ac
 
 Previews and the gallery use three fictional accounts and never authenticate.
 
+Every lock and login design includes an eye button inside the password field to show or hide the typed password (resetting to hidden on submit, failure or account switch), Ctrl+Backspace to delete the previous word and Ctrl+U to clear the field. When more than one keyboard layout is configured, the active layout appears beside the password field; click it or press Ctrl+Alt+Space to switch layouts.
+
 ## Technical notes
 
 The Limine boot menu shown at power-on uses the current theme's colours, an

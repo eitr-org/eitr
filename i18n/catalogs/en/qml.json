@@ -1103,5 +1103,7 @@
   "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.",
   "Lock keyboard, mouse and touchpad for cleaning.": "Lock keyboard, mouse and touchpad for cleaning.",
   "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.",
-  "Maintenance": "Maintenance"
+  "Maintenance": "Maintenance",
+  "Hide password": "Hide password",
+  "Show password": "Show password"
 }

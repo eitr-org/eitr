@@ -104,6 +104,8 @@ L’écran verrouillé affiche le nom réel de la session si disponible et accep
 
 Cette action apparaît seulement avec plusieurs comptes admissibles et si SDDM autorise le changement. Les aperçus et la galerie utilisent trois comptes fictifs sans authentification.
 
+Chaque modèle de verrouillage et de connexion inclut un bouton œil dans le champ du mot de passe pour afficher ou masquer la saisie (qui redevient masquée à l’envoi, en cas d’échec ou au changement de compte), Ctrl+Backspace pour supprimer le mot précédent et Ctrl+U pour vider le champ. Lorsqu’au moins deux dispositions de clavier sont configurées, la disposition active s’affiche à côté du champ du mot de passe ; cliquez dessus ou appuyez sur Ctrl+Alt+Space pour changer de disposition.
+
 ## Notes techniques
 
 Le menu de démarrage Limine utilise les couleurs du thème actuel, un titre EITR et une police plus grande. Les nouvelles installations le configurent ; après un changement de thème, il suit au prochain arrêt. Si votre thème est illisible, les couleurs par défaut sont utilisées. Les entrées de démarrage restent intactes et `limine.conf` est sauvegardé avant chaque modification. Le style n’est pas appliqué avec Secure Boot actif : modifier une configuration Limine dont l’empreinte est inscrite empêcherait le démarrage.

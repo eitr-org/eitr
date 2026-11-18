@@ -102,6 +102,8 @@ La pantalla de bloqueo muestra el nombre real de la sesión bloqueada cuando est
 
 Solo aparece si hay varias cuentas elegibles y SDDM permite el cambio. Las vistas previas y la galería usan tres cuentas ficticias y nunca autentican.
 
+Todos los diseños de bloqueo e inicio de sesión incluyen un botón de ojo dentro del campo de contraseña para mostrar u ocultar la contraseña escrita (volviendo a ocultarse al enviar, fallar o cambiar de cuenta), Ctrl+Backspace para borrar la palabra anterior y Ctrl+U para vaciar el campo. Cuando hay más de una distribución de teclado configurada, la distribución activa aparece junto al campo de contraseña; haz clic en ella o pulsa Ctrl+Alt+Space para cambiarla.
+
 ## Notas técnicas
 
 El menú de arranque de Limine usa los colores del tema actual, el título EITR y una fuente mayor. Las instalaciones nuevas lo configuran; tras cambiar de tema se actualiza al apagar. Si no se puede leer tu tema, usa los colores predeterminados. Nunca se cambian las entradas de arranque y se guarda una copia de `limine.conf` antes de cada cambio. No se aplica el estilo con Secure Boot activo: modificar una configuración de Limine cuyo hash esté registrado impediría arrancar.

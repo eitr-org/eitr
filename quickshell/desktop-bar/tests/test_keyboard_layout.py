@@ -27,6 +27,29 @@ class KeyboardLayoutTests(unittest.TestCase):
         self.assertEqual(module.short_code('us', '', ['us', 'us']), 'US')
         self.assertEqual(module.short_code('de', 'nodeadkeys', ['de', 'us']), 'DE')
 
+    def test_active_index_and_next_switch_matching_keyboards(self):
+        entries = module.options(self.keyboard)
+        self.assertEqual(module.active_index({'active_layout_index': 1}, entries), 1)
+        self.assertEqual(module.active_index({'active_keymap': 'English (US, intl., with dead keys)'}, entries), 1)
+        self.assertEqual(module.active_index({'active_keymap': 'English (US International)'}, entries), 1)
+        self.assertEqual(module.active_index({'active_keymap': 'English (US)'}, entries), 0)
+        devices = [
+            {'name': 'main-kb', 'main': True, 'layout': 'us,us', 'variant': ',intl', 'active_layout_index': 0},
+            {'name': 'aux-kb', 'main': False, 'layout': 'us,us', 'variant': ',intl', 'active_layout_index': 0},
+            {'name': 'other-kb', 'main': False, 'layout': 'us', 'variant': '', 'active_layout_index': 0},
+        ]
+        with patch.object(module, 'keyboards', return_value=devices), \
+                patch.object(module.subprocess, 'run') as run, \
+                patch.object(module.sys, 'argv', ['keyboard-layout.py', 'next']), \
+                patch('builtins.print') as output:
+            module.main()
+        self.assertEqual(
+            [call.args[0] for call in run.call_args_list],
+            [['hyprctl', 'switchxkblayout', 'main-kb', 'next'],
+             ['hyprctl', 'switchxkblayout', 'aux-kb', 'next']],
+        )
+        self.assertIn('"active": 1', output.call_args.args[0])
+
     def test_layouts_are_added_and_removed_only_in_walker(self):
         root = Path(__file__).parents[1]
         repo = root.parents[1]

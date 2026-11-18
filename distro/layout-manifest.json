@@ -307,6 +307,7 @@
     {"pattern": "quickshell/lockscreen/scripts/switch-user.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/lockscreen/login/Main.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/lockscreen/login/LoginDisplay.js", "class": "C", "runtime": true},
+    {"pattern": "quickshell/lockscreen/imports/LockscreenComponents/PasswordControls.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/lockscreen/imports/LockscreenComponents/UserPicker.qml", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_plugin_manifest.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_plugin_install.py", "class": "C", "runtime": true},

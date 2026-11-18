@@ -1103,5 +1103,7 @@
   "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "键盘、鼠标和触摸板已锁定。按住 Esc 键 3 秒即可退出。",
   "Lock keyboard, mouse and touchpad for cleaning.": "锁定键盘、鼠标和触摸板以便清洁。",
   "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "锁定键盘、鼠标和触摸板以便清洁。按住 Esc 键 3 秒即可退出。",
-  "Maintenance": "维护"
+  "Maintenance": "维护",
+  "Show password": "显示密码",
+  "Hide password": "隐藏密码"
 }

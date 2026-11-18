@@ -8,6 +8,7 @@ Item {
     readonly property var auth: typeof sddm !== "undefined" ? sddm : null
     readonly property var users: typeof userModel !== "undefined" ? userModel : null
     readonly property var sessions: typeof sessionModel !== "undefined" ? sessionModel : null
+    readonly property var keyboardState: typeof keyboard !== "undefined" ? keyboard : null
     readonly property var settings: config
     readonly property real unit: Math.min(width / 1080, height / 1080, 1.5)
     readonly property bool light: settings.themeMode === "light"
@@ -49,7 +50,7 @@ Item {
     LoginController {
         id: login
         onUserIndexChanged: password.text = ""
-        sddm: root.auth; userModel: root.users; sessionModel: root.sessions
+        sddm: root.auth; userModel: root.users; sessionModel: root.sessions; keyboard: root.keyboardState
         onLoginFailed: { feedback.text = Eitr.I18n.tr("Unable to unlock. Try again."); password.text = ""; password.forceActiveFocus(); }
         onLoginSucceeded: { password.text = ""; feedback.text = ""; }
     }
@@ -124,7 +125,7 @@ Item {
         Rectangle {
             id: field
             // The disk-unlock field's pill, filled like the circle behind the wordmark.
-            width: parent.width; height: 60 * root.unit; radius: height / 2
+            width: parent.width - passwordControls.outerWidth; height: 60 * root.unit; radius: height / 2
             color: Qt.alpha(root.ground, root.light ? 0.55 : 0.42); border.color: password.activeFocus ? root.accent : root.muted
             // Each carved rune jolts the field and flares its border.
             property real jolt: 0
@@ -150,15 +151,18 @@ Item {
             TextInput {
                 id: password
                 objectName: "eitrPassword"
-                anchors.fill: parent; anchors.leftMargin: 30 * root.unit; anchors.rightMargin: 62 * root.unit
+                anchors.fill: parent; anchors.leftMargin: 30 * root.unit; anchors.rightMargin: passwordControls.rightReserve
                 verticalAlignment: TextInput.AlignVCenter; echoMode: TextInput.Password
-                // The typed characters stay hidden; CarvedRunes shows one rune per character instead.
-                font.pixelSize: 18 * root.unit; color: "transparent"; selectionColor: "transparent"
-                selectedTextColor: "transparent"; cursorDelegate: Item {}
+                // The typed characters stay hidden unless revealed by the eye button; CarvedRunes shows one rune per character instead.
+                font.family: "JetBrainsMono Nerd Font"; font.pixelSize: 18 * root.unit
+                color: passwordControls.revealed ? root.ink : "transparent"; selectionColor: "transparent"
+                selectedTextColor: "transparent"
+                cursorDelegate: Rectangle { width: 2 * root.unit; color: root.accent; visible: password.activeFocus && passwordControls.revealed }
                 focus: true; selectByMouse: false
                 // No selection: every edit is a plain insert or delete at the caret.
                 onSelectedTextChanged: if (selectedText.length) deselect()
                 Keys.onPressed: event => {
+                    if (passwordControls.handleKey(event)) return;
                     if (event.key === Qt.Key_Backspace || event.key === Qt.Key_Delete) {
                         carved.deleteRune(event.key === Qt.Key_Backspace);
                         event.accepted = true;
@@ -169,6 +173,7 @@ Item {
             CarvedRunes {
                 id: carved
                 objectName: "eitrCarvedRunes"
+                visible: !passwordControls.revealed
                 anchors.fill: password
                 input: password
                 gold: root.light ? "#8a6431" : "#c4914f"
@@ -176,6 +181,13 @@ Item {
                 size: 23 * root.unit
                 animated: root.settings.reduceMotion !== true
                 onStruck: joltAnimation.restart()
+            }
+            PasswordControls {
+                id: passwordControls
+                controller: login; input: password; unit: root.unit
+                ink: root.ink; surface: Qt.alpha(root.ground, root.light ? 0.55 : 0.42)
+                borderColor: root.muted; cornerRadius: field.radius
+                rightOffset: 52 * root.unit
             }
             Text {
                 anchors.right: parent.right; anchors.rightMargin: 26 * root.unit; anchors.verticalCenter: parent.verticalCenter

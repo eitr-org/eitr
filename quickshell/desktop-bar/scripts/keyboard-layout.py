@@ -182,6 +182,19 @@ def options(keyboard):
     return entries
 
 
+def active_index(keyboard, entries):
+    active = keyboard.get('active_layout_index')
+    if isinstance(active, int) and 0 <= active < len(entries):
+        return active
+    keymap = str(keyboard.get('active_keymap') or '').strip().casefold()
+    if keymap:
+        for entry in entries:
+            label = entry['label'].casefold()
+            if keymap == label or (label == 'english (us international)' and 'intl' in keymap):
+                return entry['index']
+    return 0
+
+
 def short_code(layout, variant, layouts):
     """The bar's three-letter name for a layout: "US", or "INT" when two share a base."""
     if variant and layouts.count(layout) > 1:
@@ -229,14 +242,23 @@ def main():
             if (device.get('layout'), device.get('variant')) == (keyboard.get('layout'), keyboard.get('variant')):
                 subprocess.run(['hyprctl', 'switchxkblayout', device['name'], str(index)],
                                check=True, capture_output=True, timeout=3)
+    elif len(sys.argv) == 2 and sys.argv[1] == 'next':
+        active = active_index(keyboard, entries)
+        if len(entries) > 1:
+            active = (active + 1) % len(entries)
+            for device in devices:
+                if (device.get('layout'), device.get('variant')) == (keyboard.get('layout'), keyboard.get('variant')):
+                    subprocess.run(['hyprctl', 'switchxkblayout', device['name'], 'next'],
+                                   check=True, capture_output=True, timeout=3)
+        print(json.dumps({'layouts': entries, 'active': active}))
     elif len(sys.argv) == 2 and sys.argv[1] == 'list':
-        active = keyboard.get('active_layout_index', 0)
+        active = active_index(keyboard, entries)
         for entry in entries:
             print(f"{entry['index']}\t{entry['label']}\t{int(entry['index'] == active)}")
     elif len(sys.argv) == 1 or sys.argv[1:] == ['summary']:
-        print(json.dumps({'layouts': entries, 'active': keyboard.get('active_layout_index', 0)}))
+        print(json.dumps({'layouts': entries, 'active': active_index(keyboard, entries)}))
     else:
-        raise ValueError('Usage: keyboard-layout.py [--notify] [list | catalog | catalog-rows | seed-from-system | select INDEX | remove INDEX | move INDEX DESTINATION | add LAYOUT VARIANT]')
+        raise ValueError('Usage: keyboard-layout.py [--notify] [list | catalog | catalog-rows | seed-from-system | next | select INDEX | remove INDEX | move INDEX DESTINATION | add LAYOUT VARIANT]')
 
 
 if __name__ == '__main__':

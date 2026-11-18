@@ -94,6 +94,8 @@ Bei mehreren Bildschirmen erscheint der Anmeldebildschirm nur auf dem größten;
 
 Benutzer wechseln (Ctrl+Alt+U) öffnet die SDDM-Anmeldung und lässt die ursprüngliche Sitzung gesperrt. Zurück in der gesperrten Sitzung klicken Sie einmal in das Passwortfeld, bevor Sie tippen. Die Aktion erscheint nur bei mehreren geeigneten Konten und wenn SDDM den Wechsel unterstützt. Vorschau und Galerie verwenden drei fiktive Konten und authentifizieren nie.
 
+Jedes Sperr- und Anmeldedesign enthält eine Augenschaltfläche im Passwortfeld zum Ein- oder Ausblenden des eingegebenen Passworts (wird beim Absenden, nach einem Fehler oder beim Kontowechsel wieder ausgeblendet), Ctrl+Backspace zum Löschen des vorherigen Worts und Ctrl+U zum Leeren des Felds. Sind mehrere Tastaturlayouts eingerichtet, erscheint das aktive Layout neben dem Passwortfeld; ein Klick darauf oder Ctrl+Alt+Space wechselt das Layout.
+
 Integrierte Themen gehören zu Eitr und können nicht entfernt werden. Der Papierkorb bei einem heruntergeladenen Thema löscht dessen installiertes Paket; das aktuelle Thema kann nicht entfernt werden.
 
 ## Technische Hinweise

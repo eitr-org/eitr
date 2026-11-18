@@ -1103,5 +1103,7 @@
   "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Teclado, mouse e touchpad estão bloqueados. Segure Esc por 3 segundos para sair.",
   "Lock keyboard, mouse and touchpad for cleaning.": "Bloquear teclado, mouse e touchpad para limpar.",
   "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Bloquear teclado, mouse e touchpad para limpar. Segure Esc por 3 segundos para sair.",
-  "Maintenance": "Manutenção"
+  "Maintenance": "Manutenção",
+  "Show password": "Mostrar senha",
+  "Hide password": "Ocultar senha"
 }

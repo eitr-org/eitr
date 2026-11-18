@@ -97,9 +97,7 @@ Rectangle {
     LoginController {
         id: login
         onUserIndexChanged: pwd.text = ""
-        sddm: root.auth
-        userModel: root.users
-        sessionModel: root.sessions
+        sddm: root.auth; userModel: root.users; sessionModel: root.sessions; keyboard: root.keyboardState
         onLoginFailed: {
             root.errorMessage = Eitr.I18n.tr("ACCESS DENIED");
             pwd.text = "";
@@ -595,7 +593,7 @@ Rectangle {
 
                     // Password Box
                     Rectangle {
-                        width: parent.width
+                        width: parent.width - passwordControls.outerWidth
                         height: 52 * s
                         radius: 26 * s
                         color: root.colors.field
@@ -607,16 +605,17 @@ Rectangle {
                             id: pwd
                             anchors.fill: parent
                             anchors.leftMargin: 20 * s
-                            anchors.rightMargin: 20 * s
+                            anchors.rightMargin: passwordControls.rightReserve
                             font.family: root.sansFont
                             font.pixelSize: 18 * s
-                            font.letterSpacing: 6 * s
+                            font.letterSpacing: passwordControls.revealed ? 1 * s : 6 * s
                             color: root.colors.fieldText
                             echoMode: TextInput.Password
                             passwordCharacter: "•"
                             horizontalAlignment: TextInput.AlignHCenter
                             verticalAlignment: TextInput.AlignVCenter
                             clip: true
+                            Keys.forwardTo: [passwordControls]
 
                             cursorVisible: false
                             cursorDelegate: Item { width: 0; height: 0 }
@@ -658,15 +657,15 @@ Rectangle {
                             MouseArea {
                                 anchors.fill: parent
                                 cursorShape: Qt.IBeamCursor
-                                onClicked: {
-                                    pwd.wasClicked = true;
-                                    pwd.forceActiveFocus();
-                                }
+                                onClicked: { pwd.wasClicked = true; pwd.forceActiveFocus(); }
                             }
 
-                            onAccepted: {
-                                login.login(pwd.text);
-                            }
+                            onAccepted: login.login(pwd.text)
+                        }
+                        PasswordControls {
+                            id: passwordControls; controller: login; input: pwd; unit: root.s
+                            ink: root.colors.fieldText; surface: root.colors.field; borderColor: "transparent"
+                            fontFamily: root.sansFont; cornerRadius: parent.radius; rightOffset: 10 * root.s
                         }
                     }
 

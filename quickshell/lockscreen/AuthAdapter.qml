@@ -12,11 +12,55 @@ Item {
     readonly property var sddm: bridge
     readonly property var userModel: users
     readonly property var sessionModel: sessions
+    readonly property var keyboard: keyboardState
 
     property string lockedName: Quickshell.env("USER")
     property bool switchAvailable: false
     readonly property bool authenticating: pam.active
     readonly property string switchHelper: decodeURIComponent(Qt.resolvedUrl("scripts/switch-user.py").toString().replace("file://", ""))
+    readonly property string keyboardHelper: decodeURIComponent(Qt.resolvedUrl("../desktop-bar/scripts/keyboard-layout.py").toString().replace("file://", ""))
+    function refreshKeyboard() {
+        if (!preview && !keyboardReader.running && !keyboardSwitcher.running)
+            keyboardReader.running = true;
+    }
+    function applyKeyboardSummary(text) {
+        try {
+            const state = JSON.parse(text);
+            if (!Array.isArray(state.layouts)) return;
+            keyboardState.layouts = state.layouts.map(entry => ({
+                index: entry.index,
+                code: entry.code,
+                shortName: entry.code,
+                label: entry.label,
+                longName: entry.label
+            }));
+            const activeIndex = state.layouts.findIndex(entry => entry.index === state.active);
+            keyboardState.currentLayout = activeIndex >= 0 ? activeIndex : 0;
+        } catch (error) {}
+    }
+    QtObject {
+        id: keyboardState
+        property bool numLock: false
+        property var layouts: []
+        property int currentLayout: 0
+        function nextLayout() {
+            if (!Array.isArray(layouts) || layouts.length <= 1) return;
+            currentLayout = (currentLayout + 1) % layouts.length;
+            if (!auth.preview && !keyboardSwitcher.running)
+                keyboardSwitcher.running = true;
+        }
+    }
+    Process {
+        id: keyboardReader
+        running: !auth.preview
+        command: ["python3", auth.keyboardHelper, "summary"]
+        stdout: StdioCollector { onStreamFinished: auth.applyKeyboardSummary(text) }
+    }
+    Process {
+        id: keyboardSwitcher
+        command: ["python3", auth.keyboardHelper, "next"]
+        stdout: StdioCollector { onStreamFinished: auth.applyKeyboardSummary(text) }
+    }
     function switchUser() {
         if (!preview && switchAvailable && !pam.active && !switchProcess.running) {
             password = "";

@@ -18,12 +18,14 @@ Rectangle {
     readonly property var loginAuth: typeof sddm !== "undefined" ? sddm : null
     readonly property var loginUsers: typeof userModel !== "undefined" ? userModel : null
     readonly property var loginSessions: typeof sessionModel !== "undefined" ? sessionModel : null
+    readonly property var loginKeyboard: typeof keyboard !== "undefined" ? keyboard : null
     LoginController {
         id: login
         onUserIndexChanged: passwordField.text = ""
         sddm: root.loginAuth
         userModel: root.loginUsers
         sessionModel: root.loginSessions
+        keyboard: root.loginKeyboard
         sessionIndex: root.sessionIndex
     }
 
@@ -64,7 +66,7 @@ Rectangle {
     }
 
     // Animation
-    Component.onCompleted: { fadeAnim.start(); keyboard.numLock = true }
+    Component.onCompleted: { fadeAnim.start(); if (typeof keyboard !== "undefined" && keyboard) keyboard.numLock = true }
 
     Timer { interval: 300; running: true; onTriggered: passwordField.forceActiveFocus() }
 
@@ -161,13 +163,17 @@ Rectangle {
         Item { width: 1 * s; height: 22 * s }
 
         Item {
-            width: parent.width; height: 36 * s
+            width: parent.width - passwordControls.outerWidth; height: 36 * s
             TextInput {
-                id: passwordField; anchors.left: parent.left; anchors.right: arrowHint.left; anchors.rightMargin: 12 * s; anchors.verticalCenter: parent.verticalCenter
-                color: "transparent"; font.family: bodyFont.name; font.pixelSize: 14 * s; echoMode: TextInput.NoEcho; focus: true; clip: true; cursorVisible: false; cursorDelegate: Item { width: 0; height: 0 }
+                id: passwordField; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: passwordControls.rightReserve; anchors.verticalCenter: parent.verticalCenter
+                color: passwordControls.revealed ? "white" : "transparent"; font.family: bodyFont.name; font.pixelSize: 14 * s; echoMode: TextInput.Password; focus: true; clip: true
+                cursorVisible: false
+                cursorDelegate: Rectangle { width: 1.5 * root.s; color: "white"; visible: passwordControls.revealed && passwordField.activeFocus }
                 selectionColor: root.accent; property bool wasClicked: false; onTextEdited: errorMessage.text = ""
+                Keys.forwardTo: [passwordControls]
                 Keys.onReturnPressed: doLogin(); Keys.onEnterPressed: doLogin()
                 Row {
+                    visible: !passwordControls.revealed
                     anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter; spacing: 8 * s
                     Repeater { model: passwordField.text.length; delegate: Text { text: "✦"; color: "white"; font: passwordField.font; verticalAlignment: Text.AlignVCenter } }
                     Text {
@@ -184,6 +190,11 @@ Rectangle {
                 }
                 MouseArea { anchors.fill: parent; cursorShape: Qt.IBeamCursor; onClicked: { passwordField.forceActiveFocus(); passwordField.wasClicked = true } }
             }
+            PasswordControls {
+                id: passwordControls; controller: login; input: passwordField; unit: root.s
+                ink: "white"; borderColor: passwordField.activeFocus ? Qt.lighter(root.accent, 1.25) : "#28607888"
+                fontFamily: bodyFont.name; rightOffset: 24 * root.s; underlineChip: true
+            }
             Text {
                 id: arrowHint; anchors.right: parent.right; anchors.verticalCenter: parent.verticalCenter; text: "→"; color: root.accent; font.pixelSize: 16 * s; opacity: passwordField.text.length > 0 ? 1.0 : 0.3
                 Behavior on opacity { NumberAnimation { duration: 200 } }
@@ -191,7 +202,7 @@ Rectangle {
             }
         }
 
-        Rectangle { width: parent.width; height: 1 * s; color: passwordField.activeFocus ? Qt.lighter(root.accent, 1.25) : "#28607888"; Behavior on color { ColorAnimation { duration: 300 } } }
+        Rectangle { width: parent.width - passwordControls.outerWidth; height: 1 * s; color: passwordField.activeFocus ? Qt.lighter(root.accent, 1.25) : "#28607888"; Behavior on color { ColorAnimation { duration: 300 } } }
 
         Item { width: 1 * s; height: 10 * s }
 

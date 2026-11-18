@@ -90,6 +90,186 @@ class DesignTests(unittest.TestCase):
         self.assertEqual(general(light).get('themeMode'), 'light')
         self.assertEqual(general(dark).get('themeMode'), 'dark')
 
+    def test_every_design_uses_shared_password_controls_and_keyboard_context(self):
+        for design in DESIGNS:
+            source = (design / 'Main.qml').read_text()
+            self.assertIn('typeof keyboard !== "undefined" ? keyboard : null', source, design.name)
+            for name in re.findall(r'^(\w+Design) \{', source, re.MULTILINE):
+                source += (MODULE / f'{name}.qml').read_text()
+            self.assertIn('PasswordControls {', source, design.name)
+
+    @unittest.skipUnless(shutil.which('quickshell'), 'Quickshell is needed for offscreen password control checks')
+    def test_password_helpers_and_keyboard_layout_across_all_designs(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            fixture = Path(temporary) / 'controls.qml'
+            design_uris = [(design / 'Main.qml').as_uri() for design in DESIGNS]
+            fixture.write_text('''import QtQuick
+import QtQuick.Window
+import Quickshell
+import "''' + ROOT.as_uri() + '''" as Lock
+
+ShellRoot {
+    id: host
+    property var config: ({reduceMotion: true, themeMode: "dark"})
+    property bool isLockPreview: false
+    property var sddm: bridge
+    property var userModel: users
+    property var sessionModel: sessions
+    property var keyboard: sddmKeyboard
+    readonly property var designUris: ''' + repr(design_uris) + '''
+    property int designIndex: 0
+
+    Lock.AuthAdapter { id: authAdapter; preview: true }
+
+    QtObject {
+        id: sddmKeyboard
+        property bool numLock: false
+        property var layouts: [{shortName: "us", longName: "English (US)"}]
+        property int currentLayout: 0
+    }
+    QtObject {
+        id: bridge
+        property bool quickshellLock: false
+        signal loginFailed()
+        signal loginSucceeded()
+        function login(user, password, session) {}
+    }
+    ListModel {
+        id: users
+        property int lastIndex: 0
+        property string lastUser: "astrid"
+        function rowCount() { return count; }
+        ListElement { name: "astrid"; realName: "Astrid Solberg" }
+        ListElement { name: "bjorn"; realName: "Bjørn Lund" }
+    }
+    ListModel {
+        id: sessions
+        property int lastIndex: 0
+        function rowCount() { return count; }
+        ListElement { name: "Current session" }
+    }
+
+    function require(condition, message) {
+        if (!condition) throw new Error(designUris[designIndex] + ": " + message);
+    }
+    function find(parentItem, name) {
+        if (!parentItem) return null;
+        if (parentItem.objectName === name) return parentItem;
+        for (const child of parentItem.children) {
+            const found = find(child, name);
+            if (found) return found;
+        }
+        return null;
+    }
+
+    Window {
+        width: 1280; height: 720; visible: true
+        Loader {
+            id: loader
+            anchors.fill: parent
+            source: host.designUris[host.designIndex]
+        }
+        Timer {
+            interval: 80; running: true; repeat: true
+            onTriggered: {
+                try {
+                    if (loader.status !== Loader.Ready || !loader.item) return;
+                    if (host.designIndex === 0) {
+                        authAdapter.applyKeyboardSummary(JSON.stringify({
+                            layouts: [
+                                {index: 0, code: "US", label: "English (US)"},
+                                {index: 1, code: "BR", label: "Portuguese (Brazil)"}
+                            ],
+                            active: 1
+                        }));
+                        host.require(authAdapter.keyboard.layouts.length === 2, "AuthAdapter layouts");
+                        host.require(authAdapter.keyboard.currentLayout === 1, "AuthAdapter active layout");
+                        authAdapter.keyboard.nextLayout();
+                        host.require(authAdapter.keyboard.currentLayout === 0, "AuthAdapter layout cycle");
+                    }
+
+                    const item = loader.item;
+                    const controls = host.find(item, "passwordControls");
+                    const eye = host.find(item, "passwordEyeButton");
+                    const chip = host.find(item, "keyboardLayoutChip");
+                    host.require(!!controls && !!eye && !!chip, "Shared password controls missing");
+                    const input = controls.input;
+                    host.require(!!input, "Password input not bound");
+
+                    // Single layout hides the layout chip.
+                    sddmKeyboard.layouts = [{shortName: "us", longName: "English (US)"}];
+                    sddmKeyboard.currentLayout = 0;
+                    host.require(!controls.chipVisible && !chip.visible, "Single layout must hide chip");
+
+                    // Two layouts show the chip and switch on click or Ctrl+Alt+Space.
+                    sddmKeyboard.layouts = [
+                        {shortName: "us", longName: "English (US)"},
+                        {shortName: "us", longName: "English (US, intl., with dead keys)"}
+                    ];
+                    sddmKeyboard.currentLayout = 0;
+                    host.require(controls.chipVisible && chip.visible, "Multiple layouts must show chip");
+                    host.require(controls.layoutCode === "US", "First layout code must be US");
+                    controls.switchLayout();
+                    host.require(sddmKeyboard.currentLayout === 1 && controls.layoutCode === "INT", "Chip click must switch layout to INT");
+                    const spaceEvent = {key: Qt.Key_Space, modifiers: Qt.ControlModifier | Qt.AltModifier, accepted: false};
+                    host.require(controls.handleKey(spaceEvent) && spaceEvent.accepted, "Ctrl+Alt+Space must be accepted");
+                    host.require(sddmKeyboard.currentLayout === 0 && controls.layoutCode === "US", "Ctrl+Alt+Space must wrap back to US");
+
+                    // Show-password eye toggles echoMode and resets on failure, submit and user switch.
+                    input.text = "secret-word";
+                    host.require(!controls.revealed && input.echoMode === TextInput.Password, "Password starts hidden");
+                    controls.toggleReveal();
+                    host.require(controls.revealed && input.echoMode === TextInput.Normal, "Eye reveals password");
+                    bridge.loginFailed();
+                    host.require(!controls.revealed && input.echoMode === TextInput.Password, "Failure resets eye to hidden");
+                    input.text = "secret-word";
+                    controls.toggleReveal();
+                    host.require(controls.revealed, "Eye reveals again");
+                    controls.controller.login("secret-word");
+                    host.require(!controls.revealed && input.echoMode === TextInput.Password, "Submit resets eye to hidden");
+                    input.text = "secret-word";
+                    controls.toggleReveal();
+                    controls.controller.cycleUser();
+                    host.require(!controls.revealed && input.echoMode === TextInput.Password, "User switch resets eye to hidden");
+
+                    // Ctrl+Backspace deletes the previous word; Ctrl+U clears the field.
+                    input.text = "correct horse-battery";
+                    input.cursorPosition = input.text.length;
+                    const backspaceOne = {key: Qt.Key_Backspace, modifiers: Qt.ControlModifier, accepted: false};
+                    host.require(controls.handleKey(backspaceOne) && backspaceOne.accepted, "Ctrl+Backspace accepted");
+                    host.require(input.text === "correct horse-", "First Ctrl+Backspace removes last word");
+                    const backspaceTwo = {key: Qt.Key_Backspace, modifiers: Qt.ControlModifier, accepted: false};
+                    controls.handleKey(backspaceTwo);
+                    host.require(input.text === "correct ", "Second Ctrl+Backspace removes punctuation and word");
+                    const clearEvent = {key: Qt.Key_U, modifiers: Qt.ControlModifier, accepted: false};
+                    host.require(controls.handleKey(clearEvent) && clearEvent.accepted, "Ctrl+U accepted");
+                    host.require(input.text === "", "Ctrl+U clears the password field");
+
+                    if (host.designIndex + 1 < host.designUris.length) {
+                        host.designIndex += 1;
+                    } else {
+                        console.log("LOCK_INPUT_CONTROLS_OK");
+                        Qt.quit();
+                    }
+                } catch (error) {
+                    console.error(error);
+                    Qt.exit(1);
+                }
+            }
+        }
+        Timer { interval: 15000; running: true; onTriggered: Qt.exit(1) }
+    }
+}
+''')
+            environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                               QML_IMPORT_PATH=os.pathsep.join((str(ROOT.parent), str(ROOT / 'imports'))),
+                               XDG_RUNTIME_DIR=temporary, XDG_CONFIG_HOME=temporary, XDG_CACHE_HOME=temporary,
+                               DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent')
+            result = subprocess.run(['quickshell', '-n', '-p', str(fixture)], env=environment,
+                                    capture_output=True, text=True, timeout=20)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn('LOCK_INPUT_CONTROLS_OK', result.stdout + result.stderr)
+
 
 class SettingsTests(unittest.TestCase):
     def run_settings(self, *args):

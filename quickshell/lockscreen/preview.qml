@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 import Quickshell.Wayland
 
 ShellRoot {
@@ -11,7 +12,33 @@ ShellRoot {
     readonly property var sessionModel: sessions
     readonly property var keyboard: keyboardState
 
-    QtObject { id: keyboardState; property bool numLock: false }
+    QtObject {
+        id: keyboardState
+        property bool numLock: false
+        property var layouts: []
+        property int currentLayout: 0
+        function nextLayout() {
+            if (layouts.length > 1) currentLayout = (currentLayout + 1) % layouts.length;
+        }
+    }
+    Process {
+        running: true
+        command: ["python3", decodeURIComponent(Qt.resolvedUrl("../desktop-bar/scripts/keyboard-layout.py").toString().replace("file://", "")), "summary"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                try {
+                    const state = JSON.parse(text);
+                    if (Array.isArray(state.layouts)) {
+                        keyboardState.layouts = state.layouts.map(entry => ({
+                            index: entry.index, code: entry.code, shortName: entry.code, label: entry.label, longName: entry.label
+                        }));
+                        const activeIndex = state.layouts.findIndex(entry => entry.index === state.active);
+                        keyboardState.currentLayout = activeIndex >= 0 ? activeIndex : 0;
+                    }
+                } catch (error) {}
+            }
+        }
+    }
     QtObject {
         id: mockAuth
         readonly property bool quickshellLock: false

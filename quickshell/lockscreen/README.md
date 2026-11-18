@@ -218,7 +218,12 @@ Backspace and Delete crumble a rune.
 
 On PCs with several accounts, the login screen shows the selected user. Click the left or right half of the user picker, or press Ctrl+Left / Ctrl+Right, to choose another account; Enter still submits the password and Escape keeps its existing behavior. With one account the login layout is unchanged. The lockscreen shows the locked session’s real name when available and only accepts that account’s password. Switch user (Ctrl+Alt+U) opens SDDM’s login screen while keeping the original session locked. Back in the locked session, click the password field once: Hyprland returns keyboard input to the lock only after a click. It appears only when several eligible accounts exist and SDDM reports that switching is available. Previews and the gallery use three fictional accounts and never authenticate.
 
-All designs use LoginController.userIndex/cycleUser through UserPicker. Changing
+All designs use LoginController.userIndex/cycleUser through UserPicker, and PasswordControls
+for the password field eye toggle (resets to hidden on submit, failure or account switch),
+Ctrl+Backspace (delete previous word), Ctrl+U (clear field), and the keyboard layout chip
+next to the password field (shown when more than one layout is configured; click or press
+Ctrl+Alt+Space to switch layouts via Hyprland on the lockscreen or SDDM's keyboard context
+on the login screen). Changing
 accounts clears the password. The picker does not take password focus. Gallery
 design navigation uses Alt+Left / Alt+Right; Ctrl+Left / Ctrl+Right selects users.
 

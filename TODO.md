@@ -75,11 +75,6 @@ item says what decides the next step. Remove an item when it ships;
   real hardware: touchpad gestures and laptop Fn keys handled by firmware.
 - **Ideas from Omarchy 4.5, Ryoku 1.1 and Caelestia (picked by the owner 2026-11-18).**
   Ryoku and Caelestia are GPL-3 and Omarchy MIT: adapted code keeps their notices.
-  - **Keyboard layout on the lock and login screens** (Ryoku): show the active layout and
-    switch it by click or Ctrl+Alt+Space, so a lock taken on a second layout still accepts
-    the password. Neither the lockscreen nor SDDM's `login/Main.qml` shows it today.
-  - **Lockscreen password field** (Caelestia): a show-password eye and Ctrl+U /
-    Ctrl+Backspace to clear, in every lock design.
   - **Copy-code and open-link buttons on notifications** (Omarchy `shell/plugins/notifications/Detect.js`):
     only when the text names a number as a code, so order numbers and ports are not offered;
     tested on its own, added to `NotificationCard.qml`'s actions.

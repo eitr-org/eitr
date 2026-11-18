@@ -10,9 +10,11 @@ Item {
     property var sddm: null
     property var userModel: null
     property var sessionModel: null
+    property var keyboard: null
 
     signal loginFailed()
     signal loginSucceeded()
+    signal loginSubmitted()
 
     // The Quickshell bridge marks itself; SDDM's object has no such property.
     readonly property bool isQuickshell: !sddm || sddm.quickshellLock === true
@@ -32,8 +34,64 @@ Item {
     readonly property int userCount: users.count
     readonly property bool canPickUser: !isQuickshell && userCount > 1
 
+    readonly property var layoutList: {
+        if (!keyboard || !keyboard.layouts) return [];
+        const raw = keyboard.layouts;
+        const items = [];
+        if (typeof raw.length === "number") {
+            for (let index = 0; index < raw.length; index++) items.push(raw[index]);
+        } else if (typeof raw.count === "number" && typeof raw.get === "function") {
+            for (let index = 0; index < raw.count; index++) items.push(raw.get(index));
+        }
+        return items;
+    }
+    readonly property int layoutCount: layoutList.length
+    readonly property bool canSwitchLayout: layoutCount > 1
+    readonly property int currentLayoutIndex: {
+        if (!keyboard || layoutCount === 0) return 0;
+        const current = Number(keyboard.currentLayout);
+        return (current >= 0 && current < layoutCount) ? current : 0;
+    }
+    function formatLayoutCode(entry, allEntries) {
+        if (!entry) return "";
+        if (entry.code) return String(entry.code).toUpperCase();
+        const base = String(entry.shortName || entry.layout || entry.name || "").trim();
+        const variant = String(entry.variant || "").trim();
+        const sameBase = allEntries.filter(candidate =>
+            String(candidate && (candidate.shortName || candidate.layout || candidate.name) || "").trim().toLowerCase() === base.toLowerCase()
+        ).length > 1;
+        if (sameBase) {
+            if (variant) return variant.slice(0, 3).toUpperCase();
+            const detail = String(entry.longName || entry.label || "");
+            if (/intl|international/i.test(detail)) return "INT";
+            const paren = detail.match(/\(([^)]+)\)/);
+            if (paren) {
+                const parts = paren[1].split(/[\s,;-]+/).filter(part => part && part.toLowerCase() !== base.toLowerCase());
+                if (parts.length > 0) return parts[0].slice(0, 3).toUpperCase();
+            }
+        }
+        return (base || String(entry.longName || entry.label || "").trim()).slice(0, 3).toUpperCase();
+    }
+    readonly property string layoutCode: layoutCount > 0 ? formatLayoutCode(layoutList[currentLayoutIndex], layoutList) : ""
+    readonly property string layoutLabel: {
+        if (layoutCount === 0) return "";
+        const entry = layoutList[currentLayoutIndex];
+        if (!entry) return "";
+        return String(entry.label || entry.longName || entry.shortName || entry.code || "");
+    }
+
+    function nextLayout() {
+        if (!keyboard || layoutCount <= 1) return;
+        if (typeof keyboard.nextLayout === "function") {
+            keyboard.nextLayout();
+            return;
+        }
+        keyboard.currentLayout = (currentLayoutIndex + 1) % layoutCount;
+    }
+
     // Empty passwords are ignored; the bridge itself refuses logins in previews.
     function login(password) {
+        loginSubmitted();
         if (sddm && password !== "")
             sddm.login(userLogin, password, sessionIndex);
     }

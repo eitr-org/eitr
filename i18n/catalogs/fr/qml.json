@@ -1103,5 +1103,7 @@
   "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Le clavier, la souris et le pavé tactile sont verrouillés. Maintenez Échap pendant 3 secondes pour quitter.",
   "Lock keyboard, mouse and touchpad for cleaning.": "Verrouiller le clavier, la souris et le pavé tactile pour nettoyer.",
   "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Verrouiller le clavier, la souris et le pavé tactile pour nettoyer. Maintenez Échap pendant 3 secondes pour quitter.",
-  "Maintenance": "Entretien"
+  "Maintenance": "Entretien",
+  "Show password": "Afficher le mot de passe",
+  "Hide password": "Masquer le mot de passe"
 }

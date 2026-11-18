@@ -1103,5 +1103,7 @@
   "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "キーボード、マウス、タッチパッドはロックされています。終了するにはEscを3秒間長押ししてください。",
   "Lock keyboard, mouse and touchpad for cleaning.": "掃除のためにキーボード、マウス、タッチパッドをロックします。",
   "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "掃除のためにキーボード、マウス、タッチパッドをロックします。終了するにはEscを3秒間長押ししてください。",
-  "Maintenance": "メンテナンス"
+  "Maintenance": "メンテナンス",
+  "Show password": "パスワードを表示",
+  "Hide password": "パスワードを隠す"
 }

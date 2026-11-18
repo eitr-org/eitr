@@ -12,12 +12,11 @@ Rectangle {
     readonly property var loginAuth: typeof sddm !== "undefined" ? sddm : null
     readonly property var loginUsers: typeof userModel !== "undefined" ? userModel : null
     readonly property var loginSessions: typeof sessionModel !== "undefined" ? sessionModel : null
+    readonly property var loginKeyboard: typeof keyboard !== "undefined" ? keyboard : null
     LoginController {
         id: login
         onUserIndexChanged: pwd.text = ""
-        sddm: root.loginAuth
-        userModel: root.loginUsers
-        sessionModel: root.loginSessions
+        sddm: root.loginAuth; userModel: root.loginUsers; sessionModel: root.loginSessions; keyboard: root.loginKeyboard
         sessionIndex: root.sessionIndex
     }
 
@@ -312,7 +311,7 @@ Rectangle {
 
                 // Password
                 Rectangle {
-                    width: parent.width
+                    width: parent.width - passwordControls.outerWidth
                     height: 52 * s
                     radius: 26 * s
                     color: pwd.activeFocus ? "#1a1a1a" : "#222222"
@@ -324,17 +323,18 @@ Rectangle {
                     TextInput {
                         id: pwd
                         anchors.fill: parent
-                        anchors.leftMargin: 24 * s
-                        anchors.rightMargin: 24 * s
+                        anchors.leftMargin: 18 * s
+                        anchors.rightMargin: passwordControls.rightReserve
                         font.family: root.sansFont
                         font.pixelSize: 20 * s
-                        font.letterSpacing: 8 * s
+                        font.letterSpacing: passwordControls.revealed ? 1 * s : 8 * s
                         color: "#ffffff"
                         echoMode: TextInput.Password
                         passwordCharacter: "•"
                         horizontalAlignment: TextInput.AlignHCenter
                         verticalAlignment: TextInput.AlignVCenter
                         clip: true
+                        Keys.forwardTo: [passwordControls]
                         
                         cursorVisible: false
                         cursorDelegate: Item { width: 0; height: 0 }
@@ -375,17 +375,15 @@ Rectangle {
                         MouseArea {
                             anchors.fill: parent
                             cursorShape: Qt.IBeamCursor
-                            onClicked: {
-                                pwd.wasClicked = true;
-                                pwd.forceActiveFocus();
-                            }
+                            onClicked: { pwd.wasClicked = true; pwd.forceActiveFocus(); }
                         }
                         
-                        onAccepted: {
-                            if (pwd.text !== "") {
-                                login.login(pwd.text);
-                            }
-                        }
+                        onAccepted: if (pwd.text !== "") login.login(pwd.text)
+                    }
+                    PasswordControls {
+                        id: passwordControls; controller: login; input: pwd; unit: root.s
+                        ink: "#ffffff"; surface: "#222222"; borderColor: "#2a2a2a"
+                        borderWidth: 1.5 * root.s; fontFamily: root.sansFont; cornerRadius: parent.radius
                     }
                 }
 

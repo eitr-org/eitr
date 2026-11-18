@@ -19,12 +19,14 @@ Rectangle {
     readonly property var loginAuth: typeof sddm !== "undefined" ? sddm : null
     readonly property var loginUsers: typeof userModel !== "undefined" ? userModel : null
     readonly property var loginSessions: typeof sessionModel !== "undefined" ? sessionModel : null
+    readonly property var loginKeyboard: typeof keyboard !== "undefined" ? keyboard : null
     LoginController {
         id: login
         onUserIndexChanged: pwd.text = ""
         sddm: root.loginAuth
         userModel: root.loginUsers
         sessionModel: root.loginSessions
+        keyboard: root.loginKeyboard
         sessionIndex: root.sessionIndex
     }
 
@@ -55,7 +57,7 @@ Rectangle {
 
     // Logic
     Timer { interval: 300; running: true; onTriggered: pwd.forceActiveFocus() }
-    Component.onCompleted: { fadeAnim.start(); keyboard.numLock = true }
+    Component.onCompleted: { fadeAnim.start(); if (typeof keyboard !== "undefined" && keyboard) keyboard.numLock = true }
     NumberAnimation { id: fadeAnim; target: root; property: "ui"; from: 0; to: 1; duration: 1500; easing.type: Easing.OutCubic }
 
     // Background
@@ -125,16 +127,17 @@ Rectangle {
 
             // Input
             Rectangle {
-                width: parent.width; height: 46 * s; radius: 23 * s; color: root.cGlass
+                width: parent.width - passwordControls.outerWidth; height: 46 * s; radius: 23 * s; color: root.cGlass
                 border.color: pwd.activeFocus ? root.cAccent : "transparent"; border.width: 1.5 * s
                 Behavior on border.color { ColorAnimation { duration: 300 } }
 
                 TextInput {
-                    id: pwd; anchors.fill: parent; anchors.leftMargin: 20*s; anchors.rightMargin: 20*s
+                    id: pwd; anchors.fill: parent; anchors.leftMargin: 20*s; anchors.rightMargin: passwordControls.rightReserve
                     horizontalAlignment: TextInput.AlignHCenter; verticalAlignment: TextInput.AlignVCenter
                     echoMode: TextInput.Password; passwordCharacter: "•"; color: root.cText
-                    font.family: mainFont.name; font.pixelSize: 20 * s; font.letterSpacing: 8 * s
+                    font.family: mainFont.name; font.pixelSize: 20 * s; font.letterSpacing: passwordControls.revealed ? 1 * s : 8 * s
                     focus: true; clip: true; cursorVisible: false; cursorDelegate: Item { width: 0; height: 0 }
+                    Keys.forwardTo: [passwordControls]
                     onAccepted: doLogin()
                     
                     Text {
@@ -166,6 +169,11 @@ Rectangle {
                 }
                 
                 MouseArea { anchors.fill: parent; cursorShape: Qt.ArrowCursor; onClicked: pwd.forceActiveFocus() }
+                PasswordControls {
+                    id: passwordControls; controller: login; input: pwd; unit: root.s
+                    ink: root.cText; surface: root.cGlass; borderColor: "transparent"
+                    fontFamily: mainFont.name; cornerRadius: parent.radius
+                }
             }
 
             // Error

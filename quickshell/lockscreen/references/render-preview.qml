@@ -10,7 +10,16 @@ ShellRoot {
     readonly property var userModel: users
     readonly property var sessionModel: sessions
     readonly property var keyboard: keyboardState
-    QtObject { id: keyboardState; property bool numLock: false }
+    QtObject {
+        id: keyboardState
+        property bool numLock: false
+        property var layouts: {
+            const raw = Quickshell.env("EITR_RENDER_LAYOUTS");
+            if (!raw) return [{code: "US", shortName: "us", label: "English (US)", longName: "English (US)"}];
+            try { return JSON.parse(raw); } catch (error) { return []; }
+        }
+        property int currentLayout: Number(Quickshell.env("EITR_RENDER_LAYOUT_INDEX")) || 0
+    }
     QtObject {
         id: mockAuth
         property bool quickshellLock: false
@@ -46,11 +55,20 @@ ShellRoot {
                         + JSON.stringify(auroraFrame) + '; smooth: false }', aurora, "CanonicalAuroraReference");
                 }
                 if (Quickshell.env("EITR_RENDER_STATE") === "wrong") failureDelay.start();
+            }
+            function applyRenderInputState() {
+                const item = design.item;
+                if (!item) return;
+                const controls = findChild(item, "passwordControls");
                 if (Quickshell.env("EITR_RENDER_STATE") === "typed") {
-                    const field = findChild(item, "eitrPassword");
-                    if (!field) { console.error("Password field missing"); Qt.exit(1); }
-                    field.text = "preview-only";
+                    const field = (controls && controls.input) || findChild(item, "eitrPassword");
+                    if (!field) { console.error("Password field missing"); Qt.exit(1); return; }
+                    field.text = Quickshell.env("EITR_RENDER_PASSWORD") || "preview-only";
+                    const carved = findChild(item, "eitrCarvedRunes");
+                    if (carved && typeof carved.sync === "function") carved.sync();
                 }
+                if (Quickshell.env("EITR_RENDER_REVEALED") === "1" && controls)
+                    controls.revealed = true;
             }
             function findChild(parentItem, name) {
                 if (parentItem.objectName === name) return parentItem;
@@ -81,6 +99,14 @@ ShellRoot {
                 if (controller.userIndex !== (original + 1) % users.count) { console.error("User cycle failed"); Qt.exit(1); return; }
                 controller.cycleUser(-1);
                 if (controller.userIndex !== original) { console.error("Reverse cycle failed"); Qt.exit(1); return; }
+                design.applyRenderInputState();
+                captureDelay.start();
+            }
+        }
+        Timer {
+            id: captureDelay
+            interval: (Quickshell.env("EITR_RENDER_STATE") || Quickshell.env("EITR_RENDER_REVEALED")) ? 500 : 1
+            onTriggered: {
                 design.grabToImage(function(result) {
                     if (!result.saveToFile(Quickshell.env("EITR_RENDER_OUTPUT"))) Qt.exit(1);
                     else Qt.quit();

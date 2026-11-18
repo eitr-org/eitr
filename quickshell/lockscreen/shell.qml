@@ -2,6 +2,7 @@ import Eitr as Eitr
 import QtQuick
 import QtQuick.Window
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Wayland
 
 ShellRoot {
@@ -12,10 +13,16 @@ ShellRoot {
     readonly property var sddm: auth.sddm
     readonly property var userModel: auth.userModel
     readonly property var sessionModel: auth.sessionModel
-    readonly property var keyboard: keyboardState
+    readonly property var keyboard: auth.keyboard
     property bool authenticated: false
     property bool unlocked: false
-    QtObject { id: keyboardState; property bool numLock: false }
+    Connections {
+        target: Hyprland
+        function onRawEvent(event) {
+            if (event.name === "activelayout" || event.name === "configreloaded")
+                auth.refreshKeyboard();
+        }
+    }
     AuthAdapter {
         id: auth
         // Previews run preview.qml instead; this shell always holds a real lock.

@@ -7,4 +7,5 @@ EitrClockworkDesign {
     auth: typeof sddm !== "undefined" ? sddm : null
     users: typeof userModel !== "undefined" ? userModel : null
     sessions: typeof sessionModel !== "undefined" ? sessionModel : null
+    keyboardState: typeof keyboard !== "undefined" ? keyboard : null
 }

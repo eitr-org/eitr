@@ -1140,7 +1140,9 @@ var qml = {
     "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.",
     "Lock keyboard, mouse and touchpad for cleaning.": "Lock keyboard, mouse and touchpad for cleaning.",
     "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.",
-    "Maintenance": "Maintenance"
+    "Maintenance": "Maintenance",
+    "Hide password": "Hide password",
+    "Show password": "Show password"
   },
   "pt_BR": {
     "%1 B/s": "%1 B/s",
@@ -2247,7 +2249,9 @@ var qml = {
     "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Teclado, mouse e touchpad estão bloqueados. Segure Esc por 3 segundos para sair.",
     "Lock keyboard, mouse and touchpad for cleaning.": "Bloquear teclado, mouse e touchpad para limpar.",
     "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Bloquear teclado, mouse e touchpad para limpar. Segure Esc por 3 segundos para sair.",
-    "Maintenance": "Manutenção"
+    "Maintenance": "Manutenção",
+    "Show password": "Mostrar senha",
+    "Hide password": "Ocultar senha"
   },
   "es": {
     "%1 B/s": "%1 B/s",
@@ -3354,7 +3358,9 @@ var qml = {
     "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "El teclado, el ratón y el panel táctil están bloqueados. Mantén Esc durante 3 segundos para salir.",
     "Lock keyboard, mouse and touchpad for cleaning.": "Bloquea el teclado, el ratón y el panel táctil para limpiar.",
     "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Bloquea el teclado, el ratón y el panel táctil para limpiar. Mantén Esc durante 3 segundos para salir.",
-    "Maintenance": "Mantenimiento"
+    "Maintenance": "Mantenimiento",
+    "Show password": "Mostrar contraseña",
+    "Hide password": "Ocultar contraseña"
   },
   "de": {
     "%1 B/s": "%1 B/s",
@@ -4461,7 +4467,9 @@ var qml = {
     "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Tastatur, Maus und Touchpad sind gesperrt. Esc 3 Sekunden lang gedrückt halten, um zu beenden.",
     "Lock keyboard, mouse and touchpad for cleaning.": "Tastatur, Maus und Touchpad zum Reinigen sperren.",
     "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Tastatur, Maus und Touchpad zum Reinigen sperren. Esc 3 Sekunden lang gedrückt halten, um zu beenden.",
-    "Maintenance": "Instandhaltung"
+    "Maintenance": "Instandhaltung",
+    "Show password": "Passwort anzeigen",
+    "Hide password": "Passwort ausblenden"
   },
   "fr": {
     "%1 B/s": "%1 o/s",
@@ -5568,7 +5576,9 @@ var qml = {
     "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "Le clavier, la souris et le pavé tactile sont verrouillés. Maintenez Échap pendant 3 secondes pour quitter.",
     "Lock keyboard, mouse and touchpad for cleaning.": "Verrouiller le clavier, la souris et le pavé tactile pour nettoyer.",
     "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "Verrouiller le clavier, la souris et le pavé tactile pour nettoyer. Maintenez Échap pendant 3 secondes pour quitter.",
-    "Maintenance": "Entretien"
+    "Maintenance": "Entretien",
+    "Show password": "Afficher le mot de passe",
+    "Hide password": "Masquer le mot de passe"
   },
   "ja": {
     "%1 B/s": "%1 B/s",
@@ -6675,7 +6685,9 @@ var qml = {
     "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "キーボード、マウス、タッチパッドはロックされています。終了するにはEscを3秒間長押ししてください。",
     "Lock keyboard, mouse and touchpad for cleaning.": "掃除のためにキーボード、マウス、タッチパッドをロックします。",
     "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "掃除のためにキーボード、マウス、タッチパッドをロックします。終了するにはEscを3秒間長押ししてください。",
-    "Maintenance": "メンテナンス"
+    "Maintenance": "メンテナンス",
+    "Show password": "パスワードを表示",
+    "Hide password": "パスワードを隠す"
   },
   "zh_CN": {
     "%1 B/s": "%1 B/s",
@@ -7782,7 +7794,9 @@ var qml = {
     "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "键盘、鼠标和触摸板已锁定。按住 Esc 键 3 秒即可退出。",
     "Lock keyboard, mouse and touchpad for cleaning.": "锁定键盘、鼠标和触摸板以便清洁。",
     "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "锁定键盘、鼠标和触摸板以便清洁。按住 Esc 键 3 秒即可退出。",
-    "Maintenance": "维护"
+    "Maintenance": "维护",
+    "Show password": "显示密码",
+    "Hide password": "隐藏密码"
   },
   "ko": {
     "%1 B/s": "%1 B/s",
@@ -8889,6 +8903,8 @@ var qml = {
     "Keyboard, mouse and touchpad are locked. Hold Esc for 3 seconds to exit.": "키보드, 마우스 및 터치패드가 잠겨 있습니다. 종료하려면 Esc를 3초 동안 길게 누르세요.",
     "Lock keyboard, mouse and touchpad for cleaning.": "청소를 위해 키보드, 마우스, 터치패드를 잠급니다.",
     "Lock keyboard, mouse and touchpad for cleaning. Hold Esc for 3 seconds to exit.": "청소를 위해 키보드, 마우스, 터치패드를 잠급니다. 종료하려면 Esc를 3초 동안 길게 누르세요.",
-    "Maintenance": "유지 관리"
+    "Maintenance": "유지 관리",
+    "Show password": "비밀번호 표시",
+    "Hide password": "비밀번호 숨기기"
   }
 };
