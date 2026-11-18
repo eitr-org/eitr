@@ -28,7 +28,7 @@ const screenshotGroups = localizedScreenshots(translator(Astro.url.pathname, 'ga
       </div>
     </section>)}
   </div>
-  <dialog class="shot-viewer" aria-labelledby="shot-viewer-caption">
+  <dialog class="shot-viewer" id="shot-viewer" closedby="any" aria-labelledby="shot-viewer-caption">
     <div class="theme-viewer-stage">
       <img alt="" />
       <button class="theme-viewer-step" type="button" data-step="-1" aria-label={t('previous_screenshot')}>‹</button>
@@ -37,7 +37,7 @@ const screenshotGroups = localizedScreenshots(translator(Astro.url.pathname, 'ga
     <div class="theme-viewer-bar">
       <p class="theme-name" id="shot-viewer-caption" aria-live="polite"></p>
       <span class="theme-count" aria-live="polite"></span>
-      <button class="theme-viewer-close" type="button" aria-label={t('close')} autofocus>✕</button>
+      <button class="theme-viewer-close" type="button" commandfor="shot-viewer" command="close" aria-label={t('close')} autofocus>✕</button>
     </div>
   </dialog>
 </Layout>

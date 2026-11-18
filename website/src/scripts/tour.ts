@@ -43,5 +43,4 @@ picture?.addEventListener('pointerup', event => {
   if (swipeStart !== null && Math.abs(event.clientX - swipeStart) > 40) showShot(shown + (event.clientX < swipeStart ? 1 : -1));
   swipeStart = null;
 });
-viewer?.querySelector('.theme-viewer-close')?.addEventListener('click', () => viewer.close());
-viewer?.addEventListener('click', event => { if (event.target === viewer) viewer.close(); });
+// The close button and a click outside close it declaratively (scripts/dialog-support.ts).

@@ -26,7 +26,7 @@ const realms = [
     <img class="world-tree-art" src="/art/yggdrasil.webp" alt="" loading="lazy" />
     <div class="realm-nodes" role="group" aria-label={t('explore_eitr_through_nine_realms')}>
       {realms.map(realm => (
-        <button type="button" class="realm-node" data-realm-open={realm.id} aria-haspopup="dialog" aria-controls={`realm-${realm.id}`} style={`--realm-x:${realm.x}%;--realm-y:${realm.y}%;--realm-color:${realm.color}`}>
+        <button type="button" class="realm-node" data-realm-open={realm.id} commandfor={`realm-${realm.id}`} command="show-modal" aria-haspopup="dialog" aria-controls={`realm-${realm.id}`} style={`--realm-x:${realm.x}%;--realm-y:${realm.y}%;--realm-color:${realm.color}`}>
           <span class="realm-orb" aria-hidden="true"></span>
           <span class="realm-name">{realm.name}</span>
           <span class="realm-topic">{realm.topic}</span>
@@ -36,8 +36,8 @@ const realms = [
   </div>
   <p class="realm-hint">{t('choose_a_realm_to_explore')}</p>
   {realms.map(realm => (
-    <dialog class="realm-dialog" id={`realm-${realm.id}`} aria-labelledby={`realm-title-${realm.id}`} aria-describedby={`realm-intro-${realm.id}`} style={`--realm-color:${realm.color}`}>
-      <button class="realm-close" type="button" aria-label={t('close_realm', {name: realm.name})} autofocus>×</button>
+    <dialog class="realm-dialog" id={`realm-${realm.id}`} closedby="any" aria-labelledby={`realm-title-${realm.id}`} aria-describedby={`realm-intro-${realm.id}`} style={`--realm-color:${realm.color}`}>
+      <button class="realm-close" type="button" commandfor={`realm-${realm.id}`} command="close" aria-label={t('close_realm', {name: realm.name})} autofocus>×</button>
       <div class="realm-dialog-content">
         <NorseSymbol name={realm.symbol} class="realm-dialog-symbol" />
         <p class="eyebrow">{realm.name} / {realm.topic}</p>
@@ -79,16 +79,9 @@ const realms = [
 @media(max-width:600px){.realm-map{min-height:0;padding:24px 16px}.world-tree-art{object-fit:contain;opacity:.32}.realm-nodes{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:18px 12px}.realm-node{position:relative;left:auto;top:auto;translate:none;width:100%;min-height:82px;padding-inline:5px}.realm-node:last-child{grid-column:1/-1;width:50%;justify-self:center}.realm-dialog-content{padding:34px 24px}.realm-dialog h2{font-size:34px}}
 </style>
 <script>
-for(const button of document.querySelectorAll<HTMLButtonElement>('[data-realm-open]')) {
- const dialog=document.getElementById(`realm-${button.dataset.realmOpen}`) as HTMLDialogElement | null;
- if(!dialog) continue;
- button.addEventListener('click',()=>{if(!dialog.open) dialog.showModal();});
- dialog.querySelector('.realm-close')?.addEventListener('click',()=>dialog.close());
+// Opening, the close button and a click outside are declarative (scripts/dialog-support.ts);
+// the link to a realm's page also closes its dialog as it navigates.
+for(const dialog of document.querySelectorAll<HTMLDialogElement>('.realm-dialog')) {
  dialog.querySelector('.realm-cta')?.addEventListener('click',()=>dialog.close());
- dialog.addEventListener('click',event=>{
-  if(event.target!==dialog) return;
-  const bounds=dialog.getBoundingClientRect();
-  if(event.clientX<bounds.left || event.clientX>bounds.right || event.clientY<bounds.top || event.clientY>bounds.bottom) dialog.close();
- });
 }
 </script>

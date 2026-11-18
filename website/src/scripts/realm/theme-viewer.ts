@@ -73,6 +73,4 @@ image?.addEventListener('pointerup', (event) => {
   if (swipeFrom !== null && Math.abs(event.clientX - swipeFrom) > 40) show(current + (event.clientX < swipeFrom ? 1 : -1));
   swipeFrom = null;
 });
-viewer?.querySelector('.theme-viewer-close')?.addEventListener('click', () => viewer.close());
-// A click on the backdrop, outside the picture, closes it too.
-viewer?.addEventListener('click', (event) => { if (event.target === viewer) viewer.close(); });
+// The close button and a click outside close it declaratively (scripts/dialog-support.ts).

@@ -176,6 +176,7 @@ const futhark = "ᚠᚢᚦᚨᚱᚲᚷᚹ ᚺᚾᛁᛃᛇᛈᛉᛊ ᛏᛒᛖᛗ�
     </div></div>
     <script id="site-messages" type="application/json" set:html={JSON.stringify(Object.fromEntries(Object.keys(englishMessages.client).map(key => [key, translator(Astro.url.pathname, "client")(key)]))).replaceAll("<", "\\u003c")} />
     <script>
+      import "../scripts/dialog-support";
       import "../scripts/language-menu";
       import "../scripts/effects";
       import "../scripts/realm/thunder";

@@ -214,7 +214,7 @@ const faq = [
     </div>
   </section>
 
-  <dialog class="theme-viewer" aria-labelledby="theme-viewer-name">
+  <dialog class="theme-viewer" id="theme-viewer" closedby="any" aria-labelledby="theme-viewer-name">
     <div class="theme-viewer-stage">
       <div class="theme-carousel-side" data-side="-1" aria-hidden="true"></div>
       <img alt="" />
@@ -226,7 +226,7 @@ const faq = [
       <p class="theme-name" id="theme-viewer-name"></p>
       <span class="theme-count" aria-live="polite"></span>
       <span class="swatches"></span>
-      <button class="theme-viewer-close" type="button" aria-label={t('close')}>✕</button>
+      <button class="theme-viewer-close" type="button" commandfor="theme-viewer" command="close" aria-label={t('close')}>✕</button>
     </div>
   </dialog>
 
