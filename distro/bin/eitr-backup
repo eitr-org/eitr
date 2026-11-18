@@ -3,10 +3,10 @@
 from pathlib import Path
 import sys
 
-for parent in Path(__file__).resolve().parents:
-    library = parent / "lib"
-    if not (library / "eitr_paths.py").is_file():
-        library = parent / "distro/lib"
+# A checkout's own library first; installed in /usr/bin, the packaged one, so it also
+# works outside the desktop session (a text console, SSH or a service) without PYTHONPATH.
+for library in [parent / name for parent in Path(__file__).resolve().parents for name in ("lib", "distro/lib")] \
+        + [Path("/usr/share/eitr/lib")]:
     if (library / "eitr_paths.py").is_file():
         sys.path.insert(0, str(library))
         break

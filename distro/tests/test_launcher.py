@@ -126,5 +126,15 @@ class LauncherTests(unittest.TestCase):
             launch.main(['--repo'], 'eitr-run')
 
 
+
+class InstalledBackupLauncherTests(unittest.TestCase):
+    def test_backup_launcher_finds_the_packaged_library_without_pythonpath(self):
+        """/usr/bin/eitr-backup has no lib folder beside it; outside the desktop session
+        (no PYTHONPATH) it must still reach /usr/share/eitr/lib."""
+        source = (ROOT / 'distro/bin/eitr-backup').read_text()
+        self.assertIn('Path("/usr/share/eitr/lib")', source)
+        self.assertLess(source.index('"distro/lib"'), source.index('/usr/share/eitr/lib'))
+
+
 if __name__ == '__main__':
     unittest.main()

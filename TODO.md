@@ -55,12 +55,13 @@ item says what decides the next step. Remove an item when it ships;
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the
   community index had no entries yet) and its validation workflow. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
-- **Backup and Restore (Phases 1–3 built 2026-11-17).** Encrypted `tar.zst.age` archives
-  via `eitr backup` / `eitr-backup`, `Settings > System > Backup and Restore`, Walker
-  (`System > Backup and Restore`), Welcome setup card, interactive wizard on `eitr_wizard.py`,
-  per-folder sizing, official/AUR/Flatpak/plugin/Store reinstall with review and restore undo
-  journals. Remaining: Git/cloud/Wi-Fi secret migration (Phase 4) and live VM verification
-  (Phase 5). Plan: `eitr-testing/codex-wip/backup-restore/PLAN.md`.
+- **Backup and Restore: the whole move (Phases 1–4 built).** Encrypted archives via
+  `eitr-backup`, Settings, Walker and the wizard, with app reinstall and undo journals; Phase 4
+  adds opt-in Git (SSH/GPG), cloud and WiFi secrets. VM-tested 2026-11-18: a backup with every
+  secret category (WiFi through the password window, VPN profile and AWS SSO cache left out,
+  archive encrypted), restore with private permissions and NetworkManager seeing the profile,
+  and undo removing all of it. Left: the full move to a second fresh install (theme, bar layout,
+  folders, an AUR package reinstalled), per `eitr-testing/codex-wip/backup-restore/PLAN.md`.
 - **Ollama plugin (built 2026-11-16).** Held in the private `eitr-plugins-night-test`
   repository (local branch in `eitr-testing/codex-wip/plugins-night/ollama`) until the owner
   says it is ready; Radio Globe and Phone Link went to `eitr-org/eitr-plugins` on 2026-11-16.
