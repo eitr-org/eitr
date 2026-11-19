@@ -349,11 +349,11 @@ def factory_reset(arguments):
         password = secrets.token_urlsafe(12)
         sudo(work, f"echo '{USER}:{password}' | sudo chpasswd")
         (work / "password").write_text(password + "\n")
-        sudo(work, f"printf 'y\\nreset my computer\\n' | python3 {RESET_SCRIPT} {arguments.mode}")
+        sudo(work, f"printf '\\nreset my computer\\n' | python3 {RESET_SCRIPT} {arguments.mode}")
         if ssh(work, "test -e /etc/eitr-test-system-file && echo yes", check=False).stdout.strip() != "yes":
             raise VmTestError("A mistyped confirmation changed the system")
         print("  PASS  a mistyped confirmation changes nothing")
-        sudo(work, f"printf 'y\\nRESET MY COMPUTER\\n' | python3 {RESET_SCRIPT} {arguments.mode}",
+        sudo(work, f"printf '\\nRESET MY COMPUTER\\n' | python3 {RESET_SCRIPT} {arguments.mode}",
              check=False, capture=False)
         wait_reboot(work, process)
         failures = []
