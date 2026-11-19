@@ -80,8 +80,14 @@ sed -e "s/^title.*/title    $installer_title (boot messages)/" -e 's/^sort-key.*
 sed -i '/^options/s/$/ quiet splash copytoram=n/' "$entries/01-archiso-linux.conf"
 sed -i '0,/^APPEND archisobasedir/s//APPEND quiet splash copytoram=n archisobasedir/' \
   "$profile/syslinux/archiso_sys-linux.cfg"
-sed -i '/^HOOKS=/s/ kms / kms plymouth /' "$profile/airootfs/etc/mkinitcpio.conf.d/archiso.conf"
-grep -q ' kms plymouth ' "$profile/airootfs/etc/mkinitcpio.conf.d/archiso.conf"
+# The splash needs early KMS: after kms when the profile has it, else (archiso 92+) add both after modconf.
+hooks="$profile/airootfs/etc/mkinitcpio.conf.d/archiso.conf"
+if grep -q '^HOOKS=.* kms ' "$hooks"; then
+  sed -i '/^HOOKS=/s/ kms / kms plymouth /' "$hooks"
+else
+  sed -i '/^HOOKS=/s/ modconf / modconf kms plymouth /' "$hooks"
+fi
+grep -q ' kms plymouth ' "$hooks" || { printf 'Could not add the plymouth hook to %s\n' "$hooks" >&2; exit 1; }
 install -Dm644 -t "$profile/airootfs/usr/share/plymouth/themes/eitr" \
   "$repo_root/distro/plymouth/eitr/eitr.plymouth" "$repo_root/distro/plymouth/eitr/eitr.script" \
   "$repo_root/distro/plymouth/eitr/"*.png

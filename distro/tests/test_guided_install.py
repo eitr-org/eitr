@@ -326,6 +326,7 @@ class GuidedInstallTests(unittest.TestCase):
         self.assertIn("-boot_image any replay", script)
         self.assertIn("copytoram=n", script)
         self.assertIn("s/ kms / kms plymouth /", script)
+        self.assertIn("s/ modconf / modconf kms plymouth /", script)  # archiso 92 dropped kms from releng
         self.assertIn("rebuild it first", script)
         self.assertEqual(guided.PAYLOAD, Path("/run/archiso/bootmnt/eitr"))
         self.assertIn("/usr/local/bin/eitr-guided-install", script)
