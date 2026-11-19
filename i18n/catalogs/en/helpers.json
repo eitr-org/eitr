@@ -1841,5 +1841,15 @@
   "gpg is required to import GPG secret keys.": "gpg is required to import GPG secret keys.",
   "pkexec is required to access root-owned WiFi profiles.": "pkexec is required to access root-owned WiFi profiles.",
   "secret": "secret",
-  "Not a WiFi profile: {path}": "Not a WiFi profile: {path}"
+  "Not a WiFi profile: {path}": "Not a WiFi profile: {path}",
+  "Chinese (Pinyin)": "Chinese (Pinyin)",
+  "Input method": "Input method",
+  "Input method: {input_method}": "Input method: {input_method}",
+  "Install {label} (recommended for typing)": "Install {label} (recommended for typing)",
+  "Install {label} in Settings > Input or Install > Input Methods to type in this language.": "Install {label} in Settings > Input or Install > Input Methods to type in this language.",
+  "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods.": "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods.",
+  "Japanese (Mozc)": "Japanese (Mozc)",
+  "Korean (Hangul)": "Korean (Hangul)",
+  "Skip for now": "Skip for now",
+  "fcitx5-configtool is not installed": "fcitx5-configtool is not installed"
 }

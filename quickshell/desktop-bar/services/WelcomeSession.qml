@@ -53,7 +53,10 @@ Scope {
     Timer {
         interval: 8000
         running: true
-        onTriggered: Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/boot-guard-notice.sh"])
+        onTriggered: {
+            Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/boot-guard-notice.sh"]);
+            Quickshell.execDetached(["python3", Eitr.Paths.library("eitr_input_methods.py"), "offer"]);
+        }
     }
     // The welcome's "offer to report problems" switch starts from the saved choice, read
     // once when the Handbook is first built rather than at every login.

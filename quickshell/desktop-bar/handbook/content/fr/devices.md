@@ -42,6 +42,12 @@ Ouvrez Paramètres > Saisie. Choisissez une langue ou une variante dans Ajouter 
 
 Le bureau démarre avec le clavier choisi dans l’installateur. Le choix US inclut US et US International ; Alt + Shift suffit pour accéder aux accents.
 
+### Saisir le japonais, le coréen et le chinois (fcitx5)
+
+Les méthodes de saisie pour le japonais (`fcitx5-mozc`), le coréen (`fcitx5-hangul`) et le chinois (`fcitx5-chinese-addons`) sont facultatives et ne font pas partie de l’installation de base. Elles sont proposées lors du choix de ces langues à l’installation et restent disponibles à tout moment dans **Paramètres > Saisie > Méthodes de saisie** ou **Walker > Installer > Méthodes de saisie**.
+
+À l’installation, Eitr prépare un profil fcitx5 avec votre première disposition suivie du moteur choisi, démarre `fcitx5` automatiquement à la connexion et génère un thème de fenêtre de candidats assorti aux couleurs et à la police actuelles d’Eitr. Appuyez sur **Ctrl + Space** pour basculer entre la saisie latine et la méthode CJK active, et utilisez `fcitx5-configtool` (**Configurer fcitx5…** dans Paramètres > Saisie) pour d’autres moteurs ou raccourcis.
+
 ### Navigation facultative avec Caps Lock
 
 La configuration keyd facultative dans `distro/keyd/navigation.conf.example` envoie Escape lors d’un appui bref sur Caps Lock. Maintenez Caps Lock et appuyez sur H/J/K/L pour gauche/bas/haut/droite. Les autres touches conservent leur comportement normal.

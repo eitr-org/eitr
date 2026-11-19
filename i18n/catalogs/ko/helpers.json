@@ -1841,5 +1841,15 @@
   "{subscription_count} subscription(s) are ready in the Azure menu.": "{subscription_count}개의 구독이 Azure 메뉴에서 준비되었습니다.",
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit}이(가) 활성화되었습니다. 다음 부팅부터 스냅샷 항목이 {entries_path}에 기록됩니다.",
   "{unit} manages networking; review that custom setup first.": "{unit}이(가) 네트워크를 관리합니다. 먼저 해당 사용자 지정 구성을 검토하세요.",
-  "… and {count} more": "… 및 추가 {count}개"
+  "… and {count} more": "… 및 추가 {count}개",
+  "Chinese (Pinyin)": "중국어 (Pinyin)",
+  "Input method": "입력기",
+  "Input method: {input_method}": "입력기: {input_method}",
+  "Install {label} (recommended for typing)": "{label} 설치 (입력에 권장)",
+  "Install {label} in Settings > Input or Install > Input Methods to type in this language.": "이 언어를 입력하려면 설정 > 입력 또는 Install > Input Methods에서 {label}을(를) 설치하세요.",
+  "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods.": "fcitx5 및 {label}을(를) 설치합니다. Ctrl + Space로 입력을 전환하며 나중에 Install > Input Methods에서 설치할 수도 있습니다.",
+  "Japanese (Mozc)": "일본어 (Mozc)",
+  "Korean (Hangul)": "한국어 (Hangul)",
+  "Skip for now": "지금은 건너뛰기",
+  "fcitx5-configtool is not installed": "fcitx5-configtool이 설치되어 있지 않습니다"
 }

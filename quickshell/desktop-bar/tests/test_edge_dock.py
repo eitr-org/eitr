@@ -217,6 +217,153 @@ class EdgeDockTests(unittest.TestCase):
                         self.assertNotIn('TypeError', output)
                         self.assertTrue(capture.is_file(), output)
 
+    def test_window_preview_card_actions_capture_and_render(self):
+        card_source = (BAR / 'dock/DockPreviewCard.qml').read_text()
+        self.assertIn('ScreencopyView {', card_source)
+        self.assertIn('live: false', card_source)
+        self.assertIn('readonly property bool capturing: opened && previewsEnabled', card_source)
+        self.assertIn('DesktopStyle.motionDuration(', card_source)
+        dock_source = (BAR / 'dock/EdgeDock.qml').read_text()
+        self.assertIn('Region { item: dock.available && previewCard.visible ? previewArea : null }', dock_source)
+        self.assertIn('held: dock.menuOpen || surface.dragging || dock.previewOpen', dock_source)
+
+        clients = [
+            dict(address='0x1', **{'class': 'Browser'}, title='Documentation — Eitr', workspace={'id': 2}, focusHistoryID=0),
+            dict(address='0x2', **{'class': 'Editor'}, title='notes.md — Neovim', workspace={'id': 2}, focusHistoryID=1),
+            dict(address='0x3', **{'class': 'browser'}, title='Build Log — Terminal', workspace={'id': 2}, focusHistoryID=2),
+        ]
+        source = dock_source.replace('import ".."\n', '').replace('"../', '"')
+        source = source.replace('PanelWindow {', 'FloatingWindow {', 1)
+        source = '\n'.join(line for line in source.splitlines() if not any(token in line for token in (
+            '    anchors {', '    exclusionMode:', '    exclusiveZone:', '    WlrLayershell.')))
+        source = source.replace('readonly property var monitor: Hyprland.monitorFor(screen)',
+                                'property var monitor: ({activeWorkspace: {id: 2, hasFullscreen: false}})')
+        source = source.replace('Quickshell.execDetached(command)', 'dock.actions.push(command.join(" "))')
+        source = source.replace('    id: dock', '    id: dock\n    property var actions: []\n    implicitWidth: 800; implicitHeight: 520', 1)
+        with tempfile.TemporaryDirectory(prefix='eitr-dock-preview-') as directory:
+            folder = Path(directory)
+            for path in BAR.rglob("*"):
+                if path.suffix in ('.qml', '.js') or path.name == 'qmldir':
+                    destination = folder / path.relative_to(BAR)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy(path, destination)
+            for name, color in [('browser', '#d98a38'), ('editor', '#508db8'), ('files', '#72a470')]:
+                (folder / f'{name}.svg').write_text(
+                    f'<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">'
+                    f'<rect x="2" y="2" width="28" height="28" rx="6" fill="{color}"/>'
+                    '<path d="M9 10h14v3H9zm0 6h14v3H9zm0 6h9v3H9z" fill="white"/></svg>')
+            capture_folder = Path(os.environ.get('EITR_DOCK_PREVIEW_RENDERS', directory))
+            capture_folder.mkdir(parents=True, exist_ok=True)
+            dock_edges = {'top': 'bottom', 'bottom': 'top', 'left': 'right', 'right': 'left'}
+            for bar_edge, light in (('top', False), ('top', True), ('right', False), ('bottom', False), ('left', False)):
+                suffix = f'{dock_edges[bar_edge]}-{"light" if light else "dark"}'
+                preview_png = capture_folder / f'dock-preview-{suffix}.png'
+                titles_png = capture_folder / f'dock-preview-titles-{suffix}.png'
+                checks = '''
+    TestEvent { id: pointer }
+    Item {
+        id: renderStage
+        width: dock.width; height: dock.height
+        visible: false
+        Rectangle {
+            anchors.fill: parent
+            color: LIGHT_MODE ? "#e8e3d9" : "#131720"
+        }
+    }
+    function captureScene(path) {
+        renderStage.visible = true;
+        surface.parent = renderStage;
+        previewCard.parent = renderStage;
+        renderStage.grabToImage(function(result) {
+            surface.parent = dock.contentItem;
+            previewCard.parent = dock.contentItem;
+            renderStage.visible = false;
+            if (!result.saveToFile(path)) throw new Error("Render save failed: " + path);
+        });
+    }
+    function findAction(item, name) {
+        if (!item) return null;
+        if (item.objectName === name) return item;
+        for (var child of item.children || []) { var found = findAction(child, name); if (found) return found; }
+        return null;
+    }
+    property int phase: 0
+    Timer {
+        interval: 260; running: true; repeat: true
+        onTriggered: {
+            try {
+            if (dock.phase === 0) {
+                DesktopStyle.reduceMotion = true;
+                surface.desktopEntries = [{id: "Browser", name: "Browser", icon: "firefox", startupClass: "Browser"}, {id: "Editor", name: "Editor", icon: "text-editor", startupClass: "Editor"}, {id: "Other", name: "Files", icon: "system-file-manager", startupClass: "Other"}];
+                dock.savePins(["Other", "Browser"]);
+                reveal.pointerInside = true;
+            } else if (dock.phase === 1) {
+                if (previewCard.visible || previewCard.capturing) throw new Error("Card open before hover");
+                var otherSlot = findAction(surface, "dockSlot-other");
+                dock.openPreviewForSlot(otherSlot);
+                if (dock.previewOpen || previewCard.visible || previewCard.capturing) throw new Error("Closed pin opened preview");
+                var browserSlot = findAction(surface, "dockSlot-browser");
+                dock.openPreviewForSlot(browserSlot);
+                if (!dock.previewOpen || !previewCard.visible || !previewCard.capturing) throw new Error("Preview card did not open");
+                if (!reveal.held) throw new Error("Preview card did not hold dock");
+                if (previewCard.x < 0 || previewCard.y < 0 || previewCard.x + previewCard.width > dock.width || previewCard.y + previewCard.height > dock.height)
+                    throw new Error("Preview card outside screen: " + previewCard.x + "," + previewCard.y + " " + previewCard.width + "x" + previewCard.height);
+                dock.captureScene(PREVIEW_PNG);
+            } else if (dock.phase === 2) {
+                dock.dockPreviews = false;
+                if (!previewCard.visible || previewCard.capturing) throw new Error("Titles-only mode must disable capture");
+                dock.captureScene(TITLES_PNG);
+            } else if (dock.phase === 3) {
+                dock.dockPreviews = true;
+                var tile = findAction(previewCard, "dockPreviewItem-0x3");
+                if (!tile) throw new Error("Missing preview tile 0x3");
+                pointer.mouseClick(tile, tile.width / 2, tile.height / 2, Qt.LeftButton, Qt.NoModifier, 1);
+                if (dock.actions.indexOf('hyprctl dispatch hl.dsp.focus({ window = "address:0x3" })') < 0)
+                    throw new Error("Focus action missing: " + dock.actions.join("|"));
+                if (dock.previewOpen || previewCard.capturing) throw new Error("Preview card did not close after focus");
+            } else if (dock.phase === 4) {
+                var browserSlotAgain = findAction(surface, "dockSlot-browser");
+                dock.openPreviewForSlot(browserSlotAgain);
+                var firstTile = findAction(previewCard, "dockPreviewItem-0x1");
+                if (!firstTile) throw new Error("Missing preview tile 0x1");
+                pointer.mouseClick(firstTile, firstTile.width / 2, firstTile.height / 2, Qt.MiddleButton, Qt.NoModifier, 1);
+                if (dock.actions.indexOf('hyprctl dispatch hl.dsp.window.close({ window = "address:0x1" })') < 0)
+                    throw new Error("Middle-click close missing");
+                dock.clients = dock.clients.filter(client => client.address !== "0x1");
+                if (!dock.previewOpen || dock.previewAddresses.length !== 1)
+                    throw new Error("Card did not stay open for remaining window: open=" + dock.previewOpen + " id=" + dock.previewAppId + " count=" + dock.previewAddresses.length);
+                dock.clients = dock.clients.filter(client => client.address !== "0x3");
+                if (dock.previewOpen || previewCard.capturing) throw new Error("Card did not close when last window closed");
+                console.log("DOCK_PREVIEW_OK");
+                Qt.quit();
+            }
+            dock.phase++;
+            } catch (error) { console.error(error); Qt.exit(1); }
+        }
+    }
+'''.replace('LIGHT_MODE', 'true' if light else 'false').replace('PREVIEW_PNG', json.dumps(str(preview_png))).replace('TITLES_PNG', json.dumps(str(titles_png))).replace('icon: "firefox"', 'icon: ' + json.dumps(str(folder / 'browser.svg'))).replace('icon: "text-editor"', 'icon: ' + json.dumps(str(folder / 'editor.svg'))).replace('icon: "system-file-manager"', 'icon: ' + json.dumps(str(folder / 'files.svg')))
+                fixture = 'import QtTest\n' + source.replace('required property string barEdge', 'property string barEdge: ' + json.dumps(bar_edge)).replace('required property var clients', 'property var clients: ' + json.dumps(clients)).replace('required property color foreground', 'property color foreground: ' + json.dumps('#202430' if light else '#eee9df')).replace('required property color background', 'property color background: ' + json.dumps('#f3ede2' if light else '#202430'))
+                fixture = fixture.rstrip()[:-1] + checks + '\n}'
+                path = folder / 'preview-fixture.qml'
+                path.write_text(fixture)
+                config_folder = folder / f'preview-config-{bar_edge}-{light}'
+                config_folder.mkdir()
+                environment = dict(os.environ, QT_QPA_PLATFORM='offscreen', QT_QUICK_BACKEND='software',
+                                   QML_IMPORT_PATH=str(ROOT / 'quickshell'), HOME=directory,
+                                   XDG_CONFIG_HOME=str(config_folder), XDG_STATE_HOME=directory, XDG_CACHE_HOME=directory,
+                                   XDG_RUNTIME_DIR=directory, HYPRLAND_INSTANCE_SIGNATURE='',
+                                   DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent')
+                result = subprocess.run(['quickshell', '-p', str(path)], env=environment,
+                                        capture_output=True, text=True, timeout=15)
+                output = result.stdout + result.stderr
+                with self.subTest(bar_edge=bar_edge, light=light):
+                    self.assertEqual(result.returncode, 0, output)
+                    self.assertIn('DOCK_PREVIEW_OK', output)
+                    self.assertNotIn('ReferenceError', output)
+                    self.assertNotIn('TypeError', output)
+                    self.assertTrue(preview_png.is_file(), output)
+                    self.assertTrue(titles_png.is_file(), output)
+
 
 class DockPinLogicTests(unittest.TestCase):
     def test_ordering_and_desktop_matching(self):

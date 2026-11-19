@@ -438,6 +438,12 @@
     "row": "Emojis"
   },
   {
+    "key": "Ctrl + Space",
+    "description": "Toggle CJK input method (fcitx5, when installed)",
+    "command": "if command -v fcitx5-remote >/dev/null 2>&1; then fcitx5-remote -t; else notify-send --app-name=Eitr \"Input Methods\" \"Install an input method in Settings > Input or Install > Input Methods.\"; fi",
+    "external": true
+  },
+  {
     "description": "Focus left (scrolling only)",
     "row": "Focus left (scrolling only)"
   },

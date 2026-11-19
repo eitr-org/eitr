@@ -13,6 +13,7 @@ for _eitr_parent in Path(__file__).resolve().parents:
         break
 from eitr_paths import code, config as user_config
 from eitr_i18n import tr
+import re
 import subprocess
 import shutil
 import xml.etree.ElementTree as ET
@@ -20,6 +21,22 @@ import xml.etree.ElementTree as ET
 STATE = user_config("hypr/keyboard-layouts.lua")
 VCONSOLE = Path("/etc/vconsole.conf")
 KEYMAP_TABLE = Path("/usr/share/systemd/kbd-model-map")
+UNTYPED_KEYBOARDS = re.compile(
+    r"^(hl-virtual-keyboard|fcitx|power-button|sleep-button|lid-switch|video-bus)|"
+    r"(-wmi-hotkeys|-wireless-radio-control)(-\d+)?$"
+)
+
+
+def is_typed_keyboard(entry):
+    name = str(entry.get("name", ""))
+    return not name or not UNTYPED_KEYBOARDS.search(name)
+
+
+def primary_keyboard(devices):
+    """Select the main typed keyboard, ignoring virtual keyboards such as fcitx5's."""
+    typed = [entry for entry in devices if is_typed_keyboard(entry)]
+    pool = typed or devices
+    return next((entry for entry in pool if entry.get("main")), pool[0] if pool else None)
 
 
 def catalog():
@@ -208,7 +225,7 @@ def main():
         return
     if sys.argv[1:] == ['catalog-rows']:
         devices = keyboards()
-        keyboard = next((entry for entry in devices if entry.get('main')), devices[0] if devices else {})
+        keyboard = primary_keyboard(devices) or {}
         added = set(layout_pairs(keyboard))
         for entry in catalog():
             if entry['layout'] == 'custom':  # XKB's placeholder for a hand-written layout
@@ -220,8 +237,7 @@ def main():
         print(json.dumps({'seeded': seed_from_system(catalog())}))
         return
     devices = keyboards()
-    keyboard = next((entry for entry in devices if entry.get('main')),
-                    devices[0] if devices else None)
+    keyboard = primary_keyboard(devices)
     if keyboard is None:
         raise SystemExit(tr('No keyboard found'))
     entries = options(keyboard)
@@ -238,7 +254,8 @@ def main():
         index = int(sys.argv[2])
         if index not in [entry['index'] for entry in entries]:
             raise SystemExit('Unknown keyboard layout')
-        for device in devices:
+        typed = [entry for entry in devices if is_typed_keyboard(entry)] or devices
+        for device in typed:
             if (device.get('layout'), device.get('variant')) == (keyboard.get('layout'), keyboard.get('variant')):
                 subprocess.run(['hyprctl', 'switchxkblayout', device['name'], str(index)],
                                check=True, capture_output=True, timeout=3)

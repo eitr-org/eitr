@@ -61,6 +61,8 @@ def catalogue():
         if 'heading' in entry:
             group = entry['heading']
             continue
+        if entry.get('external'):
+            continue
         try:
             default = normalize(entry['key'].removesuffix(' (hold)'))
         except ValueError:

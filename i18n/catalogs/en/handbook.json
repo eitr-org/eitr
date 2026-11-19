@@ -229,5 +229,6 @@
   "XF86KbdBrightnessUp": "XF86KbdBrightnessUp",
   "Keyboard shortcuts can be changed in Settings > Keybinds. Tables show defaults.": "Keyboard shortcuts can be changed in Settings > Keybinds. Tables show defaults.",
   "Backup and Restore": "Backup and Restore",
-  "Move settings, folders and apps to a new Eitr install in one encrypted file": "Move settings, folders and apps to a new Eitr install in one encrypted file"
+  "Move settings, folders and apps to a new Eitr install in one encrypted file": "Move settings, folders and apps to a new Eitr install in one encrypted file",
+  "Toggle CJK input method (fcitx5, when installed)": "Toggle CJK input method (fcitx5, when installed)"
 }

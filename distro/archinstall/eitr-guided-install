@@ -12,6 +12,7 @@ is saved. The first boot reaches Eitr's graphical login.
 """
 import eitr_bootstrap
 from eitr_i18n import tr
+import eitr_input_methods
 import eitr_profile
 import copy
 import importlib.util
@@ -345,7 +346,7 @@ def installed_user(name):
     raise GuidedInstallError(tr('archinstall did not create the user {name}', name=f'{name}'))
 
 
-def desktop_packages(log):
+def desktop_packages(log, input_method=""):
     """Hardware packages for this computer plus the desktop and AUR manifests."""
     environment = dict(os.environ, HARDWARE_MODULES_ROOT=str(TARGET / "usr/lib/modules"),
                        DISTRO_NVIDIA_DRIVER=os.environ.get("DISTRO_NVIDIA_DRIVER", "open"))
@@ -356,12 +357,13 @@ def desktop_packages(log):
     if result.returncode:
         raise GuidedInstallError(tr('Hardware detection failed; see the log above'))
     hardware = result.stdout.split()
-    return [*dict.fromkeys(payload.desktop_official(SOURCE) + hardware + payload.desktop_aur(SOURCE)
+    extra = eitr_input_methods.packages_for(input_method) if input_method else []
+    return [*dict.fromkeys(payload.desktop_official(SOURCE) + hardware + extra + payload.desktop_aur(SOURCE)
                            + payload.desktop_local(SOURCE) + ["eitr-desktop"])]
 
 
-def install_desktop(log):
-    packages = [package for package in desktop_packages(log) if package not in eitr_profile.removals(PROFILE or {})]
+def install_desktop(log, input_method=""):
+    packages = [package for package in desktop_packages(log, input_method) if package not in eitr_profile.removals(PROFILE or {})]
     log(f"Installing {len(packages)} desktop packages and their dependencies")
     # -G: keep the keyring archinstall initialized; -M: keep the copied mirrorlist.
     stream(["pacstrap", "-C", "/etc/pacman.conf", "-G", "-M", str(TARGET),
@@ -379,7 +381,7 @@ def chroot(command, log, user=None, environment=None):
             *(f"{key}={value}" for key, value in variables.items()), *command], log)
 
 
-def set_up_desktop(user, log):
+def set_up_desktop(user, log, input_method=""):
     """The user's configs, shell and theme, then the system side, offline."""
     setup = TARGET / SETUP.lstrip("/")
     if setup.exists():
@@ -393,8 +395,10 @@ def set_up_desktop(user, log):
     if not resolv.is_symlink():
         resolv.unlink(missing_ok=True)
         resolv.symlink_to("/run/systemd/resolve/stub-resolv.conf")
-    chroot(["bash", f"{SETUP}/distro/install.sh", "--seed-user"], log, user,
-           {"EITR_SHELL_ASSETS": f"{SETUP}/assets"})
+    seed_env = {"EITR_SHELL_ASSETS": f"{SETUP}/assets"}
+    if input_method:
+        seed_env["EITR_INPUT_METHOD"] = input_method
+    chroot(["bash", f"{SETUP}/distro/install.sh", "--seed-user"], log, user, seed_env)
     chroot(["bash", f"{SETUP}/distro/system/configure-desktop.sh", user["name"]], log)
     chroot(["/usr/lib/eitr/eitr-system", "snapshots-setup"], log)
     chroot(["install", "-Dm644", "/usr/share/eitr/system-update-policy.conf",
@@ -575,7 +579,8 @@ def answered_choices(path, ui, checks, disks):
     choices = {"disk": disk, "layout": layout, "encrypted": bool(answers.get("encrypted", False)),
                "hostname": answers.get("hostname", "eitr"), "username": answers.get("username", ""),
                "password": answers.get("password", ""), "keyboard": answers.get("keyboard", "us"),
-               "language": answers.get("language", "en_US.UTF-8"), "timezone": answers.get("timezone", "UTC"),
+               "language": answers.get("language", "en_US.UTF-8"), "input_method": answers.get("input_method", ""),
+               "timezone": answers.get("timezone", "UTC"),
                "timezone_detected": "timezone" in answers,
                "ssh_authorized_key": answers.get("ssh_authorized_key", "")}
     if not str(path).startswith(TEST_ANSWERS):
@@ -672,9 +677,9 @@ def main():
             stages = [
                 ("Installing the base system", lambda log: run_archinstall(config, credentials, Path(directory), log)),
                 ("Generating the system language", lambda log: ensure_system_locale(choices["language"], log)),
-                ("Installing the Eitr desktop", install_desktop),
+                ("Installing the Eitr desktop", lambda log: install_desktop(log, choices.get("input_method", ""))),
                 ("Setting up the desktop for " + choices["username"],
-                 lambda log: set_up_desktop(installed_user(choices["username"]), log)),
+                 lambda log: set_up_desktop(installed_user(choices["username"]), log, choices.get("input_method", ""))),
                 ("Setting up the boot menu and splash", lambda log: set_up_boot(choices["username"], log)),
                 *([] if choices["timezone_detected"] else
                   [("Scheduling timezone detection", schedule_timezone_detection)]),

@@ -23,7 +23,7 @@ import subprocess
 
 SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
 ICON_ORDER_ZONES = ("left", "clockStart", "clockEnd", "right")
-DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "moments": True, "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes"}
+DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "moments": True, "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes", "dockPreviews": "yes"}
 OPTIONS = {
     "moments": {False, True},
     "blur-strength": {"light", "medium", "strong"},
@@ -35,6 +35,7 @@ OPTIONS = {
     "screens": {"main", "all"},
     "autohide": {"yes", "no"},
     "dock": {"yes", "no"},
+    "dockPreviews": {"yes", "no"},
     "reduceMotion": {"yes", "no"},
     "mediaStyle": {"bars", "line"},
     # 12-hour time with AM/PM, or 24-hour time.

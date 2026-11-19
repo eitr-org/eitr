@@ -62,6 +62,7 @@ Flickable {
         property bool barMoments: bar.moments !== false
         property bool barLyrics: bar.lyrics === "yes"
         property bool barDock: bar.dock !== "no"
+        property bool barDockPreviews: bar.dockPreviews !== "no"
         property string workspaceStyle: workspaceHelper.summary.current
         function settingRequested(key, value) {
             barHelper.change(["set", key, value]);

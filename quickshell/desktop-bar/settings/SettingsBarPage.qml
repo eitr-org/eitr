@@ -298,6 +298,19 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-bar-dock-previews" }
+            text: Eitr.I18n.tr("Dock previews")
+            description: Eitr.I18n.tr("Show live window previews when hovering dock icons. Turn off to show titles only.")
+            foreground: view.foreground
+            accent: view.accent
+            checked: styleModel.barDockPreviews !== false
+            onToggled: checked => {
+                if (view.live) {
+                    styleModel.settingRequested("dockPreviews", checked ? "yes" : "no");
+                }
+            }
+        }
+        ToggleRow {
             SettingsTarget { objectName: "setting-bar-reduce-motion" }
             text: Eitr.I18n.tr("Reduce motion")
             description: Eitr.I18n.tr("Minimise decorative movement.")

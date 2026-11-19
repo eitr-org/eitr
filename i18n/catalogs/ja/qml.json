@@ -1049,7 +1049,6 @@
   "backup restore archive export import age migration undo": "バックアップ 復元 アーカイブ エクスポート インポート 移行 取り消し backup restore",
   "browser terminal files file manager text editor image viewer video player music mail pdf mime": "ブラウザー ターミナル ファイル ファイルマネージャー テキストエディター 画像ビューアー 動画プレーヤー 音楽 メール pdf mime",
   "choose a stronger one": "より強力なパスワードを選択してください",
-  "clock islands tabs workspaces dots glyph numbers runes layout position media dock auto-hide": "時計 アイランド タブ ワークスペース ドット グリフ 数字 ルーン レイアウト 位置 メディア dock 自動非表示",
   "ddd MMM dd HH:mm": "ddd MMM dd HH:mm",
   "ddd MMM dd hh:mm AP": "ddd MMM dd hh:mm AP",
   "fingerprint fido tpm firewall authentication": "指紋 fido tpm ファイアウォール 認証",
@@ -1140,5 +1139,16 @@
   "Workspace %1 (%2)": "ワークスペース %1 (%2)",
   "Yes": "はい",
   "Read speed": "読み込み速度",
-  "Write speed": "書き込み速度"
+  "Write speed": "書き込み速度",
+  "Dock previews": "Dock プレビュー",
+  "Show live window previews when hovering dock icons. Turn off to show titles only.": "Dock アイコンにカーソルを合わせたときにウィンドウのライブプレビューを表示します。オフにするとタイトルのみ表示します。",
+  "clock islands tabs workspaces dots glyph numbers runes layout position media dock previews auto-hide": "時計 アイランド タブ ワークスペース ドット グリフ 数字 ルーン レイアウト 位置 メディア dock プレビュー 自動非表示",
+  "Chinese (Pinyin)": "中国語 (Pinyin)",
+  "Configure fcitx5…": "fcitx5 を設定…",
+  "Input Methods": "入力メソッド",
+  "Installed · Ctrl + Space switches input method": "インストール済み · Ctrl + Space で入力メソッドを切り替え",
+  "Japanese (Mozc)": "日本語 (Mozc)",
+  "Korean (Hangul)": "韓国語 (Hangul)",
+  "Optional CJK input method (fcitx5)": "任意の CJK 入力メソッド (fcitx5)",
+  "Recommended for your desktop language (fcitx5)": "デスクトップ言語に推奨 (fcitx5)"
 }

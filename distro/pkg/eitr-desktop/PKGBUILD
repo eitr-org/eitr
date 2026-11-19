@@ -79,7 +79,7 @@ package() {
     [[ $design == eitr ]] || rm -rf -- "$pkgdir/usr/share/eitr/quickshell/lockscreen/themes/$design"
   done < <(find quickshell/lockscreen/themes -name preview.png -print0)
   install -Dm644 -t "$pkgdir/usr/share/eitr" \
-    distro/software.json distro/removable-apps.json distro/plugin-blocklist.json distro/packages.txt distro/apps.txt distro/aur-packages.txt distro/aur-apps.txt distro/local-packages.txt distro/optional-local-packages.txt distro/installers.json distro/PLUGINS.md distro/THEMES.md distro/RECOVERY.md distro/SECURE-BOOT.md distro/FACTORY-RESET.md \
+    distro/software.json distro/removable-apps.json distro/plugin-blocklist.json distro/packages.txt distro/optional-packages.txt distro/apps.txt distro/aur-packages.txt distro/aur-apps.txt distro/local-packages.txt distro/optional-local-packages.txt distro/installers.json distro/PLUGINS.md distro/THEMES.md distro/RECOVERY.md distro/SECURE-BOOT.md distro/FACTORY-RESET.md \
     distro/system-update-policy.conf
   install -Dm644 -t "$pkgdir/usr/share/eitr/hardware" distro/hardware/*.txt
   install -dm755 "$pkgdir/usr/lib/eitr"

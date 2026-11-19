@@ -205,8 +205,10 @@ PanelWindow {
         barEdge: host.barEdge
         clients: dockClientsRef.clients
         dockEnabled: host.barDock && host.barVisible && !FocusMode.enabled
+        dockPreviews: host.barDockPreviews
         foreground: host.fg
         background: host.barBackground()
+        accent: host.activeBg
     }
     WorkspaceOverview {
         workspaceRows: host.workspaceAssignments

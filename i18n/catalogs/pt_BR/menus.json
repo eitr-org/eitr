@@ -805,5 +805,6 @@
   "Zone details": "Detalhes da zona",
   "gh or glab for this account only": "gh ou glab somente para esta conta",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Input Methods": "Métodos de entrada"
 }

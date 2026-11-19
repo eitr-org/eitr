@@ -79,28 +79,18 @@ item says what decides the next step. Remove an item when it ships;
   `us,br` (localectl), so the chip stays hidden there. Options: read the layouts from Xorg's
   `00-keyboard.conf` in the greeter, or sync the session's layouts to SDDM; check which SDDM
   release reports every XKB group first.
+- **Typing Japanese, Korean and Chinese: a live test.** Optional fcitx5 (built 2026-11-18): Walker
+  Install > Input Methods, Settings > Input, the installer's Language step and a first-login offer
+  for ja/ko/zh_CN; Hyprland sets its environment and starts it only when installed, with an
+  Eitr-themed candidate window and Ctrl+Space. Left: install it in a VM and type with each engine.
 - **Ideas from Omarchy 4.5, Ryoku 1.1 and Caelestia (picked by the owner 2026-11-18).**
   Ryoku and Caelestia are GPL-3 and Omarchy MIT: adapted code keeps their notices.
-  - **Copy-code and open-link buttons on notifications** (Omarchy `shell/plugins/notifications/Detect.js`):
-    only when the text names a number as a code, so order numbers and ports are not offered;
-    tested on its own, added to `NotificationCard.qml`'s actions.
   - **AI usage pace** (Ryoku): a trend arrow, ahead of or behind an even pace, and when a
     limit would fill, from the reset time and window length AI Usage already reads.
-  - **Sound output change moment** (Caelestia): "Now using: Headphones" as a clock moment
-    when the default output changes, not a new pop-up.
-  - **Typing Japanese, Korean and Chinese** (Omarchy `docs/input-methods.md`): fcitx5 with a
-    theme-coloured candidate window and a shortcut to switch, packages in `distro/`
-    manifests, offered with those languages.
   - Smaller:
     - **Crash notifications** (Omarchy `omarchy-crash-watch`): a notice when an app
       crashes, with a way to mute that app; Check This PC already reads the coredumps.
     - **Battery warning levels** (Caelestia): the 10% and 5% warnings become settings.
-    - **Window info page** (Caelestia `modules/windowinfo/`): the active window's app, title,
-      process, size, floating and pinned state, with move/float/pin/close; a Control Center
-      or Walker page, no bar icon.
-    - **Disk and network speed tests** (Omarchy): a Control Center page.
-    - **Window previews in the edge dock** (Ryoku): reuse Overview's in-memory previews,
-      with an off switch (a Hyprland capture bug can drop the capture connection).
 
 # 2. To test with the owner
 

@@ -22,6 +22,7 @@ Item {
     property real revealProgress: 1
     readonly property bool hovered: pointer.hovered
     property bool menuOpen: false
+    property Item hoveredSlotItem: null
     property var dragEntry: null
     property var previewPins: []
     readonly property bool dragging: dragEntry !== null
@@ -77,6 +78,11 @@ Item {
         if (dragging) pinsRequested(previewPins);
         dragEntry = null;
     }
+    function slotAnchorRect(slotItem) {
+        if (!slotItem) return Qt.rect(0, 0, 0, 0);
+        var position = icons.mapToItem(dock, slotItem.x, slotItem.y);
+        return vertical ? Qt.rect(0, position.y, width, slotItem.height) : Qt.rect(position.x, 0, slotItem.width, height);
+    }
     signal pinsRequested(var pins)
     signal contextRequested(var entry, point position)
     signal activated(var entry)
@@ -128,6 +134,8 @@ Item {
                         readonly property var application: dock.application(modelData.appClass)
                         readonly property bool eitrTerminal: !application && DockModel.eitrTerminal(modelData.appClass)
                         readonly property string appName: application ? application.name : eitrTerminal ? "Eitr" : modelData.appClass
+                        readonly property string iconSource: application && application.icon ? Quickshell.iconPath(application.icon, true) : ""
+                        Component.onDestruction: if (dock.hoveredSlotItem === slot) dock.hoveredSlotItem = null
                         width: 36; height: 36
                         x: dock.vertical ? 0 : dock.slotPosition(modelData)
                         y: dock.vertical ? dock.slotPosition(modelData) : 0
@@ -203,6 +211,10 @@ Item {
                             property point pressPosition
                             property bool moved: false
                             onPressed: function(event) { pressPosition = mapToItem(icons, event.x, event.y); moved = false; }
+                            onContainsMouseChanged: {
+                                if (containsMouse) dock.hoveredSlotItem = slot;
+                                else if (dock.hoveredSlotItem === slot) dock.hoveredSlotItem = null;
+                            }
                             onPositionChanged: function(event) {
                                 if (!pressed || pressedButtons !== Qt.LeftButton) return;
                                 var point = mapToItem(icons, event.x, event.y);
@@ -220,7 +232,7 @@ Item {
                             }
                         }
                         BarTooltip {
-                            target: slot; hovered: mouse.containsMouse && !dock.dragging && !dock.menuOpen
+                            target: slot; hovered: mouse.containsMouse && !dock.dragging && !dock.menuOpen && slot.modelData.windows.length === 0
                             text: slot.modelData.windows.length > 1 ? slot.appName + " (" + slot.modelData.windows.length + ")" : slot.appName; background: dock.background; foreground: dock.foreground
                         }
                     }

@@ -30,6 +30,22 @@
     "submenu": "languages"
   },
   {
+    "text": "Input Methods",
+    "subtext": ">",
+    "keywords": [
+      "fcitx5",
+      "japanese",
+      "korean",
+      "chinese",
+      "cjk",
+      "mozc",
+      "hangul",
+      "pinyin"
+    ],
+    "icon": "󰗊",
+    "submenu": "input-methods"
+  },
+  {
     "text": "JavaScript Tools",
     "subtext": ">",
     "icon": "󰛦",

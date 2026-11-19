@@ -7,6 +7,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import "../DockModel.js" as DockModel
+import "../JsonState.js" as JsonState
 
 PanelWindow {
     id: dock
@@ -15,7 +16,9 @@ PanelWindow {
     required property var clients
     required property color foreground
     required property color background
+    property color accent: foreground
     property bool dockEnabled: true
+    property bool dockPreviews: true
     property var pinnedEntries: []
     property var menuEntry: null
     property point menuPosition: Qt.point(0, 0)
@@ -76,8 +79,88 @@ PanelWindow {
     onClientsChanged: updateApps()
     onWorkspaceIdChanged: updateApps()
     onPinnedEntriesChanged: updateApps()
+    onAppsChanged: if (previewAppId !== "") syncPreviews()
     Connections { target: surface; function onDesktopEntriesChanged() { Qt.callLater(dock.updateApps); } }
+    Connections { target: Hyprland.toplevels; function onValuesChanged() { if (dock.previewAppId !== "") dock.syncPreviews(); } }
     Component.onCompleted: updateApps()
+    property string previewAppId: ""
+    property rect previewAnchorRect: Qt.rect(0, 0, 0, 0)
+    property string previewAppName: ""
+    property string previewIconSource: ""
+    property bool previewEitrTerminal: false
+    property var previewAddresses: []
+    property var previewWindowMap: ({})
+    readonly property var previewEntry: previewAppId ? (apps.find(entry => entry.id === previewAppId) || null) : null
+    readonly property bool previewOpen: available && !menuOpen && !surface.dragging && previewAppId !== "" && previewAddresses.length > 0
+    readonly property Item hoveredSlot: available && !menuOpen && !surface.dragging && reveal.progress >= 1 ? surface.hoveredSlotItem : null
+    readonly property var hoveredApp: hoveredSlot && hoveredSlot.modelData && hoveredSlot.modelData.windows && hoveredSlot.modelData.windows.length > 0 ? hoveredSlot.modelData : null
+    function syncPreviews() {
+        var entry = previewAppId ? (apps.find(candidate => candidate.id === previewAppId) || null) : null;
+        if (!entry || !entry.windows || entry.windows.length === 0) {
+            previewAppId = "";
+            return;
+        }
+        var items = DockModel.previewWindows(entry, Hyprland.toplevels.values);
+        var nextMap = ({});
+        var nextAddresses = [];
+        for (var item of items) {
+            nextMap[item.address] = item;
+            nextAddresses.push(item.address);
+        }
+        previewWindowMap = nextMap;
+        if (JsonState.changed(previewAddresses, nextAddresses)) previewAddresses = nextAddresses;
+    }
+    function openPreviewForSlot(slotItem) {
+        if (!slotItem || !slotItem.modelData || !slotItem.modelData.windows || slotItem.modelData.windows.length === 0) return;
+        var rect = surface.slotAnchorRect(slotItem);
+        var origin = surface.mapToItem(dock.contentItem, rect.x, rect.y);
+        previewAnchorRect = Qt.rect(origin.x, origin.y, rect.width, rect.height);
+        previewAppName = slotItem.appName || "";
+        previewIconSource = slotItem.iconSource || "";
+        previewEitrTerminal = !!slotItem.eitrTerminal;
+        previewAppId = slotItem.modelData.id;
+        syncPreviews();
+        Hyprland.refreshToplevels();
+    }
+    function closePreviews() {
+        previewOpenDelay.stop();
+        previewCloseDelay.stop();
+        previewAppId = "";
+    }
+    onMenuOpenChanged: if (menuOpen) closePreviews()
+    onHoveredSlotChanged: {
+        if (hoveredSlot && (!hoveredSlot.modelData || hoveredSlot.modelData.windows.length === 0))
+            closePreviews();
+    }
+    onHoveredAppChanged: {
+        if (hoveredApp) {
+            previewCloseDelay.stop();
+            if (previewOpen) {
+                if (hoveredApp.id !== previewAppId) openPreviewForSlot(hoveredSlot);
+            } else {
+                previewOpenDelay.restart();
+            }
+        } else {
+            previewOpenDelay.stop();
+            if (previewOpen && !previewCard.hovered) previewCloseDelay.restart();
+        }
+    }
+    Timer {
+        id: previewOpenDelay
+        interval: 160
+        onTriggered: if (dock.hoveredApp && dock.hoveredSlot) dock.openPreviewForSlot(dock.hoveredSlot)
+    }
+    Timer {
+        id: previewCloseDelay
+        interval: 220
+        onTriggered: if (!dock.hoveredApp && !previewCard.hovered) dock.closePreviews()
+    }
+    Timer {
+        interval: 1000
+        repeat: true
+        running: dock.previewOpen
+        onTriggered: Hyprland.refreshToplevels()
+    }
     readonly property bool available: dockEnabled && !fullscreen && apps.length > 0
     anchors { top: true; bottom: true; left: true; right: true }
     color: "transparent"
@@ -88,19 +171,20 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: menuOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
     visible: available
-    onAvailableChanged: if (!available) { menuEntry = null; surface.dragEntry = null; reveal.revealed = false; }
+    onAvailableChanged: if (!available) { menuEntry = null; surface.dragEntry = null; reveal.revealed = false; closePreviews(); }
     mask: Region {
         width: dock.menuOpen ? dock.width : 0; height: dock.menuOpen ? dock.height : 0
         Region { item: dock.available ? sensor : null }
         Region { item: dock.available && reveal.progress > 0 ? surfaceArea : null }
+        Region { item: dock.available && previewCard.visible ? previewArea : null }
     }
     HyprlandFocusGrab { active: dock.menuOpen; windows: [dock]; onCleared: dock.menuEntry = null }
     BarAutoHide {
         id: reveal
-        held: dock.menuOpen || surface.dragging
+        held: dock.menuOpen || surface.dragging || dock.previewOpen
         autoHide: true
         revealed: false
-        pointerInside: dock.available && (edgeHover.hovered || surface.hovered)
+        pointerInside: dock.available && (edgeHover.hovered || surface.hovered || previewCard.hovered)
     }
     Item {
         id: sensor
@@ -114,6 +198,10 @@ PanelWindow {
     Item {
         id: surfaceArea
         x: surface.x; y: surface.y; width: surface.width; height: surface.height
+    }
+    Item {
+        id: previewArea
+        x: previewCard.x; y: previewCard.y; width: previewCard.width; height: previewCard.height
     }
     MouseArea {
         anchors.fill: parent
@@ -131,18 +219,58 @@ PanelWindow {
         availableLength: Math.max(0, (dock.vertical ? dock.height : dock.width) - 16)
         x: dock.vertical ? (dock.edge === "right" ? dock.width - width : 0) : (dock.width - width) / 2
         y: dock.vertical ? (dock.height - height) / 2 : (dock.edge === "bottom" ? dock.height - height : 0)
+        onDraggingChanged: if (dragging) dock.closePreviews()
         onPinsRequested: function(pins) { dock.savePins(pins); }
         onContextRequested: function(entry, position) {
+            dock.closePreviews();
             dock.menuEntry = entry;
             dock.menuPosition = surface.mapToItem(dock.contentItem, position.x, position.y);
             Qt.callLater(function() { if (dock.menuOpen) menu.forceActiveFocus(); });
         }
         onActivated: function(entry) {
+            dock.closePreviews();
             var target = DockModel.activationTarget(entry);
             if (!target) dock.launch(entry);
             if (target) dock.run(DockModel.windowCommand("focus", target.address));
         }
         onCloseRequested: function(entry) { if (entry.recent) dock.run(DockModel.windowCommand("close", entry.recent.address)); }
+    }
+
+    DockPreviewCard {
+        id: previewCard
+        dockEdge: dock.edge
+        anchorRect: dock.previewAnchorRect
+        screenWidth: dock.width
+        screenHeight: dock.height
+        foreground: dock.foreground
+        background: dock.background
+        accent: dock.accent
+        opened: dock.previewOpen
+        previewsEnabled: dock.dockPreviews
+        appName: dock.previewAppName
+        iconSource: dock.previewIconSource
+        eitrTerminal: dock.previewEitrTerminal
+        windowAddresses: dock.previewAddresses
+        windowMap: dock.previewWindowMap
+        onHoveredChanged: {
+            if (hovered) previewCloseDelay.stop();
+            else if (dock.previewOpen && !dock.hoveredApp) previewCloseDelay.restart();
+        }
+        onVisibleChanged: {
+            if (!visible && !dock.previewOpen) Qt.callLater(function() {
+                if (!previewCard.visible && !dock.previewOpen) {
+                    dock.previewAddresses = [];
+                    dock.previewWindowMap = ({});
+                }
+            });
+        }
+        onFocusRequested: function(address) {
+            dock.closePreviews();
+            dock.run(DockModel.windowCommand("focus", address));
+        }
+        onCloseRequested: function(address) {
+            dock.run(DockModel.windowCommand("close", address));
+        }
     }
 
     Rectangle {

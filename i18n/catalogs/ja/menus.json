@@ -805,5 +805,6 @@
   "Zone details": "ゾーンの詳細",
   "gh or glab for this account only": "このアカウント専用の gh または glab",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Input Methods": "入力メソッド"
 }

@@ -1841,5 +1841,15 @@
   "{subscription_count} subscription(s) are ready in the Azure menu.": "Azure 菜单中已有 {subscription_count} 个订阅就绪。",
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit} 已启用；自下次启动起，快照条目将写入 {entries_path}。",
   "{unit} manages networking; review that custom setup first.": "{unit} 负责管理网络；请先审查该自定义设置。",
-  "… and {count} more": "… 以及另外 {count} 个"
+  "… and {count} more": "… 以及另外 {count} 个",
+  "Chinese (Pinyin)": "中文 (Pinyin)",
+  "Input method": "输入法",
+  "Input method: {input_method}": "输入法：{input_method}",
+  "Install {label} (recommended for typing)": "安装 {label}（建议用于输入）",
+  "Install {label} in Settings > Input or Install > Input Methods to type in this language.": "请在 设置 > 输入 或 Install > Input Methods 中安装 {label} 以输入此语言。",
+  "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods.": "将安装 fcitx5 与 {label}。按 Ctrl + Space 切换输入；您也可以稍后从 Install > Input Methods 安装。",
+  "Japanese (Mozc)": "日语 (Mozc)",
+  "Korean (Hangul)": "韩语 (Hangul)",
+  "Skip for now": "暂时跳过",
+  "fcitx5-configtool is not installed": "未安装 fcitx5-configtool"
 }

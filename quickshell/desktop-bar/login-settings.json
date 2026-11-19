@@ -16,7 +16,8 @@
       "blur-strength": "medium",
       "lyrics": "no",
       "islandStyle": "floating",
-      "sideStyle": "slopes"
+      "sideStyle": "slopes",
+      "dockPreviews": "yes"
     },
     "options": {
       "moments": [
@@ -61,6 +62,10 @@
         "yes"
       ],
       "dock": [
+        "no",
+        "yes"
+      ],
+      "dockPreviews": [
         "no",
         "yes"
       ],

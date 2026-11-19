@@ -808,6 +808,9 @@ msgstr "Suche nach Aktualisierungen offizieller Pakete…"
 msgid "Checking the downloaded copy…"
 msgstr "Die heruntergeladene Kopie wird geprüft…"
 
+msgid "Chinese (Pinyin)"
+msgstr "Chinesisch (Pinyin)"
+
 msgid "Choose Sign In to open the browser."
 msgstr "Wählen Sie Anmelden, um den Browser zu öffnen."
 
@@ -1954,6 +1957,12 @@ msgstr "Initramfs: systemd-Hook sd-encrypt vorhanden; er versucht beim Start, da
 msgid "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 msgstr "Initramfs: Der busybox-Hook 'encrypt' unterstützt keine TPM2-Token. Wechseln Sie zuerst zu systemd und sd-encrypt (siehe RECOVERY.md, TPM disk unlock)."
 
+msgid "Input method"
+msgstr "Eingabemethode"
+
+msgid "Input method: {input_method}"
+msgstr "Eingabemethode: {input_method}"
+
 msgid "Inspect backup contents and manifest"
 msgstr "Sicherungsinhalt und Manifest prüfen"
 
@@ -2008,6 +2017,12 @@ msgstr "Installationsart"
 msgid "Install type {layout} is not available on {path}"
 msgstr "Installationstyp {layout} ist auf {path} nicht verfügbar"
 
+msgid "Install {label} (recommended for typing)"
+msgstr "{label} installieren (zum Tippen empfohlen)"
+
+msgid "Install {label} in Settings > Input or Install > Input Methods to type in this language."
+msgstr "Installiere {label} unter Einstellungen > Eingabe oder Install > Input Methods, um in dieser Sprache zu tippen."
+
 msgid "Install {name} from {source}."
 msgstr "{name} aus {source} installieren."
 
@@ -2046,6 +2061,9 @@ msgstr "Ausgewählte Software wird installiert. Profilergänzungen benötigen ev
 
 msgid "Installing {count} official package(s) in one transaction…"
 msgstr "Installiere {count} offizielle Pakete in einem Durchgang…"
+
+msgid "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods."
+msgstr "Installiert fcitx5 und {label}. Ctrl + Space schaltet die Eingabe um; du kannst dies auch später über Install > Input Methods installieren."
 
 msgid "Instance status"
 msgstr "Instanzstatus"
@@ -2236,6 +2254,9 @@ msgstr "Es erscheint beim nächsten Start und folgt danach deinem Thema. Deine S
 msgid "Its icon and panel come from the official Tailscale plugin. Hide or remove it in Control Center > Plugins."
 msgstr "Symbol und Panel stammen jetzt aus dem offiziellen Tailscale-Plugin. Ausblenden oder entfernen unter Kontrollzentrum > Plugins."
 
+msgid "Japanese (Mozc)"
+msgstr "Japanisch (Mozc)"
+
 msgid "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 msgstr "MEINE DATEIEN BEHALTEN setzt System, Anwendungen und Einstellungen auf den Zustand bei der ersten Anmeldung zurück und behält die Dateien in deinem persönlichen Ordner."
 
@@ -2292,6 +2313,9 @@ msgstr "Tastaturbelegung: NUR VORSCHAU"
 
 msgid "Kitty configuration is missing; start Eitr's user configuration setup first."
 msgstr "Kitty-Konfiguration fehlt; führen Sie zuerst die Eitr-Benutzereinrichtung aus."
+
+msgid "Korean (Hangul)"
+msgstr "Koreanisch (Hangul)"
 
 msgid "Kubernetes"
 msgstr "Kubernetes"
@@ -3868,6 +3892,9 @@ msgstr "Größe ist zu groß"
 msgid "Size needs two positive integers or percentages"
 msgstr "Größe benötigt zwei positive Ganzzahlen oder Prozentwerte"
 
+msgid "Skip for now"
+msgstr "Vorerst überspringen"
+
 msgid "Skip reinstalling recorded packages/apps"
 msgstr "Erfasste Pakete/Apps nicht neu installieren"
 
@@ -5163,6 +5190,9 @@ msgstr "eitr: {command} ist nicht installiert"
 
 msgid "encrypted"
 msgstr "verschlüsselt"
+
+msgid "fcitx5-configtool is not installed"
+msgstr "fcitx5-configtool ist nicht installiert"
 
 msgid "feeding the ravens"
 msgstr "die Raben füttern"

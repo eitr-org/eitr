@@ -20,7 +20,7 @@ Scope {
             host.barIconOrderJson = (value === "reset" || value === "null" || value === "") ? "" : String(value);
             return;
         }
-        var choices = {appearance: ChoiceLists.ids(ChoiceLists.barAppearances), layout: ChoiceLists.ids(ChoiceLists.barLayouts), edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"], lyrics: ["yes", "no"], moments: ["true", "false"], islandStyle: ["floating", "attached"], sideStyle: ["slopes", "straight"]};
+        var choices = {appearance: ChoiceLists.ids(ChoiceLists.barAppearances), layout: ChoiceLists.ids(ChoiceLists.barLayouts), edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], dockPreviews: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"], lyrics: ["yes", "no"], moments: ["true", "false"], islandStyle: ["floating", "attached"], sideStyle: ["slopes", "straight"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") host.barAppearance = value;
         else if (key === "layout") host.barLayout = value;
@@ -34,6 +34,7 @@ Scope {
         else if (key === "screens") host.barScreens = value;
         else if (key === "reduceMotion") DesktopStyle.reduceMotion = value === "yes";
         else if (key === "dock") host.barDock = value === "yes";
+        else if (key === "dockPreviews") host.barDockPreviews = value === "yes";
         else if (key === "autohide") host.barAutoHide = value === "yes";
         else host.barEdge = value;
         host.settingsDirty = true;
@@ -84,6 +85,7 @@ Scope {
                 host.barScreens = settings.screens || "main";
                 host.barAutoHide = settings.autohide === "yes";
                 host.barDock = settings.dock !== "no";
+                host.barDockPreviews = settings.dockPreviews !== "no";
                 DesktopStyle.reduceMotion = settings.reduceMotion === "yes";
                 host.barIconOrderJson = data.iconOrder && typeof data.iconOrder === "object" ? JSON.stringify(data.iconOrder) : "";
     }

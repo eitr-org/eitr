@@ -56,7 +56,7 @@ var pages = [
         "id": "bar",
         "title": "Desktop Bar",
         "description": "Layout, position and desktop bar controls.",
-        "keywords": "clock islands tabs workspaces dots glyph numbers runes layout position media dock auto-hide"
+        "keywords": "clock islands tabs workspaces dots glyph numbers runes layout position media dock previews auto-hide"
     },
     {
         "group": "Desktop",
@@ -204,7 +204,7 @@ var tabs = {
     connections: [{id: "wifi", label: "Wi-Fi", keywords: "wifi network backend wireless"}, {id: "bluetooth", label: "Bluetooth", keywords: "bluetooth pairing"}],
     appearance: [{id: "theme", label: "Theme & Wallpaper", keywords: "theme wallpaper palette"}, {id: "fonts", label: "Fonts & Cursor", keywords: "fonts cursor typography"}, {id: "terminal", label: "Terminal", keywords: "terminal opacity blur fire"}],
     assistant: [{id: "general", label: "General", keywords: "default assistant access collaboration work together"}, {id: "assistants", label: "Assistants", keywords: "claude codex copilot gemini grok opencode pi ollama antigravity install open accounts"}, {id: "usage", label: "Usage", keywords: "ai usage limits session weekly refresh"}],
-    bar: [{id: "layout", label: "Layout", keywords: "layout position show on screens edge"}, {id: "look", label: "Look", keywords: "appearance blur workspace style media clock"}, {id: "icons", label: "Icons", keywords: "icons order zones left right clock reorder organize reset"}, {id: "behaviour", label: "Behaviour", keywords: "auto-hide dock reduce motion keep expanded behavior moments notifications levels songs lyrics lrclib"}],
+    bar: [{id: "layout", label: "Layout", keywords: "layout position show on screens edge"}, {id: "look", label: "Look", keywords: "appearance blur workspace style media clock"}, {id: "icons", label: "Icons", keywords: "icons order zones left right clock reorder organize reset"}, {id: "behaviour", label: "Behaviour", keywords: "auto-hide dock previews thumbnails reduce motion keep expanded behavior moments notifications levels songs lyrics lrclib"}],
     security: [{id: "sign-in", label: "Sign-in", keywords: "fingerprint fido security key authentication password-only"}, {id: "protection", label: "Protection", keywords: "firewall tpm disk unlock encryption"}]
 };
 function resolve(identifier) {

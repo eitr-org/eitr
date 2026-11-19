@@ -135,6 +135,7 @@ hl.env("HYPRCURSOR_SIZE", "24")
 load_theme_env(os.getenv("HOME") .. "/.config/hypr/cursor-env.conf")
 hl.env("XDG_MENU_PREFIX", "arch-")
 hl.env("_JAVA_AWT_WM_NONREPARENTING", "1")
+dofile(paths.code("hypr/input-method.lua"))(paths, shellQuote)
 
 -------------------
 -- Look And Feel --

@@ -1049,7 +1049,6 @@
   "backup restore archive export import age migration undo": "sauvegarde restauration archive exporter importer migration annuler backup restore",
   "browser terminal files file manager text editor image viewer video player music mail pdf mime": "navigateur terminal fichiers gestionnaire éditeur texte visionneuse images lecteur vidéo musique courrier pdf mime",
   "choose a stronger one": "choisissez-en un plus robuste",
-  "clock islands tabs workspaces dots glyph numbers runes layout position media dock auto-hide": "horloge îlots onglets espaces points glyphe nombres runes disposition position média dock masquer",
   "ddd MMM dd HH:mm": "ddd MMM dd HH:mm",
   "ddd MMM dd hh:mm AP": "ddd MMM dd hh:mm AP",
   "fingerprint fido tpm firewall authentication": "empreinte fido tpm pare-feu authentification",
@@ -1140,5 +1139,16 @@
   "Workspace %1 (%2)": "Espace %1 (%2)",
   "Yes": "Oui",
   "Read speed": "Vitesse de lecture",
-  "Write speed": "Vitesse d’écriture"
+  "Write speed": "Vitesse d’écriture",
+  "Dock previews": "Aperçus du dock",
+  "Show live window previews when hovering dock icons. Turn off to show titles only.": "Affiche des aperçus en direct au survol des icônes du dock. Désactivez pour n’afficher que les titres.",
+  "clock islands tabs workspaces dots glyph numbers runes layout position media dock previews auto-hide": "horloge îlots onglets espaces points glyphe nombres runes disposition position média dock aperçus masquer",
+  "Chinese (Pinyin)": "Chinois (Pinyin)",
+  "Configure fcitx5…": "Configurer fcitx5…",
+  "Input Methods": "Méthodes de saisie",
+  "Installed · Ctrl + Space switches input method": "Installé · Ctrl + Space bascule la méthode de saisie",
+  "Japanese (Mozc)": "Japonais (Mozc)",
+  "Korean (Hangul)": "Coréen (Hangul)",
+  "Optional CJK input method (fcitx5)": "Méthode de saisie CJK facultative (fcitx5)",
+  "Recommended for your desktop language (fcitx5)": "Recommandé pour votre langue de bureau (fcitx5)"
 }

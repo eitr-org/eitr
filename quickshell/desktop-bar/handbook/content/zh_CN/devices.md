@@ -40,6 +40,12 @@ Walker > 设置 > 设备 > 输入 > 灯光 可控制 OpenRGB 设备。它默认�
 
 桌面初始使用您在安装程序中选定的键盘。选择美式英语 (US) 会同时提供美式英语和美式国际英语布局，以便通过一次 Alt + Shift 即可输入重音变音符号。
 
+### 输入日语、韩语和中文 (fcitx5)
+
+日语（`fcitx5-mozc`）、韩语（`fcitx5-hangul`）与中文（`fcitx5-chinese-addons`）输入法为可选项，不包含在基础安装中。在安装程序中选择这些语言时会提示是否安装，您也可以随时通过 **设置 > 输入 > 输入法** 或 **Walker > Install > Input Methods** 进行安装。
+
+安装后，Eitr 会生成以您的主键盘布局为首项、紧随所选引擎的 fcitx5 配置文件，在登录时自动启动 `fcitx5`，并按当前 Eitr 主题配色与字体生成候选词窗口主题。按 **Ctrl + Space** 可在拉丁字母输入与当前 CJK 输入法之间切换；如需更多引擎或自定义按键，请打开设置 > 输入中的 **配置 fcitx5…**（`fcitx5-configtool`）。
+
 ### 可选的大写锁定 (Caps Lock) 导航映射
 
 `distro/keyd/navigation.conf.example` 中的可选 keyd 配置可使 Caps Lock 在轻按时发送 Escape。按住 Caps Lock 并按 H/J/K/L 可分别触发左/下/上/右方向键。其他按键保持常规行为。

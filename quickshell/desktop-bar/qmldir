@@ -123,6 +123,7 @@ CenteredBarMask bar/CenteredBarMask.qml
 DockClients services/DockClients.qml
 EdgeDock dock/EdgeDock.qml
 EdgeDockContent dock/EdgeDockContent.qml
+DockPreviewCard dock/DockPreviewCard.qml
 IslandMask bar/IslandMask.qml
 FocusStrip bar/FocusStrip.qml
 PreferenceWatch services/PreferenceWatch.qml
@@ -316,3 +317,4 @@ StopwatchPage 1.0 clock/StopwatchPage.qml
 FocusPage 1.0 clock/FocusPage.qml
 BarMomentSources 1.0 bar/BarMomentSources.qml
 BarMomentPlacement bar/BarMomentPlacement.qml
+SettingsInputMethodsCard 1.0 components/SettingsInputMethodsCard.qml

@@ -1,7 +1,7 @@
 """Eitr's console wizard; collect choices before any installation writes."""
 import eitr_bootstrap
 from eitr_i18n import mark, tr
-from eitr_installer_language import graphical_terminal, select_language
+from eitr_installer_language import graphical_terminal, select_input_method, select_language
 from eitr_users import valid_username
 from eitr_textwidth import wrap_text
 from eitr_wizard import Wizard as BaseWizard, Cancelled, filtered
@@ -151,7 +151,13 @@ def collect(screen, checks, disks):
         try:
             step = STEPS[ui.step]
             if step == "Language":
-                language, values["language"] = select_language(ui, tr('Language'), language, graphical)
+                while True:
+                    language, values["language"] = select_language(ui, tr('Language'), language, graphical)
+                    try:
+                        values["input_method"] = select_input_method(ui, language, graphical)
+                        break
+                    except Cancelled:
+                        continue
             elif step == "Keyboard":
                 values["keyboard"] = ui.choose(tr('Keyboard layout'), keyboards)
                 subprocess.run(["loadkeys", values["keyboard"]], check=True,
@@ -189,6 +195,8 @@ def collect(screen, checks, disks):
                      if alongside else tr('ERASE {path}: {model}', path=disk['path'], model=disk['model'])),
                     tr('Language: {language} / Keyboard: {keyboard}', language=values['language'],
                        keyboard=values['keyboard']),
+                    *([] if not values.get("input_method") else
+                      [tr('Input method: {input_method}', input_method=values['input_method'])]),
                     tr('Timezone: {timezone} / Hostname: {hostname}', timezone=values['timezone'],
                        hostname=values['hostname']),
                     tr('User: {username} / Btrfs / Limine UEFI', username=values['username']),

@@ -27,6 +27,11 @@
     "rails": {"label": "Ruby + Rails", "source": "managed", "packages": ["mise", "libyaml", "openssl", "readline", "zlib", "gmp"], "manager": "mise", "installed": ["~/.local/share/mise/installs/ruby/*/bin/rails"], "uninstall": {"kind": "rails"}},
     "rust": {"label": "Rust + Cargo", "source": "managed", "packages": ["rustup"], "manager": "rustup", "installed": ["~/.rustup/toolchains/stable-*"], "uninstall": {"kind": "rust"}}
   },
+  "input-methods": {
+    "japanese": {"label": "Japanese (Mozc)", "source": "pacman", "packages": ["fcitx5", "fcitx5-gtk", "fcitx5-qt", "fcitx5-configtool", "fcitx5-mozc"]},
+    "korean": {"label": "Korean (Hangul)", "source": "pacman", "packages": ["fcitx5", "fcitx5-gtk", "fcitx5-qt", "fcitx5-configtool", "fcitx5-hangul"]},
+    "chinese": {"label": "Chinese (Pinyin)", "source": "pacman", "packages": ["fcitx5", "fcitx5-gtk", "fcitx5-qt", "fcitx5-configtool", "fcitx5-chinese-addons"]}
+  },
   "javascript": {
     "yarn": {"label": "Yarn", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/yarn"], "uninstall": {"kind": "npm", "package": "yarn"}},
     "pnpm": {"label": "pnpm", "source": "managed", "packages": [], "manager": "NVM / npm", "installed": ["~/.nvm/versions/node/*/bin/pnpm"], "uninstall": {"kind": "npm", "package": "pnpm"}},

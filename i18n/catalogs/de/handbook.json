@@ -229,5 +229,6 @@
   "XF86Calculator": "XF86Calculator",
   "XF86KbdBrightnessDown": "XF86KbdBrightnessDown",
   "XF86KbdBrightnessUp": "XF86KbdBrightnessUp",
-  "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, Reboot-Only Switching und Unternehmenskonfiguration"
+  "iwd, NetworkManager, reboot-only switching and enterprise configuration": "iwd, NetworkManager, Reboot-Only Switching und Unternehmenskonfiguration",
+  "Toggle CJK input method (fcitx5, when installed)": "CJK-Eingabemethode umschalten (fcitx5, falls installiert)"
 }

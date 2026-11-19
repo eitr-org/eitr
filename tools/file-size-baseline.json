@@ -30,11 +30,11 @@
       "reason": "One destructive transaction, kept together so it can be reviewed in one place."
     },
     "hypr/hyprland.lua": {
-      "lines": 651,
+      "lines": 652,
       "reason": "One compositor configuration, including preference-backed layout options and bindings; machine-specific settings live in local.lua."
     },
     "quickshell/desktop-bar/bar/BarWindow.qml": {
-      "lines": 515,
+      "lines": 517,
       "reason": "One per-screen bar host, including layout geometry, shared moments, clock-slot extents, and per-bar icon registry."
     },
     "quickshell/desktop-bar/panels/CalendarMenu.qml": {

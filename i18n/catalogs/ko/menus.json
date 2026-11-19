@@ -805,5 +805,6 @@
   "Zone details": "영역 세부 정보",
   "gh or glab for this account only": "이 계정 전용 gh 또는 glab",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Input Methods": "입력기"
 }

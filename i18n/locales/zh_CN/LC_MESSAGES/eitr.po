@@ -808,6 +808,9 @@ msgstr "正在检查官方软件包更新…"
 msgid "Checking the downloaded copy…"
 msgstr "正在检查下载的副本…"
 
+msgid "Chinese (Pinyin)"
+msgstr "中文 (Pinyin)"
+
 msgid "Choose Sign In to open the browser."
 msgstr "选择“登录”以打开浏览器。"
 
@@ -1954,6 +1957,12 @@ msgstr "Initramfs：存在 systemd sd-encrypt 钩子；将在引导时尝试使�
 msgid "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 msgstr "Initramfs：busybox 的“encrypt”钩子无法使用 TPM2 令牌。请先切换到 systemd 和 sd-encrypt 钩子（参见 RECOVERY.md 中的“TPM 磁盘解锁”）。"
 
+msgid "Input method"
+msgstr "输入法"
+
+msgid "Input method: {input_method}"
+msgstr "输入法：{input_method}"
+
 msgid "Inspect backup contents and manifest"
 msgstr "检查备份内容与清单"
 
@@ -2008,6 +2017,12 @@ msgstr "安装类型"
 msgid "Install type {layout} is not available on {path}"
 msgstr "安装类型 {layout} 在 {path} 上不可用"
 
+msgid "Install {label} (recommended for typing)"
+msgstr "安装 {label}（建议用于输入）"
+
+msgid "Install {label} in Settings > Input or Install > Input Methods to type in this language."
+msgstr "请在 设置 > 输入 或 Install > Input Methods 中安装 {label} 以输入此语言。"
+
 msgid "Install {name} from {source}."
 msgstr "从 {source} 安装 {name}。"
 
@@ -2046,6 +2061,9 @@ msgstr "正在安装所选软件。配置文件的补充项可能需要连接互
 
 msgid "Installing {count} official package(s) in one transaction…"
 msgstr "正在单次事务中安装 {count} 个官方软件包…"
+
+msgid "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods."
+msgstr "将安装 fcitx5 与 {label}。按 Ctrl + Space 切换输入；您也可以稍后从 Install > Input Methods 安装。"
 
 msgid "Instance status"
 msgstr "实例状态"
@@ -2236,6 +2254,9 @@ msgstr "它将在下次启动时显示，并从此沿用您的主题。您的引
 msgid "Its icon and panel come from the official Tailscale plugin. Hide or remove it in Control Center > Plugins."
 msgstr "其图标和面板来自官方 Tailscale 插件。请在“控制中心 > 插件”中隐藏或移除它。"
 
+msgid "Japanese (Mozc)"
+msgstr "日语 (Mozc)"
+
 msgid "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 msgstr "“保留我的文件”会将系统、应用和设置恢复到首次登录时的状态，并保留主文件夹中的文件。"
 
@@ -2292,6 +2313,9 @@ msgstr "键盘布局：仅供预览"
 
 msgid "Kitty configuration is missing; start Eitr's user configuration setup first."
 msgstr "缺少 Kitty 配置；请先启动 Eitr 用户配置设置。"
+
+msgid "Korean (Hangul)"
+msgstr "韩语 (Hangul)"
 
 msgid "Kubernetes"
 msgstr "Kubernetes"
@@ -3868,6 +3892,9 @@ msgstr "大小过大"
 msgid "Size needs two positive integers or percentages"
 msgstr "大小需要两个正整数或百分比"
 
+msgid "Skip for now"
+msgstr "暂时跳过"
+
 msgid "Skip reinstalling recorded packages/apps"
 msgstr "跳过重装记录的软件包/应用"
 
@@ -5163,6 +5190,9 @@ msgstr "eitr：{command} 未安装"
 
 msgid "encrypted"
 msgstr "已加密"
+
+msgid "fcitx5-configtool is not installed"
+msgstr "未安装 fcitx5-configtool"
 
 msgid "feeding the ravens"
 msgstr "喂养渡鸦"

@@ -310,7 +310,7 @@ class GuidedInstallTests(unittest.TestCase):
 
     def test_installation_runs_every_step_before_the_reboot(self):
         script = (GUIDED / "eitr-guided-install").read_text()
-        order = ["run_archinstall(config", "install_desktop),", "set_up_desktop(installed_user",
+        order = ["run_archinstall(config", "install_desktop", "set_up_desktop(installed_user",
                  "set_up_boot(choices", "restore_online_sources),", "save_factory_reset_point)]", "eitr-install.log", "ui.finished(total)",
                  '"systemctl", "poweroff"']
         positions = [script.index(item) for item in order]

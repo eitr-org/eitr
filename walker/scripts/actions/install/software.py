@@ -241,6 +241,9 @@ def recipe(group, identifier):
             run(["bash", str(SCRIPT.with_name("development.sh")), identifier])
         if group == "languages" and identifier == "mise":
             print(tr('To enable mise, add eval "$(mise activate zsh)" to ~/.zshrc. It can conflict with nvm/uv for the same runtime.'))
+        if group == "input-methods":
+            import eitr_input_methods
+            eitr_input_methods.setup(identifier)
 
 
 def recipe_launch(group, identifier):

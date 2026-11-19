@@ -808,6 +808,9 @@ msgstr "公式パッケージのアップデートを確認中…"
 msgid "Checking the downloaded copy…"
 msgstr "ダウンロードしたコピーを確認中…"
 
+msgid "Chinese (Pinyin)"
+msgstr "中国語 (Pinyin)"
+
 msgid "Choose Sign In to open the browser."
 msgstr "ブラウザを開くには「サインイン」を選択してください。"
 
@@ -1954,6 +1957,12 @@ msgstr "Initramfs: systemd の sd-encrypt フックが存在します。起動�
 msgid "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 msgstr "Initramfs: busybox の 'encrypt' フックはTPM2トークンを使用できません。先に systemd および sd-encrypt フックに切り替えてください（RECOVERY.md の TPM disk unlock を参照）。"
 
+msgid "Input method"
+msgstr "入力メソッド"
+
+msgid "Input method: {input_method}"
+msgstr "入力メソッド: {input_method}"
+
 msgid "Inspect backup contents and manifest"
 msgstr "バックアップ内容とマニフェストを確認"
 
@@ -2008,6 +2017,12 @@ msgstr "インストールタイプ"
 msgid "Install type {layout} is not available on {path}"
 msgstr "インストールタイプ {layout} は {path} で利用できません"
 
+msgid "Install {label} (recommended for typing)"
+msgstr "{label} をインストール（入力に推奨）"
+
+msgid "Install {label} in Settings > Input or Install > Input Methods to type in this language."
+msgstr "この言語を入力するには、設定 > 入力 または Install > Input Methods から {label} をインストールしてください。"
+
 msgid "Install {name} from {source}."
 msgstr "{source} から {name} をインストールしてください。"
 
@@ -2046,6 +2061,9 @@ msgstr "選択したソフトウェアをインストールしています。プ
 
 msgid "Installing {count} official package(s) in one transaction…"
 msgstr "{count} 個の公式パッケージを一括インストール中…"
+
+msgid "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods."
+msgstr "fcitx5 と {label} をインストールします。Ctrl + Space で入力を切り替えます。後で Install > Input Methods からインストールすることもできます。"
 
 msgid "Instance status"
 msgstr "インスタンスの状態"
@@ -2236,6 +2254,9 @@ msgstr "次回の起動時に表示され、それ以降はテーマに従いま
 msgid "Its icon and panel come from the official Tailscale plugin. Hide or remove it in Control Center > Plugins."
 msgstr "そのアイコンとパネルは公式Tailscaleプラグインから提供されています。「コントロールセンター > プラグイン」で非表示または削除できます。"
 
+msgid "Japanese (Mozc)"
+msgstr "日本語 (Mozc)"
+
 msgid "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 msgstr "「個人用ファイルを保持」はシステム、アプリ、設定を初回ログイン時の状態に戻し、ホームフォルダー内のファイルは保持します。"
 
@@ -2292,6 +2313,9 @@ msgstr "キーボードレイアウト: プレビューのみ"
 
 msgid "Kitty configuration is missing; start Eitr's user configuration setup first."
 msgstr "Kittyの設定が見つかりません。先にEitrのユーザー設定セットアップを開始してください。"
+
+msgid "Korean (Hangul)"
+msgstr "韓国語 (Hangul)"
 
 msgid "Kubernetes"
 msgstr "Kubernetes"
@@ -3868,6 +3892,9 @@ msgstr "サイズが大きすぎます"
 msgid "Size needs two positive integers or percentages"
 msgstr "サイズには正の整数または割合が2つ必要です"
 
+msgid "Skip for now"
+msgstr "今はスキップ"
+
 msgid "Skip reinstalling recorded packages/apps"
 msgstr "記録されたパッケージ/アプリの再インストールをスキップ"
 
@@ -5163,6 +5190,9 @@ msgstr "eitr: {command} はインストールされていません"
 
 msgid "encrypted"
 msgstr "暗号化済み"
+
+msgid "fcitx5-configtool is not installed"
+msgstr "fcitx5-configtool がインストールされていません"
 
 msgid "feeding the ravens"
 msgstr "大ガラスに餌を与えています"

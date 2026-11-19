@@ -1841,5 +1841,15 @@
   "{subscription_count} subscription(s) are ready in the Azure menu.": "{subscription_count} suscripción(es) disponible(s) en el menú Azure.",
   "{unit} is enabled; snapshot entries are written to {entries_path} from the next boot.": "{unit} está habilitado; las entradas de instantáneas se escribirán en {entries_path} desde el próximo arranque.",
   "{unit} manages networking; review that custom setup first.": "{unit} gestiona la red; revisa primero esa configuración personalizada.",
-  "… and {count} more": "… y {count} más"
+  "… and {count} more": "… y {count} más",
+  "Chinese (Pinyin)": "Chino (Pinyin)",
+  "Input method": "Método de entrada",
+  "Input method: {input_method}": "Método de entrada: {input_method}",
+  "Install {label} (recommended for typing)": "Instalar {label} (recomendado para escribir)",
+  "Install {label} in Settings > Input or Install > Input Methods to type in this language.": "Instala {label} en Configuración > Entrada o Install > Input Methods para escribir en este idioma.",
+  "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods.": "Instala fcitx5 y {label}. Ctrl + Space alterna la entrada; también puedes instalarlo después desde Install > Input Methods.",
+  "Japanese (Mozc)": "Japonés (Mozc)",
+  "Korean (Hangul)": "Coreano (Hangul)",
+  "Skip for now": "Omitir por ahora",
+  "fcitx5-configtool is not installed": "fcitx5-configtool no está instalado"
 }

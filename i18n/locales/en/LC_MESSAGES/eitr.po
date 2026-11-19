@@ -808,6 +808,9 @@ msgstr "Checking official package updates…"
 msgid "Checking the downloaded copy…"
 msgstr "Checking the downloaded copy…"
 
+msgid "Chinese (Pinyin)"
+msgstr "Chinese (Pinyin)"
+
 msgid "Choose Sign In to open the browser."
 msgstr "Choose Sign In to open the browser."
 
@@ -1954,6 +1957,12 @@ msgstr "Initramfs: systemd sd-encrypt hook present; it tries the TPM2 token at b
 msgid "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 msgstr "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock)."
 
+msgid "Input method"
+msgstr "Input method"
+
+msgid "Input method: {input_method}"
+msgstr "Input method: {input_method}"
+
 msgid "Inspect backup contents and manifest"
 msgstr "Inspect backup contents and manifest"
 
@@ -2008,6 +2017,12 @@ msgstr "Install type"
 msgid "Install type {layout} is not available on {path}"
 msgstr "Install type {layout} is not available on {path}"
 
+msgid "Install {label} (recommended for typing)"
+msgstr "Install {label} (recommended for typing)"
+
+msgid "Install {label} in Settings > Input or Install > Input Methods to type in this language."
+msgstr "Install {label} in Settings > Input or Install > Input Methods to type in this language."
+
 msgid "Install {name} from {source}."
 msgstr "Install {name} from {source}."
 
@@ -2046,6 +2061,9 @@ msgstr "Installing the selected software. Profile additions may need the interne
 
 msgid "Installing {count} official package(s) in one transaction…"
 msgstr "Installing {count} official package(s) in one transaction…"
+
+msgid "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods."
+msgstr "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods."
 
 msgid "Instance status"
 msgstr "Instance status"
@@ -2236,6 +2254,9 @@ msgstr "It shows at the next boot and follows your theme from then on. Your boot
 msgid "Its icon and panel come from the official Tailscale plugin. Hide or remove it in Control Center > Plugins."
 msgstr "Its icon and panel come from the official Tailscale plugin. Hide or remove it in Control Center > Plugins."
 
+msgid "Japanese (Mozc)"
+msgstr "Japanese (Mozc)"
+
 msgid "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 msgstr "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder."
 
@@ -2292,6 +2313,9 @@ msgstr "Keyboard layout: PREVIEW ONLY"
 
 msgid "Kitty configuration is missing; start Eitr's user configuration setup first."
 msgstr "Kitty configuration is missing; start Eitr's user configuration setup first."
+
+msgid "Korean (Hangul)"
+msgstr "Korean (Hangul)"
 
 msgid "Kubernetes"
 msgstr "Kubernetes"
@@ -3868,6 +3892,9 @@ msgstr "Size is too large"
 msgid "Size needs two positive integers or percentages"
 msgstr "Size needs two positive integers or percentages"
 
+msgid "Skip for now"
+msgstr "Skip for now"
+
 msgid "Skip reinstalling recorded packages/apps"
 msgstr "Skip reinstalling recorded packages/apps"
 
@@ -5163,6 +5190,9 @@ msgstr "eitr: {command} is not installed"
 
 msgid "encrypted"
 msgstr "encrypted"
+
+msgid "fcitx5-configtool is not installed"
+msgstr "fcitx5-configtool is not installed"
 
 msgid "feeding the ravens"
 msgstr "feeding the ravens"

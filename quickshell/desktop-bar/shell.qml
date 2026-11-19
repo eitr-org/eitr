@@ -139,6 +139,7 @@ ShellRoot {
     property bool barPinned: false
     property bool barAutoHide: false
     property bool barDock: true
+    property bool barDockPreviews: true
     DockClients { id: dockClients; observing: shell.barDock && !FocusMode.enabled }
     property string barMediaStyle: "bars"
     property string barClock: "12h"

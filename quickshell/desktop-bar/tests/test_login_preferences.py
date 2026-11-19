@@ -27,7 +27,7 @@ class LoginPreferencesTests(unittest.TestCase):
                 (folder / 'PluginRegistry.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property string clockFormat: "12h"; property var palette: ({}) }')
                 (folder / 'qmldir').write_text('singleton DesktopStyle DesktopStyle.qml\nsingleton PluginRegistry PluginRegistry.qml\nBarPreferences BarPreferences.qml\nPreferenceWatch PreferenceWatch.qml\n')
                 fields = set(re.findall(r'host\.([A-Za-z]+)', source))
-                booleans = {'settingsDirty', 'barPinned', 'barLyrics', 'barMoments', 'barAutoHide', 'barDock', 'barVisible', 'idleLockEnabled'}
+                booleans = {'settingsDirty', 'barPinned', 'barLyrics', 'barMoments', 'barAutoHide', 'barDock', 'barDockPreviews', 'barVisible', 'idleLockEnabled'}
                 integers = {'workspaceCount'}
                 properties = '\n'.join('property ' + ('bool' if field in booleans else 'int' if field in integers else 'string') + ' ' + field + ': ' + ('false' if field in booleans else '5' if field in integers else '""') for field in sorted(fields))
                 expected = {'dynamic': 'dynamic', 'split': 'centered'}.get(saved['layout'], 'unified')

@@ -17,3 +17,7 @@ git iwd pciutils python sudo
 @desktop
 wireguard-tools
 networkmanager-openvpn networkmanager-openconnect
+# Optional CJK input methods (offered when installing Japanese, Korean or Chinese).
+fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-mozc
+fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-hangul
+fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-chinese-addons

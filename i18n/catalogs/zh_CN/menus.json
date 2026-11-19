@@ -805,5 +805,6 @@
   "Zone details": "区域详情",
   "gh or glab for this account only": "仅为此账户使用 gh 或 glab",
   "iwd": "iwd",
-  "{service} · {url}": "{service} · {url}"
+  "{service} · {url}": "{service} · {url}",
+  "Input Methods": "输入法"
 }

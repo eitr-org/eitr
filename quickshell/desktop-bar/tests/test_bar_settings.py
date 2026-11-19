@@ -141,7 +141,7 @@ class BarSettingsTests(unittest.TestCase):
             self.assertEqual(bar_settings.read_settings(), {**bar_settings.DEFAULTS, 'version': 1})
             bar_settings.save_settings({"appearance": "solid", "edge": "left"})
             self.assertEqual(bar_settings.read_settings(), {
-                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "moments": True, "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes", "version": 1
+                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "moments": True, "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes", "dockPreviews": "yes", "version": 1
             })
             bar_settings.save_settings({"layout": "centered"})
             self.assertEqual(bar_settings.read_settings()["appearance"], "solid")
@@ -172,6 +172,25 @@ class BarSettingsTests(unittest.TestCase):
                 bar_settings.save_settings({"dock": True})
             bar_settings.SETTINGS.write_text('{"dock":"invalid"}')
             self.assertEqual(bar_settings.read_settings()["dock"], "yes")
+            self.refresh_walker.assert_not_called()
+
+    def test_dock_previews_defaults_to_yes_and_persists(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):
+            self.assertEqual(bar_settings.read_settings()["dockPreviews"], "yes")
+            bar_settings.save_settings({"dockPreviews": "no", "dock": "yes"})
+            self.assertEqual(bar_settings.read_settings()["dockPreviews"], "no")
+            self.assertEqual(bar_settings.read_settings()["dock"], "yes")
+            # Positional set-all must preserve dockPreviews on disk.
+            bar_settings.save_settings(dict(zip(
+                ("appearance", "layout", "edge", "pinned", "screens", "autohide",
+                 "reduceMotion", "mediaStyle", "dock", "clock", "moments"),
+                ("solid", "unified", "top", "no", "main", "no", "no", "bars", "yes", "12h", True),
+            )))
+            self.assertEqual(bar_settings.read_settings()["dockPreviews"], "no")
+            with self.assertRaises(ValueError):
+                bar_settings.save_settings({"dockPreviews": False})
+            bar_settings.SETTINGS.write_text('{"dockPreviews":"sometimes"}')
+            self.assertEqual(bar_settings.read_settings()["dockPreviews"], "yes")
             self.refresh_walker.assert_not_called()
 
     def test_autohide_persists_without_changing_other_preferences(self):
@@ -232,18 +251,22 @@ class AutoHideLayoutTests(unittest.TestCase):
     def test_native_dock_control_fits_both_palettes(self):
         self.render_setting(False, dock=True)
 
-    def render_setting(self, reduce_motion, dock=False):
+    def test_native_dock_previews_control_fits_german_in_both_palettes(self):
+        self.render_setting(False, dock_previews=True)
+
+    def render_setting(self, reduce_motion, dock=False, dock_previews=False):
         # The Settings window's Desktop Bar page owns these switches.
         bar = Path(__file__).resolve().parents[1]
         source = (bar / "settings/SettingsBarPage.qml").read_text()
-        label = "Dock" if dock else "Reduce motion" if reduce_motion else "Auto-hide"
+        label = "Dock previews" if dock_previews else "Dock" if dock else "Reduce motion" if reduce_motion else "Auto-hide"
         control = source.index(f'text: Eitr.I18n.tr("{label}")')
         start = source.rfind("        ToggleRow {", 0, control)
         end = source.index("\n        }", control) + len("\n        }")
         row = source[start:end].replace("ToggleRow {", "Bar.ToggleRow {\n            id: settingRow; width: 380", 1)
         row = row.replace("SettingsTarget {", "Bar.SettingsTarget {")
         for old, new in (("view.foreground", "center.foreground"), ("view.accent", "center.accent"), ("view.live", "true"),
-                         ("styleModel.settingRequested", "center.settingRequested"), ("styleModel.barDock", "center.barAutoHide"),
+                         ("styleModel.settingRequested", "center.settingRequested"), ("styleModel.barDockPreviews", "center.barAutoHide"),
+                         ("styleModel.barDock", "center.barAutoHide"),
                          ("styleModel.barAutoHide", "center.barAutoHide"), ("DesktopStyle.reduceMotion", "center.barAutoHide")):
             row = row.replace(old, new)
         for light in (False, True):
@@ -290,8 +313,8 @@ ShellRoot {
 }'''.replace("BAR", bar.as_uri())
                     .replace("FOREGROUND", "#252936" if light else "#e9eef1")
                     .replace("BACKGROUND", "#f5f0e7" if light else "#18212b").replace("ROW", row)
-                    .replace("Automatisch ausblenden", "Dock" if dock else "Bewegung reduzieren" if reduce_motion else "Automatisch ausblenden")
-                    .replace("CAPTURE", str(captures / (("reduce-motion" if reduce_motion else "auto-hide") + ("-control-light.png" if light else "-control-dark.png")))))
+                    .replace("Automatisch ausblenden", "Dock-Vorschauen" if dock_previews else "Dock" if dock else "Bewegung reduzieren" if reduce_motion else "Automatisch ausblenden")
+                    .replace("CAPTURE", str(captures / (("dock-previews" if dock_previews else "reduce-motion" if reduce_motion else "auto-hide") + ("-control-light.png" if light else "-control-dark.png")))))
                 environment = dict(os.environ, QT_QPA_PLATFORM="offscreen", QT_QUICK_BACKEND="software",
                                    QML_IMPORT_PATH=str(bar.parent), EITR_CODE_ROOT=str(bar.parents[1]),
                                    XDG_CONFIG_HOME=directory, XDG_STATE_HOME=directory, XDG_DATA_HOME=directory,

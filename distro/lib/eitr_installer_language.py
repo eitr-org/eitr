@@ -2,6 +2,7 @@
 import os
 
 from eitr_i18n import languages, mark, translator, use_locale
+from eitr_input_methods import PRESETS as INPUT_METHOD_PRESETS, preset_for_locale
 from eitr_language import LOCALES
 from eitr_textwidth import wrap_text
 
@@ -48,3 +49,22 @@ def select_language(wizard, title, current, graphical):
         wizard.choice_index = 0
     use_locale(drawable_language(key, graphical))
     return key, LOCALES[key]
+
+
+def select_input_method(wizard, key, graphical):
+    """When a CJK language is chosen, offer its optional fcitx5 input method."""
+    preset_id = preset_for_locale(key)
+    if not preset_id:
+        return ""
+    preset = INPUT_METHOD_PRESETS[preset_id]
+    active = translator(drawable_language(key, graphical))
+    label = active.gettext(preset["label"])
+    options = [
+        (active.gettext(mark("Install {label} (recommended for typing)")).format(label=label), preset_id),
+        (active.gettext(mark("Skip for now")), ""),
+    ]
+    note = wrap_text(
+        active.gettext(mark("Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods.")).format(label=label),
+        wizard.body_width,
+    )
+    return wizard.choose(active.gettext(mark("Input method")), options, details=lambda highlighted: note)

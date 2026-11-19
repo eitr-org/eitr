@@ -137,8 +137,10 @@ Item {
     property string barEdge: "top"
     property var clients: []
     property bool dockEnabled: false
+    property bool dockPreviews: true
     property color foreground
     property color background
+    property color accent
     visible: false
 }
 """
@@ -418,6 +420,7 @@ ShellRoot {{
     property bool barPinned: true
     property bool barAutoHide: false
     property bool barDock: false
+    property bool barDockPreviews: true
     property string barMediaStyle: "bars"
     property string barClock: "24h"
     property bool barMoments: false

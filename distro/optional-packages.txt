@@ -1,0 +1,8 @@
+# Official Arch repository packages offered optionally (Input Methods in Walker and CJK installer/first-login).
+fcitx5
+fcitx5-gtk
+fcitx5-qt
+fcitx5-configtool
+fcitx5-mozc
+fcitx5-hangul
+fcitx5-chinese-addons

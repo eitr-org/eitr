@@ -40,6 +40,12 @@ Abre Configuración > Entrada. Elige un idioma o variante en Añadir distribuci�
 
 El escritorio comienza con el teclado elegido en el instalador. Elegir US incluye US y US International: basta Alt + Shift para acceder a los acentos.
 
+### Escribir japonés, coreano y chino (fcitx5)
+
+Los métodos de entrada para japonés (`fcitx5-mozc`), coreano (`fcitx5-hangul`) y chino (`fcitx5-chinese-addons`) son opcionales y no forman parte de la instalación base. Se ofrecen al elegir esos idiomas en el instalador y pueden instalarse en cualquier momento desde **Configuración > Entrada > Métodos de entrada** o **Walker > Instalar > Métodos de entrada**.
+
+Al instalar uno, Eitr prepara un perfil de fcitx5 con tu primera distribución de teclado seguida del motor elegido, inicia `fcitx5` automáticamente al abrir sesión y genera un tema para la ventana de candidatos con los colores y la tipografía actuales de Eitr. Pulsa **Ctrl + Space** para alternar entre escritura latina y el método CJK activo, y usa `fcitx5-configtool` (**Configurar fcitx5…** en Configuración > Entrada) para añadir motores o personalizar atajos.
+
 ### Navegación opcional con Caps Lock
 
 La configuración opcional de keyd en `distro/keyd/navigation.conf.example` hace que una pulsación breve de Caps Lock envíe Escape. Mantén Caps Lock y pulsa H/J/K/L para izquierda/abajo/arriba/derecha. Las otras teclas conservan su comportamiento.

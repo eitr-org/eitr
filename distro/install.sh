@@ -218,6 +218,10 @@ seed_user() {
   # the default US + US International, and an existing choice is never replaced.
   python3 "$repo_root/quickshell/desktop-bar/scripts/keyboard-layout.py" seed-from-system >/dev/null ||
     printf 'Could not apply the installer keyboard layout; choose it in the Keyboard panel.\n' >&2
+  if [[ -n ${EITR_INPUT_METHOD:-} ]] && command -v fcitx5 >/dev/null 2>&1; then
+    python3 "$repo_root/distro/lib/eitr_input_methods.py" seed "$EITR_INPUT_METHOD" >/dev/null ||
+      printf 'Could not configure the input method; choose Install > Input Methods after login.\n' >&2
+  fi
   # OBS records into the Videos folder's Records instead of its default, the home folder.
   if command -v obs >/dev/null 2>&1; then
     python3 "$repo_root/quickshell/desktop-bar/scripts/obs-control.py" default-folder >/dev/null ||

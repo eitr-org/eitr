@@ -111,11 +111,11 @@ Touch the screen edge opposite the bar to reveal the application dock. It unfold
 
 The dock shows pinned apps first, followed by other open applications in Hyprland’s window order. Each 36 px icon slot has a 6 px gap and uses the application’s desktop icon, with a glyph fallback; Eitr’s own task and menu terminals share one Eitr logo icon. Dots below an icon count its windows, up to three, and dim when none is on the current workspace of that screen.
 
-Hover for its name and window count; icons near the pointer grow, the closest one most, and the dock lengthens to keep them inside, unless **Reduce motion** is on. Click to focus its most recently used window (including switching workspace); click again to move to its next window. Middle-click closes the most recent window.
+Hover a closed pinned app for its name; hover an app with open windows to open a card beside the icon showing a live preview for each open window with its title underneath. Click a preview to focus that window, or middle-click a preview to close it. Previews capture only while the card is open; icons near the pointer grow, the closest one most, and the dock lengthens to keep them inside, unless **Reduce motion** is on. Click a dock icon to focus its most recently used window (including switching workspace); click again to move to its next window. Middle-click closes the most recent window.
 
-Long lists scroll along the dock. The surface follows Blur/Theme Color and the corner preference.
+Long lists scroll along the dock. Both the dock and its preview card follow Blur/Theme Color, the corner preference and **Reduce motion**, and the card stays within the screen.
 
-**Dock** in **Settings > Desktop Bar** turns it off or on. The `dock` setting in `bar-settings.json` defaults to `"yes"`. There is no dock shortcut.
+**Dock** in **Settings > Desktop Bar** turns it off or on. **Dock previews** on the same Behaviour tab turns live window previews off or on (on by default; when off, the hover card lists window titles only). The `dock` and `dockPreviews` settings in `bar-settings.json` both default to `"yes"`. There is no dock shortcut.
 
 Pinned apps stay at full opacity with no dots when closed; click one to launch it in its own application scope. Right-click an icon for Keep in Dock / Remove from Dock, New Window (when a desktop entry is available), and Close or Close All Windows. Escape or a click outside dismisses the menu. Apps without a desktop entry cannot be pinned.
 

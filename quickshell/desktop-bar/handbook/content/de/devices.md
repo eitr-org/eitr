@@ -40,6 +40,12 @@ Die HDR-Wiedergabe im Browser hängt außerdem von dessen Unterstützung und Ein
 
 Der Desktop startet mit der im Installationsprogramm gewählten Tastatur. US richtet US und US International ein; Akzente sind damit über Alt + Shift erreichbar.
 
+### Japanisch, Koreanisch und Chinesisch schreiben (fcitx5)
+
+Eingabemethoden für Japanisch (`fcitx5-mozc`), Koreanisch (`fcitx5-hangul`) und Chinesisch (`fcitx5-chinese-addons`) sind optional und gehören nicht zur Basisinstallation. Sie werden bei der Installation für diese Sprachen angeboten und lassen sich jederzeit unter **Einstellungen > Eingabe > Eingabemethoden** oder **Walker > Installieren > Eingabemethoden** nachinstallieren.
+
+Bei der Installation richtet Eitr ein fcitx5-Profil mit deiner ersten Tastaturbelegung und der gewählten Engine ein, startet `fcitx5` bei der Anmeldung automatisch und passt das Kandidatenfenster an die aktuellen Eitr-Farben und deine Schriftart an. Mit **Ctrl + Space** wechselst du zwischen direkter Eingabe und der aktiven CJK-Eingabemethode; weitere Engines oder eigene Tasten lassen sich über `fcitx5-configtool` (**fcitx5 konfigurieren…** in Einstellungen > Eingabe) einrichten.
+
 ### Optionale Navigation mit Caps Lock
 
 Die optionale keyd-Konfiguration `distro/keyd/navigation.conf.example` sendet bei kurzem Drücken von Caps Lock Escape. Halte Caps Lock und drücke H/J/K/L für Links/Unten/Oben/Rechts. Andere Tasten behalten ihr Verhalten.

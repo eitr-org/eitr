@@ -9,7 +9,10 @@ class KeyboardDomain:
 
     def read(self, topic):
         devices = self.helper['keyboards']()
-        keyboard = next((entry for entry in devices if entry.get('main')), devices[0] if devices else None)
+        selector = self.helper.get('primary_keyboard')
+        keyboard = selector(devices) if selector else next(
+            (entry for entry in devices if entry.get('main')), devices[0] if devices else None
+        )
         if keyboard is None:
             return {'layouts': [], 'active': -1}
         return {'layouts': self.helper['options'](keyboard), 'active': keyboard.get('active_layout_index', 0)}

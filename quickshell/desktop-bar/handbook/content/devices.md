@@ -75,6 +75,21 @@ Open Settings > Input. Choose a language or variant in Add Layout and press Add;
 The desktop starts with the keyboard you chose in the installer. Choosing US
 gives both US and US International, so accents are one Alt + Shift away.
 
+### Typing Japanese, Korean and Chinese (fcitx5)
+
+Input methods for Japanese (`fcitx5-mozc`), Korean (`fcitx5-hangul`) and
+Chinese (`fcitx5-chinese-addons`) are optional and kept out of the base
+installation. They are offered when choosing Japanese, Korean or Chinese during
+installation, and can be installed at any time from **Settings > Input > Input
+Methods** or **Walker > Install > Input Methods**.
+
+Installing an input method seeds an fcitx5 profile with your first keyboard
+layout followed by the chosen engine, starts `fcitx5` automatically at login,
+and generates a candidate-window theme matching your current Eitr colors and
+font. Press **Ctrl + Space** to switch between Latin input and the active CJK
+input method, and use `fcitx5-configtool` (**Configure fcitx5…** in Settings >
+Input) for extra engines or custom keys.
+
 ### Optional Caps Lock navigation
 
 The optional keyd configuration in `distro/keyd/navigation.conf.example` makes

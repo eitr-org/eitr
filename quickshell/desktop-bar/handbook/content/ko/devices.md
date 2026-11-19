@@ -40,6 +40,12 @@ Walker > 설정 > 장치 > 입력 > 조명은 OpenRGB 장치를 제어합니다.
 
 데스크톱은 설치 프로그램에서 선택한 키보드로 시작합니다. US를 선택하면 US와 US International이 모두 제공되므로 Alt + Shift 한 번으로 악센트 부호에 접근할 수 있습니다.
 
+### 일본어·한국어·중국어 입력 (fcitx5)
+
+일본어(`fcitx5-mozc`), 한국어(`fcitx5-hangul`), 중국어(`fcitx5-chinese-addons`) 입력기는 선택 사항이며 기본 설치에는 포함되지 않습니다. 설치 시 해당 언어를 선택하면 설치가 제안되며, 언제든지 **설정 > 입력 > 입력기** 또는 **Walker > Install > Input Methods**에서 설치할 수 있습니다.
+
+설치하면 첫 번째 키보드 레이아웃 다음에 선택한 엔진이 배치된 fcitx5 프로필이 생성되고, 로그인 시 `fcitx5`가 자동으로 시작되며, 현재 Eitr 테마 색상과 글꼴에 맞춘 후보 창 테마가 생성됩니다. **Ctrl + Space**로 라틴 입력과 활성화된 CJK 입력기 사이를 전환할 수 있으며, 추가 엔진이나 단축키 설정은 설정 > 입력의 **fcitx5 설정…**(`fcitx5-configtool`)을 사용하세요.
+
 ### 선택적 Caps Lock 내비게이션
 
 `distro/keyd/navigation.conf.example`의 선택적 keyd 구성은 Caps Lock을 탭했을 때 Escape를 전송하도록 만듭니다. Caps Lock을 누른 상태에서 H/J/K/L을 누르면 왼쪽/아래/위/오른쪽으로 이동합니다. 다른 키는 정상적인 동작을 유지합니다.

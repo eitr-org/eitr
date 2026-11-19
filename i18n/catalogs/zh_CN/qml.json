@@ -1049,7 +1049,6 @@
   "backup restore archive export import age migration undo": "备份 还原 归档 导出 导入 迁移 撤销 backup restore",
   "browser terminal files file manager text editor image viewer video player music mail pdf mime": "浏览器 终端 文件 文件管理器 文本编辑器 图像查看器 视频播放器 音乐 邮件 pdf mime",
   "choose a stronger one": "请选择更强的密码",
-  "clock islands tabs workspaces dots glyph numbers runes layout position media dock auto-hide": "时钟 岛状 标签页 工作区 圆点 字形 数字 符文 布局 位置 媒体 dock 自动隐藏",
   "ddd MMM dd HH:mm": "ddd MMM dd HH:mm",
   "ddd MMM dd hh:mm AP": "ddd MMM dd hh:mm AP",
   "fingerprint fido tpm firewall authentication": "指纹 fido tpm 防火墙 身份验证",
@@ -1140,5 +1139,16 @@
   "Workspace %1 (%2)": "工作区 %1 (%2)",
   "Yes": "是",
   "Read speed": "读取速度",
-  "Write speed": "写入速度"
+  "Write speed": "写入速度",
+  "Dock previews": "Dock 预览",
+  "Show live window previews when hovering dock icons. Turn off to show titles only.": "悬停 Dock 图标时显示窗口实时预览。关闭则仅显示标题。",
+  "clock islands tabs workspaces dots glyph numbers runes layout position media dock previews auto-hide": "时钟 岛状 标签页 工作区 圆点 字形 数字 符文 布局 位置 媒体 dock 预览 自动隐藏",
+  "Chinese (Pinyin)": "中文 (Pinyin)",
+  "Configure fcitx5…": "配置 fcitx5…",
+  "Input Methods": "输入法",
+  "Installed · Ctrl + Space switches input method": "已安装 · Ctrl + Space 切换输入法",
+  "Japanese (Mozc)": "日语 (Mozc)",
+  "Korean (Hangul)": "韩语 (Hangul)",
+  "Optional CJK input method (fcitx5)": "可选 CJK 输入法 (fcitx5)",
+  "Recommended for your desktop language (fcitx5)": "建议用于当前桌面语言 (fcitx5)"
 }

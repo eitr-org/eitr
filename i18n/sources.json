@@ -539,6 +539,9 @@
     "Checking status…": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
     ],
+    "Chinese (Pinyin)": [
+      "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml"
+    ],
     "Choose a keyboard layout, then add it to your list.": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
@@ -708,6 +711,9 @@
     ],
     "Completed rounds: {rounds}": [
       "quickshell/desktop-bar/clock/FocusPage.qml"
+    ],
+    "Configure fcitx5…": [
+      "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml"
     ],
     "Configure this source in OBS": [
       "quickshell/desktop-bar/panels/ObsMenu.qml"
@@ -1071,6 +1077,10 @@
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
     ],
     "Dock": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "Dock previews": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
@@ -1454,6 +1464,10 @@
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Input Methods": [
+      "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Input device": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml",
@@ -1473,6 +1487,7 @@
       "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
     "Install": [
+      "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml",
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
       "quickshell/desktop-bar/store/StoreCatalogCard.qml",
       "quickshell/desktop-bar/store/StoreDetail.qml",
@@ -1485,6 +1500,7 @@
       "quickshell/desktop-bar/services/NetworkService.qml"
     ],
     "Installed": [
+      "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml",
       "quickshell/desktop-bar/settings/SettingsStreamingPage.qml",
       "quickshell/desktop-bar/store/StoreCatalogCard.qml",
       "quickshell/desktop-bar/store/StoreDetail.qml",
@@ -1493,6 +1509,9 @@
     ],
     "Installed assistants and collaboration preferences.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "Installed · Ctrl + Space switches input method": [
+      "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml"
     ],
     "Installs packages": [
       "distro/store-kinds.json"
@@ -1509,6 +1528,9 @@
     ],
     "Islands": [
       "tools/choice-lists.json"
+    ],
+    "Japanese (Mozc)": [
+      "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml"
     ],
     "KNOWN DEVICES": [
       "quickshell/desktop-bar/drop/DropBluetoothDetail.qml",
@@ -1575,6 +1597,9 @@
     ],
     "Known networks": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "Korean (Hangul)": [
+      "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml"
     ],
     "LIVE": [
       "quickshell/desktop-bar/panels/RecordingMenu.qml"
@@ -2195,6 +2220,9 @@
     "OpenCode": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Optional CJK input method (fcitx5)": [
+      "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml"
+    ],
     "Other app…": [
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
     ],
@@ -2504,6 +2532,9 @@
     ],
     "Reboot": [
       "quickshell/desktop-bar/panels/ControlCenterPower.qml"
+    ],
+    "Recommended for your desktop language (fcitx5)": [
+      "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml"
     ],
     "Record": [
       "quickshell/desktop-bar/drop/DropObsPage.qml",
@@ -3000,6 +3031,9 @@
     ],
     "Show less": [
       "quickshell/desktop-bar/welcome/WelcomeMore.qml"
+    ],
+    "Show live window previews when hovering dock icons. Turn off to show titles only.": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
     "Show on": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml",
@@ -3681,6 +3715,7 @@
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
     ],
     "Window": [
+      "quickshell/desktop-bar/dock/DockPreviewCard.qml",
       "quickshell/desktop-bar/overview/WorkspaceOverviewTile.qml",
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -3795,7 +3830,7 @@
     "choose a stronger one": [
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
     ],
-    "clock islands tabs workspaces dots glyph numbers runes layout position media dock auto-hide": [
+    "clock islands tabs workspaces dots glyph numbers runes layout position media dock previews auto-hide": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "ddd MMM dd HH:mm": [
@@ -4938,6 +4973,10 @@
     "Input": [
       "elephant/menu-rows/system-devices.json",
       "elephant/menus/input.lua"
+    ],
+    "Input Methods": [
+      "elephant/menu-rows/install.json",
+      "elephant/menus/input-methods.lua"
     ],
     "Input device and level": [
       "elephant/menu-rows/system-devices.json"
@@ -7215,6 +7254,9 @@
     "These keys replace workspace controls while Focus is on. See the Focus chapter for recovery and monitor behavior.": [
       "tools/handbook-build.py"
     ],
+    "Toggle CJK input method (fcitx5, when installed)": [
+      "tools/handbook-build.py"
+    ],
     "Toggle EITR handbook": [
       "tools/handbook-build.py"
     ],
@@ -8139,6 +8181,9 @@
     ],
     "Checking the downloaded copy…": [
       "walker/scripts/actions/install/plugins.py"
+    ],
+    "Chinese (Pinyin)": [
+      "distro/lib/eitr_input_methods.py"
     ],
     "Choose Sign In to open the browser.": [
       "walker/scripts/actions/system/remote-access.py"
@@ -9305,6 +9350,12 @@
     "Initramfs: the busybox 'encrypt' hook cannot use TPM2 tokens. Switch to the systemd and sd-encrypt hooks first (see RECOVERY.md, TPM disk unlock).": [
       "distro/system/eitr-system.py"
     ],
+    "Input method": [
+      "distro/lib/eitr_installer_language.py"
+    ],
+    "Input method: {input_method}": [
+      "distro/archinstall/installer-ui.py"
+    ],
     "Inspect backup contents and manifest": [
       "distro/lib/eitr_backup/cli.py"
     ],
@@ -9359,6 +9410,12 @@
     "Install type {layout} is not available on {path}": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "Install {label} (recommended for typing)": [
+      "distro/lib/eitr_installer_language.py"
+    ],
+    "Install {label} in Settings > Input or Install > Input Methods to type in this language.": [
+      "distro/lib/eitr_input_methods.py"
+    ],
     "Install {name} from {source}.": [
       "walker/scripts/actions/install/software_packages.py"
     ],
@@ -9399,6 +9456,9 @@
     ],
     "Installing {count} official package(s) in one transaction…": [
       "distro/lib/eitr_backup/packages.py"
+    ],
+    "Installs fcitx5 and {label}. Ctrl + Space toggles input; you can also install this later from Install > Input Methods.": [
+      "distro/lib/eitr_installer_language.py"
     ],
     "Instance status": [
       "walker/scripts/menus/cloud/navigation.py"
@@ -9599,6 +9659,9 @@
     "Its icon and panel come from the official Tailscale plugin. Hide or remove it in Control Center > Plugins.": [
       "distro/lib/eitr_tailscale_migration.py"
     ],
+    "Japanese (Mozc)": [
+      "distro/lib/eitr_input_methods.py"
+    ],
     "KEEP MY FILES returns the system, apps and settings to how they were at the first login, and keeps the files in your home folder.": [
       "walker/scripts/actions/system/factory-reset.py"
     ],
@@ -9658,6 +9721,9 @@
     ],
     "Kitty configuration is missing; start Eitr's user configuration setup first.": [
       "walker/scripts/actions/style/terminal-effects.py"
+    ],
+    "Korean (Hangul)": [
+      "distro/lib/eitr_input_methods.py"
     ],
     "Kubernetes": [
       "walker/scripts/menus/cloud/providers.py"
@@ -11275,6 +11341,9 @@
     "Size needs two positive integers or percentages": [
       "distro/lib/eitr_window_rules.py"
     ],
+    "Skip for now": [
+      "distro/lib/eitr_installer_language.py"
+    ],
     "Skip reinstalling recorded packages/apps": [
       "distro/lib/eitr_backup/cli.py"
     ],
@@ -12596,6 +12665,9 @@
     ],
     "encrypted": [
       "distro/archinstall/eitr-guided-install"
+    ],
+    "fcitx5-configtool is not installed": [
+      "distro/lib/eitr_input_methods.py"
     ],
     "feeding the ravens": [
       "distro/lib/spinner.sh"
