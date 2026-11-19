@@ -151,8 +151,12 @@ def removable(caused, retained=()):
     in full before anything is removed)."""
     seeds = [name for name in names(list(caused), limit=4096) if name not in retained]
     plan = set(seeds)
-    for name in seeds:
-        preview = query('-Rsp', '--print-format', '%n', '--', name)
+    installed = [name for name in seeds if name in facts(seeds)]
+    # Together first: a dependency reached through two of the plugin's packages is only
+    # unneeded when both go, so a preview of each alone leaves it behind.
+    groups = ([installed] if len(installed) > 1 else []) + [[name] for name in installed]
+    for group in groups:
+        preview = query('-Rsp', '--print-format', '%n', '--', *group)
         if preview.returncode == 0:
             plan.update(line.strip() for line in preview.stdout.splitlines() if line.strip())
     kept = closed(plan, retained)

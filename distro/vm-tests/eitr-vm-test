@@ -124,6 +124,8 @@ def install(arguments):
         answers.update(encrypted=True, passphrase=passphrase)
     if arguments.language:
         answers["language"] = arguments.language
+    if arguments.input_method:
+        answers["input_method"] = arguments.input_method
     (work / "answers.json").write_text(json.dumps(answers, indent=2) + "\n")
     if arguments.stick:
         attach_stick(work, arguments.stick)
@@ -222,14 +224,25 @@ CHECKS = [
 ]
 
 
+INPUT_METHOD_ENGINES = {"japanese": ("fcitx5-mozc", "mozc"), "korean": ("fcitx5-hangul", "hangul"),
+                        "chinese": ("fcitx5-chinese-addons", "pinyin")}
+
+
 def language_checks(work):
-    """An install that chose a language must speak it: locale.conf and the generated locale."""
+    """An install that chose a language must speak it: locale.conf and the generated locale,
+    and the input method chosen with it is installed and set up for the user."""
     answers = work / "answers.json"
-    language = json.loads(answers.read_text()).get("language") if answers.exists() else None
-    if not language:
-        return []
-    return [("the system language is " + language, "grep -x 'LANG=" + language + "' /etc/locale.conf", "LANG=" + language),
-            ("its locale is generated", "locale -a | grep -ix '" + language.replace("UTF-8", "utf8") + "' >/dev/null && echo yes", "yes")]
+    chosen = json.loads(answers.read_text()) if answers.exists() else {}
+    checks = []
+    language = chosen.get("language")
+    if language:
+        checks += [("the system language is " + language, "grep -x 'LANG=" + language + "' /etc/locale.conf", "LANG=" + language),
+                   ("its locale is generated", "locale -a | grep -ix '" + language.replace("UTF-8", "utf8") + "' >/dev/null && echo yes", "yes")]
+    if chosen.get("input_method") in INPUT_METHOD_ENGINES:
+        package, engine = INPUT_METHOD_ENGINES[chosen["input_method"]]
+        checks += [("the input method " + package + " is installed", "pacman -Q fcitx5 " + package + " >/dev/null && echo yes", "yes"),
+                   ("the user's fcitx5 profile has " + engine, "grep -qx 'Name=" + engine + "' ~/.config/fcitx5/profile && echo yes", "yes")]
+    return checks
 
 
 def run_checks(work):
@@ -541,6 +554,8 @@ def main():
     install_parser.add_argument("--timeout", type=int, default=3600)
     install_parser.add_argument("--encrypted", action="store_true", help="install on LUKS2; boots type the passphrase")
     install_parser.add_argument("--language", help="system locale to install, such as ja_JP.UTF-8")
+    install_parser.add_argument("--input-method", choices=["japanese", "korean", "chinese"],
+                                help="the installer's optional typing method for that language")
     for name in ("install", "verify", "update", "reset", "boot-guard", "ssh", "profile-apply"):
         sub = install_parser if name == "install" else commands.add_parser(name)
         sub.add_argument("--work", required=True)

@@ -13,6 +13,7 @@ if __name__ == "__main__":
 
 from eitr_backup import BackupError, PassphraseError
 from eitr_backup.archive import inspect_archive
+from eitr_backup.packages import outcome_lines
 from eitr_backup.operations import DEFAULT_CATEGORIES, create_backup
 from eitr_backup.restore import restore_backup, status_summary, undo_restore
 from eitr_backup.sizes import format_size, same_filesystem
@@ -165,6 +166,8 @@ def _cmd_restore(args):
         print(tr("Apps: installed={n}, already_present={a}, skipped={s}, failed={f}",
                  n=len(apps["installed"]), a=len(apps["already_installed"]),
                  s=len(apps["skipped"]), f=len(apps["failed"])))
+        for line in outcome_lines(apps):
+            print(line)
     for note in result["reminders"]:
         print(f"* {note}")
     return 0

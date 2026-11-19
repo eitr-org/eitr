@@ -191,6 +191,22 @@ def _populate_source_home(home):
 
 
 class BackupRestoreTests(unittest.TestCase):
+    def test_restore_summary_names_each_failed_or_skipped_app_and_why(self):
+        # A summary of counts alone left people guessing which app did not come back.
+        result = {"file_count": 0, "undo_id": "u1", "reminders": [], "apps": {
+            "installed": [], "already_installed": [],
+            "skipped": [{"source": "plugin", "id": "notes", "reason": "Review declined"}],
+            "failed": [{"source": "plugin", "id": "wireguard", "error": "repository unreachable"}]}}
+        read, write = os.pipe()
+        os.write(write, b"secret\n")
+        os.close(write)
+        output = io.StringIO()
+        with patch("eitr_backup.cli.restore_backup", return_value=result), patch("sys.stdout", output):
+            cli_main(["restore", "--passphrase-fd", str(read), str(self.root / "any.eitrbackup")])
+        lines = output.getvalue().splitlines()
+        self.assertIn("  - skipped (plugin): notes — Review declined", lines)
+        self.assertIn("  - failed (plugin): wireguard — repository unreachable", lines)
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)

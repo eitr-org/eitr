@@ -1,5 +1,7 @@
 import importlib.util
 import json
+import os
+import subprocess
 from pathlib import Path
 import tempfile
 import unittest
@@ -11,6 +13,38 @@ spec.loader.exec_module(login)
 
 
 class LoginPackageTests(unittest.TestCase):
+    def test_login_screen_x_server_gets_every_keyboard_layout_before_the_greeter(self):
+        # SDDM listed only the first layout, so the login screen's layout chip stayed hidden.
+        script = ROOT / 'distro/system/sddm-xsetup.sh'
+        self.assertIn('DisplayCommand=/usr/lib/eitr/sddm-xsetup', (ROOT / 'distro/system/sddm-eitr-greeter.conf').read_text())
+        self.assertIn('distro/system/sddm-xsetup.sh "$pkgdir/usr/lib/eitr/sddm-xsetup"',
+                      (ROOT / 'distro/pkg/eitr-desktop/PKGBUILD').read_text())
+        with tempfile.TemporaryDirectory() as folder:
+            folder = Path(folder)
+            calls = folder / 'calls'
+            (folder / 'bin').mkdir()
+            fake = folder / 'bin/setxkbmap'
+            fake.write_text('#!/bin/sh\nprintf "%s|" "$@" >> "' + str(calls) + '"\necho >> "' + str(calls) + '"\n')
+            fake.chmod(0o755)
+            sddm_setup = folder / 'Xsetup'
+            sddm_setup.write_text('#!/bin/sh\necho sddm-setup >> "' + str(calls) + '"\n')
+            sddm_setup.chmod(0o755)
+            conf = folder / '00-keyboard.conf'
+            conf.write_text('Section "InputClass"\n        Identifier "system-keyboard"\n'
+                            '        Option "XkbLayout" "us,br"\n        Option "XkbVariant" ",abnt2"\n'
+                            '        Option "XkbModel" "pc105+inet"\n        Option "XkbOptions" "terminate:ctrl_alt_bksp"\nEndSection\n')
+            environment = dict(os.environ, PATH=f"{folder / 'bin'}:/usr/bin:/bin",
+                               EITR_KEYBOARD_CONF=str(conf), EITR_SDDM_XSETUP=str(sddm_setup))
+            subprocess.run(['sh', str(script)], env=environment, check=True, timeout=10)
+            self.assertEqual(calls.read_text().splitlines(), [
+                '-layout|us,br|-variant|,abnt2|-model|pc105+inet|-option||-option|terminate:ctrl_alt_bksp|',
+                'sddm-setup'])
+            # Without keyboard settings, only SDDM's own script runs.
+            calls.unlink()
+            subprocess.run(['sh', str(script)], env=dict(environment, EITR_KEYBOARD_CONF=str(folder / 'missing')),
+                           check=True, timeout=10)
+            self.assertEqual(calls.read_text().splitlines(), ['sddm-setup'])
+
     def test_stage_is_unprivileged_and_self_contained(self):
         with tempfile.TemporaryDirectory() as directory:
             package = Path(directory)

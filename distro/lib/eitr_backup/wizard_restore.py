@@ -5,6 +5,7 @@ import sys
 
 from eitr_backup import ARCHIVE_EXTENSION, BackupError
 from eitr_backup.archive import inspect_archive
+from eitr_backup.packages import outcome_lines
 from eitr_backup.catalog import CATEGORY_MAP
 from eitr_backup.restore import restore_backup, status_summary
 from eitr_backup.sizes import format_size, suggested_destinations
@@ -197,10 +198,8 @@ def run_restore_wizard(archive_path=None):
         print(tr("Apps installed: {n}  ·  Already present: {a}  ·  Skipped: {s}  ·  Failed: {f}",
                  n=len(apps["installed"]), a=len(apps["already_installed"]),
                  s=len(apps["skipped"]), f=len(apps["failed"])))
-        for item in apps["skipped"]:
-            print(f"  - skipped ({item['source']}): {item['id']} — {item.get('reason', '')}")
-        for item in apps["failed"]:
-            print(f"  - failed ({item['source']}): {item['id']} — {item.get('error', '')}")
+        for line in outcome_lines(apps):
+            print(line)
     for note in result["reminders"]:
         print(f"* {note}")
     print()

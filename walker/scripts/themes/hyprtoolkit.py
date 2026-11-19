@@ -42,10 +42,12 @@ def corners():
 
 def render(colors, family, rounding):
     large, small = rounding
+    # surface and raised are optional: Store themes and Afterglow define only the background.
+    surface = colors.get('surface', colors['background'])
     lines = [
         f'background = {colour(colors["background"])}',
-        f'base = {colour(colors["surface"])}',
-        f'alternate_base = {colour(colors["raised"])}',
+        f'base = {colour(surface)}',
+        f'alternate_base = {colour(colors.get("raised", surface))}',
         f'text = {colour(colors["foreground"])}',
         f'bright_text = {colour(colors.get("bright_foreground", colors["foreground"]))}',
         f'link_text = {colour(colors["accent"])}',

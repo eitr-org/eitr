@@ -107,6 +107,16 @@ def clone(url, destination, *, allow_file=False):
     git(None, 'clone', '--template=', '--no-recurse-submodules', '--', url, str(destination), allow_file=allow_file)
 
 
+def cached_repository(root, allow_file=False):
+    """True when root is itself a readable Git repository with a commit, not a damaged one."""
+    try:
+        git_dir = git(root, 'rev-parse', '--absolute-git-dir', allow_file=allow_file)
+        git(root, 'rev-parse', '--verify', '--quiet', 'HEAD^{commit}', allow_file=allow_file)
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return Path(git_dir) == (Path(root) / '.git').resolve()
+
+
 def commit(root):
     from eitr_plugin_bundled import is_bundled, bundled_revision
     if is_bundled(root):
@@ -471,6 +481,10 @@ class PluginInstall:
         with self.lock():
             candidate = cache('eitr/plugin-repositories') / hashlib.sha256(normalized_url(url).encode()).hexdigest()
             candidate.parent.mkdir(parents=True, exist_ok=True)
+            # A clone cut short (a power loss) leaves empty Git files that fail every later
+            # fetch; the cache only holds metadata, so download it again.
+            if candidate.exists() and not cached_repository(candidate, self.allow_file):
+                shutil.rmtree(candidate)
             if not candidate.exists():
                 with tempfile.TemporaryDirectory(dir=candidate.parent) as temporary:
                     staging = Path(temporary) / 'repository'

@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 
 for _eitr_parent in Path(__file__).resolve().parents:
     _eitr_lib = _eitr_parent / "lib"
@@ -203,8 +204,30 @@ def seed_profile(identifier, config_home=None):
             atomic_write(target, "Allow Overriding System XKB Settings=False\n")
 
 
+def fcitx5_running():
+    return subprocess.run(
+        ["pgrep", "-u", str(os.getuid()), "-x", "fcitx5"],
+        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False,
+    ).returncode == 0
+
+
+def stop_fcitx5(timeout=5.0):
+    """Stop a running fcitx5 and wait: it saves its in-memory profile on exit, and a newly
+    installed engine only loads at start, so the profile is updated between the two."""
+    if not fcitx5_running():
+        return False
+    subprocess.run(["pkill", "-u", str(os.getuid()), "-x", "fcitx5"], check=False, timeout=5)
+    deadline = time.monotonic() + timeout
+    while fcitx5_running() and time.monotonic() < deadline:
+        time.sleep(0.1)
+    return True
+
+
 def setup(identifier, config_home=None, data_home=None, start=True):
-    """Configure profile, activate Eitr theme, and start or reload fcitx5 if in a session."""
+    """Configure profile, activate Eitr theme, and (re)start fcitx5 if in a session."""
+    in_session = start and bool(os.environ.get("WAYLAND_DISPLAY")) and is_installed()
+    if in_session:
+        stop_fcitx5()
     seed_profile(identifier, config_home)
     env = dict(os.environ)
     if config_home is not None:
@@ -214,15 +237,7 @@ def setup(identifier, config_home=None, data_home=None, start=True):
     generator = code("walker/scripts/themes/fcitx5.py")
     if generator.is_file():
         subprocess.run([sys.executable, str(generator), "--activate"], env=env, check=False, timeout=20)
-    if not start or not env.get("WAYLAND_DISPLAY") or not is_installed():
-        return
-    running = subprocess.run(
-        ["pgrep", "-u", str(os.getuid()), "-x", "fcitx5"],
-        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False,
-    ).returncode == 0
-    if running:
-        if shutil.which("fcitx5-remote"):
-            subprocess.run(["fcitx5-remote", "-r"], check=False, timeout=5)
+    if not in_session:
         return
     launcher = code("walker/bin/app-launch")
     command = [str(launcher), "fcitx5", "-d"] if launcher.is_file() else ["fcitx5", "-d"]

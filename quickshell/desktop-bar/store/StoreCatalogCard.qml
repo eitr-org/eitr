@@ -57,7 +57,7 @@ Rectangle {
         Flow { width: parent.width; spacing: 6
             StorePill { catalog: tile.catalog; text: catalog.badge(tile.item) }
             StorePill { catalog: tile.catalog; visible: tile.itemKind === "lockscreens" && !!tile.item.current; text: Eitr.I18n.tr("Current"); current: true }
-            StorePill { catalog: tile.catalog; visible: tile.itemKind === "plugins" && tile.item.builtin === true; text: Eitr.I18n.tr("Official") }
+            StorePill { catalog: tile.catalog; visible: tile.itemKind === "plugins" && tile.item.builtin === true && !catalog.getMore; text: Eitr.I18n.tr("Official") }
             StorePill { catalog: tile.catalog; visible: tile.local && catalog.getMore; text: Eitr.I18n.tr("Installed") }
             StorePill { catalog: tile.catalog; visible: tile.itemKind === "plugins" && tile.item.enabled === false; text: Eitr.I18n.tr("Disabled") }
         }

@@ -19,8 +19,6 @@ item says what decides the next step. Remove an item when it ships;
   iwd and on NetworkManager, copy, disconnect, remove, update and plugin removal).
   - An OpenVPN profile connected to a test server (TLS and address) but no data crossed that
     server's tunnel; try a real OpenVPN server before calling OpenVPN traffic verified.
-  - Plugin package cleanup now includes pulled-in dependencies (2026-11-18): VM-test removing
-    NetworkManager VPN again and check `pacman -Qdt` is empty afterwards.
   - Removing a wg-quick tunnel asks for the password through `pkexec rm`; an `eitr-system`
     action would show a clearer prompt.
 - **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
@@ -55,13 +53,6 @@ item says what decides the next step. Remove an item when it ships;
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the
   community index had no entries yet) and its validation workflow. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
-- **Backup and Restore: the whole move (Phases 1–4 built).** Encrypted archives via
-  `eitr-backup`, Settings, Walker and the wizard, with app reinstall and undo journals; Phase 4
-  adds opt-in Git (SSH/GPG), cloud and WiFi secrets. VM-tested 2026-11-18: a backup with every
-  secret category (WiFi through the password window, VPN profile and AWS SSO cache left out,
-  archive encrypted), restore with private permissions and NetworkManager seeing the profile,
-  and undo removing all of it. Left: the full move to a second fresh install (theme, bar layout,
-  folders, an AUR package reinstalled), per `eitr-testing/codex-wip/backup-restore/PLAN.md`.
 - **Ollama plugin (built 2026-11-16).** Held in the private `eitr-plugins-night-test`
   repository (local branch in `eitr-testing/codex-wip/plugins-night/ollama`) until the owner
   says it is ready; Radio Globe and Phone Link went to `eitr-org/eitr-plugins` on 2026-11-16.
@@ -73,23 +64,12 @@ item says what decides the next step. Remove an item when it ships;
   locked, a 3-second Esc hold leaving and `eitr clean stop` all worked; Ctrl+Alt+F still
   switches consoles (no Hyprland option blocks it; documented in the Handbook). Still to try on
   real hardware: touchpad gestures and laptop Fn keys handled by firmware.
-- **Keyboard layout chip on the login screen.** The lock screen's chip, eye and Ctrl+U were
-  VM-tested 2026-11-18 (Ctrl+Alt+Space and a click switch Hyprland's layout). On the SDDM login
-  screen the eye works, but SDDM's own `keyboard.layouts` listed only `us` while Xorg had
-  `us,br` (localectl), so the chip stays hidden there. Options: read the layouts from Xorg's
-  `00-keyboard.conf` in the greeter, or sync the session's layouts to SDDM; check which SDDM
-  release reports every XKB group first.
-- **Typing Japanese, Korean and Chinese: a live test.** Optional fcitx5 (built 2026-11-18): Walker
-  Install > Input Methods, Settings > Input, the installer's Language step and a first-login offer
-  for ja/ko/zh_CN; Hyprland sets its environment and starts it only when installed, with an
-  Eitr-themed candidate window and Ctrl+Space. Left: install it in a VM and type with each engine.
 - **Ideas from Omarchy 4.5, Ryoku 1.1 and Caelestia (picked by the owner 2026-11-18).**
   Ryoku and Caelestia are GPL-3 and Omarchy MIT: adapted code keeps their notices.
   - **AI usage pace** (Ryoku): a trend arrow, ahead of or behind an even pace, and when a
     limit would fill, from the reset time and window length AI Usage already reads.
-- **Crash notifications and battery levels: what is left (shipped in 0.7.5).** In the VM a
-  direct call showed the crash card, but when the watcher service caught a real crash its log
-  stayed empty and no card appeared: find why. Battery warning levels still need a real laptop.
+- **Battery warning levels on a real laptop.** Shipped in 0.7.5 (2–50%, critical below low);
+  only tried without a battery so far.
 
 # 2. To test with the owner
 

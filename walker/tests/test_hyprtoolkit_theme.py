@@ -36,6 +36,17 @@ class HyprtoolkitThemeTests(unittest.TestCase):
                 self.assertIn(line + '\n', text)
             self.assertRegex(text, r'\nfont_family = \S')
 
+    def test_palette_without_surface_and_raised_uses_the_background(self):
+        # Store themes (eitr-themes) and Afterglow define no surface or raised colour.
+        with tempfile.TemporaryDirectory() as folder:
+            config = Path(folder)
+            (config / 'theme/current').mkdir(parents=True)
+            (config / 'theme/current/colors.toml').write_text(
+                'background = "#282828"\nforeground = "#d4be98"\naccent = "#7daea3"\n')
+            text = self.run_generator(config).read_text()
+            for line in ('base = rgb(282828)', 'alternate_base = rgb(282828)', 'accent_secondary = rgb(7daea3)'):
+                self.assertIn(line + '\n', text)
+
     def test_own_file_is_left_alone_and_no_theme_writes_nothing(self):
         with tempfile.TemporaryDirectory() as folder:
             config = Path(folder)

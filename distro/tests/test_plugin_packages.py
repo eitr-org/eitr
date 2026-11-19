@@ -38,7 +38,11 @@ class PackageTests(unittest.TestCase):
         """A fake `pacman -Qi` / `pacman -Rsp` over {name: (reason, required_by, optional_for)}."""
         def query(*arguments):
             if arguments[0] == '-Rsp':
-                return Mock(returncode=0, stdout='\n'.join(removals.get(arguments[-1], [arguments[-1]])) + '\n')
+                targets = arguments[4:]
+                listed = removals.get(frozenset(targets)) if len(targets) > 1 else None
+                if listed is None:
+                    listed = [item for name in targets for item in removals.get(name, [name])]
+                return Mock(returncode=0, stdout='\n'.join(listed) + '\n')
             blocks = []
             for name in arguments[2:]:
                 if name in database:
@@ -71,6 +75,26 @@ class PackageTests(unittest.TestCase):
             self.assertEqual(packages.closed(trio), trio)
             # Part of the set alone is refused: its requirers would stay behind.
             self.assertEqual(packages.closed(['openvpn']), set())
+
+    def test_cleanup_includes_a_dependency_shared_by_two_plugin_packages(self):
+        # Real shape: libnma-common is required by libnma and libnma-gtk4, which the OpenVPN and
+        # OpenConnect plugins pull in; only removing both together frees it.
+        dependency = packages.DEPENDENCY
+        database = {
+            'networkmanager-openvpn': (dependency, [], []),
+            'networkmanager-openconnect': (dependency, [], []),
+            'libnma': (dependency, ['networkmanager-openvpn', 'networkmanager-openconnect'], []),
+            'libnma-common': (dependency, ['libnma'], []),
+        }
+        removals = {
+            'networkmanager-openvpn': ['networkmanager-openvpn'],
+            'networkmanager-openconnect': ['networkmanager-openconnect'],
+            frozenset({'networkmanager-openvpn', 'networkmanager-openconnect'}):
+                ['networkmanager-openvpn', 'networkmanager-openconnect', 'libnma', 'libnma-common'],
+        }
+        with patch.object(packages, 'query', side_effect=self.pacman(database, removals)):
+            self.assertEqual(packages.removable(['networkmanager-openvpn', 'networkmanager-openconnect', 'gone']),
+                             ['networkmanager-openvpn', 'networkmanager-openconnect', 'libnma', 'libnma-common'])
 
     def test_root_revalidates(self):
         with patch.object(root.os, 'geteuid', return_value=0), patch.object(root, 'repository', side_effect=ValueError('unknown')), patch.object(root.subprocess, 'run') as run:

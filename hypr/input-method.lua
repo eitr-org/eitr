@@ -1,6 +1,8 @@
 -- Optional CJK input method (fcitx5): set session environment and autostart
 -- in a uwsm app scope only when fcitx5 is installed.
 -- GTK apps use the Wayland text-input protocol; GTK_IM_MODULE stays unset.
+-- Qt 6 reads QT_IM_MODULES first and takes Wayland text-input (Quickshell's
+-- windows get no text through the fcitx plugin); Qt 5 reads QT_IM_MODULE.
 return function(paths, quote)
 	local function find_binary(name)
 		local path = os.getenv("PATH") or "/usr/local/bin:/usr/bin:/bin"
@@ -26,6 +28,7 @@ return function(paths, quote)
 
 	hl.env("XMODIFIERS", "@im=fcitx")
 	hl.env("QT_IM_MODULE", "fcitx")
+	hl.env("QT_IM_MODULES", "wayland;fcitx")
 	hl.on("hyprland.start", function()
 		hl.exec_cmd(quote(paths.code("walker/bin/app-launch")) .. " fcitx5 -d")
 	end)

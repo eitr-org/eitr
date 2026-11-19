@@ -81,6 +81,36 @@ class InputMethodProfileAndOfferTests(unittest.TestCase):
             self.assertIn("Name=mozc\n", updated)
             self.assertIn("[Groups/0/Items/2]\nName=hangul\nLayout=us\n", updated)
 
+    def test_setup_stops_running_fcitx5_before_writing_profile_then_starts_it(self):
+        # fcitx5 saves its in-memory profile on exit and loads new engines only at start, so
+        # a reload would drop a second engine installed while it runs.
+        events = []
+        with tempfile.TemporaryDirectory() as folder:
+            cfg = Path(folder)
+            running = [True]
+
+            def fake_run(command, **kwargs):
+                if command[0] == "pgrep":
+                    return Mock(returncode=0 if running[0] else 1)
+                if command[0] == "pkill":
+                    events.append("stop")
+                    running[0] = False
+                return Mock(returncode=0)
+
+            original_seed = im.seed_profile
+
+            def recording_seed(identifier, config_home=None):
+                events.append("seed")
+                return original_seed(identifier, config_home)
+
+            with patch.dict(os.environ, {"WAYLAND_DISPLAY": "wayland-1"}), \
+                    patch.object(im, "is_installed", return_value=True), \
+                    patch.object(im, "seed_profile", side_effect=recording_seed), \
+                    patch.object(im.subprocess, "run", side_effect=fake_run), \
+                    patch.object(im.subprocess, "Popen", side_effect=lambda *a, **k: events.append("start")):
+                im.setup("korean", config_home=cfg, data_home=cfg)
+        self.assertEqual(events, ["stop", "seed", "start"])
+
     def test_first_login_offer_only_notifies_once_for_uninstalled_cjk_locale(self):
         with tempfile.TemporaryDirectory() as folder:
             state_dir = Path(folder)
@@ -131,6 +161,7 @@ for _, fn in ipairs(starts) do fn() end
 print("OK=" .. tostring(ok))
 print("XMODIFIERS=" .. tostring(envs["XMODIFIERS"]))
 print("QT_IM_MODULE=" .. tostring(envs["QT_IM_MODULE"]))
+print("QT_IM_MODULES=" .. tostring(envs["QT_IM_MODULES"]))
 print("GTK_IM_MODULE=" .. tostring(envs["GTK_IM_MODULE"]))
 print("EXEC=" .. tostring(_G.executed))
 '''
@@ -145,6 +176,7 @@ print("EXEC=" .. tostring(_G.executed))
             self.assertIn("OK=false", absent)
             self.assertIn("XMODIFIERS=nil", absent)
             self.assertIn("QT_IM_MODULE=nil", absent)
+            self.assertIn("QT_IM_MODULES=nil", absent)
             self.assertIn("GTK_IM_MODULE=nil", absent)
             self.assertIn("EXEC=nil", absent)
 
@@ -155,6 +187,7 @@ print("EXEC=" .. tostring(_G.executed))
             self.assertIn("OK=true", present)
             self.assertIn("XMODIFIERS=@im=fcitx", present)
             self.assertIn("QT_IM_MODULE=fcitx", present)
+            self.assertIn("QT_IM_MODULES=wayland;fcitx", present)
             self.assertIn("GTK_IM_MODULE=nil", present)
             self.assertIn("walker/bin/app-launch fcitx5 -d", present)
 

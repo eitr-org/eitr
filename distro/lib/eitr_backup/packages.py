@@ -389,3 +389,9 @@ def reinstall_apps(apps_data, *, selected=None, approve_callback=None, progress=
     _install_plugins(plugins, summary, approve_callback, notify)
     _install_store_items(store_items, summary, approve_callback, notify)
     return summary
+
+
+def outcome_lines(apps):
+    """One line per app that was skipped or failed, with its reason, for restore summaries."""
+    return ([f"  - skipped ({item['source']}): {item['id']} — {item.get('reason', '')}" for item in apps["skipped"]]
+            + [f"  - failed ({item['source']}): {item['id']} — {item.get('error', '')}" for item in apps["failed"]])

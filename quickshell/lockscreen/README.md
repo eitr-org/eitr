@@ -223,7 +223,8 @@ for the password field eye toggle (resets to hidden on submit, failure or accoun
 Ctrl+Backspace (delete previous word), Ctrl+U (clear field), and the keyboard layout chip
 next to the password field (shown when more than one layout is configured; click or press
 Ctrl+Alt+Space to switch layouts via Hyprland on the lockscreen or SDDM's keyboard context
-on the login screen). Changing
+on the login screen, whose layouts are the system keyboard settings from `localectl`, applied
+before the greeter starts by `distro/system/sddm-xsetup.sh`). Changing
 accounts clears the password. The picker does not take password focus. Gallery
 design navigation uses Alt+Left / Alt+Right; Ctrl+Left / Ctrl+Right selects users.
 

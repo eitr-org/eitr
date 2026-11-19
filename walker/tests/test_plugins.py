@@ -135,6 +135,18 @@ class PluginTests(unittest.TestCase):
         self.assertTrue(fetches)
         self.assertTrue(all(call[-1] == revision for call in fetches))
 
+    def test_catalog_downloads_again_when_the_cached_clone_is_damaged(self):
+        # A power loss mid-clone left empty Git files; every later fetch failed and the Store
+        # silently showed no official plugins.
+        revision = self.git(self.source, 'rev-parse', 'HEAD')
+        self.manager.catalog(self.url, revision=revision, folder='', plugin_id='example')
+        cached = next((self.home / 'XDG_CACHE_HOME/eitr/plugin-repositories').iterdir())
+        for name in ('HEAD', 'config'):
+            (cached / '.git' / name).write_text('')
+        row = self.manager.catalog(self.url, revision=revision, folder='', plugin_id='example')[0]
+        self.assertEqual(row['commit'], revision)
+        self.assertEqual(self.git(cached, 'rev-parse', 'HEAD^{commit}'), revision)
+
     def test_native_update_review_reports_changes(self):
         self.install()
         self.publish()
