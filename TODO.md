@@ -87,10 +87,9 @@ item says what decides the next step. Remove an item when it ships;
   Ryoku and Caelestia are GPL-3 and Omarchy MIT: adapted code keeps their notices.
   - **AI usage pace** (Ryoku): a trend arrow, ahead of or behind an even pace, and when a
     limit would fill, from the reset time and window length AI Usage already reads.
-  - Smaller:
-    - **Crash notifications** (Omarchy `omarchy-crash-watch`): a notice when an app
-      crashes, with a way to mute that app; Check This PC already reads the coredumps.
-    - **Battery warning levels** (Caelestia): the 10% and 5% warnings become settings.
+- **Crash notifications and battery levels: what is left (shipped in 0.7.5).** In the VM a
+  direct call showed the crash card, but when the watcher service caught a real crash its log
+  stayed empty and no card appeared: find why. Battery warning levels still need a real laptop.
 
 # 2. To test with the owner
 
