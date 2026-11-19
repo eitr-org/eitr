@@ -115,7 +115,7 @@ after the moment in `~/.config/eitr/hooks/`:
 | --- | --- | --- |
 | `post-update` | after System Update or a pacman/AUR update | `system`, `pacman`, `yay` or `full` |
 | `theme-set` | after switching theme | the theme's folder name |
-| `battery-low` | once each time the battery drops to 15% | the percentage |
+| `battery-low` | once each time the battery drops to the low warning level (default 10%) | the percentage |
 | `post-boot` | at the first login after each start | nothing |
 
 For example, to recolor Spotify (with Spicetify) whenever the theme changes,

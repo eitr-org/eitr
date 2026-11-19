@@ -116,8 +116,11 @@ and health appear only when supplied by hardware.
 Battery Charge Limit requires a supported firmware sysfs interface and typed
 confirmation. Off allows charging to 100%. Do not assume every laptop supports it.
 
-A notification warns at 10% battery and again, urgently, at 5%, once each time
-the battery runs down. On laptops the installer also adds the audio firmware
+Low (default 10%) and critical (default 5%) warning levels can be adjusted in
+Settings > Displays > Displays or the Battery & Power popup (range 2–50%, with
+critical below low); preferences stay in `~/.config/eitr/power.json`. A notification
+warns when reaching the low level and again, urgently, at the critical level, once
+each time the battery runs down. On laptops the installer also adds the audio firmware
 most recent laptops need (`sof-firmware`) and, on Intel laptops, `thermald` to
 manage heat.
 

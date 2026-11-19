@@ -100,7 +100,7 @@ Um hook é um pequeno script seu que o Eitr executa em um momento específico, p
 | --- | --- | --- |
 | `post-update` | após Atualização do sistema ou atualização pacman/AUR | `system`, `pacman`, `yay` ou `full` |
 | `theme-set` | após trocar o tema | nome da pasta do tema |
-| `battery-low` | uma vez sempre que a bateria cai para 15% | percentual |
+| `battery-low` | uma vez sempre que a bateria cai para o nível de aviso fraco (padrão 10%) | percentual |
 | `post-boot` | no primeiro login após cada inicialização | nenhum |
 
 Por exemplo, para recolorir o Spotify com Spicetify a cada troca de tema, crie `~/.config/eitr/hooks/theme-set`:

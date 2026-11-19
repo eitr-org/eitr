@@ -2,6 +2,7 @@
 """System batteries only; peripherals must not turn a desktop into a laptop."""
 import eitr_bootstrap
 from eitr_battery import system_batteries
+from eitr_power import settings as power_settings
 import json
 from pathlib import Path
 
@@ -14,6 +15,7 @@ def number(path, name):
 def status(root=Path('/sys/class/power_supply'), batteries=None):
     paths = system_batteries(root) if batteries is None else batteries
     batteries = []
+    levels = power_settings()
     for path in paths:
         try:
             full = number(path, 'energy_full') or number(path, 'charge_full')
@@ -27,9 +29,10 @@ def status(root=Path('/sys/class/power_supply'), batteries=None):
         except OSError:
             continue
     if not batteries:
-        return {'available': False, 'percent': 0, 'status': '', 'health': 0, 'hours': 0}
+        return {'available': False, 'percent': 0, 'status': '', 'health': 0, 'hours': 0,
+                'low': levels['low'], 'critical': levels['critical']}
     state = next((b['status'] for b in batteries if b['status'] == 'Discharging'), batteries[0]['status'])
-    result = {'available': True, 'status': state}
+    result = {'available': True, 'status': state, 'low': levels['low'], 'critical': levels['critical']}
     for key in ('percent', 'health', 'hours'):
         result[key] = sum(b[key] for b in batteries) / len(batteries)
     return result

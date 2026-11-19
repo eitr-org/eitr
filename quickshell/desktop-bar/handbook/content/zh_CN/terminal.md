@@ -62,7 +62,7 @@ eitr matrix                  # 符文雨；按任意键停止
 | --- | --- | --- |
 | `post-update` | 在系统更新或 pacman/AUR 更新后 | `system`、`pacman`、`yay` 或 `full` |
 | `theme-set` | 在切换主题后 | 主题的文件夹名称 |
-| `battery-low` | 每次电量降至 15% 时触发一次 | 电量百分比 |
+| `battery-low` | 每次电量降至低电量预警级别（默认 10%）时触发一次 | 电量百分比 |
 | `post-boot` | 每次开机后的首次登录时 | 无参数 |
 
 例如，要在主题更改时重新为 Spotify 配色（使用 Spicetify），请创建 `~/.config/eitr/hooks/theme-set`：

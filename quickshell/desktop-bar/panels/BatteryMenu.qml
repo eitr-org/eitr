@@ -21,6 +21,7 @@ ThemedPopup {
         width: parent.width; spacing: 18
         PanelHeading { text: Eitr.I18n.tr("Battery & Power"); foreground: menu.foreground; accent: menu.accent; rune: "power" }
         PowerControls { width: parent.width; battery: menu.battery; displayControl: menu.displayControl; foreground: menu.foreground }
+        BatteryWarningSection { width: parent.width; battery: menu.battery; foreground: menu.foreground; accent: menu.accent }
         Text { visible: menu.battery.health > 0; text: Eitr.I18n.tr("Battery health: {percent}%", {percent: Math.round(menu.battery.health)}); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
     }
 }

@@ -49,7 +49,6 @@
   "A package signing key is missing or expired, so updates may be refused; run System Update.": "A package signing key is missing or expired, so updates may be refused; run System Update.",
   "A plugin reported errors; review it in Installed Plugins.": "A plugin reported errors; review it in Installed Plugins.",
   "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.",
-  "A program crashed": "A program crashed",
   "A regular desktop user is required": "A regular desktop user is required",
   "A screen runs at a lower refresh rate than it supports, so motion looks less smooth; choose the higher rate in Display settings.": "A screen runs at a lower refresh rate than it supports, so motion looks less smooth; choose the higher rate in Display settings.",
   "A selection is required": "A selection is required",
@@ -519,7 +518,6 @@
   "Icon address": "Icon address",
   "Identity pools": "Identity pools",
   "Idle; ping to check": "Idle; ping to check",
-  "Ignore": "Ignore",
   "Image viewer": "Image viewer",
   "Import a VPN file…": "Import a VPN file…",
   "Import a WireGuard configuration…": "Import a WireGuard configuration…",
@@ -676,7 +674,6 @@
   "Motherboard": "Motherboard",
   "Move and resize desktop widgets": "Move and resize desktop widgets",
   "Music player": "Music player",
-  "Mute this program": "Mute this program",
   "Name": "Name",
   "Name it, then sign in": "Name it, then sign in",
   "Name the subscriptions you want in the menu": "Name the subscriptions you want in the menu",
@@ -1851,5 +1848,8 @@
   "Japanese (Mozc)": "Japanese (Mozc)",
   "Korean (Hangul)": "Korean (Hangul)",
   "Skip for now": "Skip for now",
-  "fcitx5-configtool is not installed": "fcitx5-configtool is not installed"
+  "fcitx5-configtool is not installed": "fcitx5-configtool is not installed",
+  "Details": "Details",
+  "Mute this app": "Mute this app",
+  "{app} crashed": "{app} crashed"
 }

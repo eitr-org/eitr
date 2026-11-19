@@ -154,9 +154,6 @@ msgstr "A plugin reported errors; review it in Installed Plugins."
 msgid "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background."
 msgstr "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background."
 
-msgid "A program crashed"
-msgstr "A program crashed"
-
 msgid "A regular desktop user is required"
 msgstr "A regular desktop user is required"
 
@@ -1342,6 +1339,9 @@ msgstr "Destination {path} is on the same disk as your home folder. Continue?"
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 
+msgid "Details"
+msgstr "Details"
+
 msgid "Direct"
 msgstr "Direct"
 
@@ -1917,9 +1917,6 @@ msgstr "Identity pools"
 
 msgid "Idle; ping to check"
 msgstr "Idle; ping to check"
-
-msgid "Ignore"
-msgstr "Ignore"
 
 msgid "Image viewer"
 msgstr "Image viewer"
@@ -2512,8 +2509,8 @@ msgstr "Move and resize desktop widgets"
 msgid "Music player"
 msgstr "Music player"
 
-msgid "Mute this program"
-msgstr "Mute this program"
+msgid "Mute this app"
+msgstr "Mute this app"
 
 msgid "Name"
 msgstr "Name"
@@ -5331,6 +5328,9 @@ msgstr "{FIREWALL_RULES} is missing; update the eitr-desktop package first"
 
 msgid "{TARGET} is already mounted; unmount it before installing"
 msgstr "{TARGET} is already mounted; unmount it before installing"
+
+msgid "{app} crashed"
+msgstr "{app} crashed"
 
 msgid "{assistant} is an AI assistant for your terminal."
 msgstr "{assistant} is an AI assistant for your terminal."

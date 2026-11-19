@@ -1150,5 +1150,10 @@
   "Japanese (Mozc)": "Japanese (Mozc)",
   "Korean (Hangul)": "Korean (Hangul)",
   "Optional CJK input method (fcitx5)": "Optional CJK input method (fcitx5)",
-  "Recommended for your desktop language (fcitx5)": "Recommended for your desktop language (fcitx5)"
+  "Recommended for your desktop language (fcitx5)": "Recommended for your desktop language (fcitx5)",
+  "Battery Warnings": "Battery Warnings",
+  "Critical battery warning": "Critical battery warning",
+  "Low battery warning": "Low battery warning",
+  "Notify when the battery drops to this level.": "Notify when the battery drops to this level.",
+  "Send an urgent alert when the battery drops to this level.": "Send an urgent alert when the battery drops to this level."
 }

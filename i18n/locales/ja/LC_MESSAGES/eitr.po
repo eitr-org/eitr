@@ -154,9 +154,6 @@ msgstr "プラグインがエラーを報告しました。「インストール
 msgid "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background."
 msgstr "プラグインはあなたとして実行され、アカウントのすべての権限を持ちます。ファイル、SSHキー、ブラウザデータを読み取り、任意の場所に送信し、バックグラウンドで実行し続けることができます。"
 
-msgid "A program crashed"
-msgstr "プログラムがクラッシュしました"
-
 msgid "A regular desktop user is required"
 msgstr "通常のデスクトップユーザーが必要です"
 
@@ -1342,6 +1339,9 @@ msgstr "保存先 {path} はホームフォルダーと同じディスク上に�
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "詳細ログ: /var/log/archinstall。失敗したステップ以降は何も変更されていません。"
 
+msgid "Details"
+msgstr "詳細"
+
 msgid "Direct"
 msgstr "直接"
 
@@ -1917,9 +1917,6 @@ msgstr "IDプール"
 
 msgid "Idle; ping to check"
 msgstr "アイドル状態。pingで確認してください"
-
-msgid "Ignore"
-msgstr "無視"
 
 msgid "Image viewer"
 msgstr "画像ビューア"
@@ -2512,8 +2509,8 @@ msgstr "デスクトップウィジェットの移動とサイズ変更"
 msgid "Music player"
 msgstr "音楽プレーヤー"
 
-msgid "Mute this program"
-msgstr "このプログラムをミュート"
+msgid "Mute this app"
+msgstr "このアプリをミュート"
 
 msgid "Name"
 msgstr "名前"
@@ -5331,6 +5328,9 @@ msgstr "{FIREWALL_RULES} が見つかりません。最初に eitr-desktop パ�
 
 msgid "{TARGET} is already mounted; unmount it before installing"
 msgstr "{TARGET} はすでにマウントされています。インストール前にアンマウントしてください"
+
+msgid "{app} crashed"
+msgstr "{app}がクラッシュしました"
 
 msgid "{assistant} is an AI assistant for your terminal."
 msgstr "{assistant} はターミナル用のAIアシスタントです。"

@@ -1150,5 +1150,10 @@
   "Japanese (Mozc)": "日语 (Mozc)",
   "Korean (Hangul)": "韩语 (Hangul)",
   "Optional CJK input method (fcitx5)": "可选 CJK 输入法 (fcitx5)",
-  "Recommended for your desktop language (fcitx5)": "建议用于当前桌面语言 (fcitx5)"
+  "Recommended for your desktop language (fcitx5)": "建议用于当前桌面语言 (fcitx5)",
+  "Battery Warnings": "电池警告",
+  "Low battery warning": "低电量警告",
+  "Critical battery warning": "极低电量警告",
+  "Notify when the battery drops to this level.": "当电池电量降至此水平时发出通知。",
+  "Send an urgent alert when the battery drops to this level.": "当电池电量降至此水平时发送紧急警报。"
 }

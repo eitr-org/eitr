@@ -154,9 +154,6 @@ msgstr "某个插件报告了错误；请在“已安装插件”中查看。"
 msgid "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background."
 msgstr "插件以您的身份运行，拥有您账户的完整权限。它可以读取您的文件、SSH 密钥和浏览器数据，将其发送到任何位置，并在后台持续运行。"
 
-msgid "A program crashed"
-msgstr "程序崩溃"
-
 msgid "A regular desktop user is required"
 msgstr "需要常规桌面用户"
 
@@ -1342,6 +1339,9 @@ msgstr "目标路径 {path} 与主目录位于同一磁盘上，是否继续？"
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "详细日志：/var/log/archinstall。失败步骤之后未更改任何内容。"
 
+msgid "Details"
+msgstr "详情"
+
 msgid "Direct"
 msgstr "直接"
 
@@ -1917,9 +1917,6 @@ msgstr "身份池"
 
 msgid "Idle; ping to check"
 msgstr "空闲；ping 以检查"
-
-msgid "Ignore"
-msgstr "忽略"
 
 msgid "Image viewer"
 msgstr "图片查看器"
@@ -2512,8 +2509,8 @@ msgstr "移动和调整桌面小组件大小"
 msgid "Music player"
 msgstr "音乐播放器"
 
-msgid "Mute this program"
-msgstr "静音此程序"
+msgid "Mute this app"
+msgstr "静音此应用"
 
 msgid "Name"
 msgstr "名称"
@@ -5331,6 +5328,9 @@ msgstr "缺少 {FIREWALL_RULES}；请先更新 eitr-desktop 软件包"
 
 msgid "{TARGET} is already mounted; unmount it before installing"
 msgstr "{TARGET} 已挂载；请在安装前将其卸载"
+
+msgid "{app} crashed"
+msgstr "{app} 已崩溃"
 
 msgid "{assistant} is an AI assistant for your terminal."
 msgstr "{assistant} 是用于终端的 AI 助手。"

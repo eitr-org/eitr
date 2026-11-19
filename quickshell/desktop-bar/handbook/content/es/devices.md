@@ -62,6 +62,6 @@ Los controles de batería y perfil de energía solo aparecen cuando existe una b
 
 El Límite de carga requiere una interfaz sysfs de firmware compatible y confirmación escrita. Desactivado permite cargar al 100 %. No todos los portátiles lo admiten.
 
-Una notificación avisa al 10 % y otra, urgente, al 5 %, una vez por descarga. En portátiles, el instalador añade también el firmware de audio necesario en los modelos recientes (`sof-firmware`) y, en modelos Intel, `thermald` para controlar el calor.
+Los niveles de aviso bajo (predeterminado 10 %) y crítico (predeterminado 5 %) pueden ajustarse en Configuración > Pantallas > Pantallas o en la ventana emergente Batería y energía (rango 2–50 %, con crítico menor que bajo); las preferencias se guardan en `~/.config/eitr/power.json`. Una notificación avisa al alcanzar el nivel bajo y otra, urgente, en el nivel crítico, una vez por descarga. En portátiles, el instalador añade también el firmware de audio necesario en los modelos recientes (`sof-firmware`) y, en modelos Intel, `thermald` para controlar el calor.
 
 Estos recursos son **experimentales** hasta que los primeros usuarios los confirmen en portátiles reales: teclas de retroiluminación del teclado y cierre de tapa con monitor externo conectado. En ese caso, se apaga la pantalla del portátil y el escritorio pasa al monitor externo; abrir la tapa lo devuelve. Sin monitor externo, cerrar la tapa suspende normalmente. La hibernación no se configura automáticamente.

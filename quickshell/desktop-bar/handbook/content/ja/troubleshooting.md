@@ -63,7 +63,7 @@ EITRはまだベータ版です。VMでの検証は、すべてのWi-Fiアダプ
 
 ### プログラムがクラッシュしたとき
 
-Crash Notifications（クラッシュ通知）はデフォルトでオンになっています。ユーザーサービスが自身のプログラムに対する新しい読み取り可能なsystemd-coredumpレコードを監視します。クラッシュごとに「Report a problem」、「Ignore」、「Mute this program」が提示されます。デフォルトのアシスタントがインストールされ選択されている場合は「Ask the AI」も表示されます。同一プログラムの繰り返しのクラッシュは、5分間に1回の通知に制限されます。
+Crash Notifications（クラッシュ通知）はデフォルトでオンになっています。ユーザーサービスが自身のプログラムに対する新しい読み取り可能なsystemd-coredumpレコードを監視します。各クラッシュ通知には「Details」（`coredumpctl info`を実行する診断端末を開く）、「Report a problem」、「Mute this app」が提示されます。デフォルトのアシスタントがインストールされ選択されている場合は「Ask the AI」も表示されます。同一プログラムの繰り返しのクラッシュは、1分間に1回の通知に制限されます。Eitr自身のバーの終了は別途記録されるためスキップされます。
 
 セッションを終了させたクラッシュは次回のログイン時に提示されますが、ログアウト、再起動、シャットダウン後の1分間にクラッシュしたプログラムは提示されません。これらは単に周囲のデスクトップ環境が終了したことによるものです。Settings > NotificationsまたはControl Center > General > Quick ActionsでCrash Notificationsを切り替えることができます。
 

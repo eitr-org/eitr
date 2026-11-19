@@ -39,10 +39,29 @@ class CrashHelpTests(unittest.TestCase):
             self.assertFalse(crashes.eligible(event(os.getuid() + 1), recent, 1000))
             self.assertTrue(crashes.eligible(event(), recent, 1000))
             self.assertFalse(crashes.eligible(event(), recent, 1001))
+            self.assertFalse(crashes.eligible(event(), recent, 1059))
+            self.assertTrue(crashes.eligible(event(), recent, 1060))
             self.assertTrue(crashes.eligible(event(), recent, 1300))
+            # Quickshell and crash-help are skipped as internal bar exits/watchers
+            bar_crash = {**event(), 'COREDUMP_EXE': '/usr/bin/quickshell'}
+            self.assertFalse(crashes.eligible(bar_crash, recent, 2000))
         for settings in ({'enabled': False}, {'enabled': True, 'ignored': ['/usr/bin/example']}):
             with patch.object(crashes, 'preferences', return_value=settings):
                 self.assertFalse(crashes.eligible(event(), {}, 1000))
+
+    def test_details_action_opens_coredumpctl_terminal(self):
+        with patch.object(crashes, 'crash_summary', return_value='summary'), \
+                patch.object(crashes, 'preferences', return_value={'enabled': True}), \
+                patch.object(crashes, 'default_assistant', return_value=''), \
+                patch.object(crashes.subprocess, 'run', return_value=SimpleNamespace(stdout='details')) as run, \
+                patch.object(crashes.subprocess, 'Popen') as terminal:
+            crashes.notify(event())
+            command = terminal.call_args.args[0]
+            self.assertIn('--hold', command)
+            self.assertEqual(command[-3:], ['coredumpctl', 'info', '123'])
+            notify_args = run.call_args.args[0]
+            self.assertIn('example crashed', notify_args[-1])
+
 
     def test_summary_contains_only_program_signal_and_backtrace(self):
         info = 'Command Line: private arguments\nEnvironment: secret\nStack trace of thread 123:\n #0 0x123 crash (lib.so)\nStorage: /private/core\n'

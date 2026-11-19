@@ -50,7 +50,6 @@
   "A package signing key is missing or expired, so updates may be refused; run System Update.": "Une clé de signature des paquets manque ou a expiré, les mises à jour peuvent donc être refusées ; lancez la Mise à jour du système.",
   "A plugin reported errors; review it in Installed Plugins.": "Un plugin a signalé des erreurs ; vérifiez-le dans Plugins installés.",
   "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": "Un plugin s’exécute en votre nom, avec toutes les permissions de votre compte. Il peut lire vos fichiers, vos clés SSH et les données de votre navigateur, les envoyer n’importe où et continuer à tourner en arrière-plan.",
-  "A program crashed": "Un programme a planté",
   "A regular desktop user is required": "Un utilisateur normal du bureau est requis",
   "A screen runs at a lower refresh rate than it supports, so motion looks less smooth; choose the higher rate in Display settings.": "Un écran fonctionne à une fréquence de rafraîchissement inférieure à celle qu’il prend en charge, les mouvements sont donc moins fluides ; choisissez la fréquence la plus élevée dans les réglages Écran.",
   "A selection is required": "Vous devez sélectionner une option",
@@ -637,7 +636,6 @@
   "Icon address": "Adresse d’icône",
   "Identity pools": "Pools d’identités",
   "Idle; ping to check": "Inactive ; testez avec un ping",
-  "Ignore": "Ignorer",
   "Image viewer": "Visionneuse d’images",
   "Import a VPN file…": "Importer un fichier VPN…",
   "Import a WireGuard configuration…": "Importer une configuration WireGuard…",
@@ -828,7 +826,6 @@
   "Motherboard": "Carte mère",
   "Move and resize desktop widgets": "Déplacer et redimensionner les widgets du bureau",
   "Music player": "Lecteur de musique",
-  "Mute this program": "Mettre ce programme en sourdine",
   "Name": "Nom",
   "Name it, then sign in": "Nommez-le, puis connectez-vous",
   "Name the subscriptions you want in the menu": "Nommez les abonnements que vous souhaitez dans le menu",
@@ -1851,5 +1848,8 @@
   "Japanese (Mozc)": "Japonais (Mozc)",
   "Korean (Hangul)": "Coréen (Hangul)",
   "Skip for now": "Ignorer pour le moment",
-  "fcitx5-configtool is not installed": "fcitx5-configtool n’est pas installé"
+  "fcitx5-configtool is not installed": "fcitx5-configtool n’est pas installé",
+  "Details": "Détails",
+  "Mute this app": "Mettre cette application en sourdine",
+  "{app} crashed": "{app} a planté"
 }

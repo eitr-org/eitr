@@ -50,7 +50,6 @@
   "A package signing key is missing or expired, so updates may be refused; run System Update.": "パッケージ署名鍵が見つからないか期限切れのため、アップデートが拒否される可能性があります。システムアップデートを実行してください。",
   "A plugin reported errors; review it in Installed Plugins.": "プラグインがエラーを報告しました。「インストール済みプラグイン」で確認してください。",
   "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": "プラグインはあなたとして実行され、アカウントのすべての権限を持ちます。ファイル、SSHキー、ブラウザデータを読み取り、任意の場所に送信し、バックグラウンドで実行し続けることができます。",
-  "A program crashed": "プログラムがクラッシュしました",
   "A regular desktop user is required": "通常のデスクトップユーザーが必要です",
   "A screen runs at a lower refresh rate than it supports, so motion looks less smooth; choose the higher rate in Display settings.": "画面がサポートされているリフレッシュレートより低く動作しているため、動きが滑らかに見えません。「ディスプレイ」設定でより高いレートを選択してください。",
   "A selection is required": "選択が必要です",
@@ -637,7 +636,6 @@
   "Icon address": "アイコンアドレス",
   "Identity pools": "IDプール",
   "Idle; ping to check": "アイドル状態。pingで確認してください",
-  "Ignore": "無視",
   "Image viewer": "画像ビューア",
   "Import a VPN file…": "VPNファイルをインポート…",
   "Import a WireGuard configuration…": "WireGuard設定をインポート…",
@@ -828,7 +826,6 @@
   "Motherboard": "マザーボード",
   "Move and resize desktop widgets": "デスクトップウィジェットの移動とサイズ変更",
   "Music player": "音楽プレーヤー",
-  "Mute this program": "このプログラムをミュート",
   "Name": "名前",
   "Name it, then sign in": "名前を付けてサインイン",
   "Name the subscriptions you want in the menu": "メニューに表示するサブスクリプションの名前を指定してください",
@@ -1851,5 +1848,8 @@
   "Japanese (Mozc)": "日本語 (Mozc)",
   "Korean (Hangul)": "韓国語 (Hangul)",
   "Skip for now": "今はスキップ",
-  "fcitx5-configtool is not installed": "fcitx5-configtool がインストールされていません"
+  "fcitx5-configtool is not installed": "fcitx5-configtool がインストールされていません",
+  "Details": "詳細",
+  "Mute this app": "このアプリをミュート",
+  "{app} crashed": "{app}がクラッシュしました"
 }

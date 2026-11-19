@@ -332,7 +332,7 @@ ThemedPopup {
                     Text { width: 50; height: 30; text: Math.round(slider.value) + "%"; horizontalAlignment: Text.AlignRight; verticalAlignment: Text.AlignVCenter; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize; font.features: PanelStyle.tabularFigures }
                 }
                 PowerProfileSection { menu: menu }
-                PanelDivider { visible: menu.settingsSection === "all" && (menu.state.kind === "backlight" || menu.power.available); width: parent.width; height: 8; foreground: menu.foreground }
+                PanelDivider { visible: menu.settingsSection === "all" && (menu.state.kind === "backlight" || menu.power.available || PowerService.battery.available); width: parent.width; height: 8; foreground: menu.foreground }
                 NightLightSection { id: nightlightSection; menu: menu; scheduleSettle: scheduleSettle; nightOperation: nightOperation }
                 PanelDivider { visible: menu.settingsSection === "all"; width: parent.width; height: 8; foreground: menu.foreground }
                 DisplayListSection { menu: menu; trialOperation: trialOperation; setPrimary: setPrimary }

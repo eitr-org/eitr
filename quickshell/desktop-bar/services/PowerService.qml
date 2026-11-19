@@ -4,7 +4,7 @@ import QtQuick
 
 QtObject {
     id: service
-    property var battery: ({available: false, percent: 0, status: "", health: 0, hours: 0})
+    property var battery: ({available: false, percent: 0, status: "", health: 0, hours: 0, low: 10, critical: 5})
     property var profile: ({available: false, active: "", profiles: []})
     property var radios: ({available: false, enabled: false})
     readonly property bool busy: DesktopData.powerDomain.busy
@@ -43,9 +43,12 @@ QtObject {
         return tokens;
     }
     function release(tokens) { tokens.forEach(token => DesktopData.release(token)); }
-    function refresh() { DesktopData.refresh("power.profile"); }
+    function refresh() { DesktopData.refresh("power.profile"); DesktopData.refresh("power.battery"); }
     function act(name, value, callback) {
         return DesktopData.client.actPower(name, name === "profile" ? {path: value} : {extra: value}, callback);
+    }
+    function setWarningLevels(low, critical, callback) {
+        return DesktopData.client.actPower("battery-levels", {low: Math.round(low), critical: Math.round(critical)}, callback);
     }
     Component.onCompleted: DesktopData.observe("power.battery", service)
     Component.onDestruction: DesktopData.releaseOwner(service)

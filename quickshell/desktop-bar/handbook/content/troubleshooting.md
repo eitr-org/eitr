@@ -108,7 +108,7 @@ deleted at any time.
 
 ### When something crashes
 
-Crash Notifications are on by default. A user service watches new, readable systemd-coredump records for your own programs. Each crash offers Report a problem, Ignore, and Mute this program; Ask the AI appears when a default assistant is installed and selected. Repeated crashes of one program are limited to one notification every five minutes.
+Crash Notifications are on by default. A user service watches new, readable systemd-coredump records for your own programs. Each crash notification offers Details (opens a diagnostic terminal with `coredumpctl info`), Report a problem, and Mute this app; Ask the AI appears when a default assistant is installed and selected. Repeated crashes of one program are limited to one notification every minute. Eitr's own bar exits are skipped because they are already recorded separately.
 
 A crash that ends your session is offered at the next login, but programs that crash in the minute after you log out, restart or shut down are not: they are only losing the desktop around them. Toggle Crash Notifications in Settings > Notifications or Control Center > General > Quick Actions.
 

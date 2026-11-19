@@ -154,9 +154,6 @@ msgstr "Un plugin a signalé des erreurs ; vérifiez-le dans Plugins installés.
 msgid "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background."
 msgstr "Un plugin s’exécute en votre nom, avec toutes les permissions de votre compte. Il peut lire vos fichiers, vos clés SSH et les données de votre navigateur, les envoyer n’importe où et continuer à tourner en arrière-plan."
 
-msgid "A program crashed"
-msgstr "Un programme a planté"
-
 msgid "A regular desktop user is required"
 msgstr "Un utilisateur normal du bureau est requis"
 
@@ -1342,6 +1339,9 @@ msgstr "La destination {path} est sur le même disque que votre dossier personne
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Journaux détaillés : /var/log/archinstall. Aucune modification après l’étape ayant échoué."
 
+msgid "Details"
+msgstr "Détails"
+
 msgid "Direct"
 msgstr "Directe"
 
@@ -1917,9 +1917,6 @@ msgstr "Pools d’identités"
 
 msgid "Idle; ping to check"
 msgstr "Inactive ; testez avec un ping"
-
-msgid "Ignore"
-msgstr "Ignorer"
 
 msgid "Image viewer"
 msgstr "Visionneuse d’images"
@@ -2512,8 +2509,8 @@ msgstr "Déplacer et redimensionner les widgets du bureau"
 msgid "Music player"
 msgstr "Lecteur de musique"
 
-msgid "Mute this program"
-msgstr "Mettre ce programme en sourdine"
+msgid "Mute this app"
+msgstr "Mettre cette application en sourdine"
 
 msgid "Name"
 msgstr "Nom"
@@ -5331,6 +5328,9 @@ msgstr "{FIREWALL_RULES} est absent ; mettez d’abord à jour le paquet eitr-de
 
 msgid "{TARGET} is already mounted; unmount it before installing"
 msgstr "{TARGET} est déjà monté ; démontez-le avant l’installation"
+
+msgid "{app} crashed"
+msgstr "{app} a planté"
 
 msgid "{assistant} is an AI assistant for your terminal."
 msgstr "{assistant} est un assistant IA pour votre terminal."

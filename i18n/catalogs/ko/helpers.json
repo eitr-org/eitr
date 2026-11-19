@@ -50,7 +50,6 @@
   "A package signing key is missing or expired, so updates may be refused; run System Update.": "패키지 서명 키가 없거나 만료되어 업데이트가 거부될 수 있습니다. 시스템 업데이트를 실행하세요.",
   "A plugin reported errors; review it in Installed Plugins.": "플러그인에서 오류가 보고되었습니다. 설치된 플러그인에서 확인하세요.",
   "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": "플러그인은 사용자의 계정 권한 전체를 가지고 실행됩니다. 파일, SSH 키 및 브라우저 데이터를 읽어 어디로든 전송할 수 있으며, 백그라운드에서 계속 실행될 수 있습니다.",
-  "A program crashed": "프로그램이 비정상 종료됨",
   "A regular desktop user is required": "일반 데스크톱 사용자가 필요합니다",
   "A screen runs at a lower refresh rate than it supports, so motion looks less smooth; choose the higher rate in Display settings.": "화면이 지원하는 것보다 낮은 주사율로 실행 중이어서 움직임이 덜 부드러워 보입니다. 디스플레이 설정에서 더 높은 주사율을 선택하세요.",
   "A selection is required": "선택 항목이 필요합니다",
@@ -637,7 +636,6 @@
   "Icon address": "아이콘 주소",
   "Identity pools": "자격 증명 풀",
   "Idle; ping to check": "대기 중; 확인하려면 핑을 보내세요",
-  "Ignore": "무시",
   "Image viewer": "이미지 뷰어",
   "Import a VPN file…": "VPN 파일 가져오기…",
   "Import a WireGuard configuration…": "WireGuard 구성 가져오기…",
@@ -828,7 +826,6 @@
   "Motherboard": "마더보드",
   "Move and resize desktop widgets": "데스크톱 위젯 이동 및 크기 조절",
   "Music player": "음악 플레이어",
-  "Mute this program": "이 프로그램 음소거",
   "Name": "이름",
   "Name it, then sign in": "이름을 지정한 다음 로그인하세요",
   "Name the subscriptions you want in the menu": "메뉴에 표시할 구독의 이름을 지정하세요",
@@ -1851,5 +1848,8 @@
   "Japanese (Mozc)": "일본어 (Mozc)",
   "Korean (Hangul)": "한국어 (Hangul)",
   "Skip for now": "지금은 건너뛰기",
-  "fcitx5-configtool is not installed": "fcitx5-configtool이 설치되어 있지 않습니다"
+  "fcitx5-configtool is not installed": "fcitx5-configtool이 설치되어 있지 않습니다",
+  "Details": "자세히",
+  "Mute this app": "이 앱 음소거",
+  "{app} crashed": "{app} 비정상 종료됨"
 }

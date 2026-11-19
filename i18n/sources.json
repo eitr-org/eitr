@@ -357,6 +357,9 @@
     "Battery & Power": [
       "quickshell/desktop-bar/panels/BatteryMenu.qml"
     ],
+    "Battery Warnings": [
+      "quickshell/desktop-bar/components/BatteryWarningSection.qml"
+    ],
     "Battery health: {percent}%": [
       "quickshell/desktop-bar/panels/BatteryMenu.qml"
     ],
@@ -879,6 +882,10 @@
     ],
     "Create backup…": [
       "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
+    ],
+    "Critical battery warning": [
+      "quickshell/desktop-bar/components/BatteryWarningSection.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
     "Current": [
       "quickshell/desktop-bar/store/StoreCatalogCard.qml",
@@ -1734,6 +1741,10 @@
     "Looking for lyrics…": [
       "quickshell/desktop-bar/media/MediaPage.qml"
     ],
+    "Low battery warning": [
+      "quickshell/desktop-bar/components/BatteryWarningSection.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Lyrics are unavailable right now": [
       "quickshell/desktop-bar/media/MediaPage.qml"
     ],
@@ -2084,6 +2095,9 @@
       "quickshell/desktop-bar/notifications/NotificationList.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
+    ],
+    "Notify when the battery drops to this level.": [
+      "quickshell/desktop-bar/components/BatteryWarningSection.qml"
     ],
     "Now using: %1": [
       "quickshell/desktop-bar/bar/BarMomentSources.qml"
@@ -2931,6 +2945,9 @@
     "Send": [
       "quickshell/desktop-bar/notifications/NotificationCard.qml",
       "quickshell/desktop-bar/panels/AssistantChat.qml"
+    ],
+    "Send an urgent alert when the battery drops to this level.": [
+      "quickshell/desktop-bar/components/BatteryWarningSection.qml"
     ],
     "Sequential write and read of a 256 MB temporary file in your cache folder on the root drive.": [
       "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
@@ -7517,9 +7534,6 @@
     "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": [
       "walker/scripts/actions/install/plugins.py"
     ],
-    "A program crashed": [
-      "walker/scripts/actions/system/crash-help.py"
-    ],
     "A regular desktop user is required": [
       "distro/lib/eitr_profile_apply.py",
       "distro/system/eitr_remote.py"
@@ -8727,6 +8741,9 @@
     "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.": [
       "distro/archinstall/eitr-guided-install"
     ],
+    "Details": [
+      "walker/scripts/actions/system/crash-help.py"
+    ],
     "Direct": [
       "walker/scripts/actions/system/remote-access.py"
     ],
@@ -9310,9 +9327,6 @@
     ],
     "Idle; ping to check": [
       "walker/scripts/actions/system/remote-access.py"
-    ],
-    "Ignore": [
-      "walker/scripts/actions/system/crash-help.py"
     ],
     "Image viewer": [
       "quickshell/desktop-bar/scripts/default-apps.py"
@@ -9924,7 +9938,7 @@
     "Music player": [
       "quickshell/desktop-bar/scripts/default-apps.py"
     ],
-    "Mute this program": [
+    "Mute this app": [
       "walker/scripts/actions/system/crash-help.py"
     ],
     "Name": [
@@ -12808,6 +12822,9 @@
     ],
     "{TARGET} is already mounted; unmount it before installing": [
       "distro/archinstall/eitr-guided-install"
+    ],
+    "{app} crashed": [
+      "walker/scripts/actions/system/crash-help.py"
     ],
     "{assistant} is an AI assistant for your terminal.": [
       "distro/lib/eitr_assistants.py"

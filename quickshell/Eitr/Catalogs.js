@@ -1187,7 +1187,12 @@ var qml = {
     "Japanese (Mozc)": "Japanese (Mozc)",
     "Korean (Hangul)": "Korean (Hangul)",
     "Optional CJK input method (fcitx5)": "Optional CJK input method (fcitx5)",
-    "Recommended for your desktop language (fcitx5)": "Recommended for your desktop language (fcitx5)"
+    "Recommended for your desktop language (fcitx5)": "Recommended for your desktop language (fcitx5)",
+    "Battery Warnings": "Battery Warnings",
+    "Critical battery warning": "Critical battery warning",
+    "Low battery warning": "Low battery warning",
+    "Notify when the battery drops to this level.": "Notify when the battery drops to this level.",
+    "Send an urgent alert when the battery drops to this level.": "Send an urgent alert when the battery drops to this level."
   },
   "pt_BR": {
     "%1 B/s": "%1 B/s",
@@ -2341,7 +2346,12 @@ var qml = {
     "Japanese (Mozc)": "Japonês (Mozc)",
     "Korean (Hangul)": "Coreano (Hangul)",
     "Optional CJK input method (fcitx5)": "Método de entrada CJK opcional (fcitx5)",
-    "Recommended for your desktop language (fcitx5)": "Recomendado para o idioma da área de trabalho (fcitx5)"
+    "Recommended for your desktop language (fcitx5)": "Recomendado para o idioma da área de trabalho (fcitx5)",
+    "Battery Warnings": "Avisos de bateria",
+    "Low battery warning": "Aviso de bateria fraca",
+    "Critical battery warning": "Aviso de bateria crítica",
+    "Notify when the battery drops to this level.": "Notificar quando a bateria cair para este nível.",
+    "Send an urgent alert when the battery drops to this level.": "Enviar um alerta urgente quando a bateria cair para este nível."
   },
   "es": {
     "%1 B/s": "%1 B/s",
@@ -3495,7 +3505,12 @@ var qml = {
     "Japanese (Mozc)": "Japonés (Mozc)",
     "Korean (Hangul)": "Coreano (Hangul)",
     "Optional CJK input method (fcitx5)": "Método de entrada CJK opcional (fcitx5)",
-    "Recommended for your desktop language (fcitx5)": "Recomendado para el idioma del escritorio (fcitx5)"
+    "Recommended for your desktop language (fcitx5)": "Recomendado para el idioma del escritorio (fcitx5)",
+    "Battery Warnings": "Avisos de batería",
+    "Low battery warning": "Aviso de batería baja",
+    "Critical battery warning": "Aviso de batería crítica",
+    "Notify when the battery drops to this level.": "Notificar cuando la batería baje a este nivel.",
+    "Send an urgent alert when the battery drops to this level.": "Enviar una alerta urgente cuando la batería baje a este nivel."
   },
   "de": {
     "%1 B/s": "%1 B/s",
@@ -4649,7 +4664,12 @@ var qml = {
     "Japanese (Mozc)": "Japanisch (Mozc)",
     "Korean (Hangul)": "Koreanisch (Hangul)",
     "Optional CJK input method (fcitx5)": "Optionale CJK-Eingabemethode (fcitx5)",
-    "Recommended for your desktop language (fcitx5)": "Für deine Desktopsprache empfohlen (fcitx5)"
+    "Recommended for your desktop language (fcitx5)": "Für deine Desktopsprache empfohlen (fcitx5)",
+    "Battery Warnings": "Akku-Warnungen",
+    "Low battery warning": "Niedriger Akkustand",
+    "Critical battery warning": "Kritischer Akkustand",
+    "Notify when the battery drops to this level.": "Benachrichtigen, wenn der Akku diesen Stand erreicht.",
+    "Send an urgent alert when the battery drops to this level.": "Dringende Warnung senden, wenn der Akku diesen Stand erreicht."
   },
   "fr": {
     "%1 B/s": "%1 o/s",
@@ -5803,7 +5823,12 @@ var qml = {
     "Japanese (Mozc)": "Japonais (Mozc)",
     "Korean (Hangul)": "Coréen (Hangul)",
     "Optional CJK input method (fcitx5)": "Méthode de saisie CJK facultative (fcitx5)",
-    "Recommended for your desktop language (fcitx5)": "Recommandé pour votre langue de bureau (fcitx5)"
+    "Recommended for your desktop language (fcitx5)": "Recommandé pour votre langue de bureau (fcitx5)",
+    "Battery Warnings": "Avertissements de batterie",
+    "Low battery warning": "Avertissement de batterie faible",
+    "Critical battery warning": "Avertissement de batterie critique",
+    "Notify when the battery drops to this level.": "Notifier lorsque la batterie descend à ce niveau.",
+    "Send an urgent alert when the battery drops to this level.": "Envoyer une alerte urgente lorsque la batterie descend à ce niveau."
   },
   "ja": {
     "%1 B/s": "%1 B/s",
@@ -6957,7 +6982,12 @@ var qml = {
     "Japanese (Mozc)": "日本語 (Mozc)",
     "Korean (Hangul)": "韓国語 (Hangul)",
     "Optional CJK input method (fcitx5)": "任意の CJK 入力メソッド (fcitx5)",
-    "Recommended for your desktop language (fcitx5)": "デスクトップ言語に推奨 (fcitx5)"
+    "Recommended for your desktop language (fcitx5)": "デスクトップ言語に推奨 (fcitx5)",
+    "Battery Warnings": "バッテリーの警告",
+    "Low battery warning": "バッテリー低下の警告",
+    "Critical battery warning": "バッテリー残量低下（重大）の警告",
+    "Notify when the battery drops to this level.": "バッテリーがこの残量に達したときに通知します。",
+    "Send an urgent alert when the battery drops to this level.": "バッテリーがこの残量に達したときに緊急アラートを送信します。"
   },
   "zh_CN": {
     "%1 B/s": "%1 B/s",
@@ -8111,7 +8141,12 @@ var qml = {
     "Japanese (Mozc)": "日语 (Mozc)",
     "Korean (Hangul)": "韩语 (Hangul)",
     "Optional CJK input method (fcitx5)": "可选 CJK 输入法 (fcitx5)",
-    "Recommended for your desktop language (fcitx5)": "建议用于当前桌面语言 (fcitx5)"
+    "Recommended for your desktop language (fcitx5)": "建议用于当前桌面语言 (fcitx5)",
+    "Battery Warnings": "电池警告",
+    "Low battery warning": "低电量警告",
+    "Critical battery warning": "极低电量警告",
+    "Notify when the battery drops to this level.": "当电池电量降至此水平时发出通知。",
+    "Send an urgent alert when the battery drops to this level.": "当电池电量降至此水平时发送紧急警报。"
   },
   "ko": {
     "%1 B/s": "%1 B/s",
@@ -9265,6 +9300,11 @@ var qml = {
     "Japanese (Mozc)": "일본어 (Mozc)",
     "Korean (Hangul)": "한국어 (Hangul)",
     "Optional CJK input method (fcitx5)": "선택적 CJK 입력기 (fcitx5)",
-    "Recommended for your desktop language (fcitx5)": "데스크톱 언어에 권장 (fcitx5)"
+    "Recommended for your desktop language (fcitx5)": "데스크톱 언어에 권장 (fcitx5)",
+    "Battery Warnings": "배터리 경고",
+    "Low battery warning": "배터리 부족 경고",
+    "Critical battery warning": "치명적인 배터리 부족 경고",
+    "Notify when the battery drops to this level.": "배터리가 이 수준으로 떨어지면 알립니다.",
+    "Send an urgent alert when the battery drops to this level.": "배터리가 이 수준으로 떨어지면 긴급 경고를 보냅니다."
   }
 };

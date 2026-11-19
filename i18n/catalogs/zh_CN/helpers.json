@@ -50,7 +50,6 @@
   "A package signing key is missing or expired, so updates may be refused; run System Update.": "软件包签名密钥缺失或已过期，更新可能被拒绝；请运行“系统更新”。",
   "A plugin reported errors; review it in Installed Plugins.": "某个插件报告了错误；请在“已安装插件”中查看。",
   "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": "插件以您的身份运行，拥有您账户的完整权限。它可以读取您的文件、SSH 密钥和浏览器数据，将其发送到任何位置，并在后台持续运行。",
-  "A program crashed": "程序崩溃",
   "A regular desktop user is required": "需要常规桌面用户",
   "A screen runs at a lower refresh rate than it supports, so motion looks less smooth; choose the higher rate in Display settings.": "屏幕运行的刷新率低于其支持的数值，画面动画可能不够流畅；请在“显示器”设置中选择更高的刷新率。",
   "A selection is required": "需要做出选择",
@@ -637,7 +636,6 @@
   "Icon address": "图标地址",
   "Identity pools": "身份池",
   "Idle; ping to check": "空闲；ping 以检查",
-  "Ignore": "忽略",
   "Image viewer": "图片查看器",
   "Import a VPN file…": "导入 VPN 文件…",
   "Import a WireGuard configuration…": "导入 WireGuard 配置…",
@@ -828,7 +826,6 @@
   "Motherboard": "主板",
   "Move and resize desktop widgets": "移动和调整桌面小组件大小",
   "Music player": "音乐播放器",
-  "Mute this program": "静音此程序",
   "Name": "名称",
   "Name it, then sign in": "为其命名，然后登录",
   "Name the subscriptions you want in the menu": "在菜单中为所需的订阅命名",
@@ -1851,5 +1848,8 @@
   "Japanese (Mozc)": "日语 (Mozc)",
   "Korean (Hangul)": "韩语 (Hangul)",
   "Skip for now": "暂时跳过",
-  "fcitx5-configtool is not installed": "未安装 fcitx5-configtool"
+  "fcitx5-configtool is not installed": "未安装 fcitx5-configtool",
+  "Details": "详情",
+  "Mute this app": "静音此应用",
+  "{app} crashed": "{app} 已崩溃"
 }

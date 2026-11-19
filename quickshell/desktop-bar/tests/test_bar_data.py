@@ -723,6 +723,11 @@ class PowerTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(frames[-1]['topic'], 'power')
             self.assertEqual(frames[-1]['error'], 'invalid-request')
             self.assertFalse(broker.actions)
+            for number, args in enumerate(({'low': 10}, {'low': 10, 'critical': 10}, {'low': 60, 'critical': 5},
+                                           {'low': '10', 'critical': '5'}, {'low': 10, 'critical': 5, 'extra': '--x'})):
+                broker.request(dict(v=1, op='action', topic='power', id=f'levels{number}', name='battery-levels', args=args))
+                self.assertEqual(frames[-1]['error'], 'invalid-request', args)
+            self.assertFalse(broker.actions)
         finally:
             await broker.close()
 

@@ -62,7 +62,7 @@ eitr matrix                  # rune rain; any key stops it
 | --- | --- | --- |
 | `post-update` | システムアップデートまたはpacman/AURアップデートの後 | `system`、`pacman`、`yay`、または`full` |
 | `theme-set` | テーマ切り替えの後 | テーマのフォルダ名 |
-| `battery-low` | バッテリーが15%に低下するごとに1回 | パーセンテージ |
+| `battery-low` | バッテリーが残量低下警告レベル（デフォルト10%）に低下するごとに1回 | パーセンテージ |
 | `post-boot` | 各起動後の初回ログイン時 | なし |
 
 例えば、テーマが変更されるたびにSpotifyの色を変更する（Spicetifyを使用）には、`~/.config/eitr/hooks/theme-set`を作成します:

@@ -100,7 +100,7 @@ Ein Hook ist ein eigenes kleines Skript, das Eitr zu einem bestimmten Zeitpunkt 
 | --- | --- | --- |
 | `post-update` | nach Systemaktualisierung oder pacman/AUR-Aktualisierung | `system`, `pacman`, `yay` oder `full` |
 | `theme-set` | nach einem Designwechsel | Ordnername des Designs |
-| `battery-low` | einmal bei jedem Absinken des Akkus auf 15% | Prozentwert |
+| `battery-low` | einmal bei jedem Absinken des Akkus auf die niedrige Warnstufe (Standard 10%) | Prozentwert |
 | `post-boot` | bei der ersten Anmeldung nach jedem Start | keines |
 
 Für Spotify-Farben über Spicetify bei jedem Designwechsel erstellst du etwa `~/.config/eitr/hooks/theme-set`:

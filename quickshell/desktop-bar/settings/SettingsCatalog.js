@@ -114,6 +114,8 @@ var settings = [
     {"id": "displays-sdr-content-brightness", "label": "SDR content brightness", "page": "displays", "tab": "displays", "keywords": "sdr content brightness"},
     {"id": "displays-position", "label": "Position", "page": "displays", "tab": "displays", "keywords": "position"},
     {"id": "displays-brightness", "label": "Brightness", "page": "displays", "tab": "displays", "keywords": "brightness"},
+    {"id": "displays-battery-low", "label": "Low battery warning", "page": "displays", "tab": "displays", "keywords": "battery low warning power level percentage notify"},
+    {"id": "displays-battery-critical", "label": "Critical battery warning", "page": "displays", "tab": "displays", "keywords": "battery critical warning power level percentage alert"},
     {"id": "displays-edit-schedule", "label": "Edit schedule", "page": "displays", "tab": "nightlight", "keywords": "edit schedule"},
     {"id": "displays-night-light", "label": "Night Light", "page": "displays", "tab": "nightlight", "keywords": "night light"},
     {"id": "keybinds-search-shortcuts", "label": "Search shortcuts", "page": "keybinds", "tab": "", "keywords": "search shortcuts"},

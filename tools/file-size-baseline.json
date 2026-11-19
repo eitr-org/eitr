@@ -42,7 +42,7 @@
       "reason": "One panel: the month, a day's reminders and its plans opened in place."
     },
     "quickshell/desktop-bar/scripts/bar-data.py": {
-      "lines": 1039,
+      "lines": 1045,
       "reason": "The bar data broker: one event loop owning every topic."
     },
     "quickshell/desktop-bar/scripts/display-settings.py": {

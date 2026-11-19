@@ -272,14 +272,18 @@
       "percent": 0,
       "status": "",
       "health": 0,
-      "hours": 0
+      "hours": 0,
+      "low": 10,
+      "critical": 5
     },
     {
       "available": true,
       "percent": 62.5,
       "status": "Discharging",
       "health": 95.4,
-      "hours": 2.1
+      "hours": 2.1,
+      "low": 10,
+      "critical": 5
     }
   ],
   "power.profile": [

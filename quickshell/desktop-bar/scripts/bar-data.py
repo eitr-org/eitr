@@ -482,11 +482,17 @@ class Broker:
         if not request or request in self.action_ids or not isinstance(args, dict):
             reject(request or "", "invalid-request")
             return
-        allowed = ("profile", "airplane") if frame.get("topic") == "power" else ("connect", "disconnect", "forget", "power", "scan")
+        allowed = ("profile", "airplane", "battery-levels") if frame.get("topic") == "power" else ("connect", "disconnect", "forget", "power", "scan")
         if name not in allowed:
             reject(request, "invalid-action")
             return
-        if not isinstance(args.get("path", ""), str) or args.get("extra") not in (None, "true", "false"):
+        if name == "battery-levels":
+            levels = (args.get("low"), args.get("critical"))
+            if set(args) - {"low", "critical"} or not all(type(level) is int and 2 <= level <= 50 for level in levels) \
+                    or levels[1] >= levels[0]:
+                reject(request, "invalid-request")
+                return
+        elif not isinstance(args.get("path", ""), str) or args.get("extra") not in (None, "true", "false"):
             reject(request, "invalid-request")
             return
         if name == "airplane" and args.get("extra") not in ("true", "false"):
@@ -527,6 +533,8 @@ class Broker:
                     command = [sys.executable, str(Path(__file__).with_name("power-profile.py")), "set", args["path"]]
                 if name == "airplane":
                     command = [sys.executable, str(Path(__file__).with_name("airplane.py")), "set"]
+                if name == "battery-levels":
+                    command = [sys.executable, str(Path(__file__).with_name("power-settings.py")), "set", str(args["low"]), str(args["critical"])]
                 if args.get("extra") is not None:
                     command.append(args["extra"])
                 code = ""
@@ -578,7 +586,7 @@ class Broker:
                     self.action_process = None
                 self.action_result(frame["id"], code, message, frame.get("topic", "network"))
                 self.actions.pop(0)
-                for topic in ("network.details", "network.summary", "power.profile", "power.radios"):
+                for topic in ("network.details", "network.summary", "power.profile", "power.radios", "power.battery"):
                     self.states[topic]["generation"] += 1
                     self.refresh(topic)
                 self.action_state()

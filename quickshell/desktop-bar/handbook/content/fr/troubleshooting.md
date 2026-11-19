@@ -81,7 +81,7 @@ Le rapport sert uniquement à identifier et corriger ce problème, puis il est s
 
 ### Quand un composant plante
 
-Les Notifications de plantage sont activées par défaut. Un service utilisateur surveille les nouveaux enregistrements lisibles de systemd-coredump concernant vos propres programmes. Chaque plantage propose Signaler un problème, Ignorer et Mettre ce programme en sourdine ; Demander à l’IA apparaît lorsqu’un assistant par défaut est installé et sélectionné. Les plantages répétés d’un programme sont limités à une notification toutes les cinq minutes.
+Les Notifications de plantage sont activées par défaut. Un service utilisateur surveille les nouveaux enregistrements lisibles de systemd-coredump concernant vos propres programmes. Chaque notification de plantage propose Détails (ouvre un terminal de diagnostic avec `coredumpctl info`), Signaler un problème et Mettre cette application en sourdine ; Demander à l’IA apparaît lorsqu’un assistant par défaut est installé et sélectionné. Les plantages répétés d’un programme sont limités à une notification par minute. Les sorties de la propre barre d’Eitr sont ignorées car elles sont déjà enregistrées séparément.
 
 Un plantage qui met fin à la session est proposé à la connexion suivante, mais pas ceux des programmes qui plantent dans la minute suivant une déconnexion, un redémarrage ou un arrêt : ils perdent seulement le bureau autour d’eux. Activez ou désactivez Notifications de plantage dans Paramètres > Notifications.
 

@@ -96,13 +96,15 @@ Item {
         }
         if (workspaceId > 0) seenWorkspace = workspaceId;
     }
-    // A running-low battery flashes its percentage in red once as it reaches 15% and 5%.
+    // A running-low battery flashes its percentage in red once as it reaches low and critical warning levels.
     readonly property var battery: PowerService.battery
     readonly property int batteryPercent: battery && battery.available && battery.status !== "Charging" ? Math.round(battery.percent) : 100
+    readonly property int lowLevel: battery && battery.low !== undefined ? battery.low : 10
+    readonly property int criticalLevel: battery && battery.critical !== undefined ? battery.critical : 5
     property int warnedAt: 100
     onBatteryPercentChanged: {
-        if (batteryPercent > 15) { warnedAt = 100; return; }
-        const level = batteryPercent <= 5 ? 5 : 15;
+        if (batteryPercent > lowLevel) { warnedAt = 100; return; }
+        const level = batteryPercent <= criticalLevel ? criticalLevel : lowLevel;
         if (level < warnedAt) { warnedAt = level; showFlash("󰁺 " + batteryPercent + "%", "#e05c68"); }
     }
 }

@@ -26,3 +26,15 @@ def settings():
 def set_enabled(enabled):
     previous = settings()
     write_settings(config('eitr/crash-help.json'), {**previous, 'enabled': enabled})
+
+
+def mute(program):
+    previous = settings()
+    ignored = sorted(set([*previous.get('ignored', []), program]))
+    write_settings(config('eitr/crash-help.json'), {**previous, 'ignored': ignored})
+
+
+def unmute(program):
+    previous = settings()
+    ignored = [p for p in previous.get('ignored', []) if p != program]
+    write_settings(config('eitr/crash-help.json'), {**previous, 'ignored': ignored})

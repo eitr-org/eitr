@@ -43,7 +43,7 @@ UPDATES = {"system": "system", "pacman": "pacman", "aur": "yay", "full": "full"}
 HOOKS = {
     "post-update": "after System Update or a pacman/AUR update (argument: system, pacman, yay or full)",
     "theme-set": "after switching theme (argument: the theme's folder name)",
-    "battery-low": "once each time the battery drops to 15% (argument: the percentage)",
+    "battery-low": "once each time the battery drops to the low warning level (argument: the percentage)",
     "post-boot": "at the first login after each start",
 }
 

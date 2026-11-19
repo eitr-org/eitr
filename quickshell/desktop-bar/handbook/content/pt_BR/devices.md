@@ -62,6 +62,6 @@ Os controles de bateria e perfil de energia aparecem apenas quando há uma bater
 
 O Limite de carga da bateria exige uma interface sysfs compatível no firmware e uma confirmação digitada. Desativado permite carregar até 100%. Nem todo notebook oferece esse recurso.
 
-Uma notificação avisa ao chegar a 10% e outra, urgente, a 5%, uma vez a cada descarga. Em notebooks, o instalador também adiciona o firmware de áudio necessário aos modelos mais recentes (`sof-firmware`) e, nos modelos Intel, `thermald` para controlar o calor.
+Os níveis de aviso fraco (padrão 10%) e crítico (padrão 5%) podem ser ajustados em Configurações > Telas > Telas ou no pop-up Bateria e energia (faixa 2–50%, com crítico abaixo de fraco); as preferências ficam em `~/.config/eitr/power.json`. Uma notificação avisa ao atingir o nível fraco e outra, urgente, no nível crítico, uma vez a cada descarga. Em notebooks, o instalador também adiciona o firmware de áudio necessário aos modelos mais recentes (`sof-firmware`) e, nos modelos Intel, `thermald` para controlar o calor.
 
 Estes recursos são **experimentais** até os primeiros usuários confirmarem seu funcionamento em notebooks reais: teclas de iluminação do teclado e fechamento da tampa com monitor externo conectado. Nesse caso, a tela do notebook é desligada e a área de trabalho vai para o monitor externo; abrir a tampa a traz de volta. Sem monitor externo, fechar a tampa suspende normalmente. A hibernação não é configurada automaticamente.

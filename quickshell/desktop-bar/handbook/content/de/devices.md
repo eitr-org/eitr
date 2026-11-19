@@ -62,6 +62,6 @@ Akku- und Energieprofilsteuerung erscheinen nur bei einem Systemakku, nicht alle
 
 Das Akkuladelimit benötigt eine unterstützte Firmware-sysfs-Schnittstelle und eine eingetippte Bestätigung. Aus erlaubt Laden bis 100 %. Nicht jeder Laptop unterstützt dies.
 
-Bei 10 % erscheint eine Meldung, bei 5 % eine dringende, jeweils einmal pro Entladung. Auf Laptops installiert das Installationsprogramm außerdem die für neuere Modelle erforderliche Audio-Firmware (`sof-firmware`) und auf Intel-Laptops `thermald` zur Temperaturregelung.
+Niedrige (Standard 10 %) und kritische (Standard 5 %) Warnstufen können unter Einstellungen > Displays > Displays oder im Popup Akku und Energie angepasst werden (Bereich 2–50 %, kritisch unter niedrig); Einstellungen bleiben in `~/.config/eitr/power.json`. Bei Erreichen der niedrigen Stufe erscheint eine Meldung, bei der kritischen eine dringende, jeweils einmal pro Entladung. Auf Laptops installiert das Installationsprogramm außerdem die für neuere Modelle erforderliche Audio-Firmware (`sof-firmware`) und auf Intel-Laptops `thermald` zur Temperaturregelung.
 
 Diese Funktionen sind **experimentell**, bis erste Nutzer sie auf echten Laptops bestätigen: Tasten für die Tastaturbeleuchtung und Zuklappen bei angeschlossenem externem Monitor. Dabei wird das Laptop-Display ausgeschaltet und der Desktop auf den externen Monitor verschoben; Aufklappen bringt ihn zurück. Ohne externen Monitor führt Zuklappen wie gewohnt zum Bereitschaftsmodus. Ruhezustand auf Festplatte wird nicht automatisch eingerichtet.

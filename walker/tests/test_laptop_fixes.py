@@ -43,7 +43,7 @@ class LaptopWiringTests(unittest.TestCase):
         self.assertIn('hl.bind("switch:off:Lid Switch"', hypr)
         shell = (ROOT / "quickshell/desktop-bar/services/SessionHooks.qml").read_text()
         self.assertIn('"Battery almost empty"', shell)
-        self.assertIn("host.battery.percent <= 5 ? 5 : host.battery.percent <= 10 ? 10 : 0", shell)
+        self.assertIn("host.battery.percent <= criticalLevel ? criticalLevel : host.battery.percent <= lowLevel ? lowLevel : 0", shell)
         self.assertIn("systemctl enable thermald.service", (ROOT / "distro/system/configure-desktop.sh").read_text())
 
 

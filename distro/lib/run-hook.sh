@@ -4,7 +4,7 @@
 #
 #   run-hook.sh post-update KIND     after System Update or a pacman/AUR update
 #   run-hook.sh theme-set THEME      after switching theme (the theme's folder name)
-#   run-hook.sh battery-low PERCENT  once each time the battery drops to 15%
+#   run-hook.sh battery-low PERCENT  once each time the battery drops to the low warning level
 #   run-hook.sh post-boot            at the first login after each start
 #
 # A hook gets up to 60 seconds, and its output and failures go to

@@ -55,7 +55,8 @@ def _validate_capture_options(result):
 
 def _validate_power(result):
     fields(result, {"available": (bool,), "enabled": (bool,), "percent": number,
-                    "health": number, "hours": number, "status": (str,), "active": (str,), "profiles": (list,)})
+                    "health": number, "hours": number, "status": (str,), "active": (str,), "profiles": (list,),
+                    "low": number, "critical": number})
 
 
 def _validate_display_settings(result):

@@ -318,3 +318,4 @@ FocusPage 1.0 clock/FocusPage.qml
 BarMomentSources 1.0 bar/BarMomentSources.qml
 BarMomentPlacement bar/BarMomentPlacement.qml
 SettingsInputMethodsCard 1.0 components/SettingsInputMethodsCard.qml
+BatteryWarningSection components/BatteryWarningSection.qml

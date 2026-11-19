@@ -50,7 +50,6 @@
   "A package signing key is missing or expired, so updates may be refused; run System Update.": "Uma chave de assinatura de pacotes está faltando ou expirou, então atualizações podem ser recusadas; execute a Atualização do sistema.",
   "A plugin reported errors; review it in Installed Plugins.": "Um plugin relatou erros; confira em Plugins instalados.",
   "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background.": "Um plugin é executado como você, com todas as permissões da sua conta. Ele pode ler seus arquivos, chaves SSH e dados do navegador, enviá-los para qualquer lugar e continuar rodando em segundo plano.",
-  "A program crashed": "Um programa falhou",
   "A regular desktop user is required": "É necessário um usuário normal do desktop",
   "A screen runs at a lower refresh rate than it supports, so motion looks less smooth; choose the higher rate in Display settings.": "Uma tela funciona com uma taxa de atualização menor do que suporta, então o movimento fica menos suave; escolha a taxa mais alta nas configurações de Tela.",
   "A selection is required": "É necessário fazer uma seleção",
@@ -637,7 +636,6 @@
   "Icon address": "Endereço do ícone",
   "Identity pools": "Pools de identidades",
   "Idle; ping to check": "Ociosa; teste a conexão para verificar",
-  "Ignore": "Ignorar",
   "Image viewer": "Visualizador de imagens",
   "Import a VPN file…": "Importar um arquivo VPN…",
   "Import a WireGuard configuration…": "Importar uma configuração WireGuard…",
@@ -828,7 +826,6 @@
   "Motherboard": "Placa-mãe",
   "Move and resize desktop widgets": "Mover e redimensionar widgets da área de trabalho",
   "Music player": "Reprodutor de música",
-  "Mute this program": "Silenciar este programa",
   "Name": "Nome",
   "Name it, then sign in": "Dê um nome e entre",
   "Name the subscriptions you want in the menu": "Dê um nome às assinaturas que você deseja no menu",
@@ -1851,5 +1848,8 @@
   "Japanese (Mozc)": "Japonês (Mozc)",
   "Korean (Hangul)": "Coreano (Hangul)",
   "Skip for now": "Pular por enquanto",
-  "fcitx5-configtool is not installed": "fcitx5-configtool não está instalado"
+  "fcitx5-configtool is not installed": "fcitx5-configtool não está instalado",
+  "Details": "Detalhes",
+  "Mute this app": "Silenciar este aplicativo",
+  "{app} crashed": "{app} falhou"
 }

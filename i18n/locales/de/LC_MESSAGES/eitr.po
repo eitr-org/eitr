@@ -154,9 +154,6 @@ msgstr "Ein Plugin hat Fehler gemeldet; prüfe es unter Installierte Plugins."
 msgid "A plugin runs as you, with your account’s full permissions. It can read your files, SSH keys and browser data, send them anywhere, and keep itself running in the background."
 msgstr "Ein Plugin läuft als du, mit allen Berechtigungen deines Kontos. Es kann deine Dateien, SSH-Schlüssel und Browserdaten lesen, sie überallhin senden und sich im Hintergrund am Laufen halten."
 
-msgid "A program crashed"
-msgstr "Ein Programm ist abgestürzt"
-
 msgid "A regular desktop user is required"
 msgstr "Ein regulärer Desktopbenutzer ist erforderlich"
 
@@ -1342,6 +1339,9 @@ msgstr "Ziel {path} liegt auf demselben Datenträger wie dein Home-Ordner. Fortf
 msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
 msgstr "Ausführliche Protokolle: /var/log/archinstall. Nach dem fehlgeschlagenen Schritt wurde nichts geändert."
 
+msgid "Details"
+msgstr "Details"
+
 msgid "Direct"
 msgstr "Direkt"
 
@@ -1917,9 +1917,6 @@ msgstr "Identitätspools"
 
 msgid "Idle; ping to check"
 msgstr "Inaktiv; mit Ping prüfen"
-
-msgid "Ignore"
-msgstr "Ignorieren"
 
 msgid "Image viewer"
 msgstr "Bildbetrachter"
@@ -2512,8 +2509,8 @@ msgstr "Desktop-Widgets verschieben und skalieren"
 msgid "Music player"
 msgstr "Musikplayer"
 
-msgid "Mute this program"
-msgstr "Dieses Programm stummschalten"
+msgid "Mute this app"
+msgstr "Diese App stummschalten"
 
 msgid "Name"
 msgstr "Name"
@@ -5331,6 +5328,9 @@ msgstr "{FIREWALL_RULES} fehlt; aktualisieren Sie zuerst das Paket eitr-desktop"
 
 msgid "{TARGET} is already mounted; unmount it before installing"
 msgstr "{TARGET} ist bereits eingehängt; vor der Installation aushängen"
+
+msgid "{app} crashed"
+msgstr "{app} ist abgestürzt"
 
 msgid "{assistant} is an AI assistant for your terminal."
 msgstr "{assistant} ist ein KI-Assistent für dein Terminal."

@@ -74,7 +74,7 @@ Der Bericht dient nur zum Finden und Beheben dieses Problems und wird danach gel
 
 ### Wenn etwas abstürzt
 
-Absturzbenachrichtigungen sind standardmäßig eingeschaltet. Ein Benutzerdienst beobachtet neue, lesbare systemd-coredump-Einträge deiner eigenen Programme. Jeder Absturz bietet Problem melden, Ignorieren und Dieses Programm stummschalten; Die KI fragen erscheint, wenn ein Standardassistent installiert und ausgewählt ist. Wiederholte Abstürze desselben Programms erzeugen höchstens alle fünf Minuten eine Benachrichtigung. Ein Absturz, der die Sitzung beendet, wird bei der nächsten Anmeldung angeboten; Programme, die in der Minute nach dem Abmelden, Neustarten oder Herunterfahren abstürzen, dagegen nicht: Ihnen fehlt dann nur der Desktop.
+Absturzbenachrichtigungen sind standardmäßig eingeschaltet. Ein Benutzerdienst beobachtet neue, lesbare systemd-coredump-Einträge deiner eigenen Programme. Jede Absturzbenachrichtigung bietet Details (öffnet ein Diagnose-Terminal mit `coredumpctl info`), Problem melden und Diese App stummschalten; Die KI fragen erscheint, wenn ein Standardassistent installiert und ausgewählt ist. Wiederholte Abstürze desselben Programms erzeugen höchstens jede Minute eine Benachrichtigung. Eigene Leistenbeendigungen von Eitr werden übersprungen, da sie separat erfasst werden. Ein Absturz, der die Sitzung beendet, wird bei der nächsten Anmeldung angeboten; Programme, die in der Minute nach dem Abmelden, Neustarten oder Herunterfahren abstürzen, dagegen nicht: Ihnen fehlt dann nur der Desktop.
 
 Einstellungen > Benachrichtigungen > Absturzbenachrichtigungen. Einstellungen und stummgeschaltete Programmpfade stehen in `~/.config/eitr/crash-help.json`; entferne einen Pfad aus `ignored`, um wieder Hinweise zu erhalten.
 

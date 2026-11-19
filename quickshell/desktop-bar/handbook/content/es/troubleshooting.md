@@ -80,7 +80,7 @@ El informe se usa solo para identificar y corregir el problema y se elimina al r
 
 ### Cuando falla un componente
 
-Las Notificaciones de fallos están activadas de forma predeterminada. Un servicio de usuario observa los nuevos registros legibles de systemd-coredump de tus propios programas. Cada fallo ofrece Informar de un problema, Ignorar y Silenciar este programa; Preguntar a la IA aparece cuando tienes un asistente predeterminado instalado y seleccionado. Los fallos repetidos de un programa generan como máximo una notificación cada cinco minutos.
+Las Notificaciones de fallos están activadas de forma predeterminada. Un servicio de usuario observa los nuevos registros legibles de systemd-coredump de tus propios programas. Cada notificación de fallo ofrece Detalles (abre un terminal de diagnóstico con `coredumpctl info`), Informar de un problema y Silenciar esta aplicación; Preguntar a la IA aparece cuando tienes un asistente predeterminado instalado y seleccionado. Los fallos repetidos de un programa generan como máximo una notificación cada minuto. Las salidas de la propia barra de Eitr se omiten porque ya se registran por separado.
 
 Un fallo que cierra la sesión se ofrece en el siguiente inicio de sesión, pero no los programas que fallan en el minuto posterior a cerrar sesión, reiniciar o apagar: solo están perdiendo el escritorio. Activa o desactiva Notificaciones de fallos en Configuración > Notificaciones.
 

@@ -114,7 +114,7 @@ eitr matrix                  # rune rain; any key stops it
 | --- | --- | --- |
 | `post-update` | 시스템 업데이트 또는 pacman/AUR 업데이트 후 | `system`, `pacman`, `yay` 또는 `full` |
 | `theme-set` | 테마를 변경한 후 | 테마의 폴더 이름 |
-| `battery-low` | 배터리가 15%로 떨어질 때마다 1회 | 배터리 백분율 |
+| `battery-low` | 배터리가 부족 경고 수준(기본값 10%)으로 떨어질 때마다 1회 | 배터리 백분율 |
 | `post-boot` | 부팅 후 첫 로그인 시 | 없음 |
 
 예를 들어 테마가 바뀔 때마다 Spotify의 색상을 (Spicetify를 사용하여) 다시 지정하려면

@@ -82,7 +82,7 @@ O relatório é usado somente para identificar e corrigir o problema e é exclu�
 
 ### Quando um componente falha
 
-As Notificações de falhas ficam ativadas por padrão. Um serviço de usuário acompanha novos registros legíveis do systemd-coredump dos seus próprios programas. Cada falha oferece Relatar um problema, Ignorar e Silenciar este programa; Perguntar à IA aparece quando há um assistente padrão instalado e selecionado. Falhas repetidas de um programa geram no máximo uma notificação a cada cinco minutos.
+As Notificações de falhas ficam ativadas por padrão. Um serviço de usuário acompanha novos registros legíveis do systemd-coredump dos seus próprios programas. Cada notificação de falha oferece Detalhes (abre um terminal de diagnóstico com `coredumpctl info`), Relatar um problema e Silenciar este aplicativo; Perguntar à IA aparece quando há um assistente padrão instalado e selecionado. Falhas repetidas de um programa geram no máximo uma notificação a cada minuto. As saídas da própria barra do Eitr são ignoradas porque já são registradas separadamente.
 
 Uma falha que encerra a sessão é oferecida no próximo login, mas não as de programas que falham no minuto seguinte a sair, reiniciar ou desligar: eles estão apenas perdendo a área de trabalho. Configurações > Notificações > Notificações de falhas. As preferências e os caminhos silenciados ficam em `~/.config/eitr/crash-help.json`; remova um caminho de `ignored` para voltar a receber avisos.
 

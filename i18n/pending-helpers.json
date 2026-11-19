@@ -219,7 +219,8 @@
     "limine.conf has no Arch Linux (linux) entry to rename",
     "pacman.conf has no [eitr] repository to add the testing channel before",
     "the theme colours must be a small regular file owned by the desktop user",
-    "{label}  {text}  (id {id})"
+    "{label}  {text}  (id {id})",
+    "Details"
   ],
   "fr": [
     "AWS SSO (IAM Identity Center)",

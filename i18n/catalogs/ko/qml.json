@@ -1150,5 +1150,10 @@
   "Japanese (Mozc)": "일본어 (Mozc)",
   "Korean (Hangul)": "한국어 (Hangul)",
   "Optional CJK input method (fcitx5)": "선택적 CJK 입력기 (fcitx5)",
-  "Recommended for your desktop language (fcitx5)": "데스크톱 언어에 권장 (fcitx5)"
+  "Recommended for your desktop language (fcitx5)": "데스크톱 언어에 권장 (fcitx5)",
+  "Battery Warnings": "배터리 경고",
+  "Low battery warning": "배터리 부족 경고",
+  "Critical battery warning": "치명적인 배터리 부족 경고",
+  "Notify when the battery drops to this level.": "배터리가 이 수준으로 떨어지면 알립니다.",
+  "Send an urgent alert when the battery drops to this level.": "배터리가 이 수준으로 떨어지면 긴급 경고를 보냅니다."
 }

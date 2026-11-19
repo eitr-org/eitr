@@ -102,7 +102,7 @@ Un hook est un petit script personnel exécuté par Eitr à un moment donné. Il
 | --- | --- | --- |
 | `post-update` | après la mise à jour du système ou une mise à jour pacman/AUR | `system`, `pacman`, `yay` ou `full` |
 | `theme-set` | après changement de thème | nom du dossier du thème |
-| `battery-low` | une fois à chaque baisse de batterie à 15% | pourcentage |
+| `battery-low` | une fois à chaque baisse de batterie au niveau d’avertissement faible (par défaut 10%) | pourcentage |
 | `post-boot` | à la première connexion après chaque démarrage | aucun |
 
 Pour recolorer Spotify avec Spicetify à chaque changement de thème, créez `~/.config/eitr/hooks/theme-set` :
