@@ -17,10 +17,8 @@ item says what decides the next step. Remove an item when it ships;
   plugins on `eitr-org/eitr-plugins` main (WireGuard and NetworkManager VPN merged 2026-11-18
   after a VM test: install with their packages, import, connect with a real WireGuard peer on
   iwd and on NetworkManager, copy, disconnect, remove, update and plugin removal).
-  - An OpenVPN profile connected to a test server (TLS and address) but no data crossed that
-    server's tunnel; try a real OpenVPN server before calling OpenVPN traffic verified.
-  - Removing a wg-quick tunnel asks for the password through `pkexec rm`; an `eitr-system`
-    action would show a clearer prompt.
+  Removing a wg-quick tunnel asks for the password through `pkexec rm`; an `eitr-system`
+  action would show a clearer prompt.
 - **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
   (2026-11-11). Share the Login Screen is built (2026-11-17, `distro/system/eitr_remote_login.py`,
   `distro/REMOTE-ACCESS.md`): a system Sunshine while nobody is signed in, with the sharing
@@ -59,24 +57,29 @@ item says what decides the next step. Remove an item when it ships;
   The Ollama panel cannot change the local model yet: the core fixes `qwen3:4b`.
 - **AI Usage as a built-in plugin (idea 2026-11-16).** Like Weather (`distro/plugins/bundled`):
   installed by default, removable for people who do not use AI.
-- **Clean My Eitr, on a real laptop (VM-tested 2026-11-18).** In the VM the overlay, the
-  empty `clean` submap (SUPER shortcuts did nothing), the inhibitor, a short Esc tap staying
-  locked, a 3-second Esc hold leaving and `eitr clean stop` all worked; Ctrl+Alt+F still
-  switches consoles (no Hyprland option blocks it; documented in the Handbook). Still to try on
-  real hardware: touchpad gestures and laptop Fn keys handled by firmware.
 - **Ideas from Omarchy 4.5, Ryoku 1.1 and Caelestia (picked by the owner 2026-11-18).**
   Ryoku and Caelestia are GPL-3 and Omarchy MIT: adapted code keeps their notices.
   - **AI usage pace** (Ryoku): a trend arrow, ahead of or behind an even pace, and when a
     limit would fill, from the reset time and window length AI Usage already reads.
-- **Battery warning levels on a real laptop.** Shipped in 0.7.5 (2–50%, critical below low);
-  only tried without a battery so far.
 
 # 2. To test with the owner
+
+Shipped features that still need hardware or a setup the VMs cannot give.
 
 - **Wallpaper per display: the last part not tried yet.** The switch, preview, carousel and
   theme resets passed the owner's test (2026-11-10), and unplugging and replugging a display
   (HDMI) brought its own wallpaper back (2026-11-17). Still untried: each display's wallpaper
   coming back at login.
+- **Clean My Eitr on a real laptop (VM-tested 2026-11-18).** In the VM the overlay, the
+  empty `clean` submap (SUPER shortcuts did nothing), the inhibitor, a short Esc tap staying
+  locked, a 3-second Esc hold leaving and `eitr clean stop` all worked; Ctrl+Alt+F still
+  switches consoles (no Hyprland option blocks it; documented in the Handbook). Still to try:
+  touchpad gestures and laptop Fn keys handled by firmware.
+- **Battery warning levels on a real laptop.** Shipped in 0.7.5 (2–50%, critical below low);
+  only tried without a battery so far.
+- **OpenVPN traffic through a real server.** An OpenVPN profile connected to a test server
+  (TLS and address) but no data crossed that server's tunnel; try a real OpenVPN server
+  before calling OpenVPN traffic verified.
 
 # 3. Waiting on others
 
