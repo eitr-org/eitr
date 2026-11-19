@@ -73,6 +73,12 @@ item says what decides the next step. Remove an item when it ships;
   locked, a 3-second Esc hold leaving and `eitr clean stop` all worked; Ctrl+Alt+F still
   switches consoles (no Hyprland option blocks it; documented in the Handbook). Still to try on
   real hardware: touchpad gestures and laptop Fn keys handled by firmware.
+- **Keyboard layout chip on the login screen.** The lock screen's chip, eye and Ctrl+U were
+  VM-tested 2026-11-18 (Ctrl+Alt+Space and a click switch Hyprland's layout). On the SDDM login
+  screen the eye works, but SDDM's own `keyboard.layouts` listed only `us` while Xorg had
+  `us,br` (localectl), so the chip stays hidden there. Options: read the layouts from Xorg's
+  `00-keyboard.conf` in the greeter, or sync the session's layouts to SDDM; check which SDDM
+  release reports every XKB group first.
 - **Ideas from Omarchy 4.5, Ryoku 1.1 and Caelestia (picked by the owner 2026-11-18).**
   Ryoku and Caelestia are GPL-3 and Omarchy MIT: adapted code keeps their notices.
   - **Copy-code and open-link buttons on notifications** (Omarchy `shell/plugins/notifications/Detect.js`):

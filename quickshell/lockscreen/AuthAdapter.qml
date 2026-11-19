@@ -18,7 +18,7 @@ Item {
     property bool switchAvailable: false
     readonly property bool authenticating: pam.active
     readonly property string switchHelper: decodeURIComponent(Qt.resolvedUrl("scripts/switch-user.py").toString().replace("file://", ""))
-    readonly property string keyboardHelper: decodeURIComponent(Qt.resolvedUrl("../desktop-bar/scripts/keyboard-layout.py").toString().replace("file://", ""))
+    readonly property string keyboardHelper: Quickshell.shellDir + "/../desktop-bar/scripts/keyboard-layout.py"
     function refreshKeyboard() {
         if (!preview && !keyboardReader.running && !keyboardSwitcher.running)
             keyboardReader.running = true;

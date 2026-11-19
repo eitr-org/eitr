@@ -62,7 +62,7 @@ ShellRoot {
     }
     Process {
         running: true
-        command: ["python3", decodeURIComponent(Qt.resolvedUrl("../desktop-bar/scripts/keyboard-layout.py").toString().replace("file://", "")), "summary"]
+        command: ["python3", Quickshell.shellDir + "/../desktop-bar/scripts/keyboard-layout.py", "summary"]
         stdout: StdioCollector {
             onStreamFinished: {
                 try {
