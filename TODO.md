@@ -31,10 +31,10 @@ item says what decides the next step. Remove an item when it ships;
 - **Clock alarm effect.** Replace the theme-colored pulse in `clock/AlarmEffect.qml`
   once the owner records the intended effect. Keep the Reduce motion behavior.
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index and its
-  validation workflow; fan content is allowed (`distro/STORE.md`, Community content). The
-  first listing, the owner's GTA VI theme (`erickbatistaprado/eitr-theme-gta-vi`), waits on
-  the eitr-store branch `list-gta-vi`: push it only after `LicenseRef-` licenses reach
-  stable, because older desktops refuse the whole index over one license they do not know. Screensavers and other
+  validation workflow; fan content is allowed (`distro/STORE.md`, Community content). First
+  listing: the owner's GTA VI theme (`erickbatistaprado/eitr-theme-gta-vi`, 2026-11-23). A
+  new index field or license form must reach stable before the index uses it: older
+  desktops refuse the whole index over one entry they do not understand. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
 - **Ollama plugin, next.** Optional in `eitr-org/eitr-plugins` since 2026-11-23 (not installed
   by default). Its panel cannot change the local model yet: the core fixes `qwen3:4b`.
