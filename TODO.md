@@ -32,7 +32,7 @@ item says what decides the next step. Remove an item when it ships;
   once the owner records the intended effect. Keep the Reduce motion behavior.
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index and its
   validation workflow; fan content is allowed (`distro/STORE.md`, Community content). Listed:
-  the owner's GTA VI and The Witcher 3 themes (`erickbatistaprado/eitr-theme-*`, 2026-11-23). A
+  the owner's fan themes (`erickbatistaprado/eitr-theme-*`, from 2026-11-23). A
   new index field or license form must reach stable before the index uses it: older
   desktops refuse the whole index over one entry they do not understand. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
