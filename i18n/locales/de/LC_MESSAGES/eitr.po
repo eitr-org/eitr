@@ -337,6 +337,9 @@ msgstr "Administrator"
 msgid "Administrators can use sudo. Standard accounts cannot."
 msgstr "Administratoren können sudo verwenden. Standardkonten können dies nicht."
 
+msgid "Alarm"
+msgstr "Wecker"
+
 msgid "All future occurrences"
 msgstr "Alle zukünftigen Termine"
 
@@ -2107,6 +2110,9 @@ msgstr "Ungültige Kontoanfrage"
 msgid "Invalid account type"
 msgstr "Ungültiger Kontotyp"
 
+msgid "Invalid alarm."
+msgstr "Ungültiger Wecker."
+
 msgid "Invalid anonymous identity"
 msgstr "Ungültige anonyme Identität"
 
@@ -2484,6 +2490,9 @@ msgstr "Arbeitsspeicher"
 
 msgid "Message queues"
 msgstr "Nachrichtenwarteschlangen"
+
+msgid "Missed alarm"
+msgstr "Verpasster Wecker"
 
 msgid "Missing packages require the administrator password."
 msgstr "Fehlende Pakete benötigen das Administratorpasswort."

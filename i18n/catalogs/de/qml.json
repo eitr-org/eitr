@@ -1161,5 +1161,21 @@
   "Full in about {hours} h": "Limit in etwa {hours} Std. erreicht",
   "Full in about {minutes} min": "Limit in etwa {minutes} Min. erreicht",
   "On pace": "Im Soll",
-  "Track AI assistant usage limits and reset times.": "Nutzungslimits und Rücksetzzeiten von KI-Assistenten verfolgen."
+  "Track AI assistant usage limits and reset times.": "Nutzungslimits und Rücksetzzeiten von KI-Assistenten verfolgen.",
+  "AM / PM": "Vorm. / Nachm.",
+  "Add alarm": "Wecker hinzufügen",
+  "Alarm": "Wecker",
+  "Alarm name": "Name des Weckers",
+  "Alarms": "Wecker",
+  "Audio files": "Audiodateien",
+  "Choose a file…": "Datei auswählen …",
+  "Could not update the alarm.": "Der Wecker konnte nicht aktualisiert werden.",
+  "Delete this alarm?": "Diesen Wecker löschen?",
+  "Message chime": "Nachrichtenton",
+  "Once": "Einmal",
+  "Repeat days": "Wiederholungstage",
+  "Snooze": "Schlummern",
+  "Time": "Uhrzeit",
+  "Timer chime": "Timer-Ton",
+  "Warning chime": "Warnton"
 }

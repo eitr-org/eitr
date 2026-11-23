@@ -337,6 +337,9 @@ msgstr "管理员"
 msgid "Administrators can use sudo. Standard accounts cannot."
 msgstr "管理员可以使用 sudo。标准账户则不能。"
 
+msgid "Alarm"
+msgstr "闹钟"
+
 msgid "All future occurrences"
 msgstr "所有将来的日程"
 
@@ -2107,6 +2110,9 @@ msgstr "无效的账户请求"
 msgid "Invalid account type"
 msgstr "无效的账户类型"
 
+msgid "Invalid alarm."
+msgstr "无效的闹钟。"
+
 msgid "Invalid anonymous identity"
 msgstr "无效的匿名身份"
 
@@ -2484,6 +2490,9 @@ msgstr "内存"
 
 msgid "Message queues"
 msgstr "消息队列"
+
+msgid "Missed alarm"
+msgstr "错过的闹钟"
 
 msgid "Missing packages require the administrator password."
 msgstr "缺失的软件包需要管理员密码。"

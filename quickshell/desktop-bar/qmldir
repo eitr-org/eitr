@@ -319,3 +319,9 @@ BarMomentSources 1.0 bar/BarMomentSources.qml
 BarMomentPlacement bar/BarMomentPlacement.qml
 SettingsInputMethodsCard 1.0 components/SettingsInputMethodsCard.qml
 BatteryWarningSection components/BatteryWarningSection.qml
+singleton ClockAlarms 1.0 services/ClockAlarms.qml
+AlarmsPage 1.0 clock/AlarmsPage.qml
+AlarmEditor 1.0 clock/AlarmEditor.qml
+AlarmOverlay 1.0 clock/AlarmOverlay.qml
+AlarmRingingContent 1.0 clock/AlarmRingingContent.qml
+AlarmEffect 1.0 clock/AlarmEffect.qml

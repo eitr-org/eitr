@@ -337,6 +337,9 @@ msgstr "Administrador"
 msgid "Administrators can use sudo. Standard accounts cannot."
 msgstr "Administradores podem usar sudo. Contas padrão não podem."
 
+msgid "Alarm"
+msgstr "Alarme"
+
 msgid "All future occurrences"
 msgstr "Todas as ocorrências futuras"
 
@@ -2107,6 +2110,9 @@ msgstr "Solicitação de conta inválida"
 msgid "Invalid account type"
 msgstr "Tipo de conta inválido"
 
+msgid "Invalid alarm."
+msgstr "Alarme inválido."
+
 msgid "Invalid anonymous identity"
 msgstr "Identidade anônima inválida"
 
@@ -2484,6 +2490,9 @@ msgstr "Memória"
 
 msgid "Message queues"
 msgstr "Filas de mensagens"
+
+msgid "Missed alarm"
+msgstr "Alarme perdido"
 
 msgid "Missing packages require the administrator password."
 msgstr "Pacotes ausentes exigem a senha de administrador."

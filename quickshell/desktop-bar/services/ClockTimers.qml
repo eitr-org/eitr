@@ -20,7 +20,6 @@ QtObject {
     property int _idCounter: 0
 
     readonly property string statePath: Eitr.Paths.state("eitr/clock.json")
-    readonly property string alarmSoundName: "alarm-clock-elapsed"
 
     signal focusRestored(var focusState, string eventName)
 
@@ -245,7 +244,7 @@ QtObject {
     function formatStopwatch(milliseconds) { return ClockModel.formatStopwatch(milliseconds); }
 
     function notifyTimerEnded(entry) {
-        EventSounds.play(alarmSoundName);
+        EventSounds.play(EventSounds.timerSound);
         const title = entry.name && entry.name.length > 0
             ? Eitr.I18n.tr("Timer finished: {name}", {name: entry.name})
             : Eitr.I18n.tr("Timer finished");

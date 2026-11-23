@@ -1161,5 +1161,21 @@
   "Full in about {hours} h": "약 {hours}시간 후 한도 도달",
   "Full in about {minutes} min": "약 {minutes}분 후 한도 도달",
   "On pace": "기준 속도",
-  "Track AI assistant usage limits and reset times.": "AI 어시스턴트의 사용 한도와 초기화 시간을 확인합니다."
+  "Track AI assistant usage limits and reset times.": "AI 어시스턴트의 사용 한도와 초기화 시간을 확인합니다.",
+  "AM / PM": "오전 / 오후",
+  "Add alarm": "알람 추가",
+  "Alarm": "알람",
+  "Alarm name": "알람 이름",
+  "Alarms": "알람",
+  "Audio files": "오디오 파일",
+  "Choose a file…": "파일 선택…",
+  "Could not update the alarm.": "알람을 업데이트할 수 없습니다.",
+  "Delete this alarm?": "이 알람을 삭제할까요?",
+  "Message chime": "메시지 소리",
+  "Once": "한 번",
+  "Repeat days": "반복 요일",
+  "Snooze": "다시 알림",
+  "Time": "시간",
+  "Timer chime": "타이머 소리",
+  "Warning chime": "경고음"
 }

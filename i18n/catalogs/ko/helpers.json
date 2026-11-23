@@ -1851,5 +1851,8 @@
   "fcitx5-configtool is not installed": "fcitx5-configtool이 설치되어 있지 않습니다",
   "Details": "자세히",
   "Mute this app": "이 앱 음소거",
-  "{app} crashed": "{app} 비정상 종료됨"
+  "{app} crashed": "{app} 비정상 종료됨",
+  "Alarm": "알람",
+  "Invalid alarm.": "잘못된 알람입니다.",
+  "Missed alarm": "놓친 알람"
 }

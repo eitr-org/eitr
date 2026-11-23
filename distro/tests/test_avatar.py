@@ -11,6 +11,7 @@ from unittest.mock import Mock, patch
 
 from PIL import Image
 import eitr_avatar as avatar
+import eitr_file_chooser as chooser
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'walker/tests'))
 from home_isolation import setUpModule, tearDownModule
@@ -116,7 +117,7 @@ class AvatarTests(unittest.TestCase):
         GLib.get_user_special_dir.return_value = None
         bus = Gio.bus_get_sync.return_value
         bus.get_unique_name.return_value = ':1.42'
-        expected = '/org/freedesktop/portal/desktop/request/1_42/eitr_avatar_' + str(os.getpid())
+        expected = '/org/freedesktop/portal/desktop/request/1_42/eitr_chooser_' + str(os.getpid())
         bus.call_sync.return_value.unpack.return_value = (handle or expected,)
         listeners = []
         bus.signal_subscribe.side_effect = lambda *arguments: listeners.append(arguments) or len(listeners)
@@ -148,6 +149,16 @@ class AvatarTests(unittest.TestCase):
         with patch.object(avatar, 'gio', return_value=(Gio, GLib)):
             self.assertEqual(avatar.choose(), {'path': '/mock/other.jpg'})
         self.assertEqual([listener[3] for listener in listeners], [expected, '/mock/request'])
+
+    def test_audio_chooser_command_filters_audio_from_home(self):
+        Gio, GLib, bus, expected, listeners = self.portal(0, ['file:///mock/home/bells.ogg'])
+        output = io.StringIO()
+        with patch.object(chooser, 'gio', return_value=(Gio, GLib)), contextlib.redirect_stdout(output):
+            self.assertEqual(chooser.main(['audio', 'Choose a file', 'Audio files']), 0)
+        self.assertEqual(json.loads(output.getvalue()), {'ok': True, 'result': {'path': '/mock/home/bells.ogg'}})
+        options = [entry for entry in GLib.Variant.call_args_list]
+        self.assertIn((('a(sa(us))', [('Audio files', [(1, 'audio/*')])]),), options)
+        self.assertEqual(bus.call_sync.call_args.args[4], GLib.Variant.return_value)
 
     def test_preview_is_small_upright_and_maps_back_to_the_original(self):
         image = Image.new('RGB', (3000, 1500), 'red')

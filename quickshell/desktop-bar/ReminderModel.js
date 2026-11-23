@@ -1,6 +1,6 @@
 .pragma library
 
-function parse(text) {
+function parseSaved(text) {
     try {
         const values = JSON.parse(text);
         if (!Array.isArray(values)) return [];
@@ -9,6 +9,14 @@ function parse(text) {
                 && typeof item.due === "number" && Number.isFinite(item.due);
         }).sort(function(first, second) { return first.due - second.due; });
     } catch (error) { return []; }
+}
+
+function parse(text) {
+    return parseSaved(text).filter(item => !item.alarm);
+}
+
+function parseAlarms(text) {
+    return parseSaved(text).filter(item => item.alarm);
 }
 
 function forDay(items, day) {

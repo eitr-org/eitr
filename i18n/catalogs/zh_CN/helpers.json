@@ -1851,5 +1851,8 @@
   "fcitx5-configtool is not installed": "未安装 fcitx5-configtool",
   "Details": "详情",
   "Mute this app": "静音此应用",
-  "{app} crashed": "{app} 已崩溃"
+  "{app} crashed": "{app} 已崩溃",
+  "Alarm": "闹钟",
+  "Invalid alarm.": "无效的闹钟。",
+  "Missed alarm": "错过的闹钟"
 }

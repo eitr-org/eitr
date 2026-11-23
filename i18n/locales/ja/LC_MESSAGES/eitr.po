@@ -337,6 +337,9 @@ msgstr "管理者"
 msgid "Administrators can use sudo. Standard accounts cannot."
 msgstr "管理者はsudoを使用できます。標準アカウントは使用できません。"
 
+msgid "Alarm"
+msgstr "アラーム"
+
 msgid "All future occurrences"
 msgstr "今後のすべての予定"
 
@@ -2107,6 +2110,9 @@ msgstr "無効なアカウントリクエスト"
 msgid "Invalid account type"
 msgstr "無効なアカウントの種類"
 
+msgid "Invalid alarm."
+msgstr "無効なアラームです。"
+
 msgid "Invalid anonymous identity"
 msgstr "無効な匿名ID"
 
@@ -2484,6 +2490,9 @@ msgstr "メモリ"
 
 msgid "Message queues"
 msgstr "メッセージキュー"
+
+msgid "Missed alarm"
+msgstr "鳴り終わったアラーム"
 
 msgid "Missing packages require the administrator password."
 msgstr "不足しているパッケージのインストールには管理者パスワードが必要です。"

@@ -225,7 +225,7 @@ removal controls, disabled when only one layout remains. General ends
 with icon-only Lock, Logout, Suspend, Reboot, and Shutdown actions with tooltips.
 Capture launches the existing screenshot, OCR, QR, color-picker, and OBS tools;
 selection/capture commands wait for the panel to finish closing first.
-Control Center > Tools keeps a compact Timer & Focus summary that starts a 5-minute countdown or focus session and opens the Clock window (`clock/ClockWindow.qml`: Timers, Stopwatch and Focus around one chronograph dial, `clock/ChronoDial.qml`, without the family sidebar).
+Control Center > Tools keeps a compact Timer & Focus summary that starts a 5-minute countdown or focus session and opens the Clock window (`clock/ClockWindow.qml`: Timers, Stopwatch and Focus use the chronograph dial in `clock/ChronoDial.qml`). Alarms uses the reminder store and user timers for one-time and weekly alarms, snooze and expiry. The shared `ClockAlarms` service watches that state and loops the selected event sound during ringing. `AlarmOverlay` shows one surface per unlocked display, using `AlarmEffect` for the pulse.
 
 DesktopFonts reads the machine-local `~/.config/eitr/font.json` and updates bar
 and panel text when it changes. Nerd Font icons retain their dedicated fallback.

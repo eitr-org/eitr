@@ -1161,5 +1161,21 @@
   "Full in about {hours} h": "Límite en unas {hours} h",
   "Full in about {minutes} min": "Límite en unos {minutes} min",
   "On pace": "Al ritmo previsto",
-  "Track AI assistant usage limits and reset times.": "Consulta los límites de uso de los asistentes de IA y cuándo se restablecen."
+  "Track AI assistant usage limits and reset times.": "Consulta los límites de uso de los asistentes de IA y cuándo se restablecen.",
+  "AM / PM": "a. m. / p. m.",
+  "Add alarm": "Añadir alarma",
+  "Alarm": "Alarma",
+  "Alarm name": "Nombre de la alarma",
+  "Alarms": "Alarmas",
+  "Audio files": "Archivos de audio",
+  "Choose a file…": "Elegir un archivo…",
+  "Could not update the alarm.": "No se pudo actualizar la alarma.",
+  "Delete this alarm?": "¿Eliminar esta alarma?",
+  "Message chime": "Tono de mensaje",
+  "Once": "Una vez",
+  "Repeat days": "Días de repetición",
+  "Snooze": "Posponer",
+  "Time": "Hora",
+  "Timer chime": "Tono del temporizador",
+  "Warning chime": "Tono de aviso"
 }

@@ -80,6 +80,9 @@
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
       "quickshell/desktop-bar/store/StoreState.qml"
     ],
+    "AM / PM": [
+      "quickshell/desktop-bar/clock/AlarmEditor.qml"
+    ],
     "AUTHENTICATE": [
       "quickshell/lockscreen/themes/nothing/Main.qml"
     ],
@@ -133,6 +136,9 @@
     "Add a reminder": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
     ],
+    "Add alarm": [
+      "quickshell/desktop-bar/clock/AlarmsPage.qml"
+    ],
     "Add another copy": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
@@ -185,6 +191,16 @@
     "Airplane": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
+    ],
+    "Alarm": [
+      "quickshell/desktop-bar/clock/AlarmEditor.qml"
+    ],
+    "Alarm name": [
+      "quickshell/desktop-bar/clock/AlarmEditor.qml"
+    ],
+    "Alarms": [
+      "quickshell/desktop-bar/clock/AlarmsPage.qml",
+      "quickshell/desktop-bar/clock/ClockContent.qml"
     ],
     "Align with %1": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -285,6 +301,9 @@
     ],
     "At 100 % the windows stay as they are.": [
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
+    ],
+    "Audio files": [
+      "quickshell/desktop-bar/services/ClockAlarms.qml"
     ],
     "Audio/Mic": [
       "quickshell/desktop-bar/bar/BarZoneItems.qml"
@@ -469,6 +488,8 @@
       "quickshell/desktop-bar/drop/DropRails.qml"
     ],
     "Cancel": [
+      "quickshell/desktop-bar/clock/AlarmEditor.qml",
+      "quickshell/desktop-bar/clock/AlarmsPage.qml",
       "quickshell/desktop-bar/components/BluetoothDeviceRow.qml",
       "quickshell/desktop-bar/components/SettingsConfirmSheet.qml",
       "quickshell/desktop-bar/components/SettingsWifiCredentials.qml",
@@ -551,6 +572,10 @@
     ],
     "Chinese (Pinyin)": [
       "quickshell/desktop-bar/components/SettingsInputMethodsCard.qml"
+    ],
+    "Choose a file…": [
+      "quickshell/desktop-bar/clock/AlarmEditor.qml",
+      "quickshell/desktop-bar/services/ClockAlarms.qml"
     ],
     "Choose a keyboard layout, then add it to your list.": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
@@ -871,6 +896,9 @@
     "Could not set the main display": [
       "quickshell/desktop-bar/panels/BrightnessMenu.qml"
     ],
+    "Could not update the alarm.": [
+      "quickshell/desktop-bar/clock/AlarmsPage.qml"
+    ],
     "Crash Notifications": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
@@ -961,6 +989,7 @@
       "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml"
     ],
     "Delete": [
+      "quickshell/desktop-bar/clock/AlarmsPage.qml",
       "quickshell/desktop-bar/store/StoreCatalogCard.qml"
     ],
     "Delete every occurrence": [
@@ -972,6 +1001,9 @@
     "Delete reminder": [
       "quickshell/desktop-bar/components/DayAgenda.qml",
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
+    ],
+    "Delete this alarm?": [
+      "quickshell/desktop-bar/clock/AlarmsPage.qml"
     ],
     "Delete?": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"
@@ -1155,6 +1187,7 @@
       "quickshell/desktop-bar/panels/WifiMenu.qml"
     ],
     "Edit": [
+      "quickshell/desktop-bar/clock/AlarmsPage.qml",
       "quickshell/desktop-bar/settings/SettingsKeybindsPage.qml",
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
     ],
@@ -1813,6 +1846,9 @@
     "Meet the screen edge with slopes or straight sides.": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
     ],
+    "Message chime": [
+      "tools/choice-lists.json"
+    ],
     "Messages go to %1; nothing is saved": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
@@ -2185,6 +2221,9 @@
     ],
     "On your desktop": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
+    "Once": [
+      "quickshell/desktop-bar/clock/AlarmsPage.qml"
     ],
     "One third": [
       "tools/choice-lists.json"
@@ -2677,6 +2716,9 @@
     "Reopen to retry; disabled after 3 failures": [
       "quickshell/desktop-bar/plugins/PluginComponent.qml"
     ],
+    "Repeat days": [
+      "quickshell/desktop-bar/clock/AlarmEditor.qml"
+    ],
     "Repeat new password": [
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
     ],
@@ -2858,6 +2900,7 @@
       "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml"
     ],
     "Save": [
+      "quickshell/desktop-bar/clock/AlarmEditor.qml",
       "quickshell/desktop-bar/panels/AudioMenu.qml",
       "quickshell/desktop-bar/panels/ProfilePicture.qml",
       "quickshell/desktop-bar/settings/SettingsWindowRulesPage.qml"
@@ -3136,10 +3179,14 @@
     "Smaller": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
+    "Snooze": [
+      "quickshell/desktop-bar/clock/AlarmRingingContent.qml"
+    ],
     "Soften the desktop behind terminal windows.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
     "Sound": [
+      "quickshell/desktop-bar/clock/AlarmEditor.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/panels/ControlCenterDetail.qml",
@@ -3209,6 +3256,7 @@
       "quickshell/desktop-bar/welcome/WelcomeTour.qml"
     ],
     "Stop": [
+      "quickshell/desktop-bar/clock/AlarmRingingContent.qml",
       "quickshell/desktop-bar/clock/FocusPage.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml",
       "quickshell/desktop-bar/drop/DropObsPage.qml",
@@ -3421,6 +3469,9 @@
     "Tiling": [
       "tools/choice-lists.json"
     ],
+    "Time": [
+      "quickshell/desktop-bar/clock/AlarmEditor.qml"
+    ],
     "Time for a break": [
       "quickshell/desktop-bar/services/FocusTimer.qml"
     ],
@@ -3430,6 +3481,9 @@
     ],
     "Timer & Focus": [
       "quickshell/desktop-bar/panels/ControlCenter.qml"
+    ],
+    "Timer chime": [
+      "tools/choice-lists.json"
     ],
     "Timer finished": [
       "quickshell/desktop-bar/services/ClockTimers.qml"
@@ -3682,6 +3736,9 @@
     ],
     "Wallpapers on this computer. Choose one to use it.": [
       "distro/store-kinds.json"
+    ],
+    "Warning chime": [
+      "tools/choice-lists.json"
     ],
     "Weather": [
       "quickshell/desktop-bar/bar/BarZoneItems.qml",
@@ -7741,6 +7798,9 @@
     "Administrators can use sudo. Standard accounts cannot.": [
       "walker/scripts/actions/system/users.py"
     ],
+    "Alarm": [
+      "walker/scripts/actions/tools/alarm_commands.py"
+    ],
     "All future occurrences": [
       "walker/scripts/actions/tools/reminders.py"
     ],
@@ -9541,6 +9601,9 @@
     "Invalid account type": [
       "distro/lib/eitr_accounts.py"
     ],
+    "Invalid alarm.": [
+      "walker/scripts/actions/tools/alarm_commands.py"
+    ],
     "Invalid anonymous identity": [
       "distro/system/network-backend.py"
     ],
@@ -9931,6 +9994,9 @@
     ],
     "Message queues": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Missed alarm": [
+      "walker/scripts/actions/tools/alarm_commands.py"
     ],
     "Missing packages require the administrator password.": [
       "distro/lib/eitr_plugin_packages.py"

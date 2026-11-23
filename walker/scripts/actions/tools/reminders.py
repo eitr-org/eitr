@@ -20,7 +20,9 @@ so one that came due while the computer was off is shown at the next login.
 """
 import eitr_bootstrap
 from eitr_i18n import tr
-from datetime import datetime, timedelta
+import alarm_commands
+from alarm_rules import moments
+from datetime import datetime, timedelta, timezone
 import calendar
 import json
 import fcntl
@@ -66,7 +68,7 @@ def locked():
 
 
 def alerts(reminder):
-    return reminder.get("alerts", [reminder["due"]])
+    return moments(reminder) if "alarm" in reminder else reminder.get("alerts", [reminder["due"]])
 
 
 def create(title, event, alert_times=None, appointment=False, lead=3600, repeat=None):
@@ -109,13 +111,17 @@ def schedule(reminder):
 
 def schedule_alert(reminder, moment):
     delay = max(1, moment - int(time.time()))
-    subprocess.run(["systemd-run", "--user", "--quiet", f"--unit={alert_unit(reminder, moment)}", f"--on-active={delay}s",
+    schedule_option = ("--on-calendar=" + datetime.fromtimestamp(max(moment, int(time.time()) + 1), timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+                       if "alarm" in reminder else f"--on-active={delay}s")
+    subprocess.run(["systemd-run", "--user", "--quiet", f"--unit={alert_unit(reminder, moment)}", schedule_option,
                     "--timer-property=AccuracySec=1s", "--timer-property=WakeSystem=false",
                     "python3", str(Path(__file__).resolve()), "fire", reminder["id"], str(moment)], check=True)
 
 
-def stop_timers(reminder):
-    names = [f"{alert_unit(reminder, moment)}.timer" for moment in alerts(reminder)]
+def stop_timers(reminder, scheduled=None):
+    names = [f"{alert_unit(reminder, moment)}.timer" for moment in (alerts(reminder) if scheduled is None else scheduled)]
+    if not names:
+        return
     subprocess.run(["systemctl", "--user", "stop", *names], check=False,
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
@@ -160,7 +166,7 @@ def reminder_action(title, text):
         print(str(error), file=sys.stderr)
 
 
-def notify(title, body, urgency="normal", actions=False):
+def notify(title, body, urgency="normal", actions=False, suppress_sound=False):
     if actions:
         # Each alert owns its bounded waiter; never hold the state lock while waiting.
         subprocess.run(["systemd-run", "--user", "--quiet", "--collect",
@@ -170,7 +176,8 @@ def notify(title, body, urgency="normal", actions=False):
         return
     root = os.environ.get("EITR_CODE_ROOT", "/usr/share/eitr")
     subprocess.run(["notify-send", "--app-name=Reminders", f"--urgency={urgency}",
-                    f"--icon={root}/fastfetch/assets/eitr-logo.png", title, body], check=False)
+                    f"--icon={root}/fastfetch/assets/eitr-logo.png",
+                    *(["-h", "boolean:suppress-sound:true"] if suppress_sound else []), "--", title, body], check=False)
 
 
 def ask_time(question, subtitle=''):
@@ -252,15 +259,23 @@ def new(arguments):
     return 0
 
 
+def replace_alarm(items, previous, updated, consumed=None):
+    return alarm_commands.replace(items, previous, updated, consumed, schedule_alert, stop_timers, save)
+
+
 def fire(identifier, missed=False, moment=None):
     reminders = load()
     reminder = next((item for item in reminders if item["id"] == identifier), None)
     if reminder is None:
         return 0
     pending = alerts(reminder)
+    if not pending:
+        return 0
     moment = pending[0] if moment is None else moment
     if moment not in pending:
         return 0
+    if "alarm" in reminder:
+        return alarm_commands.fire(reminders, reminder, moment, missed, replace_alarm, notify)
     remaining = [value for value in pending if value != moment
                  and not (missed and reminder.get('repeat') and value <= time.time())]
     if reminder.get('repeat') and (moment == reminder['due'] or missed and reminder['due'] <= time.time()):
@@ -291,6 +306,8 @@ def cancel(identifier, scope=None):
     if reminder is None:
         print(tr('No such reminder.'), file=sys.stderr)
         return 1
+    if "alarm" in reminder:
+        return 1
     if scope is None:
         if reminder.get('repeat'):
             print(tr('Choose occurrence or series.'), file=sys.stderr)
@@ -310,11 +327,11 @@ def cancel(identifier, scope=None):
 def restore():
     now = int(time.time())
     for reminder in load():
-        if reminder.get('repeat') and reminder['due'] <= now:
+        if 'alarm' not in reminder and reminder.get('repeat') and reminder['due'] <= now:
             fire(reminder['id'], missed=True, moment=alerts(reminder)[0])
             continue
         pending = alerts(reminder)
-        if reminder.get('repeat') and any(moment <= now for moment in pending):
+        if 'alarm' not in reminder and reminder.get('repeat') and any(moment <= now for moment in pending):
             fire(reminder['id'], missed=True, moment=next(moment for moment in pending if moment <= now))
             pending = [moment for moment in pending if moment > now]
         for moment in pending:
@@ -327,7 +344,7 @@ def restore():
 
 
 def listing():
-    reminders = load()
+    reminders = [item for item in load() if "alarm" not in item]
     if not reminders:
         print(tr('No reminders.'))
     for reminder in reminders:
@@ -336,7 +353,7 @@ def listing():
 
 
 def manage():
-    reminders = load()
+    reminders = [item for item in load() if "alarm" not in item]
     if not reminders:
         notify(tr('Reminders'), tr('No reminders are waiting.'))
         return 0
@@ -356,11 +373,14 @@ def manage():
 
 def main(argv):
     command, rest = (argv[0], argv[1:]) if argv else ("new", [])
+    if ((command == "alarm-save" and len(rest) <= 1)
+            or (command in ("alarm-delete", "alarm-stop", "alarm-snooze") and len(rest) == 1)):
+        return alarm_commands.command(command, rest, load(), replace_alarm)
     if command == "new":
         return new(rest)
     if command == "list":
         if rest == ["--json"]:
-            print(json.dumps(load()))
+            print(json.dumps([item for item in load() if "alarm" not in item]))
             return 0
         return listing()
     if command == "manage":

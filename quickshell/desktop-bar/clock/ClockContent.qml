@@ -4,8 +4,7 @@ import QtQuick
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-// The Clock: a chronograph dial with the chosen page around it, and Timers, Stopwatch
-// and Focus switched from the row at the bottom.
+// The Clock pages share the mode row at the bottom.
 Rectangle {
     id: content
     required property color foreground
@@ -19,7 +18,8 @@ Rectangle {
     readonly property var pages: [
         {id: "timers", title: Eitr.I18n.tr("Timers")},
         {id: "stopwatch", title: Eitr.I18n.tr("Stopwatch")},
-        {id: "focus", title: Eitr.I18n.tr("Focus")}
+        {id: "focus", title: Eitr.I18n.tr("Focus")},
+        {id: "alarms", title: Eitr.I18n.tr("Alarms")}
     ]
 
     color: Qt.rgba(background.r, background.g, background.b, 1)
@@ -28,6 +28,7 @@ Rectangle {
     // Esc first leaves a new timer being set, then closes the window.
     Keys.onEscapePressed: {
         if (content.page === "timers" && timers.leaveSetting()) return;
+        if (content.page === "alarms" && alarms.leaveSetting()) return;
         closeRequested();
     }
     Keys.onPressed: event => {
@@ -51,6 +52,12 @@ Rectangle {
             visible: content.page === "stopwatch"
             foreground: content.foreground; accent: content.accent
         }
+        AlarmsPage {
+            id: alarms
+            anchors.fill: parent
+            visible: content.page === "alarms"
+            foreground: content.foreground; background: content.background; accent: content.accent
+        }
         FocusPage {
             anchors.fill: parent
             visible: content.page === "focus"
@@ -62,12 +69,21 @@ Rectangle {
         id: modes
         objectName: "clock-modes"
         anchors { horizontalCenter: parent.horizontalCenter; bottom: parent.bottom; bottomMargin: 16 }
+        readonly property real naturalWidth: content.pages.reduce((total, mode) =>
+            total + Math.ceil(modeMetrics.advanceWidth(mode.title)) + 24, 0)
+        readonly property real widthRatio: Math.min(1,
+            Math.max(0, content.width - 40 - (content.pages.length - 1) * modeRow.spacing) / naturalWidth)
         width: modeRow.implicitWidth + 8
         height: 40
         radius: height / 2
         color: Qt.alpha(content.foreground, 0.05)
         border.width: 1
         border.color: Qt.alpha(content.foreground, PanelStyle.selectionBorderAlpha)
+        FontMetrics {
+            id: modeMetrics
+            font.family: DesktopFonts.family
+            font.pixelSize: PanelStyle.controlSize
+        }
         Row {
             id: modeRow
             anchors.centerIn: parent
@@ -78,7 +94,7 @@ Rectangle {
                     id: modeButton
                     required property var modelData
                     objectName: "clock-mode-" + modelData.id
-                    width: Math.ceil(modeMetrics.advanceWidth) + 32
+                    width: Math.floor((Math.ceil(modeMetrics.advanceWidth(modelData.title)) + 24) * modes.widthRatio)
                     height: 32
                     radius: height / 2
                     flat: true
@@ -86,7 +102,6 @@ Rectangle {
                     foreground: content.foreground
                     text: modelData.title
                     onClicked: { content.page = modelData.id; content.forceActiveFocus(); }
-                    TextMetrics { id: modeMetrics; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize; text: modeButton.text }
                 }
             }
         }

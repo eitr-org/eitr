@@ -29,15 +29,8 @@ item says what decides the next step. Remove an item when it ships;
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
   done (Tools > Reminders > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).
-- **Clock app (phase 1 done 2026-11-17; alarms next).** One Eitr app (`clock/ClockWindow.qml`)
-  opened from Apps (SUPER + Space), Walker (Main > Tools > Clock), the timer ring beside the clock
-  (every layout and Drop's pill) and Control Center > Tools; no new bar icon. A chronograph dial
-  (`clock/ChronoDial.qml`) with Timers, Stopwatch and Focus is done (World clock stays a plugin); their state survives bar restarts (`$XDG_STATE_HOME/eitr/clock.json`).
-  - **Next, phase 2 (Alarms):** time, name, repeat days and a sound; one switch each. Ringing,
-    the alarm takes the screen with the song and an animated effect until **Stop** or
-    **Snooze** (the owner will record the effect they want; build that part after).
-    Reminders' existing schedule and notifications stay the source of truth, so an alarm is a
-    reminder that rings.
+- **Clock alarm effect.** Replace the theme-colored pulse in `clock/AlarmEffect.qml`
+  once the owner records the intended effect. Keep the Reduce motion behavior.
 - **Desktop widget ideas (2026-11-17).** Remaining official plugin widget item in `eitr-org/eitr-plugins`
   (`distro/PLUGINS.md`, Desktop widgets; **Notes** and **Hardware** are implemented):
   - **More Visualizer styles:** today Wave and Bars; add a circle (bars around a ring) and

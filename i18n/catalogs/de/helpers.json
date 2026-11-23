@@ -1851,5 +1851,8 @@
   "fcitx5-configtool is not installed": "fcitx5-configtool ist nicht installiert",
   "Details": "Details",
   "Mute this app": "Diese App stummschalten",
-  "{app} crashed": "{app} ist abgestürzt"
+  "{app} crashed": "{app} ist abgestürzt",
+  "Alarm": "Wecker",
+  "Invalid alarm.": "Ungültiger Wecker.",
+  "Missed alarm": "Verpasster Wecker"
 }

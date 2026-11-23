@@ -1,4 +1,9 @@
 {
+  "alarm_sounds": [
+    {"id": "alarm-clock-elapsed", "label": "Timer chime"},
+    {"id": "message-new-instant", "label": "Message chime"},
+    {"id": "dialog-warning", "label": "Warning chime"}
+  ],
   "workspace_styles": [
     {
       "id": "Dots",

@@ -1161,5 +1161,21 @@
   "Full in about {hours} h": "Full in about {hours} h",
   "Full in about {minutes} min": "Full in about {minutes} min",
   "On pace": "On pace",
-  "Track AI assistant usage limits and reset times.": "Track AI assistant usage limits and reset times."
+  "Track AI assistant usage limits and reset times.": "Track AI assistant usage limits and reset times.",
+  "AM / PM": "AM / PM",
+  "Add alarm": "Add alarm",
+  "Alarm": "Alarm",
+  "Alarm name": "Alarm name",
+  "Alarms": "Alarms",
+  "Audio files": "Audio files",
+  "Choose a file…": "Choose a file…",
+  "Could not update the alarm.": "Could not update the alarm.",
+  "Delete this alarm?": "Delete this alarm?",
+  "Message chime": "Message chime",
+  "Once": "Once",
+  "Repeat days": "Repeat days",
+  "Snooze": "Snooze",
+  "Time": "Time",
+  "Timer chime": "Timer chime",
+  "Warning chime": "Warning chime"
 }

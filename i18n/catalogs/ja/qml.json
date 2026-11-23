@@ -1161,5 +1161,21 @@
   "Full in about {hours} h": "約 {hours} 時間で上限",
   "Full in about {minutes} min": "約 {minutes} 分で上限",
   "On pace": "基準どおり",
-  "Track AI assistant usage limits and reset times.": "AI アシスタントの使用上限とリセット時刻を確認します。"
+  "Track AI assistant usage limits and reset times.": "AI アシスタントの使用上限とリセット時刻を確認します。",
+  "AM / PM": "午前 / 午後",
+  "Add alarm": "アラームを追加",
+  "Alarm": "アラーム",
+  "Alarm name": "アラーム名",
+  "Alarms": "アラーム",
+  "Audio files": "音声ファイル",
+  "Choose a file…": "ファイルを選択…",
+  "Could not update the alarm.": "アラームを更新できませんでした。",
+  "Delete this alarm?": "このアラームを削除しますか？",
+  "Message chime": "メッセージ音",
+  "Once": "1回",
+  "Repeat days": "繰り返す曜日",
+  "Snooze": "スヌーズ",
+  "Time": "時刻",
+  "Timer chime": "タイマー音",
+  "Warning chime": "警告音"
 }

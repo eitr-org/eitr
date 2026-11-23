@@ -1851,5 +1851,8 @@
   "fcitx5-configtool is not installed": "fcitx5-configtool がインストールされていません",
   "Details": "詳細",
   "Mute this app": "このアプリをミュート",
-  "{app} crashed": "{app}がクラッシュしました"
+  "{app} crashed": "{app}がクラッシュしました",
+  "Alarm": "アラーム",
+  "Invalid alarm.": "無効なアラームです。",
+  "Missed alarm": "鳴り終わったアラーム"
 }

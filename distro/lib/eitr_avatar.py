@@ -8,6 +8,7 @@ from pathlib import Path
 import pwd
 import tempfile
 
+import eitr_file_chooser
 import eitr_paths
 
 FORMATS = {'PNG', 'JPEG', 'WEBP', 'GIF', 'BMP'}
@@ -15,8 +16,6 @@ SERVICE = 'org.freedesktop.Accounts'
 TIMEOUT = 5000
 LARGEST_SIDE = 12000
 PREVIEW_SIDE = 1024
-PORTAL = 'org.freedesktop.portal.Desktop'
-PORTAL_PATH = '/org/freedesktop/portal/desktop'
 
 
 def imaging():
@@ -173,52 +172,7 @@ def pictures_folder():
 
 
 def choose(title='Choose a picture'):
-    """Ask the desktop portal's file chooser (xdg-desktop-portal-gtk on Eitr) for one image.
-
-    Waits for the person to pick or cancel, without a deadline. Returns {'path': None} when
-    the chooser was cancelled."""
-    Gio, GLib = gio()
-    bus = Gio.bus_get_sync(Gio.BusType.SESSION, None)
-    token = f'eitr_avatar_{os.getpid()}'
-    sender = bus.get_unique_name().lstrip(':').replace('.', '_')
-    expected = f'{PORTAL_PATH}/request/{sender}/{token}'
-    loop = GLib.MainLoop()
-    outcome = {}
-
-    def responded(_connection, _sender, _path, _interface, _signal, parameters):
-        code, results = parameters.unpack()
-        outcome.update(code=code, uris=list(results.get('uris', [])))
-        loop.quit()
-
-    def listen(handle):
-        return bus.signal_subscribe(PORTAL, 'org.freedesktop.portal.Request', 'Response', handle,
-                                    None, Gio.DBusSignalFlags.NONE,
-                                    responded)
-
-    subscription = listen(expected)
-    options = {
-        'handle_token': GLib.Variant('s', token),
-        'modal': GLib.Variant('b', True),
-        'multiple': GLib.Variant('b', False),
-        'filters': GLib.Variant('a(sa(us))', [('Images', [(1, 'image/*')])]),
-        'current_folder': GLib.Variant('ay', os.fsencode(str(pictures_folder())) + b'\0'),
-    }
-    try:
-        handle = bus.call_sync(PORTAL, PORTAL_PATH, 'org.freedesktop.portal.FileChooser', 'OpenFile',
-                               GLib.Variant('(ssa{sv})', ('', title, options)), GLib.VariantType.new('(o)'),
-                               Gio.DBusCallFlags.NONE, TIMEOUT, None).unpack()[0]
-        if handle != expected:
-            bus.signal_unsubscribe(subscription)
-            subscription = listen(handle)
-        loop.run()
-    finally:
-        bus.signal_unsubscribe(subscription)
-    if outcome.get('code') != 0 or not outcome.get('uris'):
-        return {'path': None}
-    path = Gio.File.new_for_uri(outcome['uris'][0]).get_path()
-    if not path:
-        raise ValueError('The chosen picture is not a local file')
-    return {'path': path}
+    return eitr_file_chooser.choose_file(title, 'Images', 'image/*', pictures_folder(), gio())
 
 
 def main(argv=None):

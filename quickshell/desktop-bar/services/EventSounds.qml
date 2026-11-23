@@ -19,13 +19,19 @@ QtObject {
     property double lastPlayed: 0
     property var data: ({version: 1})
 
+    readonly property string timerSound: "alarm-clock-elapsed"
+
+    function playback(sound) {
+        return ["pw-play", sound.startsWith("/") ? sound : folder + sound + ".oga"];
+    }
+
     function play(name) {
         if (doNotDisturb) return;
         // A burst of events (several notifications at once) chimes once.
         var now = Date.now();
         if (now - lastPlayed < 400) return;
         lastPlayed = now;
-        Quickshell.execDetached(["pw-play", folder + name + ".oga"]);
+        Quickshell.execDetached(playback(name));
     }
     function notificationArrived(notification) {
         if (!notifications || !notification) return;

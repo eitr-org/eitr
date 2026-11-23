@@ -1161,5 +1161,21 @@
   "Full in about {hours} h": "约 {hours} 小时后达到上限",
   "Full in about {minutes} min": "约 {minutes} 分钟后达到上限",
   "On pace": "接近均匀用量",
-  "Track AI assistant usage limits and reset times.": "查看 AI 助手的用量上限和重置时间。"
+  "Track AI assistant usage limits and reset times.": "查看 AI 助手的用量上限和重置时间。",
+  "AM / PM": "上午 / 下午",
+  "Add alarm": "添加闹钟",
+  "Alarm": "闹钟",
+  "Alarm name": "闹钟名称",
+  "Alarms": "闹钟",
+  "Audio files": "音频文件",
+  "Choose a file…": "选择文件…",
+  "Could not update the alarm.": "无法更新闹钟。",
+  "Delete this alarm?": "删除此闹钟？",
+  "Message chime": "消息提示音",
+  "Once": "仅一次",
+  "Repeat days": "重复日期",
+  "Snooze": "稍后提醒",
+  "Time": "时间",
+  "Timer chime": "计时器提示音",
+  "Warning chime": "警告音"
 }

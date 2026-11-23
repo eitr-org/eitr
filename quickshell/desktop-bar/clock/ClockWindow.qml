@@ -3,7 +3,7 @@ import QtQuick
 import Quickshell.Io
 import Eitr as Eitr
 
-// The Clock: a small chronograph window with Timers, Stopwatch and Focus.
+// The Clock: a small chronograph window with Timers, Stopwatch, Focus and Alarms.
 // It lives in the bar so the clock's ring shares its state, and remembers the last
 // page within the desktop session.
 FamilyWindow {
@@ -14,7 +14,7 @@ FamilyWindow {
     defaultSize: Qt.size(420, 660)
 
     function normalizePage(value) {
-        return ["timers", "stopwatch", "focus"].indexOf(value) >= 0 ? value : "";
+        return ["timers", "stopwatch", "focus", "alarms"].indexOf(value) >= 0 ? value : "";
     }
 
     onPageChanged: {

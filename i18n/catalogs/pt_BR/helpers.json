@@ -1851,5 +1851,8 @@
   "fcitx5-configtool is not installed": "fcitx5-configtool não está instalado",
   "Details": "Detalhes",
   "Mute this app": "Silenciar este aplicativo",
-  "{app} crashed": "{app} falhou"
+  "{app} crashed": "{app} falhou",
+  "Alarm": "Alarme",
+  "Invalid alarm.": "Alarme inválido.",
+  "Missed alarm": "Alarme perdido"
 }

@@ -337,6 +337,9 @@ msgstr "관리자"
 msgid "Administrators can use sudo. Standard accounts cannot."
 msgstr "관리자는 sudo를 사용할 수 있습니다. 표준 계정은 사용할 수 없습니다."
 
+msgid "Alarm"
+msgstr "알람"
+
 msgid "All future occurrences"
 msgstr "이후 모든 일정"
 
@@ -2107,6 +2110,9 @@ msgstr "유효하지 않은 계정 요청"
 msgid "Invalid account type"
 msgstr "유효하지 않은 계정 유형"
 
+msgid "Invalid alarm."
+msgstr "잘못된 알람입니다."
+
 msgid "Invalid anonymous identity"
 msgstr "유효하지 않은 익명 ID"
 
@@ -2484,6 +2490,9 @@ msgstr "메모리"
 
 msgid "Message queues"
 msgstr "메시지 대기열"
+
+msgid "Missed alarm"
+msgstr "놓친 알람"
 
 msgid "Missing packages require the administrator password."
 msgstr "누락된 패키지를 설치하려면 관리자 비밀번호가 필요합니다."

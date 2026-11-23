@@ -78,8 +78,8 @@
       "reason": "Barely over the limit; one helper."
     },
     "walker/scripts/actions/tools/reminders.py": {
-      "lines": 416,
-      "reason": "Barely over the limit; reminders' CLI, storage, timers and alerts after the rules moved out."
+      "lines": 436,
+      "reason": "Owns the shared reminder and alarm store, systemd timers, notifications and CLI dispatch."
     },
     "walker/scripts/menus/cloud/navigation.py": {
       "lines": 408,

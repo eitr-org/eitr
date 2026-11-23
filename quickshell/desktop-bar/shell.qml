@@ -60,6 +60,7 @@ ShellRoot {
         foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
         onOpenedChanged: if (opened) shell.handbookOpened()
     }
+    AlarmOverlay { foreground: SettingsPalette.foreground; background: SettingsPalette.background; accent: SettingsPalette.accent }
     readonly property var _clockTimersRef: ClockTimers
     readonly property var _focusTimerRef: FocusTimer
     LiveWallpaper {}
