@@ -43,11 +43,10 @@ item says what decides the next step. Remove an item when it ships;
 
 Shipped features that still need hardware or a setup the VMs cannot give.
 
-- **Testing channel batch of 2026-11-23 (g7e03e6a).** Alarms, AI Usage as a built-in plugin
-  with pace, WireGuard's vpn-remove prompt, the Store's Updates card and page, Hardware as a
-  built-in plugin with Show on the bar switches. VM-tested; still to try on real hardware: alarm
-  sound, Visualizer's Ring/Mirror/Dots with music, AI pace with real accounts. On the owner's OK,
-  promote to stable and push `eitr-plugins` branch `retire-hardware-after-stable` at the same time.
+- **2026-11-23 batch, on stable (g684985e).** Alarms, AI Usage pace, WireGuard's vpn-remove
+  prompt, the Store's Updates page and Hardware as a built-in plugin were VM-tested and tried by
+  the owner. Not yet confirmed on real hardware: an alarm ringing with sound, Visualizer's
+  Ring/Mirror/Dots with music, AI pace against real accounts.
 - **Wallpaper per display: the last part not tried yet.** The switch, preview, carousel and
   theme resets passed the owner's test (2026-11-10), and unplugging and replugging a display
   (HDMI) brought its own wallpaper back (2026-11-17). Still untried: each display's wallpaper
