@@ -25,6 +25,14 @@ PLUGINS = 'https://github.com/eitr-org/eitr-plugins'
 MUTATIONS = {'prepare', 'confirm', 'discard', 'advice', 'install', 'update', 'remove', 'apply'}
 
 
+def bundled_install(name, args):
+    """A package-owned plugin (Weather, AI Usage) installs from the package with no review:
+    the Store's prepare answers 'bundled' and then asks for this install."""
+    from eitr_plugin_bundled import BUNDLED_DEFAULTS
+    ids = args.get('ids')
+    return name == 'install' and isinstance(ids, list) and len(ids) == 1 and ids[0] in BUNDLED_DEFAULTS
+
+
 def validate(name, args):
     if name not in {'installed', 'index', 'preview', 'artwork', 'detail', 'source', 'check', *MUTATIONS} or not isinstance(args, dict):
         raise ValueError('invalid-request')
@@ -34,7 +42,7 @@ def validate(name, args):
         raise ValueError('invalid-kind')
     if args.get('channel', 'official') not in {'official', 'community', 'installed', 'git'}:
         raise ValueError('invalid-channel')
-    if args['kind'] == 'plugins' and name in {'install', 'update', 'apply'}:
+    if args['kind'] == 'plugins' and name in {'install', 'update', 'apply'} and not bundled_install(name, args):
         raise ValueError('Use the plugin prepare/confirm review')
     if args['kind'] == 'lockscreens':
         if name not in {'installed', 'index', 'install', 'remove', 'apply'} or args.get('channel', 'official') not in {'official', 'installed'}:

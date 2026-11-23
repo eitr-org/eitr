@@ -112,9 +112,14 @@ class CatalogDomainTests(unittest.TestCase):
 
     def test_validation_and_action_guard(self):
         for name, args in [('remove', {'kind': 'themes', 'id': '../bad'}), ('install', {'kind': 'plugins', 'ids': ['example']}),
+                           ('install', {'kind': 'plugins', 'ids': ['weather', 'ai-usage']}),
+                           ('update', {'kind': 'plugins', 'id': 'weather'}),
                            ('install', {'kind': 'themes', 'ids': []}), ('unknown', {'kind': 'themes'})]:
             with self.assertRaises(ValueError):
                 DOMAIN.validate(name, args)
+        # Built-in plugins reinstall from the package after prepare answers 'bundled'.
+        for plugin_id in ('weather', 'ai-usage'):
+            DOMAIN.validate('install', {'kind': 'plugins', 'ids': [plugin_id]})
         domain = DOMAIN.CatalogDomain()
         with domain.action_lock:
             self.assertIn('already running', domain.request('apply', {'kind': 'themes', 'id': 'eitr'}, threading.Event())['error'])
