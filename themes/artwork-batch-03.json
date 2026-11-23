@@ -47,24 +47,6 @@
       "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
-      "theme": "afterglow",
-      "name": "02-amber-gaze",
-      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Expressive close-up character illustration, charcoal #0c0b0c, dusty rose #b59790, subdued teal #87a9b0 and warm peach; detailed painterly brushwork. New artwork: Extreme close-up of an original young adult face with luminous amber iris reflected in a curved glass shard held near one eye, flowing dark hair, diagonal warm side light, asymmetrical face cropping and calm shadowed left space; portrait not scenery.",
-      "reference": "afterglow/references/originals/",
-      "status": "removed",
-      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "02-ember-vigil"
-    },
-    {
-      "theme": "afterglow",
-      "name": "03-quiet-signal",
-      "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Expressive close-up character illustration, charcoal #0c0b0c, dusty rose #b59790, subdued teal #87a9b0 and warm peach; detailed painterly brushwork. New artwork: An original young adult wearing a large vintage headset, eyes closed, shoulders and head drawn in textured gouache, loose rose light strokes circling the ear cup against a dark plain background; no music notes, no text, no scenery.",
-      "reference": "afterglow/references/originals/",
-      "status": "removed",
-      "note": "Replaced by fresh written-brief artwork in batch 04; original prompt retained as history.",
-      "replacement": "03-bronze-and-embers"
-    },
-    {
       "theme": "one-dark-pro",
       "name": "04-golden-oath",
       "prompt": "Use case: stylized-concept. Create ONE original full-bleed 21:9 ultrawide desktop wallpaper. Attached contact sheet is reference ONLY for visual language and palette, not an edit target. Stay faithful to its illustration/abstract/portrait identity; invent a new composition. Single artwork, not collage or screenshot. No text, lettering, logos, watermarks, signatures, borders, existing franchise characters, city panoramas, mountain vistas, forest landscapes or generic scenery. Calm upper edge and sophisticated spacious horizontal composition. Theme visual language: Original fantasy character concept illustration, ink #282c34, steel gray #abb2bf, blue #61afef, gold #e5c07b and restrained crimson #e06c75; dramatic crisp silhouettes. New artwork: A solitary masked traveler in a weathered cloak holding a small glowing gold geometric relic in gloved hands, waist-up on right side, cloak edges caught by fine blue rim light, empty charcoal studio void left, fine etched armor details, no franchise character or landscape.",

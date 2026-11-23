@@ -44,3 +44,18 @@ background. It installs only on desktops with the `tailscale` command and withou
 plugin of that ID, from `eitr-org/eitr-plugins` at the pinned reviewed commit, through
 the normal validated install (its bar icon is placed, its receive service enabled) and
 then notifies. Network failures keep the queue for the next login without notifications.
+
+## Former built-in themes
+
+The artwork and desktop packages capture their old theme assets and palette data
+in `/var/lib/eitr/former-themes` using their pre-upgrade scriptlets. Each package
+does this before ALPM removes its files, independently of transaction ordering.
+Neither scriptlet runs on a fresh install. The archive remains available for
+accounts that next log in after the upgrade.
+
+At login, the migration selects referenced theme IDs, validates and publishes
+local Store packages with official provenance, then rewrites saved absolute paths.
+Each package and preference file is published atomically. A later retry reuses
+the installed packages. SDDM already reads a separate JPEG at
+`/var/lib/eitr/login-wallpaper.jpg`. Focus keeps its own settings and continues
+to read the shared appearance and wallpaper preferences.

@@ -1,4 +1,5 @@
 {
+  "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr 和 Eitr Light 为内置主题。移除当前商店主题前，请先切换到其他主题。",
   "%1 B/s": "%1 B/s",
   "%1 GB/s": "%1 GB/s",
   "%1 Hz": "%1 Hz",
@@ -916,7 +917,6 @@
   "Theme palette": "主题调色板",
   "Theme, wallpaper, fonts and cursor.": "主题、壁纸、字体与光标。",
   "Themes": "主题",
-  "Themes on this computer. Choose one to apply it.": "本机上的主题。选择一个以应用。",
   "Thinking…": "正在思考…",
   "Third-party": "第三方",
   "This WiFi security type requires advanced network configuration": "此 WiFi 安全类型需要高级网络配置",

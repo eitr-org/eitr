@@ -15,6 +15,8 @@ Nur bei Scrollen: **SUPER + ALT + Pfeiltasten** fokussiert Fenster; **SUPER + AL
 
 ## Eitr Store
 
+Eitr und Eitr Light sind vorinstalliert. Wechsle das Theme, bevor du dein aktuelles Store-Theme entfernst.
+
 Öffne Eitr Store im App-Starter, mit SUPER + F2, im Desktop-Menü von Walker oder über Weitere Themes in den Einstellungen. Das eigene verschiebbare Fenster nutzt die Einstellungspalette und den Kopf EITR / STORE. Schließen und Escape verwerfen vorübergehende Auswahlen und Prüfungen.
 
 Wähle Entdecken oder Installiert in der Seitenleiste und danach Designs, Plugins, Sperrbildschirme oder Hintergrundbilder als Registerkarte. Strg+1–4 wechselt die Kategorie. Der letzte Bereich und die Kategorie werden auf diesem PC gespeichert. Aktualisierungen erscheint nur bei verfügbaren Updates, zeigt alle Kategorien und bietet Alle aktualisieren; jedes Plugin muss weiterhin einzeln geprüft werden. Die Suche bleibt im gewählten Bereich und der Kategorie (alle ausstehenden Updates unter Aktualisierungen). Der Filter gruppiert Quelle (Alle / Offiziell / Community) und Kategorieoptionen: Darstellung für Designs und Fügt hinzu für Plugins. Alle gewählten Funktionen müssen vorhanden sein: Leistenelement, Widget, Kontrollzentrum-Kachel, Panel, Walker-Einträge, Hintergrunddienst oder Paketinstallation. Unbekannte Metadaten zählen nicht als Treffer. Ein Punkt markiert aktive Filter. Escape oder Löschen leert die Suche. Auf/Ab wählt den Bereich; Rechts oder Tab öffnet das Raster; Links in der ersten Spalte kehrt zurück. Strg+F fokussiert die Suche.
@@ -40,7 +42,9 @@ Wähle Design und Hintergrundbild unter Einstellungen > Erscheinungsbild > Desig
 
 Eitr hat vier Hintergrundbilder: Aurora-Fjord (Standard), Abendfjord, Rune Seal und Runestone. Die Auswahl erfolgt über dieselben Steuerelemente; die Palette bleibt gleich. Das vierte Bild, Runestone, ist animiert: Polarlichter bewegen sich langsam hinter dem Runenring, aktualisieren sich hinter normalen Fenstern seltener, pausieren hinter Vollbildanwendungen und bleiben auf dem Sperrbildschirm still. Bei Software-Rendering (etwa in einer VM ohne 3D-Beschleunigung) wird das ausgewählte Standbild verwendet; dasselbe gilt, wenn der Renderer nicht erkannt werden kann. Graphite wurde entfernt; gespeicherte Graphite-Auswahlen wechseln zu Eitr und dessen Standardbild.
 
-Die 13 mitgelieferten Themes enthalten zehn dunkle Paletten der Welten: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim und Vanaheim. Jedes Welten-Theme hat zwei bis fünf Originalhintergründe in verschiedenen Tusche-, Gouache-, Cel-Shading- und Malstilen, in beiden Bildformaten. Die Vorschauen für mitgelieferte, offizielle Store- und eigene Themes zeigen den Standardhintergrund über einer Farbleiste.
+Eitr und Eitr Light sind vorinstalliert und offline verfügbar. Afterglow, die Welten-Themes und weitere offizielle Themes findest du im Store unter Entdecken. Beim Upgrade bleiben frühere vorinstallierte Themes erhalten, die deine Einstellungen verwenden, auch offline.
+
+Der offizielle Store bietet zehn dunkle Paletten der Welten: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim und Vanaheim. Jedes Welten-Theme hat zwei bis fünf Originalhintergründe in verschiedenen Tusche-, Gouache-, Cel-Shading- und Malstilen, in beiden Bildformaten. Die Vorschauen für mitgelieferte, offizielle Store- und eigene Themes zeigen den Standardhintergrund über einer Farbleiste.
 
 Eitr Light ist die helle Variante von Primordial Venom, mit blassgrünen Flächen, dunkelgrünem Text, giftgelbgrünen Akzenten und Jade-/Smaragdtönen. Die vier statischen Hintergründe sind Abendfjord (Standard), The Gates of Yggdrasil, Rune Seal und Primordial Drop, jeweils mit einer eigenen Panoramakomposition. Wähle es in der Kategorie Hell; Eitr bleibt der Standard. Design-Hintergrundbild verwendet das ausgewählte Standbild auf dem Sperrbildschirm.
 

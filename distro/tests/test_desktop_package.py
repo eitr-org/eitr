@@ -30,15 +30,17 @@ class DesktopPackageTests(unittest.TestCase):
                                 capture_output=True, text=True, check=True)
         return result.stdout.splitlines()
 
-    def test_artwork_ships_in_its_own_package(self):
+    def test_only_default_pair_ships_in_artwork_package(self):
         desktop = PACKAGE.joinpath("PKGBUILD").read_text()
-        artwork = PACKAGE.parent.joinpath("eitr-artwork/PKGBUILD").read_text()
+        artwork = PACKAGE.parent / "eitr-artwork"
+        script = 'startdir="$1"; source "$1/PKGBUILD"; printf "%s\n" "${_artwork[@]}"'
+        assets = subprocess.check_output(["bash", "-c", script, "pkgbuild", str(artwork)], text=True).splitlines()
+        self.assertEqual({path.split("/")[1] for path in assets}, {"eitr", "eitr-light"})
         # Each artwork path is in eitr-artwork and removed from eitr-desktop.
-        for name, glob in (("backgrounds", "backgrounds/**"), ("backgrounds-ultrawide", "backgrounds-ultrawide/**"),
-                           ("motion", "motion/**"), ("preview.png", "preview.png")):
+        for name in ("backgrounds", "backgrounds-ultrawide", "motion", "preview.png"):
             with self.subTest(path=name):
                 self.assertRegex(desktop, re.escape(f'"$pkgdir"/usr/share/eitr/themes/*/{name}') + r"[\s\\]")
-                self.assertIn(f"':(glob)themes/*/{glob}'", artwork)
+                self.assertTrue(any(path.split("/")[2] == name for path in assets))
         self.assertIn("eitr-artwork", manifest("local-packages.txt"))
 
     def test_depends_are_official_desktop_packages_without_system_choices(self):

@@ -134,6 +134,11 @@ def archive(identifier, display, palette):
     return output.getvalue()
 
 
+def vsix(directory, integration):
+    palette = tomllib.loads((directory / 'colors.toml').read_text())
+    return archive(directory.name, integration['vscode']['name'], palette)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true')
@@ -141,14 +146,12 @@ def main():
     integrations = json.loads((THEMES / 'integrations.json').read_text())
     stale = []
     for identifier, integration in integrations.items():
-        if not integration['neovim'].get('eitr') or identifier == 'afterglow':
+        if 'vsix' not in integration['vscode']:
             continue
         directory = THEMES / identifier
         if not (directory / 'colors.toml').is_file():
             continue
-        display = integration['vscode']['name']
-        palette = tomllib.loads((directory / 'colors.toml').read_text())
-        outputs = {'vscode.vsix': archive(identifier, display, palette), 'vscode.json': (json.dumps(integration['vscode'], indent=2, ensure_ascii=False) + '\n').encode()}
+        outputs = {'vscode.vsix': vsix(directory, integration), 'vscode.json': (json.dumps(integration['vscode'], indent=2, ensure_ascii=False) + '\n').encode()}
         for filename, data in outputs.items():
             path = directory / filename
             if arguments.check:

@@ -1,0 +1,23 @@
+# shellcheck shell=bash
+pre_upgrade() {
+  local root=/usr/share/eitr/themes archive=/var/lib/eitr/former-themes/artwork
+  local theme temporary
+  for theme in "$root"/*; do
+    [[ -d $theme/backgrounds && ${theme##*/} != eitr && ${theme##*/} != eitr-light ]] || continue
+    [[ ! -d $archive/${theme##*/} ]] || continue
+    install -dm755 "$archive" || return
+    temporary=$(mktemp -d "$archive/.capture.XXXXXX") || return
+    if ! (
+      local assets=("$theme"/backgrounds "$theme"/backgrounds-ultrawide "$theme"/motion "$theme"/preview.png)
+      local asset
+      for asset in "${assets[@]}"; do
+        [[ -e $asset ]] || continue
+        cp -a --reflink=auto -- "$asset" "$temporary/" || exit
+      done
+      chmod 755 "$temporary" && mv -T -- "$temporary" "$archive/${theme##*/}"
+    ); then
+      rm -rf -- "$temporary"
+      return 1
+    fi
+  done
+}

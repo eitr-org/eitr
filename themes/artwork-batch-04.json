@@ -177,77 +177,6 @@
       "location": "https://github.com/eitr-org/eitr-themes"
     },
     {
-      "theme": "afterglow",
-      "name": "01-emberward-gaze",
-      "file": "themes/afterglow/backgrounds/01-emberward-gaze.jpg",
-      "ultrawide_file": "themes/afterglow/backgrounds-ultrawide/01-emberward-gaze.jpg",
-      "native_source": "branding/sources/wallpapers/batch-04/afterglow-01-emberward-gaze.png",
-      "native_size": [
-        1672,
-        941
-      ],
-      "native_sha256": "a01f1d5a83ff61748316ca635700696c5b2d35c9ecc379a60194e24ccc2f249c",
-      "status": "installed",
-      "replaces": "themes/afterglow/backgrounds/01-inner-light.jpg",
-      "prompt": "Use case: stylized-concept. Create ONE original full-bleed landscape 16:9 desktop wallpaper, request 3840x2160 if supported. Generate exclusively from this written brief, no input or reference pictures. Extreme close-up intimate portrait of an original adult Norse shieldmaiden around 25, pale skin, a few freckles, clear blue eyes, blonde braided hair. Her chin is subtly raised and BOTH eyes visibly gaze upward, toward a warm light above and to the left, expression quietly hopeful and absorbed. Her face fills the right two thirds from brow to chin, a deliberate very tight portrait crop, not a shoulders-and-torso scene. Keep both eyes, nose and lips beautifully formed and visible. Blonde wisps and the start of a braid fade into darkness; a small glimpse of fur-trimmed wool at the lower edge provides Norse identity. No helmet needed in this tight crop. Soft, painterly richly lit digital painting, fine skin texture integrated with expressive visible brush strokes, not a photograph, flat ink art, 3D or plastic skin. Afterglow palette: near-black #0c0b0c and #090809 ground and quiet dark left space; dusty rose #b59790, warm peach/ember #c38b7b and amber highlight on cheeks and nose, pale #e2dddc, restrained cool blue #87a9b0 and #c4d8e2 in her eyes. Warm amber and rose light, a few out-of-focus glowing embers dissolving into the dark background, atmospheric and intimate. No landscape, hearth props, torso, hands, scenery, collage, text, logos, signatures, watermarks, borders or recognizable movie/game/celebrity likeness. New original composition; do not imitate any existing artwork. Keep eyes below the top 6 percent for a desktop bar.",
-      "ultrawide_centering": [
-        0.5,
-        0.5
-      ]
-    },
-    {
-      "theme": "afterglow",
-      "name": "02-ember-vigil",
-      "file": "themes/afterglow/backgrounds/02-ember-vigil.jpg",
-      "ultrawide_file": "themes/afterglow/backgrounds-ultrawide/02-ember-vigil.jpg",
-      "native_source": "branding/sources/wallpapers/batch-04/afterglow-02-ember-vigil.png",
-      "native_size": [
-        1672,
-        941
-      ],
-      "native_sha256": "0ee5aa5fbcf82c59f44691079c9c800e92b207745fd51030888b811cecf0129c",
-      "status": "installed",
-      "replaces": "themes/afterglow/backgrounds/02-amber-gaze.jpg",
-      "prompt": "Use case: stylized-concept.\nAsset: one original desktop wallpaper, full-bleed landscape 16:9, request 3840x2160 if supported.\nGenerate from this written brief alone; no input or reference images.\nSubject and composition: Three-quarter intimate portrait of a young adult Norse shieldmaiden wearing a round iron spangenhelm helmet with nose guard, blonde braids falling over a fur-trimmed wool cloak, lit from below by a fire's warm glow. Calm and steady clear-blue-eyed gaze past the viewer, a few freckles and fine softly painted skin texture, embers drifting in the near-black darkness. Head and shoulders slightly right of center; complete helmet visible.\nStyle and palette: Soft, painterly, richly lit digital painting, intimate and atmospheric; visible delicate brushwork, fine skin texture and a few freckles, never a photograph or flat ink graphic. Palette: near-black #0c0b0c and #090809 dominate; dusty rose #b59790, warm peach/ember #c38b7b, pale #e2dddc, restrained cool eye tones #87a9b0 and #c4d8e2. Amber and rose firelight with soft bokeh embers. Recurring character design across this series, specified entirely in words: adult woman around 25, pale skin, oval face, straight nose, blonde hair in two loose braids, clear blue eyes, light freckles, plain wool tunic and fur-trimmed cloak. No celebrity or franchise likeness.\nConstraints: historically grounded Norse clothing, natural wool/linen, simple period bronze ornament and round iron helmets; no horned or winged helmets, no fantasy crown. Keep important features away from top 6% and outer edges, with calm dark breathing room suitable for desktop windows. One single painting, no collage, borders, text, letters, logos, signatures, watermarks, UI, recognizable characters, game/movie likenesses, landscapes or scenic vistas. Small runes carved into the requested objects are permitted; no floating writing.",
-      "ultrawide_centering": [
-        0.5,
-        0.5
-      ],
-      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/afterglow-02-ember-vigil-ultrawide.png",
-      "ultrawide_native_sha256": "fe0dbbbd648e8506ed043ca6b1947a71f622c7944a5a336ea67dff275d5e5b8f",
-      "ultrawide_native_size": [
-        1938,
-        812
-      ],
-      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
-    },
-    {
-      "theme": "afterglow",
-      "name": "03-bronze-and-embers",
-      "file": "themes/afterglow/backgrounds/03-bronze-and-embers.jpg",
-      "ultrawide_file": "themes/afterglow/backgrounds-ultrawide/03-bronze-and-embers.jpg",
-      "native_source": "branding/sources/wallpapers/batch-04/afterglow-03-bronze-and-embers.png",
-      "native_size": [
-        1672,
-        941
-      ],
-      "native_sha256": "8eb8ed0397ce795d82e65b1ea5d88724eaf9d8e26ae44259c81f6dad6c3cadfc",
-      "status": "installed",
-      "replaces": "themes/afterglow/backgrounds/03-quiet-signal.jpg",
-      "prompt": "Use case: stylized-concept.\nAsset: one original desktop wallpaper, full-bleed landscape 16:9, request 3840x2160 if supported.\nGenerate from this written brief alone; no input or reference images.\nSubject and composition: Close profile of a young adult Norse shieldmaiden, eyes closed in peaceful reflection, blonde braided hair. Helmet held under her arm, visible near the bottom of the composition; carved bronze brooch at her shoulder. Warm rim light grazing her face and hair, dark smoky background, soft bokeh embers. Profile faces left, figure on the right, framing includes her arm and the held helmet.\nStyle and palette: Soft, painterly, richly lit digital painting, intimate and atmospheric; visible delicate brushwork, fine skin texture and a few freckles, never a photograph or flat ink graphic. Palette: near-black #0c0b0c and #090809 dominate; dusty rose #b59790, warm peach/ember #c38b7b, pale #e2dddc, restrained cool eye tones #87a9b0 and #c4d8e2. Amber and rose firelight with soft bokeh embers. Recurring character design across this series, specified entirely in words: adult woman around 25, pale skin, oval face, straight nose, blonde hair in two loose braids, clear blue eyes, light freckles, plain wool tunic and fur-trimmed cloak. No celebrity or franchise likeness.\nConstraints: historically grounded Norse clothing, natural wool/linen, simple period bronze ornament and round iron helmets; no horned or winged helmets, no fantasy crown. Keep important features away from top 6% and outer edges, with calm dark breathing room suitable for desktop windows. One single painting, no collage, borders, text, letters, logos, signatures, watermarks, UI, recognizable characters, game/movie likenesses, landscapes or scenic vistas. Small runes carved into the requested objects are permitted; no floating writing.",
-      "ultrawide_centering": [
-        0.5,
-        0.5
-      ],
-      "ultrawide_native_source": "branding/sources/wallpapers/batch-04/afterglow-03-bronze-and-embers-ultrawide.png",
-      "ultrawide_native_sha256": "2a1af8606d437a7400756439d91280d7f18558905d74de74d2730ad552f6eef6",
-      "ultrawide_native_size": [
-        1935,
-        812
-      ],
-      "ultrawide_prompt": "Expand and recompose this Eitr original artwork into a true ULTRAWIDE43:18 landscape wallpaper, requested3440x1440 or largest supported2.39:1 canvas. Preserve its SAME subject, character identity, anatomy, pose, colors, medium, lighting and original artwork style. Keep all important subject parts completely visible, including head/helmet, antlers, wings, ears, flowers, hands and objects. Uniformly reduce the subject within the frame if needed, never stretch it. Add natural seamless new painted/drawn background space mainly to the sides, continuing the existing background style, texture and light. Large calm breathing room for desktop windows. No repeated edge columns, smeared bands, mirroring, letterboxing, borders or abrupt seams. Preserve the existing subject composition as far as the new panoramic framing permits; do not add extra subjects, text, logos, signatures, UI or watermarks. This is an expansion of the supplied original, not a different artwork."
-    },
-    {
       "theme": "moss",
       "name": "01-smokehole-seeress",
       "file": "themes/moss/backgrounds/01-smokehole-seeress.jpg",
@@ -364,7 +293,6 @@
     }
   ],
   "previews": {
-    "afterglow": "themes/afterglow/backgrounds/01-emberward-gaze.jpg",
     "graphite": "themes/graphite/backgrounds/01-fragments-of-touch.jpg"
   },
   "style_overrides": {

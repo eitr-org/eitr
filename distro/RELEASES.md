@@ -17,12 +17,10 @@ for the full search warm-up.
 Eitr Light adds the light Primordial Venom palette, local light Neovim and VS Code
 themes, and four still wallpapers led by Dusk Fjord. Eitr starts with Aurora
 Fjord, then Dusk Fjord, Rune Seal and the animated Runestone. The fjords use
-flat ink cel shading with separately generated panoramas. Eitr remains the default among 13 built-in themes. The 14 extra
-themes are official packages from `eitr-org/eitr-themes`: Catppuccin, Catppuccin
-Latte, Daylight, Freyja, Gruvbox, Jade, Kanagawa, Moss, Nord, One Dark Pro, Rosé Pine,
-Skaði, Stillwater and Wisteria. Existing accounts received the first 12 in the background,
-current theme first; failed downloads retry on later logins without changing
-the current desktop or wallpaper. Fresh accounts receive only the built-ins.
+flat ink cel shading with separately generated panoramas. Eitr and Eitr Light
+are the built-in pair. Afterglow and the ten realm themes are official Store
+packages. Upgrades carry forward themes referenced by existing settings offline.
+Fresh installs can download them from Discover when online.
 
 Walker groups desktop preferences under Settings, with System information and
 maintenance inside Settings > System. Main includes Quick Actions and Plugins;
@@ -152,9 +150,9 @@ also offers mise without activating it or replacing existing language managers.
 
 ## Realm themes (unreleased)
 
-The 13 built-ins include ten dark realm palettes: Alfheim, Asgard, Helheim,
+The official Store offers ten dark realm palettes: Alfheim, Asgard, Helheim,
 Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
-Each has two to four original wallpapers chosen by the owner, from hand-inked
+Each has two to five original wallpapers chosen by the owner, from hand-inked
 Norse illustrations to oil, gouache, cel-shaded, ink-wash, graphic and painted
 environments, in 4K and ultrawide formats with retained native sources and
 reproducible exports. Svartalfheim now starts with the ink cel-shaded Feasting Hall;

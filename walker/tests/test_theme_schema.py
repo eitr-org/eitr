@@ -33,11 +33,6 @@ def theme_dirs():
     return sorted(path for path in THEMES.iterdir() if path.is_dir())
 
 
-# The owner's curated wallpaper count per realm theme.
-REALM_WALLPAPERS = {"alfheim": 3, "asgard": 3, "helheim": 3, "jotunheim": 3, "midgard": 2,
-                    "muspelheim": 3, "niflheim": 3, "ragnarok": 5, "svartalfheim": 3, "vanaheim": 3}
-
-
 def active(records):
     """Batch records whose wallpaper still ships; removed ones keep only their prompts."""
     return [record for record in records if record.get("status") != "removed"]
@@ -112,11 +107,10 @@ class ThemeSchemaTests(unittest.TestCase):
             self.assertEqual(sorted(path.stem for path in (THEMES / 'eitr-light' / folder).iterdir()),
                              ['01-dusk-fjord', '02-gates-of-yggdrasil', '03-rune-seal', '04-primordial-drop'])
 
-    def test_eitr_runestone_and_ragnarok_fenrir_collections(self):
+    def test_eitr_runestone_and_artwork_manifest(self):
         for folder, runestone in (("backgrounds", "04-eitr-runestone.png"),
                                    ("backgrounds-ultrawide", "04-eitr-runestone.jpg")):
             self.assertEqual(sorted(path.name for path in (THEMES / "eitr" / folder).iterdir()), ["01-aurora-fjord.jpg", "02-dusk-fjord.jpg", "03-rune-seal.jpg", runestone])
-            self.assertTrue((THEMES / "ragnarok" / folder / "05-fenrir.jpg").is_file())
         for manifest in ("artwork-4k.json", "artwork-ultrawide.json"):
             records = json.loads((THEMES / manifest).read_text())["images"]
             for record in records:
@@ -141,110 +135,6 @@ class ThemeSchemaTests(unittest.TestCase):
         self.assertEqual(colors["color8"], colors["muted"])
         self.assertEqual(colors["selection_background"], colors["raised"])
         self.assertEqual((THEMES / "eitr/rgb.color").read_text().strip(), colors["accent"][1:])
-
-    def test_realm_palettes_and_wallpaper_contract(self):
-        expected = {
-            "alfheim": ("191721 252231 373044 f0eaf6 ada2ba d5b9f2 8eddd3 e895a7", "e895a7 a9d6b3 e6ce96 a3bdf0 d5b9f2 8eddd3"),
-            "asgard": ("141820 1d2330 2c3545 e9edf4 98a4b5 e4b968 8faed8 e67e80", "e67e80 9ccb9b e4b968 8faed8 c6a1da 85c9d7"),
-            "helheim": ("15171a 212529 32383a dfe3dc 9ca8a0 a3bd79 b193ba cf818b", "cf818b a3bd79 d0ba82 91a9c5 b193ba 8ebeb6"),
-            "jotunheim": ("121a24 1d2937 2c3c4d e5edf5 9bafc1 78b6cd b7a0d9 e48d9c", "e48d9c 94c7b6 e1c18d 85aee1 b7a0d9 78c5d2"),
-            "midgard": ("171a1d 22282d 343e45 e5e8e8 9ca7ac 83a6c7 bfa17b da8582", "da8582 91b69c d8be85 83a6c7 be9cbf 80bdbe"),
-            "muspelheim": ("1d1314 2b1c1c 432a27 f4e6df bda39c f28b59 e9bd63 f07870", "f07870 b4c486 e9bd63 91abce d29bbf 8ec8c2"),
-            "niflheim": ("101b25 1b2a36 2a3d4b e7f3f7 9fb7c6 91d5e6 a6c1f0 de94a5", "de94a5 9acdbd dbd49f a6c1f0 c5b0e2 91d5e6"),
-            "ragnarok": ("120f13 21191e 38272d f2e7e2 ac999e c44750 e7ad67 e16a72", "8f202b a4bd8d e7ad67 9ca9d5 c69ac6 8ac8cc"),
-            "svartalfheim": ("191715 29231f 3c322b ede5db b0a398 d49a65 8ab7ad e17f72", "e17f72 9dbb89 e0bd78 8eadcb b79ac6 8ab7ad"),
-            "vanaheim": ("101a17 1b2822 2c3e33 e3ede2 94aa9c 83b88e d5ad72 df827b", "df827b 83b88e d5ad72 83afa8 c6a0c8 8bcbc0"),
-        }
-        batch = json.loads((THEMES / "artwork-batch-05.json").read_text())
-        self.assertEqual(sorted(record["theme"] for record in batch["images"]), sorted(expected))
-        for name, (roles, ansi) in expected.items():
-            with self.subTest(theme=name):
-                theme = THEMES / name
-                colors = palette.load(theme)
-                for key, value in zip(("background", "surface", "raised", "foreground", "muted",
-                                       "accent", "second", "alert"), roles.split()):
-                    self.assertEqual(colors[key], "#" + value)
-                for index, value in enumerate(ansi.split(), 1):
-                    self.assertEqual(colors[f"color{index}"], "#" + value)
-                for surface in ("background", "surface", "raised"):
-                    self.assertGreaterEqual(palette.contrast(colors["foreground"], colors[surface]), 4.5)
-                self.assertGreaterEqual(palette.contrast(palette.accent_text(colors), colors["surface"]), 4.5)
-                self.assertFalse((theme / "light.mode").exists())
-                wallpapers = sorted(path.name for path in (theme / "backgrounds").glob("*.jpg"))
-                self.assertEqual(len(wallpapers), REALM_WALLPAPERS[name])
-                self.assertEqual([wallpaper[:3] for wallpaper in wallpapers],
-                                 [f"{number:02}-" for number in range(1, len(wallpapers) + 1)])
-                self.assertEqual(sorted(path.name for path in (theme / "backgrounds-ultrawide").glob("*.jpg")),
-                                 wallpapers)
-                self.assertEqual(batch["previews"][name], f"themes/{name}/backgrounds/{wallpapers[0]}")
-                self.assertEqual((theme / "rgb.color").read_text().strip().lower(), colors["accent"][1:])
-                for record in active(batch["images"]):
-                    if record["theme"] != name:
-                        continue
-                    source = ROOT / record["native_source"]
-                    self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(), record["native_sha256"])
-                    with Image.open(source) as image:
-                        self.assertEqual(list(image.size), record["native_size"])
-
-    def test_realm_environment_sources_and_exports(self):
-        batch = json.loads((THEMES / "artwork-batch-06.json").read_text())
-        approved = json.loads((THEMES / "artwork-batch-05.json").read_text())
-        self.assertEqual(sorted(record["theme"] for record in batch["images"]),
-                         sorted(approved["previews"]))
-        for record in active(batch["images"]):
-            with self.subTest(theme=record["theme"]):
-                for prefix in ("native", "ultrawide_native"):
-                    if prefix + "_source" not in record:
-                        continue
-                    source = ROOT / record[prefix + "_source"]
-                    self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(),
-                                     record[prefix + "_sha256"])
-                    with Image.open(source) as image:
-                        self.assertEqual(list(image.size), record[prefix + "_size"])
-                for key, size in (("file", (3840, 2160)), ("ultrawide_file", (3440, 1440))):
-                    with Image.open(ROOT / record[key]) as image:
-                        self.assertEqual(image.size, size)
-
-    def test_realm_batch_07_provenance_and_exports(self):
-        batch = json.loads((THEMES / "artwork-batch-07.json").read_text())
-        realms = {"alfheim", "asgard", "helheim", "jotunheim", "midgard",
-                  "muspelheim", "niflheim", "svartalfheim", "vanaheim"}
-        self.assertEqual(len(batch["images"]), 18)
-        self.assertLessEqual({record["theme"] for record in batch["images"]}, realms)
-        manifests = {
-            name: {record["file"]: record for record in
-                   json.loads((THEMES / name).read_text())["images"]}
-            for name in ("artwork-4k.json", "artwork-ultrawide.json")}
-        sources = set()
-        for record in active(batch["images"]):
-            with self.subTest(wallpaper=record["file"]):
-                self.assertTrue(record["rendering_style"].strip())
-                for prefix in ("native", "ultrawide_native"):
-                    if prefix + "_source" not in record:
-                        continue
-                    source = ROOT / record[prefix + "_source"]
-                    sources.add(source.resolve())
-                    self.assertEqual(hashlib.sha256(source.read_bytes()).hexdigest(),
-                                     record[prefix + "_sha256"])
-                    with Image.open(source) as image:
-                        self.assertEqual(list(image.size), record[prefix + "_size"])
-                for key, size in (("file", (3840, 2160)), ("ultrawide_file", (3440, 1440))):
-                    self.assertEqual(Path(record[key]).stem, record["name"])
-                    with Image.open(ROOT / record[key]) as image:
-                        self.assertEqual(image.size, size)
-                        self.assertEqual(image.format, "JPEG")
-                export = manifests["artwork-4k.json"][record["file"]]
-                self.assertEqual(export["source"], record["native_source"])
-                self.assertEqual(export["source_sha256"], record["native_sha256"])
-                wide = manifests["artwork-ultrawide.json"][record["ultrawide_file"]]
-                self.assertEqual(wide["source"]["file"],
-                                 record.get("ultrawide_native_source", record["native_source"]))
-                self.assertEqual(wide["framing"], "crop")
-                for centering in (record["centering"], record["ultrawide_centering"]):
-                    self.assertEqual(len(centering), 2)
-                    self.assertTrue(all(0 <= coordinate <= 1 for coordinate in centering))
-        self.assertEqual(sources, {source.resolve() for source in
-                                  (ROOT / "branding/sources/wallpapers/batch-07").glob("*.png")})
 
     def check_painterly_batch(self, number, theme, names):
         batch = json.loads((THEMES / f"artwork-batch-{number}.json").read_text())
@@ -274,10 +164,6 @@ class ThemeSchemaTests(unittest.TestCase):
                         self.assertEqual(image.format, "JPEG")
         self.assertEqual(sources, {source.resolve() for source in
                                   (ROOT / f"branding/sources/wallpapers/batch-{number}").glob("*.png")})
-
-    def test_ragnarok_batch_08_provenance_and_exports(self):
-        self.check_painterly_batch("08", "ragnarok",
-                                  ["01-blood-eclipse", "02-fenrir-devours-the-sun", "03-dying-yggdrasil"])
 
     def test_eitr_batch_09_provenance_and_exports(self):
         self.check_painterly_batch("09", "eitr",
@@ -330,8 +216,6 @@ class ThemeSchemaTests(unittest.TestCase):
             mapped = roles(palette)
             for role in ("accent", "second", "keyword", "function", "type", "string", "number", "constant", "builtin", "property", "parameter", "comment"):
                 self.assertGreaterEqual(contrast(mapped[role], palette["background"]), 4.5, (name, role))
-            if name == "afterglow":
-                continue
             data = builder.archive(name, integration["vscode"]["name"], palette)
             self.assertEqual(data, (THEMES / name / "vscode.vsix").read_bytes())
             self.assertEqual(data, builder.archive(name, integration["vscode"]["name"], palette))
@@ -344,7 +228,7 @@ class ThemeSchemaTests(unittest.TestCase):
             for index, ansi in enumerate(('Black', 'Red', 'Green', 'Yellow', 'Blue', 'Magenta', 'Cyan', 'White', 'BrightBlack', 'BrightRed', 'BrightGreen', 'BrightYellow', 'BrightBlue', 'BrightMagenta', 'BrightCyan', 'BrightWhite')):
                 self.assertEqual(document['colors']['terminal.ansi' + ansi], palette['color' + str(index)])
             identities.add(document['colors']['button.background'])
-        self.assertEqual(len(identities), 12)
+        self.assertEqual(len(identities), 2)
         result = subprocess.run([sys.executable, str(THEMES / "build-vscode-themes.py"), "--check"], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
 
@@ -374,10 +258,7 @@ class ThemeSchemaTests(unittest.TestCase):
                         self.assertEqual(image.size, (3440, 1440))
 
     def test_every_theme_has_required_and_only_known_files(self):
-        self.assertEqual({theme.name for theme in theme_dirs()}, {
-            'afterglow', 'alfheim', 'asgard', 'eitr', 'eitr-light', 'helheim',
-            'jotunheim', 'midgard', 'muspelheim', 'niflheim', 'ragnarok',
-            'svartalfheim', 'vanaheim'})
+        self.assertEqual({theme.name for theme in theme_dirs()}, {"eitr", "eitr-light"})
         for theme in theme_dirs():
             with self.subTest(theme=theme.name):
                 from eitr_theme_packages import manifest

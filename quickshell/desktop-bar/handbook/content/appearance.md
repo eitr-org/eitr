@@ -20,7 +20,7 @@ Open Eitr Store from the app launcher, SUPER + F2, Walker’s Desktop menu or Mo
 
 Choose Discover or Installed in the sidebar, then Themes, Plugins, Lockscreens or Wallpapers in the tabs. Ctrl+1–4 switches kinds. The last section and kind are remembered on this PC. Updates appears only when updates exist, lists updates across kinds and offers Update all; plugin updates still require individual review. Search stays in the selected section and kind (Updates searches all pending updates). The filter button groups Source (All / Official / Community) and kind-specific options: Appearance for themes, and Adds for plugins. Plugin filters require every selected capability: Bar item, Widget, Control Center tile, Panel, Walker rows, Runs a background service or Installs packages. Unknown metadata does not match a selected capability. A dot marks active filters. Escape or the clear button clears search. Up/Down selects a sidebar row; Right or Tab enters the grid; Left from the first column returns. Ctrl+F focuses search.
 
-Click an installed theme, lockscreen or wallpaper to use it. Click a Discover card for details, provenance and artwork. Select themes or wallpaper packs and choose Review & install; nothing installs before confirmation. Remote artwork loads on demand. Update all updates themes in sequence and reviews each plugin update. Installed cards show update badges; removal always asks for confirmation. The current theme and lockscreen cannot be removed.
+Click an installed theme, lockscreen or wallpaper to use it. Click a Discover card for details, provenance and artwork. Select themes or wallpaper packs and choose Review & install; nothing installs before confirmation. Remote artwork loads on demand. Update all updates themes in sequence and reviews each plugin update. Installed cards show update badges; removal always asks for confirmation. Eitr and Eitr Light are locked. Switch away from the current theme or lockscreen before removing it.
 
 Plugins run with your account’s full permissions. Installing or updating always shows the source, pinned commit, author, files, commands, required packages and warnings. Review code and any optional AI advice before confirming. Community plugin commits are pinned by the index. Reviews expire after 15 minutes and are discarded on close. Installed > Add accepts HTTPS or SSH Git addresses for themes and plugins; multiple plugins are reviewed one after another. Installed plugin cards open management, including settings, enable/disable, updates and removal. Unused plugin-installed packages can be removed when offered.
 
@@ -29,6 +29,8 @@ Lockscreens remain official signed packages. Installing and removing require the
 Wallpapers lists shipped theme pictures, your own pictures and installed pack cards. Clicking a pack uses its first image; individual images are also available. Community packs are data-only verified JPEG, PNG or WebP images. Installation adds them to your own wallpapers for the existing picker and carousel; removing a pack deletes only its files. Screensavers are not included.
 
 Choose another wallpaper before removing a pack used by a saved wallpaper selection.
+
+Theme repository: `eitr-org/eitr-themes`.
 
 ## Choose a theme and wallpaper
 
@@ -52,9 +54,9 @@ selections switch to Eitr and its default wallpaper.
 
 Eitr Light is the light counterpart of Primordial Venom, with pale green surfaces, dark green text, venom yellow-green accents and jade/emerald highlights. Its four still wallpapers are Dusk Fjord (default), The Gates of Yggdrasil, Rune Seal and Primordial Drop, each with a separate panoramic composition. Select it in the Light category; Eitr remains the default. Theme Wallpaper uses the selected still image on the lockscreen.
 
-The 13 built-in themes remain available offline. Install the 14 extra themes, including the light Freyja and Skaði, from the official `eitr-org/eitr-themes` catalog. Existing accounts received the first 12 in the background, with offline retries; their current theme and saved wallpaper stay unchanged. New accounts receive only built-ins.
+Eitr and Eitr Light come built in and remain available offline. Install Afterglow, the realm themes and other official themes from Discover. An upgrade keeps any former built-in theme referenced by your saved settings, even offline.
 
-The 13 shipped themes include ten dark realm palettes: Alfheim, Asgard, Helheim,
+The official Store offers ten dark realm palettes: Alfheim, Asgard, Helheim,
 Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim and Vanaheim.
 Each realm theme has two to five original wallpapers in varied ink,
 gouache, cel-shaded and painted styles, in both aspect ratios. Built-in, official Store and custom theme previews show the default wallpaper above a palette strip.

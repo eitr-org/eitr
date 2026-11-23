@@ -48,11 +48,11 @@ class VSCodeThemeTests(unittest.TestCase):
             self.assertIn('"workbench.colorTheme": "Eitr", // theme comment', settings.read_text())
             self.assertIn("/* editor */", settings.read_text())
 
-    def test_cli_reads_local_realm_bundle(self):
-        theme = ROOT / "themes/ragnarok/vscode.json"
+    def test_cli_reads_local_theme_bundle(self):
+        theme = ROOT / "themes/eitr/vscode.json"
         data = json.loads(theme.read_text())
         result = subprocess.run([sys.executable, str(SCRIPT), "read", str(theme)], capture_output=True, text=True)
-        self.assertEqual(result.stdout.splitlines(), [data["name"], "local.eitr-ragnarok-theme", "vscode.vsix"])
+        self.assertEqual(result.stdout.splitlines(), [data["name"], "local.eitr-eitr-theme", "vscode.vsix"])
         self.assertTrue((theme.parent / data["vsix"]).is_file())
 
     def test_local_bundle_is_refreshed_even_when_already_installed(self):

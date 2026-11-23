@@ -29,7 +29,7 @@ ASSET_FOLDERS = {'backgrounds', 'backgrounds-ultrawide', 'motion'}
 # Hyprland border values: rgb()/rgba() colors, optionally a gradient angle.
 HYPRLAND_COLORS = r'(?:rgba\([0-9a-fA-F]{8}\)|rgb\([0-9a-fA-F]{6}\))(?: (?:rgba\([0-9a-fA-F]{8}\)|rgb\([0-9a-fA-F]{6}\)))*(?: [0-9]{1,3}deg)?'
 ASSET_EXTENSIONS = {'.jpg', '.png', '.json'}
-GENERATED = {'icons.theme', 'vscode.json', 'neovim.lua', 'btop.theme', 'dolphin.theme'}
+GENERATED = {'icons.theme', 'vscode.json', 'neovim.lua', 'btop.theme', 'dolphin.theme', 'vscode.vsix'}
 PALETTE_KEYS = ('background', 'foreground', 'accent', *(f'color{number}' for number in range(16)))
 
 def palette(root):
@@ -37,6 +37,18 @@ def palette(root):
     return {key: colors[key] for key in PALETTE_KEYS} if all(key in colors for key in PALETTE_KEYS) else {}
 
 OFFICIAL = 'github.com/eitr-org/eitr-themes'
+
+
+def prepare_installed(destination, source):
+    """Generate trusted integrations and record provenance before publishing a package."""
+    import importlib.util
+    builder_path = code_root() / 'themes/theme_files.py'
+    builder_spec = importlib.util.spec_from_file_location('eitr_theme_files', builder_path)
+    builder = importlib.util.module_from_spec(builder_spec)
+    builder_spec.loader.exec_module(builder)
+    builder.write_theme_files(destination, official=official(source['url']),
+                              integrations_path=code_root() / 'themes/integrations.json')
+    (destination / SOURCE).write_text(json.dumps(source) + '\n')
 
 
 def versioned_uri(path):
@@ -315,14 +327,8 @@ class Themes:
                     if (any(spec[field] != row[field] for field in ('id', 'name', 'description', 'light')) or size != row['size']
                             or 'palette' in row and row['palette'] != palette(destination)):
                         raise ValueError('Theme differs from catalog')
-                    import importlib.util
-                    builder_path = code_root() / 'themes/theme_files.py'
-                    builder_spec = importlib.util.spec_from_file_location('eitr_theme_files', builder_path)
-                    builder = importlib.util.module_from_spec(builder_spec)
-                    builder_spec.loader.exec_module(builder)
-                    builder.write_theme_files(destination, official=official(url),
-                                              integrations_path=code_root() / 'themes/integrations.json')
-                    (destination / SOURCE).write_text(json.dumps(dict(url=url, commit=revision, folder=row['folder'], official=official(url))) + '\n')
+                    prepare_installed(destination, dict(url=url, commit=revision, folder=row['folder'],
+                                                        official=official(url)))
                 if review is not None:
                     return review(stage, revision, selected)
                 moved, backups = [], []
@@ -477,7 +483,8 @@ class Themes:
         return self.install(source['url'], [theme_id], updating=True)
 
     def remove(self, theme_id):
-        if any(row['id'] == theme_id and row['kind'] == 'builtin' for row in self.installed()):
+        identifier(theme_id)
+        if theme_id in {'eitr', 'eitr-light'} or (code_root() / 'themes' / theme_id / 'colors.toml').is_file():
             raise ValueError('Built-in themes cannot be removed')
         with self.lock():
             self.source(theme_id)

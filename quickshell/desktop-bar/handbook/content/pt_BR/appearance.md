@@ -15,6 +15,8 @@ Somente em Rolagem: **SUPER + ALT + setas** muda o foco; **SUPER + ALT + SHIFT +
 
 ## Eitr Store
 
+Eitr e Eitr Light vêm integrados. Troque de tema antes de remover o tema atual da loja.
+
 Abra a Eitr Store pelo lançador de aplicativos, SUPER + F2, menu Desktop do Walker ou Mais temas nas Configurações. A janela independente pode ser movida e redimensionada e usa a paleta das Configurações, com o cabeçalho EITR / STORE. Fechar ou pressionar Escape descarta seleções e revisões temporárias.
 
 Escolha Descobrir ou Instalados na barra lateral e depois Temas, Plugins, Telas de bloqueio ou Papéis de parede nas abas. Ctrl+1–4 troca a categoria. A última seção e categoria ficam salvas neste PC. Atualizações aparece apenas quando há atualizações, reúne todas as categorias e oferece Atualizar tudo; cada plugin ainda exige revisão. A busca fica na seção e categoria selecionadas (Atualizações busca todas as pendências). O filtro agrupa Origem (Todos / Oficial / Comunidade) e opções por categoria: Aparência para temas e Adiciona para plugins. Todos os recursos selecionados devem existir: item da barra, widget, bloco da Central de controle, painel, linhas do Walker, serviço em segundo plano ou instalação de pacotes. Metadados desconhecidos não correspondem ao filtro. Um ponto indica filtros ativos. Esc ou o botão de limpar apaga a busca. Cima/Baixo seleciona a seção; Direita ou Tab entra na grade; Esquerda na primeira coluna volta. Ctrl+F foca a busca.
@@ -44,9 +46,9 @@ O Eitr tem quatro papéis de parede: Fiorde da aurora (padrão), Fiorde ao entar
 
 A renderização por software (por exemplo, numa VM sem aceleração 3D) usa o papel de parede estático selecionado; o mesmo acontece se não for possível detectar o renderizador. Graphite foi removido; seleções salvas do Graphite mudam para Eitr e seu papel de parede padrão.
 
-Os 13 temas integrados ficam disponíveis offline. Instale os 14 temas extras, incluindo os claros Freyja e Skaði, pelo catálogo oficial `eitr-org/eitr-themes`. Contas existentes receberam os 12 primeiros em segundo plano, com novas tentativas após falhas de rede, sem mudar o tema atual nem o papel de parede salvo. Contas novas recebem apenas os integrados.
+Eitr e Eitr Light vêm integrados e ficam disponíveis offline. Instale Afterglow, os temas dos reinos e outros temas oficiais em Descobrir. A atualização mantém os antigos temas integrados usados pelas suas configurações, mesmo offline.
 
-Os 13 temas incluídos oferecem dez paletas escuras dos reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim e Vanaheim. Cada tema dos reinos tem de dois a cinco papéis de parede originais, com estilos variados de tinta, guache, cel shading e pintura, nas duas proporções. As prévias dos temas incluídos, oficiais da loja e personalizados mostram o papel de parede padrão acima de uma faixa com a paleta de cores.
+A loja oficial oferece dez paletas escuras dos reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim e Vanaheim. Cada tema dos reinos tem de dois a cinco papéis de parede originais, com estilos variados de tinta, guache, cel shading e pintura, nas duas proporções. As prévias dos temas incluídos, oficiais da loja e personalizados mostram o papel de parede padrão acima de uma faixa com a paleta de cores.
 
 Eitr Light é a versão clara de Primordial Venom, com superfícies verde-claras, texto verde-escuro, detalhes em amarelo-esverdeado de veneno e realces de jade/esmeralda. Seus quatro papéis de parede estáticos são Fiorde ao entardecer (padrão), The Gates of Yggdrasil, Rune Seal e Primordial Drop, cada um com uma composição panorâmica própria. Selecione-o na categoria Clara; Eitr continua sendo o padrão. Papel de parede do tema usa a imagem estática selecionada na tela de bloqueio.
 

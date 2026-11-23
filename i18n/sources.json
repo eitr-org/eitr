@@ -1239,6 +1239,9 @@
     "Eitr Calculator": [
       "quickshell/calculator/shell.qml"
     ],
+    "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": [
+      "distro/store-kinds.json"
+    ],
     "Eitr has not reviewed it. Its code belongs to its author, not to Eitr. Only add plugins from people and repositories you trust.": [
       "quickshell/desktop-bar/store/StoreReview.qml"
     ],
@@ -3499,9 +3502,6 @@
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
     "Themes": [
-      "distro/store-kinds.json"
-    ],
-    "Themes on this computer. Choose one to apply it.": [
       "distro/store-kinds.json"
     ],
     "Thinking…": [

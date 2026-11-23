@@ -7,6 +7,27 @@ post_install() {
   echo ':: To enable snapshot-protected System Update, see /usr/share/eitr/RECOVERY.md.'
 }
 
+pre_upgrade() {
+  local root=/usr/share/eitr/themes archive=/var/lib/eitr/former-themes/palettes
+  local theme temporary file
+  for theme in "$root"/*; do
+    [[ -f $theme/colors.toml && ${theme##*/} != eitr && ${theme##*/} != eitr-light ]] || continue
+    [[ ! -d $archive/${theme##*/} ]] || continue
+    install -dm755 "$archive" || return
+    temporary=$(mktemp -d "$archive/.capture.XXXXXX") || return
+    if ! (
+      for file in colors.toml display-name light.mode artwork.md rgb.color eitr-theme.json; do
+        [[ -f $theme/$file ]] || continue
+        cp -a -- "$theme/$file" "$temporary/" || exit
+      done
+      chmod 755 "$temporary" && mv -T -- "$temporary" "$archive/${theme##*/}"
+    ); then
+      rm -rf -- "$temporary"
+      return 1
+    fi
+  done
+}
+
 post_upgrade() {
   # Renamed lockscreen designs; each user's own selection migrates at login.
   local sddm_config=/etc/sddm.conf.d/90-desktop-lockscreen.conf

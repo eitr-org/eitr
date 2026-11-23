@@ -15,6 +15,8 @@ Solo en Desplazamiento: **SUPER + ALT + flechas** enfoca ventanas; **SUPER + ALT
 
 ## Eitr Store
 
+Eitr y Eitr Light vienen incluidos. Cambia de tema antes de eliminar el tema actual de la tienda.
+
 Abre Eitr Store desde el lanzador, SUPER + F2, el menú Escritorio de Walker o Más temas en Configuración. Es una ventana independiente que se puede mover y redimensionar, con la paleta de Configuración y la cabecera EITR / STORE. Cerrar o pulsar Escape descarta selecciones y revisiones temporales.
 
 Elige Descubrir o Instalados en la barra lateral y después Temas, Plugins, Pantallas de bloqueo o Fondos en las pestañas. Ctrl+1–4 cambia de categoría. La última sección y categoría se recuerdan en este PC. Actualizaciones aparece solo cuando hay pendientes, reúne todas las categorías y ofrece Actualizar todo; cada plugin sigue requiriendo revisión. La búsqueda se limita a la sección y categoría elegidas (todos los pendientes en Actualizaciones). El filtro agrupa Origen (Todos / Oficial / Comunidad) y opciones por categoría: Apariencia para temas y Añade para plugins. Se requieren todas las funciones seleccionadas: elemento de barra, widget, mosaico del Centro de control, panel, filas de Walker, servicio en segundo plano o instalación de paquetes. Los metadatos desconocidos no coinciden. Un punto indica filtros activos. Esc o Borrar limpia la búsqueda. Arriba/Abajo elige sección; Derecha o Tab entra en la cuadrícula; Izquierda desde la primera columna vuelve. Ctrl+F enfoca la búsqueda.
@@ -44,9 +46,9 @@ Eitr tiene cuatro fondos: Fiordo de la aurora (predeterminado), Fiordo al atarde
 
 La renderización por software (por ejemplo, en una VM sin aceleración 3D) usa el fondo estático seleccionado; ocurre lo mismo si no se puede detectar el renderizador. Graphite se ha retirado; las selecciones guardadas de Graphite cambian a Eitr y su fondo predeterminado.
 
-Los 13 temas integrados están disponibles sin conexión. Instala los 14 temas adicionales, entre ellos los claros Freyja y Skaði, desde el catálogo oficial `eitr-org/eitr-themes`. Las cuentas existentes recibieron los 12 primeros en segundo plano, con reintentos sin conexión, sin cambiar el tema actual ni el fondo guardado. Las cuentas nuevas reciben solo los integrados.
+Eitr y Eitr Light vienen incluidos y están disponibles sin conexión. Instala Afterglow, los temas de los reinos y otros temas oficiales desde Descubrir. Al actualizar se conservan los antiguos temas incluidos que usen tus ajustes, incluso sin conexión.
 
-Los 13 temas incluidos ofrecen diez paletas oscuras de los reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim y Vanaheim. Cada tema de los reinos tiene de dos a cinco fondos originales, con estilos variados de tinta, gouache, sombreado cel y pintura, en las dos proporciones. Las vistas previas de los temas incluidos, oficiales de la tienda y personalizados muestran el fondo predeterminado sobre una franja con la paleta de colores.
+La tienda oficial ofrece diez paletas oscuras de los reinos: Alfheim, Asgard, Helheim, Jotunheim, Midgard, Muspelheim, Niflheim, Ragnarök, Svartalfheim y Vanaheim. Cada tema de los reinos tiene de dos a cinco fondos originales, con estilos variados de tinta, gouache, sombreado cel y pintura, en las dos proporciones. Las vistas previas de los temas incluidos, oficiales de la tienda y personalizados muestran el fondo predeterminado sobre una franja con la paleta de colores.
 
 Eitr Light es la versión clara de Primordial Venom, con superficies verde pálido, texto verde oscuro, acentos amarillo verdoso de veneno y detalles de jade/esmeralda. Sus cuatro fondos estáticos son Fiordo al atardecer (predeterminado), The Gates of Yggdrasil, Rune Seal y Primordial Drop, cada uno con una composición panorámica propia. Selecciónalo en la categoría Clara; Eitr sigue siendo el predeterminado. Fondo del tema usa la imagen estática seleccionada en la pantalla de bloqueo.
 

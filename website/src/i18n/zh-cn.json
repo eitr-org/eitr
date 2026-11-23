@@ -49,7 +49,7 @@
     "sowilo_themes": "Sowilo / 主题",
     "worlds": "多重世界，",
     "one_desktop": "同一个桌面。",
-    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr 是默认主题，Eitr Light 则是其明亮版本。每一款主题都会为桌面栏、终端、启动器、锁屏、编辑器和应用重新着色，并配有专属壁纸。更多主题（如 Catppuccin、Gruvbox 和 Nord 等共 12 款）可从“附加组件”目录中安装。",
+    "eitr_is_the_default_theme_every_theme_recolors_the_bar_": "Eitr 是内置的默认主题，Eitr Light 是其浅色版本。主题会为桌面栏、终端、启动器、锁屏、编辑器和应用重新配色，并附有专属壁纸。Afterglow 和神域主题可从 Eitr Store 获取。",
     "light": "明亮",
     "previous_theme": "上一个主题",
     "next_theme": "下一个主题",

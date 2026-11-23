@@ -144,4 +144,6 @@ class WallpaperCurationTests(unittest.TestCase):
                         self.assertEqual(functions['renamed'](renamed, theme, mappings), expected)
                         if 'theme/current' in owner:
                             self.assertEqual(functions['renamed'](saved, 'midgard', mappings), saved)
-                        self.assertTrue((ROOT / 'themes' / theme / folder / (new + '.jpg')).is_file())
+                        store = Path(os.environ.get('EITR_THEMES_DIR', ROOT.with_name('eitr-themes')))
+                        if (store / 'sources/eitr-realms').is_dir():
+                            self.assertTrue((store / theme / folder / (new + '.jpg')).is_file())

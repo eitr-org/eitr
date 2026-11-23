@@ -4,13 +4,15 @@
 # changed them, so it moves only when the artwork does. Built from a Git
 # checkout's committed HEAD; see distro/README.md.
 _repo="$(cd -- "$startdir/../../.." && pwd -P)"
-_artwork=(':(glob)themes/*/backgrounds/**' ':(glob)themes/*/backgrounds-ultrawide/**' ':(glob)themes/*/motion/**'
-  ':(glob)themes/*/preview.png')
+mapfile -t _artwork < <(git -C "$_repo" ls-tree -r --name-only HEAD -- themes/eitr themes/eitr-light |
+  grep -E '^themes/(eitr|eitr-light)/((backgrounds|backgrounds-ultrawide|motion)/|preview\.png$)')
 
 pkgname=eitr-artwork
 pkgver="$(TZ=UTC git -C "$_repo" log -1 --format='%cd.g%h' --abbrev=7 \
-  --date=format-local:%Y%m%d.%H%M%S HEAD -- "${_artwork[@]}")"
+  --date=format-local:%Y%m%d.%H%M%S HEAD -- ':(glob)themes/*/backgrounds/**' \
+  ':(glob)themes/*/backgrounds-ultrawide/**' ':(glob)themes/*/motion/**' ':(glob)themes/*/preview.png')"
 pkgrel=1
+install=eitr-artwork.install
 pkgdesc='Eitr theme wallpapers and previews'
 arch=(any)
 url='https://github.com/eitr-org/eitr'

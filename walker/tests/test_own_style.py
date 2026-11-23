@@ -304,7 +304,7 @@ class CommandTests(SandboxTest):
         applied = []
         with patch.object(self.cli, "apply_theme", side_effect=applied.append):
             self.cli.delete_theme("mine", ask_first=lambda *arguments: True)
-        self.assertEqual(applied, ["afterglow"])
+        self.assertEqual(applied, ["eitr"])
         self.assertFalse(directory.exists())
         with self.assertRaises(ValueError):
             self.cli.delete_theme("eitr", ask_first=lambda *arguments: True)

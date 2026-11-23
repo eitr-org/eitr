@@ -1,4 +1,5 @@
 {
+  "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr와 Eitr Light는 기본 제공됩니다. 현재 스토어 테마를 제거하려면 먼저 다른 테마로 바꾸세요.",
   "%1 B/s": "%1 B/s",
   "%1 GB/s": "%1 GB/s",
   "%1 Hz": "%1 Hz",
@@ -916,7 +917,6 @@
   "Theme palette": "테마 팔레트",
   "Theme, wallpaper, fonts and cursor.": "테마, 배경화면, 글꼴 및 커서.",
   "Themes": "테마",
-  "Themes on this computer. Choose one to apply it.": "이 컴퓨터의 테마입니다. 적용할 테마를 선택하세요.",
   "Thinking…": "생각 중…",
   "Third-party": "타사",
   "This WiFi security type requires advanced network configuration": "이 WiFi 보안 유형에는 고급 네트워크 구성이 필요합니다",

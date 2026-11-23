@@ -45,13 +45,13 @@ Packages contain only `colors.toml`, `display-name`, `light.mode`, `preview.png`
 The limit is 128 MiB and 1000 entries (files plus directories) per theme.
 Symlinks, executable bits, special files, hidden paths and other files are refused.
 
-`icons.theme`, `vscode.json`, `neovim.lua`, `btop.theme` and `dolphin.theme`
+`icons.theme`, `vscode.json`, `neovim.lua`, `btop.theme`, `vscode.vsix` and `dolphin.theme`
 are generated locally in staging after validation on every install and update;
 packages containing any of them are refused. The installer and
 `themes/build-theme-files.py` share `themes/theme_files.py`.
 Official themes with an entry in Eitr's package-owned
 `/usr/share/eitr/themes/integrations.json` use that trusted integration, including
-editor plugins and extensions. The 12 official extra themes retain their entries there. Other themes use palette-driven
+editor plugins and extensions. Realm themes also get their deterministic local `vscode.vsix` from the palette. Other themes use palette-driven
 Neovim colors, built-in VS Code defaults and local application defaults, without
 installing any editor plugin or extension. A matching ID in another repository
 never grants access to trusted integrations. Dolphin selections are generated
@@ -60,13 +60,11 @@ from trusted integration metadata or the default light/dark flavor.
 Built-ins retain their generated editor artifacts. Export only the allowed
 data files when publishing one as a package.
 
-Eitr ships 13 themes: the nine realms, Eitr, Eitr Light, Afterglow and Ragnarok.
-Catppuccin, Catppuccin Latte, Daylight, Gruvbox, Jade, Kanagawa, Moss, Nord,
-One Dark Pro, Rosé Pine, Stillwater and Wisteria are official extra packages
-from `eitr-org/eitr-themes`. Existing accounts receive all 12 automatically,
-current theme first, without applying a theme or changing the saved wallpaper.
-Offline downloads retry at later logins; installed packages can be updated or
-removed normally. New accounts receive only the built-ins.
+Eitr ships Eitr and Eitr Light. Discover in the official Store includes
+Afterglow, the ten realm themes (Alfheim through Vanaheim, including Ragnarök),
+and the other official themes. On an existing machine the upgrade saves a local
+copy of former built-ins referenced by user settings and registers them as
+official Store packages at the next login.
 
 ## Repository index
 
@@ -117,7 +115,7 @@ Catalog rows may include a `palette` object with exactly `background`, `foregrou
 that complete generated index. Older indexes without `palette` remain accepted,
 and their cards omit swatches. Installed cards read `colors.toml` locally.
 
-Built-in themes cannot be removed: `themes.py remove ID` refuses them, and the
+Eitr and Eitr Light are built in and locked. `themes.py remove ID` refuses them, and the
 catalog shows no trash button on them. Removing a downloaded theme deletes its
 package; the current theme is protected.
 

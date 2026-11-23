@@ -20,6 +20,11 @@ details and individual or batch updates. Back and Escape return to the previous
 view. Discover and Installed searches stay within the selected section and kind.
 Ctrl+1–4 switches kinds there. Closing saves the section and kind to the
 machine-local `eitr/store.json` preference. Source is grouped in the filter menu.
+Eitr and Eitr Light ship with the desktop and stay locked in Installed. The
+other official themes, including Afterglow and the realm collection, are
+available from Discover. Once installed, they can be updated or removed.
+Switch away from the current theme before removing it.
+
 Theme Appearance is single-select; plugin Adds requires every selected capability.
 Plugin catalog and installed rows expose `components` from manifest `ui`, `rows`,
 `service` and `packages`. Community discovery already reads pinned manifests;

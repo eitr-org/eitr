@@ -1,29 +1,46 @@
-// Web copies of EITR's own artwork, generated from the repository at build time:
+// Web copies of EITR artwork, generated from the desktop and official Store sources:
 // selected Norse illustrations (theme wallpapers and website-only art in assets/norse), theme previews, full wallpapers and palettes, the
 // current release from distro/release.json and the roadmap from distro/RELEASES.md.
-// Outputs are ignored by Git; edit the sources under ../themes instead.
+// Outputs are ignored by Git.
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import sharp from "sharp";
 
 const themes = new URL("../../themes/", import.meta.url);
 const art = new URL("../public/art/", import.meta.url);
 const data = new URL("../src/data/", import.meta.url);
-const approvedArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-04.json", import.meta.url), "utf8"));
+const sibling = new URL("../../../eitr-themes/", import.meta.url);
+const localStore = process.env.EITR_THEMES_DIR
+  ? pathToFileURL(resolve(process.env.EITR_THEMES_DIR) + "/")
+  : await readFile(new URL("eitr-catalog.json", sibling)).then(() => sibling, () => null);
+const store = localStore ?? new URL("https://raw.githubusercontent.com/eitr-org/eitr-themes/main/");
 
-const curatedArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-12.json", import.meta.url), "utf8"));
-
-const realmArtwork = JSON.parse(await readFile(new URL("../../themes/artwork-batch-13.json", import.meta.url), "utf8"));
+async function storeFile(path) {
+  const url = new URL(path, store);
+  if (!url.href.startsWith(store.href)) throw new Error(`Invalid Store asset path: ${path}`);
+  if (localStore) return readFile(url);
+  const response = await fetch(url, { signal: AbortSignal.timeout(30_000) });
+  if (!response.ok) throw new Error(`Unable to fetch Store artwork: ${response.status} ${path}`);
+  return Buffer.from(await response.arrayBuffer());
+}
 
 const eitr = {
   mimir: "../assets/norse/03-mimir-well-of-wisdom.jpg",
   valkyrie: "../assets/norse/05-valkyrie.jpg",
   yggdrasil: "../assets/norse/yggdrasil.png",
   jormungandr: "../assets/norse/08-jormungandr.jpg",
-  ragnarok: "../../themes/ragnarok/backgrounds/01-blood-eclipse.jpg",
 };
 
 await mkdir(new URL("themes/", art), { recursive: true });
 await mkdir(data, { recursive: true });
+
+const storeRows = JSON.parse(await storeFile("eitr-catalog.json"));
+const ragnarok = storeRows.find((row) => row.id === "ragnarok");
+if (!ragnarok) throw new Error("The official catalog is missing Ragnarök");
+const ragnarokWallpaper = await storeFile(ragnarok.wallpapers[0].path);
+await sharp(ragnarokWallpaper).resize({ width: 2400, withoutEnlargement: true })
+  .webp({ quality: 80 }).toFile(new URL("ragnarok.webp", art).pathname);
 
 for (const [name, file] of Object.entries(eitr)) {
   const source = new URL(file, import.meta.url).pathname;
@@ -33,6 +50,16 @@ for (const [name, file] of Object.entries(eitr)) {
 const palette = (text) =>
   Object.fromEntries([...text.matchAll(/^(\w+)\s*=\s*"(#[0-9a-fA-F]{6})"/gm)].map(([, key, value]) => [key, value]));
 
+async function addTheme(row, preview, wallpaper) {
+  await sharp(preview).resize({ width: 900, height: 506, fit: "cover" })
+    .webp({ quality: 76 }).toFile(new URL(`themes/${row.id}.webp`, art).pathname);
+  await sharp(wallpaper).resize({ width: 2400, withoutEnlargement: true })
+    .webp({ quality: 80 }).toFile(new URL(`themes/${row.id}-full.webp`, art).pathname);
+  const { id, name, light, palette: colors } = row;
+  return { id, name, light, swatches: ["background", "color1", "color2", "color3", "color4",
+    "color5", "accent"].map((key) => colors[key]) };
+}
+
 const catalog = [];
 for (const entry of (await readdir(themes, { withFileTypes: true })).filter((item) => item.isDirectory())) {
   const directory = new URL(`${entry.name}/`, themes);
@@ -41,26 +68,14 @@ for (const entry of (await readdir(themes, { withFileTypes: true })).filter((ite
   const colors = palette(await readFile(new URL("colors.toml", directory), "utf8"));
   const name = (await readFile(new URL("display-name", directory), "utf8")).trim();
   const light = await readFile(new URL("light.mode", directory)).then(() => true, () => false);
-  const selectedArtwork = [...curatedArtwork.images, ...realmArtwork.images].find((image) => image.theme === entry.name && image.name.startsWith("01-"))?.file
-    ?? approvedArtwork.previews[entry.name];
-  const previewSource = selectedArtwork
-    ? new URL(`../../${selectedArtwork}`, import.meta.url).pathname
-    : new URL(`backgrounds/${wallpapers[0]}`, directory).pathname;
-  await sharp(new URL("preview.png", directory).pathname)
-    .resize({ width: 900, height: 506, fit: "cover" })
-    .webp({ quality: 76 })
-    .toFile(new URL(`themes/${entry.name}.webp`, art).pathname);
-  // The full wallpaper for the theme viewer, loaded only when a theme is opened.
-  await sharp(previewSource)
-    .resize({ width: 2400, withoutEnlargement: true })
-    .webp({ quality: 80 })
-    .toFile(new URL(`themes/${entry.name}-full.webp`, art).pathname);
-  catalog.push({
-    id: entry.name,
-    name,
-    light,
-    swatches: [colors.background, colors.color1, colors.color2, colors.color3, colors.color4, colors.color5, colors.accent],
-  });
+  catalog.push(await addTheme({ id: entry.name, name, light, palette: colors },
+    new URL("preview.png", directory).pathname, new URL(`backgrounds/${wallpapers[0]}`, directory).pathname));
+}
+for (const row of storeRows) {
+  const [preview, wallpaper] = await Promise.all([
+    storeFile(row.preview), row === ragnarok ? ragnarokWallpaper : storeFile(row.wallpapers[0].path),
+  ]);
+  catalog.push(await addTheme(row, preview, wallpaper));
 }
 catalog.sort((first, second) => (first.id === "eitr" ? -1 : second.id === "eitr" ? 1 : first.name.localeCompare(second.name)));
 for (const name of ["skoll", "hati"]) {
@@ -82,4 +97,4 @@ const roadmap = [...releases.matchAll(/^\| *(\d+\.\d+\.\d+) *\| *([^|]+?) *\| *(
   .map(([, version, codename, stage, milestone]) => ({ version, codename, stage, milestone }));
 if (!roadmap.length) throw new Error("No release table found in distro/RELEASES.md");
 await writeFile(new URL("roadmap.json", data), JSON.stringify(roadmap, null, 2) + "\n");
-console.log(`Synchronized ${Object.keys(eitr).length} illustrations and ${catalog.length} themes.`);
+console.log(`Synchronized ${Object.keys(eitr).length + 1} illustrations and ${catalog.length} themes.`);

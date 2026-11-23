@@ -247,7 +247,7 @@ ShellRoot {
   }
  }
 }
-'''.replace('FOREGROUND', foreground).replace('BACKGROUND', background).replace('TARGET', str(target)).replace('ARTWORK', str(BAR.parents[1] / 'themes/vanaheim/backgrounds/01-hidden-garden.jpg'))
+'''.replace('FOREGROUND', foreground).replace('BACKGROUND', background).replace('TARGET', str(target)).replace('ARTWORK', str(BAR.parents[1] / 'themes/eitr-light/backgrounds/01-dusk-fjord.jpg'))
                 (folder / 'fixture.qml').write_text(fixture)
                 code, output = render(folder / 'fixture.qml', render_environment(folder, (1280, 960)), 12)
                 self.assertEqual(code, 0, output)
@@ -302,7 +302,7 @@ QtObject {
                 output_folder = capture_path('SETTINGS', directory, 'placeholder').parent
                 fixture = (BAR / 'tests/fixtures/settings/pages.qml.in').read_text()
                 for original, replacement in {'FOREGROUND': foreground, 'BACKGROUND': background, 'PALETTE': theme,
-                                              'OUTPUT': str(output_folder), 'ARTWORK': str(BAR.parents[1] / 'themes/vanaheim/backgrounds/01-hidden-garden.jpg')}.items():
+                                              'OUTPUT': str(output_folder), 'ARTWORK': str(BAR.parents[1] / 'themes/eitr-light/backgrounds/01-dusk-fjord.jpg')}.items():
                     fixture = fixture.replace(original, replacement)
                 (folder / 'fixture.qml').write_text(fixture)
                 # Every page is captured once per theme; under the full check's parallel load this takes ~30 s.
@@ -316,7 +316,7 @@ QtObject {
                     self.assertTrue((output_folder / f'{theme}-{page}.png').is_file(), page)
 
     def test_user_picture_sheet_and_overview_avatar(self):
-        artwork = BAR.parents[1] / 'themes/vanaheim/backgrounds/01-hidden-garden.jpg'
+        artwork = BAR.parents[1] / 'themes/eitr-light/backgrounds/01-dusk-fjord.jpg'
         for theme, foreground, background in [('dark', '#e4e5ef', '#191b25'), ('light', '#202431', '#f5f3ee')]:
             with self.subTest(theme=theme), tempfile.TemporaryDirectory() as directory:
                 folder = Path(directory)
@@ -421,7 +421,7 @@ ShellRoot {
         self.assertNotIn('"picture"', navigation + center)
         self.assertNotIn('ProfilePicture', center)
         self.assertIn('picture: "user"', (BAR / 'bar/BarPanels.qml').read_text())
-        picture = BAR.parents[1] / 'themes/vanaheim/backgrounds/01-hidden-garden.jpg'
+        picture = BAR.parents[1] / 'themes/eitr-light/backgrounds/01-dusk-fjord.jpg'
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
             copy_runtime(folder)

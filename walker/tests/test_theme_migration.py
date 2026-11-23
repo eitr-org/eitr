@@ -173,7 +173,7 @@ class ThemeMigrationTests(unittest.TestCase):
         script = self.root / 'walker-menu.lua'
         script.write_text("""
 local entries = dofile(os.getenv('EITR_CODE_ROOT') .. '/elephant/theme-entries.lua')('dark')()
-assert(#entries == 12)
+assert(#entries == 1 and entries[1].Value == 'eitr')
 for _, entry in ipairs(entries) do
     assert(entry.Value ~= 'nord')
     local preview = assert(io.open(entry.Preview, 'r'))

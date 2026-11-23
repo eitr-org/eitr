@@ -35,9 +35,9 @@ privately through [SECURITY.md](SECURITY.md).
 - The Eitr lockscreen unlocks immediately after successful authentication. Password
   runes crumble only with Backspace or Delete; previews close instantly.
 - Native notifications with grouped stacks, history and Do Not Disturb.
-- Workspace Overview with live previews; 13 built-in dark and light themes, plus
-  official catalog themes with matching wallpapers, lockscreens and application colors. Each realm theme has two to
-  four original wallpapers, from ink and gouache to painted environments, in
+- Workspace Overview with live previews; Eitr and Eitr Light built in, plus
+  official Store themes with matching wallpapers, lockscreens and application colors. Each realm theme has two to
+  five original wallpapers, from ink and gouache to painted environments, in
   both aspect ratios.
 - Walker menus for apps, tools, settings and installs; typing searches every menu.
 - Tools: screenshots, screen recording, OCR, QR codes, color picker, LocalSend

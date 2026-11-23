@@ -1,4 +1,5 @@
 {
+  "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr et Eitr Light sont intégrés. Changez de thème avant de supprimer le thème actuel de la boutique.",
   "%1 B/s": "%1 o/s",
   "%1 GB/s": "%1 Go/s",
   "%1 Hz": "%1 Hz",
@@ -916,7 +917,6 @@
   "Theme palette": "Palette du thème",
   "Theme, wallpaper, fonts and cursor.": "Thème, fond d’écran, polices et curseur.",
   "Themes": "Thèmes",
-  "Themes on this computer. Choose one to apply it.": "Thèmes de cet ordinateur. Choisissez-en un pour l’appliquer.",
   "Thinking…": "Réflexion…",
   "Third-party": "Tiers",
   "This WiFi security type requires advanced network configuration": "Ce type de sécurité WiFi nécessite une configuration réseau avancée",

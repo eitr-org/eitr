@@ -25,7 +25,7 @@ class DesktopThemeTests(unittest.TestCase):
         import json
         integrations = json.loads((root / "themes/integrations.json").read_text())
         themes = [name for name, entry in integrations.items() if entry["neovim"].get("eitr") and (root / "themes" / name / "colors.toml").is_file()]
-        self.assertEqual(len(themes), 13)
+        self.assertEqual(len(themes), 2)
         script = '''
 vim.opt.rtp:prepend(os.getenv("EITR_CODE_ROOT") .. "/nvim-theme")
 vim.cmd.colorscheme("eitr")

@@ -123,6 +123,9 @@ def canonical(path):
 
 
 def prune():
+    from eitr_former_themes import former_path, pending_archive
+
+    migrating = pending_archive()
     data = read_settings(settings()).get('assignments', {})
     clean = {}
     for monitor, path in data.items():
@@ -137,7 +140,10 @@ def prune():
         if monitor and monitor != 'global' and available(path):
             clean[monitor] = path
     if clean != data:
-        save(clean)
+        # The bar starts alongside login migrations. Keep its early reads from
+        # pruning old package paths before the settings migration rewrites them.
+        if not migrating or not any(former_path(path) for path in data.values()):
+            save(clean)
     return clean
 
 

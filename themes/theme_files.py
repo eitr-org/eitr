@@ -10,6 +10,7 @@ icons.theme, vscode.json, neovim.lua (palette-driven plugins get their colors
 from colors.toml), btop.theme (always from colors.toml), and dolphin.theme.
 """
 import argparse
+import runpy
 import json
 from pathlib import Path
 import sys
@@ -168,6 +169,9 @@ def write_theme_files(directory, *, official=False, integrations_path=None):
     integration = json.loads(trusted.read_text()).get(directory.name) if official else None
     for name, contents in files_for(directory.name, integration, directory=directory).items():
         (directory / name).write_text(contents)
+    if integration and "vsix" in integration["vscode"]:
+        build = runpy.run_path(str(THEMES / "build-vscode-themes.py"))
+        (directory / "vscode.vsix").write_bytes(build["vsix"](directory, integration))
 
 
 def main():

@@ -494,14 +494,14 @@ ShellRoot {
       if (panel.wallpapers[0].thumbnail || panel.wallpapers[0].imageUrl) throw new Error("community uses name tiles");
      } else if (sample.phase === 7) {
       panel.closeDetail(); panel.tab = "installed"; panel.sourceFilter = "all";
-      panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"afterglow",name:"Afterglow",kind:"builtin",description:"Warm dusk",previewUrl:"PREVIEW3"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"}];
+      panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"eitr-light",name:"Eitr Light",kind:"builtin",description:"Warm dusk",previewUrl:"PREVIEW3"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"}];
       panel.updates = {nord:1};
       panel.forceActiveFocus(); keys.keyClick("n"); keys.keyClick("o"); keys.keyClick("r");
       if (panel.query !== "nor" || panel.locals.length !== 1 || panel.locals[0].id !== "nord") throw new Error("Typing searches installed themes: " + JSON.stringify(panel.query) + " " + panel.locals.length);
       panel.query = "northern BLUES";
       if (panel.locals.length !== 1) throw new Error("Search matches descriptions, any case");
       panel.query = "warm";
-      if (panel.locals.length !== 1 || panel.locals[0].id !== "afterglow") throw new Error("Search by description");
+      if (panel.locals.length !== 1 || panel.locals[0].id !== "eitr-light") throw new Error("Search by description");
       panel.forceActiveFocus(); keys.keyClick(Qt.Key_Escape);
       if (panel.query !== "" || !panel.opened) throw new Error("Escape clears search before closing");
       panel.query = "nord";
@@ -509,7 +509,7 @@ ShellRoot {
      } else if (sample.phase === 8) {
       function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
       panel.query = "";
-      const builtinRemove = find(panel, "remove-afterglow"), officialRemove = find(panel, "remove-nord");
+      const builtinRemove = find(panel, "remove-eitr-light"), officialRemove = find(panel, "remove-nord");
       if (!builtinRemove || !officialRemove || builtinRemove.visible || !officialRemove.visible) throw new Error("Only non built-in themes have a remove button");
       let applies = 0;
       panel.transport = function(name, args, callback) { if (name === "apply") applies++; callback("", {items:[]}); };
@@ -686,7 +686,7 @@ ShellRoot {
                 from eitr_theme_packages import catalog, palette
                 themes = BAR.parents[1] / 'themes'
                 package_root = folder / 'packages'
-                for theme_id in ('eitr', 'afterglow', 'eitr-light'):
+                for theme_id in ('eitr', 'eitr-light'):
                     source = themes / theme_id
                     destination = package_root / theme_id
                     destination.mkdir(parents=True)
@@ -698,17 +698,17 @@ ShellRoot {
                     shutil.copyfile(wallpaper, destination / 'backgrounds' / wallpaper.name)
                 index = catalog(package_root)
                 installed_palettes = {theme_id: palette(themes / folder_name) for theme_id, folder_name in
-                                      [('eitr', 'eitr'), ('afterglow', 'afterglow'), ('mine', 'eitr-light')]}
+                                      [('eitr', 'eitr'), ('afterglow', 'eitr'), ('mine', 'eitr-light')]}
                 index_palettes = {theme_id: next(row['palette'] for row in index if row['id'] == source_id)
-                                  for theme_id, source_id in [('moss', 'afterglow'), ('jade', 'eitr-light'), ('asgard', 'eitr')]}
+                                  for theme_id, source_id in [('moss', 'eitr'), ('jade', 'eitr-light'), ('asgard', 'eitr')]}
                 fixture = fixture.replace('INSTALLED_PALETTES', json.dumps(installed_palettes)).replace('INDEX_PALETTES', json.dumps(index_palettes))
                 icon = folder / 'plugin-icon.svg'
                 icon.write_text('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect x="4" y="4" width="56" height="56" rx="12" fill="#759456"/><circle cx="32" cy="32" r="15" fill="#181824"/></svg>')
                 video = folder / 'clip.webm'
                 subprocess.run(['ffmpeg', '-v', 'error', '-f', 'lavfi', '-i', 'color=c=0x53664a:s=160x90:d=0.3', '-c:v', 'libvpx-vp9', '-an', str(video)], check=True)
                 fixture = fixture.replace('VIDEO', video.as_uri())
-                fixture = fixture.replace('ICON', icon.as_uri()).replace('WALLPAPER', next((themes / 'afterglow/backgrounds').glob('*')).as_uri())
-                fixture = fixture.replace('TARGET', str(target)).replace('VARIANT', variant).replace('WIDTH', width).replace('PREVIEW3', (BAR.parents[1] / 'themes/eitr-light/preview.png').as_uri()).replace('PREVIEW2', (BAR.parents[1] / 'themes/afterglow/preview.png').as_uri()).replace('PREVIEW', (BAR.parents[1] / 'themes/eitr/preview.png').as_uri())
+                fixture = fixture.replace('ICON', icon.as_uri()).replace('WALLPAPER', next((themes / 'eitr/backgrounds').glob('*')).as_uri())
+                fixture = fixture.replace('TARGET', str(target)).replace('VARIANT', variant).replace('WIDTH', width).replace('PREVIEW3', (BAR.parents[1] / 'themes/eitr-light/preview.png').as_uri()).replace('PREVIEW2', (BAR.parents[1] / 'themes/eitr/preview.png').as_uri()).replace('PREVIEW', (BAR.parents[1] / 'themes/eitr/preview.png').as_uri())
                 (folder / 'fixture.qml').write_text(fixture)
                 environment = render_environment(folder)
                 environment.pop('QT_QUICK_BACKEND', None)

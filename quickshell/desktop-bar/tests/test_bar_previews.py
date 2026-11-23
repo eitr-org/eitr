@@ -144,7 +144,7 @@ ShellRoot {
 }
 '''
             fixture = fixture.replace('SHOTS', json.dumps(shots)).replace('OUTPUT', str(output))
-            fixture = fixture.replace('ARTWORK', str(BAR.parents[1] / 'themes/vanaheim/backgrounds/01-hidden-garden.jpg'))
+            fixture = fixture.replace('ARTWORK', str(BAR.parents[1] / 'themes/eitr-light/backgrounds/01-dusk-fjord.jpg'))
             (folder / 'fixture.qml').write_text(fixture)
             code, diagnostics = render(folder / 'fixture.qml', render_environment(folder, (1200, 1800)), 90)
             (output / 'render.log').write_text(diagnostics)

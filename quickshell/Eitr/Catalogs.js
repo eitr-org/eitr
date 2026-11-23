@@ -953,7 +953,6 @@ var qml = {
     "Theme palette": "Theme palette",
     "Theme, wallpaper, fonts and cursor.": "Theme, wallpaper, fonts and cursor.",
     "Themes": "Themes",
-    "Themes on this computer. Choose one to apply it.": "Themes on this computer. Choose one to apply it.",
     "Thinking…": "Thinking…",
     "Third-party": "Third-party",
     "This WiFi security type requires advanced network configuration": "This WiFi security type requires advanced network configuration",
@@ -1241,9 +1240,11 @@ var qml = {
     "1 placed": "1 placed",
     "Live CPU, GPU, RAM, storage and network usage on your desktop": "Live CPU, GPU, RAM, storage and network usage on your desktop",
     "{count} placed": "{count} placed",
-    "dddd, d MMMM": "dddd, d MMMM"
+    "dddd, d MMMM": "dddd, d MMMM",
+    "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme."
   },
   "pt_BR": {
+    "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr e Eitr Light vêm integrados. Troque de tema antes de remover o tema atual da loja.",
     "%1 B/s": "%1 B/s",
     "%1 GB/s": "%1 GB/s",
     "%1 Hz": "%1 Hz",
@@ -2161,7 +2162,6 @@ var qml = {
     "Theme palette": "Paleta do tema",
     "Theme, wallpaper, fonts and cursor.": "Tema, papel de parede, fontes e cursor.",
     "Themes": "Temas",
-    "Themes on this computer. Choose one to apply it.": "Temas deste computador. Escolha um para aplicá-lo.",
     "Thinking…": "Pensando…",
     "Third-party": "De terceiros",
     "This WiFi security type requires advanced network configuration": "Este tipo de segurança WiFi exige configuração avançada de rede",
@@ -2452,6 +2452,7 @@ var qml = {
     "{count} placed": "{count} na área de trabalho"
   },
   "es": {
+    "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr y Eitr Light vienen incluidos. Cambia de tema antes de eliminar el tema actual de la tienda.",
     "%1 B/s": "%1 B/s",
     "%1 GB/s": "%1 GB/s",
     "%1 Hz": "%1 Hz",
@@ -3369,7 +3370,6 @@ var qml = {
     "Theme palette": "Paleta del tema",
     "Theme, wallpaper, fonts and cursor.": "Tema, fondo de pantalla, fuentes y cursor.",
     "Themes": "Temas",
-    "Themes on this computer. Choose one to apply it.": "Temas de este ordenador. Elige uno para aplicarlo.",
     "Thinking…": "Pensando…",
     "Third-party": "De terceros",
     "This WiFi security type requires advanced network configuration": "Este tipo de seguridad WiFi requiere configuración avanzada de red",
@@ -3660,6 +3660,7 @@ var qml = {
     "{count} placed": "{count} colocados"
   },
   "de": {
+    "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr und Eitr Light sind vorinstalliert. Wechsle das Theme, bevor du dein aktuelles Store-Theme entfernst.",
     "%1 B/s": "%1 B/s",
     "%1 GB/s": "%1 GB/s",
     "%1 Hz": "%1 Hz",
@@ -4577,7 +4578,6 @@ var qml = {
     "Theme palette": "Theme-Palette",
     "Theme, wallpaper, fonts and cursor.": "Design, Hintergrundbild, Schriften und Mauszeiger.",
     "Themes": "Themes",
-    "Themes on this computer. Choose one to apply it.": "Themes auf diesem Computer. Wähle eines, um es anzuwenden.",
     "Thinking…": "Denkt nach…",
     "Third-party": "Drittanbieter",
     "This WiFi security type requires advanced network configuration": "Dieser WiFi-Sicherheitstyp erfordert erweiterte Netzwerkeinstellungen",
@@ -4868,6 +4868,7 @@ var qml = {
     "{count} placed": "{count} platziert"
   },
   "fr": {
+    "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr et Eitr Light sont intégrés. Changez de thème avant de supprimer le thème actuel de la boutique.",
     "%1 B/s": "%1 o/s",
     "%1 GB/s": "%1 Go/s",
     "%1 Hz": "%1 Hz",
@@ -5785,7 +5786,6 @@ var qml = {
     "Theme palette": "Palette du thème",
     "Theme, wallpaper, fonts and cursor.": "Thème, fond d’écran, polices et curseur.",
     "Themes": "Thèmes",
-    "Themes on this computer. Choose one to apply it.": "Thèmes de cet ordinateur. Choisissez-en un pour l’appliquer.",
     "Thinking…": "Réflexion…",
     "Third-party": "Tiers",
     "This WiFi security type requires advanced network configuration": "Ce type de sécurité WiFi nécessite une configuration réseau avancée",
@@ -6076,6 +6076,7 @@ var qml = {
     "{count} placed": "{count} placés"
   },
   "ja": {
+    "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr と Eitr Light は組み込みです。現在のストアテーマを削除するには、先に別のテーマに切り替えてください。",
     "%1 B/s": "%1 B/s",
     "%1 GB/s": "%1 GB/s",
     "%1 Hz": "%1 Hz",
@@ -6993,7 +6994,6 @@ var qml = {
     "Theme palette": "テーマパレット",
     "Theme, wallpaper, fonts and cursor.": "テーマ、壁紙、フォント、カーソル。",
     "Themes": "テーマ",
-    "Themes on this computer. Choose one to apply it.": "このコンピューター上のテーマ。選択して適用します。",
     "Thinking…": "思考中…",
     "Third-party": "サードパーティ",
     "This WiFi security type requires advanced network configuration": "このWi-Fiセキュリティタイプには高度なネットワーク設定が必要です",
@@ -7284,6 +7284,7 @@ var qml = {
     "{count} placed": "{count} 個配置済み"
   },
   "zh_CN": {
+    "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr 和 Eitr Light 为内置主题。移除当前商店主题前，请先切换到其他主题。",
     "%1 B/s": "%1 B/s",
     "%1 GB/s": "%1 GB/s",
     "%1 Hz": "%1 Hz",
@@ -8201,7 +8202,6 @@ var qml = {
     "Theme palette": "主题调色板",
     "Theme, wallpaper, fonts and cursor.": "主题、壁纸、字体与光标。",
     "Themes": "主题",
-    "Themes on this computer. Choose one to apply it.": "本机上的主题。选择一个以应用。",
     "Thinking…": "正在思考…",
     "Third-party": "第三方",
     "This WiFi security type requires advanced network configuration": "此 WiFi 安全类型需要高级网络配置",
@@ -8492,6 +8492,7 @@ var qml = {
     "{count} placed": "已放置 {count} 个"
   },
   "ko": {
+    "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr와 Eitr Light는 기본 제공됩니다. 현재 스토어 테마를 제거하려면 먼저 다른 테마로 바꾸세요.",
     "%1 B/s": "%1 B/s",
     "%1 GB/s": "%1 GB/s",
     "%1 Hz": "%1 Hz",
@@ -9409,7 +9410,6 @@ var qml = {
     "Theme palette": "테마 팔레트",
     "Theme, wallpaper, fonts and cursor.": "테마, 배경화면, 글꼴 및 커서.",
     "Themes": "테마",
-    "Themes on this computer. Choose one to apply it.": "이 컴퓨터의 테마입니다. 적용할 테마를 선택하세요.",
     "Thinking…": "생각 중…",
     "Third-party": "타사",
     "This WiFi security type requires advanced network configuration": "이 WiFi 보안 유형에는 고급 네트워크 구성이 필요합니다",

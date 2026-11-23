@@ -63,7 +63,8 @@ def atomic_text(path, text):
 def main(renames=RENAMES):
     """Rewrite saved wallpaper paths named in renames; later migrations reuse this."""
     theme = selected_theme()
-    paths = [config('eitr/appearance.json'), *data('eitr/lockscreens').glob('*/lockscreen.json')]
+    paths = [config('eitr/appearance.json'), config('eitr/wallpapers.json'),
+             *data('eitr/lockscreens').glob('*/lockscreen.json')]
     for path in paths:
         if path.is_file():
             values = read_settings(path)

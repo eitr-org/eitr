@@ -916,7 +916,6 @@
   "Theme palette": "Theme palette",
   "Theme, wallpaper, fonts and cursor.": "Theme, wallpaper, fonts and cursor.",
   "Themes": "Themes",
-  "Themes on this computer. Choose one to apply it.": "Themes on this computer. Choose one to apply it.",
   "Thinking…": "Thinking…",
   "Third-party": "Third-party",
   "This WiFi security type requires advanced network configuration": "This WiFi security type requires advanced network configuration",
@@ -1204,5 +1203,6 @@
   "1 placed": "1 placed",
   "Live CPU, GPU, RAM, storage and network usage on your desktop": "Live CPU, GPU, RAM, storage and network usage on your desktop",
   "{count} placed": "{count} placed",
-  "dddd, d MMMM": "dddd, d MMMM"
+  "dddd, d MMMM": "dddd, d MMMM",
+  "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme."
 }

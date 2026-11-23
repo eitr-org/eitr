@@ -6,7 +6,7 @@ Wallpapers and website illustrations use clearly drawn Norse fantasy poster
 art. The owner approved the graphic Sköll/Hati, Huginn/Muninn and Yggdrasil
 studies: bold contours, flat color areas, expressive shapes and knotwork crowns.
 Durable references are the website illustrations in `website/assets/norse/`
-and the unframed Fenrir in `themes/ragnarok/backgrounds/05-fenrir.jpg`.
+and the [unframed Fenrir](https://github.com/eitr-org/eitr-themes/blob/main/ragnarok/backgrounds/05-fenrir.jpg).
 
 - Use strong visible black pen contours, simplified anatomy, two-tone cel
   shading, rhythmic flowing strokes and restrained ink splatter.
@@ -54,7 +54,8 @@ with stable names, provenance and synchronized generators/consumers.
 
 ## Written-brief replacements
 
-The selected batch 04 replacements in `themes/artwork-batch-04.json` were
+The batch 04 replacements documented in `themes/artwork-batch-04.json` and
+the [Store’s Afterglow records](https://github.com/eitr-org/eitr-themes/blob/main/sources/eitr-realms/themes/artwork-batch-04.json) were
 generated from written briefs only, with no reference-image inputs. Approved
 native masters and their export script live in
 `branding/sources/wallpapers/batch-04/`. Light themes retain their own pale
@@ -69,7 +70,7 @@ are recorded with the other native masters.
 
 ## Batch 07 realm exception
 
-For the realm wallpapers in `themes/artwork-batch-06.json` and `artwork-batch-07.json`, the owner
+For the realm wallpapers in [`artwork-batch-06.json`](https://github.com/eitr-org/eitr-themes/blob/main/sources/eitr-realms/themes/artwork-batch-06.json) and [`artwork-batch-07.json`](https://github.com/eitr-org/eitr-themes/blob/main/sources/eitr-realms/themes/artwork-batch-07.json), the owner
 explicitly permits scenic backgrounds and requests varied media per image.
 Follow each recorded rendering style literally: ink, gouache, cel shading,
 storybook and poster work must remain visibly drawn, with simplified shapes,
@@ -82,7 +83,7 @@ readable runes, lettering, logos or signatures. Keep the top approximately
 ## Batch 08 Ragnarök exception
 
 The owner explicitly approves scenic painterly cinematic dark fantasy for the
-three Ragnarök selections recorded in `themes/artwork-batch-08.json`: Blood
+three Ragnarök selections recorded in [`artwork-batch-08.json`](https://github.com/eitr-org/eitr-themes/blob/main/sources/eitr-realms/themes/artwork-batch-08.json): Blood
 Eclipse, Fenrir Devours the Sun and Dying Yggdrasil. Use visible brushwork,
 obsidian and charcoal darkness, restrained blood crimson and sparse muted gold.
 Generate panoramic compositions from written briefs only, with complete disks,
@@ -145,7 +146,7 @@ Canyon. The owner-approved hall uses the fjords' ink cel-shaded vector style,
 bold contours, flat warm colours and a scenic carved interior. Asgard retains Radiant Citadel, Bifrost Hall and
 Storm Bridge (now 03); Cloud Fortress and Cavern City are retired.
 
-`themes/artwork-batch-13.json` records the three supplied prompts verbatim,
+[`artwork-batch-13.json`](https://github.com/eitr-org/eitr-themes/blob/main/sources/eitr-realms/themes/artwork-batch-13.json) records the three supplied prompts verbatim,
 the original dwarfs-b.png edit input (provenance only, not distributed), and
 style-fjord-c.png as the owner-approved batch 12 Eitr dusk fjord master.
 Two native PNGs and the shared-pipeline exporter live in

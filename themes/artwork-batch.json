@@ -8,20 +8,6 @@
   "future": "Add two more original images per theme; references/originals retains previous collection.",
   "images": [
     {
-      "theme": "afterglow",
-      "name": "02-orbital-tides",
-      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An enormous softly luminous ringed planet above a sweeping dark alien tidal shore, tiny observatory far right, shallow tide pools reflecting last light. Sophisticated painterly science-fiction environment. Charcoal #0c0b0c, dusty rose #b59790, subdued teal #87a9b0 and peach sunset.",
-      "status": "removed",
-      "note": "Not in the owner-curated wallpaper collection; prompt retained for provenance."
-    },
-    {
-      "theme": "afterglow",
-      "name": "03-last-light",
-      "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. A deserted coastal funicular winding down terraced cliffs toward a distant lighthouse at the end of sunset. Soft dusty rose sky, pale ash rock, charcoal sea, a few warm lights. Hand-painted animation background, quiet nostalgic mood. Palette #0c0b0c #b59790 #87a9b0 #e2dddc.",
-      "status": "removed",
-      "note": "Removed in the owner's wallpaper curation; prompt retained as history."
-    },
-    {
       "theme": "catppuccin-latte",
       "name": "02-cloud-orchard",
       "prompt": "Original desktop wallpaper, ultrawide 21:9 horizontal composition suitable for 3440x1440. One full-bleed scene, no text, letters, logos, watermark, frame, collage, UI or existing franchise characters. Calm upper edge for desktop bar, balanced wide composition, fine textures and clearly readable silhouettes. Original arrangement, not a reproduction of a reference artwork. An airy orchard of small rounded flowering trees on pastel terraces floating above a sea of clouds, gentle sunrise, tiny curved footpaths. Elegant gouache illustration with matte texture and precise shapes. Bright Catppuccin Latte palette #eff1f5, muted rose #dc8a78, lavender, soft teal #179299, blue #1e66f5 accents; predominantly light.",

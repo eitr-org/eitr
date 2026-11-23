@@ -74,7 +74,11 @@ there is no React runtime or server required in production.
 
 `npm run dev` and `npm run build` synchronize the approved branding from
 `../branding/svg/` and generate WebP artwork from `assets/norse/` and a theme
-catalog from `../themes/`. Mímir, Valkyrie, Jörmungandr and Yggdrasil are
+catalog from `../themes/` and the official Store index. Builds read a sibling
+`eitr-themes` checkout or the directory selected by `EITR_THEMES_DIR`. The
+default deployment reads published catalog data and images from GitHub. Publish
+Store assets before deploying the website changes that reference them.
+Mímir, Valkyrie, Jörmungandr and Yggdrasil are
 website-only sources; their provenance is in `assets/norse/artwork.json`.
 Edit those canonical sources and run `npm run sync-assets` during development.
 Website copies are generated consumers, not independent logo or artwork sources.

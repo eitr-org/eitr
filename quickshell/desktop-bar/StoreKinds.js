@@ -8,7 +8,7 @@ var kinds = [
         "rune": "ᚦ",
         "icon": "F03D9",
         "descriptions": {
-            "installed": "Themes on this computer. Choose one to apply it.",
+            "installed": "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.",
             "discover": "Discover official and community themes."
         },
         "sources": [

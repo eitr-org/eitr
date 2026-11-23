@@ -366,7 +366,7 @@
     {"pattern": "quickshell/desktop-bar/EdgeSlopes.js", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/tests/test_centered_slopes.py", "class": "C", "runtime": false},
     {"pattern": "themes/editor_roles.py", "class": "C", "runtime": true},
-    {"pattern": "themes/build-vscode-themes.py", "class": "C", "runtime": false},
+    {"pattern": "themes/build-vscode-themes.py", "class": "C", "runtime": true},
     {"pattern": "nvim-theme/**", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/media/MediaIndicator.qml", "class": "C", "runtime": true},
     {"pattern": "elephant/menus/bar-clock.lua", "class": "C", "runtime": true},
