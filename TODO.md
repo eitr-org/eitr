@@ -13,12 +13,6 @@ item says what decides the next step. Remove an item when it ships;
 
 # 1. New features
 
-- **VPN plugins, what is left.** Tailscale, WireGuard and NetworkManager VPN are official
-  plugins on `eitr-org/eitr-plugins` main (WireGuard and NetworkManager VPN merged 2026-11-18
-  after a VM test: install with their packages, import, connect with a real WireGuard peer on
-  iwd and on NetworkManager, copy, disconnect, remove, update and plugin removal).
-  Removing a wg-quick tunnel asks for the password through `pkexec rm`; an `eitr-system`
-  action would show a clearer prompt.
 - **Remote access, next.** Sharing works at home, away through Tailscale and from a Mac
   (2026-11-11). Share the Login Screen is built (2026-11-17, `distro/system/eitr_remote_login.py`,
   `distro/REMOTE-ACCESS.md`): a system Sunshine while nobody is signed in, with the sharing

@@ -63,6 +63,7 @@ class DesktopPackageTests(unittest.TestCase):
     def test_package_paths_match_consumers(self):
         pkgbuild = (PACKAGE / "PKGBUILD").read_text()
         self.assertIn('"$pkgdir/usr/lib/eitr/eitr-system"', pkgbuild)
+        self.assertIn('"$pkgdir/usr/share/polkit-1/actions/org.eitr.system.policy"', pkgbuild)
         self.assertIn('"$pkgdir/usr/bin/eitr-config"', pkgbuild)
         self.assertIn('"$pkgdir/usr/lib/systemd/user"', pkgbuild)
         self.assertIn("git -C \"$_repo\" archive", pkgbuild)

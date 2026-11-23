@@ -24,4 +24,4 @@ Central de controle > Geral bloqueia WiFi e Bluetooth com rfkill. Desativar o mo
 
 ## VPN
 
-O Walker não tem menu de VPN. WireGuard e NetworkManager VPN estão previstos como plugins (Instalar > Plugins).
+O Walker não tem menu de VPN integrado; Tailscale, WireGuard e NetworkManager VPN são plugins oficiais (Eitr Store ou Instalar > Plugins). No iwd, o WireGuard usa `eitr-system vpn-import` e `eitr-system vpn-remove` para salvar e remover perfis `/etc/wireguard/<name>.conf` (`0600`) pertencentes ao root, parando `wg-quick@<name>.service` e desativando a interface do túnel se estiver ativa antes de excluir o arquivo.

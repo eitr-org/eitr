@@ -87,6 +87,7 @@ package() {
   install -Dm644 distro/system/eitr_lockscreen_packages_root.py "$pkgdir/usr/lib/eitr/eitr_lockscreen_packages_root.py"
   install -Dm644 distro/system/eitr_plugin_packages_root.py "$pkgdir/usr/lib/eitr/eitr_plugin_packages_root.py"
   install -Dm644 distro/system/eitr_vpn_root.py "$pkgdir/usr/lib/eitr/eitr_vpn_root.py"
+  install -Dm644 distro/system/org.eitr.system.policy "$pkgdir/usr/share/polkit-1/actions/org.eitr.system.policy"
   install -Dm644 distro/system/eitr_remote.py "$pkgdir/usr/lib/eitr/eitr_remote.py"
   install -Dm644 distro/system/eitr_remote_login.py "$pkgdir/usr/lib/eitr/eitr_remote_login.py"
   install -Dm755 distro/system/eitr-system.py "$pkgdir/usr/lib/eitr/eitr-system"

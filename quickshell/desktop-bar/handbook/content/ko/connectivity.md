@@ -24,4 +24,4 @@ WiFi 백엔드를 선택하려면 설정 > 연결 > Wi-Fi > WiFi 백엔드를 �
 
 ## VPN
 
-Walker에는 VPN 메뉴가 없습니다. WireGuard 및 NetworkManager VPN은 플러그인(설치 > 플러그인)으로 계획되어 있습니다.
+Walker에는 기본 VPN 메뉴가 없으며 Tailscale, WireGuard 및 NetworkManager VPN은 공식 플러그인(Eitr Store 또는 설치 > 플러그인)으로 제공됩니다. iwd에서 WireGuard는 `eitr-system vpn-import`와 `eitr-system vpn-remove`를 사용하여 root 소유의 `/etc/wireguard/<name>.conf` 프로필(`0600`)을 저장 및 제거하며, 파일을 삭제하기 전에 `wg-quick@<name>.service`를 중지하고 활성화된 터널 인터페이스를 내립니다.

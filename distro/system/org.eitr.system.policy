@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD polkit Policy Configuration 1.0//EN"
+  "http://www.freedesktop.org/software/polkit/policyconfig-1.dtd">
+<policyconfig>
+  <vendor>Eitr</vendor>
+  <vendor_url>https://eitr.info</vendor_url>
+
+  <action id="org.eitr.system.vpn-import">
+    <description>Import a VPN configuration</description>
+    <description xml:lang="de">VPN-Konfiguration importieren</description>
+    <description xml:lang="es">Importar una configuración VPN</description>
+    <description xml:lang="fr">Importer une configuration VPN</description>
+    <description xml:lang="ja">VPN 設定をインポート</description>
+    <description xml:lang="ko">VPN 구성 가져오기</description>
+    <description xml:lang="pt_BR">Importar uma configuração VPN</description>
+    <description xml:lang="pt-BR">Importar uma configuração VPN</description>
+    <description xml:lang="zh_CN">导入 VPN 配置</description>
+    <description xml:lang="zh-Hans-CN">导入 VPN 配置</description>
+    <message>Import a VPN configuration</message>
+    <message xml:lang="de">VPN-Konfiguration importieren</message>
+    <message xml:lang="es">Importar una configuración VPN</message>
+    <message xml:lang="fr">Importer une configuration VPN</message>
+    <message xml:lang="ja">VPN 設定をインポートします</message>
+    <message xml:lang="ko">VPN 구성을 가져옵니다</message>
+    <message xml:lang="pt_BR">Importar uma configuração VPN</message>
+    <message xml:lang="pt-BR">Importar uma configuração VPN</message>
+    <message xml:lang="zh_CN">导入 VPN 配置</message>
+    <message xml:lang="zh-Hans-CN">导入 VPN 配置</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/lib/eitr/eitr-system</annotate>
+    <annotate key="org.freedesktop.policykit.exec.argv1">vpn-import</annotate>
+  </action>
+
+  <action id="org.eitr.system.vpn-up">
+    <description>Connect a VPN tunnel</description>
+    <description xml:lang="de">VPN-Tunnel verbinden</description>
+    <description xml:lang="es">Conectar un túnel VPN</description>
+    <description xml:lang="fr">Connecter un tunnel VPN</description>
+    <description xml:lang="ja">VPN トンネルを接続</description>
+    <description xml:lang="ko">VPN 터널 연결</description>
+    <description xml:lang="pt_BR">Conectar um túnel VPN</description>
+    <description xml:lang="pt-BR">Conectar um túnel VPN</description>
+    <description xml:lang="zh_CN">连接 VPN 隧道</description>
+    <description xml:lang="zh-Hans-CN">连接 VPN 隧道</description>
+    <message>Connect the VPN tunnel</message>
+    <message xml:lang="de">VPN-Tunnel verbinden</message>
+    <message xml:lang="es">Conectar el túnel VPN</message>
+    <message xml:lang="fr">Connecter le tunnel VPN</message>
+    <message xml:lang="ja">VPN トンネルを接続します</message>
+    <message xml:lang="ko">VPN 터널을 연결합니다</message>
+    <message xml:lang="pt_BR">Conectar o túnel VPN</message>
+    <message xml:lang="pt-BR">Conectar o túnel VPN</message>
+    <message xml:lang="zh_CN">连接 VPN 隧道</message>
+    <message xml:lang="zh-Hans-CN">连接 VPN 隧道</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/lib/eitr/eitr-system</annotate>
+    <annotate key="org.freedesktop.policykit.exec.argv1">vpn-up</annotate>
+  </action>
+
+  <action id="org.eitr.system.vpn-down">
+    <description>Disconnect a VPN tunnel</description>
+    <description xml:lang="de">VPN-Tunnel trennen</description>
+    <description xml:lang="es">Desconectar un túnel VPN</description>
+    <description xml:lang="fr">Déconnecter un tunnel VPN</description>
+    <description xml:lang="ja">VPN トンネルを切断</description>
+    <description xml:lang="ko">VPN 터널 연결 해제</description>
+    <description xml:lang="pt_BR">Desconectar um túnel VPN</description>
+    <description xml:lang="pt-BR">Desconectar um túnel VPN</description>
+    <description xml:lang="zh_CN">断开 VPN 隧道</description>
+    <description xml:lang="zh-Hans-CN">断开 VPN 隧道</description>
+    <message>Disconnect the VPN tunnel</message>
+    <message xml:lang="de">VPN-Tunnel trennen</message>
+    <message xml:lang="es">Desconectar el túnel VPN</message>
+    <message xml:lang="fr">Déconnecter le tunnel VPN</message>
+    <message xml:lang="ja">VPN トンネルを切断します</message>
+    <message xml:lang="ko">VPN 터널 연결을 해제합니다</message>
+    <message xml:lang="pt_BR">Desconectar o túnel VPN</message>
+    <message xml:lang="pt-BR">Desconectar o túnel VPN</message>
+    <message xml:lang="zh_CN">断开 VPN 隧道</message>
+    <message xml:lang="zh-Hans-CN">断开 VPN 隧道</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/lib/eitr/eitr-system</annotate>
+    <annotate key="org.freedesktop.policykit.exec.argv1">vpn-down</annotate>
+  </action>
+
+  <action id="org.eitr.system.vpn-remove">
+    <description>Remove a VPN tunnel</description>
+    <description xml:lang="de">VPN-Tunnel entfernen</description>
+    <description xml:lang="es">Eliminar un túnel VPN</description>
+    <description xml:lang="fr">Supprimer un tunnel VPN</description>
+    <description xml:lang="ja">VPN トンネルを削除</description>
+    <description xml:lang="ko">VPN 터널 제거</description>
+    <description xml:lang="pt_BR">Remover um túnel VPN</description>
+    <description xml:lang="pt-BR">Remover um túnel VPN</description>
+    <description xml:lang="zh_CN">移除 VPN 隧道</description>
+    <description xml:lang="zh-Hans-CN">移除 VPN 隧道</description>
+    <message>Remove the VPN tunnel</message>
+    <message xml:lang="de">VPN-Tunnel entfernen</message>
+    <message xml:lang="es">Eliminar el túnel VPN</message>
+    <message xml:lang="fr">Supprimer le tunnel VPN</message>
+    <message xml:lang="ja">VPN トンネルを削除します</message>
+    <message xml:lang="ko">VPN 터널을 제거합니다</message>
+    <message xml:lang="pt_BR">Remover o túnel VPN</message>
+    <message xml:lang="pt-BR">Remover o túnel VPN</message>
+    <message xml:lang="zh_CN">移除 VPN 隧道</message>
+    <message xml:lang="zh-Hans-CN">移除 VPN 隧道</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/lib/eitr/eitr-system</annotate>
+    <annotate key="org.freedesktop.policykit.exec.argv1">vpn-remove</annotate>
+  </action>
+</policyconfig>

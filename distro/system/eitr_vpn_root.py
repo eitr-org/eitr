@@ -21,7 +21,8 @@ def run(arguments):
 
 
 def trusted_directory():
-    return not DIRECTORY.is_symlink() and DIRECTORY.stat().st_uid == 0 and not DIRECTORY.stat().st_mode & 0o022
+    return (not DIRECTORY.is_symlink() and DIRECTORY.is_dir()
+            and DIRECTORY.stat().st_uid == 0 and not DIRECTORY.stat().st_mode & 0o022)
 
 
 def import_nm_wireguard(path, name):
@@ -71,6 +72,24 @@ def dispatch(action):
                 raise ValueError('Invalid VPN profile.')
             wireguard_summary(name, path.read_text())
             run(['systemctl', 'start' if action == 'up' else 'stop', 'wg-quick@' + name + '.service'])
+        return
+    if action == 'remove':
+        if active:
+            raise ValueError('Network backend changed; review again.')
+        if not trusted_directory():
+            raise ValueError('Unsafe WireGuard directory.')
+        path = DIRECTORY / (name + '.conf')
+        if path.is_symlink() or not path.is_file() or path.stat().st_uid != 0:
+            raise ValueError('Invalid VPN profile.')
+        run(['systemctl', 'stop', 'wg-quick@' + name + '.service'])
+        if subprocess.run(['ip', 'link', 'show', 'dev', name], capture_output=True).returncode == 0:
+            try:
+                wireguard_summary(name, path.read_text())
+            except ValueError:
+                run(['ip', 'link', 'delete', 'dev', name])
+            else:
+                run(['wg-quick', 'down', str(path)])
+        path.unlink()
         return
     if action != 'import':
         raise ValueError('Invalid VPN action.')

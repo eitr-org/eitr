@@ -171,3 +171,200 @@ class VPNTests(unittest.TestCase):
                     patch.object(module, 'NM_DIRECTORY', target), patch.object(module, 'run', side_effect=load), \
                     patch.object(Path, 'stat', fixture_stat):
                 self.assertEqual(module.import_nm_wireguard('/mock/profile.conf', 'vpn0'), identifier)
+
+    def test_wg_remove_stops_service_takes_down_interface_and_deletes_profile(self):
+        import tempfile
+        from types import SimpleNamespace
+        module = self.root_module()
+        payload = {'name': 'vpn0', 'backend': 'wg-quick'}
+        config = '[Interface]\nPrivateKey=SECRET\n[Peer]\nPublicKey=PUBLIC\n'
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / 'wireguard'
+            target.mkdir(mode=0o700)
+            profile = target / 'vpn0.conf'
+            profile.write_text(config)
+            original_stat = Path.stat
+
+            def root_stat(path, **kwargs):
+                result = original_stat(path, **kwargs)
+                if path in (target, profile):
+                    return SimpleNamespace(st_uid=0, st_mode=result.st_mode)
+                return result
+
+            # Disconnected tunnel: stops wg-quick@vpn0.service, interface is down, deletes file.
+            with patch.object(module, 'DIRECTORY', target), \
+                    patch.object(module.sys, 'stdin', io.StringIO(json.dumps(payload))), \
+                    patch.object(Path, 'stat', root_stat), \
+                    patch.object(module.subprocess, 'run', side_effect=[
+                        SimpleNamespace(returncode=3),
+                        SimpleNamespace(returncode=1),
+                    ]) as probe, \
+                    patch.object(module, 'run') as run:
+                module.dispatch('remove')
+            self.assertFalse(profile.exists())
+            run.assert_called_once_with(['systemctl', 'stop', 'wg-quick@vpn0.service'])
+            self.assertEqual(probe.call_args_list[1].args[0], ['ip', 'link', 'show', 'dev', 'vpn0'])
+
+            # Connected tunnel (started directly via wg-quick up): stops unit, runs wg-quick down, deletes file.
+            profile.write_text(config)
+            with patch.object(module, 'DIRECTORY', target), \
+                    patch.object(module.sys, 'stdin', io.StringIO(json.dumps(payload))), \
+                    patch.object(Path, 'stat', root_stat), \
+                    patch.object(module.subprocess, 'run', side_effect=[
+                        SimpleNamespace(returncode=3),
+                        SimpleNamespace(returncode=0),
+                    ]), \
+                    patch.object(module, 'run') as run:
+                module.dispatch('remove')
+            self.assertFalse(profile.exists())
+            self.assertEqual([call.args[0] for call in run.call_args_list], [
+                ['systemctl', 'stop', 'wg-quick@vpn0.service'],
+                ['wg-quick', 'down', str(profile)],
+            ])
+
+            # Connected tunnel with forbidden hook: deletes link via ip link delete without running hooks.
+            profile.write_text('[Interface]\nPostDown=malicious\n[Peer]\nPublicKey=PUBLIC\n')
+            with patch.object(module, 'DIRECTORY', target), \
+                    patch.object(module.sys, 'stdin', io.StringIO(json.dumps(payload))), \
+                    patch.object(Path, 'stat', root_stat), \
+                    patch.object(module.subprocess, 'run', side_effect=[
+                        SimpleNamespace(returncode=3),
+                        SimpleNamespace(returncode=0),
+                    ]), \
+                    patch.object(module, 'run') as run:
+                module.dispatch('remove')
+            self.assertFalse(profile.exists())
+            self.assertEqual([call.args[0] for call in run.call_args_list], [
+                ['systemctl', 'stop', 'wg-quick@vpn0.service'],
+                ['ip', 'link', 'delete', 'dev', 'vpn0'],
+            ])
+
+    def test_wg_remove_refusal_paths(self):
+        import tempfile
+        from types import SimpleNamespace
+        module = self.root_module()
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / 'wireguard'
+            target.mkdir(mode=0o700)
+            profile = target / 'vpn0.conf'
+            profile.write_text('[Interface]\nPrivateKey=SECRET\n[Peer]\nPublicKey=PUBLIC\n')
+            original_stat = Path.stat
+
+            def make_stat(dir_uid=0, dir_mode=0o40700, file_uid=0):
+                def custom_stat(path, **kwargs):
+                    result = original_stat(path, **kwargs)
+                    if path == target:
+                        return SimpleNamespace(st_uid=dir_uid, st_mode=dir_mode)
+                    if path == profile:
+                        return SimpleNamespace(st_uid=file_uid, st_mode=result.st_mode)
+                    return result
+                return custom_stat
+
+            # 1. Invalid name
+            for bad_name in ('../vpn0', '', 'a/b', '-bad', 'too-long-tunnel-name'):
+                with patch.object(module, 'DIRECTORY', target), \
+                        patch.object(module.sys, 'stdin', io.StringIO(json.dumps({'name': bad_name, 'backend': 'wg-quick'}))), \
+                        patch.object(module, 'run') as run:
+                    with self.assertRaisesRegex(ValueError, 'Invalid VPN name'):
+                        module.dispatch('remove')
+                    run.assert_not_called()
+
+            # 2. Backend mismatch (NetworkManager active or wrong backend)
+            for active_code, backend in ((0, 'wg-quick'), (3, 'networkmanager'), (0, 'networkmanager')):
+                with patch.object(module, 'DIRECTORY', target), \
+                        patch.object(module.sys, 'stdin', io.StringIO(json.dumps({'name': 'vpn0', 'backend': backend}))), \
+                        patch.object(module.subprocess, 'run', return_value=SimpleNamespace(returncode=active_code)), \
+                        patch.object(module, 'run') as run:
+                    with self.assertRaisesRegex(ValueError, 'Network backend changed'):
+                        module.dispatch('remove')
+                    run.assert_not_called()
+
+            # 3. Untrusted /etc/wireguard directory (non-root, group/world-writable, or symlink)
+            for stat_fn in (make_stat(dir_uid=1000), make_stat(dir_mode=0o40722)):
+                with patch.object(module, 'DIRECTORY', target), \
+                        patch.object(module.sys, 'stdin', io.StringIO(json.dumps({'name': 'vpn0', 'backend': 'wg-quick'}))), \
+                        patch.object(Path, 'stat', stat_fn), \
+                        patch.object(module.subprocess, 'run', return_value=SimpleNamespace(returncode=3)), \
+                        patch.object(module, 'run') as run:
+                    with self.assertRaisesRegex(ValueError, 'Unsafe WireGuard directory'):
+                        module.dispatch('remove')
+                    run.assert_not_called()
+            symlink_dir = Path(directory) / 'wireguard-link'
+            symlink_dir.symlink_to(target)
+            with patch.object(module, 'DIRECTORY', symlink_dir), \
+                    patch.object(module.sys, 'stdin', io.StringIO(json.dumps({'name': 'vpn0', 'backend': 'wg-quick'}))), \
+                    patch.object(module.subprocess, 'run', return_value=SimpleNamespace(returncode=3)), \
+                    patch.object(module, 'run') as run:
+                with self.assertRaisesRegex(ValueError, 'Unsafe WireGuard directory'):
+                    module.dispatch('remove')
+                run.assert_not_called()
+
+            # 4. Invalid profile: non-root owner, missing file, symlink, or directory
+            with patch.object(module, 'DIRECTORY', target), \
+                    patch.object(module.sys, 'stdin', io.StringIO(json.dumps({'name': 'vpn0', 'backend': 'wg-quick'}))), \
+                    patch.object(Path, 'stat', make_stat(file_uid=1000)), \
+                    patch.object(module.subprocess, 'run', return_value=SimpleNamespace(returncode=3)), \
+                    patch.object(module, 'run') as run:
+                with self.assertRaisesRegex(ValueError, 'Invalid VPN profile'):
+                    module.dispatch('remove')
+                run.assert_not_called()
+            with patch.object(module, 'DIRECTORY', target), \
+                    patch.object(module.sys, 'stdin', io.StringIO(json.dumps({'name': 'missing', 'backend': 'wg-quick'}))), \
+                    patch.object(Path, 'stat', make_stat()), \
+                    patch.object(module.subprocess, 'run', return_value=SimpleNamespace(returncode=3)), \
+                    patch.object(module, 'run') as run:
+                with self.assertRaisesRegex(ValueError, 'Invalid VPN profile'):
+                    module.dispatch('remove')
+                run.assert_not_called()
+            link_profile = target / 'linked.conf'
+            link_profile.symlink_to(profile)
+            with patch.object(module, 'DIRECTORY', target), \
+                    patch.object(module.sys, 'stdin', io.StringIO(json.dumps({'name': 'linked', 'backend': 'wg-quick'}))), \
+                    patch.object(Path, 'stat', make_stat()), \
+                    patch.object(module.subprocess, 'run', return_value=SimpleNamespace(returncode=3)), \
+                    patch.object(module, 'run') as run:
+                with self.assertRaisesRegex(ValueError, 'Invalid VPN profile'):
+                    module.dispatch('remove')
+                run.assert_not_called()
+            dir_profile = target / 'folder.conf'
+            dir_profile.mkdir()
+            with patch.object(module, 'DIRECTORY', target), \
+                    patch.object(module.sys, 'stdin', io.StringIO(json.dumps({'name': 'folder', 'backend': 'wg-quick'}))), \
+                    patch.object(Path, 'stat', make_stat()), \
+                    patch.object(module.subprocess, 'run', return_value=SimpleNamespace(returncode=3)), \
+                    patch.object(module, 'run') as run:
+                with self.assertRaisesRegex(ValueError, 'Invalid VPN profile'):
+                    module.dispatch('remove')
+                run.assert_not_called()
+
+            # 5. Service stop failure leaves profile untouched
+            with patch.object(module, 'DIRECTORY', target), \
+                    patch.object(module.sys, 'stdin', io.StringIO(json.dumps({'name': 'vpn0', 'backend': 'wg-quick'}))), \
+                    patch.object(Path, 'stat', make_stat()), \
+                    patch.object(module.subprocess, 'run', return_value=SimpleNamespace(returncode=3)), \
+                    patch.object(module, 'run', side_effect=ValueError('VPN operation failed.')):
+                with self.assertRaisesRegex(ValueError, 'VPN operation failed'):
+                    module.dispatch('remove')
+            self.assertTrue(profile.exists())
+
+    def test_polkit_policy_and_system_choices_cover_vpn_remove(self):
+        import xml.etree.ElementTree as ET
+        system_source = (ROOT / 'distro/system/eitr-system.py').read_text()
+        self.assertIn('"vpn-remove"', system_source)
+        policy = ET.fromstring((ROOT / 'distro/system/org.eitr.system.policy').read_text())
+        actions = {}
+        for action in policy.findall('action'):
+            annotations = {item.get('key'): (item.text or '').strip() for item in action.findall('annotate')}
+            messages = {item.get('{http://www.w3.org/XML/1998/namespace}lang', 'en'): (item.text or '').strip()
+                        for item in action.findall('message')}
+            actions[action.get('id')] = (annotations, messages)
+        for suffix, expected in (('vpn-import', 'Import a VPN configuration'),
+                                 ('vpn-up', 'Connect the VPN tunnel'),
+                                 ('vpn-down', 'Disconnect the VPN tunnel'),
+                                 ('vpn-remove', 'Remove the VPN tunnel')):
+            annotations, messages = actions['org.eitr.system.' + suffix]
+            self.assertEqual(annotations['org.freedesktop.policykit.exec.path'], '/usr/lib/eitr/eitr-system')
+            self.assertEqual(annotations['org.freedesktop.policykit.exec.argv1'], suffix)
+            self.assertEqual(messages['en'], expected)
+            for lang in ('de', 'es', 'fr', 'ja', 'ko', 'pt_BR', 'zh_CN'):
+                self.assertTrue(messages.get(lang), f'{suffix} missing {lang}')

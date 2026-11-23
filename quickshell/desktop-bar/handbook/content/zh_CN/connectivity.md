@@ -24,4 +24,4 @@
 
 ## VPN
 
-Walker 没有 VPN 菜单。WireGuard 和 NetworkManager VPN 计划以插件形式提供（“安装 > 插件”）。
+Walker 没有内置 VPN 菜单；Tailscale、WireGuard 和 NetworkManager VPN 为官方插件（通过 Eitr Store 或“安装 > 插件”获取）。在 iwd 下，WireGuard 使用 `eitr-system vpn-import` 和 `eitr-system vpn-remove` 保存并移除 root 所有的 `/etc/wireguard/<name>.conf` 配置文件（`0600`），并在删除文件前停止 `wg-quick@<name>.service` 并关闭处于活动状态的隧道接口。

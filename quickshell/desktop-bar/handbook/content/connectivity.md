@@ -35,4 +35,4 @@ blocks are not silently overridden. Enable a radio individually if needed.
 
 ## VPN
 
-Walker has no VPN menu. WireGuard and NetworkManager VPN are planned as plugins (Install > Plugins).
+Walker has no built-in VPN menu; Tailscale, WireGuard and NetworkManager VPN are official plugins (Eitr Store or Install > Plugins). On iwd, WireGuard uses `eitr-system vpn-import` and `eitr-system vpn-remove` to save and remove root-owned `/etc/wireguard/<name>.conf` profiles (`0600`), stopping `wg-quick@<name>.service` and taking down the tunnel interface if it is up before deleting the file.
