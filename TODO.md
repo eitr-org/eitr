@@ -31,10 +31,6 @@ item says what decides the next step. Remove an item when it ships;
   sign-in (OAuth, with Google's app verification).
 - **Clock alarm effect.** Replace the theme-colored pulse in `clock/AlarmEffect.qml`
   once the owner records the intended effect. Keep the Reduce motion behavior.
-- **Desktop widget ideas (2026-11-17).** Remaining official plugin widget item in `eitr-org/eitr-plugins`
-  (`distro/PLUGINS.md`, Desktop widgets; **Notes** and **Hardware** are implemented):
-  - **More Visualizer styles:** today Wave and Bars; add a circle (bars around a ring) and
-    other shapes.
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the
   community index had no entries yet) and its validation workflow. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
@@ -42,12 +38,6 @@ item says what decides the next step. Remove an item when it ships;
   repository (local branch in `eitr-testing/codex-wip/plugins-night/ollama`) until the owner
   says it is ready; Radio Globe and Phone Link went to `eitr-org/eitr-plugins` on 2026-11-16.
   The Ollama panel cannot change the local model yet: the core fixes `qwen3:4b`.
-- **AI Usage as a built-in plugin (idea 2026-11-16).** Like Weather (`distro/plugins/bundled`):
-  installed by default, removable for people who do not use AI.
-- **Ideas from Omarchy 4.5, Ryoku 1.1 and Caelestia (picked by the owner 2026-11-18).**
-  Ryoku and Caelestia are GPL-3 and Omarchy MIT: adapted code keeps their notices.
-  - **AI usage pace** (Ryoku): a trend arrow, ahead of or behind an even pace, and when a
-    limit would fill, from the reset time and window length AI Usage already reads.
 
 # 2. To test with the owner
 
