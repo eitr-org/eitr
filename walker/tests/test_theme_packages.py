@@ -242,6 +242,46 @@ class ThemePackagesTest(unittest.TestCase):
         self.backend.remove('beta')
         self.assertFalse((self.backend.folder / 'beta').exists())
 
+    def test_community_theme_without_catalog_checks_and_updates(self):
+        import eitr_community
+        from eitr_theme_packages import prepare_installed, SOURCE
+        community = self.root / 'community'
+        (community / 'delta').mkdir(parents=True)
+        for item in (self.repo / 'themes/alpha').iterdir():
+            target = community / 'delta' / item.name
+            if item.is_dir():
+                import shutil
+                shutil.copytree(item, target)
+            else:
+                target.write_bytes(item.read_bytes())
+        manifest = community / 'delta/eitr-theme.json'
+        manifest.write_text(json.dumps(dict(json.loads(manifest.read_text()), id='delta', name='delta')))
+        (community / 'delta/display-name').write_text('delta\n')
+        def git_in(*arguments):
+            return subprocess.check_output(['git', *arguments], cwd=community, text=True, stderr=subprocess.PIPE).strip()
+        for arguments in (('init', '-q'), ('config', 'user.name', 'Fixture'), ('config', 'user.email', 'fixture@example.invalid'),
+                          ('config', 'uploadpack.allowFilter', 'true'), ('config', 'uploadpack.allowAnySHA1InWant', 'true'),
+                          ('add', '.'), ('commit', '-qm', 'First')):
+            git_in(*arguments)
+        url = community.as_uri()
+        installed = self.backend.folder / 'delta'
+        installed.parent.mkdir(parents=True, exist_ok=True)
+        import shutil
+        shutil.copytree(community / 'delta', installed)
+        prepare_installed(installed, dict(url=url, commit=git_in('rev-parse', 'HEAD'), folder='delta', official=False, community=True))
+        manifest.write_text(json.dumps(dict(json.loads(manifest.read_text()), version='2')))
+        git_in('commit', '-qam', 'Second')
+        real_git = eitr_community.git
+        with patch('eitr_community.repository_url'), \
+                patch('eitr_community.git', lambda *arguments, **options: real_git(*arguments, **dict(options, allow_file=True))):
+            self.assertEqual(self.backend.check(), {'delta': 1})
+            self.assertEqual(self.backend.update('delta'), ['delta'])
+            self.assertEqual(self.backend.check(), {'delta': 0})
+        self.assertEqual(json.loads((installed / 'eitr-theme.json').read_text())['version'], '2')
+        source = json.loads((installed / SOURCE).read_text())
+        self.assertEqual((source['commit'], source['community']), (git_in('rev-parse', 'HEAD'), True))
+        self.assertFalse([path for path in self.backend.folder.iterdir() if path.name.startswith('.')])
+
     def test_picker_lookup_and_palette_regeneration(self):
         self.backend.install(self.url, ['alpha'])
         environment = dict(os.environ, EITR_CODE_ROOT=str(ROOT), EITR_LIBRARY_ROOT=str(ROOT / 'distro/lib'))

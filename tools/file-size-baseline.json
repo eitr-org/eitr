@@ -14,7 +14,7 @@
       "reason": "Every eitr check probe in one read-only module."
     },
     "distro/lib/eitr_theme_packages.py": {
-      "lines": 501,
+      "lines": 526,
       "reason": "One theme package transaction."
     },
     "distro/payload/build-payload.py": {

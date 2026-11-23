@@ -229,7 +229,8 @@ class Themes:
             fcntl.flock(handle, fcntl.LOCK_EX)
             yield
 
-    def repository(self, url):
+    def fetch_head(self, url):
+        """The partial clone of a theme repository and its current HEAD commit."""
         repository_url(url, allow_file=self.allow_file)
         target = self.cache / hashlib.sha256(normalized_url(url).encode()).hexdigest()
         if not target.exists():
@@ -241,7 +242,10 @@ class Themes:
             finally:
                 shutil.rmtree(temporary)
         self.git(target, 'fetch', '--filter=blob:none', '--no-recurse-submodules', '--', url, 'HEAD', allow_file=self.allow_file)
-        revision = self.git(target, 'rev-parse', 'FETCH_HEAD')
+        return target, self.git(target, 'rev-parse', 'FETCH_HEAD')
+
+    def repository(self, url):
+        target, revision = self.fetch_head(url)
         # Reading one blob avoids sparse-checkout's implicit root-file downloads.
         entry = self.git(target, 'ls-tree', revision, '--', 'eitr-catalog.json', allow_file=self.allow_file)
         if not entry.startswith('100644 blob '):
@@ -331,23 +335,41 @@ class Themes:
                                                         official=official(url)))
                 if review is not None:
                     return review(stage, revision, selected)
-                moved, backups = [], []
-                try:
-                    for theme_id in ids:
-                        target = self.folder / theme_id
-                        if target.exists():
-                            backup = stage / (theme_id + '.old')
-                            target.rename(backup)
-                            backups.append((backup, target))
-                        (stage / theme_id).rename(target)
-                        moved.append(target)
-                except BaseException:
-                    for target in moved:
-                        shutil.rmtree(target)
-                    for backup, target in reversed(backups):
-                        backup.rename(target)
-                    raise
+                self.publish(stage, ids)
             return ids
+
+    def publish(self, stage, ids):
+        """Swap staged packages in, restoring every previous copy if one move fails."""
+        moved, backups = [], []
+        try:
+            for theme_id in ids:
+                target = self.folder / theme_id
+                if target.exists():
+                    backup = stage / (theme_id + '.old')
+                    target.rename(backup)
+                    backups.append((backup, target))
+                (stage / theme_id).rename(target)
+                moved.append(target)
+        except BaseException:
+            for target in moved:
+                shutil.rmtree(target)
+            for backup, target in reversed(backups):
+                backup.rename(target)
+            raise
+
+    def update_community(self, theme_id, source):
+        """Community packages have no catalog: fetch the listed folder at HEAD like a community install."""
+        from eitr_community import fetch
+        with self.lock(), tempfile.TemporaryDirectory(prefix='.update-', dir=self.folder) as staging:
+            stage = Path(staging)
+            download = stage / 'download'
+            download.mkdir()
+            package, spec, revision = fetch(dict(id=theme_id, repository=source['url'], folder=source['folder']), 'themes', download)
+            prepare_installed(package, dict(url=source['url'], commit=revision, folder=source['folder'],
+                                            official=official(source['url']), community=True))
+            package.rename(stage / theme_id)
+            self.publish(stage, [theme_id])
+        return [theme_id]
 
     def discard_reviews(self):
         for review in self._reviews.values():
@@ -461,8 +483,9 @@ class Themes:
                     source = row['source']
                     address = normalized_url(source['url'])
                     if address not in repositories:
-                        repositories[address] = self.repository(source['url'])
-                    repository, revision, _ = repositories[address]
+                        # Community repositories carry no catalog; the count only needs HEAD.
+                        repositories[address] = self.fetch_head(source['url'])
+                    repository, revision = repositories[address]
                     counts[row['id']] = int(self.git(repository, 'rev-list', '--count', source['commit'] + '..' + revision,
                                                 '--', ':(top,literal)' + source['folder']))
                     if preview and counts[row['id']]:
@@ -480,6 +503,8 @@ class Themes:
 
     def update(self, theme_id):
         source = self.source(theme_id)
+        if source.get('community'):
+            return self.update_community(theme_id, source)
         return self.install(source['url'], [theme_id], updating=True)
 
     def remove(self, theme_id):

@@ -92,7 +92,8 @@ class FormerBuiltinThemesTest(unittest.TestCase):
                 self.assertEqual(read_settings(config('eitr/wallpapers.json'))['assignments'],
                                  {'DP-1': str(old_display)})
 
-                with patch.object(Themes, 'repository', side_effect=AssertionError('Network used')):
+                with patch.object(Themes, 'repository', side_effect=AssertionError('Network used')), \
+                        patch.object(Themes, 'fetch_head', side_effect=AssertionError('Network used')):
                     with patch.object(migration, 'write_settings', side_effect=OSError('Interrupted write')):
                         with self.assertRaisesRegex(OSError, 'Interrupted'):
                             migration.migrate()
@@ -153,8 +154,9 @@ class FormerBuiltinThemesTest(unittest.TestCase):
             migration.migrate()
 
         backend = Themes(allow_file=True)
-        open_repository = backend.repository
-        with patch.object(backend, 'repository', side_effect=lambda address: open_repository(repository.as_uri())):
+        open_repository, open_head = backend.repository, backend.fetch_head
+        with patch.object(backend, 'repository', side_effect=lambda address: open_repository(repository.as_uri())), \
+                patch.object(backend, 'fetch_head', side_effect=lambda address: open_head(repository.as_uri())):
             self.assertEqual(backend.check(preview=True), {'afterglow': 1})
             self.assertEqual(backend.update('afterglow'), ['afterglow'])
             self.assertEqual(backend.check(), {'afterglow': 0})
