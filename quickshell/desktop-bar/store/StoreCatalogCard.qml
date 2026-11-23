@@ -48,12 +48,6 @@ Rectangle {
         x: 12; y: art.y + art.height + 10; width: parent.width - 24; spacing: 5
         StoreLabel { catalog: tile.catalog; width: parent.width; text: tile.item.name || ""; font.family: SiteStyle.carved; font.weight: Font.Medium; font.letterSpacing: 0.7; maximumLineCount: 1; elide: Text.ElideRight }
         StoreLabel { catalog: tile.catalog; width: parent.width; text: tile.item.description || (tile.itemKind === "themes" ? Eitr.I18n.tr("Desktop theme") : ""); font.pixelSize: 13; color: catalog.muted; maximumLineCount: 1; elide: Text.ElideRight }
-        Row { spacing: 4; visible: tile.itemKind === "themes"
-            Repeater {
-                model: tile.itemKind === "themes" && tile.item.palette ? ["background", "foreground", "accent", "color1", "color2", "color3", "color4", "color5", "color6"] : []
-                Rectangle { required property string modelData; width: 14; height: 14; radius: 7; color: tile.item.palette[modelData]; border.width: 1; border.color: catalog.lineStrong }
-            }
-        }
         Flow { width: parent.width; spacing: 6
             StorePill { catalog: tile.catalog; text: catalog.badge(tile.item) }
             StorePill { catalog: tile.catalog; visible: tile.itemKind === "lockscreens" && !!tile.item.current; text: Eitr.I18n.tr("Current"); current: true }
