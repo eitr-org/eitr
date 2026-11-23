@@ -1,0 +1,32 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+
+const model = {};
+const source = fs.readFileSync(path.join(__dirname, '../AiUsagePace.js'), 'utf8');
+vm.runInNewContext(source.replace(/^\.pragma library/m, ''), model);
+const hour = 3600;
+const reset = 1000 * hour;
+const limit = {label: '5h window', used: 50, reset};
+const quarter = reset - 3.75 * hour;
+
+assert.equal(model.estimate(limit, quarter).trend, 'ahead');
+assert.equal(model.estimate(limit, quarter).minutesToFull, 75);
+assert.equal(model.estimate({...limit, used: 30}, quarter).trend, 'even');
+assert.equal(model.estimate({...limit, used: 20}, quarter).trend, 'even');
+assert.equal(model.estimate({...limit, used: 19}, quarter).trend, 'behind');
+assert.equal(model.estimate({...limit, used: 0}, quarter).minutesToFull, null);
+assert.equal(model.estimate({...limit, used: 100}, quarter).minutesToFull, null);
+assert.equal(model.estimate({...limit, label: 'Usage'}, quarter), null);
+assert.equal(model.estimate({...limit, label: 'Usage', durationSeconds: 5 * hour}, quarter).trend, 'ahead');
+assert.equal(model.estimate({...limit, label: 'Sonnet weekly'}, reset - 5 * 24 * hour).trend, 'ahead');
+assert.equal(model.estimate({...limit, label: 'Gemini session'}, quarter).trend, 'ahead');
+assert.equal(model.estimate({...limit, reset: null}, quarter), null);
+assert.equal(model.estimate({...limit, used: null}, quarter), null);
+assert.equal(model.estimate(limit, reset - 5 * hour), null);
+assert.equal(model.estimate(limit, reset - 4.76 * hour), null);
+assert.equal(model.estimate(limit, reset - 4.75 * hour).trend, 'ahead');
+assert.equal(model.estimate(limit, reset), null);
+assert.equal(model.estimate(limit, reset + hour), null);
+console.log('AI Usage pace checks passed');

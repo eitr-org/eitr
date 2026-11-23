@@ -10,6 +10,10 @@ Les éléments de plugins peuvent apparaître après le verrouillage automatique
 
 Weather est un plugin officiel intégré, installé par défaut après l’horloge. Supprimez-le dans Eitr Store > Installés > Plugins pour masquer la météo partout, y compris sur l’accueil de Drop. Il reste supprimé après les mises à jour ; réinstallez-le depuis Découvrir avec la copie du paquet, sans téléchargement. La recherche de villes reste temporaire pour la session.
 
+Utilisation IA est également préinstallé. Sa suppression masque son icône, sa page dans Drop et l’onglet Utilisation des paramètres de l’assistant IA. Les autres fonctions de l’assistant restent disponibles. Le Store permet de le réinstaller hors ligne.
+
+Les flèches ↗, → et ↘ comparent la consommation à un rythme régulier. Si elle est plus rapide, le panneau estime quand la limite sera atteinte. Le rythme apparaît si la durée et la réinitialisation de la période sont connues et qu’au moins 5 % du temps s’est écoulé.
+
 Îlots présente des surfaces séparées pour le logo, la vue d’ensemble et les espaces de travail, Utilisation IA/Matériel/Verrouillage d’inactivité, l’horloge, la météo et les icônes d’état. Les indicateurs multimédias et de capture apparaissent uniquement lorsqu’ils sont actifs. L’horloge reste exactement centrée à l’écran ; la météo possède sa propre surface à côté.
 
 Les surfaces sont toujours entièrement arrondies, quel que soit le réglage des coins, et suivent la couleur/transparence et le flou. Elles se placent à la moitié de l’espacement extérieur actuel de Hyprland du bord, avec l’espacement complet entre surfaces voisines, sur les quatre côtés. La zone réservée aux fenêtres inclut l’épaisseur et cette moitié ; le masquage automatique ne réserve rien.

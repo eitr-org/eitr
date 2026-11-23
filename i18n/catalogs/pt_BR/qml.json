@@ -1155,5 +1155,11 @@
   "Low battery warning": "Aviso de bateria fraca",
   "Critical battery warning": "Aviso de bateria crítica",
   "Notify when the battery drops to this level.": "Notificar quando a bateria cair para este nível.",
-  "Send an urgent alert when the battery drops to this level.": "Enviar um alerta urgente quando a bateria cair para este nível."
+  "Send an urgent alert when the battery drops to this level.": "Enviar um alerta urgente quando a bateria cair para este nível.",
+  "Ahead of pace": "Acima do ritmo previsto",
+  "Behind pace": "Abaixo do ritmo previsto",
+  "Full in about {hours} h": "Limite em cerca de {hours} h",
+  "Full in about {minutes} min": "Limite em cerca de {minutes} min",
+  "On pace": "No ritmo previsto",
+  "Track AI assistant usage limits and reset times.": "Acompanhe os limites de uso dos assistentes de IA e os horários de renovação."
 }

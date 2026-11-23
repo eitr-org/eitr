@@ -29,6 +29,10 @@ ThemedPopup {
     function openPlugin(plugin, panel, remember) {
         const entry = PluginRegistry.entries.find(candidate => candidate.plugin === plugin && candidate.id === panel && candidate.kind === "panels" && !candidate.disabled);
         if (!entry) return;
+        if (entry.bundled && plugin === "ai-usage" && panel === "limits") {
+            go("ai", 1);
+            return;
+        }
         pluginHistory = remember && pluginEntry ? pluginHistory.concat([pluginEntry]) : [];
         pluginEntry = entry;
     }
@@ -58,7 +62,7 @@ ThemedPopup {
         return !!center && !!center.chatAssistant.identifier && center.organizationPolicy.development !== false
             && center.organizationPolicy.assistants_together !== false;
     }
-    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", "display", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", "performance", "ai", dashboard.assistantAvailable ? "assistant" : "", "plugins", "notifications"].filter(Boolean)
+    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", "display", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", "performance", PluginRegistry.aiUsageEnabled ? "ai" : "", dashboard.assistantAvailable ? "assistant" : "", "plugins", "notifications"].filter(Boolean)
     readonly property var obsState: barHost.obsMenu ? barHost.obsMenu.obsState : ({})
     readonly property bool obsShown: !!obsState.recording || !!obsState.streaming || ObsStatus.hasWindow
     property string page: "home"
@@ -293,7 +297,7 @@ ThemedPopup {
                 x: viewport.place("ai"); visible: viewport.shown("ai")
                 width: viewport.width
                 height: item ? item.implicitHeight : 0
-                active: dashboard.opened
+                active: dashboard.opened && PluginRegistry.aiUsageEnabled
                 sourceComponent: Component {
                     AiUsageMenu {
                         inlineParent: ai

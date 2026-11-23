@@ -1155,5 +1155,11 @@
   "Low battery warning": "배터리 부족 경고",
   "Critical battery warning": "치명적인 배터리 부족 경고",
   "Notify when the battery drops to this level.": "배터리가 이 수준으로 떨어지면 알립니다.",
-  "Send an urgent alert when the battery drops to this level.": "배터리가 이 수준으로 떨어지면 긴급 경고를 보냅니다."
+  "Send an urgent alert when the battery drops to this level.": "배터리가 이 수준으로 떨어지면 긴급 경고를 보냅니다.",
+  "Ahead of pace": "기준보다 빠름",
+  "Behind pace": "기준보다 느림",
+  "Full in about {hours} h": "약 {hours}시간 후 한도 도달",
+  "Full in about {minutes} min": "약 {minutes}분 후 한도 도달",
+  "On pace": "기준 속도",
+  "Track AI assistant usage limits and reset times.": "AI 어시스턴트의 사용 한도와 초기화 시간을 확인합니다."
 }

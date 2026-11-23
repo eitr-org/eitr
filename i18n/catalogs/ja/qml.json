@@ -1155,5 +1155,11 @@
   "Low battery warning": "バッテリー低下の警告",
   "Critical battery warning": "バッテリー残量低下（重大）の警告",
   "Notify when the battery drops to this level.": "バッテリーがこの残量に達したときに通知します。",
-  "Send an urgent alert when the battery drops to this level.": "バッテリーがこの残量に達したときに緊急アラートを送信します。"
+  "Send an urgent alert when the battery drops to this level.": "バッテリーがこの残量に達したときに緊急アラートを送信します。",
+  "Ahead of pace": "基準より速い",
+  "Behind pace": "基準より遅い",
+  "Full in about {hours} h": "約 {hours} 時間で上限",
+  "Full in about {minutes} min": "約 {minutes} 分で上限",
+  "On pace": "基準どおり",
+  "Track AI assistant usage limits and reset times.": "AI アシスタントの使用上限とリセット時刻を確認します。"
 }

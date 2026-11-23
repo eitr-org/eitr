@@ -8,6 +8,10 @@ Plugin-Elemente können nach der Leerlaufsperre, vor oder nach der Uhr oder in d
 
 Weather ist ein offizielles integriertes Plugin und wird standardmäßig nach der Uhr installiert. Entfernen Sie es unter Eitr Store > Installiert > Plugins, um das Wetter überall auszublenden, auch auf Drops Startseite. Es bleibt nach Updates entfernt; unter Entdecken kann es ohne Download aus der Paketkopie erneut installiert werden. Die Stadtsuche gilt nur für die Sitzung.
 
+KI-Nutzung ist ebenfalls vorinstalliert. Beim Entfernen verschwinden das Symbol, die Drop-Seite und der Tab „Nutzung“ in den KI-Assistenten-Einstellungen. Die übrigen Assistentenfunktionen bleiben verfügbar. Eine Neuinstallation ist offline im Store möglich.
+
+In den Nutzungslimits zeigen ↗, → und ↘ das Tempo im Vergleich zu einer gleichmäßigen Nutzung. Bei höherem Tempo wird geschätzt, wann das Limit erreicht wird. Dafür müssen Fensterdauer und Rücksetzzeit bekannt und mindestens 5 % des Fensters verstrichen sein.
+
 Unter Einstellungen > Fenster verwenden Fensterlayout und Monitore jeweils zwei Schaltflächen. Arbeitsflächenanzahl und Immer anzeigen verwenden Auswahllisten; Immer anzeigen bietet 2 bis zur aktuellen Anzahl an. Beschreibungen unter den Einstellungen erklären ihre Wirkung, auch für das gewählte Fensterlayout und die Scrolloptionen.
 
 ## Aktualisierungen

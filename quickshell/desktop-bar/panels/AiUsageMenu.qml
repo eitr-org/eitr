@@ -3,11 +3,25 @@ import Eitr as Eitr
 import QtQuick
 import "../PanelStyle.js" as PanelStyle
 import "../AiSelectionModel.js" as Selection
+import "../AiUsagePace.js" as Pace
 import Quickshell
 import Quickshell.Io
 
 ThemedPopup {
     id: menu
+    property real nowSeconds: Date.now() / 1000
+    Timer {
+        interval: 60000
+        running: menu.opened
+        repeat: true
+        onTriggered: menu.nowSeconds = Date.now() / 1000
+    }
+    function fullLabel(minutes) {
+        if (minutes < 60) return Eitr.I18n.tr("Full in about {minutes} min", {minutes: minutes});
+        return Eitr.I18n.tr("Full in about {hours} h", {hours: Math.round(minutes / 60)});
+    }
+    property bool pluginAvailable: true
+    onPluginAvailableChanged: if (!pluginAvailable) opened = false
     waitForFreshData: true
     implicitWidth: 468
     property int maximumHeight: 1000
@@ -65,12 +79,17 @@ ThemedPopup {
     }
     onSnapshotChanged: receiveUsage()
     function resetLabel(timestamp) {
-        var seconds = Math.max(0, Math.floor(timestamp - Date.now() / 1000));
+        var seconds = Math.max(0, Math.floor(timestamp - nowSeconds));
         return "Resets " + Qt.formatDateTime(new Date(timestamp * 1000), "ddd MMM dd, HH:mm") + " · " + Math.floor(seconds / 3600) + "h " + Math.floor(seconds % 3600 / 60) + "m";
     }
     Component.onDestruction: DesktopData.releaseOwner(menu)
     onOpenedChanged: {
+        if (opened && !pluginAvailable) {
+            opened = false;
+            return;
+        }
         if (opened) {
+            nowSeconds = Date.now() / 1000;
             contentViewport.contentY = 0;
             freshReceived = false;
             usageToken = DesktopData.observe("ai.usage", menu);
@@ -189,19 +208,66 @@ ThemedPopup {
                                         id: limit
                                         required property var modelData
                                         readonly property real used: Math.max(0, Math.min(100, Number(modelData.used)))
+                                        readonly property var pace: Pace.estimate(modelData, menu.nowSeconds)
+                                        readonly property string paceLabel: !pace ? "" : pace.trend === "ahead"
+                                            ? Eitr.I18n.tr("Ahead of pace") : pace.trend === "behind"
+                                            ? Eitr.I18n.tr("Behind pace") : Eitr.I18n.tr("On pace")
                                         width: content.width
                                         spacing: 7
                                         Item {
                                             width: parent.width; height: 17
                                             Text { text: limit.modelData.label === "5h window" ? Eitr.I18n.tr("Session") : limit.modelData.label; color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
-                                            Text { anchors.right: parent.right; text: Eitr.I18n.tr("{percent}% used", {percent: Math.round(limit.used)}); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize; font.features: PanelStyle.tabularFigures }
+                                            Row {
+                                                anchors.right: parent.right
+                                                spacing: 6
+                                                Text {
+                                                    id: trend
+                                                    visible: !!limit.pace
+                                                    text: !limit.pace ? "" : limit.pace.trend === "ahead" ? "↗" : limit.pace.trend === "behind" ? "↘" : "→"
+                                                    color: menu.foreground
+                                                    font.family: DesktopFonts.family
+                                                    font.pixelSize: PanelStyle.bodySize
+                                                    Accessible.name: limit.paceLabel
+                                                    HoverHandler { id: paceHover }
+                                                    BarTooltip {
+                                                        target: trend; hovered: paceHover.hovered
+                                                        text: limit.paceLabel
+                                                        foreground: menu.foreground; background: menu.background
+                                                    }
+                                                }
+                                                Text { text: Eitr.I18n.tr("{percent}% used", {percent: Math.round(limit.used)}); color: menu.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.secondarySize; font.features: PanelStyle.tabularFigures }
+                                            }
                                         }
                                         Rectangle {
                                             width: parent.width; height: 6; radius: 3
                                             color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.12)
                                             Rectangle { width: parent.width * limit.used / 100; height: 6; radius: 3; color: menu.foreground }
                                         }
-                                        Text { visible: !!limit.modelData.reset; width: parent.width; elide: Text.ElideRight; text: limit.modelData.reset ? menu.resetLabel(limit.modelData.reset) : ""; color: menu.foreground; opacity: PanelStyle.secondaryTextOpacity; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+                                        Item {
+                                            visible: !!limit.modelData.reset
+                                            width: parent.width
+                                            height: resetTime.implicitHeight
+                                            Text {
+                                                id: resetTime
+                                                width: projection.visible ? projection.x - 8 : parent.width
+                                                elide: Text.ElideRight
+                                                text: limit.modelData.reset ? menu.resetLabel(limit.modelData.reset) : ""
+                                                color: menu.foreground
+                                                opacity: PanelStyle.secondaryTextOpacity
+                                                font.family: DesktopFonts.family
+                                                font.pixelSize: PanelStyle.captionSize
+                                            }
+                                            Text {
+                                                id: projection
+                                                anchors.right: parent.right
+                                                visible: !!(limit.pace && limit.pace.minutesToFull)
+                                                text: visible ? menu.fullLabel(limit.pace.minutesToFull) : ""
+                                                color: menu.foreground
+                                                opacity: PanelStyle.secondaryTextOpacity
+                                                font.family: DesktopFonts.family
+                                                font.pixelSize: PanelStyle.captionSize
+                                            }
+                                        }
                                     }
                                 }
                             }

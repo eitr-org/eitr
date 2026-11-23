@@ -9,7 +9,6 @@ import "../PanelStyle.js" as PanelStyle
 import "../StoreKinds.js" as StoreKinds
 import "StoreSearch.js" as StoreSearch
 import "StoreUpdates.js" as StoreUpdates
-
 Item {
     property var scroll
     property var detailScroll
@@ -281,6 +280,9 @@ Item {
     function badge(item) {
         return ({builtin: getMore ? Eitr.I18n.tr("Official") : Eitr.I18n.tr("Built in"), official: Eitr.I18n.tr("Official"), community: Eitr.I18n.tr("Community"), "third-party": Eitr.I18n.tr("Third-party"), own: Eitr.I18n.tr("Yours")})[item.kind] || Eitr.I18n.tr("Official");
     }
+    function localizedItem(item) {
+        return item.builtin && item.id === "ai-usage" ? Object.assign({}, item, {name: Eitr.I18n.tr("AI Usage"), description: Eitr.I18n.tr("Track AI assistant usage limits and reset times.")}) : item;
+    }
     function request(name, args, callback) {
         const current = generation;
         transport(name, Object.assign({kind: kind, channel: detail ? channelFor(detail) : "official"}, args), function(failure, data) {
@@ -289,13 +291,12 @@ Item {
         });
     }
     property var store: ({})
-    readonly property var sources: ["installed", "official", "community"]
     function fetch(catalogKind, source) {
         const key = catalogKind + ":" + source;
         store = Object.assign({}, store, {[key]: Object.assign({}, store[key] || {items: []}, {pending: true, error: ""})});
         sync();
         request(source === "installed" ? "installed" : "index", {kind: catalogKind, channel: source}, function(failure, data) {
-            store = Object.assign({}, store, {[key]: {items: failure ? (store[key].items || []) : (data.items || []).map(item => Object.assign({}, item, source === "installed" ? {} : {kind: item.kind === "builtin" ? "builtin" : item.kind === "community" ? "community" : "official", channel: source})), error: failure, pending: false, loaded: !failure}});
+            store = Object.assign({}, store, {[key]: {items: failure ? (store[key].items || []) : (data.items || []).map(item => Object.assign({}, localizedItem(item), source === "installed" ? {} : {kind: item.kind === "builtin" ? "builtin" : item.kind === "community" ? "community" : "official", channel: source})), error: failure, pending: false, loaded: !failure}});
             sync();
         });
     }

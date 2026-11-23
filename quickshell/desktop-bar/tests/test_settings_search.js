@@ -14,6 +14,10 @@ assert.equal(context.filter('Cursor size', translate)[0].settingId, 'appearance-
 assert.equal(context.filter('Cursor size', translate)[0].location, 'Appearance › Fonts & Cursor');
 assert.equal(context.resolve('appearance/fonts#appearance-cursor-size').setting, 'appearance-cursor-size');
 assert.equal(context.resolve('network/bluetooth').tab, 'bluetooth');
+assert(context.filter('Open AI Usage', translate).some(result => result.settingId === 'assistant-open-ai-usage'));
+assert(!context.filter('Open AI Usage', translate, false).some(result => result.settingId === 'assistant-open-ai-usage'));
+assert.equal(context.resolve('assistant/usage', false).tab, 'general');
+assert.equal(context.resolve('assistant/assistants', false).tab, 'assistants');
 const cursorResults = context.filter('cursor', translate);
 assert(cursorResults.some(result => result.settingId));
 assert(cursorResults.some(result => !result.settingId && result.id === 'appearance'));

@@ -205,6 +205,7 @@ Item {
     }
     function showKind(kind) {
         if (kind === "weather" && !PluginRegistry.weatherEnabled) return;
+        if (kind === "ai" && !PluginRegistry.aiUsageEnabled) return;
         if (kind === "picture") { showControlCenter(kind); return; }
         if (kind === "window-info" || kind === "speed-test") { showToolDetail(kind); return; }
         ensure(kind);

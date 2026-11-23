@@ -364,19 +364,18 @@ Dynamic reveals start/status in their expanded side islands and both clock slots
 in its expanded clock island. Drop hides all bar plugin slots, as before. The
 clock keeps its independent screen-centre anchor on all four edges.
 
-### Bundled Weather
+### Bundled plugins
 
-Weather (`weather`) is an official plugin shipped in `eitr-desktop`, without a Git
-checkout or download. The user upgrade migration and host startup share a one-time
-default for fresh and existing homes and
-places its item in `clockEnd`. The machine-local
+Weather (`weather`) and AI Usage (`ai-usage`) ship in `eitr-desktop` without a Git
+checkout or download. User upgrade migrations and host startup share versioned,
+one-time defaults for fresh and existing homes. The machine-local
 `$XDG_STATE_HOME/eitr/bundled-plugins.json` marker records that default migration;
 package updates never reinstall a removed default or re-enable a disabled one.
-Eitr Store > Plugins > Installed labels it Built in and offers Remove. Discover
-can install it again from the package copy, offline. Its files update with the
-package; it has no separate Git update or background service.
+Eitr Store > Installed > Plugins labels them Built in and offers Remove. Discover
+can install either again from the package copy, offline. Its files update with the
+package and have no separate Git update or background service.
 
-The schema-2 `weather` capability supplies `api.weatherWidgetComponent`, the host's
+Weather places its item in `clockEnd`. The schema-2 `weather` capability supplies `api.weatherWidgetComponent`, the host's
 existing Weather view, plus `api.observed`, `api.verticalBar` and `api.compactBarItem`. Icon slots and vertical bars use the compact host view. The view observes
 `weather.default` through DesktopData only while displayed. The single bar-data
 weather domain still owns caching, location, deadlines and city requests. No plugin
@@ -384,6 +383,12 @@ poller or duplicate fetch code is added. The bundled item's panel request reuses
 the host's centred weather panel; Drop reuses its existing in-place weather view.
 Removing/disabling Weather hides both views and releases their observations. Drop
 uses the space for its calendar. Temporary city choices remain session-only.
+
+AI Usage places its item at the start of the left group, ahead of Hardware
+and Idle Lock. Its manifest's limits panel opens the native usage view, also
+used in Drop. The bar-data `ai.usage` domain still owns provider reads and the
+cache. Removing or disabling the plugin hides its icon, Drop page and the Usage
+tab in Settings > AI Assistant. The remaining Assistant settings work independently.
 
 Status bar items occupy fixed icon slots at the end of the existing right-side group, just before the notifications, with its
 normal hidden/show toggle (always shown in Tabs). They have no hover fill and

@@ -1155,5 +1155,11 @@
   "Critical battery warning": "Critical battery warning",
   "Low battery warning": "Low battery warning",
   "Notify when the battery drops to this level.": "Notify when the battery drops to this level.",
-  "Send an urgent alert when the battery drops to this level.": "Send an urgent alert when the battery drops to this level."
+  "Send an urgent alert when the battery drops to this level.": "Send an urgent alert when the battery drops to this level.",
+  "Ahead of pace": "Ahead of pace",
+  "Behind pace": "Behind pace",
+  "Full in about {hours} h": "Full in about {hours} h",
+  "Full in about {minutes} min": "Full in about {minutes} min",
+  "On pace": "On pace",
+  "Track AI assistant usage limits and reset times.": "Track AI assistant usage limits and reset times."
 }

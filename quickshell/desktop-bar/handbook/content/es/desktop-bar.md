@@ -8,6 +8,10 @@ Los elementos de plugins pueden aparecer después del bloqueo automático, antes
 
 Weather es un plugin oficial integrado, instalado por defecto después del reloj. Elimínelo en Eitr Store > Instalados > Plugins para ocultar el tiempo en todas partes, incluida la página de inicio de Drop. Sigue eliminado tras las actualizaciones; vuelva a instalarlo desde Descubrir usando la copia incluida en el paquete, sin descarga. La búsqueda de ciudades es temporal durante la sesión.
 
+Uso de IA también viene instalado. Al eliminarlo, desaparecen su icono, su página de Drop y la pestaña Uso de los ajustes del asistente de IA. Las demás funciones del asistente siguen disponibles. Puede volver a instalarlo desde la tienda sin conexión.
+
+Las flechas ↗, → y ↘ comparan el ritmo de consumo con un uso uniforme. Si el consumo va más rápido, se estima cuándo se alcanzará el límite. El ritmo aparece cuando se conocen la duración y el reinicio del periodo y ha transcurrido al menos un 5 %.
+
 Islas presenta grupos en superficies separadas: logotipo, Vista general y espacios de trabajo, Uso de IA/Hardware/Bloqueo por inactividad, reloj, tiempo y controles de estado. Los indicadores multimedia y de captura aparecen solo cuando están activos. El reloj permanece exactamente centrado en la pantalla; el tiempo tiene su propia superficie al lado.
 
 Las superficies son siempre totalmente redondeadas, sea cual sea la preferencia de esquinas, y siguen el color/transparencia y el desenfoque. Las superficies quedan a la mitad del espacio exterior actual de Hyprland del borde, con el espacio completo entre superficies vecinas, en los cuatro lados. La reserva para ventanas incluye el grosor y esa mitad; la ocultación automática no reserva espacio.

@@ -150,7 +150,7 @@ class PluginRuntime:
                 spec = manifest(root)
                 for kind in ('tiles', 'panels', 'widgets', 'barItems'):
                     for entry in spec.get('ui', {}).get(kind, []):
-                        result.append(dict(plugin=plugin_id, pluginName=spec['name'], commit=record['commit'], kind=kind,
+                        result.append(dict(plugin=plugin_id, pluginName=spec['name'], bundled=bool(record.get('bundled')), commit=record['commit'], kind=kind,
                                            placement={'widgets': 'desktop', 'barItems': 'bar'}.get(kind, 'control-center'), disabled=bool(failures.get(plugin_id, {}).get('disabled')),
                                            **entry, capabilities=spec.get('capabilities', []), source=(root / entry['qml']).as_uri()))
             except (OSError, ValueError, subprocess.SubprocessError):

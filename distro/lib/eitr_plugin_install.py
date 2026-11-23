@@ -17,6 +17,7 @@ from urllib.parse import urlsplit
 import eitr_plugin_packages
 import eitr_policy
 from eitr_i18n import mark, tr
+from eitr_plugin_bundled import BUNDLED_DEFAULTS, BUNDLED_URL
 from eitr_paths import cache, config, data, state
 from eitr_plugin_manifest import (
     CAPABILITY_FLAGS,
@@ -343,7 +344,7 @@ class PluginInstall:
         for plugin_id, record in value.items():
             identifier(plugin_id)
             object_keys(record, ('url', 'id', 'commit', 'installed'), ('enabled', 'path', 'packages', 'bundled'))
-            if 'bundled' in record and (record['bundled'] is not True or plugin_id != 'weather' or record['url'] != 'https://github.com/eitr-org/eitr' or 'path' in record):
+            if 'bundled' in record and (record['bundled'] is not True or plugin_id not in BUNDLED_DEFAULTS or record['url'] != BUNDLED_URL or 'path' in record):
                 raise ValueError('Invalid bundled plugin state')
             eitr_plugin_packages.names(record.get('packages', []), limit=4096)
             if 'path' in record:

@@ -77,7 +77,8 @@
       "quickshell/desktop-bar/drop/DropRails.qml",
       "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
       "quickshell/desktop-bar/panels/AiUsageMenu.qml",
-      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
+      "quickshell/desktop-bar/settings/SettingsAssistantPage.qml",
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "AUTHENTICATE": [
       "quickshell/lockscreen/themes/nothing/Main.qml"
@@ -177,6 +178,9 @@
     "After the clock": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml",
       "quickshell/desktop-bar/settings/SettingsBarIconsPage.qml"
+    ],
+    "Ahead of pace": [
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "Airplane": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
@@ -372,6 +376,9 @@
     ],
     "Behaviour": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+    ],
+    "Behind pace": [
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "Below": [
       "quickshell/desktop-bar/panels/DisplaySettingsEditor.qml"
@@ -1346,6 +1353,12 @@
     "Full access skips the assistant's permission prompts; Ask keeps them.": [
       "quickshell/desktop-bar/settings/SettingsAssistantPage.qml"
     ],
+    "Full in about {hours} h": [
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
+    ],
+    "Full in about {minutes} min": [
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
+    ],
     "Full width": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
@@ -2163,6 +2176,9 @@
     ],
     "Ollama (local, experimental)": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
+    "On pace": [
+      "quickshell/desktop-bar/panels/AiUsageMenu.qml"
     ],
     "On the bar": [
       "quickshell/desktop-bar/plugins/PluginManagement.qml"
@@ -3441,6 +3457,9 @@
     ],
     "Touchpad": [
       "quickshell/desktop-bar/components/SettingsPointerCard.qml"
+    ],
+    "Track AI assistant usage limits and reset times.": [
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Transcode": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"

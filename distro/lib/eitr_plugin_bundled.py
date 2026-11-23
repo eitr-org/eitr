@@ -1,11 +1,13 @@
 """Package-owned plugins: local installation, one-time defaults and Store metadata."""
 import hashlib
+import json
 from eitr_paths import ROOT
 
 from eitr_paths import state
 from eitr_plugin_manifest import identifier, manifest
 
 BUNDLED = ROOT / 'distro/plugins/bundled'
+BUNDLED_DEFAULTS = ('weather', 'ai-usage')
 BUNDLED_URL = 'https://github.com/eitr-org/eitr'
 
 
@@ -22,7 +24,7 @@ def bundled_revision(root):
 
 
 def is_bundled(root):
-    return root.parent == BUNDLED and root.name == 'weather'
+    return root.parent == BUNDLED and root.name in BUNDLED_DEFAULTS
 
 
 class BundledPlugins:
@@ -31,10 +33,12 @@ class BundledPlugins:
         marker = state('eitr/bundled-plugins.json')
         with self.lock():
             records = self.records()
-            if not marker.exists():
-                if 'weather' not in records and not self.refusal(BUNDLED_URL, plugin_id='weather'):
-                    self._install_bundled(records, 'weather')
-                self.write(marker, {'version': 1})
+            version = json.loads(marker.read_text())['version'] if marker.exists() else 0
+            for plugin_id in BUNDLED_DEFAULTS[version:]:
+                if plugin_id not in records and not self.refusal(BUNDLED_URL, plugin_id=plugin_id):
+                    self._install_bundled(records, plugin_id)
+            if version < len(BUNDLED_DEFAULTS):
+                self.write(marker, {'version': len(BUNDLED_DEFAULTS)})
             for plugin_id, record in records.items():
                 if record.get('bundled'):
                     revision = bundled_revision(bundled_root(plugin_id))
@@ -71,9 +75,13 @@ class BundledPlugins:
         return True
 
     def bundled_catalog(self):
-        spec = manifest(bundled_root('weather'))
-        return [dict(id=spec['id'], name=spec['name'], description=spec['description'], author=spec['author'],
-                     components={key: spec[key] for key in ('rows', 'ui', 'service', 'packages') if key in spec},
-                     version=spec['version'], kind='builtin', builtin=True, official=True, repository=BUNDLED_URL,
-                     previewUrl=(bundled_root('weather') / spec['icon']).as_uri(),
-                     folder='plugins/bundled/weather', commit=bundled_revision(bundled_root('weather')))]
+        return [self._bundled_catalog_entry(plugin_id) for plugin_id in BUNDLED_DEFAULTS]
+
+    def _bundled_catalog_entry(self, plugin_id):
+        root = bundled_root(plugin_id)
+        spec = manifest(root)
+        return dict(id=spec['id'], name=spec['name'], description=spec['description'], author=spec['author'],
+                    components={key: spec[key] for key in ('rows', 'ui', 'service', 'packages') if key in spec},
+                    version=spec['version'], kind='builtin', builtin=True, official=True, repository=BUNDLED_URL,
+                    previewUrl=(root / spec['icon']).as_uri(),
+                    folder=f'plugins/bundled/{plugin_id}', commit=bundled_revision(root))

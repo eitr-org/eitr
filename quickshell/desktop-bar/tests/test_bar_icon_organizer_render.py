@@ -181,6 +181,7 @@ Item {
         note_qml = (folder / "SampleQuickNote.qml").as_uri()
         panel_qml = (folder / "SamplePluginPanel.qml").as_uri()
         placed = [
+            {"plugin": "ai-usage", "id": "usage", "kind": "barItems", "title": "AI Usage", "icon": "", "slot": "start", "panel": "limits", "bundled": True},
             {"plugin": "weather", "id": "weather", "kind": "barItems", "title": "Weather", "icon": "󰖐", "slot": "clockEnd", "panel": "forecast", "capabilities": ["weather"], "disabled": False, "qml": weather_qml, "source": weather_qml},
             {"plugin": "worldclock", "id": "clock", "kind": "barItems", "title": "World clock", "icon": "󰥔", "slot": "clock", "panel": "panel", "capabilities": [], "disabled": False, "qml": clock_qml, "source": clock_qml},
             {"plugin": "notes", "id": "quick", "kind": "barItems", "title": "Quick note", "icon": "󰎞", "slot": "status", "panel": "panel", "capabilities": [], "disabled": False, "qml": note_qml, "source": note_qml},
@@ -200,6 +201,7 @@ QtObject {{
     property var entries: {json.dumps(entries)}
     property var placedBarItems: {json.dumps(placed)}
     readonly property bool weatherEnabled: true
+    readonly property bool aiUsageEnabled: true
     function slotItems(slot) {{ return placedBarItems.filter(entry => (entry.slot || "status") === slot); }}
     function registerSource(entry) {{}}
     function unregisterSource(entry) {{}}

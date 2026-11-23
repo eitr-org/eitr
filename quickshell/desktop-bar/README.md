@@ -327,7 +327,7 @@ shows only its icon (the temperature is in its tooltip), and popups open inward.
 The `clock` setting in `bar-settings.json` (`12h`, the default, or `24h`), under
 Settings > Desktop > Desktop Bar > Clock and the Settings window's Desktop Bar page, picks the time format
 for every edge.
-AI Usage, Hardware and Idle Lock sit together after the workspaces by default; right-hand controls
+The bundled AI Usage plugin, Hardware and Idle Lock sit together after the workspaces by default; right-hand controls
 retain their manual show/hide toggle in Full only. Centered, Tabs, Islands and Dynamic keep them visible without a toggle; Drop shows placed plugin items in its dashboard’s plugin rail. Settings > Desktop Bar > Icons (`BarIconOrder.qml`, persisted as `iconOrder` in `bar-settings.json`, or Reset to default) organizes built-in and active plugin icons across the left, clock-start, clock-end and right zones across every layout and screen edge, with panels opening from the moved icon’s zone. Both side groups share 24 px icon slots
 and 4 px spacing, with centered alignment on every bar edge. Active workspace
 glyphs use the accent color without a filled background in every style; the
@@ -409,7 +409,12 @@ Their surface follows the bar's current appearance, including live changes
 between the solid theme color, transparency with blur and the website palette.
 Calendar retains its fixed six-row
 grid, bottom navigation, year progress, and Left/Right/Up/Down/bracket/T keys.
-AI Usage retains the existing backend/cache, refresh-on-open and five-minute
+AI Usage is a built-in plugin. Removing or disabling it hides its bar icon, Drop page
+and Usage tab in Settings > AI Assistant, releasing their broker observations. Reinstall
+it offline from the Store. The other AI Assistant settings are independent. AI Usage
+shows pace arrows for active windows with a known duration after the first 5% has elapsed.
+When usage is ahead by more than five percentage points, it estimates when the limit
+would fill. The plugin uses the shared backend/cache, refresh-on-open and five-minute
 updates while open. Accounts with readable usage appear grouped by assistant;
 accounts with errors or no usage windows and assistants without readable accounts
 are hidden. Claude Code, Codex and Grok readers use each account’s own configuration.

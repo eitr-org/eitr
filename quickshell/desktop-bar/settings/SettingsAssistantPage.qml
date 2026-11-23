@@ -12,7 +12,9 @@ Column {
     required property var context
     readonly property var view: context
     readonly property var helper: context.helper
-    readonly property string tab: view.tab || "general"
+    readonly property bool usageAvailable: PluginRegistry.aiUsageEnabled === true
+    readonly property string tab: view.tab && (view.tab !== "usage" || usageAvailable) ? view.tab : "general"
+    readonly property bool observingUsage: usageAvailable && tab === "usage" && view.active && view.live
     readonly property var usage: (DesktopData.topics["ai.usage"] || {}).data || ({providers: []})
     readonly property var usageAccounts: (usage.providers || []).reduce((rows, provider) =>
         rows.concat((provider.accounts || []).map(account => Object.assign({provider: provider.name}, account))), [])
@@ -20,7 +22,7 @@ Column {
     spacing: 12
     function demand() {
         DesktopData.releaseOwner(pageBody);
-        if (view.active && view.live) DesktopData.observe("ai.usage", pageBody);
+        if (observingUsage) DesktopData.observe("ai.usage", pageBody);
     }
     function limits(account) {
         return (account.windows || []).map(limit => (limit.label === "5h window" ? Eitr.I18n.tr("Session") : limit.label)
@@ -28,12 +30,12 @@ Column {
     }
     Component.onCompleted: demand()
     Component.onDestruction: DesktopData.releaseOwner(pageBody)
-    Connections { target: pageBody.view; function onActiveChanged() { pageBody.demand(); } }
+    onObservingUsageChanged: demand()
     PreferenceWatch { path: pageBody.view.live && pageBody.view.active ? Eitr.Paths.config("eitr/ai.json") : ""; onChanged: pageBody.helper.refresh() }
     TabStrip { foreground: SettingsPalette.foreground; gold: SettingsPalette.gold; carved: true;
         width: parent.width
         height: 42
-        choices: [{id: "general", label: Eitr.I18n.tr("General")}, {id: "assistants", label: Eitr.I18n.tr("Assistants")}, {id: "usage", label: Eitr.I18n.tr("Usage")}]
+        choices: [{id: "general", label: Eitr.I18n.tr("General")}, {id: "assistants", label: Eitr.I18n.tr("Assistants")}, {id: "usage", label: Eitr.I18n.tr("Usage")}].filter(choice => choice.id !== "usage" || pageBody.usageAvailable)
         current: pageBody.tab
         onChosen: value => { pageBody.view.tabRequested(value); pageBody.view.contentY = 0; }
     }

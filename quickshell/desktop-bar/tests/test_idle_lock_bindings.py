@@ -17,9 +17,7 @@ class IdleLockBindingsTests(unittest.TestCase):
         self.assertNotIn("idleLockMenu", SHELL)
         self.assertFalse((ROOT / "IdleLockMenu.qml").exists())
 
-    def test_icons_follow_ai_usage_on_the_left(self):
-        order_source = (ROOT / "BarIconOrder.js").read_text()
-        self.assertLess(order_source.index('"ai"'), order_source.index('"idleLock"'))
+    def test_left_zone_appears_on_horizontal_and_vertical_bars(self):
         self.assertIn('zone: "left"', (ROOT / "bar/BarLeftGroup.qml").read_text())
         self.assertIn('zone: "left"', (ROOT / "bar/BarVerticalPlacement.qml").read_text())
 

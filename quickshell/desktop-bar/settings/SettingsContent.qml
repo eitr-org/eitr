@@ -23,7 +23,7 @@ Rectangle {
     readonly property color gold: SettingsInk.gold
     readonly property var current: SettingsIndex.pages.find(entry => entry.id === page) || SettingsIndex.pages[0]
     property string query: ""
-    readonly property var results: SettingsIndex.filter(query, Eitr.I18n.tr)
+    readonly property var results: SettingsIndex.filter(query, Eitr.I18n.tr, PluginRegistry.aiUsageEnabled === true)
     signal closeRequested()
     Binding { target: SettingsInk; property: "background"; value: settings.background }
     color: Qt.rgba(background.r, background.g, background.b, 1)
@@ -35,7 +35,7 @@ Rectangle {
         closeRequested();
     }
     function navigate(identifier) {
-        const route = SettingsIndex.resolve(identifier);
+        const route = SettingsIndex.resolve(identifier, PluginRegistry.aiUsageEnabled === true);
         page = route.page;
         tab = route.tab;
         query = "";

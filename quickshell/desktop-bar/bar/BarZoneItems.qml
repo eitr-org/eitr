@@ -118,8 +118,8 @@ Grid {
             readonly property bool isBuiltin: modelData.kind === "builtin"
             readonly property bool isWifi: isBuiltin && itemId === "wifi"
             readonly property bool isNotifications: isBuiltin && itemId === "notifications"
-            readonly property bool isGenericBuiltin: isBuiltin && !isWifi && !isNotifications
-            readonly property bool isPlugin: modelData.kind === "plugin"
+            readonly property bool isGenericBuiltin: (isBuiltin && !isWifi && !isNotifications) || itemId === "ai"
+            readonly property bool isPlugin: modelData.kind === "plugin" && itemId !== "ai"
             readonly property bool itemAvailable: {
                 if (itemId === "streaming") return zoneGrid.remoteAllowed;
                 if (itemId === "battery") return !!zoneGrid.host.battery.available;
@@ -203,6 +203,8 @@ Grid {
                 id: builtinLoader
                 active: slotItem.isGenericBuiltin
                 sourceComponent: StatusIcon {
+                    readonly property bool barItem: slotItem.itemId === "ai"
+                    readonly property var entry: slotItem.modelData.entry
                     host: zoneGrid.host
                     visible: slotItem.itemAvailable
                     icon: zoneGrid.builtinIcon(slotItem.modelData)
@@ -214,7 +216,10 @@ Grid {
                     open: slotItem.itemOpen
                     clickable: true
                     rightClickable: slotItem.itemId === "updates"
-                    onClicked: function(button) { zoneGrid.activateBuiltin(slotItem.itemId, button); }
+                    onClicked: function(button) {
+                        if (barItem) zoneGrid.panelRequested(entry.plugin, entry.panel, slotItem.control);
+                        else zoneGrid.activateBuiltin(slotItem.itemId, button);
+                    }
                     onOpenChanged: zoneGrid.closeOnCollapse(slotItem.itemId, open)
                 }
             }

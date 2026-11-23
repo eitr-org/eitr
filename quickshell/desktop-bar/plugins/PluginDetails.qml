@@ -51,7 +51,7 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter; spacing: PanelStyle.selectionDetailGap
                 Text {
                     width: parent.width; elide: Text.ElideRight; textFormat: Text.PlainText
-                    text: card.modelData.name; color: card.foreground
+                    text: card.modelData.builtin ? Eitr.I18n.tr(card.modelData.name) : card.modelData.name; color: card.foreground
                     font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
                 }
                 Text {
@@ -73,7 +73,7 @@ Rectangle {
         }
         Text {
             width: parent.width; wrapMode: Text.Wrap; textFormat: Text.PlainText
-            text: card.modelData.description; color: card.foreground
+            text: card.modelData.builtin ? Eitr.I18n.tr(card.modelData.description || "") : card.modelData.description; color: card.foreground
             font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
         }
         // Only an unusual state is spelled out; the switch already shows on or off.

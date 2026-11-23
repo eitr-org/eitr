@@ -168,13 +168,14 @@ function score(label, keywords, query) {
     if (words.every(word => (text + " " + keywords.toLocaleLowerCase()).includes(word))) return 100;
     return 0;
 }
-function filter(query, translate) {
+function filter(query, translate, usageAvailable = true) {
     if (!query.trim()) return pages.map(page => Object.assign({}, page, {destinationId: page.id}));
     const results = pages.map(page => Object.assign({}, page, {
         score: score(translate(page.title), [page.id, translate(page.description), translate(page.keywords)].join(" "), query),
-        destinationId: searchDestination(page.id, query, translate)
+        destinationId: searchDestination(page.id, query, translate, usageAvailable)
     }));
     for (const setting of Catalog.settings) {
+        if (!usageAvailable && setting.page === "assistant" && setting.tab === "usage") continue;
         const page = entry(setting.page);
         const tab = (tabs[setting.page] || []).find(candidate => candidate.id === setting.tab);
         results.push(Object.assign({}, page, {title: setting.label, settingId: setting.id,
@@ -207,16 +208,20 @@ var tabs = {
     bar: [{id: "layout", label: "Layout", keywords: "layout position show on screens edge"}, {id: "look", label: "Look", keywords: "appearance blur workspace style media clock"}, {id: "icons", label: "Icons", keywords: "icons order zones left right clock reorder organize reset"}, {id: "behaviour", label: "Behaviour", keywords: "auto-hide dock previews thumbnails reduce motion keep expanded behavior moments notifications levels songs lyrics lrclib"}],
     security: [{id: "sign-in", label: "Sign-in", keywords: "fingerprint fido security key authentication password-only"}, {id: "protection", label: "Protection", keywords: "firewall tpm disk unlock encryption"}]
 };
-function resolve(identifier) {
+function resolve(identifier, usageAvailable = true) {
     const parts = String(identifier || "system").split("#")[0].split("/");
     const aliases = {assistants: "assistant", network: "connections", you: "system", "desktop-bar": "bar"};
     const page = aliases[parts[0]] || parts[0];
-    const choices = tabs[page] || [];
+    const choices = availableTabs(page, usageAvailable);
     return {setting: String(identifier || "").split("#")[1] || "", page: pages.some(entry => entry.id === page) ? page : "system",
         tab: (choices.find(choice => choice.id === parts[1]) || choices[0] || {}).id || ""};
 }
-function searchDestination(page, query, translate) {
-    const candidates = tabs[page] || [];
+function availableTabs(page, usageAvailable) {
+    const choices = tabs[page] || [];
+    return page === "assistant" && !usageAvailable ? choices.filter(tab => tab.id !== "usage") : choices;
+}
+function searchDestination(page, query, translate, usageAvailable = true) {
+    const candidates = availableTabs(page, usageAvailable);
     const words = query.trim().toLocaleLowerCase().split(/\s+/);
     let match = null;
     let highest = 0;

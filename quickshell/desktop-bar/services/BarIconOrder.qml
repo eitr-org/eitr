@@ -43,8 +43,13 @@ QtObject {
         return OrderLogic.pluginItemId(entry);
     }
 
+    function placedPluginId(plugin, id) {
+        const entry = pluginBarItems.find(candidate => candidate.plugin === plugin && candidate.id === id);
+        return entry ? pluginId(entry) : String(plugin) + ":" + String(id);
+    }
+
     function pluginZone(plugin, id, fallbackSlot) {
-        const zone = zoneOf(String(plugin) + ":" + String(id));
+        const zone = zoneOf(placedPluginId(plugin, id));
         if (zone) return zone;
         return OrderLogic.SLOT_TO_ZONE[fallbackSlot || "status"] || "right";
     }
@@ -63,7 +68,7 @@ QtObject {
     }
 
     function setCustomSlotJson(plugin, id, slot) {
-        const fullId = String(plugin) + ":" + String(id);
+        const fullId = placedPluginId(plugin, id);
         const zone = OrderLogic.SLOT_TO_ZONE[slot || "status"] || "right";
         const dest = (idsByZone[zone] || []).filter(entryId => entryId !== fullId);
         return OrderLogic.serializeOrder(OrderLogic.moveItem(idsByZone, fullId, zone, dest.length, null));

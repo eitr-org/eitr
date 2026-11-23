@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 2,
+  "id": "ai-usage",
+  "name": "AI Usage",
+  "description": "Track AI assistant usage limits and reset times.",
+  "author": "The Eitr project",
+  "version": "1.0.0",
+  "rows": [],
+  "ui": {
+    "barItems": [
+      {
+        "id": "usage",
+        "title": "AI Usage",
+        "qml": "AiUsage.qml",
+        "slot": "start",
+        "panel": "limits",
+        "icon": ""
+      }
+    ],
+    "panels": [
+      {
+        "id": "limits",
+        "title": "AI Usage",
+        "qml": "AiUsage.qml"
+      }
+    ]
+  },
+  "icon": "icon.svg"
+}

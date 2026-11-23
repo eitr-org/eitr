@@ -107,7 +107,7 @@ def _validate_ai(result):
         for account in objects(provider.get("accounts", [])):
             fields(account, {"id": (str,), "label": (str,), "plan": (str, type(None))})
             for window in objects(account.get("windows", [])):
-                fields(window, {"label": (str,), "used": number, "reset": nullable_number})
+                fields(window, {"label": (str,), "used": number, "reset": nullable_number, "durationSeconds": number})
 
 
 def _validate_updates(result):

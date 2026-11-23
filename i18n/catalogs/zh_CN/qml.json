@@ -1155,5 +1155,11 @@
   "Low battery warning": "低电量警告",
   "Critical battery warning": "极低电量警告",
   "Notify when the battery drops to this level.": "当电池电量降至此水平时发出通知。",
-  "Send an urgent alert when the battery drops to this level.": "当电池电量降至此水平时发送紧急警报。"
+  "Send an urgent alert when the battery drops to this level.": "当电池电量降至此水平时发送紧急警报。",
+  "Ahead of pace": "快于均匀用量",
+  "Behind pace": "慢于均匀用量",
+  "Full in about {hours} h": "约 {hours} 小时后达到上限",
+  "Full in about {minutes} min": "约 {minutes} 分钟后达到上限",
+  "On pace": "接近均匀用量",
+  "Track AI assistant usage limits and reset times.": "查看 AI 助手的用量上限和重置时间。"
 }

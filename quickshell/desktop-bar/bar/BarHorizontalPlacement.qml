@@ -98,6 +98,7 @@ BarSection {
         AiUsageMenu {
             id: aiMenu
             readonly property string aiZone: barHost.iconZone("ai") || "left"
+            pluginAvailable: PluginRegistry.aiUsageEnabled === true
             surfaceColor: host.barBackground()
             maximumHeight: barHost.screen.height - 70
             leftAligned: aiZone === "left"

@@ -72,7 +72,7 @@ ShellRoot {
                 onTriggered: {
                     if (panel.openedProviders.length !== 0) throw new Error("Sections did not start closed");
                     panel.usage = {providers: [
-                        {name: "Claude", accounts: [{id: "default", label: "Default", plan: "Max", windows: [{label: "5h window", used: 42}, {label: "Weekly", used: 68}]}, {id: "example", label: "Example account", error: "No data", windows: []}]},
+                        {name: "Claude", accounts: [{id: "default", label: "Default", plan: "Max", windows: [{label: "5h window", used: 42, reset: panel.nowSeconds + 4 * 3600}, {label: "Weekly", used: 24, reset: panel.nowSeconds + 2 * 24 * 3600}]}, {id: "example", label: "Example account", error: "No data", windows: []}]},
                         {name: "Codex", accounts: [{label: "Default", plan: "Plus", windows: [{label: "Session", used: 23}]}]},
                         {name: "Grok", accounts: [{label: "Default", plan: "Pro", windows: [{label: "Credits", used: 12}]}]},
                         {name: "Example AI", accounts: [{label: "Default", plan: "Pro", windows: [{label: "Session", used: 23}]}, {label: "Other", windows: [{label: "Session", used: 0}]}]}
@@ -98,6 +98,9 @@ ShellRoot {
                     const texts = visibleTexts(panel);
                     if (!texts.some(function(text) { return text.indexOf("Claude Code") !== -1 && text.indexOf("· Max") !== -1; }))
                         throw new Error("Missing provider plan");
+                    if (!texts.includes("↗") || !texts.includes("↘") ||
+                        !texts.some(text => text.endsWith("Full in about 1 h")))
+                        throw new Error("Missing pace arrows or projection: " + texts.join(", "));
                     if (texts.indexOf("Example account") !== -1 || texts.indexOf("Default · Max") !== -1 || texts.indexOf("Default") !== -1)
                         throw new Error("Hidden account label is visible");
                     if (COUNT === 4 && (texts.indexOf("Default · Pro") === -1 || texts.indexOf("Other") === -1))

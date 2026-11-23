@@ -1192,7 +1192,13 @@ var qml = {
     "Critical battery warning": "Critical battery warning",
     "Low battery warning": "Low battery warning",
     "Notify when the battery drops to this level.": "Notify when the battery drops to this level.",
-    "Send an urgent alert when the battery drops to this level.": "Send an urgent alert when the battery drops to this level."
+    "Send an urgent alert when the battery drops to this level.": "Send an urgent alert when the battery drops to this level.",
+    "Ahead of pace": "Ahead of pace",
+    "Behind pace": "Behind pace",
+    "Full in about {hours} h": "Full in about {hours} h",
+    "Full in about {minutes} min": "Full in about {minutes} min",
+    "On pace": "On pace",
+    "Track AI assistant usage limits and reset times.": "Track AI assistant usage limits and reset times."
   },
   "pt_BR": {
     "%1 B/s": "%1 B/s",
@@ -2351,7 +2357,13 @@ var qml = {
     "Low battery warning": "Aviso de bateria fraca",
     "Critical battery warning": "Aviso de bateria crítica",
     "Notify when the battery drops to this level.": "Notificar quando a bateria cair para este nível.",
-    "Send an urgent alert when the battery drops to this level.": "Enviar um alerta urgente quando a bateria cair para este nível."
+    "Send an urgent alert when the battery drops to this level.": "Enviar um alerta urgente quando a bateria cair para este nível.",
+    "Ahead of pace": "Acima do ritmo previsto",
+    "Behind pace": "Abaixo do ritmo previsto",
+    "Full in about {hours} h": "Limite em cerca de {hours} h",
+    "Full in about {minutes} min": "Limite em cerca de {minutes} min",
+    "On pace": "No ritmo previsto",
+    "Track AI assistant usage limits and reset times.": "Acompanhe os limites de uso dos assistentes de IA e os horários de renovação."
   },
   "es": {
     "%1 B/s": "%1 B/s",
@@ -3510,7 +3522,13 @@ var qml = {
     "Low battery warning": "Aviso de batería baja",
     "Critical battery warning": "Aviso de batería crítica",
     "Notify when the battery drops to this level.": "Notificar cuando la batería baje a este nivel.",
-    "Send an urgent alert when the battery drops to this level.": "Enviar una alerta urgente cuando la batería baje a este nivel."
+    "Send an urgent alert when the battery drops to this level.": "Enviar una alerta urgente cuando la batería baje a este nivel.",
+    "Ahead of pace": "Por encima del ritmo previsto",
+    "Behind pace": "Por debajo del ritmo previsto",
+    "Full in about {hours} h": "Límite en unas {hours} h",
+    "Full in about {minutes} min": "Límite en unos {minutes} min",
+    "On pace": "Al ritmo previsto",
+    "Track AI assistant usage limits and reset times.": "Consulta los límites de uso de los asistentes de IA y cuándo se restablecen."
   },
   "de": {
     "%1 B/s": "%1 B/s",
@@ -4669,7 +4687,13 @@ var qml = {
     "Low battery warning": "Niedriger Akkustand",
     "Critical battery warning": "Kritischer Akkustand",
     "Notify when the battery drops to this level.": "Benachrichtigen, wenn der Akku diesen Stand erreicht.",
-    "Send an urgent alert when the battery drops to this level.": "Dringende Warnung senden, wenn der Akku diesen Stand erreicht."
+    "Send an urgent alert when the battery drops to this level.": "Dringende Warnung senden, wenn der Akku diesen Stand erreicht.",
+    "Ahead of pace": "Über dem Soll",
+    "Behind pace": "Unter dem Soll",
+    "Full in about {hours} h": "Limit in etwa {hours} Std. erreicht",
+    "Full in about {minutes} min": "Limit in etwa {minutes} Min. erreicht",
+    "On pace": "Im Soll",
+    "Track AI assistant usage limits and reset times.": "Nutzungslimits und Rücksetzzeiten von KI-Assistenten verfolgen."
   },
   "fr": {
     "%1 B/s": "%1 o/s",
@@ -5828,7 +5852,13 @@ var qml = {
     "Low battery warning": "Avertissement de batterie faible",
     "Critical battery warning": "Avertissement de batterie critique",
     "Notify when the battery drops to this level.": "Notifier lorsque la batterie descend à ce niveau.",
-    "Send an urgent alert when the battery drops to this level.": "Envoyer une alerte urgente lorsque la batterie descend à ce niveau."
+    "Send an urgent alert when the battery drops to this level.": "Envoyer une alerte urgente lorsque la batterie descend à ce niveau.",
+    "Ahead of pace": "Au-dessus du rythme prévu",
+    "Behind pace": "En dessous du rythme prévu",
+    "Full in about {hours} h": "Limite dans environ {hours} h",
+    "Full in about {minutes} min": "Limite dans environ {minutes} min",
+    "On pace": "Au rythme prévu",
+    "Track AI assistant usage limits and reset times.": "Suivez les limites d’utilisation des assistants IA et leurs heures de réinitialisation."
   },
   "ja": {
     "%1 B/s": "%1 B/s",
@@ -6987,7 +7017,13 @@ var qml = {
     "Low battery warning": "バッテリー低下の警告",
     "Critical battery warning": "バッテリー残量低下（重大）の警告",
     "Notify when the battery drops to this level.": "バッテリーがこの残量に達したときに通知します。",
-    "Send an urgent alert when the battery drops to this level.": "バッテリーがこの残量に達したときに緊急アラートを送信します。"
+    "Send an urgent alert when the battery drops to this level.": "バッテリーがこの残量に達したときに緊急アラートを送信します。",
+    "Ahead of pace": "基準より速い",
+    "Behind pace": "基準より遅い",
+    "Full in about {hours} h": "約 {hours} 時間で上限",
+    "Full in about {minutes} min": "約 {minutes} 分で上限",
+    "On pace": "基準どおり",
+    "Track AI assistant usage limits and reset times.": "AI アシスタントの使用上限とリセット時刻を確認します。"
   },
   "zh_CN": {
     "%1 B/s": "%1 B/s",
@@ -8146,7 +8182,13 @@ var qml = {
     "Low battery warning": "低电量警告",
     "Critical battery warning": "极低电量警告",
     "Notify when the battery drops to this level.": "当电池电量降至此水平时发出通知。",
-    "Send an urgent alert when the battery drops to this level.": "当电池电量降至此水平时发送紧急警报。"
+    "Send an urgent alert when the battery drops to this level.": "当电池电量降至此水平时发送紧急警报。",
+    "Ahead of pace": "快于均匀用量",
+    "Behind pace": "慢于均匀用量",
+    "Full in about {hours} h": "约 {hours} 小时后达到上限",
+    "Full in about {minutes} min": "约 {minutes} 分钟后达到上限",
+    "On pace": "接近均匀用量",
+    "Track AI assistant usage limits and reset times.": "查看 AI 助手的用量上限和重置时间。"
   },
   "ko": {
     "%1 B/s": "%1 B/s",
@@ -9305,6 +9347,12 @@ var qml = {
     "Low battery warning": "배터리 부족 경고",
     "Critical battery warning": "치명적인 배터리 부족 경고",
     "Notify when the battery drops to this level.": "배터리가 이 수준으로 떨어지면 알립니다.",
-    "Send an urgent alert when the battery drops to this level.": "배터리가 이 수준으로 떨어지면 긴급 경고를 보냅니다."
+    "Send an urgent alert when the battery drops to this level.": "배터리가 이 수준으로 떨어지면 긴급 경고를 보냅니다.",
+    "Ahead of pace": "기준보다 빠름",
+    "Behind pace": "기준보다 느림",
+    "Full in about {hours} h": "약 {hours}시간 후 한도 도달",
+    "Full in about {minutes} min": "약 {minutes}분 후 한도 도달",
+    "On pace": "기준 속도",
+    "Track AI assistant usage limits and reset times.": "AI 어시스턴트의 사용 한도와 초기화 시간을 확인합니다."
   }
 };

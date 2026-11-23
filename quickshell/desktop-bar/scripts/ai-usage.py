@@ -227,11 +227,14 @@ def codex_usage(environment=None):
                 window = bucket.get(key)
                 if not window or window.get("usedPercent") is None:
                     continue
-                minutes = window.get("windowDurationMins", 0)
+                minutes = window.get("windowDurationMins") or 0
                 label = "Weekly" if minutes == 10080 else f"{minutes // 60}h window" if minutes else "Usage"
                 if len(buckets) > 1:
                     label = f"{bucket_id} · {label}"
-                windows.append({"label": label, "used": window["usedPercent"], "reset": window.get("resetsAt")})
+                limit = {"label": label, "used": window["usedPercent"], "reset": window.get("resetsAt")}
+                if minutes > 0:
+                    limit["durationSeconds"] = minutes * 60
+                windows.append(limit)
         plan = next((bucket.get("planType") for bucket in buckets.values() if bucket.get("planType")), None)
         return {"name": "Codex", "windows": windows, "plan": plan}
     finally:

@@ -31,9 +31,10 @@ class BundledWeatherTests(unittest.TestCase):
 
     def test_default_migrates_once_remove_and_reinstall(self):
         self.manager.ensure_bundled()
-        self.assertEqual(set(self.manager.records()), {'weather'})
+        self.assertEqual(set(self.manager.records()), {'weather', 'ai-usage'})
+        self.manager.remove('ai-usage', lambda record: True)
         self.assertEqual(next(entry for entry in self.manager.ui() if entry['kind'] == 'barItems')['slot'], 'clockEnd')
-        self.assertEqual(self.manager.placements()['barItems'], [{'plugin': 'weather', 'id': 'weather'}])
+        self.assertIn({'plugin': 'weather', 'id': 'weather'}, self.manager.placements()['barItems'])
         installed = self.manager.installed()[0]
         self.assertTrue(installed['official'])
         self.assertTrue(installed['builtin'])
@@ -45,7 +46,7 @@ class BundledWeatherTests(unittest.TestCase):
         self.assertEqual(self.manager.ui(), [])
         self.assertEqual(self.manager.bundled_catalog()[0]['id'], 'weather')
         self.manager.install_bundled('weather')
-        self.assertEqual(len(self.manager.placements()['barItems']), 1)
+        self.assertEqual(len(self.manager.placements()['barItems']), 2)
         self.assertEqual(len(self.manager.ui()), 2)
 
     def test_override_survives_repeated_placement_and_package_migration(self):
@@ -54,13 +55,14 @@ class BundledWeatherTests(unittest.TestCase):
             self.manager.place('weather', 'weather', slot=slot)
             self.manager.place('weather', 'weather')
             self.manager.ensure_bundled()
-            self.assertEqual(self.manager.placements()['barItems'][0]['slot'], slot)
+            self.assertEqual(next(entry['slot'] for entry in self.manager.placements()['barItems'] if entry['plugin'] == 'weather'), slot)
         for slot in ('unknown', 1, [], {}):
             with self.subTest(slot=slot), self.assertRaises(ValueError):
                 self.manager.place('weather', 'weather', slot=slot)
 
     def test_disabled_default_stays_disabled(self):
         self.manager.ensure_bundled()
+        self.manager.remove('ai-usage', lambda record: True)
         self.manager.set_enabled('weather', False)
         self.manager.ensure_bundled()
         self.assertEqual(self.manager.ui(), [])
@@ -87,11 +89,32 @@ class BundledWeatherTests(unittest.TestCase):
             store.plugins('remove', {'kind': 'plugins', 'id': 'weather'})
             with patch.object(self.manager, 'catalog', side_effect=OSError('offline')):
                 rows = store.plugins('index', {'kind': 'plugins'})['items']
-            self.assertEqual([entry['id'] for entry in rows], ['weather'])
+            self.assertEqual([entry['id'] for entry in rows], ['weather', 'ai-usage'])
             self.assertTrue(rows[0]['previewUrl'].startswith('file:'))
             self.assertEqual(store.plugins('prepare', {'kind': 'plugins', 'id': 'weather'}), {'bundled': True})
             self.assertTrue(store.plugins('install', {'kind': 'plugins', 'ids': ['weather']})['result'])
-            self.assertEqual(len(self.manager.ui()), 2)
+            self.assertEqual(len(self.manager.ui()), 4)
+
+    def test_ai_usage_upgrade_preserves_removed_weather_and_can_reinstall(self):
+        import eitr_store_backends as store
+        marker = Path(os.environ['XDG_STATE_HOME']) / 'eitr/bundled-plugins.json'
+        marker.parent.mkdir(parents=True)
+        marker.write_text('{"version": 1}')
+        self.manager.ensure_bundled()
+        self.assertEqual(set(self.manager.records()), {'ai-usage'})
+        self.assertEqual({(entry['kind'], entry['id']) for entry in self.manager.ui()},
+                         {('barItems', 'usage'), ('panels', 'limits')})
+        self.manager.set_enabled('ai-usage', False)
+        self.manager.ensure_bundled()
+        self.assertEqual(self.manager.ui(), [])
+        with patch.object(store, '_PLUGIN_BACKEND', self.manager):
+            store.plugins('remove', {'kind': 'plugins', 'id': 'ai-usage'})
+            self.manager.ensure_bundled()
+            self.assertEqual(self.manager.records(), {})
+            self.assertEqual(store.plugins('prepare', {'kind': 'plugins', 'id': 'ai-usage'}), {'bundled': True})
+            self.assertTrue(store.plugins('install', {'kind': 'plugins', 'ids': ['ai-usage']})['result'])
+        self.assertEqual(self.manager.placements()['barItems'], [{'plugin': 'ai-usage', 'id': 'usage'}])
+        self.assertEqual(len(self.manager.ui()), 2)
 
     def test_package_stage_contains_bundled_source_and_helpers(self):
         import importlib.util
@@ -117,4 +140,4 @@ class BundledWeatherTests(unittest.TestCase):
             self.assertIn('weather', self.manager.records())
             self.manager.remove('weather', lambda record: True)
             runpy.run_path(str(migration))
-            self.assertEqual(self.manager.records(), {})
+            self.assertEqual(set(self.manager.records()), {'ai-usage'})

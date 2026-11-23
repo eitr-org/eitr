@@ -55,6 +55,19 @@
                 if (pages.entries.filter(entry => !entry.plugin).map(entry => entry.id).join() !== dashboard.pages.join()) throw new Error("Optional rail order wrong");
                 dashboard.player = null; bar.obsMenu = {obsState:{}};
                 dashboard.go("home", 1);
+                const entries = Bar.PluginRegistry.entries;
+                const usage = {kind:"panels", plugin:"ai-usage", id:"limits", bundled:true, disabled:false};
+                if (dashboard.pages.includes("ai")) throw new Error("AI Usage appeared without its plugin");
+                Bar.PluginRegistry.entries = entries.concat([usage]);
+                dashboard.openPlugin("ai-usage", "limits");
+                if (dashboard.page !== "ai" || !dashboard.pages.includes("ai") || dashboard.pluginEntry)
+                    throw new Error("AI Usage did not open in its native Drop slot");
+                Bar.PluginRegistry.entries = entries;
+                if (dashboard.page !== "home" || dashboard.pages.includes("ai"))
+                    throw new Error("Removing AI Usage left its Drop page open");
+                Bar.PluginRegistry.entries = entries.concat([usage]);
+                if (!dashboard.pages.includes("ai")) throw new Error("Reinstalling AI Usage did not restore its Drop page");
+                Bar.PluginRegistry.entries = entries;
             }
             TestEvent { id: pointer }
             Component.onCompleted: {

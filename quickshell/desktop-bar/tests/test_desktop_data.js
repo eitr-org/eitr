@@ -268,7 +268,7 @@ assert.equal(cityReply, 'broker-unavailable');
 const weatherMenu = fs.readFileSync(path.join(bar, 'panels/WeatherMenu.qml'), 'utf8');
 const aiMenu = fs.readFileSync(path.join(bar, 'panels/AiUsageMenu.qml'), 'utf8');
 assert.doesNotMatch(weatherMenu, /\bProcess\s*\{/);
-assert.doesNotMatch(aiMenu, /\b(?:Process|Timer)\s*\{/);
+assert.doesNotMatch(aiMenu, /\bProcess\s*\{/);
 assert.match(aiMenu, /if \(opened\)[\s\S]*DesktopData.observe\("ai.usage", menu\)/);
 console.log('weather request ownership and AI open-only demand passed');
 
@@ -323,7 +323,7 @@ function lifetimeContext(relative, values, functions = []) {
         vm.runInContext('function ' + name + '(' + signature[1] + ') {' +
             lifetimeBody(source, signature[0]) + '}', context);
     }
-    return {context, source, run(marker) { vm.runInContext(lifetimeBody(source, marker), context); }};
+    return {context, source, run(marker) { vm.runInContext("(function() {" + lifetimeBody(source, marker) + "})()", context); }};
 }
 {
     let epoch = 0;
@@ -359,7 +359,7 @@ function lifetimeContext(relative, values, functions = []) {
         const owner = {};
         const panel = lifetimeContext('panels/' + name + '.qml', {
             DesktopData: facade, PowerService: power, DisplayService: display.context, PluginRegistry: {weatherEnabled:true},
-            menu: owner, center: owner, opened: false, visible: true,
+            menu: owner, center: owner, opened: false, visible: true, pluginAvailable: true, nowSeconds: 0,
             powerTokens: [], powerActionId: '', networkToken: '', accountToken: '', detailsToken: '', latencyToken: '',
             defaultToken: '', hardwareToken: '', usageToken: '', optionToken: '', actionId: '', optionId: '',
             wifiControl: network, networkService: network, chatOpen: false, chatView: {reset: noop},

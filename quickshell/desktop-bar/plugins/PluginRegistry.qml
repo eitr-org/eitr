@@ -156,6 +156,7 @@ QtObject {
     readonly property var clockBarItems: slotItems("clock")
     readonly property var barItems: slotItems("status")
     readonly property bool weatherEnabled: entries.some(entry => entry.plugin === "weather" && !entry.disabled && (entry.capabilities || []).includes("weather"))
+    readonly property bool aiUsageEnabled: entries.some(entry => entry.bundled && entry.plugin === "ai-usage" && entry.kind === "panels" && entry.id === "limits" && !entry.disabled)
     function placed(kind, monitor) {
         return (placements[kind] || []).filter(placement => kind !== "widgets" || placement.monitor === monitor)
             .map(placement => {

@@ -7,6 +7,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 
+from eitr_plugin_bundled import BUNDLED_DEFAULTS
 from eitr_store_content import community, community_detail, installed_badges, artwork_preview
 
 THEMES = 'https://github.com/eitr-org/eitr-themes'
@@ -100,10 +101,12 @@ def plugins(name, args):
         return {'answer': backend.review_advice(args['token'])}
     if name == 'source':
         return backend.review_source(args['token'], args.get('path'), args.get('offset', 0))
-    if name == 'install' and args.get('ids') == ['weather']:
-        return {'result': backend.install_bundled('weather')}
+    if name == 'install':
+        ids = args.get('ids') or []
+        if len(ids) == 1 and ids[0] in BUNDLED_DEFAULTS:
+            return {'result': backend.install_bundled(ids[0])}
     if name == 'prepare':
-        if args.get('id') == 'weather' and not args.get('url') and not args.get('updating'):
+        if args.get('id') in BUNDLED_DEFAULTS and not args.get('url') and not args.get('updating'):
             return {'bundled': True}
         if args.get('url'):
             review = backend.prepare_review(args['url'], plugin_id=args.get('id'))
@@ -158,7 +161,7 @@ def plugins(name, args):
         rows = backend.catalog(PLUGINS)
     except (OSError, ValueError, subprocess.SubprocessError):
         rows = []
-    rows = backend.bundled_catalog() + [row for row in rows if row['id'] != 'weather']
+    rows = backend.bundled_catalog() + [row for row in rows if row['id'] not in BUNDLED_DEFAULTS]
     save_plugin_rows(rows)
     return {'items': rows}
 

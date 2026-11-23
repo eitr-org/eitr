@@ -379,6 +379,10 @@ PanelWindow {
             togglePanel(weatherMenu);
             return;
         }
+        if (plugin === "ai-usage" && panel === "limits" && PluginRegistry.aiUsageEnabled) {
+            togglePanel(aiMenu);
+            return;
+        }
         return barPanels.openPluginPanel(plugin, panel, target);
     }
     function showControlCenter(page) { return barPanels.showControlCenter(page); }

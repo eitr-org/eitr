@@ -93,7 +93,7 @@ Column {
                 spacing: PanelStyle.selectionDetailGap
                 Text {
                     width: parent.width
-                    text: pluginRow.modelData.name + (pluginRow.modelData.updateCount > 0 ? " · ↑" : "")
+                    text: (pluginRow.modelData.builtin ? Eitr.I18n.tr(pluginRow.modelData.name) : pluginRow.modelData.name) + (pluginRow.modelData.updateCount > 0 ? " · ↑" : "")
                     textFormat: Text.PlainText; elide: Text.ElideRight
                     color: manager.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
                 }
@@ -117,7 +117,7 @@ Column {
                 onClicked: manager.selectedPlugin = pluginRow.modelData.id
             }
             Accessible.role: Accessible.Button
-            Accessible.name: modelData.name + (diagnostics.length ? " · " + Eitr.I18n.tr("This plugin has errors") + ": " + diagnostics[0].message : "") + (modelData.updateCount > 0 ? " · " + Eitr.I18n.tr("Update available") : "")
+            Accessible.name: (modelData.builtin ? Eitr.I18n.tr(modelData.name) : modelData.name) + (diagnostics.length ? " · " + Eitr.I18n.tr("This plugin has errors") + ": " + diagnostics[0].message : "") + (modelData.updateCount > 0 ? " · " + Eitr.I18n.tr("Update available") : "")
             Accessible.onPressAction: manager.selectedPlugin = modelData.id
             activeFocusOnTab: true
             Keys.onReturnPressed: manager.selectedPlugin = modelData.id
