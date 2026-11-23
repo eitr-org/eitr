@@ -76,7 +76,7 @@ def dynamic_switch_fixture():
     fixture=layout_fixture('dynamic').split('            Bar.DockPanel {',1)[0]
     fixture=fixture.replace('GEOMETRY',geometry).replace('RESERVED',reserved).replace('EDGE','"top"').replace('LIGHT','false').replace('WEBSITE','false')
     fixture=fixture.replace('property alias dynamicSurfaces: dynamic','property var dynamicSurfaces: dynamicLoader.item')
-    fixture=fixture.replace('ATTACHED', 'false')
+    fixture=fixture.replace('dynamic.middleIsland.expanded','(dynamicLoader.item && dynamicLoader.item.middleIsland.expanded)').replace('dynamic.weatherReveal','(dynamicLoader.item ? dynamicLoader.item.weatherReveal : 0)')
     fixture=fixture.replace('Bar.BarDynamic { id: dynamic; host: shell; barHost: bar }','Loader { id: dynamicLoader; anchors.fill: parent; z: 1; active: false; sourceComponent: Bar.BarDynamic { host: shell; barHost: bar } }')
     fixture+='''
                 Timer {

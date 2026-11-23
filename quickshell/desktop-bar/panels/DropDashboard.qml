@@ -98,7 +98,27 @@ ThemedPopup {
         pendingDay = day;
         show("home");
     }
-    onOpenedChanged: { pluginEntry = null; pluginHistory = []; if (opened) { page = startPage; startPage = "home"; otherPage = ""; slide.stop(); shift = 0; home.monthOffset = 0; home.selectedDay = null; home.weatherOpen = false; if (pendingDay) { home.selectedDay = pendingDay; pendingDay = null; } } }
+    property bool pendingWeather: false
+    function showWeather() {
+        if (opened) { show("home"); home.selectedDay = null; home.weatherOpen = true; return; }
+        pendingWeather = true;
+        show("home");
+    }
+    onOpenedChanged: {
+        pluginEntry = null;
+        pluginHistory = [];
+        if (!opened) return;
+        page = startPage;
+        startPage = "home";
+        otherPage = "";
+        slide.stop();
+        shift = 0;
+        home.monthOffset = 0;
+        home.selectedDay = pendingDay;
+        home.weatherOpen = pendingWeather && home.weatherEnabled;
+        pendingDay = null;
+        pendingWeather = false;
+    }
     onPagesChanged: if (pages.indexOf(page) < 0) page = "home"
 
     function neighbour(direction) {

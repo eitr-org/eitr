@@ -65,7 +65,6 @@ ShellRoot {
             property bool expanded: true
             property bool statusOpen: true
             property bool islandsLayout: false
-            property bool attachedIslands: ATTACHED
             property var screen: ({height: 1920})
             function toggleControlCenter() { control.visible = !control.visible; }
             function toggleOverview() { overviewOpen = !overviewOpen; }
@@ -73,7 +72,7 @@ ShellRoot {
             property bool dropLayout: false
             property real normalThickness: 30
             property real islandGap: 6
-            property real edgeGap: attachedIslands ? 0 : islandGap
+            property real edgeGap: islandGap
             property bool floatingIslands: dynamicLayout
             property bool centeredLayout: false
             property real thinThickness: normalThickness
@@ -111,10 +110,7 @@ ShellRoot {
             QtObject { id: ai; property bool visible: false; property bool opened: false; property real width: 1200; property real height: 1200; property var attachmentTarget: null; property var morphAnchor: null }
             QtObject { id: hardware; property bool visible: false }
             QtObject { id: workspaces; property bool visible: false }
-            QtObject { id: calendar
-                property var reminders: [{id: "one", text: "Reminder", due: new Date(2026, 11, 29, 10).getTime() / 1000}]
-                property var events: [{key: "two", title: "Event", allDay: true, date: "2027-01-01", endDate: "2027-01-02"}]
-                property bool visible: false; property bool opened: false; property real width: 520; property real height: 400; property var attachmentTarget: null; property var morphAnchor: null }
+            QtObject { id: calendar; property bool visible: false; property bool opened: false; property real width: 520; property real height: 400; property var attachmentTarget: null; property var morphAnchor: null }
             QtObject { id: mediaPanel; property bool visible: false }
             QtObject { id: recordingPanel; property bool visible: false }
             QtObject { id: weatherPanel; property bool visible: false }
@@ -137,14 +133,14 @@ ShellRoot {
                         Bar.BarLeftGroup { id: left; host: shell; barWindow: bar; styleMenu: workspaces; aiPanel: ai; hardwarePanel: hardware; Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter }
                     }
                     Item { id: center; anchors.fill: parent
-                        Bar.ClockButton { id: clock; now: new Date(2026, 11, 30, 13, 45); host: shell; anchors.alignWhenCentered: false; anchors.centerIn: parent }
+                        Bar.ClockButton { id: clock; host: shell; anchors.alignWhenCentered: false; anchors.centerIn: parent }
                         Item { id: clockPlugin; anchors.right: clock.left; anchors.rightMargin: 6; anchors.verticalCenter: clock.verticalCenter
-                            width: 0; height: 24; clip: true
+                            width: dynamic.middleIsland.expanded ? 160 : 0; height: 24; clip: true
                             Text { anchors.centerIn: parent; text: "LIS 14:05"; color: shell.fg; font.pixelSize: 12 }
                         }
                         Slot { id: capture; property bool shown: true; label: "󰑋"; anchors.right: clockPlugin.width > 0 ? clockPlugin.left : clock.left; anchors.rightMargin: 6; anchors.verticalCenter: parent.verticalCenter }
                         Slot { id: media; property real availableWidth: 160; property var player: ({}); property bool present: true; label: "󰐊"; anchors.right: capture.left; anchors.rightMargin: 12; anchors.verticalCenter: parent.verticalCenter }
-                        Item { anchors.left: clock.right; anchors.verticalCenter: parent.verticalCenter; width: 0; height: 24; clip: true
+                        Item { anchors.left: clock.right; anchors.verticalCenter: parent.verticalCenter; width: dynamic.weatherReveal; height: 24; clip: true
                             Slot { id: weather; width: 65; label: "󰖙 24°"; x: 4 }
                         }
                     }
@@ -161,14 +157,14 @@ ShellRoot {
                         Repeater { model: ["󰕮", "ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "", "󰍛", "󰒲"]; Slot { required property string modelData; label: modelData } }
                     }
                     Item { id: centerVertical; anchors.centerIn: parent; width: parent.width; height: 40
-                        Bar.ClockButton { id: clockVertical; now: new Date(2026, 11, 30, 13, 45); host: shell; compact: true; anchors.alignWhenCentered: false; anchors.centerIn: parent }
+                        Bar.ClockButton { id: clockVertical; host: shell; compact: true; anchors.alignWhenCentered: false; anchors.centerIn: parent }
                         Item { id: clockPluginVertical; anchors.bottom: clockVertical.top; anchors.bottomMargin: 3; anchors.horizontalCenter: clockVertical.horizontalCenter
-                            width: 24; height: 0; clip: true
+                            width: 24; height: dynamic.middleIsland.expanded ? 160 : 0; clip: true
                             Text { anchors.centerIn: parent; rotation: 90; text: "LIS 14:05"; color: shell.fg; font.pixelSize: 12 }
                         }
                         Slot { id: captureVertical; property bool shown: true; label: "󰑋"; anchors.bottom: clockPluginVertical.height > 0 ? clockPluginVertical.top : clockVertical.top; anchors.bottomMargin: 3; anchors.horizontalCenter: parent.horizontalCenter }
                         Slot { id: mediaVertical; label: "󰐊"; anchors.bottom: captureVertical.top; anchors.bottomMargin: 3; anchors.horizontalCenter: parent.horizontalCenter }
-                        Item { anchors.top: clockVertical.bottom; width: 30; height: 0; clip: true
+                        Item { anchors.top: clockVertical.bottom; width: 30; height: dynamic.weatherReveal; clip: true
                             Slot { id: weatherVertical; label: "󰖙"; y: 4 }
                         }
                     }
@@ -209,14 +205,10 @@ ShellRoot {
                 if (!(dynamic.leadingIsland[along] < dynamic.mediaIsland[along] && dynamic.mediaIsland[along] < dynamic.middleIsland[along])) throw new Error("The media island must sit between the logo and the clock");
                 if (!inside(captureItem, dynamic.middleIsland)) throw new Error("Capture belongs to the clock island");
                 if (!panel.detached || !panel.centeredPlacement) throw new Error("Panels must open at the centre");
-                if (!clockItem.timeOnly) throw new Error("Pill clock must stay time-only");
-                if (bar.stage === 2 || bar.stage === 8) {
-                    if (!middle.hoverCard || (shell.verticalBar ? middle.width : middle.height) <= 30) throw new Error("Clock card did not grow inward");
-                    if (bar.stage === 2 && middle.hoverCard.week.map(entry => entry.plans).filter(Boolean).length !== 2) throw new Error("Clock card missed plan dots");
-                }
+                if (clockItem.timeOnly === dynamic.middleIsland.expanded) throw new Error("Clock shows only the time at rest and everything when expanded");
                 if (panel.x < 0 || panel.y < 0 || panel.x + panel.width > bar.width || panel.y + panel.height > bar.height)
                     throw new Error("Panel outside screen");
-                if (reservedThickness !== (attachedIslands ? 30 : 36)) throw new Error("Reserved depth changed");
+                if (reservedThickness !== 36) throw new Error("Reserved depth changed");
                 if (mask.regions.length !== 4) throw new Error("Mask is not the four islands (logo, media, clock, status)");
                 let end = 0;
                 for (let index = 0; index < 3; index++) {
@@ -225,13 +217,13 @@ ShellRoot {
                     const extent = shell.verticalBar ? island.height : island.width;
                     if (index && Math.abs(start - end - dynamic.spacing) > 0.01) throw new Error("Islands are not together at the centre: " + (start - end));
                     if (mask.regions[index].item !== island) throw new Error("Mask does not follow surface");
-                    if (!(island === middle && middle.hoverCard) && (shell.verticalBar ? island.width : island.height) !== 30) throw new Error("Expansion changed depth");
+                    if ((shell.verticalBar ? island.width : island.height) !== 30) throw new Error("Expansion changed depth");
                     end = start + extent;
                 }
             }
             function advance() {
                         if (bar.stage === 0) dynamic.leadingIsland.hoverExpanded = true;
-                        else if (bar.stage === 1) { dynamic.leadingIsland.hoverExpanded = false; dynamic.middleIsland.hoverExpanded = true; clock.now = new Date(2026, 11, 30, 13, 45); clockVertical.now = clock.now; }
+                        else if (bar.stage === 1) { dynamic.leadingIsland.hoverExpanded = false; dynamic.middleIsland.hoverExpanded = true; }
                         else if (bar.stage === 2) { dynamic.middleIsland.hoverExpanded = false; dynamic.trailingIsland.hoverExpanded = true; }
                         else if (bar.stage === 3) { dynamic.trailingIsland.hoverExpanded = false; ai.visible = true; }
                         else if (bar.stage === 4) {
@@ -248,7 +240,7 @@ ShellRoot {
                             shell.barPointerHeld = false; Bar.DesktopStyle.reduceMotion = true;
                             dynamic.middleIsland.hoverExpanded = true;
                         } else if (bar.stage === 8) {
-                            if (dynamic.middleIsland.extent !== dynamic.middleIsland.targetExtent) throw new Error("Reduced motion failed");
+                            if (dynamic.middleIsland.extent !== dynamic.middleIsland.fullExtent) throw new Error("Reduced motion failed");
                             dynamic.middleIsland.hoverExpanded = false;
                             dynamic.trackPointer(true, Qt.point(dynamic.leadingIsland.x + 10, dynamic.leadingIsland.y + 10));
                         } else if (bar.stage === 9) {

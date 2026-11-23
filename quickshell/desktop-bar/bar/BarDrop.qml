@@ -42,7 +42,7 @@ Item {
         : !vertical && showingLyrics ? activity.lyricsExtent : clockExtent + 8 + activity.leadingSpace + activity.trailingSpace
     // Eased like the pill's length, so the side that is not growing holds still.
     // The open dashboard's card is centred, so it takes no shift.
-    property real shift: pill.morphed || momentActive ? 0 : (activity.trailingSpace - activity.leadingSpace) / 2
+    property real shift: pill.morphTarget || momentActive ? 0 : (activity.trailingSpace - activity.leadingSpace) / 2
     Behavior on shift { enabled: pill.eased; NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     readonly property real timeOffset: drop.length / 2 - (vertical ? pill.y + pill.height / 2 : pill.x + pill.width / 2)
     // The first 40% of the reveal is the fall out of the edge, the rest the swell.
@@ -87,6 +87,56 @@ Item {
         }
     }
     onRevealChanged: if (retracting && (reveal <= 0 || (reveal >= 1 && !activeCard && barHost.autoHideRef.shown))) cardExtent = 0
+    readonly property bool clockCardOpen: clockCard.opened
+    readonly property bool canGlance: visible && holding && reveal >= 1 && barHost.autoHideRef.shown
+        && !openPanel() && !(carousel && carousel.requested) && !momentActive && !showingLyrics
+        && !host.barPointerHeld && !activity.gesturePressed
+        && !(barHost.clockActivity.alerting || barHost.clockActivity.flash > 0)
+    onCanGlanceChanged: if (!canGlance) pill.hoverExpanded = false
+
+    // The card extends past the narrow strip and shares the pill’s input region.
+    HoverHandler { id: pointer; parent: barHost.contentItem }
+    readonly property point pillOrigin: {
+        const strip = drop.parent;
+        const geometry = pill.x + pill.y + strip.x + strip.y;
+        return pill.mapToItem(barHost.contentItem, 0, 0);
+    }
+    readonly property bool pointerInsidePill: pointerOverPill()
+    // Let a geometry change settle before it feeds back into hover and the morph.
+    onPointerInsidePillChanged: updateHover.restart()
+    Timer { id: updateHover; interval: 0; onTriggered: pill.hovered = drop.pointerInsidePill }
+    function pointerOverPill() {
+        if (!canGlance || !pointer.hovered) return false;
+        const local = Qt.point(pointer.point.position.x - pillOrigin.x, pointer.point.position.y - pillOrigin.y);
+        if (!pill.contains(local)) return false;
+        if (clockCardOpen || (!activity.leadingSpace && !activity.trailingSpace)) return true;
+        // Keep the activity glyphs reachable, including the note's drag handle.
+        const along = vertical ? local.y : local.x;
+        return Math.abs(along - (pill.extent / 2 + timeOffset)) <= clockExtent / 2 + 4;
+    }
+    Item {
+        parent: barHost.contentItem
+        x: drop.pillOrigin.x; y: drop.pillOrigin.y
+        width: pill.width; height: pill.height
+        z: 2
+        clip: true
+        visible: clockCard.opened
+        DynamicClockCard {
+            id: clockCard
+            anchors.centerIn: parent
+            host: drop.host
+            clock: drop.clock
+            calendar: barHost.calendarMenu
+            width: Math.min(preferredWidth, Math.max(1, barHost.width - 2 * barHost.edgeGap))
+            height: Math.min(preferredHeight, Math.max(1, barHost.height - 2 * barHost.edgeGap))
+            readonly property real across: drop.vertical ? width : height
+            opened: drop.canGlance && pill.hoverExpanded
+            opacity: opened ? Math.max(0, Math.min(1, (pill.depth / across - 0.55) / 0.45)) : 0
+            onDashboardRequested: barHost.togglePanel(barHost.panel("dashboard"))
+            onControlsRequested: barHost.panel("dashboard").show("controls")
+            onWeatherRequested: barHost.panel("dashboard").showWeather()
+        }
+    }
     function islandFor(panel) { return panel === barHost.dropDashboard || panel === carousel ? pill : null; }
     function openPanel() {
         const dashboard = barHost.dropDashboard;
@@ -110,6 +160,7 @@ Item {
         eased: drop.reveal >= 1
         visible: drop.reveal > 0
         panel: drop.openPanel()
+        hoverCard: drop.clockCardOpen ? clockCard : null
         x: vertical ? depthOffset : (drop.length - width) / 2 + drop.shift
         y: vertical ? (drop.length - height) / 2 + drop.shift : depthOffset
         // Falls out of the bar's edge: before the fall it sits just beyond the screen.
@@ -165,7 +216,7 @@ Item {
         y: vertical ? (drop.height - height) / 2 : (pill.farEdge ? drop.height - height : 0)
     }
     // Only the time shows: workspaces, status, media, capture and weather stay hidden
-    // until the glance strip brings them back.
+    // while the pill is at rest.
     states: [
         State {
             name: "horizontal"; when: drop.holding && !drop.vertical

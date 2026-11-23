@@ -1,6 +1,6 @@
 .pragma library
 
-function hostsCarousel(mode, edge, dynamicLayout, dropLayout, barOnScreen) {
+function hostsCarousel(mode, edge, dropLayout, barOnScreen) {
     return (mode === "wallpaper" || mode.startsWith("theme"))
-        && (edge === "top" || edge === "bottom") && (dynamicLayout || dropLayout) && barOnScreen;
+        && (edge === "top" || edge === "bottom") && dropLayout && barOnScreen;
 }

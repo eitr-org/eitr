@@ -4,7 +4,7 @@ Ces commandes sont également disponibles directement dans les paramètres.
 
 Les paramètres (**SUPER + ,**) incluent les réglages d’apparence ; **Plus de thèmes** ouvre le catalogue séparé des Eitr Store (**SUPER + F2**).
 
-Avec une barre Dynamique ou Goutte en haut ou en bas, les carrousels de thèmes et de fonds d’écran se déploient depuis l’horloge et s’y replient à la fermeture. Si Goutte est masquée automatiquement, la pastille apparaît d’abord puis se rétracte après la fermeture. Les barres latérales et les écrans sans barre utilisent la superposition du bureau.
+Avec Goutte en haut ou en bas, les carrousels de thèmes et de fonds d’écran se déploient depuis la pastille en une bande compacte avec les filtres dans l’en-tête, une rangée d’aperçus et le nom sélectionné en dessous. Avec le masquage automatique, la pastille apparaît d’abord puis se rétracte à la fermeture. Les autres dispositions, les barres latérales et les écrans sans barre utilisent la superposition du bureau.
 
 ## Disposition des fenêtres
 

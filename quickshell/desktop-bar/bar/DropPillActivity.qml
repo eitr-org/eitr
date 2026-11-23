@@ -41,6 +41,7 @@ Item {
         + (checkingUpdates || updatesFound ? 1 : 0)) * slot
     // Lyrics across the pill, one line at a time, while opened by dragging the note right.
     property bool lyricsOpen: false
+    readonly property bool gesturePressed: noteDrag.pressed || lyricDrag.pressed
     // Pausing or changing song keeps them; only the player going away closes them (the media
     // strip's presence already bridges the gap between songs).
     readonly property bool present: !!(barHost.mediaStrip && barHost.mediaStrip.present)
@@ -125,6 +126,7 @@ Item {
                 visible: activity.playing
                 text: "󰝚"
                 MouseArea {
+                    id: noteDrag
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     property real pressX: 0
@@ -172,6 +174,7 @@ Item {
             host: activity.host; player: activity.player; active: activity.lyricsOpen
         }
         MouseArea {
+            id: lyricDrag
             anchors.fill: parent
             cursorShape: Qt.PointingHandCursor
             property real pressX: 0

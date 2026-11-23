@@ -11,9 +11,6 @@ SettingsAppearanceModel {
     id: picker
     property bool docked: false
     property Item dockedContent: null
-    // Docked, the preview starts under the filters (dockedTop) and the name sits below it.
-    readonly property real dockedTop: 130
-    readonly property real dockedBottom: 76
     // Theme previews keep their 16:9 aspect on every screen shape; wallpapers stay landscape.
     readonly property real themeAspect: 16 / 9
     function wallpaperPreviewWidth(width) { return Math.min(768, width * 0.55); }
@@ -21,8 +18,6 @@ SettingsAppearanceModel {
         return mode === "wallpaper" ? Math.min(475, heightLimit, wallpaperPreviewWidth(width) * 0.62)
             : Math.min(560, heightLimit, width * 0.68 / themeAspect);
     }
-    // The docked card's height when nothing but the screen limits it.
-    function dockedHeight(width) { return dockedTop + previewHeightFor(width, Infinity) + dockedBottom; }
     onDockedContentChanged: Qt.callLater(function() {
         if (opened && contentLoader.item) contentLoader.item.forceActiveFocus();
     })
@@ -94,14 +89,20 @@ SettingsAppearanceModel {
             onLoaded: { retained = true; item.forceActiveFocus(); }
             sourceComponent: Item {
                 id: content
+                clip: picker.docked
                 anchors.fill: parent
                 focus: true
-                readonly property real previewWidth: picker.mode !== "wallpaper" ? previewHeight * picker.themeAspect : picker.wallpaperPreviewWidth(width)
-                readonly property real previewHeightLimit: picker.docked ? Math.max(24, height - picker.dockedTop - picker.dockedBottom) : height * 0.58
-                readonly property real previewHeight: picker.previewHeightFor(width, previewHeightLimit)
-                readonly property real headerSpace: picker.docked ? 78 : 0
-                readonly property real previewTop: picker.docked ? picker.dockedTop : (height - previewHeight) / 2 - 24
-                readonly property real sliceWidth: Math.min(108, width * 0.08)
+                readonly property real headerHeight: PanelStyle.selectionRowHeight + 28
+                readonly property real captionHeight: 38
+                readonly property real previewHeightLimit: picker.docked ? Math.max(0, height - headerHeight - captionHeight) : height * 0.58
+                readonly property real dockedPreviewWidth: Math.min(280, width * 0.56)
+                readonly property real dockedAspect: picker.themeMode ? picker.themeAspect : 1.8
+                readonly property real previewWidth: picker.docked ? previewHeight * dockedAspect
+                    : picker.mode !== "wallpaper" ? previewHeight * picker.themeAspect : picker.wallpaperPreviewWidth(width)
+                readonly property real previewHeight: picker.docked ? Math.min(previewHeightLimit, dockedPreviewWidth / dockedAspect)
+                    : picker.previewHeightFor(width, previewHeightLimit)
+                readonly property real previewTop: picker.docked ? headerHeight + (previewHeightLimit - previewHeight) / 2 : (height - previewHeight) / 2 - 24
+                readonly property real sliceWidth: picker.docked ? Math.min(52, width * 0.08) : Math.min(108, width * 0.08)
                 readonly property real step: sliceWidth * 0.74
                 Keys.onPressed: function(event) {
                     if (event.key === Qt.Key_Escape) {
@@ -121,16 +122,33 @@ SettingsAppearanceModel {
                     else return;
                     event.accepted = true;
                 }
+                Text {
+                    id: modeIcon
+                    visible: picker.docked
+                    x: PanelStyle.padding
+                    y: (content.headerHeight - height) / 2
+                    text: picker.themeMode ? "󰸌" : "󰋩"
+                    color: picker.accent
+                    font.family: DesktopFonts.family
+                    font.pixelSize: PanelStyle.headingSize
+                }
                 PanelHeading {
-                    x: PanelStyle.padding; y: PanelStyle.padding
-                    width: parent.width - 2 * PanelStyle.padding
-                    text: picker.mode === "wallpaper" ? Eitr.I18n.tr("Wallpaper") : picker.mode === "font" ? Eitr.I18n.tr("Fonts") : Eitr.I18n.tr("Theme")
+                    objectName: "appearanceHeading"
+                    x: picker.docked ? modeIcon.x + modeIcon.width + 8 : PanelStyle.padding
+                    seal: !picker.docked
+                    y: picker.docked ? (content.headerHeight - height) / 2 : PanelStyle.padding
+                    width: picker.docked ? Math.max(0, filterFrame.x - x - 8) : parent.width - 2 * PanelStyle.padding
+                    text: picker.docked && picker.searchText ? picker.searchText : picker.mode === "wallpaper" ? Eitr.I18n.tr("Wallpaper") : picker.mode === "font" ? Eitr.I18n.tr("Fonts") : Eitr.I18n.tr("Theme")
                     foreground: picker.foreground; accent: picker.accent; rune: "style"
                 }
                 Rectangle {
-                    anchors.horizontalCenter: parent.horizontalCenter
+                    id: filterFrame
+                    objectName: "appearanceFilters"
+                    anchors.horizontalCenter: picker.docked ? undefined : parent.horizontalCenter
+                    anchors.right: picker.docked ? parent.right : undefined
+                    anchors.rightMargin: PanelStyle.padding
                     // Just above the selected card.
-                    y: picker.docked ? content.headerSpace : Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - height)
+                    y: picker.docked ? (content.headerHeight - height) / 2 : Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - height)
                     width: filters.implicitWidth + 12
                     height: PanelStyle.selectionRowHeight + 12
                     radius: DesktopStyle.radius(PanelStyle.controlRadius)
@@ -143,7 +161,7 @@ SettingsAppearanceModel {
                         // Wallpapers: this theme's, or every installed theme's (only the picture changes).
                         ChoiceSegmented {
                             visible: picker.mode === "wallpaper"
-                            width: 240
+                            width: picker.docked ? Math.min(240, content.width * 0.52) : 240
                             foreground: picker.foreground
                             choices: [{id: "theme", label: Eitr.I18n.tr("This theme")}, {id: "all", label: Eitr.I18n.tr("All themes")}]
                             current: picker.wallpaperScope
@@ -152,7 +170,7 @@ SettingsAppearanceModel {
                         }
                         ChoiceSegmented {
                             visible: picker.themeMode
-                            width: 180
+                            width: picker.docked ? Math.min(180, content.width * 0.44) : 180
                             foreground: picker.foreground
                             choices: [{id: "theme-light", label: Eitr.I18n.tr("Light")}, {id: "theme-dark", label: Eitr.I18n.tr("Dark")}]
                             current: picker.mode
@@ -196,9 +214,9 @@ SettingsAppearanceModel {
                     }
                 }
                 Text {
-                    visible: picker.searchable && picker.searchText.length > 0
+                    visible: !picker.docked && picker.searchable && picker.searchText.length > 0
                     anchors.horizontalCenter: parent.horizontalCenter
-                    y: picker.docked ? content.headerSpace - height - 4 : Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - PanelStyle.selectionRowHeight - 12 - 40)
+                    y: Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - PanelStyle.selectionRowHeight - 12 - 40)
                     width: content.previewWidth
                     horizontalAlignment: Text.AlignHCenter
                     elide: Text.ElideLeft
@@ -212,11 +230,13 @@ SettingsAppearanceModel {
                     model: picker.items
                     delegate: Item {
                         id: tile
+                        objectName: selected ? "appearanceSelectedPreview" : ""
                         required property int index
                         required property var modelData
                         readonly property int offset: index - picker.selectedIndex
                         readonly property bool selected: offset === 0
-                        visible: Math.abs(offset) <= Math.ceil((content.width - content.previewWidth) / (2 * content.step)) + 1
+                        visible: picker.docked ? selected || Math.abs(offset) <= Math.floor((content.width - content.previewWidth - 2 * PanelStyle.padding) / (2 * content.step))
+                            : Math.abs(offset) <= Math.ceil((content.width - content.previewWidth) / (2 * content.step)) + 1
                         width: selected ? content.previewWidth : content.sliceWidth
                         height: selected ? content.previewHeight : content.previewHeight * 0.91
                         x: selected ? (content.width - content.previewWidth) / 2 : (offset < 0 ? (content.width - content.previewWidth) / 2 + offset * content.step : (content.width + content.previewWidth) / 2 - content.sliceWidth * 0.26 + (offset - 1) * content.step)
@@ -274,8 +294,9 @@ SettingsAppearanceModel {
                 // The selected picture's name (a theme, or a wallpaper without its order number).
                 Text {
                     id: selectedName
+                    objectName: "appearanceSelectedName"
                     anchors.horizontalCenter: parent.horizontalCenter
-                    y: content.previewTop + content.previewHeight + 20
+                    y: content.previewTop + content.previewHeight + (picker.docked ? 4 : 20)
                     width: content.previewWidth
                     horizontalAlignment: Text.AlignHCenter
                     elide: Text.ElideMiddle

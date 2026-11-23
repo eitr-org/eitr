@@ -32,7 +32,7 @@ assert.ok(modelSource.includes('readonly property bool searchable: themeMode || 
 context.allItems = [{name: 'Ember Vigil', theme: 'Afterglow'}, {name: 'Frost Queen', theme: 'Niflheim'}];
 search('niflheim');
 assert.deepEqual(context.items.map(item => item.name), ['Frost Queen']);
-assert.ok(source.includes('visible: picker.searchable && picker.searchText.length > 0'));
+assert.ok(source.includes('visible: !picker.docked && picker.searchable && picker.searchText.length > 0'));
 console.log('Theme carousel search checks passed');
 
 const placement = vm.createContext({});
@@ -42,8 +42,8 @@ for (const mode of ['theme', 'theme-dark', 'theme-light', 'wallpaper', 'font']) 
         for (const layout of ['dynamic', 'drop', 'islands', 'tabs', 'centered', 'full']) {
             for (const barOnScreen of [true, false]) {
                 const expected = mode !== 'font' && ['top', 'bottom'].includes(edge)
-                    && ['dynamic', 'drop'].includes(layout) && barOnScreen;
-                assert.equal(placement.hostsCarousel(mode, edge, layout === 'dynamic', layout === 'drop', barOnScreen), expected,
+                    && layout === 'drop' && barOnScreen;
+                assert.equal(placement.hostsCarousel(mode, edge, layout === 'drop', barOnScreen), expected,
                     JSON.stringify({mode, edge, layout, barOnScreen}));
             }
         }

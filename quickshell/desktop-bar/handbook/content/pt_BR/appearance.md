@@ -2,7 +2,7 @@
 
 Configurações (**SUPER + ,**) inclui os controles de Aparência; **Mais temas** abre o catálogo separado de Eitr Store (**SUPER + F2**).
 
-Com a barra no topo ou embaixo no modo Dinâmico ou Gota, os carrosséis de temas e papéis de parede se expandem a partir do relógio e voltam para ele ao fechar. Com a ocultação automática no modo Gota, a cápsula aparece primeiro e se recolhe após o fechamento. Barras laterais e telas sem barra usam a sobreposição da área de trabalho.
+Com a Gota no topo ou na base da tela, os carrosséis de temas e papéis de parede se abrem a partir da cápsula em uma faixa compacta, com filtros no cabeçalho, uma fileira de prévias e o nome selecionado abaixo. Com a ocultação automática, a cápsula aparece primeiro e se recolhe após o fechamento. Outros layouts, barras laterais e telas sem barra usam a sobreposição da área de trabalho.
 
 ## Layout das janelas
 

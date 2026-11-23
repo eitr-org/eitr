@@ -2,7 +2,7 @@
 
 Configuración (**SUPER + ,**) incluye los controles de Apariencia; **Más temas** abre el catálogo independiente de Eitr Store (**SUPER + F2**).
 
-Cuando la barra está arriba o abajo en Dinámico o Gota, los carruseles de temas y fondos crecen desde el reloj y vuelven a él al cerrarse. Si Gota se oculta automáticamente, primero aparece la cápsula y se retira al cerrar. Las barras laterales y las pantallas sin barra usan la superposición del escritorio.
+Con Gota arriba o abajo, los carruseles de temas y fondos se despliegan desde la cápsula en una franja compacta con filtros en la cabecera, una fila de vistas previas y el nombre seleccionado debajo. Con la ocultación automática, la cápsula aparece primero y se retira al cerrar. Los demás diseños, las barras laterales y las pantallas sin barra usan la superposición del escritorio.
 
 ## Distribución de ventanas
 

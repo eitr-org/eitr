@@ -7,18 +7,17 @@ Item {
     required property var barHost
     required property var picker
     readonly property bool requested: picker.opened && picker.docked && picker.targetScreen === barHost.screen
-    readonly property var island: barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland
-        : barHost.dropSurfaces ? barHost.dropSurfaces.pillSurface : null
+    readonly property var island: barHost.dropSurfaces ? barHost.dropSurfaces.pillSurface : null
     readonly property bool opened: requested && !!island && barHost.autoHideRef.progress >= 1
         && !barHost.dockPanels.some(panel => panel.visible) && !barHost.overviewOpen
     // DynamicIsland eases into this size. There is no panel reveal animation to follow.
     readonly property real revealProgress: 0
     readonly property real availableWidth: barHost.width - barHost.edgeGap * 2
-    readonly property real widthLimit: barHost.dynamicSurfaces
-        ? Math.max(Math.min(640, availableWidth), barHost.dynamicSurfaces.carouselRoom) : availableWidth
-    width: Math.min(1120, widthLimit)
-    height: Math.min(640, barHost.height - barHost.edgeGap * 2, picker.dockedHeight(width))
+    width: Math.max(0, Math.min(640, availableWidth))
+    height: Math.max(0, Math.min(260, barHost.height - barHost.edgeGap * 2))
     readonly property alias content: body
+    // The card sits on the bar's surface whatever creates it, at its own size.
+    parent: barHost.contentItem
     anchors.centerIn: parent
     // The card dimensions are also the morph target, independent of the animated island.
     anchors.horizontalCenterOffset: island ? islandOrigin.x + (island.width - parent.width) / 2 : 0

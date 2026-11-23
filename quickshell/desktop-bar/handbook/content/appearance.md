@@ -3,7 +3,7 @@
 Settings (**SUPER + ,**) includes Appearance controls; **More themes** opens
 the separate Eitr Store catalog window (**SUPER + F2**).
 
-On a top or bottom bar using Dynamic or Drop, the theme and wallpaper carousels grow out of the clock and shrink back when dismissed. With auto-hide in Drop, the pill appears first and retracts after closing. Side bars and displays without the bar use the desktop overlay.
+On a top or bottom Drop bar, theme and wallpaper carousels unfold from the time pill into a compact strip, with filters in the header, a row of previews and the selected name underneath. With auto-hide, the pill appears first and retracts after closing. Other layouts, side bars and displays without the bar use the desktop overlay.
 
 ## Window layout
 

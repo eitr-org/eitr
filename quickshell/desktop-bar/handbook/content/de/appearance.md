@@ -2,7 +2,7 @@
 
 Einstellungen (**SUPER + ,**) enthält Darstellungsoptionen; **Weitere Themes** öffnet den separaten Eitr Store (**SUPER + F2**).
 
-Bei einer oberen oder unteren Leiste im Layout Dynamisch oder Tropfen wachsen die Karussells für Designs und Hintergrundbilder aus der Uhr und ziehen sich beim Schließen wieder zurück. Mit automatischem Ausblenden erscheint bei Tropfen zuerst die Pille und zieht sich nach dem Schließen ein. Seitliche Leisten und Bildschirme ohne Leiste verwenden die Desktop-Einblendung.
+Bei einer oberen oder unteren Leiste im Layout Tropfen öffnen sich die Karussells für Designs und Hintergrundbilder als kompakter Streifen aus der Uhrpille, mit Filtern im Kopf, einer Vorschauzeile und dem ausgewählten Namen darunter. Beim automatischen Ausblenden erscheint zuerst die Pille und zieht sich nach dem Schließen zurück. Andere Layouts, seitliche Leisten und Bildschirme ohne Leiste verwenden die Desktop-Einblendung.
 
 ## Fensterlayout
 

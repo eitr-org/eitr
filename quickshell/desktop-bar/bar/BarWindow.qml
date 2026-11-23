@@ -165,12 +165,10 @@ PanelWindow {
     property var appearancePicker: null
     readonly property alias appearanceCard: appearanceHost.item
     readonly property bool appearanceOpen: !!appearanceCard && appearanceCard.requested
+    // Unsized on purpose: a sized Loader would stretch the card to the whole window.
     Loader {
         id: appearanceHost
-        parent: bar.contentItem
-        anchors.fill: parent
-        z: 20
-        active: !!bar.appearancePicker && (bar.dynamicLayout || bar.dropLayout)
+        active: !!bar.appearancePicker && bar.dropLayout
         sourceComponent: BarAppearanceCard { barHost: bar; picker: bar.appearancePicker }
     }
     readonly property bool panelOpen: dockPanels.some(panel => panel.visible)
@@ -285,7 +283,7 @@ PanelWindow {
         // A new notification also brings the bar out until its popups have gone.
         held: bar.dockPanels.some(panel => panel === bar.dropDashboard ? panel.opened : panel.visible) || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || host.barPointerHeld
             || clockActivity.alerting || !!moments.current || bar.appearanceOpen
-            || !!(bar.dynamicSurfaces && bar.dynamicSurfaces.middleIsland.hoverCard)
+            || !!(bar.dropSurfaces && bar.dropSurfaces.clockCardOpen)
     }
     readonly property alias moments: moments
     BarMoments { id: moments; host: bar.host; barHost: bar }

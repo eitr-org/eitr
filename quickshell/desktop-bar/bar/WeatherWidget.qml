@@ -9,7 +9,7 @@ Item {
     signal clicked()
     property bool autoRefresh: false
     property bool compact: false
-    property int labelSize: compact ? PanelStyle.captionSize : PanelStyle.barTextSize
+    property int labelSize: compact ? 12 : PanelStyle.barTextSize
     property string text: "󰖐"
     property string location: ""
     property string condition: ""

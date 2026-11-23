@@ -113,11 +113,11 @@ Item {
         barHost: verticalMiddle.barHost
         zone: "clockStart"
         vertical: true
-        observing: !barHost.dynamicLayout
+        observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
         slotSpacing: barHost.itemGap
         open: !barHost.dropLayout && barHost.expanded
         clipReveal: true
-        reveal: barHost.dynamicLayout ? 0 : 1
+        reveal: barHost.dynamicLayout ? ((barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false) ? 1 : 0) : 1
         Behavior on reveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
         opacity: reveal
         enabled: opacity > 0
@@ -144,7 +144,7 @@ Item {
         anchors.topMargin: barHost.islandsLayout ? (barHost.islandSurfaces ? barHost.islandSurfaces.aroundClock : 0) : 0
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width
-        height: barHost.dropLayout || verticalWeatherIcon.height <= 0 ? 0 : barHost.dynamicLayout ? 0 : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
+        height: barHost.dropLayout || verticalWeatherIcon.height <= 0 ? 0 : barHost.dynamicLayout ? (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.weatherReveal : 0) : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 3) + verticalWeatherIcon.height
         clip: barHost.dropLayout || barHost.notchLayout || barHost.dynamicLayout
         BarZoneItems {
             id: verticalWeatherIcon
@@ -152,7 +152,7 @@ Item {
             barHost: verticalMiddle.barHost
             zone: "clockEnd"
             vertical: true
-            observing: !barHost.dynamicLayout
+            observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
             y: parent.height - height
             anchors.horizontalCenter: parent.horizontalCenter
             slotSpacing: barHost.itemGap

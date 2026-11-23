@@ -7,23 +7,26 @@ import "../ReminderModel.js" as ReminderModel
 Item {
     id: card
     required property var host
-    required property var barHost
     required property var clock
     required property var calendar
     property bool opened: false
-    signal calendarRequested()
+    signal dashboardRequested()
+    signal controlsRequested()
     signal weatherRequested()
     readonly property var locale: Qt.locale()
     readonly property real midnight: clock ? new Date(clock.now.getFullYear(), clock.now.getMonth(), clock.now.getDate()).getTime() : 0
     readonly property var week: opened && calendar ? ReminderModel.weekDays(
         new Date(midnight), locale, calendar.reminders || [], calendar.events || []) : []
     readonly property real preferredWidth: 328
-    readonly property real preferredHeight: 190 + (clockControls.item && clockControls.item.contentWidth > 0 ? 30 : 0)
+    readonly property real preferredHeight: 190
 
     MouseArea {
+        parent: card.parent
         anchors.fill: parent
+        z: -1
         cursorShape: Qt.PointingHandCursor
-        onClicked: card.calendarRequested()
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        onClicked: mouse => mouse.button === Qt.RightButton ? card.controlsRequested() : card.dashboardRequested()
     }
     Item {
         anchors.centerIn: parent
@@ -32,7 +35,7 @@ Item {
         scale: Math.min(card.width / width, card.height / height)
         Column {
             anchors.centerIn: parent
-            anchors.verticalCenterOffset: clockControls.item && clockControls.item.contentWidth > 0 ? -4 : 8
+            anchors.verticalCenterOffset: 8
             spacing: 5
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -92,47 +95,16 @@ Item {
             }
         }
         Loader {
-            id: clockControls
-            anchors.bottom: parent.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottomMargin: PanelStyle.padding / 2
-            width: parent.width - PanelStyle.padding * 2
-            active: card.opened
-            sourceComponent: Flickable {
-                contentWidth: slots.implicitWidth
-                height: slots.implicitHeight
-                boundsBehavior: Flickable.StopAtBounds
-                clip: true
-                Row {
-                    id: slots
-                    x: Math.max(0, (parent.parent.width - width) / 2)
-                    spacing: card.host.workspaceItemSpacing
-                    Repeater {
-                        model: ["clockStart", "clockEnd"]
-                        delegate: BarZoneItems {
-                            required property string modelData
-                            host: card.host
-                            barHost: card.barHost
-                            zone: modelData
-                            excludeWeather: true
-                            registerIcons: false
-                            visible: width > 0
-                            onPanelRequested: (plugin, panel, target) => card.barHost.openPluginPanel(plugin, panel, target)
-                        }
-                    }
-                }
-            }
-        }
-        Loader {
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.margins: PanelStyle.padding / 2
             active: card.opened && PluginRegistry.weatherEnabled
             sourceComponent: WeatherWidget {
+                objectName: "dropClockWeather"
                 host: card.host
                 autoRefresh: true
                 labelSize: PanelStyle.captionSize
-                visible: temperature !== ""
+                visible: temperature !== "" && temperature !== "--"
                 onClicked: card.weatherRequested()
             }
         }

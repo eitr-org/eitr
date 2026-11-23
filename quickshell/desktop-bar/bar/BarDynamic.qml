@@ -20,7 +20,7 @@ Item {
     Component.onCompleted: if (visible) takeItems.restart()
     Component.onDestruction: { holding = false; state = ""; }
     readonly property var moments: barHost.moments
-    readonly property var middleMoment: moments.current && (moments.current.kind !== "song" || !mediaAvailable) ? moments.current : null
+    readonly property var middleMoment: moments.current && moments.current.kind !== "song" ? moments.current : null
     readonly property var mediaMoment: moments.current && moments.current.kind === "song" ? moments.current : null
     readonly property var surfaces: [leading, media, middle, trailing]
     readonly property alias leadingIsland: leading
@@ -33,7 +33,10 @@ Item {
     readonly property real insetStart: host.screenGaps[vertical ? 0 : 3]
     readonly property real insetEnd: host.screenGaps[vertical ? 2 : 1]
     readonly property real clockExtent: vertical ? barHost.verticalCalendarIcon.height : barHost.centerInfo.width
-    // Shift the resting pill around capture activity while keeping the clock centred.
+    readonly property real weatherExtent: vertical ? barHost.verticalWeatherIcon.height : barHost.barWeather.width
+    // The clock island holds [capture] clock [weather]. At rest: the time plus what is
+    // happening beside it (recording, timer, next event, bell); hover adds date and weather.
+    // Balance both sides so the clock remains exactly screen-centred.
     readonly property bool captureShown: vertical ? barHost.verticalCapture.shown : barHost.barCapture.shown
     readonly property real captureLength: captureShown ? (vertical ? barHost.verticalCapture.height + 3 : barHost.barCapture.width + 6) : 0
     // While a player is there, its controls and equalizer are an island of their own
@@ -42,24 +45,25 @@ Item {
     readonly property real mediaExtent: (vertical ? barHost.verticalMedia.implicitHeight : barHost.mediaStrip.width) + 16
     // The room the media island takes before the clock island, gap included.
     readonly property real mediaRun: mediaAvailable ? media.targetExtent + spacing : 0
+    readonly property real weatherLength: weatherExtent > 0 ? host.workspaceItemSpacing + weatherExtent : 0
     readonly property real clockRestExtent: clockExtent + 8 + captureLength
-    property real clockShift: middleMoment || middle.morphTarget ? 0 : -captureLength / 2
-    Behavior on clockShift { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
+    // The clock island grows only where something appears (capture and plugins before the
+    // time, weather after it) while the time keeps the screen centre: the island is moved
+    // along by half the difference. A moment or a card is centred as a whole.
+    readonly property real leadingPart: captureLength + (middle.expanded ? barHost.clockPluginExtent : 0)
+    readonly property real clockShift: middleMoment || middle.morphed ? 0 : (weatherReveal - leadingPart) / 2
     // Elide moments into the symmetric space left around the clock on short edges.
     readonly property real momentRoom: Math.max(clockRestExtent, length - 2 * Math.max(
         insetStart + leading.restingExtent + spacing + (mediaAvailable ? mediaExtent + spacing : 0),
         insetEnd + trailing.restingExtent + spacing))
     readonly property real songRoom: Math.max(mediaExtent, length / 2 - clockRestExtent / 2
         - insetStart - leading.restingExtent - 2 * spacing)
-    readonly property real carouselRoom: Math.max(1, length - 2 * Math.max(
-        insetStart + leading.restingExtent + spacing + (mediaAvailable ? mediaExtent + spacing : 0),
-        insetEnd + trailing.restingExtent + spacing))
-    readonly property real middleRoom: middle.targetExtent
-    readonly property var carousel: barHost.appearanceCard || null
-    // Keep the filters and previews usable on a short bar with a large media island.
-    property bool carouselRoomHeld: false
-    readonly property bool carouselCrowded: carousel && (carousel.opened && carousel.width > carouselRoom
-        || carouselRoomHeld && middle.extent > carouselRoom)
+    readonly property real middleExtent: clockExtent + 8 + captureLength + barHost.clockPluginExtent + weatherLength
+    // Space the clock island takes when the side islands expand: a card's full size, or its widest hover.
+    readonly property real middleRoom: middle.morphed ? middle.targetExtent : Math.max(middleExtent, middle.restingExtent)
+    readonly property real middleTrailing: middle.expanded ? weatherLength : 0
+    property real weatherReveal: middleTrailing
+    Behavior on weatherReveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
     readonly property bool separateNotification: !!barHost.notificationIcon
         && !inside(barHost.notificationIcon, barHost.rightSide)
         && !inside(barHost.notificationIcon, barHost.leftGroup)
@@ -70,16 +74,14 @@ Item {
         : barHost.rightSide.width + (separateNotification ? host.workspaceItemSpacing + barHost.notificationIcon.width : 0)) + 8
     HoverHandler {
         id: pointer
-        parent: barHost.contentItem || dynamic
         onHoveredChanged: hoverUpdate.restart()
     }
     readonly property point pointerPosition: pointer.point.position
     onPointerPositionChanged: hoverUpdate.restart()
     Timer { id: hoverUpdate; interval: 0; onTriggered: dynamic.updateHover() }
-    function updateHover() { trackPointer(pointer.hovered, mapFromItem(pointer.parent, pointerPosition.x, pointerPosition.y)); }
+    function updateHover() { trackPointer(pointer.hovered, pointerPosition); }
     function trackPointer(inside, position) {
         surfaces.forEach(island => {
-            if (carousel && carousel.requested) { island.hovered = false; return; }
             island.hovered = inside && position.x >= island.x && position.x < island.x + island.width
                 && position.y >= island.y && position.y < island.y + island.height;
         });
@@ -92,28 +94,13 @@ Item {
         barHost.pluginPanel && barHost.pluginPanel.clockSlot ? barHost.pluginPanel : null].filter(panel => !!panel)
     // Control Center can be opened from the logo or externally; retain its source island.
     property string controlCenterOwner: "left"
-    property bool weatherFromCard: false
-    function openCardWeather() {
-        weatherFromCard = true;
-        barHost.showPanel(barHost.weatherMenu);
-    }
     function rememberOwner(panel) {
         // Keep the source island when Control Center is reached from a card's arrows.
         if (panel === barHost.controlCenter && (trailing.hovered || leading.hovered)) controlCenterOwner = trailing.hovered ? "right" : "left";
     }
     Connections {
         target: barHost
-        function onPendingPanelChanged() {
-            dynamic.rememberOwner(barHost.pendingPanel);
-            if (barHost.pendingPanel && barHost.pendingPanel !== barHost.weatherMenu) dynamic.weatherFromCard = false;
-        }
-    }
-    Connections {
-        target: barHost.weatherMenu || null
-        ignoreUnknownSignals: true
-        function onVisibleChanged() {
-            if (!barHost.weatherMenu.visible && barHost.pendingPanel !== barHost.weatherMenu) dynamic.weatherFromCard = false;
-        }
+        function onPendingPanelChanged() { dynamic.rememberOwner(barHost.pendingPanel); }
     }
     readonly property bool controlCenterOpen: !!barHost.controlCenter && (barHost.controlCenter.visible || barHost.pendingPanel === barHost.controlCenter)
     function groupOf(panel) {
@@ -127,10 +114,8 @@ Item {
     // Each panel belongs to one island, which grows into it while it is open.
     function islandFor(panel) {
         if (!panel) return null;
-        if (panel === carousel) return middle;
         if (panel === barHost.controlCenter) return controlCenterOwner === "left" ? leading : trailing;
         if (panel === barHost.mediaMenu) return mediaAvailable ? media : middle;
-        if (weatherFromCard && panel === barHost.weatherMenu) return middle;
         const grouped = groupOf(panel);
         if (grouped) return grouped;
         if (owns(panel, leftPanels)) return leading;
@@ -143,7 +128,6 @@ Item {
     }
     // While switching panels the next one is pending: the island goes straight to its size.
     function openPanel(island) {
-        if (island === middle && carousel && carousel.opened) return carousel;
         const showing = barHost.dockPanels.find(panel => (panel.opened || panel === barHost.pendingPanel) && islandFor(panel) === island);
         return showing || null;
     }
@@ -176,7 +160,6 @@ Item {
     // and the island after it follows, keeping the gaps.
     function middleStartFor(leadingExtent, middleExtent, trailingExtent, shift) {
         const centred = (length - middleExtent) / 2 + (shift || 0);
-        if (carouselCrowded) return centred;
         const lowest = insetStart + leadingExtent + spacing + mediaRun;
         const highest = length - insetEnd - trailingExtent - spacing - middleExtent;
         return Math.max(lowest, Math.min(centred, highest));
@@ -201,7 +184,6 @@ Item {
     // others keep one gap from it and grow outward, sliding out when the clock grows.
     DynamicIsland {
         id: leading
-        visible: !dynamic.carouselCrowded
         host: dynamic.host; barHost: dynamic.barHost
         readonly property var after: dynamic.mediaAvailable ? media : middle
         x: vertical ? depthOffset : Math.max(insetStart, after.x - spacing - width)
@@ -215,7 +197,7 @@ Item {
     DynamicIsland {
         id: media
         host: dynamic.host; barHost: dynamic.barHost
-        visible: dynamic.mediaAvailable && !dynamic.carouselCrowded
+        visible: dynamic.mediaAvailable
         x: vertical ? depthOffset : Math.max(insetStart, middle.x - spacing - width)
         y: vertical ? Math.max(insetStart, middle.y - spacing - height) : depthOffset
         panel: dynamic.openPanel(media)
@@ -232,54 +214,14 @@ Item {
         panel: dynamic.openPanel(middle)
         restingExtent: Math.max(clockRestExtent, middleMoment ? Math.min(clockMoment.naturalExtent, momentRoom) : 0)
         momentActive: !!middleMoment
-        fullExtent: restingExtent
-        hoverCard: clockCard.opened ? clockCard : null
+        // Beside a card from another island, expand only into the space that is left.
+        fullExtent: Math.max(restingExtent, Math.min(middleExtent, length - 2 * Math.max(
+            insetStart + (leading.morphed ? leading.targetExtent : leading.restingExtent) + spacing + dynamic.mediaRun,
+            insetEnd + (trailing.morphed ? trailing.targetExtent : trailing.restingExtent) + spacing)))
         held: dynamic.hasHeldPanel(middle)
-        onExtentChanged: if (!(dynamic.carousel && dynamic.carousel.opened) && extent <= dynamic.carouselRoom) dynamic.carouselRoomHeld = false
-        Connections {
-            target: dynamic.carousel
-            function onRequestedChanged() { if (dynamic.carousel.requested) middle.hoverExpanded = false; }
-            function onOpenedChanged() { if (dynamic.carousel.opened) dynamic.carouselRoomHeld = dynamic.carousel.width > dynamic.carouselRoom; }
-        }
-    }
-    // The card extends beyond the strip, so its controls live in the input window.
-    Item {
-        id: clockCardFrame
-        parent: barHost.contentItem || middle
-        readonly property point origin: {
-            const strip = barHost.stripItem;
-            const geometry = middle.x + middle.y + (strip ? strip.x + strip.y : 0)
-                + (barHost.autoHideRef ? barHost.autoHideRef.progress : 0);
-            return middle.mapToItem(parent, 0, 0);
-        }
-        x: origin.x; y: origin.y
-        width: middle.width; height: middle.height
-        clip: true
-        visible: dynamic.visible && clockCard.opened
-        z: 2
-        DynamicClockCard {
-            id: clockCard
-            host: dynamic.host
-            barHost: dynamic.barHost
-            clock: vertical ? barHost.verticalCalendarIcon : barHost.centerInfo
-            calendar: barHost.calendarMenu
-            readonly property real along: Math.min(vertical ? preferredHeight : preferredWidth, dynamic.momentRoom)
-            readonly property real across: Math.min(vertical ? preferredWidth : preferredHeight,
-                (vertical ? barHost.width : barHost.height) - 2 * (barHost.attachedIslands ? 0 : barHost.islandGap))
-            width: vertical ? across : along
-            height: vertical ? along : across
-            anchors.centerIn: parent
-            opened: middle.hoverExpanded && !middle.panel && !middleMoment && !(dynamic.carousel && dynamic.carousel.requested)
-            visible: opacity > 0
-            enabled: opened
-            opacity: opened ? Math.max(0, Math.min(1, (middle.depth / across - 0.55) / 0.45)) : 0
-            onCalendarRequested: barHost.togglePanel(barHost.calendarMenu)
-            onWeatherRequested: dynamic.openCardWeather()
-        }
     }
     DynamicIsland {
         id: trailing
-        visible: !dynamic.carouselCrowded
         host: dynamic.host; barHost: dynamic.barHost
         x: vertical ? depthOffset : Math.min(dynamic.width - insetEnd - width, middle.x + middle.width + spacing)
         y: vertical ? Math.min(dynamic.height - insetEnd - height, middle.y + middle.height + spacing) : depthOffset
@@ -367,7 +309,7 @@ Item {
             PropertyChanges { target: barHost.leftGroup; parent: leading.content; x: 4; y: (leading.thickness - barHost.leftGroup.height) / 2 }
             PropertyChanges { target: barHost.leftGroup; width: barHost.leftGroup.implicitWidth }
             PropertyChanges { target: barHost.barHorizontalCenter; parent: middle.content }
-            PropertyChanges { target: barHost.centerInfo; timeOnly: true; anchors.centerIn: null; x: (barHost.centerInfo.parent.width - barHost.centerInfo.width) / 2 - dynamic.clockShift; y: (middle.thickness - barHost.centerInfo.height) / 2 }
+            PropertyChanges { target: barHost.centerInfo; timeOnly: !middle.expanded; anchors.centerIn: null; x: (barHost.centerInfo.parent.width - barHost.centerInfo.width) / 2 - dynamic.clockShift; y: (middle.thickness - barHost.centerInfo.height) / 2 }
             PropertyChanges { target: barHost.rightSide; parent: trailing.content }
             PropertyChanges { target: barHost.rightSide; anchors.rightMargin: dynamic.separateNotification ? host.workspaceItemSpacing : 4; opacity: trailing.expanded ? 1 : 0; enabled: trailing.expanded }
             AnchorChanges { target: barHost.mediaStrip; anchors.right: undefined; anchors.verticalCenter: undefined }
@@ -378,7 +320,7 @@ Item {
             name: "vertical"; when: dynamic.holding && dynamic.vertical
             PropertyChanges { target: barHost.verticalStart; parent: leading.content; y: 4 }
             PropertyChanges { target: barHost.verticalMiddle; parent: middle.content; anchors.centerIn: null; x: 0; y: (middle.content.height - barHost.verticalMiddle.height) / 2 }
-            PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: true; anchors.centerIn: null; x: (barHost.verticalCalendarIcon.parent.width - barHost.verticalCalendarIcon.width) / 2; y: (barHost.verticalCalendarIcon.parent.height - barHost.verticalCalendarIcon.height) / 2 - dynamic.clockShift }
+            PropertyChanges { target: barHost.verticalCalendarIcon; timeOnly: !middle.expanded; anchors.centerIn: null; x: (barHost.verticalCalendarIcon.parent.width - barHost.verticalCalendarIcon.width) / 2; y: (barHost.verticalCalendarIcon.parent.height - barHost.verticalCalendarIcon.height) / 2 - dynamic.clockShift }
             PropertyChanges { target: barHost.verticalEnd; parent: trailing.content }
             PropertyChanges { target: barHost.verticalEnd; anchors.bottomMargin: 4; opacity: trailing.expanded ? 1 : 0; enabled: trailing.expanded }
             AnchorChanges { target: barHost.verticalMedia; anchors.bottom: undefined; anchors.horizontalCenter: undefined }
