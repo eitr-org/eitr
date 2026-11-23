@@ -96,6 +96,7 @@ Item {
         return item !== null;
     }
     function openPluginPanel(plugin, panel, target) {
+        if (PluginRegistry.barItemShown && !PluginRegistry.barItemShown(plugin)) return;
         ensure("plugin");
         var entry = PluginRegistry.entries.find(entry => entry.plugin === plugin && entry.id === panel && entry.kind === "panels");
         if (!entry) return;
@@ -206,6 +207,7 @@ Item {
     function showKind(kind) {
         if (kind === "weather" && !PluginRegistry.weatherEnabled) return;
         if (kind === "ai" && !PluginRegistry.aiUsageEnabled) return;
+        if (kind === "hardware" && !PluginRegistry.hardwareEnabled) return;
         if (kind === "picture") { showControlCenter(kind); return; }
         if (kind === "window-info" || kind === "speed-test") { showToolDetail(kind); return; }
         ensure(kind);

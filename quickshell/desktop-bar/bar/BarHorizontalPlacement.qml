@@ -84,6 +84,7 @@ BarSection {
         SystemMonitorMenu {
             id: hardwareMenu
             readonly property string hardwareZone: barHost.iconZone("hardware") || "left"
+            pluginAvailable: PluginRegistry.hardwareEnabled === true
             surfaceColor: host.barBackground()
             maximumHeight: barHost.screen.height - 70
             leftAligned: hardwareZone === "left"

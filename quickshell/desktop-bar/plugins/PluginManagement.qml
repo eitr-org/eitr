@@ -64,21 +64,24 @@ Column {
         }
     }
 
+    SectionLabel {
+        visible: management.widgets.length > 0
+        text: Eitr.I18n.tr("On your desktop")
+    }
     Repeater {
         model: management.widgets
         Column {
             id: widget
             required property var modelData
             readonly property var placements: management.placed(modelData)
+            readonly property string widgetTitle: modelData.bundled ? Eitr.I18n.tr(modelData.title) : modelData.title
+            readonly property string placementSummary: placements.length === 0 ? Eitr.I18n.tr("Not on any display yet.")
+                : placements.length === 1 ? Eitr.I18n.tr("1 placed") : Eitr.I18n.tr("{count} placed", {count: placements.length})
             property bool choosing: false
             width: management.width; spacing: PanelStyle.selectionRowGap
-            SectionLabel {
-                text: management.widgets.length > 1 ? widget.modelData.title : Eitr.I18n.tr("On your desktop")
-            }
             Text {
-                visible: widget.placements.length === 0
                 width: parent.width; wrapMode: Text.Wrap; textFormat: Text.PlainText
-                text: Eitr.I18n.tr("Not on any display yet.")
+                text: widget.widgetTitle + " · " + widget.placementSummary
                 color: management.foreground; opacity: PanelStyle.secondaryTextOpacity
                 font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize
             }
@@ -136,7 +139,7 @@ Column {
                 ? BarIconOrder.pluginSlot(modelData.plugin, modelData.id, placementSlot) : placementSlot
             width: management.width; spacing: PanelStyle.selectionRowGap
             ToggleRow {
-                width: parent.width; text: barItem.modelData.title
+                width: parent.width; text: barItem.modelData.bundled ? Eitr.I18n.tr(barItem.modelData.title) : barItem.modelData.title
                 description: Eitr.I18n.tr("Show on the bar")
                 foreground: management.foreground; accent: management.accent
                 checked: management.placed(barItem.modelData).length > 0

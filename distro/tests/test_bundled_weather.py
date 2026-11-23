@@ -31,8 +31,9 @@ class BundledWeatherTests(unittest.TestCase):
 
     def test_default_migrates_once_remove_and_reinstall(self):
         self.manager.ensure_bundled()
-        self.assertEqual(set(self.manager.records()), {'weather', 'ai-usage'})
+        self.assertEqual(set(self.manager.records()), {'weather', 'ai-usage', 'hardware'})
         self.manager.remove('ai-usage', lambda record: True)
+        self.manager.remove('hardware', lambda record: True)
         self.assertEqual(next(entry for entry in self.manager.ui() if entry['kind'] == 'barItems')['slot'], 'clockEnd')
         self.assertIn({'plugin': 'weather', 'id': 'weather'}, self.manager.placements()['barItems'])
         installed = self.manager.installed()[0]
@@ -46,7 +47,7 @@ class BundledWeatherTests(unittest.TestCase):
         self.assertEqual(self.manager.ui(), [])
         self.assertEqual(self.manager.bundled_catalog()[0]['id'], 'weather')
         self.manager.install_bundled('weather')
-        self.assertEqual(len(self.manager.placements()['barItems']), 2)
+        self.assertEqual(len(self.manager.placements()['barItems']), 3)
         self.assertEqual(len(self.manager.ui()), 2)
 
     def test_override_survives_repeated_placement_and_package_migration(self):
@@ -63,6 +64,7 @@ class BundledWeatherTests(unittest.TestCase):
     def test_disabled_default_stays_disabled(self):
         self.manager.ensure_bundled()
         self.manager.remove('ai-usage', lambda record: True)
+        self.manager.remove('hardware', lambda record: True)
         self.manager.set_enabled('weather', False)
         self.manager.ensure_bundled()
         self.assertEqual(self.manager.ui(), [])
@@ -89,11 +91,11 @@ class BundledWeatherTests(unittest.TestCase):
             store.plugins('remove', {'kind': 'plugins', 'id': 'weather'})
             with patch.object(self.manager, 'catalog', side_effect=OSError('offline')):
                 rows = store.plugins('index', {'kind': 'plugins'})['items']
-            self.assertEqual([entry['id'] for entry in rows], ['weather', 'ai-usage'])
+            self.assertEqual([entry['id'] for entry in rows], ['weather', 'ai-usage', 'hardware'])
             self.assertTrue(rows[0]['previewUrl'].startswith('file:'))
             self.assertEqual(store.plugins('prepare', {'kind': 'plugins', 'id': 'weather'}), {'bundled': True})
             self.assertTrue(store.plugins('install', {'kind': 'plugins', 'ids': ['weather']})['result'])
-            self.assertEqual(len(self.manager.ui()), 4)
+            self.assertEqual(len(self.manager.ui()), 7)
 
     def test_ai_usage_upgrade_preserves_removed_weather_and_can_reinstall(self):
         import eitr_store_backends as store
@@ -101,7 +103,8 @@ class BundledWeatherTests(unittest.TestCase):
         marker.parent.mkdir(parents=True)
         marker.write_text('{"version": 1}')
         self.manager.ensure_bundled()
-        self.assertEqual(set(self.manager.records()), {'ai-usage'})
+        self.assertEqual(set(self.manager.records()), {'ai-usage', 'hardware'})
+        self.manager.remove('hardware', lambda record: True)
         self.assertEqual({(entry['kind'], entry['id']) for entry in self.manager.ui()},
                          {('barItems', 'usage'), ('panels', 'limits')})
         self.manager.set_enabled('ai-usage', False)
@@ -113,8 +116,73 @@ class BundledWeatherTests(unittest.TestCase):
             self.assertEqual(self.manager.records(), {})
             self.assertEqual(store.plugins('prepare', {'kind': 'plugins', 'id': 'ai-usage'}), {'bundled': True})
             self.assertTrue(store.plugins('install', {'kind': 'plugins', 'ids': ['ai-usage']})['result'])
-        self.assertEqual(self.manager.placements()['barItems'], [{'plugin': 'ai-usage', 'id': 'usage'}])
+        self.assertEqual(self.manager.placements()['barItems'],
+                         [{'plugin': 'ai-usage', 'id': 'usage'}, {'plugin': 'hardware', 'id': 'monitor'}])
         self.assertEqual(len(self.manager.ui()), 2)
+
+    def test_hardware_upgrade_and_external_official_replacement(self):
+        import eitr_store_backends as store
+        marker = Path(os.environ['XDG_STATE_HOME']) / 'eitr/bundled-plugins.json'
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.write_text('{"version": 2}')
+
+        # Simulate an existing desktop that had installed the external official hardware plugin
+        # with placed widget copies and per-instance settings.
+        commit = 'a' * 40
+        url = 'https://github.com/eitr-org/eitr-plugins'
+        snapshot = self.manager.snapshot(url, commit)
+        snapshot.mkdir(parents=True, exist_ok=True)
+        (snapshot / 'marker.txt').write_text('old external snapshot')
+        self.manager.save({
+            'hardware': {
+                'id': 'hardware',
+                'url': url,
+                'path': 'plugins/hardware',
+                'commit': commit,
+                'installed': '2026-11-01T00:00:00Z',
+            }
+        })
+        widget_copy = {
+            'plugin': 'hardware',
+            'id': 'hardware',
+            'instance': '12345678',
+            'monitor': 'DP-1',
+            'x': 24,
+            'y': 48,
+            'width': 480,
+            'height': 280,
+            'aboveWindows': False,
+        }
+        placements_file = Path(os.environ['XDG_CONFIG_HOME']) / 'eitr/plugin-placements.json'
+        placements_file.parent.mkdir(parents=True, exist_ok=True)
+        placements_file.write_text(json.dumps({'version': 3, 'widgets': [widget_copy], 'barItems': []}))
+        instance_file = Path(os.environ['XDG_DATA_HOME']) / 'eitr/plugin-data/hardware/hardware/12345678.json'
+        instance_file.parent.mkdir(parents=True, exist_ok=True)
+        instance_file.write_text('{"mode": "compact"}')
+
+        self.manager.ensure_bundled()
+        record = self.manager.records()['hardware']
+        self.assertTrue(record.get('bundled'))
+        self.assertFalse(snapshot.exists())
+        self.assertEqual(self.manager.placements()['widgets'], [widget_copy])
+        self.assertIn({'plugin': 'hardware', 'id': 'monitor'}, self.manager.placements()['barItems'])
+        self.assertEqual(json.loads(instance_file.read_text()), {'mode': 'compact'})
+        self.assertEqual({(entry['kind'], entry['id']) for entry in self.manager.ui()},
+                         {('barItems', 'monitor'), ('panels', 'details'), ('widgets', 'hardware')})
+
+        # Unplacing the bar item (Show on the bar = off) keeps the widget and plugin active.
+        self.manager.place('hardware', 'monitor', remove=True)
+        self.assertEqual(self.manager.placements()['barItems'], [])
+        self.assertEqual(self.manager.placements()['widgets'], [widget_copy])
+
+        # Removing bundled hardware later never reinstalls it automatically, and Store can reinstall offline.
+        with patch.object(store, '_PLUGIN_BACKEND', self.manager):
+            store.plugins('remove', {'kind': 'plugins', 'id': 'hardware'})
+            self.manager.ensure_bundled()
+            self.assertEqual(self.manager.records(), {})
+            self.assertEqual(store.plugins('prepare', {'kind': 'plugins', 'id': 'hardware'}), {'bundled': True})
+            self.assertTrue(store.plugins('install', {'kind': 'plugins', 'ids': ['hardware']})['result'])
+        self.assertIn({'plugin': 'hardware', 'id': 'monitor'}, self.manager.placements()['barItems'])
 
     def test_package_stage_contains_bundled_source_and_helpers(self):
         import importlib.util
@@ -135,9 +203,13 @@ class BundledWeatherTests(unittest.TestCase):
         import runpy
         import eitr_plugins
         migration = Path(__file__).resolve().parents[1] / 'migrations/20261114120000-bundled-weather.py'
+        hw_migration = Path(__file__).resolve().parents[1] / 'migrations/20261123140000-bundled-hardware.py'
         with patch.object(eitr_plugins, 'Plugins', return_value=self.manager):
             runpy.run_path(str(migration))
             self.assertIn('weather', self.manager.records())
+            self.assertIn('hardware', self.manager.records())
             self.manager.remove('weather', lambda record: True)
+            self.manager.remove('hardware', lambda record: True)
             runpy.run_path(str(migration))
+            runpy.run_path(str(hw_migration))
             self.assertEqual(set(self.manager.records()), {'ai-usage'})

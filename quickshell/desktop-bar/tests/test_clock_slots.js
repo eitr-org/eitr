@@ -30,17 +30,38 @@ console.log("Placement overrides beat manifest slots; missing slots remain statu
 const panelSource = fs.readFileSync(path.join(__dirname, "../bar/BarPanels.qml"), "utf8");
 const showSource = panelSource.match(/function showKind\(kind\) \{([\s\S]*?)\n    \}/)[1];
 let openedWeather = false;
+let openedHardware = false;
+let openedAi = false;
 const panelContext = vm.createContext({
-    PluginRegistry: {weatherEnabled: false},
+    PluginRegistry: {weatherEnabled: false, hardwareEnabled: false, aiUsageEnabled: false},
     ensure(kind) { return null; },
-    barHost: {weatherMenu: {}, showPanel(panel) { openedWeather = true; }},
+    barHost: {
+        weatherMenu: {},
+        hardwareMenu: {},
+        aiMenu: {},
+        showPanel(panel) {
+            if (panel === this.weatherMenu) openedWeather = true;
+            else if (panel === this.hardwareMenu) openedHardware = true;
+            else if (panel === this.aiMenu) openedAi = true;
+        }
+    },
     notificationCenter: {}, controlCenter: {}, mediaMenu: {}, batteryMenu: {}
 });
 panelContext.panels = panelContext;
 vm.runInContext("function showKind(kind) {" + showSource + "}", panelContext);
 panelContext.showKind("weather");
+panelContext.showKind("hardware");
+panelContext.showKind("ai");
 assert.equal(openedWeather, false);
+assert.equal(openedHardware, false);
+assert.equal(openedAi, false);
 panelContext.PluginRegistry.weatherEnabled = true;
+panelContext.PluginRegistry.hardwareEnabled = true;
+panelContext.PluginRegistry.aiUsageEnabled = true;
 panelContext.showKind("weather");
+panelContext.showKind("hardware");
+panelContext.showKind("ai");
 assert.equal(openedWeather, true);
-console.log("Removing Weather also disables its external panel entry point");
+assert.equal(openedHardware, true);
+assert.equal(openedAi, true);
+console.log("Removing or hiding Weather, Hardware or AI Usage also disables its external panel entry point");

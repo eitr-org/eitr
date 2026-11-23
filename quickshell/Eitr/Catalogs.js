@@ -1237,7 +1237,10 @@ var qml = {
     "Updates available": "Updates available",
     "and %1 more": "and %1 more",
     "Changes": "Changes",
-    "What it asks for": "What it asks for"
+    "What it asks for": "What it asks for",
+    "1 placed": "1 placed",
+    "Live CPU, GPU, RAM, storage and network usage on your desktop": "Live CPU, GPU, RAM, storage and network usage on your desktop",
+    "{count} placed": "{count} placed"
   },
   "pt_BR": {
     "%1 B/s": "%1 B/s",
@@ -2441,7 +2444,10 @@ var qml = {
     "Updates available": "Atualizações disponíveis",
     "and %1 more": "e mais %1",
     "Changes": "Alterações",
-    "What it asks for": "O que ele pede"
+    "What it asks for": "O que ele pede",
+    "1 placed": "1 na área de trabalho",
+    "Live CPU, GPU, RAM, storage and network usage on your desktop": "Uso ao vivo de CPU, GPU, RAM, armazenamento e rede na sua área de trabalho",
+    "{count} placed": "{count} na área de trabalho"
   },
   "es": {
     "%1 B/s": "%1 B/s",
@@ -3645,7 +3651,10 @@ var qml = {
     "Updates available": "Actualizaciones disponibles",
     "and %1 more": "y %1 más",
     "Changes": "Cambios",
-    "What it asks for": "Lo que solicita"
+    "What it asks for": "Lo que solicita",
+    "1 placed": "1 colocado",
+    "Live CPU, GPU, RAM, storage and network usage on your desktop": "Uso en tiempo real de CPU, GPU, RAM, almacenamiento y red en tu escritorio",
+    "{count} placed": "{count} colocados"
   },
   "de": {
     "%1 B/s": "%1 B/s",
@@ -4849,7 +4858,10 @@ var qml = {
     "Updates available": "Aktualisierungen verfügbar",
     "and %1 more": "und %1 weitere",
     "Changes": "Änderungen",
-    "What it asks for": "Was es anfordert"
+    "What it asks for": "Was es anfordert",
+    "1 placed": "1 platziert",
+    "Live CPU, GPU, RAM, storage and network usage on your desktop": "Live-Auslastung von CPU, GPU, RAM, Speicher und Netzwerk auf deinem Desktop",
+    "{count} placed": "{count} platziert"
   },
   "fr": {
     "%1 B/s": "%1 o/s",
@@ -6053,7 +6065,10 @@ var qml = {
     "Updates available": "Mises à jour disponibles",
     "and %1 more": "et %1 de plus",
     "Changes": "Modifications",
-    "What it asks for": "Ce qu’il demande"
+    "What it asks for": "Ce qu’il demande",
+    "1 placed": "1 placé",
+    "Live CPU, GPU, RAM, storage and network usage on your desktop": "Utilisation en direct du CPU, du GPU, de la RAM, du stockage et du réseau sur votre bureau",
+    "{count} placed": "{count} placés"
   },
   "ja": {
     "%1 B/s": "%1 B/s",
@@ -7257,7 +7272,10 @@ var qml = {
     "Updates available": "更新があります",
     "and %1 more": "ほか %1 件",
     "Changes": "変更内容",
-    "What it asks for": "要求する内容"
+    "What it asks for": "要求する内容",
+    "1 placed": "1 個配置済み",
+    "Live CPU, GPU, RAM, storage and network usage on your desktop": "デスクトップ上で CPU、GPU、RAM、ストレージ、ネットワークの使用状況をリアルタイム表示",
+    "{count} placed": "{count} 個配置済み"
   },
   "zh_CN": {
     "%1 B/s": "%1 B/s",
@@ -8461,7 +8479,10 @@ var qml = {
     "Updates available": "有可用更新",
     "and %1 more": "另有 %1 项",
     "Changes": "更改",
-    "What it asks for": "所需权限"
+    "What it asks for": "所需权限",
+    "1 placed": "已放置 1 个",
+    "Live CPU, GPU, RAM, storage and network usage on your desktop": "在桌面上实时显示 CPU、GPU、内存、存储和网络使用情况",
+    "{count} placed": "已放置 {count} 个"
   },
   "ko": {
     "%1 B/s": "%1 B/s",
@@ -9665,6 +9686,9 @@ var qml = {
     "Updates available": "업데이트 가능",
     "and %1 more": "외 %1건",
     "Changes": "변경 사항",
-    "What it asks for": "요청하는 항목"
+    "What it asks for": "요청하는 항목",
+    "1 placed": "1개 배치됨",
+    "Live CPU, GPU, RAM, storage and network usage on your desktop": "데스크톱에서 CPU, GPU, RAM, 저장공간 및 네트워크 사용량을 실시간으로 표시",
+    "{count} placed": "{count}개 배치됨"
   }
 };

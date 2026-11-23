@@ -366,13 +366,16 @@ clock keeps its independent screen-centre anchor on all four edges.
 
 ### Bundled plugins
 
-Weather (`weather`) and AI Usage (`ai-usage`) ship in `eitr-desktop` without a Git
+Weather (`weather`), AI Usage (`ai-usage`) and Hardware (`hardware`) ship in `eitr-desktop` without a Git
 checkout or download. User upgrade migrations and host startup share versioned,
 one-time defaults for fresh and existing homes. The machine-local
 `$XDG_STATE_HOME/eitr/bundled-plugins.json` marker records that default migration;
 package updates never reinstall a removed default or re-enable a disabled one.
+If an existing desktop had the external official `hardware` plugin from `eitr-plugins`,
+the migration replaces that record in place with the bundled one, preserving placed
+widget instances and their settings.
 Eitr Store > Installed > Plugins labels them Built in and offers Remove. Discover
-can install either again from the package copy, offline. Its files update with the
+can install any of them again from the package copy, offline. Their files update with the
 package and have no separate Git update or background service.
 
 Weather places its item in `clockEnd`. The schema-2 `weather` capability supplies `api.weatherWidgetComponent`, the host's
@@ -389,6 +392,16 @@ and Idle Lock. Its manifest's limits panel opens the native usage view, also
 used in Drop. The bar-data `ai.usage` domain still owns provider reads and the
 cache. Removing or disabling the plugin hides its icon, Drop page and the Usage
 tab in Settings > AI Assistant. The remaining Assistant settings work independently.
+
+Hardware combines its bar item (in `start` after AI Usage, opening the native
+CPU/GPU/RAM/Storage/Network panel and Drop's Performance page) and its desktop
+widget (`Hardware.qml`, Compact or Detailed layout) in one built-in plugin.
+Removing or disabling Hardware removes the bar icon, Drop page and desktop
+widget copies, and stops polling `hardware.details`. Under any plugin's details,
+each bar item has its own **Show on the bar** switch (hiding the bar item and
+closing its bar/Drop panel entry points while keeping the plugin and any desktop
+widgets active), and each desktop widget shows how many copies are placed with
+its add-widget button.
 
 Status bar items occupy fixed icon slots at the end of the existing right-side group, just before the notifications, with its
 normal hidden/show toggle (always shown in Tabs). They have no hover fill and

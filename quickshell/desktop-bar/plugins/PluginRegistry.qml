@@ -155,8 +155,14 @@ QtObject {
     }
     readonly property var clockBarItems: slotItems("clock")
     readonly property var barItems: slotItems("status")
-    readonly property bool weatherEnabled: entries.some(entry => entry.plugin === "weather" && !entry.disabled && (entry.capabilities || []).includes("weather"))
-    readonly property bool aiUsageEnabled: entries.some(entry => entry.bundled && entry.plugin === "ai-usage" && entry.kind === "panels" && entry.id === "limits" && !entry.disabled)
+    function barItemShown(plugin, itemId) {
+        const barEntries = entries.filter(entry => entry.plugin === plugin && entry.kind === "barItems" && (!itemId || entry.id === itemId));
+        if (!barEntries.length) return true;
+        return barEntries.some(entry => !entry.disabled && (placements.barItems || []).some(placement => placement.plugin === plugin && placement.id === entry.id));
+    }
+    readonly property bool weatherEnabled: entries.some(entry => entry.plugin === "weather" && !entry.disabled && (entry.capabilities || []).includes("weather")) && barItemShown("weather")
+    readonly property bool aiUsageEnabled: entries.some(entry => entry.bundled && entry.plugin === "ai-usage" && entry.kind === "panels" && entry.id === "limits" && !entry.disabled) && barItemShown("ai-usage")
+    readonly property bool hardwareEnabled: entries.some(entry => entry.bundled && entry.plugin === "hardware" && entry.kind === "panels" && !entry.disabled) && barItemShown("hardware")
     function placed(kind, monitor) {
         return (placements[kind] || []).filter(placement => kind !== "widgets" || placement.monitor === monitor)
             .map(placement => {

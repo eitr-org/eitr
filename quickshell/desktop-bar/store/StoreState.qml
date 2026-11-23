@@ -282,7 +282,7 @@ Item {
         return ({builtin: getMore ? Eitr.I18n.tr("Official") : Eitr.I18n.tr("Built in"), official: Eitr.I18n.tr("Official"), community: Eitr.I18n.tr("Community"), "third-party": Eitr.I18n.tr("Third-party"), own: Eitr.I18n.tr("Yours")})[item.kind] || Eitr.I18n.tr("Official");
     }
     function localizedItem(item) {
-        return item.builtin && item.id === "ai-usage" ? Object.assign({}, item, {name: Eitr.I18n.tr("AI Usage"), description: Eitr.I18n.tr("Track AI assistant usage limits and reset times.")}) : item;
+        return item.builtin && item.id === "ai-usage" ? Object.assign({}, item, {name: Eitr.I18n.tr("AI Usage"), description: Eitr.I18n.tr("Track AI assistant usage limits and reset times.")}) : item.builtin && item.id === "hardware" ? Object.assign({}, item, {name: Eitr.I18n.tr("Hardware"), description: Eitr.I18n.tr("Live CPU, GPU, RAM, storage and network usage on your desktop")}) : item;
     }
     function request(name, args, callback) {
         const current = generation;

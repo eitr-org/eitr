@@ -1200,5 +1200,8 @@
   "Updates available": "Updates available",
   "and %1 more": "and %1 more",
   "Changes": "Changes",
-  "What it asks for": "What it asks for"
+  "What it asks for": "What it asks for",
+  "1 placed": "1 placed",
+  "Live CPU, GPU, RAM, storage and network usage on your desktop": "Live CPU, GPU, RAM, storage and network usage on your desktop",
+  "{count} placed": "{count} placed"
 }

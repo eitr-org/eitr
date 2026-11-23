@@ -16,6 +16,7 @@ package is missing from it.
 | Neovim configuration | `nvim/` | [LazyVim starter](https://github.com/LazyVim/starter) | Apache-2.0, [`nvim/LICENSE`](nvim/LICENSE) |
 | Emoji list and keywords | `quickshell/emoji-picker/emojis.json` | Unicode [emoji-test.txt](https://unicode.org/Public/emoji/latest/emoji-test.txt) and [CLDR](https://cldr.unicode.org) annotations, © Unicode, Inc., built by `build-emojis.py` | Unicode-3.0, [`quickshell/emoji-picker/LICENSE.unicode`](quickshell/emoji-picker/LICENSE.unicode) |
 | Catalog fonts Cinzel (500, 700) and Cormorant Garamond (500) | `quickshell/desktop-bar/assets/fonts/` | Website @fontsource packages; Latin and Latin Extended WOFF sources converted to TTF with fontTools | OFL-1.1, [Cinzel license](quickshell/desktop-bar/assets/fonts/Cinzel-OFL.txt), [Cormorant Garamond license](quickshell/desktop-bar/assets/fonts/CormorantGaramond-OFL.txt) |
+| Hardware desktop widget | `distro/plugins/bundled/hardware/` | EITR's own code, first published in [eitr-org/eitr-plugins](https://github.com/eitr-org/eitr-plugins) | MIT, [`distro/plugins/bundled/hardware/LICENSE`](distro/plugins/bundled/hardware/LICENSE) |
 | Website music and sound effects | `website/public/audio/` | Alexander Nakarada, NaturesTemper, TRP, Darsycho | CC BY 4.0 and CC0, [`website/public/audio/CREDITS.md`](website/public/audio/CREDITS.md) |
 
 The official extra palettes (Catppuccin, Gruvbox, Kanagawa, Nord, One Dark Pro

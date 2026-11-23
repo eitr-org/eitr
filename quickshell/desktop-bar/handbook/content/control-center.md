@@ -54,7 +54,7 @@ The assistant also receives Eitr’s Handbook primer and relevant localized exce
 
 ## Plugins
 
-**Control Center > Plugins** shows a compact row for each installed plugin: icon, name and enable switch. Select a row to see its author, version, description, Update/Remove actions, widgets, bar items and Preview. Use Back or Escape to return to the list. Enable/Disable preserves placements and stops or restores services, Walker rows, hooks and visuals; the CLI is `eitr plugin enable ID` or `eitr plugin disable ID`. Add Plugins, Update and Remove open the reviewed terminal flows; removal asks for confirmation. General keeps only plugin tiles. Visual failures have an independent Re-enable action.
+**Control Center > Plugins** shows a compact row for each installed plugin: icon, name and enable switch. Select a row to see its author, version, description, Update/Remove actions, widgets (each with its title, how many copies are placed on your displays and an add button), bar items (each with its own **Show on the bar** switch and position) and Preview. Turning **Show on the bar** off hides that bar item in every layout while keeping the plugin and its desktop widgets active. Use Back or Escape to return to the list. Enable/Disable preserves placements and stops or restores services, Walker rows, hooks and visuals; the CLI is `eitr plugin enable ID` or `eitr plugin disable ID`. Add Plugins, Update and Remove open the reviewed terminal flows; removal asks for confirmation. General keeps only plugin tiles. Visual failures have an independent Re-enable action.
 
 For installation, review and update safety, see [Apps & Installation](handbook:apps).
 

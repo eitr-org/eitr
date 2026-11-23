@@ -20,7 +20,6 @@ var SLOT_TO_ZONE = {
 // (Eitr logo, overview, workspaces, clock, media strip, centered pin, capture)
 // stays anchored by each bar layout and is never listed here.
 var BUILTIN_ICONS = [
-    {id: "hardware", defaultZone: "left", title: "Hardware", glyph: "󰍛", iconSize: 18, alwaysOpen: true, command: false, conditional: ""},
     {id: "idleLock", defaultZone: "left", title: "Idle Lock", glyph: "󰌾", iconSize: 17, alwaysOpen: true, command: false, conditional: ""},
     {id: "wifi", defaultZone: "right", title: "WiFi", glyph: "󰤨", iconSize: 16, alwaysOpen: false, command: true, conditional: ""},
     {id: "bluetooth", defaultZone: "right", title: "Bluetooth", glyph: "󰂯", iconSize: 15, alwaysOpen: false, command: false, conditional: ""},
@@ -60,6 +59,7 @@ function ordersEqual(first, second) {
 function pluginItemId(entry) {
     if (!entry) return "";
     if (entry.bundled && entry.plugin === "ai-usage" && entry.id === "usage") return "ai";
+    if (entry.bundled && entry.plugin === "hardware") return "hardware";
     if (entry.plugin && entry.id) return String(entry.plugin) + ":" + String(entry.id);
     if (entry.id) return "plugin:" + String(entry.id);
     if (entry.title) return "plugin:" + String(entry.title);
@@ -153,15 +153,21 @@ function mergeIcons(pluginItems, translate) {
             slot: ZONE_TO_SLOT[defaultZone],
             title: entry.bundled ? tr(String(entry.title || entry.id)) : String(entry.title || entry.id),
             glyph: glyph,
-            iconSize: id === "ai" ? 16 : 15,
+            iconSize: id === "ai" ? 16 : id === "hardware" ? 18 : 15,
             alwaysOpen: defaultZone !== "right",
             command: false,
             conditional: "",
             entry: entry
         };
         byId[id] = item;
-        if (id === "ai") defaultIdsByZone[defaultZone].unshift(id);
-        else defaultIdsByZone[defaultZone].push(id);
+        if (id === "ai") {
+            defaultIdsByZone[defaultZone].unshift(id);
+        } else if (id === "hardware") {
+            const aiIndex = defaultIdsByZone[defaultZone].indexOf("ai");
+            defaultIdsByZone[defaultZone].splice(aiIndex >= 0 ? aiIndex + 1 : 0, 0, id);
+        } else {
+            defaultIdsByZone[defaultZone].push(id);
+        }
     }
 
     // Notifications defaults to the end of right so status plugins remain inside the collapsible group.

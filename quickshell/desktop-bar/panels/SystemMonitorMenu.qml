@@ -7,6 +7,8 @@ import Quickshell
 
 ThemedPopup {
     id: menu
+    property bool pluginAvailable: true
+    onPluginAvailableChanged: if (!pluginAvailable) opened = false
     waitForFreshData: true
     property int maximumHeight: 900
     property var identity: null
@@ -63,6 +65,10 @@ ThemedPopup {
     implicitHeight: Math.min(content.implicitHeight + verticalContentInset, maximumHeight)
     leftAligned: true
     onOpenedChanged: {
+        if (opened && !pluginAvailable) {
+            opened = false;
+            return;
+        }
         if (opened) {
             hardwareToken = DesktopData.observe("hardware.details", menu);
             trafficToken = DesktopData.observe("throughput.network", menu);

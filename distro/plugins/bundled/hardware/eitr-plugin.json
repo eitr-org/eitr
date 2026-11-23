@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 2,
+  "id": "hardware",
+  "name": "Hardware",
+  "description": "Live CPU, GPU, RAM, storage and network usage on your desktop",
+  "author": "The Eitr project",
+  "version": "1.0.0",
+  "capabilities": [
+    "hardware"
+  ],
+  "rows": [],
+  "ui": {
+    "barItems": [
+      {
+        "id": "monitor",
+        "title": "Hardware",
+        "qml": "HardwareBar.qml",
+        "slot": "start",
+        "panel": "details",
+        "icon": "󰍛"
+      }
+    ],
+    "panels": [
+      {
+        "id": "details",
+        "title": "Hardware",
+        "qml": "HardwareBar.qml"
+      }
+    ],
+    "widgets": [
+      {
+        "id": "hardware",
+        "title": "Hardware",
+        "qml": "Hardware.qml",
+        "minWidth": 260,
+        "minHeight": 88,
+        "defaultWidth": 480,
+        "defaultHeight": 280,
+        "surface": "panel"
+      }
+    ]
+  },
+  "icon": "icon.svg"
+}

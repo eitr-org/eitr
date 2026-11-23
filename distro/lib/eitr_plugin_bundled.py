@@ -7,7 +7,7 @@ from eitr_paths import state
 from eitr_plugin_manifest import identifier, manifest
 
 BUNDLED = ROOT / 'distro/plugins/bundled'
-BUNDLED_DEFAULTS = ('weather', 'ai-usage')
+BUNDLED_DEFAULTS = ('weather', 'ai-usage', 'hardware')
 BUNDLED_URL = 'https://github.com/eitr-org/eitr'
 
 
@@ -30,13 +30,23 @@ def is_bundled(root):
 class BundledPlugins:
     def ensure_bundled(self):
         """Runs at host startup, never re-adds a removed or disabled default."""
+        from eitr_plugin_install import official
         marker = state('eitr/bundled-plugins.json')
         with self.lock():
             records = self.records()
             version = json.loads(marker.read_text())['version'] if marker.exists() else 0
+            replaced_external = False
+            for plugin_id in BUNDLED_DEFAULTS:
+                record = records.get(plugin_id)
+                if record and not record.get('bundled') and official(record.get('url', '')):
+                    if not self.refusal(BUNDLED_URL, plugin_id=plugin_id):
+                        self._install_bundled(records, plugin_id, enabled=record.get('enabled'))
+                        replaced_external = True
             for plugin_id in BUNDLED_DEFAULTS[version:]:
                 if plugin_id not in records and not self.refusal(BUNDLED_URL, plugin_id=plugin_id):
                     self._install_bundled(records, plugin_id)
+            if replaced_external:
+                self.clean_snapshots()
             if version < len(BUNDLED_DEFAULTS):
                 self.write(marker, {'version': len(BUNDLED_DEFAULTS)})
             for plugin_id, record in records.items():
@@ -46,15 +56,18 @@ class BundledPlugins:
                         record['commit'] = revision
                         self.save(records)
 
-    def _install_bundled(self, records, plugin_id):
+    def _install_bundled(self, records, plugin_id, *, enabled=None):
         import datetime
         root = bundled_root(plugin_id)
         if not is_bundled(root):
             raise ValueError('Unknown bundled plugin')
         self.check(BUNDLED_URL, plugin_id=plugin_id)
         spec = manifest(root)
-        records[plugin_id] = dict(id=plugin_id, url=BUNDLED_URL, commit=bundled_revision(root),
-                                  installed=datetime.datetime.now(datetime.timezone.utc).isoformat(), bundled=True)
+        record = dict(id=plugin_id, url=BUNDLED_URL, commit=bundled_revision(root),
+                      installed=datetime.datetime.now(datetime.timezone.utc).isoformat(), bundled=True)
+        if enabled is False:
+            record['enabled'] = False
+        records[plugin_id] = record
         # Keep existing placements, including a previously chosen slot.
         placements = self.placements()
         for entry in spec.get('ui', {}).get('barItems', []):

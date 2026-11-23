@@ -8,7 +8,7 @@ Plugin bar items can appear after Idle Lock, before the clock, after the clock o
 
 Weather is an official, built-in plugin, installed by default after the clock. Remove it in Eitr Store > Installed > Plugins to hide weather everywhere, including Drop's home page. It stays removed after updates; install it again from Discover using the bundled copy, with no download. Its city search remains temporary for the session.
 
-AI Usage is also installed by default. Removing it hides its bar icon, Drop page and Usage tab in AI Assistant settings. The other assistant features remain available. Reinstall AI Usage offline from the Store.
+AI Usage and Hardware are also built-in plugins installed by default. Removing AI Usage hides its bar icon, Drop page and Usage tab in AI Assistant settings while keeping the other assistant features available. Hardware includes both its bar icon (and Drop's Performance page) and its desktop widget (Compact or Detailed layout); removing it removes both and stops hardware polling, while turning off **Show on the bar** under the plugin's details hides only the bar icon and Drop page so any placed desktop widgets keep working. Reinstall either plugin offline from the Store.
 
 In the usage panel and Drop, ↗, → and ↘ compare consumption with an even pace. When usage is ahead, the panel estimates when the limit will fill. Pace appears when the window duration and reset time are known and at least 5% of the window has elapsed.
 

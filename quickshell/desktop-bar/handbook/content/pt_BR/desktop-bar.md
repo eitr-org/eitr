@@ -8,7 +8,7 @@ Os itens de plugins podem aparecer após Bloqueio automático, antes do relógio
 
 Weather é um plugin oficial integrado, instalado por padrão após o relógio. Remova-o em Eitr Store > Instalados > Plugins para ocultar o clima em todos os lugares, inclusive na página inicial de Drop. Ele continua removido após atualizações; instale-o novamente em Descobrir usando a cópia do pacote, sem download. A busca de cidades é temporária e dura apenas a sessão.
 
-Uso de IA também vem instalado por padrão. Ao removê-lo, somem o ícone, a página no Drop e a aba Uso nas configurações do Assistente de IA. Os outros recursos do assistente continuam disponíveis. É possível reinstalá-lo pela loja sem conexão.
+Uso de IA e Hardware também são plugins integrados instalados por padrão. Ao remover Uso de IA, somem o ícone, a página no Drop e a aba Uso nas configurações do Assistente de IA, mantendo os outros recursos do assistente disponíveis. Hardware inclui tanto o ícone na barra (e a página Desempenho no Drop) quanto o widget de área de trabalho (compacto ou detalhado); removê-lo retira ambos, enquanto desativar **Mostrar na barra** nos detalhes do plugin oculta apenas o ícone da barra e mantém ativos os widgets posicionados na área de trabalho. É possível reinstalar qualquer um pela loja sem conexão.
 
 As setas ↗, → e ↘ comparam o ritmo de consumo com um uso uniforme. Se o consumo estiver mais rápido, o painel estima quando o limite será atingido. O ritmo aparece quando a duração e o horário de renovação são conhecidos e pelo menos 5% do período já passou.
 

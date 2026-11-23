@@ -30,7 +30,7 @@ privately through [SECURITY.md](SECURITY.md).
 
 - A custom Quickshell bar with joined, animated panels: audio, network,
   Bluetooth, display (brightness, nightlight, resolution, refresh rate and scale),
-  calendar, hardware, removable bundled Weather and AI Usage and a control center.
+  calendar, removable bundled Weather, AI Usage and Hardware and a control center.
   Plugin items support start, before-clock, after-clock and status placements in every layout.
 - The Eitr lockscreen unlocks immediately after successful authentication. Password
   runes crumble only with Backspace or Delete; previews close instantly.

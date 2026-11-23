@@ -182,6 +182,7 @@ Item {
         panel_qml = (folder / "SamplePluginPanel.qml").as_uri()
         placed = [
             {"plugin": "ai-usage", "id": "usage", "kind": "barItems", "title": "AI Usage", "icon": "", "slot": "start", "panel": "limits", "bundled": True},
+            {"plugin": "hardware", "id": "monitor", "kind": "barItems", "title": "Hardware", "icon": "󰍛", "slot": "start", "panel": "details", "bundled": True},
             {"plugin": "weather", "id": "weather", "kind": "barItems", "title": "Weather", "icon": "󰖐", "slot": "clockEnd", "panel": "forecast", "capabilities": ["weather"], "disabled": False, "qml": weather_qml, "source": weather_qml},
             {"plugin": "worldclock", "id": "clock", "kind": "barItems", "title": "World clock", "icon": "󰥔", "slot": "clock", "panel": "panel", "capabilities": [], "disabled": False, "qml": clock_qml, "source": clock_qml},
             {"plugin": "notes", "id": "quick", "kind": "barItems", "title": "Quick note", "icon": "󰎞", "slot": "status", "panel": "panel", "capabilities": [], "disabled": False, "qml": note_qml, "source": note_qml},
@@ -202,6 +203,8 @@ QtObject {{
     property var placedBarItems: {json.dumps(placed)}
     readonly property bool weatherEnabled: true
     readonly property bool aiUsageEnabled: true
+    readonly property bool hardwareEnabled: true
+    function barItemShown(plugin, itemId) {{ return true; }}
     function slotItems(slot) {{ return placedBarItems.filter(entry => (entry.slot || "status") === slot); }}
     function registerSource(entry) {{}}
     function unregisterSource(entry) {{}}
@@ -676,6 +679,289 @@ ShellRoot {{
                 _save_optional_render(path, f"bar-{key}.png")
             for err in ("ReferenceError", "TypeError", "Binding loop", "Cannot anchor", "Unable to assign", "Required property", "Error:"):
                 self.assertNotIn(err, output)
+
+    def test_hardware_plugin_details_parts_and_hidden_bar_icon_renders(self):
+        with tempfile.TemporaryDirectory(prefix="eitr-hardware-parts-") as directory:
+            folder = Path(directory)
+            copy_runtime(folder)
+            _setup_mock_singletons(folder, with_plugins=True)
+            _adapt_bar_window(folder)
+            hw_icon = (ROOT / "distro/plugins/bundled/hardware/icon.svg").as_uri()
+            hw_widget_qml = (ROOT / "distro/plugins/bundled/hardware/Hardware.qml").as_uri()
+            hw_bar_qml = (ROOT / "distro/plugins/bundled/hardware/HardwareBar.qml").as_uri()
+            hw_entries = [
+                {"plugin": "hardware", "pluginName": "Hardware", "id": "hardware", "kind": "widgets", "title": "Hardware", "qml": "Hardware.qml", "source": hw_widget_qml, "minWidth": 260, "minHeight": 88, "defaultWidth": 480, "defaultHeight": 280, "surface": "panel", "bundled": True, "disabled": False, "capabilities": ["hardware"]},
+                {"plugin": "hardware", "pluginName": "Hardware", "id": "monitor", "kind": "barItems", "title": "Hardware", "icon": "󰍛", "qml": "HardwareBar.qml", "source": hw_bar_qml, "slot": "start", "panel": "details", "bundled": True, "disabled": False, "capabilities": ["hardware"]},
+                {"plugin": "hardware", "pluginName": "Hardware", "id": "details", "kind": "panels", "title": "Hardware", "qml": "HardwareBar.qml", "source": hw_bar_qml, "bundled": True, "disabled": False, "capabilities": ["hardware"]},
+            ]
+            hw_model = {
+                "id": "hardware",
+                "name": "Hardware",
+                "author": "The Eitr project",
+                "version": "1.0.0",
+                "description": "Live CPU, GPU, RAM, storage and network usage on your desktop",
+                "icon": hw_icon,
+                "official": True,
+                "builtin": True,
+                "removable": True,
+                "enabled": True,
+                "updateCount": 0,
+            }
+            captures = {
+                "details-dark": capture_path("HARDWARE_PARTS", directory, "plugin-details-parts-dark.png"),
+                "details-light": capture_path("HARDWARE_PARTS", directory, "plugin-details-parts-light.png"),
+                "bar-hidden": capture_path("HARDWARE_PARTS", directory, "bar-hardware-icon-hidden.png"),
+            }
+            (folder / "plugins/PluginRegistry.qml").write_text(
+                f"""pragma Singleton
+import QtQuick
+QtObject {{
+    signal reviewStarted()
+    property string clockFormat: "24h"
+    property var palette: ({{}})
+    property var providers: []
+    property var installed: [{json.dumps(hw_model)}]
+    property var blocked: []
+    property var errors: []
+    property var tiles: []
+    property var entries: {json.dumps(hw_entries)}
+    property var widgetItems: entries.filter(entry => entry.kind === "widgets")
+    property var barItems: entries.filter(entry => entry.kind === "barItems")
+    property var placements: ({{
+        version: 3,
+        widgets: [{{plugin: "hardware", id: "hardware", instance: "12345678", monitor: "eDP-1", x: 24, y: 48, width: 480, height: 280, surface: "panel", aboveWindows: false}}],
+        barItems: [{{plugin: "hardware", id: "monitor", slot: "start"}}, {{plugin: "ai-usage", id: "usage", slot: "start"}}]
+    }})
+    property var placedBarItems: [
+        {{plugin: "ai-usage", id: "usage", kind: "barItems", title: "AI Usage", icon: "", slot: "start", panel: "limits", bundled: true}},
+        {{plugin: "hardware", id: "monitor", kind: "barItems", title: "Hardware", icon: "󰍛", slot: "start", panel: "details", bundled: true}}
+    ]
+    property bool weatherEnabled: true
+    property bool aiUsageEnabled: true
+    property bool hardwareEnabled: true
+    function barItemShown(plugin, itemId) {{
+        return (placements.barItems || []).some(item => item.plugin === plugin && (!itemId || item.id === itemId));
+    }}
+    property var widgetMenus: ({{"12345678": [{{id: "compact", text: "Compact", checked: false, group: "Layout"}}, {{id: "detailed", text: "Detailed", checked: true, group: "Layout"}}]}})
+    function slotItems(slot) {{ return placedBarItems.filter(entry => (entry.slot || "status") === slot); }}
+    function editingCopy(copy) {{ return false; }}
+    function rotation(copy) {{ return (copy && copy.rotation) || 0; }}
+    function widgetSurface(entry) {{ return (entry && entry.geometry && entry.geometry.surface) || (entry && entry.surface) || "none"; }}
+    function widgetKey(copy) {{ return (copy && copy.instance) || ""; }}
+    function triggerMenu(copy, id) {{}}
+    function toggleEditing(copy) {{}}
+    function pluginErrors(id) {{ return []; }}
+    function errorDetails(id) {{ return ""; }}
+    function change(action, entry, extra) {{
+        if (action === "unplace" && entry.kind === "barItems") {{
+            placements = Object.assign({{}}, placements, {{barItems: placements.barItems.filter(item => !(item.plugin === entry.plugin && item.id === entry.id))}});
+            placedBarItems = placedBarItems.filter(item => !(item.plugin === entry.plugin && item.id === entry.id));
+            if (entry.plugin === "hardware") hardwareEnabled = false;
+        }}
+    }}
+    function registerSource(entry) {{}}
+    function unregisterSource(entry) {{}}
+    function refresh() {{}}
+    function startDiagnostics() {{}}
+    function recordError(plugin, source, line, msg) {{}}
+}}
+"""
+            )
+            fixture = f"""import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {{
+    id: shell
+    signal handbookOpened()
+    property bool barVisible: true
+    property string barAppearance: "solid"
+    property string barLayout: "unified"
+    property string barEdge: "top"
+    property bool barPinned: true
+    property bool barAutoHide: false
+    property bool barDock: false
+    property bool barDockPreviews: true
+    property string barMediaStyle: "bars"
+    property string barClock: "24h"
+    property bool barMoments: false
+    property bool barLyrics: false
+    property string barScreens: "main"
+    property string barIslandStyle: "floating"
+    property string barSideStyle: "slopes"
+    property bool attachedIslands: false
+    property bool centeredLayout: barLayout === "centered"
+    property bool islandsLayout: barLayout === "islands"
+    property bool dynamicLayout: barLayout === "dynamic"
+    property bool dropLayout: barLayout === "drop"
+    property bool notchLayout: barLayout === "notch"
+    property bool iconsOpen: centeredLayout || notchLayout || dynamicLayout || dropLayout || islandsLayout || statusOpen
+    property bool statusOpen: true
+    property bool verticalBar: barEdge === "left" || barEdge === "right"
+    property real barHeight: 40
+    property int workspaceCount: 5
+    property int workspaceItemSize: 24
+    property int workspaceItemSpacing: 4
+    property real tabStripThickness: 7
+    property real tabBendRound: 6
+    property bool settingsDirty: false
+    property string dragCandidate: ""
+    property bool barPointerHeld: false
+    property string barIconOrderJson: ""
+    Binding {{ target: Bar.BarIconOrder; property: "savedOrderJson"; value: shell.barIconOrderJson }}
+
+    property var windowGaps: [5, 5, 5, 5]
+    property var screenGaps: [12, 12, 12, 12]
+    property string workspaceStyle: "Square"
+    property color fg: "#e4e5ef"
+    property color bg: "#191b25"
+    property color activeBg: "#9a815c"
+    property color activeFg: "#191b25"
+    property color workspaceMenuBg: "#1f2330"
+    property color workspaceMenuFg: "#e4e5ef"
+    property string wifiGlyph: "󰤨"
+    property string focusNetworkGlyph: "󰤨"
+    property bool idleLockEnabled: true
+    property string idleLockGlyph: "󰌾"
+    property string idleLockTooltip: "Idle Lock: On"
+    property var updates: ({{checking: false, count: 2}})
+    property string updatesIcon: "󰚰"
+    property string updatesTooltip: "2 updates"
+    property var battery: ({{available: true, percent: 84, status: "Discharging"}})
+    property string batteryIcon: "󰁹"
+    property bool dictating: false
+    property bool transcribing: false
+    property var dictationLevels: []
+    property int remoteObservers: 0
+
+    function barBackground() {{ return "#e61f2330"; }}
+    function barSurface() {{ return barBackground(); }}
+    readonly property color barFg: fg
+    function mainScreen() {{ return screenObj; }}
+    function isActiveBar(b) {{ return true; }}
+    function registerBar(b) {{}}
+    function unregisterBar(b) {{}}
+    function updateBarSetting(k, v) {{}}
+    function switchIdleLock() {{}}
+    function checkUpdates() {{}}
+    function openSystemUpdate() {{}}
+    function setWorkspaceStyle(s) {{ workspaceStyle = s; }}
+    function workspaceRows(s) {{ return [{{id: 1, number: 1}}, {{id: 2, number: 2}}, {{id: 3, number: 3}}, {{id: 4, number: 4}}, {{id: 5, number: 5}}]; }}
+    function workspaceEntry(i, s) {{ return workspaceRows(s)[i] || {{id: i + 1, number: i + 1}}; }}
+    function workspaceLabel(i, s) {{ return String(workspaceEntry(i, s).number); }}
+    function workspaceApps(id) {{ return ""; }}
+    function workspaceActive(i, s) {{ return i === 1; }}
+    function focusWorkspace(n, s) {{}}
+    function showSettings(p) {{}}
+    function showClock(p) {{}}
+
+    readonly property var screenObj: Quickshell.screens.length ? Quickshell.screens[0] : fallbackScreen
+    QtObject {{ id: fallbackScreen; property string name: "eDP-1"; property real width: 1920; property real height: 1080 }}
+    QtObject {{
+        id: netSvc
+        property bool busy: false
+        property var details: ({{error: "", data: {{backend: "iwd", devices: []}}}})
+        property var latency: ({{data: {{ping: 0}}}})
+        function observe(o, t) {{ return ""; }}
+        function release(t) {{}}
+        function detach(o) {{}}
+        function actionMessage(m) {{ return m; }}
+    }}
+    QtObject {{ id: notifSvc; signal toggleRequested(); property int count: 1; property var items: []; property var popups: []; property var notifications: []; property bool doNotDisturb: false; property bool centerOpen: false; property bool popupsOnAllDisplays: false; function toggleDnd() {{}} }}
+    QtObject {{ id: remoteSvc; property bool allowed: false; property bool busy: false; property var streaming: ({{enabled: false, active: false}}); property var state: ({{streaming: false, enabled: false, error: ""}}); property var devices: []; function refresh() {{}} function detach(o) {{}} }}
+    QtObject {{ id: dockSvc; property bool observing: false; property var clients: [] }}
+    QtObject {{ id: idleProc; property bool running: false }}
+
+    Bar.BarWindow {{
+        id: bar
+        modelData: screenObj
+        host: shell
+        networkServiceRef: netSvc
+        notificationsRef: notifSvc
+        remoteServiceRef: remoteSvc
+        dockClientsRef: dockSvc
+        idleLockProcessRef: idleProc
+    }}
+
+    FloatingWindow {{
+        id: detailsWin
+        visible: true
+        implicitWidth: 460
+        implicitHeight: Math.max(980, Math.ceil(detailsCard.height + 32))
+        Rectangle {{
+            id: detailsSheet
+            anchors.fill: parent
+            color: shell.bg
+            Bar.PluginDetails {{
+                id: detailsCard
+                x: 16; y: 16
+                width: parent.width - 32
+                modelData: {json.dumps(hw_model)}
+                entries: Bar.PluginRegistry.entries
+                foreground: shell.fg
+                background: shell.bg
+                accent: shell.activeBg
+            }}
+        }}
+    }}
+
+    property int step: 0
+    property bool busy: false
+    Timer {{
+        interval: 260; repeat: true; running: true
+        onTriggered: {{
+            if (busy) return;
+            if (step === 0) {{
+                if (!bar.iconItem("hardware") || !bar.iconItem("hardware").visible) {{
+                    console.error("Hardware icon should be visible initially"); Qt.exit(1); return;
+                }}
+                busy = true;
+                detailsSheet.grabToImage(res => {{
+                    res.saveToFile({json.dumps(str(captures["details-dark"]))});
+                    shell.fg = "#202431";
+                    shell.bg = "#f5f3ee";
+                    busy = false;
+                    step = 1;
+                }});
+            }} else if (step === 1) {{
+                busy = true;
+                detailsSheet.grabToImage(res => {{
+                    res.saveToFile({json.dumps(str(captures["details-light"]))});
+                    shell.fg = "#e4e5ef";
+                    shell.bg = "#191b25";
+                    // Turn off Show on the bar for hardware
+                    Bar.PluginRegistry.change("unplace", {{plugin: "hardware", id: "monitor", kind: "barItems"}});
+                    busy = false;
+                    step = 2;
+                }});
+            }} else if (step === 2) {{
+                const hwItem = bar.iconItem("hardware");
+                if (hwItem && hwItem.visible && hwItem.width > 0) {{
+                    console.error("Hardware icon still visible after Show on the bar turned off"); Qt.exit(1); return;
+                }}
+                if (!bar.iconItem("ai") || !bar.iconItem("ai").visible || !bar.iconItem("idleLock") || !bar.iconItem("idleLock").visible) {{
+                    console.error("AI Usage or Idle Lock missing after hiding Hardware"); Qt.exit(1); return;
+                }}
+                busy = true;
+                bar.stripItem.grabToImage(res => {{
+                    res.saveToFile({json.dumps(str(captures["bar-hidden"]))});
+                    console.log("HARDWARE_PARTS_OK");
+                    Qt.quit();
+                }});
+            }}
+        }}
+    }}
+}}
+"""
+            (folder / "fixture.qml").write_text(fixture)
+            code, output = render(folder / "fixture.qml", render_environment(folder, (1920, 1080)), 20)
+            self.assertEqual(code, 0, output)
+            self.assertIn("HARDWARE_PARTS_OK", output)
+            for key, path in captures.items():
+                self.assertTrue(path.is_file(), f"Missing capture {key}: {output}")
+                _save_optional_render(path, path.name)
+            for err in ("ReferenceError", "TypeError", "Binding loop", "Cannot anchor", "Unable to assign", "Required property", "Error:"):
+                self.assertNotIn(err, output)
+
 
 
 if __name__ == "__main__":

@@ -118,8 +118,8 @@ Grid {
             readonly property bool isBuiltin: modelData.kind === "builtin"
             readonly property bool isWifi: isBuiltin && itemId === "wifi"
             readonly property bool isNotifications: isBuiltin && itemId === "notifications"
-            readonly property bool isGenericBuiltin: (isBuiltin && !isWifi && !isNotifications) || itemId === "ai"
-            readonly property bool isPlugin: modelData.kind === "plugin" && itemId !== "ai"
+            readonly property bool isGenericBuiltin: (isBuiltin && !isWifi && !isNotifications) || itemId === "ai" || itemId === "hardware"
+            readonly property bool isPlugin: modelData.kind === "plugin" && itemId !== "ai" && itemId !== "hardware"
             readonly property bool itemAvailable: {
                 if (itemId === "streaming") return zoneGrid.remoteAllowed;
                 if (itemId === "battery") return !!zoneGrid.host.battery.available;
@@ -203,7 +203,7 @@ Grid {
                 id: builtinLoader
                 active: slotItem.isGenericBuiltin
                 sourceComponent: StatusIcon {
-                    readonly property bool barItem: slotItem.itemId === "ai"
+                    readonly property bool barItem: slotItem.itemId === "ai" || slotItem.itemId === "hardware"
                     readonly property var entry: slotItem.modelData.entry
                     host: zoneGrid.host
                     visible: slotItem.itemAvailable

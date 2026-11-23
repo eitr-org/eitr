@@ -56,18 +56,29 @@
                 dashboard.player = null; bar.obsMenu = {obsState:{}};
                 dashboard.go("home", 1);
                 const entries = Bar.PluginRegistry.entries;
+                const placements = Bar.PluginRegistry.placements;
+                const usageBar = {kind:"barItems", plugin:"ai-usage", id:"usage", bundled:true, disabled:false, slot:"start", panel:"limits"};
                 const usage = {kind:"panels", plugin:"ai-usage", id:"limits", bundled:true, disabled:false};
-                if (dashboard.pages.includes("ai")) throw new Error("AI Usage appeared without its plugin");
-                Bar.PluginRegistry.entries = entries.concat([usage]);
+                const hwBar = {kind:"barItems", plugin:"hardware", id:"monitor", bundled:true, disabled:false, slot:"start", panel:"details"};
+                const hwPanel = {kind:"panels", plugin:"hardware", id:"details", bundled:true, disabled:false};
+                if (dashboard.pages.includes("ai") || dashboard.pages.includes("performance")) throw new Error("AI Usage or Hardware appeared without its plugin");
+                Bar.PluginRegistry.entries = entries.concat([usageBar, usage, hwBar, hwPanel]);
+                Bar.PluginRegistry.placements = {barItems: (placements.barItems || []).concat([{plugin:"ai-usage", id:"usage"}, {plugin:"hardware", id:"monitor"}]), widgets:[]};
                 dashboard.openPlugin("ai-usage", "limits");
                 if (dashboard.page !== "ai" || !dashboard.pages.includes("ai") || dashboard.pluginEntry)
                     throw new Error("AI Usage did not open in its native Drop slot");
+                dashboard.openPlugin("hardware", "details");
+                if (dashboard.page !== "performance" || !dashboard.pages.includes("performance") || dashboard.pluginEntry)
+                    throw new Error("Hardware did not open in its native Drop slot");
+                // Switching off Show on the bar (unplacing the barItem) hides the Drop page even while the plugin stays in entries.
+                Bar.PluginRegistry.placements = placements;
+                if (dashboard.page !== "home" || dashboard.pages.includes("ai") || dashboard.pages.includes("performance"))
+                    throw new Error("Hiding bar item left its Drop page open");
+                Bar.PluginRegistry.placements = {barItems: (placements.barItems || []).concat([{plugin:"ai-usage", id:"usage"}, {plugin:"hardware", id:"monitor"}]), widgets:[]};
+                if (!dashboard.pages.includes("ai") || !dashboard.pages.includes("performance"))
+                    throw new Error("Showing bar item did not restore its Drop page");
                 Bar.PluginRegistry.entries = entries;
-                if (dashboard.page !== "home" || dashboard.pages.includes("ai"))
-                    throw new Error("Removing AI Usage left its Drop page open");
-                Bar.PluginRegistry.entries = entries.concat([usage]);
-                if (!dashboard.pages.includes("ai")) throw new Error("Reinstalling AI Usage did not restore its Drop page");
-                Bar.PluginRegistry.entries = entries;
+                Bar.PluginRegistry.placements = placements;
             }
             TestEvent { id: pointer }
             Component.onCompleted: {

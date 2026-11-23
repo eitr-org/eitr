@@ -1200,5 +1200,8 @@
   "Updates available": "Actualizaciones disponibles",
   "and %1 more": "y %1 más",
   "Changes": "Cambios",
-  "What it asks for": "Lo que solicita"
+  "What it asks for": "Lo que solicita",
+  "1 placed": "1 colocado",
+  "Live CPU, GPU, RAM, storage and network usage on your desktop": "Uso en tiempo real de CPU, GPU, RAM, almacenamiento y red en tu escritorio",
+  "{count} placed": "{count} colocados"
 }

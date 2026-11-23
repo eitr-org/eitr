@@ -327,14 +327,14 @@ shows only its icon (the temperature is in its tooltip), and popups open inward.
 The `clock` setting in `bar-settings.json` (`12h`, the default, or `24h`), under
 Settings > Desktop > Desktop Bar > Clock and the Settings window's Desktop Bar page, picks the time format
 for every edge.
-The bundled AI Usage plugin, Hardware and Idle Lock sit together after the workspaces by default; right-hand controls
+The bundled AI Usage and Hardware plugins and Idle Lock sit together after the workspaces by default; right-hand controls
 retain their manual show/hide toggle in Full only. Centered, Tabs, Islands and Dynamic keep them visible without a toggle; Drop shows placed plugin items in its dashboard’s plugin rail. Settings > Desktop Bar > Icons (`BarIconOrder.qml`, persisted as `iconOrder` in `bar-settings.json`, or Reset to default) organizes built-in and active plugin icons across the left, clock-start, clock-end and right zones across every layout and screen edge, with panels opening from the moved icon’s zone. Both side groups share 24 px icon slots
 and 4 px spacing, with centered alignment on every bar edge. Active workspace
 glyphs use the accent color without a filled background in every style; the
 style menus show the same markers.
 Horizontal bars inset the left icon group by 12 px and the right group by
 13 px; the clock remains exactly screen-centered.
-The Idle Lock icon follows AI Usage and is a plain switch: a click turns
+The Idle Lock icon follows AI Usage and Hardware and is a plain switch: a click turns
 automatic idle locking on or off, with no panel; its tooltip shows the state.
 When on, `hypridle` locks after 15 minutes, turns screens off after 30 and
 suspends after 60. Locking now stays in the Control Center, Main > Power and

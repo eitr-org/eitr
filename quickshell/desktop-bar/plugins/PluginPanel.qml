@@ -32,7 +32,10 @@ ThemedPopup {
         function onEntriesChanged() {
             if (!panel.entry) return;
             panel.entry = PluginRegistry.entries.find(entry => entry.plugin === panel.entry.plugin && entry.id === panel.entry.id && entry.kind === "panels") || null;
-            if (!panel.entry) panel.opened = false;
+            if (!panel.entry || (PluginRegistry.barItemShown && !PluginRegistry.barItemShown(panel.entry.plugin))) panel.opened = false;
+        }
+        function onPlacementsChanged() {
+            if (panel.entry && PluginRegistry.barItemShown && !PluginRegistry.barItemShown(panel.entry.plugin)) panel.opened = false;
         }
     }
     Row {

@@ -14,13 +14,15 @@ const worldClockPlugin = {plugin: 'worldclock', id: 'clock', title: 'World clock
 const extraStatusPlugin = {plugin: 'notes', id: 'quick', title: 'Quick note', icon: '󰎞', slot: 'status', panel: 'pad', capabilities: []};
 const startPlugin = {plugin: 'focus', id: 'streak', title: 'Streak', icon: '󰈸', slot: 'start', panel: 'stats', capabilities: []};
 
-// Default order keeps all 13 built-ins and places active plugins in their manifest slots.
+// Default order keeps all built-ins and places active plugins in their manifest slots.
 const aiUsage = {plugin: 'ai-usage', id: 'usage', title: 'AI Usage', bundled: true, slot: 'start', panel: 'limits'};
-assert.deepEqual(plain(context.resolve('', []).idsByZone.left), ['hardware', 'idleLock']);
+const hardwarePlugin = {plugin: 'hardware', id: 'monitor', title: 'Hardware', icon: '󰍛', bundled: true, slot: 'start', panel: 'details'};
+assert.deepEqual(plain(context.resolve('', []).idsByZone.left), ['idleLock']);
+assert.deepEqual(plain(context.resolve('', [hardwarePlugin]).idsByZone.left), ['hardware', 'idleLock']);
 assert.deepEqual(plain(context.resolve({clockStart: ['ai']}, [aiUsage]).idsByZone.clockStart), ['ai']);
 assert.deepEqual(plain(context.resolve({clockStart: ['ai']}, []).idsByZone.clockStart), []);
 
-const defaultResolved = plain(context.resolve('', [aiUsage, weatherPlugin, extraStatusPlugin]));
+const defaultResolved = plain(context.resolve('', [aiUsage, hardwarePlugin, weatherPlugin, extraStatusPlugin]));
 assert.deepEqual(defaultResolved.idsByZone.left, ['ai', 'hardware', 'idleLock']);
 assert.deepEqual(defaultResolved.idsByZone.clockStart, []);
 assert.deepEqual(defaultResolved.idsByZone.clockEnd, ['weather:weather']);
@@ -37,7 +39,7 @@ const savedWithUnknown = JSON.stringify({
     clockEnd: ['weather:weather', 'unknown-builtin'],
     right: ['notifications', 'wifi', 'bluetooth', 'display', 'audio', 'streaming', 'obs', 'keyboard', 'idleLock', 'battery']
 });
-const cleaned = plain(context.resolve(savedWithUnknown, [aiUsage, weatherPlugin]));
+const cleaned = plain(context.resolve(savedWithUnknown, [aiUsage, hardwarePlugin, weatherPlugin]));
 assert.equal(cleaned.customized, true);
 assert.deepEqual(cleaned.idsByZone.left, ['updates', 'ai']);
 assert.deepEqual(cleaned.idsByZone.clockStart, ['hardware']);
@@ -53,7 +55,7 @@ const partialSaved = JSON.stringify({
     clockEnd: ['weather:weather'],
     right: ['wifi', 'bluetooth', 'display', 'audio', 'streaming', 'obs', 'keyboard', 'updates', 'battery', 'notifications']
 });
-const withNewIcons = plain(context.resolve(partialSaved, [aiUsage, weatherPlugin, extraStatusPlugin, worldClockPlugin, startPlugin]));
+const withNewIcons = plain(context.resolve(partialSaved, [aiUsage, hardwarePlugin, weatherPlugin, extraStatusPlugin, worldClockPlugin, startPlugin]));
 assert.deepEqual(withNewIcons.idsByZone.left, ['ai', 'hardware', 'idleLock', 'focus:streak']);
 assert.deepEqual(withNewIcons.idsByZone.clockStart, ['worldclock:clock']);
 assert.equal(withNewIcons.idsByZone.right.indexOf('notes:quick'), withNewIcons.idsByZone.right.indexOf('notifications') - 1);
@@ -84,10 +86,10 @@ const customPluginOrder = JSON.stringify({
     clockEnd: ['weather:weather'],
     right: ['wifi', 'bluetooth', 'display', 'audio', 'streaming', 'obs', 'keyboard', 'updates', 'battery', 'focus:streak', 'notifications']
 });
-const pluginResolved = plain(context.resolve(customPluginOrder, [aiUsage, weatherPlugin, extraStatusPlugin, worldClockPlugin, startPlugin]));
+const pluginResolved = plain(context.resolve(customPluginOrder, [aiUsage, hardwarePlugin, weatherPlugin, extraStatusPlugin, worldClockPlugin, startPlugin]));
 assert.deepEqual(
     pluginResolved.plugins.map(entry => entry.resolvedId),
-    ['ai', 'notes:quick', 'worldclock:clock', 'weather:weather', 'focus:streak']
+    ['ai', 'hardware', 'notes:quick', 'worldclock:clock', 'weather:weather', 'focus:streak']
 );
 
 console.log('Bar icon order checks passed');

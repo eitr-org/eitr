@@ -38,7 +38,7 @@ O assistente também recebe a introdução do Manual e trechos traduzidos releva
 
 ## Plugins
 
-**Central de controle > Plugins** mostra uma linha compacta por plugin instalado, com ícone, nome e interruptor de ativação. Selecione uma linha para ver autor, versão, descrição, ações de atualização e remoção, widgets, itens da barra e prévia. Use Voltar ou Escape para retornar à lista. Ativar/Desativar preserva posições e interrompe ou restaura serviços, itens do Walker, hooks e elementos visuais; use `eitr plugin enable ID` ou `eitr plugin disable ID`.
+**Central de controle > Plugins** mostra uma linha compacta por plugin instalado, com ícone, nome e interruptor de ativação. Selecione uma linha para ver autor, versão, descrição, ações de atualização e remoção, widgets (com título, quantas cópias estão posicionadas e um botão para adicionar), itens da barra (cada um com seu interruptor **Mostrar na barra** e posição) e prévia. Desativar **Mostrar na barra** oculta esse item em todos os layouts mantendo o plugin e seus widgets de área de trabalho ativos. Use Voltar ou Escape para retornar à lista. Ativar/Desativar preserva posições e interrompe ou restaura serviços, itens do Walker, hooks e elementos visuais; use `eitr plugin enable ID` ou `eitr plugin disable ID`.
 
 Adicionar plugins, Atualizar e Remover abrem os fluxos revisados no terminal; remover pede confirmação. Geral mantém apenas os blocos de plugins. Falhas visuais têm uma ação independente para reativar.
 

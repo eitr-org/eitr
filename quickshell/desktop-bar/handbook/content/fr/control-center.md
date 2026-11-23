@@ -40,7 +40,7 @@ L’assistant reçoit aussi l’introduction du Manuel et des extraits traduits 
 
 ## Plugins
 
-**Centre de contrôle > Plugins** affiche une ligne compacte par plugin installé avec icône, nom et interrupteur d’activation. Sélectionnez une ligne pour voir l’auteur, la version, la description, les actions de mise à jour et de suppression, les widgets, les éléments de barre et l’aperçu. Utilisez Retour ou Échap pour revenir à la liste.
+**Centre de contrôle > Plugins** affiche une ligne compacte par plugin installé avec icône, nom et interrupteur d’activation. Sélectionnez une ligne pour voir l’auteur, la version, la description, les actions de mise à jour et de suppression, les widgets (avec leur titre, le nombre d’exemplaires placés et un bouton d’ajout), les éléments de barre (chacun avec son interrupteur **Afficher dans la barre** et sa position) et l’aperçu. Désactiver **Afficher dans la barre** masque cet élément dans toutes les dispositions tout en gardant le plugin et ses widgets de bureau actifs. Utilisez Retour ou Échap pour revenir à la liste.
 
 Activer/Désactiver conserve les positions et arrête ou rétablit services, lignes Walker, hooks et composants visuels ; utilisez `eitr plugin enable ID` ou `eitr plugin disable ID`. Ajouter des plugins, Mettre à jour et Supprimer ouvrent les parcours de vérification du terminal ; la suppression demande confirmation. Général conserve uniquement les tuiles. Les erreurs visuelles ont une action indépendante de réactivation.
 

@@ -383,6 +383,10 @@ PanelWindow {
             togglePanel(aiMenu);
             return;
         }
+        if (plugin === "hardware" && (panel === "details" || panel === "hardware" || panel === "monitor") && PluginRegistry.hardwareEnabled) {
+            togglePanel(hardwareMenu);
+            return;
+        }
         return barPanels.openPluginPanel(plugin, panel, target);
     }
     function showControlCenter(page) { return barPanels.showControlCenter(page); }

@@ -382,7 +382,7 @@ ShellRoot {
                             source=(ROOT / 'distro/plugins/example' / entry['qml']).as_uri())
                        for kind, declarations in spec['ui'].items() for entry in declarations]
             (folder / 'eitr').mkdir()
-            (folder / 'eitr/bundled-plugins.json').write_text('{"version":2}')
+            (folder / 'eitr/bundled-plugins.json').write_text('{"version":3}')
             (folder / 'eitr/plugin-placements.json').write_text(json.dumps({
                 'version': 1,
                 'widgets': [dict(plugin='example', id='clock', monitor='missing-monitor',
@@ -425,7 +425,7 @@ ShellRoot {
     }
     FloatingWindow {
         id: bar
-        visible: true; implicitWidth: 1280; implicitHeight: 1000
+        visible: true; implicitWidth: 1280; implicitHeight: 1060
         property real normalThickness: 30
         property real tabLeadingEnd: 220
         property real tabCenterStart: 552
@@ -471,7 +471,7 @@ ShellRoot {
             }
             Rectangle {
                 visible: MANAGEMENT
-                x: 380; y: 50; width: 520; height: 930
+                x: 380; y: 50; width: 520; height: 980
                 color: "BACKGROUND"; radius: 12
                 Column {
                     x: 24; y: 20; width: parent.width - 48; spacing: 16
@@ -490,7 +490,7 @@ ShellRoot {
                         throw new Error("Clock moved off screen centre");
                     if (items.width !== 24) throw new Error("Plugin slot changed width");
                     if (MANAGEMENT) {
-                        if (area.height <= 0 || area.height > 870) throw new Error("Management missing or clipped: " + area.height);
+                        if (area.height <= 0 || area.height > 940) throw new Error("Management missing or clipped: " + area.height);
                         if (Bar.PluginRegistry.placements.widgets.length !== 1 || Bar.PluginRegistry.placements.barItems.length !== 1) throw new Error("Management lost placements before capture");
                     }
                     sample.grabToImage(function(result) {
@@ -556,7 +556,7 @@ Item {
             placement = dict(plugin='fixture', id='spectrum', monitor='test-display',
                              x=24, y=24, width=320, height=180, aboveWindows=True)
             (folder / 'eitr').mkdir()
-            (folder / 'eitr/bundled-plugins.json').write_text('{"version":2}')
+            (folder / 'eitr/bundled-plugins.json').write_text('{"version":3}')
             (folder / 'eitr/plugin-placements.json').write_text(json.dumps(dict(version=2, widgets=[placement], barItems=[])))
             for mode in ('spectrum-dark', 'spectrum-light', 'layer-toggle-dark', 'layer-toggle-light'):
                 captures = Path(os.environ.get('EITR_PLUGIN_REVIEW_RENDERS', directory))
@@ -869,7 +869,7 @@ Item {
                         dict(name='HDMI-A-1', description='LG HDR 4K', width=1920, height=1080)]
             # The registry reads placements through the real helper, from this folder.
             (folder / 'eitr').mkdir()
-            (folder / 'eitr/bundled-plugins.json').write_text('{"version":2}')
+            (folder / 'eitr/bundled-plugins.json').write_text('{"version":3}')
             (folder / 'eitr/plugin-placements.json').write_text(json.dumps(dict(version=3, widgets=copies, barItems=[])))
             captures = Path(os.environ.get('EITR_PLUGIN_REVIEW_RENDERS', directory))
             captures.mkdir(parents=True, exist_ok=True)

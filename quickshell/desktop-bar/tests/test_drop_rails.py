@@ -132,7 +132,7 @@ ShellRoot {
         copy_runtime(folder)
         registry = folder / 'plugins/PluginRegistry.qml'
         registry.write_text(registry.read_text().replace('Component.onCompleted: { refresh(); startDiagnostics(); }', '')
-                            .replace('readonly property bool weatherEnabled: entries.some(entry => entry.plugin === "weather" && !entry.disabled && (entry.capabilities || []).includes("weather"))',
+                            .replace('readonly property bool weatherEnabled: entries.some(entry => entry.plugin === "weather" && !entry.disabled && (entry.capabilities || []).includes("weather")) && barItemShown("weather")',
                                      'readonly property bool weatherEnabled: true'))
         (folder / 'services/DesktopData.qml').write_text('''pragma Singleton
 import QtQuick

@@ -53,6 +53,9 @@
     "1 change": [
       "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
+    "1 placed": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
+    ],
     "1 update": [
       "quickshell/desktop-bar/store/StoreUpdatesFooter.qml"
     ],
@@ -1467,7 +1470,8 @@
     ],
     "Hardware": [
       "quickshell/desktop-bar/bar/BarZoneItems.qml",
-      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml"
+      "quickshell/desktop-bar/figures/BarAnatomyFigure.qml",
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Hardware information unavailable": [
       "quickshell/desktop-bar/panels/SystemMonitorMenu.qml"
@@ -1764,6 +1768,9 @@
     ],
     "Live": [
       "quickshell/desktop-bar/media/MediaPage.qml"
+    ],
+    "Live CPU, GPU, RAM, storage and network usage on your desktop": [
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Loading...": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
@@ -4098,6 +4105,9 @@
     "{count} notifications": [
       "quickshell/desktop-bar/bar/NotificationWidget.qml",
       "quickshell/desktop-bar/notifications/NotificationGroup.qml"
+    ],
+    "{count} placed": [
+      "quickshell/desktop-bar/plugins/PluginManagement.qml"
     ],
     "{day} · WEEK {week} · {year}": [
       "quickshell/desktop-bar/panels/CalendarMenu.qml"

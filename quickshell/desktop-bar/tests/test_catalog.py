@@ -126,7 +126,7 @@ class CatalogDomainTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 DOMAIN.validate(name, args)
         # Built-in plugins reinstall from the package after prepare answers 'bundled'.
-        for plugin_id in ('weather', 'ai-usage'):
+        for plugin_id in ('weather', 'ai-usage', 'hardware'):
             DOMAIN.validate('install', {'kind': 'plugins', 'ids': [plugin_id]})
         domain = DOMAIN.CatalogDomain()
         with domain.action_lock:

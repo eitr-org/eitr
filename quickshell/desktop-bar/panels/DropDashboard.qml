@@ -27,10 +27,15 @@ ThemedPopup {
     property var pluginEntry: null
     property var pluginHistory: []
     function openPlugin(plugin, panel, remember) {
+        if (PluginRegistry.barItemShown && !PluginRegistry.barItemShown(plugin)) return;
         const entry = PluginRegistry.entries.find(candidate => candidate.plugin === plugin && candidate.id === panel && candidate.kind === "panels" && !candidate.disabled);
         if (!entry) return;
         if (entry.bundled && plugin === "ai-usage" && panel === "limits") {
-            go("ai", 1);
+            if (PluginRegistry.aiUsageEnabled) go("ai", 1);
+            return;
+        }
+        if (entry.bundled && plugin === "hardware" && (panel === "details" || panel === "hardware" || panel === "monitor")) {
+            if (PluginRegistry.hardwareEnabled) go("performance", 1);
             return;
         }
         pluginHistory = remember && pluginEntry ? pluginHistory.concat([pluginEntry]) : [];
@@ -47,7 +52,13 @@ ThemedPopup {
         target: PluginRegistry
         function onEntriesChanged() {
             dashboard.pluginHistory = [];
-            if (dashboard.pluginEntry) dashboard.pluginEntry = PluginRegistry.entries.find(candidate => candidate.plugin === dashboard.pluginEntry.plugin && candidate.id === dashboard.pluginEntry.id && candidate.kind === "panels" && !candidate.disabled) || null;
+            if (dashboard.pluginEntry) dashboard.pluginEntry = (!PluginRegistry.barItemShown || PluginRegistry.barItemShown(dashboard.pluginEntry.plugin)) ? (PluginRegistry.entries.find(candidate => candidate.plugin === dashboard.pluginEntry.plugin && candidate.id === dashboard.pluginEntry.id && candidate.kind === "panels" && !candidate.disabled) || null) : null;
+        }
+        function onPlacementsChanged() {
+            if (dashboard.pluginEntry && PluginRegistry.barItemShown && !PluginRegistry.barItemShown(dashboard.pluginEntry.plugin)) {
+                dashboard.pluginHistory = [];
+                dashboard.pluginEntry = null;
+            }
         }
     }
     property date now: new Date()
@@ -62,7 +73,7 @@ ThemedPopup {
         return !!center && !!center.chatAssistant.identifier && center.organizationPolicy.development !== false
             && center.organizationPolicy.assistants_together !== false;
     }
-    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", "display", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", "performance", PluginRegistry.aiUsageEnabled ? "ai" : "", dashboard.assistantAvailable ? "assistant" : "", "plugins", "notifications"].filter(Boolean)
+    readonly property var pages: ["home", dashboard.player ? "media" : "", dashboard.obsShown ? "obs" : "", "controls", "display", dashboard.barHost.remoteServiceRef && dashboard.barHost.remoteServiceRef.allowed ? "streaming" : "", PluginRegistry.hardwareEnabled ? "performance" : "", PluginRegistry.aiUsageEnabled ? "ai" : "", dashboard.assistantAvailable ? "assistant" : "", "plugins", "notifications"].filter(Boolean)
     readonly property var obsState: barHost.obsMenu ? barHost.obsMenu.obsState : ({})
     readonly property bool obsShown: !!obsState.recording || !!obsState.streaming || ObsStatus.hasWindow
     property string page: "home"
@@ -280,7 +291,7 @@ ThemedPopup {
                 x: viewport.place("performance"); visible: viewport.shown("performance")
                 width: viewport.width
                 height: item ? item.implicitHeight : 0
-                active: dashboard.opened
+                active: dashboard.opened && PluginRegistry.hardwareEnabled
                 sourceComponent: Component {
                     SystemMonitorMenu {
                         inlineParent: performance
