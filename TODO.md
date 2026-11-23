@@ -33,10 +33,8 @@ item says what decides the next step. Remove an item when it ships;
 - **Eitr Store, next.** `eitr-org/eitr-store` is public with the schema 2 index (empty: the
   community index had no entries yet) and its validation workflow. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
-- **Ollama plugin (built 2026-11-16).** Held in the private `eitr-plugins-night-test`
-  repository (local branch in `eitr-testing/codex-wip/plugins-night/ollama`) until the owner
-  says it is ready; Radio Globe and Phone Link went to `eitr-org/eitr-plugins` on 2026-11-16.
-  The Ollama panel cannot change the local model yet: the core fixes `qwen3:4b`.
+- **Ollama plugin, next.** Optional in `eitr-org/eitr-plugins` since 2026-11-23 (not installed
+  by default). Its panel cannot change the local model yet: the core fixes `qwen3:4b`.
 
 # 2. To test with the owner
 
