@@ -54,6 +54,7 @@ Rectangle {
             StorePill { catalog: tile.catalog; visible: tile.itemKind === "plugins" && tile.item.builtin === true && !catalog.getMore; text: Eitr.I18n.tr("Official") }
             StorePill { catalog: tile.catalog; visible: tile.local && catalog.getMore; text: Eitr.I18n.tr("Installed") }
             StorePill { catalog: tile.catalog; visible: tile.itemKind === "plugins" && tile.item.enabled === false; text: Eitr.I18n.tr("Disabled") }
+            StorePill { catalog: tile.catalog; visible: catalog.busy && catalog.actingId === tile.item.id; text: Eitr.I18n.tr("Applying…"); current: true }
         }
         Item {
             width: parent.width

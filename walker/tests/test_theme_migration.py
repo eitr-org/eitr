@@ -186,8 +186,10 @@ end
 
     def test_login_defers_regeneration_and_starts_retry_after_settings(self):
         migration.enqueue()
+        # The real /var/lib/eitr/former-themes exists on upgraded machines; this test is not about it.
         with patch('generated.walker_view'), patch('generated.refresh_after_upgrade') as refresh, \
                 patch('migrations.run_pending'), patch('subprocess.run'), \
+                patch('eitr_former_themes.pending_archive', return_value=False), \
                 patch('subprocess.Popen') as launched:
             runpy.run_path(str(ROOT / 'distro/bin/eitr-session'), run_name='session_test')
         refresh.assert_not_called()

@@ -1204,5 +1204,6 @@
   "What it asks for": "所需权限",
   "1 placed": "已放置 1 个",
   "Live CPU, GPU, RAM, storage and network usage on your desktop": "在桌面上实时显示 CPU、GPU、内存、存储和网络使用情况",
-  "{count} placed": "已放置 {count} 个"
+  "{count} placed": "已放置 {count} 个",
+  "Applying…": "正在应用…"
 }

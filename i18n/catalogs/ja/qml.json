@@ -1204,5 +1204,6 @@
   "What it asks for": "要求する内容",
   "1 placed": "1 個配置済み",
   "Live CPU, GPU, RAM, storage and network usage on your desktop": "デスクトップ上で CPU、GPU、RAM、ストレージ、ネットワークの使用状況をリアルタイム表示",
-  "{count} placed": "{count} 個配置済み"
+  "{count} placed": "{count} 個配置済み",
+  "Applying…": "適用中…"
 }

@@ -1204,5 +1204,6 @@
   "What it asks for": "Ce qu’il demande",
   "1 placed": "1 placé",
   "Live CPU, GPU, RAM, storage and network usage on your desktop": "Utilisation en direct du CPU, du GPU, de la RAM, du stockage et du réseau sur votre bureau",
-  "{count} placed": "{count} placés"
+  "{count} placed": "{count} placés",
+  "Applying…": "Application…"
 }

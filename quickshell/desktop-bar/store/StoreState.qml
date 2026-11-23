@@ -45,6 +45,7 @@ Item {
     property string installedError: ""
     property string progress: ""
     property bool busy: false
+    property string actingId: ""
     property bool loading: false
     property bool reviewing: false
     property var detail: null
@@ -351,10 +352,10 @@ Item {
     }
     function act(name, args, done) {
         if (busy) return;
-        busy = true; error = "";
+        busy = true; error = ""; actingId = args.id || (args.ids && args.ids.length === 1 ? args.ids[0] : "");
         progress = Eitr.I18n.tr("Applying changes…");
         request(name, args, function(failure, data) {
-            busy = false; confirmingReview = false; progress = ""; error = failure;
+            busy = false; actingId = ""; confirmingReview = false; progress = ""; error = failure;
             if (name === "confirm" && failure) nativeReview = null;
             if (!failure) { nativeReview = null; nativeReviewing = false; if (tab !== "updates") selected = []; reviewing = false; reviewIds = null; removing = null; }
             if (!failure && name === "update") forgetUpdate(args.id);

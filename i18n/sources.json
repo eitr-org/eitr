@@ -285,6 +285,9 @@
     "Applying changes…": [
       "quickshell/desktop-bar/store/StoreState.qml"
     ],
+    "Applying…": [
+      "quickshell/desktop-bar/store/StoreCatalogCard.qml"
+    ],
     "Apps & Keys": [
       "quickshell/desktop-bar/figures/LauncherFigure.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
