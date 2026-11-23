@@ -40,9 +40,8 @@ never permission grants or substitutes for backend source verification.
 
 The Store reads schema 2 at
 `https://raw.githubusercontent.com/eitr-org/eitr-store/HEAD/index.json`.
-It also accepts schema 1. Only a 404 falls back to the former community index
-while the new repository is unpublished. Cached names remain stable. A malformed
-new index is refused; it does not fall back to older metadata.
+It also accepts schema 1. Cached names remain stable. A malformed index is refused;
+it does not fall back to older metadata.
 
 ## Community content
 

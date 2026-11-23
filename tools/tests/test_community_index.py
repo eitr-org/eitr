@@ -6,7 +6,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from eitr_community import build, entry, validate_index, fetch
+from eitr_community import entry, validate_index, fetch
 
 
 class CommunityIndexTests(unittest.TestCase):
@@ -27,27 +27,6 @@ class CommunityIndexTests(unittest.TestCase):
         for commit in ('HEAD', 'a' * 39, 'g' * 40, True):
             with self.assertRaises(ValueError):
                 entry(dict(row, commit=commit), 'plugins')
-
-    def test_generator_and_removed(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            for kind in ('themes', 'plugins'):
-                (root / kind).mkdir()
-            (root / 'removed.json').write_text('[]')
-            path = root / 'themes/example.json'
-            path.write_text(json.dumps(self.row()))
-            index = build(root)
-            self.assertEqual(index['themes'], [self.row()])
-            (root / 'removed.json').write_text(json.dumps([dict(kind='themes', id='example', reason='Removed')]))
-            with self.assertRaisesRegex(ValueError, 'still listed'):
-                build(root)
-            (root / 'removed.json').write_text('[]')
-            path.write_text(json.dumps(dict(self.row(), id='different')))
-            with self.assertRaisesRegex(ValueError, 'filename'):
-                build(root)
-            path.write_text('{"id":"example","id":"duplicate"}')
-            with self.assertRaises(ValueError):
-                build(root)
 
     def test_verifier_pins_and_refuses_links_without_checkout(self):
         calls = []

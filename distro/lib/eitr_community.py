@@ -5,7 +5,7 @@ import re
 import tempfile
 
 from eitr_plugin_install import repository_url, git, COMMIT
-from eitr_plugin_manifest import identifier, string, unique_object, manifest as plugin_manifest
+from eitr_plugin_manifest import identifier, string, manifest as plugin_manifest
 from eitr_theme_packages import relative, validate as theme_validate, MAX_BYTES, MAX_FILES
 
 SPDX_IDS = frozenset(json.loads(Path(__file__).with_name("spdx-license-ids.json").read_text()))
@@ -68,19 +68,6 @@ def validate_index(value):
         if any(item['id'] == row['id'] for item in value[row['kind']]):
             raise ValueError('Removed item is still listed')
     return value
-
-
-def build(root):
-    result = dict(schemaVersion=1, themes=[], plugins=[], removed=json.loads((root / 'removed.json').read_text(), object_pairs_hook=unique_object))
-    for kind in ('themes', 'plugins'):
-        for path in sorted((root / kind).glob('*.json')):
-            if path.is_symlink() or path.stat().st_size > 65536:
-                raise ValueError('Invalid entry file')
-            row = entry(json.loads(path.read_text(), object_pairs_hook=unique_object), kind)
-            if row['id'] != path.stem:
-                raise ValueError('Entry ID must match filename')
-            result[kind].append(row)
-    return validate_index(result)
 
 
 def fetch(row, kind, destination):

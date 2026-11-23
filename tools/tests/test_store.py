@@ -59,18 +59,20 @@ class StoreTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             entry(dict(self.row(), commit='HEAD'), 'plugins')
 
-    def test_store_endpoint_fallback_and_schema_one_wallpapers(self):
+    def test_store_endpoint_and_schema_one_wallpapers(self):
         import urllib.error
         from eitr_store_content import community
         old = dict(schemaVersion=1, themes=[self.row()], plugins=[], removed=[])
         with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_CACHE_HOME': directory}):
             response = io.BytesIO(json.dumps(old).encode())
-            missing = urllib.error.HTTPError('new', 404, 'Not published', {}, None)
-            with patch('urllib.request.urlopen', side_effect=[missing, response]) as request:
+            with patch('urllib.request.urlopen', return_value=response) as request:
                 result = community('index', {'kind': 'wallpapers'})
                 self.assertEqual(result, {'items': []})
-                self.assertIn('/eitr-store/', request.call_args_list[0].args[0])
-                self.assertIn('/eitr-community/', request.call_args_list[1].args[0])
+                self.assertIn('/eitr-store/', request.call_args.args[0])
+            missing = urllib.error.HTTPError('new', 404, 'Not published', {}, None)
+            with patch('urllib.request.urlopen', side_effect=missing) as request, self.assertRaises(urllib.error.HTTPError):
+                community('index', {'kind': 'themes'})
+            self.assertEqual(request.call_count, 1)
             current = dict(old, schemaVersion=2, wallpapers=[dict(self.row(), official=True)])
             with patch('urllib.request.urlopen', return_value=io.BytesIO(json.dumps(current).encode())):
                 result = community('index', {'kind': 'wallpapers'})

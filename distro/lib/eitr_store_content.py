@@ -17,17 +17,10 @@ def community(name, args):
     from eitr_plugin_manifest import unique_object
     from eitr_theme_packages import Themes, SOURCE
     import urllib.request
-    import urllib.error
     target = cache('eitr/community-index.json')
     if name == 'index':
         url = 'https://raw.githubusercontent.com/eitr-org/eitr-store/HEAD/index.json'
-        try:
-            response = urllib.request.urlopen(url, timeout=15)
-        except urllib.error.HTTPError as error:
-            if error.code != 404:
-                raise
-            response = urllib.request.urlopen('https://raw.githubusercontent.com/eitr-org/eitr-community/HEAD/index.json', timeout=15)
-        with response:
+        with urllib.request.urlopen(url, timeout=15) as response:
             payload = response.read(1024 * 1024 + 1)
         if len(payload) > 1024 * 1024:
             raise ValueError('Community index exceeds size limit')

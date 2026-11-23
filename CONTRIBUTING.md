@@ -12,7 +12,7 @@ contributions that are easy to review land fastest.
   where it belongs, before writing a lot of code.
 - **Themes and plugins:** they live outside this repository. Official ones are in
   `eitr-org/eitr-themes` and `eitr-org/eitr-plugins`; community ones are listed in
-  `eitr-org/eitr-community` (see [distro/THEMES.md](distro/THEMES.md) and
+  `eitr-org/eitr-store` (see [distro/THEMES.md](distro/THEMES.md) and
   [distro/COMMUNITY.md](distro/COMMUNITY.md)).
 
 ## Where things are
