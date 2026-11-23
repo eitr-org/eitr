@@ -75,11 +75,28 @@ Column {
                 Accessible.checked: row.checked
                 onClicked: { row.forceActiveFocus(); row.toggleChecked(); }
             }
-            StoreLabel {
-                catalog: row.catalog
-                font.family: PanelStyle.fontFamily
-                font.pixelSize: PanelStyle.selectionIconSize
-                text: row.kind ? String.fromCodePoint(parseInt(row.kind.icon, 16)) : ""
+            // A plugin shows its own icon; other kinds (and plugins without one) show the kind's glyph.
+            Item {
+                readonly property string iconSource: row.item.storeKind === "plugins" ? (row.item.icon || "") : ""
+                Layout.preferredWidth: 22
+                Layout.preferredHeight: 22
+                Image {
+                    id: ownIcon
+                    anchors.fill: parent
+                    visible: status === Image.Ready
+                    source: parent.iconSource
+                    sourceSize: Qt.size(44, 44)
+                    fillMode: Image.PreserveAspectFit
+                    asynchronous: true
+                }
+                StoreLabel {
+                    anchors.centerIn: parent
+                    visible: !ownIcon.visible
+                    catalog: row.catalog
+                    font.family: PanelStyle.fontFamily
+                    font.pixelSize: PanelStyle.selectionIconSize
+                    text: row.kind ? String.fromCodePoint(parseInt(row.kind.icon, 16)) : ""
+                }
             }
             Column {
                 Layout.fillWidth: true
