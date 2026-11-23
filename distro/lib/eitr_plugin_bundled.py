@@ -38,7 +38,7 @@ class BundledPlugins:
             replaced_external = False
             for plugin_id in BUNDLED_DEFAULTS:
                 record = records.get(plugin_id)
-                if record and not record.get('bundled') and official(record.get('url', '')):
+                if record and not record.get('bundled') and self._eitr_copy(plugin_id, record, official):
                     if not self.refusal(BUNDLED_URL, plugin_id=plugin_id):
                         self._install_bundled(records, plugin_id, enabled=record.get('enabled'))
                         replaced_external = True
@@ -55,6 +55,17 @@ class BundledPlugins:
                     if record['commit'] != revision:
                         record['commit'] = revision
                         self.save(records)
+
+    def _eitr_copy(self, plugin_id, record, official):
+        """True for Eitr's own plugin with this id, installed from the official repository or from
+        a fork or test copy of it (its manifest says The Eitr project). A different author's
+        plugin that happens to use the same id is left alone."""
+        if official(record.get('url', '')):
+            return True
+        try:
+            return manifest(self.root(plugin_id, record=record)).get('author') == 'The Eitr project'
+        except (OSError, ValueError, KeyError):
+            return False
 
     def _install_bundled(self, records, plugin_id, *, enabled=None):
         import datetime

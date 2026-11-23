@@ -184,6 +184,39 @@ class BundledWeatherTests(unittest.TestCase):
             self.assertTrue(store.plugins('install', {'kind': 'plugins', 'ids': ['hardware']})['result'])
         self.assertIn({'plugin': 'hardware', 'id': 'monitor'}, self.manager.placements()['barItems'])
 
+    def install_forked_hardware(self, url, author):
+        """A Hardware widget plugin installed from a repository other than eitr-org/eitr-plugins."""
+        marker = Path(os.environ['XDG_STATE_HOME']) / 'eitr/bundled-plugins.json'
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.write_text('{"version": 2}')
+        commit = 'b' * 40
+        folder = self.manager.snapshot(url, commit) / 'plugins/hardware'
+        folder.mkdir(parents=True, exist_ok=True)
+        # The downloadable Hardware plugin's own manifest (eitr-plugins before it was retired).
+        (folder / 'eitr-plugin.json').write_text(json.dumps({
+            'schemaVersion': 2, 'id': 'hardware', 'name': 'Hardware', 'author': author, 'version': '0.1.0',
+            'description': 'Live CPU, GPU, RAM, storage and network usage on your desktop',
+            'capabilities': ['hardware'], 'rows': [],
+            'ui': {'widgets': [{'id': 'hardware', 'title': 'Hardware', 'qml': 'Hardware.qml', 'minWidth': 260,
+                                'minHeight': 88, 'defaultWidth': 480, 'defaultHeight': 280, 'surface': 'panel'}]},
+            'icon': 'icon.svg'}))
+        (folder / 'Hardware.qml').write_text('import QtQuick\nItem {}\n')
+        (folder / 'icon.svg').write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"/>')
+        self.manager.save({'hardware': {'id': 'hardware', 'url': url, 'path': 'plugins/hardware', 'commit': commit,
+                                        'installed': '2026-11-01T00:00:00Z'}})
+
+    def test_eitr_hardware_from_a_fork_is_replaced(self):
+        self.install_forked_hardware('git@github.com:someone/eitr-plugins-test.git', 'The Eitr project')
+        self.manager.ensure_bundled()
+        self.assertTrue(self.manager.records()['hardware'].get('bundled'))
+        self.assertIn({'plugin': 'hardware', 'id': 'monitor'}, self.manager.placements()['barItems'])
+
+    def test_another_authors_hardware_plugin_is_kept(self):
+        self.install_forked_hardware('https://example.com/hardware.git', 'Someone else')
+        self.manager.ensure_bundled()
+        self.assertFalse(self.manager.records()['hardware'].get('bundled'))
+        self.assertEqual(self.manager.records()['hardware']['url'], 'https://example.com/hardware.git')
+
     def test_package_stage_contains_bundled_source_and_helpers(self):
         import importlib.util
         repository = Path(__file__).resolve().parents[2]
