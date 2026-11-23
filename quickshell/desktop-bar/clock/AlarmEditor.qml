@@ -16,7 +16,6 @@ Column {
     property string period: "am"
     property var days: []
     property string sound: EventSounds.timerSound
-    property bool alarmEnabled: true
     readonly property string clock: AlarmModel.parseClock(timeField.text, twelveHour, period)
     signal save(var payload)
     signal cancel()
@@ -29,7 +28,6 @@ Column {
         nameField.text = item ? item.text : "";
         days = item ? item.alarm.days : [];
         sound = item ? item.alarm.sound : EventSounds.timerSound;
-        alarmEnabled = item ? item.alarm.enabled : true;
         timeField.forceActiveFocus();
     }
 
@@ -39,7 +37,9 @@ Column {
         PanelTextField {
             id: timeField
             width: editor.twelveHour ? (parent.width - 8) * 0.60 : parent.width
-            anchors.verticalCenter: parent.verticalCenter
+            // Match the AM / PM dropdown's outlined box (48 px) and sit level with it under its label.
+            height: 48
+            anchors.bottom: parent.bottom
             foreground: editor.foreground
             accent: editor.accent
             placeholderText: editor.twelveHour ? "h:mm" : "HH:mm"
@@ -124,7 +124,7 @@ Column {
             selected: true
             available: Boolean(editor.clock) && !ClockAlarms.busy && !ClockAlarms.choosingSound
             onClicked: editor.save({clock: editor.clock, name: nameField.text.trim() || Eitr.I18n.tr("Alarm"),
-                days: editor.days, sound: editor.sound, enabled: editor.alarmEnabled})
+                days: editor.days, sound: editor.sound, enabled: true})
         }
     }
 

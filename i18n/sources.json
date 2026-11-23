@@ -2005,6 +2005,9 @@
     "No active window": [
       "quickshell/desktop-bar/panels/ControlCenterWindowInfo.qml"
     ],
+    "No alarms yet.": [
+      "quickshell/desktop-bar/clock/AlarmsPage.qml"
+    ],
     "No applications are playing audio.": [
       "quickshell/desktop-bar/settings/SettingsSoundPage.qml"
     ],

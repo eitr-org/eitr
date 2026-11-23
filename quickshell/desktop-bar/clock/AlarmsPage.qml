@@ -136,6 +136,15 @@ Item {
             text: Eitr.I18n.tr("Add alarm")
             onClicked: page.edit(null)
         }
+        Text {
+            width: parent.width
+            visible: !page.editing && !page.deleteId && page.alarms.length === 0
+            text: Eitr.I18n.tr("No alarms yet.")
+            color: Qt.alpha(page.foreground, 0.6)
+            horizontalAlignment: Text.AlignHCenter
+            font.family: DesktopFonts.family
+            font.pixelSize: PanelStyle.bodySize
+        }
         ListView {
             id: list
             visible: !page.editing && !page.deleteId

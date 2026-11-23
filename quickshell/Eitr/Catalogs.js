@@ -1214,7 +1214,8 @@ var qml = {
     "Snooze": "Snooze",
     "Time": "Time",
     "Timer chime": "Timer chime",
-    "Warning chime": "Warning chime"
+    "Warning chime": "Warning chime",
+    "No alarms yet.": "No alarms yet."
   },
   "pt_BR": {
     "%1 B/s": "%1 B/s",
@@ -2395,7 +2396,8 @@ var qml = {
     "Snooze": "Soneca",
     "Time": "Horário",
     "Timer chime": "Som do temporizador",
-    "Warning chime": "Som de aviso"
+    "Warning chime": "Som de aviso",
+    "No alarms yet.": "Nenhum alarme ainda."
   },
   "es": {
     "%1 B/s": "%1 B/s",
@@ -3576,7 +3578,8 @@ var qml = {
     "Snooze": "Posponer",
     "Time": "Hora",
     "Timer chime": "Tono del temporizador",
-    "Warning chime": "Tono de aviso"
+    "Warning chime": "Tono de aviso",
+    "No alarms yet.": "Aún no hay alarmas."
   },
   "de": {
     "%1 B/s": "%1 B/s",
@@ -4757,7 +4760,8 @@ var qml = {
     "Snooze": "Schlummern",
     "Time": "Uhrzeit",
     "Timer chime": "Timer-Ton",
-    "Warning chime": "Warnton"
+    "Warning chime": "Warnton",
+    "No alarms yet.": "Noch keine Wecker."
   },
   "fr": {
     "%1 B/s": "%1 o/s",
@@ -5938,7 +5942,8 @@ var qml = {
     "Snooze": "Reporter",
     "Time": "Heure",
     "Timer chime": "Son du minuteur",
-    "Warning chime": "Son d’avertissement"
+    "Warning chime": "Son d’avertissement",
+    "No alarms yet.": "Aucune alarme pour l’instant."
   },
   "ja": {
     "%1 B/s": "%1 B/s",
@@ -7119,7 +7124,8 @@ var qml = {
     "Snooze": "スヌーズ",
     "Time": "時刻",
     "Timer chime": "タイマー音",
-    "Warning chime": "警告音"
+    "Warning chime": "警告音",
+    "No alarms yet.": "アラームはまだありません。"
   },
   "zh_CN": {
     "%1 B/s": "%1 B/s",
@@ -8300,7 +8306,8 @@ var qml = {
     "Snooze": "稍后提醒",
     "Time": "时间",
     "Timer chime": "计时器提示音",
-    "Warning chime": "警告音"
+    "Warning chime": "警告音",
+    "No alarms yet.": "还没有闹钟。"
   },
   "ko": {
     "%1 B/s": "%1 B/s",
@@ -9481,6 +9488,7 @@ var qml = {
     "Snooze": "다시 알림",
     "Time": "시간",
     "Timer chime": "타이머 소리",
-    "Warning chime": "경고음"
+    "Warning chime": "경고음",
+    "No alarms yet.": "아직 알람이 없습니다."
   }
 };
