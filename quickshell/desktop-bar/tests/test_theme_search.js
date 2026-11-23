@@ -34,3 +34,18 @@ search('niflheim');
 assert.deepEqual(context.items.map(item => item.name), ['Frost Queen']);
 assert.ok(source.includes('visible: picker.searchable && picker.searchText.length > 0'));
 console.log('Theme carousel search checks passed');
+
+const placement = vm.createContext({});
+vm.runInContext(fs.readFileSync(path.join(__dirname, '../bar/AppearancePlacement.js'), 'utf8').replace('.pragma library', ''), placement);
+for (const mode of ['theme', 'theme-dark', 'theme-light', 'wallpaper', 'font']) {
+    for (const edge of ['top', 'bottom', 'left', 'right']) {
+        for (const layout of ['dynamic', 'drop', 'islands', 'tabs', 'centered', 'full']) {
+            for (const barOnScreen of [true, false]) {
+                const expected = mode !== 'font' && ['top', 'bottom'].includes(edge)
+                    && ['dynamic', 'drop'].includes(layout) && barOnScreen;
+                assert.equal(placement.hostsCarousel(mode, edge, layout === 'dynamic', layout === 'drop', barOnScreen), expected,
+                    JSON.stringify({mode, edge, layout, barOnScreen}));
+            }
+        }
+    }
+}

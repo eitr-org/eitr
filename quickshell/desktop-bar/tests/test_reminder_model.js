@@ -48,3 +48,18 @@ assert.deepEqual(Array.from(items, (item) => [item.kind, item.id, !!item.continu
     [['event', 'trip', false], ['event', 'night', true], ['reminder', 'r', false]]);
 assert.match(qml, /menu\.updateContent\(function\(\) \{ menu\.applySnapshot\("events", ReminderModel\.parseEvents\(snapshot\)\)/);
 assert.match(qml, /"\/eitr\/calendar-events.json"/);
+
+const weekday = [1, 2, 3, 4, 5];
+const yearEnd = new Date(2026, 11, 31);
+const mondayWeek = context.weekDays(yearEnd, {firstDayOfWeek: 1}, [
+    {id: 'year-end', text: 'Reminder', due: new Date(2026, 11, 29, 10).getTime() / 1000},
+], [{allDay: true, date: '2027-01-01', endDate: '2027-01-02'}]);
+assert.deepEqual(Array.from(mondayWeek, entry => entry.date.getDate()), [28, 29, 30, 31, 1, 2, 3]);
+assert.equal(mondayWeek[4].date.getFullYear(), 2027);
+assert.deepEqual(Array.from(mondayWeek.filter(entry => entry.today), entry => entry.date.getDate()), [31]);
+assert.deepEqual(Array.from(mondayWeek.filter(entry => entry.plans), entry => entry.date.getDate()), [29, 1]);
+assert.deepEqual(Array.from(mondayWeek.filter(entry => !entry.weekend), entry => entry.weekday), weekday);
+const sundayWeek = context.weekDays(new Date(2026, 9, 31), {firstDayOfWeek: 0}, [], []);
+assert.deepEqual(Array.from(sundayWeek, entry => entry.date.getDate()), [25, 26, 27, 28, 29, 30, 31]);
+const splitMonth = context.weekDays(new Date(2026, 10, 1), {firstDayOfWeek: 1}, [], []);
+assert.deepEqual(Array.from(splitMonth, entry => entry.date.getDate()), [26, 27, 28, 29, 30, 31, 1]);

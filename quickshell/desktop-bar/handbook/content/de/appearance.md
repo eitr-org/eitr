@@ -2,6 +2,8 @@
 
 Einstellungen (**SUPER + ,**) enthält Darstellungsoptionen; **Weitere Themes** öffnet den separaten Eitr Store (**SUPER + F2**).
 
+Bei einer oberen oder unteren Leiste im Layout Dynamisch oder Tropfen wachsen die Karussells für Designs und Hintergrundbilder aus der Uhr und ziehen sich beim Schließen wieder zurück. Mit automatischem Ausblenden erscheint bei Tropfen zuerst die Pille und zieht sich nach dem Schließen ein. Seitliche Leisten und Bildschirme ohne Leiste verwenden die Desktop-Einblendung.
+
 ## Fensterlayout
 
 Wähle **Kacheln** (Standard, Hyprland dwindle) oder **Scrollen** unter **Einstellungen > Fenster > Fensterlayout** oder **Walker > Einstellungen > Desktop > Fenster > Fensterlayout**. Scrollen ordnet Fenster in Spalten auf einem beweglichen Band an. Die Auswahl wird lokal gespeichert und bleibt bei Themenwechseln, Konfigurationsneuladen und Neustarts erhalten. Änderungen laden die Compositor-Konfiguration ohne Sitzungsneustart neu.

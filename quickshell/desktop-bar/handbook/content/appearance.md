@@ -3,6 +3,8 @@
 Settings (**SUPER + ,**) includes Appearance controls; **More themes** opens
 the separate Eitr Store catalog window (**SUPER + F2**).
 
+On a top or bottom bar using Dynamic or Drop, the theme and wallpaper carousels grow out of the clock and shrink back when dismissed. With auto-hide in Drop, the pill appears first and retracts after closing. Side bars and displays without the bar use the desktop overlay.
+
 ## Window layout
 
 Choose **Tiling** (the default, Hyprland dwindle) or **Scrolling** in **Settings > Windows > Window layout** or **Walker > Settings > Desktop > Windows > Window layout**. Scrolling places windows in columns on a moving tape. Choices are saved locally and survive theme changes, config reloads and reboots; selection reloads the compositor configuration without restarting the session.

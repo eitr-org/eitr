@@ -58,34 +58,39 @@ Item {
     // on before its size changes, so the card shrinks instead of snapping to the pill. With
     // auto-hide it keeps its size as the bar hides, shrinking straight into the drop rather
     // than settling back into the pill first.
-    property bool cardOpen: false
     property real cardExtent: 0
     property real cardDepth: 0
     readonly property bool retracting: cardExtent > 0
-    Connections {
-        target: barHost.dropDashboard
-        function onOpenedChanged() {
-            if ((barHost.dropDashboard ? barHost.dropDashboard.opened : false)) { drop.cardOpen = true; return; }
-            if (host.barAutoHide) {
-                drop.cardExtent = pill.extent; drop.cardDepth = pill.depth;
-                barHost.autoHideRef.hideNow();
-            }
-            settleCard.restart();
+    readonly property var carousel: barHost.appearanceCard || null
+    readonly property bool dashboardOpened: !!barHost.dropDashboard && barHost.dropDashboard.opened
+    readonly property var activeCard: carousel && carousel.opened ? carousel : dashboardOpened ? barHost.dropDashboard : null
+    property var heldCard: null
+    onActiveCardChanged: {
+        if (activeCard) {
+            heldCard = activeCard;
+            return;
         }
+        if (host.barAutoHide && heldCard) {
+            cardExtent = pill.extent;
+            cardDepth = pill.depth;
+            Qt.callLater(barHost.autoHideRef.hideNow);
+        }
+        settleCard.restart();
     }
     Timer {
         id: settleCard
         interval: 0
         onTriggered: {
-            drop.cardOpen = false;
+            if (drop.activeCard) return;
+            drop.heldCard = null;
             if (drop.reveal >= 1 && barHost.autoHideRef.shown) drop.cardExtent = 0;
         }
     }
-    onRevealChanged: if (retracting && (reveal <= 0 || (reveal >= 1 && !(barHost.dropDashboard ? barHost.dropDashboard.opened : false) && barHost.autoHideRef.shown))) cardExtent = 0
-    function islandFor(panel) { return panel === barHost.dropDashboard ? pill : null; }
+    onRevealChanged: if (retracting && (reveal <= 0 || (reveal >= 1 && !activeCard && barHost.autoHideRef.shown))) cardExtent = 0
+    function islandFor(panel) { return panel === barHost.dropDashboard || panel === carousel ? pill : null; }
     function openPanel() {
         const dashboard = barHost.dropDashboard;
-        return dashboard && (drop.cardOpen || dashboard === barHost.pendingPanel) ? dashboard : null;
+        return heldCard || (dashboard && dashboard === barHost.pendingPanel ? dashboard : null);
     }
     // The dashboard stays centred where it opened while the card grows or shrinks under it.
     function panelOrigin(panel, stripX, stripY) {

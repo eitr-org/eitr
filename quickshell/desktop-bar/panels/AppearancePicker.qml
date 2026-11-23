@@ -1,6 +1,5 @@
 import ".."
 import QtQuick
-import "../JsonState.js" as JsonState
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 import QtQuick.Effects
@@ -10,6 +9,23 @@ import Quickshell.Wayland
 
 SettingsAppearanceModel {
     id: picker
+    property bool docked: false
+    property Item dockedContent: null
+    // Docked, the preview starts under the filters (dockedTop) and the name sits below it.
+    readonly property real dockedTop: 130
+    readonly property real dockedBottom: 76
+    // Theme previews keep their 16:9 aspect on every screen shape; wallpapers stay landscape.
+    readonly property real themeAspect: 16 / 9
+    function wallpaperPreviewWidth(width) { return Math.min(768, width * 0.55); }
+    function previewHeightFor(width, heightLimit) {
+        return mode === "wallpaper" ? Math.min(475, heightLimit, wallpaperPreviewWidth(width) * 0.62)
+            : Math.min(560, heightLimit, width * 0.68 / themeAspect);
+    }
+    // The docked card's height when nothing but the screen limits it.
+    function dockedHeight(width) { return dockedTop + previewHeightFor(width, Infinity) + dockedBottom; }
+    onDockedContentChanged: Qt.callLater(function() {
+        if (opened && contentLoader.item) contentLoader.item.forceActiveFocus();
+    })
     onLoaded: Qt.callLater(function() { contentLoader.item && contentLoader.item.forceActiveFocus(); })
     // Shortcuts and Walker open the carousel on the display in use, like a desktop double-click.
     function focusedScreen() { return Eitr.Screens.focused(picker.defaultScreen); }
@@ -49,7 +65,7 @@ SettingsAppearanceModel {
 
     PanelWindow {
         id: overlay
-        visible: picker.opened
+        visible: picker.opened && !picker.docked
         screen: picker.targetScreen
         anchors { top: true; bottom: true; left: true; right: true }
         exclusionMode: ExclusionMode.Ignore
@@ -70,6 +86,7 @@ SettingsAppearanceModel {
 
         Loader {
             id: contentLoader
+            parent: picker.dockedContent || overlay.contentItem
             focus: picker.opened
             anchors.fill: parent
             property bool retained: false
@@ -79,10 +96,11 @@ SettingsAppearanceModel {
                 id: content
                 anchors.fill: parent
                 focus: true
-                // Theme previews keep their 16:9 aspect on every screen shape.
-                readonly property real previewAspect: 16 / 9
-                readonly property real previewWidth: picker.mode !== "wallpaper" ? previewHeight * previewAspect : Math.min(768, width * 0.55)
-                readonly property real previewHeight: picker.mode !== "wallpaper" ? Math.min(560, height * 0.58, width * 0.68 / previewAspect) : Math.min(475, height * 0.58)
+                readonly property real previewWidth: picker.mode !== "wallpaper" ? previewHeight * picker.themeAspect : picker.wallpaperPreviewWidth(width)
+                readonly property real previewHeightLimit: picker.docked ? Math.max(24, height - picker.dockedTop - picker.dockedBottom) : height * 0.58
+                readonly property real previewHeight: picker.previewHeightFor(width, previewHeightLimit)
+                readonly property real headerSpace: picker.docked ? 78 : 0
+                readonly property real previewTop: picker.docked ? picker.dockedTop : (height - previewHeight) / 2 - 24
                 readonly property real sliceWidth: Math.min(108, width * 0.08)
                 readonly property real step: sliceWidth * 0.74
                 Keys.onPressed: function(event) {
@@ -112,7 +130,7 @@ SettingsAppearanceModel {
                 Rectangle {
                     anchors.horizontalCenter: parent.horizontalCenter
                     // Just above the selected card.
-                    y: Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - height)
+                    y: picker.docked ? content.headerSpace : Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - height)
                     width: filters.implicitWidth + 12
                     height: PanelStyle.selectionRowHeight + 12
                     radius: DesktopStyle.radius(PanelStyle.controlRadius)
@@ -180,7 +198,7 @@ SettingsAppearanceModel {
                 Text {
                     visible: picker.searchable && picker.searchText.length > 0
                     anchors.horizontalCenter: parent.horizontalCenter
-                    y: Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - PanelStyle.selectionRowHeight - 12 - 40)
+                    y: picker.docked ? content.headerSpace - height - 4 : Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - PanelStyle.selectionRowHeight - 12 - 40)
                     width: content.previewWidth
                     horizontalAlignment: Text.AlignHCenter
                     elide: Text.ElideLeft
@@ -202,7 +220,7 @@ SettingsAppearanceModel {
                         width: selected ? content.previewWidth : content.sliceWidth
                         height: selected ? content.previewHeight : content.previewHeight * 0.91
                         x: selected ? (content.width - content.previewWidth) / 2 : (offset < 0 ? (content.width - content.previewWidth) / 2 + offset * content.step : (content.width + content.previewWidth) / 2 - content.sliceWidth * 0.26 + (offset - 1) * content.step)
-                        y: (content.height - height) / 2 - 24
+                        y: content.previewTop + (content.previewHeight - height) / 2
                         z: selected ? 100 : 50 - Math.abs(offset)
                         Behavior on x { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
                         Behavior on width { NumberAnimation { duration: DesktopStyle.motionDuration(160); easing.type: Easing.OutCubic } }
@@ -257,7 +275,7 @@ SettingsAppearanceModel {
                 Text {
                     id: selectedName
                     anchors.horizontalCenter: parent.horizontalCenter
-                    y: (content.height + content.previewHeight) / 2 - 4
+                    y: content.previewTop + content.previewHeight + 20
                     width: content.previewWidth
                     horizontalAlignment: Text.AlignHCenter
                     elide: Text.ElideMiddle

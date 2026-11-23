@@ -2,6 +2,8 @@
 
 Configuración (**SUPER + ,**) incluye los controles de Apariencia; **Más temas** abre el catálogo independiente de Eitr Store (**SUPER + F2**).
 
+Cuando la barra está arriba o abajo en Dinámico o Gota, los carruseles de temas y fondos crecen desde el reloj y vuelven a él al cerrarse. Si Gota se oculta automáticamente, primero aparece la cápsula y se retira al cerrar. Las barras laterales y las pantallas sin barra usan la superposición del escritorio.
+
 ## Distribución de ventanas
 
 Elige **Mosaico** (predeterminado, dwindle de Hyprland) o **Desplazamiento** en **Configuración > Ventanas > Distribución de ventanas** o **Walker > Configuración > Escritorio > Ventanas > Distribución de ventanas**. Desplazamiento organiza las ventanas en columnas sobre una cinta móvil. La selección se guarda localmente y persiste tras cambios de tema, recargas y reinicios; los cambios recargan la configuración del compositor sin reiniciar la sesión.

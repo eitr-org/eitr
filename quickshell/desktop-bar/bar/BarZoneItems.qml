@@ -11,6 +11,8 @@ Grid {
     property bool vertical: false
     property bool open: true
     property bool observing: true
+    property bool excludeWeather: false
+    property bool registerIcons: true
     property int slotSize: host.workspaceItemSize
     property int slotSpacing: host.workspaceItemSpacing
     property int verticalWifiWidth: 56
@@ -18,7 +20,8 @@ Grid {
     property bool clipReveal: false
 
     readonly property bool naturalPluginSize: zone !== "right"
-    readonly property var items: BarIconOrder.zoneItems(zone)
+    readonly property var zoneItems: BarIconOrder.zoneItems(zone)
+    readonly property var items: excludeWeather ? zoneItems.filter(entry => entry.id !== "weather:weather") : zoneItems
     readonly property int keyboardCount: barHost && barHost.keyboardMenu && barHost.keyboardMenu.layouts ? barHost.keyboardMenu.layouts.length : 0
     readonly property bool remoteAllowed: !!(barHost && barHost.remoteServiceRef && barHost.remoteServiceRef.allowed)
     readonly property var obsState: barHost && barHost.obsMenu && barHost.obsMenu.obsState ? barHost.obsMenu.obsState : ({recording: false, paused: false})
@@ -137,6 +140,7 @@ Grid {
             property string registeredId: ""
             property bool registeredVertical: false
             function syncRegistration() {
+                if (!zoneGrid.registerIcons) return;
                 if (registeredControl && registeredId && (registeredControl !== control || registeredId !== itemId || registeredVertical !== zoneGrid.vertical)) {
                     if (zoneGrid.barHost && zoneGrid.barHost.unregisterIconItem)
                         zoneGrid.barHost.unregisterIconItem(registeredVertical, registeredId, registeredControl);

@@ -1,4 +1,5 @@
 //@ pragma AppId eitr-catalog
+import "bar/AppearancePlacement.js" as AppearancePlacement
 import QtQuick
 import Eitr as Eitr
 import Quickshell
@@ -231,6 +232,9 @@ ShellRoot {
 
     TimePicker { defaultScreen: shell.targetScreens()[0] || null; foreground: shell.fg; background: shell.barBackground() }
     AppearancePicker {
+        id: desktopAppearance
+        docked: AppearancePlacement.hostsCarousel(mode, shell.barEdge, shell.dynamicLayout, shell.dropLayout,
+            shell.barVisible && !FocusMode.enabled && shell.targetScreens().includes(targetScreen))
         defaultScreen: shell.targetScreens()[0] || null
         onCatalogRequested: tone => shell.showThemes(tone)
     }
@@ -347,6 +351,7 @@ ShellRoot {
 
         delegate: Component {
             BarWindow {
+                appearancePicker: desktopAppearance
                 host: shell
                 networkServiceRef: networkOwner
                 notificationsRef: notificationsService

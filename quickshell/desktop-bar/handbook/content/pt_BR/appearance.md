@@ -2,6 +2,8 @@
 
 Configurações (**SUPER + ,**) inclui os controles de Aparência; **Mais temas** abre o catálogo separado de Eitr Store (**SUPER + F2**).
 
+Com a barra no topo ou embaixo no modo Dinâmico ou Gota, os carrosséis de temas e papéis de parede se expandem a partir do relógio e voltam para ele ao fechar. Com a ocultação automática no modo Gota, a cápsula aparece primeiro e se recolhe após o fechamento. Barras laterais e telas sem barra usam a sobreposição da área de trabalho.
+
 ## Layout das janelas
 
 Escolha **Ladrilhos** (padrão, dwindle do Hyprland) ou **Rolagem** em **Configurações > Janelas > Layout das janelas** ou **Walker > Configurações > Área de trabalho > Janelas > Layout das janelas**. Rolagem organiza as janelas em colunas sobre uma faixa móvel. A escolha é salva localmente e permanece após trocas de tema, recargas e reinicializações; a seleção recarrega a configuração do compositor sem reiniciar a sessão.

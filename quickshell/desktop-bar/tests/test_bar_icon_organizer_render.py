@@ -231,10 +231,10 @@ def _adapt_bar_window(folder: Path) -> None:
     src = src.replace("    screen: modelData\n", "    property var screen: modelData\n")
     src = src.replace("    exclusionMode: ExclusionMode.Normal\n", "")
     src = src.replace("    WlrLayershell.namespace: \"desktop-bar\"\n", "")
-    src = src.replace("    WlrLayershell.layer: panelOpen && !notificationPopups.visible ? WlrLayer.Overlay : WlrLayer.Top\n", "")
+    src = '\n'.join(line for line in src.split('\n') if not line.startswith((
+        '    WlrLayershell.layer:', '    WlrLayershell.keyboardFocus:')))
     src = src.replace("    mask: shown ? dockInput : hiddenInput\n", "")
     src = src.replace("    Region { id: hiddenInput }\n", "")
-    src = src.replace("    WlrLayershell.keyboardFocus: panelOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None\n", "")
     src = src.replace("anchors {\n        top: !host.verticalBar || host.barEdge !== \"bottom\"\n        bottom: !host.verticalBar || host.barEdge !== \"top\"\n        left: host.verticalBar || host.barEdge !== \"right\"\n        right: host.verticalBar || host.barEdge !== \"left\"\n    }", "property var anchorsMock: ({})")
     # Remove the trailing anchors block inside PanelWindow lines 220-230 too if phrased differently
     lines = []

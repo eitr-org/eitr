@@ -20,13 +20,15 @@ Rectangle {
     // size (along the bar and away from the edge) and the panel draws no surface.
     property var panel: null
     readonly property bool morphed: !!panel
+    property Item hoverCard: null
+    readonly property var morphTarget: panel || hoverCard
     readonly property real thickness: barHost.normalThickness
     // Drop shrinks its resting pill into the auto-hide dot by following the slide itself.
     property real restingDepth: thickness
     property bool eased: true
-    readonly property real targetExtent: morphed ? Math.max(restingExtent, host.verticalBar ? panel.height : panel.width)
+    readonly property real targetExtent: morphTarget ? Math.max(restingExtent, host.verticalBar ? morphTarget.height : morphTarget.width)
         : expanded ? fullExtent : restingExtent
-    readonly property real targetDepth: morphed ? Math.max(thickness, host.verticalBar ? panel.width : panel.height) : restingDepth
+    readonly property real targetDepth: morphTarget ? Math.max(thickness, host.verticalBar ? morphTarget.width : morphTarget.height) : restingDepth
     property real extent: targetExtent
     property real depth: targetDepth
     // An open panel animates its own resizes; the island follows them exactly instead of
@@ -92,8 +94,8 @@ Rectangle {
         x: host.verticalBar && island.farEdge ? parent.width - width : 0
         y: !host.verticalBar && island.farEdge ? parent.height - height : 0
         // Faded and disabled, not hidden: the island's panels follow its icons' visibility.
-        opacity: island.morphed || island.momentActive ? 0 : 1
-        enabled: !island.morphed && !island.momentActive
+        opacity: island.morphTarget || island.momentActive ? 0 : 1
+        enabled: !island.morphTarget && !island.momentActive
         Behavior on opacity { NumberAnimation { duration: DesktopStyle.motionDuration(120) } }
         clip: true
         interactive: island.expanded && island.contentExtent > island.extent

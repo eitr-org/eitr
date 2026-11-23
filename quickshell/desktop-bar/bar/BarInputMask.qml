@@ -30,6 +30,7 @@ Region {
     Region { item: edgeSensorRef.visible && !FocusMode.enabled ? edgeSensorRef : null }
     Region { item: host.barPointerHeld && !FocusMode.enabled ? barHost.contentItem : null }
     Region { item: FocusMode.enabled ? null : host.notchLayout ? tabStripRef : host.centeredLayout || host.islandsLayout || host.dynamicLayout || host.dropLayout ? null : barContentsRef }
+    Region { item: barHost.appearanceOpen ? barHost.contentItem : null }
     IslandMask { surfaces: barHost.choicePopups || [] }
     IslandMask { surfaces: barHost.islandSurfaces ? barHost.islandSurfaces.children : [] }
     IslandMask { surfaces: barHost.dynamicSurfaces ? barHost.dynamicSurfaces.surfaces : [] }

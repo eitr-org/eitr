@@ -4017,6 +4017,9 @@
     "ddd MMM dd hh:mm AP": [
       "quickshell/desktop-bar/bar/ClockButton.qml"
     ],
+    "dddd, d MMMM": [
+      "quickshell/desktop-bar/bar/DynamicClockCard.qml"
+    ],
     "fingerprint fido tpm firewall authentication": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],

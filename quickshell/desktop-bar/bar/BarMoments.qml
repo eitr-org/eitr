@@ -12,7 +12,7 @@ Item {
     readonly property var clock: host.verticalBar ? barHost.verticalCalendarIcon : barHost.centerInfo
     readonly property bool enabledSetting: host.barMoments !== false
     readonly property bool accepting: enabledSetting && !FocusMode.enabled
-    readonly property bool panelsBlocked: !!barHost.panelOpen || !!barHost.pendingPanel || !!barHost.overviewOpen || !!barHost.pendingOverview
+    readonly property bool panelsBlocked: !!barHost.appearanceOpen || !!barHost.panelOpen || !!barHost.pendingPanel || !!barHost.overviewOpen || !!barHost.pendingOverview
     property bool mediaHovered: false
     property bool surfaceHovered: false
     readonly property bool clockHovered: surfaceHovered || (!!clock && !!clock.hovered)

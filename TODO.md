@@ -21,10 +21,10 @@ item says what decides the next step. Remove an item when it ships;
   second account, switch off and Restore Sharing Setup. On the owner's NVIDIA PC (2026-11-18)
   Moonlight on a Mac streamed the login screen (X11 capture of SDDM's display) and was handed to
   the user's own Sharing at sign-in. Headless use and wake on LAN are not planned.
-- **Dynamic island, next.** Short notification, volume/brightness, song, Bluetooth and
-  keyboard moments are implemented. Next: a hover card for the clock (large time and week
-  strip), and the wallpaper/theme carousel growing out of the clock island. Islands arrows
-  (‹ ›) like Dynamic if the owner wants them.
+- **Side docks (proposed 2026-11-23).** Left and right screen edges beside the bottom app dock:
+  right = Controls (volume, microphone, brightness), left = Recent (screenshots, recordings,
+  clipboard, timer), with a short dwell, middle of outer edges only, never over fullscreen.
+  Waiting for the owner's go on the contents.
 - **Voice reminders, two-way sync.** Read-only Google/Outlook/iCal subscriptions are
   done (Tools > Reminders > Calendar Sources). Creating or editing provider events needs account
   sign-in (OAuth, with Google's app verification).

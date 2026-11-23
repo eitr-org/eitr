@@ -29,11 +29,11 @@ Item {
         barHost: centerSection.barHost
         zone: "clockStart"
         vertical: false
-        observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
+        observing: !barHost.dynamicLayout
         slotSpacing: barHost.itemGap
         open: !barHost.dropLayout && barHost.expanded
         clipReveal: true
-        reveal: barHost.dynamicLayout ? ((barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false) ? 1 : 0) : 1
+        reveal: barHost.dynamicLayout ? 0 : 1
         Behavior on reveal { NumberAnimation { duration: DesktopStyle.motionDuration(320); easing.type: Easing.OutCubic } }
         opacity: reveal
         enabled: opacity > 0
@@ -119,7 +119,7 @@ Item {
         anchors.left: centerInfo.right
         anchors.leftMargin: barHost.islandsLayout ? (barHost.islandSurfaces ? barHost.islandSurfaces.aroundClock : 0) : 0
         anchors.verticalCenter: centerInfo.verticalCenter
-        width: barHost.dropLayout || barWeather.width <= 0 ? 0 : barHost.dynamicLayout ? (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.weatherReveal : 0) : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
+        width: barHost.dropLayout || barWeather.width <= 0 ? 0 : barHost.dynamicLayout ? 0 : barHost.notchLayout ? barHost.weatherReveal : (barHost.islandsLayout ? barHost.islandSpacing : barHost.centeredLayout ? barHost.itemGap : 6) + barWeather.width
         height: barWeather.height
         clip: barHost.dropLayout || barHost.notchLayout || barHost.dynamicLayout
         BarZoneItems {
@@ -128,7 +128,7 @@ Item {
             barHost: centerSection.barHost
             zone: "clockEnd"
             vertical: false
-            observing: !barHost.dynamicLayout || (barHost.dynamicSurfaces ? barHost.dynamicSurfaces.middleIsland.expanded : false)
+            observing: !barHost.dynamicLayout
             x: parent.width - width
             slotSpacing: barHost.itemGap
             open: !barHost.dropLayout && barHost.expanded

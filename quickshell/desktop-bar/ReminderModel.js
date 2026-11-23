@@ -117,3 +117,18 @@ function dayItems(reminders, events, day) {
     });
     return items.sort(function(first, second) { return first.due - second.due; });
 }
+
+function hasPlans(reminders, events, date) {
+    return forDay(reminders, date).length > 0 || eventsForDay(events, date).length > 0;
+}
+
+function weekDays(today, locale, reminders, events) {
+    // Qt and Date both number Sunday as 0.
+    const offset = (today.getDay() - locale.firstDayOfWeek + 7) % 7;
+    return Array.from({length: 7}, (unused, index) => {
+        const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - offset + index);
+        const weekday = date.getDay();
+        return {date, weekday, today: index === offset, weekend: weekday === 0 || weekday === 6,
+            plans: hasPlans(reminders, events, date)};
+    });
+}

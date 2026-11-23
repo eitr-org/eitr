@@ -9,6 +9,7 @@ Item {
     signal clicked()
     property bool autoRefresh: false
     property bool compact: false
+    property int labelSize: compact ? PanelStyle.captionSize : PanelStyle.barTextSize
     property string text: "󰖐"
     property string location: ""
     property string condition: ""
@@ -44,7 +45,10 @@ Item {
         if (autoRefresh) DesktopData.observe("weather.default", weather);
     }
     onAutoRefreshChanged: observe()
-    Component.onCompleted: observe()
+    Component.onCompleted: {
+        observe();
+        if (!dataRevision && snapshot && snapshot.data.temp) updateData(snapshot.data);
+    }
     Component.onDestruction: DesktopData.releaseOwner(weather)
 
     Row {
@@ -55,7 +59,7 @@ Item {
             text: weather.text.split(" ")[0]
             color: host.barFg
             font.family: DesktopFonts.family
-            font.pixelSize: weather.compact ? 12 : PanelStyle.barTextSize
+            font.pixelSize: weather.labelSize
             font.bold: true
         }
         Text {
@@ -63,7 +67,7 @@ Item {
             text: weather.temperature
             color: host.barFg
             font.family: DesktopFonts.family
-            font.pixelSize: weather.compact ? 12 : PanelStyle.barTextSize
+            font.pixelSize: weather.labelSize
             font.bold: true
         }
     }

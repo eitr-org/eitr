@@ -214,8 +214,7 @@ ThemedPopup {
                     color: isToday ? menu.foreground
                         : dayMouse.containsMouse ? Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, PanelStyle.selectionAlpha(false, true))
                         : "transparent"
-                    readonly property bool hasReminders: row > 0 && column > 0 && (ReminderModel.forDay(menu.reminders, day).length > 0
-                        || ReminderModel.eventsForDay(menu.events, day).length > 0)
+                    readonly property bool hasReminders: row > 0 && column > 0 && ReminderModel.hasPlans(menu.reminders, menu.events, day)
                     border.width: row > 0 && column > 0 && day.toDateString() === menu.selectedDay.toDateString() ? 1 : 0
                     border.color: menu.foreground
                     MouseArea {

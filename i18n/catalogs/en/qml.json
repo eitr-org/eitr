@@ -1203,5 +1203,6 @@
   "What it asks for": "What it asks for",
   "1 placed": "1 placed",
   "Live CPU, GPU, RAM, storage and network usage on your desktop": "Live CPU, GPU, RAM, storage and network usage on your desktop",
-  "{count} placed": "{count} placed"
+  "{count} placed": "{count} placed",
+  "dddd, d MMMM": "dddd, d MMMM"
 }

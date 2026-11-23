@@ -162,6 +162,17 @@ PanelWindow {
     }
     readonly property var dockPanels: [wifiMenu, bluetoothMenu, brightnessMenu, volumeMenu, streamingMenu,
         keyboardMenu, calendarMenu, weatherMenu, hardwareMenu, aiMenu, obsMenu, recordingMenu, workspaceMenu, notificationCenter, controlCenter, mediaMenu, dropDashboard, batteryMenu, pluginPanel].filter(panel => !!panel)
+    property var appearancePicker: null
+    readonly property alias appearanceCard: appearanceHost.item
+    readonly property bool appearanceOpen: !!appearanceCard && appearanceCard.requested
+    Loader {
+        id: appearanceHost
+        parent: bar.contentItem
+        anchors.fill: parent
+        z: 20
+        active: !!bar.appearancePicker && (bar.dynamicLayout || bar.dropLayout)
+        sourceComponent: BarAppearanceCard { barHost: bar; picker: bar.appearancePicker }
+    }
     readonly property bool panelOpen: dockPanels.some(panel => panel.visible)
     readonly property var panelFocusWindows: notificationPopups.visible ? [bar, notificationPopups] : [bar]
     property var pendingPanel: null
@@ -259,11 +270,11 @@ PanelWindow {
     WlrLayershell.namespace: "desktop-bar"
     // Notification popups must have a strictly higher layer than
     // panels, rather than depending on same-layer mapping order.
-    WlrLayershell.layer: panelOpen && !notificationPopups.visible ? WlrLayer.Overlay : WlrLayer.Top
+    WlrLayershell.layer: appearanceOpen || (panelOpen && !notificationPopups.visible) ? WlrLayer.Overlay : WlrLayer.Top
     property var choicePopups: []
     mask: shown ? dockInput : hiddenInput
     Region { id: hiddenInput }
-    WlrLayershell.keyboardFocus: panelOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
+    WlrLayershell.keyboardFocus: appearanceOpen ? WlrKeyboardFocus.Exclusive : panelOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
     BarAutoHide {
         id: autoHide
@@ -273,7 +284,8 @@ PanelWindow {
         // into the edge in one motion instead of first folding back into the pill.
         // A new notification also brings the bar out until its popups have gone.
         held: bar.dockPanels.some(panel => panel === bar.dropDashboard ? panel.opened : panel.visible) || bar.pendingPanel !== null || bar.pendingOverview || overview.visible || host.barPointerHeld
-            || clockActivity.alerting || !!moments.current
+            || clockActivity.alerting || !!moments.current || bar.appearanceOpen
+            || !!(bar.dynamicSurfaces && bar.dynamicSurfaces.middleIsland.hoverCard)
     }
     readonly property alias moments: moments
     BarMoments { id: moments; host: bar.host; barHost: bar }

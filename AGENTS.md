@@ -342,10 +342,13 @@ existing design and workflows rather than replacing them with upstream defaults.
 - Dynamic: uses the shared BarMoments owner for notification, level, song, Bluetooth and keyboard moments; three full-pill islands side by side at the screen centre (always fully
   rounded, ignoring the corner preference): logo, time-only clock exactly centred at
   rest, network/battery; while a player is present, a media island (controls and
-  equalizer) sits between logo and clock. Hover expands one island along the bar (the clock island then
-  shows date, AM/PM and weather; the time stays centred and the island grows only on the
-  side that gains content); a moment under the pointer is held; 320 ms, instant with
-  Reduce motion, collapse after 350 ms. Opening a panel grows its island into the panel
+  equalizer) sits between logo and clock. Hover expands the side islands along the bar and
+  grows the clock inward into a card with the time, full date, locale week with plan dots,
+  and available weather. Click the card for Calendar or the weather for its forecast. A
+  moment under the pointer is held. Islands grow in 320 ms, instantly with Reduce motion,
+  and collapse 350 ms after the pointer leaves.
+  Top/bottom theme and wallpaper carousels grow from the clock on a display showing the bar.
+  Opening a panel grows its island into the panel
   (no separate surface) and the other islands slide aside. Reserve resting depth plus
   half the outer gap; empty space passes clicks through.
 - Drop: one full pill with only the time, exactly centred on the bar's edge (always
@@ -360,7 +363,9 @@ existing design and workflows rather than replacing them with upstream defaults.
   bell after it; workspace and low-battery flashes; one lyric line on dragging the note
   right), making room
   only on the side that has something while the time keeps the screen centre. No hover
-  behaviour. Reserve pill depth plus half the outer gap; only the pill takes clicks.
+  behaviour. On top/bottom bars, theme and wallpaper carousels grow from the pill and
+  follow its auto-hide reveal and retraction. Reserve pill depth plus half the outer gap;
+  at rest only the pill takes clicks.
 - Clock activity in every layout comes from one `bar/ClockActivityState.qml` per bar: a
   new notification rings the bar's bell (a bell slides out beside the clock where the
   layout hides its own: Drop, Centered collapsed, Dynamic at rest) and holds an

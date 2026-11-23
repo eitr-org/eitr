@@ -104,6 +104,7 @@ class BarMomentRenderTests(unittest.TestCase):
                                  '<rect x="14" y="12" width="132" height="66" rx="6" fill="#18212b"/>'
                                  '<path d="M35 34h90M35 45h65M35 56h80" stroke="#e9eef1" stroke-width="5"/></svg>')
             base = (BAR / 'tests/fixtures/layout/dynamic.qml.in').read_text().split('            property int stage: 0')[0]
+            base = base.replace('ATTACHED', 'false')
             base = base.replace('import QtQuick\n', 'import QtQuick\nimport QtTest\n', 1)
             base = base.replace('function togglePanel(panel)', 'property string lastKind: \"\"\n            function toggleKind(kind) { lastKind = kind; }\n            function togglePanel(panel)')
             source = eager_projection((BAR / 'bar/BarWindow.qml').read_text())

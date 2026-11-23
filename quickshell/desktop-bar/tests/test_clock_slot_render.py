@@ -299,12 +299,12 @@ ShellRoot {
                     const actual = shell.verticalBar ? point.y : point.x;
                     const expected = (shell.verticalBar ? bar.height : bar.width) / 2;
                     if (Math.abs(actual - expected) > 0.01) { console.error("Clock displaced", actual, expected); Qt.exit(1); return; }
-                    if (!bar.dropLayout && EXPECT_CLOCK) {
+                    if (!bar.dropLayout && !bar.dynamicLayout && EXPECT_CLOCK) {
                         const start = slot.mapToItem(bar, 0, 0);
                         const end = shell.verticalBar ? start.y + slot.height : start.x + slot.width;
                         const beforeClock = shell.verticalBar ? point.y - clock.height / 2 : point.x - clock.width / 2;
                         if (end > beforeClock || slot.width <= 0 || slot.height <= 0) { console.error("Clock slot misplaced"); Qt.exit(1); return; }
-                    } else if (slot.width > 0 && slot.height > 0) { console.error("Drop slot visible"); Qt.exit(1); return; }
+                    } else if (slot.width > 0 && slot.height > 0) { console.error("Inline slot unexpectedly visible"); Qt.exit(1); return; }
                     // Status keeps fixed icon slots; start sizes to its content like the clock slots.
                     if (EXPECT_CLOCK && !bar.dropLayout && (startSlot.width <= 0 || startSlot.height <= 0)) {
                         console.error("Start slot geometry"); Qt.exit(1); return;

@@ -15,6 +15,7 @@ singleton DisplayService 1.0 services/DisplayService.qml
 singleton BarIconOrder 1.0 services/BarIconOrder.qml
 AiUsageMenu panels/AiUsageMenu.qml
 AppearancePicker panels/AppearancePicker.qml
+BarAppearanceCard bar/BarAppearanceCard.qml
 AudioLevelControl components/AudioLevelControl.qml
 AudioMenu panels/AudioMenu.qml
 BarGestureArea bar/BarGestureArea.qml
@@ -173,6 +174,7 @@ CatalogContent 1.0 panels/CatalogContent.qml
 LibraryWindow 1.0 components/LibraryWindow.qml
 SiteBackdrop 1.0 components/SiteBackdrop.qml
 BarDynamic bar/BarDynamic.qml
+DynamicClockCard bar/DynamicClockCard.qml
 BarDrop bar/BarDrop.qml
 DynamicIsland bar/DynamicIsland.qml
 DropPillActivity bar/DropPillActivity.qml

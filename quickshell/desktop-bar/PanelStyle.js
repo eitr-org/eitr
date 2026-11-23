@@ -21,6 +21,7 @@ var secondaryTextOpacity = 0.72;
 // Headline figures (a panel's one big number) and tabular digits for any value
 // that updates in place, so changing numbers do not shift their neighbours.
 var figureSize = 22;
+var clockDisplaySize = 38;
 var tabularFigures = ({"tnum": 1});
 // Foreground alpha for subtle panel dividers.
 var dividerAlpha = 0.12;

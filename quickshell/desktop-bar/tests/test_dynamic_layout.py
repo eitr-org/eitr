@@ -30,6 +30,14 @@ class DynamicLayoutTests(unittest.TestCase):
             folder = Path(directory)
             copy_runtime(folder)
             shutil.copytree(BAR / "assets", folder / "assets", dirs_exist_ok=True)
+            registry = folder / 'plugins/PluginRegistry.qml'
+            registry_source = registry.read_text()
+            weather_setting = next(line for line in registry_source.splitlines() if 'readonly property bool weatherEnabled:' in line)
+            clock_button = folder / 'bar/ClockButton.qml'
+            clock_button.write_text(clock_button.read_text().replace('running: clock.visible', 'running: false'))
+            widget = folder / 'bar/WeatherWidget.qml'
+            widget.write_text(widget.read_text().replace('DesktopData.topics["weather.default"]',
+                '({data: {temp: "24°", text: "󰖙 24°"}})'))
             for edge in EDGES:
                 for light in (False, True):
                     marker = folder / 'theme/current/light.mode'
@@ -39,6 +47,8 @@ class DynamicLayoutTests(unittest.TestCase):
                     else:
                         marker.unlink(missing_ok=True)
                     for website in (False, True):
+                        registry.write_text(registry_source.replace(weather_setting,
+                            '    readonly property bool weatherEnabled: ' + str(website).lower()))
                         capture = capture_path('DYNAMIC', directory, f'{edge}-{light}-{website}')
                         fixture = (BAR / 'tests/fixtures/layout/dynamic.qml.in').read_text()
                         source = eager_projection((BAR / 'bar/BarWindow.qml').read_text())
@@ -47,7 +57,7 @@ class DynamicLayoutTests(unittest.TestCase):
                         geometry = geometry.replace('host.', 'shell.')
                         reserved = source.split('readonly property real reservedThickness: ', 1)[1].split('\n', 1)[0]
                         fixture = fixture.replace('GEOMETRY', geometry).replace('RESERVED', reserved)
-                        fixture = fixture.replace('EDGE', json.dumps(edge)).replace('LIGHT', str(light).lower()).replace('WEBSITE', str(website).lower()).replace('CAPTURE', json.dumps(str(capture)))
+                        fixture = fixture.replace('EDGE', json.dumps(edge)).replace('LIGHT', str(light).lower()).replace('WEBSITE', str(website).lower()).replace('CAPTURE', json.dumps(str(capture))).replace('ATTACHED', str(website).lower())
                         (folder / 'fixture.qml').write_text(fixture)
                         code, output = render(folder / 'fixture.qml', render_environment(directory), 20)
                         with self.subTest(edge=edge, light=light, website=website):
@@ -57,6 +67,54 @@ class DynamicLayoutTests(unittest.TestCase):
                                 self.assertNotIn(error, output)
                             for state in range(4):
                                 self.assertTrue(Path(f'{capture}-{state}.png').is_file())
+
+    def test_pointer_can_enter_the_clock_card_and_open_calendar(self):
+        with tempfile.TemporaryDirectory(prefix='eitr-clock-hover-') as directory:
+            folder = Path(directory)
+            copy_runtime(folder)
+            source = eager_projection((BAR / 'bar/BarWindow.qml').read_text())
+            geometry = source.split('        width: host.verticalBar ? bar.thinThickness', 1)[1].split('        BarTabs {', 1)[0]
+            geometry = ('width: host.verticalBar ? bar.thinThickness' + geometry).replace('host.', 'shell.')
+            reserved = source.split('readonly property real reservedThickness: ', 1)[1].split('\n', 1)[0]
+            fixture = (BAR / 'tests/fixtures/layout/dynamic.qml.in').read_text().split('            Bar.DockPanel {', 1)[0]
+            fixture = fixture.replace('import QtQuick\n', 'import QtQuick\nimport QtTest\n', 1)
+            fixture = fixture.replace('            id: bar\n', '            id: bar\n            property Item contentItem: window.contentItem\n')
+            fixture = fixture.replace('panel.visible = !panel.visible;', 'panel.visible = !panel.visible; panel.opened = panel.visible;')
+            fixture += """
+            TestCase { id: mouse; name: "ClockHover"; when: false }
+            Timer {
+                interval: 420; repeat: true; running: true
+                property int stage: 0
+                onTriggered: {
+                    const island = dynamic.middleIsland;
+                    const centre = island.mapToItem(bar, island.width / 2, island.height / 2);
+                    if (stage === 0) mouse.mouseMove(bar, centre.x, centre.y);
+                    else if (stage === 1) {
+                        if (!island.hoverCard) { console.error("Clock hover failed"); Qt.exit(1); return; }
+                        mouse.mouseMove(bar, centre.x, centre.y);
+                    } else {
+                        if (!island.hoverCard || !island.hovered) { console.error("Pointer did not hold card"); Qt.exit(1); return; }
+                        mouse.mouseClick(bar, centre.x, centre.y);
+                        if (island.hoverCard || island.panel !== calendar) { console.error("Card did not open Calendar"); Qt.exit(1); return; }
+                        console.log("CLOCK_HOVER_OK");
+                        Qt.quit();
+                    }
+                    stage++;
+                }
+            }
+        }
+    }
+}
+"""
+            for token, value in {'GEOMETRY': geometry, 'RESERVED': reserved, 'EDGE': '"top"', 'LIGHT': 'false',
+                                 'WEBSITE': 'false', 'ATTACHED': 'false'}.items():
+                fixture = fixture.replace(token, value)
+            (folder / 'fixture.qml').write_text(fixture)
+            code, output = render(folder / 'fixture.qml', render_environment(directory), 8)
+            self.assertEqual(code, 0, output)
+            self.assertIn('CLOCK_HOVER_OK', output)
+            for error in ('TypeError', 'ReferenceError', 'Binding loop', 'Unable to assign'):
+                self.assertNotIn(error, output)
 
     def test_animation_delay_holds_and_reduce_motion(self):
         with tempfile.TemporaryDirectory(prefix='eitr-dynamic-motion-') as directory:
