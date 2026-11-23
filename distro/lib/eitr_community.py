@@ -1,6 +1,7 @@
 """Community metadata validation and data-only sparse verification."""
 import json
 from pathlib import Path
+import re
 import tempfile
 
 from eitr_plugin_install import repository_url, git, COMMIT
@@ -8,6 +9,8 @@ from eitr_plugin_manifest import identifier, string, unique_object, manifest as 
 from eitr_theme_packages import relative, validate as theme_validate, MAX_BYTES, MAX_FILES
 
 SPDX_IDS = frozenset(json.loads(Path(__file__).with_name("spdx-license-ids.json").read_text()))
+# SPDX's own form for terms outside its list, such as fan content (see distro/STORE.md).
+LICENSE_REF = re.compile(r"LicenseRef-[A-Za-z0-9.-]{1,64}")
 
 
 def entry(value, kind):
@@ -23,8 +26,9 @@ def entry(value, kind):
     relative(value['folder'])
     string(value['maintainer'], 128)
     string(value['description'], 72)
-    # SPDX identifiers, not license expressions or arbitrary prose.
-    if not isinstance(value['license'], str) or value['license'].lower() not in SPDX_IDS:
+    # SPDX identifiers or LicenseRef- references, not license expressions or arbitrary prose.
+    license_id = value['license']
+    if not isinstance(license_id, str) or (license_id.lower() not in SPDX_IDS and not LICENSE_REF.fullmatch(license_id)):
         raise ValueError('Expected an SPDX license ID')
     if kind == 'plugins' and (not isinstance(value['commit'], str) or not COMMIT.fullmatch(value['commit'])):
         raise ValueError('Plugins require a full commit SHA')

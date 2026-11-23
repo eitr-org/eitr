@@ -44,6 +44,21 @@ It also accepts schema 1. Only a 404 falls back to the former community index
 while the new repository is unpublished. Cached names remain stable. A malformed
 new index is refused; it does not fall back to older metadata.
 
+## Community content
+
+The community index lists entries; each theme, wallpaper pack or plugin lives in its
+author's own repository, and the Store installs it from there. Fan content (game, film
+or anime art shared for desktops) is welcome there under these rules, also published in
+the `eitr-store` README:
+
+- The author hosts it and answers for it. Its license is an SPDX ID, or `LicenseRef-`
+  plus a short name (for example `LicenseRef-Fan-Content`) for art that belongs to
+  someone else; the entry's README names the owner.
+- Nothing pretends to be official, no paid or ripped assets, nothing illegal or adult.
+- A rights holder's request removes the entry from the index (the `removed` list).
+- Eitr's own work stays original: built-in themes and wallpapers, the website, the
+  Handbook, screenshots and videos never use someone else's art.
+
 ## Wallpaper packs
 
 A pack contains `eitr-wallpapers.json` with `id`, `name`, `description`, and

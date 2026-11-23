@@ -18,8 +18,10 @@ class CommunityIndexTests(unittest.TestCase):
         row = self.row()
         self.assertEqual(entry(row, 'themes'), row)
         self.assertEqual(entry(dict(row, commit='a' * 40), 'plugins')['commit'], 'a' * 40)
+        self.assertEqual(entry(dict(row, license='LicenseRef-Fan-Content'), 'themes')['license'], 'LicenseRef-Fan-Content')
         for changes in ({'id': '../bad'}, {'repository': 'file:///tmp/repo'}, {'folder': '../theme'},
-                        {'license': 'Made-Up-License'}, {'description': 'x' * 73}, {'extra': True}, {'maintainer': ''}):
+                        {'license': 'Made-Up-License'}, {'license': 'LicenseRef-'}, {'license': 'LicenseRef-a b'},
+                        {'license': 'MIT OR LicenseRef-Fan'}, {'description': 'x' * 73}, {'extra': True}, {'maintainer': ''}):
             with self.subTest(changes=changes), self.assertRaises(ValueError):
                 entry(dict(row, **changes), 'themes')
         for commit in ('HEAD', 'a' * 39, 'g' * 40, True):
