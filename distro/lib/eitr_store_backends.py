@@ -7,6 +7,8 @@ from pathlib import Path
 import subprocess
 import tempfile
 
+from eitr_store_previews import discover_result, publish_json, repository_path, theme_previews
+
 from eitr_plugin_bundled import BUNDLED_DEFAULTS
 from eitr_store_content import community, community_detail, installed_badges, artwork_preview
 
@@ -57,13 +59,15 @@ def themes(name, args):
         return {'items': installed_badges(backend.installed(), kind)}
     if name == 'index':
         result = backend.index(THEMES)
-        target = cache('eitr/catalog-previews/index.json')
-        target.parent.mkdir(parents=True, exist_ok=True)
-        with tempfile.NamedTemporaryFile(mode='w', dir=target.parent, delete=False) as handle:
-            temporary = Path(handle.name)
-            json.dump(result, handle)
-        temporary.replace(target)
-        return {'items': result['themes']}
+        publish_json(cache('eitr/catalog-previews/index.json'), result)
+        rows = result['themes']
+        with backend.lock():
+            try:
+                theme_previews(repository_path(backend, THEMES), result['commit'], THEMES, rows,
+                               allow_file=backend.allow_file)
+            except (OSError, ValueError, subprocess.SubprocessError):
+                pass  # Keep the listing available if the preview fetch fails.
+        return discover_result('official', rows)
     if name == 'detail' and args.get('channel') == 'community':
         return community_detail(args['id'], backend)
     if name in {'preview', 'artwork'}:

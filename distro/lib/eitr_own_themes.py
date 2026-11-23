@@ -7,6 +7,7 @@ import shutil
 import tempfile
 
 from eitr_i18n import tr
+from eitr_theme_preview import write_preview
 from eitr_paths import code, code_root, own, theme_paths
 from eitr_own_pictures import HEX, clean_name, slug, store_picture, source_stem
 from eitr_own_palette import (
@@ -42,22 +43,6 @@ def reference_integration(light):
         if driven and (directory / "colors.toml").is_file() and (directory / "light.mode").is_file() == light:
             return integration
     raise ValueError(tr('No palette-driven theme integration is installed.'))
-
-
-def write_preview(directory, colors):
-    from PIL import Image, ImageDraw, ImageOps
-    picture = next(iter(sorted((directory / "backgrounds").iterdir())), None)
-    canvas = Image.new("RGB", (1280, 720), colors["background"])
-    if picture is not None:
-        with Image.open(picture) as source:
-            canvas.paste(ImageOps.fit(source.convert("RGB"), (1280, 720), Image.Resampling.LANCZOS))
-    draw = ImageDraw.Draw(canvas)
-    draw.rectangle((0, 640, 1280, 720), fill=colors["background"])
-    keys = ("accent", "foreground", *(f"color{index}" for index in range(1, 7)))
-    for index, key in enumerate(keys):
-        left = 24 + index * 154
-        draw.rounded_rectangle((left, 656, left + 138, 704), radius=10, fill=colors[key])
-    canvas.save(directory / "preview.png", optimize=True)
 
 
 def write_theme_files(directory, colors, light):

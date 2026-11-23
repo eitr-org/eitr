@@ -26,6 +26,6 @@ Saved selections follow the migration chain to their renamed image or the new de
 
 Eitr Gates and Primordial Drop are removed; their provenance remains in batches
 11 and 09. `references/generate-wallpapers.py` owns the runestone and unchanged
-`motion/04-eitr-runestone/` layers. The independent theme preview is preserved.
+`motion/04-eitr-runestone/` layers.
 
 Artwork is CC-BY-4.0, credited to the EITR project.

@@ -45,7 +45,7 @@ Eitr 浅色版是 Primordial Venom 的浅色对应版本，采用浅绿表面、
 
 13 款内置主题在离线状态下依然可用。从官方 `eitr-org/eitr-themes` 目录中安装 14 款额外主题，包括浅色的 Freyja 和 Skaði。现有账户已在后台接收了前 12 款，支持离线重试；其当前主题和保存的壁纸保持不变。新账户仅接收内置主题。
 
-13 款随附的主题包括十个暗色神域调色板：Alfheim、Asgard、Helheim、Jotunheim、Midgard、Muspelheim、Niflheim、Ragnarök、Svartalfheim 和 Vanaheim。每个神域主题均包含两到五张原创壁纸，涵盖水墨、水粉、赛璐珞和绘画等多种风格，并提供两种宽高比。第一张壁纸通常与主题预览匹配；Svartalfheim 保留其独立的预览。
+13 款随附的主题包括十个暗色神域调色板：Alfheim、Asgard、Helheim、Jotunheim、Midgard、Muspelheim、Niflheim、Ragnarök、Svartalfheim 和 Vanaheim。每个神域主题均包含两到五张原创壁纸，涵盖水墨、水粉、赛璐珞和绘画等多种风格，并提供两种宽高比。随附主题、商店官方主题和自定义主题的预览均在默认壁纸下方显示一排配色。
 
 如果 Hyprpaper 无法显示所选壁纸，桌面栏会在每个受影响的屏幕上绘制相同的静态图像（包括超宽变体）。壁纸和主题选择在专注模式下依然生效；后备切换时不使用壁纸展开动画。
 

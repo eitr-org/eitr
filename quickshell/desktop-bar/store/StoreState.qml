@@ -185,12 +185,8 @@ Item {
                 detailError = failure;
                 if (!failure) {
                     detail = Object.assign({}, item, data.item);
-                    if (data.item.preview) {
-                        const key = previewKey(item);
-                        request("artwork", {id: item.id, path: data.item.preview}, function(problem, artworkData) {
-                            if (!problem) previews = Object.assign({}, previews, {[key]: artworkData.image});
-                        });
-                    }
+                    for (const asset of wallpapers) fetchArtwork(asset, true);
+                    if (data.item.preview) preview(detail, true);
                 }
             });
         }
@@ -292,14 +288,24 @@ Item {
         });
     }
     property var store: ({})
-    function fetch(catalogKind, source) {
+    function fetch(catalogKind, source, enqueueRefresh) {
         const key = catalogKind + ":" + source;
         store = Object.assign({}, store, {[key]: Object.assign({}, store[key] || {items: []}, {pending: true, error: ""})});
         sync();
-        request(source === "installed" ? "installed" : "index", {kind: catalogKind, channel: source}, function(failure, data) {
-            store = Object.assign({}, store, {[key]: {items: failure ? (store[key].items || []) : (data.items || []).map(item => Object.assign({}, localizedItem(item), source === "installed" ? {} : {kind: item.kind === "builtin" ? "builtin" : item.kind === "community" ? "community" : "official", channel: source})), error: failure, pending: false, loaded: !failure}});
+        const args = {kind: catalogKind, channel: source};
+        const update = (failure, data, pending) => {
+            const items = failure ? store[key].items : (data.items || []).map(item => Object.assign({}, localizedItem(item), source === "installed" ? {} : {kind: item.kind === "builtin" ? "builtin" : item.kind === "community" ? "community" : "official", channel: source}));
+            store = Object.assign({}, store, {[key]: {items, error: failure, pending, loaded: !pending && !failure}});
             sync();
-        });
+        };
+        const refresh = () => request(source === "installed" ? "installed" : "index", args, (failure, data) => update(failure, data, false));
+        const queueRefresh = enqueueRefresh || (task => task());
+        if (catalogKind === "themes" && source !== "installed" && !store[key].items.length) {
+            request("cached-index", args, function(failure, data) {
+                if (!failure && data.items && data.items.length) update("", data, true);
+                queueRefresh(refresh);
+            });
+        } else queueRefresh(refresh);
     }
     function sync() {
         const local = store[kind + ":installed"] || {items: []};
@@ -319,7 +325,16 @@ Item {
         store = ({}); installed = []; availableItems = []; selected = []; updates = updateCache[kind] || ({}); previews = ({}); previewRequests = ({});
         detail = null; reviewIds = null; artwork = ({}); artworkRequests = ({}); reviewing = false; removing = null; busy = false; error = ""; repositoryError = ""; installedError = ""; progress = "";
         if (!live || !opened) return;
-        for (const entry of kinds) for (const source of ["installed"].concat(entry.sources)) fetch(entry.id, source);
+        fetch("themes", "installed");
+        const sources = kinds.find(entry => entry.id === "themes").sources;
+        const refreshes = [];
+        for (const source of sources) fetch("themes", source, refresh => {
+            refreshes.push(refresh);
+            if (refreshes.length !== sources.length) return;
+            for (const task of refreshes) task();
+            for (const entry of kinds.filter(entry => entry.id !== "themes"))
+                for (const channel of ["installed"].concat(entry.sources)) fetch(entry.id, channel);
+        });
     }
     function switchView() {
         detail = null; cursor = -1; catalog.scroll.contentY = 0; shown = pageSize; selected = []; error = ""; progress = "";
@@ -355,11 +370,11 @@ Item {
             if (!failure && done) done();
         });
     }
-    function preview(item) {
+    function preview(item, includeCommunity) {
         const itemKind = item.storeKind || kind;
         const key = previewKey(item);
-        if (itemKind === "lockscreens" || itemKind === "wallpapers" || !live || !opened || previews[key] || previewRequests[key]) return;
-        if (itemKind === "themes" && channelFor(item) === "community") return;
+        if (itemKind === "lockscreens" || itemKind === "wallpapers" || item.previewUrl || !live || !opened || previews[key] || previewRequests[key]) return;
+        if (itemKind === "themes" && (!item.preview || (channelFor(item) === "community" && !includeCommunity))) return;
         if (itemKind === "plugins" && !item.preview && !item.icon) return;
         previewRequests = Object.assign({}, previewRequests, {[key]: true});
         request(itemKind === "themes" ? "artwork" : "preview", itemKind === "themes" ? {kind: itemKind, id: item.id, path: item.preview, channel: channelFor(item)} : {kind: itemKind, id: item.id, channel: channelFor(item)}, function(failure, data) {

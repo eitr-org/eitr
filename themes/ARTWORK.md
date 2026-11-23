@@ -37,7 +37,7 @@ Batches 02 and 03 were generated with contact sheets of earlier third-party wall
 
 Batch 04 replaces all selected reference-led images that were too close to earlier artwork with fresh illustrations generated from written briefs only: three for Afterglow plus the extra themes now maintained in `eitr-org/eitr-themes`. Their earlier prompts remain marked removed in batches 02/03. Afterglow retains its owner-requested soft painterly rendering with Norse subjects.
 
-Theme previews (`preview.png`) are screenshots of each theme's desktop with Neovim and About open, retaken whenever a theme's look changes; no export script writes them. Batch 04's `previews` list only selects the website's theme-card artwork.
+Theme previews (`preview.png`) show the default wallpaper above a palette strip. Run `python3 tools/theme-previews.py` after changing a theme's default wallpaper or colors. The website uses the same previews for its cards and exports full wallpapers separately.
 
 The Catppuccin additions use owner-requested animated-film atmosphere rather
 than the collection’s default Norse screenprint direction. Their exact prompts
@@ -100,7 +100,7 @@ style, native dimensions, hashes and centering. Six native PNGs and `export.py`
 live under `branding/sources/wallpapers/batch-08/`. The 16:9 masters are preserved
 byte-for-byte; new 1935×812 panoramic compositions preserve complete subjects and
 calm dark space. Crop-to-fill exports are 3840×2160 and 3440×1440 JPEGs without
-stretching or padding. Ragnarök's independent theme preview is preserved.
+stretching or padding.
 
 ## Eitr batch 09
 

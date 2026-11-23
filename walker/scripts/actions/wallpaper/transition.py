@@ -18,7 +18,7 @@ from eitr_paths import code, config as user_config, cache as cache_dir, write_se
 from eitr_plugins import dispatch_hooks
 from eitr_i18n import tr
 import eitr_wallpapers as choices
-import re
+from eitr_wallpapers import wallpapers
 import shutil
 import subprocess
 import tempfile
@@ -28,22 +28,6 @@ def runtime():
     root = Path(os.environ.get("XDG_RUNTIME_DIR", str(Path.home() / ".cache"))) / "eitr-wallpaper"
     root.mkdir(parents=True, mode=0o700, exist_ok=True)
     return root
-
-
-WALLPAPER_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
-
-
-def wallpapers(directory):
-    """Return a theme's wallpapers in natural order (like `sort -V`)."""
-    def natural(path):
-        return [int(part) if part.isdigit() else part.lower()
-                for part in re.split(r"(\d+)", str(path.relative_to(directory)))]
-    directory = Path(directory)
-    if not directory.is_dir():
-        return []
-    files = (path for path in directory.rglob("*")
-             if path.is_file() and path.suffix.lower() in WALLPAPER_SUFFIXES)
-    return sorted(files, key=natural)
 
 
 def snapshot():
@@ -206,7 +190,7 @@ def restore(attempts=40, delay=0.25):
         saved = None
     if saved and not saved.is_file():
         # The same wallpaper in another format (themes moved from PNG to JPEG).
-        saved = next((saved.with_suffix(suffix) for suffix in sorted(WALLPAPER_SUFFIXES)
+        saved = next((saved.with_suffix(suffix) for suffix in sorted(choices.WALLPAPER_SUFFIXES)
                       if saved.with_suffix(suffix).is_file()), saved)
     if not saved or not saved.is_file():
         candidates = wallpapers(user_config("theme/current/backgrounds"))

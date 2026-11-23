@@ -59,7 +59,7 @@ def main():
     wide_records['images'] = [record for name, record in sorted(wide_exports.items()) if (ROOT / name).is_file()]
     write_json(records_path, records)
     write_json(wide_path, wide_records)
-    # Theme previews are screenshots of the desktop (themes/ARTWORK.md); never rewrite them here.
+    # Regenerate theme previews separately with tools/theme-previews.py.
 
 
 if __name__ == '__main__':

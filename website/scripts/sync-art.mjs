@@ -1,5 +1,5 @@
 // Web copies of EITR's own artwork, generated from the repository at build time:
-// selected Norse illustrations (theme wallpapers and website-only art in assets/norse), theme preview wallpapers and palettes, the
+// selected Norse illustrations (theme wallpapers and website-only art in assets/norse), theme previews, full wallpapers and palettes, the
 // current release from distro/release.json and the roadmap from distro/RELEASES.md.
 // Outputs are ignored by Git; edit the sources under ../themes instead.
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
@@ -46,7 +46,7 @@ for (const entry of (await readdir(themes, { withFileTypes: true })).filter((ite
   const previewSource = selectedArtwork
     ? new URL(`../../${selectedArtwork}`, import.meta.url).pathname
     : new URL(`backgrounds/${wallpapers[0]}`, directory).pathname;
-  await sharp(previewSource)
+  await sharp(new URL("preview.png", directory).pathname)
     .resize({ width: 900, height: 506, fit: "cover" })
     .webp({ quality: 76 })
     .toFile(new URL(`themes/${entry.name}.webp`, art).pathname);

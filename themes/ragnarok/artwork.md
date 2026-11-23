@@ -35,5 +35,5 @@ runes, logos or third-party likenesses. Native-size panoramic inspection checks
 anatomy, complete framing, banding and unwanted marks. Exports are crop-to-fill
 Lanczos-resampled JPEGs: 3840×2160 in `backgrounds/` and 3440×1440 in
 `backgrounds-ultrawide/`, never stretched or padded. These are export sizes,
-not native generated detail. The theme's independent `preview.png` is preserved.
+not native generated detail.
 Artwork license: CC-BY-4.0, credited to the EITR project.

@@ -2,7 +2,11 @@
 import json
 from pathlib import Path
 import re
+import subprocess
 import tempfile
+
+from eitr_store_previews import (discover_result, fetch_missing, preview_blob, preview_target,
+                                 publish_json, repository_path)
 
 THEMES = 'https://github.com/eitr-org/eitr-themes'
 
@@ -28,8 +32,7 @@ def community(name, args):
         if len(payload) > 1024 * 1024:
             raise ValueError('Community index exceeds size limit')
         index = validate_index(json.loads(payload, object_pairs_hook=unique_object))
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(json.dumps(index))
+        publish_json(target, index)
         if args['kind'] == 'plugins':
             from eitr_plugins import Plugins
             backend = plugin_backend()
@@ -39,7 +42,34 @@ def community(name, args):
                 rows.append(dict(metadata, **{key: value for key, value in row.items() if key != 'description'}, kind='official' if row.get('official') else 'community', channel='community'))
             save_plugin_rows(rows, 'community')
             return {'items': rows}
-        return {'items': [dict(row, name=row['id'].replace('-', ' ').title(), kind='official' if row.get('official') else 'community', channel='community') for row in index.get(args['kind'], [])]}
+        if args['kind'] != 'themes':
+            return {'items': [dict(row, name=row['id'].replace('-', ' ').title(),
+                                   kind='official' if row.get('official') else 'community', channel='community')
+                              for row in index.get(args['kind'], [])]}
+        from concurrent.futures import ThreadPoolExecutor
+        from eitr_plugin_install import normalized_url
+
+        backend = Themes()
+
+        def overviews(group):
+            try:
+                items = community_overviews(group, backend, include_preview=True)
+                for item in items:
+                    item.pop('wallpapers')
+                return items
+            except (OSError, ValueError, subprocess.SubprocessError):
+                return []
+
+        groups = {}
+        for row in index['themes']:
+            groups.setdefault(normalized_url(row['repository']), []).append(row)
+        # One Store worker, with bounded parallel Git reads for separate sources.
+        with backend.lock(), ThreadPoolExecutor(max_workers=4) as pool:
+            items = {item['id']: item for group in pool.map(overviews, groups.values()) for item in group}
+        rows = [dict(items.get(row['id'], dict(row, name=row['id'].replace('-', ' ').title())),
+                     kind='official' if row.get('official') else 'community', channel='community')
+                for row in index['themes']]
+        return discover_result('community', rows)
     # Install exactly the reviewed metadata, not an upstream catalog or branch's index.
     index = validate_index(json.loads(target.read_text()))
     backend = Themes()
@@ -98,71 +128,126 @@ def installed_badges(rows, kind):
 
 
 def community_detail(item_id, backend):
-    """Discover wallpaper names and sizes from trees without materializing images."""
-    import hashlib
     from eitr_paths import cache
     from eitr_community import validate_index
-    from eitr_plugin_install import git, normalized_url, repository_url
-    from eitr_theme_packages import relative, MAX_FILES, MAX_BYTES
     index = validate_index(json.loads(cache('eitr/community-index.json').read_text()))
     row = next(row for row in index['themes'] if row['id'] == item_id)
-    url = repository_url(row['repository'], allow_file=backend.allow_file)
-    repository = backend.cache / hashlib.sha256(normalized_url(url).encode()).hexdigest()
-    options = dict(allow_file=backend.allow_file)
     with backend.lock():
-        if not repository.exists():
-            git(None, 'clone', '--template=', '--filter=blob:none', '--sparse', '--no-checkout',
-                '--no-recurse-submodules', '--', url, str(repository), **options)
-        git(repository, 'fetch', '--filter=blob:none', '--no-recurse-submodules', '--', url, 'HEAD', **options)
-        revision = git(repository, 'rev-parse', 'FETCH_HEAD', **options)
-        tree = git(repository, 'ls-tree', '-rlz', revision + ':' + row['folder'], lazy_fetch=False, **options)
-        records = [record.split('\t', 1) for record in tree.split('\0') if record]
-        if len(records) > MAX_FILES:
-            raise ValueError('Community package exceeds file limit')
-        wallpapers, size, preview = [], 0, None
-        size_known = True
-        for header, filename in records:
-            mode, object_kind, blob, length = header.split()
-            relative(filename)
-            if mode != '100644' or object_kind != 'blob':
-                raise ValueError('Artwork must be a regular file')
-            length = int(length) if length != 'BAD' else None
-            size_known = size_known and length is not None
-            size += length or 0
-            if filename == 'preview.png':
-                preview = row['folder'] + '/' + filename
-            asset = Path(filename)
-            if asset.parent.as_posix() == 'backgrounds' and asset.suffix.lower() in {'.jpg', '.png'}:
-                wallpapers.append(dict(path=row['folder'] + '/' + filename, size=length))
-        if size > MAX_BYTES:
-            raise ValueError('Community package exceeds size limit')
-        result = dict(row, commit=revision, wallpapers=wallpapers, size=size if size_known else None)
-        # Read bounded data metadata for the overview; gallery discovery above
-        # never requests a wallpaper or thumbnail blob.
-        from eitr_theme_packages import manifest, palette, MANIFEST, PALETTE_KEYS
-        entries = {filename: header.split() for header, filename in records}
-        with tempfile.TemporaryDirectory(prefix='eitr-theme-detail-') as directory:
-            metadata = Path(directory)
-            for filename in (MANIFEST, 'colors.toml'):
-                entry = entries.get(filename)
-                if entry is None or int(git(repository, 'cat-file', '-s', entry[2], **options)) > 64 * 1024:
-                    raise ValueError('Missing or oversized theme metadata')
-                payload = git(repository, 'cat-file', 'blob', entry[2], binary=True, **options)
-                if len(payload) > 64 * 1024:
-                    raise ValueError('Theme metadata exceeds size limit')
-                (metadata / filename).write_bytes(payload)
-            spec = manifest(metadata)
-            colors = palette(metadata)
-            if spec['id'] != item_id or set(colors) != set(PALETTE_KEYS) or any(
-                    not isinstance(color, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', color) for color in colors.values()):
-                raise ValueError('Invalid theme overview metadata')
-            result.update(name=spec['name'], light=spec['light'], palette=colors)
-        if preview:
-            result['preview'] = preview
         target = cache('eitr/catalog-previews/community-' + item_id + '.json')
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(json.dumps(result))
-        return {'item': result}
+        try:
+            item = json.loads(target.read_text())
+            if all(item.get(field) == value for field, value in row.items()) and 'previewUrl' in item:
+                return {'item': item}
+        except (OSError, ValueError):
+            pass
+        return {'item': community_overviews([row], backend)[0]}
+
+
+def community_overviews(rows, backend, *, include_preview=False):
+    """Read overview data without downloading the wallpaper gallery."""
+    from eitr_plugin_install import git, repository_url
+    url = repository_url(rows[0]['repository'], allow_file=backend.allow_file)
+    repository = repository_path(backend, url)
+    options = dict(allow_file=backend.allow_file)
+    if not repository.exists():
+        with tempfile.TemporaryDirectory(dir=backend.cache) as directory:
+            staged = Path(directory) / 'repo'
+            git(None, 'clone', '--template=', '--filter=blob:none', '--no-checkout',
+                '--no-recurse-submodules', '--', url, str(staged), timeout=15, **options)
+            staged.rename(repository)
+        revision = git(repository, 'rev-parse', 'HEAD', **options)
+    else:
+        git(repository, 'fetch', '--filter=blob:none', '--no-recurse-submodules',
+            '--', url, 'HEAD', timeout=15, **options)
+        revision = git(repository, 'rev-parse', 'FETCH_HEAD', **options)
+    candidates = []
+    for row in rows:
+        try:
+            candidates.append(community_tree(repository, revision, row, include_preview, **options))
+        except (OSError, ValueError, subprocess.SubprocessError):
+            if not include_preview:
+                raise
+    blobs = {blob for _, entries, _ in candidates for blob in entries.values()}
+    blobs.update(preview[0] for _, _, preview in candidates if preview and not preview[1].is_file())
+    fetch_missing(repository, url, blobs, **options)
+
+    items = []
+    for result, entries, preview in candidates:
+        try:
+            items.append(publish_community_overview(repository, result, entries, preview, include_preview, **options))
+        except (OSError, ValueError, subprocess.SubprocessError):
+            if not include_preview:
+                raise
+    return items
+
+
+def community_tree(repository, revision, row, include_preview, **options):
+    from eitr_plugin_install import git, COMMIT
+    from eitr_theme_packages import MANIFEST, relative, MAX_FILES, MAX_BYTES
+    tree = git(repository, 'ls-tree', '-rlz', revision + ':' + row['folder'], lazy_fetch=False, **options)
+    records = [record.split('\t', 1) for record in tree.split('\0') if record]
+    if len(records) > MAX_FILES:
+        raise ValueError('Community package exceeds file limit')
+    wallpapers, size, preview = [], 0, None
+    size_known = True
+    for header, filename in records:
+        mode, object_kind, blob, length = header.split()
+        relative(filename)
+        if mode != '100644' or object_kind != 'blob':
+            raise ValueError('Artwork must be a regular file')
+        length = int(length) if length != 'BAD' else None
+        size_known = size_known and length is not None
+        size += length or 0
+        if filename == 'preview.png':
+            preview = row['folder'] + '/' + filename
+        asset = Path(filename)
+        if asset.parent.as_posix() == 'backgrounds' and asset.suffix.lower() in {'.jpg', '.png'}:
+            wallpapers.append(dict(path=row['folder'] + '/' + filename, size=length))
+    if size > MAX_BYTES:
+        raise ValueError('Community package exceeds size limit')
+    result = dict(row, commit=revision, wallpapers=wallpapers, size=size if size_known else None)
+    if preview:
+        result['preview'] = preview
+    entries = {filename: header.split()[2] for header, filename in records}
+    metadata = {filename: entries.get(filename, '') for filename in (MANIFEST, 'colors.toml')}
+    if any(not COMMIT.fullmatch(blob) for blob in metadata.values()):
+        raise ValueError('Missing or invalid theme metadata')
+    preview_blob_id = entries.get('preview.png') if include_preview else None
+    artwork = (preview_blob_id, preview_target(preview_blob_id, '.png')) if preview_blob_id else None
+    return result, metadata, artwork
+
+
+def publish_community_overview(repository, result, entries, artwork, include_preview, **options):
+    from eitr_paths import cache
+    from eitr_plugin_install import git
+    from eitr_theme_packages import manifest, palette, PALETTE_KEYS
+
+    item_id = result['id']
+    with tempfile.TemporaryDirectory(prefix='eitr-theme-detail-') as directory:
+        metadata = Path(directory)
+        for filename, blob in entries.items():
+            if int(git(repository, 'cat-file', '-s', blob, lazy_fetch=False, **options)) > 64 * 1024:
+                raise ValueError('Missing or oversized theme metadata')
+            payload = git(repository, 'cat-file', 'blob', blob, binary=True, lazy_fetch=False, **options)
+            if len(payload) > 64 * 1024:
+                raise ValueError('Theme metadata exceeds size limit')
+            (metadata / filename).write_bytes(payload)
+        spec = manifest(metadata)
+        colors = palette(metadata)
+        if spec['id'] != item_id or set(colors) != set(PALETTE_KEYS) or any(
+                not isinstance(color, str) or not re.fullmatch(r'#[0-9a-fA-F]{6}', color) for color in colors.values()):
+            raise ValueError('Invalid theme overview metadata')
+        result.update(name=spec['name'], light=spec['light'], palette=colors)
+    if include_preview:
+        result['previewUrl'] = ''
+        if artwork:
+            try:
+                result['previewUrl'] = preview_blob(repository, *artwork,
+                                                    lazy_fetch=False, **options)['image']
+            except (OSError, ValueError, SyntaxError, subprocess.SubprocessError):
+                pass
+    publish_json(cache('eitr/catalog-previews/community-' + item_id + '.json'), result)
+    return result
 
 
 def artwork_preview(kind, item_id, backend, requested=None, channel="official", git_url=None):
@@ -235,6 +320,13 @@ def artwork_preview(kind, item_id, backend, requested=None, channel="official", 
         path = PurePosixPath(relative)
         if path.is_absolute() or '..' in path.parts or not path.parts or '\\' in relative:
             raise ValueError('Invalid artwork path')
+        if not plugin and relative == default:
+            options = dict(allow_file=backend.allow_file)
+            entry = git(repository, '--literal-pathspecs', 'ls-tree', revision, '--', relative, **options)
+            if not entry.startswith('100644 blob '):
+                raise ValueError('Artwork must be a regular file')
+            blob = entry.split()[2]
+            return preview_blob(repository, blob, preview_target(blob, path.suffix), **options)
         target = cache('eitr/catalog-previews') / (hashlib.sha256((revision + relative).encode()).hexdigest() + path.suffix.lower())
         if not target.exists():
             options = dict(allow_file=backend.allow_file)
@@ -260,10 +352,8 @@ def artwork_preview(kind, item_id, backend, requested=None, channel="official", 
                         image_asset(Path(directory), temporary.name, preview=screenshot)
                 else:
                     with Image.open(io.BytesIO(payload)) as image:
-                        maximum = 2048 if relative == default else 16384
-                        if (image.format not in {'PNG', 'JPEG'} or max(image.size) > maximum
-                                or image.width * image.height > 64 * 1024 * 1024
-                                or relative == default and image.format != 'PNG'):
+                        if (image.format not in {'PNG', 'JPEG'} or max(image.size) > 16384
+                                or image.width * image.height > 64 * 1024 * 1024):
                             raise ValueError('Invalid artwork')
                         image.verify()
                 temporary.replace(target)

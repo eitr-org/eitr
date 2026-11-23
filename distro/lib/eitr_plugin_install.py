@@ -98,7 +98,7 @@ def read_state(path, limit=None):
     return json.loads(payload)
 
 
-def git(root, *arguments, allow_file=False, binary=False, lazy_fetch=True, timeout=120):
+def git(root, *arguments, allow_file=False, binary=False, lazy_fetch=True, timeout=120, input_text=None):
     environment = {key: value for key, value in os.environ.items() if not key.startswith('GIT_')}
     environment.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL='/dev/null', GIT_TERMINAL_PROMPT='0',
                        GIT_ALLOW_PROTOCOL='https:ssh:file' if allow_file else 'https:ssh',
@@ -107,9 +107,10 @@ def git(root, *arguments, allow_file=False, binary=False, lazy_fetch=True, timeo
     if not lazy_fetch:
         environment['GIT_NO_LAZY_FETCH'] = '1'
         environment['GIT_ALLOW_PROTOCOL'] = ''
+    input_options = {'stdin': subprocess.DEVNULL} if input_text is None else {'input': input_text}
     output = subprocess.check_output(['git', '--no-replace-objects', '-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
                                     '-c', 'submodule.recurse=false', '-c', 'credential.helper=',
-                                    *arguments], cwd=root, env=environment, text=not binary, stdin=subprocess.DEVNULL,
+                                    *arguments], cwd=root, env=environment, text=not binary, **input_options,
                                    stderr=subprocess.PIPE, timeout=timeout)
     return output if binary else output.strip()
 

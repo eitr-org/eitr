@@ -635,9 +635,12 @@ ShellRoot {
       panel.live = true;
       panel.transport = function(name, args, callback) { calls.push(name + ":" + args.kind + ":" + args.channel); callback("", {items: [{id: args.channel + "-" + args.kind, name: "Row"}]}); };
       panel.load();
-      if (calls.length !== 10 || !calls.includes("index:themes:community") || !calls.includes("installed:plugins:installed")) throw new Error("opening loads every source once: " + calls);
+      if (calls.length !== 12 || !calls.includes("installed:plugins:installed")) throw new Error("opening loads every source once: " + calls);
+      const lastCache = Math.max(calls.indexOf("cached-index:themes:official"), calls.indexOf("cached-index:themes:community"));
+      const firstRefresh = Math.min(calls.indexOf("index:themes:official"), calls.indexOf("index:themes:community"));
+      if (lastCache !== 2 || firstRefresh !== 3) throw new Error("both theme caches must load before refresh: " + calls);
       panel.tab = "discover"; panel.sourceFilter = "community"; panel.kind = "themes"; panel.tab = "installed"; panel.tab = "discover"; panel.sourceFilter = "official";
-      if (calls.length !== 10) throw new Error("switching tabs must not reload: " + calls);
+      if (calls.length !== 12) throw new Error("switching tabs must not reload: " + calls);
       if (panel.availableItems[0].id !== "official-themes" || panel.installed[0].id !== "installed-themes") throw new Error("views come from the loaded store");
       panel.tab = "discover"; panel.sourceFilter = "community";
       const replies = [];
@@ -818,6 +821,12 @@ class CatalogBackendTests(unittest.TestCase):
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(json.dumps(index))
             row = index['themes'][0]
+            from hashlib import sha256
+            from eitr_store_previews import cached_discover
+            legacy_name = sha256((index['commit'] + row['preview']).encode()).hexdigest() + '.png'
+            legacy_preview = target.parent / legacy_name
+            legacy_preview.write_bytes((package / 'preview.png').read_bytes())
+            self.assertEqual(cached_discover('official')['items'][0]['previewUrl'], legacy_preview.as_uri())
             for asset in (row['preview'], row['wallpapers'][0]['thumbnail'], row['wallpapers'][0]['path']):
                 with patch('eitr_store_content.THEMES', url), patch('eitr_plugin_install.git', wraps=theme_git) as reads:
                     result = DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
@@ -857,8 +866,8 @@ class CatalogBackendTests(unittest.TestCase):
                     DOMAIN.artwork_preview('themes', 'alpha', isolated, 'themes/alpha/colors.toml', 'community')
             # Size checks reject before reading the blob, for each artwork class.
             for asset in (row['preview'], row['wallpapers'][0]['thumbnail'], row['wallpapers'][0]['path']):
-                for cached in target.parent.glob('*'):
-                    if cached.suffix != '.json': cached.unlink()
+                for cached in target.parent.rglob('*'):
+                    if cached.is_file() and cached.suffix != '.json': cached.unlink()
                 def oversized(repository, *arguments, **options):
                     if arguments[:2] == ('cat-file', '-s'): return str(17 * 1024 * 1024)
                     return theme_git(repository, *arguments, **options)
@@ -866,6 +875,70 @@ class CatalogBackendTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, 'size limit'):
                         DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
                     self.assertFalse(any(call.args[1:3] == ('cat-file', 'blob') for call in reads.call_args_list))
+
+    def test_discover_batches_only_missing_regular_preview_objects(self):
+        from eitr_plugin_install import git
+        from eitr_store_previews import cached_discover, discover_result, theme_previews
+        from PIL import Image
+
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_CACHE_HOME': directory + '/cache'}):
+            source = Path(directory) / 'source'
+            source.mkdir()
+            git(source, 'init', '-q')
+            git(source, 'config', 'uploadpack.allowFilter', 'true')
+            git(source, 'config', 'uploadpack.allowAnySHA1InWant', 'true')
+            for name, color in (('alpha', 'green'), ('beta', 'red')):
+                Image.new('RGB', (64, 36), color).save(source / (name + '.png'))
+            (source / 'symlink.png').symlink_to('alpha.png')
+            (source / 'oversized.png').write_bytes(bytes(2 * 1024 * 1024 + 1))
+
+            def commit(message):
+                git(source, 'add', '.')
+                git(source, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid',
+                    'commit', '-qm', message)
+                return git(source, 'rev-parse', 'HEAD')
+
+            names = ('alpha', 'beta', 'symlink', 'oversized')
+            revision = commit('initial previews')
+            repository = Path(directory) / 'partial'
+            url = source.as_uri()
+            git(None, 'clone', '--filter=blob:none', '--no-checkout', url, str(repository), allow_file=True)
+
+            def discover(revision):
+                rows = [dict(id=name, preview=name + '.png') for name in names]
+                with patch('eitr_plugin_install.git', wraps=git) as reads:
+                    result = theme_previews(repository, revision, url, rows, allow_file=True)
+                fetches = [call.kwargs['input_text'].splitlines() for call in reads.call_args_list if call.args[1] == 'fetch']
+                return [row.get('previewUrl') for row in result], fetches, result
+
+            images, fetches, rows = discover(revision)
+            self.assertEqual(list(map(len, fetches)), [3])
+            self.assertTrue(all(images[:2]))
+            self.assertEqual(images[2:], [None, None])
+            discover_result('official', rows)
+            domain = DOMAIN.CatalogDomain()
+            with domain.transport_lock:
+                self.assertEqual(domain.request('cached-index', {'kind': 'themes', 'channel': 'official'},
+                                                threading.Event()), cached_discover('official'))
+            self.assertIsNone(domain.process)
+
+            # Emulate a new partial clone with no previously fetched objects.
+            (source / 'note').touch()
+            revision = commit('unrelated change')
+            replacement = Path(directory) / 'replacement'
+            git(None, 'clone', '--filter=blob:none', '--no-checkout', url, str(replacement), allow_file=True)
+            repository = replacement
+            unchanged, fetches, _ = discover(revision)
+            self.assertEqual(unchanged, images)
+            self.assertEqual(fetches, [[git(source, 'rev-parse', revision + ':oversized.png')]])
+
+            Image.new('RGB', (64, 36), 'blue').save(source / 'beta.png')
+            revision = commit('change one preview')
+            git(repository, 'fetch', '--filter=blob:none', url, 'HEAD', allow_file=True)
+            changed, fetches, _ = discover(revision)
+            self.assertEqual(changed[0], images[0])
+            self.assertNotEqual(changed[1], images[1])
+            self.assertEqual(fetches, [[git(source, 'rev-parse', revision + ':beta.png')]])
 
     def test_plugin_catalog_reads_only_metadata(self):
         from eitr_plugin_install import PluginInstall

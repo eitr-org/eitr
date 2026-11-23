@@ -19,6 +19,7 @@ for parent in Path(__file__).resolve().parents:
         sys.path.insert(0, str(library))
         break
 from eitr_i18n import tr
+from eitr_store_previews import CATALOG_LIMIT, cached_discover
 
 THEMES = 'https://github.com/eitr-org/eitr-themes'
 PLUGINS = 'https://github.com/eitr-org/eitr-plugins'
@@ -34,7 +35,7 @@ def bundled_install(name, args):
 
 
 def validate(name, args):
-    if name not in {'installed', 'index', 'preview', 'artwork', 'detail', 'source', 'check', 'changes', *MUTATIONS} or not isinstance(args, dict):
+    if name not in {'installed', 'index', 'cached-index', 'preview', 'artwork', 'detail', 'source', 'check', 'changes', *MUTATIONS} or not isinstance(args, dict):
         raise ValueError('invalid-request')
     from eitr_store_kinds import registry
     kinds = registry()
@@ -42,6 +43,8 @@ def validate(name, args):
         raise ValueError('invalid-kind')
     if args.get('channel', 'official') not in {'official', 'community', 'installed', 'git'}:
         raise ValueError('invalid-channel')
+    if name == 'cached-index' and (args['kind'] != 'themes' or args.get('channel') not in {'official', 'community'}):
+        raise ValueError('invalid-cached-index')
     if args['kind'] == 'plugins' and name in {'install', 'update', 'apply'} and not bundled_install(name, args):
         raise ValueError('Use the plugin prepare/confirm review')
     if name == 'changes':
@@ -98,7 +101,7 @@ class CatalogDomain:
             self.review_stage.cleanup()
             self.review_stage = None
 
-    def exchange(self, name, args, cancelled):
+    def exchange(self, name, args, cancelled, deadline=None):
         # One persistent backend worker for the domain, not a Python process per
         # read. A cancelled operation destroys it; the next explicit request may
         # start a fresh worker, but the interrupted request is never resent.
@@ -111,7 +114,8 @@ class CatalogDomain:
             self.process = subprocess.Popen(self.command, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
                 stderr=subprocess.DEVNULL, start_new_session=True, bufsize=0, env=environment)
         process = self.process
-        deadline = time.monotonic() + (300 if name in MUTATIONS else 60)
+        if deadline is None:
+            deadline = time.monotonic() + (300 if name in MUTATIONS else 60)
         frame = memoryview((json.dumps(dict(name=name, args=args)) + '\n').encode())
         payload = bytearray()
         with selectors.DefaultSelector() as selector:
@@ -131,7 +135,7 @@ class CatalogDomain:
                 if not chunk:
                     raise OSError('Catalog worker stopped')
                 payload.extend(chunk)
-                if len(payload) > 240000:
+                if len(payload) > CATALOG_LIMIT:
                     raise ValueError('Catalog response too large')
                 if payload.endswith(b'\n'):
                     result = json.loads(payload)
@@ -142,18 +146,23 @@ class CatalogDomain:
 
     def request(self, name, args, cancelled):
         validate(name, args)
+        if name == 'cached-index':
+            return cached_discover(args['channel'])
         mutation = name in MUTATIONS
+        deadline = time.monotonic() + (300 if mutation else 60)
         if mutation and not self.action_lock.acquire(blocking=False):
             return {'error': tr('Catalog action already running')}
         acquired = False
         try:
-            while not cancelled.is_set():
+            while not cancelled.is_set() and time.monotonic() < deadline:
                 if self.transport_lock.acquire(timeout=0.1):
                     acquired = True
                     break
             if cancelled.is_set():
                 return {}
-            return self.exchange(name, args, cancelled)
+            if not acquired:
+                return {'error': tr('Repository unavailable; retry')}
+            return self.exchange(name, args, cancelled, deadline)
         except TimeoutError:
             self.close()
             return {'error': tr('Outcome unknown; refresh Installed before trying again') if mutation else tr('Repository unavailable; retry')}
@@ -174,7 +183,7 @@ from eitr_store_backends import plugin_backend, save_plugin_rows
 def worker(name, args):
     from eitr_store_backends import dispatch
     validate(name, args)
-    return dispatch(name, args)
+    return cached_discover(args['channel']) if name == 'cached-index' else dispatch(name, args)
 
 
 def response(name, args):

@@ -645,12 +645,17 @@ class Broker:
         result, error = {}, ""
         try:
             loop = asyncio.get_running_loop()
-            async with self.read_slots["catalog"]:
-                if not cancelled.is_set():
-                    result = await loop.run_in_executor(self.executor,
-                        lambda: self.load_domain("catalog").request(frame["name"], frame["args"], cancelled))
-                    if len(json.dumps(result).encode()) > MAX_RESULT:
-                        raise ValueError("oversize-result")
+            read = lambda: self.load_domain("catalog").request(frame["name"], frame["args"], cancelled)
+            # Cached listings are local files: they skip the network reads' slots, not the pool.
+            if frame["name"] == "cached-index":
+                result = await loop.run_in_executor(self.executor, read)
+            else:
+                async with self.read_slots["catalog"]:
+                    if not cancelled.is_set():
+                        result = await loop.run_in_executor(self.executor, read)
+            if len(json.dumps(result).encode()) > MAX_RESULT:
+                result = {}
+                raise ValueError("oversize-result")
         except Exception:
             error = "Catalog backend unavailable"
         finally:

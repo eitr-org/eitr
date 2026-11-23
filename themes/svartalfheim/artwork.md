@@ -8,8 +8,7 @@ Neovim and VS Code use Eitr's own themes from this palette.
 
 ## Wallpapers
 
-Each wallpaper ships as 3840×2160 and 3440×1440 JPEGs, in the owner's chosen order. The preview
-remains the independent owner-approved image. Exact prompts, native sources, sizes, hashes and framing are recorded in
+Each wallpaper ships as 3840×2160 and 3440×1440 JPEGs, in the owner's chosen order. Exact prompts, native sources, sizes, hashes and framing are recorded in
 the batch manifest named for each image; reproducible exports live in
 `branding/sources/wallpapers/batch-NN/export.py`. All are original, generated with the built-in image tool. Batch 13 uses the
 owner-approved Eitr dusk fjord as a style input; older images use written briefs only. Artwork license: CC-BY-4.0.

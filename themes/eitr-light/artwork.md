@@ -26,8 +26,7 @@ Batch 11 retains the rune seals and Eitr Light Gates with their prompts and sour
 Saved selections follow the migration chain to their renamed image or the new default.
 
 Primordial Drop retains its painterly style and batch 10 provenance. All four
-wallpapers are still images. The independent Calendar capture in `preview.png`
-is preserved; see `../ARTWORK.md` for reproduction.
+wallpapers are still images.
 
 Artwork is CC-BY-4.0, credited to the EITR project.
 

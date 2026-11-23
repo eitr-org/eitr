@@ -2,11 +2,28 @@
 import fcntl
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 from contextlib import contextmanager
 from eitr_paths import config, cache, read_settings, write_settings, theme_paths
 from eitr_i18n import tr
+
+
+WALLPAPER_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp"}
+
+
+def wallpapers(directory):
+    """Return a theme's wallpapers in natural order (like `sort -V`)."""
+    def natural(path):
+        return [int(part) if part.isdigit() else part.lower()
+                for part in re.split(r"(\d+)", str(path.relative_to(directory)))]
+    directory = Path(directory)
+    if not directory.is_dir():
+        return []
+    files = (path for path in directory.rglob("*")
+             if path.is_file() and path.suffix.lower() in WALLPAPER_SUFFIXES)
+    return sorted(files, key=natural)
 
 
 def settings():

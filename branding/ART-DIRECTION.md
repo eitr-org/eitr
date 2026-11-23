@@ -103,7 +103,7 @@ Exact prompts, hashes, sizes and framing: `themes/artwork-batch-09.json`.
 Masters and reproducible exports: `branding/sources/wallpapers/batch-09/`.
 All batch 09 wallpapers are removed from Eitr; their prompts and native
 masters remain as provenance.
-Runestone and its live layers are numbered 04; the independent preview is preserved.
+Runestone and its live layers are numbered 04.
 
 ## Eitr Light batch 10
 
@@ -136,14 +136,13 @@ filenames, native dimensions, hashes and subject-centred framing. The third-part
 and `export.py` live under `branding/sources/wallpapers/batch-12/`. Separate
 generated sideways extensions provide the panoramas. Shared Lanczos exports
 are 3840×2160 and 3440×1440, without stretching or padding; not native 4K detail.
-Independent theme previews remain unchanged; website cards use each theme's first wallpaper.
+Theme previews and website cards show the default wallpaper above a palette strip.
 
 ## Realm curation — Batch 13
 
 Svartalfheim starts with Feasting Hall, followed by Hammer Warriors and Forge
 Canyon. The owner-approved hall uses the fjords' ink cel-shaded vector style,
-bold contours, flat warm colours and a scenic carved interior. Its independent
-preview remains unchanged. Asgard retains Radiant Citadel, Bifrost Hall and
+bold contours, flat warm colours and a scenic carved interior. Asgard retains Radiant Citadel, Bifrost Hall and
 Storm Bridge (now 03); Cloud Fortress and Cavern City are retired.
 
 `themes/artwork-batch-13.json` records the three supplied prompts verbatim,

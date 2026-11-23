@@ -36,6 +36,8 @@ are hex colors, except optional `mode`, which matches the light flag, and
 `hyprland_*` border values, which use Hyprland's `rgb(...)`/`rgba(...)` colors
 (several for a gradient, optionally followed by an angle such as `45deg`).
 Previews are PNG, at most 2 MiB and 2048 pixels per dimension.
+Run Eitr's `python3 tools/theme-previews.py /path/to/catalog` to render each
+theme's default wallpaper above its palette at 1280×720.
 
 Packages contain only `colors.toml`, `display-name`, `light.mode`, `preview.png`,
 `artwork.md`, `rgb.color`, `eitr-theme.json`, and assets under `backgrounds/`,

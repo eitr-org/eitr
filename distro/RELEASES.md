@@ -159,7 +159,7 @@ Norse illustrations to oil, gouache, cel-shaded, ink-wash, graphic and painted
 environments, in 4K and ultrawide formats with retained native sources and
 reproducible exports. Svartalfheim now starts with the ink cel-shaded Feasting Hall;
 Cavern City and Asgard’s Cloud Fortress are retired, and Storm Bridge is Asgard 03.
-Independent previews are preserved. Approved palette roles
+Theme previews show the default wallpaper above a strip of palette swatches. Approved palette roles
 include separate panel surfaces and alerts; dark crimson accents retain readable
 text shades.
 

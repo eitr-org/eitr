@@ -55,8 +55,15 @@ ShellRoot {
   Bar.StoreContent {
    id: panel; anchors.fill: parent; live: false; opened: true
    property var queueCalls: []
+   property bool cachedVisibleDuringRefresh: false
    transport: function(name, args, callback) {
-    if (name === "prepare") {
+    if (name === "cached-index") {
+     callback("", {items: [ROWS[1]]});
+    } else if (name === "index" && args.kind === "themes" && args.channel === "community") {
+     const cached = panel.availableItems.find(item => item.id === ROWS[1].id);
+     panel.cachedVisibleDuringRefresh = !!cached && panel.imageFor(cached) === ROWS[1].previewUrl;
+     callback("Offline", {});
+    } else if (name === "prepare") {
      queueCalls.push("review " + args.id);
      callback("", {review:{token:args.id,official:false,commit:"0123456789abcdef",spec:{name:args.id,author:"Example",version:"2"},files:[]}});
     } else if (name === "confirm") {
@@ -78,7 +85,11 @@ ShellRoot {
    property var cases: []
    Component.onCompleted: {
     // Switching from a kind with other sources must list the new kind's own sources.
-    panel.live = true; panel.kind = "wallpapers"; panel.tab = "discover";
+    panel.live = true; panel.kind = "themes"; panel.tab = "discover";
+    panel.fetch("themes", "community");
+    if (!panel.cachedVisibleDuringRefresh || !panel.availableItems.some(item => item.id === ROWS[1].id))
+     throw new Error("Cached theme preview must show before refresh and survive refresh failure");
+    panel.kind = "wallpapers";
     panel.store = {"lockscreens:official": {items: [{id: "nothing", name: "Nothing", kind: "official"}], loaded: true}, "lockscreens:installed": {items: [], loaded: true}};
     panel.kind = "lockscreens";
     if (panel.availableItems.length !== 1) throw new Error("Lockscreens empty after Wallpapers");
@@ -214,7 +225,7 @@ ShellRoot {
       const remove = window.findNamed(panel, "remove-weather");
       if (!remove || !remove.visible) throw new Error("Bundled Weather cannot be removed");
      }
-     const folder = entry.name.startsWith("updates-") ? "UPDATE_TARGET" : "TARGET";
+     const folder = entry.name.startsWith("updates-") || entry.name === "themes-discover" || entry.name === "community-detail" ? "REVIEW_TARGET" : "TARGET";
      const filename = folder + "/PALETTE-" + entry.name + ".png";
      panel.grabToImage(result => { if (!result.saveToFile(filename)) throw new Error("Store capture failed"); });
     }
@@ -229,7 +240,7 @@ ShellRoot {
   Binding { target: Bar.SiteStyle; property: "light"; value: LIGHT }
  }
 }
-'''.replace('WEATHER_ICON', (ROOT / 'distro/plugins/bundled/weather/icon.svg').as_uri()).replace('ROWS', json.dumps(rows)).replace('UPDATE_TARGET', str(updates_target)).replace('TARGET', str(target)).replace('PALETTE', palette).replace('LIGHT', 'true' if palette == 'light' else 'false').replace('BACKGROUND', '#f4f2e8' if palette == 'light' else '#181824').replace('FOREGROUND', '#202824' if palette == 'light' else '#cdd6f4').replace('ACCENT', '#6f5a2c' if palette == 'light' else '#9a815c')
+'''.replace('WEATHER_ICON', (ROOT / 'distro/plugins/bundled/weather/icon.svg').as_uri()).replace('ROWS', json.dumps(rows)).replace('REVIEW_TARGET', str(updates_target)).replace('TARGET', str(target)).replace('PALETTE', palette).replace('LIGHT', 'true' if palette == 'light' else 'false').replace('BACKGROUND', '#f4f2e8' if palette == 'light' else '#181824').replace('FOREGROUND', '#202824' if palette == 'light' else '#cdd6f4').replace('ACCENT', '#6f5a2c' if palette == 'light' else '#9a815c')
                 (folder / 'fixture.qml').write_text(fixture)
                 code, output = render(folder / 'fixture.qml', render_environment(folder), 20)
                 self.assertEqual(code, 0, output)
@@ -240,4 +251,6 @@ ShellRoot {
                     self.assertTrue((updates_target / f'{palette}-updates-{state}.png').exists())
                 for kind in ('themes', 'plugins', 'lockscreens', 'wallpapers'):
                     for tab in ('installed', 'discover'):
-                        self.assertTrue((target / f'{palette}-{kind}-{tab}.png').exists())
+                        destination = updates_target if (kind, tab) == ('themes', 'discover') else target
+                        self.assertTrue((destination / f'{palette}-{kind}-{tab}.png').exists())
+                self.assertTrue((updates_target / f'{palette}-community-detail.png').exists())
