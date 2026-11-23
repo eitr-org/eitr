@@ -32,7 +32,7 @@ ColumnLayout {
         if (!pageActive || !catalog.opened || catalog.nativeReviewing) return;
         const row = rows.itemAt(Math.max(0, Math.min(index, rows.count - 1)));
         if (row) row.forceActiveFocus();
-        else back.forceActiveFocus();
+        else catalog.forceActiveFocus();
     }
     function resetPreviews() {
         previewGeneration++;
@@ -110,15 +110,6 @@ ColumnLayout {
         Layout.fillWidth: true
         spacing: 8
         StoreActionButton {
-            id: back
-            catalog: page.catalog
-            width: backLabel.advanceWidth + 24
-            text: Eitr.I18n.tr("Back")
-            available: !catalog.busy
-            onClicked: page.leave()
-            TextMetrics { id: backLabel; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize; text: back.text }
-        }
-        StoreActionButton {
             id: recheck
             catalog: page.catalog
             width: recheckLabel.advanceWidth + 24
@@ -130,11 +121,12 @@ ColumnLayout {
         StoreActionButton {
             id: select
             catalog: page.catalog
+            objectName: "updates-select"
             width: selectLabel.advanceWidth + 24
             text: page.selected.length === page.items.length ? Eitr.I18n.tr("Select none") : Eitr.I18n.tr("Select all")
             available: page.canUpdate && page.items.length > 0
             onClicked: page.excluded = page.selected.length === page.items.length
-                ? Object.fromEntries(page.items.map(item => [page.key(item), true])) : ({})
+                ? page.items.reduce((excluded, item) => Object.assign(excluded, {[page.key(item)]: true}), {}) : ({})
             TextMetrics { id: selectLabel; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize; text: select.text }
         }
         StoreActionButton {

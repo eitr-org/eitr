@@ -365,8 +365,7 @@
       "quickshell/desktop-bar/plugins/PluginArea.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml",
       "quickshell/desktop-bar/plugins/PluginPanel.qml",
-      "quickshell/desktop-bar/store/StoreDetail.qml",
-      "quickshell/desktop-bar/store/StoreUpdatesPage.qml"
+      "quickshell/desktop-bar/store/StoreDetail.qml"
     ],
     "Back to your location": [
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml"

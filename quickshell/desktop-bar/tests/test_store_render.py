@@ -92,6 +92,7 @@ ShellRoot {
     cases.push({kind:"themes",tab:"discover",checking:true,name:"updates-footer-checking"});
     cases.push({kind:"themes",tab:"discover",name:"updates-footer-current"});
     cases.push({kind:"themes",tab:"discover",updates:true,name:"updates-footer-available"});
+    cases.push({kind:"themes",tab:"discover",updates:true,many:true,name:"updates-footer-many"});
     cases.push({kind:"themes",tab:"updates",updates:true,name:"updates-collapsed"});
     cases.push({kind:"themes",tab:"updates",updates:true,expanded:true,name:"updates-expanded"});
     cases.push({kind:"themes",tab:"discover",detail:true,name:"community-detail"});
@@ -160,6 +161,19 @@ ShellRoot {
       panel.store = {"themes:installed": {items:[ROWS[0]]}, "plugins:installed": {items:[{id:"clock",name:"Clock widget",kind:"official",components:{ui:{widgets:[{}]}}}]}};
       panel.updateCache = {themes:{eitr:1}, plugins:{clock:2}};
       if (panel.updateItems.length !== 2 || panel.navigation.length !== 2) throw new Error("Updates across kinds");
+      if (entry.many) {
+       // Twenty updates across every kind: the footer's kinds line wraps instead of being cut off.
+       const installed = (prefix, count) => ({items: Array.from({length: count}, (_, index) => ({id: prefix + "-" + index, name: prefix + " " + index}))});
+       panel.store = {"themes:installed": installed("theme", 5), "plugins:installed": installed("plugin", 5),
+                      "lockscreens:installed": installed("lock", 5), "wallpapers:installed": installed("wall", 5)};
+       const cache = {};
+       for (const [kind, prefix] of [["themes","theme"],["plugins","plugin"],["lockscreens","lock"],["wallpapers","wall"]]) {
+        cache[kind] = {};
+        for (let index = 0; index < 5; index++) cache[kind][prefix + "-" + index] = 1;
+       }
+       panel.updateCache = cache;
+       if (panel.updateItems.length !== 20) throw new Error("Twenty updates");
+      }
      }
      if (entry.popup) filter.expanded = true;
      if (entry.detail) panel.openDetail(ROWS[1]);
@@ -171,13 +185,18 @@ ShellRoot {
      if (entry.remove) panel.removing = ROWS[1];
     } else {
      const footer = find(panel, "store-updates-footer");
-     if (!footer || footer.height !== 60 || !footer.activeFocusOnTab || footer.found !== !!entry.updates)
+     if (!footer || footer.height < 60 || !footer.activeFocusOnTab || footer.found !== !!entry.updates)
       throw new Error("Update footer state or sizing");
      if (entry.tab === "updates") {
       const page = find(panel, "store-updates-page");
       const plugin = find(panel, "store-update-clock");
       const theme = find(panel, "store-update-eitr");
       if (!page.visible || !plugin.checked || plugin.version !== "1.2.0 → 1.3.0") throw new Error("Update preview");
+      const select = find(panel, "updates-select");
+      select.clicked();
+      if (page.selected.length !== 0 || plugin.checked) throw new Error("Select none");
+      select.clicked();
+      if (page.selected.length !== page.items.length || !plugin.checked) throw new Error("Select all");
       if (find(panel, "update-clock").width < 50) throw new Error("Clipped per-row Update button");
       if (entry.expanded) {
        plugin.moveFocus(-1);
@@ -217,7 +236,7 @@ ShellRoot {
                 self.assertIn('STORE_RENDER_OK', output)
                 for error in ('TypeError', 'ReferenceError', 'Unable to assign', 'Error:'):
                     self.assertNotIn(error, output)
-                for state in ('footer-checking', 'footer-current', 'footer-available', 'collapsed', 'expanded'):
+                for state in ('footer-checking', 'footer-current', 'footer-available', 'footer-many', 'collapsed', 'expanded'):
                     self.assertTrue((updates_target / f'{palette}-updates-{state}.png').exists())
                 for kind in ('themes', 'plugins', 'lockscreens', 'wallpapers'):
                     for tab in ('installed', 'discover'):

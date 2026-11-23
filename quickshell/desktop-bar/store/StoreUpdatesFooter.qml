@@ -10,9 +10,10 @@ PanelButton {
     readonly property var status: catalog.updateCheck
     readonly property bool found: !status.pending && count > 0
     readonly property string kinds: catalog.kinds.filter(kind => catalog.updateItems.some(item => item.storeKind === kind.id))
-        .map(kind => Eitr.I18n.tr(kind.label)).join(" · ")
+        .map(kind => Eitr.I18n.tr(kind.label)).join(", ")
     objectName: "store-updates-footer"
-    implicitHeight: 60
+    // Grows (from the bottom of the sidebar) when many kinds need a second line.
+    implicitHeight: Math.max(60, lines.implicitHeight + 2 * PanelStyle.selectionInset)
     height: implicitHeight
     text: ""
     available: !catalog.busy
@@ -27,6 +28,7 @@ PanelButton {
 
     HoverHandler { id: hover }
     Column {
+        id: lines
         x: PanelStyle.selectionInset
         width: parent.width - x - 25
         anchors.verticalCenter: parent.verticalCenter
@@ -52,7 +54,7 @@ PanelButton {
             id: kindLabel
             catalog: card.catalog
             visible: card.found
-            width: parent.width; elide: Text.ElideRight; wrapMode: Text.NoWrap
+            width: parent.width; elide: Text.ElideRight; wrapMode: Text.WordWrap; maximumLineCount: 2
             color: catalog.muted
             font.pixelSize: PanelStyle.captionSize
             text: card.kinds
