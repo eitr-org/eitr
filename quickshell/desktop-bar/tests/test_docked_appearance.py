@@ -36,8 +36,9 @@ def docked_fixture(edge, mode, geometry, reserved, catalog, capture, width):
     fixture = fixture.replace('            property var appearanceCard: null\n', '')
     fixture = fixture.replace('            property var contentItem: window.contentItem\n', '')
     fixture = fixture.replace('            property bool overviewOpen: false\n', '')
+    # The bar item fills the test window, so photographing it includes the card on it.
     bar_properties = '''
-            property var contentItem: window.contentItem
+            property var contentItem: bar
             property alias appearanceCard: carouselHost.item
             property Item stripItem: strip
             property Item dropSurfaces: drop
@@ -66,6 +67,8 @@ def docked_fixture(edge, mode, geometry, reserved, catalog, capture, width):
                 interval: 400; running: true
                 onTriggered: {
                     picker.mode = MODE;
+                    // All themes adds each wallpaper's theme to its name.
+                    if (MODE === "wallpaper") picker.wallpaperScope = "all";
                     picker.items = CATALOG;
                     picker.allItems = picker.items;
                     picker.selectedIndex = 1;
@@ -96,6 +99,10 @@ def docked_fixture(edge, mode, geometry, reserved, catalog, capture, width):
                         || preview.y + preview.height > caption.y || caption.y + caption.height > carouselHost.item.height
                         || Math.abs(preview.width - 280) > 1 || Math.abs(preview.x + preview.width / 2 - carouselHost.item.width / 2) > 0.5)
                         { console.error("Compact layout does not fit", carouselHost.item.width, carouselHost.item.height, preview.width); Qt.exit(1); return; }
+                    const overflowing = content.children.filter(child => child.visible && child.text !== undefined
+                        && child.y + child.height > carouselHost.item.height);
+                    if (overflowing.length || (MODE === "wallpaper" && caption.text.indexOf("Eitr") < 0))
+                        { console.error("Text outside the strip", overflowing.map(child => child.text)); Qt.exit(1); return; }
                     bar.grabToImage(result => {
                         result.saveToFile(CAPTURE);
                         keyboard.keyClick(Qt.Key_E);

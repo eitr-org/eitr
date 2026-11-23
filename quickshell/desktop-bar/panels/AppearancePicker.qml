@@ -300,7 +300,9 @@ SettingsAppearanceModel {
                     width: content.previewWidth
                     horizontalAlignment: Text.AlignHCenter
                     elide: Text.ElideMiddle
+                    // The compact strip has room for one line, so the wallpaper's theme joins the name.
                     text: picker.items[picker.selectedIndex] ? picker.items[picker.selectedIndex].name
+                        + (picker.docked && themeLine.wanted ? " · " + themeLine.text : "")
                         : picker.searchText ? (picker.themeMode ? Eitr.I18n.tr("No matching themes") : Eitr.I18n.tr("No matching wallpapers"))
                         : (picker.error || Eitr.I18n.tr("Loading..."))
                     color: picker.foreground
@@ -310,7 +312,9 @@ SettingsAppearanceModel {
                 }
                 // With every theme's wallpapers, the theme each one comes from.
                 Text {
-                    visible: picker.mode === "wallpaper" && picker.wallpaperScope === "all" && !!picker.items[picker.selectedIndex]
+                    id: themeLine
+                    readonly property bool wanted: picker.mode === "wallpaper" && picker.wallpaperScope === "all" && !!picker.items[picker.selectedIndex]
+                    visible: wanted && !picker.docked
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.top: selectedName.bottom; anchors.topMargin: 2
                     width: content.previewWidth
