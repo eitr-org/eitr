@@ -1854,5 +1854,7 @@
   "{app} crashed": "{app} ist abgestürzt",
   "Alarm": "Wecker",
   "Invalid alarm.": "Ungültiger Wecker.",
-  "Missed alarm": "Verpasster Wecker"
+  "Missed alarm": "Verpasster Wecker",
+  "Check for updates again": "Erneut nach Aktualisierungen suchen",
+  "Update metadata exceeds size limit": "Aktualisierungsdaten überschreiten das Größenlimit"
 }

@@ -88,6 +88,16 @@ def short_author(spec, limit=24):
     return author if len(author) <= limit else author[:limit - 1] + '…'
 
 
+def read_state(path, limit=None):
+    if limit is None:
+        return json.loads(path.read_text())
+    with path.open('rb') as stream:
+        payload = stream.read(limit + 1)
+    if len(payload) > limit:
+        raise ValueError(tr('Update metadata exceeds size limit'))
+    return json.loads(payload)
+
+
 def git(root, *arguments, allow_file=False, binary=False, lazy_fetch=True, timeout=120):
     environment = {key: value for key, value in os.environ.items() if not key.startswith('GIT_')}
     environment.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL='/dev/null', GIT_TERMINAL_PROMPT='0',
@@ -96,6 +106,7 @@ def git(root, *arguments, allow_file=False, binary=False, lazy_fetch=True, timeo
                        GIT_SSH_COMMAND='ssh -o BatchMode=yes')
     if not lazy_fetch:
         environment['GIT_NO_LAZY_FETCH'] = '1'
+        environment['GIT_ALLOW_PROTOCOL'] = ''
     output = subprocess.check_output(['git', '--no-replace-objects', '-c', 'core.hooksPath=/dev/null', '-c', 'core.fsmonitor=false',
                                     '-c', 'submodule.recurse=false', '-c', 'credential.helper=',
                                     *arguments], cwd=root, env=environment, text=not binary, stdin=subprocess.DEVNULL,
@@ -335,10 +346,10 @@ class PluginInstall:
                 return
             yield True
 
-    def records(self):
+    def records(self, *, limit=None):
         if not self.state.exists():
             return {}
-        value = json.loads(self.state.read_text())
+        value = read_state(self.state, limit)
         if not isinstance(value, dict):
             raise ValueError('Invalid plugin state')
         for plugin_id, record in value.items():
@@ -381,8 +392,9 @@ class PluginInstall:
         source = hashlib.sha256(normalized_url(url).encode()).hexdigest()
         return self.folder / '.repositories' / source / revision
 
-    def root(self, plugin_id):
-        record = self.records().get(plugin_id, {})
+    def root(self, plugin_id, *, record=None):
+        if record is None:
+            record = self.records().get(plugin_id, {})
         if record.get('bundled'):
             from eitr_plugin_bundled import bundled_root
             return bundled_root(plugin_id)
@@ -1015,7 +1027,7 @@ class PluginInstall:
             records[plugin_id] = {**record, 'enabled': enabled}
             self.save(records)
 
-    def check_updates(self):
+    def check_updates(self, *, revision_for=None):
         """Fetch metadata into installed repositories without checking out or running code."""
         counts = {}
         checked = {}
@@ -1024,22 +1036,25 @@ class PluginInstall:
                 try:
                     if record.get('bundled'):
                         continue
-                    root = self.root(plugin_id)
+                    root = self.root(plugin_id, record=record)
+                    revision = revision_for(plugin_id, record) if revision_for else None
                     git(root, 'fetch', '--no-recurse-submodules', '--', record['url'],
-                        'HEAD', allow_file=self.allow_file)
+                        revision or 'HEAD', allow_file=self.allow_file)
                     # A plugin from an indexed repository counts only commits that touch its own folder.
-                    scope = ['--', ':(top)' + record['path']] if record.get('path') else []
-                    count = int(git(root, 'rev-list', '--count', record['commit'] + '..FETCH_HEAD', *scope))
-                    checked[plugin_id] = dict(commit=record['commit'], count=count)
+                    scope = ['--', ':(top,literal)' + record['path']] if record.get('path') else []
+                    target = git(root, 'rev-parse', 'FETCH_HEAD', timeout=5)
+                    count = int(git(root, 'rev-list', '--count', record['commit'] + '..' + target, *scope))
+                    checked[plugin_id] = dict(commit=record['commit'], target=target, count=count)
                     counts[plugin_id] = count
                 except (OSError, ValueError, subprocess.SubprocessError):
                     continue
             self.write(self.state.with_name('plugin-updates.json'), checked)
         return counts
 
-    def update_counts(self):
+    def update_counts(self, *, limit=None):
         try:
-            return json.loads(self.state.with_name('plugin-updates.json').read_text())
+            value = read_state(self.state.with_name('plugin-updates.json'), limit)
+            return value if isinstance(value, dict) else {}
         except (OSError, ValueError):
             return {}
 

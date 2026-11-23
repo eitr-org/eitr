@@ -1854,5 +1854,7 @@
   "{app} crashed": "{app} falhou",
   "Alarm": "Alarme",
   "Invalid alarm.": "Alarme inválido.",
-  "Missed alarm": "Alarme perdido"
+  "Missed alarm": "Alarme perdido",
+  "Check for updates again": "Verifique se há atualizações novamente",
+  "Update metadata exceeds size limit": "Os metadados da atualização excedem o limite de tamanho"
 }

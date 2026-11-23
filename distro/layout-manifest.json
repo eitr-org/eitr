@@ -60,6 +60,7 @@
     {"pattern": "distro/store-kinds.json", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_store_kinds.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_store_backends.py", "class": "C", "runtime": true},
+    {"pattern": "distro/lib/eitr_store_changes.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_store_content.py", "class": "C", "runtime": true},
     {"pattern": "distro/lib/eitr_wallpaper_packages.py", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/StoreKinds.js", "class": "C", "runtime": true},

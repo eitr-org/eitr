@@ -6,16 +6,16 @@ FocusScope {
     focus: catalog.opened
     Keys.priority: Keys.AfterItem
     Keys.onPressed: event => {
-        if ((event.modifiers & Qt.ControlModifier) && event.key >= Qt.Key_1 && event.key <= Qt.Key_4 && !catalog.busy && !catalog.detail && !catalog.nativeReviewing && !catalog.reviewing && !catalog.removing && !catalog.addingAddress) {
+        if ((event.modifiers & Qt.ControlModifier) && event.key >= Qt.Key_1 && event.key <= Qt.Key_4 && catalog.tab !== "updates" && !catalog.busy && !catalog.detail && !catalog.nativeReviewing && !catalog.reviewing && !catalog.removing && !catalog.addingAddress) {
             catalog.kind = catalog.kinds[event.key - Qt.Key_1].id; event.accepted = true; return;
         }
         if (event.key === Qt.Key_Escape) {
             if (catalog.nativeReviewing && catalog.confirmingReview) { event.accepted = true; return; }
-            if (catalog.nativeReviewing) { DesktopData.releaseOwner(catalog); catalog.busy = false; catalog.discardReview(); } else if (catalog.addingAddress) { catalog.addingAddress = false; catalog.forceActiveFocus(); } else if (catalog.reviewing || catalog.removing) catalog.cancelSheet(); else if (catalog.managing) catalog.managing = null; else if (catalog.detail) catalog.closeDetail(); else if (catalog.query) catalog.query = ""; else catalog.closeRequested();
+            if (catalog.nativeReviewing) { DesktopData.releaseOwner(catalog); catalog.busy = false; catalog.discardReview(); } else if (catalog.addingAddress) { catalog.addingAddress = false; catalog.forceActiveFocus(); } else if (catalog.reviewing || catalog.removing) catalog.cancelSheet(); else if (catalog.managing) catalog.managing = null; else if (catalog.detail) catalog.closeDetail(); else if (catalog.tab === "updates") catalog.leaveUpdates(); else if (catalog.query) catalog.query = ""; else catalog.closeRequested();
             event.accepted = true;
         } else if ((event.key === Qt.Key_Return || event.key === Qt.Key_Enter) && (catalog.nativeReviewing || catalog.reviewing || catalog.removing)) {
             if (catalog.nativeReviewing) catalog.nativeConfirm(); else catalog.confirm(); event.accepted = true;
-        } else if (!catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing && !catalog.detail && !catalog.busy) {
+        } else if (catalog.tab !== "updates" && !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing && !catalog.detail && !catalog.busy) {
             if (catalog.sidebarFocus) {
                 if (event.key === Qt.Key_Up || event.key === Qt.Key_Down) {
                     catalog.navigate(catalog.navigationIndex + (event.key === Qt.Key_Down ? 1 : -1));

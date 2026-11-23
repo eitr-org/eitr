@@ -1854,5 +1854,7 @@
   "{app} crashed": "{app}がクラッシュしました",
   "Alarm": "アラーム",
   "Invalid alarm.": "無効なアラームです。",
-  "Missed alarm": "鳴り終わったアラーム"
+  "Missed alarm": "鳴り終わったアラーム",
+  "Check for updates again": "更新をもう一度確認してください",
+  "Update metadata exceeds size limit": "更新メタデータがサイズ上限を超えています"
 }

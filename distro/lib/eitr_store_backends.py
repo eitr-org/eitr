@@ -71,7 +71,10 @@ def themes(name, args):
     if name == 'install':
         return {'result': backend.install(THEMES, args['ids'])}
     if name == 'check':
-        return {'updates': backend.check()}
+        return {'updates': backend.check(preview=True)}
+    if name == 'changes':
+        from eitr_store_changes import theme_changes
+        return theme_changes(backend, args['id'])
     if name == 'apply':
         subprocess.run(['bash', str(code_root() / 'walker/scripts/actions/style/apply.sh'), args['id']], check=True,
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=90)
@@ -79,16 +82,39 @@ def themes(name, args):
     return {'result': getattr(backend, name)(args['id'])}
 
 
+def community_plugins():
+    from eitr_community import validate_index
+    from eitr_paths import cache
+    from eitr_plugin_install import normalized_url, read_state
+    from eitr_store_changes import STATE_LIMIT
+    try:
+        rows = validate_index(read_state(cache('eitr/community-index.json'), STATE_LIMIT))['plugins']
+    except (OSError, ValueError):
+        rows = []
+    return {(row['id'], normalized_url(row['repository']), row['folder']): row for row in rows}
+
+
+def matching_plugin(index, plugin_id, record):
+    from eitr_plugin_install import normalized_url
+    return index.get((plugin_id, normalized_url(record['url']), record.get('path', '')), {})
+
+
 def plugins(name, args):
     from eitr_paths import cache
     kind = args['kind']
     if args.get('channel') == 'community' and name == 'index':
         return community(name, args)
+    if name == 'changes':
+        from eitr_plugins import Plugins
+        from eitr_store_changes import plugin_changes
+        return plugin_changes(_PLUGIN_BACKEND or Plugins(), args['id'])
     backend = plugin_backend()
     if name == 'installed':
         return {'items': installed_badges([dict(row, kind='builtin' if row.get('builtin') else 'official' if row['official'] else 'third-party') for row in backend.installed()], kind)}
     if name == 'check':
-        return {'updates': backend.check_updates()}
+        index = community_plugins()
+        return {'updates': backend.check_updates(
+            revision_for=lambda plugin_id, record: matching_plugin(index, plugin_id, record).get('commit'))}
     if name == 'remove':
         return {'result': backend.remove(args['id'], lambda record: True,
                                            lambda packages: [name for name in packages if name in args.get('removePackages', [])])}
@@ -124,18 +150,10 @@ def plugins(name, args):
             return {'review': review}
         item_id = args['id']
         if args.get('updating'):
-            from eitr_community import validate_index
-            from eitr_plugin_install import normalized_url
             record = backend.records()[item_id]
+            row = matching_plugin(community_plugins(), item_id, record)
             try:
-                index = validate_index(json.loads(cache('eitr/community-index.json').read_text()))
-            except (OSError, ValueError):
-                index = {'plugins': []}
-            row = next((row for row in index['plugins'] if row['id'] == item_id and
-                        normalized_url(record['url']) == normalized_url(row['repository']) and
-                        record.get('path', '') == row['folder']), None)
-            try:
-                if row is not None:
+                if row:
                     review = backend.prepare_review(plugin_id=item_id, folder=row['folder'], revision=row['commit'], updating=True)
                     return {'review': dict(review, license=row['license'], maintainer=row['maintainer'])}
                 if args.get('channel') == 'community':
@@ -190,4 +208,7 @@ BACKENDS = dict(themes=themes, plugins=plugins, lockscreens=lockscreens, wallpap
 def dispatch(name, args):
     from eitr_store_kinds import registry
     definition = registry()[args['kind']]
+    if name == 'changes' and not definition['capabilities']['update']:
+        from eitr_store_changes import versions
+        return dict(**versions('', ''), commits=[], more=0)
     return BACKENDS[definition['backend']](name, args)

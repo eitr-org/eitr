@@ -1854,5 +1854,7 @@
   "{app} crashed": "{app} 비정상 종료됨",
   "Alarm": "알람",
   "Invalid alarm.": "잘못된 알람입니다.",
-  "Missed alarm": "놓친 알람"
+  "Missed alarm": "놓친 알람",
+  "Check for updates again": "업데이트를 다시 확인하세요",
+  "Update metadata exceeds size limit": "업데이트 메타데이터가 크기 제한을 초과했습니다"
 }

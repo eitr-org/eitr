@@ -790,6 +790,9 @@ msgstr "인증 확인"
 msgid "Check This PC"
 msgstr "이 PC 확인"
 
+msgid "Check for updates again"
+msgstr "업데이트를 다시 확인하세요"
+
 msgid "Checking AUR updates…"
 msgstr "AUR 업데이트 확인 중…"
 
@@ -4854,6 +4857,9 @@ msgstr "업데이트 채널이 stable 정책과 충돌합니다"
 
 msgid "Update channel must be stable or testing"
 msgstr "업데이트 채널은 stable 또는 testing이어야 합니다"
+
+msgid "Update metadata exceeds size limit"
+msgstr "업데이트 메타데이터가 크기 제한을 초과했습니다"
 
 msgid "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 msgstr "{update_date} 업데이트(스냅샷 {pre} -> {state}, {outcome}):"

@@ -24,6 +24,7 @@ ColumnLayout {
     property int highlighted: -1
     property string emptyText: ""
     property bool interactive: true
+    property Component footer
     property alias searchField: search
     property real markerY: 0
     readonly property color gold: SettingsInk.gold
@@ -146,4 +147,11 @@ ColumnLayout {
         }
     }
     Text { visible: sidebar.entries.length === 0 && sidebar.emptyText !== ""; Layout.fillWidth: true; wrapMode: Text.WordWrap; text: sidebar.emptyText; color: sidebar.foreground; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.bodySize }
+    Loader {
+        Layout.fillWidth: true
+        visible: active
+        active: sidebar.footer !== null
+        enabled: sidebar.interactive
+        sourceComponent: sidebar.footer
+    }
 }

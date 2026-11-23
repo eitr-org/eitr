@@ -1854,5 +1854,7 @@
   "{app} crashed": "{app} a planté",
   "Alarm": "Alarme",
   "Invalid alarm.": "Alarme non valide.",
-  "Missed alarm": "Alarme manquée"
+  "Missed alarm": "Alarme manquée",
+  "Check for updates again": "Relancez la recherche de mises à jour",
+  "Update metadata exceeds size limit": "Les métadonnées de mise à jour dépassent la taille maximale"
 }

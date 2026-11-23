@@ -24,13 +24,17 @@ vm.createContext(updates);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../store/StoreUpdates.js'), 'utf8').replace('.pragma library', ''), updates);
 const actions = [];
 const catalog = {
-    updateQueue: [{id: 'theme', storeKind: 'themes'}, {id: 'plugin', storeKind: 'plugins'}],
+    updateQueue: [{id: 'theme', storeKind: 'themes'}, {id: 'plugin', storeKind: 'plugins'}, {id: 'other-plugin', storeKind: 'plugins'}],
     get capabilities() { return {useOnClick: this.kind === 'themes'}; },
     act(name, args, done) { actions.push([this.kind, name, args.id]); done(); },
     prepareReview(args, queued) { actions.push([this.kind, 'review', args.id, queued]); }
 };
 updates.next(catalog);
 assert.deepEqual(actions, [['themes', 'update', 'theme'], ['plugins', 'review', 'plugin', true]]);
+assert.equal(catalog.updateQueue.length, 1);
+// The same continuation used by StoreState after the first native confirmation.
+updates.next(catalog);
+assert.deepEqual(actions[2], ['plugins', 'review', 'other-plugin', true]);
 assert.equal(catalog.updateQueue.length, 0);
 
 const futureKind = {id: 'future', filters: [{id: 'feature', multiple: false, options: [{id: 'all'}, {id: 'enabled', path: 'metadata.enabled', equals: true}]}]};

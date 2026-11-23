@@ -790,6 +790,9 @@ msgstr "Check Auth"
 msgid "Check This PC"
 msgstr "Check This PC"
 
+msgid "Check for updates again"
+msgstr "Check for updates again"
+
 msgid "Checking AUR updates…"
 msgstr "Checking AUR updates…"
 
@@ -4854,6 +4857,9 @@ msgstr "Update channel conflicts with stable policy"
 
 msgid "Update channel must be stable or testing"
 msgstr "Update channel must be stable or testing"
+
+msgid "Update metadata exceeds size limit"
+msgstr "Update metadata exceeds size limit"
 
 msgid "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 msgstr "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"

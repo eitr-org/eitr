@@ -109,9 +109,9 @@ Item {
     }
     readonly property var pendingUpdates: installed.filter(item => (updates[item.id] || 0) > 0).map(item => item.id)
     property var updateQueue: []
-    function updateAll() {
-        if (busy || !updateItems.length) return;
-        updateQueue = updateItems.slice();
+    function updateSelected(items) {
+        if (busy || nativeReviewing || updateCheck.pending || !items.length) return;
+        updateQueue = items.slice();
         StoreUpdates.next(catalog);
     }
     function prepareReview(args, queued) {
@@ -207,10 +207,11 @@ Item {
     Item { id: updateOwner }
     Item { id: cleanupOwner }
     signal closeRequested()
+    signal leaveUpdates()
     readonly property var more: availableItems.filter(item => !installed.some(local => local.id === item.id))
     property string tab: "discover"
     property string query: ""
-    readonly property bool getMore: tab === "discover"
+    readonly property bool getMore: previousTab === "discover"
     property bool sidebarFocus: true
     readonly property bool compact: width < 760
     readonly property int sidebarWidth: Math.min(260, width * 0.31) + PanelStyle.padding * 3
@@ -222,9 +223,10 @@ Item {
     readonly property var navigation: [
         {id: "discover", title: Eitr.I18n.tr("Discover"), rune: "ᚱ"},
         {id: "installed", title: Eitr.I18n.tr("Installed"), rune: "ᛟ"}
-    ].concat(updateItems.length ? [{id: "updates", title: Eitr.I18n.tr("Updates") + " (" + updateItems.length + ")", rune: "ᛃ"}] : [])
+    ]
     readonly property int navigationIndex: Math.max(0, navigation.findIndex(row => row.id === tab))
-    readonly property var currentPage: navigation.find(row => row.id === tab) || {id: "updates", title: Eitr.I18n.tr("Updates")}
+    property string previousTab: "discover"
+    readonly property var currentPage: navigation.find(row => row.id === previousTab) || navigation[0]
     function navigate(index) {
         tab = navigation[Math.max(0, Math.min(navigation.length - 1, index))].id;
         cursor = -1; catalog.scroll.contentY = 0;
@@ -253,7 +255,7 @@ Item {
     function filtered(items) { return items.filter(item => StoreSearch.matches(item, query) && StoreSearch.filters(item, kinds.find(entry => entry.id === (item.storeKind || kind)), sourceFilter, tone, filterValues)); }
     readonly property var locals: filtered(installed)
     readonly property var discoveries: filtered(availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: item.kind, channel: item.channel})))
-    readonly property var navigable: tab === "updates" ? filtered(updateItems) : getMore ? discoveries : locals
+    readonly property var navigable: getMore ? discoveries : locals
     function toggle(item) {
         if (item.storeKind && item.storeKind !== kind) kind = item.storeKind;
         if (!capabilities.useOnClick || capabilities.needsAdministrator || busy || isInstalled(item)) return;
@@ -263,7 +265,6 @@ Item {
     function activate(item, local) {
         if (item.storeKind && item.storeKind !== kind) kind = item.storeKind;
         if (busy) return;
-        if (tab === "updates") { openDetail(item); return; }
         if (kind === "lockscreens" && getMore) return;
         if (getMore) openDetail(item);
         else if (local && capabilities.useOnClick && !item.current) act("apply", {id: item.id});
@@ -325,18 +326,10 @@ Item {
         updates = updateCache[kind] || ({});
         if (live && opened) sync();
     }
-    function checkUpdates() {
-        const currentOpening = opening;
-        for (const catalogKind of kinds.filter(entry => entry.capabilities.update).map(entry => entry.id)) {
-            transport("check", {kind: catalogKind}, function(failure, data) {
-                if (!opened || opening !== currentOpening || failure || data.error) return;
-                updateCache = Object.assign({}, updateCache, {[catalogKind]: data.updates || {}});
-                if (kind === catalogKind) updates = updateCache[catalogKind];
-            }, updateOwner);
-        }
-    }
+    property var updateCheck: ({pending: 0, date: null, error: ""})
+    function checkUpdates() { StoreUpdates.check(catalog, updateOwner); }
     function forgetUpdate(id) {
-        const remaining = Object.assign({}, updates);
+        const remaining = Object.assign({}, updateCache[kind] || {});
         delete remaining[id];
         updates = remaining;
         updateCache = Object.assign({}, updateCache, {[kind]: remaining});
@@ -348,7 +341,7 @@ Item {
         request(name, args, function(failure, data) {
             busy = false; confirmingReview = false; progress = ""; error = failure;
             if (name === "confirm" && failure) nativeReview = null;
-            if (!failure) { nativeReview = null; nativeReviewing = false; selected = []; reviewing = false; reviewIds = null; removing = null; }
+            if (!failure) { nativeReview = null; nativeReviewing = false; if (tab !== "updates") selected = []; reviewing = false; reviewIds = null; removing = null; }
             if (!failure && name === "update") forgetUpdate(args.id);
             if (!failure && name === "confirm" && reviewUpdating) { forgetUpdate(reviewUpdating); reviewUpdating = ""; }
             refreshInstalled();
@@ -358,6 +351,7 @@ Item {
                 prepareReview(next, true);
             }
             if (!failure && name === "confirm" && updateQueue.length) StoreUpdates.next(catalog);
+            if (failure) updateQueue = [];
             if (!failure && done) done();
         });
     }
@@ -388,12 +382,12 @@ Item {
         }
         else if (removing) act("remove", {id: removing.id, removePackages: catalog.removePackagesChoice.checked ? removing.removablePackages || [] : []});
     }
-    onTabChanged: switchView()
-    onKindChanged: switchView()
+    onTabChanged: if (tab !== "updates" && tab !== previousTab) { previousTab = tab; switchView(); }
+    onKindChanged: if (tab === "updates") { updates = updateCache[kind] || ({}); sync(); } else switchView()
     onToneChanged: { shown = pageSize; catalog.scroll.contentY = 0; }
     onQueryChanged: { shown = pageSize; cursor = -1; catalog.scroll.contentY = 0; }
     onOpenedChanged: {
-        if (opened) { opening++; updateCache = ({}); load(); if (live) checkUpdates(); forceActiveFocus(); }
+        if (opened) { opening++; updateCache = ({}); updateCheck = {pending: 0, date: null, error: ""}; load(); if (live) checkUpdates(); forceActiveFocus(); }
         else { resetTransient(); discardReview(); mediaIndex = -1; generation++; DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); busy = false; }
     }
     Component.onDestruction: { DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); }

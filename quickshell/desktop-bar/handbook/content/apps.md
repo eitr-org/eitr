@@ -188,6 +188,8 @@ confirms and Escape cancels. The staged candidate is checked against its exact
 reviewed commit; Community uses the index's pin. Tokens expire after 15 minutes
 and closing the catalog discards them. Videos start muted and stop on dismissal.
 
+The card at the bottom of the Eitr Store sidebar shows when the Store is checking, how many updates it found, or when it last checked. Open it to see available updates across kinds. All rows start selected. Expand a row to see version changes, recent commits and any new plugin permissions, packages, services or hooks. Choose **Update selected** for the checked rows or “Update” for one item. Each plugin opens its own commit review before installation. Use Up and Down to move between rows, Space to toggle selection and Right or Enter to expand. Back or Escape returns to the previous Store view.
+
 System Update only checks for new plugin commits, even when system packages are current, and prints a count and where to update. It never reviews or updates plugins; network errors are silently ignored. Run **Update Plugins** from **Control Center > Plugins** (next to Add Plugins) or **Plugins > Update Plugins**, or use `eitr plugin update`.
 
 The Update Plugins button and row appear only when the last check found an update. A small ↑ mark in the plugin row and “Update available” in its details reflect the last check for its approved commit. The separate action keeps the existing per-plugin diffs, risk flags and confirmations.

@@ -295,6 +295,9 @@ StoreReview 1.0 store/StoreReview.qml
 StoreSelection 1.0 store/StoreSelection.qml
 StoreSidebar 1.0 store/StoreSidebar.qml
 StoreState 1.0 store/StoreState.qml
+StoreUpdatesFooter 1.0 store/StoreUpdatesFooter.qml
+StoreUpdatesPage 1.0 store/StoreUpdatesPage.qml
+StoreUpdateRow 1.0 store/StoreUpdateRow.qml
 StoreKeyboard 1.0 store/StoreKeyboard.qml
 StoreSheet 1.0 store/StoreSheet.qml
 StoreInstallReview 1.0 store/StoreInstallReview.qml

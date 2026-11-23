@@ -1854,5 +1854,7 @@
   "{app} crashed": "{app} 已崩溃",
   "Alarm": "闹钟",
   "Invalid alarm.": "无效的闹钟。",
-  "Missed alarm": "错过的闹钟"
+  "Missed alarm": "错过的闹钟",
+  "Check for updates again": "请重新检查更新",
+  "Update metadata exceeds size limit": "更新元数据超出大小限制"
 }

@@ -22,7 +22,7 @@ Column {
         rune: catalog.definition.rune
         group: Eitr.I18n.tr(catalog.definition.label)
         title: catalog.currentPage.title
-        description: catalog.tab === "updates" ? "" : Eitr.I18n.tr(catalog.definition.descriptions[catalog.tab])
+        description: Eitr.I18n.tr(catalog.definition.descriptions[catalog.previousTab])
     }
     ChoiceSegmented {
         width: parent.width

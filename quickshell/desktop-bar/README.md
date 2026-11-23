@@ -1233,7 +1233,8 @@ Center. Its opaque theme canvas has no blur. Like the Handbook and Eitr Store,
 it opens at its default size every time; a resize lasts until it closes. Outside clicks leave it
 open. `settings toggle`, `settings show <page/tab>` and `settings close` control it.
 Eitr Store has its own application window in the same family. The registry in
-`distro/store-kinds.json` drives kind tabs under Discover and Installed, plus Updates across kinds. Discover
+`distro/store-kinds.json` drives kind tabs under Discover and Installed. The pinned sidebar footer opens
+Updates across kinds for selection and inspection. Discover
 merges source lists and shows Official/Community badges with a provenance filter;
 the search field stays in the selected section and kind. The filter menu groups Source, theme Appearance and plugin capabilities. Ctrl+1–4 switches kinds.
 `store show [kind] [tab]`, `store toggle`, SUPER+F2 and the desktop launcher open it.

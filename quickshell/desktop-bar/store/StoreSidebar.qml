@@ -21,6 +21,14 @@ FamilySidebar {
     searchVisible: false
     currentId: catalog.tab
     entries: catalog.navigation
-    onChosen: entry => { if (!catalog.busy) catalog.navigate(catalog.navigation.findIndex(row => row.id === entry.id)); }
+    footer: StoreUpdatesFooter { catalog: sidebar.catalog }
+    onChosen: entry => {
+        if (catalog.busy) return;
+        if (catalog.tab === "updates") {
+            catalog.leaveUpdates();
+            if (catalog.tab === entry.id) return;
+        }
+        catalog.navigate(catalog.navigation.findIndex(row => row.id === entry.id));
+    }
     onCloseRequested: catalog.closeRequested()
 }

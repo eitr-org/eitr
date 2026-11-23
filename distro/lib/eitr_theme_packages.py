@@ -9,6 +9,7 @@ import re
 from pathlib import Path, PurePosixPath
 import shutil
 import stat
+import subprocess
 import tempfile
 import secrets
 import time
@@ -207,6 +208,7 @@ class Themes:
         self.folder = data('eitr/themes')
         self.cache = cache('eitr/theme-repositories')
         self._reviews = {}
+        self.checked_updates = {}
 
     @contextlib.contextmanager
     def lock(self):
@@ -442,7 +444,9 @@ class Themes:
                              previewUrl=versioned_uri(root / 'preview.png'), current=theme_id == active_id or root.resolve() == active.resolve()))
         return rows
 
-    def check(self):
+    def check(self, *, preview=False):
+        from eitr_store_changes import git_manifest
+        snapshots = {}
         counts = {}
         repositories = {}
         with self.lock():
@@ -455,6 +459,17 @@ class Themes:
                     repository, revision, _ = repositories[address]
                     counts[row['id']] = int(self.git(repository, 'rev-list', '--count', source['commit'] + '..' + revision,
                                                 '--', ':(top,literal)' + source['folder']))
+                    if preview and counts[row['id']]:
+                        # The partial clone can fetch the manifest during the check.
+                        # The subsequent preview only reads local objects.
+                        version = ''
+                        try:
+                            version = git_manifest(repository, revision, source['folder'], MANIFEST,
+                                                   read=partial(self.git, allow_file=self.allow_file, timeout=5))['version']
+                        except (OSError, ValueError, subprocess.SubprocessError):
+                            pass
+                        snapshots[row['id']] = (repository, source, revision, counts[row['id']], version)
+            self.checked_updates = snapshots
         return counts
 
     def update(self, theme_id):

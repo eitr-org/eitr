@@ -224,8 +224,14 @@ class ThemePackagesTest(unittest.TestCase):
     def test_folder_updates_and_current_removal(self):
         self.backend.install(self.url, ['alpha','beta'])
         (self.repo / 'themes/beta/backgrounds/extra.png').write_bytes((self.repo / 'themes/beta/preview.png').read_bytes())
+        path = self.repo / 'themes/beta/eitr-theme.json'
+        path.write_text(json.dumps(dict(json.loads(path.read_text()), version='2')))
         self.save()
-        self.assertEqual(self.backend.check(), {'alpha':0,'beta':1})
+        from eitr_store_changes import theme_changes
+        self.assertEqual(self.backend.check(preview=True), {'alpha':0,'beta':1})
+        preview = theme_changes(self.backend, 'beta')
+        self.assertEqual((preview['before'], preview['after']), ('1', '2'))
+        self.assertEqual(len(preview['commits']), 1)
         self.backend.update('beta')
         self.assertEqual(self.backend.check(), {'alpha':0,'beta':0})
         marker = self.home / '.cache/current-theme'

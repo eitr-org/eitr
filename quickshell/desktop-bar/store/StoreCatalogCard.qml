@@ -19,7 +19,7 @@ Rectangle {
     readonly property int updateCount: (catalog.updateCache[itemKind] || catalog.updates)[item.id] || 0
     readonly property bool picked: catalog.getMore && !local && catalog.selected.includes(item.id)
     readonly property bool focused: catalog.cursor >= 0 && !!catalog.navigable[catalog.cursor] && catalog.navigable[catalog.cursor].id === item.id && (catalog.navigable[catalog.cursor].storeKind || catalog.kind) === itemKind
-    readonly property bool actionable: catalog.getMore || catalog.tab === "updates" || !(local && item.current)
+    readonly property bool actionable: catalog.getMore || !(local && item.current)
     readonly property real viewportY: parent.parent.y + parent.y + y - catalog.scroll.contentY
     readonly property bool inViewport: viewportY + height > 0 && viewportY < catalog.scroll.height
     implicitHeight: details.y + details.height + 12

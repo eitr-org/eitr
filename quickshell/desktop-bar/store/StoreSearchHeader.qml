@@ -44,14 +44,6 @@ RowLayout {
     }
     StoreActionButton {
         catalog: header.catalog
-        objectName: "update-all"
-        visible: catalog.tab === "updates" && catalog.updateItems.length > 0
-        Layout.preferredWidth: 36; Layout.preferredHeight: header.height; icon: true; text: "\u{F06B0}"
-        Accessible.name: Eitr.I18n.tr("Update all (%1)").arg(catalog.updateItems.length)
-        available: !catalog.busy; onClicked: catalog.updateAll()
-    }
-    StoreActionButton {
-        catalog: header.catalog
         visible: catalog.tab === "installed" && ["themes", "plugins"].includes(catalog.kind)
         Layout.preferredWidth: 80; Layout.preferredHeight: header.height; leadingIcon: "\uf067"; text: Eitr.I18n.tr("Add")
         Accessible.name: Eitr.I18n.tr("Add from a Git address")

@@ -34,7 +34,7 @@ def bundled_install(name, args):
 
 
 def validate(name, args):
-    if name not in {'installed', 'index', 'preview', 'artwork', 'detail', 'source', 'check', *MUTATIONS} or not isinstance(args, dict):
+    if name not in {'installed', 'index', 'preview', 'artwork', 'detail', 'source', 'check', 'changes', *MUTATIONS} or not isinstance(args, dict):
         raise ValueError('invalid-request')
     from eitr_store_kinds import registry
     kinds = registry()
@@ -44,6 +44,12 @@ def validate(name, args):
         raise ValueError('invalid-channel')
     if args['kind'] == 'plugins' and name in {'install', 'update', 'apply'} and not bundled_install(name, args):
         raise ValueError('Use the plugin prepare/confirm review')
+    if name == 'changes':
+        from eitr_plugin_manifest import identifier
+        if args.get('channel', 'official') == 'git':
+            raise ValueError('invalid-channel')
+        identifier(args.get('id'))
+        return
     if args['kind'] == 'lockscreens':
         if name not in {'installed', 'index', 'install', 'remove', 'apply'} or args.get('channel', 'official') not in {'official', 'installed'}:
             raise ValueError('invalid-lockscreen-request')

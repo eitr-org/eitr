@@ -11,7 +11,7 @@ Rectangle {
     required property var catalog
 
     id: selectionBar
-    readonly property bool shown: catalog.getMore && catalog.chosen.length > 0 && catalog.capabilities.useOnClick && !catalog.capabilities.needsAdministrator && !catalog.reviewing
+    readonly property bool shown: catalog.tab !== "updates" && catalog.getMore && catalog.chosen.length > 0 && catalog.capabilities.useOnClick && !catalog.capabilities.needsAdministrator && !catalog.reviewing
     visible: opacity > 0
     opacity: shown ? 1 : 0
     z: 2

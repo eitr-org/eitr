@@ -790,6 +790,9 @@ msgstr "Vérifier l’authentification"
 msgid "Check This PC"
 msgstr "Vérifier ce PC"
 
+msgid "Check for updates again"
+msgstr "Relancez la recherche de mises à jour"
+
 msgid "Checking AUR updates…"
 msgstr "Recherche des mises à jour AUR…"
 
@@ -4854,6 +4857,9 @@ msgstr "Le canal de mise à jour contredit la politique stable"
 
 msgid "Update channel must be stable or testing"
 msgstr "Le canal de mise à jour doit être stable ou testing"
+
+msgid "Update metadata exceeds size limit"
+msgstr "Les métadonnées de mise à jour dépassent la taille maximale"
 
 msgid "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 msgstr "Mise à jour du {update_date} (instantané {pre} -> {state}, {outcome}) :"

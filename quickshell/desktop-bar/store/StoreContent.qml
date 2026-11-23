@@ -16,7 +16,9 @@ StoreState {
     Rectangle { anchors.fill: parent; color: catalog.background; z: -1 }
     StoreSidebar { id: navigationSidebar; catalog: catalog }
     Rectangle { x: navigationSidebar.x + navigationSidebar.width + PanelStyle.padding; width: 1; height: parent.height; color: catalog.line }
-    StoreGrid { id: grid; catalog: catalog; selectionHeight: selection.shown ? selection.height + 16 : 0 }
+    StoreGrid { id: grid; visible: catalog.tab !== "updates"; catalog: catalog; selectionHeight: selection.shown ? selection.height + 16 : 0 }
+    StoreUpdatesPage { id: updatesPage; catalog: catalog }
+    onLeaveUpdates: updatesPage.leave()
     StoreSelection { id: selection; catalog: catalog }
     StoreDetail { id: detailSheet; catalog: catalog }
 CatalogPluginSheet {

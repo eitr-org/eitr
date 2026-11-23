@@ -31,8 +31,10 @@ QtObject {
                              maintainer='Example artist', license='MIT', previewUrl=image, size=1048576)]
                 # Captures stay in the temporary folder unless EITR_STORE_RENDERS asks to keep them;
                 # the folder beside the checkout is not writable in CI and is no place for test output.
-                target = Path(os.environ.get('EITR_STORE_RENDERS') or folder / 'renders')
-                target.mkdir(parents=True, exist_ok=True)
+                target = folder / 'renders'
+                updates_target = Path(os.environ.get('EITR_STORE_RENDERS') or target)
+                target.mkdir(parents=True)
+                updates_target.mkdir(parents=True, exist_ok=True)
                 fixture = r'''import QtQuick
 import Quickshell
 import "." as Bar
@@ -52,7 +54,23 @@ ShellRoot {
   visible: true; implicitWidth: 1100; implicitHeight: 900
   Bar.StoreContent {
    id: panel; anchors.fill: parent; live: false; opened: true
-   transport: function(name, args, callback) { callback("", {}); }
+   property var queueCalls: []
+   transport: function(name, args, callback) {
+    if (name === "prepare") {
+     queueCalls.push("review " + args.id);
+     callback("", {review:{token:args.id,official:false,commit:"0123456789abcdef",spec:{name:args.id,author:"Example",version:"2"},files:[]}});
+    } else if (name === "confirm") {
+     queueCalls.push("confirm " + args.token);
+     callback("", {});
+    } else if (name === "update") {
+     queueCalls.push("update " + args.id);
+     callback("", {});
+    } else if (name === "changes") {
+     const data = {before:"1.2.0",after:"1.3.0",commits:[{date:"2026-11-20",subject:"Refresh the clock face"},{date:"2026-11-18",subject:"Add a new clock mode"}],more:3};
+     if (args.kind === "plugins") data.permissions = {capabilities:["hardware"],packages:["lm_sensors"],service:true,hooks:["login"]};
+     callback("", data);
+    } else callback("", {});
+   }
   }
   Timer {
    interval: 350; running: true; repeat: true
@@ -71,29 +89,58 @@ ShellRoot {
     cases.push({kind:"themes",tab:"discover",search:true,name:"search-filter"});
     cases.push({kind:"themes",tab:"discover",popup:true,name:"appearance-filter"});
     cases.push({kind:"plugins",tab:"discover",popup:true,name:"plugin-filters"});
-    cases.push({kind:"themes",tab:"updates",updates:true,name:"updates"});
+    cases.push({kind:"themes",tab:"discover",checking:true,name:"updates-footer-checking"});
+    cases.push({kind:"themes",tab:"discover",name:"updates-footer-current"});
+    cases.push({kind:"themes",tab:"discover",updates:true,name:"updates-footer-available"});
+    cases.push({kind:"themes",tab:"updates",updates:true,name:"updates-collapsed"});
+    cases.push({kind:"themes",tab:"updates",updates:true,expanded:true,name:"updates-expanded"});
     cases.push({kind:"themes",tab:"discover",detail:true,name:"community-detail"});
     cases.push({kind:"wallpapers",tab:"discover",review:true,name:"wallpaper-review"});
     cases.push({kind:"plugins",tab:"discover",native:true,name:"plugin-review"});
     cases.push({kind:"wallpapers",tab:"installed",remove:true,name:"wallpaper-remove"});
    }
    onTriggered: {
-    if (phase === cases.length * 2) { console.log("STORE_RENDER_OK"); Qt.quit(); return; }
+    if (phase === cases.length * 2) {
+     panel.removing = null;
+     panel.tab = "discover"; panel.kind = "themes";
+     panel.query = "Northern"; panel.cursor = 1;
+     panel.store = {"plugins:installed": {items:[{id:"clock",name:"Clock"},{id:"weather",name:"Weather"},{id:"skip",name:"Skip"}]}};
+     panel.updateCache = {plugins:{clock:1,weather:2,skip:1}};
+     find(panel, "store-updates-footer").clicked();
+     phase++; return;
+    }
+    if (phase === cases.length * 2 + 1) {
+     find(panel, "store-update-skip").toggleChecked();
+     find(panel, "update-selected").clicked();
+     if (panel.nativeReview.token !== "clock" || panel.queueCalls.join(",") !== "review clock")
+      throw new Error("The selected queue did not pause for its first review");
+     panel.nativeConfirm();
+     if (panel.nativeReview.token !== "weather" || panel.queueCalls.join(",") !== "review clock,confirm clock,review weather")
+      throw new Error("The selected queue did not pause for its second review");
+     panel.nativeConfirm();
+     if (panel.nativeReviewing || panel.queueCalls.join(",") !== "review clock,confirm clock,review weather,confirm weather")
+      throw new Error("The selected queue included an unchecked plugin or missed a confirmation");
+     panel.leaveUpdates();
+     if (panel.tab !== "discover" || panel.kind !== "themes" || panel.query !== "Northern" || panel.cursor !== 1)
+      throw new Error("Back lost the previous Store view");
+     console.log("STORE_RENDER_OK"); Qt.quit(); return;
+    }
     const entry = cases[Math.floor(phase / 2)];
     if (phase % 2 === 0) {
+     panel.updateCheck = {pending: entry.checking ? 1 : 0, date:new Date(2026, 10, 23, 10, 30), error:""};
      panel.query = ""; panel.tone = "all"; panel.filterValues = ({}); panel.updateCache = ({}); panel.store = ({});
      const filter = find(panel, "catalog-tone-filter"); if (filter) filter.expanded = false;
      panel.detail = null; panel.reviewing = false; panel.nativeReviewing = false; panel.removing = null;
      panel.kind = entry.kind; panel.tab = entry.tab; panel.sourceFilter = entry.filter || "all";
      panel.installed = ROWS.slice(0,1); panel.availableItems = ROWS; panel.loading = false; panel.indexLoaded = true;
      if (entry.kind === "plugins") {
-      const weather = {id:"weather", name:"Weather", kind:"builtin", builtin:true, official:true, removable:true, previewUrl:"file:///home/erick/Development/personal/eitr-testing/codex-wip/store-tabs/eitr/distro/plugins/bundled/weather/icon.svg"};
+      const weather = {id:"weather", name:"Weather", kind:"builtin", builtin:true, official:true, removable:true, previewUrl:"WEATHER_ICON"};
       panel.installed = [weather]; panel.availableItems = ROWS.concat([weather]);
      }
      panel.selected = []; panel.reviewIds = null;
      if (entry.filter && (panel.discoveries.length !== 1 || panel.badge(panel.discoveries[0]) !== "Community")) throw new Error("Provenance filter");
      const field = find(panel, "catalog-search");
-     if (!field || !field.visible || field !== panel.searchField) throw new Error("Visible shared header search missing");
+     if (entry.tab !== "updates" && (!field || !field.visible || field !== panel.searchField)) throw new Error("Visible shared header search missing");
      if (entry.search) {
       panel.store = {"plugins:official": {items:[{id:"other",name:"Other kind",kind:"official"}]}};
       panel.query = "other";
@@ -112,10 +159,7 @@ ShellRoot {
      if (entry.updates) {
       panel.store = {"themes:installed": {items:[ROWS[0]]}, "plugins:installed": {items:[{id:"clock",name:"Clock widget",kind:"official",components:{ui:{widgets:[{}]}}}]}};
       panel.updateCache = {themes:{eitr:1}, plugins:{clock:2}};
-      if (panel.updateItems.length !== 2 || panel.navigable.length !== 2 || panel.navigation.length !== 3) throw new Error("Updates across kinds");
-      panel.query = "clock";
-      if (panel.navigable.length !== 1 || panel.navigable[0].storeKind !== "plugins") throw new Error("Updates search scope");
-      panel.query = "";
+      if (panel.updateItems.length !== 2 || panel.navigation.length !== 2) throw new Error("Updates across kinds");
      }
      if (entry.popup) filter.expanded = true;
      if (entry.detail) panel.openDetail(ROWS[1]);
@@ -126,12 +170,33 @@ ShellRoot {
      }
      if (entry.remove) panel.removing = ROWS[1];
     } else {
+     const footer = find(panel, "store-updates-footer");
+     if (!footer || footer.height !== 60 || !footer.activeFocusOnTab || footer.found !== !!entry.updates)
+      throw new Error("Update footer state or sizing");
+     if (entry.tab === "updates") {
+      const page = find(panel, "store-updates-page");
+      const plugin = find(panel, "store-update-clock");
+      const theme = find(panel, "store-update-eitr");
+      if (!page.visible || !plugin.checked || plugin.version !== "1.2.0 → 1.3.0") throw new Error("Update preview");
+      if (find(panel, "update-clock").width < 50) throw new Error("Clipped per-row Update button");
+      if (entry.expanded) {
+       plugin.moveFocus(-1);
+       if (!theme.activeFocus) throw new Error("Previous update row focus");
+       theme.moveFocus(1);
+       if (!plugin.activeFocus) throw new Error("Next update row focus");
+       theme.toggleChecked();
+       if (page.selected.length !== 1 || find(panel, "update-selected").text !== "Update selected (1)") throw new Error("Update selection");
+       plugin.toggleExpanded();
+       if (!plugin.expanded) throw new Error("Expanded changes");
+      }
+     }
      if (entry.popup) find(panel, "catalog-tone-filter").popup.background.parent.grabToImage(result => { if (!result.saveToFile("TARGET/PALETTE-" + entry.name + "-menu.png")) throw new Error("Filter capture failed"); });
      if (entry.kind === "plugins" && entry.tab === "installed") {
       const remove = window.findNamed(panel, "remove-weather");
       if (!remove || !remove.visible) throw new Error("Bundled Weather cannot be removed");
      }
-     const filename = "TARGET/" + "PALETTE-" + entry.name + ".png";
+     const folder = entry.name.startsWith("updates-") ? "UPDATE_TARGET" : "TARGET";
+     const filename = folder + "/PALETTE-" + entry.name + ".png";
      panel.grabToImage(result => { if (!result.saveToFile(filename)) throw new Error("Store capture failed"); });
     }
     phase++;
@@ -145,13 +210,15 @@ ShellRoot {
   Binding { target: Bar.SiteStyle; property: "light"; value: LIGHT }
  }
 }
-'''.replace('ROWS', json.dumps(rows)).replace('TARGET', str(target)).replace('PALETTE', palette).replace('LIGHT', 'true' if palette == 'light' else 'false').replace('BACKGROUND', '#f4f2e8' if palette == 'light' else '#181824').replace('FOREGROUND', '#202824' if palette == 'light' else '#cdd6f4').replace('ACCENT', '#6f5a2c' if palette == 'light' else '#9a815c')
+'''.replace('WEATHER_ICON', (ROOT / 'distro/plugins/bundled/weather/icon.svg').as_uri()).replace('ROWS', json.dumps(rows)).replace('UPDATE_TARGET', str(updates_target)).replace('TARGET', str(target)).replace('PALETTE', palette).replace('LIGHT', 'true' if palette == 'light' else 'false').replace('BACKGROUND', '#f4f2e8' if palette == 'light' else '#181824').replace('FOREGROUND', '#202824' if palette == 'light' else '#cdd6f4').replace('ACCENT', '#6f5a2c' if palette == 'light' else '#9a815c')
                 (folder / 'fixture.qml').write_text(fixture)
                 code, output = render(folder / 'fixture.qml', render_environment(folder), 20)
                 self.assertEqual(code, 0, output)
                 self.assertIn('STORE_RENDER_OK', output)
                 for error in ('TypeError', 'ReferenceError', 'Unable to assign', 'Error:'):
                     self.assertNotIn(error, output)
+                for state in ('footer-checking', 'footer-current', 'footer-available', 'collapsed', 'expanded'):
+                    self.assertTrue((updates_target / f'{palette}-updates-{state}.png').exists())
                 for kind in ('themes', 'plugins', 'lockscreens', 'wallpapers'):
                     for tab in ('installed', 'discover'):
                         self.assertTrue((target / f'{palette}-{kind}-{tab}.png').exists())

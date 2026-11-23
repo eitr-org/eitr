@@ -360,6 +360,53 @@ class PluginTests(unittest.TestCase):
         approve.assert_not_called()
         self.assertEqual(self.manager.records()['second'], approved['second'])
 
+    def test_update_preview_reads_checked_commit_and_only_its_folder(self):
+        from eitr_store_changes import plugin_changes
+
+        self.make_index()
+        self.manager.add(self.url, lambda url: True, lambda *details: True,
+                         lambda entries: ['example', 'second'])
+        root = self.manager.root('example')
+        approved = self.manager.records()['example']['commit']
+        spec_path = self.source / 'plugins/example/eitr-plugin.json'
+        spec = json.loads(spec_path.read_text())
+        spec_path.write_text(json.dumps(dict(spec, schemaVersion=2, version='2.0',
+            capabilities=['hardware'], packages=['lm_sensors'], service={'run': 'notify.sh'},
+            hooks={'login': {'run': 'notify.sh'}})))
+        self.commit_as('Fixture', 'Bump plugin version')
+        for number in range(9):
+            (spec_path.parent / 'revision').write_text(str(number))
+            self.commit_as('Fixture', f'Own change {number}')
+        (self.source / 'plugins/second/unrelated').write_text('outside the scope')
+        self.commit_as('Fixture', 'Unrelated plugin change')
+        self.assertEqual(self.manager.check_updates(), {'example': 10, 'second': 1})
+        # A newer FETCH_HEAD must not replace the checked candidate.
+        spec_path.write_text(json.dumps(dict(spec, version='3.0')))
+        self.commit_as('Fixture')
+        install_owner.git(root, 'fetch', self.url, 'HEAD', allow_file=True)
+        preview = plugin_changes(self.manager, 'example')
+        self.assertEqual((preview['before'], preview['after']), (spec['version'], '2.0'))
+        self.assertEqual((len(preview['commits']), preview['more']), (8, 2))
+        self.assertTrue(all(commit['date'] for commit in preview['commits']))
+        self.assertEqual([commit['subject'] for commit in preview['commits']],
+                         [f'Own change {number}' for number in range(8, 0, -1)])
+        self.assertEqual(preview['permissions'], dict(capabilities=['hardware'], packages=['lm_sensors'],
+                                                    service=True, hooks=['login']))
+        self.assertEqual(install_owner.git(root, 'rev-parse', 'HEAD'), approved)
+        checked = self.manager.update_counts()
+        checked['example']['target'] = '0' * 40
+        self.manager.write(self.manager.state.with_name('plugin-updates.json'), checked)
+        with self.assertRaisesRegex(ValueError, 'Check for updates again'):
+            plugin_changes(self.manager, 'example')
+        spec_path.write_text(json.dumps(dict(spec, description='x' * 65536)))
+        self.commit_as('Fixture')
+        self.manager.check_updates()
+        with self.assertRaisesRegex(ValueError, 'exceeds size limit'):
+            plugin_changes(self.manager, 'example')
+        counts = self.manager.check_updates(
+            revision_for=lambda plugin_id, record: record['commit'] if plugin_id == 'example' else None)
+        self.assertEqual(counts, {'example': 0, 'second': 1})
+
     def test_installed_plugins_are_recognised_before_download_and_in_the_picker(self):
         self.assertTrue(self.manager.add(self.url, lambda url: True, lambda *details: True))
         consent = unittest.mock.Mock(return_value=True)

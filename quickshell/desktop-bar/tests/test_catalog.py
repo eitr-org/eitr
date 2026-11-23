@@ -66,6 +66,14 @@ class CatalogDomainTests(unittest.TestCase):
         environment.start()
         self.addCleanup(environment.stop)
 
+    def test_changes_is_read_only_and_requires_a_valid_id(self):
+        for kind in ('themes', 'plugins', 'lockscreens', 'wallpapers'):
+            DOMAIN.validate('changes', {'kind': kind, 'id': 'example-id'})
+        for item_id in (None, 44, '../example', '-switch', 'x' * 65):
+            with self.subTest(item_id=item_id), self.assertRaises(ValueError):
+                DOMAIN.validate('changes', {'kind': 'plugins', 'id': item_id})
+        self.assertNotIn('changes', DOMAIN.MUTATIONS)
+
     def test_results_and_errors_are_preserved(self):
         domain = DOMAIN.CatalogDomain()
         for result in ({'items': []}, {'updates': {}}, {'error': 'offline'},
@@ -385,8 +393,29 @@ ShellRoot {
       panel.store = {"themes:installed": {items: installedThemes}}; panel.updateCache = {themes: panel.updates};
       if (panel.pendingUpdates.join() !== "afterglow,mine") throw new Error("pending updates follow the check");
       panel.transport = function(name, args, callback) { if (name === "update") updated.push(args.id); callback("", name === "update" ? {result:[args.id]} : {items:[]}); };
-      panel.updateAll();
-      if (updated.join() !== "afterglow,mine" || panel.pendingUpdates.length) throw new Error("Update all updates every theme in turn");
+      panel.selected = ["moss"];
+      function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
+      find(panel, "store-updates-footer").forceActiveFocus();
+      keys.keyClick(Qt.Key_Return);
+      keys.wait(30);
+      const first = find(panel, "store-update-afterglow");
+      const second = find(panel, "store-update-mine");
+      if (panel.tab !== "updates" || !first.activeFocus) throw new Error("Enter opens Updates at the first row");
+      keys.keyClick(Qt.Key_Space);
+      keys.keyClick(Qt.Key_Down);
+      if (first.checked || !second.activeFocus) throw new Error("Space toggles selection and Down moves to the next row");
+      keys.keyClick(Qt.Key_Right);
+      if (!second.expanded) throw new Error("Right expands the row");
+      keys.keyClick(Qt.Key_Return);
+      if (second.expanded) throw new Error("Enter toggles details on a focused row");
+      keys.keyClick(Qt.Key_Up);
+      if (!first.activeFocus) throw new Error("Up moves to the previous row");
+      keys.keyClick(Qt.Key_Space);
+      find(panel, "update-selected").forceActiveFocus();
+      keys.keyClick(Qt.Key_Return);
+      if (updated.join() !== "afterglow,mine" || panel.pendingUpdates.length) throw new Error("Update selected applies each selected theme");
+      keys.keyClick(Qt.Key_Escape);
+      if (panel.tab !== "discover" || panel.selected.join() !== "moss") throw new Error("Escape restores the previous section and selection");
       panel.installed = installedThemes; panel.updates = {afterglow:1}; panel.selected = ["moss"]; panel.busy = false;
       panel.live = true;
       panel.transport = function(name, args, callback) { callback("Preview unavailable", {}); };

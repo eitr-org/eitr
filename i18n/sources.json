@@ -23,6 +23,9 @@
     "%1 Mbps": [
       "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
     ],
+    "%1 changes": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
+    ],
     "%1 days": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
@@ -38,11 +41,20 @@
     "%1 ms": [
       "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
     ],
+    "%1 updates": [
+      "quickshell/desktop-bar/store/StoreUpdatesFooter.qml"
+    ],
     "01 / TAPE": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
     ],
     "02 / NEO ORBITAL": [
       "quickshell/lockscreen/imports/LockscreenComponents/EitrClockworkDesign.qml"
+    ],
+    "1 change": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
+    ],
+    "1 update": [
+      "quickshell/desktop-bar/store/StoreUpdatesFooter.qml"
     ],
     "5m Timer": [
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
@@ -350,7 +362,8 @@
       "quickshell/desktop-bar/plugins/PluginArea.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml",
       "quickshell/desktop-bar/plugins/PluginPanel.qml",
-      "quickshell/desktop-bar/store/StoreDetail.qml"
+      "quickshell/desktop-bar/store/StoreDetail.qml",
+      "quickshell/desktop-bar/store/StoreUpdatesPage.qml"
     ],
     "Back to your location": [
       "quickshell/desktop-bar/drop/DropWeatherDetail.qml"
@@ -546,6 +559,9 @@
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
       "quickshell/desktop-bar/settings/SettingsManageUsers.qml"
     ],
+    "Changes": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
+    ],
     "Channel": [
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
     ],
@@ -561,11 +577,16 @@
       "quickshell/desktop-bar/settings/SettingsCheckPage.qml",
       "quickshell/desktop-bar/settings/SettingsIndex.js"
     ],
+    "Check for updates": [
+      "quickshell/desktop-bar/store/StoreUpdatesPage.qml"
+    ],
     "Check timed out": [
       "quickshell/desktop-bar/settings/SettingsSystemHost.qml"
     ],
     "Checking for updates…": [
-      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml"
+      "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml",
+      "quickshell/desktop-bar/store/StoreUpdatesFooter.qml",
+      "quickshell/desktop-bar/store/StoreUpdatesPage.qml"
     ],
     "Checking status…": [
       "quickshell/desktop-bar/panels/RemoteAccessContent.qml"
@@ -1460,6 +1481,9 @@
     "Hide Bar": [
       "quickshell/desktop-bar/panels/ControlCenterConnectivity.qml"
     ],
+    "Hide changes": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
+    ],
     "Hide icons": [
       "quickshell/desktop-bar/bar/BarHorizontalStatus.qml",
       "quickshell/desktop-bar/bar/BarVerticalStatus.qml"
@@ -1678,6 +1702,9 @@
     "Last backup: %1 · %2": [
       "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
+    "Last checked %1": [
+      "quickshell/desktop-bar/store/StoreUpdatesFooter.qml"
+    ],
     "Latency": [
       "quickshell/desktop-bar/panels/ControlCenterSpeedTest.qml"
     ],
@@ -1746,7 +1773,8 @@
     ],
     "Loading…": [
       "quickshell/desktop-bar/store/StoreGrid.qml",
-      "quickshell/desktop-bar/store/StoreReview.qml"
+      "quickshell/desktop-bar/store/StoreReview.qml",
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "Lock": [
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
@@ -1767,7 +1795,8 @@
     "Lockscreen": [
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsLockscreenPage.qml",
-      "quickshell/desktop-bar/settings/SettingsOverview.qml"
+      "quickshell/desktop-bar/settings/SettingsOverview.qml",
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "Lockscreen design and idle settings.": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -1952,11 +1981,23 @@
     "New Window": [
       "quickshell/desktop-bar/dock/EdgeDock.qml"
     ],
+    "New capabilities: %1": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
+    ],
     "New chat": [
       "quickshell/desktop-bar/panels/AssistantChat.qml"
     ],
+    "New or changed hooks: %1": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
+    ],
+    "New or changed service": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
+    ],
     "New password": [
       "quickshell/desktop-bar/settings/SettingsPasswordSheet.qml"
+    ],
+    "New system packages: %1": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "New timer": [
       "quickshell/desktop-bar/clock/TimersPage.qml"
@@ -2069,6 +2110,9 @@
       "quickshell/desktop-bar/drop/DropWifiDetail.qml",
       "quickshell/desktop-bar/panels/WifiMenu.qml",
       "quickshell/desktop-bar/settings/SettingsWifiPage.qml"
+    ],
+    "No new permissions": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "No notifications": [
       "quickshell/desktop-bar/bar/NotificationWidget.qml"
@@ -2465,6 +2509,9 @@
     "Play a sound with notification popups.": [
       "quickshell/desktop-bar/figures/SettingsWindowFigure.qml",
       "quickshell/desktop-bar/settings/EventSoundSettings.qml"
+    ],
+    "Plugin": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "Plugins": [
       "distro/store-kinds.json",
@@ -2988,6 +3035,12 @@
     "See how much sound the microphone picks up.": [
       "quickshell/desktop-bar/components/SettingsAudioDeviceCard.qml"
     ],
+    "Select all": [
+      "quickshell/desktop-bar/store/StoreUpdatesPage.qml"
+    ],
+    "Select none": [
+      "quickshell/desktop-bar/store/StoreUpdatesPage.qml"
+    ],
     "Select, reorder or remove your keyboard layouts.": [
       "quickshell/desktop-bar/settings/SettingsInputPage.qml"
     ],
@@ -3099,6 +3152,9 @@
     ],
     "Show brief notifications, levels and song changes in the bar.": [
       "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+    ],
+    "Show changes": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "Show help notifications when a program crashes.": [
       "quickshell/desktop-bar/settings/SettingsNotificationsPage.qml"
@@ -3415,7 +3471,8 @@
       "quickshell/desktop-bar/capture/BeautifyContent.qml",
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
-      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "Theme & Wallpaper": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -3620,13 +3677,18 @@
     "Up": [
       "tools/choice-lists.json"
     ],
+    "Up to date": [
+      "quickshell/desktop-bar/store/StoreUpdatesFooter.qml",
+      "quickshell/desktop-bar/store/StoreUpdatesPage.qml"
+    ],
     "Upcoming": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
     "Update": [
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/store/StoreCatalogCard.qml",
-      "quickshell/desktop-bar/store/StoreDetail.qml"
+      "quickshell/desktop-bar/store/StoreDetail.qml",
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "Update Channel": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js",
@@ -3635,9 +3697,6 @@
     "Update Plugins": [
       "quickshell/desktop-bar/plugins/PluginManager.qml"
     ],
-    "Update all (%1)": [
-      "quickshell/desktop-bar/store/StoreSearchHeader.qml"
-    ],
     "Update available": [
       "quickshell/desktop-bar/plugins/PluginDetails.qml",
       "quickshell/desktop-bar/plugins/PluginManager.qml"
@@ -3645,10 +3704,20 @@
     "Update channel: %1": [
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
+    "Update check failed": [
+      "quickshell/desktop-bar/store/StoreUpdatesFooter.qml"
+    ],
+    "Update selected (%1)": [
+      "quickshell/desktop-bar/store/StoreUpdatesPage.qml"
+    ],
     "Updates": [
       "quickshell/desktop-bar/settings/SettingsIndex.js",
       "quickshell/desktop-bar/settings/SettingsUpdatesPage.qml",
-      "quickshell/desktop-bar/store/StoreState.qml"
+      "quickshell/desktop-bar/store/StoreUpdatesFooter.qml",
+      "quickshell/desktop-bar/store/StoreUpdatesPage.qml"
+    ],
+    "Updates available": [
+      "quickshell/desktop-bar/store/StoreUpdatesFooter.qml"
     ],
     "Updating": [
       "quickshell/desktop-bar/components/PanelLoadingIndicator.qml"
@@ -3728,7 +3797,8 @@
     "Wallpaper": [
       "quickshell/desktop-bar/panels/AppearancePicker.qml",
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml",
-      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+      "quickshell/desktop-bar/settings/SettingsCatalog.js",
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "Wallpaper per display": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -3764,6 +3834,9 @@
     ],
     "Website": [
       "tools/choice-lists.json"
+    ],
+    "What it asks for": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "When on, a new wallpaper changes only the display you are using.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
@@ -3913,6 +3986,9 @@
     ],
     "alerts dnd": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
+    ],
+    "and %1 more": [
+      "quickshell/desktop-bar/store/StoreUpdateRow.qml"
     ],
     "audio microphone volume": [
       "quickshell/desktop-bar/settings/SettingsIndex.js"
@@ -8260,6 +8336,9 @@
     "Check This PC": [
       "distro/lib/eitr_selfcheck.py"
     ],
+    "Check for updates again": [
+      "distro/lib/eitr_store_changes.py"
+    ],
     "Checking AUR updates…": [
       "walker/scripts/actions/system/update.sh"
     ],
@@ -12417,6 +12496,10 @@
     ],
     "Update channel must be stable or testing": [
       "distro/lib/eitr_profile.py"
+    ],
+    "Update metadata exceeds size limit": [
+      "distro/lib/eitr_plugin_install.py",
+      "distro/lib/eitr_store_changes.py"
     ],
     "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):": [
       "distro/system/eitr-system.py"

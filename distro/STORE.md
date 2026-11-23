@@ -14,9 +14,11 @@ filter groups (ID, label, multiple, options with dotted metadata paths and optio
 synchronization. Translation extraction reads the same registry.
 
 Discover and Installed are sidebar sections, with registry-ordered kind tabs.
-Updates appears only with pending updates, lists all kinds and offers Update all.
-Search stays within the selected section and kind; Updates searches all pending
-updates. Ctrl+1–4 switches tabs. Closing saves the section and kind to the
+The pinned sidebar footer shows the update check status and opens Updates.
+The page lists pending items across kinds with selection controls, expandable
+details and individual or batch updates. Back and Escape return to the previous
+view. Discover and Installed searches stay within the selected section and kind.
+Ctrl+1–4 switches kinds there. Closing saves the section and kind to the
 machine-local `eitr/store.json` preference. Source is grouped in the filter menu.
 Theme Appearance is single-select; plugin Adds requires every selected capability.
 Plugin catalog and installed rows expose `components` from manifest `ui`, `rows`,
@@ -24,7 +26,14 @@ Plugin catalog and installed rows expose `components` from manifest `ui`, `rows`
 no optional index fields or schema change is needed. Unknown metadata fails a
 selected capability filter. Wallpaper list rows do not expose image dimensions,
 so no Aspect filter is offered; detail sizes are byte counts, not dimensions.
- Plugin install and update always use the existing
+The read-only `changes` request uses the installed and last checked Git revisions.
+It reads a bounded list of commits scoped to the package folder and compares
+versions and plugin declarations from local metadata. The theme check makes
+the version available from the partial clone. Plugin checks record the fetched
+commit alongside the installed base and count, honoring matching Community pins. Lockscreens and wallpaper packs
+currently have no independent Store update check.
+
+Plugin install and update always use the existing
 prepare/confirm permission review; lockscreen changes use the existing signed
 package helper and administrator password. Official labels are presentation,
 never permission grants or substitutes for backend source verification.

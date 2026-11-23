@@ -1854,5 +1854,7 @@
   "{app} crashed": "{app} crashed",
   "Alarm": "Alarm",
   "Invalid alarm.": "Invalid alarm.",
-  "Missed alarm": "Missed alarm"
+  "Missed alarm": "Missed alarm",
+  "Check for updates again": "Check for updates again",
+  "Update metadata exceeds size limit": "Update metadata exceeds size limit"
 }

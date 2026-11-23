@@ -790,6 +790,9 @@ msgstr "检查身份验证"
 msgid "Check This PC"
 msgstr "检查此电脑"
 
+msgid "Check for updates again"
+msgstr "请重新检查更新"
+
 msgid "Checking AUR updates…"
 msgstr "正在检查 AUR 更新…"
 
@@ -4854,6 +4857,9 @@ msgstr "更新通道与稳定策略冲突"
 
 msgid "Update channel must be stable or testing"
 msgstr "更新通道必须为 stable 或 testing"
+
+msgid "Update metadata exceeds size limit"
+msgstr "更新元数据超出大小限制"
 
 msgid "Update of {update_date} (snapshot {pre} -> {state}, {outcome}):"
 msgstr "{update_date} 的更新（快照 {pre} -> {state}，{outcome}）："
