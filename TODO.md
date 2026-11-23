@@ -20,8 +20,7 @@ item says what decides the next step. Remove an item when it ships;
   logind's new session), sign-out, hand-over to and from the user's own Sharing at login, a
   second account, switch off and Restore Sharing Setup. On the owner's NVIDIA PC (2026-11-18)
   Moonlight on a Mac streamed the login screen (X11 capture of SDDM's display) and was handed to
-  the user's own Sharing at sign-in. Headless use (a virtual display sized to the Moonlight client) stays planned in
-  `eitr-testing/codex-wip/remote-access-next/PLAN.md`; wake on LAN is left to people who want it.
+  the user's own Sharing at sign-in. Headless use and wake on LAN are not planned.
 - **Dynamic island, next.** Short notification, volume/brightness, song, Bluetooth and
   keyboard moments are implemented. Next: a hover card for the clock (large time and week
   strip), and the wallpaper/theme carousel growing out of the clock island. Islands arrows
