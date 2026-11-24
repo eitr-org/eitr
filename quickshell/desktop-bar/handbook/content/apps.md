@@ -216,7 +216,7 @@ The tiny example in `distro/plugins/example/` contains a manifest and `notify.sh
 
 Declare `schemaVersion: 1` for script-only manifests or `schemaVersion: 2` for the optional `ui` section below. Older manifests without a version still work as v1, with a reminder in review; versions above 2 need a newer Eitr. The author guide `distro/PLUGINS.md` (packaged as `PLUGINS.md`) defines the stable version 1 contract.
 
-Plugins can declare `theme-changed`, `wallpaper-changed`, `after-update` and `login` hooks. They run in the background after the action (login once per desktop session), with a 30-second timeout. Failures are logged in `$XDG_STATE_HOME/eitr/plugin-hooks.log` and never fail the action. Review lists hooks; added or changed hooks raise update RISK flags. Blocklist and organization policy apply to hooks too.
+Plugins can declare `theme-changed`, `wallpaper-changed`, `after-update` and `login` hooks. System Update waits for its hooks before releasing the bar reload. The other events run their hooks in the background, with login once per desktop session. Each hook has a 30-second timeout. Failures are logged in `$XDG_STATE_HOME/eitr/plugin-hooks.log` and never fail the action. Review lists hooks; added or changed hooks raise update RISK flags. Blocklist and organization policy apply to hooks too.
 
 ### Visual plugins
 

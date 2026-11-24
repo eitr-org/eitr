@@ -1,4 +1,5 @@
 """Exercise the real reload coordinator in a disposable offscreen shell."""
+import os
 from pathlib import Path
 import shutil
 import tempfile
@@ -15,6 +16,7 @@ ShellRoot {
     id: root
     property bool panelOpen: true
     property bool storeOpen: false
+    property bool revisionReady: false
     function expect(condition, message) {
         if (condition) return true;
         console.error(message);
@@ -27,14 +29,18 @@ ShellRoot {
         property double closedAt: 0
         property string timestampsJson: "{}"
         property string repeatsJson: "{}"
+        property string revision: "[]"
+        property bool reloaded: false
         onReloaded: {
             const elapsed = Date.now() - closedAt;
             const timestamps = JSON.parse(timestampsJson);
             const repeats = JSON.parse(repeatsJson);
-            if (!root.expect(closedAt > 0 && elapsed >= 700, "Reloaded while busy")) return;
+            const requiredQuiet = WAIT_FOR_LOCK && !MANAGED ? 5000 : 700;
+            if (!root.expect(closedAt > 0 && elapsed >= requiredQuiet, "Reloaded before the update settled")) return;
             if (!root.expect(timestamps["42"] === 12345 && repeats["42"] === 3, "Lost persistent notification metadata")) return;
+            if (!root.expect(!WAIT_FOR_LOCK || revision === '[["sample","bundled"]]', "Skipped the bundled plugin refresh")) return;
             console.log("BAR_RELOAD_OK", elapsed);
-            Qt.callLater(Qt.quit);
+            reloaded = true;
         }
     }
     FileView {
@@ -46,14 +52,22 @@ ShellRoot {
         id: coordinator
         versionPath: writer.path
         packageLockPath: PACKAGE_LOCK
-        pluginRevision: "[]"
+        pluginRevision: root.revisionReady ? session.revision : ""
+        onRefreshPlugins: session.revision = '[["sample","bundled"]]';
         busy: root.panelOpen || root.storeOpen
     }
     Timer {
-        interval: 300
+        interval: 100
         running: true
+        onTriggered: root.revisionReady = true
+    }
+    Timer {
+        interval: 300
+        running: !session.reloaded
         onTriggered: {
             if (!root.expect(coordinator.loadedVersion === "1" && !coordinator.pending, "Initial load queued a reload")) return;
+            coordinator.request();
+            if (!root.expect(!coordinator.pending, "IPC without a change queued a reload")) return;
             session.timestampsJson = JSON.stringify({"42": 12345});
             session.repeatsJson = JSON.stringify({"42": 3});
             TRIGGER
@@ -61,7 +75,7 @@ ShellRoot {
     }
     Timer {
         interval: 1300
-        running: true
+        running: !session.reloaded
         onTriggered: {
             if (!root.expect(coordinator.pending, "No pending reload after update")) return;
             root.storeOpen = true;
@@ -74,22 +88,54 @@ ShellRoot {
     }
     Timer {
         interval: 2300
-        running: true
+        running: !session.reloaded
         onTriggered: {
             if (!root.expect(coordinator.pending, "Pending state lost while Store open")) return;
-            if (!WAIT_FOR_LOCK) session.closedAt = Date.now();
+            if (!WAIT_FOR_LOCK && !MANAGED) session.closedAt = Date.now();
             root.storeOpen = false;
         }
     }
     Timer {
         interval: 3300
-        running: true
+        running: !session.reloaded
         onTriggered: {
             if (!WAIT_FOR_LOCK) return;
             if (!root.expect(coordinator.pending, "Reloaded while package transaction active")) return;
-            session.closedAt = Date.now();
+            if (!MANAGED) session.closedAt = Date.now();
             unlock.running = true;
         }
+    }
+    Process {
+        id: finishUpdate
+        command: ["rm", "--", coordinator.updateMarkerPath]
+        onExited: coordinator.request()
+    }
+    Timer {
+        interval: 4500
+        running: MANAGED && !session.reloaded
+        onTriggered: session.revision = '[["sample","new"]]';
+    }
+    Timer {
+        interval: 10500
+        running: MANAGED && !session.reloaded
+        onTriggered: {
+            if (!root.expect(coordinator.pending, "Reloaded while System Update was active")) return;
+            session.closedAt = Date.now();
+            finishUpdate.running = true;
+        }
+    }
+    Timer {
+        interval: 500
+        running: session.reloaded
+        onTriggered: {
+            coordinator.request();
+            root.expect(!coordinator.pending, "Duplicate IPC queued a reload");
+        }
+    }
+    Timer {
+        interval: 1500
+        running: session.reloaded
+        onTriggered: Qt.quit()
     }
 }
 '''
@@ -99,8 +145,9 @@ class BarReloadTests(unittest.TestCase):
     def test_update_waits_for_panel_and_store_then_reloads_once(self):
         triggers = {
             'package': 'writer.setText("2\\n");',
-            'plugin': 'coordinator.pluginRevision = \'[["sample","new"]]\';',
-            'ipc': 'coordinator.request();',
+            'plugin': 'session.revision = \'[["sample","new"]]\';',
+            'system': 'writer.setText("2\\n"); coordinator.request();',
+            'stale-marker': 'session.revision = \'[["sample","new"]]\';',
         }
         for source, trigger in triggers.items():
             with self.subTest(source=source), tempfile.TemporaryDirectory() as directory:
@@ -110,12 +157,18 @@ class BarReloadTests(unittest.TestCase):
                 shutil.copy(BAR / 'services/BarReload.qml', services)
                 (path / 'qmldir').write_text('BarReload services/BarReload.qml\n')
                 (path / 'version').write_text('1\n')
-                if source == 'package':
+                wait_for_lock = source in ('package', 'system')
+                if wait_for_lock:
                     (path / 'db.lck').touch(mode=0)
+                if source in ('system', 'stale-marker'):
+                    (path / 'eitr').mkdir()
+                    owner = os.getpid() if source == 'system' else 2147483647
+                    (path / 'eitr/system-update.pid').write_text(f'{owner}\n')
                 shell = path / 'shell.qml'
-                lock = 'Quickshell.shellDir + "/db.lck"' if source != 'plugin' else '""'
+                lock = 'Quickshell.shellDir + "/db.lck"' if wait_for_lock else '""'
                 shell.write_text(FIXTURE.replace('TRIGGER', trigger).replace('PACKAGE_LOCK', lock)
-                                 .replace('WAIT_FOR_LOCK', 'true' if source == 'package' else 'false'))
+                                 .replace('WAIT_FOR_LOCK', str(wait_for_lock).lower())
+                                 .replace('MANAGED', str(source == 'system').lower()))
                 code, output = render(shell, render_environment(directory), 30)
                 self.assertEqual(code, 0, output)
                 self.assertIn('BAR_RELOAD_OK', output)

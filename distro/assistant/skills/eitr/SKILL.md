@@ -27,7 +27,8 @@ For a wallpaper file, use
 There is no `eitr wallpaper` command.
 
 The desktop bar reloads automatically when idle after an `eitr-desktop` update or
-a plugin install, update or removal; other packaged shells activate updates at the
+a plugin install, update or removal. System Update releases the reload after its
+post-update hooks finish. Other packaged shells activate updates at the
 next session, while checkout shells launched with `eitr-shell --repo CHECKOUT desktop-bar`
 watch their QML directly. Ask before
 restarting the bar or other disruptive services. Walker launches go through

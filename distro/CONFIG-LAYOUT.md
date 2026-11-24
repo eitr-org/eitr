@@ -385,7 +385,9 @@ the user:
 5. The tiny loaders are installed last; a rerun after completion changes nothing.
    Undo restores the archive.
 6. The desktop bar watches the packaged version stamp and reloads at idle
-   after an upgrade. Other packaged shells activate at the next session.
+   after an upgrade. It waits for System Update and its hooks to finish, or for
+   pacman and the quiet period after a terminal upgrade. Other packaged shells
+   activate at the next session.
    Checkouts started with `eitr-shell --repo` and personal overrides watch their
    QML directly. Shells and
    scripts a checkout starts inherit its `EITR_CODE_ROOT`, so they run from the

@@ -163,7 +163,7 @@ El ejemplo en `distro/plugins/example/` contiene manifiesto y `notify.sh`, una a
 
 Declara `schemaVersion: 1` para manifiestos de scripts o `schemaVersion: 2` para la sección opcional `ui` descrita abajo. Los antiguos sin versión siguen como v1, con un aviso en la revisión; las versiones superiores a 2 requieren un Eitr más reciente. La guía para autores `distro/PLUGINS.md` (instalada como `PLUGINS.md`) define el contrato estable de la versión 1.
 
-Los plugins pueden declarar hooks `theme-changed`, `wallpaper-changed`, `after-update` y `login`. Se ejecutan en segundo plano tras la acción, una vez por sesión de escritorio para login, con un límite de 30 segundos. Los fallos se registran en `$XDG_STATE_HOME/eitr/plugin-hooks.log` y nunca hacen fallar la acción. La revisión enumera los hooks; añadirlos o cambiarlos genera indicadores RISK en las actualizaciones. La lista de bloqueo y las políticas de organización también se aplican a los hooks.
+Los plugins pueden declarar hooks `theme-changed`, `wallpaper-changed`, `after-update` y `login`. La actualización del sistema espera a que terminen sus hooks antes de recargar la barra. Los demás eventos ejecutan sus hooks en segundo plano y el de inicio de sesión se ejecuta una vez por sesión de escritorio. Cada hook tiene un límite de 30 segundos. Los fallos se registran en `$XDG_STATE_HOME/eitr/plugin-hooks.log` y nunca hacen fallar la acción. La revisión enumera los hooks; añadirlos o cambiarlos genera indicadores RISK en las actualizaciones. La lista de bloqueo y las políticas de organización también se aplican a los hooks.
 
 ### Plugins visuales
 

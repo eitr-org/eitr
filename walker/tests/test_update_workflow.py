@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FLOCK_MOCK = "flock() { return 0; }\n"
 # Tests never reach the host: its Flatpak installation, the restart check (which
 # reads the running kernel's modules, absent in CI containers), the bar or systemd.
-HOST_MOCKS = "setsid() { :; }; sleep() { :; }; pacman() { :; }; checkupdates() { return 1; }; flatpak() { :; }; python3() { :; }; eitr-shell() { :; }; systemctl() { :; }\n"
+HOST_MOCKS = "sleep() { :; }; pacman() { :; }; checkupdates() { return 1; }; flatpak() { :; }; python3() { :; }; eitr-shell() { :; }; systemctl() { :; }\n"
 
 
 # The update calls the user's post-update hook; tests use a stand-in runner so
@@ -47,8 +47,11 @@ def run_protected_update(mocks, answer="", environment_extra=None, migrated=True
         source = source.replace("/var/lib/eitr/lockscreen-packages-migrated", str(marker))
         source = source.replace("/usr/lib/eitr/eitr-system /usr/local/lib/eitr/eitr-system", "/usr/bin/true")
         environment = dict(os.environ, XDG_RUNTIME_DIR=directory, EITR_CODE_ROOT=str(ROOT), **(environment_extra or {}))
-        return subprocess.run(["bash", "-c", FLOCK_MOCK + HOST_MOCKS + mocks + source, "update", "system"],
-                              capture_output=True, text=True, env=environment, input=answer)
+        result = subprocess.run(["bash", "-c", FLOCK_MOCK + HOST_MOCKS + mocks + source, "update", "system"],
+                                capture_output=True, text=True, env=environment, input=answer)
+        if (Path(directory) / "eitr/system-update.pid").exists():
+            raise AssertionError("System Update left its running marker behind")
+        return result
 
 
 class UpdateWorkflowTests(unittest.TestCase):
@@ -189,6 +192,33 @@ yay() { echo "yay $*"; }
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("snapshot-post failed", result.stdout)
         self.assertNotIn("yay", result.stdout)
+
+    def test_system_update_holds_marker_through_hooks_and_releases_before_ipc(self):
+        result = run_protected_update(self.UPDATING + """
+python3() {
+  if [[ "$1 $2 $3" == *'hooks after-update' ]]; then
+    if [[ $(cat "$XDG_RUNTIME_DIR/eitr/system-update.pid") == "$$" ]]; then echo plugin-hook-while-busy >&3; fi
+  fi
+}
+exec 3>&1
+eitr-shell() {
+  if [[ "$*" == 'desktop-bar ipc call -- bar reload' && ! -e "$XDG_RUNTIME_DIR/eitr/system-update.pid" ]]; then
+    echo reload-after-release >&3
+  fi
+}
+""")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("plugin-hook-while-busy\nhook post-update system\nreload-after-release", result.stdout)
+
+    def test_interrupted_upgrade_clears_marker_and_pairs_snapshot(self):
+        result = run_protected_update("""
+sudo() {
+  echo "sudo $*"
+  if [[ "$*" == "pacman -Su" ]]; then kill -INT "$$"; fi
+}
+""")
+        self.assertEqual(result.returncode, 130, result.stderr)
+        self.assertIn("snapshot-post failed", result.stdout)
 
     def test_a_mismatched_signature_is_repaired_by_a_forced_refresh(self):
         # A stalled download can leave a new package list with its old signature;

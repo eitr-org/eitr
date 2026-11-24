@@ -155,7 +155,7 @@ Eitr 在带有签名的 `eitr-desktop` 软件包内部随附了插件阻止列�
 
 对于仅包含脚本的清单声明 `schemaVersion: 1`，对于下述可选的 `ui` 部分声明 `schemaVersion: 2`。没有版本的较早清单仍可作为 v1 工作，在审核中会有提示；高于 2 的版本需要更新的 Eitr。作者指南 `distro/PLUGINS.md`（打包为 `PLUGINS.md`）定义了稳定的版本 1 规范。
 
-插件可以声明 `theme-changed`、`wallpaper-changed`、`after-update` 和 `login` 钩子。它们在操作后在后台运行（登录钩子每个桌面会话运行一次），具有 30 秒的超时时间。故障记录在 `$XDG_STATE_HOME/eitr/plugin-hooks.log` 中，绝不会导致操作失败。审核界面列出钩子；新增或更改的钩子会引发更新风险 (RISK) 标记。阻止列表和组织策略同样适用于钩子。
+插件可以声明 `theme-changed`、`wallpaper-changed`、`after-update` 和 `login` 钩子。系统更新会等待其钩子执行完毕，再重新加载桌面栏。其他事件的钩子在后台运行，登录钩子每个桌面会话运行一次。每个钩子的超时时间为 30 秒。故障记录在 `$XDG_STATE_HOME/eitr/plugin-hooks.log` 中，绝不会导致操作失败。审核界面列出钩子；新增或更改的钩子会引发更新风险 (RISK) 标记。阻止列表和组织策略同样适用于钩子。
 
 ### 视觉插件
 

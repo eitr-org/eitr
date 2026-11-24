@@ -236,7 +236,7 @@ class PluginRuntime:
             return value.decode('utf-8')
 
     def hooks(self, event):
-        """Called in a detached dispatcher; each approved hook has its own timeout."""
+        """Run approved event hooks with a timeout for each hook."""
         if event not in HOOK_EVENTS:
             raise ValueError('Unknown plugin event')
         if os.geteuid() == 0 or eitr_policy.load().get('plugins', True) is False:

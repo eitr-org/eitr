@@ -1231,24 +1231,22 @@ class PluginTests(unittest.TestCase):
 
     def test_after_update_fires_only_when_updates_were_installed(self):
         script = (ROOT / 'walker/scripts/actions/system/update.sh').read_text()
-        up_to_date = script[script.index('if [[ "${1:-}" == system ]] && no_updates; then'):]
+        up_to_date = script[script.index('if [[ "$update_kind" == system ]] && no_updates; then'):]
         up_to_date = up_to_date[:up_to_date.index('\nfi\n')]
         self.assertNotIn('plugin_after_update', up_to_date)
         self.assertEqual(script.count('\n    plugin_after_update\n'), 1)
 
     def test_event_trigger_sites_are_detached(self):
-        for filename, event in (('walker/scripts/actions/style/apply.sh', 'theme-changed'),
-                                ('walker/scripts/actions/system/update.sh', 'after-update')):
-            text = (ROOT / filename).read_text()
-            line = next(line for line in text.splitlines() if 'hooks ' + event in line)
-            self.assertIn('setsid python3', line)
-            self.assertTrue(line.endswith('&'))
-            with tempfile.TemporaryDirectory() as directory:
-                trace = Path(directory) / 'calls'
-                environment = dict(os.environ, EITR_CODE_ROOT=str(ROOT), EITR_THEME='forest', THEME_NAME='forest', TRACE=str(trace))
-                harness = 'setsid() { printf "%s\\n" "$*" > "$TRACE"; };\n' + line + '\nwait\n'
-                subprocess.run(['bash', '-c', harness], env=environment, check=True)
-                self.assertIn('hooks ' + event, trace.read_text())
+        style = (ROOT / 'walker/scripts/actions/style/apply.sh').read_text()
+        line = next(line for line in style.splitlines() if 'hooks theme-changed' in line)
+        self.assertIn('setsid python3', line)
+        self.assertTrue(line.endswith('&'))
+        with tempfile.TemporaryDirectory() as directory:
+            trace = Path(directory) / 'calls'
+            environment = dict(os.environ, EITR_CODE_ROOT=str(ROOT), EITR_THEME='forest', THEME_NAME='forest', TRACE=str(trace))
+            harness = 'setsid() { printf "%s\\n" "$*" > "$TRACE"; };\n' + line + '\nwait\n'
+            subprocess.run(['bash', '-c', harness], env=environment, check=True)
+            self.assertIn('hooks theme-changed', trace.read_text())
         wallpaper = (ROOT / 'walker/scripts/actions/wallpaper/transition.py').read_text()
         self.assertIn('dispatch_hooks("wallpaper-changed", EITR_WALLPAPER=path)', wallpaper)
         bar = (ROOT / 'quickshell/desktop-bar/services/WelcomeSession.qml').read_text()

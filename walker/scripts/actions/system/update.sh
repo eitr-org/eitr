@@ -25,7 +25,7 @@ arch_news_ok() {
   (( status == 10 )) || return 0
   python3 "${i18n_library%/*}/eitr_terminal.py" confirm "$(eitr_gettext 'Continue the update?')"
 }
-cancel() { rm -f "$packages"; eitr_gettext 'Update cancelled; nothing was changed.'; printf '\n'; exit 0; }
+cancel() { eitr_gettext 'Update cancelled; nothing was changed.'; printf '\n'; exit 0; }
 # Only the distro's System Update path creates snapshots.
 # Sync, then upgrade in the same run (the same as -Syu). A list whose signature
 # stalled mid-download keeps a mismatched old signature that pacman then skips
@@ -70,7 +70,7 @@ no_updates() (
   [[ -z "$flatpaks" ]]
 )
 plugin_after_update() {
-  setsid python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/install/plugins.py" hooks after-update >/dev/null 2>&1 < /dev/null &
+  python3 "${EITR_CODE_ROOT:-/usr/share/eitr}/walker/scripts/actions/install/plugins.py" hooks after-update >/dev/null 2>&1 < /dev/null || true
 }
 check_plugin_updates() {
   local count
@@ -81,12 +81,50 @@ check_plugin_updates() {
   fi
 }
 
-if [[ "${1:-}" == system ]] && no_updates; then
+packages=''
+update_marker=''
+snapshot_pending=false
+clear_update_marker() {
+  if [[ -n "$update_marker" ]]; then
+    rm -f -- "$update_marker"
+    update_marker=''
+  fi
+}
+finish_update() {
+  local status=$?
+  if "$snapshot_pending"; then finish_snapshot || true; fi
+  clear_update_marker
+  if [[ -n "$packages" ]]; then rm -f -- "$packages"; fi
+  exit "$status"
+}
+trap finish_update EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+trap 'exit 129' HUP
+
+update_kind="${1:-}"
+if [[ "$update_kind" == system ]]; then
+  exec 9>"${XDG_RUNTIME_DIR:-/tmp}/eitr-system-update-$UID.lock"
+  flock -n 9 || { echo 'Another System Update is running.' >&2; exit 1; }
+  if [[ -n "${XDG_RUNTIME_DIR:-}" ]]; then
+    mkdir -p -- "$XDG_RUNTIME_DIR/eitr"
+    update_marker="$XDG_RUNTIME_DIR/eitr/system-update.pid"
+    printf '%s\n' "$$" >"$update_marker"
+  fi
+fi
+
+request_bar_reload() {
+  clear_update_marker
+  eitr-shell desktop-bar ipc call -- bar reload >/dev/null 2>&1 || true
+}
+
+if [[ "$update_kind" == system ]] && no_updates; then
   lockscreen_migrate
   check_plugin_updates
   eitr_gettext 'Everything is up to date.'
   printf '\n'
   sleep 3
+  request_bar_reload
   exit 0
 fi
 # After a successful update, offer a restart or log-out when changed packages need one.
@@ -111,11 +149,11 @@ offer_restart() {
   [[ -f "$runner" ]] && bash "$runner" post-update "$update_kind"
   if [[ "$(pacman -Q eitr-desktop 2>/dev/null || true)" != "$desktop_before" ]]; then
     systemctl --user try-restart elephant.service >/dev/null 2>&1 || true
-    eitr-shell desktop-bar ipc call -- bar reload >/dev/null 2>&1 || true
+    desktop_changed=true
   fi
   python3 "$restart_check" compare "$packages" || true
 }
-update_kind="${1:-}"
+desktop_changed=false
 case "${1:-}" in
   system|pacman|full) arch_news_ok || cancel ;;
 esac
@@ -128,21 +166,18 @@ case "${1:-}" in
         if [[ -x "$candidate" ]]; then helper="$candidate"; break; fi
       done
       [[ -n "$helper" ]] || { echo 'Distro snapshot helper is missing; update aborted.' >&2; exit 1; }
-      exec 9>"${XDG_RUNTIME_DIR:-/tmp}/eitr-system-update-$UID.lock"
-      flock -n 9 || { echo 'Another System Update is running.' >&2; exit 1; }
       sudo -v
       run_with_spinner "$(eitr_gettext 'Creating the before-update snapshot…')" sudo -n "$helper" snapshot-pre
       # Always pair the pre snapshot, even when the upgrade fails or is declined.
       outcome=failed
       finish_snapshot() {
-        sudo -v
-        run_with_spinner "$(eitr_gettext 'Creating the after-update snapshot…')" sudo -n "$helper" snapshot-post "$outcome"
+        sudo -v && run_with_spinner "$(eitr_gettext 'Creating the after-update snapshot…')" sudo -n "$helper" snapshot-post "$outcome"
       }
-      trap finish_snapshot EXIT
+      snapshot_pending=true
       full_update
       outcome=success
       # Finish the post snapshot before a restart can be offered.
-      trap - EXIT
+      snapshot_pending=false
       finish_snapshot
     else
       full_update
@@ -157,3 +192,4 @@ case "${1:-}" in
   full) full_update; offer_restart ;;
   *) echo 'Usage: update.sh system|pacman|yay|full' >&2; exit 2 ;;
 esac
+if [[ "$update_kind" == system || "$desktop_changed" == true ]]; then request_bar_reload; fi

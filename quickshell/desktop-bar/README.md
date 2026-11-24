@@ -124,12 +124,14 @@ the screen; dismiss with the close button or Escape while focused. Successful
 reloads stay quiet. The previous working configuration remains active after a
 failed reload. A failure before any configuration loads still uses Quickshell's
 built-in fallback, since the custom popup cannot run yet. `services/BarReload.qml`
-watches the packaged `/usr/share/eitr/version` stamp (and waits for `/var/lib/pacman/db.lck`
-to clear), watches `PluginRegistry.installedRevision` for plugin installs, updates
-and removals, and accepts `eitr-shell desktop-bar ipc call -- bar reload` from
-System Update, logging one info line and calling `Quickshell.reload(false)` once
-every bar window, panel, Store, picker, notification popup, focused widget and
-capture/domain action is idle.
+watches the packaged `/usr/share/eitr/version` stamp and
+`PluginRegistry.installedRevision`. It compares both with what the current bar
+generation loaded. System Update holds reloads with a runtime PID marker through
+its post-update hooks, clears the marker, then sends
+`eitr-shell desktop-bar ipc call -- bar reload`. For terminal upgrades the stamp
+watch waits for `/var/lib/pacman/db.lck` to clear and gives update triggers five
+quiet seconds to settle. The coordinator refreshes the plugin registry for the
+new package version and calls `Quickshell.reload(false)` when the bar is idle.
 
 ## EITR Handbook
 

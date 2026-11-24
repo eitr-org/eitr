@@ -28,7 +28,7 @@ La mise à jour du système couvre les paquets officiels, AUR et Flatpak avec de
 
 Évitez les mises à jour partielles d’Arch. Lisez les questions des paquets plutôt que d’accepter une suppression inattendue sans vérifier. Les tâches réussies se ferment ; les échecs restent visibles pour permettre l’examen de leur sortie.
 
-Après une mise à jour du paquet de bureau EITR, la barre se recharge automatiquement une fois ses fenêtres et panneaux fermés et toute capture ou diffusion terminée. La session de bureau se poursuit.
+Après une mise à jour du paquet de bureau EITR, la barre se recharge une fois la mise à jour terminée, ses fenêtres et panneaux fermés et toute capture ou diffusion terminée. La Mise à jour du système attend aussi la fin des hooks exécutés après la mise à jour. La session de bureau se poursuit.
 
 Après une mise à jour réussie, une notification demande de la terminer si nécessaire : **Redémarrer maintenant** après une mise à jour du noyau, du firmware, du microcode, de systemd, glibc, du pilote graphique ou du chiffrement du disque. **Se déconnecter maintenant** concerne les mises à jour du bureau, comme Hyprland, Quickshell, Walker ou PipeWire. **Plus tard** permet de continuer à travailler ; les nouvelles versions prennent effet au prochain redémarrage ou à la prochaine connexion.
 
@@ -56,7 +56,7 @@ Une nouvelle installation programme une tentative en arrière-plan deux minutes 
 
 État en lecture seule : `/usr/lib/eitr/eitr-system mirrors-status` affiche du JSON avec `last_ranking_time` (UTC, ou null avant réussite), `mirror_count`, `shipped_fallback` et `backup_available`. Il lit les fichiers locaux sans réseau ni sudo.
 
-La mise à jour du système vérifie les nouveaux commits des plugins à la fin sans changer les versions approuvées. Révisez-les et installez-les séparément dans **Centre de contrôle > Plugins > Mettre à jour les plugins**, **Installer > Plugins > Mettre à jour les plugins** ou avec `eitr plugin update`. Les erreurs réseau sont ignorées silencieusement ; les hooks after-update restent inchangés.
+La mise à jour du système vérifie les nouveaux commits des plugins à la fin sans changer les versions approuvées. Révisez-les et installez-les séparément dans **Centre de contrôle > Plugins > Mettre à jour les plugins**, **Installer > Plugins > Mettre à jour les plugins** ou avec `eitr plugin update`. Les erreurs réseau sont ignorées silencieusement.
 
 Paramètres > Mises à jour affiche les paquets en attente et permet de renouveler la liste. Pour les vérifications en lecture seule, voir [Dépannage](handbook:troubleshooting).
 ## Nettoyer mon Eitr

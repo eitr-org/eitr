@@ -74,7 +74,8 @@ Reviewed plugin terminals release menus and widget editing before launch;
 approval reloads also end editing for installs started through Walker.
 
 The desktop bar reloads in place when idle after an EITR desktop package
-upgrade or an approved plugin install, update or removal. The Store stays open
+upgrade or an approved plugin install, update or removal. System Update waits
+for its post-update hooks before releasing one reload. The Store stays open
 until you close it.
 
 Settings > Security adds reviewed account creation and read-only human account rows. New accounts initialize their own desktop at first Hyprland login through UWSM; deletion is not offered.

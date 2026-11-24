@@ -24,7 +24,7 @@ Die Systemaktualisierung umfasst offizielle Pakete, AUR und Flatpak mit Snapshot
 
 Vermeide Teilaktualisierungen von Arch. Lies Paketabfragen, statt eine unerwartete Entfernung ungeprüft zu bestätigen. Erfolgreiche Aufgaben schließen sich; Fehlerausgaben bleiben zur Untersuchung sichtbar.
 
-Nach einem Update des EITR-Desktop-Pakets lädt sich die Leiste automatisch neu, sobald ihre Fenster und Panels geschlossen sind und keine Aufnahme oder Übertragung läuft. Die Desktop-Sitzung läuft weiter.
+Nach einem Update des EITR-Desktop-Pakets lädt sich die Leiste neu, sobald das Update abgeschlossen ist, ihre Fenster und Panels geschlossen sind und keine Aufnahme oder Übertragung läuft. Die Systemaktualisierung wartet auch auf den Abschluss der Nach-Update-Hooks. Die Desktop-Sitzung läuft weiter.
 
 Nach erfolgreicher Aktualisierung fordert bei Bedarf eine Benachrichtigung zum Abschluss auf: **Jetzt neu starten** nach Kernel-, Firmware-, Mikrocode-, systemd-, glibc-, Grafiktreiber- oder Laufwerksverschlüsselungs-Aktualisierungen. **Jetzt abmelden** gilt nach Desktop-Aktualisierungen wie Hyprland, Quickshell, Walker oder PipeWire. Mit **Später** arbeitest du weiter; die neuen Versionen werden beim nächsten Neustart oder Anmelden verwendet.
 
@@ -50,7 +50,7 @@ Neue Installationen planen zwei Minuten nach jedem Start einen Hintergrundversuc
 
 Nur lesender Status: `/usr/lib/eitr/eitr-system mirrors-status` gibt JSON mit `last_ranking_time` (UTC oder null vor dem ersten Erfolg), `mirror_count`, `shipped_fallback` und `backup_available` aus. Dabei werden lokale Dateien ohne Netzwerkzugriff oder sudo gelesen.
 
-Die Systemaktualisierung prüft am Ende auf neue Plugin-Commits, ohne bestätigte Versionen zu ändern. Prüfe und installiere sie separat unter **Kontrollzentrum > Plugins > Plugins aktualisieren**, **Installieren > Plugins > Plugins aktualisieren** oder mit `eitr plugin update`. Netzwerkfehler werden still ignoriert; after-update-Hooks bleiben unverändert.
+Die Systemaktualisierung prüft am Ende auf neue Plugin-Commits, ohne bestätigte Versionen zu ändern. Prüfe und installiere sie separat unter **Kontrollzentrum > Plugins > Plugins aktualisieren**, **Installieren > Plugins > Plugins aktualisieren** oder mit `eitr plugin update`. Netzwerkfehler werden still ignoriert.
 
 Einstellungen > Aktualisierungen zeigt ausstehende Pakete und kann die Liste erneuern. Schreibgeschützte Zustandsprüfungen erklärt [Fehlerbehebung](handbook:troubleshooting).
 ## Mein Eitr reinigen

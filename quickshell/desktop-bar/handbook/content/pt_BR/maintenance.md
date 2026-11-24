@@ -24,7 +24,7 @@ A Atualização do sistema inclui pacotes oficiais, AUR e Flatpak com snapshots 
 
 Evite atualizações parciais do Arch. Leia as mensagens dos pacotes em vez de aceitar uma remoção inesperada sem conferir. Tarefas bem-sucedidas fecham automaticamente; falhas ficam visíveis para você investigar sem perder a saída.
 
-Após uma atualização do pacote de desktop do EITR, a barra recarrega automaticamente assim que suas janelas e painéis estiverem fechados e qualquer gravação ou transmissão tiver terminado. A sessão do desktop continua aberta.
+Após uma atualização do pacote de desktop do EITR, a barra recarrega quando a atualização termina, suas janelas e painéis estão fechados e não há gravação ou transmissão em andamento. A Atualização do sistema também espera a conclusão dos hooks pós-atualização. A sessão do desktop continua aberta.
 
 Após uma atualização bem-sucedida, uma notificação pede a conclusão quando necessário: **Reiniciar agora** após atualizações de kernel, firmware, microcódigo, systemd, glibc, driver de vídeo ou criptografia de disco; ou **Sair agora** após atualizações do desktop, como Hyprland, Quickshell, Walker ou PipeWire. **Mais tarde** permite continuar trabalhando; as novas versões passam a valer na próxima reinicialização ou sessão.
 
@@ -50,7 +50,7 @@ Novas instalações agendam uma tentativa em segundo plano dois minutos após ca
 
 Status somente de leitura: `/usr/lib/eitr/eitr-system mirrors-status` imprime JSON com `last_ranking_time` (UTC, ou null antes do primeiro sucesso), `mirror_count`, `shipped_fallback` e `backup_available`. Lê arquivos locais sem rede nem sudo.
 
-A Atualização do sistema verifica novos commits dos plugins ao terminar, sem alterar versões aprovadas. Revise e instale separadamente em **Central de controle > Plugins > Atualizar plugins**, **Instalar > Plugins > Atualizar plugins** ou `eitr plugin update`. Falhas de rede são ignoradas silenciosamente; os hooks after-update permanecem iguais.
+A Atualização do sistema verifica novos commits dos plugins ao terminar, sem alterar versões aprovadas. Revise e instale separadamente em **Central de controle > Plugins > Atualizar plugins**, **Instalar > Plugins > Atualizar plugins** ou `eitr plugin update`. Falhas de rede são ignoradas silenciosamente.
 
 Configurações > Atualizações mostra pacotes pendentes e permite renovar a lista. Para verificações somente de leitura, veja [Solução de problemas](handbook:troubleshooting).
 ## Limpar meu Eitr

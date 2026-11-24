@@ -52,9 +52,9 @@ Avoid partial Arch upgrades. Read package prompts rather than accepting an
 unexpected removal blindly. Successful update tasks close; failures remain
 visible so you can troubleshoot rather than lose their output.
 
-After an EITR desktop package update, the bar reloads automatically once its
-windows and panels are closed and capture is idle. The current desktop session
-continues.
+After an EITR desktop package update, the bar reloads once the update has
+finished, its windows and panels are closed, and capture is idle. System Update
+also waits for post-update hooks to finish. The desktop session continues.
 
 After a successful update, a notification asks to finish it when needed:
 **Restart now** after kernel, firmware, microcode, systemd, glibc, graphics
@@ -92,7 +92,7 @@ Fresh installations schedule one background attempt two minutes after each boot,
 
 Read-only status: `/usr/lib/eitr/eitr-system mirrors-status` prints JSON with `last_ranking_time` (UTC, or null before success), `mirror_count`, `shipped_fallback` and `backup_available`. Status reads local files without network access or sudo.
 
-System Update checks plugin availability at the end without changing approved plugin versions. Review and install plugin updates separately from **Control Center > Plugins > Update Plugins**, **Install > Plugins > Update Plugins**, or `eitr plugin update`. Offline check failures are ignored quietly; after-update hooks are unchanged.
+System Update checks plugin availability at the end without changing approved plugin versions. Review and install plugin updates separately from **Control Center > Plugins > Update Plugins**, **Install > Plugins > Update Plugins**, or `eitr plugin update`. Offline check failures are ignored quietly.
 
 Settings > Updates shows pending package updates and lets you refresh the list. For read-only health checks, see [Troubleshooting](handbook:troubleshooting).
 ## Clean My Eitr

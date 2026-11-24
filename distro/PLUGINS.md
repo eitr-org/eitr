@@ -85,7 +85,7 @@ When the last check found an update, use **Update Plugins** next to **Add Plugin
 **Plugins > Update Plugins**, or `eitr plugin update [ID]` to review
 and install updates. Each plugin keeps the same diffs, risk flags and confirmation.
 The Plugins list shows a small ↑ mark and details show **Update available** when
-the last check found new commits. After-update hooks retain their existing behavior.
+the last check found new commits.
 
 ## Repositories containing several plugins
 
@@ -168,8 +168,9 @@ the row command validation:
 
 Hooks run as the user, with argv, plugin working directory and inherited desktop
 environment, plus `EITR_EVENT` and the relevant context above. Unrelated Eitr
-event context is removed. Triggering actions launch the dispatcher without
-waiting. Each hook has a 30-second timeout; its process group is killed on timeout.
+event context is removed. System Update waits for its hooks before releasing the
+bar reload. Theme changes, wallpaper changes and login dispatch hooks in the
+background. Each hook has a 30-second timeout and its process group is killed on timeout.
 Output, failures and timeouts go to `$XDG_STATE_HOME/eitr/plugin-hooks.log`
 (default `~/.local/state/eitr/plugin-hooks.log`). A failure does not stop other
 plugins or fail the triggering action. Hooks from separate events may overlap;

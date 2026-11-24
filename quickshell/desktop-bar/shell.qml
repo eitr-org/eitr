@@ -42,6 +42,7 @@ ShellRoot {
         versionPath: Quickshell.env("EITR_LIVE_RELOAD") === "0" ? Quickshell.shellDir + "/../../version" : ""
         packageLockPath: versionPath ? "/var/lib/pacman/db.lck" : ""
         pluginRevision: PluginRegistry.installedRevision
+        onRefreshPlugins: PluginRegistry.refresh()
         property var captureBeforeRequest: null
         onPendingChanged: if (pending) {
             captureBeforeRequest = ObsStatus.summary;

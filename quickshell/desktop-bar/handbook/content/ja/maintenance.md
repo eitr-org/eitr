@@ -24,7 +24,7 @@ System Updateは、サポートされているディストリビューション�
 
 Archの部分的なアップグレードは避けてください。予期しない削除を盲目的に受け入れるのではなく、パッケージのプロンプトをよく読んでください。成功したアップデートタスクは閉じますが、失敗したタスクは出力を失わずにトラブルシューティングできるよう表示されたままになります。
 
-EITR デスクトップパッケージを更新すると、バーのウィンドウとパネルが閉じ、録画や配信が終了してから、バーが自動的に再読み込みされます。デスクトップセッションはそのまま続きます。
+EITR デスクトップパッケージの更新が完了し、バーのウィンドウとパネルが閉じ、録画や配信が終了すると、バーが再読み込みされます。システム更新では、更新後のフックが完了するまで待ちます。デスクトップセッションはそのまま続きます。
 
 アップデートが成功した後、必要に応じて完了を促す通知が表示されます: カーネル、ファームウェア、マイクロコード、systemd、glibc、グラフィックスドライバー、またはディスク暗号化のアップデート後は**Restart now**、Hyprland、Quickshell、Walker、PipeWireなどのデスクトップのアップデート後は**Log out now**が表示されます。**Later**を選択して作業を続けることもでき、新しいバージョンは次回の再起動またはログイン時に有効になります。
 
@@ -50,7 +50,7 @@ Walker > Settings > System > Maintenanceで、Choose Fastest Mirrorsを選択し
 
 読み取り専用ステータス: `/usr/lib/eitr/eitr-system mirrors-status`は、`last_ranking_time`（UTC、成功前はnull）、`mirror_count`, `shipped_fallback`, `backup_available`を含むJSONを出力します。ステータス確認はネットワークアクセスやsudoを使用せずにローカルファイルを読み取ります。
 
-System Updateは、最後に承認済みプラグインバージョンを変更することなく、プラグインの提供状況をチェックします。プラグインのアップデートの確認とインストールは、**Control Center > Plugins > Update Plugins**、**Install > Plugins > Update Plugins**、または`eitr plugin update`から個別に実行してください。オフライン時のチェック失敗は静かに無視されます。アップデート後フックは変更されません。
+System Updateは、最後に承認済みプラグインバージョンを変更することなく、プラグインの提供状況をチェックします。プラグインのアップデートの確認とインストールは、**Control Center > Plugins > Update Plugins**、**Install > Plugins > Update Plugins**、または`eitr plugin update`から個別に実行してください。オフライン時のチェック失敗は静かに無視されます。
 
 Settings > Updatesには保留中のパッケージアップデートが表示され、リストを更新できます。読み取り専用のヘルスチェックについては、[トラブルシューティング](handbook:troubleshooting)を参照してください。
 ## Eitrを掃除

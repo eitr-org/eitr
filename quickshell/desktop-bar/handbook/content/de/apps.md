@@ -153,7 +153,7 @@ Das Beispiel unter `distro/plugins/example/` enthält Manifest und `notify.sh`, 
 
 Für Skript-Manifeste gilt `schemaVersion: 1`, für den optionalen Abschnitt `ui` unten `schemaVersion: 2`. Ohne dieses Feld bleiben ältere Plugins kompatibel; die Prüfung zeigt einen Hinweis. Versionen über 2 benötigen ein neueres Eitr. Der Autorenleitfaden `distro/PLUGINS.md` (installiert als `PLUGINS.md`) beschreibt den stabilen Vertrag der Version 1.
 
-Plugins können Hooks für `theme-changed`, `wallpaper-changed`, `after-update` und `login` deklarieren. Sie laufen nach der Aktion im Hintergrund, bei Anmeldung einmal pro Desktopsitzung, mit 30 Sekunden Zeitlimit. Fehler stehen in `$XDG_STATE_HOME/eitr/plugin-hooks.log` und lassen die Aktion nicht fehlschlagen. Die Prüfung zeigt Hooks an; neue oder geänderte Hooks erhalten RISK-Markierungen bei Updates. Sperrliste und Organisationsrichtlinien gelten auch für Hooks.
+Plugins können Hooks für `theme-changed`, `wallpaper-changed`, `after-update` und `login` deklarieren. Die Systemaktualisierung wartet vor dem Neuladen der Leiste auf ihre Hooks. Die anderen Ereignisse starten ihre Hooks im Hintergrund, die Anmeldung einmal pro Desktopsitzung. Für jeden Hook gilt ein Zeitlimit von 30 Sekunden. Fehler stehen in `$XDG_STATE_HOME/eitr/plugin-hooks.log` und lassen die Aktion nicht fehlschlagen. Die Prüfung zeigt Hooks an; neue oder geänderte Hooks erhalten RISK-Markierungen bei Updates. Sperrliste und Organisationsrichtlinien gelten auch für Hooks.
 
 ### Visuelle Plugins
 
