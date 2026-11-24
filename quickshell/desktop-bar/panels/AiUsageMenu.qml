@@ -243,15 +243,16 @@ ThemedPopup {
                                             color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.12)
                                             Rectangle { width: parent.width * limit.used / 100; height: 6; radius: 3; color: DesktopStyle.usageColor(limit.used, menu.accent) }
                                         }
+                                        // A window nobody has used yet has no reset time: its clock starts on first use.
                                         Item {
-                                            visible: !!limit.modelData.reset
+                                            visible: !!limit.modelData.reset || limit.used === 0
                                             width: parent.width
                                             height: resetTime.implicitHeight
                                             Text {
                                                 id: resetTime
                                                 width: projection.visible ? projection.x - 8 : parent.width
                                                 elide: Text.ElideRight
-                                                text: limit.modelData.reset ? menu.resetLabel(limit.modelData.reset) : ""
+                                                text: limit.modelData.reset ? menu.resetLabel(limit.modelData.reset) : Eitr.I18n.tr("Starts on first use")
                                                 color: menu.foreground
                                                 opacity: PanelStyle.secondaryTextOpacity
                                                 font.family: DesktopFonts.family

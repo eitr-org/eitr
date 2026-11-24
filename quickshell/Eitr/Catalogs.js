@@ -1246,7 +1246,8 @@ var qml = {
     "Sort": "Sort",
     "Name A–Z": "Name A–Z",
     "Name Z–A": "Name Z–A",
-    "Creation date": "Creation date"
+    "Creation date": "Creation date",
+    "Starts on first use": "Starts on first use"
   },
   "pt_BR": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr e Eitr Light vêm integrados. Troque de tema antes de remover o tema atual da loja.",
@@ -2459,7 +2460,8 @@ var qml = {
     "Sort": "Ordenar",
     "Creation date": "Data de criação",
     "Name A–Z": "Nome A–Z",
-    "Name Z–A": "Nome Z–A"
+    "Name Z–A": "Nome Z–A",
+    "Starts on first use": "Começa no primeiro uso"
   },
   "es": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr y Eitr Light vienen incluidos. Cambia de tema antes de eliminar el tema actual de la tienda.",
@@ -3672,7 +3674,8 @@ var qml = {
     "Sort": "Ordenar",
     "Creation date": "Fecha de creación",
     "Name A–Z": "Nombre A–Z",
-    "Name Z–A": "Nombre Z–A"
+    "Name Z–A": "Nombre Z–A",
+    "Starts on first use": "Empieza con el primer uso"
   },
   "de": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr und Eitr Light sind vorinstalliert. Wechsle das Theme, bevor du dein aktuelles Store-Theme entfernst.",
@@ -4885,7 +4888,8 @@ var qml = {
     "Sort": "Sortieren",
     "Creation date": "Erstellungsdatum",
     "Name A–Z": "Name A–Z",
-    "Name Z–A": "Name Z–A"
+    "Name Z–A": "Name Z–A",
+    "Starts on first use": "Beginnt bei der ersten Nutzung"
   },
   "fr": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr et Eitr Light sont intégrés. Changez de thème avant de supprimer le thème actuel de la boutique.",
@@ -6098,7 +6102,8 @@ var qml = {
     "Sort": "Trier",
     "Creation date": "Date de création",
     "Name A–Z": "Nom A–Z",
-    "Name Z–A": "Nom Z–A"
+    "Name Z–A": "Nom Z–A",
+    "Starts on first use": "Commence à la première utilisation"
   },
   "ja": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr と Eitr Light は組み込みです。現在のストアテーマを削除するには、先に別のテーマに切り替えてください。",
@@ -7311,7 +7316,8 @@ var qml = {
     "Sort": "並べ替え",
     "Creation date": "作成日",
     "Name A–Z": "名前 A–Z",
-    "Name Z–A": "名前 Z–A"
+    "Name Z–A": "名前 Z–A",
+    "Starts on first use": "初回使用時に開始"
   },
   "zh_CN": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr 和 Eitr Light 为内置主题。移除当前商店主题前，请先切换到其他主题。",
@@ -8524,7 +8530,8 @@ var qml = {
     "Sort": "排序",
     "Creation date": "创建日期",
     "Name A–Z": "名称 A–Z",
-    "Name Z–A": "名称 Z–A"
+    "Name Z–A": "名称 Z–A",
+    "Starts on first use": "首次使用时开始"
   },
   "ko": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr와 Eitr Light는 기본 제공됩니다. 현재 스토어 테마를 제거하려면 먼저 다른 테마로 바꾸세요.",
@@ -9737,6 +9744,7 @@ var qml = {
     "Sort": "정렬",
     "Creation date": "생성 날짜",
     "Name A–Z": "이름 A–Z",
-    "Name Z–A": "이름 Z–A"
+    "Name Z–A": "이름 Z–A",
+    "Starts on first use": "처음 사용할 때 시작"
   }
 };
