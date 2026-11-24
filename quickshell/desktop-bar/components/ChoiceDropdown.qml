@@ -166,13 +166,15 @@ Item {
         y: control.labelRoom
         width: parent.width
         // An icon-only selector takes the size it is given, e.g. a filter inside a search field.
-        height: control.iconOnly ? control.height : control.outlined && !control.compact ? 48 : PanelStyle.selectionRowHeight
+        height: control.iconOnly ? control.height : control.outlined && !control.compact ? 40 : PanelStyle.selectionRowHeight
         iconSize: control.iconOnly ? 15 : 20
         foreground: control.foreground
         textAlignment: Text.AlignLeft
         flat: control.outlined
         // The value lines up with the floating label above it.
         textInset: control.outlined ? 14 : 8
+        // The value stops before the chevron (10 px inset, 14 px glyph box, 10 px gap).
+        trailingInset: control.iconOnly ? 8 : 34
         icon: control.iconOnly
         // Focus shows as the gold border, so a chosen field is not left filled.
         focusFill: !control.outlined
@@ -316,9 +318,9 @@ Item {
                 height: PanelStyle.selectionRowHeight
                 foreground: selected ? control.gold : control.foreground
                 readonly property bool highlighted: control.highlightedIndex === index || rowHover.hovered
-                color: Qt.alpha(control.foreground, PanelStyle.selectionAlpha(selected, highlighted))
-                border.width: PanelStyle.selectionBorderWidth(selected)
-                border.color: Qt.alpha(control.foreground, PanelStyle.selectionBorderAlpha)
+                // Only the chosen row and the one under the pointer or keyboard get a fill.
+                color: selected || highlighted ? Qt.alpha(control.foreground, PanelStyle.selectionAlpha(selected, highlighted)) : "transparent"
+                border.width: 0
                 textAlignment: Text.AlignLeft
                 leadingIcon: control.glyphOf(modelData)
                 // The selected row is marked by its background alone.

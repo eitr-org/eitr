@@ -10,12 +10,18 @@ class SelectionRows(unittest.TestCase):
         # Audio devices are listed by ChoiceDropdown, which owns the same row style.
         self.assertIn("ChoiceDropdown {", (ROOT / qml_path("AudioMenu.qml")).read_text())
         for name in ("WifiNetworkRow", "ConnectionRow", "AudioMenu", "DisplayListSection",
-                     "KeyboardLayoutRow", "ControlCenterTile", "ChoiceDropdown"):
+                     "KeyboardLayoutRow", "ControlCenterTile"):
             with self.subTest(panel=name):
                 source = (ROOT / qml_path(name + ".qml")).read_text()
                 self.assertIn("PanelStyle.selectionAlpha(", source)
                 self.assertIn("PanelStyle.selectionBorderWidth(", source)
                 self.assertIn("PanelStyle.selectionBorderAlpha", source)
+
+    def test_dropdown_list_fills_only_selected_and_highlighted_rows(self):
+        # An open list stays plain: no inactive fill or outline, as in Material menus.
+        source = (ROOT / qml_path("ChoiceDropdown.qml")).read_text()
+        self.assertIn('color: selected || highlighted ? Qt.alpha(control.foreground, PanelStyle.selectionAlpha(selected, highlighted)) : "transparent"', source)
+        self.assertIn("border.width: 0", source)
 
     def test_workspace_choices_have_no_outlines_or_dividers(self):
         # Workspace styles are picture cards drawn with the bar's real markers.

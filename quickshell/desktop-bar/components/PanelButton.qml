@@ -26,6 +26,8 @@ Rectangle {
     property int textAlignment: Text.AlignHCenter
     // Left inset of left-aligned text without a leading icon.
     property real textInset: 8
+    // Room kept clear after the text, e.g. for a dropdown's chevron.
+    property real trailingInset: 8
     // Off where another cue shows focus (an outlined field's border): only hover fills it then.
     property bool focusFill: true
     // Outlined fields show hover on their border instead of a fill.
@@ -62,7 +64,7 @@ Rectangle {
         visible: !button.loading || button.icon
         x: button.icon ? (button.width - ink.tightBoundingRect.width) / 2 - ink.tightBoundingRect.x + button.iconOffsetX : button.leadingIcon !== "" || button.leadingImage != "" ? 34 : button.textInset
         y: button.icon ? button.height / 2 - (baselineOffset + ink.tightBoundingRect.y + ink.tightBoundingRect.height / 2) : 0
-        width: button.icon ? implicitWidth : parent.width - x - 8
+        width: button.icon ? implicitWidth : parent.width - x - button.trailingInset
         height: button.icon ? implicitHeight : parent.height
         verticalAlignment: button.icon ? Text.AlignTop : Text.AlignVCenter
         horizontalAlignment: button.icon ? Text.AlignLeft : button.textAlignment

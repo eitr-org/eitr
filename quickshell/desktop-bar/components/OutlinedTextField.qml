@@ -24,7 +24,7 @@ Item {
         id: input
         y: field.labelRoom
         width: parent.width
-        height: 48
+        height: 40
         leftPadding: 14; rightPadding: 14
         color: field.foreground
         selectionColor: Qt.alpha(field.accent, 0.35)
