@@ -8,7 +8,7 @@ PanelButton {
     required property var catalog
     readonly property int count: catalog.updateItems.length
     readonly property var status: catalog.updateCheck
-    readonly property bool found: !status.pending && count > 0
+    readonly property bool found: count > 0
     readonly property string kinds: catalog.kinds.filter(kind => catalog.updateItems.some(item => item.storeKind === kind.id))
         .map(kind => Eitr.I18n.tr(kind.label)).join(", ")
     objectName: "store-updates-footer"
@@ -37,8 +37,8 @@ PanelButton {
             id: title
             catalog: card.catalog
             width: parent.width; elide: Text.ElideRight; wrapMode: Text.NoWrap
-            text: card.status.pending ? Eitr.I18n.tr("Checking for updates…") : card.found ? Eitr.I18n.tr("Updates available")
-                : card.status.error ? Eitr.I18n.tr("Update check failed") : card.status.date ? Eitr.I18n.tr("Up to date") : Eitr.I18n.tr("Updates")
+            text: catalog.checkingUpdates ? Eitr.I18n.tr("Checking for updates…") : catalog.updateCheckError ? Eitr.I18n.tr("Update check failed")
+                : card.found ? Eitr.I18n.tr("Updates available") : card.status.date ? Eitr.I18n.tr("Up to date") : Eitr.I18n.tr("Updates")
         }
         StoreLabel {
             id: caption
@@ -48,7 +48,7 @@ PanelButton {
             color: catalog.muted
             font.pixelSize: PanelStyle.captionSize
             text: card.found ? (card.count === 1 ? Eitr.I18n.tr("1 update") : Eitr.I18n.tr("%1 updates").arg(card.count))
-                : !card.status.pending && card.status.date ? Eitr.I18n.tr("Last checked %1").arg(card.status.date.toLocaleDateString(Qt.locale(Eitr.I18n.locale), "d MMM") + ", " + card.status.date.toLocaleTimeString(Qt.locale(Eitr.I18n.locale), Locale.ShortFormat)) : ""
+                : !catalog.checkingUpdates && card.status.date ? Eitr.I18n.tr("Last checked %1").arg(card.status.date.toLocaleDateString(Qt.locale(Eitr.I18n.locale), "d MMM") + ", " + card.status.date.toLocaleTimeString(Qt.locale(Eitr.I18n.locale), Locale.ShortFormat)) : ""
         }
         StoreLabel {
             id: kindLabel

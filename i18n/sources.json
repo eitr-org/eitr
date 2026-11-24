@@ -3729,6 +3729,7 @@
       "quickshell/desktop-bar/settings/SettingsOverview.qml"
     ],
     "Update check failed": [
+      "quickshell/desktop-bar/store/StoreState.qml",
       "quickshell/desktop-bar/store/StoreUpdatesFooter.qml"
     ],
     "Update selected (%1)": [

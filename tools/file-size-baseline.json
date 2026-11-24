@@ -2,7 +2,7 @@
   "limit": 400,
   "files": {
     "distro/lib/eitr_plugin_install.py": {
-      "lines": 1087,
+      "lines": 1088,
       "reason": "One approved plugin transaction, including package provenance and shared ownership transfer."
     },
     "distro/lib/eitr_profile.py": {
@@ -54,7 +54,7 @@
       "reason": "Barely over the limit; OBS launch, status, recording actions and the CLI after the capture options moved out."
     },
     "quickshell/desktop-bar/store/StoreState.qml": {
-      "lines": 418,
+      "lines": 420,
       "reason": "Store listings, cached startup, selection and review state share one owner."
     },
     "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml": {

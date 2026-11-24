@@ -35,7 +35,7 @@ Item {
     property bool indexLoaded: false
     readonly property bool communityEmpty: tab === "discover" && sourceFilter === "community" && indexLoaded && !repositoryError && !availableItems.some(item => item.kind === "community")
     property var selected: []
-    property var updates: ({})
+    readonly property var updates: checkingUpdates ? ({}) : updateCache[kind] || ({})
     property var updateCache: ({})
     property int opening: 0
     property var previews: ({})
@@ -111,7 +111,7 @@ Item {
     readonly property var pendingUpdates: installed.filter(item => (updates[item.id] || 0) > 0).map(item => item.id)
     property var updateQueue: []
     function updateSelected(items) {
-        if (busy || nativeReviewing || updateCheck.pending || !items.length) return;
+        if (busy || nativeReviewing || checkingUpdates || !items.length) return;
         updateQueue = items.slice();
         StoreUpdates.next(catalog);
     }
@@ -216,7 +216,11 @@ Item {
     readonly property var definition: kinds.find(entry => entry.id === kind) || kinds[0]
     readonly property var capabilities: definition.capabilities
     property string sourceFilter: "all"
-    readonly property var updateItems: StoreUpdates.items(store, kinds, updateCache)
+    readonly property bool checkingUpdates: (live && !updateCheck.date) || updateCheck.pending > 0
+        || (live && StoreUpdates.waitingForInstalled(store, updateCache))
+    readonly property string updateCheckError: updateCheck.error || (updateCheck.incomplete
+        || StoreUpdates.installedLookupFailed(store, updateCache) ? Eitr.I18n.tr("Update check failed") : "")
+    readonly property var updateItems: checkingUpdates ? [] : StoreUpdates.items(store, kinds, updateCache)
     readonly property var navigation: [
         {id: "discover", title: Eitr.I18n.tr("Discover"), rune: "ᚱ"},
         {id: "installed", title: Eitr.I18n.tr("Installed"), rune: "ᛟ"}
@@ -331,7 +335,7 @@ Item {
     function refreshIndex() { if (tab !== "installed") for (const source of definition.sources) fetch(kind, source); }
     function load() {
         generation++;
-        store = ({}); installed = []; availableItems = []; selected = []; updates = updateCache[kind] || ({}); previews = ({}); previewRequests = ({});
+        store = ({}); installed = []; availableItems = []; selected = []; previews = ({}); previewRequests = ({});
         detail = null; reviewIds = null; artwork = ({}); artworkRequests = ({}); reviewing = false; removing = null; busy = false; error = ""; repositoryError = ""; installedError = ""; progress = "";
         if (!live || !opened) return;
         fetch("themes", "installed");
@@ -347,7 +351,6 @@ Item {
     }
     function switchView() {
         detail = null; cursor = -1; catalog.scroll.contentY = 0; shown = pageSize; selected = []; error = ""; progress = "";
-        updates = updateCache[kind] || ({});
         if (live && opened) sync();
     }
     property var updateCheck: ({pending: 0, date: null, error: ""})
@@ -355,7 +358,6 @@ Item {
     function forgetUpdate(id) {
         const remaining = Object.assign({}, updateCache[kind] || {});
         delete remaining[id];
-        updates = remaining;
         updateCache = Object.assign({}, updateCache, {[kind]: remaining});
     }
     function act(name, args, done) {
@@ -407,11 +409,11 @@ Item {
         else if (removing) act("remove", {id: removing.id, removePackages: catalog.removePackagesChoice.checked ? removing.removablePackages || [] : []});
     }
     onTabChanged: if (tab !== "updates" && tab !== previousTab) { previousTab = tab; switchView(); }
-    onKindChanged: if (tab === "updates") { updates = updateCache[kind] || ({}); sync(); } else switchView()
+    onKindChanged: if (tab === "updates") sync(); else switchView()
     onToneChanged: { shown = pageSize; catalog.scroll.contentY = 0; }
     onQueryChanged: { shown = pageSize; cursor = -1; catalog.scroll.contentY = 0; }
     onOpenedChanged: {
-        if (opened) { opening++; updateCache = ({}); updateCheck = {pending: 0, date: null, error: ""}; load(); if (live) checkUpdates(); forceActiveFocus(); }
+        if (opened) { opening++; updateCheck = {pending: 0, date: null, error: ""}; updateCache = ({}); load(); if (live) checkUpdates(); forceActiveFocus(); }
         else { resetTransient(); discardReview(); mediaIndex = -1; generation++; DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); busy = false; }
     }
     Component.onDestruction: { DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); }

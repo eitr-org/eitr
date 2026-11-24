@@ -16,7 +16,7 @@ Rectangle {
     required property bool local
     readonly property string itemKind: item.storeKind || catalog.kind
     readonly property var capabilities: (catalog.kinds.find(entry => entry.id === itemKind) || catalog.definition).capabilities
-    readonly property int updateCount: (catalog.updateCache[itemKind] || catalog.updates)[item.id] || 0
+    readonly property int updateCount: catalog.checkingUpdates ? 0 : (catalog.updateCache[itemKind] || {})[item.id] || 0
     readonly property bool picked: catalog.getMore && !local && catalog.selected.includes(item.id)
     readonly property bool focused: catalog.cursor >= 0 && !!catalog.navigable[catalog.cursor] && catalog.navigable[catalog.cursor].id === item.id && (catalog.navigable[catalog.cursor].storeKind || catalog.kind) === itemKind
     readonly property bool actionable: catalog.getMore || !(local && item.current)

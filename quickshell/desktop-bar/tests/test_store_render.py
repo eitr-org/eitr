@@ -88,7 +88,67 @@ ShellRoot {
    interval: 350; running: true; repeat: true
    property int phase: 0
    property var cases: []
+   property real collapsedHeight: 0
+   function assertUpdateStatus(expected) {
+    const footer = find(panel, "store-updates-footer");
+    if (!footer.Accessible.name.startsWith(expected))
+     throw new Error("Expected " + expected + " but saw " + footer.Accessible.name);
+    const status = find(panel, "store-update-status");
+    if (expected === "Checking for updates…" || expected === "Up to date")
+     if (status.text !== expected) throw new Error("Unexpected Updates page status " + status.text);
+   }
+   function verifyUpdateCheck() {
+    const transport = panel.transport;
+    const replies = {};
+    panel.opened = false;
+    panel.live = true;
+    panel.tab = "updates";
+    panel.transport = function(name, args, callback) {
+     if (name === "check") replies[args.kind] = callback;
+     else if (name === "installed" && args.kind === "themes") {
+      // load() dispatches this before it starts the background check.
+      assertUpdateStatus("Checking for updates…");
+      replies.installed = callback;
+     } else callback("", {});
+    };
+    panel.opened = true;
+    assertUpdateStatus("Checking for updates…");
+    replies.themes("", {updates: {eitr: 1}});
+    assertUpdateStatus("Checking for updates…");
+    if (panel.updateItems.length || panel.updates.eitr)
+     throw new Error("Partial counts must stay hidden");
+    replies.plugins("", {updates: {}});
+    assertUpdateStatus("Checking for updates…");
+    replies.installed("", {items: [ROWS[0]]});
+    assertUpdateStatus("Updates available");
+    if (panel.updateItems.length !== 1) throw new Error("Missing fresh update result");
+
+    panel.checkUpdates();
+    assertUpdateStatus("Checking for updates…");
+    replies.themes("", {updates: {eitr: 1}});
+    replies.plugins("", {incomplete: true});
+    assertUpdateStatus("Update check failed");
+    if (panel.updateItems.length !== 1) throw new Error("Missing update from the successful kind");
+
+    panel.checkUpdates();
+    replies.themes("Offline", {});
+    assertUpdateStatus("Checking for updates…");
+    replies.plugins("Offline", {});
+    assertUpdateStatus("Update check failed");
+    if (find(panel, "store-update-status").text !== "Offline") throw new Error("Expected an offline error");
+    if (panel.updateItems.length) throw new Error("Offline check showed stale results");
+
+    panel.checkUpdates();
+    replies.themes("", {updates: {}});
+    replies.plugins("", {updates: {}});
+    assertUpdateStatus("Up to date");
+    panel.opened = false;
+    panel.live = false;
+    panel.transport = transport;
+    panel.opened = true;
+   }
    Component.onCompleted: {
+    verifyUpdateCheck();
     // Switching from a kind with other sources must list the new kind's own sources.
     panel.live = true; panel.kind = "themes"; panel.tab = "discover";
     panel.fetch("themes", "community");
@@ -110,6 +170,7 @@ ShellRoot {
     cases.push({kind:"themes",tab:"discover",name:"updates-footer-current"});
     cases.push({kind:"themes",tab:"discover",updates:true,name:"updates-footer-available"});
     cases.push({kind:"themes",tab:"discover",updates:true,many:true,name:"updates-footer-many"});
+    cases.push({kind:"themes",tab:"updates",checking:true,name:"updates-checking"});
     cases.push({kind:"themes",tab:"updates",updates:true,name:"updates-collapsed"});
     cases.push({kind:"themes",tab:"updates",updates:true,expanded:true,name:"updates-expanded"});
     cases.push({kind:"themes",tab:"discover",detail:true,name:"community-detail"});
@@ -192,6 +253,13 @@ ShellRoot {
        if (panel.updateItems.length !== 20) throw new Error("Twenty updates");
       }
      }
+     if (entry.expanded) {
+      const plugin = find(panel, "store-update-clock");
+      collapsedHeight = plugin.height;
+      plugin.toggleExpanded();
+      if (!plugin.expanded || plugin.height !== collapsedHeight || plugin.expandDuration !== 320)
+       throw new Error("Expansion should animate from the collapsed height");
+     }
      if (entry.popup) {
       filter.expanded = true;
       if (entry.dropdown) find(filter.popup.contentItem, "store-filter-sort").expanded = true;
@@ -207,7 +275,9 @@ ShellRoot {
      const footer = find(panel, "store-updates-footer");
      if (!footer || footer.height < 60 || !footer.activeFocusOnTab || footer.found !== !!entry.updates)
       throw new Error("Update footer state or sizing");
-     if (entry.tab === "updates") {
+     if (entry.checking && (!panel.checkingUpdates || panel.updateItems.length || !footer.Accessible.name.includes("Checking for updates…")))
+      throw new Error("Checking state exposed an update result");
+     if (entry.tab === "updates" && !entry.checking) {
       const page = find(panel, "store-updates-page");
       const plugin = find(panel, "store-update-clock");
       const theme = find(panel, "store-update-eitr");
@@ -225,8 +295,10 @@ ShellRoot {
        if (!plugin.activeFocus) throw new Error("Next update row focus");
        theme.toggleChecked();
        if (page.selected.length !== 1 || find(panel, "update-selected").text !== "Update selected (1)") throw new Error("Update selection");
-       plugin.toggleExpanded();
-       if (!plugin.expanded) throw new Error("Expanded changes");
+       if (!plugin.expanded || plugin.height <= collapsedHeight || !Qt.colorEqual(plugin.border.color, panel.accent))
+        throw new Error("Expanded details should extend the original surface");
+       if (Qt.colorEqual(theme.border.color, panel.accent))
+        throw new Error("Collapsed rows should have a neutral outline");
       }
      }
      if (entry.popup) {
@@ -280,7 +352,18 @@ ShellRoot {
      }
      const folder = entry.name.startsWith("updates-") || entry.name === "themes-discover" || entry.name === "community-detail" ? "REVIEW_TARGET" : "TARGET";
      const filename = folder + "/PALETTE-" + entry.name + ".png";
-     panel.grabToImage(result => { if (!result.saveToFile(filename)) throw new Error("Store capture failed"); });
+     panel.grabToImage(result => {
+      if (!result.saveToFile(filename)) throw new Error("Store capture failed");
+      if (entry.expanded) {
+       const plugin = find(panel, "store-update-clock");
+       Bar.DesktopStyle.reduceMotion = true;
+       plugin.toggleExpanded();
+       if (plugin.height !== collapsedHeight) throw new Error("Reduce motion should collapse instantly");
+       plugin.toggleExpanded();
+       if (plugin.height <= collapsedHeight) throw new Error("Reduce motion should expand instantly");
+       Bar.DesktopStyle.reduceMotion = false;
+      }
+     });
     }
     phase++;
    }
@@ -315,7 +398,7 @@ ShellRoot {
                     combined.save(updates_target / f'{palette}-sort-dropdown-menu.png')
                 for menu in ('appearance-filter', 'sort-dropdown', 'plugin-filters'):
                     self.assertTrue((updates_target / f'{palette}-{menu}-menu.png').exists())
-                for state in ('footer-checking', 'footer-current', 'footer-available', 'footer-many', 'collapsed', 'expanded'):
+                for state in ('footer-checking', 'footer-current', 'footer-available', 'footer-many', 'checking', 'collapsed', 'expanded'):
                     self.assertTrue((updates_target / f'{palette}-updates-{state}.png').exists())
                 for kind in ('themes', 'plugins', 'lockscreens', 'wallpapers'):
                     for tab in ('installed', 'discover'):

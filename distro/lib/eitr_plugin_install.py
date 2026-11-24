@@ -1030,7 +1030,7 @@ class PluginInstall:
             records[plugin_id] = {**record, 'enabled': enabled}
             self.save(records)
 
-    def check_updates(self, *, revision_for=None):
+    def check_updates(self, *, revision_for=None, failures=None):
         """Fetch metadata into installed repositories without checking out or running code."""
         counts = {}
         checked = {}
@@ -1050,7 +1050,8 @@ class PluginInstall:
                     checked[plugin_id] = dict(commit=record['commit'], target=target, count=count)
                     counts[plugin_id] = count
                 except (OSError, ValueError, subprocess.SubprocessError):
-                    continue
+                    if failures is not None:
+                        failures.append(plugin_id)
             self.write(self.state.with_name('plugin-updates.json'), checked)
         return counts
 

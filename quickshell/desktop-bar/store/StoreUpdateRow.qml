@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import Eitr as Eitr
 import "../PanelStyle.js" as PanelStyle
 
-Column {
+Rectangle {
     id: row
     required property var catalog
     required property var item
@@ -44,108 +44,123 @@ Column {
     Accessible.name: (item.name || "") + " · " + kindLabel
     Accessible.checked: checked
     Accessible.onToggleAction: toggleChecked()
-    spacing: PanelStyle.selectionRowGap
+    readonly property int expandDuration: DesktopStyle.motionDuration(320)
+    readonly property real headerHeight: Math.max(52, controls.implicitHeight + 12)
+    implicitHeight: headerHeight + body.height
+    height: implicitHeight
+    radius: DesktopStyle.radius(PanelStyle.controlRadius)
+    color: Qt.alpha(catalog.foreground, PanelStyle.selectionAlpha(checked || expanded, hover.hovered || activeFocus))
+    border.width: expanded || activeFocus ? 1 : PanelStyle.selectionBorderWidth(checked)
+    border.color: expanded ? catalog.accent : Qt.alpha(catalog.foreground, activeFocus ? 0.5 : PanelStyle.selectionBorderAlpha)
+    HoverHandler { id: hover }
 
-    Rectangle {
-        width: parent.width
-        // Two lines (name and version) need more room than a one-line selection row.
-        implicitHeight: Math.max(52, controls.implicitHeight + 12)
-        height: implicitHeight
-        radius: DesktopStyle.radius(PanelStyle.controlRadius)
-        color: Qt.alpha(catalog.foreground, PanelStyle.selectionAlpha(row.checked, hover.hovered || row.activeFocus))
-        border.width: row.activeFocus ? 1 : PanelStyle.selectionBorderWidth(row.checked)
-        border.color: row.activeFocus ? catalog.accent : Qt.alpha(catalog.foreground, PanelStyle.selectionBorderAlpha)
-        HoverHandler { id: hover }
-
-        RowLayout {
-            id: controls
-            anchors.fill: parent
-            anchors.leftMargin: PanelStyle.selectionActionInset + 2
-            anchors.rightMargin: PanelStyle.selectionActionInset + 2
-            spacing: PanelStyle.selectionActionGap
-            PanelButton {
-                Layout.preferredWidth: 28
-                Layout.preferredHeight: 28
-                activeFocusOnTab: false
-                foreground: catalog.foreground
-                icon: true; iconSize: PanelStyle.selectionIconSize
-                text: row.checked ? "\u{F0132}" : "\u{F0131}"
-                Accessible.role: Accessible.CheckBox
-                Accessible.name: row.Accessible.name
-                Accessible.checked: row.checked
-                onClicked: { row.forceActiveFocus(); row.toggleChecked(); }
+    RowLayout {
+        id: controls
+        anchors.left: parent.left
+        anchors.right: parent.right
+        height: row.headerHeight
+        anchors.leftMargin: PanelStyle.selectionActionInset + 2
+        anchors.rightMargin: PanelStyle.selectionActionInset + 2
+        spacing: PanelStyle.selectionActionGap
+        PanelButton {
+            Layout.preferredWidth: 28
+            Layout.preferredHeight: 28
+            activeFocusOnTab: false
+            foreground: catalog.foreground
+            icon: true; iconSize: PanelStyle.selectionIconSize
+            text: row.checked ? "\u{F0132}" : "\u{F0131}"
+            Accessible.role: Accessible.CheckBox
+            Accessible.name: row.Accessible.name
+            Accessible.checked: row.checked
+            onClicked: { row.forceActiveFocus(); row.toggleChecked(); }
+        }
+        // A plugin shows its own icon; other kinds (and plugins without one) show the kind's glyph.
+        Item {
+            readonly property string iconSource: row.item.storeKind === "plugins" ? (row.item.icon || "") : ""
+            Layout.preferredWidth: 22
+            Layout.preferredHeight: 22
+            Image {
+                id: ownIcon
+                anchors.fill: parent
+                visible: status === Image.Ready
+                source: parent.iconSource
+                sourceSize: Qt.size(44, 44)
+                fillMode: Image.PreserveAspectFit
+                asynchronous: true
             }
-            // A plugin shows its own icon; other kinds (and plugins without one) show the kind's glyph.
-            Item {
-                readonly property string iconSource: row.item.storeKind === "plugins" ? (row.item.icon || "") : ""
-                Layout.preferredWidth: 22
-                Layout.preferredHeight: 22
-                Image {
-                    id: ownIcon
-                    anchors.fill: parent
-                    visible: status === Image.Ready
-                    source: parent.iconSource
-                    sourceSize: Qt.size(44, 44)
-                    fillMode: Image.PreserveAspectFit
-                    asynchronous: true
-                }
-                StoreLabel {
-                    anchors.centerIn: parent
-                    visible: !ownIcon.visible
-                    catalog: row.catalog
-                    font.family: PanelStyle.fontFamily
-                    font.pixelSize: PanelStyle.selectionIconSize
-                    text: row.kind ? String.fromCodePoint(parseInt(row.kind.icon, 16)) : ""
-                }
-            }
-            Column {
-                Layout.fillWidth: true
-                spacing: PanelStyle.selectionDetailGap
-                StoreLabel {
-                    catalog: row.catalog
-                    width: parent.width; elide: Text.ElideRight; wrapMode: Text.NoWrap
-                    text: row.item.name || ""
-                }
-                StoreLabel {
-                    catalog: row.catalog
-                    width: parent.width; elide: Text.ElideRight; wrapMode: Text.NoWrap
-                    color: catalog.muted; font.pixelSize: PanelStyle.captionSize
-                    text: row.version || (row.count === 1 ? Eitr.I18n.tr("1 change") : Eitr.I18n.tr("%1 changes").arg(row.count))
-                }
-                TapHandler { onTapped: { row.forceActiveFocus(); row.toggleExpanded(); } }
-            }
-            StorePill { catalog: row.catalog; text: row.kindLabel }
-            PanelButton {
-                Layout.preferredWidth: 28
-                Layout.preferredHeight: 28
-                foreground: catalog.foreground
-                text: row.expanded ? "⌄" : ">"
-                Accessible.name: row.expanded ? Eitr.I18n.tr("Hide changes") : Eitr.I18n.tr("Show changes")
-                onClicked: { row.forceActiveFocus(); row.toggleExpanded(); }
-            }
-            StoreActionButton {
-                id: update
+            StoreLabel {
+                anchors.centerIn: parent
+                visible: !ownIcon.visible
                 catalog: row.catalog
-                objectName: "update-" + row.item.id
-                Layout.preferredWidth: updateLabel.advanceWidth + 24
-                available: row.canUpdate
-                text: Eitr.I18n.tr("Update")
-                onClicked: row.updateRequested()
-                TextMetrics { id: updateLabel; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize; text: update.text }
+                font.family: PanelStyle.fontFamily
+                font.pixelSize: PanelStyle.selectionIconSize
+                text: row.kind ? String.fromCodePoint(parseInt(row.kind.icon, 16)) : ""
             }
         }
+        Column {
+            Layout.fillWidth: true
+            spacing: PanelStyle.selectionDetailGap
+            StoreLabel {
+                catalog: row.catalog
+                width: parent.width; elide: Text.ElideRight; wrapMode: Text.NoWrap
+                text: row.item.name || ""
+            }
+            StoreLabel {
+                catalog: row.catalog
+                width: parent.width; elide: Text.ElideRight; wrapMode: Text.NoWrap
+                color: catalog.muted; font.pixelSize: PanelStyle.captionSize
+                text: row.version || (row.count === 1 ? Eitr.I18n.tr("1 change") : Eitr.I18n.tr("%1 changes").arg(row.count))
+            }
+            TapHandler { onTapped: { row.forceActiveFocus(); row.toggleExpanded(); } }
+        }
+        StorePill { catalog: row.catalog; text: row.kindLabel }
+        PanelButton {
+            Layout.preferredWidth: 28
+            Layout.preferredHeight: 28
+            foreground: catalog.foreground
+            text: ""
+            StoreLabel {
+                catalog: row.catalog
+                anchors.centerIn: parent
+                font.family: PanelStyle.fontFamily
+                font.pixelSize: PanelStyle.selectionIconSize
+                color: row.expanded ? catalog.accent : catalog.foreground
+                text: "󰅂"
+                rotation: row.expanded ? 90 : 0
+                Behavior on rotation {
+                    enabled: row.expandDuration > 0
+                    NumberAnimation { duration: row.expandDuration; easing.type: Easing.OutCubic }
+                }
+            }
+            Accessible.name: row.expanded ? Eitr.I18n.tr("Hide changes") : Eitr.I18n.tr("Show changes")
+            onClicked: { row.forceActiveFocus(); row.toggleExpanded(); }
+        }
+        StoreActionButton {
+            id: update
+            catalog: row.catalog
+            objectName: "update-" + row.item.id
+            Layout.preferredWidth: updateLabel.advanceWidth + 24
+            available: row.canUpdate
+            text: Eitr.I18n.tr("Update")
+            onClicked: row.updateRequested()
+            TextMetrics { id: updateLabel; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize; text: update.text }
+        }
     }
-    Rectangle {
-        visible: row.expanded
+    Item {
+        id: body
+        y: row.headerHeight
         width: parent.width
-        height: details.implicitHeight
-        radius: DesktopStyle.radius(PanelStyle.controlRadius)
-        color: Qt.alpha(catalog.foreground, 0.04)
-        border.width: 1
-        border.color: Qt.alpha(catalog.foreground, PanelStyle.selectionBorderAlpha)
+        height: row.expanded ? details.implicitHeight : 0
+        visible: row.expanded || height > 0
+        enabled: row.expanded
+        clip: true
+        Behavior on height {
+            enabled: row.expandDuration > 0
+            NumberAnimation { duration: row.expandDuration; easing.type: Easing.OutCubic }
+        }
         readonly property var permissionLines: {
             const permissions = row.permissions;
-            if (!row.expanded || !permissions) return [];
+            if (!permissions) return [];
             const lines = [];
             if (permissions.capabilities.length) lines.push(Eitr.I18n.tr("New capabilities: %1").arg(permissions.capabilities.join(", ")));
             if (permissions.packages.length) lines.push(Eitr.I18n.tr("New system packages: %1").arg(permissions.packages.join(", ")));
@@ -164,7 +179,7 @@ Column {
                 catalog: row.catalog
                 width: parent.width - parent.padding * 2
                 visible: text !== ""
-                text: row.change ? row.change.error || row.version : Eitr.I18n.tr("Loading…")
+                text: row.change ? row.change.error || "" : Eitr.I18n.tr("Loading…")
             }
             StoreLabel {
                 catalog: row.catalog
@@ -173,7 +188,7 @@ Column {
                 text: Eitr.I18n.tr("Changes")
             }
             Repeater {
-                model: row.expanded && row.change ? row.change.commits || [] : []
+                model: row.change ? row.change.commits || [] : []
                 StoreLabel {
                     required property var modelData
                     catalog: row.catalog
@@ -195,7 +210,7 @@ Column {
                 text: Eitr.I18n.tr("What it asks for")
             }
             Repeater {
-                model: parent.parent.permissionLines
+                model: body.permissionLines
                 StoreLabel {
                     required property string modelData
                     catalog: row.catalog
@@ -206,7 +221,7 @@ Column {
             }
             StoreLabel {
                 catalog: row.catalog
-                visible: Boolean(row.permissions) && parent.parent.permissionLines.length === 0
+                visible: Boolean(row.permissions) && body.permissionLines.length === 0
                 width: parent.width - parent.padding * 2
                 text: Eitr.I18n.tr("No new permissions")
                 color: catalog.muted

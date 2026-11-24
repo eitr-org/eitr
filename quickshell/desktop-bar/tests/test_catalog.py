@@ -379,7 +379,7 @@ ShellRoot {
       panel.previews = {moss: "PREVIEW2", jade: "PREVIEW3", asgard: "PREVIEW"};
       let checks = 0;
       panel.transport = function(name, args, callback) {
-       if (name === "check") { checks++; callback("", {updates:{afterglow:1}}); }
+       if (name === "check") { checks++; callback("", {updates: args.kind === "themes" ? {afterglow:1} : {}}); }
        else callback("", {items:[]});
       };
       panel.checkUpdates();
@@ -389,8 +389,8 @@ ShellRoot {
       panel.act("update", {id:"afterglow"});
       if (panel.updates.afterglow || panel.updateCache.themes.afterglow) throw new Error("an updated theme keeps its Update label");
       const updated = [];
-      panel.installed = installedThemes; panel.updates = {afterglow:1, mine:2};
-      panel.store = {"themes:installed": {items: installedThemes}}; panel.updateCache = {themes: panel.updates};
+      panel.installed = installedThemes;
+      panel.store = {"themes:installed": {items: installedThemes}}; panel.updateCache = {themes: {afterglow:1, mine:2}};
       if (panel.pendingUpdates.join() !== "afterglow,mine") throw new Error("pending updates follow the check");
       panel.transport = function(name, args, callback) { if (name === "update") updated.push(args.id); callback("", name === "update" ? {result:[args.id]} : {items:[]}); };
       panel.selected = ["moss"];
@@ -416,7 +416,7 @@ ShellRoot {
       if (updated.join() !== "afterglow,mine" || panel.pendingUpdates.length) throw new Error("Update selected applies each selected theme");
       keys.keyClick(Qt.Key_Escape);
       if (panel.tab !== "discover" || panel.selected.join() !== "moss") throw new Error("Escape restores the previous section and selection");
-      panel.installed = installedThemes; panel.updates = {afterglow:1}; panel.selected = ["moss"]; panel.busy = false;
+      panel.installed = installedThemes; panel.updateCache = {[panel.kind]: {afterglow:1}}; panel.selected = ["moss"]; panel.busy = false;
       panel.live = true;
       panel.transport = function(name, args, callback) { callback("Preview unavailable", {}); };
       panel.preview({id:"missing"});
@@ -495,7 +495,7 @@ ShellRoot {
      } else if (sample.phase === 7) {
       panel.closeDetail(); panel.tab = "installed"; panel.sourceFilter = "all";
       panel.installed = [{id:"eitr",name:"Eitr",kind:"builtin",current:true,description:"Primordial venom",previewUrl:"PREVIEW"},{id:"eitr-light",name:"Eitr Light",kind:"builtin",description:"Warm dusk",previewUrl:"PREVIEW3"},{id:"nord",name:"Nord",kind:"official",description:"Cool northern blues",previewUrl:"PREVIEW2"}];
-      panel.updates = {nord:1};
+      panel.updateCache = {[panel.kind]: {nord:1}};
       panel.forceActiveFocus(); keys.keyClick("n"); keys.keyClick("o"); keys.keyClick("r");
       if (panel.query !== "nor" || panel.locals.length !== 1 || panel.locals[0].id !== "nord") throw new Error("Typing searches installed themes: " + JSON.stringify(panel.query) + " " + panel.locals.length);
       panel.query = "northern BLUES";
@@ -550,13 +550,13 @@ ShellRoot {
      } else if (sample.phase === 14) {
       panel.mediaIndex = 0;
       // An update with nothing newer is "already up to date", not an empty review.
-      panel.updates = {gallery: 2};
+      panel.updateCache = {[panel.kind]: {gallery: 2}};
       panel.transport = function(name,args,callback) { callback("", name === "prepare" ? {upToDate:true} : {}); };
       panel.prepareReview({id:"gallery", updating:true});
       if (panel.nativeReviewing || panel.busy || panel.updates.gallery !== undefined || panel.progress === "") throw new Error("up to date update");
       panel.progress = "";
       // Confirming an update review clears that plugin's update mark (Update all and the card's Update).
-      panel.updates = {gallery: 1};
+      panel.updateCache = {[panel.kind]: {gallery: 1}};
       panel.transport = function(name,args,callback) { callback("", name === "prepare" ? {review:{token:"update-token",spec:{name:"Gallery"},changes:{new:"b"}}} : {result:[]}); };
       panel.prepareReview({id:"gallery", updating:true});
       panel.nativeConfirm();

@@ -18,7 +18,7 @@ ColumnLayout {
     readonly property bool pageActive: catalog.tab === "updates"
     readonly property var items: catalog.updateItems
     readonly property var selected: items.filter(item => !excluded[key(item)])
-    readonly property bool canUpdate: !catalog.busy && !catalog.updateCheck.pending && !catalog.nativeReviewing
+    readonly property bool canUpdate: !catalog.busy && !catalog.checkingUpdates && !catalog.nativeReviewing
     objectName: "store-updates-page"
     x: catalog.sidebarWidth; y: PanelStyle.padding
     width: catalog.width - x - PanelStyle.padding
@@ -41,7 +41,7 @@ ColumnLayout {
         Qt.callLater(loadNext);
     }
     function loadNext() {
-        if (!visible || !catalog.opened || catalog.updateCheck.pending || previewPending || !canUpdate) return;
+        if (!visible || !catalog.opened || previewPending || !canUpdate) return;
         const item = items.find(entry => !changes[key(entry)]);
         if (!item) return;
         const generation = previewGeneration;
@@ -96,7 +96,7 @@ ColumnLayout {
             }
             page.resetPreviews();
         }
-        function onUpdateCheckChanged() { if (!catalog.updateCheck.pending) page.resetPreviews(); }
+        function onCheckingUpdatesChanged() { page.resetPreviews(); }
     }
 
     FamilyPageHeader {
@@ -122,6 +122,7 @@ ColumnLayout {
             id: select
             catalog: page.catalog
             objectName: "updates-select"
+            visible: !catalog.checkingUpdates
             width: selectLabel.advanceWidth + 24
             text: page.selected.length === page.items.length ? Eitr.I18n.tr("Select none") : Eitr.I18n.tr("Select all")
             available: page.canUpdate && page.items.length > 0
@@ -133,6 +134,7 @@ ColumnLayout {
             id: apply
             catalog: page.catalog
             objectName: "update-selected"
+            visible: !catalog.checkingUpdates
             width: applyLabel.advanceWidth + 24
             text: Eitr.I18n.tr("Update selected (%1)").arg(page.selected.length)
             primary: true
@@ -145,9 +147,10 @@ ColumnLayout {
         catalog: page.catalog
         Layout.fillWidth: true
         visible: text !== ""
-        text: catalog.error || catalog.progress || catalog.updateCheck.error
-            || (catalog.updateCheck.pending ? Eitr.I18n.tr("Checking for updates…")
-                : page.items.length === 0 ? Eitr.I18n.tr("Up to date") : "")
+        text: catalog.checkingUpdates ? Eitr.I18n.tr("Checking for updates…")
+            : catalog.error || catalog.progress || catalog.updateCheckError
+                || (page.items.length === 0 ? Eitr.I18n.tr("Up to date") : "")
+        objectName: "store-update-status"
         Accessible.role: Accessible.AlertMessage
     }
     Flickable {

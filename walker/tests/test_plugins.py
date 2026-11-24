@@ -310,8 +310,10 @@ class PluginTests(unittest.TestCase):
         self.publish()
         self.manager.check_updates()
         output, errors = io.StringIO(), io.StringIO()
+        failures = []
         with patch('eitr_plugin_install.git', side_effect=subprocess.CalledProcessError(1, 'git')), redirect_stdout(output), redirect_stderr(errors):
-            self.assertEqual(self.manager.check_updates(), {})
+            self.assertEqual(self.manager.check_updates(failures=failures), {})
+        self.assertEqual(failures, ['example'])
         self.assertEqual(output.getvalue() + errors.getvalue(), '')
         self.assertEqual(self.manager.installed()[0]['updateCount'], 0)
 

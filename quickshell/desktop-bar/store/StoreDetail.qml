@@ -155,7 +155,7 @@ Rectangle {
                     anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.margins: 22
                     width: 150; primary: true; available: !catalog.busy || loading
                     loading: catalog.busy && catalog.actingId === catalog.detailItem.id
-                    visible: !catalog.detailItem.current && (catalog.capabilities.useOnClick || !catalog.isInstalled(catalog.detailItem) || (catalog.updates[catalog.detailItem.id] || catalog.detailItem.updateCount || 0) > 0)
+                    visible: !catalog.detailItem.current && (catalog.capabilities.useOnClick || !catalog.isInstalled(catalog.detailItem) || (!catalog.checkingUpdates && (catalog.updates[catalog.detailItem.id] || 0) > 0))
                     text: catalog.isInstalled(catalog.detailItem) ? ((catalog.kind === "plugins") ? Eitr.I18n.tr("Update") : Eitr.I18n.tr("Apply")) : Eitr.I18n.tr("Install")
                     onClicked: { if (catalog.kind === "plugins") catalog.reviewDetail(); else if (catalog.isInstalled(catalog.detailItem)) catalog.act("apply", {id: catalog.detailItem.id}, () => catalog.closeDetail()); else catalog.reviewDetail(); }
                 }

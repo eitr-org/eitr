@@ -62,3 +62,44 @@ assert.equal(pending[1].storeKind, 'plugins');
 
 assert.equal(context.filters({kind: 'own'}, definition('themes'), 'community', 'all', {}), false);
 assert.equal(context.filters({kind: 'own'}, definition('themes'), 'all', 'all', {}), true);
+
+const replies = {};
+const checkingCatalog = {
+    kinds: definitions, opened: true, opening: 1,
+    updateCheck: {pending: 0, date: null, error: ''},
+    updateCache: {plugins: {stale: 2}},
+    transport(name, args, callback) {
+        assert.equal(name, 'check');
+        replies[args.kind] = callback;
+    }
+};
+updates.check(checkingCatalog);
+assert.equal(checkingCatalog.updateCheck.pending, 2);
+assert.equal(checkingCatalog.updateCheck.date, null);
+assert.equal(Object.keys(checkingCatalog.updateCache).length, 0);
+replies.themes('', {updates: {theme: 1}});
+assert.equal(checkingCatalog.updateCheck.pending, 1);
+assert.equal(checkingCatalog.updateCheck.date, null);
+replies.plugins('Offline', {});
+assert.equal(checkingCatalog.updateCheck.pending, 0);
+assert.ok(checkingCatalog.updateCheck.date);
+assert.equal(checkingCatalog.updateCheck.error, 'Offline');
+assert.equal(checkingCatalog.updateCache.themes.theme, 1);
+assert.equal(updates.waitingForInstalled({}, checkingCatalog.updateCache), true);
+assert.equal(updates.waitingForInstalled({'themes:installed': {pending: true}}, checkingCatalog.updateCache), true);
+assert.equal(updates.waitingForInstalled({'themes:installed': {items: []}}, checkingCatalog.updateCache), false);
+assert.equal(updates.installedLookupFailed({'themes:installed': {error: 'Lookup failed'}}, checkingCatalog.updateCache), true);
+
+updates.check(checkingCatalog);
+replies.plugins('', {updates: {}, incomplete: true});
+replies.themes('', {updates: {}});
+assert.equal(checkingCatalog.updateCheck.pending, 0);
+assert.equal(checkingCatalog.updateCheck.incomplete, true);
+assert.equal(updates.waitingForInstalled({}, checkingCatalog.updateCache), false);
+
+updates.check(checkingCatalog);
+const staleReply = replies.themes;
+checkingCatalog.opening++;
+staleReply('', {updates: {stale: 2}});
+assert.equal(checkingCatalog.updateCheck.pending, 2);
+assert.equal(Object.keys(checkingCatalog.updateCache).length, 0);

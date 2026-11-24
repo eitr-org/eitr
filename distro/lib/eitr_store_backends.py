@@ -125,8 +125,11 @@ def plugins(name, args):
         return {'items': installed_badges(rows, kind)}
     if name == 'check':
         index = community_plugins()
-        return {'updates': backend.check_updates(
-            revision_for=lambda plugin_id, record: matching_plugin(index, plugin_id, record).get('commit'))}
+        failures = []
+        counts = backend.check_updates(
+            revision_for=lambda plugin_id, record: matching_plugin(index, plugin_id, record).get('commit'),
+            failures=failures)
+        return {'updates': counts, 'incomplete': bool(failures)}
     if name == 'remove':
         return {'result': backend.remove(args['id'], lambda record: True,
                                            lambda packages: [name for name in packages if name in args.get('removePackages', [])])}
