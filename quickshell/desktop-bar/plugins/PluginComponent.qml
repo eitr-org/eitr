@@ -57,7 +57,8 @@ Item {
     Keys.onEnterPressed: activate()
     Keys.onSpacePressed: activate()
 
-    clip: true
+    // Bar icons may overhang their slot (a count badge on the corner); the bar surface bounds them.
+    clip: !barItem
     readonly property string helper: Eitr.Paths.code("walker/scripts/actions/install/plugins.py")
     function fail(message) {
         if (error !== "") return;
