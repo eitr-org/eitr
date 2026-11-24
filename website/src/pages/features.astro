@@ -3,7 +3,6 @@ import { translator } from '../i18n';
 const t = translator(Astro.url.pathname, 'features');
 import Layout from '../layouts/Layout.astro';
 import { sitePages } from '../data/site-pages';
-import themes from '../data/themes.json';
 import release from '../data/release.json';
 ---
 <Layout {...sitePages.features}>
@@ -28,7 +27,7 @@ import release from '../data/release.json';
         <li>{t('lockscreen_accounts')}</li>
         <li>{t('place_monitors_beside_one_another_choose_a_main_display')}</li>
         <li>{t('adjust_per_application_audio_and_microphone_controls_in')}</li>
-        <li>{t('choose_from')} {themes.length} {t('themes_with_matching_application_colors_lockscreens_4k_')}</li>
+        <li>{t('theme_availability')}</li>
         <li>{t('add_wallpapers_from_a_file_or_link_for_all_themes_or_on')}</li>
         <li>{t('keep_your_preferred_bar_position_corners_cursor_and_fon')}</li>
         <li>{t('keybinds_window_rules')}</li>

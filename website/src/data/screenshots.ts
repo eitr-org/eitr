@@ -5,15 +5,15 @@ export const screenshotGroups = [
     "shots": [
       {
         "file": "desktop",
-        "caption": "the_desktop_nothing_open",
-        "alt": "the_empty_eitr_desktop_in_the_afterglow_theme_with_the_bar_along_",
+        "caption": "desktop_caption",
+        "alt": "desktop_alt",
         "width": 1920,
         "height": 1080
       },
       {
         "file": "control-center",
-        "caption": "the_control_center",
-        "alt": "the_control_center_beside_the_bar_on_the_eitr_desktop",
+        "caption": "control_center_caption",
+        "alt": "control_center_alt",
         "width": 1280,
         "height": 720
       },
@@ -61,10 +61,17 @@ export const screenshotGroups = [
       },
       {
         "file": "display",
-        "caption": "display_nightlight_and_each_monitor_s_resolution_refresh_rate_and",
-        "alt": "display_nightlight_and_each_monitor_s_resolution_refresh_rate_and",
-        "width": 1600,
-        "height": 900
+        "caption": "display_caption",
+        "alt": "display_alt",
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "file": "settings-displays",
+        "caption": "settings_displays_caption",
+        "alt": "settings_displays_alt",
+        "width": 1280,
+        "height": 720
       },
       {
         "file": "audio",
@@ -118,8 +125,15 @@ export const screenshotGroups = [
         "file": "settings-bar",
         "caption": "settings_caption",
         "alt": "settings_alt",
-        "width": 1152,
-        "height": 852
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "file": "settings-appearance",
+        "caption": "settings_appearance_caption",
+        "alt": "settings_appearance_alt",
+        "width": 1280,
+        "height": 720
       },
       {
         "file": "eitr-seal",
@@ -146,8 +160,8 @@ export const screenshotGroups = [
         "file": "catalog",
         "caption": "catalog_caption",
         "alt": "catalog_alt",
-        "width": 1152,
-        "height": 852
+        "width": 1280,
+        "height": 720
       },
       {
         "file": "store-wallpapers",

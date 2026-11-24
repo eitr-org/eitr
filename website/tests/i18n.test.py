@@ -91,6 +91,28 @@ class WebsiteTranslations(unittest.TestCase):
                     linked = documents.get(pathname) or Document(file)
                     self.assertIn(unquote(target.fragment), linked.ids, (path, anchor))
 
+    def test_release_highlight_screenshots(self):
+        expected = {
+            'settings-appearance': 'settings_appearance_alt',
+            'catalog': 'catalog_alt',
+            'settings-bar': 'settings_alt',
+            'display': 'display_alt',
+            'settings-displays': 'settings_displays_alt',
+        }
+        for language in LANGUAGES:
+            prefix = '' if language == 'en' else f'{language}/'
+            document = Document(ROOT / f'dist/{prefix}whats-new/index.html')
+            gallery = json.loads((ROOT / f'src/i18n/{language}.json').read_text())['gallery']
+            sections = document.attributes('section', **{'class': 'info-section release-highlight'})
+            self.assertEqual([section['id'] for section in sections], ['themes', 'store', 'bar', 'polish', 'plugins'])
+            links = document.attributes('a', **{'class': 'release-shot'})
+            self.assertEqual([link['href'] for link in links], [f'/shots/{file}.webp' for file in expected])
+            for file, alt_key in expected.items():
+                path = f'/shots/{file}.webp'
+                image, = document.attributes('img', src=path)
+                self.assertEqual(image['alt'], gallery[alt_key])
+                self.assertEqual((image['width'], image['height']), ('1280', '720'))
+
     def test_every_localized_fragment_resolves(self):
         documents = {}
         for language in LANGUAGES[1:]:
