@@ -20,7 +20,6 @@ Item {
     // Where the time sits within the pill, relative to its middle.
     required property real timeOffset
     anchors.fill: parent
-    readonly property var notifications: barHost.notificationsRef
     readonly property var obsState: barHost.obsMenu ? barHost.obsMenu.obsState : ({})
     readonly property bool recording: !!obsState.recording || !!obsState.streaming
     readonly property var player: barHost.mediaStrip ? barHost.mediaStrip.player : null
@@ -158,6 +157,11 @@ Item {
             text: "󰂚"
             transformOrigin: Item.Top
             rotation: activity.shared.bellAngle
+            CountBadge {
+                anchors.fill: parent
+                count: activity.shared.bellCount
+                accent: activity.host.activeBg
+            }
             onActivated: activity.barHost.panel("dashboard").show("notifications")
         }
     }

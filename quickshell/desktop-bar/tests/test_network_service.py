@@ -72,7 +72,7 @@ class SubscriptionLifetimeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="eitr-lifetimes-") as directory:
             root = Path(directory)
             for name in ("plugins/PluginComponent.qml", "services/UpdatesStatus.qml", "components/HardwareConsumer.qml", "components/SpectrumConsumer.qml",
-                         "PanelStyle.js", "Spectrum.js", "DesktopDataProtocol.js"):
+                         "components/CountBadge.qml", "PanelStyle.js", "Spectrum.js", "DesktopDataProtocol.js"):
                 (root / Path(name).name).write_text((bar / name).read_text().replace('import ".."\n', '').replace('"../', '"'))
             (root / "WeatherWidget.qml").write_text('import QtQuick\nItem { property var host; property bool autoRefresh; property bool compact; property string temperature; signal clicked() }')
             # The Eitr controls offered to plugins, as inert stand-ins.
@@ -118,7 +118,7 @@ function update() {}''',
             }
             registry = ['singleton DesktopData DesktopData.qml', 'PluginComponent PluginComponent.qml',
                         'UpdatesStatus UpdatesStatus.qml', 'HardwareConsumer HardwareConsumer.qml', 'SpectrumConsumer SpectrumConsumer.qml', 'BarTooltip BarTooltip.qml', 'WeatherWidget WeatherWidget.qml',
-                        'ChoiceDropdown ChoiceDropdown.qml', 'PanelButton PanelButton.qml', 'PanelTextField PanelTextField.qml', 'PanelSwitch PanelSwitch.qml']
+                        'ChoiceDropdown ChoiceDropdown.qml', 'PanelButton PanelButton.qml', 'PanelTextField PanelTextField.qml', 'PanelSwitch PanelSwitch.qml', 'CountBadge CountBadge.qml']
             for name, body in stubs.items():
                 (root / (name + '.qml')).write_text('pragma Singleton\nimport QtQuick\nQtObject {\n' + body + '\n}\n')
                 registry.append(f'singleton {name} {name}.qml')
@@ -226,7 +226,7 @@ ShellRoot {
         with tempfile.TemporaryDirectory(prefix="eitr-hw-lifetimes-") as directory:
             root = Path(directory)
             for name in ("plugins/PluginComponent.qml", "services/UpdatesStatus.qml", "components/HardwareConsumer.qml", "components/SpectrumConsumer.qml",
-                         "PanelStyle.js", "Spectrum.js", "DesktopDataProtocol.js"):
+                         "components/CountBadge.qml", "PanelStyle.js", "Spectrum.js", "DesktopDataProtocol.js"):
                 (root / Path(name).name).write_text((bar / name).read_text().replace('import ".."\n', '').replace('"../', '"'))
             (root / "WeatherWidget.qml").write_text('import QtQuick\nItem { property var host; property bool autoRefresh; property bool compact; property string temperature; signal clicked() }')
             for control in ("ChoiceDropdown", "PanelButton", "PanelTextField", "PanelSwitch"):
@@ -268,7 +268,7 @@ QtObject {
             }
             registry = ['singleton DesktopData DesktopData.qml', 'PluginComponent PluginComponent.qml',
                         'UpdatesStatus UpdatesStatus.qml', 'HardwareConsumer HardwareConsumer.qml', 'SpectrumConsumer SpectrumConsumer.qml', 'BarTooltip BarTooltip.qml', 'WeatherWidget WeatherWidget.qml',
-                        'ChoiceDropdown ChoiceDropdown.qml', 'PanelButton PanelButton.qml', 'PanelTextField PanelTextField.qml', 'PanelSwitch PanelSwitch.qml']
+                        'ChoiceDropdown ChoiceDropdown.qml', 'PanelButton PanelButton.qml', 'PanelTextField PanelTextField.qml', 'PanelSwitch PanelSwitch.qml', 'CountBadge CountBadge.qml']
             for name, body in stubs.items():
                 (root / (name + '.qml')).write_text('pragma Singleton\nimport QtQuick\nQtObject {\n' + body + '\n}\n')
                 registry.append(f'singleton {name} {name}.qml')

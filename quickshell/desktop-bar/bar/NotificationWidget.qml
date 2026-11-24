@@ -33,6 +33,12 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
     }
 
+    CountBadge {
+        anchors.fill: parent
+        count: notifications.notificationService.count
+        accent: notifications.host.activeBg
+    }
+
     MouseArea {
         id: mouse
 

@@ -59,7 +59,7 @@ ShellRoot {
             property var dynamicSurfaces: null
             property var dropSurfaces: dropLoader.item
             property var islandSurfaces: islandsLoader.item
-            property var clockActivity: ({flash:0, flashText:"", flashColor:"red", bellOut:false, bellAngle:0, timing:false, meetingSoon:false})
+            property var clockActivity: ({flash:0, flashText:"", flashColor:"red", bellOut:false, bellAngle:0, bellCount:0, timing:false, meetingSoon:false})
             property var notificationsRef: null
             property var keyboardMenu: null
             property var obsMenu: inert

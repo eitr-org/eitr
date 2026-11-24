@@ -132,6 +132,11 @@ Item {
             text: "󰂚"
             transformOrigin: Item.Top
             rotation: capture.activity ? capture.activity.bellAngle : 0
+            CountBadge {
+                anchors.fill: parent
+                count: capture.activity ? capture.activity.bellCount : 0
+                accent: capture.host.activeBg
+            }
             onActivated: capture.bellClicked()
         }
     }

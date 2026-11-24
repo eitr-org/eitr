@@ -28,6 +28,7 @@ Item {
     readonly property bool bellOut: alerting && bellHidden
     // The ringing bell's angle, for whichever bell is on screen.
     property real bellAngle: 0
+    readonly property int bellCount: notifications ? notifications.count : 0
     property int popupCount: notifications ? notifications.popups.length : 0
     property int seenPopups: 0
     onPopupCountChanged: {

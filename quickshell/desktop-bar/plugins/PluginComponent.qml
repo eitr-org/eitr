@@ -183,7 +183,7 @@ Item {
         readonly property bool compactBarItem: host.verticalBar || host.iconSlot
         // Eitr's own controls, already themed, so plugins look and behave like the rest of the
         // desktop: instantiate with a Loader (sourceComponent) and set the rest in onLoaded.
-        readonly property var controls: ({dropdown: hostDropdown, button: hostButton, textField: hostTextField, toggle: hostSwitch})
+        readonly property var controls: ({dropdown: hostDropdown, button: hostButton, textField: hostTextField, toggle: hostSwitch, countBadge: hostCountBadge})
         readonly property Component weatherWidgetComponent: (host.entry.capabilities || []).includes("weather") ? weatherView : null
         readonly property string clockFormat: host.clockFormat
         readonly property string fontFamily: DesktopFonts.family
@@ -206,6 +206,7 @@ Item {
     Component { id: hostDropdown; ChoiceDropdown { foreground: api.foreground; background: api.background; gold: api.accent } }
     Component { id: hostButton; PanelButton { foreground: api.foreground; text: "" } }
     Component { id: hostTextField; PanelTextField { foreground: api.foreground; accent: api.accent } }
+    Component { id: hostCountBadge; CountBadge { accent: api.accent } }
     Component { id: hostSwitch; PanelSwitch { foreground: api.foreground; accent: api.accent } }
     Component {
         id: weatherView

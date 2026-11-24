@@ -227,6 +227,19 @@ Loader {
 }
 ```
 
+`api.controls.countBadge` is a themed overlay for an icon slot. Fill the slot
+with a Loader and bind its item's `count`. The badge is hidden at zero and
+displays `99+` above 99 without changing the icon slot's size. Plugins supporting
+older Eitr versions can check for the component before loading it.
+
+```qml
+Loader {
+    anchors.fill: parent
+    sourceComponent: api.controls.countBadge || null
+    onLoaded: item.count = Qt.binding(() => unreadCount)
+}
+```
+
 Tiles appear at the end of **Control Center > General**, under **Plugins**, only
 when tiles are declared. The host draws each 36 px row: declared icon centred
 in the 10 px leading slot, title at 36 px, and optional caption with a 2 px gap.

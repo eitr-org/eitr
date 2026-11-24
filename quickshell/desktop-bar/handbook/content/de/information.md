@@ -27,6 +27,8 @@ Klicke auf den animierten Equalizer für das Panel Medien: das Cover, umgeben vo
 
 **SUPER + N** oder die Glocke öffnet die Benachrichtigungszentrale. Benachrichtigungen sind nach Anwendung gruppiert. Die neueste Karte liegt vorn im Stapel; erweitere ihn für ältere Karten. Du kannst eine Karte verwerfen, eine Gruppe oder alle löschen. Popups bilden ebenfalls Stapel je Anwendung, mit der neuesten Meldung vorn. Darüberhalten des Zeigers pausiert ihre Ablaufzeit.
 
+Das Abzeichen an der Glocke zeigt die Anzahl der Benachrichtigungen an, bis **99+**.
+
 **SUPER + Alt + N** führt die Hauptaktion der neuesten Benachrichtigung aus (wie ein Klick darauf), **SUPER + Alt + Shift + N** schließt sie. Eine wiederholte Benachrichtigung (gleiche App, gleicher Titel und Text) ersetzt die frühere und zeigt eine Anzahl wie ×3, statt eine weitere Karte zu stapeln.
 
 Benachrichtigungen haben einen dünnen Rahmen in der Akzentfarbe des Themes. Kritische verwenden stattdessen dessen Rot; solche mit niedriger Priorität bleiben dezent und ohne Rahmen. Nicht stören unterdrückt Popups, ohne den Verlauf zu löschen. Dieser bleibt bei Konfigurationsneuladungen im Speicher, aber nicht bei einem Prozessneustart. Benachrichtigungsinhalte werden nicht protokolliert.
