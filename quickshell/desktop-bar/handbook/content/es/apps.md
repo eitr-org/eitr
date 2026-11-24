@@ -171,6 +171,8 @@ El esquema versión 2 puede añadir mosaicos a **Centro de control > General > P
 
 Las actualizaciones muestran un diff desplazable y el QML candidato antes de aprobar; los cambios QML generan avisos RISK. QML no es un entorno aislado: se ejecuta dentro de la barra con todos tus permisos. Confía en el autor; el cargador no aísla bucles ni fallos nativos.
 
+Las actualizaciones aprobadas renuevan la interfaz del plugin sin reiniciar la barra.
+
 Un error de carga sustituye el contenido por un aviso y se registra en `$XDG_STATE_HOME/eitr/plugin-ui.log`. Tras tres errores de carga o comunicados, se desactivan los componentes visuales del plugin, incluso tras actualizarlo. Elige **Reactivar** en Centro de control > Plugins, o ejecuta `eitr plugin enable-ui ID`. Antes del límite, cierra y vuelve a abrir General para reintentar.
 
 Acciones, hooks y servicios son independientes. Plugins aparece después de las secciones existentes de General. Los paneles sustituyen los mosaicos con un título y una flecha para volver; Atrás o Escape vuelve a los mosaicos y otro Escape cierra el Centro de control. Los paneles altos se desplazan dentro de la subvista.

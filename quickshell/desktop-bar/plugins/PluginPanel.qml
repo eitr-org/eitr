@@ -16,10 +16,17 @@ ThemedPopup {
     surfaceColor: entry && entry.surface === "panel" ? background : "transparent"
     property var history: []
     function back() {
-        if (!history.length) return false;
-        entry = history[history.length - 1];
-        history = history.slice(0, -1);
-        return true;
+        while (history.length) {
+            const previous = history[history.length - 1];
+            history = history.slice(0, -1);
+            const current = PluginRegistry.entries.find(entry => entry.plugin === previous.plugin
+                && entry.id === previous.id && entry.kind === "panels");
+            if (current && (!PluginRegistry.barItemShown || PluginRegistry.barItemShown(current.plugin))) {
+                entry = current;
+                return true;
+            }
+        }
+        return false;
     }
     escapeHandler: back
     onOpenedChanged: if (!opened) history = []
@@ -67,7 +74,7 @@ ThemedPopup {
             entry: panel.entry || ({kind: "panels", plugin: "", id: "", commit: "", qml: "", source: "", title: "", disabled: true})
             foreground: panel.foreground; background: panel.background; accent: panel.accent
             onPanelRequested: function(plugin, requested) {
-                panel.history = panel.history.concat([panel.entry]);
+                panel.history = panel.history.concat([{plugin: panel.entry.plugin, id: panel.entry.id}]);
                 panel.entry = PluginRegistry.entries.find(entry => entry.plugin === plugin && entry.id === requested && entry.kind === "panels") || null;
             }
         }

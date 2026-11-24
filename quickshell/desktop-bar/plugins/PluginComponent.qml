@@ -37,10 +37,11 @@ Item {
         }
     }
     function menuSelect(id) { api.menuTriggered(id); }
-    onActiveChanged: if (!active) {
+    function resetComponentState() {
         error = ""; api.detail = ""; api.menuEntries = [];
         api.keyboardFocus = false; api.acceptsKeyboard = false; keyboardDismissed = false;
     }
+    onActiveChanged: if (!active) resetComponentState()
     signal panelRequested(string plugin, string panel)
     signal failed(string plugin)
     readonly property bool tile: entry.kind === "tiles"
@@ -279,10 +280,15 @@ Item {
         active: host.active && !host.entry.disabled && host.error === ""
         asynchronous: true
         onActiveChanged: if (active) load()
-        // One host can show another plugin's QML (the bar's shared plugin panel): load it.
+        // A replacement component gets a fresh API state, even in an open panel.
         Connections {
             target: host
-            function onEntryChanged() { if (content.active && host.entry.source !== content.loadedSource) content.load(); }
+            function onEntryChanged() {
+                if (host.entry.source === content.loadedSource) return;
+                const wasActive = content.active;
+                host.resetComponentState();
+                if (wasActive && content.active && host.entry.source !== content.loadedSource) content.load();
+            }
         }
         Component.onCompleted: if (active) load()
         property string loadedSource: ""

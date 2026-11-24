@@ -115,7 +115,7 @@ class PluginPlacements:
             geometry_value(geometry)
         with self.lock():
             values = self.placements()
-            entry = next((entry for entry in self.ui() if entry['plugin'] == plugin_id and entry['id'] == entry_id and entry['kind'] in ('widgets', 'barItems')), None)
+            entry = next((entry for entry in self.ui(stage=False) if entry['plugin'] == plugin_id and entry['id'] == entry_id and entry['kind'] in ('widgets', 'barItems')), None)
             if not entry and not remove:
                 raise ValueError('Unknown plugin visual')
             kind = entry['kind'] if entry else ('widgets' if monitor is not None or instance is not None else 'barItems')

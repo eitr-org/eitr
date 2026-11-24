@@ -110,6 +110,7 @@ logged.
 | State `desktop-nightlight/{mode,schedule.json}`, timer drop-in `schedule.conf` | P / G | `nightlight.py` |
 | State `eitr/{installed-paths,user-defaults-state.json,welcome-*,focus-session.json,focus.lock}` | State | Installer, `eitr-config`, welcome |
 | Cache `current-theme`, `current-wallpaper`, `current-wallpaper-image` | G | Menus, bar, wallpaper; derived from the appearance preference |
+| Cache `eitr/plugin-ui/<id>/<commit>/**` | G | Plugin UI snapshots derived from approved revisions |
 | Runtime `eitr-search/index.json`, lock and IPC files; AI, weather, preview caches | G | Regenerated; never packaged or migrated |
 
 ### Screen-share default

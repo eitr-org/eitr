@@ -228,6 +228,8 @@ approval; QML changes raise RISK flags. QML is not a sandbox: it runs inside the
 bar with your full permissions. Trust the author; a loop or native crash cannot
 be isolated by the loader.
 
+Approved updates refresh plugin visuals without restarting the bar.
+
 A component load error shows an inline error instead of its content and is
 logged in `$XDG_STATE_HOME/eitr/plugin-ui.log`. After three load or reported
 errors, that plugin's visual components are disabled, including across updates. Choose **Re-enable** in Control Center > Plugins, or run `eitr plugin enable-ui ID`. Before

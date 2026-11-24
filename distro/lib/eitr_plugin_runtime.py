@@ -1,14 +1,17 @@
 """Approved plugin services, hooks, commands and visual runtime state."""
+from contextlib import suppress
 import hashlib
 import json
 import os
 from pathlib import Path
+import re
+import shutil
 import signal
 import subprocess
 import tempfile
 
 import eitr_policy
-from eitr_paths import state
+from eitr_paths import cache, state
 from eitr_plugin_install import (
     PluginInstall as _PluginInstall,
     commit,
@@ -45,6 +48,40 @@ def unit_content(root, spec):
             + '\nNoNewPrivileges=yes\nEnvironment=PYTHONDONTWRITEBYTECODE=1'
             # A device or network the service needs may not be ready yet when it starts.
             + '\nRestart=on-failure\nRestartSec=5\n\n[Install]\nWantedBy=default.target\n')
+
+
+def prune_ui_revisions(folder, current=None):
+    """Keep the most recently served other revision for a bar still using its URLs."""
+    older = [path for path in folder.iterdir() if path != current and not path.is_symlink()
+             and path.is_dir() and re.fullmatch(r'[0-9a-f]{40,64}', path.name)]
+    for revision in sorted(older, key=lambda path: path.stat().st_mtime_ns, reverse=True)[1:]:
+        shutil.rmtree(revision)
+
+
+def stage_ui(folder, revision, root, files):
+    if folder.parent.is_symlink() or folder.is_symlink():
+        raise ValueError('Invalid plugin UI cache directory')
+    target = folder / revision
+    if target.is_symlink():
+        raise ValueError('Invalid plugin UI revision directory')
+    if not target.is_dir():
+        folder.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='.stage-', dir=folder) as temporary:
+            staging = Path(temporary)
+            for original in files:
+                if not original.is_file():
+                    raise ValueError('Plugin UI staging requires regular files')
+                destination = staging / original.relative_to(root)
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                try:
+                    os.link(original, destination)
+                except OSError:
+                    shutil.copy2(original, destination)
+            staging.rename(target)
+    os.utime(target)
+    with suppress(OSError):
+        prune_ui_revisions(folder, target)
+    return target
 
 
 class PluginRuntime:
@@ -134,31 +171,51 @@ class PluginRuntime:
             values.pop(plugin_id, None)
             self.write(state('eitr/plugin-ui.json'), values)
 
-    def ui(self):
-        """Approved declarations; widgets and bar items need a separate user placement."""
+    def ui(self, *, stage=True):
+        """Approved declarations; stage their source URLs for visual consumers."""
+        if not stage:
+            return self._ui_entries()
+        with self.lock():
+            return self._ui_entries(cache('eitr/plugin-ui'))
+
+    def _ui_entries(self, ui_cache=None):
+        records = self.records()
         blocked = self.blocked()
         failures = self.ui_state()
         result = []
-        for plugin_id, record in self.records().items():
+        for plugin_id, record in records.items():
             if plugin_id in blocked:
                 continue
-            root = self.root(plugin_id)
+            root = self.root(plugin_id, record=record)
             try:
                 if root.is_symlink() or commit(root) != record['commit']:
                     continue
-                list(plugin_files(root))
+                files = list(plugin_files(root))
                 spec = manifest(root)
+                if not any(spec.get('ui', {}).values()):
+                    continue
+                source_root = stage_ui(ui_cache / plugin_id, record['commit'], root, files) if ui_cache is not None else None
                 for kind in ('tiles', 'panels', 'widgets', 'barItems'):
                     for entry in spec.get('ui', {}).get(kind, []):
-                        result.append(dict(plugin=plugin_id, pluginName=spec['name'], bundled=bool(record.get('bundled')), commit=record['commit'], kind=kind,
-                                           placement={'widgets': 'desktop', 'barItems': 'bar'}.get(kind, 'control-center'), disabled=bool(failures.get(plugin_id, {}).get('disabled')),
-                                           **entry, capabilities=spec.get('capabilities', []), source=(root / entry['qml']).as_uri()))
+                        visual = dict(plugin=plugin_id, pluginName=spec['name'], bundled=bool(record.get('bundled')),
+                                      commit=record['commit'], kind=kind,
+                                      placement={'widgets': 'desktop', 'barItems': 'bar'}.get(kind, 'control-center'),
+                                      disabled=bool(failures.get(plugin_id, {}).get('disabled')),
+                                      **entry, capabilities=spec.get('capabilities', []))
+                        if source_root is not None:
+                            visual['source'] = (source_root / entry['qml']).as_uri()
+                        result.append(visual)
             except (OSError, ValueError, subprocess.SubprocessError):
                 continue
+        if ui_cache is not None and not ui_cache.is_symlink() and ui_cache.is_dir():
+            with suppress(OSError):
+                for folder in ui_cache.iterdir():
+                    if folder.name not in records and not folder.is_symlink() and folder.is_dir():
+                        prune_ui_revisions(folder)
         return result
 
     def ui_data(self, plugin_id, entry_id):
-        entry = next((entry for entry in self.ui() if entry['plugin'] == plugin_id and entry['id'] == entry_id), None)
+        entry = next((entry for entry in self.ui(stage=False) if entry['plugin'] == plugin_id and entry['id'] == entry_id), None)
         if not entry or entry['disabled'] or 'dataCommand' not in entry:
             raise ValueError('Plugin data command is unavailable')
         root = self.root(plugin_id)

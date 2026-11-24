@@ -408,6 +408,7 @@
     {"pattern": "elephant/menus/plugin-visuals.lua", "class": "C", "runtime": true},
     {"pattern": "walker/themes/current/item_menus-plugin-visuals.xml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/tests/test_visual_plugins.py", "class": "C", "runtime": false},
+    {"pattern": "quickshell/desktop-bar/tests/test_plugin_update_render.py", "class": "C", "runtime": false},
     {"pattern": "quickshell/desktop-bar/plugins/PluginArea.qml", "class": "C", "runtime": true},
     {"pattern": "quickshell/desktop-bar/plugins/PluginComponent.qml", "class": "C", "runtime": true},
     {"pattern": "distro/plugins/example/HelloTile.qml", "class": "D", "runtime": true},

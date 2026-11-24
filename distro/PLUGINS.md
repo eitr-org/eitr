@@ -509,6 +509,14 @@ and **Preview**. Back or Escape returns to the list.
 Add, Update and Remove open the reviewed terminal flows; removal still asks for
 confirmation. General keeps only plugin tiles and their panel navigation.
 
+The bar refreshes plugin visuals after installation, update or removal. Each
+approved visual revision gets its own directory under
+`$XDG_CACHE_HOME/eitr/plugin-ui/<id>/<commit>/`. Relative QML imports, scripts
+and images load from that revision together. The cache keeps the current and
+previously served revisions while the bar switches between them. Services,
+Walker actions, hooks and plugin data commands still run from the installed
+plugin directory.
+
 `eitr plugin disable ID` stops and disables the service, hides all visuals and
 Walker actions, and skips hooks and data streams. `eitr plugin enable ID` checks
 policy and the approved commit before restoring the service and declarations.

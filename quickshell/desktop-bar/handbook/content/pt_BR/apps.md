@@ -167,6 +167,8 @@ O esquema versão 2 pode adicionar blocos em **Central de controle > Geral > Plu
 
 Atualizações mostram um diff rolável e o QML candidato antes da aprovação; alterações QML geram avisos RISK. QML não é uma sandbox: executa dentro da barra com suas permissões completas. Confie no autor; o carregador não isola loops nem falhas nativas.
 
+As atualizações aprovadas renovam a interface do plugin sem reiniciar a barra.
+
 Um erro de carregamento substitui o conteúdo por um aviso e é registrado em `$XDG_STATE_HOME/eitr/plugin-ui.log`. Após três erros de carregamento ou relatados, os componentes visuais do plugin ficam desativados, inclusive após atualizações. Escolha **Reativar** em Central de controle > Plugins, ou execute `eitr plugin enable-ui ID`. Antes desse limite, feche e reabra Geral para tentar novamente.
 
 Ações, hooks e serviços são independentes. Plugins aparece após as seções existentes de Geral. Os painéis substituem os blocos por um título e uma seta de voltar; Voltar ou Escape retorna aos blocos, e outro Escape fecha a Central de controle. Painéis altos rolam dentro da subpágina. O exemplo v2 tem um bloco Hello e um painel de status.

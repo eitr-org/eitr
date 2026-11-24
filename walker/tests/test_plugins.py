@@ -1,5 +1,6 @@
 """Plugin fixtures never run plugin code or reach the real user service manager."""
 from contextlib import redirect_stderr, redirect_stdout
+import errno
 import copy
 import io
 import json
@@ -20,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'distro/lib'))
 import eitr_plugins as plugins
 import eitr_plugin_install as install_owner
-from eitr_paths import config, data, state
+from eitr_paths import cache, config, data, state
 
 
 class PluginTests(unittest.TestCase):
@@ -1413,6 +1414,57 @@ class VisualPluginTests(unittest.TestCase):
         self.assertTrue(all(not entry['disabled'] for entry in self.manager.ui()))
         self.block(id='example')
         self.assertEqual(self.manager.ui(), [])
+
+    def test_visual_sources_follow_approved_commits_and_keep_one_previous(self):
+        from urllib.parse import unquote, urlsplit
+
+        self.publish(self.visual())
+        self.install()
+        root = self.manager.root('example')
+
+        def staged_root():
+            entry = next(entry for entry in self.manager.ui() if entry['kind'] == 'tiles')
+            source = Path(unquote(urlsplit(entry['source']).path))
+            self.assertEqual(source, cache('eitr/plugin-ui/example') / entry['commit'] / 'HelloTile.qml')
+            self.assertEqual({path.relative_to(root) for path in plugins.plugin_files(root)},
+                             {path.relative_to(source.parent) for path in source.parent.rglob('*') if path.is_file()})
+            return source.parent
+
+        first = staged_root()
+        self.assertEqual(staged_root(), first)
+        self.assertEqual((first / 'HelloTile.qml').stat().st_ino, (root / 'HelloTile.qml').stat().st_ino)
+        for version in ('second', 'third'):
+            (self.source / 'revision').write_text(version)
+            self.commit_as('Fixture')
+            self.assertTrue(self.manager.update('example', lambda changes: True))
+            if version == 'second':
+                second = staged_root()
+                self.assertNotEqual(second, first)
+                self.assertTrue(first.is_dir())
+            else:
+                third = staged_root()
+                self.assertFalse(first.exists())
+                self.assertNotEqual(third, second)
+                self.assertEqual((second / 'revision').read_text(), 'second')
+                self.assertEqual((third / 'revision').read_text(), 'third')
+        self.assertTrue(self.manager.remove('example', lambda record: True))
+        self.assertEqual(self.manager.ui(), [])
+        self.assertFalse(second.exists())
+        self.assertTrue(third.is_dir())
+
+    def test_visual_stage_falls_back_to_copy_and_retries_failed_publish(self):
+        self.publish(self.visual())
+        revision = self.install()
+        target = cache('eitr/plugin-ui/example') / revision
+        with patch('eitr_plugin_runtime.os.link', side_effect=OSError(errno.EXDEV, 'Cross-device link')):
+            with patch('eitr_plugin_runtime.shutil.copy2', side_effect=OSError(errno.ENOSPC, 'No space')):
+                self.assertEqual(self.manager.ui(), [])
+                self.assertEqual(list(target.parent.iterdir()), [])
+            self.assertTrue(self.manager.ui())
+        original = self.manager.root('example') / 'HelloTile.qml'
+        staged = target / original.name
+        self.assertEqual(staged.read_bytes(), original.read_bytes())
+        self.assertNotEqual(staged.stat().st_ino, original.stat().st_ino)
 
     def test_data_helper_only_runs_declared_command(self):
         self.publish(self.visual())

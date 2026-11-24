@@ -436,7 +436,7 @@ def visual_rows(manager, plugin_id, monitors):
     """Walker actions use the same declarations and placement mutations as the panel."""
     import shlex
     rows = []
-    entries = [entry for entry in manager.ui() if entry['plugin'] == plugin_id]
+    entries = [entry for entry in manager.ui(stage=False) if entry['plugin'] == plugin_id]
     placements = manager.placements()
     def row(title, description, arguments):
         rows.append(dict(text=title, subtext=description, actions={'open': shlex.join(arguments)}))
@@ -517,7 +517,7 @@ def main(argv=None):
         manager.enable_ui(arguments.value)
     elif arguments.action == 'ui-stream':
         from eitr_plugin_stream import run_stream
-        entry = next((entry for entry in manager.ui() if entry['plugin'] == arguments.value and entry['id'] == arguments.index), None)
+        entry = next((entry for entry in manager.ui(stage=False) if entry['plugin'] == arguments.value and entry['id'] == arguments.index), None)
         if not entry or entry['disabled'] or 'dataStream' not in entry:
             raise ValueError('Plugin data stream is unavailable')
         from eitr_plugins import command
