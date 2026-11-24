@@ -54,8 +54,16 @@ Rectangle {
                     StoreLabel { catalog: root.catalog; width: parent.width; text: Eitr.I18n.tr("Files"); font.bold: true; visible: (reviewColumn.facts.files || []).length > 0 }
                     StoreLabel { catalog: root.catalog; width: parent.width; visible: text !== ""; text: (reviewColumn.facts.files || []).join("\n"); wrapMode: Text.WrapAnywhere; color: catalog.muted }
                     StoreLabel { catalog: root.catalog; width: parent.width; visible: text !== ""; text: reviewColumn.facts.changes && reviewColumn.facts.changes.new ? [reviewColumn.facts.changes.old + " → " + reviewColumn.facts.changes.new].concat(reviewColumn.facts.changes.subjects || [], (reviewColumn.facts.changes.files || []).map(file => file.status + " " + file.path + " +" + file.added + " −" + file.removed), reviewColumn.facts.changes.flags || []).join("\n") : ""; wrapMode: Text.WrapAnywhere }
-                    Repeater { model: reviewColumn.facts.qml || []
-                        StoreActionButton { catalog: root.catalog; required property var modelData; width: reviewColumn.width; text: modelData.path; onClicked: catalog.loadReviewSource(modelData.path, 0) }
+                    // QML files to read before confirming, as many per row as fit (about 220 px each).
+                    Grid {
+                        id: sourceFiles
+                        width: reviewColumn.width
+                        spacing: 8
+                        columns: Math.max(1, Math.floor((width + spacing) / (220 + spacing)))
+                        readonly property real cellWidth: (width - (columns - 1) * spacing) / columns
+                        Repeater { model: reviewColumn.facts.qml || []
+                            StoreActionButton { catalog: root.catalog; required property var modelData; width: sourceFiles.cellWidth; text: modelData.path; onClicked: catalog.loadReviewSource(modelData.path, 0) }
+                        }
                     }
                     StoreLabel { catalog: root.catalog; width: parent.width; visible: !!catalog.reviewSourcePath; text: catalog.reviewSourcePath + "\n" + catalog.reviewSourceText; font.family: SiteStyle.mono; font.pixelSize: 11; wrapMode: Text.WrapAnywhere }
                     Row { spacing: 10; visible: !!catalog.reviewSourcePath
