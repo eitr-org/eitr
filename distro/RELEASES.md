@@ -20,7 +20,10 @@ Fjord, then Dusk Fjord, Rune Seal and the animated Runestone. The fjords use
 flat ink cel shading with separately generated panoramas. Eitr and Eitr Light
 are the built-in pair. Afterglow and the ten realm themes are official Store
 packages. Upgrades carry forward themes referenced by existing settings offline.
-Fresh installs can download them from Discover when online.
+On the first login of a newly set up account, Eitr waits for connectivity and
+installs Kanagawa, Muspelheim, Star Wars, Pokemon and Cyberpunk 2077 through
+the Store. The active theme stays the same. Upgrading existing accounts does
+not enroll them.
 
 Walker groups desktop preferences under Settings, with System information and
 maintenance inside Settings > System. Main includes Quick Actions and Plugins;

@@ -64,7 +64,8 @@ Eitr ships Eitr and Eitr Light. Discover in the official Store includes
 Afterglow, the ten realm themes (Alfheim through Vanaheim, including Ragnarök),
 and the other official themes. On an existing machine the upgrade saves a local
 copy of former built-ins referenced by user settings and registers them as
-official Store packages at the next login.
+official Store packages at the next login. New accounts also get a one-time
+starter set from the official and community Store catalogs once online.
 
 ## Repository index
 

@@ -109,6 +109,7 @@ logged.
 | `Code/User/settings.json` | P with generated keys | Font and VS Code helpers; JSONC-safe narrow updates |
 | State `desktop-nightlight/{mode,schedule.json}`, timer drop-in `schedule.conf` | P / G | `nightlight.py` |
 | State `eitr/{installed-paths,user-defaults-state.json,welcome-*,focus-session.json,focus.lock}` | State | Installer, `eitr-config`, welcome |
+| State `eitr/starter-themes.json` | State | Fresh account setup and first-login Store progress |
 | Cache `current-theme`, `current-wallpaper`, `current-wallpaper-image` | G | Menus, bar, wallpaper; derived from the appearance preference |
 | Cache `eitr/plugin-ui/<id>/<commit>/**` | G | Plugin UI snapshots derived from approved revisions |
 | Runtime `eitr-search/index.json`, lock and IPC files; AI, weather, preview caches | G | Regenerated; never packaged or migrated |
@@ -406,10 +407,10 @@ that component with a report. Never sync the checkout over home, run a fresh
 **Fresh installations and factory reset.** Guided and online installers install
 shipped code, seed preferences and the tiny loaders, set keyboard, theme, cursor
 and lockscreen, generate outputs offline and set up system integration **before**
-capturing the restore point. No first-login builds, password prompts or downloads
-are added. Existing restore points are never rewritten by a package update: they
-hold their matching old `/usr` and old home layout, and a reset restores that
-pair. Both reset modes must be tested against an old-layout and a new-layout
+capturing the restore point. The first-login starter theme selection is recorded
+there and downloaded in the background when the desktop first comes online.
+Existing restore points keep their matching `/usr` and home layout across package
+updates, and a reset restores that pair. Both reset modes must be tested against an old-layout and a new-layout
 restore point.
 
 ## 5. Risks

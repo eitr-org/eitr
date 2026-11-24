@@ -33,6 +33,10 @@ ASSET_EXTENSIONS = {'.jpg', '.png', '.json'}
 GENERATED = {'icons.theme', 'vscode.json', 'neovim.lua', 'btop.theme', 'dolphin.theme', 'vscode.vsix'}
 PALETTE_KEYS = ('background', 'foreground', 'accent', *(f'color{number}' for number in range(16)))
 
+class ThemeUnavailable(ValueError):
+    """The requested theme is absent from a validated Store index."""
+
+
 def palette(root):
     colors = tomllib.loads((Path(root) / 'colors.toml').read_text())
     return {key: colors[key] for key in PALETTE_KEYS} if all(key in colors for key in PALETTE_KEYS) else {}
@@ -298,7 +302,7 @@ class Themes:
             repository, revision, rows = self.repository(url)
             selected = {row['id']: row for row in rows if row['id'] in ids}
             if set(selected) != set(ids):
-                raise ValueError('Theme is absent from catalog')
+                raise ThemeUnavailable('Theme is absent from catalog')
             self.git(repository, 'update-ref', 'refs/eitr/pins/' + revision, revision, allow_file=self.allow_file)
             self.folder.mkdir(parents=True, exist_ok=True)
             with tempfile.TemporaryDirectory(prefix='.install-', dir=self.folder) as staging:

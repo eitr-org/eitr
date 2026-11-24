@@ -17,6 +17,8 @@ Seu novo desktop está pronto. Faça o tour rápido, configure o essencial e dep
 
 No desktop, cada item abre sua página nas Configurações.
 
+No primeiro login em uma conta recém-configurada, o Eitr espera a conexão com a internet e baixa cinco temas iniciais da Loja. Eles aparecem em Eitr Store > Instalados. O tema ativo continua o mesmo.
+
 - **Wi-Fi**: Conecte-se a uma rede.
 - **Tema e papel de parede**: Escolha as cores e a arte que você quer ver todo dia.
 - **Teclado**: Adicione, ordene e troque seus layouts de teclado.

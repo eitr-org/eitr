@@ -36,7 +36,7 @@ ShellRoot {
     NetworkService { id: networkOwner }
     NotificationService { id: notificationsService; transientSuppress: cleanOverlay.active }
     RemoteAccessService { id: remoteAccessService; observing: shell.remotePanelsOpen }
-    WelcomeSession { id: welcome; host: shell }
+    WelcomeSession { id: welcome; host: shell; networkSummary: networkOwner.summary }
     BarReload {
         id: barReload
         versionPath: Quickshell.env("EITR_LIVE_RELOAD") === "0" ? Quickshell.shellDir + "/../../version" : ""

@@ -404,6 +404,10 @@ wizard supports arrow keys, type-to-filter lists, Enter and Escape. It:
    in [`payload/mirrorlist`](payload/mirrorlist), and the read-only factory
    reset point is saved (see [FACTORY-RESET.md](FACTORY-RESET.md)).
 
+The ISO includes Eitr and Eitr Light. After the first desktop login, starter
+themes download from the official and community Store catalogs once the user
+is online. Community theme assets are fetched from their authors’ repositories.
+
 One progress screen covers every step: it counts completed steps and, inside
 package installation, pacman's own installed-package counts, never elapsed
 time. When it finishes, it shows the total installation time (each step's time

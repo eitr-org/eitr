@@ -1,0 +1,7 @@
+[
+  {"kind": "themes", "channel": "official", "id": "kanagawa"},
+  {"kind": "themes", "channel": "official", "id": "muspelheim"},
+  {"kind": "themes", "channel": "community", "id": "star-wars"},
+  {"kind": "themes", "channel": "community", "id": "pokemon"},
+  {"kind": "themes", "channel": "community", "id": "cyberpunk-2077"}
+]

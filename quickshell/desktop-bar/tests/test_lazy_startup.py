@@ -81,6 +81,55 @@ class LazyWindowTests(unittest.TestCase):
                 self.assertNotIn(message, output)
 
 
+    def test_starter_download_waits_offline_and_starts_once_connected(self):
+        for transport in ('wired', 'wifi'):
+            with self.subTest(transport=transport), tempfile.TemporaryDirectory() as directory:
+                folder = Path(directory)
+                environment = prepare_runtime(folder)
+                worker = folder / 'distro/lib/eitr_starter_themes.py'
+                worker.parent.mkdir(parents=True)
+                worker.write_text('raise SystemExit(0)\n')
+                component = folder / 'services/WelcomeSession.qml'
+                component.write_text(component.read_text().replace(
+                    '    property var host', '    property alias testStarter: starterThemes\n    property var host', 1))
+                path = folder / 'shell.qml'
+                path.write_text('''import QtQuick
+import Quickshell
+import "." as Bar
+ShellRoot {
+    id: host
+    property bool offline: START_OFFLINE
+    property int launches: 0
+    Bar.WelcomeSession {
+        id: welcome
+        host: host
+        networkSummary: ({status: "ready", data: host.offline ? {} : ONLINE_DATA})
+    }
+    Connections {
+        target: welcome.testStarter
+        function onStarted() {
+            if (host.offline) console.error("STARTED_OFFLINE");
+            host.launches++;
+        }
+    }
+    Timer {
+        interval: 240; running: host.offline
+        onTriggered: host.offline = false
+    }
+    Timer {
+        interval: 1100; running: true
+        onTriggered: { console.log("STARTER_LAUNCHES", host.launches); Qt.quit(); }
+    }
+}
+'''.replace('START_OFFLINE', 'true' if transport == 'wifi' else 'false').replace(
+                    'ONLINE_DATA', '{wired: true}' if transport == 'wired'
+                    else '{devices: [{networks: [{connected: true}]}]}'))
+                returncode, output = render(path, environment, timeout=8)
+                self.assertEqual(returncode, 0, output)
+                self.assertIn('STARTER_LAUNCHES 1', output)
+                self.assertNotIn('STARTED_OFFLINE', output)
+
+
 class LazyPanelTests(unittest.TestCase):
     def test_panel_ipc_creates_only_requested_panel(self):
         with tempfile.TemporaryDirectory(prefix='eitr-lazy-panels-') as directory:

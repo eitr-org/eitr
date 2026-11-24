@@ -10,22 +10,30 @@ from eitr_store_previews import (discover_result, fetch_missing, package_dates, 
 
 THEMES = 'https://github.com/eitr-org/eitr-themes'
 
+def refresh_community_index():
+    from urllib.request import urlopen
+    from eitr_community import validate_index
+    from eitr_paths import cache
+    from eitr_plugin_manifest import unique_object
+
+    url = 'https://raw.githubusercontent.com/eitr-org/eitr-store/HEAD/index.json'
+    with urlopen(url, timeout=15) as response:
+        payload = response.read(1024 * 1024 + 1)
+    if len(payload) > 1024 * 1024:
+        raise ValueError('Community index exceeds size limit')
+    index = validate_index(json.loads(payload, object_pairs_hook=unique_object))
+    publish_json(cache('eitr/community-index.json'), index)
+    return index
+
+
 def community(name, args):
     from eitr_store_backends import plugin_backend, save_plugin_rows
     from eitr_paths import cache
     from eitr_community import validate_index, fetch
-    from eitr_plugin_manifest import unique_object
-    from eitr_theme_packages import Themes, SOURCE
-    import urllib.request
+    from eitr_theme_packages import Themes, SOURCE, ThemeUnavailable
     target = cache('eitr/community-index.json')
     if name == 'index':
-        url = 'https://raw.githubusercontent.com/eitr-org/eitr-store/HEAD/index.json'
-        with urllib.request.urlopen(url, timeout=15) as response:
-            payload = response.read(1024 * 1024 + 1)
-        if len(payload) > 1024 * 1024:
-            raise ValueError('Community index exceeds size limit')
-        index = validate_index(json.loads(payload, object_pairs_hook=unique_object))
-        publish_json(target, index)
+        index = refresh_community_index()
         if args['kind'] == 'plugins':
             from eitr_plugins import Plugins
             backend = plugin_backend()
@@ -73,9 +81,11 @@ def community(name, args):
         destinations = []
         from eitr_paths import theme_paths, code_root, config
         for theme_id in args['ids']:
-            if (theme_id in theme_paths() or theme_id not in rows
+            if theme_id not in rows:
+                raise ThemeUnavailable('Theme is absent from community index')
+            if (theme_id in theme_paths()
                     or any((parent / theme_id).exists() for parent in (backend.folder, code_root() / 'themes', config('themes')))):
-                raise ValueError('Theme ID already exists or is absent from community index')
+                raise ValueError('Theme ID already exists')
             destination = stage / theme_id
             destination.mkdir()
             package, spec, revision = fetch(rows[theme_id], 'themes', destination)

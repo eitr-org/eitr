@@ -17,6 +17,8 @@ Tu nuevo escritorio está listo. Haz el recorrido breve, configura lo esencial y
 
 En el escritorio, cada uno abre su página en Configuración.
 
+La primera vez que inicias sesión con una cuenta recién configurada, Eitr espera a que haya conexión a internet y descarga cinco temas iniciales de la Tienda. Los encontrarás en Eitr Store > Instalados. El tema activo se mantiene.
+
 - **Wi-Fi**: Conéctate a una red.
 - **Tema y fondo de pantalla**: Elige los colores y el arte que quieres ver cada día.
 - **Teclado**: Añade, ordena y cambia tus distribuciones de teclado.

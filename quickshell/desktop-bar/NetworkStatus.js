@@ -25,6 +25,11 @@ function connectionName(snapshot) {
     return "";
 }
 
+function hasConnection(summary) {
+    return summary.status === "ready" && (summary.data.wired === true
+        || (summary.data.devices || []).some(device => (device.networks || []).some(network => network.connected)));
+}
+
 // Bytes per second as text, in decimal units; units holds the translated "%1 B/s" .. "%1 GB/s".
 function speed(bytes, units) {
     if (typeof bytes !== "number") return "—";
@@ -33,7 +38,7 @@ function speed(bytes, units) {
     return units[unit].arg(bytes >= 100 || unit === 0 ? Math.round(bytes) : bytes.toFixed(1));
 }
 
-if (typeof module !== "undefined") module.exports = {glyph, signalGlyph, createOwner, connectionName, speed};
+if (typeof module !== "undefined") module.exports = {glyph, signalGlyph, createOwner, connectionName, hasConnection, speed};
 
 // The same demand and refresh state machine drives the shell and fake readers.
 function createOwner(start, stop, changed) {

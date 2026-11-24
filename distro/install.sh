@@ -175,6 +175,7 @@ validate_manifests() {
 # Seeds this user's defaults, shell, theme styles and user units. Never
 # overwrites existing files; needs no root.
 seed_user() {
+  python3 /usr/share/eitr/lib/eitr_starter_themes.py --enqueue
   mkdir -p "$HOME/.config" "$HOME/.cache" "$HOME/.local/bin"
   # Standard folders (Desktop, Documents, Downloads, Music, Pictures, Videos...)
   # in the account's language, plus Development for the project menus.

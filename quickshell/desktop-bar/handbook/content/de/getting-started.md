@@ -17,6 +17,8 @@ Dein neuer Desktop ist bereit. Mach die kurze Tour, richte das Wichtigste ein un
 
 Auf dem Desktop öffnet jeder Eintrag seine Seite in den Einstellungen.
 
+Bei der ersten Anmeldung mit einem neu eingerichteten Konto wartet Eitr auf eine Internetverbindung und lädt fünf Einstiegsthemes aus dem Store. Du findest sie unter Eitr Store > Installiert. Dein aktives Theme bleibt ausgewählt.
+
 - **Wi-Fi**: Verbinde dich mit einem Netzwerk.
 - **Design und Hintergrundbild**: Wähle die Farben und Bilder, die du jeden Tag sehen möchtest.
 - **Tastatur**: Füge Tastaturlayouts hinzu, ordne sie und wechsle zwischen ihnen.

@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const {createOwner, glyph} = require('../NetworkStatus.js');
+const {createOwner, glyph, hasConnection} = require('../NetworkStatus.js');
 const fixtures = require('./fixtures/network.json');
 
 function harness() {
@@ -27,6 +27,18 @@ for (const name of ['noAdapter', 'blocked', 'wired', 'connected', 'networkmanage
     complete('details', fixtures[name]);
     assert.equal(owner.topics.details.status, 'ready', name);
     assert.deepEqual(owner.topics.details.data, fixtures[name]);
+}
+// Starter downloads wait for a ready summary and accept either transport.
+{
+    const {owner, complete} = harness();
+    const online = () => hasConnection(owner.topics.summary);
+    assert.equal(online(), false);
+    for (const [name, expected] of [['noAdapter', false], ['blocked', false], ['wired', true],
+        ['noAdapter', false], ['connected', true], ['networkmanager', true]]) {
+        owner.refresh('summary');
+        complete('summary', fixtures[name]);
+        assert.equal(online(), expected, name);
+    }
 }
 assert.equal(glyph(fixtures.blocked), '󰤮');
 assert.equal(glyph(fixtures.connected), '󰤥');

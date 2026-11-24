@@ -17,6 +17,8 @@ Votre nouveau bureau est prêt. Suivez la courte visite, réglez l’essentiel, 
 
 Sur le bureau, chacun ouvre sa page dans les Paramètres.
 
+À la première connexion à un compte nouvellement configuré, Eitr attend une connexion Internet et télécharge cinq thèmes de démarrage depuis la boutique. Vous les trouverez dans Eitr Store > Installés. Votre thème actif reste sélectionné.
+
 - **Wi-Fi**: Connectez-vous à un réseau.
 - **Thème et fond d’écran** : Choisissez les couleurs et les images que vous verrez chaque jour.
 - **Clavier** : Ajoutez, ordonnez et changez vos dispositions de clavier.

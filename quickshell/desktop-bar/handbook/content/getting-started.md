@@ -17,6 +17,8 @@ Your new desktop is ready. Take the short tour, set up the essentials, then make
 
 On the desktop, each of these opens its page in Settings.
 
+The first time you sign in to a newly set up account, Eitr waits for an internet connection and downloads five starter themes from the Store. You can find them in Eitr Store > Installed, and your active theme stays the same.
+
 - **Wi-Fi**: Join a network.
 - **Theme & Wallpaper**: Choose the colors and art you want to see every day.
 - **Keyboard**: Add, order and switch your keyboard layouts.

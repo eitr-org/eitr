@@ -3,12 +3,42 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import Eitr as Eitr
+import "../NetworkStatus.js" as NetworkStatus
 
 // The Handbook window and what a login starts around it: the first-login welcome,
 // the problem-report choice, the boot-guard notice and plugins' login hooks.
 Scope {
     id: session
     property var host
+    property var networkSummary: ({status: "loading", data: {}})
+    readonly property bool online: NetworkStatus.hasConnection(networkSummary)
+    onOnlineChanged: if (online) Qt.callLater(tryStarterThemes)
+    Component.onCompleted: if (online) Qt.callLater(tryStarterThemes)
+
+    function tryStarterThemes() {
+        if (online && !welcomeSession.starterThemesDone && !starterThemes.running && !starterRetry.running)
+            starterThemes.running = true;
+    }
+
+    Process {
+        id: starterThemes
+        command: ["timeout", "--kill-after=5s", "300s", "python3", Eitr.Paths.library("eitr_starter_themes.py")]
+        onExited: function(code) {
+            if (code === 0) {
+                welcomeSession.starterThemesDone = true;
+            } else {
+                starterRetry.start();
+            }
+        }
+    }
+    Timer {
+        id: starterRetry
+        interval: welcomeSession.starterRetryDelay
+        onTriggered: {
+            welcomeSession.starterRetryDelay = Math.min(interval * 2, 300000);
+            session.tryStarterThemes();
+        }
+    }
     readonly property bool opened: handbookLoader.item?.opened ?? false
     // The crash-notification preference's default, until the saved choice has been read.
     property bool offerProblemReports: true
@@ -80,6 +110,8 @@ Scope {
         reloadableId: "handbookWelcomeSession"
         property bool checked: false
         property bool noticesChecked: false
+        property bool starterThemesDone: false
+        property int starterRetryDelay: 30000
     }
     Timer {
         // Let the bar and the startup wallpaper reveal settle first.
