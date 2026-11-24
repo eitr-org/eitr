@@ -209,7 +209,10 @@ PanelWindow {
         dockPanels.forEach(panel => panel.opened = false);
         finishPanelSwitch();
     }
+    readonly property bool reloadBusy: panelOpen || overviewOpen || pendingPanel !== null
+        || pendingOverview || pointerInside || edgeDock.interacting || autoHide.held || choicePopups.length > 0
     EdgeDock {
+        id: edgeDock
         screen: bar.screen
         barEdge: host.barEdge
         clients: dockClientsRef.clients

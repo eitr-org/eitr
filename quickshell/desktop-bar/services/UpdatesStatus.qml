@@ -13,7 +13,13 @@ Scope {
     readonly property var updatesState: DesktopData.topics["updates.status"] || {status: "loading", data: {}}
     // After a successful System Update nothing is pending: show up to date until the next
     // successful scheduled check, instead of checking again right after pacman.
-    property bool updatedNow: false
+    PersistentProperties {
+        id: updatesSession
+        reloadableId: "updatesSession"
+        property bool updatedNow: false
+        property int announcedUpdates: 0
+    }
+    property alias updatedNow: updatesSession.updatedNow
     property int updatedSeq: -1
     function markUpdated() {
         updatedSeq = updatesState.seq !== undefined ? updatesState.seq : -1;
@@ -29,7 +35,7 @@ Scope {
         if (!updatedNow && updatesState.status === "ready" && !updatesState.inFlight) status.announceUpdates();
     }
     // A notification goes out only when more updates are pending than were last announced.
-    property int announcedUpdates: 0
+    property alias announcedUpdates: updatesSession.announcedUpdates
     readonly property string updatesIcon: updates.checking ? "󰁪" : updates.count > 0 ? "󰚰" : "󰗡"
     readonly property string updatesSize: updates.downloadBytes <= 0 ? ""
         : updates.downloadBytes >= 1073741824 ? (updates.downloadBytes / 1073741824).toFixed(1) + " GB"

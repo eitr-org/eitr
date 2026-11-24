@@ -181,7 +181,7 @@ Le schéma version 2 peut ajouter des tuiles dans **Centre de contrôle > Géné
 
 Les mises à jour montrent un diff défilant et le QML candidat avant approbation ; les changements QML génèrent des avertissements RISK. QML n’est pas un bac à sable : il s’exécute dans la barre avec tous vos droits. Faites confiance à l’auteur ; le chargeur ne peut isoler les boucles ni les plantages natifs.
 
-Les mises à jour approuvées actualisent l’interface du plugin sans redémarrer la barre.
+Après l’installation, la mise à jour ou la suppression d’un plugin, la barre se recharge automatiquement quand elle est inactive. Elle attend que vous refermiez la Boutique.
 
 Une erreur de chargement remplace le contenu par un message et est consignée dans `$XDG_STATE_HOME/eitr/plugin-ui.log`. Après trois erreurs de chargement ou signalées, les composants visuels du plugin sont désactivés, même après une mise à jour. Choisissez **Réactiver** dans Centre de contrôle > Plugins, ou lancez `eitr plugin enable-ui ID`. Avant ce seuil, fermez puis rouvrez Général pour réessayer.
 

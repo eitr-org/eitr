@@ -22,6 +22,7 @@ PanelWindow {
     property var pinnedEntries: []
     property var menuEntry: null
     property point menuPosition: Qt.point(0, 0)
+    readonly property bool interacting: available && (menuOpen || previewOpen || surface.dragging || surface.hovered)
     readonly property bool menuOpen: menuEntry !== null
     property string pendingPins: ""
     function savePins(pins) {

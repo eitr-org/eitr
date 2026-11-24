@@ -5,6 +5,7 @@ import Quickshell.Io
 
 Scope {
     id: owner
+    readonly property bool opened: content.item?.visible ?? false
     required property color foreground
     required property color background
     required property color accent

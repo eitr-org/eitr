@@ -66,7 +66,7 @@ package() {
     "$pkgdir"/usr/share/eitr/themes/*/motion \
     "$pkgdir"/usr/share/eitr/themes/*/preview.png
   # Lets each session regenerate theme output once after an upgrade.
-  printf '%s\n' "$pkgver" > "$pkgdir/usr/share/eitr/version"
+  printf '%s:%s-%s\n' "$epoch" "$pkgver" "$pkgrel" > "$pkgdir/usr/share/eitr/version"
   install -Dm644 distro/release.json "$pkgdir/usr/share/eitr/release.json"
   install -Dm644 quickshell/lockscreen/scripts/install-login.py \
     "$pkgdir/usr/share/eitr/quickshell/lockscreen/scripts/install-login.py"

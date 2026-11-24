@@ -24,7 +24,9 @@ La actualización del sistema incluye paquetes oficiales, AUR y Flatpak con inst
 
 Evita las actualizaciones parciales de Arch. Lee las preguntas de los paquetes en vez de aceptar una eliminación inesperada sin revisarla. Las tareas correctas se cierran; los fallos quedan visibles para que puedas investigar sin perder su salida.
 
-Tras una actualización correcta, una notificación pide completarla cuando sea necesario: **Reiniciar ahora** después de actualizar kernel, firmware, microcódigo, systemd, glibc, controlador gráfico o cifrado de disco; o **Cerrar sesión ahora** después de actualizar el escritorio, como EITR, Hyprland, Quickshell, Walker o PipeWire. **Más tarde** permite seguir trabajando; las nuevas versiones se usan al reiniciar o volver a iniciar sesión.
+Tras actualizar el paquete de escritorio de EITR, la barra se recarga automáticamente cuando se cierran sus ventanas y paneles y termina cualquier grabación o transmisión. La sesión de escritorio continúa.
+
+Tras una actualización correcta, una notificación pide completarla cuando sea necesario: **Reiniciar ahora** después de actualizar kernel, firmware, microcódigo, systemd, glibc, controlador gráfico o cifrado de disco; o **Cerrar sesión ahora** después de actualizar el escritorio, como Hyprland, Quickshell, Walker o PipeWire. **Más tarde** permite seguir trabajando; las nuevas versiones se usan al reiniciar o volver a iniciar sesión.
 
 ## Limpieza e instantáneas
 

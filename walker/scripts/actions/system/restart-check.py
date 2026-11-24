@@ -18,7 +18,7 @@ import sys
 RESTART = re.compile(r"^(linux(-lts|-zen|-hardened|-rt)?|linux-firmware.*|.*-ucode|systemd|systemd-libs|"
                      r"glibc|nvidia.*|mesa|lib32-mesa|cryptsetup|dbus|dbus-broker)$")
 # The desktop session loads these once; a new session picks up the update.
-LOG_OUT = re.compile(r"^(eitr-desktop|hyprland|hypr.*|aquamarine|quickshell|walker|elephant.*|uwsm|qt6-base|"
+LOG_OUT = re.compile(r"^(hyprland|hypr.*|aquamarine|quickshell|walker|elephant.*|uwsm|qt6-base|"
                      r"qt6-declarative|xdg-desktop-portal.*|pipewire.*|wireplumber)$")
 COMMANDS = {"restart": ["systemctl", "reboot", "--no-wall"], "log-out": ["uwsm", "stop"]}
 

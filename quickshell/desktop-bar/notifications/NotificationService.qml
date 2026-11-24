@@ -15,7 +15,18 @@ Item {
     // Popups show on every display unless the person keeps them on the main one.
     property bool popupsOnAllDisplays: true
     property bool centerOpen: false
+    PersistentProperties {
+        id: historyState
+        reloadableId: "notificationHistory"
+        property string timestampsJson: "{}"
+        property string repeatsJson: "{}"
+        onReloaded: {
+            try { service.timestamps = JSON.parse(timestampsJson) || {}; } catch (error) { service.timestamps = ({}); }
+            try { service.repeats = JSON.parse(repeatsJson) || {}; } catch (error) { service.repeats = ({}); }
+        }
+    }
     property var timestamps: ({})
+    onTimestampsChanged: historyState.timestampsJson = JSON.stringify(timestamps || {})
     property var popupDeadlines: ({})
     property var popupIds: []
     property var pausedPopupIds: []
@@ -26,6 +37,7 @@ Item {
     property var imageOrder: []
     // How many identical notifications (same sender, title and text) each card stands for.
     property var repeats: ({})
+    onRepeatsChanged: historyState.repeatsJson = JSON.stringify(repeats || {})
     signal toggleRequested()
     readonly property var tracked: server.trackedNotifications.values
     property var all: []
@@ -248,6 +260,15 @@ Item {
         onNotification: function(notification) {
             if (Logic.ignored(notification.appName)) return;
             notification.tracked = true;
+            if (notification.lastGeneration) {
+                if (notification.transient) {
+                    notification.expire();
+                    return;
+                }
+                service.retainImage(notification);
+                service.trimImages();
+                return;
+            }
             // A repeat of a notification still listed replaces it and counts it instead
             // of stacking an identical card.
             var twin = !notification.summary ? null : service.tracked.find(other => other !== notification && other.appName === notification.appName
@@ -264,7 +285,7 @@ Item {
             var times = Object.assign({}, service.timestamps);
             times[notification.id] = Date.now();
             service.timestamps = times;
-            if (!notification.lastGeneration && !service.popupsSuppressed && !service.centerOpen) {
+            if (!service.popupsSuppressed && !service.centerOpen) {
                 var duration = Logic.popupDuration(notification);
                 var deadlines = Object.assign({}, service.popupDeadlines);
                 deadlines[notification.id] = duration ? Date.now() + duration : 0;

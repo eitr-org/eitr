@@ -111,6 +111,7 @@ offer_restart() {
   [[ -f "$runner" ]] && bash "$runner" post-update "$update_kind"
   if [[ "$(pacman -Q eitr-desktop 2>/dev/null || true)" != "$desktop_before" ]]; then
     systemctl --user try-restart elephant.service >/dev/null 2>&1 || true
+    eitr-shell desktop-bar ipc call -- bar reload >/dev/null 2>&1 || true
   fi
   python3 "$restart_check" compare "$packages" || true
 }

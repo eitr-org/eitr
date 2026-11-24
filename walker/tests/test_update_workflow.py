@@ -232,7 +232,7 @@ yay() { echo "yay $*"; }
         self.assertIn("helper is missing", result.stderr)
         self.assertEqual(result.stdout, "")
 
-    def test_elephant_restarts_only_when_eitr_desktop_changed(self):
+    def test_desktop_upgrade_restarts_elephant_and_requests_bar_reload(self):
         source = (ROOT / "walker/scripts/actions/system/update.sh").read_text()
         for changed in (False, True):
             with self.subTest(changed=changed), tempfile.TemporaryDirectory() as directory:
@@ -240,15 +240,15 @@ yay() { echo "yay $*"; }
                 versions.write_text("eitr-desktop 1\n" + ("eitr-desktop 2\n" if changed else "eitr-desktop 1\n"))
                 mocks = (f'pacman() {{ if [[ "$1" == -Q ]]; then head -1 {versions}; sed -i 1d {versions}; '
                          'else echo "pacman $*"; fi; }; sudo() { echo "sudo $*"; }; yay() { echo "yay $*"; }; '
-                         f'systemctl() {{ echo "systemctl $*" >> {directory}/calls; }}; eitr-shell() {{ :; }}; '
+                         f'systemctl() {{ echo "systemctl $*" >> {directory}/calls; }}; eitr-shell() {{ echo "eitr-shell $*" >> {directory}/calls; }}; '
                          'python3() { :; }; export -f pacman sudo yay systemctl eitr-shell python3\n')
                 result = subprocess.run(["bash", "-c", mocks + source, "update", "pacman"], capture_output=True,
                                         text=True, env=dict(os.environ, EITR_CODE_ROOT=str(ROOT),
                                                             XDG_RUNTIME_DIR=directory))
                 self.assertEqual(result.returncode, 0, result.stderr)
-                calls = Path(directory, "calls")
-                restarted = calls.exists() and "systemctl --user try-restart elephant.service" in calls.read_text()
-                self.assertEqual(restarted, changed)
+                calls = Path(directory, "calls").read_text().splitlines()
+                self.assertEqual("systemctl --user try-restart elephant.service" in calls, changed)
+                self.assertEqual("eitr-shell desktop-bar ipc call -- bar reload" in calls, changed)
 
     def test_a_broken_restart_check_never_blocks_the_update(self):
         # The restart check runs before updating; if it crashes, the update that would

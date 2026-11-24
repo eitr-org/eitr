@@ -159,7 +159,7 @@ Plugins können Hooks für `theme-changed`, `wallpaper-changed`, `after-update` 
 
 Schema-Version 2 kann Kacheln unter **Kontrollzentrum > Allgemein > Plugins** und daraus geöffnete Panels hinzufügen. Sie können Eitrs Farben, Schrift und Ecken übernehmen; Leistenelemente kommen bei der Installation auf die Leiste, Widgets erscheinen, wenn du sie hinzufügst. Die Prüfung zeigt jede QML-Datei und ihren vollständigen Quelltext vor der Installation. Updates zeigen einen blätterbaren Diff und das neue QML vor der Bestätigung; QML-Änderungen erzeugen RISK-Hinweise. QML ist keine Sandbox: Es läuft innerhalb der Leiste mit deinen vollen Rechten. Vertraue dem Autor; Schleifen und native Abstürze kann der Loader nicht isolieren.
 
-Nach der Freigabe eines Updates aktualisiert die Leiste die Plugin-Oberfläche ohne Neustart.
+Nach dem Installieren, Aktualisieren oder Entfernen eines Plugins lädt sich die Leiste automatisch neu, sobald sie nicht mehr benutzt wird. Sie wartet, bis du den Store schließt.
 
 Bei einem Ladefehler erscheint ein Hinweis statt des Inhalts; das Protokoll liegt unter `$XDG_STATE_HOME/eitr/plugin-ui.log`. Nach drei Ladefehlern oder gemeldeten Fehlern werden die visuellen Komponenten des Plugins dauerhaft deaktiviert, auch über Updates hinweg. Wähle **Wieder aktivieren** unter Kontrollzentrum > Plugins, oder führe `eitr plugin enable-ui ID` aus. Vor diesem Grenzwert Allgemein schließen und erneut öffnen, um es nochmals zu versuchen.
 

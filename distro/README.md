@@ -268,7 +268,8 @@ run as the desktop user:
 `--repo <checkout>` it compares against a checkout instead of the package.
 
 Package updates replace the desktop code; preferences in `~/.config` are not
-touched. At the next login `eitr-session` regenerates theme output once for the
+touched. The running desktop bar watches `/usr/share/eitr/version` and reloads in
+place once idle. At the next login `eitr-session` regenerates theme output once for the
 new package version, keeping the previous files under
 `~/.local/state/eitr/generated-backups`.
 

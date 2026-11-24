@@ -14,6 +14,8 @@ QtObject {
     property var stopwatch: ClockModel.emptyStopwatch()
     property var focusSnapshot: ClockModel.emptyFocus()
     property double now: Date.now()
+    property int activeAlerts: 0
+    property bool saving: false
     property bool stateLoaded: false
     property string restoredFocusEvent: ""
     property bool _dirtyBeforeLoad: false
@@ -57,6 +59,7 @@ QtObject {
 
     function saveState() {
         markDirty();
+        saving = true;
         stateFile.setText(JSON.stringify(ClockModel.serializeState(timers, stopwatch, focusSnapshot)) + "\n");
     }
 
@@ -255,7 +258,10 @@ QtObject {
             command: ["notify-send", "-a", "Eitr", "-u", "critical", "--wait", "-h", "boolean:suppress-sound:true",
                 "-A", "restart=" + Eitr.I18n.tr("Restart"), title, body]
         });
-        if (process) process.running = true;
+        if (process) {
+            activeAlerts++;
+            process.running = true;
+        }
     }
 
     function tickTimers() {
@@ -283,6 +289,7 @@ QtObject {
             property string timerId: ""
             property bool processExited: false
             property bool streamDone: false
+            Component.onDestruction: clockTimers.activeAlerts--
             function maybeDestroy() {
                 if (processExited && streamDone) alertProc.destroy();
             }
@@ -305,6 +312,8 @@ QtObject {
         watchChanges: false
         atomicWrites: true
         printErrors: false
+        onSaved: clockTimers.saving = false
+        onSaveFailed: clockTimers.saving = false
         onLoaded: {
             clockTimers.stateLoaded = true;
             if (clockTimers._dirtyBeforeLoad) {

@@ -14,6 +14,10 @@ QtObject {
     }
     property var entries: []
     property var installed: []
+    property bool snapshotLoaded: false
+    readonly property bool refreshing: query.running || pending
+    readonly property string installedRevision: snapshotLoaded ? JSON.stringify(installed.map(plugin =>
+        JSON.stringify([plugin.id, plugin.commit])).sort()) : ""
     // Session diagnostics only: never persist arbitrary plugin messages.
     property var errors: []
     property var diagnosticRoots: ({})
@@ -227,6 +231,7 @@ QtObject {
                 if (JsonState.changed(registry.entries, next.entries)) registry.entries = next.entries;
                 if (JsonState.changed(registry.installed, next.installed)) registry.installed = next.installed;
                 if (JsonState.changed(registry.placements, next.placements)) registry.placements = next.placements;
+                registry.snapshotLoaded = true;
                 registry.rotationDrafts = ({});
             } else registry.entries = [];
             if (registry.pending) { registry.pending = false; Qt.callLater(registry.refreshEntries); }

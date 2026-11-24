@@ -36,7 +36,31 @@ ShellRoot {
     NetworkService { id: networkOwner }
     NotificationService { id: notificationsService; transientSuppress: cleanOverlay.active }
     RemoteAccessService { id: remoteAccessService; observing: shell.remotePanelsOpen }
-    WelcomeSession { host: shell }
+    WelcomeSession { id: welcome; host: shell }
+    BarReload {
+        id: barReload
+        versionPath: Quickshell.env("EITR_LIVE_RELOAD") === "0" ? Quickshell.shellDir + "/../../version" : ""
+        packageLockPath: versionPath ? "/var/lib/pacman/db.lck" : ""
+        pluginRevision: PluginRegistry.installedRevision
+        property var captureBeforeRequest: null
+        onPendingChanged: if (pending) {
+            captureBeforeRequest = ObsStatus.summary;
+            ObsStatus.refresh();
+        }
+        busy: catalogWindow.opened || settingsWindow.opened || clockWindow.opened || welcome.opened
+            || desktopAppearance.opened || timePicker.opened || beautify.opened || pins.entries.length > 0
+            || polkit.showing || cleanOverlay.active || PluginRegistry.editing || !!PluginRegistry.menuTarget
+            || pluginDesktop.focusedWidgets.length > 0 || PluginRegistry.refreshing || notificationsService.popupIds.length > 0
+            || shell.barPointerHeld || shell.settingsDirty || preferences.saving || toggleIdleLock.running
+            || shell.dictating || shell.transcribing || ClockAlarms.busy || ClockAlarms.choosingSound || !!ClockAlarms.ringing
+            || !ClockTimers.stateLoaded || ClockTimers.saving
+            || ObsStatus.reloadBlocked || (pending && ObsStatus.summary === captureBeforeRequest)
+            || DesktopData.networkDomain.busy || DesktopData.powerDomain.busy
+            || AudioDevices.selectingPorts > 0 || !!AudioDevices.pending
+            || ClockTimers.activeAlerts > 0 || FocusTimer.alert.running
+            || Object.values(shell.barsByScreen).some(bar => bar.reloadBusy)
+    }
+    function requestBarReload() { barReload.request(); }
     SettingsWindow {
         id: settingsWindow
         onThemesRequested: shell.showThemes("all")
@@ -65,8 +89,8 @@ ShellRoot {
     readonly property var _clockTimersRef: ClockTimers
     readonly property var _focusTimerRef: FocusTimer
     LiveWallpaper {}
-    ScreenshotPins { foreground: shell.fg; background: shell.barBackground() }
-    BeautifyWindow { foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg }
+    ScreenshotPins { id: pins; foreground: shell.fg; background: shell.barBackground() }
+    BeautifyWindow { id: beautify; foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg }
     PluginDesktop {
         id: pluginDesktop
         foreground: shell.fg; background: shell.barBackground(); accent: shell.activeBg
@@ -77,6 +101,7 @@ ShellRoot {
         defaultScreen: shell.targetScreens()[0] || null
     }
     PolkitPrompt {
+        id: polkit
         foreground: shell.fg; background: shell.workspaceMenuBg; accent: shell.activeBg
         defaultScreen: shell.targetScreens()[0] || null
     }
@@ -93,8 +118,14 @@ ShellRoot {
 
     property int remoteObservers: 0
     readonly property bool remotePanelsOpen: remoteObservers > 0
-    property bool statusOpen: false
-    property bool barVisible: true
+    PersistentProperties {
+        id: barSession
+        reloadableId: "barSession"
+        property bool statusOpen: false
+        property bool barVisible: true
+    }
+    property alias statusOpen: barSession.statusOpen
+    property alias barVisible: barSession.barVisible
     property int barHeight: 30
     // The theme's colors; the Website appearance swaps in the website's palette.
     property color themeFg: "#cdd6f4"
@@ -230,7 +261,7 @@ ShellRoot {
     readonly property alias transcribing: dictation.transcribing
     readonly property alias dictationLevels: dictation.dictationLevels
 
-    TimePicker { defaultScreen: shell.targetScreens()[0] || null; foreground: shell.fg; background: shell.barBackground() }
+    TimePicker { id: timePicker; defaultScreen: shell.targetScreens()[0] || null; foreground: shell.fg; background: shell.barBackground() }
     AppearancePicker {
         id: desktopAppearance
         docked: AppearancePlacement.hostsCarousel(mode, shell.barEdge, shell.dropLayout,

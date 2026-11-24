@@ -38,7 +38,8 @@ print((Path(os.environ['XDG_STATE_HOME']) / 'eitr/plugins.json').read_text())
                 entry = dict(plugin='fixture', pluginName='Fixture', id='panel', kind='panels',
                              title='Fixture', qml=top.name, source=(staged / top.name).as_uri(),
                              commit=commit, disabled=False)
-                snapshots.append(json.dumps(dict(entries=[entry], installed=[], placements={})))
+                snapshots.append(json.dumps(dict(entries=[entry],
+                    installed=[dict(id='fixture', commit=commit)], placements={})))
             snapshots.append(json.dumps(dict(entries=[], installed=[], placements={})))
             approval.write_text(snapshots[0])
             capture = capture_path('PLUGIN_UPDATE', directory, 'plugin-update.png')
@@ -55,6 +56,7 @@ ShellRoot {
         implicitWidth: 320; implicitHeight: 100
         color: "#18212b"
         property int phase: 0
+        property string firstRevision: ""
         property var snapshots: SNAPSHOTS
         Bar.PluginComponent {
             id: host
@@ -83,9 +85,12 @@ ShellRoot {
             interval: 25; running: true; repeat: true
             onTriggered: {
                 if (window.phase === 0 && window.shows(host, "First revision")) {
+                    window.firstRevision = Bar.PluginRegistry.installedRevision;
+                    if (!window.firstRevision) { Qt.exit(1); return; }
                     popup.history = [{plugin: "fixture", id: "panel"}];
                     window.showNext();
                 } else if (window.phase === 1 && window.shows(host, "Updated relative type")) {
+                    if (Bar.PluginRegistry.installedRevision === window.firstRevision) { Qt.exit(1); return; }
                     if (!popup.back() || popup.entry.commit !== host.entry.commit) { Qt.exit(1); return; }
                     stop();
                     host.grabToImage(result => {
@@ -95,6 +100,7 @@ ShellRoot {
                     });
                 } else if (window.phase === 2 && Bar.PluginRegistry.entries.length === 0
                        && !window.shows(host, "Updated relative type")) {
+                    if (Bar.PluginRegistry.installedRevision !== "[]") { Qt.exit(1); return; }
                     console.log("PLUGIN_UPDATE_OK");
                     Qt.quit();
                 }

@@ -167,7 +167,7 @@ O esquema versão 2 pode adicionar blocos em **Central de controle > Geral > Plu
 
 Atualizações mostram um diff rolável e o QML candidato antes da aprovação; alterações QML geram avisos RISK. QML não é uma sandbox: executa dentro da barra com suas permissões completas. Confie no autor; o carregador não isola loops nem falhas nativas.
 
-As atualizações aprovadas renovam a interface do plugin sem reiniciar a barra.
+Após instalar, atualizar ou remover um plugin, a barra recarrega automaticamente quando está ociosa. Ela espera você fechar a Loja.
 
 Um erro de carregamento substitui o conteúdo por um aviso e é registrado em `$XDG_STATE_HOME/eitr/plugin-ui.log`. Após três erros de carregamento ou relatados, os componentes visuais do plugin ficam desativados, inclusive após atualizações. Escolha **Reativar** em Central de controle > Plugins, ou execute `eitr plugin enable-ui ID`. Antes desse limite, feche e reabra Geral para tentar novamente.
 

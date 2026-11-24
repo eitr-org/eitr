@@ -112,8 +112,8 @@ def main(argv=None, executable=None):
                 rest += [''] * max(0, 1 - supplied)
         selected = str(shell_path(component, root))
         # Package upgrades replace files under the code root mid-transaction; a live
-        # reload then fails. Only checkouts and personal overrides reload live; the
-        # packaged desktop picks up an upgrade at the next login.
+        # file watch then fails. Only checkouts and personal overrides watch QML
+        # directly; the packaged desktop bar watches the installed version stamp.
         environment['EITR_LIVE_RELOAD'] = '1' if repo or not Path(selected).is_relative_to(ROOT) else '0'
         if rest and rest[0] in {'ipc', 'kill'} and not repo:
             selected = running_instance(component, selected)

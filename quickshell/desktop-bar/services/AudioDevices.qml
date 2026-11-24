@@ -19,6 +19,7 @@ QtObject {
     property var ports: []
     // A port being switched to: its device becomes the default once PipeWire has it.
     property var pending: null
+    property int selectingPorts: 0
 
     function monitorName(node) {
         const match = String(node && node.description || "").match(/\[([^\]]+)\]\s*$/);
@@ -48,7 +49,9 @@ QtObject {
         if (String(value).startsWith("port:")) {
             const port = ports.find(entry => "port:" + entry.card + "|" + entry.profile === value);
             if (!port) return;
+            selectingPorts++;
             DesktopData.queryAudio("select", {card: port.card, profile: port.profile}, devices, (error, data) => {
+                selectingPorts--;
                 if (error) { readPorts(); return; }
                 pending = {node: port.node, microphone: microphone, tries: 0};
                 settle.restart();

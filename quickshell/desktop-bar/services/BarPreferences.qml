@@ -11,6 +11,7 @@ import "../JsonState.js" as JsonState
 Scope {
     id: preferences
     property var host
+    readonly property bool saving: saveBarSettings.running
     Binding { target: PluginRegistry; property: "clockFormat"; value: preferences.host.barClock }
     // Empty-bar double-click cycles follow tools/choice-lists.json (left: appearances, right: layouts).
     function nextAppearance(current) { return ChoiceLists.next(ChoiceLists.barAppearances, current); }
@@ -43,6 +44,7 @@ Scope {
 
     IpcHandler {
         target: "bar"
+        function reload(): void { preferences.host.requestBarReload(); }
         function idleLock(enabled: bool): void { host.idleLockEnabled = enabled; }
         function workspaces(): string { return JSON.stringify({count: host.workspaceCount, limit: DesktopStyle.workspaceCount}); }
         function visibility(): void { host.barVisible = !host.barVisible; }

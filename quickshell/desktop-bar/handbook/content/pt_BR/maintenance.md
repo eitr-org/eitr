@@ -24,7 +24,9 @@ A Atualização do sistema inclui pacotes oficiais, AUR e Flatpak com snapshots 
 
 Evite atualizações parciais do Arch. Leia as mensagens dos pacotes em vez de aceitar uma remoção inesperada sem conferir. Tarefas bem-sucedidas fecham automaticamente; falhas ficam visíveis para você investigar sem perder a saída.
 
-Após uma atualização bem-sucedida, uma notificação pede a conclusão quando necessário: **Reiniciar agora** após atualizações de kernel, firmware, microcódigo, systemd, glibc, driver de vídeo ou criptografia de disco; ou **Sair agora** após atualizações do desktop, como EITR, Hyprland, Quickshell, Walker ou PipeWire. **Mais tarde** permite continuar trabalhando; as novas versões passam a valer na próxima reinicialização ou sessão.
+Após uma atualização do pacote de desktop do EITR, a barra recarrega automaticamente assim que suas janelas e painéis estiverem fechados e qualquer gravação ou transmissão tiver terminado. A sessão do desktop continua aberta.
+
+Após uma atualização bem-sucedida, uma notificação pede a conclusão quando necessário: **Reiniciar agora** após atualizações de kernel, firmware, microcódigo, systemd, glibc, driver de vídeo ou criptografia de disco; ou **Sair agora** após atualizações do desktop, como Hyprland, Quickshell, Walker ou PipeWire. **Mais tarde** permite continuar trabalhando; as novas versões passam a valer na próxima reinicialização ou sessão.
 
 ## Limpeza e snapshots
 

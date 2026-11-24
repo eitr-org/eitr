@@ -26,14 +26,14 @@ class RestartCheckTests(unittest.TestCase):
                 self.assertEqual(self.check.needed(["firefox", name], False), ("restart", [name]))
 
     def test_desktop_updates_ask_to_log_out(self):
-        for name in ("eitr-desktop", "hyprland", "hyprlock", "quickshell", "walker", "elephant-menus-bin",
+        for name in ("hyprland", "hyprlock", "quickshell", "walker", "elephant-menus-bin",
                      "qt6-base", "xdg-desktop-portal-hyprland", "pipewire-pulse", "wireplumber"):
             with self.subTest(name=name):
                 self.assertEqual(self.check.needed([name, "firefox"], False), ("log-out", [name]))
 
     def test_restart_outranks_log_out_and_apps_need_nothing(self):
         self.assertEqual(self.check.needed(["eitr-desktop", "linux"], False), ("restart", ["linux"]))
-        self.assertEqual(self.check.needed(["firefox", "linux-headers", "linux-api-headers"], False), (None, []))
+        self.assertEqual(self.check.needed(["firefox", "eitr-desktop", "linux-headers", "linux-api-headers"], False), (None, []))
         self.assertEqual(self.check.needed([], True), ("restart", ["the kernel"]))
 
     def test_missing_running_kernel_modules_mean_the_kernel_changed(self):

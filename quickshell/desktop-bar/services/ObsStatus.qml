@@ -11,6 +11,8 @@ QtObject {
     property bool pending: false
     readonly property bool busy: DesktopData.captureDomain.busy
     readonly property var summary: DesktopData.topics["capture.summary"]
+    readonly property bool reloadBlocked: busy || state.recording || state.paused || state.streaming
+        || !summary || summary.status !== "ready" || (hasWindow && !state.running) || !state.ready
     readonly property var details: DesktopData.topics["capture.details"]
     property string summaryToken: ""
     property string detailsToken: ""

@@ -14,6 +14,11 @@ Scope {
     required property color accent
     property real grid: 6
     readonly property bool observing: Quickshell.screens.some(screen => PluginRegistry.placed("widgets", screen.name).length > 0)
+    property var focusedWidgets: []
+    function trackFocus(widget, focused) {
+        const remaining = focusedWidgets.filter(candidate => candidate !== widget);
+        focusedWidgets = focused ? remaining.concat([widget]) : remaining;
+    }
     property var monitors: DisplayService.topology.monitors
     function refresh() { DisplayService.refresh(); }
     PluginWidgetMenuHost { foreground: desktop.foreground; background: desktop.background; accent: desktop.accent }
@@ -66,6 +71,8 @@ Scope {
                     WlrLayershell.namespace: content.surface === "none" ? "eitr-plugin-transparent" : "eitr-plugin-widget"
                     readonly property bool aboveWindows: !!placement.aboveWindows
                     readonly property bool textFocusActive: !aboveWindows && (content.keyboardFocus || (content.acceptsKeyboard && content.pointerHovered && !content.keyboardDismissed))
+                    onTextFocusActiveChanged: desktop.trackFocus(window, textFocusActive)
+                    Component.onDestruction: if (textFocusActive) desktop.trackFocus(window, false)
                     visible: content.editing || !aboveWindows || !display.fullscreen
                     WlrLayershell.layer: content.editing ? WlrLayer.Overlay : aboveWindows ? WlrLayer.Top : WlrLayer.Bottom
                     WlrLayershell.keyboardFocus: content.editing ? WlrKeyboardFocus.Exclusive

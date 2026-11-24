@@ -123,7 +123,13 @@ Theme Color or Blur appearance. Error details are selectable and scroll within
 the screen; dismiss with the close button or Escape while focused. Successful
 reloads stay quiet. The previous working configuration remains active after a
 failed reload. A failure before any configuration loads still uses Quickshell's
-built-in fallback, since the custom popup cannot run yet.
+built-in fallback, since the custom popup cannot run yet. `services/BarReload.qml`
+watches the packaged `/usr/share/eitr/version` stamp (and waits for `/var/lib/pacman/db.lck`
+to clear), watches `PluginRegistry.installedRevision` for plugin installs, updates
+and removals, and accepts `eitr-shell desktop-bar ipc call -- bar reload` from
+System Update, logging one info line and calling `Quickshell.reload(false)` once
+every bar window, panel, Store, picker, notification popup, focused widget and
+capture/domain action is idle.
 
 ## EITR Handbook
 

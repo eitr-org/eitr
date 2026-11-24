@@ -26,8 +26,10 @@ For a wallpaper file, use
 `bash /usr/share/eitr/walker/scripts/actions/wallpaper/apply.sh FILE`.
 There is no `eitr wallpaper` command.
 
-Packaged shells activate updates at the next session; checkout shells launched
-with `eitr-shell --repo CHECKOUT desktop-bar` reload automatically. Ask before
+The desktop bar reloads automatically when idle after an `eitr-desktop` update or
+a plugin install, update or removal; other packaged shells activate updates at the
+next session, while checkout shells launched with `eitr-shell --repo CHECKOUT desktop-bar`
+watch their QML directly. Ask before
 restarting the bar or other disruptive services. Walker launches go through
 `/usr/share/eitr/walker/bin/walker`. Elephant uses its single systemd user service:
 verify `KillMode=process` before restarting it so launched applications survive.

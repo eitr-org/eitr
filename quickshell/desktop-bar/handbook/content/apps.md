@@ -228,7 +228,8 @@ approval; QML changes raise RISK flags. QML is not a sandbox: it runs inside the
 bar with your full permissions. Trust the author; a loop or native crash cannot
 be isolated by the loader.
 
-Approved updates refresh plugin visuals without restarting the bar.
+After a plugin is installed, updated or removed, the bar reloads automatically
+when idle. It waits for you to close the Store.
 
 A component load error shows an inline error instead of its content and is
 logged in `$XDG_STATE_HOME/eitr/plugin-ui.log`. After three load or reported

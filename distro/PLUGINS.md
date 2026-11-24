@@ -522,7 +522,8 @@ and **Preview**. Back or Escape returns to the list.
 Add, Update and Remove open the reviewed terminal flows; removal still asks for
 confirmation. General keeps only plugin tiles and their panel navigation.
 
-The bar refreshes plugin visuals after installation, update or removal. Each
+The bar refreshes plugin visuals after installation, update or removal, and
+reloads in place once idle. Each
 approved visual revision gets its own directory under
 `$XDG_CACHE_HOME/eitr/plugin-ui/<id>/<commit>/`. Relative QML imports, scripts
 and images load from that revision together. The cache keeps the current and

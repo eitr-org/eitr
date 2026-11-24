@@ -141,6 +141,7 @@ CountBadge components/CountBadge.qml
 ClockButton bar/ClockButton.qml
 WelcomeSession services/WelcomeSession.qml
 BarPreferences services/BarPreferences.qml
+BarReload services/BarReload.qml
 DictationState services/DictationState.qml
 SessionHooks services/SessionHooks.qml
 UpdatesStatus services/UpdatesStatus.qml

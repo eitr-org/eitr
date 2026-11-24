@@ -14,13 +14,23 @@ Scope {
     }
     // The user's hooks (distro/lib/run-hook.sh): battery-low once per drop to the low level,
     // post-boot at start (the runner keeps it to once per boot).
-    property bool batteryLowHookRan: false
+    PersistentProperties {
+        id: batterySession
+        reloadableId: "batterySession"
+        property bool lowHookRan: false
+        property int chargerState: -1
+        property int warned: 0
+        property bool postBootRan: false
+        property bool remindersRestored: false
+    }
+    property alias batteryLowHookRan: batterySession.lowHookRan
     function runHook(args) {
         var library = Quickshell.env("EITR_LIBRARY_ROOT") || (Eitr.Paths.codeRoot + "/lib");
         Quickshell.execDetached(["bash", library + "/run-hook.sh"].concat(args));
     }
     // Whether the charger was connected at the last battery reading (null before the first).
-    property var chargerConnected: null
+    property var chargerConnected: batterySession.chargerState < 0 ? null : batterySession.chargerState === 1
+    onChargerConnectedChanged: batterySession.chargerState = chargerConnected === null ? -1 : chargerConnected ? 1 : 0
     function checkCharger() {
         if (!host.battery.available) return;
         var connected = host.battery.status !== "Discharging";
@@ -28,7 +38,7 @@ Scope {
         chargerConnected = connected;
     }
     // The lowest battery warning already given during this discharge (0 = none).
-    property int batteryWarned: 0
+    property alias batteryWarned: batterySession.warned
     function checkBatteryLow() {
         var discharging = host.battery.available && host.battery.status === "Discharging";
         var lowLevel = host.battery.low !== undefined ? host.battery.low : 10;
@@ -44,11 +54,14 @@ Scope {
             "--icon=battery-caution-symbolic", level === criticalLevel ? "Battery almost empty" : "Battery low",
             host.battery.percent + "% left. " + (level === criticalLevel ? "Plug in now to avoid losing work." : "Plug in soon.")]);
     }
-    Timer { interval: 5000; running: true; onTriggered: hooks.runHook(["post-boot"]) }
+    Timer { interval: 5000; running: !batterySession.postBootRan; onTriggered: { batterySession.postBootRan = true; hooks.runHook(["post-boot"]); } }
     // Reminders survive restarts: reschedule them, and show ones that came due while off.
     Timer {
         interval: 6000
-        running: true
-        onTriggered: Quickshell.execDetached(["python3", Eitr.Paths.codeRoot + "/walker/scripts/actions/tools/reminders.py", "restore"])
+        running: !batterySession.remindersRestored
+        onTriggered: {
+            batterySession.remindersRestored = true;
+            Quickshell.execDetached(["python3", Eitr.Paths.codeRoot + "/walker/scripts/actions/tools/reminders.py", "restore"]);
+        }
     }
 }

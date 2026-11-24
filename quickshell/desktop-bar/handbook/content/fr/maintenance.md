@@ -28,7 +28,9 @@ La mise à jour du système couvre les paquets officiels, AUR et Flatpak avec de
 
 Évitez les mises à jour partielles d’Arch. Lisez les questions des paquets plutôt que d’accepter une suppression inattendue sans vérifier. Les tâches réussies se ferment ; les échecs restent visibles pour permettre l’examen de leur sortie.
 
-Après une mise à jour réussie, une notification demande de la terminer si nécessaire : **Redémarrer maintenant** après une mise à jour du noyau, du firmware, du microcode, de systemd, glibc, du pilote graphique ou du chiffrement du disque. **Se déconnecter maintenant** concerne les mises à jour du bureau, comme EITR, Hyprland, Quickshell, Walker ou PipeWire. **Plus tard** permet de continuer à travailler ; les nouvelles versions prennent effet au prochain redémarrage ou à la prochaine connexion.
+Après une mise à jour du paquet de bureau EITR, la barre se recharge automatiquement une fois ses fenêtres et panneaux fermés et toute capture ou diffusion terminée. La session de bureau se poursuit.
+
+Après une mise à jour réussie, une notification demande de la terminer si nécessaire : **Redémarrer maintenant** après une mise à jour du noyau, du firmware, du microcode, de systemd, glibc, du pilote graphique ou du chiffrement du disque. **Se déconnecter maintenant** concerne les mises à jour du bureau, comme Hyprland, Quickshell, Walker ou PipeWire. **Plus tard** permet de continuer à travailler ; les nouvelles versions prennent effet au prochain redémarrage ou à la prochaine connexion.
 
 ## Nettoyage et instantanés
 

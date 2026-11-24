@@ -9,6 +9,7 @@ import Eitr as Eitr
 Scope {
     id: session
     property var host
+    readonly property bool opened: handbookLoader.item?.opened ?? false
     // The crash-notification preference's default, until the saved choice has been read.
     property bool offerProblemReports: true
     function reader() {
@@ -52,8 +53,9 @@ Scope {
     // Once after the boot guard restored the system, a login hears about it.
     Timer {
         interval: 8000
-        running: true
+        running: !welcomeSession.noticesChecked
         onTriggered: {
+            welcomeSession.noticesChecked = true;
             Quickshell.execDetached(["bash", Quickshell.shellDir + "/scripts/boot-guard-notice.sh"]);
             Quickshell.execDetached(["python3", Eitr.Paths.library("eitr_input_methods.py"), "offer"]);
         }
@@ -77,6 +79,7 @@ Scope {
         id: welcomeSession
         reloadableId: "handbookWelcomeSession"
         property bool checked: false
+        property bool noticesChecked: false
     }
     Timer {
         // Let the bar and the startup wallpaper reveal settle first.

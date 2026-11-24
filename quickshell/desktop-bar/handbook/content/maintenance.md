@@ -52,10 +52,14 @@ Avoid partial Arch upgrades. Read package prompts rather than accepting an
 unexpected removal blindly. Successful update tasks close; failures remain
 visible so you can troubleshoot rather than lose their output.
 
+After an EITR desktop package update, the bar reloads automatically once its
+windows and panels are closed and capture is idle. The current desktop session
+continues.
+
 After a successful update, a notification asks to finish it when needed:
 **Restart now** after kernel, firmware, microcode, systemd, glibc, graphics
 driver or disk-encryption updates, or **Log out now** after desktop updates
-such as EITR, Hyprland, Quickshell, Walker or PipeWire. **Later** keeps working;
+such as Hyprland, Quickshell, Walker or PipeWire. **Later** keeps working;
 the new versions take effect at the next restart or login.
 
 ## Cleanup and snapshots

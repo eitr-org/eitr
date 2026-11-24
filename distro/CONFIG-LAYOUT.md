@@ -384,9 +384,10 @@ the user:
    the user's roots. The report lists paths and decisions, never setting values.
 5. The tiny loaders are installed last; a rerun after completion changes nothing.
    Undo restores the archive.
-6. Activation happens at the next session. Shells running the packaged code do
-   not watch their files, since an upgrade replaces them mid-transaction; only
-   `eitr-shell --repo` checkouts and personal overrides reload live. Shells and
+6. The desktop bar watches the packaged version stamp and reloads at idle
+   after an upgrade. Other packaged shells activate at the next session.
+   Checkouts started with `eitr-shell --repo` and personal overrides watch their
+   QML directly. Shells and
    scripts a checkout starts inherit its `EITR_CODE_ROOT`, so they run from the
    checkout too (a wallpaper change tried with `eitr-run --repo` uses the
    checkout's transition). Any live

@@ -24,7 +24,9 @@ Die Systemaktualisierung umfasst offizielle Pakete, AUR und Flatpak mit Snapshot
 
 Vermeide Teilaktualisierungen von Arch. Lies Paketabfragen, statt eine unerwartete Entfernung ungeprüft zu bestätigen. Erfolgreiche Aufgaben schließen sich; Fehlerausgaben bleiben zur Untersuchung sichtbar.
 
-Nach erfolgreicher Aktualisierung fordert bei Bedarf eine Benachrichtigung zum Abschluss auf: **Jetzt neu starten** nach Kernel-, Firmware-, Mikrocode-, systemd-, glibc-, Grafiktreiber- oder Laufwerksverschlüsselungs-Aktualisierungen. **Jetzt abmelden** gilt nach Desktop-Aktualisierungen wie EITR, Hyprland, Quickshell, Walker oder PipeWire. Mit **Später** arbeitest du weiter; die neuen Versionen werden beim nächsten Neustart oder Anmelden verwendet.
+Nach einem Update des EITR-Desktop-Pakets lädt sich die Leiste automatisch neu, sobald ihre Fenster und Panels geschlossen sind und keine Aufnahme oder Übertragung läuft. Die Desktop-Sitzung läuft weiter.
+
+Nach erfolgreicher Aktualisierung fordert bei Bedarf eine Benachrichtigung zum Abschluss auf: **Jetzt neu starten** nach Kernel-, Firmware-, Mikrocode-, systemd-, glibc-, Grafiktreiber- oder Laufwerksverschlüsselungs-Aktualisierungen. **Jetzt abmelden** gilt nach Desktop-Aktualisierungen wie Hyprland, Quickshell, Walker oder PipeWire. Mit **Später** arbeitest du weiter; die neuen Versionen werden beim nächsten Neustart oder Anmelden verwendet.
 
 ## Bereinigung und Snapshots
 
