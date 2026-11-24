@@ -46,7 +46,7 @@ Item {
     property string progress: ""
     property bool busy: false
     property string actingId: ""
-    property bool loading: false
+    property bool installedLoaded: false
     property bool reviewing: false
     property var detail: null
     property int detailGeneration: 0
@@ -328,14 +328,14 @@ Item {
         const merged = [];
         for (const index of indexes) for (const item of index.items) if (!merged.some(row => row.id === item.id)) merged.push(item);
         const index = {items: merged, loaded: indexes.every(entry => entry.loaded), error: indexes.map(entry => entry.error || "").filter(value => value).join("\n")};
-        installed = local.items; installedError = local.error || ""; loading = !!local.pending;
+        installed = local.items; installedError = local.error || ""; installedLoaded = !!local.loaded;
         indexLoaded = !!index.loaded; availableItems = index.items; repositoryError = index.error || "";
     }
     function refreshInstalled() { fetch(kind, "installed"); }
     function refreshIndex() { if (tab !== "installed") for (const source of definition.sources) fetch(kind, source); }
     function load() {
         generation++;
-        store = ({}); installed = []; availableItems = []; selected = []; previews = ({}); previewRequests = ({});
+        store = ({}); installed = []; availableItems = []; installedLoaded = false; indexLoaded = false; selected = []; previews = ({}); previewRequests = ({});
         detail = null; reviewIds = null; artwork = ({}); artworkRequests = ({}); reviewing = false; removing = null; busy = false; error = ""; repositoryError = ""; installedError = ""; progress = "";
         if (!live || !opened) return;
         fetch("themes", "installed");

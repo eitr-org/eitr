@@ -33,7 +33,10 @@ Column {
         onChosen: value => catalog.kind = value
     }
     StoreSearchHeader { id: searchHeader; width: parent.width; catalog: contentLayout.catalog }
-    StoreLabel { catalog: contentLayout.catalog; width: parent.width; visible: text !== ""; text: (!catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (catalog.loading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
+    readonly property string listingError: catalog.getMore && catalog.discoveries.length ? "" : catalog.getMore ? catalog.repositoryError : catalog.installedError
+    readonly property bool listingLoading: !listingError && !catalog.navigable.length
+        && !(catalog.getMore ? catalog.indexLoaded : catalog.installedLoaded)
+    StoreLabel { objectName: "catalog-status"; catalog: contentLayout.catalog; width: parent.width; visible: text !== ""; text: (!catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (contentLayout.listingLoading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
     Flickable {
         id: scroll
         objectName: "catalog-scroll"
@@ -51,7 +54,8 @@ Column {
                 Column {
                     id: section
                     required property var modelData
-                    readonly property string pageError: modelData.local ? catalog.installedError : catalog.getMore && catalog.discoveries.length ? "" : catalog.repositoryError
+                    readonly property string pageError: contentLayout.listingError
+                    readonly property bool loading: contentLayout.listingLoading
                     readonly property var items: pageError ? [] : catalog.navigable
                     width: sections.width; spacing: 12
                     GridLayout {

@@ -68,7 +68,7 @@ def community(name, args):
     backend = Themes()
     rows = {row['id']: row for row in index['themes']}
     backend.folder.mkdir(parents=True, exist_ok=True)
-    with backend.lock(), tempfile.TemporaryDirectory(prefix='.community-', dir=backend.folder) as directory:
+    with backend.lock(installed=True), tempfile.TemporaryDirectory(prefix='.community-', dir=backend.folder) as directory:
         stage = Path(directory)
         destinations = []
         from eitr_paths import theme_paths, code_root, config
@@ -255,7 +255,7 @@ def artwork_preview(kind, item_id, backend, requested=None, channel="official", 
     from eitr_plugin_manifest import image_asset, media_asset
     from PIL import Image
     plugin = kind == 'plugins'
-    with backend.lock():
+    with (backend.lock(catalog=True) if plugin else backend.lock()):
         if plugin and channel == 'git':
             from eitr_plugin_install import repository_url
             url = repository_url(git_url, allow_file=backend.allow_file)

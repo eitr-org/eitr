@@ -1,4 +1,5 @@
 """Plugin Git operations, approval transactions and persistent installation state."""
+from concurrent.futures import ThreadPoolExecutor
 import contextlib
 import datetime
 import fcntl
@@ -335,11 +336,11 @@ class PluginInstall:
         self._review_revision = None
 
     @contextlib.contextmanager
-    def lock(self, blocking=True):
+    def lock(self, blocking=True, *, catalog=False):
         if os.geteuid() == 0:
             raise ValueError('Plugins are per-user; do not run as root')
         self.state.parent.mkdir(parents=True, exist_ok=True)
-        with self.state.with_suffix('.lock').open('w') as handle:
+        with self.state.with_suffix('.catalog.lock' if catalog else '.lock').open('w') as handle:
             try:
                 fcntl.flock(handle, fcntl.LOCK_EX if blocking else fcntl.LOCK_EX | fcntl.LOCK_NB)
             except BlockingIOError:
@@ -492,7 +493,7 @@ class PluginInstall:
         """Read index/card metadata only; installation still validates all files."""
         repository_url(url, allow_file=self.allow_file)
         pinned = revision
-        with self.lock():
+        with self.lock(catalog=True):
             candidate = cache('eitr/plugin-repositories') / hashlib.sha256(normalized_url(url).encode()).hexdigest()
             candidate.parent.mkdir(parents=True, exist_ok=True)
             # A clone cut short (a power loss) leaves empty Git files that fail every later
@@ -1032,28 +1033,37 @@ class PluginInstall:
 
     def check_updates(self, *, revision_for=None, failures=None):
         """Fetch metadata into installed repositories without checking out or running code."""
-        counts = {}
-        checked = {}
-        with self.lock():
-            for plugin_id, record in self.records().items():
+        def check_repository(entries):
+            results = {}
+            for plugin_id, record, root in entries:
                 try:
-                    if record.get('bundled'):
-                        continue
-                    root = self.root(plugin_id, record=record)
                     revision = revision_for(plugin_id, record) if revision_for else None
                     git(root, 'fetch', '--no-recurse-submodules', '--', record['url'],
                         revision or 'HEAD', allow_file=self.allow_file)
-                    # A plugin from an indexed repository counts only commits that touch its own folder.
+                    # An indexed plugin counts only commits that touch its own folder.
                     scope = ['--', ':(top,literal)' + record['path']] if record.get('path') else []
                     target = git(root, 'rev-parse', 'FETCH_HEAD', timeout=5)
                     count = int(git(root, 'rev-list', '--count', record['commit'] + '..' + target, *scope))
-                    checked[plugin_id] = dict(commit=record['commit'], target=target, count=count)
-                    counts[plugin_id] = count
+                    results[plugin_id] = dict(commit=record['commit'], target=target, count=count)
                 except (OSError, ValueError, subprocess.SubprocessError):
-                    if failures is not None:
-                        failures.append(plugin_id)
+                    results[plugin_id] = None
+            return results
+
+        with self.lock(), ThreadPoolExecutor(max_workers=6) as pool:
+            groups = {}
+            records = {plugin_id: record for plugin_id, record in self.records().items() if not record.get('bundled')}
+            for plugin_id, record in records.items():
+                root = self.root(plugin_id, record=record)
+                # Several installed plugins can share one snapshot and its FETCH_HEAD.
+                repository = self.snapshot(record['url'], record['commit']) if record.get('path') else root
+                groups.setdefault(repository.resolve(), []).append((plugin_id, record, root))
+            results = {plugin_id: result for group in pool.map(check_repository, groups.values())
+                       for plugin_id, result in group.items()}
+            checked = {plugin_id: results[plugin_id] for plugin_id in records if results[plugin_id] is not None}
+            if failures is not None:
+                failures.extend(plugin_id for plugin_id in records if results[plugin_id] is None)
             self.write(self.state.with_name('plugin-updates.json'), checked)
-        return counts
+        return {plugin_id: result['count'] for plugin_id, result in checked.items()}
 
     def update_counts(self, *, limit=None):
         try:

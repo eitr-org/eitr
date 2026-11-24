@@ -156,7 +156,7 @@ class FormerBuiltinThemesTest(unittest.TestCase):
         backend = Themes(allow_file=True)
         open_repository, open_head = backend.repository, backend.fetch_head
         with patch.object(backend, 'repository', side_effect=lambda address: open_repository(repository.as_uri())), \
-                patch.object(backend, 'fetch_head', side_effect=lambda address: open_head(repository.as_uri())):
+                patch.object(backend, 'fetch_head', side_effect=lambda address, **options: open_head(repository.as_uri(), **options)):
             self.assertEqual(backend.check(preview=True), {'afterglow': 1})
             self.assertEqual(backend.update('afterglow'), ['afterglow'])
             self.assertEqual(backend.check(), {'afterglow': 0})

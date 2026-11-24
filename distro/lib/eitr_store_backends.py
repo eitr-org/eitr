@@ -16,15 +16,17 @@ THEMES = 'https://github.com/eitr-org/eitr-themes'
 PLUGINS = 'https://github.com/eitr-org/eitr-plugins'
 
 _PLUGIN_BACKEND = None
+_BUNDLED_READY = False
 _THEME_BACKEND = None
 
 
-def plugin_backend():
-    global _PLUGIN_BACKEND
+def plugin_backend(*, blocking=False):
+    global _PLUGIN_BACKEND, _BUNDLED_READY
     if _PLUGIN_BACKEND is None:
         from eitr_plugins import Plugins
         _PLUGIN_BACKEND = Plugins()
-        _PLUGIN_BACKEND.ensure_bundled()
+    if not _BUNDLED_READY:
+        _BUNDLED_READY = _PLUGIN_BACKEND.ensure_bundled(blocking=blocking)
     return _PLUGIN_BACKEND
 
 
@@ -82,8 +84,9 @@ def themes(name, args):
         from eitr_store_changes import theme_changes
         return theme_changes(backend, args['id'])
     if name == 'apply':
-        subprocess.run(['bash', str(code_root() / 'walker/scripts/actions/style/apply.sh'), args['id']], check=True,
-                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=90)
+        with backend.lock(installed=True):
+            subprocess.run(['bash', str(code_root() / 'walker/scripts/actions/style/apply.sh'), args['id']], check=True,
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=90)
         return {}
     return {'result': getattr(backend, name)(args['id'])}
 
@@ -114,7 +117,7 @@ def plugins(name, args):
         from eitr_plugins import Plugins
         from eitr_store_changes import plugin_changes
         return plugin_changes(_PLUGIN_BACKEND or Plugins(), args['id'])
-    backend = plugin_backend()
+    backend = plugin_backend(blocking=name in {'check', 'prepare', 'confirm', 'discard', 'advice', 'install', 'remove'})
     if name == 'installed':
         from eitr_store_previews import cached_creation
         rows = backend.installed()

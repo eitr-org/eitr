@@ -11,7 +11,8 @@ Item {
     required property var sectionContext
     required property real viewportHeight
     readonly property bool welcome: catalogContext.communityEmpty && !sectionContext.modelData.local
-    visible: !sectionContext.items.length
+    objectName: "catalog-empty-state"
+    visible: !sectionContext.loading && !sectionContext.items.length
     width: parent ? parent.width : 0
     height: visible ? viewportHeight : 0
     Column {

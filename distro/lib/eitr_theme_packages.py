@@ -1,4 +1,5 @@
 """Data-only theme packages, sparse Git catalog and per-user transactions."""
+from concurrent.futures import ThreadPoolExecutor
 import contextlib
 import fcntl
 from functools import partial
@@ -223,18 +224,19 @@ class Themes:
         self.checked_updates = {}
 
     @contextlib.contextmanager
-    def lock(self):
+    def lock(self, *, installed=False):
         self.cache.mkdir(parents=True, exist_ok=True)
-        with (self.cache / '.lock').open('w') as handle:
+        with (self.cache / ('.installed.lock' if installed else '.lock')).open('w') as handle:
             fcntl.flock(handle, fcntl.LOCK_EX)
             yield
 
-    def fetch_head(self, url):
+    def fetch_head(self, url, *, cache_root=None):
         """The partial clone of a theme repository and its current HEAD commit."""
         repository_url(url, allow_file=self.allow_file)
-        target = self.cache / hashlib.sha256(normalized_url(url).encode()).hexdigest()
+        cache_root = self.cache if cache_root is None else cache_root
+        target = cache_root / hashlib.sha256(normalized_url(url).encode()).hexdigest()
         if not target.exists():
-            temporary = Path(tempfile.mkdtemp(dir=self.cache))
+            temporary = Path(tempfile.mkdtemp(dir=cache_root))
             try:
                 self.git(None, 'clone', '--template=', '--filter=blob:none', '--sparse', '--no-checkout',
                     '--no-recurse-submodules', '--', url, str(temporary / 'repo'), allow_file=self.allow_file)
@@ -282,7 +284,7 @@ class Themes:
     def install(self, url, ids, *, updating=False, review=None):
         if not ids or len(set(ids)) != len(ids):
             raise ValueError('Choose distinct theme IDs')
-        with self.lock():
+        with self.lock(installed=True), self.lock():
             for theme_id in ids:
                 identifier(theme_id)
                 target = self.folder / theme_id
@@ -360,7 +362,7 @@ class Themes:
     def update_community(self, theme_id, source):
         """Community packages have no catalog: fetch the listed folder at HEAD like a community install."""
         from eitr_community import fetch
-        with self.lock(), tempfile.TemporaryDirectory(prefix='.update-', dir=self.folder) as staging:
+        with self.lock(installed=True), tempfile.TemporaryDirectory(prefix='.update-', dir=self.folder) as staging:
             stage = Path(staging)
             download = stage / 'download'
             download.mkdir()
@@ -428,7 +430,7 @@ class Themes:
             if files != review['files']:
                 raise ValueError('Theme review changed')
             ids = review['ids']
-            with self.lock():
+            with self.lock(installed=True):
                 if any((parent / theme_id).exists() for theme_id in ids for parent in (self.folder, code_root() / 'themes', config('themes'))):
                     raise ValueError('Theme ID already exists')
                 self.folder.mkdir(parents=True, exist_ok=True)
@@ -477,32 +479,36 @@ class Themes:
 
     def check(self, *, preview=False):
         from eitr_store_changes import git_manifest
-        snapshots = {}
-        counts = {}
-        repositories = {}
-        with self.lock():
-            for row in self.installed():
-                if row['source']:
-                    source = row['source']
-                    address = normalized_url(source['url'])
-                    if address not in repositories:
-                        # Community repositories carry no catalog; the count only needs HEAD.
-                        repositories[address] = self.fetch_head(source['url'])
-                    repository, revision = repositories[address]
-                    counts[row['id']] = int(self.git(repository, 'rev-list', '--count', source['commit'] + '..' + revision,
-                                                '--', ':(top,literal)' + source['folder']))
-                    if preview and counts[row['id']]:
-                        # The partial clone can fetch the manifest during the check.
-                        # The subsequent preview only reads local objects.
-                        version = ''
-                        try:
-                            version = git_manifest(repository, revision, source['folder'], MANIFEST,
-                                                   read=partial(self.git, allow_file=self.allow_file, timeout=5))['version']
-                        except (OSError, ValueError, subprocess.SubprocessError):
-                            pass
-                        snapshots[row['id']] = (repository, source, revision, counts[row['id']], version)
-            self.checked_updates = snapshots
-        return counts
+        # Checks own their partial clones so Discover can fetch the same upstream concurrently.
+        cache_root = self.cache / 'checks'
+
+        def check_repository(entries):
+            repository, revision = self.fetch_head(entries[0][1]['url'], cache_root=cache_root)
+            results = {}
+            for theme_id, source in entries:
+                count = int(self.git(repository, 'rev-list', '--count', source['commit'] + '..' + revision,
+                                     '--', ':(top,literal)' + source['folder']))
+                version = ''
+                if preview and count:
+                    try:
+                        version = git_manifest(repository, revision, source['folder'], MANIFEST,
+                                               read=partial(self.git, allow_file=self.allow_file, timeout=5))['version']
+                    except (OSError, ValueError, subprocess.SubprocessError):
+                        pass
+                results[theme_id] = (repository, source, revision, count, version)
+            return results
+
+        with self.lock(installed=True), ThreadPoolExecutor(max_workers=6) as pool:
+            cache_root.mkdir(exist_ok=True)
+            sources = {row['id']: row['source'] for row in self.installed() if row['source']}
+            groups = {}
+            for theme_id, source in sources.items():
+                groups.setdefault(normalized_url(source['url']), []).append((theme_id, source))
+            results = {theme_id: result for group in pool.map(check_repository, groups.values())
+                       for theme_id, result in group.items()}
+            self.checked_updates = {theme_id: results[theme_id] for theme_id in sources
+                                    if preview and results[theme_id][3]}
+        return {theme_id: results[theme_id][3] for theme_id in sources}
 
     def update(self, theme_id):
         source = self.source(theme_id)
@@ -514,7 +520,7 @@ class Themes:
         identifier(theme_id)
         if theme_id in {'eitr', 'eitr-light'} or (code_root() / 'themes' / theme_id / 'colors.toml').is_file():
             raise ValueError('Built-in themes cannot be removed')
-        with self.lock():
+        with self.lock(installed=True):
             self.source(theme_id)
             # apply.sh and existing pickers use this legacy cache location.
             currents = (Path.home() / '.cache/current-theme', cache('current-theme'))

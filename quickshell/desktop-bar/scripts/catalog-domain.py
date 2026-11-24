@@ -81,13 +81,12 @@ def validate(name, args):
         raise ValueError('invalid-git-request')
 
 
-class CatalogDomain:
-    def __init__(self, command=None):
-        self.action_lock = threading.Lock()
-        self.transport_lock = threading.Lock()
+class CatalogWorker:
+    def __init__(self, command):
+        self.lock = threading.Lock()
         self.process = None
         self.review_stage = None
-        self.command = command or [sys.executable, str(Path(__file__).resolve()), '--worker', str(os.getpid())]
+        self.command = command
 
     def close(self):
         process, self.process = self.process, None
@@ -102,8 +101,7 @@ class CatalogDomain:
             self.review_stage = None
 
     def exchange(self, name, args, cancelled, deadline=None):
-        # One persistent backend worker for the domain, not a Python process per
-        # read. A cancelled operation destroys it; the next explicit request may
+        # A cancelled operation destroys this worker. The next explicit request may
         # start a fresh worker, but the interrupted request is never resent.
         if self.process is None:
             from eitr_paths import cache
@@ -144,6 +142,18 @@ class CatalogDomain:
                     return result
         raise TimeoutError()
 
+class CatalogDomain:
+    def __init__(self, command=None):
+        command = command or [sys.executable, str(Path(__file__).resolve()), '--worker', str(os.getpid())]
+        self.foreground = CatalogWorker(command)
+        self.background = CatalogWorker(command)
+        self.action_lock = threading.Lock()
+
+    def close(self):
+        for worker in (self.background, self.foreground):
+            with worker.lock:
+                worker.close()
+
     def request(self, name, args, cancelled):
         validate(name, args)
         if name == 'cached-index':
@@ -152,26 +162,29 @@ class CatalogDomain:
         deadline = time.monotonic() + (300 if mutation else 60)
         if mutation and not self.action_lock.acquire(blocking=False):
             return {'error': tr('Catalog action already running')}
-        acquired = False
+        worker = self.background if name in {'check', 'changes'} else self.foreground
+        acquired = []
         try:
-            while not cancelled.is_set() and time.monotonic() < deadline:
-                if self.transport_lock.acquire(timeout=0.1):
-                    acquired = True
-                    break
+            # Mutations wait before taking the foreground transport so reads can pass.
+            for lock in ([self.background.lock, worker.lock] if mutation else [worker.lock]):
+                while not cancelled.is_set() and time.monotonic() < deadline:
+                    if lock.acquire(timeout=0.1):
+                        acquired.append(lock)
+                        break
+                else:
+                    return {} if cancelled.is_set() else {'error': tr('Repository unavailable; retry')}
             if cancelled.is_set():
                 return {}
-            if not acquired:
-                return {'error': tr('Repository unavailable; retry')}
-            return self.exchange(name, args, cancelled, deadline)
-        except TimeoutError:
-            self.close()
-            return {'error': tr('Outcome unknown; refresh Installed before trying again') if mutation else tr('Repository unavailable; retry')}
-        except (OSError, ValueError):
-            self.close()
-            return {'error': tr('Outcome unknown; refresh Installed before trying again') if mutation else tr('Catalog backend unavailable')}
+            try:
+                return worker.exchange(name, args, cancelled, deadline)
+            except (TimeoutError, OSError, ValueError) as error:
+                worker.close()
+                if mutation:
+                    return {'error': tr('Outcome unknown; refresh Installed before trying again')}
+                return {'error': tr('Repository unavailable; retry') if isinstance(error, TimeoutError) else tr('Catalog backend unavailable')}
         finally:
-            if acquired:
-                self.transport_lock.release()
+            for lock in reversed(acquired):
+                lock.release()
             if mutation:
                 self.action_lock.release()
 

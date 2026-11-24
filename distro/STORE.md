@@ -17,7 +17,10 @@ Discover and Installed are sidebar sections, with registry-ordered kind tabs.
 The pinned sidebar footer shows the update check status and opens Updates.
 The page lists pending items across kinds with selection controls, expandable
 details and individual or batch updates. Back and Escape return to the previous
-view. Discover and Installed searches stay within the selected section and kind.
+view. Discover and Installed remain available during update checks.
+A grid with no listing yet shows Loading… and displays its empty message
+after a successful listing yields no matches. Searches stay within the
+selected section and kind.
 Ctrl+1–4 switches kinds there. Closing saves the section and kind to the
 machine-local `eitr/store.json` preference. The filter menu uses dropdowns for
 Sort, Source and theme Appearance. The Adds checklist can combine several plugin
@@ -46,7 +49,11 @@ It reads a bounded list of commits scoped to the package folder and compares
 versions and plugin declarations from local metadata. The theme check makes
 the version available from the partial clone. Plugin checks record the fetched
 commit alongside the installed base and count, honoring matching Community pins. Lockscreens and wallpaper packs
-currently have no independent Store update check.
+currently have no independent Store update check. Each check uses up to six
+parallel repository jobs. Plugins that share a Git snapshot check it in
+sequence, and themes that share an upstream reuse one fetched revision. Theme
+checks keep their own cached partial clones so Discover can fetch the same
+upstream while a check runs.
 
 Plugin install and update always use the existing
 prepare/confirm permission review; lockscreen changes use the existing signed

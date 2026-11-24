@@ -28,11 +28,13 @@ def is_bundled(root):
 
 
 class BundledPlugins:
-    def ensure_bundled(self):
+    def ensure_bundled(self, *, blocking=True):
         """Runs at host startup, never re-adds a removed or disabled default."""
         from eitr_plugin_install import official
         marker = state('eitr/bundled-plugins.json')
-        with self.lock():
+        with self.lock(blocking) as locked:
+            if not locked:
+                return False
             records = self.records()
             version = json.loads(marker.read_text())['version'] if marker.exists() else 0
             replaced_external = False
@@ -55,6 +57,7 @@ class BundledPlugins:
                     if record['commit'] != revision:
                         record['commit'] = revision
                         self.save(records)
+        return True
 
     def _eitr_copy(self, plugin_id, record, official):
         """True for Eitr's own plugin with this id, installed from the official repository or from

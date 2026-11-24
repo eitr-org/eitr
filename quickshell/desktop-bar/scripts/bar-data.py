@@ -184,6 +184,7 @@ class Broker:
         self.ai_cooldowns = {}
         self.queries = {}
         self.catalog_queries = set()
+        self.catalog_background_slot = asyncio.Semaphore(1)
         self.account_action = None
         self.query_history = deque(maxlen=256)
         self.periods = {}
@@ -650,7 +651,8 @@ class Broker:
             if frame["name"] == "cached-index":
                 result = await loop.run_in_executor(self.executor, read)
             else:
-                async with self.read_slots["catalog"]:
+                slots = self.catalog_background_slot if frame["name"] in {"check", "changes"} else self.read_slots["catalog"]
+                async with slots:
                     if not cancelled.is_set():
                         result = await loop.run_in_executor(self.executor, read)
             if len(json.dumps(result).encode()) > MAX_RESULT:

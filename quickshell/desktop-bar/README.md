@@ -1302,9 +1302,12 @@ is a compatibility type. All Store sources stay below 400 lines.
 Store queries retain the `catalog` domain through DesktopData. `catalog-domain.py`
 owns transport, deadlines and cancellation; `eitr_store_backends.py` dispatches
 registry backend IDs to the existing theme, plugin and lockscreen owners and the
-wallpaper backend. One persistent worker uses a 60-second read or 300-second
-action deadline. Closing cancels owned queries; interrupted actions are never
-replayed. Refresh Installed after an unknown outcome. Index, artwork and review
+wallpaper backend. Two persistent workers share the bounded broker pool.
+One serves update checks and their history. The other serves listings and
+actions. Actions wait for active checks before taking the listing transport.
+Reads have a 60-second deadline and actions a 300-second deadline. Closing
+cancels owned queries and interrupted actions are never replayed. Refresh
+Installed after an unknown outcome. Index, artwork and review
 caches keep their machine-local names. The plugin index remains metadata-only;
 code and permission review stay in the existing prepare/confirm path.
 

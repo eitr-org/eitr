@@ -161,6 +161,9 @@ ShellRoot {
     panel.live = false;
     for (const kind of ["themes", "plugins", "lockscreens", "wallpapers"])
      for (const tab of ["installed", "discover"]) cases.push({kind:kind, tab:tab, name:kind+"-"+tab});
+    for (const tab of ["discover", "installed"])
+     for (const waiting of [true, false])
+      cases.push({kind:"plugins", tab, waiting, name:tab + (waiting ? "-loading" : "-empty")});
     cases.push({kind:"themes",tab:"discover",filter:"community",name:"community-filter"});
     cases.push({kind:"themes",tab:"discover",search:true,name:"search-filter"});
     cases.push({kind:"themes",tab:"discover",popup:true,name:"appearance-filter"});
@@ -211,10 +214,23 @@ ShellRoot {
      const filter = find(panel, "catalog-tone-filter"); if (filter) filter.expanded = false;
      panel.detail = null; panel.reviewing = false; panel.nativeReviewing = false; panel.removing = null;
      panel.kind = entry.kind; panel.tab = entry.tab; panel.sourceFilter = entry.filter || "all";
-     panel.installed = ROWS.slice(0,1); panel.availableItems = ROWS; panel.loading = false; panel.indexLoaded = true;
+     panel.installed = ROWS.slice(0,1); panel.availableItems = ROWS; panel.installedLoaded = true; panel.indexLoaded = true;
      if (entry.kind === "plugins") {
       const weather = {id:"weather", name:"Weather", kind:"builtin", builtin:true, official:true, removable:true, previewUrl:"WEATHER_ICON", components:{ui:{widgets:[{}],barItems:[{}]}}};
       panel.installed = [weather]; panel.availableItems = ROWS.concat([weather]);
+     }
+     if (entry.waiting !== undefined) {
+      panel.store = entry.waiting ? {"plugins:installed": {items:[], pending:true}} : {
+       "plugins:installed": {items:[], loaded:true},
+       "plugins:official": {items:[], loaded:true},
+       "plugins:community": {items:[], loaded:true}
+      };
+      panel.sync();
+      const empty = find(panel, "catalog-empty-state");
+      const status = find(panel, "catalog-status");
+      if (!empty || empty.visible === entry.waiting || !status || status.visible !== entry.waiting
+          || (entry.waiting && status.text !== "Loading…"))
+       throw new Error("Wrong listing state for " + entry.name);
      }
      panel.selected = []; panel.reviewIds = null;
      if (entry.filter && (panel.discoveries.length !== 1 || panel.badge(panel.discoveries[0]) !== "Community")) throw new Error("Provenance filter");
@@ -346,11 +362,11 @@ ShellRoot {
        });
       }
      }
-     if (entry.kind === "plugins" && entry.tab === "installed") {
+     if (entry.kind === "plugins" && entry.tab === "installed" && entry.waiting === undefined) {
       const remove = window.findNamed(panel, "remove-weather");
       if (!remove || !remove.visible) throw new Error("Bundled Weather cannot be removed");
      }
-     const folder = entry.name.startsWith("updates-") || entry.name === "themes-discover" || entry.name === "community-detail" ? "REVIEW_TARGET" : "TARGET";
+     const folder = entry.waiting !== undefined || entry.name.startsWith("updates-") || entry.name === "themes-discover" || entry.name === "community-detail" ? "REVIEW_TARGET" : "TARGET";
      const filename = folder + "/PALETTE-" + entry.name + ".png";
      panel.grabToImage(result => {
       if (!result.saveToFile(filename)) throw new Error("Store capture failed");
@@ -378,7 +394,7 @@ ShellRoot {
 }
 '''.replace('WEATHER_ICON', (ROOT / 'distro/plugins/bundled/weather/icon.svg').as_uri()).replace('ROWS', json.dumps(rows)).replace('REVIEW_TARGET', str(updates_target)).replace('TARGET', str(target)).replace('PALETTE', palette).replace('LIGHT', 'true' if palette == 'light' else 'false').replace('BACKGROUND', '#f4f2e8' if palette == 'light' else '#181824').replace('FOREGROUND', '#202824' if palette == 'light' else '#cdd6f4').replace('ACCENT', '#6f5a2c' if palette == 'light' else '#9a815c')
                 (folder / 'fixture.qml').write_text(fixture)
-                code, output = render(folder / 'fixture.qml', render_environment(folder), 20)
+                code, output = render(folder / 'fixture.qml', render_environment(folder), 30)
                 self.assertEqual(code, 0, output)
                 self.assertIn('STORE_RENDER_OK', output)
                 for error in ('TypeError', 'ReferenceError', 'Unable to assign', 'Error:'):

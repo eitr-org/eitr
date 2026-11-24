@@ -108,7 +108,7 @@ def install_copy(backend, identifier):
 
 def migrate():
     backend = Themes()
-    with backend.lock():
+    with backend.lock(installed=True):
         documents, texts, links = saved_references()
         active = config('theme/current') / MANIFEST
         selected = {current_theme(), manifest(active.parent)['id'] if active.is_file() else None}

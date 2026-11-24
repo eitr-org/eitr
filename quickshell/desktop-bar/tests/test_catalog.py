@@ -79,7 +79,7 @@ class CatalogDomainTests(unittest.TestCase):
         for result in ({'items': []}, {'updates': {}}, {'error': 'offline'},
                        {'items': [{'id': 'eitr', 'kind': 'builtin', 'source': None}]},
                        {'error': 'Cannot remove the current theme; apply eitr first'}):
-            with patch.object(domain, 'exchange', return_value=result):
+            with patch.object(domain.foreground, 'exchange', return_value=result):
                 self.assertEqual(domain.request('installed', {'kind': 'themes'}, threading.Event()), result)
 
     def test_cancelled_mutation_is_killed_and_not_replayed(self):
@@ -92,7 +92,7 @@ class CatalogDomainTests(unittest.TestCase):
         try:
             result = domain.request('remove', {'kind': 'themes', 'id': 'test'}, cancelled)
             self.assertIn('Outcome unknown', result['error'])
-            self.assertIsNone(domain.process)
+            self.assertIsNone(domain.foreground.process)
         finally:
             cancel.cancel()
             domain.close()
@@ -103,11 +103,11 @@ class CatalogDomainTests(unittest.TestCase):
             "import sys, json\nfor line in sys.stdin:\n print(json.dumps({'items': []}), flush=True)"])
         try:
             first = domain.request('installed', {'kind': 'themes'}, threading.Event())
-            process = domain.process
+            process = domain.foreground.process
             second = domain.request('installed', {'kind': 'themes'}, threading.Event())
             self.assertEqual(first, {'items': []})
             self.assertEqual(second, first)
-            self.assertIs(domain.process, process)
+            self.assertIs(domain.foreground.process, process)
         finally:
             domain.close()
 
@@ -782,6 +782,89 @@ ShellRoot {
                 self.assertNotIn('Unable to assign', output)
 
 class CatalogBackendTests(unittest.TestCase):
+    def test_plugin_check_parallelizes_distinct_snapshots_and_preserves_counts(self):
+        from concurrent.futures import ThreadPoolExecutor
+        from eitr_plugin_install import PluginInstall
+
+        with tempfile.TemporaryDirectory() as directory:
+            manager = PluginInstall()
+            manager.folder = Path(directory) / 'plugins'
+            manager.state = Path(directory) / 'plugins.json'
+            base, target = 'a' * 40, 'b' * 40
+            shared = dict(url='https://example.invalid/shared', commit=base)
+            records = dict(alpha=dict(shared, path='alpha'),
+                           beta=dict(url='https://example.invalid/beta', commit=base),
+                           gamma=dict(shared, path='gamma'),
+                           missing=dict(url='https://example.invalid/missing', commit=base),
+                           bundled=dict(bundled=True))
+            barrier = threading.Barrier(2)
+            fetched = {}
+            concurrent = False
+
+            def git(root, operation, *args, **options):
+                repository = root.parent if root.name in {'alpha', 'gamma'} else root
+                if operation == 'fetch':
+                    if root.name == 'missing':
+                        raise OSError('offline')
+                    if concurrent and root.name in {'alpha', 'beta'}:
+                        barrier.wait(timeout=5)
+                    fetched[repository] = args[-1]
+                elif operation == 'rev-parse':
+                    return fetched[repository]
+                elif operation == 'rev-list':
+                    self.assertEqual(args[1], base + '..' + (base if root.name == 'gamma' else target))
+                    self.assertEqual(args[2:], ('--', ':(top,literal)' + root.name) if root.name in {'alpha', 'gamma'} else ())
+                    return '0' if root.name == 'gamma' else '1'
+
+            def revision_for(plugin_id, record):
+                return base if plugin_id == 'gamma' else target
+
+            def check():
+                failures = []
+                counts = manager.check_updates(revision_for=revision_for, failures=failures)
+                return list(counts.items()), failures, manager.update_counts()
+
+            with patch.object(manager, 'records', return_value=records), patch('eitr_plugin_install.git', git):
+                with patch('eitr_plugin_install.ThreadPoolExecutor', side_effect=lambda **options: ThreadPoolExecutor(max_workers=1)):
+                    sequential = check()
+                concurrent = True
+                self.assertEqual(check(), sequential)
+            self.assertEqual(sequential[:2], ([('alpha', 1), ('beta', 1), ('gamma', 0)], ['missing']))
+
+    def test_theme_check_parallelizes_distinct_urls_and_deduplicates_shared_urls(self):
+        from concurrent.futures import ThreadPoolExecutor
+        from eitr_theme_packages import Themes
+
+        with tempfile.TemporaryDirectory() as directory:
+            backend = Themes()
+            backend.cache = Path(directory)
+            base, target = 'a' * 40, 'b' * 40
+            rows = [dict(id=name, source=dict(url='https://example.invalid/' + repo, commit=base, folder=name))
+                    for name, repo in [('alpha', 'shared'), ('beta', 'beta'), ('gamma', 'shared')]]
+            barrier = threading.Barrier(2)
+            concurrent = False
+            fetched = []
+
+            def fetch(url, *, cache_root):
+                self.assertEqual(cache_root, backend.cache / 'checks')
+                fetched.append(url)
+                if concurrent:
+                    barrier.wait(timeout=5)
+                return cache_root / url.rsplit('/', 1)[-1], target
+
+            def check():
+                counts = backend.check(preview=True)
+                return list(counts.items()), backend.checked_updates
+
+            with patch.object(backend, 'installed', return_value=rows), patch.object(backend, 'fetch_head', fetch), \
+                    patch.object(backend, 'git', return_value='1'), patch('eitr_store_changes.git_manifest', return_value={'version': '2'}):
+                with patch('eitr_theme_packages.ThreadPoolExecutor', side_effect=lambda **options: ThreadPoolExecutor(max_workers=1)):
+                    sequential = check()
+                fetched.clear()
+                concurrent = True
+                self.assertEqual(check(), sequential)
+            self.assertCountEqual(fetched, ['https://example.invalid/shared', 'https://example.invalid/beta'])
+
     def test_theme_backend_results_and_offline_errors(self):
         from eitr_theme_packages import Themes
         with patch.object(Themes, 'installed', return_value=[]) as installed:
@@ -968,10 +1051,10 @@ class CatalogBackendTests(unittest.TestCase):
             self.assertEqual(images[2:], [None, None])
             discover_result('official', rows)
             domain = DOMAIN.CatalogDomain()
-            with domain.transport_lock:
+            with domain.foreground.lock:
                 self.assertEqual(domain.request('cached-index', {'kind': 'themes', 'channel': 'official'},
                                                 threading.Event()), cached_discover('official'))
-            self.assertIsNone(domain.process)
+            self.assertIsNone(domain.foreground.process)
 
             # Emulate a new partial clone with no previously fetched objects.
             (source / 'note').touch()
@@ -1127,6 +1210,55 @@ class CatalogBackendTests(unittest.TestCase):
 
 
 class CatalogBrokerTests(unittest.IsolatedAsyncioTestCase):
+    async def test_index_bypasses_a_running_check_and_a_waiting_mutation(self):
+        import asyncio
+        spec = importlib.util.spec_from_file_location('catalog_broker', BAR / 'scripts/bar-data.py')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        frames = []
+        broker = module.Broker(frames.append)
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_CACHE_HOME': directory}):
+            started = Path(directory) / 'started'
+            release = Path(directory) / 'release'
+            script = """
+import json, sys, time
+from pathlib import Path
+for line in sys.stdin:
+    name = json.loads(line)['name']
+    if name == 'check':
+        Path(sys.argv[1]).touch()
+        while not Path(sys.argv[2]).exists():
+            time.sleep(.01)
+    print(json.dumps({'operation': name}), flush=True)
+"""
+            broker.domains['catalog'] = DOMAIN.CatalogDomain([sys.executable, '-c', script, str(started), str(release)])
+
+            def query(name, request_id):
+                broker.request(dict(v=1, op='query', topic='catalog', id=request_id, name=name,
+                                    args={'kind': 'themes', 'id': 'alpha'}))
+
+            async def until(predicate):
+                async with asyncio.timeout(5):
+                    while not predicate():
+                        await asyncio.sleep(.01)
+
+            try:
+                query('check', 'check-first')
+                await until(started.exists)
+                query('check', 'check-second')
+                query('remove', 'mutation')
+                await until(broker.domains['catalog'].action_lock.locked)
+                query('index', 'index')
+                await until(lambda: bool(frames))
+                self.assertEqual([(frame['id'], frame['data']) for frame in frames],
+                                 [('index', {'operation': 'index'})])
+                release.touch()
+                await until(lambda: len(frames) == 4)
+                self.assertCountEqual([frame['id'] for frame in frames], ['check-first', 'check-second', 'mutation', 'index'])
+                self.assertTrue(all(not frame['error'] for frame in frames))
+            finally:
+                await broker.close()
+
     async def test_lazy_dispatch_duplicate_and_empty_reply(self):
         import asyncio
         spec = importlib.util.spec_from_file_location('catalog_broker', BAR / 'scripts/bar-data.py')
