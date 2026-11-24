@@ -11,10 +11,12 @@ Item {
     property string label: ""
     property bool raised: false
     property bool active: false
+    // Hover strengthens the border only; the field is never filled (Material outlined style).
+    property bool hovered: false
     required property color foreground
     property color accent: foreground
     readonly property real lineWidth: active ? 2 : 1
-    readonly property color lineColor: active ? accent : Qt.alpha(foreground, 0.32)
+    readonly property color lineColor: active ? accent : Qt.alpha(foreground, hovered ? 0.87 : 0.32)
     readonly property real gapStart: raised && label !== "" ? caption.x - 4 : 0
     readonly property real gapEnd: raised && label !== "" ? caption.x + caption.implicitWidth + 4 : 0
     onLineWidthChanged: frame.requestPaint()

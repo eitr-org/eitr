@@ -37,12 +37,14 @@ Item {
         onAccepted: field.accepted()
         Keys.onEscapePressed: field.cancelled()
     }
+    HoverHandler { id: fieldHover; target: input }
     OutlinedFrame {
         y: input.y
         width: input.width; height: input.height
         label: field.label
         raised: input.activeFocus || input.text !== ""
         active: input.activeFocus
+        hovered: fieldHover.hovered
         foreground: field.foreground
         accent: field.accent
     }

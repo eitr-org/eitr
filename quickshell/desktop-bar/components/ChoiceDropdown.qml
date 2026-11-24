@@ -170,6 +170,7 @@ Item {
         icon: control.iconOnly
         // Focus shows as the gold border, so a chosen field is not left filled.
         focusFill: !control.outlined
+        hoverFill: !control.outlined
         selected: control.expanded && !control.outlined
         readonly property var currentChoice: control.currentIndex >= 0 ? control.choices[control.currentIndex] : null
         readonly property string currentText: currentChoice ? control.labelOf(currentChoice) : control.placeholder
@@ -237,6 +238,7 @@ Item {
         label: control.floatingLabel
         raised: control.labelRaised
         active: control.expanded || button.activeFocus
+        hovered: button.containsPointer
         foreground: control.foreground
         accent: control.gold
     }

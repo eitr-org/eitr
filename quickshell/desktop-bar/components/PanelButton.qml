@@ -28,7 +28,10 @@ Rectangle {
     property real textInset: 8
     // Off where another cue shows focus (an outlined field's border): only hover fills it then.
     property bool focusFill: true
-    readonly property color fillColor: Qt.rgba(foreground.r, foreground.g, foreground.b, selected ? 0.18 : mouse.containsMouse || (focusFill && activeFocus) ? 0.16 : icon || outlined || flat ? 0 : 0.08)
+    // Outlined fields show hover on their border instead of a fill.
+    property bool hoverFill: true
+    readonly property bool containsPointer: mouse.containsMouse
+    readonly property color fillColor: Qt.rgba(foreground.r, foreground.g, foreground.b, selected ? 0.18 : (hoverFill && mouse.containsMouse) || (focusFill && activeFocus) ? 0.16 : icon || outlined || flat ? 0 : 0.08)
     signal clicked()
     activeFocusOnTab: true
     enabled: available && !loading
