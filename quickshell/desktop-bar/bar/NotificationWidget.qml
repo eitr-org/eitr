@@ -12,7 +12,7 @@ Rectangle {
     property real swing: 0
 
     readonly property bool hasNotifications: notificationService.count > 0
-    readonly property string text: notificationService.doNotDisturb ? (hasNotifications ? "󰂠" : "󰪓") : (hasNotifications ? "󱅫" : "󰂜")
+    readonly property string text: notificationService.doNotDisturb ? (hasNotifications ? "󰂠" : "󰪓") : (hasNotifications ? "󰂚" : "󰂜")
     readonly property string tooltip: notificationService.doNotDisturb ? Eitr.I18n.tr("Do Not Disturb") : (hasNotifications ? (notificationService.count === 1 ? Eitr.I18n.tr("{count} notification", {count: notificationService.count}) : Eitr.I18n.tr("{count} notifications", {count: notificationService.count})) : Eitr.I18n.tr("No notifications"))
 
     width: host.workspaceItemSize
