@@ -119,6 +119,12 @@ Shipped features that still need hardware or a setup the VMs cannot give.
 - **Small visual issues seen in VM tests (2026-11-23).** The lock screen's "Locked session ·
   Switch user" text overlaps its footer line; a built-in plugin that is not installed fills its
   Store card with the icon; the plugin details sheet lets the mouse wheel scroll the grid behind it.
+- **Boot guard: a second restore before the first is cleaned up (seen 2026-11-24).** In a VM
+  run a restore happened, then two more failed starts tried to restore again while
+  `@eitr-guard-failed` from the first restore still existed (`"cleaned": false`); the guard
+  service failed and left the system degraded. Real case: two broken updates in a row without a
+  successful login between them. Make the second restore replace or rename the old failed
+  snapshot, and add a VM test for it.
 - **Bar disappearing.** It ended twice without a trace (2026-11-10 and 11). The bar now
   leaves a record when it ends unexpectedly (`~/.local/state/eitr/shell-exits/`): read the
   newest one if it happens again.
