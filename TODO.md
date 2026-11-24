@@ -36,6 +36,19 @@ item says what decides the next step. Remove an item when it ships;
   new index field or license form must reach stable before the index uses it: older
   desktops refuse the whole index over one entry they do not understand. Screensavers and other
   future kinds are a registry entry plus a backend (`distro/STORE.md`).
+- **Windows apps (requested 2026-11-24).** Run single Windows programs, such as Microsoft
+  Office (Excel, Word), as ordinary windows on the desktop, opening Linux files in place.
+  Wine cannot run current Office, so this needs a Windows VM behind the scenes with each app
+  streamed as its own window over RDP (WinApps, WinBoat). Decide: which project to build on or
+  wrap, sharing the VM with the Windows desktop item below, an Install entry through
+  `eitr_wizard`, licence/activation guidance, resource use while idle. VM-test before shipping.
+- **Windows desktop (requested 2026-11-24).** Run a full Windows in a window. Omarchy uses
+  dockur/windows (QEMU/KVM inside Docker, shown over FreeRDP, `~/Windows` shared, ports bound
+  to localhost). Compare before choosing: dockur, libvirt/virt-manager, Quickemu, plain QEMU with
+  SPICE; weigh setup steps, GPU acceleration (virtio-gpu, passthrough), suspend/resume, disk
+  use, snapshots and what the Windows apps item can reuse. Needs KVM (refuse clearly when
+  virtualization is off in firmware), about 64 GB of disk, an Install entry through
+  `eitr_wizard` and a VM test.
 - **Ollama plugin, next.** Optional in `eitr-org/eitr-plugins` since 2026-11-23 (not installed
   by default). Its panel cannot change the local model yet: the core fixes `qwen3:4b`.
 
