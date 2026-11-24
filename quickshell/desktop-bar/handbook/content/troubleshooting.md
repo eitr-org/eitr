@@ -42,6 +42,8 @@ An Elephant restart reloads menu definitions. Its service must retain
 apps and terminals run in separate application scopes. Themes regenerate styles, so fix
 the generator as well as generated output if a change disappears later.
 
+If the Full bar’s status chevron disappears, run `eitr-shell desktop-bar ipc call -- bar status`. It reports the active layout and, for each display, the right-side item IDs and whether the chevron is visible.
+
 ## WiFi data stops refreshing
 
 The bar shares one WiFi read broker across screens. If it exits, the last good

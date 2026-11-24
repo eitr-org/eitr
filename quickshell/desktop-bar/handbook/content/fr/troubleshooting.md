@@ -30,6 +30,8 @@ Quickshell affiche une erreur de rechargement lisible et garde si possible la de
 
 Redémarrer Elephant recharge les menus. Son service doit conserver `KillMode=process` pour les auxiliaires et les lancements sans uwsm. Dans une session uwsm, les applications et terminaux lancés utilisent des scopes d’application distincts. Les thèmes régénèrent les styles : si un changement disparaît, corrigez le générateur et le résultat produit.
 
+Si le chevron d’état de la barre complète disparaît, exécutez `eitr-shell desktop-bar ipc call -- bar status`. La commande indique la disposition active et, pour chaque écran, les identifiants des éléments à droite et la visibilité du chevron.
+
 ## Les données WiFi ne s’actualisent plus
 
 La barre partage un seul processus de lecture WiFi entre les écrans. S’il se

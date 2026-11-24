@@ -221,7 +221,7 @@ ShellRoot {
         else if (button === Qt.RightButton) updateBarSetting("layout", preferences.nextLayout(barLayout));
     }
 
-    BarPreferences { id: preferences; host: shell }
+    BarPreferences { id: preferences; host: shell; barWindows: barWindows }
     function updateBarSetting(key, value) { preferences.updateBarSetting(key, value); }
     function persistBarSettings() { preferences.persistBarSettings(); }
     function setWorkspaceStyle(style) { preferences.setWorkspaceStyle(style); }
@@ -379,6 +379,7 @@ ShellRoot {
     }
 
     Variants {
+        id: barWindows
         model: shell.targetScreens()
 
         delegate: Component {

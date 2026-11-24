@@ -48,27 +48,49 @@ class BarSectionTests(unittest.TestCase):
                                           'singleton DisplayService DisplayService.qml\n'
                                           'singleton PluginRegistry PluginRegistry.qml\n'
                                           'singleton BarIconOrder BarIconOrder.qml\n')
-            (folder / 'DesktopStyle.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function motionDuration(value) { return 0; } }\n')
+            (folder / 'DesktopStyle.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property bool reduceMotion: true; function radius(value) { return value; } function motionDuration(value) { return 0; } }\n')
             (folder / 'DisplayService.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { function refresh() {} }\n')
-            (folder / 'PluginRegistry.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property var placedBarItems: []; property var entries: []; function slotItems(slot) { return []; } }\n')
+            (folder / 'PluginRegistry.qml').write_text((BAR / 'plugins/PluginRegistry.qml').read_text().replace('import ".."\n', '').replace('"../', '"'))
+            (folder / 'JsonState.js').write_text((BAR / 'JsonState.js').read_text())
+            (folder / 'PanelStyle.js').write_text((BAR / 'PanelStyle.js').read_text())
+            (folder / 'eitr').mkdir()
+            helper = folder / 'walker/scripts/actions/install/plugins.py'
+            helper.parent.mkdir(parents=True)
+            helper.write_text("""import os
+from pathlib import Path
+path = Path(os.environ["XDG_CONFIG_HOME"]) / "eitr/plugin-placements.json"
+print(path.read_text() if path.exists() else '{"entries":[],"installed":[],"placements":{"barItems":[]}}')
+""")
+            (folder / 'DesktopFonts.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property string family: "sans-serif" }\n')
             (folder / 'Stub.qml').write_text(layout_fixture('stub'))
             kinds = {'StatusCommand', 'NotificationWidget', 'StatusIcon', 'PluginComponent', 'BarTooltip'}
             for name in SECTIONS + ('BarZoneItems',):
                 kinds.update(re.findall(r'^\s*([A-Z]\w+)\s*\{', (BAR / 'bar' / (name + '.qml')).read_text(), re.M))
             for kind in kinds - {'Item', 'Row', 'Column', 'Grid', 'Repeater', 'Loader', 'Component', 'Connections', 'Behavior', 'NumberAnimation', 'BarZoneItems'}:
-                (folder / (kind + '.qml')).write_text('import QtQuick\nStub {}\n')
+                # Production menus are separate surfaces and do not occupy positioner slots.
+                stub = 'Stub { visible: false }' if kind.endswith('Menu') else 'Stub {}'
+                (folder / (kind + '.qml')).write_text('import QtQuick\n' + stub + '\n')
+            (folder / 'BarTooltip.qml').write_text('import QtQuick\nItem { property Item target; property bool hovered; property string text; property color foreground; property color background }\n')
+            for relative in ('bar/StatusIcon.qml', 'bar/NotificationWidget.qml', 'components/CountBadge.qml'):
+                source = BAR / relative
+                (folder / source.name).write_text(source.read_text().replace('import ".."\n', '').replace('"../', '"'))
             with (folder / 'qmldir').open('a') as registry:
+                registry.write('singleton DesktopFonts DesktopFonts.qml\n')
                 for component in folder.glob('*.qml'):
-                    if component.stem not in ('DesktopStyle', 'DisplayService', 'PluginRegistry', 'BarIconOrder'):
+                    if component.stem not in ('DesktopStyle', 'DisplayService', 'PluginRegistry', 'BarIconOrder', 'DesktopFonts'):
                         registry.write(f'{component.stem} {component.name}\n')
             horizontal = '\n'.join(qml_block(shell, name + ' {') for name in SECTIONS[:2])
             vertical = '\n'.join(qml_block(shell, name + ' {') for name in SECTIONS[2:])
             fixture = layout_fixture('bar_sections').replace('EDGES', json.dumps(EDGES)).replace('ALIASES', aliases).replace('HORIZONTAL', horizontal).replace('VERTICAL', vertical)
+            capture = capture_path('STATUS', directory, 'full-status.png').resolve()
+            fixture = fixture.replace('CAPTURE_PATH', json.dumps(str(capture)))
             (folder / 'shell.qml').write_text(fixture)
             environment = render_environment(directory)
+            environment['EITR_CODE_ROOT'] = directory
             returncode, output = render(folder / 'shell.qml', environment, timeout=15)
             self.assertEqual(returncode, 0, output)
             self.assertIn('BAR_SECTIONS_OK', output)
+            self.assertGreater(capture.stat().st_size, 200)
             for error in ('ReferenceError', 'TypeError', 'Binding loop', 'Cannot anchor', 'Unable to assign', 'Error:'):
                 self.assertNotIn(error, output)
 

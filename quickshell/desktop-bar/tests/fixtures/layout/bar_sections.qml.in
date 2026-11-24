@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell
+import Quickshell.Io
 ShellRoot {
     id: shell
     property bool verticalBar: false
@@ -14,6 +15,7 @@ ShellRoot {
     property bool iconsOpen: true
     property bool statusOpen: true
     property bool barVisible: true
+    property bool focused: false
     property bool barPinned: false
     property bool dictating: false
     property bool transcribing: false
@@ -28,13 +30,15 @@ ShellRoot {
     function barSurface() { return barBackground ? barBackground() : "transparent"; }
     property color activeBg: "cyan"
     property color workspaceMenuBg: "black"
+    property string idleLockGlyph: "I"
+    property string idleLockTooltip: "Idle Lock"
     property string updatesIcon: "U"
     property string updatesTooltip: "Updates"
     property var updates: ({checking: false})
     property var battery: ({available: true, percent: 80, status: "Discharging"})
     property string batteryIcon: "B"
     property int remoteObservers: 0
-    function barBackground() { return "black"; }
+    function barBackground() { return workspaceMenuBg; }
     function updateBarSetting(key, value) {}
     function checkUpdates() {}
     function openSystemUpdate() {}
@@ -68,7 +72,7 @@ ShellRoot {
             function togglePanel(panel) { panel.opened = !panel.opened; }
             function openPluginPanel(plugin, panel, target) {}
             property Item stripItem: strip
-            property var notificationsRef: ({count: 0, doNotDisturb: false})
+            property var notificationsRef: QtObject { property int count: 0; property bool doNotDisturb: false }
             property var remoteServiceRef: remoteAccessService
             property var horizontalIcons: ({})
             property var verticalIcons: ({})
@@ -91,8 +95,10 @@ ShellRoot {
                     hiddenFallback || bar.notificationIcon || bar.rightSide, fallback || stripItem);
             }
 ALIASES
-            Item {
+            Rectangle {
                 id: strip
+                color: shell.workspaceMenuBg
+                visible: !shell.focused
                 width: shell.verticalBar ? 56 : (bar.centeredLayout ? 800 : bar.width)
                 height: shell.verticalBar ? (bar.centeredLayout ? 700 : bar.height) : 32
                 x: shell.verticalBar ? (shell.barEdge === "right" ? bar.width - width : 0) : (bar.width - width) / 2 - (bar.centeredLayout ? 40 : 0)
@@ -110,9 +116,97 @@ VERTICAL
                 }
             }
             property int step: 0
+            property int scenario: 0
+            property bool snapshotRequested: false
+            readonly property var pluginStates: ["start", "disabled", "start", "unplaced", "status", "removed"]
+            Process { id: writePlacement }
+            function exerciseFull() {
+                const toggle = bar.statusToggle;
+                const zone = bar.rightSide.rightZone;
+                if (bar.scenario === 0) {
+                    if (!PluginRegistry.snapshotLoaded) return;
+                    shell.barEdge = "top";
+                    shell.verticalBar = false;
+                    shell.centeredLayout = false;
+                    shell.notchLayout = false;
+                    shell.islandsLayout = false;
+                    shell.statusOpen = false;
+                    shell.iconsOpen = shell.statusOpen;
+                    shell.battery = ({available: false, percent: 80, status: "Discharging"});
+                    remoteAccessService.allowed = false;
+                    bar.keyboardMenu.layouts = ["us"];
+                    bar.scenario++;
+                    return;
+                }
+                const state = bar.pluginStates[bar.scenario - 1];
+                for (const itemId of ["wifi", "bluetooth", "display", "audio", "notifications"]) {
+                    if (!zone.items.some(entry => entry.id === itemId)) throw new Error("Missing built-in " + itemId);
+                }
+                if (!zone.hasHideable || toggle.visible === shell.focused || toggle.width !== shell.workspaceItemSize ||
+                        (!shell.focused && bar.rightSide.width < toggle.width + bar.notificationIcon.width))
+                    throw new Error("Full status toggle collapsed in " + state);
+                if (state) {
+                    const entry = {plugin: "github", id: "activity", title: state, kind: "barItems", disabled: state === "disabled"};
+                    const placement = {plugin: entry.plugin, id: entry.id, slot: state === "status" ? "status" : "start"};
+                    const snapshot = {
+                        entries: state === "removed" ? [] : [entry], installed: [],
+                        placements: {barItems: ["removed", "unplaced"].includes(state) ? [] : [placement]}
+                    };
+                    if (!bar.snapshotRequested) {
+                        const path = Quickshell.env("XDG_CONFIG_HOME") + "/eitr/plugin-placements.json";
+                        writePlacement.command = ["python3", "-c",
+                            "import sys; from pathlib import Path; p = Path(sys.argv[1]); tmp = p.with_suffix('.tmp'); tmp.write_text(sys.argv[2]); tmp.replace(p)",
+                            path, JSON.stringify(snapshot)];
+                        writePlacement.running = true;
+                        bar.snapshotRequested = true;
+                        return;
+                    }
+                    if (PluginRegistry.entries[0]?.title !== snapshot.entries[0]?.title ||
+                            JSON.stringify(PluginRegistry.placements.barItems) !== JSON.stringify(snapshot.placements.barItems)) return;
+                    const placed = state === "status" ? "right" : state === "start" ? "left" : "";
+                    if (BarIconOrder.zoneOf("github:activity") !== placed)
+                        throw new Error("Plugin placement changed in " + state);
+                    bar.snapshotRequested = false;
+                }
+                if (bar.scenario === 1) bar.brightnessMenu.opened = true;
+                if (bar.scenario === 2) {
+                    bar.brightnessMenu.opened = false;
+                    notificationCenter.opened = true;
+                    bar.notificationsRef.count = 120;
+                    shell.fg = "#212530";
+                    shell.workspaceMenuBg = "#f1f3fa";
+                }
+                if (bar.scenario === 3) notificationCenter.opened = false;
+                if (bar.scenario === 4) {
+                    shell.statusOpen = true;
+                    shell.iconsOpen = true;
+                }
+                if (bar.scenario === 5) {
+                    if (toggle.icon !== "›") throw new Error("Expanded chevron changed");
+                    toggle.clicked(Qt.LeftButton);
+                    shell.iconsOpen = shell.statusOpen;
+                    if (shell.statusOpen || toggle.icon !== "‹") throw new Error("Click did not collapse the icons");
+                }
+                if (bar.scenario === bar.pluginStates.length) shell.focused = true;
+                if (bar.scenario === bar.pluginStates.length + 1) shell.focused = false;
+                if (++bar.scenario > bar.pluginStates.length + 3) {
+                    timer.stop();
+                    strip.grabToImage(function(result) {
+                        if (!result.saveToFile(CAPTURE_PATH)) { Qt.exit(1); return; }
+                        console.log("BAR_SECTIONS_OK");
+                        Qt.quit();
+                    });
+                }
+            }
             Timer {
+                id: timer
                 interval: 30; running: true; repeat: true
                 onTriggered: {
+                    if (bar.step === 64) {
+                        try { bar.exerciseFull(); }
+                        catch (error) { console.error(error); Qt.exit(1); }
+                        return;
+                    }
                     const edges = EDGES;
                     const mode = Math.floor(bar.step / 8) % 4;
                     shell.barEdge = edges[bar.step % 4];
@@ -125,6 +219,9 @@ VERTICAL
                     bar.height = bar.step < 32 ? 1080 : 768;
                     Qt.callLater(function() {
                         try {
+                        const toggle = shell.verticalBar ? bar.verticalEnd.statusToggleItem : bar.statusToggle;
+                        if (toggle.visible !== (mode === 0))
+                            throw new Error("Status toggle visibility at step " + bar.step + ": " + toggle.visible);
                         const clock = shell.verticalBar ? bar.verticalCalendarIcon : bar.centerInfo;
                         const position = clock.mapToItem(bar, clock.width / 2, clock.height / 2);
                         const actual = shell.verticalBar ? position.y : position.x;
@@ -151,7 +248,7 @@ VERTICAL
                         if (bar.recordingMenu.target !== (shell.verticalBar ? bar.verticalCapture : bar.barCapture)
                                 || bar.recordingMenu.controller !== bar.obsMenu)
                             throw new Error("Recording panel wiring changed");
-                        if (++bar.step === 64) { console.log("BAR_SECTIONS_OK"); Qt.quit(); }
+                        bar.step++;
                         } catch (error) { console.error(error); Qt.exit(1); }
                     });
                 }

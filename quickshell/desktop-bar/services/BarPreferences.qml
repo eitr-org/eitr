@@ -11,6 +11,7 @@ import "../JsonState.js" as JsonState
 Scope {
     id: preferences
     property var host
+    property var barWindows
     readonly property bool saving: saveBarSettings.running
     Binding { target: PluginRegistry; property: "clockFormat"; value: preferences.host.barClock }
     // Empty-bar double-click cycles follow tools/choice-lists.json (left: appearances, right: layouts).
@@ -47,6 +48,27 @@ Scope {
         function reload(): void { preferences.host.requestBarReload(); }
         function idleLock(enabled: bool): void { host.idleLockEnabled = enabled; }
         function workspaces(): string { return JSON.stringify({count: host.workspaceCount, limit: DesktopStyle.workspaceCount}); }
+        function status(): string {
+            const bars = preferences.barWindows.instances.map(window => {
+                const status = host.verticalBar ? window.verticalEnd : window.rightSide;
+                const zone = status.rightZone;
+                const toggle = host.verticalBar ? status.statusToggleItem : window.statusToggle;
+                return {
+                    screen: window.screen.name,
+                    rightItemIds: (zone ? zone.items : BarIconOrder.zoneItems("right")).map(item => item.id),
+                    hasHideable: zone ? zone.hasHideable : null,
+                    toggleVisible: !!(toggle && toggle.visible),
+                    toggleWidth: toggle ? toggle.width : 0
+                };
+            });
+            return JSON.stringify({
+                layout: host.barLayout, edge: host.barEdge, verticalBar: host.verticalBar,
+                centeredLayout: host.centeredLayout, notchLayout: host.notchLayout,
+                dynamicLayout: host.dynamicLayout, dropLayout: host.dropLayout, islandsLayout: host.islandsLayout,
+                focus: FocusMode.enabled, barVisible: host.barVisible, statusOpen: host.statusOpen,
+                iconsOpen: host.iconsOpen, bars: bars
+            });
+        }
         function visibility(): void { host.barVisible = !host.barVisible; }
         function update(key: string, value: string): void { preferences.updateBarSetting(key, value) }
         function toggle(kind: string): void {

@@ -26,6 +26,8 @@ Quickshell zeigt verständliche Neuladefehler und behält möglichst die letzte 
 
 Ein Elephant-Neustart lädt Menüdefinitionen neu. Sein Dienst muss `KillMode=process` behalten, für Helfer und Starts ohne uwsm. In einer uwsm-Sitzung laufen gestartete Anwendungen und Terminals in eigenen Anwendungs-Scopes. Designs erzeugen Stile neu: Verschwindet eine Änderung, korrigiere Generator und erzeugte Ausgabe.
 
+Wenn der Pfeil für die Statussymbole in der vollständigen Leiste verschwindet, führe `eitr-shell desktop-bar ipc call -- bar status` aus. Die Ausgabe zeigt das aktive Layout und für jeden Bildschirm die IDs der Einträge auf der rechten Seite sowie die Sichtbarkeit des Pfeils.
+
 ## WLAN-Daten werden nicht mehr aktualisiert
 
 Die Leiste nutzt für alle Bildschirme einen gemeinsamen WLAN-Leseprozess. Wenn

@@ -133,6 +133,14 @@ watch waits for `/var/lib/pacman/db.lck` to clear and gives update triggers five
 quiet seconds to settle. The coordinator refreshes the plugin registry for the
 new package version and calls `Quickshell.reload(false)` when the bar is idle.
 
+## Debugging bar visibility
+
+Run `eitr-shell desktop-bar ipc call -- bar status` when the Full bar’s status
+chevron disappears. The JSON reports the layout flags, Focus and bar visibility
+settings, and whether the status icons are open. For each bar it includes the
+resolved right-zone item IDs, whether any can collapse (`hasHideable`),
+and the chevron’s QML visibility and width.
+
 ## EITR Handbook
 
 Learn > EITR Handbook and SUPER+F1 toggle a centered, movable and resizable window.

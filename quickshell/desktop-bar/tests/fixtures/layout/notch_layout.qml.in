@@ -76,6 +76,7 @@ FloatingWindow {
             Item { id: verticalEnd; y: barContents.height - 200; visible: shell.verticalBar
                 Text { text: "WiFi\nBT\nAudio\nUpdates\nBell"; color: centerInfo.color; font.pixelSize: 13 }
             }
+            QtObject { id: rightItems; readonly property bool hasHideable: true }
             Item { id: statusToggle; visible: TOGGLE_VISIBILITY }
             Text { id: rightSide; text: "WiFi  BT  Audio  Updates  Bell"; color: centerInfo.color; font.pixelSize: 13
                 visible: !shell.verticalBar; x: parent.width - width - 13; y: (parent.height - height) / 2

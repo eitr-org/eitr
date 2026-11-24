@@ -29,6 +29,8 @@ Row {
     readonly property alias obsMenuItem: obsMenu
     readonly property alias recordingMenuItem: recordingMenu
 
+    readonly property alias rightZone: rightItems
+
     id: rightSide
     // The fade lives in shownOpacity, so an Islands pill hiding this item under its card
     // overrides a plain binding and gets it back intact.
@@ -42,23 +44,18 @@ Row {
     anchors.rightMargin: barHost.islandsLayout ? rightSide.host.screenGaps[1] + 4 : barHost.centeredLayout ? barHost.endPadding : 13
     anchors.verticalCenter: parent.verticalCenter
 
-    Item {
-        visible: rightItems.hasHideable && statusToggle.visible
-        width: statusToggle.width
-        height: statusToggle.height
-        StatusIcon {
-            host: rightSide.host
-            id: statusToggle
-            visible: !barHost.centeredLayout && !rightSide.host.notchLayout && !barHost.dynamicLayout && !barHost.dropLayout && !barHost.islandsLayout
-            tooltip: rightSide.host.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
+    StatusIcon {
+        host: rightSide.host
+        id: statusToggle
+        visible: rightItems.hasHideable && !barHost.centeredLayout && !rightSide.host.notchLayout && !barHost.dynamicLayout && !barHost.dropLayout && !barHost.islandsLayout
+        tooltip: rightSide.host.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
 
-            icon: rightSide.host.statusOpen ? "›" : "‹"
-            open: rightItems.hasHideable
-            clickable: true
-            iconSize: 21
-            glyphOffsetY: -1
-            onClicked: rightSide.host.statusOpen = !rightSide.host.statusOpen
-        }
+        icon: rightSide.host.statusOpen ? "›" : "‹"
+        open: true
+        clickable: true
+        iconSize: 21
+        glyphOffsetY: -1
+        onClicked: rightSide.host.statusOpen = !rightSide.host.statusOpen
     }
 
     BarZoneItems {

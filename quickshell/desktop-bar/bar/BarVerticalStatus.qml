@@ -16,7 +16,10 @@ Column {
     required property var streamingMenuRef
     required property var volumeMenuRef
     required property var wifiMenuRef
+    readonly property alias statusToggleItem: verticalStatusToggle
     readonly property alias verticalEndItem: verticalEnd
+
+    readonly property alias rightZone: verticalRightItems
 
     id: verticalEnd
     // The fade lives in shownOpacity, so an Islands pill hiding this item under its card
@@ -30,22 +33,17 @@ Column {
     anchors.horizontalCenter: parent.horizontalCenter
     spacing: verticalEnd.host.workspaceItemSpacing
 
-    Item {
-        visible: verticalRightItems.hasHideable && verticalStatusToggle.visible
-        width: verticalStatusToggle.width
-        height: verticalStatusToggle.height
+    StatusIcon {
+        host: verticalEnd.host
+        id: verticalStatusToggle
+        icon: verticalEnd.host.statusOpen ? "⌄" : "⌃"
+        visible: verticalRightItems.hasHideable && !barHost.centeredLayout && !verticalEnd.host.notchLayout && !barHost.dynamicLayout && !barHost.dropLayout && !barHost.islandsLayout
+        tooltip: verticalEnd.host.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
+        open: true
+        height: 24
         anchors.horizontalCenter: parent.horizontalCenter
-        StatusIcon {
-            host: verticalEnd.host
-            id: verticalStatusToggle
-            icon: verticalEnd.host.statusOpen ? "⌄" : "⌃"
-            visible: !barHost.centeredLayout && !verticalEnd.host.notchLayout && !barHost.dynamicLayout && !barHost.dropLayout && !barHost.islandsLayout
-            tooltip: verticalEnd.host.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
-            open: verticalRightItems.hasHideable
-            height: open ? 24 : 0
-            clickable: true
-            onClicked: verticalEnd.host.statusOpen = !verticalEnd.host.statusOpen
-        }
+        clickable: true
+        onClicked: verticalEnd.host.statusOpen = !verticalEnd.host.statusOpen
     }
 
     BarZoneItems {
