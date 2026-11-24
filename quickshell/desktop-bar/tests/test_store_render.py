@@ -1,9 +1,12 @@
 """Inert Store UI: every kind, provenance filters and sheets in both palettes."""
 import json
 import os
+import re
 from pathlib import Path
 import tempfile
 import unittest
+
+from PIL import Image
 
 from layout_render import copy_runtime, render_environment, render
 
@@ -37,6 +40,7 @@ QtObject {
                 updates_target.mkdir(parents=True, exist_ok=True)
                 fixture = r'''import QtQuick
 import Quickshell
+import QtTest
 import "." as Bar
 ShellRoot {
  function find(item, name) {
@@ -54,6 +58,7 @@ ShellRoot {
   visible: true; implicitWidth: 1100; implicitHeight: 900
   Bar.StoreContent {
    id: panel; anchors.fill: parent; live: false; opened: true
+   TestEvent { id: input }
    property var queueCalls: []
    property bool cachedVisibleDuringRefresh: false
    transport: function(name, args, callback) {
@@ -99,6 +104,7 @@ ShellRoot {
     cases.push({kind:"themes",tab:"discover",filter:"community",name:"community-filter"});
     cases.push({kind:"themes",tab:"discover",search:true,name:"search-filter"});
     cases.push({kind:"themes",tab:"discover",popup:true,name:"appearance-filter"});
+    cases.push({kind:"themes",tab:"discover",popup:true,dropdown:true,name:"sort-dropdown"});
     cases.push({kind:"plugins",tab:"discover",popup:true,name:"plugin-filters"});
     cases.push({kind:"themes",tab:"discover",checking:true,name:"updates-footer-checking"});
     cases.push({kind:"themes",tab:"discover",name:"updates-footer-current"});
@@ -140,13 +146,13 @@ ShellRoot {
     const entry = cases[Math.floor(phase / 2)];
     if (phase % 2 === 0) {
      panel.updateCheck = {pending: entry.checking ? 1 : 0, date:new Date(2026, 10, 23, 10, 30), error:""};
-     panel.query = ""; panel.tone = "all"; panel.filterValues = ({}); panel.updateCache = ({}); panel.store = ({});
+     panel.query = ""; panel.tone = "all"; panel.sortOrder = "name"; panel.filterValues = ({}); panel.updateCache = ({}); panel.store = ({});
      const filter = find(panel, "catalog-tone-filter"); if (filter) filter.expanded = false;
      panel.detail = null; panel.reviewing = false; panel.nativeReviewing = false; panel.removing = null;
      panel.kind = entry.kind; panel.tab = entry.tab; panel.sourceFilter = entry.filter || "all";
      panel.installed = ROWS.slice(0,1); panel.availableItems = ROWS; panel.loading = false; panel.indexLoaded = true;
      if (entry.kind === "plugins") {
-      const weather = {id:"weather", name:"Weather", kind:"builtin", builtin:true, official:true, removable:true, previewUrl:"WEATHER_ICON"};
+      const weather = {id:"weather", name:"Weather", kind:"builtin", builtin:true, official:true, removable:true, previewUrl:"WEATHER_ICON", components:{ui:{widgets:[{}],barItems:[{}]}}};
       panel.installed = [weather]; panel.availableItems = ROWS.concat([weather]);
      }
      panel.selected = []; panel.reviewIds = null;
@@ -186,7 +192,10 @@ ShellRoot {
        if (panel.updateItems.length !== 20) throw new Error("Twenty updates");
       }
      }
-     if (entry.popup) filter.expanded = true;
+     if (entry.popup) {
+      filter.expanded = true;
+      if (entry.dropdown) find(filter.popup.contentItem, "store-filter-sort").expanded = true;
+     }
      if (entry.detail) panel.openDetail(ROWS[1]);
      if (entry.review) { panel.reviewIds = ["northern-art"]; panel.reviewing = true; }
      if (entry.native) {
@@ -220,7 +229,51 @@ ShellRoot {
        if (!plugin.expanded) throw new Error("Expanded changes");
       }
      }
-     if (entry.popup) find(panel, "catalog-tone-filter").popup.background.parent.grabToImage(result => { if (!result.saveToFile("TARGET/PALETTE-" + entry.name + "-menu.png")) throw new Error("Filter capture failed"); });
+     if (entry.popup) {
+      const filter = find(panel, "catalog-tone-filter");
+      const popupContent = filter.popup.contentItem;
+      const sort = find(popupContent, "store-filter-sort");
+      if (!sort || sort.current !== "name" || sort.choices.length !== 3
+          || !find(popupContent, "store-filter-source")
+          || !!find(popupContent, "store-filter-tone") !== (entry.kind === "themes"))
+       throw new Error("Single-choice filters must use dropdowns");
+      if (entry.kind === "plugins") {
+       const widgets = find(popupContent, "store-filter-adds-widgets");
+       const barItems = find(popupContent, "store-filter-adds-barItems");
+       if (!widgets || !barItems || find(popupContent, "store-filter-adds"))
+        throw new Error("Adds must use a checklist");
+       if (!input.mouseClick(widgets, 20, widgets.height / 2, Qt.LeftButton, Qt.NoModifier, -1)
+           || !input.mouseClick(barItems, 20, barItems.height / 2, Qt.LeftButton, Qt.NoModifier, -1))
+        throw new Error("Adds checklist is not clickable");
+       if (!widgets.selected || !barItems.selected || !panel.filtersActive
+           || panel.discoveries.length !== 1 || panel.discoveries[0].id !== "weather")
+        throw new Error("Adds must keep both selections and filter for their intersection");
+      }
+      if (entry.dropdown) {
+       if (!sort.popup.opened || sort.popup.z <= filter.popup.z) throw new Error("Dropdown must open above the filter popup");
+       const dropdown = sort.popup.background.parent;
+       const menu = filter.popup.background.parent;
+       const offset = dropdown.mapToItem(menu, 0, 0);
+       console.log("DROPDOWN_OFFSET " + Math.round(offset.x) + " " + Math.round(offset.y));
+       menu.grabToImage(result => {
+        if (!result.saveToFile("TARGET/sort-menu-base.png")) throw new Error("Filter capture failed");
+       });
+       dropdown.grabToImage(result => {
+        if (!result.saveToFile("TARGET/sort-menu-list.png")) throw new Error("Dropdown capture failed");
+        if (!input.keyClick(Qt.Key_Escape, Qt.NoModifier, -1) || sort.popup.opened || !filter.popup.opened)
+         throw new Error("Escape must close the dropdown first");
+        if (!input.keyClick(Qt.Key_Escape, Qt.NoModifier, -1) || filter.popup.opened)
+         throw new Error("Second Escape must close the filter popup");
+        sort.chosen("creation-date");
+        if (panel.sortOrder !== "creation-date" || panel.filtersActive)
+         throw new Error("Sort must not light the filter indicator");
+       });
+      } else {
+       filter.popup.background.parent.grabToImage(result => {
+        if (!result.saveToFile("REVIEW_TARGET/PALETTE-" + entry.name + "-menu.png")) throw new Error("Filter capture failed");
+       });
+      }
+     }
      if (entry.kind === "plugins" && entry.tab === "installed") {
       const remove = window.findNamed(panel, "remove-weather");
       if (!remove || !remove.visible) throw new Error("Bundled Weather cannot be removed");
@@ -247,6 +300,21 @@ ShellRoot {
                 self.assertIn('STORE_RENDER_OK', output)
                 for error in ('TypeError', 'ReferenceError', 'Unable to assign', 'Error:'):
                     self.assertNotIn(error, output)
+                # Qt Quick draws popups as separate overlay items. Compose their actual
+                # offscreen grabs in z-order using the rendered position of the dropdown.
+                offset = re.search(r'DROPDOWN_OFFSET (-?\d+) (-?\d+)', output)
+                self.assertIsNotNone(offset, output)
+                left, top = map(int, offset.groups())
+                with Image.open(target / 'sort-menu-base.png') as base, Image.open(target / 'sort-menu-list.png') as dropdown:
+                    origin = min(0, left), min(0, top)
+                    width = max(base.width, left + dropdown.width) - origin[0]
+                    height = max(base.height, top + dropdown.height) - origin[1]
+                    combined = Image.new('RGBA', (width, height))
+                    combined.alpha_composite(base.convert('RGBA'), (-origin[0], -origin[1]))
+                    combined.alpha_composite(dropdown.convert('RGBA'), (left - origin[0], top - origin[1]))
+                    combined.save(updates_target / f'{palette}-sort-dropdown-menu.png')
+                for menu in ('appearance-filter', 'sort-dropdown', 'plugin-filters'):
+                    self.assertTrue((updates_target / f'{palette}-{menu}-menu.png').exists())
                 for state in ('footer-checking', 'footer-current', 'footer-available', 'footer-many', 'collapsed', 'expanded'):
                     self.assertTrue((updates_target / f'{palette}-updates-{state}.png').exists())
                 for kind in ('themes', 'plugins', 'lockscreens', 'wallpapers'):

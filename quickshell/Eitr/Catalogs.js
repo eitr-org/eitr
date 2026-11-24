@@ -1244,9 +1244,9 @@ var qml = {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.",
     "Applying…": "Applying…",
     "Sort": "Sort",
-    "Store order": "Store order",
     "Name A–Z": "Name A–Z",
-    "Name Z–A": "Name Z–A"
+    "Name Z–A": "Name Z–A",
+    "Creation date": "Creation date"
   },
   "pt_BR": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr e Eitr Light vêm integrados. Troque de tema antes de remover o tema atual da loja.",
@@ -2457,7 +2457,7 @@ var qml = {
     "{count} placed": "{count} na área de trabalho",
     "Applying…": "Aplicando…",
     "Sort": "Ordenar",
-    "Store order": "Ordem da loja",
+    "Creation date": "Data de criação",
     "Name A–Z": "Nome A–Z",
     "Name Z–A": "Nome Z–A"
   },
@@ -3670,7 +3670,7 @@ var qml = {
     "{count} placed": "{count} colocados",
     "Applying…": "Aplicando…",
     "Sort": "Ordenar",
-    "Store order": "Orden de la tienda",
+    "Creation date": "Fecha de creación",
     "Name A–Z": "Nombre A–Z",
     "Name Z–A": "Nombre Z–A"
   },
@@ -4883,7 +4883,7 @@ var qml = {
     "{count} placed": "{count} platziert",
     "Applying…": "Wird angewendet…",
     "Sort": "Sortieren",
-    "Store order": "Store-Reihenfolge",
+    "Creation date": "Erstellungsdatum",
     "Name A–Z": "Name A–Z",
     "Name Z–A": "Name Z–A"
   },
@@ -6096,7 +6096,7 @@ var qml = {
     "{count} placed": "{count} placés",
     "Applying…": "Application…",
     "Sort": "Trier",
-    "Store order": "Ordre de la boutique",
+    "Creation date": "Date de création",
     "Name A–Z": "Nom A–Z",
     "Name Z–A": "Nom Z–A"
   },
@@ -7309,7 +7309,7 @@ var qml = {
     "{count} placed": "{count} 個配置済み",
     "Applying…": "適用中…",
     "Sort": "並べ替え",
-    "Store order": "ストアの順序",
+    "Creation date": "作成日",
     "Name A–Z": "名前 A–Z",
     "Name Z–A": "名前 Z–A"
   },
@@ -8522,7 +8522,7 @@ var qml = {
     "{count} placed": "已放置 {count} 个",
     "Applying…": "正在应用…",
     "Sort": "排序",
-    "Store order": "商店顺序",
+    "Creation date": "创建日期",
     "Name A–Z": "名称 A–Z",
     "Name Z–A": "名称 Z–A"
   },
@@ -9735,7 +9735,7 @@ var qml = {
     "{count} placed": "{count}개 배치됨",
     "Applying…": "적용 중…",
     "Sort": "정렬",
-    "Store order": "스토어 순서",
+    "Creation date": "생성 날짜",
     "Name A–Z": "이름 A–Z",
     "Name Z–A": "이름 Z–A"
   }

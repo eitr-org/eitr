@@ -20,7 +20,16 @@ assert.equal(context.filters({kind: 'official', light: true}, definition('themes
 const unsorted = [{id: 'b', name: 'nord'}, {id: 'c', name: 'Afterglow'}, {id: 'd', name: 'Theme 10'}, {id: 'e', name: 'Theme 9'}];
 assert.deepEqual(Array.from(context.sorted(unsorted, 'name'), item => item.id), ['c', 'b', 'e', 'd']);
 assert.deepEqual(Array.from(context.sorted(unsorted, 'name-descending'), item => item.id), ['d', 'e', 'b', 'c']);
-assert.equal(context.sorted(unsorted, 'default'), unsorted);
+assert.deepEqual(Array.from(context.sorted(unsorted), item => item.id), ['c', 'b', 'e', 'd']);
+const dated = [
+    {id: 'z', name: 'Zulu', createdAt: 100},
+    {id: 'c', name: 'Charlie', createdAt: 200},
+    {id: 'b', name: 'Bravo', createdAt: 200},
+    {id: 'x', name: 'X-ray', createdAt: null},
+    {id: 'a', name: 'Alpha'},
+    {id: 'd', name: 'Delta', createdAt: '300'}
+];
+assert.deepEqual(Array.from(context.sorted(dated, 'creation-date'), item => item.id), ['b', 'c', 'z', 'a', 'd', 'x']);
 assert.deepEqual(Array.from(unsorted, item => item.id), ['b', 'c', 'd', 'e']);
 console.log('Store: capability intersection and unknown metadata passed');
 

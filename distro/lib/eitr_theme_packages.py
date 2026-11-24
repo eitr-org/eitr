@@ -446,6 +446,7 @@ class Themes:
             review['stage'].cleanup()
 
     def installed(self):
+        from eitr_store_previews import cached_creation, own_theme_date
         rows = []
         active = config('theme/current')
         active_id = manifest(active)['id'] if (active / MANIFEST).is_file() else None
@@ -461,7 +462,9 @@ class Themes:
                 kind = 'official' if official(source['url']) else 'community' if source.get('community') else 'third-party'
             else:
                 kind = 'builtin' if root.parent == code_root() / 'themes' else 'own'
-            rows.append(dict(id=theme_id, name=(root / 'display-name').read_text().strip(),
+            date = (cached_creation(source['url'], source['folder']) if source else
+                    own_theme_date(root / 'own-theme.json') if (root / 'own-theme.json').is_file() else None)
+            rows.append(dict(id=theme_id, createdAt=date, name=(root / 'display-name').read_text().strip(),
                              light=(root / 'light.mode').exists(), kind=kind, source=source,
                              description=manifest(root)['description'] if (root / MANIFEST).is_file() else '',
                              palette=palette(root),

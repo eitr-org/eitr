@@ -548,6 +548,8 @@ class PluginInstall:
                                  author=string(spec.get('author')), version=string(spec.get('version')),
                                  components={key: spec[key] for key in ('rows', 'ui', 'hooks', 'service', 'capabilities', 'packages') if key in spec},
                                  repository=url, folder=entry['path'], media=media, commit=revision, **artwork))
+            from eitr_store_previews import package_dates
+            package_dates(candidate, revision, url, rows, allow_file=self.allow_file)
             return rows
 
     def prepare(self, url, temporary):

@@ -5,7 +5,7 @@ import re
 import subprocess
 import tempfile
 
-from eitr_store_previews import (discover_result, fetch_missing, preview_blob, preview_target,
+from eitr_store_previews import (discover_result, fetch_missing, package_dates, preview_blob, preview_target,
                                  publish_json, repository_path)
 
 THEMES = 'https://github.com/eitr-org/eitr-themes'
@@ -171,6 +171,8 @@ def community_overviews(rows, backend, *, include_preview=False):
         except (OSError, ValueError, subprocess.SubprocessError):
             if not include_preview:
                 raise
+    if include_preview:
+        package_dates(repository, revision, url, items, **options)
     return items
 
 

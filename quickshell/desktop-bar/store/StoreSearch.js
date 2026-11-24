@@ -25,7 +25,14 @@ function filters(item, definition, source, tone, values) {
 }
 
 function sorted(items, order) {
-    if (order !== "name" && order !== "name-descending") return items;
-    const direction = order === "name" ? 1 : -1;
-    return items.slice().sort((first, second) => direction * String(first.name || first.id || "").localeCompare(String(second.name || second.id || ""), undefined, {sensitivity: "base", numeric: true}));
+    const direction = order === "name-descending" ? -1 : 1;
+    return items.slice().sort((first, second) => {
+        if (order === "creation-date") {
+            const firstDate = Number.isFinite(first.createdAt) && first.createdAt > 0 ? first.createdAt : -Infinity;
+            const secondDate = Number.isFinite(second.createdAt) && second.createdAt > 0 ? second.createdAt : -Infinity;
+            if (firstDate !== secondDate) return secondDate - firstDate;
+        }
+        return direction * String(first.name || first.id || "").localeCompare(
+            String(second.name || second.id || ""), undefined, {sensitivity: "base", numeric: true});
+    });
 }

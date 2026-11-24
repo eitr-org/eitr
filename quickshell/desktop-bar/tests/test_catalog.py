@@ -475,7 +475,7 @@ ShellRoot {
       if (panel.wallpaperIndex !== 0) throw new Error("large wallpaper");
      } else if (sample.phase === 4) {
       keys.keyClick(Qt.Key_Escape);
-      if (panel.detail || panel.cursor !== 3 || !panel.activeFocus) throw new Error("detail Escape restores card focus");
+      if (panel.detail || panel.navigable[panel.cursor]?.id !== "jade" || !panel.activeFocus) throw new Error("detail Escape restores card focus");
       function find(root, name) { if (root.objectName === name) return root; for (const child of root.children || []) { const found = find(child, name); if (found) return found; } return null; }
       const button = find(panel, "review-selection");
       button.forceActiveFocus(); keys.keyClick(Qt.Key_Return);
@@ -864,6 +864,13 @@ class CatalogBackendTests(unittest.TestCase):
                 DOMAIN.artwork_preview('themes', 'alpha', isolated, detail['wallpapers'][0]['path'], 'community')
                 with self.assertRaisesRegex(ValueError, 'not listed'):
                     DOMAIN.artwork_preview('themes', 'alpha', isolated, 'themes/alpha/colors.toml', 'community')
+            from eitr_store_content import community_overviews
+            from eitr_store_previews import cached_creation
+            with isolated.lock():
+                overview = community_overviews(community_index['themes'], isolated, include_preview=True)[0]
+            expected_date = int(theme_git(root, 'show', '-s', '--format=%ct', index['commit']))
+            self.assertEqual(overview['createdAt'], expected_date)
+            self.assertEqual(cached_creation(url, 'themes/alpha'), expected_date)
             # Size checks reject before reading the blob, for each artwork class.
             for asset in (row['preview'], row['wallpapers'][0]['thumbnail'], row['wallpapers'][0]['path']):
                 for cached in target.parent.rglob('*'):
@@ -875,6 +882,50 @@ class CatalogBackendTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, 'size limit'):
                         DOMAIN.artwork_preview('themes', 'alpha', backend, asset)
                     self.assertFalse(any(call.args[1:3] == ('cat-file', 'blob') for call in reads.call_args_list))
+
+    def test_package_dates_use_folder_history_and_survive_revision_changes(self):
+        from eitr_plugin_install import git
+        from eitr_store_previews import cached_creation, package_dates
+
+        with tempfile.TemporaryDirectory() as directory, patch.dict(os.environ, {'XDG_CACHE_HOME': directory + '/cache'}):
+            source = Path(directory) / 'source'
+            source.mkdir()
+            git(source, 'init', '-q')
+            git(source, 'config', 'uploadpack.allowFilter', 'true')
+
+            def commit(message, timestamp):
+                git(source, 'add', '.')
+                # The production Git wrapper clears GIT_* variables. Set the test clock here.
+                subprocess.run(['git', '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid',
+                                'commit', '-qm', message], cwd=source, check=True,
+                               env=dict(os.environ, GIT_AUTHOR_DATE=timestamp, GIT_COMMITTER_DATE=timestamp))
+
+            (source / 'unrelated').touch()
+            commit('repository created', '2020-01-01T00:00:00Z')
+            (source / 'theme[one]').mkdir()
+            (source / 'theme[one]' / 'first').touch()
+            commit('folder introduced', '2021-01-01T00:00:00Z')
+            expected = int(git(source, 'show', '-s', '--format=%ct', 'HEAD'))
+            (source / 'theme[one]' / 'manifest').touch()
+            commit('package manifest added later', '2022-01-01T00:00:00Z')
+            repository = Path(directory) / 'partial'
+            url = source.as_uri()
+            git(None, 'clone', '--filter=blob:none', '--no-checkout', url, str(repository), allow_file=True)
+            rows = [{'folder': 'theme[one]'}, {'folder': 'missing'}]
+            with patch('eitr_plugin_install.git', wraps=git) as reads:
+                package_dates(repository, git(repository, 'rev-parse', 'HEAD'), url, rows, allow_file=True)
+            self.assertEqual(rows, [{'folder': 'theme[one]', 'createdAt': expected}, {'folder': 'missing'}])
+            self.assertTrue(all(call.kwargs['lazy_fetch'] is False for call in reads.call_args_list))
+            self.assertEqual(cached_creation(url, 'theme[one]'), expected)
+
+            (source / 'theme[one]' / 'new').touch()
+            commit('theme updated', '2023-01-01T00:00:00Z')
+            revision = git(source, 'rev-parse', 'HEAD')
+            rows = [{'folder': 'theme[one]'}]
+            with patch('eitr_plugin_install.git') as reads:
+                package_dates(repository, revision, url, rows, allow_file=True)
+            reads.assert_not_called()
+            self.assertEqual(rows[0]['createdAt'], expected)
 
     def test_discover_batches_only_missing_regular_preview_objects(self):
         from eitr_plugin_install import git

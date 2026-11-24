@@ -301,7 +301,13 @@ class ThemePackagesTest(unittest.TestCase):
         self.assertIn('#e2eae2', generated)
 
     def test_classification_and_foreign_repository(self):
+        from eitr_store_previews import package_dates
+
         self.backend.install(self.url, ['alpha'])
+        with self.backend.lock():
+            repository, revision, catalog_rows = self.backend.repository(self.url)
+            package_dates(repository, revision, self.url, catalog_rows, allow_file=True)
+        discover_date = next(row['createdAt'] for row in catalog_rows if row['id'] == 'alpha')
         builtin = self.root / 'builtin/themes/builtin'
         builtin.mkdir(parents=True)
         (builtin / 'colors.toml').write_text('accent = "#ffffff"')
@@ -316,7 +322,12 @@ class ThemePackagesTest(unittest.TestCase):
         current = self.home / '.cache/current-theme'
         current.parent.mkdir(parents=True, exist_ok=True)
         current.write_text('alpha')
-        rows = {row['id']: row for row in self.backend.installed()}
+        with patch('eitr_store_previews.own_theme_date', return_value=12345) as birth_time:
+            rows = {row['id']: row for row in self.backend.installed()}
+        birth_time.assert_called_once_with(own / 'own-theme.json')
+        self.assertEqual(rows['alpha']['createdAt'], discover_date)
+        self.assertEqual(rows['mine']['createdAt'], 12345)
+        self.assertIsNone(rows['builtin']['createdAt'])
         self.assertEqual(rows['alpha']['palette'], {key: tomllib.loads(
             (self.backend.folder / 'alpha/colors.toml').read_text())[key]
             for key in ('background', 'foreground', 'accent', *(f'color{number}' for number in range(16)))})

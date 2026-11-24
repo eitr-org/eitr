@@ -151,3 +151,51 @@ def theme_previews(repository, revision, url, rows, **options):
             except (OSError, ValueError, SyntaxError, subprocess.SubprocessError):
                 continue
     return rows
+
+
+def creation_path(url, folder):
+    identity = json.dumps([normalized_url(url), folder])
+    return cache('eitr/catalog-previews/creation') / (hashlib.sha256(identity.encode()).hexdigest() + '.json')
+
+
+def cached_creation(url, folder):
+    try:
+        date = read_state(creation_path(url, folder), 128)['createdAt']
+        return date if type(date) is int and date > 0 else None
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+
+
+def package_dates(repository, revision, url, rows, **options):
+    from eitr_plugin_install import git
+    complete = None
+    for row in rows:
+        folder = row['folder']
+        date = cached_creation(url, folder)
+        if date is None:
+            try:
+                if complete is None:
+                    complete = git(repository, 'rev-parse', '--is-shallow-repository',
+                                   lazy_fetch=False, **options) == 'false'
+                if not complete:
+                    continue
+                additions = git(repository, '--literal-pathspecs', 'log', '--full-history',
+                                '--reverse', '--topo-order', '--root', '-m', '--no-renames', '--diff-filter=A',
+                                '--format=%ct', revision, '--', folder or '.', lazy_fetch=False,
+                                timeout=5, **options)
+                if additions:
+                    date = int(additions.splitlines()[0])
+                    if date > 0:
+                        publish_json(creation_path(url, folder), {'createdAt': date})
+            except (OSError, ValueError, subprocess.SubprocessError):
+                continue
+        if date and date > 0:
+            row['createdAt'] = date
+
+
+def own_theme_date(root):
+    try:
+        # Linux exposes inode birth time through statx. Zero means unavailable.
+        return int(subprocess.check_output(['stat', '-c', '%W', '--', root], text=True)) or None
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return None

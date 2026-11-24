@@ -24,9 +24,10 @@ Item {
     Popup {
         id: menu
         x: control.width - width; y: control.height + 4
-        width: 290
-        height: Math.min(column.implicitHeight + 8, control.Window.height - control.mapToItem(null, 0, 0).y - control.height - 16)
-        padding: 4; focus: true
+        width: Math.min(290, control.Window.width - 16)
+        margins: 8
+        height: Math.min(column.implicitHeight + topPadding + bottomPadding, control.Window.height - 16)
+        padding: 12; focus: true
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
         enter: Transition { NumberAnimation { property: "opacity"; from: 0; to: 1; duration: DesktopStyle.motionDuration(120) } }
         exit: Transition { NumberAnimation { property: "opacity"; from: 1; to: 0; duration: DesktopStyle.motionDuration(90) } }
@@ -42,27 +43,55 @@ Item {
                     Column {
                         id: group
                         required property var modelData
+                        required property int index
                         width: column.width; spacing: 4
+                        Rectangle {
+                            visible: group.index > 0
+                            width: parent.width; height: 1
+                            color: Qt.alpha(catalog.foreground, PanelStyle.dividerAlpha)
+                        }
+                        Loader {
+                            active: !group.modelData.multiple
+                            visible: active
+                            width: parent.width
+                            sourceComponent: ChoiceDropdown {
+                                objectName: "store-filter-" + group.modelData.id
+                                foreground: catalog.foreground
+                                background: catalog.background
+                                floatingLabel: Eitr.I18n.tr(group.modelData.label)
+                                choices: group.modelData.options
+                                current: catalog.filterValue(group.modelData)
+                                popup.z: menu.z + 1
+                                onChosen: value => catalog.chooseFilter(group.modelData, value)
+                                Connections {
+                                    target: menu
+                                    function onAboutToHide() { expanded = false; }
+                                }
+                            }
+                        }
                         StoreLabel {
+                            visible: group.modelData.multiple
                             catalog: control.catalog; width: parent.width
                             leftPadding: 10; topPadding: 4
                             text: Eitr.I18n.tr(group.modelData.label)
                             color: catalog.muted
                         }
                         Repeater {
-                            model: group.modelData.options
+                            model: group.modelData.multiple ? group.modelData.options : []
                             PanelButton {
                                 required property var modelData
+                                objectName: "store-filter-" + group.modelData.id + "-" + modelData.id
                                 width: group.width; height: PanelStyle.selectionRowHeight
-                                foreground: selected ? catalog.gold : catalog.foreground
+                                foreground: catalog.foreground
                                 text: Eitr.I18n.tr(modelData.label)
                                 textAlignment: Text.AlignLeft; textInset: 10
+                                leadingIcon: selected ? "\u{F0132}" : "\u{F0131}"
                                 readonly property var value: catalog.filterValue(group.modelData)
-                                selected: group.modelData.multiple ? value.includes(modelData.id) : value === modelData.id
+                                selected: value.includes(modelData.id)
                                 color: Qt.alpha(catalog.foreground, PanelStyle.selectionAlpha(selected, pointer.hovered))
                                 border.width: PanelStyle.selectionBorderWidth(selected)
                                 border.color: Qt.alpha(catalog.foreground, PanelStyle.selectionBorderAlpha)
-                                Accessible.role: group.modelData.multiple ? Accessible.CheckBox : Accessible.RadioButton
+                                Accessible.role: Accessible.CheckBox
                                 Accessible.checked: selected
                                 HoverHandler { id: pointer }
                                 onClicked: catalog.chooseFilter(group.modelData, modelData.id)

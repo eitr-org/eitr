@@ -19,8 +19,17 @@ The page lists pending items across kinds with selection controls, expandable
 details and individual or batch updates. Back and Escape return to the previous
 view. Discover and Installed searches stay within the selected section and kind.
 Ctrl+1–4 switches kinds there. Closing saves the section and kind to the
-machine-local `eitr/store.json` preference. Sort (Store order or name A–Z / Z–A)
-and Source are grouped in the filter menu.
+machine-local `eitr/store.json` preference. The filter menu uses dropdowns for
+Sort, Source and theme Appearance. The Adds checklist can combine several plugin
+capabilities. A dot marks active filters. Sort defaults to Name A–Z and also
+offers Name Z–A and Creation date.
+
+Creation date shows the newest items first. For catalog themes and plugins,
+it is the timestamp of the first commit adding the package folder in its
+source repository. Discover reads the history already fetched for the catalog
+and caches the date by repository and folder. Installed packages share that
+cache. Own themes use the creation time of their local metadata file. Built-in
+themes and items without a known date follow the dated results in name order.
 Eitr and Eitr Light ship with the desktop and stay locked in Installed. The
 other official themes, including Afterglow and the realm collection, are
 available from Discover. Once installed, they can be updated or removed.

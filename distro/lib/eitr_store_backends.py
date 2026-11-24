@@ -7,7 +7,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 
-from eitr_store_previews import discover_result, publish_json, repository_path, theme_previews
+from eitr_store_previews import discover_result, package_dates, publish_json, repository_path, theme_previews
 
 from eitr_plugin_bundled import BUNDLED_DEFAULTS
 from eitr_store_content import community, community_detail, installed_badges, artwork_preview
@@ -62,8 +62,10 @@ def themes(name, args):
         publish_json(cache('eitr/catalog-previews/index.json'), result)
         rows = result['themes']
         with backend.lock():
+            repository = repository_path(backend, THEMES)
+            package_dates(repository, result['commit'], THEMES, rows, allow_file=backend.allow_file)
             try:
-                theme_previews(repository_path(backend, THEMES), result['commit'], THEMES, rows,
+                theme_previews(repository, result['commit'], THEMES, rows,
                                allow_file=backend.allow_file)
             except (OSError, ValueError, subprocess.SubprocessError):
                 pass  # Keep the listing available if the preview fetch fails.
@@ -114,7 +116,13 @@ def plugins(name, args):
         return plugin_changes(_PLUGIN_BACKEND or Plugins(), args['id'])
     backend = plugin_backend()
     if name == 'installed':
-        return {'items': installed_badges([dict(row, kind='builtin' if row.get('builtin') else 'official' if row['official'] else 'third-party') for row in backend.installed()], kind)}
+        from eitr_store_previews import cached_creation
+        rows = backend.installed()
+        for row in rows:
+            row['kind'] = 'builtin' if row.get('builtin') else 'official' if row['official'] else 'third-party'
+            if not row.get('builtin') and row.get('repository') and 'repositoryPath' in row:
+                row['createdAt'] = cached_creation(row['repository'], row['repositoryPath'])
+        return {'items': installed_badges(rows, kind)}
     if name == 'check':
         index = community_plugins()
         return {'updates': backend.check_updates(

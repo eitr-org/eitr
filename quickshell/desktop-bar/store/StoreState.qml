@@ -97,7 +97,7 @@ Item {
     function resetTransient() {
         addingAddress = false; catalog.addressInput.text = ""; gitSelected = []; gitArtwork = ({});
         detail = null; reviewing = false; removing = null; managing = null; selected = []; error = ""; progress = "";
-        query = ""; tone = "all"; sourceFilter = "all"; filterValues = ({}); cursor = -1; shown = pageSize; catalog.scroll.contentY = 0;
+        query = ""; tone = "all"; sourceFilter = "all"; sortOrder = "name"; filterValues = ({}); cursor = -1; shown = pageSize; catalog.scroll.contentY = 0;
     }
     function discardReview() {
         if (live && ["themes", "plugins"].includes(kind)) transport("discard", {kind: kind}, function() {}, cleanupOwner);
@@ -242,8 +242,8 @@ Item {
         }
         cursor = -1; shown = pageSize; catalog.scroll.contentY = 0;
     }
-    property string sortOrder: "default"
-    readonly property var filterGroups: [{id: "sort", label: Eitr.I18n.tr("Sort"), multiple: false, options: [{id: "default", label: Eitr.I18n.tr("Store order")}, {id: "name", label: Eitr.I18n.tr("Name A–Z")}, {id: "name-descending", label: Eitr.I18n.tr("Name Z–A")}]}, {id: "source", label: Eitr.I18n.tr("Source"), multiple: false, options: [{id: "all", label: Eitr.I18n.tr("All")}, {id: "official", label: Eitr.I18n.tr("Official")}, {id: "community", label: Eitr.I18n.tr("Community")}]}].concat(definition.filters)
+    property string sortOrder: "name"
+    readonly property var filterGroups: [{id: "sort", label: Eitr.I18n.tr("Sort"), multiple: false, options: [{id: "name", label: Eitr.I18n.tr("Name A–Z")}, {id: "name-descending", label: Eitr.I18n.tr("Name Z–A")}, {id: "creation-date", label: Eitr.I18n.tr("Creation date")}]}, {id: "source", label: Eitr.I18n.tr("Source"), multiple: false, options: [{id: "all", label: Eitr.I18n.tr("All")}, {id: "official", label: Eitr.I18n.tr("Official")}, {id: "community", label: Eitr.I18n.tr("Community")}]}].concat(definition.filters)
     readonly property bool filtersActive: sourceFilter !== "all" || definition.filters.some(group => group.multiple ? filterValue(group).length > 0 : filterValue(group) !== "all")
     property string tone: "all"
     property int cursor: -1
@@ -253,7 +253,7 @@ Item {
     readonly property int columns: Math.max(1, Math.min(4, Math.floor((width - sidebarWidth - 48) / 230)))
     function filtered(items) { return items.filter(item => StoreSearch.matches(item, query) && StoreSearch.filters(item, kinds.find(entry => entry.id === (item.storeKind || kind)), sourceFilter, tone, filterValues)); }
     readonly property var locals: StoreSearch.sorted(filtered(installed), sortOrder)
-    readonly property var discoveries: StoreSearch.sorted(filtered(availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: item.kind, channel: item.channel}))), sortOrder)
+    readonly property var discoveries: StoreSearch.sorted(filtered(availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: item.kind, channel: item.channel, createdAt: item.createdAt}))), sortOrder)
     readonly property var navigable: getMore ? discoveries : locals
     function toggle(item) {
         if (item.storeKind && item.storeKind !== kind) kind = item.storeKind;
@@ -301,7 +301,13 @@ Item {
             store = Object.assign({}, store, {[key]: {items, error: failure, pending, loaded: !pending && !failure}});
             sync();
         };
-        const refresh = () => request(source === "installed" ? "installed" : "index", args, (failure, data) => update(failure, data, false));
+        const refresh = () => request(source === "installed" ? "installed" : "index", args, (failure, data) => {
+            update(failure, data, false);
+            // The Discover refresh may have populated dates after Installed was read.
+            const local = store[catalogKind + ":installed"];
+            if (source !== "installed" && !failure && local && (data.items || []).some(item =>
+                    item.createdAt && local.items.some(row => row.id === item.id && !row.createdAt))) fetch(catalogKind, "installed");
+        });
         const queueRefresh = enqueueRefresh || (task => task());
         if (catalogKind === "themes" && source !== "installed" && !store[key].items.length) {
             request("cached-index", args, function(failure, data) {

@@ -944,6 +944,9 @@
     "Create backup…": [
       "quickshell/desktop-bar/settings/SettingsBackupPage.qml"
     ],
+    "Creation date": [
+      "quickshell/desktop-bar/store/StoreState.qml"
+    ],
     "Critical battery warning": [
       "quickshell/desktop-bar/components/BatteryWarningSection.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -3361,9 +3364,6 @@
     "Stopwatch": [
       "quickshell/desktop-bar/clock/ClockContent.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
-    ],
-    "Store order": [
-      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Streaming": [
       "quickshell/desktop-bar/bar/BarZoneItems.qml",
