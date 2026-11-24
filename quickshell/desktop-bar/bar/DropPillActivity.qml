@@ -160,7 +160,8 @@ Item {
             CountBadge {
                 anchors.fill: parent
                 count: activity.shared.bellCount
-                accent: activity.host.activeBg
+                accent: activity.host.barFg
+                ring: activity.host.workspaceMenuBg
             }
             onActivated: activity.barHost.panel("dashboard").show("notifications")
         }

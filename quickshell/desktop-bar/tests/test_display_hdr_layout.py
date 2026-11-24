@@ -67,6 +67,16 @@ ShellRoot {
                         throw new Error("Wrong brightness range");
                     sample.grabToImage(function(result) {
                         result.saveToFile("CAPTURE");
+                        const resolution = sample.child(panel, "setting-displays-resolution").parent;
+                        const refreshRate = sample.child(panel, "setting-displays-refresh-rate").parent;
+                        panel.width = 440;
+                        resolution.parent.forceLayout();
+                        if (refreshRate.y !== resolution.y || refreshRate.x <= resolution.x)
+                            throw new Error("Expected two columns at wide width");
+                        panel.width = 180;
+                        resolution.parent.forceLayout();
+                        if (refreshRate.x !== resolution.x || refreshRate.y <= resolution.y)
+                            throw new Error("Expected one column at narrow width");
                         panel.monitor = {hdr_capable: true, hdr: false};
                         if (brightness.visible) throw new Error("SDR slider visible with HDR off");
                         panel.monitor = {hdr_capable: false, hdr: false};
@@ -83,8 +93,11 @@ ShellRoot {
                                    XDG_CACHE_HOME=temporary, XDG_RUNTIME_DIR=temporary,
                                    DBUS_SESSION_BUS_ADDRESS='unix:path=/nonexistent', HYPRLAND_INSTANCE_SIGNATURE='',
                                    LC_ALL='de_DE.UTF-8')
-                result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment,
-                                        text=True, capture_output=True, timeout=15)
+                try:
+                    result = subprocess.run(['quickshell', '-p', str(fixture)], env=environment,
+                                            text=True, capture_output=True, timeout=15)
+                except subprocess.TimeoutExpired as error:
+                    self.fail(f"Offscreen render timed out: {error.stdout} {error.stderr}")
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
                 self.assertIn('DISPLAY_HDR_LAYOUT_OK', result.stdout + result.stderr)
                 self.assertTrue(capture.is_file())

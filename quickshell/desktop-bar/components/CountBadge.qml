@@ -8,9 +8,19 @@ Item {
     id: badge
     property int count: 0
     property color accent: "white"
+    // A thin ring in the bar's colour cuts the pill out of the glyph it overlaps.
+    property color ring: "transparent"
     visible: count > 0
 
     Rectangle {
+        visible: badge.ring.a > 0
+        x: pill.x - 1.5; y: pill.y - 1.5
+        width: pill.width + 3; height: pill.height + 3
+        radius: height / 2
+        color: badge.ring
+    }
+    Rectangle {
+        id: pill
         height: 11
         width: Math.max(height, label.implicitWidth + 4)
         x: badge.width / 2 + 3

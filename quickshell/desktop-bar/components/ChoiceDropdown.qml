@@ -27,6 +27,7 @@ Item {
     property bool appIcons: false
     // Outlined field: the label sits inside the empty field and moves into its top border
     // once a choice is shown or the list opens; the helper text describes it underneath.
+    property bool compact: false
     property string floatingLabel: ""
     property string helperText: ""
     readonly property bool outlined: floatingLabel !== ""
@@ -91,6 +92,11 @@ Item {
     signal chosen(string value)
     signal actionTriggered(string value)
     width: parent ? parent.width : 220
+    readonly property real minimumFieldWidth: Math.ceil(Math.max(
+        labelMetrics.advanceWidth(floatingLabel) + 24,
+        choices.reduce((widest, choice) => Math.max(widest, valueMetrics.advanceWidth(labelOf(choice))), 0) + 48))
+    FontMetrics { id: labelMetrics; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.captionSize }
+    FontMetrics { id: valueMetrics; font.family: DesktopFonts.family; font.pixelSize: PanelStyle.controlSize }
     implicitHeight: labelRoom + button.height + (outlined && helperText !== "" ? 4 + helperLine.implicitHeight + 4 : 0)
     height: implicitHeight
     activeFocusOnTab: true
@@ -160,7 +166,7 @@ Item {
         y: control.labelRoom
         width: parent.width
         // An icon-only selector takes the size it is given, e.g. a filter inside a search field.
-        height: control.iconOnly ? control.height : control.outlined ? 48 : PanelStyle.selectionRowHeight
+        height: control.iconOnly ? control.height : control.outlined && !control.compact ? 48 : PanelStyle.selectionRowHeight
         iconSize: control.iconOnly ? 15 : 20
         foreground: control.foreground
         textAlignment: Text.AlignLeft

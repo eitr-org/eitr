@@ -23,8 +23,7 @@ Media playback controls are separate from default device selection.
 
 ## Set up your displays
 
-The Display panel lists active monitors. Click one to open its settings inside
-its card; click it again to close them. The **Main** display holds the bar,
+The Display panel lists active monitors. Click a display row to expand its settings; click the row again to collapse it. The **Main** display holds the bar,
 panels and notifications: turn on **Main display** in another monitor's settings
 to move them there. If the main monitor disconnects, another display shows as
 **Main** and takes the bar until it returns; your choice is kept.
@@ -35,7 +34,7 @@ one monitor, its position beside another or mirroring. The main display stays
 where it is and the others are placed around it, so its Position just says so;
 a monitor can be placed beside any display except one already placed beside it.
 
-Each setting is one row showing its current value; click it to see the choices.
+The Resolution, Refresh rate, Scale and Rotation dropdowns appear in two columns when there is room.
 Position, alignment, scale, mirroring and the main display apply and are saved at
 once. A new **resolution, refresh rate or rotation** could leave a screen black or hard to use, so for
 those the panel asks **Keep these settings?** at its bottom edge: without

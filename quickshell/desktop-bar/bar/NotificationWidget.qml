@@ -36,7 +36,8 @@ Rectangle {
     CountBadge {
         anchors.fill: parent
         count: notifications.notificationService.count
-        accent: notifications.host.activeBg
+        accent: notifications.host.barFg
+        ring: notifications.host.workspaceMenuBg
     }
 
     MouseArea {

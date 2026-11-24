@@ -48,6 +48,10 @@ QtObject {
     property color criticalColor: "#e05c68"
     // The theme's yellow (color3): high but not yet critical, such as a busy CPU.
     property color warningColor: "#e5a03c"
+    // Usage levels shared by gauges: the caller's colour below 75%, warning from 75%, critical from 90%.
+    function usageColor(usage, normal) {
+        return usage === null || usage === undefined || usage < 75 ? normal : usage < 90 ? warningColor : criticalColor;
+    }
     property string preferenceText: ""
     readonly property var options: Object.keys(styles).map(key => ({key: key, label: styles[key].label}))
     readonly property real scale: styles[corners] ? styles[corners].scale : 1

@@ -135,7 +135,8 @@ Item {
             CountBadge {
                 anchors.fill: parent
                 count: capture.activity ? capture.activity.bellCount : 0
-                accent: capture.host.activeBg
+                accent: capture.host.barFg
+                ring: capture.host.workspaceMenuBg
             }
             onActivated: capture.bellClicked()
         }

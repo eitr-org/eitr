@@ -47,7 +47,7 @@ FloatingWindow {
         interval: 80; running: true; repeat: true
         onTriggered: {
             const badge = bell.children[1];
-            const pill = badge.children[0];
+            const pill = badge.children[1];
             const label = pill.children[0];
             const surface = PanelStyle.luminance(pill.color);
             const ink = PanelStyle.luminance(label.color);

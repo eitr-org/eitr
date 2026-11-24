@@ -207,7 +207,7 @@ Item {
     Component { id: hostDropdown; ChoiceDropdown { foreground: api.foreground; background: api.background; gold: api.accent } }
     Component { id: hostButton; PanelButton { foreground: api.foreground; text: "" } }
     Component { id: hostTextField; PanelTextField { foreground: api.foreground; accent: api.accent } }
-    Component { id: hostCountBadge; CountBadge { accent: api.accent } }
+    Component { id: hostCountBadge; CountBadge { accent: api.accent; ring: api.background } }
     Component { id: hostSwitch; PanelSwitch { foreground: api.foreground; accent: api.accent } }
     Component {
         id: weatherView

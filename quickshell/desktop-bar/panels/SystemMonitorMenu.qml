@@ -40,10 +40,7 @@ ThemedPopup {
     onHardwareSnapshotChanged: receiveSnapshot()
     // Network comes last, from the bar's own network data: speed is read only while the panel is open.
     property string trafficToken: ""
-    // Usage colours: the panel's own below 75%, warning from 75%, critical from 90%.
-    function levelColor(usage) {
-        return usage === null || usage === undefined || usage < 75 ? foreground : usage < 90 ? DesktopStyle.warningColor : DesktopStyle.criticalColor;
-    }
+    function levelColor(usage) { return DesktopStyle.usageColor(usage, foreground); }
     readonly property var allSections: sections.length ? sections.concat([networkSection]) : []
     readonly property var traffic: (DesktopData.topics["throughput.network"] || {}).data || ({})
     readonly property var networkSummary: (DesktopData.topics["network.summary"] || {}).data || ({})

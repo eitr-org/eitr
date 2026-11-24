@@ -241,7 +241,7 @@ ThemedPopup {
                                         Rectangle {
                                             width: parent.width; height: 6; radius: 3
                                             color: Qt.rgba(menu.foreground.r, menu.foreground.g, menu.foreground.b, 0.12)
-                                            Rectangle { width: parent.width * limit.used / 100; height: 6; radius: 3; color: menu.foreground }
+                                            Rectangle { width: parent.width * limit.used / 100; height: 6; radius: 3; color: DesktopStyle.usageColor(limit.used, menu.accent) }
                                         }
                                         Item {
                                             visible: !!limit.modelData.reset
