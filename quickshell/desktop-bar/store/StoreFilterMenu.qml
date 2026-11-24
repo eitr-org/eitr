@@ -57,7 +57,7 @@ Item {
                                 foreground: selected ? catalog.gold : catalog.foreground
                                 text: Eitr.I18n.tr(modelData.label)
                                 textAlignment: Text.AlignLeft; textInset: 10
-                                readonly property var value: group.modelData.id === "source" ? catalog.sourceFilter : catalog.filterValue(group.modelData)
+                                readonly property var value: catalog.filterValue(group.modelData)
                                 selected: group.modelData.multiple ? value.includes(modelData.id) : value === modelData.id
                                 color: Qt.alpha(catalog.foreground, PanelStyle.selectionAlpha(selected, pointer.hovered))
                                 border.width: PanelStyle.selectionBorderWidth(selected)

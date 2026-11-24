@@ -1205,5 +1205,9 @@
   "1 placed": "1개 배치됨",
   "Live CPU, GPU, RAM, storage and network usage on your desktop": "데스크톱에서 CPU, GPU, RAM, 저장공간 및 네트워크 사용량을 실시간으로 표시",
   "{count} placed": "{count}개 배치됨",
-  "Applying…": "적용 중…"
+  "Applying…": "적용 중…",
+  "Sort": "정렬",
+  "Store order": "스토어 순서",
+  "Name A–Z": "이름 A–Z",
+  "Name Z–A": "이름 Z–A"
 }

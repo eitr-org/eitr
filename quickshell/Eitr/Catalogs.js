@@ -1242,7 +1242,11 @@ var qml = {
     "{count} placed": "{count} placed",
     "dddd, d MMMM": "dddd, d MMMM",
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.",
-    "Applying…": "Applying…"
+    "Applying…": "Applying…",
+    "Sort": "Sort",
+    "Store order": "Store order",
+    "Name A–Z": "Name A–Z",
+    "Name Z–A": "Name Z–A"
   },
   "pt_BR": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr e Eitr Light vêm integrados. Troque de tema antes de remover o tema atual da loja.",
@@ -2451,7 +2455,11 @@ var qml = {
     "1 placed": "1 na área de trabalho",
     "Live CPU, GPU, RAM, storage and network usage on your desktop": "Uso ao vivo de CPU, GPU, RAM, armazenamento e rede na sua área de trabalho",
     "{count} placed": "{count} na área de trabalho",
-    "Applying…": "Aplicando…"
+    "Applying…": "Aplicando…",
+    "Sort": "Ordenar",
+    "Store order": "Ordem da loja",
+    "Name A–Z": "Nome A–Z",
+    "Name Z–A": "Nome Z–A"
   },
   "es": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr y Eitr Light vienen incluidos. Cambia de tema antes de eliminar el tema actual de la tienda.",
@@ -3660,7 +3668,11 @@ var qml = {
     "1 placed": "1 colocado",
     "Live CPU, GPU, RAM, storage and network usage on your desktop": "Uso en tiempo real de CPU, GPU, RAM, almacenamiento y red en tu escritorio",
     "{count} placed": "{count} colocados",
-    "Applying…": "Aplicando…"
+    "Applying…": "Aplicando…",
+    "Sort": "Ordenar",
+    "Store order": "Orden de la tienda",
+    "Name A–Z": "Nombre A–Z",
+    "Name Z–A": "Nombre Z–A"
   },
   "de": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr und Eitr Light sind vorinstalliert. Wechsle das Theme, bevor du dein aktuelles Store-Theme entfernst.",
@@ -4869,7 +4881,11 @@ var qml = {
     "1 placed": "1 platziert",
     "Live CPU, GPU, RAM, storage and network usage on your desktop": "Live-Auslastung von CPU, GPU, RAM, Speicher und Netzwerk auf deinem Desktop",
     "{count} placed": "{count} platziert",
-    "Applying…": "Wird angewendet…"
+    "Applying…": "Wird angewendet…",
+    "Sort": "Sortieren",
+    "Store order": "Store-Reihenfolge",
+    "Name A–Z": "Name A–Z",
+    "Name Z–A": "Name Z–A"
   },
   "fr": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr et Eitr Light sont intégrés. Changez de thème avant de supprimer le thème actuel de la boutique.",
@@ -6078,7 +6094,11 @@ var qml = {
     "1 placed": "1 placé",
     "Live CPU, GPU, RAM, storage and network usage on your desktop": "Utilisation en direct du CPU, du GPU, de la RAM, du stockage et du réseau sur votre bureau",
     "{count} placed": "{count} placés",
-    "Applying…": "Application…"
+    "Applying…": "Application…",
+    "Sort": "Trier",
+    "Store order": "Ordre de la boutique",
+    "Name A–Z": "Nom A–Z",
+    "Name Z–A": "Nom Z–A"
   },
   "ja": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr と Eitr Light は組み込みです。現在のストアテーマを削除するには、先に別のテーマに切り替えてください。",
@@ -7287,7 +7307,11 @@ var qml = {
     "1 placed": "1 個配置済み",
     "Live CPU, GPU, RAM, storage and network usage on your desktop": "デスクトップ上で CPU、GPU、RAM、ストレージ、ネットワークの使用状況をリアルタイム表示",
     "{count} placed": "{count} 個配置済み",
-    "Applying…": "適用中…"
+    "Applying…": "適用中…",
+    "Sort": "並べ替え",
+    "Store order": "ストアの順序",
+    "Name A–Z": "名前 A–Z",
+    "Name Z–A": "名前 Z–A"
   },
   "zh_CN": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr 和 Eitr Light 为内置主题。移除当前商店主题前，请先切换到其他主题。",
@@ -8496,7 +8520,11 @@ var qml = {
     "1 placed": "已放置 1 个",
     "Live CPU, GPU, RAM, storage and network usage on your desktop": "在桌面上实时显示 CPU、GPU、内存、存储和网络使用情况",
     "{count} placed": "已放置 {count} 个",
-    "Applying…": "正在应用…"
+    "Applying…": "正在应用…",
+    "Sort": "排序",
+    "Store order": "商店顺序",
+    "Name A–Z": "名称 A–Z",
+    "Name Z–A": "名称 Z–A"
   },
   "ko": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr와 Eitr Light는 기본 제공됩니다. 현재 스토어 테마를 제거하려면 먼저 다른 테마로 바꾸세요.",
@@ -9705,6 +9733,10 @@ var qml = {
     "1 placed": "1개 배치됨",
     "Live CPU, GPU, RAM, storage and network usage on your desktop": "데스크톱에서 CPU, GPU, RAM, 저장공간 및 네트워크 사용량을 실시간으로 표시",
     "{count} placed": "{count}개 배치됨",
-    "Applying…": "적용 중…"
+    "Applying…": "적용 중…",
+    "Sort": "정렬",
+    "Store order": "스토어 순서",
+    "Name A–Z": "이름 A–Z",
+    "Name Z–A": "이름 Z–A"
   }
 };

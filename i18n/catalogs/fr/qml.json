@@ -1205,5 +1205,9 @@
   "1 placed": "1 placé",
   "Live CPU, GPU, RAM, storage and network usage on your desktop": "Utilisation en direct du CPU, du GPU, de la RAM, du stockage et du réseau sur votre bureau",
   "{count} placed": "{count} placés",
-  "Applying…": "Application…"
+  "Applying…": "Application…",
+  "Sort": "Trier",
+  "Store order": "Ordre de la boutique",
+  "Name A–Z": "Nom A–Z",
+  "Name Z–A": "Nom Z–A"
 }

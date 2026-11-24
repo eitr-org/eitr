@@ -23,3 +23,9 @@ function filters(item, definition, source, tone, values) {
         });
     });
 }
+
+function sorted(items, order) {
+    if (order !== "name" && order !== "name-descending") return items;
+    const direction = order === "name" ? 1 : -1;
+    return items.slice().sort((first, second) => direction * String(first.name || first.id || "").localeCompare(String(second.name || second.id || ""), undefined, {sensitivity: "base", numeric: true}));
+}

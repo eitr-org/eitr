@@ -1969,6 +1969,12 @@
     "Name (optional)": [
       "quickshell/desktop-bar/clock/TimersPage.qml"
     ],
+    "Name A–Z": [
+      "quickshell/desktop-bar/store/StoreState.qml"
+    ],
+    "Name Z–A": [
+      "quickshell/desktop-bar/store/StoreState.qml"
+    ],
     "Natural scrolling": [
       "quickshell/desktop-bar/components/SettingsPointerCard.qml",
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
@@ -3256,6 +3262,9 @@
     "Soften the desktop behind terminal windows.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
+    "Sort": [
+      "quickshell/desktop-bar/store/StoreState.qml"
+    ],
     "Sound": [
       "quickshell/desktop-bar/clock/AlarmEditor.qml",
       "quickshell/desktop-bar/figures/ControlCenterFigure.qml",
@@ -3352,6 +3361,9 @@
     "Stopwatch": [
       "quickshell/desktop-bar/clock/ClockContent.qml",
       "quickshell/desktop-bar/components/FocusTimerControls.qml"
+    ],
+    "Store order": [
+      "quickshell/desktop-bar/store/StoreState.qml"
     ],
     "Streaming": [
       "quickshell/desktop-bar/bar/BarZoneItems.qml",

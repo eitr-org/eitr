@@ -230,9 +230,10 @@ Item {
         sidebarFocus = true; forceActiveFocus();
     }
     property var filterValues: ({})
-    function filterValue(group) { return group.id === "tone" ? tone : filterValues[kind + ":" + group.id] || (group.multiple ? [] : "all"); }
+    function filterValue(group) { return group.id === "sort" ? sortOrder : group.id === "source" ? sourceFilter : group.id === "tone" ? tone : filterValues[kind + ":" + group.id] || (group.multiple ? [] : "all"); }
     function chooseFilter(group, value) {
-        if (group.id === "source") sourceFilter = value;
+        if (group.id === "sort") sortOrder = value;
+        else if (group.id === "source") sourceFilter = value;
         else if (group.id === "tone") tone = value;
         else {
             const current = filterValue(group);
@@ -241,7 +242,8 @@ Item {
         }
         cursor = -1; shown = pageSize; catalog.scroll.contentY = 0;
     }
-    readonly property var filterGroups: [{id: "source", label: Eitr.I18n.tr("Source"), multiple: false, options: [{id: "all", label: Eitr.I18n.tr("All")}, {id: "official", label: Eitr.I18n.tr("Official")}, {id: "community", label: Eitr.I18n.tr("Community")}]}].concat(definition.filters)
+    property string sortOrder: "default"
+    readonly property var filterGroups: [{id: "sort", label: Eitr.I18n.tr("Sort"), multiple: false, options: [{id: "default", label: Eitr.I18n.tr("Store order")}, {id: "name", label: Eitr.I18n.tr("Name A–Z")}, {id: "name-descending", label: Eitr.I18n.tr("Name Z–A")}]}, {id: "source", label: Eitr.I18n.tr("Source"), multiple: false, options: [{id: "all", label: Eitr.I18n.tr("All")}, {id: "official", label: Eitr.I18n.tr("Official")}, {id: "community", label: Eitr.I18n.tr("Community")}]}].concat(definition.filters)
     readonly property bool filtersActive: sourceFilter !== "all" || definition.filters.some(group => group.multiple ? filterValue(group).length > 0 : filterValue(group) !== "all")
     property string tone: "all"
     property int cursor: -1
@@ -250,8 +252,8 @@ Item {
     onCursorChanged: if (cursor >= shown - columns) shown = Math.ceil((cursor + columns + 1) / pageSize) * pageSize
     readonly property int columns: Math.max(1, Math.min(4, Math.floor((width - sidebarWidth - 48) / 230)))
     function filtered(items) { return items.filter(item => StoreSearch.matches(item, query) && StoreSearch.filters(item, kinds.find(entry => entry.id === (item.storeKind || kind)), sourceFilter, tone, filterValues)); }
-    readonly property var locals: filtered(installed)
-    readonly property var discoveries: filtered(availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: item.kind, channel: item.channel})))
+    readonly property var locals: StoreSearch.sorted(filtered(installed), sortOrder)
+    readonly property var discoveries: StoreSearch.sorted(filtered(availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: item.kind, channel: item.channel}))), sortOrder)
     readonly property var navigable: getMore ? discoveries : locals
     function toggle(item) {
         if (item.storeKind && item.storeKind !== kind) kind = item.storeKind;

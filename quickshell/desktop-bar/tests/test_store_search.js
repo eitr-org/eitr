@@ -17,6 +17,11 @@ assert.equal(filter(['widgets', 'tiles']), false);
 assert.equal(context.filters({kind: 'official'}, definition('plugins'), 'all', 'all', {'plugins:adds': ['service']}), false);
 assert.equal(context.filters(plugin, definition('plugins'), 'official', 'all', {}), false);
 assert.equal(context.filters({kind: 'official', light: true}, definition('themes'), 'all', 'dark', {}), false);
+const unsorted = [{id: 'b', name: 'nord'}, {id: 'c', name: 'Afterglow'}, {id: 'd', name: 'Theme 10'}, {id: 'e', name: 'Theme 9'}];
+assert.deepEqual(Array.from(context.sorted(unsorted, 'name'), item => item.id), ['c', 'b', 'e', 'd']);
+assert.deepEqual(Array.from(context.sorted(unsorted, 'name-descending'), item => item.id), ['d', 'e', 'b', 'c']);
+assert.equal(context.sorted(unsorted, 'default'), unsorted);
+assert.deepEqual(Array.from(unsorted, item => item.id), ['b', 'c', 'd', 'e']);
 console.log('Store: capability intersection and unknown metadata passed');
 
 const updates = {};

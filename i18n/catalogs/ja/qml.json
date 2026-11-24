@@ -1205,5 +1205,9 @@
   "1 placed": "1 個配置済み",
   "Live CPU, GPU, RAM, storage and network usage on your desktop": "デスクトップ上で CPU、GPU、RAM、ストレージ、ネットワークの使用状況をリアルタイム表示",
   "{count} placed": "{count} 個配置済み",
-  "Applying…": "適用中…"
+  "Applying…": "適用中…",
+  "Sort": "並べ替え",
+  "Store order": "ストアの順序",
+  "Name A–Z": "名前 A–Z",
+  "Name Z–A": "名前 Z–A"
 }

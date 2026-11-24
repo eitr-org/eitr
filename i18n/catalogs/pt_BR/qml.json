@@ -1205,5 +1205,9 @@
   "1 placed": "1 na área de trabalho",
   "Live CPU, GPU, RAM, storage and network usage on your desktop": "Uso ao vivo de CPU, GPU, RAM, armazenamento e rede na sua área de trabalho",
   "{count} placed": "{count} na área de trabalho",
-  "Applying…": "Aplicando…"
+  "Applying…": "Aplicando…",
+  "Sort": "Ordenar",
+  "Store order": "Ordem da loja",
+  "Name A–Z": "Nome A–Z",
+  "Name Z–A": "Nome Z–A"
 }
