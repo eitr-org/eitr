@@ -40,6 +40,9 @@ Item {
     property string actionGlyph: ""
     property string actionName: ""
     property bool expanded: false
+    // Focus left behind by a mouse pick shows no accent border (Material keeps it only while the
+    // field is in use); keyboard focus (Tab, arrows, typing) keeps it.
+    property bool pointerFocus: false
     property int highlightedIndex: currentIndex
     // True after Up/Down moved the highlight, false after the pointer did.
     property bool keyboardHighlight: false
@@ -188,13 +191,15 @@ Item {
         Accessible.name: control.accessibleName || control.floatingLabel || control.label || button.currentText
         Accessible.role: Accessible.ComboBox
         activeFocusOnTab: true
-        Keys.onPressed: event => control.typeAhead(event)
+        Keys.onPressed: event => { control.pointerFocus = false; control.typeAhead(event); }
+        onActiveFocusChanged: if (!activeFocus) control.pointerFocus = false
         Keys.onDownPressed: control.move(1)
         Keys.onUpPressed: control.move(-1)
         Keys.onEscapePressed: event => { if (control.expanded) { control.expanded = false; event.accepted = true; } else event.accepted = false; }
         // Activating the open selector chooses a row only when the keyboard highlighted it;
         // a row the pointer merely passed over is never applied, the list just closes.
         onClicked: {
+            control.pointerFocus = true;
             if (!control.expanded) control.expanded = true;
             else if (control.keyboardHighlight) control.commit(control.highlightedIndex);
             else control.expanded = false;
@@ -245,7 +250,7 @@ Item {
         width: button.width; height: button.height
         label: control.floatingLabel
         raised: control.labelRaised
-        active: control.expanded || button.activeFocus
+        active: control.expanded || (button.activeFocus && !control.pointerFocus)
         hovered: button.containsPointer
         foreground: control.foreground
         accent: control.gold
