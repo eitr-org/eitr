@@ -8193,6 +8193,12 @@
     "Blue": [
       "walker/scripts/actions/style/own.py"
     ],
+    "Boot image {image} is missing the Plymouth hook or Eitr theme": [
+      "distro/archinstall/install_backend.py"
+    ],
+    "Boot image {image} is missing the encrypted root hook": [
+      "distro/archinstall/install_backend.py"
+    ],
     "Boot loader: {loader}": [
       "distro/system/eitr-system.py"
     ],
@@ -8231,6 +8237,9 @@
     ],
     "Buckets": [
       "walker/scripts/menus/cloud/providers.py"
+    ],
+    "Building the boot image": [
+      "distro/archinstall/eitr-guided-install"
     ],
     "Busy": [
       "walker/scripts/actions/tools/ical.py"
@@ -10257,6 +10266,9 @@
     "No battery with a firmware charge limit (charge_control_end_threshold) was found.": [
       "distro/system/eitr-system.py"
     ],
+    "No boot image was found for the installed kernels": [
+      "distro/archinstall/install_backend.py"
+    ],
     "No brightness control available": [
       "quickshell/desktop-bar/scripts/brightness.py"
     ],
@@ -11764,6 +11776,9 @@
     "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}": [
       "distro/system/eitr-system.py"
     ],
+    "Styling the boot menu": [
+      "distro/archinstall/eitr-guided-install"
+    ],
     "Subnets": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -12677,6 +12692,9 @@
     ],
     "Users": [
       "walker/scripts/menus/cloud/navigation.py"
+    ],
+    "Using standard archinstall package transactions and initramfs hooks": [
+      "distro/archinstall/install_backend.py"
     ],
     "Using the default theme: {user}'s theme could not be read ({error}).": [
       "distro/system/eitr-system.py"

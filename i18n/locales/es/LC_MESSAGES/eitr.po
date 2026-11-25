@@ -601,6 +601,12 @@ msgstr "BitLocker: ten a mano la clave de recuperación de Windows"
 msgid "Blue"
 msgstr "Azul"
 
+msgid "Boot image {image} is missing the Plymouth hook or Eitr theme"
+msgstr "En la imagen de arranque {image} falta el hook de Plymouth o el tema de Eitr"
+
+msgid "Boot image {image} is missing the encrypted root hook"
+msgstr "En la imagen de arranque {image} falta el hook para el sistema raíz cifrado"
+
 msgid "Boot loader: {loader}"
 msgstr "Gestor de arranque: {loader}"
 
@@ -639,6 +645,9 @@ msgstr "Navegadores: se omiten los perfiles por seguridad — vuelve a iniciar s
 
 msgid "Buckets"
 msgstr "Buckets"
+
+msgid "Building the boot image"
+msgstr "Creando la imagen de arranque"
 
 msgid "Busy"
 msgstr "Ocupado"
@@ -2614,6 +2623,9 @@ msgstr "Este equipo no ofrece control del límite de carga."
 msgid "No battery with a firmware charge limit (charge_control_end_threshold) was found."
 msgstr "No se encontró ninguna batería con límite de carga por firmware (charge_control_end_threshold)."
 
+msgid "No boot image was found for the installed kernels"
+msgstr "No se encontró ninguna imagen de arranque para los núcleos instalados"
+
 msgid "No brightness control available"
 msgstr "No hay ningún control de brillo disponible"
 
@@ -4090,6 +4102,9 @@ msgstr "Fuerte (70%)"
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "Menú de arranque en {config} adaptado a los colores de {source}. Copia de seguridad: {backup}"
 
+msgid "Styling the boot menu"
+msgstr "Aplicando el estilo al menú de arranque"
+
 msgid "Subnets"
 msgstr "Subredes"
 
@@ -4983,6 +4998,9 @@ msgstr "Nombre de usuario"
 
 msgid "Users"
 msgstr "Usuarios"
+
+msgid "Using standard archinstall package transactions and initramfs hooks"
+msgstr "Se usarán las transacciones de paquetes y los hooks de initramfs habituales de archinstall"
 
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "Usando el tema predeterminado: no se pudo leer el tema de {user} ({error})."

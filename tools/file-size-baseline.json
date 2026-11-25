@@ -1,6 +1,10 @@
 {
   "limit": 400,
   "files": {
+    "distro/archinstall/eitr-guided-install": {
+      "lines": 747,
+      "reason": "Single guided install entry point with disk layout, answers and ordered installation stages."
+    },
     "distro/lib/eitr_backup/restore.py": {
       "lines": 422,
       "reason": "One restore and undo engine with target validation and durable journals."

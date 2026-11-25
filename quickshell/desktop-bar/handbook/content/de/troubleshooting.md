@@ -57,6 +57,8 @@ Akku, Energieprofile und Flugmodus verwenden ebenfalls diesen Broker. Akkudaten 
 
 ## Installation und Wiederherstellung prüfen
 
+Gegen Ende der Installation bereitet **Startabbild wird erstellt** die Startdateien des Kernels vor. Lassen Sie den Rechner eingeschaltet, bis das Installationsprogramm den Abschluss meldet.
+
 EITR ist weiterhin Beta. VM-Tests belegen nicht die Funktion jedes WiFi-Adapters, Bluetooth-Agenten, TPMs, GPUs, Fingerabdrucklesers oder Secure-Boot-Aufbaus. Aktueller WiFi-Dienst- und Unternehmensauthentifizierungscode wird mit Nachbildungen getestet. Prüfe echte Authentifizierung, bevor du dich darauf verlässt. Bestehende ISOs ändern sich nicht mit den Repository-Manifesten; baue Payload und ISO für neue Installationen neu.
 
 Sichere vor der Installation auf einer separaten SSD deine anderen Laufwerke und prüfe das Ziel sorgfältig. Die Installation löscht das von dir bestätigte Laufwerk. Bewahre Passphrasen und Wiederherstellungsschlüssel offline auf. Snapshots derselben SSD sind keine unabhängige Sicherung. Beginne bei [Wiederherstellung und Snapshots](handbook:recovery).

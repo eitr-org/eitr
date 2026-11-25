@@ -601,6 +601,12 @@ msgstr "BitLocker: Windowsの回復キーを手元に用意してください"
 msgid "Blue"
 msgstr "青"
 
+msgid "Boot image {image} is missing the Plymouth hook or Eitr theme"
+msgstr "起動イメージ {image} に Plymouth フックまたは Eitr テーマがありません"
+
+msgid "Boot image {image} is missing the encrypted root hook"
+msgstr "起動イメージ {image} に暗号化されたルート用のフックがありません"
+
 msgid "Boot loader: {loader}"
 msgstr "ブートローダー: {loader}"
 
@@ -639,6 +645,9 @@ msgstr "ブラウザー: セキュリティのためプロファイルは含ま�
 
 msgid "Buckets"
 msgstr "バケット"
+
+msgid "Building the boot image"
+msgstr "起動イメージを作成中"
 
 msgid "Busy"
 msgstr "ビジー"
@@ -2614,6 +2623,9 @@ msgstr "このマシンにはバッテリー充電制限の制御機能があり
 msgid "No battery with a firmware charge limit (charge_control_end_threshold) was found."
 msgstr "ファームウェア充電制限（charge_control_end_threshold）を持つバッテリーが見つかりませんでした。"
 
+msgid "No boot image was found for the installed kernels"
+msgstr "インストール済みカーネルの起動イメージが見つかりません"
+
 msgid "No brightness control available"
 msgstr "利用可能な輝度制御がありません"
 
@@ -4090,6 +4102,9 @@ msgstr "強 (70%)"
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "{config} のブートメニューを {source} の配色でスタイル設定しました。バックアップ: {backup}"
 
+msgid "Styling the boot menu"
+msgstr "起動メニューの外観を設定中"
+
 msgid "Subnets"
 msgstr "サブネット"
 
@@ -4983,6 +4998,9 @@ msgstr "ユーザー名"
 
 msgid "Users"
 msgstr "ユーザー"
+
+msgid "Using standard archinstall package transactions and initramfs hooks"
+msgstr "archinstall 標準のパッケージ処理と initramfs フックを使用します"
 
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "デフォルトテーマを使用します: {user} のテーマを読み込めませんでした ({error})。"

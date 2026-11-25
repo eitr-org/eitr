@@ -63,6 +63,8 @@ La batería, los perfiles de energía y el modo avión también comparten este p
 
 ## Comprobaciones de instalación y recuperación
 
+Hacia el final de la instalación, **Creando la imagen de arranque** prepara los archivos de inicio del núcleo. Mantén el equipo encendido hasta que el instalador indique que ha terminado.
+
 EITR sigue en beta: las pruebas en máquinas virtuales no demuestran que funcionen todos los adaptadores WiFi, agentes Bluetooth, TPM, GPU, lectores de huellas o configuraciones Secure Boot. El código actual de servicios WiFi y autenticación empresarial se prueba con simulaciones; comprueba la autenticación real antes de depender de ella. Cambiar los manifiestos no modifica las ISO existentes: reconstruye el payload y la ISO para incorporar cambios a nuevas instalaciones.
 
 Guarda copias de tus otros discos antes de instalar en un SSD separado y comprueba bien el disco de destino. El instalador borra el disco que confirmes. Conserva contraseñas de cifrado y claves de recuperación sin conexión. Las instantáneas del mismo SSD no son copias independientes. Empieza por [Recuperación e instantáneas](handbook:recovery).

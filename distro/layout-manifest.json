@@ -615,6 +615,7 @@
     {"pattern": "xdg-desktop-portal/**", "class": "D", "runtime": true},
     {"pattern": "systemd/user/elephant-search-warm.service", "class": "C", "runtime": false},
     {"pattern": "systemd/**", "class": "C", "runtime": false},
+    {"pattern": "distro/archinstall/*.py", "class": "C", "runtime": false},
     {"pattern": "distro/**", "class": "C", "runtime": false},
     {"pattern": "tools/**", "class": "C", "runtime": false},
     {"pattern": "website/**", "class": "C", "runtime": false},

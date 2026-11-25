@@ -601,6 +601,12 @@ msgstr "BitLocker：请准备好 Windows 恢复密钥"
 msgid "Blue"
 msgstr "蓝色"
 
+msgid "Boot image {image} is missing the Plymouth hook or Eitr theme"
+msgstr "启动镜像 {image} 缺少 Plymouth 钩子或 Eitr 主题"
+
+msgid "Boot image {image} is missing the encrypted root hook"
+msgstr "启动镜像 {image} 缺少加密根文件系统所需的钩子"
+
 msgid "Boot loader: {loader}"
 msgstr "引导加载程序：{loader}"
 
@@ -639,6 +645,9 @@ msgstr "浏览器：出于安全考虑未包含配置文件 — 请重新登录�
 
 msgid "Buckets"
 msgstr "Buckets"
+
+msgid "Building the boot image"
+msgstr "正在构建启动镜像"
 
 msgid "Busy"
 msgstr "忙碌"
@@ -2614,6 +2623,9 @@ msgstr "此机器不支持电池充电限制控制。"
 msgid "No battery with a firmware charge limit (charge_control_end_threshold) was found."
 msgstr "未找到支持固件充电限制 (charge_control_end_threshold) 的电池。"
 
+msgid "No boot image was found for the installed kernels"
+msgstr "未找到已安装内核的启动镜像"
+
 msgid "No brightness control available"
 msgstr "没有可用的亮度控制"
 
@@ -4090,6 +4102,9 @@ msgstr "通透 (70%)"
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "已使用 {source} 的颜色设置 {config} 中的启动菜单样式。备份：{backup}"
 
+msgid "Styling the boot menu"
+msgstr "正在设置启动菜单样式"
+
 msgid "Subnets"
 msgstr "子网"
 
@@ -4983,6 +4998,9 @@ msgstr "用户名"
 
 msgid "Users"
 msgstr "用户"
+
+msgid "Using standard archinstall package transactions and initramfs hooks"
+msgstr "正在使用 archinstall 标准的软件包事务和 initramfs 钩子"
 
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "正在使用默认主题：无法读取 {user} 的主题 ({error})。"

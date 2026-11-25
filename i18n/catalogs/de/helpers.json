@@ -1863,5 +1863,11 @@
   "The System Update package hook is missing.": "Der Pacman-Hook für die Systemaktualisierung fehlt.",
   "The update transaction does not match the pending recovery point.": "Die Aktualisierungstransaktion stimmt nicht mit dem ausstehenden Wiederherstellungspunkt überein.",
   "WiFi profiles changed during restore.": "Die WLAN-Profile wurden während der Wiederherstellung geändert.",
-  "Queue Flatpak for installation after setup: {value}": "Flatpak zur Installation nach der Einrichtung vormerken: {value}"
+  "Queue Flatpak for installation after setup: {value}": "Flatpak zur Installation nach der Einrichtung vormerken: {value}",
+  "Building the boot image": "Startabbild wird erstellt",
+  "Styling the boot menu": "Startmenü wird gestaltet",
+  "No boot image was found for the installed kernels": "Für die installierten Kernel wurde kein Startabbild gefunden",
+  "Boot image {image} is missing the Plymouth hook or Eitr theme": "Im Startabbild {image} fehlt der Plymouth-Hook oder das Eitr-Design",
+  "Boot image {image} is missing the encrypted root hook": "Im Startabbild {image} fehlt der Hook für das verschlüsselte Root-Dateisystem",
+  "Using standard archinstall package transactions and initramfs hooks": "Archinstall verwendet die üblichen Pakettransaktionen und Initramfs-Hooks"
 }

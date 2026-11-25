@@ -65,6 +65,8 @@ Bateria, perfis de energia e modo avião também compartilham este processo. A b
 
 ## Verificações de instalação e recuperação
 
+Perto do fim da instalação, **Criando a imagem de inicialização** prepara os arquivos de inicialização do kernel. Mantenha o computador ligado até o instalador informar que terminou.
+
 O EITR ainda está em beta: testes em VMs não comprovam cada adaptador WiFi, agente Bluetooth, TPM, GPU, leitor de impressão digital ou configuração de Secure Boot. O código atual dos serviços WiFi e da autenticação corporativa é testado com simulações; teste a autenticação real antes de depender dela. Mudar manifestos do repositório não muda ISOs existentes: reconstrua o payload e a ISO para levar essas alterações a novas instalações.
 
 Faça backup dos outros discos antes de instalar em um SSD separado e confira cuidadosamente o disco de destino. O instalador apaga o disco que você confirmar. Guarde senhas de criptografia e chaves de recuperação offline. Snapshots nesse mesmo SSD não são backups independentes. Comece por [Recuperação e snapshots](handbook:recovery).

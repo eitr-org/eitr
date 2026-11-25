@@ -1863,5 +1863,11 @@
   "The update transaction does not match the pending recovery point.": "The update transaction does not match the pending recovery point.",
   "WiFi profiles changed during restore.": "WiFi profiles changed during restore.",
   "Could not check Arch Linux news.": "Could not check Arch Linux news.",
-  "Queue Flatpak for installation after setup: {value}": "Queue Flatpak for installation after setup: {value}"
+  "Queue Flatpak for installation after setup: {value}": "Queue Flatpak for installation after setup: {value}",
+  "Boot image {image} is missing the Plymouth hook or Eitr theme": "Boot image {image} is missing the Plymouth hook or Eitr theme",
+  "Boot image {image} is missing the encrypted root hook": "Boot image {image} is missing the encrypted root hook",
+  "Building the boot image": "Building the boot image",
+  "No boot image was found for the installed kernels": "No boot image was found for the installed kernels",
+  "Styling the boot menu": "Styling the boot menu",
+  "Using standard archinstall package transactions and initramfs hooks": "Using standard archinstall package transactions and initramfs hooks"
 }

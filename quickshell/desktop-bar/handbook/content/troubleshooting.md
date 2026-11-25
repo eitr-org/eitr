@@ -73,6 +73,8 @@ Display topology, brightness and night-light reads also share the broker. Monito
 
 ## Installation and recovery checks
 
+Near the end of setup, **Building the boot image** prepares the kernel’s startup files. Keep the computer powered on until the installer says it has finished.
+
 EITR is still in beta: VM coverage does not prove every WiFi adapter, Bluetooth
 pairing agent, TPM, GPU, fingerprint reader or Secure Boot setup works. Current
 backend/enterprise WiFi code is mock-tested; test real authentication before

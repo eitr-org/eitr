@@ -64,6 +64,8 @@ La batterie, les profils d’énergie et le mode avion partagent aussi ce proces
 
 ## Vérifications d’installation et de récupération
 
+Vers la fin de l’installation, **Création de l’image de démarrage** prépare les fichiers de démarrage du noyau. Laissez l’ordinateur allumé jusqu’à ce que l’installateur annonce la fin de l’installation.
+
 EITR reste en bêta. Les tests en VM ne prouvent pas le fonctionnement de chaque adaptateur WiFi, agent Bluetooth, TPM, GPU, lecteur d’empreintes ou configuration Secure Boot. Le code actuel des services WiFi et de l’authentification d’entreprise est testé par simulation. Vérifiez l’authentification réelle avant d’en dépendre. Modifier les manifestes ne change pas les ISO existantes : reconstruisez le payload et l’ISO pour intégrer les changements aux nouvelles installations.
 
 Sauvegardez les autres disques avant d’installer sur un SSD séparé et vérifiez soigneusement la cible. L’installateur efface le disque que vous confirmez. Gardez phrases secrètes et clés de récupération hors ligne. Les instantanés du même SSD ne sont pas des sauvegardes indépendantes. Commencez par [Récupération et instantanés](handbook:recovery).

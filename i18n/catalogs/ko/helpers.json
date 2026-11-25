@@ -1863,5 +1863,11 @@
   "The System Update package hook is missing.": "시스템 업데이트용 Pacman 훅이 없습니다.",
   "The update transaction does not match the pending recovery point.": "업데이트 트랜잭션이 대기 중인 복구 지점과 일치하지 않습니다.",
   "WiFi profiles changed during restore.": "복원 중 Wi-Fi 프로필이 변경되었습니다.",
-  "Queue Flatpak for installation after setup: {value}": "설정 후 설치할 Flatpak을 대기열에 추가: {value}"
+  "Queue Flatpak for installation after setup: {value}": "설정 후 설치할 Flatpak을 대기열에 추가: {value}",
+  "Building the boot image": "부팅 이미지 생성 중",
+  "Styling the boot menu": "부팅 메뉴 스타일 적용 중",
+  "No boot image was found for the installed kernels": "설치된 커널의 부팅 이미지를 찾을 수 없습니다",
+  "Boot image {image} is missing the Plymouth hook or Eitr theme": "부팅 이미지 {image}에 Plymouth 후크 또는 Eitr 테마가 없습니다",
+  "Boot image {image} is missing the encrypted root hook": "부팅 이미지 {image}에 암호화된 루트용 후크가 없습니다",
+  "Using standard archinstall package transactions and initramfs hooks": "archinstall의 기본 패키지 트랜잭션과 initramfs 후크를 사용합니다"
 }

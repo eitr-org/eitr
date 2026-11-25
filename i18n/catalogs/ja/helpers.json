@@ -1863,5 +1863,11 @@
   "The System Update package hook is missing.": "システムアップデート用の Pacman フックがありません。",
   "The update transaction does not match the pending recovery point.": "更新トランザクションが保留中の復旧ポイントと一致しません。",
   "WiFi profiles changed during restore.": "復元中に Wi-Fi プロファイルが変更されました。",
-  "Queue Flatpak for installation after setup: {value}": "セットアップ後にインストールする Flatpak をキューに追加: {value}"
+  "Queue Flatpak for installation after setup: {value}": "セットアップ後にインストールする Flatpak をキューに追加: {value}",
+  "Building the boot image": "起動イメージを作成中",
+  "Styling the boot menu": "起動メニューの外観を設定中",
+  "No boot image was found for the installed kernels": "インストール済みカーネルの起動イメージが見つかりません",
+  "Boot image {image} is missing the Plymouth hook or Eitr theme": "起動イメージ {image} に Plymouth フックまたは Eitr テーマがありません",
+  "Boot image {image} is missing the encrypted root hook": "起動イメージ {image} に暗号化されたルート用のフックがありません",
+  "Using standard archinstall package transactions and initramfs hooks": "archinstall 標準のパッケージ処理と initramfs フックを使用します"
 }

@@ -19,6 +19,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+from contextlib import ExitStack
 import re
 import shutil
 import subprocess
@@ -57,6 +58,8 @@ def load(name, path):
 
 
 payload = load("eitr_payload", SOURCE / "distro/payload/payload.py")
+install_backend = load("eitr_install_backend", Path(__file__).resolve().with_name("install_backend.py"))
+prefetch_payload = load("eitr_prefetch_payload", Path(__file__).resolve().with_name("prefetch_payload.py"))
 
 
 def human_size(size):
@@ -275,7 +278,7 @@ def use_payload():
         subprocess.run(["pacman-key", "--populate"], check=True, stdout=subprocess.DEVNULL)
 
 
-def run_archinstall(config, credentials, work, log=None):
+def run_archinstall(config, credentials, work, log=None, optimized=False):
     config_path = work / "user_configuration.json"
     config_path.write_text(json.dumps(config, indent=2) + "\n")
     # archinstall offers to reboot when it finishes; the desktop setup runs first.
@@ -291,6 +294,9 @@ def run_archinstall(config, credentials, work, log=None):
         writer = None
         command = ["archinstall", "--silent", "--offline", "--skip-ntp", "--skip-wkd",
                    "--config", str(config_path), "--creds", f"/dev/fd/{reader}", "--mountpoint", str(TARGET)]
+        if optimized:
+            command.extend(["--plugin", install_backend.__file__])
+            environment["EITR_INSTALL_WORK"] = str(work)
         if log is None:
             result = subprocess.run(command, pass_fds=(reader,), env=environment)
         else:
@@ -405,7 +411,10 @@ def set_up_desktop(user, log, input_method=""):
             "/etc/eitr/system-update-policy.conf"], log)
 
 
-def apply_profile(username, log):
+def apply_profile(username, log, boot_palette, cleanup):
+    palette = Path(cleanup.enter_context(tempfile.TemporaryDirectory(prefix="eitr-palette-", dir=TARGET / "var/tmp")))
+    boot_palette.append(palette)
+    install_backend.save_boot_palette(TARGET, installed_user(username), palette)
     destination = TARGET / 'var/tmp/eitr-profile'
     shutil.copytree(PROFILE_STAGE.name, destination)
     try:
@@ -455,8 +464,8 @@ def has_windows_loader(device):
             subprocess.run(["umount", mountpoint], check=False)
 
 
-def set_up_boot(username, log):
-    """Add Windows to the Limine menu, style it in the user's theme, then select the Eitr boot splash."""
+def set_up_boot(username, log, boot_palette=()):
+    """Add Windows to the Limine menu and style it in the user's theme."""
     configs = [path for path in (TARGET / "boot/EFI/BOOT/limine.conf", TARGET / "boot/EFI/arch-limine/limine.conf")
                if path.is_file()]
     if len(configs) != 1:
@@ -468,12 +477,16 @@ def set_up_boot(username, log):
     if entries:
         log(f"Added {len(entries)} Windows entr{'y' if len(entries) == 1 else 'ies'} to the boot menu")
     try:
-        chroot(["/usr/lib/eitr/eitr-system", "boot-menu-style", username], log)
+        command = ["/usr/lib/eitr/eitr-system", "boot-menu-style", username]
+        if boot_palette:
+            command = install_backend.boot_style_command(TARGET, installed_user(username), boot_palette[0])
+        chroot(command, log)
     except GuidedInstallError as error:
         # The style is cosmetic; the installation goes on without it.
         log(f"Kept Limine's default boot menu look: {error}")
-    # archinstall added the plymouth hook and the quiet splash kernel options.
-    chroot(["plymouth-set-default-theme", "-R", "eitr"], log)
+    finally:
+        if boot_palette:
+            shutil.rmtree(boot_palette[0])
 
 
 def schedule_timezone_detection(log):
@@ -655,15 +668,16 @@ def main():
               ("Checking the installation template", lambda: json.loads(TEMPLATE.read_text())),
               ("Checking the Archinstall backend", lambda: output(["archinstall", "--version"])),
               ("Checking the offline package payload", check_payload)]
-    if ANSWERS:
-        choices = answered_choices(ANSWERS, ui, checks, disks)
-    else:
-        try:
-            choices = ui.run(checks, disks)
-        except ui.Cancelled:
-            raise GuidedInstallError(tr('Cancelled; nothing was changed')) from None
-        except subprocess.SubprocessError:
-            raise GuidedInstallError(tr('Preparation failed before any disk changes')) from None
+    with prefetch_payload.warming_payload(PAYLOAD, SOURCE / "distro/payload/transactions.txt"):
+        if ANSWERS:
+            choices = answered_choices(ANSWERS, ui, checks, disks)
+        else:
+            try:
+                choices = ui.run(checks, disks)
+            except ui.Cancelled:
+                raise GuidedInstallError(tr('Cancelled; nothing was changed')) from None
+            except subprocess.SubprocessError:
+                raise GuidedInstallError(tr('Preparation failed before any disk changes')) from None
     config = build_config(json.loads(TEMPLATE.read_text()), choices["disk"], choices["encrypted"], choices["layout"])
     config.update(hostname=choices["hostname"], timezone=choices["timezone"],
                   locale_config={"kb_layout": choices["keyboard"], "sys_lang": choices["language"], "sys_enc": "UTF-8"})
@@ -672,14 +686,15 @@ def main():
         credentials["encryption_password"] = choices.pop("passphrase")
     use_payload()
     with tempfile.TemporaryDirectory(prefix="eitr-guided-", dir="/run") as directory:
-        try:
+        work = Path(directory)
+        with install_backend.deferred_hooks(TARGET, PAYLOAD / "pool", work) as optimized, ExitStack() as cleanup:
+            boot_palette = []
             stages = [
-                ("Installing the base system", lambda log: run_archinstall(config, credentials, Path(directory), log)),
+                ("Installing the base system", lambda log: run_archinstall(config, credentials, work, log, optimized)),
                 ("Generating the system language", lambda log: ensure_system_locale(choices["language"], log)),
                 ("Installing the Eitr desktop", lambda log: install_desktop(log, choices.get("input_method", ""))),
                 ("Setting up the desktop for " + choices["username"],
                  lambda log: set_up_desktop(installed_user(choices["username"]), log, choices.get("input_method", ""))),
-                ("Setting up the boot menu and splash", lambda log: set_up_boot(choices["username"], log)),
                 *([] if choices["timezone_detected"] else
                   [("Scheduling timezone detection", schedule_timezone_detection)]),
                 ("Switching to online package updates", restore_online_sources),
@@ -687,11 +702,13 @@ def main():
                 *([("Enabling SSH for automated testing",
                     lambda log: enable_test_ssh(choices["username"], choices["ssh_authorized_key"], log))]
                   if choices.get("ssh_authorized_key") else []),
-                *([("Applying the organization profile", lambda log: apply_profile(choices["username"], log))] if PROFILE else []),
+                *([("Applying the organization profile", lambda log: apply_profile(choices["username"], log, boot_palette, cleanup))] if PROFILE else []),
+                (tr("Building the boot image"), lambda log: install_backend.finish_boot_image(
+                    TARGET, work, choices["encrypted"], lambda command: chroot(command, log), output)),
+                (tr("Styling the boot menu"), lambda log: set_up_boot(choices["username"], log, boot_palette)),
                 ("Saving the factory reset point", save_factory_reset_point)]
             durations = plain_installation(stages) if ANSWERS else ui.installation(stages)
-        finally:
-            del credentials
+        del credentials
     total = sum(seconds for _, seconds in durations)
     (TARGET / "var/log/eitr-install.log").write_text(install_log(durations, total))
     if ANSWERS:

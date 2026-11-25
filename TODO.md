@@ -52,16 +52,15 @@ item says what decides the next step. Remove an item when it ships;
 - **Ollama plugin, next.** Optional in `eitr-org/eitr-plugins` since 2026-11-23 (not installed
   by default). Its panel cannot change the local model yet: the core fixes `qwen3:4b`.
 
-- **Faster installation (planned 2026-11-25, to discuss before starting).** The guided install
+- **Faster installation.** The guided install
   takes 138.5 s in the 4-vCPU release VM (0.7.6): 52 s base system, 78 s desktop (817 packages),
   8 s for the rest. Packages are already offline, so the time is package extraction and pacman
   hooks. Plan, measured in the same VM after each step:
-  1. *Cheap wins first.* Build the initramfs once, at the end: block the mkinitcpio hook during
-     archinstall and the desktop pacstrap, set the Plymouth theme without `-R`, then run
-     `mkinitcpio -P` once (today it is built several times per install). Install archinstall's
-     packages in one transaction instead of one per feature (base, zram, plymouth, limine,
-     efibootmgr, bluez, pipewire, extras). Read the package pool into memory while the setup
-     questions are open. Expected: 15-30 s faster; no change to the installed system.
+  1. *Cheap wins: done (2026-11-25).* archinstall 4.5 runs in two transactions instead of eight,
+     the initramfs is built once at the end instead of seven times, and the package pool is read
+     ahead during the questions. Same VM, back to back: 127.1 s to 113.7 s (base 45.7 to 39.4 s,
+     desktop 73.5 to 65.8 s); packages, services, `/etc`, boot files and initramfs contents
+     identical to 0.7.6's installer. Another archinstall version falls back to the old path.
   2. *A pre-built system image.* At ISO build time, install the fixed package set once into a
      btrfs image with Eitr's subvolumes (`@`, `@home`, `@log`, `@pkg`) and ship it compressed in
      independent chunks. At install time: partition and format (encryption included), write the

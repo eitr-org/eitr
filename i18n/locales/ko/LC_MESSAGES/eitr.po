@@ -601,6 +601,12 @@ msgstr "BitLocker: Windows 복구 키를 준비해 두세요"
 msgid "Blue"
 msgstr "파란색"
 
+msgid "Boot image {image} is missing the Plymouth hook or Eitr theme"
+msgstr "부팅 이미지 {image}에 Plymouth 후크 또는 Eitr 테마가 없습니다"
+
+msgid "Boot image {image} is missing the encrypted root hook"
+msgstr "부팅 이미지 {image}에 암호화된 루트용 후크가 없습니다"
+
 msgid "Boot loader: {loader}"
 msgstr "부트 로더: {loader}"
 
@@ -639,6 +645,9 @@ msgstr "브라우저: 보안을 위해 프로필이 제외되었습니다 — �
 
 msgid "Buckets"
 msgstr "버킷"
+
+msgid "Building the boot image"
+msgstr "부팅 이미지 생성 중"
 
 msgid "Busy"
 msgstr "바쁨"
@@ -2614,6 +2623,9 @@ msgstr "이 기기에는 배터리 충전 제한 제어 기능이 없습니다."
 msgid "No battery with a firmware charge limit (charge_control_end_threshold) was found."
 msgstr "펌웨어 충전 제한(charge_control_end_threshold)이 있는 배터리를 찾을 수 없습니다."
 
+msgid "No boot image was found for the installed kernels"
+msgstr "설치된 커널의 부팅 이미지를 찾을 수 없습니다"
+
 msgid "No brightness control available"
 msgstr "사용 가능한 밝기 제어가 없습니다"
 
@@ -4090,6 +4102,9 @@ msgstr "강하게 (70%)"
 msgid "Styled the boot menu in {config} with the colours of {source}. Backup: {backup}"
 msgstr "{config}의 부팅 메뉴를 {source}의 색상으로 스타일 지정했습니다. 백업: {backup}"
 
+msgid "Styling the boot menu"
+msgstr "부팅 메뉴 스타일 적용 중"
+
 msgid "Subnets"
 msgstr "서브넷"
 
@@ -4983,6 +4998,9 @@ msgstr "사용자 이름"
 
 msgid "Users"
 msgstr "사용자"
+
+msgid "Using standard archinstall package transactions and initramfs hooks"
+msgstr "archinstall의 기본 패키지 트랜잭션과 initramfs 후크를 사용합니다"
 
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "기본 테마 사용 중: {user}의 테마를 읽을 수 없습니다({error})."

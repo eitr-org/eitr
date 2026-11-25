@@ -1863,5 +1863,11 @@
   "The System Update package hook is missing.": "缺少系统更新所需的 Pacman 钩子。",
   "The update transaction does not match the pending recovery point.": "更新事务与待处理的恢复点不匹配。",
   "WiFi profiles changed during restore.": "Wi-Fi 配置在还原期间发生了变化。",
-  "Queue Flatpak for installation after setup: {value}": "将 Flatpak 加入设置完成后的安装队列：{value}"
+  "Queue Flatpak for installation after setup: {value}": "将 Flatpak 加入设置完成后的安装队列：{value}",
+  "Building the boot image": "正在构建启动镜像",
+  "Styling the boot menu": "正在设置启动菜单样式",
+  "No boot image was found for the installed kernels": "未找到已安装内核的启动镜像",
+  "Boot image {image} is missing the Plymouth hook or Eitr theme": "启动镜像 {image} 缺少 Plymouth 钩子或 Eitr 主题",
+  "Boot image {image} is missing the encrypted root hook": "启动镜像 {image} 缺少加密根文件系统所需的钩子",
+  "Using standard archinstall package transactions and initramfs hooks": "正在使用 archinstall 标准的软件包事务和 initramfs 钩子"
 }
