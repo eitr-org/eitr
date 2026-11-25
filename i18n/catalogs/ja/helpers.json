@@ -1759,7 +1759,6 @@
   "via {host}{key}": "{host}{key} 経由",
   "waking Yggdrasil": "ユグドラシルを目覚めさせています",
   "warming the mead": "蜂蜜酒を温めています",
-  "{FAILED} already exists from an earlier restore; nothing was changed": "以前の復元による {FAILED} がすでに存在します。何も変更されませんでした",
   "{FINISH_UNIT} is missing; install the eitr-desktop package first": "{FINISH_UNIT} が見つかりません。最初に eitr-desktop パッケージをインストールしてください",
   "{FIREWALL_RULES} is missing; update the eitr-desktop package first": "{FIREWALL_RULES} が見つかりません。最初に eitr-desktop パッケージを更新してください",
   "{TARGET} is already mounted; unmount it before installing": "{TARGET} はすでにマウントされています。インストール前にアンマウントしてください",
@@ -1856,5 +1855,12 @@
   "Invalid alarm.": "無効なアラームです。",
   "Missed alarm": "鳴り終わったアラーム",
   "Check for updates again": "更新をもう一度確認してください",
-  "Update metadata exceeds size limit": "更新メタデータがサイズ上限を超えています"
+  "Update metadata exceeds size limit": "更新メタデータがサイズ上限を超えています",
+  "Another System Update is running.": "別のシステムアップデートが実行中です。",
+  "Cannot arm the boot guard without a snapshot and its boot files.": "起動ガードを有効にするには、スナップショットとその起動ファイルが必要です。",
+  "Cannot create directory over existing file: {path}": "既存のファイルの場所にディレクトリを作成できません: {path}",
+  "Could not arm the boot guard. No package upgrade was started.": "起動ガードを有効にできませんでした。パッケージの更新は開始されていません。",
+  "The System Update package hook is missing.": "システムアップデート用の Pacman フックがありません。",
+  "The update transaction does not match the pending recovery point.": "更新トランザクションが保留中の復旧ポイントと一致しません。",
+  "WiFi profiles changed during restore.": "復元中に Wi-Fi プロファイルが変更されました。"
 }

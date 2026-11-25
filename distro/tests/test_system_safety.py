@@ -1,4 +1,6 @@
 import importlib.util
+import io
+import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -38,18 +40,18 @@ class SystemSafetyTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary, patch.object(system, "STATE", Path(temporary)), \
                 patch.object(system, "snapshot_supported", side_effect=RuntimeError("not supported")), \
                 patch.object(system, "run") as run:
-            with self.assertRaises(RuntimeError): system.snapshot_pre()
+            with self.assertRaises(RuntimeError): system.snapshot_pre("token")
             run.assert_not_called()
             self.assertFalse((Path(temporary) / "pending-upgrade.json").exists())
 
     def test_only_system_update_requests_snapshots(self):
         script = (ROOT.parent / "walker/scripts/actions/system/update.sh").read_text()
         protected = script.split("system)")[1].split(";;")[0]
-        self.assertIn('sudo -n "$helper" snapshot-pre', protected)
+        self.assertIn('sudo -n "$helper" snapshot-update', protected)
         self.assertIn("sudo -v", protected)
-        self.assertLess(protected.index("snapshot-pre"), protected.index("\n      full_update"))
-        self.assertIn('sudo -n "$helper" snapshot-post', protected)
-        self.assertNotIn("snapshot-pre", script.split("pacman)")[1])
+        self.assertLess(protected.index("snapshot-update"), protected.index("\n      full_update"))
+        self.assertIn("finish_snapshot success", protected)
+        self.assertNotIn("snapshot-update", script.split("pacman)")[1])
 
     def test_auth_targets_are_narrow(self):
         self.assertEqual(system.SERVICES, ("hyprlock", "sddm", "sudo"))
@@ -77,34 +79,102 @@ class SnapshotRecordTests(unittest.TestCase):
     def test_post_records_outcome_and_clears_pending(self):
         self.write_pending()
         with patch.object(system, "run") as run:
-            system.snapshot_post("failed")
+            system.snapshot_post(None, "failed")
         command = run.call_args.args[0]
         self.assertEqual(command[command.index("--pre-number") + 1], "7")
         self.assertIn("Eitr after failed package upgrade", command)
         self.assertEqual(run.call_args.kwargs, {"stdout": system.subprocess.DEVNULL})
         self.assertFalse((self.state / "pending-upgrade.json").exists())
 
-    def test_post_without_pending_record_does_nothing(self):
-        with patch.object(system, "run") as run:
-            system.snapshot_post()
-        run.assert_not_called()
+    def test_previous_release_updater_still_pairs_and_arms(self):
+        # The first update to this release runs the old script, which calls snapshot-post.
+        self.write_pending("5")
+        guard = self.state / "guard"
+        guard.touch()
+        with patch.object(system, "run") as run, patch.object(system, "BOOT_GUARD", guard), \
+                patch.object(system.subprocess, "run") as arm:
+            system.snapshot_post_legacy("success")
+        self.assertIn("Eitr after package upgrade", run.call_args.args[0])
+        self.assertEqual(arm.call_args.args[0], [str(guard), "arm", "5", ""])
+        self.assertFalse((self.state / "pending-upgrade.json").exists())
 
-    def test_pre_closes_stale_pending_record_before_new_snapshot(self):
+    def test_legacy_post_leaves_a_current_transaction_alone(self):
+        (self.state / "pending-upgrade.json").write_text('{"snapshot": "5", "boot": "", "transaction": "abc"}\n')
+        with patch.object(system, "run") as run:
+            system.snapshot_post_legacy("success")
+        run.assert_not_called()
+        self.assertTrue((self.state / "pending-upgrade.json").exists())
+
+    def test_wrong_transaction_cannot_pair_snapshot(self):
+        self.write_pending()
+        with patch.object(system, "run") as run, self.assertRaisesRegex(RuntimeError, "does not match"):
+            system.snapshot_post("wrong", "failed")
+        run.assert_not_called()
+        self.assertTrue((self.state / "pending-upgrade.json").exists())
+
+    def test_update_pairs_legacy_record_before_new_snapshot(self):
         self.write_pending("3")
         calls = []
+        hook = self.state / "hook"
+        hook.touch()
         with patch.object(system, "snapshot_supported"), \
                 patch.object(system, "separate_boot_mounts", return_value=[]), \
                 patch.object(system, "run", side_effect=lambda args, **_: calls.append(args)), \
                 patch.object(system, "output", side_effect=lambda args: calls.append(args) or "4"), \
-                patch("builtins.print"):
-            system.snapshot_pre()
+                patch.object(system, "UPDATE_HOOK", hook), \
+                patch.object(system.sys, "stdin", io.StringIO()), patch("builtins.print"):
+            system.snapshot_update()
         posts = [call for call in calls if "post" in call]
-        self.assertEqual(len(posts), 1)
+        self.assertEqual(len(posts), 2)
         self.assertIn("Eitr after interrupted package upgrade", posts[0])
-        self.assertLess(calls.index(posts[0]), next(i for i, c in enumerate(calls) if "pre" in c))
-        pending = (self.state / "pending-upgrade.json").read_text()
-        self.assertIn('"snapshot": "4"', pending)
-        self.assertFalse(any(self.state.glob("boot-backups/*")), "no archive when /boot is in the root snapshot")
+        self.assertLess(calls.index(posts[0]), next(i for i, call in enumerate(calls) if "pre" in call))
+        self.assertFalse((self.state / "pending-upgrade.json").exists())
+
+    def test_exclusive_update_arms_only_at_the_package_hook_and_survives_eof(self):
+        marker = self.state / "guard"
+        hook = self.state / "hook"
+        hook.touch()
+        pending = self.state / "pending-upgrade.json"
+
+        def commands():
+            transaction = json.loads(pending.read_text())["transaction"]
+            with self.assertRaisesRegex(RuntimeError, "Another System Update"):
+                system.snapshot_update()
+            self.assertEqual(json.loads(pending.read_text())["transaction"], transaction)
+            system.snapshot_arm()
+            self.assertFalse(marker.exists())
+            yield f"{transaction} ready"
+            self.assertFalse(marker.exists())
+            system.snapshot_arm()
+            self.assertTrue(marker.exists())
+            system.snapshot_arm()
+            # The caller disappears during the upgrade without a completion command.
+
+        def run(args, **_):
+            if args[0] == str(system.BOOT_GUARD):
+                self.assertFalse(marker.exists(), "arm once per update")
+                marker.touch()
+
+        with patch.object(system, "snapshot_supported"), \
+                patch.object(system, "separate_boot_mounts", return_value=[]), \
+                patch.object(system, "run", side_effect=run) as calls, \
+                patch.object(system, "output", return_value="7"), \
+                patch.object(system, "UPDATE_HOOK", hook), \
+                patch.object(system.sys, "stdin", commands()), patch("builtins.print"):
+            system.snapshot_update()
+        self.assertTrue(marker.exists())
+        self.assertFalse(pending.exists())
+        self.assertIn("Eitr after interrupted package upgrade", calls.call_args.args[0])
+
+    def test_package_hook_surfaces_arm_failure(self):
+        pending = self.state / "pending-upgrade.json"
+        pending.write_text('{"snapshot":"7","transaction":"token","ready":true,"boot":""}')
+        with (self.state / "system-update.lock").open("a") as lock:
+            system.fcntl.flock(lock, system.fcntl.LOCK_EX)
+            with patch.object(system, "run", side_effect=OSError("arm failed")), \
+                    self.assertRaisesRegex(RuntimeError, "Could not arm"):
+                system.snapshot_arm()
+        self.assertFalse(json.loads(pending.read_text()).get("armed"))
 
     def test_failed_boot_archive_creates_no_snapshot(self):
         with patch.object(system, "snapshot_supported"), \
@@ -113,7 +183,7 @@ class SnapshotRecordTests(unittest.TestCase):
                     system.subprocess.CalledProcessError(2, args)) if args[0] == "tar" else None), \
                 patch.object(system, "output") as output:
             with self.assertRaises(system.subprocess.CalledProcessError):
-                system.snapshot_pre()
+                system.snapshot_pre("token")
         output.assert_not_called()
         self.assertFalse((self.state / "pending-upgrade.json").exists())
         self.assertEqual(list((self.state / "boot-backups").iterdir()), [])
@@ -131,7 +201,7 @@ class SnapshotRecordTests(unittest.TestCase):
                 patch.object(system, "separate_boot_mounts", return_value=["/boot"]), \
                 patch.object(system, "run", side_effect=run), \
                 patch.object(system, "output", return_value="12"), patch("builtins.print"):
-            system.snapshot_pre()
+            system.snapshot_pre("token")
         self.assertTrue((archives / "12/boot.tar").is_file())
         remaining = sorted(int(path.name) for path in archives.iterdir())
         self.assertEqual(remaining, list(range(3, 13)))

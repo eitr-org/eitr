@@ -157,6 +157,19 @@ class NetworkBackendTests(unittest.TestCase):
         self.assertEqual(base64.b64decode(prev_map["Home.psk"]["content_b64"]).decode("utf-8"),
                          "[Security]\nPassphrase=alpha\n")
 
+    def test_wifi_preview_captures_undo_before_any_write_and_rejects_a_changed_profile(self):
+        network.IWD.mkdir(parents=True)
+        target = network.IWD / "Home.psk"
+        target.write_text("original")
+        request = {"profiles": [{"backend": "iwd", "name": target.name, "content": "replacement"}]}
+        preview = network.import_wifi({**request, "preview": True})
+        self.assertEqual(target.read_text(), "original")
+        self.assertEqual(base64.b64decode(preview["previous"][0]["content_b64"]), b"original")
+        target.write_text("changed")
+        with self.assertRaisesRegex(RuntimeError, "changed during restore"):
+            network.import_wifi({**request, "previous_token": preview["previous_token"]})
+        self.assertEqual(target.read_text(), "changed")
+
     def test_networkmanager_import_accepts_only_wifi_profiles_and_reloads(self):
         nm_dir = network.ETC / "NetworkManager/system-connections"
         nm_dir.mkdir(parents=True)

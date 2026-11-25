@@ -20,7 +20,9 @@ Avant la mise à jour, la mise à jour du système et les mises à jour des paqu
 
 Revenir à Stable conserve une version plus récente d’Eitr jusqu’à ce que Stable la rattrape. Dans un terminal, `eitr channel` affiche le canal ; `eitr channel testing` ou `eitr channel stable` le change.
 
-Si une mise à jour empêche le démarrage, la **protection du démarrage** l’annule. Après deux tentatives consécutives sans atteindre l’écran de connexion, la suivante restaure le système et les fichiers de démarrage d’avant la mise à jour, puis redémarre. Votre dossier personnel reste intact et la prochaine connexion explique ce qui s’est passé. Cela concerne les PC installés par l’installateur d’Eitr ; voir [Récupération et instantanés](handbook:recovery).
+Une seule mise à jour protégée peut s’exécuter à la fois sur la machine. Pacman active la protection du démarrage au début des modifications de paquets et s’arrête si l’activation échoue. La protection reste active si la mise à jour échoue ou est interrompue après ce point.
+
+Si deux démarrages de suite n’atteignent pas un écran graphique de connexion stable ou une session de bureau, la **protection du démarrage** restaure le système et les fichiers de démarrage au troisième essai. Un écran de connexion fonctionnel suffit sans connexion d’un utilisateur. Attendre pendant le même démarrage ne compte pas comme un autre échec. Le dossier personnel est conservé et un avis s’affiche à la prochaine connexion. Voir [Récupération et instantanés](handbook:recovery).
 
 **Instantanés du dossier personnel** conservent les anciennes versions de vos fichiers. Activez-les dans **Walker > Paramètres > Système > Entretien > Instantanés > Instantanés du dossier personnel**. Ils sont créés toutes les heures pendant un jour et chaque jour pendant une semaine ; les plus anciens sont supprimés si le disque manque de place. Caches, Downloads, disques de VM et jeux sont exclus. Pour récupérer un fichier, choisissez **Restaurer un fichier ou un dossier**, saisissez son chemin et choisissez une date. L’ancienne version apparaît à côté de l’actuelle sans la remplacer.
 

@@ -48,6 +48,7 @@ eitr backup undo <id>
 ```
 
 Encontre `<id>` em **Configurações > Sistema > Backup e restauração** ou com `eitr-backup status`. O undo devolve arquivos substituídos (incluindo arquivos secretos, chaveiro GPG e perfis WiFi), remove arquivos adicionados e regenera o tema.
+Antes de substituir arquivos, a restauração verifica se há conflitos nos destinos, como diretórios no lugar de arquivos ou pastas superiores que são links simbólicos. Se parar no meio, procure o ponto de desfazer na mesma lista.
 
 ## Referência de CLI
 

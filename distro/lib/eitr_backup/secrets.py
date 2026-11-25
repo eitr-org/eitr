@@ -251,24 +251,27 @@ def rewrite_staged_git_paths(secret_home_files, manifest, target_home):
                 continue
 
 
-def apply_restored_permissions(home, staged_files):
+def restored_file_mode(item):
+    if item.home_rel.startswith((".ssh/", ".gnupg/")) or item.category in SECRET_CATEGORY_IDS:
+        return 0o600
+    return item.mode or 0o644
+
+
+def apply_restored_permissions(home, staged_files, save_mode):
     for rel_dir in (".ssh", ".gnupg", ".aws", ".azure", ".kube", ".config/gcloud", ".config/eitr/git-accounts", ".config/eitr/cloud-accounts"):
         directory = home / rel_dir
-        if directory.is_dir() and not directory.is_symlink():
-            os.chmod(directory, 0o700)
-    for item in staged_files:
-        target = home / item.home_rel
-        if not item.is_symlink and target.exists():
-            os.chmod(target, 0o600 if (item.home_rel.startswith((".ssh/", ".gnupg/")) or item.category in SECRET_CATEGORY_IDS) else (item.mode or 0o644))
+        if any(directory in (home / item.home_rel).parents for item in staged_files):
+            mode = stat.S_IMODE(directory.stat().st_mode)
+            if mode != 0o700:
+                save_mode(directory, mode)
+                os.chmod(directory, 0o700)
 
 
-def _iter_gnupg_files(gnupg_dir, home, *, fix_modes=False):
+def _iter_gnupg_files(gnupg_dir, home):
     if not gnupg_dir.is_dir() or gnupg_dir.is_symlink():
         return
     for dirpath, dirnames, filenames in os.walk(gnupg_dir, followlinks=False):
         current = Path(dirpath)
-        if fix_modes:
-            os.chmod(current, 0o700)
         dirnames[:] = [d for d in sorted(dirnames) if not (current / d).is_symlink()]
         for filename in sorted(filenames):
             child = current / filename
@@ -277,51 +280,51 @@ def _iter_gnupg_files(gnupg_dir, home, *, fix_modes=False):
                     continue
             except OSError:
                 continue
-            if fix_modes:
-                os.chmod(child, 0o600)
             if not is_excluded_file_name(filename):
                 yield child, child.relative_to(home).as_posix()
 
 
-def import_gpg_secret_keys(gpg_files, home, undo_dir):
+def stage_gpg_secret_keys(gpg_files, home, scratch):
+    from eitr_backup.archive import StagedFile
     if not gpg_files:
         return []
-    gnupg_dir = home / ".gnupg"
-    if gnupg_dir.is_symlink():
+    existing = home / ".gnupg"
+    if existing.is_symlink():
         raise BackupError(tr("Refusing to import GPG keys into symlinked ~/.gnupg"))
-    pre = {}
-    for child, home_rel in _iter_gnupg_files(gnupg_dir, home):
-        backup_rel = f"replaced/{home_rel}"
-        dst = undo_dir / backup_rel
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(child, dst)
-        os.chmod(dst, 0o600)
-        pre[home_rel] = {"bytes": child.read_bytes(), "backup_rel": backup_rel}
+    gnupg_dir = scratch / ".gnupg"
+    gnupg_dir.mkdir(mode=0o700)
+    for child, home_rel in _iter_gnupg_files(existing, home):
+        dest = scratch / home_rel
+        dest.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        shutil.copy2(child, dest)
+        os.chmod(dest, 0o600)
     gpg_bin = shutil.which("gpg")
     if not gpg_bin:
         raise BackupError(tr("gpg is required to import GPG secret keys."))
-    gnupg_dir.mkdir(parents=True, exist_ok=True)
-    os.chmod(gnupg_dir, 0o700)
     env = dict(os.environ, HOME=str(home), GNUPGHOME=str(gnupg_dir))
-    for item in gpg_files:
-        os.chmod(item.staged_path, 0o600)
-        payload = item.staged_path.read_bytes()
-        res = subprocess.run([gpg_bin, "--import", str(item.staged_path)], input=payload, env=env, capture_output=True, check=False)
-        if res.returncode != 0:
-            raise BackupError(res.stderr.decode("utf-8", errors="replace").strip() or tr("gpg --import failed."))
-    journal_entries = []
-    for child, home_rel in _iter_gnupg_files(gnupg_dir, home, fix_modes=True):
-        if home_rel not in pre:
-            journal_entries.append({"home_rel": home_rel, "existed": False})
-        elif child.read_bytes() != pre[home_rel]["bytes"]:
-            journal_entries.append({"home_rel": home_rel, "existed": True, "was_symlink": False,
-                                    "old_link_target": None, "old_mode": 0o600, "backup_rel": pre[home_rel]["backup_rel"]})
-    return journal_entries
+    try:
+        for item in gpg_files:
+            os.chmod(item.staged_path, 0o600)
+            payload = item.staged_path.read_bytes()
+            res = subprocess.run([gpg_bin, "--import", str(item.staged_path)], input=payload,
+                                 env=env, capture_output=True, check=False)
+            if res.returncode != 0:
+                raise BackupError(res.stderr.decode("utf-8", errors="replace").strip() or tr("gpg --import failed."))
+    finally:
+        if gpgconf := shutil.which("gpgconf"):
+            subprocess.run([gpgconf, "--homedir", str(gnupg_dir), "--kill", "all"],
+                           capture_output=True, check=False)
+    staged = []
+    for child, home_rel in _iter_gnupg_files(gnupg_dir, scratch):
+        original = home / home_rel
+        if original.is_symlink() or not original.is_file() or child.read_bytes() != original.read_bytes():
+            staged.append(StagedFile(home_rel, "git_accounts", 0o600, False, None, child, secret=True))
+    return staged
 
 
-def import_wifi_profiles(wifi_files, *, helper=None):
+def prepare_wifi_profiles(wifi_files, *, helper=None):
     if not wifi_files:
-        return []
+        return None, []
     profiles = []
     for item in wifi_files:
         backend, name = PurePosixPath(item.home_rel).parts
@@ -331,7 +334,14 @@ def import_wifi_profiles(wifi_files, *, helper=None):
         if len(raw) > MAX_WIFI_PROFILE_BYTES:
             raise BackupError(tr("WiFi profile exceeds size limit: {name}", name=name))
         profiles.append({"backend": backend, "name": name, "content_b64": base64.b64encode(raw).decode("ascii")})
-    return _run_network_helper("import-wifi", stdin_payload={"profiles": profiles, "overwrite": True}, helper=helper).get("previous", [])
+    request = {"profiles": profiles, "overwrite": True}
+    preview = _run_network_helper("import-wifi", stdin_payload={**request, "preview": True}, helper=helper)
+    return {**request, "previous_token": preview["previous_token"]}, preview["previous"]
+
+
+def apply_wifi_profiles(request, *, helper=None):
+    if request is not None:
+        _run_network_helper("import-wifi", stdin_payload=request, helper=helper)
 
 
 def undo_wifi_profiles(wifi_entries, *, helper=None):

@@ -1759,7 +1759,6 @@
   "via {host}{key}": "via {host}{key}",
   "waking Yggdrasil": "réveillant Yggdrasil",
   "warming the mead": "réchauffant l’hydromel",
-  "{FAILED} already exists from an earlier restore; nothing was changed": "{FAILED} existe déjà après une restauration précédente ; aucune modification",
   "{FINISH_UNIT} is missing; install the eitr-desktop package first": "{FINISH_UNIT} est absent ; installez d’abord le paquet eitr-desktop",
   "{FIREWALL_RULES} is missing; update the eitr-desktop package first": "{FIREWALL_RULES} est absent ; mettez d’abord à jour le paquet eitr-desktop",
   "{TARGET} is already mounted; unmount it before installing": "{TARGET} est déjà monté ; démontez-le avant l’installation",
@@ -1856,5 +1855,12 @@
   "Invalid alarm.": "Alarme non valide.",
   "Missed alarm": "Alarme manquée",
   "Check for updates again": "Relancez la recherche de mises à jour",
-  "Update metadata exceeds size limit": "Les métadonnées de mise à jour dépassent la taille maximale"
+  "Update metadata exceeds size limit": "Les métadonnées de mise à jour dépassent la taille maximale",
+  "Another System Update is running.": "Une autre mise à jour du système est en cours.",
+  "Cannot arm the boot guard without a snapshot and its boot files.": "La protection du démarrage nécessite un instantané et ses fichiers de démarrage.",
+  "Cannot create directory over existing file: {path}": "Impossible de créer un dossier à la place d’un fichier existant : {path}",
+  "Could not arm the boot guard. No package upgrade was started.": "Impossible d’activer la protection du démarrage. La mise à jour des paquets n’a pas commencé.",
+  "The System Update package hook is missing.": "Le hook Pacman de mise à jour du système est manquant.",
+  "The update transaction does not match the pending recovery point.": "La transaction de mise à jour ne correspond pas au point de récupération en attente.",
+  "WiFi profiles changed during restore.": "Les profils Wi-Fi ont changé pendant la restauration."
 }

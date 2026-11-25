@@ -8,14 +8,14 @@ import secrets
 import shutil
 import stat
 import subprocess
+import tempfile
 
 from eitr_backup import BackupError
 from eitr_backup.archive import extract_archive
 from eitr_backup.catalog import get_layout
-from eitr_backup.exclusions import is_never_home_path
 from eitr_backup.packages import reinstall_apps
 from eitr_backup.secrets import (
-    apply_restored_permissions, import_gpg_secret_keys, import_wifi_profiles,
+    apply_restored_permissions, apply_wifi_profiles, prepare_wifi_profiles, restored_file_mode, stage_gpg_secret_keys,
     partition_staged_files, rewrite_staged_git_paths, undo_wifi_profiles,
 )
 from eitr_backup.sizes import format_size
@@ -41,10 +41,16 @@ def _private_json(path, payload):
     os.chmod(path.parent, 0o700)
     tmp = path.with_name(f".{path.name}.{secrets.token_hex(4)}.tmp")
     fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-    with os.fdopen(fd, "w", encoding="utf-8") as handle:
-        json.dump(payload, handle, indent=2, sort_keys=True)
-        handle.write("\n")
-    os.replace(tmp, path)
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as handle:
+            json.dump(payload, handle, indent=2, sort_keys=True)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(tmp, path)
+        _sync_directory(path.parent)
+    finally:
+        tmp.unlink(missing_ok=True)
 
 
 def _read_json(path):
@@ -64,7 +70,8 @@ def list_undo_points(state_dir=None):
         if not entry.is_dir() or not journal_path.is_file():
             continue
         data = _read_json(journal_path)
-        entries = data.get("entries", []) + data.get("wifi_entries", [])
+        entries = [item for item in data.get("entries", []) if "directory_mode" not in item]
+        entries += data.get("wifi_entries", [])
         replaced = sum(1 for item in entries if item.get("existed"))
         added = sum(1 for item in entries if not item.get("existed"))
         points.append({
@@ -120,22 +127,22 @@ def record_last_restore(archive_path, undo_id, file_count, *, state_dir=None):
     _private_json(path, data)
 
 
-def _check_target_parents(target, home, *, forbid_any_symlink=False):
-    """Refuse a write that a link in its parent folders would send outside home or into a
-    folder backups never touch (keys, browsers): a crafted archive could plant such a link."""
-    home_resolved = home.resolve()
-    rel = target.relative_to(home)
-    current = home
-    for part in rel.parts[:-1]:
-        current = current / part
-        if current.is_symlink():
-            if forbid_any_symlink:
-                raise BackupError(tr("Refusing to write through escaping symlink: {path}", path=str(current)))
-            resolved = current.resolve(strict=False)
-            if not (resolved == home_resolved or resolved.is_relative_to(home_resolved)):
-                raise BackupError(tr("Refusing to write through escaping symlink: {path}", path=str(current)))
-            if resolved != home_resolved and is_never_home_path(resolved.relative_to(home_resolved).as_posix()):
-                raise BackupError(tr("Refusing to write through escaping symlink: {path}", path=str(current)))
+def _sync_directory(path):
+    fd = os.open(path, os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+
+
+def _check_target_parents(target, home, targets=()):
+    parent = home
+    for part in target.relative_to(home).parts[:-1]:
+        parent = parent / part
+        if parent.is_symlink():
+            raise BackupError(tr("Refusing to write through escaping symlink: {path}", path=str(parent)))
+        if parent in targets or (parent.exists() and not parent.is_dir()):
+            raise BackupError(tr("Cannot create directory over existing file: {path}", path=str(parent)))
 
 
 def _copy_to_undo_backup(target, backup_copy):
@@ -146,6 +153,12 @@ def _copy_to_undo_backup(target, backup_copy):
         return True, os.readlink(target), 0o777
     mode = stat.S_IMODE(target.lstat().st_mode)
     shutil.copy2(target, backup_copy)
+    with backup_copy.open("rb") as stream:
+        os.fsync(stream.fileno())
+    for directory in backup_copy.parents:
+        _sync_directory(directory)
+        if directory.name == "replaced":
+            break
     return False, None, mode
 
 
@@ -158,7 +171,7 @@ def _atomic_write_from_stage(item, target):
         else:
             with item.staged_path.open("rb") as src, tmp.open("wb") as dst:
                 shutil.copyfileobj(src, dst)
-            os.chmod(tmp, item.mode)
+            os.chmod(tmp, restored_file_mode(item))
         os.replace(tmp, target)
     except BaseException:
         tmp.unlink(missing_ok=True)
@@ -181,46 +194,58 @@ def _atomic_restore_file(backup_copy, target, was_symlink, link_target, old_mode
 
 
 def restore_files(staged_files, *, home=None, state_dir=None, archive_path=None, gpg_files=(), wifi_files=()):
-    """Apply staged files into home, saving replaced files in an undo journal."""
+    """Stage secret imports before preflight and apply with write-ahead undo."""
     home = Path(home or Path.home()).resolve()
+    with tempfile.TemporaryDirectory(prefix="eitr-gpg-") as scratch:
+        staged = [*staged_files, *stage_gpg_secret_keys(gpg_files, home, Path(scratch))]
+        return _restore_files(staged, home, state_dir, archive_path, wifi_files)
+
+
+def _restore_files(staged_files, home, state_dir, archive_path, wifi_files):
+    targets = {home / item.home_rel: item for item in staged_files}
+    for target, item in targets.items():
+        _check_target_parents(target, home, targets)
+        if not target.is_symlink() and target.exists() and not target.is_file():
+            raise BackupError(tr("Cannot overwrite existing directory with file: {path}", path=item.home_rel))
+    wifi_request, wifi_entries = prepare_wifi_profiles(wifi_files)
     undo_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S") + "-" + secrets.token_hex(2)
     undo_dir = _undo_root(state_dir) / undo_id
-    undo_dir.mkdir(parents=True, exist_ok=True)
-    os.chmod(_undo_root(state_dir), 0o700)
-    os.chmod(undo_dir, 0o700)
+    undo_dir.mkdir(parents=True, mode=0o700)
+    os.chmod(undo_dir.parent, 0o700)
+    _sync_directory(undo_dir.parent)
+    _sync_directory(undo_dir.parent.parent)
 
-    journal_entries = []
-    for item in staged_files:
-        target = home / item.home_rel
-        _check_target_parents(target, home, forbid_any_symlink=getattr(item, "secret", False))
-        if target.is_dir() and not target.is_symlink():
-            raise BackupError(tr("Cannot overwrite existing directory with file: {path}", path=item.home_rel))
-        if target.exists() or target.is_symlink():
-            backup_rel = f"replaced/{item.home_rel}"
-            was_symlink, old_link, old_mode = _copy_to_undo_backup(target, undo_dir / backup_rel)
-            journal_entries.append({
-                "home_rel": item.home_rel,
-                "existed": True,
-                "was_symlink": was_symlink,
-                "old_link_target": old_link,
-                "old_mode": old_mode,
-                "backup_rel": backup_rel,
-            })
-        else:
-            journal_entries.append({"home_rel": item.home_rel, "existed": False})
-        _atomic_write_from_stage(item, target)
-
-    apply_restored_permissions(home, staged_files)
-    journal_entries.extend(import_gpg_secret_keys(gpg_files, home, undo_dir))
-    wifi_entries = import_wifi_profiles(wifi_files)
     journal = {
         "id": undo_id,
         "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "archive": str(archive_path) if archive_path else "",
-        "entries": journal_entries,
-        "wifi_entries": wifi_entries,
+        "entries": [],
+        "wifi_entries": [],
     }
-    _private_json(undo_dir / "journal.json", journal)
+
+    def save():
+        _private_json(undo_dir / "journal.json", journal)
+
+    for target, item in targets.items():
+        _check_target_parents(target, home)
+        entry = {"home_rel": item.home_rel, "existed": target.exists() or target.is_symlink()}
+        if entry["existed"]:
+            backup_rel = f"replaced/{item.home_rel}"
+            was_symlink, old_link, old_mode = _copy_to_undo_backup(target, undo_dir / backup_rel)
+            entry.update(was_symlink=was_symlink, old_link_target=old_link, old_mode=old_mode, backup_rel=backup_rel)
+        journal["entries"].append(entry)
+        save()
+        _atomic_write_from_stage(item, target)
+
+    def save_mode(directory, mode):
+        journal["entries"].append({"home_rel": directory.relative_to(home).as_posix(),
+                                   "existed": True, "directory_mode": mode})
+        save()
+
+    apply_restored_permissions(home, staged_files, save_mode)
+    journal["wifi_entries"] = wifi_entries
+    save()
+    apply_wifi_profiles(wifi_request)
     return undo_id, journal
 
 
@@ -253,6 +278,11 @@ def undo_restore(undo_id, *, home=None, state_dir=None, config_dir=None, live=No
         if posix.is_absolute() or ".." in posix.parts:
             raise BackupError(tr("Unsafe undo journal entry rejected: {path}", path=rel))
         target = home / rel
+        _check_target_parents(target, home)
+        if "directory_mode" in entry:
+            if target.is_dir() and not target.is_symlink():
+                os.chmod(target, entry["directory_mode"])
+            continue
         if entry.get("existed"):
             _atomic_restore_file(
                 undo_dir / entry["backup_rel"],

@@ -18,6 +18,7 @@ spec.loader.exec_module(guard)
 class FakeReset:
     """The factory reset's helpers, acting on a directory that stands in for the Btrfs top level."""
     ROOT_SUBVOLUME = "@"
+    ResetError = RuntimeError
 
     def __init__(self, top, boot):
         self.top, self.boot, self.commands, self.fail_snapshot = top, boot, [], False
@@ -43,7 +44,9 @@ class FakeReset:
         with tarfile.open(archive) as tar:
             tar.extractall(directory, filter="data")
 
-    def copy_boot(self, source):
+    def copy_boot(self, source, *, undo_source=None):
+        if undo_source and (self.boot / "added").exists():
+            (self.boot / "added").unlink()
         shutil.copytree(source, self.boot, dirs_exist_ok=True)
 
     def run(self, args, **kwargs):
@@ -76,7 +79,9 @@ class BootGuardTests(unittest.TestCase):
         self.archive = archive
         self.reset = FakeReset(self.top, self.boot)
         (self.base / "scratch").mkdir()
-        for name, value in (("ARMED", state / "boot-guard.json"), ("NOTICE", state / "boot-guard-notice.json"),
+        self.boot_id = self.base / "boot-id"
+        self.boot_id.write_text("initial")
+        for name, value in (("BOOT_ID", self.boot_id), ("ARMED", state / "boot-guard.json"), ("NOTICE", state / "boot-guard-notice.json"),
                             ("SCRATCH", self.base / "scratch")):
             patcher = patch.object(guard, name, value)
             patcher.start()
@@ -88,9 +93,15 @@ class BootGuardTests(unittest.TestCase):
     def armed(self):
         return json.loads(guard.ARMED.read_text())
 
-    def test_only_a_successful_update_on_eitrs_layout_arms_it(self):
-        self.assertFalse(guard.arm("x", str(self.archive)))
-        self.assertFalse(guard.arm("7", str(self.base / "no-archive")))
+    def start(self, number):
+        self.boot_id.write_text(str(number))
+        guard.boot()
+
+    def test_only_eitrs_layout_is_armed_and_a_missing_archive_is_an_error(self):
+        with self.assertRaises(RuntimeError):
+            guard.arm("x", str(self.archive))
+        with self.assertRaises(RuntimeError):
+            guard.arm("7", str(self.base / "no-archive"))
         with patch.object(self.reset, "layout", side_effect=RuntimeError("not Eitr's layout")):
             self.assertFalse(guard.arm("7", str(self.archive)))
         self.assertFalse(guard.ARMED.exists())
@@ -99,11 +110,11 @@ class BootGuardTests(unittest.TestCase):
 
     def test_two_failed_starts_are_tolerated_and_the_third_restores(self):
         guard.arm("7", str(self.archive))
-        guard.boot()
-        guard.boot()
+        self.start(1)
+        self.start(2)
         self.assertEqual(self.armed()["starts"], 2)
         self.assertEqual((self.top / "@/etc/version").read_text(), "after the update\n")
-        guard.boot()
+        self.start(3)
         self.assertEqual((self.top / "@/etc/version").read_text(), "before the update\n")
         self.assertEqual((self.boot / "vmlinuz").read_text(), "old kernel\n", "boot files match the restored system")
         self.assertTrue((self.top / "@/.snapshots/7/snapshot").is_dir(), "the snapshot history moves along")
@@ -117,8 +128,8 @@ class BootGuardTests(unittest.TestCase):
         stale.parent.mkdir(parents=True)
         stale.write_text(json.dumps({"snapshot": "1", "boot": "x", "starts": 2}))
         guard.arm("7", str(self.archive))
-        for _ in range(3):
-            guard.boot()
+        for number in range(3):
+            self.start(number)
         self.assertFalse((self.top / "@" / str(guard.ARMED).lstrip("/")).exists())
 
     def test_a_failure_halfway_puts_everything_back(self):
@@ -132,6 +143,45 @@ class BootGuardTests(unittest.TestCase):
         self.assertEqual((self.boot / "vmlinuz").read_text(), "new kernel\n")
         self.assertNotIn(["systemctl", "reboot", "--no-wall"], self.reset.commands)
 
+    def test_partial_boot_copy_is_rolled_back_before_any_root_swap(self):
+        guard.arm("7", str(self.archive))
+        copy_boot = self.reset.copy_boot
+
+        def partial_copy(source, *, undo_source=None):
+            if undo_source is not None:
+                self.assertTrue((self.top / guard.ROLLBACK / "boot.tar").exists())
+                return copy_boot(source, undo_source=undo_source)
+            (self.boot / "vmlinuz").write_text("truncated")
+            (self.boot / "added").write_text("added")
+            raise OSError("EFI full")
+
+        with patch.object(self.reset, "copy_boot", side_effect=partial_copy), self.assertRaises(OSError):
+            guard.restore(self.armed())
+        self.assertEqual((self.boot / "vmlinuz").read_text(), "new kernel\n")
+        self.assertFalse((self.boot / "added").exists())
+        self.assertEqual((self.top / "@/etc/version").read_text(), "after the update\n")
+        self.assertFalse((self.top / guard.ROLLBACK).exists())
+
+    def test_failed_rollback_keeps_the_saved_efi_archive(self):
+        guard.arm("7", str(self.archive))
+        with patch.object(self.reset, "copy_boot", side_effect=OSError("EFI unavailable")), self.assertRaises(OSError):
+            guard.restore(self.armed())
+        self.assertTrue((self.top / guard.ROLLBACK / "boot.tar").is_file())
+        self.assertNotIn(["systemctl", "reboot", "--no-wall"], self.reset.commands)
+
+    def test_second_restore_keeps_both_failed_roots_until_healthy(self):
+        guard.arm("7", str(self.archive))
+        guard.restore(self.armed())
+        (self.top / "@/etc/version").write_text("second failed root")
+        guard.restore(self.armed())
+        self.assertEqual((self.top / guard.FAILED / "etc/version").read_text(), "second failed root")
+        (previous,) = self.top.glob(f"{guard.FAILED}-*")
+        self.assertEqual((previous / "etc/version").read_text(), "after the update\n")
+        guard.NOTICE.write_text('{"cleaned": false}')
+        with patch.object(guard, "graphical_sessions", return_value={"greeter"}):
+            guard.healthy(wait=0)
+        self.assertFalse(list(self.top.glob(f"{guard.FAILED}*")))
+
     def test_a_missing_snapshot_changes_nothing(self):
         shutil.rmtree(self.top / "@/.snapshots/7")
         guard.arm("7", str(self.archive))
@@ -144,26 +194,32 @@ class BootGuardTests(unittest.TestCase):
         (self.top / guard.FAILED).mkdir()
         guard.NOTICE.write_text(json.dumps({"snapshot": "7", "restored": "now", "failed": guard.FAILED,
                                             "cleaned": False}))
-        with patch.object(guard.subprocess, "run", return_value=subprocess.CompletedProcess([], 0)), \
-                patch.object(guard.time, "sleep"):
-            guard.healthy()
+        self.start(1)
+        with patch.object(guard, "graphical_sessions", return_value={"greeter"}):
+            guard.healthy(wait=0)
         self.assertFalse(guard.ARMED.exists())
         self.assertFalse((self.top / guard.FAILED).exists())
         self.assertTrue(json.loads(guard.NOTICE.read_text())["cleaned"])
 
-    def test_without_a_login_screen_the_start_is_not_healthy(self):
+    def test_active_display_manager_without_graphical_session_does_not_disarm(self):
         guard.arm("7", str(self.archive))
-        with patch.object(guard.subprocess, "run", return_value=subprocess.CompletedProcess([], 3)), \
-                patch.object(guard.time, "sleep"), patch.object(guard.time, "monotonic", side_effect=[0, 0, 1000]):
-            guard.healthy()
-        self.assertTrue(guard.ARMED.exists())
+        self.start(1)
+        listing = '[{"session":"tty","seat":"seat0","class":"user"}]'
+        results = [subprocess.CompletedProcess([], 0, listing), subprocess.CompletedProcess([], 0, "Type=tty\nActive=yes")]
+        with patch.object(guard.subprocess, "run", side_effect=results), \
+                patch.object(guard.time, "sleep", side_effect=InterruptedError):
+            with self.assertRaises(InterruptedError):
+                guard.healthy()
+        guard.boot()  # Restarting the service does not count the same boot again.
+        self.assertEqual(self.armed()["starts"], 1)
 
-    def test_updates_arm_it_and_both_services_are_installed_and_enabled(self):
-        system = (DISTRO / "system/eitr-system.py").read_text()
-        self.assertIn('subprocess.run([str(BOOT_GUARD), "arm", identifier, pending.get("boot", "")], check=False)', system)
-        pre = system[system.index("def snapshot_pre"):system.index("def snapshot_post")]
-        self.assertLess(pre.index('(STATE / "boot-guard.json").unlink'), pre.index('"--type", "pre"'),
-                        "the record is cleared before the snapshot is taken")
+    def test_login_greeter_can_confirm_readiness_without_user_login(self):
+        listing = '[{"session":"greeter","seat":"seat0","class":"greeter"}]'
+        results = [subprocess.CompletedProcess([], 0, listing), subprocess.CompletedProcess([], 0, "Type=x11\nActive=yes")]
+        with patch.object(guard.subprocess, "run", side_effect=results):
+            self.assertEqual(guard.graphical_sessions(), {"greeter"})
+
+    def test_both_services_are_installed_and_enabled(self):
         pkgbuild = (DISTRO / "pkg/eitr-desktop/PKGBUILD").read_text()
         self.assertIn('"$pkgdir/usr/lib/eitr/eitr-boot-guard"', pkgbuild)
         for unit in ("eitr-boot-guard.service", "eitr-boot-guard-healthy.service"):

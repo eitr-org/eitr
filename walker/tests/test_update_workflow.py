@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 FLOCK_MOCK = "flock() { return 0; }\n"
 # Tests never reach the host: its Flatpak installation, the restart check (which
 # reads the running kernel's modules, absent in CI containers), the bar or systemd.
-HOST_MOCKS = "sleep() { :; }; pacman() { :; }; checkupdates() { return 1; }; flatpak() { :; }; python3() { :; }; eitr-shell() { :; }; systemctl() { :; }\n"
+HOST_MOCKS = "sleep() { :; }; pacman() { :; }; yay() { :; }; checkupdates() { return 1; }; flatpak() { :; }; python3() { :; }; eitr-shell() { :; }; systemctl() { :; }\n"
 
 
 # The update calls the user's post-update hook; tests use a stand-in runner so
@@ -34,6 +34,26 @@ def tearDownModule():
     _hook_stub.cleanup()
 
 
+SNAPSHOT_MOCK = """
+eval "$(declare -f sudo | sed '1s/^sudo /test_sudo /')"
+sudo() {
+  if [[ "$*" != *snapshot-update ]]; then
+    test_sudo "$@"
+    return
+  fi
+  echo snapshot-update >&3
+  if [[ ${FAIL_PREPARE:-} == 1 ]]; then return 1; fi
+  echo token
+  while read -r token stage; do
+    [[ "$token" == token ]] || return 1
+    echo "snapshot $stage" >&3
+    echo token
+    [[ "$stage" == ready ]] || break
+  done
+}
+"""
+
+
 def run_protected_update(mocks, answer="", environment_extra=None, migrated=True):
     source = (ROOT / "walker/scripts/actions/system/update.sh").read_text()
     with tempfile.TemporaryDirectory() as directory:
@@ -47,7 +67,7 @@ def run_protected_update(mocks, answer="", environment_extra=None, migrated=True
         source = source.replace("/var/lib/eitr/lockscreen-packages-migrated", str(marker))
         source = source.replace("/usr/lib/eitr/eitr-system /usr/local/lib/eitr/eitr-system", "/usr/bin/true")
         environment = dict(os.environ, XDG_RUNTIME_DIR=directory, EITR_CODE_ROOT=str(ROOT), **(environment_extra or {}))
-        result = subprocess.run(["bash", "-c", FLOCK_MOCK + HOST_MOCKS + mocks + source, "update", "system"],
+        result = subprocess.run(["bash", "-c", FLOCK_MOCK + HOST_MOCKS + "exec 3>&1; sudo() { :; };\n" + mocks + SNAPSHOT_MOCK + source, "update", "system"],
                                 capture_output=True, text=True, env=environment, input=answer)
         if (Path(directory) / "eitr/system-update.pid").exists():
             raise AssertionError("System Update left its running marker behind")
@@ -131,12 +151,12 @@ class UpdateWorkflowTests(unittest.TestCase):
         ):
             with self.subTest(checks=checks):
                 result = run_protected_update(self.UPDATING + checks + "\n")
-                self.assertIn("snapshot-pre", result.stdout)
-                self.assertIn("snapshot-post", result.stdout)
+                self.assertIn("snapshot-update", result.stdout)
+                self.assertIn("snapshot ", result.stdout)
                 self.assertNotIn("Everything is up to date.", result.stdout)
 
     def test_snapshot_stages_are_visible_on_success_and_failure(self):
-        for mocks in (self.UPDATING, 'sudo() { echo "sudo $*"; [[ "$*" != *snapshot-pre* ]]; }; yay() { :; };\n'):
+        for mocks in (self.UPDATING, 'FAIL_PREPARE=1; yay() { :; };\n'):
             result = run_protected_update(mocks)
             self.assertIn("Creating the before-update snapshot…", result.stderr)
             self.assertEqual("Creating the after-update snapshot…" in result.stderr, result.returncode == 0)
@@ -149,7 +169,7 @@ class UpdateWorkflowTests(unittest.TestCase):
                     result = run_protected_update(self.NEWS + self.UPDATING, answer=answer,
                         environment_extra={"LC_ALL": "", "LC_MESSAGES": locale})
                     self.assertEqual(result.returncode, 0, result.stderr)
-                    self.assertEqual("snapshot-pre" in result.stdout, continues)
+                    self.assertEqual("snapshot-update" in result.stdout, continues)
                     self.assertNotIn("Update cancelled; nothing was changed.", result.stdout)
 
     def test_arch_news_and_escape_cancel_before_any_snapshot(self):
@@ -157,13 +177,13 @@ class UpdateWorkflowTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("Arch posted news", result.stdout)
         self.assertIn("Update cancelled; nothing was changed.", result.stdout)
-        self.assertNotIn("snapshot-pre", result.stdout)
+        self.assertNotIn("snapshot-update", result.stdout)
         self.assertNotIn("pacman", result.stdout)
 
     def test_arch_news_and_enter_continue_the_update(self):
         result = run_protected_update(self.NEWS + self.UPDATING, answer="\n")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("snapshot-pre", result.stdout)
+        self.assertIn("snapshot-update", result.stdout)
         self.assertIn("pacman -Sy\n", result.stdout + "\n")
         self.assertIn("pacman -Su", result.stdout)
 
@@ -175,14 +195,15 @@ class UpdateWorkflowTests(unittest.TestCase):
 
     def test_failed_snapshot_prevents_package_updates(self):
         result = run_protected_update("""
-sudo() { echo "sudo $*"; if [[ "$*" == *snapshot-pre* ]]; then return 1; fi; }
+FAIL_PREPARE=1
+sudo() { echo "sudo $*"; }
 yay() { echo "yay $*"; }
 """)
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("snapshot-pre", result.stdout)
+        self.assertIn("snapshot-update", result.stdout)
         self.assertNotIn("pacman", result.stdout)
         self.assertNotIn("yay", result.stdout)
-        self.assertNotIn("snapshot-post", result.stdout)
+        self.assertNotIn("snapshot ", result.stdout)
 
     def test_failed_upgrade_still_records_post_snapshot(self):
         result = run_protected_update("""
@@ -190,7 +211,8 @@ sudo() { echo "sudo $*"; if [[ "$*" == *pacman* ]]; then return 1; fi; }
 yay() { echo "yay $*"; }
 """)
         self.assertNotEqual(result.returncode, 0)
-        self.assertIn("snapshot-post failed", result.stdout)
+        self.assertIn("snapshot failed", result.stdout)
+        self.assertNotIn("snapshot ready", result.stdout)
         self.assertNotIn("yay", result.stdout)
 
     def test_system_update_holds_marker_through_hooks_and_releases_before_ipc(self):
@@ -214,11 +236,11 @@ eitr-shell() {
         result = run_protected_update("""
 sudo() {
   echo "sudo $*"
-  if [[ "$*" == "pacman -Su" ]]; then kill -INT "$$"; fi
+  if [[ "$*" == "pacman -Su" ]]; then kill -INT "$BASHPID" "$$"; fi
 }
 """)
         self.assertEqual(result.returncode, 130, result.stderr)
-        self.assertIn("snapshot-post failed", result.stdout)
+        self.assertIn("snapshot failed", result.stdout)
 
     def test_a_mismatched_signature_is_repaired_by_a_forced_refresh(self):
         # A stalled download can leave a new package list with its old signature;
@@ -230,7 +252,7 @@ yay() { echo "yay $*"; }
         self.assertEqual(result.returncode, 0, result.stderr)
         calls = [line for line in result.stdout.splitlines() if line.startswith("sudo pacman")]
         self.assertEqual(calls, ["sudo pacman -Sy", "sudo pacman -Syy", "sudo pacman -Su"])
-        self.assertIn("snapshot-post success", result.stdout)
+        self.assertIn("snapshot success", result.stdout)
 
     def test_successful_upgrade_records_success(self):
         result = run_protected_update("""
@@ -240,9 +262,9 @@ yay() { echo "yay $*"; }
         self.assertEqual(result.returncode, 0, result.stderr)
         lines = result.stdout.splitlines()
         self.assertEqual(lines[0], "sudo -v")
-        self.assertEqual(lines[1].split()[-1], "snapshot-pre")
-        self.assertTrue(lines[1].startswith("sudo -n "))
-        self.assertEqual(lines[-2].split()[-2:], ["snapshot-post", "success"])
+        self.assertEqual(lines[1].split()[-1], "snapshot-update")
+        self.assertLess(lines.index("snapshot ready"), lines.index("sudo pacman -Su"))
+        self.assertEqual(lines[-2].split()[-2:], ["snapshot", "success"])
         self.assertEqual(lines[-1], "hook post-update system", "the user's hook runs after the update")
 
     def test_missing_helper_aborts_before_any_update(self):

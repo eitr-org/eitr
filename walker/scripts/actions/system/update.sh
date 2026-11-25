@@ -32,7 +32,9 @@ cancel() { eitr_gettext 'Update cancelled; nothing was changed.'; printf '\n'; e
 # as current, so a failed sync is retried once with a forced refresh (-Syy).
 # The optional lockscreen designs are installed once on desktops that had them built in.
 lockscreen_migrate() { [[ -e /var/lib/eitr/lockscreen-packages-migrated ]] || sudo /usr/lib/eitr/eitr-system lockscreen-migrate; }
-pacman_update() { sudo pacman -Sy || sudo pacman -Syy || return; sudo pacman -Su || return; lockscreen_migrate; }
+sync_packages() { sudo pacman -Sy || sudo pacman -Syy; }
+upgrade_packages() { sudo pacman -Su || return; lockscreen_migrate; }
+pacman_update() { sync_packages || return; upgrade_packages; }
 full_update() { pacman_update; yay -Sua --devel; update_flatpaks; }
 # Only a complete, successful check may skip the update. checkupdates keeps its
 # sync database separate from the system database (exit 2 means no updates).
@@ -83,7 +85,32 @@ check_plugin_updates() {
 
 packages=''
 update_marker=''
-snapshot_pending=false
+snapshot_transaction=''
+snapshot_command() {
+  local response
+  (printf '%s %s\n' "$snapshot_transaction" "$1" >&"$snapshot_input") &&
+    IFS= read -r -u "$snapshot_output" response && [[ "$response" == "$snapshot_transaction" ]]
+}
+finish_snapshot() {
+  local status=0
+  snapshot_command "$1" || status=$?
+  exec {snapshot_input}>&- {snapshot_output}<&-
+  wait "$snapshot_pid" || status=$?
+  snapshot_transaction=''
+  return "$status"
+}
+protected_packages() (
+  # This worker keeps the coordinator's input open while a package command
+  # runs, even if the terminal kills the parent updater.
+  if "$migration_only"; then
+    lockscreen_migrate
+  else
+    upgrade_packages
+    yay -Sua --devel
+    update_flatpaks
+  fi
+  exec {snapshot_input}>&-
+)
 clear_update_marker() {
   if [[ -n "$update_marker" ]]; then
     rm -f -- "$update_marker"
@@ -92,7 +119,7 @@ clear_update_marker() {
 }
 finish_update() {
   local status=$?
-  if "$snapshot_pending"; then finish_snapshot || true; fi
+  if [[ -n "$snapshot_transaction" ]]; then finish_snapshot failed || { (( status != 0 )) || status=1; }; fi
   clear_update_marker
   if [[ -n "$packages" ]]; then rm -f -- "$packages"; fi
   exit "$status"
@@ -105,7 +132,7 @@ trap 'exit 129' HUP
 update_kind="${1:-}"
 if [[ "$update_kind" == system ]]; then
   exec 9>"${XDG_RUNTIME_DIR:-/tmp}/eitr-system-update-$UID.lock"
-  flock -n 9 || { echo 'Another System Update is running.' >&2; exit 1; }
+  flock -n 9 || { eitr_gettext 'Another System Update is running.' >&2; printf '\n' >&2; exit 1; }
   if [[ -n "${XDG_RUNTIME_DIR:-}" ]]; then
     mkdir -p -- "$XDG_RUNTIME_DIR/eitr"
     update_marker="$XDG_RUNTIME_DIR/eitr/system-update.pid"
@@ -118,14 +145,19 @@ request_bar_reload() {
   eitr-shell desktop-bar ipc call -- bar reload >/dev/null 2>&1 || true
 }
 
+migration_only=false
 if [[ "$update_kind" == system ]] && no_updates; then
-  lockscreen_migrate
-  check_plugin_updates
-  eitr_gettext 'Everything is up to date.'
-  printf '\n'
-  sleep 3
-  request_bar_reload
-  exit 0
+  if [[ -f /etc/eitr/system-update-policy.conf && ! -e /var/lib/eitr/lockscreen-packages-migrated ]]; then
+    migration_only=true
+  else
+    lockscreen_migrate
+    check_plugin_updates
+    eitr_gettext 'Everything is up to date.'
+    printf '\n'
+    sleep 3
+    request_bar_reload
+    exit 0
+  fi
 fi
 # After a successful update, offer a restart or log-out when changed packages need one.
 packages="$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/eitr-update-packages.XXXXXX")"
@@ -167,18 +199,18 @@ case "${1:-}" in
       done
       [[ -n "$helper" ]] || { echo 'Distro snapshot helper is missing; update aborted.' >&2; exit 1; }
       sudo -v
-      run_with_spinner "$(eitr_gettext 'Creating the before-update snapshot…')" sudo -n "$helper" snapshot-pre
-      # Always pair the pre snapshot, even when the upgrade fails or is declined.
-      outcome=failed
-      finish_snapshot() {
-        sudo -v && run_with_spinner "$(eitr_gettext 'Creating the after-update snapshot…')" sudo -n "$helper" snapshot-post "$outcome"
-      }
-      snapshot_pending=true
-      full_update
-      outcome=success
-      # Finish the post snapshot before a restart can be offered.
-      snapshot_pending=false
-      finish_snapshot
+      eitr_gettext 'Creating the before-update snapshot…' >&2; printf '\n' >&2
+      coproc UPDATE_SNAPSHOTS { sudo -n "$helper" snapshot-update; }
+      snapshot_pid=$UPDATE_SNAPSHOTS_PID
+      exec {snapshot_input}>&"${UPDATE_SNAPSHOTS[1]}" {snapshot_output}<&"${UPDATE_SNAPSHOTS[0]}"
+      snapshot_pipe_in=${UPDATE_SNAPSHOTS[1]} snapshot_pipe_out=${UPDATE_SNAPSHOTS[0]}
+      exec {snapshot_pipe_in}>&- {snapshot_pipe_out}<&-
+      IFS= read -r -u "$snapshot_output" snapshot_transaction
+      if ! "$migration_only"; then sync_packages; fi
+      snapshot_command ready
+      protected_packages
+      eitr_gettext 'Creating the after-update snapshot…' >&2; printf '\n' >&2
+      finish_snapshot success
     else
       full_update
     fi

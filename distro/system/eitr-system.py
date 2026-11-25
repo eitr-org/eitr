@@ -20,6 +20,7 @@ import stat
 import subprocess
 import sys
 import tempfile
+import uuid
 
 STATE = Path("/var/lib/eitr")
 PAM = Path("/etc/pam.d")
@@ -28,6 +29,7 @@ MARKER = " # eitr-managed-auth"
 U2F_KEYS = Path("/etc/security/eitr/u2f_keys")
 BOOT_ARCHIVE_LIMIT = 10
 BOOT_GUARD = Path("/usr/lib/eitr/eitr-boot-guard")
+UPDATE_HOOK = Path("/usr/share/libalpm/hooks/05-eitr-update-guard.hook")
 FIREWALL_UNIT = "eitr-firewall.service"
 FIREWALL_RULES = Path("/usr/share/eitr/firewall.nft")
 FIREWALL_OPENINGS = Path("/etc/eitr/firewall.d")
@@ -109,20 +111,19 @@ def prune_boot_archives(keep=BOOT_ARCHIVE_LIMIT):
         return
     archives = sorted((path for path in root.iterdir() if path.is_dir() and path.name.isdigit()),
                       key=lambda path: int(path.name))
+    guard = STATE / "boot-guard.json"
+    try:
+        protected = json.loads(guard.read_text()).get("boot")
+    except FileNotFoundError:
+        protected = None
     for path in archives[:-keep] if keep else archives:
-        shutil.rmtree(path)
+        if str(path) != protected:
+            shutil.rmtree(path)
 
 
-def snapshot_pre():
+def snapshot_pre(transaction):
     snapshot_supported()
     run(["snapper", "-c", "root", "get-config"], stdout=subprocess.DEVNULL)
-    if (STATE / "pending-upgrade.json").exists():
-        # A previous update was interrupted before its post snapshot; pair it
-        # now so the old pre snapshot is not left orphaned.
-        print(tr('Closing the recovery point of an interrupted earlier update.'))
-        snapshot_post("interrupted")
-    # Snapshots never carry an armed boot guard; this update arms it again once it succeeds.
-    (STATE / "boot-guard.json").unlink(missing_ok=True)
     root = STATE / "boot-backups"
     root.mkdir(parents=True, mode=0o700, exist_ok=True)
     # Archive boot files before creating the snapshot so a failure here never
@@ -143,7 +144,9 @@ def snapshot_pre():
                 shutil.rmtree(target)  # Left over from a deleted snapshot with the same number.
             staging.rename(target)
             archive = str(target)
-        atomic(STATE / "pending-upgrade.json", json.dumps({"snapshot": identifier, "boot": archive}) + "\n")
+        pending_path = STATE / "pending-upgrade.json"
+        atomic(pending_path, json.dumps({"snapshot": identifier, "boot": archive, "transaction": transaction}) + "\n")
+        run(["sync", "-f", str(pending_path)])
     finally:
         shutil.rmtree(staging, ignore_errors=True)
     prune_boot_archives()
@@ -156,20 +159,100 @@ POST_DESCRIPTIONS = {
 }
 
 
-def snapshot_post(outcome="success"):
+def pending_upgrade(transaction):
+    pending = json.loads((STATE / "pending-upgrade.json").read_text())
+    if pending.get("transaction") != transaction or not str(pending["snapshot"]).isdigit():
+        raise RuntimeError(tr('The update transaction does not match the pending recovery point.'))
+    return pending
+
+
+def snapshot_post(transaction, outcome):
+    pending = pending_upgrade(transaction)
+    run(["snapper", "-c", "root", "create", "--type", "post", "--pre-number", str(pending["snapshot"]),
+         "--description", POST_DESCRIPTIONS[outcome], "--cleanup-algorithm", "number"], stdout=subprocess.DEVNULL)
+    (STATE / "pending-upgrade.json").unlink()
+
+
+def snapshot_post_legacy(outcome):
+    """The update script of the previous release, still running while it upgrades to this one."""
     path = STATE / "pending-upgrade.json"
     if not path.exists():
         return
     pending = json.loads(path.read_text())
-    identifier = str(pending["snapshot"])
-    if not identifier.isdigit():
-        raise RuntimeError('Invalid pending snapshot')
-    run(["snapper", "-c", "root", "create", "--type", "post", "--pre-number", identifier,
-         "--description", POST_DESCRIPTIONS[outcome], "--cleanup-algorithm", "number"], stdout=subprocess.DEVNULL)
-    path.unlink()
-    # A successful update arms the boot guard with its "before" snapshot and boot files.
+    if pending.get("transaction"):
+        return  # Owned by a running System Update of this release.
+    snapshot_post(None, "success" if outcome == "success" else "failed")
     if outcome == "success" and BOOT_GUARD.is_file():
-        subprocess.run([str(BOOT_GUARD), "arm", identifier, pending.get("boot", "")], check=False)
+        subprocess.run([str(BOOT_GUARD), "arm", str(pending["snapshot"]), pending.get("boot", "")], check=False)
+
+
+def snapshot_arm():
+    """Pacman calls this after confirmation and before mutating any package."""
+    pending_path = STATE / "pending-upgrade.json"
+    try:
+        with (STATE / "system-update.lock").open("r") as lock:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                return  # No live System Update.
+            except BlockingIOError:
+                pending = json.loads(pending_path.read_text())
+    except FileNotFoundError:
+        return
+    if not pending.get("ready") or pending.get("armed"):
+        return
+    pending = pending_upgrade(pending["transaction"])
+    try:
+        run([str(BOOT_GUARD), "arm", str(pending["snapshot"]), pending.get("boot", "")])
+    except (OSError, subprocess.CalledProcessError) as error:
+        raise RuntimeError(tr('Could not arm the boot guard. No package upgrade was started.')) from error
+    pending["armed"] = True
+    atomic(pending_path, json.dumps(pending) + "\n")
+
+
+def snapshot_update():
+    """Hold the machine lock for the lifetime of the updater's pipe."""
+    STATE.mkdir(parents=True, exist_ok=True, mode=0o700)
+    with (STATE / "system-update.lock").open("a") as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            raise RuntimeError(tr('Another System Update is running.')) from None
+        if not UPDATE_HOOK.is_file():
+            raise RuntimeError(tr('The System Update package hook is missing.'))
+        if Path("/var/lib/pacman/db.lck").exists():
+            raise RuntimeError(tr('Another System Update is running.'))
+        pending_path = STATE / "pending-upgrade.json"
+        if pending_path.exists():
+            # The lock is ours and no live updater can own this record. Older
+            # records have no transaction id and are paired here as well.
+            stale = json.loads(pending_path.read_text())
+            print(tr('Closing the recovery point of an interrupted earlier update.'), file=sys.stderr)
+            snapshot_post(stale.get("transaction"), "interrupted")
+        transaction = uuid.uuid4().hex
+        outcome = "interrupted"
+        snapshot_pre(transaction)
+        try:
+            print(transaction, flush=True)
+            ready = False
+            for line in sys.stdin:
+                supplied, _, action = line.strip().partition(" ")
+                if supplied != transaction:
+                    raise RuntimeError(tr('The update transaction does not match the pending recovery point.'))
+                if action == "ready" and not ready:
+                    pending = pending_upgrade(transaction)
+                    pending["ready"] = True
+                    atomic(pending_path, json.dumps(pending) + "\n")
+                    ready = True
+                    print(transaction, flush=True)
+                elif action == "failed" or (action == "success" and ready):
+                    outcome = action
+                    break
+                else:
+                    raise ValueError(f"Invalid update stage: {action}")
+        finally:
+            snapshot_post(transaction, outcome)
+        if outcome != "interrupted":
+            print(transaction, flush=True)
 
 
 # Bootable snapshots. Detection only reads files under SYSTEM_ROOT, so tests
@@ -1193,7 +1276,7 @@ READ_ONLY_ACTIONS = {"selfcheck-deeper", "snapshots-check", "bootloader-detect",
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("action", choices=["lockscreen-install", "lockscreen-remove", "lockscreen-migrate", "plugin-packages-install", "plugin-packages-remove", "user-set-type", "user-set-password", "user-remove", "user-create", "mirrors-rank", "mirrors-restore", "mirrors-status", "mirrors-first-boot", "selfcheck-deeper",
-                                           "snapshots-check", "snapshots-setup", "snapshot-pre", "snapshot-post",
+                                           "snapshots-check", "snapshots-setup", "snapshot-update", "snapshot-arm", "snapshot-post",
                                            "bootloader-detect", "snapshots-boot-status", "snapshots-boot-setup",
                                            "battery-limit", "battery-limit-apply", "battery-limit-status",
                                            "luks-tpm-check", "luks-tpm-enroll", "luks-recovery-key", "luks-tpm-remove",
@@ -1204,7 +1287,7 @@ if __name__ == "__main__":
                                            "vpn-import", "vpn-up", "vpn-down", "vpn-remove", "remote-setup", "remote-arm", "remote-undo", "remote-open", "remote-close", "remote-refresh", "remote-login-on", "remote-login-off", "remote-login-run",
                                            "remote-tailscale", "remote-tailscale-undo", "profile-apply", "profile-install", "profile-flatpaks"])
     parser.add_argument("argument", nargs="?",
-                        help='auth-enable: fingerprint|fido2|password; auth-restore: backup name; snapshot-post: success|failed; boot-menu-style: desktop user; battery-limit: 60-100|off; luks-*: /dev path')
+                        help='auth-enable: fingerprint|fido2|password; auth-restore: backup name; boot-menu-style: desktop user; battery-limit: 60-100|off; luks-*: /dev path')
     parser.add_argument("profile_user", nargs="?")
     args = parser.parse_args()
     # Read-only checks may run unprivileged (an unreadable EFI partition then
@@ -1283,12 +1366,12 @@ if __name__ == "__main__":
             luks_recovery_key(args.argument)
         elif args.action == "luks-tpm-remove":
             luks_tpm_remove(args.argument)
-        elif args.action == "snapshot-pre":
-            snapshot_pre()
+        elif args.action == "snapshot-update":
+            snapshot_update()
+        elif args.action == "snapshot-arm":
+            snapshot_arm()
         elif args.action == "snapshot-post":
-            if args.argument not in (None, "success", "failed"):
-                parser.error('snapshot-post outcome must be success or failed')
-            snapshot_post(args.argument or "success")
+            snapshot_post_legacy(args.argument or "success")
         elif args.action == "auth-enable":
             if args.argument not in ("fingerprint", "fido2", "password"):
                 parser.error('Authentication method required: fingerprint, fido2 or password')

@@ -2,17 +2,20 @@
 
 The terminal names each update check and snapshot stage while it runs. If everything is up to date, the message stays visible for three seconds before the terminal closes.
 
-Waiting steps in System Update show a spinning rune and flow with Bifröst rainbow text on truecolour terminals, or the theme accent otherwise, followed by translated Norse phrases and elapsed time. Successful steps settle as a plain check mark and step text.
+Update checks show a spinning rune and flow with Bifröst rainbow text on truecolour terminals, or the theme accent otherwise, followed by translated Norse phrases and elapsed time. Successful steps settle as a plain check mark and step text.
 
 Open Settings > Updates for System Update and Update Channel. Walker > Settings > System > Maintenance holds cleanup, mirrors and snapshots. Keep independent backups before system changes; snapshots are not an off-disk backup.
 
-System Update first checks official packages with checkupdates in a separate temporary database, AUR packages (including development packages), and user Flatpaks. When all checks confirm no updates, it exits without snapshots, upgrades or a restart prompt. If a check fails or a tool is missing, the normal update workflow continues.
+System Update first checks official packages with checkupdates in a separate temporary database, AUR packages (including development packages), and user Flatpaks. When all checks confirm no updates, it skips package upgrades. A pending one-time lockscreen package migration on a protected install still uses snapshots. If a check fails or a tool is missing, the normal update workflow continues.
 
 ## Update your system
 
 **Settings > Updates > System Update** is the normal complete package-update workflow.
 On a configured fresh EITR distro, it verifies snapshot support and creates
-pre/post snapshots with boot archives. If protection fails, no upgrade begins.
+pre/post snapshots with boot archives. One protected update can run at a time
+across all accounts. On the guided-install layout, Pacman arms the boot guard
+as package changes begin and aborts if arming fails. The guard stays armed if
+the update fails or is interrupted after that point.
 An existing Arch desktop without the distro policy does not require this setup
 just to update. System Update also updates apps installed from Flatpak, such as
 GeForce NOW; a Flatpak failure is reported without undoing the system update.
@@ -32,12 +35,13 @@ from Arch. Switching back to stable keeps a newer Eitr version until stable
 catches up. From a terminal: `eitr channel` shows it, `eitr channel testing` or
 `eitr channel stable` switches.
 
-If an update leaves the computer unable to start, the **boot guard** undoes it:
-when two starts in a row after an update never reach the login screen, the next
-start restores the system and boot files from just before the update and
-restarts. Your home folder is not touched, and the next login tells you what
-happened. It works on computers installed with the Eitr installer; see
-[Recovery & Snapshots](handbook:recovery) for the details.
+If two starts in a row after the package transaction fail to reach a stable
+graphical login screen or desktop session, the **boot guard** restores the
+system and boot files from just before the update on the third start. A
+working login screen counts even if nobody signs in. Waiting on the same
+start does not add a failure. Your home folder stays in place, and the next
+login tells you what happened. This works on computers installed with the Eitr
+installer. See [Recovery & Snapshots](handbook:recovery) for details.
 
 **Home folder snapshots** keep earlier versions of your own files: turn them on
 in **Walker > Settings > System > Maintenance > Snapshots > Home Folder Snapshots**. They are taken

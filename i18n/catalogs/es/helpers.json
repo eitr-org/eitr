@@ -1759,7 +1759,6 @@
   "via {host}{key}": "a través de {host}{key}",
   "waking Yggdrasil": "despertando a Yggdrasil",
   "warming the mead": "calentando el hidromiel",
-  "{FAILED} already exists from an earlier restore; nothing was changed": "{FAILED} ya existe de una restauración anterior; no se cambió nada",
   "{FINISH_UNIT} is missing; install the eitr-desktop package first": "Falta {FINISH_UNIT}; instala primero el paquete eitr-desktop",
   "{FIREWALL_RULES} is missing; update the eitr-desktop package first": "Falta {FIREWALL_RULES}; actualiza primero el paquete eitr-desktop",
   "{TARGET} is already mounted; unmount it before installing": "{TARGET} ya está montado; desmóntalo antes de instalar",
@@ -1856,5 +1855,12 @@
   "Invalid alarm.": "Alarma no válida.",
   "Missed alarm": "Alarma perdida",
   "Check for updates again": "Vuelve a buscar actualizaciones",
-  "Update metadata exceeds size limit": "Los metadatos de actualización superan el límite de tamaño"
+  "Update metadata exceeds size limit": "Los metadatos de actualización superan el límite de tamaño",
+  "Another System Update is running.": "Ya hay otra actualización del sistema en curso.",
+  "Cannot arm the boot guard without a snapshot and its boot files.": "Para activar la protección de arranque se necesita una instantánea con sus archivos de arranque.",
+  "Cannot create directory over existing file: {path}": "No se puede crear una carpeta sobre un archivo existente: {path}",
+  "Could not arm the boot guard. No package upgrade was started.": "No se pudo activar la protección de arranque. La actualización de paquetes no se ha iniciado.",
+  "The System Update package hook is missing.": "Falta el gancho de Pacman para la actualización del sistema.",
+  "The update transaction does not match the pending recovery point.": "La transacción de actualización no coincide con el punto de recuperación pendiente.",
+  "WiFi profiles changed during restore.": "Los perfiles WiFi cambiaron durante la restauración."
 }

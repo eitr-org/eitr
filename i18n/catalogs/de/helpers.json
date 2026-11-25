@@ -1759,7 +1759,6 @@
   "via {host}{key}": "über {host}{key}",
   "waking Yggdrasil": "Yggdrasil wecken",
   "warming the mead": "den Met wärmen",
-  "{FAILED} already exists from an earlier restore; nothing was changed": "{FAILED} ist von einer früheren Wiederherstellung vorhanden; nichts wurde geändert",
   "{FINISH_UNIT} is missing; install the eitr-desktop package first": "{FINISH_UNIT} fehlt; installieren Sie zuerst das Paket eitr-desktop",
   "{FIREWALL_RULES} is missing; update the eitr-desktop package first": "{FIREWALL_RULES} fehlt; aktualisieren Sie zuerst das Paket eitr-desktop",
   "{TARGET} is already mounted; unmount it before installing": "{TARGET} ist bereits eingehängt; vor der Installation aushängen",
@@ -1856,5 +1855,12 @@
   "Invalid alarm.": "Ungültiger Wecker.",
   "Missed alarm": "Verpasster Wecker",
   "Check for updates again": "Erneut nach Aktualisierungen suchen",
-  "Update metadata exceeds size limit": "Aktualisierungsdaten überschreiten das Größenlimit"
+  "Update metadata exceeds size limit": "Aktualisierungsdaten überschreiten das Größenlimit",
+  "Another System Update is running.": "Eine andere Systemaktualisierung läuft bereits.",
+  "Cannot arm the boot guard without a snapshot and its boot files.": "Der Startschutz benötigt einen Snapshot samt Startdateien.",
+  "Cannot create directory over existing file: {path}": "Ein Ordner kann die vorhandene Datei nicht ersetzen: {path}",
+  "Could not arm the boot guard. No package upgrade was started.": "Der Startschutz konnte nicht aktiviert werden. Die Paketaktualisierung wurde nicht gestartet.",
+  "The System Update package hook is missing.": "Der Pacman-Hook für die Systemaktualisierung fehlt.",
+  "The update transaction does not match the pending recovery point.": "Die Aktualisierungstransaktion stimmt nicht mit dem ausstehenden Wiederherstellungspunkt überein.",
+  "WiFi profiles changed during restore.": "Die WLAN-Profile wurden während der Wiederherstellung geändert."
 }

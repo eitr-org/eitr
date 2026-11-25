@@ -1,6 +1,10 @@
 {
   "limit": 400,
   "files": {
+    "distro/lib/eitr_backup/restore.py": {
+      "lines": 422,
+      "reason": "One restore and undo engine with target validation and durable journals."
+    },
     "distro/lib/eitr_plugin_install.py": {
       "lines": 1098,
       "reason": "One approved plugin transaction, including package provenance and shared ownership transfer."
@@ -22,11 +26,11 @@
       "reason": "One linear build script."
     },
     "distro/system/eitr-system.py": {
-      "lines": 1321,
-      "reason": "System action dispatcher; package transactions delegate to their narrow root module."
+      "lines": 1404,
+      "reason": "System action dispatcher including the root-owned snapshot transaction, its package hook and the previous release updater's snapshot-post."
     },
     "distro/system/factory-reset.py": {
-      "lines": 453,
+      "lines": 464,
       "reason": "One destructive transaction, kept together so it can be reviewed in one place."
     },
     "hypr/hyprland.lua": {

@@ -367,6 +367,9 @@ msgstr "被中断的出厂重置需要手动检查；请参阅 {MANUAL}"
 msgid "Another Ollama server is already using {host}. Stop it, then try again."
 msgstr "另一个 Ollama 服务器已在使用 {host}。请将其停止后再试。"
 
+msgid "Another System Update is running."
+msgstr "另一个系统更新正在运行。"
+
 msgid "Another picture: a file or an https address"
 msgstr "其他图片：文件或 https 地址"
 
@@ -703,8 +706,14 @@ msgstr "已取消；未更改任何内容"
 msgid "Cancelled; nothing was changed."
 msgstr "已取消；未更改任何内容。"
 
+msgid "Cannot arm the boot guard without a snapshot and its boot files."
+msgstr "启用启动保护需要快照及其启动文件。"
+
 msgid "Cannot change another user"
 msgstr "无法更改其他用户"
+
+msgid "Cannot create directory over existing file: {path}"
+msgstr "无法在现有文件的位置创建目录：{path}"
 
 msgid "Cannot demote an account with wheel as its primary group"
 msgstr "无法降级主用户组为 wheel 的账户"
@@ -1110,6 +1119,9 @@ msgstr "无法应用录制音频设置"
 
 msgid "Could not apply recording webcam settings"
 msgstr "无法应用录制摄像头设置"
+
+msgid "Could not arm the boot guard. No package upgrade was started."
+msgstr "无法启用启动保护。软件包更新尚未开始。"
 
 msgid "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 msgstr "无法迁移 {problem}；先前的用户主文件夹保留在 /{PREVIOUS} 以供检查。"
@@ -4231,6 +4243,9 @@ msgstr "Ollama 软件包仍处于安装状态；使用以下命令将其移除�
 msgid "The PC is short on memory and may feel slow; close apps you are not using."
 msgstr "电脑内存不足，可能会感觉运行缓慢；请关闭未使用的应用。"
 
+msgid "The System Update package hook is missing."
+msgstr "缺少系统更新所需的 Pacman 钩子。"
+
 msgid "The URL must not contain spaces, control characters or backslashes."
 msgstr "URL 不能包含空格、控制字符或反斜杠。"
 
@@ -4425,6 +4440,9 @@ msgstr "目前无法连接到测试仓库，因此未更改任何内容。请检
 
 msgid "The theme could not be applied."
 msgstr "无法应用主题。"
+
+msgid "The update transaction does not match the pending recovery point."
+msgstr "更新事务与待处理的恢复点不匹配。"
 
 msgid "The user service could not be loaded."
 msgstr "无法加载用户服务。"
@@ -5092,6 +5110,9 @@ msgstr "WiFi 配置文件超出大小限制：{path}"
 msgid "WiFi profile must be a regular file: {path}"
 msgstr "WiFi 配置文件必须是常规文件：{path}"
 
+msgid "WiFi profiles changed during restore."
+msgstr "Wi-Fi 配置在还原期间发生了变化。"
+
 msgid "Workspace details"
 msgstr "工作区详情"
 
@@ -5331,9 +5352,6 @@ msgstr "唤醒世界之树"
 
 msgid "warming the mead"
 msgstr "温热蜂蜜酒"
-
-msgid "{FAILED} already exists from an earlier restore; nothing was changed"
-msgstr "较早还原的 {FAILED} 已存在；未进行任何更改"
 
 msgid "{FINISH_UNIT} is missing; install the eitr-desktop package first"
 msgstr "缺少 {FINISH_UNIT}；请先安装 eitr-desktop 软件包"

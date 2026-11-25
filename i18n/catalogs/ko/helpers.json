@@ -1759,7 +1759,6 @@
   "via {host}{key}": "{host}{key} 경유",
   "waking Yggdrasil": "위그드라실을 깨우는 중",
   "warming the mead": "미드를 데우는 중",
-  "{FAILED} already exists from an earlier restore; nothing was changed": "{FAILED}이(가) 이전 복원 작업으로 이미 존재합니다. 변경된 사항이 없습니다",
   "{FINISH_UNIT} is missing; install the eitr-desktop package first": "{FINISH_UNIT}이(가) 누락되었습니다. 먼저 eitr-desktop 패키지를 설치하세요",
   "{FIREWALL_RULES} is missing; update the eitr-desktop package first": "{FIREWALL_RULES}이(가) 누락되었습니다. 먼저 eitr-desktop 패키지를 업데이트하세요",
   "{TARGET} is already mounted; unmount it before installing": "{TARGET}이(가) 이미 마운트되어 있습니다. 설치 전에 마운트를 해제하세요",
@@ -1856,5 +1855,12 @@
   "Invalid alarm.": "잘못된 알람입니다.",
   "Missed alarm": "놓친 알람",
   "Check for updates again": "업데이트를 다시 확인하세요",
-  "Update metadata exceeds size limit": "업데이트 메타데이터가 크기 제한을 초과했습니다"
+  "Update metadata exceeds size limit": "업데이트 메타데이터가 크기 제한을 초과했습니다",
+  "Another System Update is running.": "다른 시스템 업데이트가 실행 중입니다.",
+  "Cannot arm the boot guard without a snapshot and its boot files.": "부팅 보호를 활성화하려면 스냅샷과 해당 부팅 파일이 필요합니다.",
+  "Cannot create directory over existing file: {path}": "기존 파일 위치에 디렉터리를 만들 수 없습니다: {path}",
+  "Could not arm the boot guard. No package upgrade was started.": "부팅 보호를 활성화하지 못했습니다. 패키지 업데이트가 시작되지 않았습니다.",
+  "The System Update package hook is missing.": "시스템 업데이트용 Pacman 훅이 없습니다.",
+  "The update transaction does not match the pending recovery point.": "업데이트 트랜잭션이 대기 중인 복구 지점과 일치하지 않습니다.",
+  "WiFi profiles changed during restore.": "복원 중 Wi-Fi 프로필이 변경되었습니다."
 }

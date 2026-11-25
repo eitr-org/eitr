@@ -1460,7 +1460,6 @@
   "via {host}{key}": "via {host}{key}",
   "waking Yggdrasil": "waking Yggdrasil",
   "warming the mead": "warming the mead",
-  "{FAILED} already exists from an earlier restore; nothing was changed": "{FAILED} already exists from an earlier restore; nothing was changed",
   "{FINISH_UNIT} is missing; install the eitr-desktop package first": "{FINISH_UNIT} is missing; install the eitr-desktop package first",
   "{FIREWALL_RULES} is missing; update the eitr-desktop package first": "{FIREWALL_RULES} is missing; update the eitr-desktop package first",
   "{TARGET} is already mounted; unmount it before installing": "{TARGET} is already mounted; unmount it before installing",
@@ -1856,5 +1855,12 @@
   "Invalid alarm.": "Invalid alarm.",
   "Missed alarm": "Missed alarm",
   "Check for updates again": "Check for updates again",
-  "Update metadata exceeds size limit": "Update metadata exceeds size limit"
+  "Update metadata exceeds size limit": "Update metadata exceeds size limit",
+  "Another System Update is running.": "Another System Update is running.",
+  "Cannot arm the boot guard without a snapshot and its boot files.": "Cannot arm the boot guard without a snapshot and its boot files.",
+  "Cannot create directory over existing file: {path}": "Cannot create directory over existing file: {path}",
+  "Could not arm the boot guard. No package upgrade was started.": "Could not arm the boot guard. No package upgrade was started.",
+  "The System Update package hook is missing.": "The System Update package hook is missing.",
+  "The update transaction does not match the pending recovery point.": "The update transaction does not match the pending recovery point.",
+  "WiFi profiles changed during restore.": "WiFi profiles changed during restore."
 }

@@ -110,7 +110,7 @@ distro/vm-tests/eitr-vm-test boot-guard --work "$RUN"                 # after an
   on the same disk: the restore point stays.
 
 - **boot-guard** (on a disk that went through `update`) runs a second update,
-  then masks the login screen so starts fail. It checks that two failed starts
+  then masks the login screen so starts fail. A healthy start must have an active local graphical greeter or desktop session for 45 seconds. It checks that two failed starts
   are counted, that the third restores the update's before snapshot and restarts
   by itself, and that the restored system is healthy, disarmed, rid of the failed
   copy and ready to tell the next login.

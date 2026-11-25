@@ -2,7 +2,9 @@
 
 Snapshots are recovery points, **not off-machine backups**. A failed disk can
 destroy the system and its snapshots together. Keep independent backups: see
-[Backup and Restore](handbook:backup-restore) in the EITR Handbook (Settings > System > Backup and Restore, or `eitr backup`) for portable encrypted archives of your settings, folders and apps.
+[Backup and Restore](handbook:backup-restore) in the EITR Handbook (Settings > System > Backup and Restore, or `eitr backup`) for portable encrypted archives of your settings, folders and apps. Restore
+checks for destination conflicts first and records an undo point before
+replacing files, so an interrupted restore can be undone from the same tool.
 
 Eitr currently supports Snapper on a Btrfs root with `/usr`, `/etc` and
 `/var/lib/pacman` in the same root subvolume. `/home` may be separate: it is not
@@ -44,26 +46,36 @@ prevents updates rather than skipping protection.
 
 ## Boot guard
 
-After a successful System Update on Eitr's guided-install layout, the boot guard
-keeps that update's "before" snapshot ready (`/var/lib/eitr/boot-guard.json`).
-`eitr-boot-guard.service` counts each start early in boot, and
-`eitr-boot-guard-healthy.service` counts a start as healthy once the login screen
-has stayed up for 45 seconds, which disarms the guard.
+On Eitr's guided-install layout, Pacman arms the boot guard with System
+Update's "before" snapshot in `/var/lib/eitr/boot-guard.json` immediately before
+package changes. Failures or
+interruption after that point leave the guard armed. If the guard cannot arm,
+Pacman aborts and reports the error. The root helper admits one protected
+update at a time across accounts. A cancelled update or a failed sync leaves
+any earlier armed recovery point in place.
 
-When two starts in a row after the update never reach that point, the third start
-restores automatically, using the factory reset's tested steps:
+`eitr-boot-guard.service` counts each boot once. `eitr-boot-guard-healthy.service`
+disarms the guard when a local graphical greeter or desktop session stays
+active for 45 seconds. A working
+greeter counts without anyone signing in. Waiting at a broken greeter or on a
+text console does not add failed starts. After two failed starts in a row, the
+third start restores the system:
 
-1. The snapshot's boot files (`/var/lib/eitr/boot-backups/<number>/boot.tar`) are
-   copied to the EFI partition, after keeping today's boot files to put back.
-2. The failed root subvolume is renamed `@eitr-guard-failed`, a writable copy of
-   the snapshot becomes `@`, and Snapper's `.snapshots` store moves into it.
-3. The computer restarts into the restored system. If any step fails, the
-   subvolumes and boot files are put back as they were and nothing restarts.
+1. The guard saves the current EFI files before copying the snapshot's
+   `/var/lib/eitr/boot-backups/<number>/boot.tar` to the EFI partition.
+2. The failed root becomes `@eitr-guard-failed`, a writable copy of the
+   snapshot becomes `@`, and Snapper's `.snapshots` store moves into it.
+   An earlier failed root is moved aside with a unique suffix.
+3. The guard restarts the computer only after the EFI copy and root swap
+   commit. If either fails, it rolls both back. If rollback itself is
+   interrupted or fails, the saved EFI archive remains at
+   `.eitr-guard-rollback/boot.tar` on the Btrfs top level for live-media repair.
 
-The restored system deletes `@eitr-guard-failed` once it reaches the login
-screen, and the next login shows a notification. Home folders are not touched.
-The guard cannot help when the kernel itself does not start; boot the update's
-snapshot from the boot menu instead (below). Other disk layouts are never armed.
+The restored system removes `@eitr-guard-failed` and any suffixed copies after
+a healthy boot and
+shows a notice at the next login. Home folders stay in place. If the kernel
+cannot start, use the boot menu or live media as described below. Automatic
+recovery applies to the guided-install layout.
 
 ## Authentication changes
 

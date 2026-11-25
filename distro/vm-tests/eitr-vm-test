@@ -412,7 +412,15 @@ def boot_guard(arguments):
                       check=False).stdout.strip()
         check("the guard's services are enabled", enabled == "enabled", enabled)
         # An update whose before snapshot already has the guard installed.
-        sudo(work, "sudo /usr/lib/eitr/eitr-system snapshot-pre && sudo /usr/lib/eitr/eitr-system snapshot-post success")
+        sudo(work, """sudo bash -c '
+            coproc GUARD { /usr/lib/eitr/eitr-system snapshot-update; }
+            read -r token <&"${GUARD[0]}" &&
+            echo "$token ready" >&"${GUARD[1]}" &&
+            read -r ack <&"${GUARD[0]}" &&
+            /usr/lib/eitr/eitr-system snapshot-arm &&
+            echo "$token success" >&"${GUARD[1]}" &&
+            read -r ack <&"${GUARD[0]}"
+        '""")
         record = guard_record(work)
         check("a successful update arms it", record.get("starts") == 0 and str(record.get("snapshot", "")).isdigit(),
               record)

@@ -1,5 +1,5 @@
 [Unit]
-Description=Eitr boot guard (this start reached the login screen)
+Description=Eitr boot guard (wait for a stable graphical session)
 After=display-manager.service
 
 [Service]

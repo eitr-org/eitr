@@ -367,6 +367,9 @@ msgstr "Ein unterbrochenes Zurücksetzen auf den Werkszustand muss manuell gepr�
 msgid "Another Ollama server is already using {host}. Stop it, then try again."
 msgstr "Ein anderer Ollama-Server verwendet bereits {host}. Beende ihn und versuche es erneut."
 
+msgid "Another System Update is running."
+msgstr "Eine andere Systemaktualisierung läuft bereits."
+
 msgid "Another picture: a file or an https address"
 msgstr "Anderes Bild: Datei oder https-Adresse"
 
@@ -703,8 +706,14 @@ msgstr "Abgebrochen; nichts wurde geändert"
 msgid "Cancelled; nothing was changed."
 msgstr "Abgebrochen; nichts wurde geändert."
 
+msgid "Cannot arm the boot guard without a snapshot and its boot files."
+msgstr "Der Startschutz benötigt einen Snapshot samt Startdateien."
+
 msgid "Cannot change another user"
 msgstr "Ein anderer Benutzer darf nicht geändert werden"
+
+msgid "Cannot create directory over existing file: {path}"
+msgstr "Ein Ordner kann die vorhandene Datei nicht ersetzen: {path}"
 
 msgid "Cannot demote an account with wheel as its primary group"
 msgstr "Ein Konto mit wheel als primärer Gruppe kann nicht zum Standardkonto werden"
@@ -1110,6 +1119,9 @@ msgstr "Audioeinstellungen der Aufnahme konnten nicht angewendet werden"
 
 msgid "Could not apply recording webcam settings"
 msgstr "Kameraeinstellungen der Aufnahme konnten nicht angewendet werden"
+
+msgid "Could not arm the boot guard. No package upgrade was started."
+msgstr "Der Startschutz konnte nicht aktiviert werden. Die Paketaktualisierung wurde nicht gestartet."
 
 msgid "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 msgstr "{problem} konnte nicht übernommen werden; der bisherige persönliche Ordner bleibt zur Prüfung unter /{PREVIOUS} erhalten."
@@ -4231,6 +4243,9 @@ msgstr "Das Ollama-Paket ist noch installiert; entferne es mit: sudo pacman -R o
 msgid "The PC is short on memory and may feel slow; close apps you are not using."
 msgstr "Der PC hat wenig Arbeitsspeicher und kann langsam wirken; schließe Apps, die du nicht brauchst."
 
+msgid "The System Update package hook is missing."
+msgstr "Der Pacman-Hook für die Systemaktualisierung fehlt."
+
 msgid "The URL must not contain spaces, control characters or backslashes."
 msgstr "Die URL darf keine Leerzeichen, Steuerzeichen oder Rückwärtsschrägstriche enthalten."
 
@@ -4425,6 +4440,9 @@ msgstr "Das Test-Repository ist derzeit nicht erreichbar; nichts wurde geändert
 
 msgid "The theme could not be applied."
 msgstr "Das Design konnte nicht angewendet werden."
+
+msgid "The update transaction does not match the pending recovery point."
+msgstr "Die Aktualisierungstransaktion stimmt nicht mit dem ausstehenden Wiederherstellungspunkt überein."
 
 msgid "The user service could not be loaded."
 msgstr "Der Benutzerdienst konnte nicht geladen werden."
@@ -5092,6 +5110,9 @@ msgstr "WiFi-Profil überschreitet Größenlimit: {path}"
 msgid "WiFi profile must be a regular file: {path}"
 msgstr "WiFi-Profil muss eine reguläre Datei sein: {path}"
 
+msgid "WiFi profiles changed during restore."
+msgstr "Die WLAN-Profile wurden während der Wiederherstellung geändert."
+
 msgid "Workspace details"
 msgstr "Arbeitsbereichdetails"
 
@@ -5331,9 +5352,6 @@ msgstr "Yggdrasil wecken"
 
 msgid "warming the mead"
 msgstr "den Met wärmen"
-
-msgid "{FAILED} already exists from an earlier restore; nothing was changed"
-msgstr "{FAILED} ist von einer früheren Wiederherstellung vorhanden; nichts wurde geändert"
 
 msgid "{FINISH_UNIT} is missing; install the eitr-desktop package first"
 msgstr "{FINISH_UNIT} fehlt; installieren Sie zuerst das Paket eitr-desktop"

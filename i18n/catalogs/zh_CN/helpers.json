@@ -1759,7 +1759,6 @@
   "via {host}{key}": "通过 {host}{key}",
   "waking Yggdrasil": "唤醒世界之树",
   "warming the mead": "温热蜂蜜酒",
-  "{FAILED} already exists from an earlier restore; nothing was changed": "较早还原的 {FAILED} 已存在；未进行任何更改",
   "{FINISH_UNIT} is missing; install the eitr-desktop package first": "缺少 {FINISH_UNIT}；请先安装 eitr-desktop 软件包",
   "{FIREWALL_RULES} is missing; update the eitr-desktop package first": "缺少 {FIREWALL_RULES}；请先更新 eitr-desktop 软件包",
   "{TARGET} is already mounted; unmount it before installing": "{TARGET} 已挂载；请在安装前将其卸载",
@@ -1856,5 +1855,12 @@
   "Invalid alarm.": "无效的闹钟。",
   "Missed alarm": "错过的闹钟",
   "Check for updates again": "请重新检查更新",
-  "Update metadata exceeds size limit": "更新元数据超出大小限制"
+  "Update metadata exceeds size limit": "更新元数据超出大小限制",
+  "Another System Update is running.": "另一个系统更新正在运行。",
+  "Cannot arm the boot guard without a snapshot and its boot files.": "启用启动保护需要快照及其启动文件。",
+  "Cannot create directory over existing file: {path}": "无法在现有文件的位置创建目录：{path}",
+  "Could not arm the boot guard. No package upgrade was started.": "无法启用启动保护。软件包更新尚未开始。",
+  "The System Update package hook is missing.": "缺少系统更新所需的 Pacman 钩子。",
+  "The update transaction does not match the pending recovery point.": "更新事务与待处理的恢复点不匹配。",
+  "WiFi profiles changed during restore.": "Wi-Fi 配置在还原期间发生了变化。"
 }

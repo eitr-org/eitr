@@ -21,15 +21,15 @@ Las nuevas configuraciones de Snapper conservan hasta 10 instantáneas numeradas
 
 ## Protección del arranque
 
-Tras una actualización correcta del sistema en el esquema de la instalación guiada de Eitr, la protección del arranque deja preparada la instantánea anterior a esa actualización (`/var/lib/eitr/boot-guard.json`). `eitr-boot-guard.service` cuenta cada intento al inicio del arranque. `eitr-boot-guard-healthy.service` considera correcto un arranque cuando la pantalla de inicio de sesión lleva abierta 45 segundos y desactiva la protección.
+En una instalación guiada de Eitr, Pacman activa la protección del arranque con la instantánea anterior a la actualización (`/var/lib/eitr/boot-guard.json`) justo antes de cambiar paquetes. La protección sigue activa si después se produce un error o una interrupción. Si no puede activarla, Pacman se detiene y muestra el error. Solo se admite una actualización protegida a la vez por equipo. Cancelar antes de cambiar paquetes o un fallo de sincronización conserva la protección anterior.
 
-Si dos arranques consecutivos tras la actualización no alcanzan ese punto, el tercero restaura automáticamente siguiendo los pasos probados del restablecimiento de fábrica:
+`eitr-boot-guard.service` cuenta cada arranque una sola vez. `eitr-boot-guard-healthy.service` desactiva la protección cuando una pantalla gráfica de inicio de sesión local o una sesión de escritorio permanece activa 45 segundos. Basta con una pantalla de inicio de sesión funcional. La espera durante el mismo arranque no suma fallos. Después de dos arranques fallidos, el tercero restaura el sistema.
 
-1. Copia los archivos de arranque de la instantánea (`/var/lib/eitr/boot-backups/<number>/boot.tar`) a la partición EFI, tras guardar los actuales por si es necesario recuperarlos.
-2. Renombra el subvolumen raíz fallido a `@eitr-guard-failed`; una copia escribible de la instantánea pasa a ser `@` y el almacén `.snapshots` de Snapper se traslada a ella.
-3. El equipo reinicia en el sistema restaurado. Si falla cualquier paso, los subvolúmenes y archivos de arranque vuelven a su estado anterior y no se reinicia.
+1. La protección guarda los archivos EFI actuales y copia `/var/lib/eitr/boot-backups/<number>/boot.tar` en la partición EFI.
+2. El subvolumen raíz fallido pasa a llamarse `@eitr-guard-failed`. Una copia escribible de la instantánea pasa a ser `@` y recibe el almacén `.snapshots` de Snapper. Cualquier raíz fallida anterior se aparta con un sufijo único.
+3. El equipo se reinicia cuando se han completado la copia EFI y el cambio de raíz. Si falla uno de estos pasos, se revierten ambos. Si la reversión falla o se interrumpe, el archivo EFI queda en `.eitr-guard-rollback/boot.tar`, en el nivel superior de Btrfs, para reparar desde un medio en vivo.
 
-El sistema restaurado elimina `@eitr-guard-failed` al llegar a la pantalla de inicio de sesión; la siguiente sesión muestra una notificación. Las carpetas personales no se modifican. Esta protección no puede ayudar si el propio kernel no arranca: inicia la instantánea de la actualización desde el menú de arranque (más abajo). Nunca se activa para otros esquemas de disco.
+Después de un arranque correcto, el sistema restaurado elimina `@eitr-guard-failed` y las copias con sufijo. La siguiente sesión muestra un aviso. Las carpetas personales se conservan. Si el núcleo no arranca, usa el menú de arranque o un medio en vivo. La recuperación automática se aplica al esquema de instalación guiada.
 
 ## Cambios de autenticación
 

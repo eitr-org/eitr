@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path, PurePosixPath
 import re
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -159,6 +160,25 @@ class GuidedInstallTests(unittest.TestCase):
         allowed, reason = guided.alongside_status(WINDOWS_TABLE, (100, 20 * 1024))
         self.assertFalse(allowed)
         self.assertIn("Shrink a partition", reason)
+
+    @unittest.skipUnless(shutil.which("sfdisk"), "sfdisk is required")
+    def test_mixed_scan_keeps_real_mbr_disk_available_for_erase(self):
+        with tempfile.TemporaryDirectory() as directory:
+            image = Path(directory) / "mbr.img"
+            with image.open("wb") as disk:
+                disk.truncate(DISK["size"])
+            subprocess.run(["sfdisk", str(image)], input="label: dos\nsize=1MiB, type=83\n",
+                           text=True, check=True, capture_output=True)
+            mbr = json.loads(subprocess.check_output(["sfdisk", "--json", str(image)]))["partitiontable"]
+        self.assertNotIn("firstlba", mbr)
+        devices = [dict(DISK, path=path, type="disk") for path in ("/dev/mbr", "/dev/gpt")]
+        dos_disk, gpt_disk = guided.candidate_disks({"blockdevices": devices}, set(),
+                                                    {"/dev/mbr": mbr, "/dev/gpt": WINDOWS_TABLE})
+        self.assertFalse(dos_disk["alongside"])
+        self.assertIn("MBR", guided.alongside_status(mbr, dos_disk["free_region"])[1])
+        self.assertTrue(guided.build_config(TEMPLATE, dos_disk)["disk_config"]["device_modifications"][0]["wipe"])
+        self.assertTrue(gpt_disk["alongside"])
+        self.assertGreater(gpt_disk["free_region"][1], 0)
 
     def test_alongside_config_keeps_existing_partitions_and_uses_a_boot_entry(self):
         region = guided.free_region(WINDOWS_TABLE, 512)

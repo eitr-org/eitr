@@ -262,10 +262,51 @@ class BackupRestoreTests(unittest.TestCase):
             (home / "Documents/keys").symlink_to(home / ".ssh")
             (home / "Documents/outside").symlink_to(Path(directory))
             (home / "Documents/inside").symlink_to(home / "Documents/sub")
-            for link in ("keys", "outside"):
+            for link in ("keys", "outside", "inside"):
                 with self.assertRaises(BackupError):
                     _check_target_parents(home / "Documents" / link / "authorized_keys", home)
-            _check_target_parents(home / "Documents/inside/notes.txt", home)
+
+    def test_restore_preflights_second_target_before_replacing_first(self):
+        from eitr_backup import restore
+        from eitr_backup.archive import StagedFile
+        home = self.root / "target"
+        home.mkdir()
+        (home / "first").write_text("original")
+        (home / "second").mkdir()
+        stage = self.root / "stage"
+        stage.write_text("replacement")
+        (home / "linked").symlink_to(home / "second")
+        for conflict in ("second", "linked/child", "first/child"):
+            items = [StagedFile(name, "eitr_settings", 0o600, False, None, stage) for name in ("first", conflict)]
+            with self.subTest(conflict=conflict), self.assertRaises(BackupError):
+                restore.restore_files(items, home=home, state_dir=self.root / "state")
+            self.assertEqual((home / "first").read_text(), "original")
+            self.assertFalse(restore.list_undo_points(self.root / "state"))
+
+    def test_restore_journals_before_writing_and_undo_works_after_failure(self):
+        from eitr_backup import restore
+        from eitr_backup.archive import StagedFile
+        home = self.root / "target"
+        home.mkdir()
+        (home / "first").write_text("original")
+        stage = self.root / "stage"
+        stage.write_text("replacement")
+        state = self.root / "state"
+        items = [StagedFile(name, "eitr_settings", 0o600, False, None, stage) for name in ("first", "second")]
+        original_write = restore._atomic_write_from_stage
+
+        def interrupted(item, target):
+            original_write(item, target)
+            raise OSError("interrupted after replacing the first file")
+
+        with patch.object(restore, "_atomic_write_from_stage", side_effect=interrupted), self.assertRaises(OSError):
+            restore.restore_files(items, home=home, state_dir=state)
+        (point,) = restore.list_undo_points(state)
+        self.assertEqual((home / "first").read_text(), "replacement")
+        with patch.object(restore, "regenerate_and_reload"):
+            undo_restore(point["id"], home=home, state_dir=state)
+        self.assertEqual((home / "first").read_text(), "original")
+        self.assertFalse((home / "second").exists())
 
     def test_roundtrip_cross_user_wrong_passphrase_permissions_and_undo(self):
         alice = self.root / "alice"

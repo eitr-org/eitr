@@ -48,6 +48,7 @@ eitr backup undo <id>
 ```
 
 `<id>` findest du in **Einstellungen > System > Sicherung und Wiederherstellung** oder über `eitr-backup status`. Undo stellt ersetzte Dateien (einschließlich geheimer Dateien, GPG-Schlüsselbund und WiFi-Profile) wieder her, entfernt neu angelegte Dateien und regeneriert Designs.
+Vor dem Ersetzen von Dateien prüft die Wiederherstellung die Ziele auf Konflikte, etwa Verzeichnisse anstelle von Dateien oder symbolisch verlinkte übergeordnete Ordner. Wird der Vorgang unterbrochen, findest du den Rückgängig-Punkt in derselben Liste.
 
 ## CLI-Übersicht
 

@@ -6,6 +6,7 @@ import argparse
 import base64
 import configparser
 import io
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -196,16 +197,13 @@ def validate_wifi_profile_name(backend, name):
 
 
 def _profile_dir(backend):
-    if backend == "iwd":
-        if IWD.is_symlink():
-            raise RuntimeError(tr('Refusing to replace custom symlink: {path}', path=f'{IWD}'))
-        return IWD
-    nm_parent = ETC / "NetworkManager"
-    nm_dir = nm_parent / "system-connections"
-    for check_path in (ETC, nm_parent, nm_dir):
+    directory = IWD if backend == "iwd" else ETC / "NetworkManager/system-connections"
+    for check_path in (*reversed(directory.parents), directory):
         if check_path.is_symlink():
             raise RuntimeError(tr('Refusing to replace custom symlink: {path}', path=f'{check_path}'))
-    return nm_dir
+        if check_path.exists() and not check_path.is_dir():
+            raise ValueError(tr('WiFi profile directory is not a folder: {path}', path=f'{check_path}'))
+    return directory
 
 
 def _read_regular_profile(path):
@@ -319,9 +317,11 @@ def import_wifi(request):
         removals.append((backend, name, target))
 
     previous = []
-    for backend, name, raw, target in validated:
+    for backend, name, _raw, target in validated:
         if target.exists():
             old_bytes = _read_regular_profile(target)
+            if not is_wifi_profile(backend, old_bytes):
+                raise ValueError(tr('Not a WiFi profile: {path}', path=name))
             previous.append({
                 "backend": backend,
                 "name": name,
@@ -330,11 +330,19 @@ def import_wifi(request):
             })
         else:
             previous.append({"backend": backend, "name": name, "existed": False})
+    if request.get("preview") or "previous_token" in request:
+        token = hashlib.sha256(json.dumps(previous, sort_keys=True).encode()).hexdigest()
+        if request.get("preview"):
+            return {"previous": previous, "previous_token": token}
+        if request["previous_token"] != token:
+            raise RuntimeError(tr('WiFi profiles changed during restore.'))
+    for _backend, _name, raw, target in validated:
         atomic_bytes(target, raw, 0o600)
 
-    for _backend, _name, target in removals:
+    for backend, name, target in removals:
         if target.exists():
-            _read_regular_profile(target)
+            if not is_wifi_profile(backend, _read_regular_profile(target)):
+                raise ValueError(tr('Not a WiFi profile: {path}', path=name))
             target.unlink()
 
     if any(backend == "networkmanager" for backend, *_ in validated + removals):

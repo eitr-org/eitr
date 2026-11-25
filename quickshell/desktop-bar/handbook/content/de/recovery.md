@@ -19,15 +19,15 @@ Neue Snapper-Konfigurationen behalten über den Bereinigungs-Timer bis zu 10 nor
 
 ## Startschutz
 
-Nach einer erfolgreichen Systemaktualisierung auf einer geführten Eitr-Installation hält der Startschutz den Vorher-Snapshot der Aktualisierung bereit (`/var/lib/eitr/boot-guard.json`). `eitr-boot-guard.service` zählt jeden Start früh im Startvorgang. `eitr-boot-guard-healthy.service` wertet ihn als erfolgreich, sobald der Anmeldebildschirm 45 Sekunden lang geöffnet war; damit wird der Schutz deaktiviert.
+Bei einer geführten Eitr-Installation aktiviert Pacman den Startschutz unmittelbar vor Paketänderungen mit dem Vorher-Snapshot der Systemaktualisierung (`/var/lib/eitr/boot-guard.json`). Der Schutz bleibt bei Fehlern oder einem Abbruch nach diesem Zeitpunkt aktiv. Schlägt die Aktivierung fehl, bricht Pacman ab und meldet den Fehler. Pro Rechner ist nur eine geschützte Aktualisierung gleichzeitig möglich. Ein Abbruch vor Paketänderungen oder eine fehlgeschlagene Synchronisierung lässt einen früheren Schutz bestehen.
 
-Erreichen zwei aufeinanderfolgende Starts nach der Aktualisierung diesen Punkt nicht, stellt der dritte Start automatisch wieder her. Dabei werden die getesteten Schritte des Zurücksetzens auf Werkseinstellungen verwendet:
+`eitr-boot-guard.service` zählt jeden Start einmal. `eitr-boot-guard-healthy.service` deaktiviert den Schutz, wenn ein lokaler grafischer Anmeldebildschirm oder eine Desktop-Sitzung 45 Sekunden aktiv bleibt. Ein funktionierender Anmeldebildschirm genügt ohne Anmeldung. Warten beim selben Start erhöht den Fehlerzähler nicht. Nach zwei fehlgeschlagenen Starts stellt der dritte das System wieder her.
 
-1. Die Startdateien des Snapshots (`/var/lib/eitr/boot-backups/<number>/boot.tar`) werden auf die EFI-Partition kopiert, nachdem die aktuellen Dateien zur möglichen Rücknahme gesichert wurden.
-2. Das fehlgeschlagene Root-Subvolume wird in `@eitr-guard-failed` umbenannt. Eine beschreibbare Snapshot-Kopie wird zu `@`; Snappers Speicher `.snapshots` wird dorthin verschoben.
-3. Der Rechner startet mit dem wiederhergestellten System neu. Scheitert ein Schritt, werden Subvolumes und Startdateien in ihren vorherigen Zustand versetzt; es erfolgt kein Neustart.
+1. Der Startschutz sichert die aktuellen EFI-Dateien, bevor er `/var/lib/eitr/boot-backups/<number>/boot.tar` auf die EFI-Partition kopiert.
+2. Das fehlerhafte Root-Subvolume wird zu `@eitr-guard-failed`. Eine beschreibbare Snapshot-Kopie wird zu `@` und übernimmt Snappers Speicher `.snapshots`. Ein früheres fehlerhaftes Subvolume erhält einen eindeutigen Namenszusatz.
+3. Erst wenn EFI-Kopie und Root-Wechsel abgeschlossen sind, startet der Rechner neu. Schlägt einer der Schritte fehl, werden beide rückgängig gemacht. Scheitert oder stoppt auch das Rückgängigmachen, bleibt das EFI-Archiv für eine Reparatur vom Live-Medium unter `.eitr-guard-rollback/boot.tar` auf der obersten Btrfs-Ebene erhalten.
 
-Das wiederhergestellte System löscht `@eitr-guard-failed`, sobald es den Anmeldebildschirm erreicht. Bei der nächsten Anmeldung erscheint eine Benachrichtigung. Persönliche Ordner bleiben unverändert. Startet der Kernel selbst nicht, hilft dieser Schutz nicht. Starte stattdessen den Snapshot der Aktualisierung über das Startmenü (unten). Bei anderen Laufwerksanordnungen wird der Schutz nie aktiviert.
+Nach einem erfolgreichen Start entfernt das wiederhergestellte System `@eitr-guard-failed` und Kopien mit Namenszusatz. Bei der nächsten Anmeldung erscheint ein Hinweis. Persönliche Ordner bleiben erhalten. Wenn der Kernel nicht startet, verwende das Startmenü oder ein Live-Medium. Die automatische Wiederherstellung gilt für geführte Installationen.
 
 ## Änderungen an der Authentifizierung
 

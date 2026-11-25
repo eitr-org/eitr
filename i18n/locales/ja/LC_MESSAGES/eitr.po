@@ -367,6 +367,9 @@ msgstr "中断された出荷時リセットには手動での確認が必要で
 msgid "Another Ollama server is already using {host}. Stop it, then try again."
 msgstr "別のOllamaサーバーが既に {host} を使用しています。停止してから再試行してください。"
 
+msgid "Another System Update is running."
+msgstr "別のシステムアップデートが実行中です。"
+
 msgid "Another picture: a file or an https address"
 msgstr "別の画像: ファイルまたは https アドレス"
 
@@ -703,8 +706,14 @@ msgstr "キャンセルしました。何も変更されませんでした"
 msgid "Cancelled; nothing was changed."
 msgstr "キャンセルしました。何も変更されませんでした。"
 
+msgid "Cannot arm the boot guard without a snapshot and its boot files."
+msgstr "起動ガードを有効にするには、スナップショットとその起動ファイルが必要です。"
+
 msgid "Cannot change another user"
 msgstr "他のユーザーを変更することはできません"
+
+msgid "Cannot create directory over existing file: {path}"
+msgstr "既存のファイルの場所にディレクトリを作成できません: {path}"
 
 msgid "Cannot demote an account with wheel as its primary group"
 msgstr "wheel をプライマリグループとするアカウントを降格することはできません"
@@ -1110,6 +1119,9 @@ msgstr "録音のオーディオ設定を適用できませんでした"
 
 msgid "Could not apply recording webcam settings"
 msgstr "録画のWebカメラ設定を適用できませんでした"
+
+msgid "Could not arm the boot guard. No package upgrade was started."
+msgstr "起動ガードを有効にできませんでした。パッケージの更新は開始されていません。"
 
 msgid "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 msgstr "{problem} を引き継ぐことができませんでした。以前のホームフォルダーは確認用として /{PREVIOUS} に保持されています。"
@@ -4231,6 +4243,9 @@ msgstr "Ollamaパッケージがまだインストールされています。次
 msgid "The PC is short on memory and may feel slow; close apps you are not using."
 msgstr "PCのメモリが不足しており、動作が遅くなる可能性があります。使用していないアプリを閉じてください。"
 
+msgid "The System Update package hook is missing."
+msgstr "システムアップデート用の Pacman フックがありません。"
+
 msgid "The URL must not contain spaces, control characters or backslashes."
 msgstr "URLにスペース、制御文字、バックスラッシュを含めることはできません。"
 
@@ -4425,6 +4440,9 @@ msgstr "現在テストリポジトリにアクセスできないため、何も
 
 msgid "The theme could not be applied."
 msgstr "テーマを適用できませんでした。"
+
+msgid "The update transaction does not match the pending recovery point."
+msgstr "更新トランザクションが保留中の復旧ポイントと一致しません。"
 
 msgid "The user service could not be loaded."
 msgstr "ユーザーサービスを読み込めませんでした。"
@@ -5092,6 +5110,9 @@ msgstr "WiFi プロファイルがサイズ上限を超えています: {path}"
 msgid "WiFi profile must be a regular file: {path}"
 msgstr "WiFi プロファイルは通常ファイルである必要があります: {path}"
 
+msgid "WiFi profiles changed during restore."
+msgstr "復元中に Wi-Fi プロファイルが変更されました。"
+
 msgid "Workspace details"
 msgstr "ワークスペースの詳細"
 
@@ -5331,9 +5352,6 @@ msgstr "ユグドラシルを目覚めさせています"
 
 msgid "warming the mead"
 msgstr "蜂蜜酒を温めています"
-
-msgid "{FAILED} already exists from an earlier restore; nothing was changed"
-msgstr "以前の復元による {FAILED} がすでに存在します。何も変更されませんでした"
 
 msgid "{FINISH_UNIT} is missing; install the eitr-desktop package first"
 msgstr "{FINISH_UNIT} が見つかりません。最初に eitr-desktop パッケージをインストールしてください"

@@ -23,15 +23,15 @@ Les nouvelles configurations Snapper conservent jusqu’à 10 instantanés numé
 
 ## Protection du démarrage
 
-Après une mise à jour système réussie avec la disposition de l’installation guidée d’Eitr, la protection du démarrage garde prêt l’instantané avant cette mise à jour (`/var/lib/eitr/boot-guard.json`). `eitr-boot-guard.service` compte chaque tentative au début du démarrage. `eitr-boot-guard-healthy.service` la considère réussie lorsque l’écran de connexion est resté affiché 45 secondes, ce qui désarme la protection.
+Sur une installation guidée d’Eitr, Pacman active la protection juste avant de modifier les paquets, avec l’instantané précédent (`/var/lib/eitr/boot-guard.json`). Elle reste active si l’opération échoue ou s’interrompt ensuite. Si l’activation échoue, Pacman s’arrête et signale l’erreur. Une seule mise à jour protégée peut s’exécuter par machine. Une annulation avant modification des paquets ou un échec de synchronisation conserve la protection précédente.
 
-Si deux démarrages consécutifs après la mise à jour n’atteignent pas ce stade, le troisième restaure automatiquement le système avec les étapes testées de la réinitialisation d’usine :
+`eitr-boot-guard.service` compte chaque démarrage une seule fois. `eitr-boot-guard-healthy.service` désactive la protection quand un écran de connexion graphique local ou une session de bureau reste actif pendant 45 secondes. Un écran de connexion opérationnel suffit. Attendre pendant le même démarrage n’ajoute aucun échec. Après deux échecs, le troisième démarrage restaure le système.
 
-1. Les fichiers de démarrage de l’instantané (`/var/lib/eitr/boot-backups/<number>/boot.tar`) sont copiés sur la partition EFI après avoir conservé les fichiers actuels pour pouvoir les remettre.
-2. Le sous-volume racine défaillant est renommé `@eitr-guard-failed`. Une copie accessible en écriture de l’instantané devient `@`, et le stockage `.snapshots` de Snapper y est déplacé.
-3. L’ordinateur redémarre sur le système restauré. Si une étape échoue, les sous-volumes et fichiers de démarrage sont remis dans leur état initial et aucun redémarrage n’a lieu.
+1. La protection sauvegarde les fichiers EFI actuels, puis copie `/var/lib/eitr/boot-backups/<number>/boot.tar` sur la partition EFI.
+2. Le sous-volume racine défaillant devient `@eitr-guard-failed`. Une copie accessible en écriture de l’instantané devient `@` et reçoit le stockage `.snapshots` de Snapper. Une racine défaillante conservée est renommée avec un suffixe unique.
+3. L’ordinateur redémarre une fois la copie EFI et le remplacement de la racine terminés. Si une étape échoue, les deux sont annulées. Si cette annulation échoue ou est interrompue, l’archive EFI reste dans `.eitr-guard-rollback/boot.tar`, au niveau supérieur de Btrfs, pour une réparation depuis un support autonome.
 
-Le système restauré supprime `@eitr-guard-failed` lorsqu’il atteint l’écran de connexion ; la prochaine connexion affiche une notification. Les dossiers personnels restent intacts. Cette protection ne peut pas aider si le noyau lui-même ne démarre pas. Démarrez alors l’instantané de la mise à jour depuis le menu de démarrage (ci-dessous). Cette protection n’est jamais activée pour les autres dispositions de disque.
+Après un démarrage réussi, le système restauré supprime `@eitr-guard-failed` et les copies suffixées. La prochaine connexion affiche un avis. Les dossiers personnels sont conservés. Si le noyau ne démarre pas, utilisez le menu de démarrage ou un support autonome. La récupération automatique concerne l’installation guidée.
 
 ## Changements d’authentification
 

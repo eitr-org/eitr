@@ -7957,6 +7957,10 @@
     "Another Ollama server is already using {host}. Stop it, then try again.": [
       "distro/lib/eitr_local_assistant.py"
     ],
+    "Another System Update is running.": [
+      "distro/system/eitr-system.py",
+      "walker/scripts/actions/system/update.sh"
+    ],
     "Another picture: a file or an https address": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -8297,8 +8301,14 @@
     "Cancelled; nothing was changed.": [
       "walker/scripts/actions/system/factory-reset.py"
     ],
+    "Cannot arm the boot guard without a snapshot and its boot files.": [
+      "distro/system/boot-guard.py"
+    ],
     "Cannot change another user": [
       "distro/system/eitr_remote.py"
+    ],
+    "Cannot create directory over existing file: {path}": [
+      "distro/lib/eitr_backup/restore.py"
     ],
     "Cannot demote an account with wheel as its primary group": [
       "distro/lib/eitr_accounts.py"
@@ -8714,6 +8724,9 @@
     ],
     "Could not apply recording webcam settings": [
       "quickshell/desktop-bar/scripts/obs_options.py"
+    ],
+    "Could not arm the boot guard. No package upgrade was started.": [
+      "distro/system/eitr-system.py"
     ],
     "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.": [
       "distro/system/factory-reset.py"
@@ -11906,6 +11919,9 @@
     "The PC is short on memory and may feel slow; close apps you are not using.": [
       "distro/lib/eitr_selfcheck.py"
     ],
+    "The System Update package hook is missing.": [
+      "distro/system/eitr-system.py"
+    ],
     "The URL must not contain spaces, control characters or backslashes.": [
       "walker/scripts/actions/install/webapps.py"
     ],
@@ -12111,6 +12127,9 @@
     ],
     "The theme could not be applied.": [
       "walker/scripts/actions/style/own.py"
+    ],
+    "The update transaction does not match the pending recovery point.": [
+      "distro/system/eitr-system.py"
     ],
     "The user service could not be loaded.": [
       "distro/lib/eitr_local_assistant.py"
@@ -12788,6 +12807,9 @@
     "WiFi profile must be a regular file: {path}": [
       "distro/system/network-backend.py"
     ],
+    "WiFi profiles changed during restore.": [
+      "distro/system/network-backend.py"
+    ],
     "Workspace details": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
@@ -13031,9 +13053,6 @@
     ],
     "warming the mead": [
       "distro/lib/spinner.sh"
-    ],
-    "{FAILED} already exists from an earlier restore; nothing was changed": [
-      "distro/system/boot-guard.py"
     ],
     "{FINISH_UNIT} is missing; install the eitr-desktop package first": [
       "distro/system/factory-reset.py"

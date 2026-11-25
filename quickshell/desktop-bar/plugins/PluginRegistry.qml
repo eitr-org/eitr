@@ -15,7 +15,7 @@ QtObject {
     property var entries: []
     property var installed: []
     property bool snapshotLoaded: false
-    readonly property bool refreshing: query.running || pending
+    readonly property bool refreshing: Boolean(query.running || pending)
     readonly property string installedRevision: snapshotLoaded ? JSON.stringify(installed.map(plugin =>
         JSON.stringify([plugin.id, plugin.commit])).sort()) : ""
     // Session diagnostics only: never persist arbitrary plugin messages.

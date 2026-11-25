@@ -50,6 +50,9 @@ eitr backup undo <id>
 ```
 
 Find `<id>` in **Settings > System > Backup and Restore** or with `eitr-backup status`. Undo puts replaced files (including secret files, GPG keyring files and WiFi profiles) back, removes newly added files and regenerates desktop theme outputs.
+Restore checks for target conflicts, including directories in place of files and
+symlinked parent folders, before replacing files. If it stops partway through,
+look for the undo point in the same list.
 
 ## CLI reference
 

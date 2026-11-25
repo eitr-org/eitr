@@ -563,7 +563,11 @@ an old `/usr/local/lib/eitr/eitr-system` once the packaged helper is installed.
 Run from this repo, as the normal desktop user. If setup rejects the layout,
 stop; do not bypass its protection. The initial dependency bootstrap above is
 not protected before that policy is enabled. Thereafter, System Update requires
-successful snapshot creation before upgrading. Terminal commands `eitr update pacman|aur|full` are unprotected.
+successful snapshot creation before upgrading and allows one protected
+transaction across all accounts. On the guided-install layout, the Pacman
+pre-transaction hook arms boot recovery before package writes. An arm failure
+aborts the transaction, and errors after package changes start leave recovery
+armed. Terminal commands `eitr update pacman|aur|full` are unprotected.
 Existing desktops without the policy still update normally.
 If you installed the old Eitr hooks manually, remove only
 `/etc/pacman.d/hooks/05-eitr-snapshot-pre.hook` and

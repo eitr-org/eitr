@@ -314,9 +314,20 @@ def prepare_root(root, current_shadow):
     link.symlink_to(f"/usr/lib/systemd/system/{FINISH_UNIT}")
 
 
-def copy_boot(source):
+def copy_boot(source, *, undo_source=None):
     """Overwrite the EFI partition's files with those under source. Extra files
     such as snapshot kernels stay; the restored menu no longer lists them."""
+    if undo_source is not None:
+        # Drop only paths introduced by the attempted copy, deepest first.
+        boot = Path("/boot")
+        for entry in sorted(undo_source.rglob("*"), key=lambda path: len(path.parts), reverse=True):
+            relative = entry.relative_to(undo_source)
+            target = boot / relative
+            if not (source / relative).exists() and target.exists():
+                if target.is_dir():
+                    target.rmdir()
+                else:
+                    target.unlink()
     run(["cp", "-rT", str(source), "/boot"])
     run(["sync", "-f", "/boot"])
 

@@ -139,7 +139,7 @@ def candidate_disks(lsblk, excluded, tables):
             continue
         sector_size = int(device.get("log-sec") or 512)
         table = tables.get(device["path"])
-        region = free_region(table, sector_size) if table else (0, 0)
+        region = free_region(table, sector_size) if table and table.get("label") == "gpt" else (0, 0)
         alongside, reason = alongside_status(table, region)
         disks.append({
             "path": device["path"],

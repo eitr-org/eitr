@@ -48,6 +48,7 @@ eitr backup undo <id>
 ```
 
 Retrouvez `<id>` dans **Paramètres > Système > Sauvegarde et restauration** ou via `eitr-backup status`. Undo rétablit les fichiers précédents (y compris les fichiers secrets, le trousseau GPG et les profils WiFi), supprime ceux ajoutés et régénère les thèmes.
+Avant de remplacer les fichiers, la restauration vérifie les conflits à leur emplacement, comme un dossier à la place d’un fichier ou un dossier parent qui est un lien symbolique. Si l’opération est interrompue, le point d’annulation figure dans la même liste.
 
 ## Référence CLI
 

@@ -367,6 +367,9 @@ msgstr "중단된 공장 초기화는 수동 검토가 필요합니다. {MANUAL}
 msgid "Another Ollama server is already using {host}. Stop it, then try again."
 msgstr "다른 Ollama 서버가 이미 {host}을(를) 사용하고 있습니다. 중지한 후 다시 시도하세요."
 
+msgid "Another System Update is running."
+msgstr "다른 시스템 업데이트가 실행 중입니다."
+
 msgid "Another picture: a file or an https address"
 msgstr "다른 이미지: 파일 또는 https 주소"
 
@@ -703,8 +706,14 @@ msgstr "취소되었습니다. 변경된 사항이 없습니다"
 msgid "Cancelled; nothing was changed."
 msgstr "취소되었습니다. 변경된 사항이 없습니다."
 
+msgid "Cannot arm the boot guard without a snapshot and its boot files."
+msgstr "부팅 보호를 활성화하려면 스냅샷과 해당 부팅 파일이 필요합니다."
+
 msgid "Cannot change another user"
 msgstr "다른 사용자를 변경할 수 없습니다"
+
+msgid "Cannot create directory over existing file: {path}"
+msgstr "기존 파일 위치에 디렉터리를 만들 수 없습니다: {path}"
 
 msgid "Cannot demote an account with wheel as its primary group"
 msgstr "기본 그룹이 wheel인 계정은 강등할 수 없습니다"
@@ -1110,6 +1119,9 @@ msgstr "녹화 오디오 설정을 적용할 수 없습니다"
 
 msgid "Could not apply recording webcam settings"
 msgstr "녹화 웹캠 설정을 적용할 수 없습니다"
+
+msgid "Could not arm the boot guard. No package upgrade was started."
+msgstr "부팅 보호를 활성화하지 못했습니다. 패키지 업데이트가 시작되지 않았습니다."
 
 msgid "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 msgstr "{problem}을(를) 가져올 수 없습니다. 이전 홈 폴더는 검토를 위해 /{PREVIOUS}에 보관됩니다."
@@ -4231,6 +4243,9 @@ msgstr "Ollama 패키지가 여전히 설치되어 있습니다. 다음 명령�
 msgid "The PC is short on memory and may feel slow; close apps you are not using."
 msgstr "PC 메모리가 부족하여 느려질 수 있습니다. 사용하지 않는 앱을 닫으세요."
 
+msgid "The System Update package hook is missing."
+msgstr "시스템 업데이트용 Pacman 훅이 없습니다."
+
 msgid "The URL must not contain spaces, control characters or backslashes."
 msgstr "URL에는 공백, 제어 문자 또는 백슬래시를 포함할 수 없습니다."
 
@@ -4425,6 +4440,9 @@ msgstr "테스트 저장소에 지금 연결할 수 없어 아무것도 변경�
 
 msgid "The theme could not be applied."
 msgstr "테마를 적용할 수 없습니다."
+
+msgid "The update transaction does not match the pending recovery point."
+msgstr "업데이트 트랜잭션이 대기 중인 복구 지점과 일치하지 않습니다."
 
 msgid "The user service could not be loaded."
 msgstr "사용자 서비스를 로드할 수 없습니다."
@@ -5092,6 +5110,9 @@ msgstr "WiFi 프로필이 크기 제한을 초과함: {path}"
 msgid "WiFi profile must be a regular file: {path}"
 msgstr "WiFi 프로필은 일반 파일이어야 합니다: {path}"
 
+msgid "WiFi profiles changed during restore."
+msgstr "복원 중 Wi-Fi 프로필이 변경되었습니다."
+
 msgid "Workspace details"
 msgstr "작업 공간 세부 정보"
 
@@ -5331,9 +5352,6 @@ msgstr "위그드라실을 깨우는 중"
 
 msgid "warming the mead"
 msgstr "미드를 데우는 중"
-
-msgid "{FAILED} already exists from an earlier restore; nothing was changed"
-msgstr "{FAILED}이(가) 이전 복원 작업으로 이미 존재합니다. 변경된 사항이 없습니다"
 
 msgid "{FINISH_UNIT} is missing; install the eitr-desktop package first"
 msgstr "{FINISH_UNIT}이(가) 누락되었습니다. 먼저 eitr-desktop 패키지를 설치하세요"

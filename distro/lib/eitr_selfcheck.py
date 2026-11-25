@@ -666,7 +666,7 @@ CHECKS = [
     ('Disk', 'snapshot-space', check_snapshot_space, 'findmnt; btrfs qgroup show --raw; subvolume list -o /.snapshots'),
     ('Disk', 'esp-space', check_esp_space, 'findmnt -M; statvfs of mounted ESP'),
     ('Updates', 'pending-updates', check_updates, 'checkupdates --nosync; temporary copy of cached pacman DBs'),
-    ('Updates', 'last-update', check_last_update, 'Snapper post description written by eitr-system snapshot-post'),
+    ('Updates', 'last-update', check_last_update, 'Snapper post description written by eitr-system snapshot-update'),
     ('Updates', 'channel', check_channel, 'eitr-system channel-status'),
     ('Updates', 'pacman-lock', check_pacman_lock, '/var/lib/pacman/db.lck; pgrep pacman'),
     ('Updates', 'database-signatures', check_signatures, 'last 500 lines of /var/log/pacman.log'),

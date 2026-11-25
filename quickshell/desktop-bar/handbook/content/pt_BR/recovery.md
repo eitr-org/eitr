@@ -21,15 +21,15 @@ Novas configurações do Snapper mantêm até 10 snapshots numerados comuns e 5 
 
 ## Proteção de inicialização
 
-Após uma Atualização do sistema bem-sucedida no layout da instalação guiada do Eitr, a proteção de inicialização mantém pronto o snapshot anterior à atualização (`/var/lib/eitr/boot-guard.json`). `eitr-boot-guard.service` conta cada tentativa no início da inicialização; `eitr-boot-guard-healthy.service` considera a tentativa bem-sucedida após a tela de login permanecer aberta por 45 segundos, desarmando a proteção.
+Em uma instalação guiada do Eitr, o Pacman ativa a proteção logo antes de alterar pacotes, usando o snapshot anterior à atualização (`/var/lib/eitr/boot-guard.json`). A proteção continua ativa se houver falha ou interrupção depois disso. Se não conseguir ativá-la, o Pacman para e mostra o erro. Só pode haver uma atualização protegida por computador de cada vez. Cancelar antes das alterações ou uma falha de sincronização mantém a proteção anterior.
 
-Se duas inicializações consecutivas após a atualização não chegarem a esse ponto, a terceira restaura automaticamente, seguindo as etapas testadas da redefinição de fábrica:
+`eitr-boot-guard.service` conta cada inicialização uma única vez. `eitr-boot-guard-healthy.service` desativa a proteção quando uma tela gráfica de login local ou sessão da área de trabalho fica ativa por 45 segundos. Uma tela de login funcionando é suficiente. Esperar na mesma inicialização não aumenta o número de falhas. Depois de duas falhas seguidas, a terceira inicialização restaura o sistema.
 
-1. Os arquivos de inicialização do snapshot (`/var/lib/eitr/boot-backups/<number>/boot.tar`) são copiados para a partição EFI após guardar os atuais para poder restaurá-los.
-2. O subvolume raiz com falha é renomeado para `@eitr-guard-failed`; uma cópia gravável do snapshot se torna `@`, e o armazenamento `.snapshots` do Snapper é movido para ela.
-3. O computador reinicia no sistema restaurado. Se qualquer etapa falhar, os subvolumes e os arquivos de inicialização voltam ao estado anterior, e não ocorre reinicialização.
+1. A proteção salva os arquivos EFI atuais antes de copiar `/var/lib/eitr/boot-backups/<number>/boot.tar` para a partição EFI.
+2. O subvolume raiz com falha vira `@eitr-guard-failed`. Uma cópia gravável do snapshot vira `@` e recebe o armazenamento `.snapshots` do Snapper. Uma raiz com falha anterior é movida para um nome com sufixo exclusivo.
+3. O computador reinicia depois que a cópia EFI e a troca da raiz são concluídas. Se uma delas falhar, as duas são revertidas. Se a reversão falhar ou for interrompida, o arquivo EFI permanece em `.eitr-guard-rollback/boot.tar`, no nível superior do Btrfs, para reparo com mídia inicializável.
 
-O sistema restaurado exclui `@eitr-guard-failed` ao chegar à tela de login, e o próximo login mostra uma notificação. As pastas pessoais não são alteradas. A proteção não pode ajudar se o próprio kernel não iniciar; nesse caso, inicialize pelo snapshot da atualização no menu de inicialização (abaixo). Outros layouts de disco nunca recebem essa proteção.
+Depois de uma inicialização saudável, o sistema restaurado remove `@eitr-guard-failed` e as cópias com sufixo. Um aviso aparece no próximo login. As pastas pessoais são preservadas. Se o kernel não iniciar, use o menu de inicialização ou uma mídia inicializável. A recuperação automática se aplica ao layout da instalação guiada.
 
 ## Alterações na autenticação
 
