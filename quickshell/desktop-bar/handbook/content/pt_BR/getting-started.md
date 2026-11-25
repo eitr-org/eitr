@@ -52,3 +52,5 @@ O Steam já vem instalado com GameMode, MangoHud e gamescope; Install > Gaming o
 
 Calendários e lembretes ajudam a organizar o dia. O ditado transforma fala em texto após configuração. Moonlight e Sunshine oferecem acesso remoto; instale e configure as ferramentas necessárias. Plugins ampliam o Eitr pelo fluxo de plugins. Há traduções para inglês, português brasileiro, espanhol, francês e alemão. O manual offline explica atalhos, ajustes e recuperação sem enviar perguntas. O chat rápido do Control Center envia a conversa, um resumo limitado da máquina e contexto do manual ao assistente selecionado; não executa comandos nem altera ajustes.
 <!-- /eitr-overview -->
+
+O instalador guiado permite revisar offline os Flatpaks de um perfil de organização. Um serviço em segundo plano os instala após a configuração, quando houver rede, e tenta novamente os aplicativos e remotos pendentes.

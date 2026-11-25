@@ -49,6 +49,7 @@ def main():
         choices.set_per_display(args.value == ['on'])
     elif args.action == 'clear':
         choices.clear_assignments()
+        transition.refresh_startup()
         print(json.dumps(choices.summary()))
         return
     elif args.action == 'cancel':
@@ -68,6 +69,8 @@ def main():
                 transition.apply(path)
         else:
             choices.change(args.action, monitor, path, args.owner)
+    if args.action == "per-display" or (args.action == "apply" and output):
+        transition.refresh_startup()
     defaults = transition.wallpapers(config('theme/current/backgrounds'))
     _, _, failures = choices.reconcile(vars(transition), str(defaults[0]) if defaults else '', output=output)
     if failures:

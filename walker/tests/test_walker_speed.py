@@ -132,9 +132,7 @@ assert(entries[1].Actions.app_uninstall:find(' uninstall ', 1, true))
                 path.chmod(0o755)
             wrapper = root / 'wrapper'
             wrapper.write_text((ROOT / 'walker/bin/walker').read_text().replace('/usr/bin/walker', str(root / 'real-walker')))
-            index = root / 'run/eitr-search/index.json'
-            index.parent.mkdir(parents=True)
-            index.write_text('{}')
+            (root / 'run').mkdir()
             environment = dict(os.environ, TEST_ROOT=directory, EITR_CODE_ROOT=directory, XDG_RUNTIME_DIR=str(root / 'run'),
                                PATH=directory + os.pathsep + os.environ['PATH'])
             for menu in ['apps', 'clipboard', 'main']:
@@ -149,22 +147,6 @@ assert(entries[1].Actions.app_uninstall:find(' uninstall ', 1, true))
             while not (root / 'done').exists() and time.monotonic() < deadline:
                 time.sleep(.01)
             self.assertTrue((root / 'done').exists())
-
-    def test_wrapper_builds_a_missing_index_before_opening(self):
-        # Without an index a search typed at once would find nothing, so it is built first.
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            for name, body in {'systemctl': 'exit 0', 'python3': 'touch "$TEST_ROOT/prepared"',
-                               'real-walker': '[ -f "$TEST_ROOT/prepared" ] || exit 9'}.items():
-                path = root / name
-                path.write_text('#!/bin/sh\n' + body + '\n')
-                path.chmod(0o755)
-            wrapper = root / 'wrapper'
-            wrapper.write_text((ROOT / 'walker/bin/walker').read_text().replace('/usr/bin/walker', str(root / 'real-walker')))
-            environment = dict(os.environ, TEST_ROOT=directory, EITR_CODE_ROOT=directory, XDG_RUNTIME_DIR=str(root / 'run'),
-                               PATH=directory + os.pathsep + os.environ['PATH'])
-            result = subprocess.run(['bash', str(wrapper), '-m', 'menus:main'], env=environment, capture_output=True, timeout=3)
-            self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_readiness_does_not_refresh_and_exhaustion_fails(self):
         specification = importlib.util.spec_from_file_location('ready_search', ROOT / 'walker/scripts/menus/search-index.py')

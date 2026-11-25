@@ -1126,6 +1126,9 @@ msgstr "부팅 보호를 활성화하지 못했습니다. 패키지 업데이트
 msgid "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 msgstr "{problem}을(를) 가져올 수 없습니다. 이전 홈 폴더는 검토를 위해 /{PREVIOUS}에 보관됩니다."
 
+msgid "Could not check Arch Linux news."
+msgstr "Arch Linux 뉴스를 확인하지 못했습니다."
+
 msgid "Could not check for pending updates: {error}"
 msgstr "대기 중인 업데이트를 확인할 수 없음: {error}"
 
@@ -1722,9 +1725,6 @@ msgstr "방화벽"
 
 msgid "Fit"
 msgstr "맞춤"
-
-msgid "Flathub apps install at the first start with a network connection."
-msgstr "Flathub 앱은 네트워크 연결이 있는 첫 시작 시 설치됩니다."
 
 msgid "Flatpak apps"
 msgstr "Flatpak 앱"
@@ -3228,6 +3228,9 @@ msgstr "QML 추가됨, 변경됨 또는 제거됨: {path}"
 
 msgid "QML runs inside the bar: {path}"
 msgstr "QML이 바 내부에서 실행됩니다: {path}"
+
+msgid "Queue Flatpak for installation after setup: {value}"
+msgstr "설정 후 설치할 Flatpak을 대기열에 추가: {value}"
 
 msgid "Queues"
 msgstr "대기열"

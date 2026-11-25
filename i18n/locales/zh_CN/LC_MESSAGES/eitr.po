@@ -1126,6 +1126,9 @@ msgstr "无法启用启动保护。软件包更新尚未开始。"
 msgid "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 msgstr "无法迁移 {problem}；先前的用户主文件夹保留在 /{PREVIOUS} 以供检查。"
 
+msgid "Could not check Arch Linux news."
+msgstr "无法查看 Arch Linux 新闻。"
+
 msgid "Could not check for pending updates: {error}"
 msgstr "无法检查待处理的更新：{error}"
 
@@ -1722,9 +1725,6 @@ msgstr "防火墙"
 
 msgid "Fit"
 msgstr "适应"
-
-msgid "Flathub apps install at the first start with a network connection."
-msgstr "Flathub 应用将在首次连接网络启动时进行安装。"
 
 msgid "Flatpak apps"
 msgstr "Flatpak 应用"
@@ -3228,6 +3228,9 @@ msgstr "QML 已添加、更改或移除：{path}"
 
 msgid "QML runs inside the bar: {path}"
 msgstr "QML 在状态栏内运行：{path}"
+
+msgid "Queue Flatpak for installation after setup: {value}"
+msgstr "将 Flatpak 加入设置完成后的安装队列：{value}"
 
 msgid "Queues"
 msgstr "队列"

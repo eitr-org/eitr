@@ -58,8 +58,8 @@
       "reason": "Barely over the limit; OBS launch, status, recording actions and the CLI after the capture options moved out."
     },
     "quickshell/desktop-bar/store/StoreState.qml": {
-      "lines": 420,
-      "reason": "Store listings, cached startup, selection and review state share one owner."
+      "lines": 459,
+      "reason": "The Store window owns lazy catalog loading, active listings, and review state for each opening."
     },
     "quickshell/lockscreen/imports/LockscreenComponents/MaterialYouDesign.qml": {
       "lines": 780,

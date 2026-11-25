@@ -1126,6 +1126,9 @@ msgstr "Could not arm the boot guard. No package upgrade was started."
 msgid "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 msgstr "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 
+msgid "Could not check Arch Linux news."
+msgstr "Could not check Arch Linux news."
+
 msgid "Could not check for pending updates: {error}"
 msgstr "Could not check for pending updates: {error}"
 
@@ -1722,9 +1725,6 @@ msgstr "Firewalls"
 
 msgid "Fit"
 msgstr "Fit"
-
-msgid "Flathub apps install at the first start with a network connection."
-msgstr "Flathub apps install at the first start with a network connection."
 
 msgid "Flatpak apps"
 msgstr "Flatpak apps"
@@ -3228,6 +3228,9 @@ msgstr "QML added, changed or removed: {path}"
 
 msgid "QML runs inside the bar: {path}"
 msgstr "QML runs inside the bar: {path}"
+
+msgid "Queue Flatpak for installation after setup: {value}"
+msgstr "Queue Flatpak for installation after setup: {value}"
 
 msgid "Queues"
 msgstr "Queues"

@@ -233,25 +233,20 @@ def describe(value):
     return str(value)
 
 
-def queues_flatpaks(profile):
-    """Whether installation leaves Flatpak apps for the first start: Flathub additions or Flatpak recipes."""
-    additions = profile.get('add', {})
-    catalog = recipes() if additions.get('recipes') else {}
-    return bool(additions.get('flathub')) or any(catalog[name]['source'] == 'flatpak'
-                                                 for name in additions.get('recipes', []))
-
-
 def summary(profile, installer=False):
     lines = [tr('Organization profile: {name}', name=profile['name'])]
     for package in sorted(removals(profile)):
         lines.append(tr('Remove: {value}', value=package))
-    for kind, values in profile.get('add', {}).items():
+    additions = profile.get('add', {})
+    catalog = recipes() if installer and additions.get('recipes') else {}
+    for kind, values in additions.items():
         for value in values:
+            if installer and (kind == 'flathub' or kind == 'recipes' and catalog[value]['source'] == 'flatpak'):
+                lines.append(tr('Queue Flatpak for installation after setup: {value}', value=value))
+                continue
             lines.append(tr('Add: {kind}: {value} ({connection})', kind=kind,
                             value=describe(value),
                             connection=tr('offline stick file') if kind == 'files' else tr('internet required')))
-    if installer and queues_flatpaks(profile):
-        lines.append(tr('Flathub apps install at the first start with a network connection.'))
     for key, value in profile.get('defaults', {}).items():
         lines.append(tr('Default: {key}: {value}', key=key, value=describe(value)))
     for key, value in profile.get('policies', {}).items():

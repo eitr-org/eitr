@@ -69,7 +69,7 @@ Login starts the single Elephant service, clipboard watchers, session preparatio
 and the polkit watchdog independently. It imports the compositor variables first, so
 Elephant need not wait for uwsm to finish polling for them; Elephant stops with the
 graphical session, so a quick re-login starts it fresh with the new compositor's variables. Walker's GApplication service starts after
-session preparation has finished regenerating GTK styles. The renderer probe
+bounded session preparation ends, including when a preparation step fails. Walker publishes generated CSS atomically, so a failed generation leaves the previous stylesheet available. The renderer probe
 (four-second deadline) and Hyprpaper start beside the bar; only confirmed software
 rendering skips Hyprpaper, and only a detected renderer is shared with the wallpaper
 component, which otherwise probes again itself. The bar waits at most one second for
@@ -1313,7 +1313,7 @@ live topology and gaps on `configreloaded`, including existing island/panel spac
 `store/StoreContent.qml` composes the sidebar, grid, cards, detail, data review,
 plugin review and removal sheets. `StoreState.qml` owns transactions and view
 state; `StoreKeyboard.qml` owns keyboard navigation. `panels/CatalogContent.qml`
-is a compatibility type. All Store sources stay below 400 lines.
+is a compatibility type. Store source sizes are checked against the repository baseline.
 
 Store queries retain the `catalog` domain through DesktopData. `catalog-domain.py`
 owns transport, deadlines and cancellation; `eitr_store_backends.py` dispatches
@@ -1321,7 +1321,7 @@ registry backend IDs to the existing theme, plugin and lockscreen owners and the
 wallpaper backend. Two persistent workers share the bounded broker pool.
 One serves update checks and their history. The other serves listings and
 actions. Actions wait for active checks before taking the listing transport.
-Reads have a 60-second deadline and actions a 300-second deadline. Closing
+Opening loads the visible catalog and refreshes the shared community feed on its first use. Other catalogs load when their kind is opened or when a search spans kinds. Updates still checks every updatable kind and loads Installed metadata for the kinds with results. Card previews can retry when revisited, up to three attempts per opening. Reads have a 60-second deadline and actions a 300-second deadline. Closing
 cancels owned queries and interrupted actions are never replayed. Refresh
 Installed after an unknown outcome. Index, artwork and review
 caches keep their machine-local names. The plugin index remains metadata-only;

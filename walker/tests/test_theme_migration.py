@@ -188,11 +188,24 @@ end
         migration.enqueue()
         # The real /var/lib/eitr/former-themes exists on upgraded machines; this test is not about it.
         with patch('generated.walker_view'), patch('generated.refresh_after_upgrade') as refresh, \
-                patch('migrations.run_pending'), patch('subprocess.run'), \
+                patch('migrations.run_pending') as migrate, \
                 patch('eitr_former_themes.pending_archive', return_value=False), \
-                patch('subprocess.Popen') as launched:
-            runpy.run_path(str(ROOT / 'distro/bin/eitr-session'), run_name='session_test')
+                patch('subprocess.Popen') as launched, tempfile.TemporaryFile(mode='w+') as log:
+            session = runpy.run_path(str(ROOT / 'distro/bin/eitr-session'), run_name='session_test')
+            order = []
+
+            def run_step(command, **options):
+                if command[0] == 'timeout':
+                    name = command[-1]
+                    order.append(name)
+                    session['STEPS'][name][0]()
+                return subprocess.CompletedProcess(command, 0)
+
+            with patch('subprocess.run', side_effect=run_step):
+                self.assertEqual(session['prepare'](log), 0)
         refresh.assert_not_called()
+        migrate.assert_called_once_with(raise_on_failure=True)
+        self.assertLess(order.index('settings-migrations'), order.index('theme-retry'))
         # Wallpaper restore, the theme retry, then default per-user tools (herdr).
         self.assertEqual(launched.call_count, 3)
         started = [call.args[0][-1] for call in launched.call_args_list]

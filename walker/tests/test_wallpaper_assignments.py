@@ -180,13 +180,14 @@ class AssignmentTests(unittest.TestCase):
             _, _, failures = choices.reconcile(adapter, self.images[0])
         self.assertEqual(failures, ['DP-1'])
 
-    def run_picker(self, *arguments, catalog=None):
+    def run_picker(self, *arguments, catalog=None, refresh=None):
         import importlib.util
         import sys
         import types
         from unittest.mock import Mock
         transition = types.ModuleType('transition')
         transition.apply = Mock()
+        transition.refresh_startup = refresh or Mock()
         transition.wallpapers = Mock(return_value=catalog or [])
         script = Path(__file__).resolve().parents[1] / 'scripts/actions/wallpaper/assignments.py'
         specification = importlib.util.spec_from_file_location('wallpaper_picker', script)
@@ -199,6 +200,31 @@ class AssignmentTests(unittest.TestCase):
                 contextlib.redirect_stdout(io.StringIO()) as output:
             picker.main()
         return transition.apply, reconcile, output.getvalue()
+
+    def test_only_durable_picker_changes_refresh_hyprpaper_startup(self):
+        import importlib.util
+        from eitr_paths import cache, config, write_settings
+        script = Path(__file__).resolve().parents[1] / 'scripts/actions/wallpaper/transition.py'
+        spec = importlib.util.spec_from_file_location('startup_transition', script)
+        transition = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(transition)
+        write_settings(config('eitr/appearance.json'), {'wallpaper': self.images[1]})
+        projection = cache('eitr/hyprpaper-monitors.conf')
+        refresh = transition.refresh_startup
+        self.run_picker('apply', '--path', self.images[2], refresh=refresh)
+        saved = projection.read_text()
+        self.assertIn('monitor = DP-1', saved)
+        self.assertIn(self.images[2], saved)
+        self.assertEqual(cache('current-wallpaper-image').resolve(), Path(self.images[1]))
+        self.run_picker('preview', '--path', self.images[4], refresh=refresh)
+        self.run_picker('cancel', refresh=refresh)
+        self.assertEqual(projection.read_text(), saved)
+        self.run_picker('per-display', 'off', refresh=refresh)
+        self.assertEqual(projection.read_text(), '')
+        self.run_picker('per-display', 'on', refresh=refresh)
+        self.assertEqual(projection.read_text(), saved)
+        self.run_picker('clear', refresh=refresh)
+        self.assertEqual(projection.read_text(), '')
 
     def test_picker_routes_global_apply_through_transition_and_keeps_picks(self):
         choices.change('apply', 'DP-1', self.images[2], 'owner')

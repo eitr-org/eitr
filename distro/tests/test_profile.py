@@ -66,7 +66,7 @@ class ProfileFormat(unittest.TestCase):
         # Only a profile that queues Flatpaks mentions the first start.
         self.assertNotIn('first start', profile.summary(selected, installer=True))
         flathub = {**selected, 'add': {'flathub': ['us.zoom.Zoom']}}
-        self.assertIn('first start with a network connection', profile.summary(flathub, installer=True))
+        self.assertIn('Queue Flatpak for installation after setup: us.zoom.Zoom', profile.summary(flathub, installer=True))
         self.assertIn('Policy: remote_access: false', profile.summary({**selected, 'policies': {'remote_access': False}}))
 
     def test_unknown_and_duplicate_keys_refused(self):
@@ -422,7 +422,8 @@ class DeferredFlatpaks(unittest.TestCase):
             return Mock(st_mode=metadata.st_mode, st_uid=0, st_gid=0,
                         st_nlink=metadata.st_nlink, st_size=metadata.st_size)
         with patch.object(self.apply.pwd, 'getpwnam', return_value=self.account), \
-             patch.object(self.apply.os, 'fstat', side_effect=root_metadata):
+             patch.object(self.apply.os, 'fstat', side_effect=root_metadata), \
+             patch.object(self.apply.os, 'fchown'):
             self.apply.finish_flatpaks(root=self.root, runner=runner)
 
     def test_installer_queues_both_sources_but_installed_machine_runs_directly(self):
@@ -495,6 +496,46 @@ class DeferredFlatpaks(unittest.TestCase):
         with patch('builtins.print'):
             self.finish(failing)
         self.assertTrue(self.pending.exists())
+
+    def test_retry_keeps_only_the_failed_remote_and_app(self):
+        self.work.insert(0, {'name': 'blocked', 'url': 'https://example.org/repo', 'apps': ['org.example.Blocked']})
+        self.work[1]['apps'].extend(['org.example.Failing', 'org.example.Later'])
+        self.queue()
+
+        def fail_selectively(command, *, timeout):
+            if 'blocked' in command or 'org.example.Failing' in command:
+                raise subprocess.CalledProcessError(1, command)
+
+        self.finish(fail_selectively)
+        remaining = json.loads(self.pending.read_text())['remotes']
+        self.assertEqual(remaining, [self.work[0], dict(self.work[1], apps=['org.example.Failing'], ready=True)])
+        runner = Mock()
+        self.finish(runner)
+        self.assertEqual(runner.call_count, 3)
+        self.assertFalse(any('us.zoom.Zoom' in call.args[0] or 'org.example.Later' in call.args[0]
+                             for call in runner.call_args_list))
+        self.assertFalse(self.pending.exists())
+
+    def test_installer_application_never_contacts_flatpak_remotes(self):
+        (self.root / 'run').mkdir()
+        selected = {'name': 'Office', 'add': {'flathub': ['us.zoom.Zoom']}}
+        with patch.object(self.apply.os, 'geteuid', return_value=0), \
+                patch.object(self.apply.pwd, 'getpwnam', return_value=self.account), \
+                patch.object(self.apply.profiles, 'snapshot', return_value=selected), \
+                patch.object(self.apply.profiles, 'preflight_packages'), \
+                patch.object(self.apply.profiles, 'preflight_flatpaks') as preflight, \
+                patch.object(self.apply, 'execute') as execute:
+            self.apply.apply(self.root, Mock(), installer=True, username='tester', root=self.root)
+        preflight.assert_not_called()
+        execute.assert_called_once()
+
+    def test_installer_review_distinguishes_queued_work(self):
+        selected = {'name': 'Office', 'add': {'flathub': ['us.zoom.Zoom'], 'recipes': ['example']}}
+        with patch.object(self.apply.profiles, 'recipes', return_value={'example': {'source': 'flatpak'}}):
+            review = self.apply.profiles.summary(selected, installer=True)
+        self.assertIn('Queue Flatpak for installation after setup: us.zoom.Zoom', review)
+        self.assertIn('Queue Flatpak for installation after setup: example', review)
+        self.assertNotIn('internet required', review)
 
     def test_the_timer_retries_until_the_queue_is_gone(self):
         timer = (ROOT / 'distro/system/eitr-profile-flatpaks.timer').read_text()

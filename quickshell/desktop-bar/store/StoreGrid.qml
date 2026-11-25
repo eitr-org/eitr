@@ -33,9 +33,9 @@ Column {
         onChosen: value => catalog.kind = value
     }
     StoreSearchHeader { id: searchHeader; width: parent.width; catalog: contentLayout.catalog }
-    readonly property string listingError: catalog.getMore && catalog.discoveries.length ? "" : catalog.getMore ? catalog.repositoryError : catalog.installedError
+    readonly property string listingError: catalog.navigable.length || catalog.searchLoading ? "" : catalog.getMore ? catalog.repositoryError : catalog.installedError
     readonly property bool listingLoading: !listingError && !catalog.navigable.length
-        && !(catalog.getMore ? catalog.indexLoaded : catalog.installedLoaded)
+        && (catalog.searchLoading || !(catalog.getMore ? catalog.indexLoaded : catalog.installedLoaded))
     StoreLabel { objectName: "catalog-status"; catalog: contentLayout.catalog; width: parent.width; visible: text !== ""; text: (!catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing ? catalog.error || catalog.progress : "") || (contentLayout.listingLoading ? Eitr.I18n.tr("Loading…") : ""); Accessible.role: Accessible.AlertMessage }
     Flickable {
         id: scroll

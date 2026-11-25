@@ -71,10 +71,19 @@ class LauncherTests(unittest.TestCase):
         self.assertEqual(command[-1], '--daemonize')
 
     def test_hyprpaper_always_finds_the_monitor_file_its_config_sources(self):
-        with tempfile.TemporaryDirectory() as home, patch.object(launch.Path, 'home', return_value=Path(home)):
-            command, _ = self.run_launcher('eitr-hyprpaper', [])
+        with tempfile.TemporaryDirectory() as home, patch.object(launch.Path, 'home', return_value=Path(home)), \
+                patch.dict(launch.os.environ, {'XDG_CACHE_HOME': home + '/custom cache'}), \
+                patch.object(launch.subprocess, 'run') as project:
+            command, environment = self.run_launcher('eitr-hyprpaper', [])
             self.assertEqual(command[0], 'hyprpaper')
-            self.assertEqual((Path(home) / '.cache/eitr/hyprpaper-monitors.conf').read_text(), '')
+            cache = Path(environment['EITR_CACHE_ROOT'])
+            monitors = cache / 'eitr/hyprpaper-monitors.conf'
+            self.assertEqual(monitors.read_text(), '')
+            config = Path(command[2]).read_text()
+            self.assertIn(f'source = {monitors}', config)
+            self.assertIn(f'path = {cache / "current-wallpaper-image"}', config)
+            self.assertEqual(project.call_args.args[0][-1], 'startup')
+            self.assertEqual(project.call_args.kwargs['env']['XDG_CACHE_HOME'], str(cache))
 
     def test_ipc_reaches_a_running_checkout_when_the_package_is_not_running(self):
         packaged = Path('/usr/share/eitr/quickshell/desktop-bar')

@@ -19,13 +19,8 @@ systemctl --user start elephant.service
 # Main and SUPER+Space share the custom Apps menu and its uninstall confirmation.
 for argument in "$@"; do
   if [[ "$argument" == menus:* && "$argument" != menus:apps && "$argument" != menus:clipboard ]]; then
-    # An existing index is refreshed in the background while the menu opens; without one
-    # (first open after login), typing would find nothing, so it is built first.
-    if [[ -s "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/eitr-search/index.json" ]]; then
-      setsid ionice -c 3 nice -n 10 python3 "$EITR_CODE_ROOT/walker/scripts/menus/search-index.py" prepare </dev/null >/dev/null 2>&1 &
-    else
-      python3 "$EITR_CODE_ROOT/walker/scripts/menus/search-index.py" prepare || true
-    fi
+    # Root rows are available immediately. Later queries read the published index.
+    setsid ionice -c 3 nice -n 10 python3 "$EITR_CODE_ROOT/walker/scripts/menus/search-index.py" prepare </dev/null >/dev/null 2>&1 &
     break
   fi
 done

@@ -28,7 +28,7 @@ def mark_all():
         marker(path).touch()
 
 
-def run_pending():
+def run_pending(*, raise_on_failure=False):
     """Stop at the first failure so later migrations never see a half-migrated state."""
     applied = []
     for path in shipped():
@@ -45,6 +45,8 @@ def run_pending():
         if result.returncode:
             subprocess.run(['notify-send', '-u', 'critical', 'EITR settings update failed',
                             f'{path.name} will retry at the next login. Details: {log}'], check=False)
+            if raise_on_failure:
+                result.check_returncode()
             break
         marker(path).parent.mkdir(parents=True, exist_ok=True)
         marker(path).touch()

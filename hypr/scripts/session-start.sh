@@ -15,8 +15,8 @@ rm -f ~/.cache/cliphist/db
 wl-paste --type text --watch cliphist store &
 wl-paste --type image --watch cliphist store &
 # Walker reads generated GTK styles, so settings/theme preparation must finish first.
-(if ! eitr-session; then login_mark session-tasks-failed; exit 1; fi
- login_mark session-tasks-done
+(if eitr-session; then login_mark session-tasks-done
+ else login_mark session-tasks-failed; fi
  eitr-walker --gapplication-service &
  login_mark walker-service-started
  wait) &

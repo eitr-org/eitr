@@ -29,9 +29,11 @@ class ArchNewsTests(unittest.TestCase):
 
     def test_the_last_full_upgrade_comes_from_pacmans_log(self):
         log = self.log("[2026-09-01T10:00:00-0300] [PACMAN] starting full system upgrade\n"
+                       "[2026-09-01T10:01:00-0300] [ALPM] transaction completed\n"
                        "[2026-10-01T08:30:00-0300] [PACMAN] starting full system upgrade\n"
-                       "[2026-10-02T09:00:00-0300] [ALPM] installed foo (1-1)\n")
-        self.assertEqual(news.last_upgrade(log), datetime(2026, 10, 1, 11, 30, tzinfo=timezone.utc))
+                       "[2026-10-02T09:00:00-0300] [PACMAN] Running 'pacman -S foo'\n"
+                       "[2026-10-02T09:00:01-0300] [ALPM] transaction completed\n")
+        self.assertEqual(news.last_upgrade(log), datetime(2026, 9, 1, 13, 1, tzinfo=timezone.utc))
         self.assertIsNone(news.last_upgrade(self.log("nothing here\n")))
         self.assertIsNone(news.last_upgrade(Path("/nonexistent/pacman.log")))
 
@@ -43,10 +45,9 @@ class ArchNewsTests(unittest.TestCase):
     def test_unreachable_feed_or_no_history_never_holds_up_an_update(self):
         with patch.object(news, "last_upgrade", return_value=datetime(2026, 1, 1, tzinfo=timezone.utc)), \
                 patch.object(news, "fetch", side_effect=OSError("offline")):
-            self.assertEqual(news.main(), 0)
-        with patch.object(news, "last_upgrade", return_value=None), patch.object(news, "fetch") as fetch:
-            self.assertEqual(news.main(), 0)
-            fetch.assert_not_called()
+            self.assertEqual(news.main(), 11)
+        with patch.object(news, "last_upgrade", return_value=None), patch.object(news, "fetch", return_value=FEED):
+            self.assertEqual(news.main(), 10)
 
     def test_news_is_printed_and_reported_with_exit_ten(self):
         with patch.object(news, "last_upgrade", return_value=datetime(2026, 10, 1, tzinfo=timezone.utc)), \

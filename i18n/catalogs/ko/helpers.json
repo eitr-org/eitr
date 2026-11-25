@@ -367,6 +367,7 @@
   "Could not apply recording audio settings": "녹화 오디오 설정을 적용할 수 없습니다",
   "Could not apply recording webcam settings": "녹화 웹캠 설정을 적용할 수 없습니다",
   "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.": "{problem}을(를) 가져올 수 없습니다. 이전 홈 폴더는 검토를 위해 /{PREVIOUS}에 보관됩니다.",
+  "Could not check Arch Linux news.": "Arch Linux 뉴스를 확인하지 못했습니다.",
   "Could not check for pending updates: {error}": "대기 중인 업데이트를 확인할 수 없음: {error}",
   "Could not complete that": "완료할 수 없습니다",
   "Could not download the picture: {error}": "이미지를 다운로드할 수 없음: {error}",
@@ -565,7 +566,6 @@
   "Firewall: on (also open: {ports})": "방화벽: 켜짐(추가 개방: {ports})",
   "Firewalls": "방화벽",
   "Fit": "맞춤",
-  "Flathub apps install at the first start with a network connection.": "Flathub 앱은 네트워크 연결이 있는 첫 시작 시 설치됩니다.",
   "Flatpak apps": "Flatpak 앱",
   "Flatpak apps could not be updated; the system update itself finished.": "Flatpak 앱을 업데이트할 수 없습니다. 시스템 업데이트 자체는 완료되었습니다.",
   "Float must be true or false": "띄우기는 true 또는 false여야 합니다",
@@ -1862,5 +1862,6 @@
   "Could not arm the boot guard. No package upgrade was started.": "부팅 보호를 활성화하지 못했습니다. 패키지 업데이트가 시작되지 않았습니다.",
   "The System Update package hook is missing.": "시스템 업데이트용 Pacman 훅이 없습니다.",
   "The update transaction does not match the pending recovery point.": "업데이트 트랜잭션이 대기 중인 복구 지점과 일치하지 않습니다.",
-  "WiFi profiles changed during restore.": "복원 중 Wi-Fi 프로필이 변경되었습니다."
+  "WiFi profiles changed during restore.": "복원 중 Wi-Fi 프로필이 변경되었습니다.",
+  "Queue Flatpak for installation after setup: {value}": "설정 후 설치할 Flatpak을 대기열에 추가: {value}"
 }

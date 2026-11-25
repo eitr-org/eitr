@@ -367,6 +367,7 @@
   "Could not apply recording audio settings": "无法应用录制音频设置",
   "Could not apply recording webcam settings": "无法应用录制摄像头设置",
   "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.": "无法迁移 {problem}；先前的用户主文件夹保留在 /{PREVIOUS} 以供检查。",
+  "Could not check Arch Linux news.": "无法查看 Arch Linux 新闻。",
   "Could not check for pending updates: {error}": "无法检查待处理的更新：{error}",
   "Could not complete that": "无法完成该操作",
   "Could not download the picture: {error}": "无法下载图片：{error}",
@@ -565,7 +566,6 @@
   "Firewall: on (also open: {ports})": "防火墙：已开启（另已开放：{ports}）",
   "Firewalls": "防火墙",
   "Fit": "适应",
-  "Flathub apps install at the first start with a network connection.": "Flathub 应用将在首次连接网络启动时进行安装。",
   "Flatpak apps": "Flatpak 应用",
   "Flatpak apps could not be updated; the system update itself finished.": "无法更新 Flatpak 应用；系统更新本身已完成。",
   "Float must be true or false": "浮动必须为 true 或 false",
@@ -1862,5 +1862,6 @@
   "Could not arm the boot guard. No package upgrade was started.": "无法启用启动保护。软件包更新尚未开始。",
   "The System Update package hook is missing.": "缺少系统更新所需的 Pacman 钩子。",
   "The update transaction does not match the pending recovery point.": "更新事务与待处理的恢复点不匹配。",
-  "WiFi profiles changed during restore.": "Wi-Fi 配置在还原期间发生了变化。"
+  "WiFi profiles changed during restore.": "Wi-Fi 配置在还原期间发生了变化。",
+  "Queue Flatpak for installation after setup: {value}": "将 Flatpak 加入设置完成后的安装队列：{value}"
 }

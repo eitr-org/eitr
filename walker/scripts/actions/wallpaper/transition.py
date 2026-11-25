@@ -25,7 +25,7 @@ import tempfile
 
 
 def runtime():
-    root = Path(os.environ.get("XDG_RUNTIME_DIR", str(Path.home() / ".cache"))) / "eitr-wallpaper"
+    root = Path(os.environ.get("XDG_RUNTIME_DIR", str(cache_dir()))) / "eitr-wallpaper"
     root.mkdir(parents=True, mode=0o700, exist_ok=True)
     return root
 
@@ -72,7 +72,7 @@ def previous_images(previous):
 def monitor_images(path):
     """Monitor name to the file it shows for the wallpaper at path ("*" for any other)."""
     try:
-        monitors = json.loads(subprocess.check_output(["hyprctl", "monitors", "-j"], text=True))
+        monitors = json.loads(subprocess.check_output(["hyprctl", "monitors", "-j"], text=True, timeout=3))
     except (OSError, subprocess.SubprocessError, ValueError):
         monitors = []
     return choices.images(globals(), str(path), monitors, temporary={}, global_override=True)
@@ -89,9 +89,10 @@ def for_monitor(path, monitor):
     if monitor.get("transform", 0) % 2:
         width, height = height, width
     path = Path(path)
-    variant = path.parent.with_name("backgrounds-ultrawide") / (path.stem + ".jpg")
-    if height and width / height >= ULTRAWIDE_RATIO and path.parent.name == "backgrounds" and variant.is_file():
-        return str(variant)
+    if height and width / height >= ULTRAWIDE_RATIO and path.parent.name == "backgrounds":
+        variant = path.parent.with_name("backgrounds-ultrawide") / (path.stem + ".jpg")
+        if variant.is_file():
+            return str(variant)
     return str(path)
 
 
@@ -103,16 +104,22 @@ def write_monitor_wallpapers(path, monitors):
     """
     entries = []
     assignments = choices.prune()
-    for monitor in monitors:
+    connected = {monitor['name'] for monitor in monitors}
+    remembered = [{'name': name} for name in assignments if name not in connected] if path else []
+    for monitor in [*monitors, *remembered]:
         image = for_monitor(choices.resolve(monitor, str(path), assignments, {}), monitor)
         if image != str(path):
-            entries.append(f"wallpaper {{\n    monitor = {monitor.get('name', '?')}\n"
+            entries.append(f"wallpaper {{\n    monitor = {monitor['name']}\n"
                            f"    path = {image}\n    fit_mode = cover\n}}\n")
     target = cache_dir() / "eitr/hyprpaper-monitors.conf"
     target.parent.mkdir(parents=True, exist_ok=True)
-    temporary = target.with_suffix(".new")
-    temporary.write_text("\n".join(entries))
-    temporary.replace(target)
+    with tempfile.NamedTemporaryFile(mode="w", dir=target.parent, delete=False) as temporary:
+        try:
+            temporary.write("\n".join(entries))
+            temporary.close()
+            Path(temporary.name).replace(target)
+        finally:
+            Path(temporary.name).unlink(missing_ok=True)
 
 
 class CommitError(RuntimeError):
@@ -138,8 +145,6 @@ def commit(path):
     listing.replace(cache / "current-wallpaper")
     write_settings(user_config('eitr/appearance.json'), {'wallpaper': path})
     if os.environ.get("EITR_NO_SESSION") == "1":
-        # No monitors to ask; the login restore names them.
-        write_monitor_wallpapers(path, [])
         return
     # The Theme Wallpaper login design shows a copy of the wallpaper; keep it current.
     login = code("quickshell/lockscreen/scripts/settings.py")
@@ -147,7 +152,7 @@ def commit(path):
         subprocess.Popen([sys.executable, str(login), "refresh-login"], stdout=subprocess.DEVNULL,
                          stderr=subprocess.DEVNULL, start_new_session=True)
     try:
-        monitors = json.loads(subprocess.check_output(["hyprctl", "monitors", "-j"], text=True))
+        monitors = json.loads(subprocess.check_output(["hyprctl", "monitors", "-j"], text=True, timeout=3))
     except (OSError, subprocess.SubprocessError, ValueError) as error:
         raise CommitError(tr('cannot list monitors: {error}', error=f'{error}')) from error
     write_monitor_wallpapers(path, monitors)
@@ -176,28 +181,41 @@ def active_wallpapers():
     return active if output.returncode == 0 and "error" not in output.stdout.lower() else None
 
 
-def restore(attempts=40, delay=0.25):
-    """At login, make sure every monitor shows the saved wallpaper.
-
-    Hyprpaper starts alongside the session, so it may come up before the saved
-    selection is restored, and a theme update can remove the saved file. When the
-    file is gone the theme's first wallpaper is used instead.
-    """
-    import time
-    try:
-        saved = Path((cache_dir() / "current-wallpaper").read_text().strip())
-    except OSError:
-        saved = None
-    if saved and not saved.is_file():
-        # The same wallpaper in another format (themes moved from PNG to JPEG).
-        saved = next((saved.with_suffix(suffix) for suffix in sorted(choices.WALLPAPER_SUFFIXES)
-                      if saved.with_suffix(suffix).is_file()), saved)
-    if not saved or not saved.is_file():
+def startup_wallpaper():
+    saved = choices.saved_global()
+    if not saved:
+        try:
+            previous = Path((cache_dir() / "current-wallpaper").read_text().strip())
+            saved = next((str(previous.with_suffix(suffix)) for suffix in sorted(choices.WALLPAPER_SUFFIXES)
+                          if previous.with_suffix(suffix).is_file()), '')
+        except (OSError, ValueError):
+            pass
+    if not saved:
         candidates = wallpapers(user_config("theme/current/backgrounds"))
-        if not candidates:
-            return None
-        saved = candidates[0]
-    saved = str(saved.resolve())
+        saved = str(candidates[0]) if candidates else ''
+    return str(Path(saved).resolve()) if saved else ''
+
+
+def refresh_startup():
+    """Project saved assignments for Hyprpaper without writing any preview."""
+    with choices.locked():
+        saved = startup_wallpaper()
+        monitors = choices.query('monitors')
+        write_monitor_wallpapers(saved, monitors if saved else [])
+        if saved:
+            link = cache_dir('current-wallpaper-image')
+            if link.resolve() != Path(saved):
+                with tempfile.TemporaryDirectory(dir=link.parent) as directory:
+                    temporary = Path(directory) / link.name
+                    temporary.symlink_to(saved)
+                    temporary.replace(link)
+
+
+def restore(attempts=40, delay=0.25):
+    """Reconcile Hyprpaper after appearance settings or theme files change."""
+    saved = startup_wallpaper()
+    if not saved:
+        return None
     for _ in range(attempts):
         active = active_wallpapers()
         if active is not None:
@@ -206,14 +224,15 @@ def restore(attempts=40, delay=0.25):
     else:
         return None
     try:
-        monitors = json.loads(subprocess.check_output(["hyprctl", "monitors", "-j"], text=True))
+        monitors = json.loads(subprocess.check_output(["hyprctl", "monitors", "-j"], text=True, timeout=3))
     except (OSError, subprocess.SubprocessError, ValueError):
         monitors = []
     link = cache_dir() / "current-wallpaper-image"
     showing = monitors and all(active.get(monitor.get("name")) and
                                Path(active[monitor.get("name")]).resolve() == Path(for_monitor(choices.resolve(monitor, saved, temporary={}), monitor)).resolve()
                                for monitor in monitors)
-    if showing and link.resolve() == Path(saved):
+    if showing and link.resolve() == Path(saved) and choices.saved_global() == saved:
+        write_monitor_wallpapers(saved, monitors)
         return saved
     commit(saved)
     return saved
@@ -274,10 +293,13 @@ def apply(path, previous=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["snapshot", "apply", "commit", "list", "restore"])
+    parser.add_argument("action", choices=["snapshot", "apply", "commit", "list", "restore", "startup"])
     parser.add_argument("path", nargs="?")
     parser.add_argument("--previous")
     args = parser.parse_args()
+    if args.action == "startup":
+        refresh_startup()
+        sys.exit(0)
     if args.action == "snapshot":
         print(snapshot())
     elif args.action == "list":

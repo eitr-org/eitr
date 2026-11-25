@@ -59,6 +59,22 @@ class SitePaletteTests(unittest.TestCase):
 
 
 class CatalogDomainTests(unittest.TestCase):
+    def test_community_listing_reuses_the_worker_snapshot(self):
+        from eitr_paths import cache
+        from eitr_store_content import publish_json
+        row = dict(id='northern-art', repository='https://example.com/art', folder='art',
+                   maintainer='Example', license='MIT', description='Northern art')
+        index = dict(schemaVersion=2, plugins=[], themes=[], wallpapers=[row], removed=[])
+        with tempfile.TemporaryDirectory() as directory, \
+                patch.dict(os.environ, {'EITR_CATALOG_REVIEW_CACHE': directory, 'XDG_CACHE_HOME': directory}), \
+                patch('eitr_store_content.refresh_community_index', return_value=index) as refresh:
+            self.assertEqual(DOMAIN.worker('refresh-community', {'kind': 'themes'}), {})
+            publish_json(cache('eitr/community-index.json'), dict(index, wallpapers=[]))
+            args = {'kind': 'wallpapers', 'channel': 'community', 'communitySnapshot': True}
+            self.assertEqual(DOMAIN.worker('index', args)['items'][0]['id'], row['id'])
+            self.assertEqual(DOMAIN.worker('index', args)['items'][0]['id'], row['id'])
+            refresh.assert_called_once()
+
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()
         self.addCleanup(temporary.cleanup)
@@ -635,12 +651,13 @@ ShellRoot {
       panel.live = true;
       panel.transport = function(name, args, callback) { calls.push(name + ":" + args.kind + ":" + args.channel); callback("", {items: [{id: args.channel + "-" + args.kind, name: "Row"}]}); };
       panel.load();
-      if (calls.length !== 12 || !calls.includes("installed:plugins:installed")) throw new Error("opening loads every source once: " + calls);
-      const lastCache = Math.max(calls.indexOf("cached-index:themes:official"), calls.indexOf("cached-index:themes:community"));
-      const firstRefresh = Math.min(calls.indexOf("index:themes:official"), calls.indexOf("index:themes:community"));
-      if (lastCache !== 2 || firstRefresh !== 3) throw new Error("both theme caches must load before refresh: " + calls);
-      panel.tab = "discover"; panel.sourceFilter = "community"; panel.kind = "themes"; panel.tab = "installed"; panel.tab = "discover"; panel.sourceFilter = "official";
-      if (calls.length !== 12) throw new Error("switching tabs must not reload: " + calls);
+      if (calls.join() !== "installed:plugins:installed,index:plugins:official,refresh-community:themes:official,index:plugins:community")
+       throw new Error("Opening loads only the visible Plugins catalog: " + calls);
+      panel.tab = "discover"; panel.sourceFilter = "community"; panel.kind = "themes";
+      if (calls.slice(4).join() !== "installed:themes:installed,cached-index:themes:official,index:themes:official,cached-index:themes:community,index:themes:community")
+       throw new Error("Themes loads on demand and reuses the feed: " + calls);
+      panel.tab = "installed"; panel.tab = "discover"; panel.sourceFilter = "official";
+      if (calls.length !== 9) throw new Error("Switching back to a loaded tab must not reload: " + calls);
       if (panel.availableItems[0].id !== "official-themes" || panel.installed[0].id !== "installed-themes") throw new Error("views come from the loaded store");
       panel.tab = "discover"; panel.sourceFilter = "community";
       const replies = [];

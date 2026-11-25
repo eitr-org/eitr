@@ -55,8 +55,8 @@ FamilyWindow {
             anchors.fill: parent
             objectName: "catalog-content"
             foreground: SettingsPalette.foreground; background: window.color; accent: SettingsPalette.accent
-            opened: window.opened
             kind: window.kind; tab: window.tab; tone: window.tone
+            opened: window.opened
             onKindChanged: window.kind = kind
             onTabChanged: window.tab = tab
             onToneChanged: window.tone = tone

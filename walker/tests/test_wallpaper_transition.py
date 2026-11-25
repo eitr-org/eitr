@@ -119,7 +119,7 @@ class WallpaperTests(unittest.TestCase):
                              f"wallpaper {{\n    monitor = DP-3\n    path = {theme}/backgrounds-ultrawide/01-first.jpg\n"
                              "    fit_mode = cover\n}\n", "Hyprpaper starts the ultrawide on its version")
             config = (ROOT / "hypr/hyprpaper.conf").read_text()
-            self.assertIn("source = ~/.cache/eitr/hyprpaper-monitors.conf", config)
+            self.assertIn("source = @EITR_CACHE@/eitr/hyprpaper-monitors.conf", config)
             refresh = self.refresh_login.call_args.args[0]
             self.assertEqual(refresh[-2:], [str(transition.code("quickshell/lockscreen/scripts/settings.py")),
                                             "refresh-login"], "the login copy follows the wallpaper")
@@ -179,6 +179,7 @@ class WallpaperTests(unittest.TestCase):
         (cache / "current-wallpaper").write_text(str(saved) + "\n")
         listing = "\n".join(f"{monitor}: {path}" for monitor, path in active.items())
         with patch.object(transition, "cache_dir", return_value=cache), \
+                patch.object(transition.choices, "saved_global", return_value=""), \
                 patch.object(transition, "user_config", return_value=theme), \
                 patch.object(transition.subprocess, "run", return_value=subprocess.CompletedProcess([], 0, listing, "")), \
                 patch.object(transition.subprocess, "check_output", return_value='[{"name": "DP-1"}]'), \
@@ -214,6 +215,7 @@ class WallpaperTests(unittest.TestCase):
             (cache / "current-wallpaper").write_text(str(saved) + "\n")
             (cache / "current-wallpaper-image").symlink_to(saved)
             with patch.object(transition, "cache_dir", return_value=cache), \
+                    patch.object(transition.choices, "saved_global", return_value=str(saved)), \
                     patch.object(transition.subprocess, "run", return_value=subprocess.CompletedProcess([], 0, f"DP-1: {saved}", "")), \
                     patch.object(transition.subprocess, "check_output", return_value='[{"name": "DP-1"}]'), \
                     patch.object(transition, "commit") as commit:

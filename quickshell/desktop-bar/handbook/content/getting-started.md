@@ -52,3 +52,5 @@ Steam comes installed with GameMode, MangoHud and gamescope; Install > Gaming of
 
 Calendars and reminders help plan the day. Dictation turns speech into text after setup. Remote-access tools include Moonlight and Sunshine; install and configure the tools you need. Plugins extend Eitr through its plugin workflow. Desktop translations support English, Brazilian Portuguese, Spanish, French and German. The offline Handbook explains shortcuts, settings, setup and recovery without sending your questions anywhere. Control Center quick chat uses your selected assistant and sends its conversation plus a limited machine summary and Handbook context; it cannot run commands or change settings.
 <!-- /eitr-overview -->
+
+The guided installer can review Flatpak additions from an organization profile offline. A background service installs them after setup as the network becomes available and retries unfinished apps and remotes.

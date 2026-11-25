@@ -71,9 +71,19 @@ class MachineLocalConfigTests(unittest.TestCase):
         self.assertLess(script.index('start --no-block elephant.service'), ready)
         self.assertLess(ready, script.index('start --no-block eitr-crash-help.service'))
         self.assertNotIn('sleep 4', script)
-        self.assertLess(script.index('if ! eitr-session'), ready)
+        self.assertLess(script.index('if eitr-session'), ready)
         self.assertIn('eitr-walker --gapplication-service &', script)
         self.assertIn('systemctl --user start elephant.service', (ROOT / 'walker/bin/walker').read_text())
+
+    def test_walker_prewarms_when_preparation_fails(self):
+        script = (ROOT / 'hypr/scripts/session-start.sh').read_text()
+        prewarm = script[script.index('(if eitr-session'):script.index('# The renderer probe')]
+        result = subprocess.run(['bash', '-c',
+                                 'eitr-session() { return 7; }; eitr-walker() { echo "$*"; }; '
+                                 'login_mark() { echo "$*"; };\n' + prewarm + '\nwait'],
+                                check=True, capture_output=True, text=True, timeout=3)
+        self.assertEqual(set(result.stdout.splitlines()), {
+            'session-tasks-failed', 'walker-service-started', '--gapplication-service'})
 
     def test_shared_hyprland_config_has_no_machine_specific_outputs_or_devices(self):
         text = HYPRLAND.read_text()

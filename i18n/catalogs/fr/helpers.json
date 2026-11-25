@@ -367,6 +367,7 @@
   "Could not apply recording audio settings": "Impossible d’appliquer les paramètres audio de l’enregistrement",
   "Could not apply recording webcam settings": "Impossible d’appliquer les paramètres de webcam de l’enregistrement",
   "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.": "Impossible de transférer {problem} ; l’ancien dossier personnel est conservé dans /{PREVIOUS} pour vérification.",
+  "Could not check Arch Linux news.": "Impossible de consulter les nouvelles d’Arch Linux.",
   "Could not check for pending updates: {error}": "Impossible de vérifier les mises à jour en attente : {error}",
   "Could not complete that": "Impossible de terminer",
   "Could not download the picture: {error}": "Impossible de télécharger l’image : {error}",
@@ -565,7 +566,6 @@
   "Firewall: on (also open: {ports})": "Pare-feu : activé (également ouvert : {ports})",
   "Firewalls": "Pare-feu",
   "Fit": "Ajuster",
-  "Flathub apps install at the first start with a network connection.": "Les applications Flathub sont installées au premier démarrage avec une connexion Internet.",
   "Flatpak apps": "Applications Flatpak",
   "Flatpak apps could not be updated; the system update itself finished.": "Les applications Flatpak n’ont pas pu être mises à jour ; la mise à jour du système est terminée.",
   "Float must be true or false": "Flottante doit être vrai ou faux",
@@ -1862,5 +1862,6 @@
   "Could not arm the boot guard. No package upgrade was started.": "Impossible d’activer la protection du démarrage. La mise à jour des paquets n’a pas commencé.",
   "The System Update package hook is missing.": "Le hook Pacman de mise à jour du système est manquant.",
   "The update transaction does not match the pending recovery point.": "La transaction de mise à jour ne correspond pas au point de récupération en attente.",
-  "WiFi profiles changed during restore.": "Les profils Wi-Fi ont changé pendant la restauration."
+  "WiFi profiles changed during restore.": "Les profils Wi-Fi ont changé pendant la restauration.",
+  "Queue Flatpak for installation after setup: {value}": "Mettre le Flatpak en attente pour l’installer après la configuration : {value}"
 }

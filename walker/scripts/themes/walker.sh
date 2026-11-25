@@ -8,9 +8,9 @@ set -euo pipefail
 
 CURRENT_DIR="${CURRENT_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/theme/current}"
 WALKER_THEME_DIR="${WALKER_THEME_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/walker/themes/current}"
-CURRENT_FILE="$WALKER_THEME_DIR/style.css"
-
 mkdir -p "$WALKER_THEME_DIR"
+CURRENT_FILE="$(mktemp "$WALKER_THEME_DIR/.style.XXXXXX")"
+trap 'rm -f -- "$CURRENT_FILE"' EXIT
 
 # A user's walker/style.override.css is appended to every generated style, so
 # personal launcher tweaks survive theme switches and package updates.
@@ -24,13 +24,14 @@ append_style_override() {
     cat -- "$override" >> "$CURRENT_FILE"
   fi
 }
-trap append_style_override EXIT
+publish_style() {
+  append_style_override
+  chmod 644 "$CURRENT_FILE"
+  mv -f -- "$CURRENT_FILE" "$WALKER_THEME_DIR/style.css"
+}
 
 THEME_SCRIPTS_DIR="$(dirname "${BASH_SOURCE[0]}")"
 python3 -c 'from generated import walker_view; walker_view()'
-if [[ ! -f "$CURRENT_FILE" ]]; then
-  cp "$EITR_CODE_ROOT/walker/themes/current/style.css" "$CURRENT_FILE"
-fi
 # style.css imports the workspace previews from beside itself.
 install -m 644 "$EITR_CODE_ROOT/walker/themes/current/workspace-examples.css" "$WALKER_THEME_DIR/workspace-examples.css"
 font_family_css="$(python3 "$THEME_SCRIPTS_DIR/../actions/style/fonts.py" css)"
@@ -54,6 +55,7 @@ rgba() {
 
 if [[ ! -f "$CURRENT_DIR/colors.toml" ]]; then
   cp "$EITR_CODE_ROOT/walker/themes/current/style.css" "$CURRENT_FILE"
+  publish_style
   exit 0
 fi
 
@@ -74,6 +76,7 @@ error_background="${error_background:-$(palette get color1)}"
 
 if [[ -z "$accent" || -z "$foreground" || -z "$background" ]]; then
   cp "$EITR_CODE_ROOT/walker/themes/current/style.css" "$CURRENT_FILE"
+  publish_style
   exit 0
 fi
 
@@ -365,3 +368,4 @@ row:selected .current:not(.calc) .item-image-text {
   font-family: monospace;
 }
 EOF
+publish_style

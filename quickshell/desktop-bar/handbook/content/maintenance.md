@@ -21,10 +21,11 @@ just to update. System Update also updates apps installed from Flatpak, such as
 GeForce NOW; a Flatpak failure is reported without undoing the system update.
 
 Before upgrading, System Update and terminal updates of official packages check
-Arch Linux's news for posts since your last upgrade. Arch uses them to announce
-upgrades that need a manual step. When there is news, it shows the titles and
-links and asks **Continue the update?**: Esc cancels before anything changes, so you can read the post first; Enter continues. Without news, or without internet, it
-just continues.
+Arch Linux news for manual intervention bulletins. When there is news, the
+terminal shows titles and links and asks **Continue the update?**. Esc cancels
+before anything changes, so you can read the post first. Enter continues.
+
+The news check uses the last completed full package upgrade. A failed attempt leaves earlier bulletins visible on the next try. If the feed is unavailable, the terminal reports the failed check and continues.
 
 **Settings > Updates > Update Channel** lists both channels with yours marked; choosing the
 other asks for your password in a terminal and switches. It chooses where Eitr's

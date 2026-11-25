@@ -367,6 +367,7 @@
   "Could not apply recording audio settings": "録音のオーディオ設定を適用できませんでした",
   "Could not apply recording webcam settings": "録画のWebカメラ設定を適用できませんでした",
   "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.": "{problem} を引き継ぐことができませんでした。以前のホームフォルダーは確認用として /{PREVIOUS} に保持されています。",
+  "Could not check Arch Linux news.": "Arch Linux のニュースを確認できませんでした。",
   "Could not check for pending updates: {error}": "保留中のアップデートを確認できませんでした: {error}",
   "Could not complete that": "完了できませんでした",
   "Could not download the picture: {error}": "画像をダウンロードできませんでした: {error}",
@@ -565,7 +566,6 @@
   "Firewall: on (also open: {ports})": "ファイアウォール: オン（開放ポート: {ports}）",
   "Firewalls": "ファイアウォール",
   "Fit": "画面に合わせる",
-  "Flathub apps install at the first start with a network connection.": "Flathubアプリはネットワーク接続がある最初の起動時にインストールされます。",
   "Flatpak apps": "Flatpakアプリ",
   "Flatpak apps could not be updated; the system update itself finished.": "Flatpakアプリをアップデートできませんでした。システムアップデート自体は完了しました。",
   "Float must be true or false": "フローティングは true または false で指定してください",
@@ -1862,5 +1862,6 @@
   "Could not arm the boot guard. No package upgrade was started.": "起動ガードを有効にできませんでした。パッケージの更新は開始されていません。",
   "The System Update package hook is missing.": "システムアップデート用の Pacman フックがありません。",
   "The update transaction does not match the pending recovery point.": "更新トランザクションが保留中の復旧ポイントと一致しません。",
-  "WiFi profiles changed during restore.": "復元中に Wi-Fi プロファイルが変更されました。"
+  "WiFi profiles changed during restore.": "復元中に Wi-Fi プロファイルが変更されました。",
+  "Queue Flatpak for installation after setup: {value}": "セットアップ後にインストールする Flatpak をキューに追加: {value}"
 }

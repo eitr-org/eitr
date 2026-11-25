@@ -147,7 +147,66 @@ ShellRoot {
     panel.transport = transport;
     panel.opened = true;
    }
+   function verifyLazyListings() {
+    const original = panel.transport;
+    const calls = [];
+    let snapshotReply;
+    let previewReply;
+    panel.opened = false;
+    panel.live = true; panel.kind = "themes"; panel.tab = "discover";
+    panel.transport = function(name, args, callback) {
+     calls.push([name, args.kind, args.channel]);
+     if (name === "refresh-community") snapshotReply = callback;
+     else if (name === "preview") previewReply = callback;
+     else {
+      if (name === "index" && args.channel === "community" && !args.communitySnapshot)
+       throw new Error("Community listing would make another feed request");
+      callback("", {});
+     }
+    };
+    panel.opened = true;
+    const listings = () => calls.filter(call => ["index", "cached-index", "installed"].includes(call[0]));
+    if (!snapshotReply || listings().some(call => call[1] !== "themes"))
+     throw new Error("Opening fetched hidden catalogs");
+    panel.kind = "plugins";
+    if (!listings().some(call => call[1] === "plugins") || listings().some(call => call[1] === "lockscreens"))
+     throw new Error("Switching kinds fetched the wrong listings");
+    panel.query = "northern";
+    snapshotReply("", {});
+    if (!listings().some(call => call[1] === "lockscreens") || !listings().some(call => call[1] === "wallpapers")
+        || calls.filter(call => call[0] === "refresh-community").length !== 1)
+     throw new Error("Search must load the other kinds and share the community refresh");
+
+    const item = {id: "preview-target", icon: "icon.svg", channel: "official"};
+    const previews = () => calls.filter(call => call[0] === "preview").length;
+    panel.preview(item); panel.preview(item);
+    if (previews() !== 1) throw new Error("Preview requests overlapped");
+    previewReply("Offline", {});
+    panel.preview(item); previewReply("Offline", {});
+    panel.preview(item); previewReply("Offline", {});
+    panel.preview(item);
+    if (previews() !== 3) throw new Error("Preview retries must be allowed and bounded");
+    const recovering = {id: "recovering", icon: "icon.svg", channel: "official"};
+    panel.preview(recovering); previewReply("Offline", {});
+    panel.preview(recovering); previewReply("", {image: ROWS[0].previewUrl});
+    panel.preview(recovering);
+    if (previews() !== 5 || panel.imageFor(recovering) !== ROWS[0].previewUrl)
+     throw new Error("Successful preview retry did not cache the image");
+
+    panel.opened = false;
+    calls.length = 0;
+    panel.tab = "installed";
+    panel.opened = true;
+    if (listings().length !== 1 || listings()[0][0] !== "installed"
+        || calls.some(call => call[0] === "refresh-community"))
+     throw new Error("Installed should open without Discover");
+    panel.opened = false;
+    panel.live = false;
+    panel.transport = original;
+    panel.opened = true;
+   }
    Component.onCompleted: {
+    verifyLazyListings();
     verifyUpdateCheck();
     // Switching from a kind with other sources must list the new kind's own sources.
     panel.live = true; panel.kind = "themes"; panel.tab = "discover";
@@ -239,7 +298,7 @@ ShellRoot {
      if (entry.search) {
       panel.store = {"plugins:official": {items:[{id:"other",name:"Other kind",kind:"official"}]}};
       panel.query = "other";
-      if (panel.navigable.length) throw new Error("Search escaped the selected kind");
+      if (panel.navigable.length !== 1 || panel.navigable[0].storeKind !== "plugins") throw new Error("Cross-kind search missed the plugin");
       field.forceActiveFocus(); panel.query = "northern"; panel.tone = "light";
       if (field.text !== "northern" || panel.discoveries.length !== 1) throw new Error("Search and tone must combine");
       panel.chooseFilter(panel.definition.filters[0], "dark");
@@ -249,6 +308,8 @@ ShellRoot {
       if (panel.cursor !== 0) throw new Error("Search acceptance must enter the grid");
       find(panel, "catalog-search-clear").clicked();
       if (panel.query !== "" || field.text !== "") throw new Error("Clear search did not clear the shared query");
+      panel.store = {"plugins:official": {items:[{id:"northern-clock",name:"Northern clock",description:"Clock widget",
+                                                  kind:"official",previewUrl:"WEATHER_ICON"}]}};
       panel.query = "northern";
      }
      if (entry.updates) {
@@ -366,7 +427,7 @@ ShellRoot {
       const remove = window.findNamed(panel, "remove-weather");
       if (!remove || !remove.visible) throw new Error("Bundled Weather cannot be removed");
      }
-     const folder = entry.waiting !== undefined || entry.name.startsWith("updates-") || entry.name === "themes-discover" || entry.name === "community-detail" ? "REVIEW_TARGET" : "TARGET";
+     const folder = entry.waiting !== undefined || entry.name.startsWith("updates-") || entry.name === "themes-discover" || entry.name === "search-filter" || entry.name === "community-detail" ? "REVIEW_TARGET" : "TARGET";
      const filename = folder + "/PALETTE-" + entry.name + ".png";
      panel.grabToImage(result => {
       if (!result.saveToFile(filename)) throw new Error("Store capture failed");

@@ -367,6 +367,7 @@
   "Could not apply recording audio settings": "Não foi possível aplicar as configurações de áudio da gravação",
   "Could not apply recording webcam settings": "Não foi possível aplicar as configurações da webcam da gravação",
   "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.": "Não foi possível transferir {problem}; a pasta pessoal anterior foi mantida em /{PREVIOUS} para revisão.",
+  "Could not check Arch Linux news.": "Não foi possível consultar as notícias do Arch Linux.",
   "Could not check for pending updates: {error}": "Não foi possível verificar as atualizações pendentes: {error}",
   "Could not complete that": "Não foi possível concluir",
   "Could not download the picture: {error}": "Não foi possível baixar a imagem: {error}",
@@ -565,7 +566,6 @@
   "Firewall: on (also open: {ports})": "Firewall: ativado (também aberto: {ports})",
   "Firewalls": "Firewalls",
   "Fit": "Ajustar",
-  "Flathub apps install at the first start with a network connection.": "Os aplicativos Flathub são instalados na primeira inicialização com conexão à internet.",
   "Flatpak apps": "Apps Flatpak",
   "Flatpak apps could not be updated; the system update itself finished.": "Não foi possível atualizar os aplicativos Flatpak; a atualização do sistema foi concluída.",
   "Float must be true or false": "Flutuar deve ser verdadeiro ou falso",
@@ -1862,5 +1862,6 @@
   "Could not arm the boot guard. No package upgrade was started.": "Não foi possível ativar a proteção de inicialização. A atualização de pacotes não foi iniciada.",
   "The System Update package hook is missing.": "O hook do Pacman para a Atualização do Sistema está ausente.",
   "The update transaction does not match the pending recovery point.": "A transação de atualização não corresponde ao ponto de recuperação pendente.",
-  "WiFi profiles changed during restore.": "Os perfis de Wi-Fi foram alterados durante a restauração."
+  "WiFi profiles changed during restore.": "Os perfis de Wi-Fi foram alterados durante a restauração.",
+  "Queue Flatpak for installation after setup: {value}": "Colocar o Flatpak na fila de instalação após a configuração: {value}"
 }

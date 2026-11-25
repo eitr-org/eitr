@@ -20,8 +20,9 @@ snapshots those providers rather than maintaining a second list of their choices
 ## Query startup and cost
 
 Walker waits for Elephant query readiness, then starts index preparation detached
-with idle I/O priority and a lower CPU priority. Empty queries use their own menu
-rows immediately; typed descendant results appear once the index is available.
+with idle I/O priority and a lower CPU priority, even on a cold cache. Root rows
+are available immediately. Queries submitted after publication also search the
+prepared descendants.
 Preparation retains the 60-second freshness window and the shared nonblocking
 refresh lock. `elephant-search-warm.service` warms the index after backend readiness,
 independently of the backend start transaction, and follows backend restarts.

@@ -51,7 +51,7 @@ def walker_view():
 def refresh_after_upgrade():
     """Regenerate theme output once per package version, keeping a backup first."""
     stamp = code('version')
-    if not stamp.is_file():
+    if not stamp.is_file() or not config('theme/current/colors.toml').is_file():
         return None
     version = stamp.read_text().strip()
     ledger = state('eitr/session.json')
@@ -65,9 +65,8 @@ def refresh_after_upgrade():
             if source.is_file() and not source.is_symlink():
                 (backup / relative).parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source, backup / relative)
-    if config('theme/current/colors.toml').is_file():
-        # Running-session effects are left to the components that start afterwards.
-        subprocess.run(['bash', str(code('walker/scripts/themes/generate.sh'))],
-                       env=dict(os.environ, EITR_NO_SESSION='1'), check=False)
+    # Running-session effects are left to the components that start afterwards.
+    subprocess.run(['bash', str(code('walker/scripts/themes/generate.sh'))],
+                   env=dict(os.environ, EITR_NO_SESSION='1'), check=True)
     write_settings(ledger, {'package': version})
     return version

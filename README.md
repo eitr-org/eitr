@@ -48,7 +48,7 @@ privately through [SECURITY.md](SECURITY.md).
 
 ## Safety and recovery
 
-- System Update takes a Btrfs snapshot first and shows Arch news before updating;
+- System Update takes a Btrfs snapshot first and shows Arch news since the last completed full upgrade;
   the boot guard rolls back an update after which the system no longer starts.
 - Factory reset back to the first login, keeping your files or erasing everything.
 - Optional hourly home-folder snapshots with restore of single files or folders.

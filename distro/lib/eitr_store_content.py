@@ -1,10 +1,12 @@
 """Bounded Store index and Git artwork reads; existing machine-local cache names remain stable."""
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
 import tempfile
 
+from eitr_plugin_manifest import unique_object
 from eitr_store_previews import (discover_result, fetch_missing, package_dates, preview_blob, preview_target,
                                  publish_json, repository_path)
 
@@ -14,7 +16,6 @@ def refresh_community_index():
     from urllib.request import urlopen
     from eitr_community import validate_index
     from eitr_paths import cache
-    from eitr_plugin_manifest import unique_object
 
     url = 'https://raw.githubusercontent.com/eitr-org/eitr-store/HEAD/index.json'
     with urlopen(url, timeout=15) as response:
@@ -26,6 +27,25 @@ def refresh_community_index():
     return index
 
 
+def community_snapshot_path():
+    # Each foreground worker has its own lifetime directory.
+    directory = os.environ.get('EITR_CATALOG_REVIEW_CACHE')
+    return Path(directory) / 'community-index.json' if directory else None
+
+
+def refresh_community_snapshot():
+    snapshot = community_snapshot_path()
+    try:
+        index = refresh_community_index()
+    except (OSError, ValueError):
+        if snapshot is not None:
+            snapshot.unlink(missing_ok=True)
+        raise
+    if snapshot is not None:
+        publish_json(snapshot, index)
+    return {}
+
+
 def community(name, args):
     from eitr_store_backends import plugin_backend, save_plugin_rows
     from eitr_paths import cache
@@ -33,7 +53,12 @@ def community(name, args):
     from eitr_theme_packages import Themes, SOURCE, ThemeUnavailable
     target = cache('eitr/community-index.json')
     if name == 'index':
-        index = refresh_community_index()
+        if args.get('communitySnapshot'):
+            snapshot = community_snapshot_path()
+            source = snapshot if snapshot is not None and snapshot.is_file() else target
+            index = validate_index(json.loads(source.read_text(), object_pairs_hook=unique_object))
+        else:
+            index = refresh_community_index()
         if args['kind'] == 'plugins':
             from eitr_plugins import Plugins
             backend = plugin_backend()

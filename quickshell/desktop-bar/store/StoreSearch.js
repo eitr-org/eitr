@@ -36,3 +36,28 @@ function sorted(items, order) {
             String(second.name || second.id || ""), undefined, {sensitivity: "base", numeric: true});
     });
 }
+
+function mergeIndexes(indexes) {
+    const merged = [];
+    for (const index of indexes)
+        for (const item of index.items)
+            if (!merged.some(row => row.id === item.id)) merged.push(item);
+    return merged;
+}
+
+function mergeInstalled(item, installed) {
+    return Object.assign({}, item, installed.find(local => local.id === item.id) || {},
+        {kind: item.kind, channel: item.channel, createdAt: item.createdAt});
+}
+
+function otherResults(kinds, current, store, discover) {
+    const rows = [];
+    for (const kind of kinds) {
+        if (kind.id === current) continue;
+        const installed = (store[kind.id + ":installed"] || {}).items || [];
+        const indexes = kind.sources.map(source => store[kind.id + ":" + source] || {items: []});
+        const items = discover ? mergeIndexes(indexes).map(item => mergeInstalled(item, installed)) : installed;
+        for (const item of items) rows.push(Object.assign({}, item, {storeKind: kind.id}));
+    }
+    return rows;
+}

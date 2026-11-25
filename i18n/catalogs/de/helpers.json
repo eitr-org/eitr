@@ -367,6 +367,7 @@
   "Could not apply recording audio settings": "Audioeinstellungen der Aufnahme konnten nicht angewendet werden",
   "Could not apply recording webcam settings": "Kameraeinstellungen der Aufnahme konnten nicht angewendet werden",
   "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.": "{problem} konnte nicht übernommen werden; der bisherige persönliche Ordner bleibt zur Prüfung unter /{PREVIOUS} erhalten.",
+  "Could not check Arch Linux news.": "Arch-Linux-Nachrichten konnten nicht geprüft werden.",
   "Could not check for pending updates: {error}": "Ausstehende Aktualisierungen konnten nicht geprüft werden: {error}",
   "Could not complete that": "Das konnte nicht abgeschlossen werden",
   "Could not download the picture: {error}": "Das Bild konnte nicht heruntergeladen werden: {error}",
@@ -565,7 +566,6 @@
   "Firewall: on (also open: {ports})": "Firewall: an (zusätzlich offen: {ports})",
   "Firewalls": "Firewalls",
   "Fit": "Einpassen",
-  "Flathub apps install at the first start with a network connection.": "Flathub-Apps werden beim ersten Start mit Internetverbindung installiert.",
   "Flatpak apps": "Flatpak-Apps",
   "Flatpak apps could not be updated; the system update itself finished.": "Flatpak-Anwendungen konnten nicht aktualisiert werden; die Systemaktualisierung wurde abgeschlossen.",
   "Float must be true or false": "Schwebend muss wahr oder falsch sein",
@@ -1862,5 +1862,6 @@
   "Could not arm the boot guard. No package upgrade was started.": "Der Startschutz konnte nicht aktiviert werden. Die Paketaktualisierung wurde nicht gestartet.",
   "The System Update package hook is missing.": "Der Pacman-Hook für die Systemaktualisierung fehlt.",
   "The update transaction does not match the pending recovery point.": "Die Aktualisierungstransaktion stimmt nicht mit dem ausstehenden Wiederherstellungspunkt überein.",
-  "WiFi profiles changed during restore.": "Die WLAN-Profile wurden während der Wiederherstellung geändert."
+  "WiFi profiles changed during restore.": "Die WLAN-Profile wurden während der Wiederherstellung geändert.",
+  "Queue Flatpak for installation after setup: {value}": "Flatpak zur Installation nach der Einrichtung vormerken: {value}"
 }

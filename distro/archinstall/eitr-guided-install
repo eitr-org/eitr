@@ -639,7 +639,6 @@ def main():
         PROFILE_STAGE = tempfile.TemporaryDirectory(prefix='eitr-profile-', dir='/run')
         PROFILE = eitr_profile.snapshot(drive, PROFILE_STAGE.name)
         eitr_profile.preflight_packages(PROFILE, PROFILE_STAGE.name, databases=[*Path("/var/lib/pacman/sync").glob("*.db"), *PAYLOAD.rglob("*.db")])
-        eitr_profile.preflight_flatpaks(PROFILE)
     ui = load("eitr_installer_ui", SOURCE / "distro/archinstall/installer-ui.py")
     ui.PROFILE_REVIEW = eitr_profile.summary(PROFILE, installer=True).splitlines() if PROFILE else []
 

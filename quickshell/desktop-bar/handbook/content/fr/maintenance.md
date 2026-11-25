@@ -16,6 +16,8 @@ Un bureau Arch existant sans la politique de la distribution n’a pas besoin de
 
 Avant la mise à jour, la mise à jour du système et les mises à jour des paquets officiels depuis le terminal consultent les nouvelles d’Arch Linux depuis la dernière mise à jour. Arch y annonce les changements nécessitant une intervention manuelle. S’il y a des nouvelles, les titres et liens apparaissent avec **Continuer la mise à jour ?**. Esc annule avant tout changement pour vous laisser lire l’annonce ; Enter continue. Sans nouvelles ou sans internet, la procédure continue.
 
+La vérification des actualités se réfère à la dernière mise à niveau complète des paquets qui a abouti. Après un échec, les bulletins antérieurs restent visibles lors de la tentative suivante. Si le flux est inaccessible, le terminal le signale et poursuit.
+
 **Paramètres > Mises à jour > Canal de mise à jour** affiche les deux canaux et marque le vôtre. Choisir l’autre demande votre mot de passe dans un terminal et change l’origine des mises à jour d’Eitr lui-même. Stable, par défaut, les reçoit après essai. Testing reçoit les nouveaux builds dès leur publication pour essayer les changements plus tôt ; le reste provient toujours d’Arch.
 
 Revenir à Stable conserve une version plus récente d’Eitr jusqu’à ce que Stable la rattrape. Dans un terminal, `eitr channel` affiche le canal ; `eitr channel testing` ou `eitr channel stable` le change.

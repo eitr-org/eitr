@@ -54,3 +54,5 @@ Calendriers et rappels organisent la journée. La dictée transforme la parole e
 
 Le chat du Control Center transmet la conversation, un résumé limité de la machine et du manuel à l’assistant choisi ; il ne lance aucune commande ni ne modifie les réglages.
 <!-- /eitr-overview -->
+
+L’installateur guidé permet de vérifier hors ligne les ajouts Flatpak d’un profil d’organisation. Un service en arrière-plan les installe après la configuration dès que le réseau est disponible et réessaie les applications et dépôts en attente.

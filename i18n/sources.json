@@ -8731,6 +8731,9 @@
     "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.": [
       "distro/system/factory-reset.py"
     ],
+    "Could not check Arch Linux news.": [
+      "walker/scripts/actions/system/arch-news.py"
+    ],
     "Could not check for pending updates: {error}": [
       "walker/scripts/actions/install/software_packages.py"
     ],
@@ -9336,9 +9339,6 @@
     ],
     "Fit": [
       "tools/choice-lists.json"
-    ],
-    "Flathub apps install at the first start with a network connection.": [
-      "distro/lib/eitr_profile.py"
     ],
     "Flatpak apps": [
       "distro/lib/eitr_backup/wizard_ui.py"
@@ -10890,6 +10890,9 @@
     ],
     "QML runs inside the bar: {path}": [
       "distro/lib/eitr_plugin_install.py"
+    ],
+    "Queue Flatpak for installation after setup: {value}": [
+      "distro/lib/eitr_profile.py"
     ],
     "Queues": [
       "walker/scripts/menus/cloud/providers.py"

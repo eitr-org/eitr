@@ -367,6 +367,7 @@
   "Could not apply recording audio settings": "No se pudo aplicar la configuración de audio de grabación",
   "Could not apply recording webcam settings": "No se pudo aplicar la configuración de la cámara de grabación",
   "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review.": "No se pudo transferir {problem}; la carpeta personal anterior se conserva en /{PREVIOUS} para revisarla.",
+  "Could not check Arch Linux news.": "No se pudieron consultar las noticias de Arch Linux.",
   "Could not check for pending updates: {error}": "No se pudieron comprobar las actualizaciones pendientes: {error}",
   "Could not complete that": "No se pudo completar",
   "Could not download the picture: {error}": "No se pudo descargar la imagen: {error}",
@@ -565,7 +566,6 @@
   "Firewall: on (also open: {ports})": "Cortafuegos: activado (también abierto: {ports})",
   "Firewalls": "Cortafuegos",
   "Fit": "Ajustar",
-  "Flathub apps install at the first start with a network connection.": "Las aplicaciones de Flathub se instalan en el primer arranque con conexión a internet.",
   "Flatpak apps": "Apps Flatpak",
   "Flatpak apps could not be updated; the system update itself finished.": "No se pudieron actualizar las aplicaciones Flatpak; la actualización del sistema terminó.",
   "Float must be true or false": "Flotante debe ser verdadero o falso",
@@ -1862,5 +1862,6 @@
   "Could not arm the boot guard. No package upgrade was started.": "No se pudo activar la protección de arranque. La actualización de paquetes no se ha iniciado.",
   "The System Update package hook is missing.": "Falta el gancho de Pacman para la actualización del sistema.",
   "The update transaction does not match the pending recovery point.": "La transacción de actualización no coincide con el punto de recuperación pendiente.",
-  "WiFi profiles changed during restore.": "Los perfiles WiFi cambiaron durante la restauración."
+  "WiFi profiles changed during restore.": "Los perfiles WiFi cambiaron durante la restauración.",
+  "Queue Flatpak for installation after setup: {value}": "Poner Flatpak en cola para instalarlo después de la configuración: {value}"
 }

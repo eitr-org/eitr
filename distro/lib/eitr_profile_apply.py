@@ -49,9 +49,9 @@ def flatpak_work(profile, catalog):
     return remotes
 
 
-def run_as_user(username, home, command, runner):
+def run_as_user(username, home, command, runner, **options):
     runner(['runuser', '-u', username, '--', 'env', '-i', f'HOME={home}', f'USER={username}',
-            'PATH=/usr/local/bin:/usr/bin', 'LANG=en_US.UTF-8', 'EITR_NO_SESSION=1', *command])
+            'PATH=/usr/local/bin:/usr/bin', 'LANG=en_US.UTF-8', 'EITR_NO_SESSION=1', *command], **options)
 
 
 def install_flatpaks(remotes, user):
@@ -62,7 +62,7 @@ def install_flatpaks(remotes, user):
 
 
 def finish_flatpaks(root=Path('/'), runner=run):
-    """Consume only a private root-owned queue; failures retain it for next boot."""
+    """Validate the root-owned queue and checkpoint progress after each success."""
     path = root / PENDING
     descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
     with os.fdopen(descriptor) as stream:
@@ -84,8 +84,10 @@ def finish_flatpaks(root=Path('/'), runner=run):
     if not isinstance(remotes, list) or not remotes:
         raise ValueError('Invalid pending Flatpak remotes')
     for remote in remotes:
-        if not isinstance(remote, dict) or set(remote) != {'name', 'url', 'apps'}:
+        if not isinstance(remote, dict) or set(remote) - {'ready'} != {'name', 'url', 'apps'}:
             raise ValueError('Invalid pending Flatpak remote')
+        if type(remote.get('ready', False)) is not bool:
+            raise ValueError('Invalid pending Flatpak remote status')
         if not isinstance(remote['name'], str) or not profiles.PACKAGE.fullmatch(remote['name']):
             raise ValueError('Invalid Flatpak remote name')
         if not isinstance(remote['url'], str) or any(character.isspace() for character in remote['url']):
@@ -96,16 +98,38 @@ def finish_flatpaks(root=Path('/'), runner=run):
         if not isinstance(remote['apps'], list) or any(
                 not isinstance(app, str) or not profiles.APP_ID.fullmatch(app) for app in remote['apps']):
             raise ValueError('Invalid Flatpak application ID')
-    def user(command):
-        run_as_user(username, account.pw_dir, command, runner)
-    try:
-        install_flatpaks(remotes, user)
-    except subprocess.CalledProcessError as error:
-        # Usually no network yet (WiFi connects after login): the timer tries again.
-        print(f'Organization profile Flatpaks not installed yet; will retry: {error}', file=sys.stderr)
-        return False
-    path.unlink()
-    return True
+    def save_progress():
+        remaining = [remote for remote in remotes if not remote.get('ready') or remote['apps']]
+        if remaining:
+            write(path, dict(pending, remotes=remaining), mode=0o600)
+        else:
+            path.unlink(missing_ok=True)
+
+    def attempt(command, label, timeout):
+        try:
+            run_as_user(username, account.pw_dir, command, runner, timeout=timeout)
+            return True
+        except (OSError, subprocess.SubprocessError) as error:
+            print(f'Organization profile Flatpak {label} will retry: {error}', file=sys.stderr)
+            return False
+
+    checked = {}
+    for remote in remotes:
+        name = remote['name']
+        key = (name, remote['url'])
+        if not remote.get('ready'):
+            if key not in checked:
+                checked[key] = attempt(['flatpak', 'remote-add', '--user', '--if-not-exists',
+                                        name, remote['url']], name, 120)
+            if not checked[key]:
+                continue
+            remote['ready'] = True
+            save_progress()
+        for app in remote['apps'][:]:
+            if attempt(['flatpak', 'install', '--user', '-y', name, app], f'{name}/{app}', 600):
+                remote['apps'].remove(app)
+                save_progress()
+    return not path.exists()
 
 
 def stop_plugins(username, account, code, runner, root):
@@ -237,7 +261,8 @@ def apply(drive, channel_set, installer=False, username=None, root=Path('/')):
     with tempfile.TemporaryDirectory(prefix='eitr-profile-', dir=root / 'run') as temporary:
         profile = profiles.snapshot(drive, temporary)
         profiles.preflight_packages(profile, temporary)
-        profiles.preflight_flatpaks(profile)
+        if not installer:
+            profiles.preflight_flatpaks(profile)
         conf = root / 'etc/pacman.conf'
         content = conf.read_text()
         if '[options]' not in content:

@@ -1126,6 +1126,9 @@ msgstr "Não foi possível ativar a proteção de inicialização. A atualizaç�
 msgid "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 msgstr "Não foi possível transferir {problem}; a pasta pessoal anterior foi mantida em /{PREVIOUS} para revisão."
 
+msgid "Could not check Arch Linux news."
+msgstr "Não foi possível consultar as notícias do Arch Linux."
+
 msgid "Could not check for pending updates: {error}"
 msgstr "Não foi possível verificar as atualizações pendentes: {error}"
 
@@ -1722,9 +1725,6 @@ msgstr "Firewalls"
 
 msgid "Fit"
 msgstr "Ajustar"
-
-msgid "Flathub apps install at the first start with a network connection."
-msgstr "Os aplicativos Flathub são instalados na primeira inicialização com conexão à internet."
 
 msgid "Flatpak apps"
 msgstr "Apps Flatpak"
@@ -3228,6 +3228,9 @@ msgstr "QML adicionado, alterado ou removido: {path}"
 
 msgid "QML runs inside the bar: {path}"
 msgstr "QML executa dentro da barra: {path}"
+
+msgid "Queue Flatpak for installation after setup: {value}"
+msgstr "Colocar o Flatpak na fila de instalação após a configuração: {value}"
 
 msgid "Queues"
 msgstr "Filas"

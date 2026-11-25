@@ -35,7 +35,7 @@ def bundled_install(name, args):
 
 
 def validate(name, args):
-    if name not in {'installed', 'index', 'cached-index', 'preview', 'artwork', 'detail', 'source', 'check', 'changes', *MUTATIONS} or not isinstance(args, dict):
+    if name not in {'installed', 'index', 'cached-index', 'refresh-community', 'preview', 'artwork', 'detail', 'source', 'check', 'changes', *MUTATIONS} or not isinstance(args, dict):
         raise ValueError('invalid-request')
     from eitr_store_kinds import registry
     kinds = registry()
@@ -43,6 +43,13 @@ def validate(name, args):
         raise ValueError('invalid-kind')
     if args.get('channel', 'official') not in {'official', 'community', 'installed', 'git'}:
         raise ValueError('invalid-channel')
+    if name == 'refresh-community':
+        if args['kind'] != 'themes':
+            raise ValueError('invalid-community-refresh')
+        return
+    if 'communitySnapshot' in args and (name != 'index' or args.get('channel') != 'community'
+                                         or args['communitySnapshot'] is not True):
+        raise ValueError('invalid-community-snapshot')
     if name == 'cached-index' and (args['kind'] != 'themes' or args.get('channel') not in {'official', 'community'}):
         raise ValueError('invalid-cached-index')
     if args['kind'] == 'plugins' and name in {'install', 'update', 'apply'} and not bundled_install(name, args):
@@ -196,6 +203,9 @@ from eitr_store_backends import plugin_backend, save_plugin_rows
 def worker(name, args):
     from eitr_store_backends import dispatch
     validate(name, args)
+    if name == 'refresh-community':
+        from eitr_store_content import refresh_community_snapshot
+        return refresh_community_snapshot()
     return cached_discover(args['channel']) if name == 'cached-index' else dispatch(name, args)
 
 

@@ -256,9 +256,14 @@ Item {
     onCursorChanged: if (cursor >= shown - columns) shown = Math.ceil((cursor + columns + 1) / pageSize) * pageSize
     readonly property int columns: Math.max(1, Math.min(4, Math.floor((width - sidebarWidth - 48) / 230)))
     function filtered(items) { return items.filter(item => StoreSearch.matches(item, query) && StoreSearch.filters(item, kinds.find(entry => entry.id === (item.storeKind || kind)), sourceFilter, tone, filterValues)); }
-    readonly property var locals: StoreSearch.sorted(filtered(installed), sortOrder)
-    readonly property var discoveries: StoreSearch.sorted(filtered(availableItems.map(item => Object.assign({}, item, installed.find(local => local.id === item.id) || {}, {kind: item.kind, channel: item.channel, createdAt: item.createdAt}))), sortOrder)
+    readonly property var locals: StoreSearch.sorted(filtered(installed.concat(otherResults(false))), sortOrder)
+    readonly property var discoveries: StoreSearch.sorted(filtered(availableItems.map(item => StoreSearch.mergeInstalled(item, installed)).concat(otherResults(true))), sortOrder)
+    function otherResults(discover) {
+        return query.trim() ? StoreSearch.otherResults(kinds, kind, store, discover) : [];
+    }
     readonly property var navigable: getMore ? discoveries : locals
+    readonly property bool searchLoading: !!query.trim() && Object.keys(store).some(key =>
+        store[key].pending && (key.endsWith(":installed") !== getMore))
     function toggle(item) {
         if (item.storeKind && item.storeKind !== kind) kind = item.storeKind;
         if (!capabilities.useOnClick || capabilities.needsAdministrator || busy || isInstalled(item)) return;
@@ -295,7 +300,21 @@ Item {
         });
     }
     property var store: ({})
-    function fetch(catalogKind, source, enqueueRefresh) {
+    property var communityWaiters: []
+    property bool communityReady: false
+    function withCommunitySnapshot(task) {
+        if (communityReady) { task(); return; }
+        communityWaiters.push(task);
+        if (communityWaiters.length !== 1) return;
+        request("refresh-community", {kind: "themes"}, () => {
+            // Cached community listings can still be used when the refresh is offline.
+            communityReady = true;
+            const tasks = communityWaiters;
+            communityWaiters = [];
+            for (const waiting of tasks) waiting();
+        });
+    }
+    function fetch(catalogKind, source) {
         const key = catalogKind + ":" + source;
         store = Object.assign({}, store, {[key]: Object.assign({}, store[key] || {items: []}, {pending: true, error: ""})});
         sync();
@@ -312,7 +331,11 @@ Item {
             if (source !== "installed" && !failure && local && (data.items || []).some(item =>
                     item.createdAt && local.items.some(row => row.id === item.id && !row.createdAt))) fetch(catalogKind, "installed");
         });
-        const queueRefresh = enqueueRefresh || (task => task());
+        const queueRefresh = task => {
+            if (source !== "community") { task(); return; }
+            args.communitySnapshot = true;
+            withCommunitySnapshot(task);
+        };
         if (catalogKind === "themes" && source !== "installed" && !store[key].items.length) {
             request("cached-index", args, function(failure, data) {
                 if (!failure && data.items && data.items.length) update("", data, true);
@@ -325,8 +348,7 @@ Item {
         // Read the kind's own entry: onKindChanged can run before the definition binding updates.
         const current = kinds.find(entry => entry.id === kind) || kinds[0];
         const indexes = current.sources.map(source => store[kind + ":" + source] || {items: []});
-        const merged = [];
-        for (const index of indexes) for (const item of index.items) if (!merged.some(row => row.id === item.id)) merged.push(item);
+        const merged = StoreSearch.mergeIndexes(indexes);
         const index = {items: merged, loaded: indexes.every(entry => entry.loaded), error: indexes.map(entry => entry.error || "").filter(value => value).join("\n")};
         installed = local.items; installedError = local.error || ""; installedLoaded = !!local.loaded;
         indexLoaded = !!index.loaded; availableItems = index.items; repositoryError = index.error || "";
@@ -338,20 +360,29 @@ Item {
         store = ({}); installed = []; availableItems = []; installedLoaded = false; indexLoaded = false; selected = []; previews = ({}); previewRequests = ({});
         detail = null; reviewIds = null; artwork = ({}); artworkRequests = ({}); reviewing = false; removing = null; busy = false; error = ""; repositoryError = ""; installedError = ""; progress = "";
         if (!live || !opened) return;
-        fetch("themes", "installed");
-        const sources = kinds.find(entry => entry.id === "themes").sources;
-        const refreshes = [];
-        for (const source of sources) fetch("themes", source, refresh => {
-            refreshes.push(refresh);
-            if (refreshes.length !== sources.length) return;
-            for (const task of refreshes) task();
-            for (const entry of kinds.filter(entry => entry.id !== "themes"))
-                for (const channel of ["installed"].concat(entry.sources)) fetch(entry.id, channel);
-        });
+        communityReady = false; communityWaiters = [];
+        ensureVisible();
+    }
+    function ensureCatalog(catalogKind, discover) {
+        if (!store[catalogKind + ":installed"]) fetch(catalogKind, "installed");
+        if (discover) for (const source of kinds.find(entry => entry.id === catalogKind).sources)
+            if (!store[catalogKind + ":" + source]) fetch(catalogKind, source);
+    }
+    function ensureVisible() {
+        if (!live || !opened || tab === "updates") return;
+        ensureCatalog(kind, tab === "discover");
+        if (query.trim()) for (const entry of kinds)
+            if (entry.id !== kind) ensureCatalog(entry.id, tab === "discover");
+    }
+    onUpdateCacheChanged: {
+        if (!live || !opened) return;
+        for (const catalogKind of Object.keys(updateCache))
+            if (Object.values(updateCache[catalogKind]).some(count => count > 0))
+                ensureCatalog(catalogKind, false);
     }
     function switchView() {
         detail = null; cursor = -1; catalog.scroll.contentY = 0; shown = pageSize; selected = []; error = ""; progress = "";
-        if (live && opened) sync();
+        if (live && opened) { ensureVisible(); sync(); }
     }
     property var updateCheck: ({pending: 0, date: null, error: ""})
     function checkUpdates() { StoreUpdates.check(catalog, updateOwner); }
@@ -384,12 +415,16 @@ Item {
     function preview(item, includeCommunity) {
         const itemKind = item.storeKind || kind;
         const key = previewKey(item);
-        if (itemKind === "lockscreens" || itemKind === "wallpapers" || item.previewUrl || !live || !opened || previews[key] || previewRequests[key]) return;
+        const previous = previewRequests[key] || {attempts: 0, pending: false};
+        if (itemKind === "lockscreens" || itemKind === "wallpapers" || item.previewUrl || !live || !opened
+                || previews[key] || previous.pending || previous.attempts >= 3) return;
         if (itemKind === "themes" && (!item.preview || (channelFor(item) === "community" && !includeCommunity))) return;
         if (itemKind === "plugins" && !item.preview && !item.icon) return;
-        previewRequests = Object.assign({}, previewRequests, {[key]: true});
+        const attempts = previous.attempts + 1;
+        previewRequests = Object.assign({}, previewRequests, {[key]: {attempts, pending: true}});
         request(itemKind === "themes" ? "artwork" : "preview", itemKind === "themes" ? {kind: itemKind, id: item.id, path: item.preview, channel: channelFor(item)} : {kind: itemKind, id: item.id, channel: channelFor(item)}, function(failure, data) {
-            if (!failure) previews = Object.assign({}, previews, {[key]: data.image});
+            if (!failure && data.image) previews = Object.assign({}, previews, {[key]: data.image});
+            previewRequests = Object.assign({}, previewRequests, {[key]: {attempts, pending: false}});
         });
     }
     function cancelSheet() { if (!busy) { reviewing = false; reviewIds = null; removing = null; forceActiveFocus(); } }
@@ -408,10 +443,14 @@ Item {
         }
         else if (removing) act("remove", {id: removing.id, removePackages: catalog.removePackagesChoice.checked ? removing.removablePackages || [] : []});
     }
-    onTabChanged: if (tab !== "updates" && tab !== previousTab) { previousTab = tab; switchView(); }
+    onTabChanged: {
+        if (tab === "updates") return;
+        if (tab === previousTab) ensureVisible();
+        else { previousTab = tab; switchView(); }
+    }
     onKindChanged: if (tab === "updates") sync(); else switchView()
     onToneChanged: { shown = pageSize; catalog.scroll.contentY = 0; }
-    onQueryChanged: { shown = pageSize; cursor = -1; catalog.scroll.contentY = 0; }
+    onQueryChanged: { shown = pageSize; cursor = -1; catalog.scroll.contentY = 0; ensureVisible(); }
     onOpenedChanged: {
         if (opened) { opening++; updateCheck = {pending: 0, date: null, error: ""}; updateCache = ({}); load(); if (live) checkUpdates(); forceActiveFocus(); }
         else { resetTransient(); discardReview(); mediaIndex = -1; generation++; DesktopData.releaseOwner(catalog); DesktopData.releaseOwner(updateOwner); busy = false; }

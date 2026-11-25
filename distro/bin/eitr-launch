@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+import tempfile
 
 source_lib = Path(__file__).resolve().parents[1] / 'lib'
 if not (source_lib / 'eitr_paths.py').is_file():
@@ -127,12 +128,31 @@ def main(argv=None, executable=None):
         tool = executable.removeprefix('eitr-')
         preference = config(f'hypr/{tool}.conf')
         selected = preference if preference.is_file() else code(f'hypr/{tool}.conf', root)
-        command = [tool, '-c', str(selected), *values]
         if tool == 'hyprpaper':
-            # The shipped config sources this file, and Hyprpaper refuses a missing one.
-            monitors = Path.home() / '.cache/eitr/hyprpaper-monitors.conf'
+            helper = code('walker/scripts/actions/wallpaper/transition.py', root)
+            try:
+                subprocess.run([sys.executable, str(helper), 'startup'], env=environment,
+                               check=True, timeout=5)
+            except subprocess.SubprocessError as error:
+                print(f'eitr-hyprpaper: startup projection failed: {error}', file=sys.stderr)
+            monitors = cache('eitr/hyprpaper-monitors.conf')
             monitors.parent.mkdir(parents=True, exist_ok=True)
-            monitors.touch()
+            with monitors.open('a'):
+                pass
+            template = selected.read_text()
+            shipped = code('hypr/hyprpaper.conf', root).read_text()
+            if template == shipped.replace('@EITR_CACHE@', '~/.cache'):
+                template = shipped
+            if '@EITR_CACHE@' in template:
+                selected = cache('eitr/hyprpaper.conf')
+                with tempfile.NamedTemporaryFile(mode='w', dir=selected.parent, delete=False) as output:
+                    try:
+                        output.write(template.replace('@EITR_CACHE@', str(cache()).rstrip('/')))
+                        output.close()
+                        Path(output.name).replace(selected)
+                    finally:
+                        Path(output.name).unlink(missing_ok=True)
+        command = [tool, '-c', str(selected), *values]
     else:
         if executable == 'eitr-walker':
             values.insert(0, 'walker/bin/walker')

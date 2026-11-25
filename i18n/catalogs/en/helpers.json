@@ -456,7 +456,6 @@
   "Firewall: on (also open: {ports})": "Firewall: on (also open: {ports})",
   "Firewalls": "Firewalls",
   "Fit": "Fit",
-  "Flathub apps install at the first start with a network connection.": "Flathub apps install at the first start with a network connection.",
   "Flatpak apps could not be updated; the system update itself finished.": "Flatpak apps could not be updated; the system update itself finished.",
   "Folder": "Folder",
   "Folder for {label}": "Folder for {label}",
@@ -1862,5 +1861,7 @@
   "Could not arm the boot guard. No package upgrade was started.": "Could not arm the boot guard. No package upgrade was started.",
   "The System Update package hook is missing.": "The System Update package hook is missing.",
   "The update transaction does not match the pending recovery point.": "The update transaction does not match the pending recovery point.",
-  "WiFi profiles changed during restore.": "WiFi profiles changed during restore."
+  "WiFi profiles changed during restore.": "WiFi profiles changed during restore.",
+  "Could not check Arch Linux news.": "Could not check Arch Linux news.",
+  "Queue Flatpak for installation after setup: {value}": "Queue Flatpak for installation after setup: {value}"
 }

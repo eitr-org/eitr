@@ -15,10 +15,12 @@ Rectangle {
     required property var item
     required property bool local
     readonly property string itemKind: item.storeKind || catalog.kind
-    readonly property var capabilities: (catalog.kinds.find(entry => entry.id === itemKind) || catalog.definition).capabilities
+    readonly property var itemDefinition: catalog.kinds.find(entry => entry.id === itemKind) || catalog.definition
+    readonly property var capabilities: itemDefinition.capabilities
+    readonly property int rowIndex: catalog.navigable.findIndex(row => row.id === item.id && (row.storeKind || catalog.kind) === itemKind)
     readonly property int updateCount: catalog.checkingUpdates ? 0 : (catalog.updateCache[itemKind] || {})[item.id] || 0
-    readonly property bool picked: catalog.getMore && !local && catalog.selected.includes(item.id)
-    readonly property bool focused: catalog.cursor >= 0 && !!catalog.navigable[catalog.cursor] && catalog.navigable[catalog.cursor].id === item.id && (catalog.navigable[catalog.cursor].storeKind || catalog.kind) === itemKind
+    readonly property bool picked: catalog.getMore && !local && itemKind === catalog.kind && catalog.selected.includes(item.id)
+    readonly property bool focused: rowIndex >= 0 && catalog.cursor === rowIndex
     readonly property bool actionable: catalog.getMore || !(local && item.current)
     readonly property real viewportY: parent.parent.y + parent.y + y - catalog.scroll.contentY
     readonly property bool inViewport: viewportY + height > 0 && viewportY < catalog.scroll.height
@@ -49,6 +51,7 @@ Rectangle {
         StoreLabel { catalog: tile.catalog; width: parent.width; text: tile.item.name || ""; font.family: SiteStyle.carved; font.weight: Font.Medium; font.letterSpacing: 0.7; maximumLineCount: 1; elide: Text.ElideRight }
         StoreLabel { catalog: tile.catalog; width: parent.width; text: tile.item.description || (tile.itemKind === "themes" ? Eitr.I18n.tr("Desktop theme") : ""); font.pixelSize: 13; color: catalog.muted; maximumLineCount: 1; elide: Text.ElideRight }
         Flow { width: parent.width; spacing: 6
+            StorePill { catalog: tile.catalog; visible: tile.itemKind !== catalog.kind; text: Eitr.I18n.tr(tile.itemDefinition.label) }
             StorePill { catalog: tile.catalog; text: catalog.badge(tile.item) }
             StorePill { catalog: tile.catalog; visible: tile.itemKind === "lockscreens" && !!tile.item.current; text: Eitr.I18n.tr("Current"); current: true }
             StorePill { catalog: tile.catalog; visible: tile.itemKind === "plugins" && tile.item.builtin === true && !catalog.getMore; text: Eitr.I18n.tr("Official") }
@@ -66,7 +69,7 @@ Rectangle {
                 width: 110; visible: catalog.getMore && !tile.local
                 text: tile.picked ? "\uF00C " + Eitr.I18n.tr("Selected") : Eitr.I18n.tr("Install")
                 selected: tile.picked; available: !catalog.busy
-                onClicked: { if (tile.item.storeKind) catalog.kind = tile.item.storeKind; if (tile.capabilities.needsAdministrator) catalog.act("install", {ids: [tile.item.id]}); else if (!tile.capabilities.useOnClick) { catalog.openDetail(tile.item); catalog.reviewDetail(); } else catalog.toggle(tile.item); catalog.cursor = catalog.navigable.findIndex(item => item.id === tile.item.id); catalog.sidebarFocus = false; catalog.forceActiveFocus(); }
+                onClicked: { if (tile.item.storeKind) catalog.kind = tile.item.storeKind; if (tile.capabilities.needsAdministrator) catalog.act("install", {ids: [tile.item.id]}); else if (!tile.capabilities.useOnClick) { catalog.openDetail(tile.item); catalog.reviewDetail(); } else catalog.toggle(tile.item); catalog.cursor = tile.rowIndex; catalog.sidebarFocus = false; catalog.forceActiveFocus(); }
             }
             StorePill { catalog: tile.catalog;
                 anchors.left: parent.left; anchors.verticalCenter: parent.verticalCenter
@@ -77,7 +80,7 @@ Rectangle {
     }
     MouseArea { id: cardMouse; anchors.fill: parent; hoverEnabled: true; enabled: tile.actionable && !catalog.busy && !catalog.nativeReviewing && !catalog.addingAddress && !catalog.reviewing && !catalog.removing && !catalog.detail && !catalog.managing
         cursorShape: Qt.PointingHandCursor
-        onClicked: { catalog.cursor = catalog.navigable.findIndex(theme => theme.id === tile.item.id); catalog.activate(tile.item, tile.local); }
+        onClicked: { catalog.cursor = tile.rowIndex; catalog.activate(tile.item, tile.local); }
     }
     Rectangle {
         visible: tile.picked; x: 10; y: 10; width: 30; height: 30; radius: 15; color: catalog.accent

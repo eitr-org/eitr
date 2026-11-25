@@ -2,8 +2,7 @@
 """List Arch Linux news posted since this system's last full upgrade.
 
 Arch announces upgrades that need a manual step on its news feed. Exit codes:
-0 when there is nothing to show (or the feed cannot be reached: an update
-should never wait on it), 10 when news was printed and the caller should ask.
+0 for no news, 10 when news was printed and 11 when the feed is unavailable.
 """
 import eitr_bootstrap
 from eitr_i18n import tr
@@ -17,24 +16,35 @@ import xml.etree.ElementTree as ElementTree
 
 FEED = "https://archlinux.org/feeds/news/"
 PACMAN_LOG = Path("/var/log/pacman.log")
-UPGRADE = re.compile(r"^\[([^\]]+)\] \[PACMAN\] starting full system upgrade")
+LOG_ENTRY = re.compile(r"^\[([^\]]+)\] \[(PACMAN|ALPM)\] (.*)$")
 LIMIT = 5
 
 
 def last_upgrade(log=PACMAN_LOG):
-    """When the last full upgrade started, from pacman's log; None if never."""
+    """Return the last completed full-upgrade transaction in pacman's log."""
+    completed = None
+    full_upgrade = False
     try:
-        lines = log.read_text(errors="replace").splitlines()
+        with log.open(errors="replace") as stream:
+            for line in stream:
+                match = LOG_ENTRY.match(line)
+                if not match:
+                    continue
+                timestamp, component, message = match.groups()
+                if component == "PACMAN":
+                    if message.startswith("Running "):
+                        full_upgrade = False
+                    elif message == "starting full system upgrade":
+                        full_upgrade = True
+                elif full_upgrade and message == "transaction completed":
+                    full_upgrade = False
+                    try:
+                        completed = datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S%z")
+                    except ValueError:
+                        pass
     except OSError:
-        return None
-    for line in reversed(lines):
-        match = UPGRADE.match(line)
-        if match:
-            try:
-                return datetime.strptime(match.group(1), "%Y-%m-%dT%H:%M:%S%z")
-            except ValueError:
-                return None
-    return None
+        pass
+    return completed
 
 
 def news_since(feed_xml, since):
@@ -59,13 +69,12 @@ def fetch(url=FEED, timeout=8):
 
 
 def main():
-    since = last_upgrade()
-    if since is None:
-        return 0
+    since = last_upgrade() or datetime.min.replace(tzinfo=timezone.utc)
     try:
         news = news_since(fetch(), since)
     except (OSError, ElementTree.ParseError, ValueError):
-        return 0
+        print(tr("Could not check Arch Linux news."), file=sys.stderr)
+        return 11
     if not news:
         return 0
     print(tr('Arch posted news since your last update:'))

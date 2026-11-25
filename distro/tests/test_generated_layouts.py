@@ -1,5 +1,8 @@
+import importlib.machinery
+import importlib.util
 from pathlib import Path
 import os
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -69,3 +72,60 @@ class GeneratedLayoutTests(unittest.TestCase):
                 self.assertEqual(run.call_count, 2)
             backups = list((state / 'eitr/generated-backups').glob('*-1.0/kitty/theme.conf'))
             self.assertEqual([backup.read_text() for backup in backups], ['my tweak\n'])
+
+    def test_failed_theme_generation_does_not_stamp_version(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            colors = root / 'config/theme/current/colors.toml'
+            colors.parent.mkdir(parents=True)
+            colors.touch()
+            stamp = root / 'version'
+            stamp.write_text('1.1\n')
+            ledger = root / 'state/eitr/session.json'
+            ledger.parent.mkdir(parents=True)
+            ledger.write_text('{"package":"1.0"}')
+            with patch.object(generated, 'code', side_effect=lambda relative: root / relative), \
+                    patch.dict(os.environ, {'XDG_CONFIG_HOME': str(root / 'config'),
+                                             'XDG_STATE_HOME': str(root / 'state')}), \
+                    patch.object(generated.subprocess, 'run') as run:
+                run.side_effect = [subprocess.CalledProcessError(1, 'generate.sh'), None]
+                with self.assertRaises(subprocess.CalledProcessError):
+                    refresh_after_upgrade()
+                self.assertEqual(generated.read_settings(ledger)['package'], '1.0')
+                self.assertEqual(refresh_after_upgrade(), '1.1')
+                self.assertEqual(run.call_count, 2)
+
+    def test_each_preparation_step_has_a_deadline_and_failure_is_logged(self):
+        script = Path(__file__).resolve().parents[1] / 'bin/eitr-session'
+        loader = importlib.machinery.SourceFileLoader('test_session', str(script))
+        spec = importlib.util.spec_from_loader(loader.name, loader)
+        session = importlib.util.module_from_spec(spec)
+        loader.exec_module(session)
+        with tempfile.TemporaryFile(mode='w+') as log, patch.object(session.subprocess, 'run') as run:
+            run.side_effect = [subprocess.CompletedProcess([], status) for status in (124, 0, 1, 0, 0, 0, 0)]
+            self.assertEqual(session.prepare(log), 1)
+            self.assertEqual([call.args[0][-1] for call in run.call_args_list], list(session.STEPS))
+            for call in run.call_args_list:
+                self.assertEqual(call.args[0][:2], ['timeout', '--kill-after=2s'])
+                self.assertGreater(int(call.args[0][2][:-1]), 0)
+            log.seek(0)
+            self.assertIn('walker-layouts failed (exit 124)', log.read())
+
+    def test_walker_generation_failure_keeps_the_previous_css(self):
+        checkout = Path(__file__).resolve().parents[2]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            style = root / 'walker/themes/current/style.css'
+            style.parent.mkdir(parents=True)
+            style.write_text('previous usable stylesheet')
+            python = root / 'python3'
+            python.write_text('#!/bin/sh\ncase "$1" in *display-primary.py) exit 7 ;; esac\n')
+            python.chmod(0o755)
+            environment = dict(os.environ, HOME=directory, XDG_CONFIG_HOME=directory,
+                               EITR_CODE_ROOT=str(checkout), WALKER_THEME_DIR=str(style.parent),
+                               PATH=directory + os.pathsep + os.environ['PATH'])
+            result = subprocess.run(['bash', str(checkout / 'walker/scripts/themes/walker.sh')],
+                                    env=environment, capture_output=True, text=True, timeout=3)
+            self.assertEqual(result.returncode, 7, result.stderr)
+            self.assertEqual(style.read_text(), 'previous usable stylesheet')
+            self.assertEqual(list(style.parent.glob('.style.*')), [])

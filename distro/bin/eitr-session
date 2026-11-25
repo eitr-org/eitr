@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-"""At login: refresh package-backed layout links, run pending settings
-migrations, regenerate theme output after a package upgrade, restore the
-user's appearance caches, make sure Hyprpaper shows the saved wallpaper and
-install default per-user tools in the background."""
+"""Prepare login settings and launch independent background jobs."""
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -11,7 +9,7 @@ source = Path(__file__).resolve().parents[1] / 'lib'
 if not (source / 'eitr_paths.py').exists():
     source = Path('/usr/share/eitr/lib')
 sys.path.insert(0, str(source))
-from eitr_paths import code
+from eitr_paths import code, state
 from generated import refresh_after_upgrade, walker_view
 from migrations import run_pending
 from eitr_former_themes import pending_archive
@@ -19,20 +17,64 @@ from eitr_theme_migration import current_theme, pending, start_retry, THEMES
 import eitr_tailscale_migration
 import eitr_user_tools
 
-walker_view()
-# Settings migrations first: regenerated theme output reads the migrated preferences.
-run_pending()
-# A failed copy must leave the saved appearance available for the next retry.
-if not pending_archive():
-    if not (pending().exists() and current_theme() in THEMES):
-        refresh_after_upgrade()
-    subprocess.run(['python3', str(code('quickshell/desktop-bar/scripts/appearance-state.py')), 'adopt'], check=True)
-    # Hyprpaper starts in parallel with this script; checking it must not hold up Walker.
-    subprocess.Popen(['python3', str(code('walker/scripts/actions/wallpaper/transition.py')), 'restore'],
+
+def appearance():
+    if pending_archive():
+        return
+    subprocess.run([sys.executable, str(code('quickshell/desktop-bar/scripts/appearance-state.py')), 'adopt'], check=True)
+    subprocess.Popen([sys.executable, str(code('walker/scripts/actions/wallpaper/transition.py')), 'restore'],
                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
-# Network work starts after login settings are ready and never blocks the session.
-start_retry()
-# Desktops with Tailscale get the official plugin that now draws its icon and panel.
-eitr_tailscale_migration.start_retry()
-# Default per-user tools (herdr) install once with their official installers.
-eitr_user_tools.start()
+
+
+def theme():
+    if not pending_archive() and not (pending().exists() and current_theme() in THEMES):
+        refresh_after_upgrade()
+
+
+def migrate():
+    run_pending(raise_on_failure=True)
+
+
+STEPS = {
+    'walker-layouts': (walker_view, 5),
+    'settings-migrations': (migrate, 30),
+    'theme-generation': (theme, 30),
+    'appearance': (appearance, 10),
+    'theme-retry': (start_retry, 5),
+    'tailscale-retry': (eitr_tailscale_migration.start_retry, 5),
+    'user-tools': (eitr_user_tools.start, 5),
+}
+
+
+def main():
+    if len(sys.argv) == 3 and sys.argv[1] == '--step':
+        STEPS[sys.argv[2]][0]()
+        return 0
+    path = state('eitr/session-preparation.log')
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        output = path.open('w')
+    except OSError as error:
+        print(f'eitr-session: {error}', file=sys.stderr)
+        return prepare(sys.stderr)
+    with output:
+        return prepare(output)
+
+
+def prepare(output):
+    failed = set()
+    for name, (_, seconds) in STEPS.items():
+        if name in {'theme-generation', 'appearance'} and 'settings-migrations' in failed:
+            continue
+        # GNU timeout signals the whole step group, including generator modules.
+        result = subprocess.run(['timeout', '--kill-after=2s', f'{seconds}s',
+                                 sys.executable, os.path.realpath(__file__), '--step', name],
+                                stdout=output, stderr=subprocess.STDOUT)
+        if result.returncode:
+            failed.add(name)
+            print(f'eitr-session: {name} failed (exit {result.returncode}); will retry at next login', file=output, flush=True)
+    return int(bool(failed))
+
+
+if __name__ == '__main__':
+    sys.exit(main())

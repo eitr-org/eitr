@@ -1126,6 +1126,9 @@ msgstr "Der Startschutz konnte nicht aktiviert werden. Die Paketaktualisierung w
 msgid "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 msgstr "{problem} konnte nicht übernommen werden; der bisherige persönliche Ordner bleibt zur Prüfung unter /{PREVIOUS} erhalten."
 
+msgid "Could not check Arch Linux news."
+msgstr "Arch-Linux-Nachrichten konnten nicht geprüft werden."
+
 msgid "Could not check for pending updates: {error}"
 msgstr "Ausstehende Aktualisierungen konnten nicht geprüft werden: {error}"
 
@@ -1722,9 +1725,6 @@ msgstr "Firewalls"
 
 msgid "Fit"
 msgstr "Einpassen"
-
-msgid "Flathub apps install at the first start with a network connection."
-msgstr "Flathub-Apps werden beim ersten Start mit Internetverbindung installiert."
 
 msgid "Flatpak apps"
 msgstr "Flatpak-Apps"
@@ -3228,6 +3228,9 @@ msgstr "QML hinzugefügt, geändert oder entfernt: {path}"
 
 msgid "QML runs inside the bar: {path}"
 msgstr "QML läuft innerhalb der Leiste: {path}"
+
+msgid "Queue Flatpak for installation after setup: {value}"
+msgstr "Flatpak zur Installation nach der Einrichtung vormerken: {value}"
 
 msgid "Queues"
 msgstr "Warteschlangen"

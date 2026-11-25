@@ -14,6 +14,8 @@ La actualización del sistema comprueba primero los paquetes oficiales con check
 
 Antes de actualizar, la actualización del sistema y las actualizaciones de paquetes oficiales desde el terminal consultan las noticias de Arch Linux desde la última actualización. Anuncian cambios que requieren pasos manuales. Si hay noticias, muestra títulos y enlaces y pregunta **¿Continuar la actualización?**: Esc cancela antes de modificar nada para que puedas leer la publicación; Enter continúa. Sin noticias o sin internet, continúa.
 
+La consulta de noticias toma como referencia la última actualización completa de paquetes que terminó. Si un intento falla, los avisos anteriores siguen apareciendo en el siguiente intento. Si no se puede consultar el canal de noticias, el terminal lo indica y continúa.
+
 **Configuración > Actualizaciones > Canal de actualizaciones** muestra ambos canales y marca el actual; elegir el otro pide tu contraseña en un terminal y cambia el origen de las actualizaciones del propio Eitr. Stable, el predeterminado, las recibe después de probarlas. Testing recibe compilaciones nuevas en cuanto se publican para probar cambios antes; lo demás sigue viniendo de Arch. Volver a Stable conserva una versión más reciente de Eitr hasta que ese canal la alcance. En el terminal, `eitr channel` muestra el canal; `eitr channel testing` o `eitr channel stable` lo cambia.
 
 Solo puede ejecutarse una actualización protegida a la vez por equipo. Pacman activa la protección de arranque al comenzar los cambios en los paquetes y se detiene si no puede activarla. La protección sigue activa si la actualización falla o se interrumpe después de ese punto.

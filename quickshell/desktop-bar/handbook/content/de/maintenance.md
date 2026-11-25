@@ -14,6 +14,8 @@ Die Systemaktualisierung prüft zuerst offizielle Pakete mit checkupdates in ein
 
 Vor der Aktualisierung prüfen die Systemaktualisierung und Terminalaktualisierungen offizieller Pakete die Arch-Linux-Nachrichten seit der letzten Aktualisierung. Dort kündigt Arch Änderungen mit manuellen Schritten an. Gibt es Nachrichten, erscheinen Titel, Links und **Aktualisierung fortsetzen?**. Esc bricht vor jeder Änderung ab, damit du zuerst den Beitrag lesen kannst; Enter setzt fort. Ohne Nachrichten oder Internet wird fortgefahren.
 
+Die Nachrichtenprüfung richtet sich nach der letzten abgeschlossenen vollständigen Paketaktualisierung. Nach einem fehlgeschlagenen Versuch bleiben frühere Meldungen beim nächsten Versuch sichtbar. Ist der Feed nicht erreichbar, meldet das Terminal den Fehler und fährt fort.
+
 **Einstellungen > Aktualisierungen > Aktualisierungskanal** zeigt beide Kanäle und markiert den aktuellen. Ein anderer Kanal wird nach Passwortabfrage im Terminal ausgewählt; er bestimmt die Herkunft von Eitrs eigenen Aktualisierungen. Stable ist der Standard und erhält erprobte Versionen. Testing erhält neue Builds sofort nach Veröffentlichung, um Änderungen früh auszuprobieren. Alles andere kommt weiterhin von Arch. Beim Wechsel zurück zu Stable bleibt eine neuere Eitr-Version erhalten, bis Stable aufholt. Im Terminal zeigt `eitr channel` den Kanal; `eitr channel testing` oder `eitr channel stable` wechselt ihn.
 
 Pro Rechner kann jeweils eine geschützte Systemaktualisierung laufen. Pacman aktiviert bei Beginn der Paketänderungen den Startschutz und bricht bei einem Fehler ab. Nach Beginn der Änderungen bleibt der Schutz auch bei einem Fehler oder Abbruch aktiv.

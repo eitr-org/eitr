@@ -201,7 +201,7 @@ status` reports; it receives no shipped defaults unless it loads them.
 Hypridle, Hyprpaper and Hyprlock start through a packaged launcher that passes an
 existing user config if present, otherwise the shipped baseline, via `-c`
 (`hypridle --help`, `hyprpaper --help` and `hyprlock --help` all accept it). Keep
-idle timings and fallback behavior. The shipped idle config dims supported displays
+idle timings and fallback behavior. The launcher renders the shipped Hyprpaper config in the user cache and projects saved per-display wallpapers before starting Hyprpaper. Its default image and monitor include use the same XDG cache root as wallpaper selection. The shipped idle config dims supported displays
 at 880 seconds and restores their saved brightness on activity; lock, display-off
 and suspend remain at 900, 1800 and 3600 seconds. Adopted homes receive this
 through the package. A deliberate `hypr/hypridle.conf` override must include the
@@ -306,7 +306,7 @@ Generators move with their templates to `/usr/share/eitr/walker`, keep their
 script-relative imports, and write only to user directories. After a package
 upgrade, `eitr-session` regenerates the theme output once for the new package
 version (recorded in `/usr/share/eitr/version`), from the existing preferences,
-after copying the previous files to `~/.local/state/eitr/generated-backups`.
+after copying the previous files to `~/.local/state/eitr/generated-backups`. The version is recorded only after all generators succeed. Failed steps and module names are logged to `$XDG_STATE_HOME/eitr/session-preparation.log` and are retried on the next login.
 Theme switches already rewrite these files, so lasting customizations go in the
 override files (`hypr/local.lua`, `kitty/local.conf`, `walker/style.override.css`,
 `eitr/shell.local.zsh`). No pacman hook runs user generators or restarts

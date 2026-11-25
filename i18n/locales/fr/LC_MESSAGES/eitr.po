@@ -1126,6 +1126,9 @@ msgstr "Impossible d’activer la protection du démarrage. La mise à jour des 
 msgid "Could not carry {problem}; the previous home folder is kept at /{PREVIOUS} for review."
 msgstr "Impossible de transférer {problem} ; l’ancien dossier personnel est conservé dans /{PREVIOUS} pour vérification."
 
+msgid "Could not check Arch Linux news."
+msgstr "Impossible de consulter les nouvelles d’Arch Linux."
+
 msgid "Could not check for pending updates: {error}"
 msgstr "Impossible de vérifier les mises à jour en attente : {error}"
 
@@ -1722,9 +1725,6 @@ msgstr "Pare-feu"
 
 msgid "Fit"
 msgstr "Ajuster"
-
-msgid "Flathub apps install at the first start with a network connection."
-msgstr "Les applications Flathub sont installées au premier démarrage avec une connexion Internet."
 
 msgid "Flatpak apps"
 msgstr "Applications Flatpak"
@@ -3228,6 +3228,9 @@ msgstr "QML ajouté, modifié ou supprimé : {path}"
 
 msgid "QML runs inside the bar: {path}"
 msgstr "QML s’exécute dans la barre : {path}"
+
+msgid "Queue Flatpak for installation after setup: {value}"
+msgstr "Mettre le Flatpak en attente pour l’installer après la configuration : {value}"
 
 msgid "Queues"
 msgstr "Files d’attente"
