@@ -27,7 +27,9 @@ class NotchLayoutTests(unittest.TestCase):
         self.assertEqual(outline.count('ShapePath {'), 1)
         self.assertIn('EdgeSlopes.outline', outline)
         self.assertNotIn('PanelSurface {', tab)
-        icon_visibility = shell_source.split('readonly property bool iconsOpen: ', 1)[1].split('\n', 1)[0]
+        icon_visibility = shell_source.split('readonly property bool iconsOpen: ', 1)[1].splitlines()[0]
+        icon_visibility += '\nreadonly property bool statusCollapsible: ' + shell_source.split(
+            'readonly property bool statusCollapsible: ', 1)[1].splitlines()[0]
         status_source = (BAR / 'bar/BarHorizontalStatus.qml').read_text()
         toggle_visibility = status_source.split('id: statusToggle', 1)[1].split('visible: ', 1)[1].split('\n', 1)[0]
         toggle_visibility = toggle_visibility.replace('barHost.', 'bar.').replace('rightSide.host.', 'shell.')

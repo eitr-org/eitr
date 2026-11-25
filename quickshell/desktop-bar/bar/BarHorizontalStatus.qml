@@ -47,7 +47,7 @@ Row {
     StatusIcon {
         host: rightSide.host
         id: statusToggle
-        visible: rightItems.hasHideable && !barHost.centeredLayout && !rightSide.host.notchLayout && !barHost.dynamicLayout && !barHost.dropLayout && !barHost.islandsLayout
+        visible: rightSide.host.statusCollapsible && rightItems.hasHideable
         tooltip: rightSide.host.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
 
         icon: rightSide.host.statusOpen ? "›" : "‹"

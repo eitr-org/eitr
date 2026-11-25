@@ -22,7 +22,7 @@ Grid {
     readonly property int keyboardCount: barHost && barHost.keyboardMenu && barHost.keyboardMenu.layouts ? barHost.keyboardMenu.layouts.length : 0
     readonly property bool remoteAllowed: !!(barHost && barHost.remoteServiceRef && barHost.remoteServiceRef.allowed)
     readonly property var obsState: barHost && barHost.obsMenu && barHost.obsMenu.obsState ? barHost.obsMenu.obsState : ({recording: false, paused: false})
-    // Full bar only renders its collapse chevron when at least one item in right can collapse.
+    // The right-side toggle needs at least one item that can collapse.
     readonly property bool hasHideable: items.some(entry => {
         if (entry.id === "notifications" || entry.id === "battery") return false;
         if (entry.id === "streaming") return remoteAllowed;

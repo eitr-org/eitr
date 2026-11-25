@@ -764,6 +764,10 @@
     "Codex": [
       "quickshell/desktop-bar/settings/SettingsCatalog.js"
     ],
+    "Collapse icons": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml",
+      "quickshell/desktop-bar/settings/SettingsCatalog.js"
+    ],
     "Color Picker": [
       "quickshell/desktop-bar/panels/ControlCenterTools.qml"
     ],
@@ -3168,6 +3172,9 @@
     "Show a blazing trail behind the Kitty cursor.": [
       "quickshell/desktop-bar/settings/SettingsAppearancePage.qml"
     ],
+    "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": [
+      "quickshell/desktop-bar/settings/SettingsBarPage.qml"
+    ],
     "Show above windows": [
       "quickshell/desktop-bar/plugins/PluginWidgetControls.qml"
     ],
@@ -4608,6 +4615,10 @@
     "Cognito": [
       "elephant/menus/aws-cognito.lua"
     ],
+    "Collapse icons": [
+      "elephant/menu-rows/bar.json",
+      "elephant/menus/bar-collapse-icons.lua"
+    ],
     "Collect a report and send it by email or GitHub": [
       "elephant/menu-rows/system.json"
     ],
@@ -5234,6 +5245,9 @@
     "Keep My Files": [
       "elephant/menu-rows/factory-reset.json"
     ],
+    "Keep all available status icons visible.": [
+      "elephant/menus/bar-collapse-icons.lua"
+    ],
     "Keep expanded": [
       "elephant/menu-rows/bar.json",
       "elephant/menus/bar-pinned.lua"
@@ -5573,6 +5587,7 @@
       "elephant/menu-rows/tools.json"
     ],
     "Off": [
+      "elephant/menus/bar-collapse-icons.lua",
       "elephant/menus/bar-lyrics.lua",
       "elephant/menus/bar-moments.lua",
       "elephant/menus/bar-pinned.lua",
@@ -5591,6 +5606,7 @@
       "elephant/menus/ai-default.lua"
     ],
     "On": [
+      "elephant/menus/bar-collapse-icons.lua",
       "elephant/menus/bar-lyrics.lua",
       "elephant/menus/bar-moments.lua",
       "elephant/menus/bar-pinned.lua",
@@ -6322,6 +6338,9 @@
     ],
     "Show a Google, Outlook or iCal calendar beside your reminders": [
       "elephant/menu-rows/calendars.json"
+    ],
+    "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": [
+      "elephant/menus/bar-collapse-icons.lua"
     ],
     "Show brief notifications, levels and song changes in the bar.": [
       "elephant/menus/bar-moments.lua"

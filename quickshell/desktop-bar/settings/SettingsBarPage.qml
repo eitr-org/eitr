@@ -274,6 +274,17 @@ Column {
             }
         }
         ToggleRow {
+            SettingsTarget { objectName: "setting-bar-collapse-icons" }
+            text: Eitr.I18n.tr("Collapse icons")
+            description: Eitr.I18n.tr("Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.")
+            foreground: view.foreground
+            accent: view.accent
+            checked: styleModel.barCollapseIcons
+            onToggled: checked => {
+                if (view.live) styleModel.settingRequested("collapseIcons", checked ? "yes" : "no");
+            }
+        }
+        ToggleRow {
             SettingsTarget { objectName: "setting-bar-moments" }
             text: Eitr.I18n.tr("Bar moments")
             description: Eitr.I18n.tr("Show brief notifications, levels and song changes in the bar.")

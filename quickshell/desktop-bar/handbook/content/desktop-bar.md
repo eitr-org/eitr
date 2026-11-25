@@ -46,10 +46,12 @@ Choose a layout in Settings > Desktop Bar. All six work on every screen edge.
 | :--- | :--- |
 | Full | Full keeps the whole bar at the edge. Panels join it. |
 | Centered | Centered shows the clock until hovered. Use the pin, or Keep expanded under Settings > Desktop Bar (also in Walker), to keep it expanded; panels float beside it. |
-| Tabs | Tabs uses three tabs joined by a thin strip. Status icons and the weather stay visible. |
-| Islands | Islands gives each group its own pill, with every status icon always shown. Opening a panel expands its pill and moves neighbouring groups aside. |
+| Tabs | Tabs uses three tabs joined by a thin strip. Weather stays visible. |
+| Islands | Islands gives each group its own pill. Opening a panel expands its pill and moves neighbouring groups aside. |
 | Dynamic | Dynamic starts with three islands: logo, clock and network/battery, plus a media island between the logo and the clock while something plays. Hover one to expand it; opening a panel grows that island into the panel. |
 | Drop | Drop shows only the time in one pill at the centre of the edge. Click it to grow its dashboard; right-click goes straight to the quick controls. With auto-hide, nothing stays on screen until a drop falls from the edge and swells into the pill. |
+
+In Settings > Desktop Bar > Behaviour or Walker’s Desktop Bar menu, **Collapse icons** is on by default. Full, expanded Centered, Tabs and Islands start with the right-side icons collapsed. Use the chevron to show or hide them. The notification bell and battery stay visible when available. Turn the setting off to keep all available status icons visible and remove the chevron.
 
 Hover over Dynamic’s clock to show the full date, AM/PM in 12-hour mode, and available weather along the bar. The time stays centred.
 

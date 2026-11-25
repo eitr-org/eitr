@@ -1210,5 +1210,7 @@
   "Creation date": "创建日期",
   "Name A–Z": "名称 A–Z",
   "Name Z–A": "名称 Z–A",
-  "Starts on first use": "首次使用时开始"
+  "Starts on first use": "首次使用时开始",
+  "Collapse icons": "折叠图标",
+  "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "在完整、居中、标签页和岛屿布局中显示用于隐藏或展开状态图标的按钮。"
 }

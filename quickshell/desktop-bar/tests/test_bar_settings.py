@@ -141,7 +141,7 @@ class BarSettingsTests(unittest.TestCase):
             self.assertEqual(bar_settings.read_settings(), {**bar_settings.DEFAULTS, 'version': 1})
             bar_settings.save_settings({"appearance": "solid", "edge": "left"})
             self.assertEqual(bar_settings.read_settings(), {
-                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "moments": True, "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes", "dockPreviews": "yes", "version": 1
+                "appearance": "solid", "layout": "unified", "edge": "left", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "moments": True, "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes", "dockPreviews": "yes", "collapseIcons": "yes", "version": 1
             })
             bar_settings.save_settings({"layout": "centered"})
             self.assertEqual(bar_settings.read_settings()["appearance"], "solid")
@@ -156,7 +156,7 @@ class BarSettingsTests(unittest.TestCase):
                 bar_settings.save_settings({"screens": "some"})
         shell = ((Path(__file__).parents[1] / "shell.qml").read_text() + frame_source(Path(__file__).parents[1]))
         preferences = (Path(__file__).parents[1] / "services/BarPreferences.qml").read_text()
-        self.assertIn('"set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock, host.barMoments ? "true" : "false"]', preferences)
+        self.assertIn('"set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock, host.barMoments ? "true" : "false", host.barCollapseIcons ? "yes" : "no"]', preferences)
         self.assertIn("enabled: bar.isMainBar", shell, "only the main bar receives shortcuts")
         self.assertIn("shell.activeBar(bar).showKind(kind)", shell, "and hands them to the bar of the display in use")
         self.assertIn("shown: bar.isMainBar", shell, "notifications pop up on the main display only")
@@ -192,6 +192,27 @@ class BarSettingsTests(unittest.TestCase):
             bar_settings.SETTINGS.write_text('{"dockPreviews":"sometimes"}')
             self.assertEqual(bar_settings.read_settings()["dockPreviews"], "yes")
             self.refresh_walker.assert_not_called()
+
+    def test_collapse_icons_cli_round_trip_and_validation(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):
+            self.assertEqual(bar_settings.read_settings()["collapseIcons"], "yes")
+            with patch.object(bar_settings, "apply_live") as apply_live:
+                with patch.object(sys, "argv", ["bar-settings.py", "set", "collapseIcons", "no"]):
+                    self.assertEqual(bar_settings.main(), 0)
+                apply_live.assert_called_once_with("collapseIcons", "no")
+            args = ["bar-settings.py", "set-all", "solid", "notch", "left", "no", "main",
+                    "no", "no", "bars", "yes", "12h", "true"]
+            with patch.object(sys, "argv", args):
+                self.assertEqual(bar_settings.main(), 0)
+            self.assertEqual(bar_settings.read_settings()["collapseIcons"], "no")
+            with patch.object(sys, "argv", [*args, "yes"]):
+                self.assertEqual(bar_settings.main(), 0)
+            self.assertEqual(bar_settings.read_settings()["collapseIcons"], "yes")
+            for invalid in (False, "sometimes", [], None):
+                with self.assertRaises(ValueError):
+                    bar_settings.save_settings({"collapseIcons": invalid})
+                bar_settings.SETTINGS.write_text(json.dumps({"collapseIcons": invalid}))
+                self.assertEqual(bar_settings.read_settings()["collapseIcons"], "yes")
 
     def test_autohide_persists_without_changing_other_preferences(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(bar_settings, "SETTINGS", Path(directory) / "bar.json"):

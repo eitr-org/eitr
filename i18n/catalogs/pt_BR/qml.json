@@ -1210,5 +1210,7 @@
   "Creation date": "Data de criação",
   "Name A–Z": "Nome A–Z",
   "Name Z–A": "Nome Z–A",
-  "Starts on first use": "Começa no primeiro uso"
+  "Starts on first use": "Começa no primeiro uso",
+  "Collapse icons": "Recolher ícones",
+  "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Mostra um botão para ocultar ou exibir os ícones de status nos layouts Completa, Centralizada, Abas e Ilhas."
 }

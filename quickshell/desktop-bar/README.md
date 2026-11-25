@@ -135,9 +135,9 @@ new package version and calls `Quickshell.reload(false)` when the bar is idle.
 
 ## Debugging bar visibility
 
-Run `eitr-shell desktop-bar ipc call -- bar status` when the Full bar’s status
+Run `eitr-shell desktop-bar ipc call -- bar status` when the bar’s status
 chevron disappears. The JSON reports the layout flags, Focus and bar visibility
-settings, and whether the status icons are open. For each bar it includes the
+settings, the `collapseIcons` preference, and whether the status icons are open. For each bar it includes the
 resolved right-zone item IDs, whether any can collapse (`hasHideable`),
 and the chevron’s QML visibility and width.
 
@@ -313,7 +313,7 @@ its axis, with the same 320 ms opening/closing effect. The gap follows Hyprland'
 live inner window spacing (opposing insets added together). Gaps outside the
 centered strip pass clicks through. Old split preferences migrate to centered.
 
-Islands gives the logo, Overview/workspaces, AI Usage/Hardware/Idle Lock, clock, weather and status controls separate content-sized pills, preserving their order and Full’s icon spacing. Media and capture indicators get pills only while active. The clock stays exactly screen-centred; weather has its own pill beside it. Pills are always fully rounded, whatever the corner preference, and follow the bar colour/transparency and blur. Pills sit half of Hyprland’s live outer gap from the screen edge, with the full gap between neighbouring pills, on all four edges. The reserved window space includes the pill depth and that half gap; auto-hide reserves none. Gaps and rounded corners pass clicks through. Empty space on each pill supports the usual double-click and drag gestures. Opening a panel grows a card out of its pill (from the pill's free side: weather to the right, media and capture to the left, status toward the centre, the clock both ways), pushing the neighbouring pills aside; the pill hides under the card until it has shrunk back. Every status icon is always shown; Islands has no show/hide toggle.
+Islands gives the logo, Overview/workspaces, AI Usage/Hardware/Idle Lock, clock, weather and status controls separate content-sized pills, preserving their order and Full’s icon spacing. Media and capture indicators get pills only while active. The clock stays exactly screen-centred; weather has its own pill beside it. Pills are always fully rounded, whatever the corner preference, and follow the bar colour/transparency and blur. Pills sit half of Hyprland’s live outer gap from the screen edge, with the full gap between neighbouring pills, on all four edges. The reserved window space includes the pill depth and that half gap; auto-hide reserves none. Gaps and rounded corners pass clicks through. Empty space on each pill supports the usual double-click and drag gestures. Opening a panel grows a card out of its pill (from the pill's free side: weather to the right, media and capture to the left, status toward the centre, the clock both ways), pushing the neighbouring pills aside; the pill hides under the card until it has shrunk back. The status pill includes the chevron when Collapse icons is on.
 
 Island style (`islandStyle` in `bar-settings.json`, Settings > Desktop Bar > Layout and Walker's Desktop Bar > Island style) applies to Islands, Dynamic and Drop. Floating is the default described here. Attached removes the gap before the pills and reserves only their depth: each pill, island and the card a panel grows into is square against the screen edge with straight sides and rounded free corners, drawn with `EdgeSlopes.attached()`. Side style (`sideStyle`) gives Tabs and Centered a similar choice: 45° slopes, or straight sides (`EdgeSlopes.outline(..., straight)`); straight Tabs also drop the strip between the tabs, and Centered's input mask follows the straight body.
 
@@ -343,8 +343,14 @@ shows only its icon (the temperature is in its tooltip), and popups open inward.
 The `clock` setting in `bar-settings.json` (`12h`, the default, or `24h`), under
 Settings > Desktop > Desktop Bar > Clock and the Settings window's Desktop Bar page, picks the time format
 for every edge.
-The bundled AI Usage and Hardware plugins and Idle Lock sit together after the workspaces by default; right-hand controls
-retain their manual show/hide toggle in Full only. Centered, Tabs, Islands and Dynamic keep them visible without a toggle; Drop shows placed plugin items in its dashboard’s plugin rail. Settings > Desktop Bar > Icons (`BarIconOrder.qml`, persisted as `iconOrder` in `bar-settings.json`, or Reset to default) organizes built-in and active plugin icons across the left, clock-start, clock-end and right zones across every layout and screen edge, with panels opening from the moved icon’s zone. Both side groups share 24 px icon slots
+The bundled AI Usage and Hardware plugins and Idle Lock sit together after the workspaces by default.
+**Collapse icons** under Settings > Desktop Bar > Behaviour and Walker’s Desktop Bar menu
+defaults to `"yes"` in `bar-settings.json`. The chevron in Full, Tabs, expanded Centered
+and Islands reveals or hides the right-side group. It starts collapsed, with notifications
+and battery visible when available. Set `collapseIcons` to `"no"` to show all available
+status icons and hide the chevron. Dynamic reveals its status controls on hover. Drop
+shows placed plugin items in the dashboard’s plugin rail.
+Settings > Desktop Bar > Icons (`BarIconOrder.qml`, persisted as `iconOrder` in `bar-settings.json`, or Reset to default) organizes built-in and active plugin icons across the left, clock-start, clock-end and right zones across every layout and screen edge, with panels opening from the moved icon’s zone. Both side groups share 24 px icon slots
 and 4 px spacing, with centered alignment on every bar edge. Active workspace
 glyphs use the accent color without a filled background in every style; the
 style menus show the same markers.

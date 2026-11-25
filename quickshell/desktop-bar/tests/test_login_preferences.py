@@ -10,7 +10,8 @@ from layout_render import BAR, render, render_environment, capture_path
 class LoginPreferencesTests(unittest.TestCase):
     def test_saved_layout_and_defaults(self):
         for saved in ({'layout': 'dynamic', 'edge': 'left', 'clock': '24h'},
-                      {'layout': 'split'}, {'layout': 'invalid'}):
+                      {'layout': 'split', 'collapseIcons': 'no'},
+                      {'layout': 'invalid', 'collapseIcons': False}):
             with tempfile.TemporaryDirectory() as directory:
                 folder = Path(directory)
                 (folder / 'settings.json').write_text(json.dumps(saved))
@@ -32,12 +33,13 @@ class LoginPreferencesTests(unittest.TestCase):
                     registry.write('singleton FocusMode FocusMode.qml\n')
                 (folder / 'FocusMode.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property bool enabled: false }')
                 fields = set(re.findall(r'host\.([A-Za-z]+)', source))
-                booleans = {'settingsDirty', 'barPinned', 'barLyrics', 'barMoments', 'barAutoHide', 'barDock', 'barDockPreviews', 'barVisible', 'idleLockEnabled'}
+                booleans = {'settingsDirty', 'barPinned', 'barLyrics', 'barMoments', 'barAutoHide', 'barDock', 'barDockPreviews', 'barCollapseIcons', 'barVisible', 'idleLockEnabled'}
                 booleans.update({'verticalBar', 'centeredLayout', 'notchLayout', 'dynamicLayout',
                                  'dropLayout', 'islandsLayout', 'statusOpen', 'iconsOpen'})
                 integers = {'workspaceCount'}
                 properties = '\n'.join('property ' + ('bool' if field in booleans else 'int' if field in integers else 'string') + ' ' + field + ': ' + ('false' if field in booleans else '5' if field in integers else '""') for field in sorted(fields))
                 expected = {'dynamic': 'dynamic', 'split': 'centered'}.get(saved['layout'], 'unified')
+                collapse_icons = "no" if saved.get("collapseIcons") == "no" else "yes"
                 capture = capture_path('LOGIN', folder, saved['layout'] + '.png')
                 (folder / 'fixture.qml').write_text('''import QtQuick
 import Quickshell
@@ -69,7 +71,7 @@ ShellRoot {
    try {
     const status = JSON.parse(preferences.barIpc.status());
     const screen = status.bars[0];
-    if (status.layout !== EXPECTED || status.focus || typeof status.notchLayout !== "boolean" ||
+    if (status.collapseIcons !== COLLAPSE_ICONS || status.layout !== EXPECTED || status.focus || typeof status.notchLayout !== "boolean" ||
         screen.screen !== "fixture" || !screen.hasHideable || !screen.toggleVisible ||
         screen.toggleWidth !== 24 || screen.rightItemIds.join(",") !== "wifi,notifications")
      throw new Error("Unexpected bar status output: " + JSON.stringify(status));
@@ -81,7 +83,7 @@ ShellRoot {
   } }
   }
  }
-}'''.replace('PROPERTIES', properties).replace('EXPECTED', json.dumps(expected)).replace('CAPTURE', json.dumps(str(capture))))
+}'''.replace('PROPERTIES', properties).replace('EXPECTED', json.dumps(expected)).replace('COLLAPSE_ICONS', json.dumps(collapse_icons)).replace('CAPTURE', json.dumps(str(capture))))
                 code, output = render(folder / 'fixture.qml', render_environment(folder), 15)
                 self.assertEqual(code, 0, output)
                 for problem in ('ReferenceError', 'TypeError', 'Error:'):

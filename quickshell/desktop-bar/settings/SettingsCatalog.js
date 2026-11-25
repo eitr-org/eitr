@@ -28,6 +28,7 @@ var settings = [
     {"id": "bar-dock-previews", "label": "Dock previews", "page": "bar", "tab": "behaviour", "keywords": "dock window previews thumbnails titles"},
     {"id": "bar-reduce-motion", "label": "Reduce motion", "page": "bar", "tab": "behaviour", "keywords": "reduce motion"},
     {"id": "bar-keep-expanded", "label": "Keep expanded", "page": "bar", "tab": "behaviour", "keywords": "keep expanded"},
+    {"id": "bar-collapse-icons", "label": "Collapse icons", "page": "bar", "tab": "behaviour", "keywords": "status chevron hide show"},
     {"id": "bar-moments", "label": "Bar moments", "page": "bar", "tab": "behaviour", "keywords": "notifications levels volume brightness songs"},
     {"id": "bar-lyrics", "label": "Online lyrics", "page": "bar", "tab": "behaviour", "keywords": "lyrics lrclib songs"},
     {"id": "bar-layout", "label": "Layout", "page": "bar", "tab": "layout", "keywords": "layout"},

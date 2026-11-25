@@ -12,8 +12,14 @@ ShellRoot {
     property bool dropLayout: false
     property bool floatingIslands: islandsLayout
     property bool islandsLayout: false
-    property bool iconsOpen: true
-    property bool statusOpen: true
+    property bool barCollapseIcons: true
+STATUS_BINDINGS
+    property bool statusOpen: false
+    property bool dragCandidate: false
+    property bool barPointerHeld: false
+    property string barSideStyle: "slopes"
+    property int tabStripThickness: 7
+    property int tabBendRound: 8
     property bool barVisible: true
     property bool focused: false
     property bool barPinned: false
@@ -40,6 +46,7 @@ ShellRoot {
     property int remoteObservers: 0
     function barBackground() { return workspaceMenuBg; }
     function updateBarSetting(key, value) {}
+    function barDoubleClick(button) {}
     function checkUpdates() {}
     function openSystemUpdate() {}
     QtObject { id: networkOwner }
@@ -50,12 +57,25 @@ ShellRoot {
     FloatingWindow {
         visible: true; implicitWidth: 1920; implicitHeight: 1080
         Item {
-            id: bar; anchors.fill: parent
+            id: bar; width: parent.width; height: parent.height
             property real clockPluginExtent: 0
             property bool centeredLayout: shell.centeredLayout
-            property bool dynamicLayout: false
-            property bool dropLayout: false
-            property var islandSurfaces: ({afterLogo: 0, afterWorkspaces: 0, aroundClock: 0})
+            property bool dynamicLayout: shell.dynamicLayout
+            property bool dropLayout: shell.dropLayout
+            property var islandSurfaces: islands
+            property bool attachedIslands: false
+            property int normalThickness: shell.verticalBar ? 56 : 32
+            property var autoHideRef: ({progress: 1})
+            property real tabLeadingEnd: 290
+            property real tabCenterStart: centerInfo.x - 8
+            property real tabCenterEnd: centerInfo.x + centerInfo.width + 8
+            property real tabTrailingStart: (shell.verticalBar ? verticalEnd.y : rightSide.x) - 8
+            property var leftGroup: leftGroupItem
+            property var verticalControlCenterLogo: mockLogo
+            property var verticalOverviewIcon: mockWorkspaces
+            property var verticalWorkspaces: mockWorkspaces
+            property var verticalHardware: mockStatus
+            property var clockPlugins: mockLogo
             property bool floatingIslands: islandsLayout
             property bool islandsLayout: shell.islandsLayout
             property bool notchLayout: shell.notchLayout
@@ -63,7 +83,8 @@ ShellRoot {
             property var clockActivity: ({bellAngle: 0, flash: 0})
             function showControlCenter(page) {}
             property real leadingReveal: 320
-            property real trailingReveal: 240
+            readonly property real centerExtent: (shell.verticalBar ? verticalCalendarIcon.height : centerInfo.width) + 16
+            readonly property real trailingReveal: endPadding + (shell.verticalBar ? verticalEnd.height : rightSide.width) + itemGap
             property real endPadding: shell.verticalBar ? 8 : 12
             property real itemGap: 4
             property real islandSpacing: 16
@@ -95,18 +116,34 @@ ShellRoot {
                     hiddenFallback || bar.notificationIcon || bar.rightSide, fallback || stripItem);
             }
 ALIASES
+            BarCenteredOutline { host: shell; barHost: bar }
             Rectangle {
                 id: strip
-                color: shell.workspaceMenuBg
+                color: shell.islandsLayout || shell.notchLayout || shell.centeredLayout ? "transparent" : shell.workspaceMenuBg
+                BarIslands { id: islands; host: shell; barHost: bar }
+                BarTabs { id: tabs; host: shell; barHost: bar }
+                Item { id: mockLogo; x: 10; width: 24; height: 24 }
+                Text { anchors.centerIn: mockLogo; text: "ᛖ"; color: shell.fg }
                 visible: !shell.focused
-                width: shell.verticalBar ? 56 : (bar.centeredLayout ? 800 : bar.width)
-                height: shell.verticalBar ? (bar.centeredLayout ? 700 : bar.height) : 32
-                x: shell.verticalBar ? (shell.barEdge === "right" ? bar.width - width : 0) : (bar.width - width) / 2 - (bar.centeredLayout ? 40 : 0)
-                y: shell.verticalBar ? (bar.height - height) / 2 - (bar.centeredLayout ? 40 : 0) : (shell.barEdge === "bottom" ? bar.height - height : 0)
-                Item { id: mockWorkspaces; width: 180; height: 24 }
-                Item { id: mockStatus; x: 200; width: 80; height: 24 }
+                width: shell.verticalBar ? 56 : (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.width)
+                height: shell.verticalBar ? (bar.centeredLayout ? bar.centerExtent + bar.leadingReveal + bar.trailingReveal : bar.height) : 32
+                x: shell.verticalBar ? (shell.barEdge === "right" ? bar.width - width : 0) : (bar.centeredLayout ? (bar.width - bar.centerExtent) / 2 - bar.leadingReveal : 0)
+                y: shell.verticalBar ? (bar.centeredLayout ? (bar.height - bar.centerExtent) / 2 - bar.leadingReveal : 0) : (shell.barEdge === "bottom" ? bar.height - height - (shell.islandsLayout ? 4 : 0) : shell.islandsLayout ? 4 : 0)
+                Item { id: mockWorkspaces; x: 52; width: 134; height: 24
+                    Text { anchors.centerIn: parent; text: "ᚠ  ᚢ  ᚦ  ᚨ  ᚱ"; color: shell.fg }
+                }
+                Item { id: mockStatus; x: 200; width: 80; height: 24
+                    Text { anchors.centerIn: parent; text: "AI  󰍛  󰌾"; color: shell.fg; font.family: "JetBrainsMono Nerd Font"; font.pixelSize: 14 }
+                }
                 // The bar exposes its left items through BarLeftGroup; the fixture mirrors that.
-                QtObject { id: leftGroup; readonly property Item workspaces: mockWorkspaces; readonly property Item hardwareStatus: mockStatus }
+                QtObject {
+                    id: leftGroupItem
+                    readonly property Item workspaces: mockWorkspaces
+                    readonly property Item hardwareStatus: mockStatus
+                    readonly property Item controlCenterLogo: mockLogo
+                    readonly property Item overviewIcon: mockWorkspaces
+                    readonly property Item workspaceButtonRow: mockWorkspaces
+                }
                 Item {
                     anchors.fill: parent; visible: !shell.verticalBar
 HORIZONTAL
@@ -115,7 +152,42 @@ HORIZONTAL
 VERTICAL
                 }
             }
+            readonly property var statusRenders: STATUS_RENDERS
+            property int renderIndex: 0
             property int step: 0
+            function applyLayout(mode) {
+                shell.centeredLayout = mode === 1;
+                shell.notchLayout = mode === 2;
+                shell.islandsLayout = mode === 3;
+                shell.dynamicLayout = mode === 4;
+                shell.dropLayout = mode === 5;
+            }
+            function renderNext() {
+                if (bar.renderIndex === bar.statusRenders.length) {
+                    console.log("BAR_SECTIONS_OK");
+                    Qt.quit();
+                    return;
+                }
+                const [mode, enabled, opened, light, name] = bar.statusRenders[bar.renderIndex++];
+                bar.applyLayout(mode);
+                shell.barCollapseIcons = enabled;
+                shell.statusOpen = opened;
+                shell.fg = light ? "#262a35" : "#e9edf3";
+                shell.workspaceMenuBg = light ? "#f1f3fa" : "#242b37";
+                captureTimer.output = name;
+                captureTimer.restart();
+            }
+            Timer {
+                id: captureTimer
+                property string output
+                interval: 60
+                onTriggered: {
+                    bar.grabToImage(function(result) {
+                        if (!result.saveToFile(output)) { Qt.exit(1); return; }
+                        bar.renderNext();
+                    });
+                }
+            }
             property int scenario: 0
             property bool snapshotRequested: false
             readonly property var pluginStates: ["start", "disabled", "start", "unplaced", "status", "removed"]
@@ -127,11 +199,9 @@ VERTICAL
                     if (!PluginRegistry.snapshotLoaded) return;
                     shell.barEdge = "top";
                     shell.verticalBar = false;
-                    shell.centeredLayout = false;
-                    shell.notchLayout = false;
-                    shell.islandsLayout = false;
+                    bar.applyLayout(0);
+                    shell.barCollapseIcons = true;
                     shell.statusOpen = false;
-                    shell.iconsOpen = shell.statusOpen;
                     shell.battery = ({available: false, percent: 80, status: "Discharging"});
                     remoteAccessService.allowed = false;
                     bar.keyboardMenu.layouts = ["us"];
@@ -179,12 +249,10 @@ VERTICAL
                 if (bar.scenario === 3) notificationCenter.opened = false;
                 if (bar.scenario === 4) {
                     shell.statusOpen = true;
-                    shell.iconsOpen = true;
                 }
                 if (bar.scenario === 5) {
                     if (toggle.icon !== "›") throw new Error("Expanded chevron changed");
                     toggle.clicked(Qt.LeftButton);
-                    shell.iconsOpen = shell.statusOpen;
                     if (shell.statusOpen || toggle.icon !== "‹") throw new Error("Click did not collapse the icons");
                 }
                 if (bar.scenario === bar.pluginStates.length) shell.focused = true;
@@ -193,8 +261,10 @@ VERTICAL
                     timer.stop();
                     strip.grabToImage(function(result) {
                         if (!result.saveToFile(CAPTURE_PATH)) { Qt.exit(1); return; }
-                        console.log("BAR_SECTIONS_OK");
-                        Qt.quit();
+                        bar.height = 40;
+                        bar.notificationsRef.count = 0;
+                        bar.mediaStrip.visible = false;
+                        bar.renderNext();
                     });
                 }
             }
@@ -202,26 +272,48 @@ VERTICAL
                 id: timer
                 interval: 30; running: true; repeat: true
                 onTriggered: {
-                    if (bar.step === 64) {
+                    if (bar.step === 144) {
                         try { bar.exerciseFull(); }
                         catch (error) { console.error(error); Qt.exit(1); }
                         return;
                     }
                     const edges = EDGES;
-                    const mode = Math.floor(bar.step / 8) % 4;
+                    const modes = [0, 4, 1, 5, 2, 3];
+                    const mode = modes[Math.floor(bar.step / 12) % modes.length];
+                    const state = Math.floor(bar.step / 4) % 3;
                     shell.barEdge = edges[bar.step % 4];
                     shell.verticalBar = shell.barEdge === "left" || shell.barEdge === "right";
-                    shell.centeredLayout = mode === 1;
-                    shell.notchLayout = mode === 2;
-                    shell.islandsLayout = mode === 3;
-                    shell.iconsOpen = bar.step % 8 < 4;
-                    bar.width = bar.step < 32 ? 1920 : 1366;
-                    bar.height = bar.step < 32 ? 1080 : 768;
+                    bar.applyLayout(mode);
+                    shell.barCollapseIcons = state !== 2;
+                    shell.statusOpen = state === 1;
+                    bar.width = bar.step < 72 ? 1920 : 1366;
+                    bar.height = bar.step < 72 ? 1080 : 768;
                     Qt.callLater(function() {
                         try {
                         const toggle = shell.verticalBar ? bar.verticalEnd.statusToggleItem : bar.statusToggle;
-                        if (toggle.visible !== (mode === 0))
+                        if (toggle.visible !== (mode < 4 && state !== 2))
                             throw new Error("Status toggle visibility at step " + bar.step + ": " + toggle.visible);
+                        if (toggle.visible) {
+                            const status = shell.verticalBar ? bar.verticalEnd : bar.rightSide;
+                            const extent = shell.verticalBar ? status.height : status.width;
+                            const toggleExtent = shell.verticalBar ? toggle.height : toggle.width;
+                            if (extent < toggleExtent + 2 * shell.workspaceItemSize)
+                                throw new Error("Right group lost its chevron slot at step " + bar.step);
+                            if (shell.notchLayout) {
+                                const center = toggle.mapToItem(tabs.trailingTabItem, toggle.width / 2, toggle.height / 2);
+                                if (!tabs.trailingTabItem.contains(center))
+                                    throw new Error("Chevron outside trailing tab at step " + bar.step);
+                            }
+                            if (shell.islandsLayout && islands.pillFor(toggle) !== islands.pillFor(bar.iconItem("notifications")))
+                                throw new Error("Chevron outside status pill at step " + bar.step);
+                        }
+                        const showHideable = mode >= 4 || state !== 0;
+                        for (const itemId of ["wifi", "bluetooth", "display", "audio", "streaming", "keyboard", "obs", "updates", "battery", "notifications"]) {
+                            const item = bar.iconItem(itemId);
+                            const shown = item && item.visible && (shell.verticalBar ? item.height : item.width) > 0;
+                            if (shown !== (showHideable || itemId === "battery" || itemId === "notifications"))
+                                throw new Error("Status icon " + itemId + " at step " + bar.step + ": " + shown);
+                        }
                         const clock = shell.verticalBar ? bar.verticalCalendarIcon : bar.centerInfo;
                         const position = clock.mapToItem(bar, clock.width / 2, clock.height / 2);
                         const actual = shell.verticalBar ? position.y : position.x;
@@ -248,6 +340,12 @@ VERTICAL
                         if (bar.recordingMenu.target !== (shell.verticalBar ? bar.verticalCapture : bar.barCapture)
                                 || bar.recordingMenu.controller !== bar.obsMenu)
                             throw new Error("Recording panel wiring changed");
+                        if (toggle.visible) {
+                            const wasOpen = shell.statusOpen;
+                            toggle.clicked(Qt.LeftButton);
+                            if (shell.statusOpen === wasOpen || shell.iconsOpen === wasOpen)
+                                throw new Error("Chevron did not toggle at step " + bar.step);
+                        }
                         bar.step++;
                         } catch (error) { console.error(error); Qt.exit(1); }
                     });

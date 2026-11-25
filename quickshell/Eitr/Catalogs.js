@@ -1247,7 +1247,9 @@ var qml = {
     "Name A–Z": "Name A–Z",
     "Name Z–A": "Name Z–A",
     "Creation date": "Creation date",
-    "Starts on first use": "Starts on first use"
+    "Starts on first use": "Starts on first use",
+    "Collapse icons": "Collapse icons",
+    "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands."
   },
   "pt_BR": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr e Eitr Light vêm integrados. Troque de tema antes de remover o tema atual da loja.",
@@ -2461,7 +2463,9 @@ var qml = {
     "Creation date": "Data de criação",
     "Name A–Z": "Nome A–Z",
     "Name Z–A": "Nome Z–A",
-    "Starts on first use": "Começa no primeiro uso"
+    "Starts on first use": "Começa no primeiro uso",
+    "Collapse icons": "Recolher ícones",
+    "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Mostra um botão para ocultar ou exibir os ícones de status nos layouts Completa, Centralizada, Abas e Ilhas."
   },
   "es": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr y Eitr Light vienen incluidos. Cambia de tema antes de eliminar el tema actual de la tienda.",
@@ -3675,7 +3679,9 @@ var qml = {
     "Creation date": "Fecha de creación",
     "Name A–Z": "Nombre A–Z",
     "Name Z–A": "Nombre Z–A",
-    "Starts on first use": "Empieza con el primer uso"
+    "Starts on first use": "Empieza con el primer uso",
+    "Collapse icons": "Contraer iconos",
+    "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Muestra un botón para ocultar o mostrar los iconos de estado en Completa, Centrada, Pestañas e Islas."
   },
   "de": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr und Eitr Light sind vorinstalliert. Wechsle das Theme, bevor du dein aktuelles Store-Theme entfernst.",
@@ -4889,7 +4895,9 @@ var qml = {
     "Creation date": "Erstellungsdatum",
     "Name A–Z": "Name A–Z",
     "Name Z–A": "Name Z–A",
-    "Starts on first use": "Beginnt bei der ersten Nutzung"
+    "Starts on first use": "Beginnt bei der ersten Nutzung",
+    "Collapse icons": "Symbole einklappen",
+    "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Eine Schaltfläche blendet Statussymbole in Vollständig, Zentriert, Laschen und Inseln ein oder aus."
   },
   "fr": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr et Eitr Light sont intégrés. Changez de thème avant de supprimer le thème actuel de la boutique.",
@@ -6103,7 +6111,9 @@ var qml = {
     "Creation date": "Date de création",
     "Name A–Z": "Nom A–Z",
     "Name Z–A": "Nom Z–A",
-    "Starts on first use": "Commence à la première utilisation"
+    "Starts on first use": "Commence à la première utilisation",
+    "Collapse icons": "Replier les icônes",
+    "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Affiche un bouton pour masquer ou afficher les icônes d’état en modes Complet, Centré, Onglets et Îlots."
   },
   "ja": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr と Eitr Light は組み込みです。現在のストアテーマを削除するには、先に別のテーマに切り替えてください。",
@@ -7317,7 +7327,9 @@ var qml = {
     "Creation date": "作成日",
     "Name A–Z": "名前 A–Z",
     "Name Z–A": "名前 Z–A",
-    "Starts on first use": "初回使用時に開始"
+    "Starts on first use": "初回使用時に開始",
+    "Collapse icons": "アイコンを折りたたむ",
+    "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "フル、センター、タブ、アイランドでステータスアイコンの表示を切り替えるボタンを表示します。"
   },
   "zh_CN": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr 和 Eitr Light 为内置主题。移除当前商店主题前，请先切换到其他主题。",
@@ -8531,7 +8543,9 @@ var qml = {
     "Creation date": "创建日期",
     "Name A–Z": "名称 A–Z",
     "Name Z–A": "名称 Z–A",
-    "Starts on first use": "首次使用时开始"
+    "Starts on first use": "首次使用时开始",
+    "Collapse icons": "折叠图标",
+    "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "在完整、居中、标签页和岛屿布局中显示用于隐藏或展开状态图标的按钮。"
   },
   "ko": {
     "Eitr and Eitr Light are built in. Switch themes before removing your current Store theme.": "Eitr와 Eitr Light는 기본 제공됩니다. 현재 스토어 테마를 제거하려면 먼저 다른 테마로 바꾸세요.",
@@ -9745,6 +9759,8 @@ var qml = {
     "Creation date": "생성 날짜",
     "Name A–Z": "이름 A–Z",
     "Name Z–A": "이름 Z–A",
-    "Starts on first use": "처음 사용할 때 시작"
+    "Starts on first use": "처음 사용할 때 시작",
+    "Collapse icons": "아이콘 접기",
+    "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Full, Centered, Tabs, Islands에서 상태 아이콘을 숨기거나 표시하는 버튼을 표시합니다."
   }
 };

@@ -1210,5 +1210,7 @@
   "Name A–Z": "Name A–Z",
   "Name Z–A": "Name Z–A",
   "Creation date": "Creation date",
-  "Starts on first use": "Starts on first use"
+  "Starts on first use": "Starts on first use",
+  "Collapse icons": "Collapse icons",
+  "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands."
 }

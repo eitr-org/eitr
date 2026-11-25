@@ -806,5 +806,8 @@
   "gh or glab for this account only": "gh ou glab pour ce compte uniquement",
   "iwd": "Iwd",
   "{service} · {url}": "{service} · {url}",
-  "Input Methods": "Méthodes de saisie"
+  "Input Methods": "Méthodes de saisie",
+  "Collapse icons": "Replier les icônes",
+  "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Affiche un bouton pour masquer ou afficher les icônes d’état en modes Complet, Centré, Onglets et Îlots.",
+  "Keep all available status icons visible.": "Garde toutes les icônes d’état disponibles visibles."
 }

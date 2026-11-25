@@ -37,10 +37,12 @@ Wähle ein Layout unter Einstellungen > Desktopleiste. Alle sechs funktionieren 
 | :--- | :--- |
 | Vollständig | Vollständig hält die ganze Leiste am Rand. Panels schließen daran an. |
 | Zentriert | Zentriert zeigt bis zum Darüberfahren nur die Uhr. Die Stecknadel oder Ausgeklappt lassen unter Einstellungen > Desktopleiste (auch in Walker) hält die Leiste offen; Panels schweben daneben. |
-| Laschen | Laschen verbindet drei Tabs mit einem dünnen Streifen. Statussymbole und das Wetter bleiben sichtbar. |
-| Inseln | Inseln gibt jeder Gruppe eine eigene Fläche; alle Statussymbole bleiben sichtbar. Ein Panel erweitert seine Insel und schiebt Nachbargruppen beiseite. |
+| Laschen | Laschen verbindet drei Tabs mit einem dünnen Streifen. Das Wetter bleibt sichtbar. |
+| Inseln | Inseln gibt jeder Gruppe eine eigene Fläche. Ein Panel erweitert seine Insel und schiebt Nachbargruppen beiseite. |
 | Dynamisch | Dynamisch beginnt mit drei Inseln: Logo, Uhr sowie Netzwerk/Akku, dazu eine Medieninsel zwischen Logo und Uhr, während etwas läuft. Darüberfahren erweitert eine; ein Panel wächst direkt aus ihr. |
 | Tropfen | Tropfen zeigt nur die Uhrzeit in einer Fläche in der Mitte des Rands. Ein Klick lässt daraus sein Dashboard wachsen; ein Rechtsklick öffnet direkt die Schnelleinstellungen. Mit automatischem Ausblenden bleibt nichts auf dem Bildschirm, bis ein Tropfen aus dem Rand fällt und zur Fläche anschwillt. |
+
+Unter Einstellungen > Desktopleiste > Verhalten und in Walkers Desktopleistenmenü ist **Symbole einklappen** standardmäßig aktiviert. In Vollständig, aufgeklapptem Zentriert, Laschen und Inseln sind die rechten Statussymbole zunächst eingeklappt. Der Pfeil blendet sie ein oder aus. Benachrichtigungsglocke und Akku bleiben sichtbar, wenn verfügbar. Bei ausgeschalteter Einstellung bleiben alle verfügbaren Statussymbole sichtbar und der Pfeil entfällt.
 
 Beim Überfahren der Uhr in Dynamisch erscheinen das vollständige Datum, im 12-Stunden-Format AM/PM und das verfügbare Wetter entlang der Leiste. Die Uhrzeit bleibt mittig.
 

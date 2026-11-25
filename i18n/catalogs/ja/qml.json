@@ -1210,5 +1210,7 @@
   "Creation date": "作成日",
   "Name A–Z": "名前 A–Z",
   "Name Z–A": "名前 Z–A",
-  "Starts on first use": "初回使用時に開始"
+  "Starts on first use": "初回使用時に開始",
+  "Collapse icons": "アイコンを折りたたむ",
+  "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "フル、センター、タブ、アイランドでステータスアイコンの表示を切り替えるボタンを表示します。"
 }

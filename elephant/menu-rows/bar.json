@@ -59,6 +59,17 @@
     "submenu": "bar-clock"
   },
   {
+    "text": "Collapse icons",
+    "subtext": ">",
+    "icon": "󰅁",
+    "keywords": [
+      "status",
+      "hide",
+      "show"
+    ],
+    "submenu": "bar-collapse-icons"
+  },
+  {
     "text": "Displays",
     "subtext": ">",
     "icon": "󰍹",

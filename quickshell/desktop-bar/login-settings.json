@@ -13,6 +13,7 @@
       "dock": "yes",
       "clock": "12h",
       "moments": true,
+      "collapseIcons": "yes",
       "blur-strength": "medium",
       "lyrics": "no",
       "islandStyle": "floating",
@@ -66,6 +67,10 @@
         "yes"
       ],
       "dockPreviews": [
+        "no",
+        "yes"
+      ],
+      "collapseIcons": [
         "no",
         "yes"
       ],

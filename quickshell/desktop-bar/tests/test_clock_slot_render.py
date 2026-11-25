@@ -82,7 +82,9 @@ Item {
         tab = 'Item {\n visible: shell.notchLayout' + tab
         geometry = 'readonly property real tabsPadding:' + source.split('                readonly property real tabsPadding:', 1)[1].split('                readonly property var outerGaps:', 1)[0]
         reveal = 'readonly property real weatherExtent:' + source.split('                readonly property real weatherExtent:', 1)[1].split('                readonly property real centerExtent:', 1)[0]
-        icon_visibility = source.split('readonly property bool iconsOpen: ', 1)[1].split('\n', 1)[0]
+        icon_visibility = source.split('readonly property bool iconsOpen: ', 1)[1].splitlines()[0]
+        icon_visibility += '\nreadonly property bool statusCollapsible: ' + source.split(
+            'readonly property bool statusCollapsible: ', 1)[1].splitlines()[0]
         status_source = (BAR / "bar/BarHorizontalStatus.qml").read_text()
         toggle = status_source.split("id: statusToggle", 1)[1].split("visible: ", 1)[1].split("\n", 1)[0]
         toggle = toggle.replace("barHost.", "bar.").replace("rightSide.host.", "shell.")

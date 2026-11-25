@@ -806,5 +806,8 @@
   "gh or glab for this account only": "이 계정 전용 gh 또는 glab",
   "iwd": "iwd",
   "{service} · {url}": "{service} · {url}",
-  "Input Methods": "입력기"
+  "Input Methods": "입력기",
+  "Collapse icons": "아이콘 접기",
+  "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Full, Centered, Tabs, Islands에서 상태 아이콘을 숨기거나 표시하는 버튼을 표시합니다.",
+  "Keep all available status icons visible.": "사용 가능한 모든 상태 아이콘을 표시합니다."
 }

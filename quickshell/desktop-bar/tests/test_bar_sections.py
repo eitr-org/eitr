@@ -12,6 +12,7 @@ from qml_source import qml_block
 
 BAR = Path(__file__).resolve().parents[1]
 SECTIONS = ('BarHorizontalCenter', 'BarHorizontalStatus', 'BarVerticalCenter', 'BarVerticalStatus')
+SURFACES = ('BarTabs', 'BarIslands', 'BarCenteredOutline')
 
 
 class BarSectionTests(unittest.TestCase):
@@ -38,8 +39,13 @@ class BarSectionTests(unittest.TestCase):
         )
         with tempfile.TemporaryDirectory(prefix='eitr-bar-sections-') as directory:
             folder = Path(directory)
-            for name in SECTIONS + ('BarZoneItems',):
+            for name in SECTIONS + SURFACES + ('BarZoneItems',):
                 (folder / (name + '.qml')).write_text((BAR / 'bar' / (name + '.qml')).read_text().replace('import ".."\n', '').replace('"../', '"'))
+            (folder / 'EdgeSlopes.js').write_text((BAR / 'EdgeSlopes.js').read_text())
+            (folder / 'FocusMode.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property bool enabled: false }\n')
+            (folder / 'BarGestureArea.qml').write_text(
+                'import QtQuick\nItem { property var hostWindow; property string edge; property bool candidate; '
+                'signal pointerHeld(bool held); signal doubleTapped(int button); signal dropped(string edge) }\n')
             (folder / 'BarIconOrder.qml').write_text((BAR / 'services/BarIconOrder.qml').read_text().replace('import ".."\n', '').replace('"../', '"'))
             (folder / 'BarIconOrder.js').write_text((BAR / 'BarIconOrder.js').read_text())
             (folder / 'MediaModel.js').write_text((BAR / 'MediaModel.js').read_text())
@@ -61,7 +67,7 @@ from pathlib import Path
 path = Path(os.environ["XDG_CONFIG_HOME"]) / "eitr/plugin-placements.json"
 print(path.read_text() if path.exists() else '{"entries":[],"installed":[],"placements":{"barItems":[]}}')
 """)
-            (folder / 'DesktopFonts.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property string family: "sans-serif" }\n')
+            (folder / 'DesktopFonts.qml').write_text('pragma Singleton\nimport QtQuick\nQtObject { property string family: "JetBrainsMono Nerd Font" }\n')
             (folder / 'Stub.qml').write_text(layout_fixture('stub'))
             kinds = {'StatusCommand', 'NotificationWidget', 'StatusIcon', 'PluginComponent', 'BarTooltip'}
             for name in SECTIONS + ('BarZoneItems',):
@@ -71,19 +77,41 @@ print(path.read_text() if path.exists() else '{"entries":[],"installed":[],"plac
                 stub = 'Stub { visible: false }' if kind.endswith('Menu') else 'Stub {}'
                 (folder / (kind + '.qml')).write_text('import QtQuick\n' + stub + '\n')
             (folder / 'BarTooltip.qml').write_text('import QtQuick\nItem { property Item target; property bool hovered; property string text; property color foreground; property color background }\n')
+            display_stubs = {
+                'StatusCommand': 'parent.text',
+                'ClockButton': '"Nov 25 · 14:05"',
+                'VerticalClockButton': '"14\\n05"',
+            }
+            for kind, label in display_stubs.items():
+                widget_width = 'slotWidth: 146; ' if kind == 'ClockButton' else ''
+                (folder / f'{kind}.qml').write_text(
+                    'import QtQuick\nStub { ' + widget_width + 'Text { anchors.centerIn: parent; '
+                    'text: ' + label + '; color: parent.host.fg; font.pixelSize: 14 } }\n')
             for relative in ('bar/StatusIcon.qml', 'bar/NotificationWidget.qml', 'components/CountBadge.qml'):
                 source = BAR / relative
                 (folder / source.name).write_text(source.read_text().replace('import ".."\n', '').replace('"../', '"'))
             with (folder / 'qmldir').open('a') as registry:
-                registry.write('singleton DesktopFonts DesktopFonts.qml\n')
+                registry.write('singleton DesktopFonts DesktopFonts.qml\nsingleton FocusMode FocusMode.qml\n')
                 for component in folder.glob('*.qml'):
-                    if component.stem not in ('DesktopStyle', 'DisplayService', 'PluginRegistry', 'BarIconOrder', 'DesktopFonts'):
+                    if component.stem not in ('DesktopStyle', 'DisplayService', 'PluginRegistry', 'BarIconOrder', 'DesktopFonts', 'FocusMode'):
                         registry.write(f'{component.stem} {component.name}\n')
-            horizontal = '\n'.join(qml_block(shell, name + ' {') for name in SECTIONS[:2])
+            horizontal = '\n'.join(qml_block(shell, name + ' {').replace('leftGroup.', 'leftGroupItem.') for name in SECTIONS[:2])
             vertical = '\n'.join(qml_block(shell, name + ' {') for name in SECTIONS[2:])
             fixture = layout_fixture('bar_sections').replace('EDGES', json.dumps(EDGES)).replace('ALIASES', aliases).replace('HORIZONTAL', horizontal).replace('VERTICAL', vertical)
-            capture = capture_path('STATUS', directory, 'full-status.png').resolve()
+            shell_source = (BAR / 'shell.qml').read_text()
+            bindings = '\n'.join(line for line in shell_source.splitlines()
+                                 if 'readonly property bool statusCollapsible:' in line or 'readonly property bool iconsOpen:' in line)
+            fixture = fixture.replace('STATUS_BINDINGS', bindings)
+            capture = folder / 'full-status.png'
             fixture = fixture.replace('CAPTURE_PATH', json.dumps(str(capture)))
+            renders = [(layout, enabled, opened, light,
+                        str(capture_path('STATUS', directory, f'{name}-{"light" if light else "dark"}.png').resolve()))
+                       for light in (False, True)
+                       for name, layout, enabled, opened in (
+                           ('full-on', 0, True, False), ('full-off', 0, False, False),
+                           ('centered-on', 1, True, False), ('tabs-on', 2, True, False),
+                           ('islands-on-collapsed', 3, True, False), ('islands-on-open', 3, True, True))]
+            fixture = fixture.replace('STATUS_RENDERS', json.dumps(renders))
             (folder / 'shell.qml').write_text(fixture)
             environment = render_environment(directory)
             environment['EITR_CODE_ROOT'] = directory
@@ -91,6 +119,8 @@ print(path.read_text() if path.exists() else '{"entries":[],"installed":[],"plac
             self.assertEqual(returncode, 0, output)
             self.assertIn('BAR_SECTIONS_OK', output)
             self.assertGreater(capture.stat().st_size, 200)
+            for *_, filename in renders:
+                self.assertGreater(Path(filename).stat().st_size, 200)
             for error in ('ReferenceError', 'TypeError', 'Binding loop', 'Cannot anchor', 'Unable to assign', 'Error:'):
                 self.assertNotIn(error, output)
 

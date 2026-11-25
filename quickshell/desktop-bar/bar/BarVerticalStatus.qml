@@ -37,7 +37,7 @@ Column {
         host: verticalEnd.host
         id: verticalStatusToggle
         icon: verticalEnd.host.statusOpen ? "⌄" : "⌃"
-        visible: verticalRightItems.hasHideable && !barHost.centeredLayout && !verticalEnd.host.notchLayout && !barHost.dynamicLayout && !barHost.dropLayout && !barHost.islandsLayout
+        visible: verticalEnd.host.statusCollapsible && verticalRightItems.hasHideable
         tooltip: verticalEnd.host.statusOpen ? Eitr.I18n.tr("Hide icons") : Eitr.I18n.tr("Show icons")
         open: true
         height: 24

@@ -11,7 +11,10 @@ property real tabStripThickness: 7
 property string barEdge: EDGE
 property bool notchLayout: true
 property bool centeredLayout: CENTERED
-property bool statusOpen: false
+property bool statusOpen: true
+property bool barCollapseIcons: true
+property bool dynamicLayout: false
+property bool dropLayout: false
 readonly property bool iconsOpen: ICON_VISIBILITY
         property real workspaceItemSpacing: 4
 function barBackground() { return LIGHT ? "#eee9df" : "#202430"; }
@@ -131,7 +134,7 @@ Timer {
         onTriggered: {
             DesktopStyle.styles = CORNER_STYLES;
             DesktopStyle.corners = "CORNERS";
-            if (!shell.iconsOpen || statusToggle.visible) throw new Error("Tabs status controls are collapsed or toggle is visible");
+            if (!shell.iconsOpen || !statusToggle.visible) throw new Error("Expanded Tabs status controls or toggle missing");
             var leadingEnd = shell.verticalBar ? verticalStart.mapToItem(barContents, 0, verticalStart.height).y
                 : leftGroup.hardwareStatus.mapToItem(barContents, leftGroup.hardwareStatus.width, 0).x;
             var centerStart = shell.verticalBar ? (MEDIA ? verticalMedia.mapToItem(barContents, 0, 0).y : verticalCalendarIcon.y)

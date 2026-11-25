@@ -312,10 +312,11 @@ existing design and workflows rather than replacing them with upstream defaults.
   Twice Hyprland's outer gaps inset the content on all four sides, not the attached
   surface. Do not align glyph centers at the expense of button backgrounds or
   add duplicate per-panel padding above the shared content frame.
-- Keep the right-side icon group hidden by default, with its manual toggle and
-  no auto-close timer. Tabs, Islands and Dynamic’s expanded right island show it
-  without the toggle.
-  Preserve the existing arrow direction and icon order.
+- Collapse icons is on by default. Full, Tabs, expanded Centered and Islands start
+  with their right-side status icons collapsed, except notifications and battery.
+  The manual toggle has no auto-close timer. Turning the setting off keeps the
+  available status icons visible and removes the toggle. Dynamic and Drop use
+  their own status presentation. Preserve the arrow direction and icon order.
 - Focus is a separate Style preset, controlled by `eitr focus on|off|toggle|status`,
   Walker's Settings > Desktop > Focus and the Settings window's Focus page. Its machine-local preference preserves
   normal bar settings; native groups provide tabs and up to four panes per monitor.
@@ -338,7 +339,7 @@ existing design and workflows rather than replacing them with upstream defaults.
   Clock remains screen-centred. Opening a panel grows a card out of its pill toward
   the pill's free side and pushes neighbouring pills aside; the pill hides under the
   card until it has shrunk back.
-  Every status icon is always shown, without Full’s show/hide toggle.
+  The status pill contains the right-side toggle when Collapse icons is on.
 - Dynamic: uses the shared BarMoments owner for notification, level, song, Bluetooth and keyboard moments; three full-pill islands side by side at the screen centre (always fully
   rounded, ignoring the corner preference): logo, time-only clock exactly centred at
   rest, network/battery; while a player is present, a media island (controls and

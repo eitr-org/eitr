@@ -23,7 +23,7 @@ import subprocess
 
 SETTINGS = user_config("quickshell/desktop-bar/bar-settings.json")
 ICON_ORDER_ZONES = ("left", "clockStart", "clockEnd", "right")
-DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "moments": True, "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes", "dockPreviews": "yes"}
+DEFAULTS = {"appearance": "solid", "layout": "unified", "edge": "top", "pinned": "no", "screens": "main", "autohide": "no", "reduceMotion": "no", "mediaStyle": "bars", "dock": "yes", "clock": "12h", "moments": True, "collapseIcons": "yes", "blur-strength": "medium", "lyrics": "no", "islandStyle": "floating", "sideStyle": "slopes", "dockPreviews": "yes"}
 OPTIONS = {
     "moments": {False, True},
     "blur-strength": {"light", "medium", "strong"},
@@ -36,6 +36,7 @@ OPTIONS = {
     "autohide": {"yes", "no"},
     "dock": {"yes", "no"},
     "dockPreviews": {"yes", "no"},
+    "collapseIcons": {"yes", "no"},
     "reduceMotion": {"yes", "no"},
     "mediaStyle": {"bars", "line"},
     # 12-hour time with AM/PM, or 24-hour time.
@@ -175,7 +176,7 @@ def main():
             value = read_settings().get(sys.argv[2])
             print(json.dumps(value) if isinstance(value, (bool, dict)) or value is None else value)
             return 0
-        elif len(sys.argv) in {5, 6, 7, 8, 9, 10, 11, 12, 13} and sys.argv[1] == "set-all":
+        elif 5 <= len(sys.argv) <= 14 and sys.argv[1] == "set-all":
             result = save_settings(dict(zip(DEFAULTS, sys.argv[2:])))
         elif len(sys.argv) == 4 and sys.argv[1] == "set":
             result = save_settings({sys.argv[2]: sys.argv[3]})
@@ -188,7 +189,7 @@ def main():
             result = save_settings({key: value})
             apply_live(key, value)
         else:
-            raise ValueError("Usage: bar-settings.py status|set KEY VALUE|set-all APPEARANCE LAYOUT EDGE [PINNED [SCREENS [AUTOHIDE [REDUCE_MOTION [MEDIA_STYLE [DOCK [CLOCK [MOMENTS]]]]]]]]")
+            raise ValueError("Usage: bar-settings.py status|set KEY VALUE|set-all APPEARANCE LAYOUT EDGE [PINNED [SCREENS [AUTOHIDE [REDUCE_MOTION [MEDIA_STYLE [DOCK [CLOCK [MOMENTS [COLLAPSE_ICONS]]]]]]]]]")
         print(json.dumps(result))
     except (OSError, ValueError, subprocess.SubprocessError) as error:
         print(error, file=sys.stderr)

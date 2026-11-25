@@ -22,7 +22,7 @@ Scope {
             host.barIconOrderJson = (value === "reset" || value === "null" || value === "") ? "" : String(value);
             return;
         }
-        var choices = {appearance: ChoiceLists.ids(ChoiceLists.barAppearances), layout: ChoiceLists.ids(ChoiceLists.barLayouts), edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], dockPreviews: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"], lyrics: ["yes", "no"], moments: ["true", "false"], islandStyle: ["floating", "attached"], sideStyle: ["slopes", "straight"]};
+        var choices = {appearance: ChoiceLists.ids(ChoiceLists.barAppearances), layout: ChoiceLists.ids(ChoiceLists.barLayouts), edge: ["top", "bottom", "left", "right"], pinned: ["yes", "no"], screens: ["main", "all"], autohide: ["yes", "no"], dock: ["yes", "no"], dockPreviews: ["yes", "no"], collapseIcons: ["yes", "no"], reduceMotion: ["yes", "no"], mediaStyle: ["bars", "line"], clock: ["12h", "24h"], lyrics: ["yes", "no"], moments: ["true", "false"], islandStyle: ["floating", "attached"], sideStyle: ["slopes", "straight"]};
         if (!choices[key] || choices[key].indexOf(value) === -1) return;
         if (key === "appearance") host.barAppearance = value;
         else if (key === "layout") host.barLayout = value;
@@ -36,6 +36,7 @@ Scope {
         else if (key === "screens") host.barScreens = value;
         else if (key === "reduceMotion") DesktopStyle.reduceMotion = value === "yes";
         else if (key === "dock") host.barDock = value === "yes";
+        else if (key === "collapseIcons") host.barCollapseIcons = value === "yes";
         else if (key === "dockPreviews") host.barDockPreviews = value === "yes";
         else if (key === "autohide") host.barAutoHide = value === "yes";
         else host.barEdge = value;
@@ -66,7 +67,7 @@ Scope {
                 centeredLayout: host.centeredLayout, notchLayout: host.notchLayout,
                 dynamicLayout: host.dynamicLayout, dropLayout: host.dropLayout, islandsLayout: host.islandsLayout,
                 focus: FocusMode.enabled, barVisible: host.barVisible, statusOpen: host.statusOpen,
-                iconsOpen: host.iconsOpen, bars: bars
+                collapseIcons: host.barCollapseIcons ? "yes" : "no", iconsOpen: host.iconsOpen, bars: bars
             });
         }
         function visibility(): void { host.barVisible = !host.barVisible; }
@@ -109,6 +110,7 @@ Scope {
                 host.barScreens = settings.screens || "main";
                 host.barAutoHide = settings.autohide === "yes";
                 host.barDock = settings.dock !== "no";
+                host.barCollapseIcons = settings.collapseIcons === "yes";
                 host.barDockPreviews = settings.dockPreviews !== "no";
                 DesktopStyle.reduceMotion = settings.reduceMotion === "yes";
                 host.barIconOrderJson = data.iconOrder && typeof data.iconOrder === "object" ? JSON.stringify(data.iconOrder) : "";
@@ -144,7 +146,7 @@ Scope {
         if (saveBarSettings.running) return;
         host.settingsDirty = false;
         saveBarSettings.command = ["python3", Quickshell.shellDir + "/scripts/bar-settings.py",
-            "set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock, host.barMoments ? "true" : "false"];
+            "set-all", host.barAppearance, host.barLayout, host.barEdge, host.barPinned ? "yes" : "no", host.barScreens, host.barAutoHide ? "yes" : "no", DesktopStyle.reduceMotion ? "yes" : "no", host.barMediaStyle, host.barDock ? "yes" : "no", host.barClock, host.barMoments ? "true" : "false", host.barCollapseIcons ? "yes" : "no"];
         saveBarSettings.running = true;
     }
 

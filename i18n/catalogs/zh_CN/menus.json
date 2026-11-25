@@ -806,5 +806,8 @@
   "gh or glab for this account only": "仅为此账户使用 gh 或 glab",
   "iwd": "iwd",
   "{service} · {url}": "{service} · {url}",
-  "Input Methods": "输入法"
+  "Input Methods": "输入法",
+  "Collapse icons": "折叠图标",
+  "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "在完整、居中、标签页和岛屿布局中显示用于隐藏或展开状态图标的按钮。",
+  "Keep all available status icons visible.": "始终显示所有可用的状态图标。"
 }

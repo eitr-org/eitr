@@ -1210,5 +1210,7 @@
   "Creation date": "Erstellungsdatum",
   "Name A–Z": "Name A–Z",
   "Name Z–A": "Name Z–A",
-  "Starts on first use": "Beginnt bei der ersten Nutzung"
+  "Starts on first use": "Beginnt bei der ersten Nutzung",
+  "Collapse icons": "Symbole einklappen",
+  "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Eine Schaltfläche blendet Statussymbole in Vollständig, Zentriert, Laschen und Inseln ein oder aus."
 }

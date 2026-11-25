@@ -439,7 +439,9 @@ ShellRoot {{
     property bool dynamicLayout: barLayout === "dynamic"
     property bool dropLayout: barLayout === "drop"
     property bool notchLayout: barLayout === "notch"
-    property bool iconsOpen: centeredLayout || notchLayout || dynamicLayout || dropLayout || islandsLayout || statusOpen
+    property bool barCollapseIcons: true
+    readonly property bool statusCollapsible: barCollapseIcons && !dynamicLayout && !dropLayout
+    readonly property bool iconsOpen: !statusCollapsible || statusOpen
     property bool statusOpen: true
     property bool verticalBar: barEdge === "left" || barEdge === "right"
     property real barHeight: 40
@@ -794,7 +796,9 @@ ShellRoot {{
     property bool dynamicLayout: barLayout === "dynamic"
     property bool dropLayout: barLayout === "drop"
     property bool notchLayout: barLayout === "notch"
-    property bool iconsOpen: centeredLayout || notchLayout || dynamicLayout || dropLayout || islandsLayout || statusOpen
+    property bool barCollapseIcons: true
+    readonly property bool statusCollapsible: barCollapseIcons && !dynamicLayout && !dropLayout
+    readonly property bool iconsOpen: !statusCollapsible || statusOpen
     property bool statusOpen: true
     property bool verticalBar: barEdge === "left" || barEdge === "right"
     property real barHeight: 40

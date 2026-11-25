@@ -174,6 +174,7 @@ ShellRoot {
     property bool barAutoHide: false
     property bool barDock: true
     property bool barDockPreviews: true
+    property bool barCollapseIcons: true
     DockClients { id: dockClients; observing: shell.barDock && !FocusMode.enabled }
     property string barMediaStyle: "bars"
     property string barClock: "12h"
@@ -197,7 +198,8 @@ ShellRoot {
     // Radius of the four bends on each Tabs slope.
     readonly property real tabBendRound: 6
     readonly property bool centeredLayout: barLayout === "centered"
-    readonly property bool iconsOpen: centeredLayout || notchLayout || dynamicLayout || dropLayout || islandsLayout || statusOpen
+    readonly property bool statusCollapsible: barCollapseIcons && !dynamicLayout && !dropLayout
+    readonly property bool iconsOpen: !statusCollapsible || statusOpen
     property string barEdge: "top"
     property string barIconOrderJson: ""
     Binding { target: BarIconOrder; property: "savedOrderJson"; value: shell.barIconOrderJson }

@@ -806,5 +806,8 @@
   "gh or glab for this account only": "このアカウント専用の gh または glab",
   "iwd": "iwd",
   "{service} · {url}": "{service} · {url}",
-  "Input Methods": "入力メソッド"
+  "Input Methods": "入力メソッド",
+  "Collapse icons": "アイコンを折りたたむ",
+  "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "フル、センター、タブ、アイランドでステータスアイコンの表示を切り替えるボタンを表示します。",
+  "Keep all available status icons visible.": "利用可能なステータスアイコンをすべて表示します。"
 }

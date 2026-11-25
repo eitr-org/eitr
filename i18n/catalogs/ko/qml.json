@@ -1210,5 +1210,7 @@
   "Creation date": "생성 날짜",
   "Name A–Z": "이름 A–Z",
   "Name Z–A": "이름 Z–A",
-  "Starts on first use": "처음 사용할 때 시작"
+  "Starts on first use": "처음 사용할 때 시작",
+  "Collapse icons": "아이콘 접기",
+  "Show a button to hide or reveal status icons in Full, Centered, Tabs and Islands.": "Full, Centered, Tabs, Islands에서 상태 아이콘을 숨기거나 표시하는 버튼을 표시합니다."
 }
