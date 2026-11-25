@@ -267,6 +267,7 @@ ShellRoot {
     TimePicker { id: timePicker; defaultScreen: shell.targetScreens()[0] || null; foreground: shell.fg; background: shell.barBackground() }
     AppearancePicker {
         id: desktopAppearance
+        barFill: shell.workspaceMenuBg; barInk: shell.workspaceMenuFg
         docked: AppearancePlacement.hostsCarousel(mode, shell.barEdge, shell.dropLayout,
             shell.barVisible && !FocusMode.enabled && shell.targetScreens().includes(targetScreen))
         defaultScreen: shell.targetScreens()[0] || null

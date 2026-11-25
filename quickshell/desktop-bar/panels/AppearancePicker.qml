@@ -10,6 +10,11 @@ import Quickshell.Wayland
 SettingsAppearanceModel {
     id: picker
     property bool docked: false
+    // Wallpapers open over a black scrim, so their text is light in every theme.
+    readonly property color ink: !docked && !themeMode ? "#ffffff" : foreground
+    // The switchers wear the bar's own colours.
+    property color barFill: background
+    property color barInk: foreground
     property Item dockedContent: null
     // Theme previews keep their 16:9 aspect on every screen shape; wallpapers stay landscape.
     readonly property real themeAspect: 16 / 9
@@ -139,7 +144,7 @@ SettingsAppearanceModel {
                     y: picker.docked ? (content.headerHeight - height) / 2 : PanelStyle.padding
                     width: picker.docked ? Math.max(0, filterFrame.x - x - 8) : parent.width - 2 * PanelStyle.padding
                     text: picker.docked && picker.searchText ? picker.searchText : picker.mode === "wallpaper" ? Eitr.I18n.tr("Wallpaper") : picker.mode === "font" ? Eitr.I18n.tr("Fonts") : Eitr.I18n.tr("Theme")
-                    foreground: picker.foreground; accent: picker.accent; rune: "style"
+                    foreground: picker.ink; accent: picker.accent; rune: "style"
                 }
                 Rectangle {
                     id: filterFrame
@@ -151,8 +156,7 @@ SettingsAppearanceModel {
                     y: picker.docked ? (content.headerHeight - height) / 2 : Math.max(PanelStyle.padding, (content.height - content.previewHeight) / 2 - 36 - height)
                     width: filters.implicitWidth + 12
                     height: PanelStyle.selectionRowHeight + 12
-                    radius: DesktopStyle.radius(PanelStyle.controlRadius)
-                    color: picker.background
+                    color: "transparent"
                     visible: picker.searchable
                     Row {
                         id: filters
@@ -162,7 +166,8 @@ SettingsAppearanceModel {
                         ChoiceSegmented {
                             visible: picker.mode === "wallpaper"
                             width: picker.docked ? Math.min(240, content.width * 0.52) : 240
-                            foreground: picker.foreground
+                            foreground: picker.barInk
+                            color: picker.barFill
                             choices: [{id: "theme", label: Eitr.I18n.tr("This theme")}, {id: "all", label: Eitr.I18n.tr("All themes")}]
                             current: picker.wallpaperScope
                             available: !picker.loading
@@ -171,7 +176,8 @@ SettingsAppearanceModel {
                         ChoiceSegmented {
                             visible: picker.themeMode
                             width: picker.docked ? Math.min(180, content.width * 0.44) : 180
-                            foreground: picker.foreground
+                            foreground: picker.barInk
+                            color: picker.barFill
                             choices: [{id: "theme-light", label: Eitr.I18n.tr("Light")}, {id: "theme-dark", label: Eitr.I18n.tr("Dark")}]
                             current: picker.mode
                             available: !picker.loading
@@ -185,7 +191,7 @@ SettingsAppearanceModel {
                             width: PanelStyle.selectionRowHeight
                             height: PanelStyle.selectionRowHeight
                             text: "󰐕"
-                            foreground: picker.foreground
+                            foreground: picker.ink
                             activeFocusOnTab: false
                             color: Qt.rgba(foreground.r, foreground.g, foreground.b, PanelStyle.selectionAlpha(false, addHover.containsMouse))
                             border.width: PanelStyle.selectionBorderWidth(false)
@@ -221,7 +227,7 @@ SettingsAppearanceModel {
                     horizontalAlignment: Text.AlignHCenter
                     elide: Text.ElideLeft
                     text: picker.searchText
-                    color: picker.foreground
+                    color: picker.ink
                     font.family: DesktopFonts.family
                     font.pixelSize: PanelStyle.headingSize
                 }
@@ -305,7 +311,7 @@ SettingsAppearanceModel {
                         + (picker.docked && themeLine.wanted ? " · " + themeLine.text : "")
                         : picker.searchText ? (picker.themeMode ? Eitr.I18n.tr("No matching themes") : Eitr.I18n.tr("No matching wallpapers"))
                         : (picker.error || Eitr.I18n.tr("Loading..."))
-                    color: picker.foreground
+                    color: picker.ink
                     font.family: DesktopFonts.family
                     font.pixelSize: PanelStyle.headingSize
                     font.bold: true
@@ -321,7 +327,7 @@ SettingsAppearanceModel {
                     horizontalAlignment: Text.AlignHCenter
                     elide: Text.ElideRight
                     text: picker.items[picker.selectedIndex] ? (picker.items[picker.selectedIndex].theme || Eitr.I18n.tr("Your wallpapers")) : ""
-                    color: picker.foreground
+                    color: picker.ink
                     opacity: PanelStyle.secondaryTextOpacity
                     font.family: DesktopFonts.family
                     font.pixelSize: PanelStyle.bodySize
