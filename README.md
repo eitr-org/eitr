@@ -5,7 +5,7 @@
 </p>
 
 An Arch-based Linux desktop built around Hyprland, Quickshell and a consistent,
-theme-aware experience: one offline installer that takes about two minutes on a
+theme-aware experience: one offline installer that takes about a minute on a
 fast machine, a ready graphical desktop after the first reboot, and safe updates
 you can undo.
 

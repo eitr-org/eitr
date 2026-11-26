@@ -24,7 +24,7 @@
     "is_it_free": "無料で使えますか？",
     "yes_free_to_download_use_and_share_with_no_account_subs": "はい。アカウント登録、サブスクリプション、有料プランなどは一切なく、誰でも無料でダウンロード、使用、共有できます。Eitrはオープンソースであり、コードはGPL-3.0、アートワークはCC BY 4.0で、すべてGitHub上でオープンに開発されています。日々の作業が快適になったと感じていただけたら、開発のスポンサーとして支援することもできます。",
     "how_long_does_installation_take": "インストールにはどれくらい時間がかかりますか？",
-    "about_two_minutes_in_a_virtual_machine_on_a_fast_comput": "高速なマシン上の仮想マシンであれば、確認から完了まで約2分です。すべてISOに含まれているため、インストール中にダウンロードは行われません。",
+    "about_two_minutes_in_a_virtual_machine_on_a_fast_comput": "高速なマシン上の仮想マシンであれば、確認から完了まで約1分です。すべてISOに含まれているため、インストール中にダウンロードは行われません。",
     "do_i_need_internet_to_install": "インストールにインターネット接続は必要ですか？",
     "no_the_iso_carries_the_packages_needed_for_guided_offli": "いいえ。ISOにはオフライン対話型インストールに必要なパッケージがすべて含まれています。その後のアップデートやオプションツールのダウンロードには接続が必要となり、オプションの各種サービスにはそれぞれ個別のアカウント要件があります。",
     "can_i_break_it_with_an_update": "アップデートでシステムが壊れる心配はありませんか？",
@@ -59,7 +59,7 @@
     "with": "ともに迎える",
     "install": "インストール",
     "on_your_machine": "実機に導入",
-    "download_the_iso_check_it_write_it_to_a_usb_stick_boot_": "ISOをダウンロードして整合性を確認し、USBメモリに書き込んで起動したら、インストーラーの指示に従うだけです。高速なマシンなら約2分で完了し、追加のダウンロードも不要です。ディスク全体を消去することも、Windowsと共存させることも可能です（Windowsとの共存は現時点ではVMでのみテスト済み）。選択したドライブ上のすべてのデータ",
+    "download_the_iso_check_it_write_it_to_a_usb_stick_boot_": "ISOをダウンロードして整合性を確認し、USBメモリに書き込んで起動したら、インストーラーの指示に従うだけです。高速なマシンなら約1分で完了し、追加のダウンロードも不要です。ディスク全体を消去することも、Windowsと共存させることも可能です（Windowsとの共存は現時点ではVMでのみテスト済み）。選択したドライブ上のすべてのデータ",
     "is_erased": "は消去されます。",
     "download": "ダウンロード",
     "sha_256": "SHA-256",
@@ -334,7 +334,7 @@
     "install_alongside_mode_requires_a_gpt_disk_with_at_leas": "「既存システムと共存」モードには、未割り当て領域が連続して34 GiB以上あるGPTディスクが必要です。あらかじめその空き領域を用意してください（インストーラーは既存パーティションのリサイズを行いません）。",
     "the_supported_fresh_install_layout_uses_btrfs_for_eitr_": "サポートされている新規インストールレイアウトでは、EitrのスナップショットおよびリカバリワークフローのためにBtrfsを使用します。ディスク暗号化（LUKS2）では12文字以上のパスフレーズが要求され、起動時には約2秒でロックが解除されます。ランダムな単語を3〜4個組み合わせると、強度が高く入力も簡単です。",
     "no_network_is_required_for_the_guided_installation_late": "対話型インストールにはネットワーク接続は不要です。その後のアップデート、オプションのツールダウンロード、オンラインサービスには接続が必要です。",
-    "installation_takes_about_two_minutes_in_a_virtual_machi": "高速なマシン上の仮想マシンであれば、確認から完了まで約2分でインストールでき、その間にダウンロードは発生しません。",
+    "installation_takes_about_two_minutes_in_a_virtual_machi": "高速なマシン上の仮想マシンであれば、確認から完了まで約1分でインストールでき、その間にダウンロードは発生しません。",
     "back_up_your_files_before_changing_a_disk_verify_the_is": "ディスクに変更を加える前に、ファイルのバックアップを取ってください。公開されているSHA-256チェックサムでISOを検証し、詳細なインストールおよびリカバリの要件については公式ガイドをお読みください。",
     "read_the_complete_installation_guide": "完全なインストールガイドを読む ↗",
     "several_machines_answers_stick_organization_profiles": "複数台への展開 / 自動応答USBと組織プロファイル",
@@ -579,7 +579,7 @@
     "contact": "お問い合わせ",
     "eitr_linux_gpl_3_0_code_cc_by_4_0_artwork": "Eitr Linux · GPL-3.0コード · CC BY 4.0アートワーク",
     "an_independent_arch_based_distribution_from_the_far_nor": "極北から届いた、独立したArchベースのディストリビューション。",
-    "software_description": "キーボード操作を第一に考えたHyprlandとQuickshellデスクトップ、高速なマシンなら約2分で完了する対話型オフラインインストーラー、そしてリカバリスナップショットを備えた署名付きアップデートを提供するArchベースのLinuxディストリビューション。",
+    "software_description": "キーボード操作を第一に考えたHyprlandとQuickshellデスクトップ、高速なマシンなら約1分で完了する対話型オフラインインストーラー、そしてリカバリスナップショットを備えた署名付きアップデートを提供するArchベースのLinuxディストリビューション。",
     "language": "言語",
     "language_ai_note": "翻訳はAIで作成されたため、小さな誤りが含まれている場合があります。",
     "version_roadmap": "Eitr {version} {codename}: ロードマップを見る"
@@ -587,7 +587,7 @@
   "metadata": {
     "home_label": "ホーム",
     "home_title": "Eitr Linux — キーボードファーストなArch、統合されたデスクトップ",
-    "home_description": "Eitr Linuxは、Hyprland、Quickshell、厳選された開発ツール、AIコーディングエージェント、クラウドおよびGitワークフロー、システムリカバリを、高速なマシンなら約2分でオフラインインストールできるキーボードファーストなArch Linux環境へと統合します。",
+    "home_description": "Eitr Linuxは、Hyprland、Quickshell、厳選された開発ツール、AIコーディングエージェント、クラウドおよびGitワークフロー、システムリカバリを、高速なマシンなら約1分でオフラインインストールできるキーボードファーストなArch Linux環境へと統合します。",
     "screenshots_label": "スクリーンショット",
     "screenshots_title": "Eitr Linux スクリーンショット — デスクトップを体験する",
     "screenshots_description": "実際のスクリーンショットギャラリーで、Eitr Linuxデスクトップ、テーマ、日常のツール、開発メニュー、システムの復旧機能をご覧ください。",
@@ -610,8 +610,8 @@
     "privacy_title": "Eitr Linuxのプライバシー — 問題レポートとウェブサイトデータ",
     "privacy_description": "Eitr Linuxにおけるオプションの問題レポートの取り扱い方法と、Eitrウェブサイトが収集するデータについて。",
     "whatsnew_label": "新着情報",
-    "whatsnew_title": "Eitr Linux 0.7.6 Huginn の新機能",
-    "whatsnew_description": "Huginn では ISO が軽量化され、Eitr Store が高速になりました。バーの自動再読み込みと GitHub プラグインも加わりました。"
+    "whatsnew_title": "Eitr Linux 0.7.7 Huginn の新機能",
+    "whatsnew_description": "Huginn 0.7.7 は約1分でインストールでき、Windows 11 との共存もテスト済みです。スターターテーマ、より高速な Eitr Store、バーの自動再読み込み、GitHub プラグインも含まれます。"
   },
   "gallery": {
     "desktop_bar": "デスクトップとバー",
@@ -723,7 +723,8 @@
     "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "設定アプリ、「テーマとプラグイン」ウィンドウ、ウェルカムツアーで始まるハンドブック、「接続」内のWi-FiおよびBluetooth、Rune Sealをはじめとする新しいEitr壁紙",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "インストーラーの言語選択ステップによる日本語・簡体字中国語・韓国語への対応、Dropバーレイアウトとそのダッシュボード、複製や調整ができるプラグインウィジェット、Eitr専用のパスワードダイアログ、ディスプレイごとの個別壁紙、使用中のディスプレイに追従する通知と録画機能",
     "The Eitr Store, Backup and Restore, the Clock app, editors for keybinds and window rules, sharing the login screen, Clean My Eitr, window previews in the dock, and typing Japanese, Chinese and Korean": "Eitr Store、バックアップと復元、時計アプリ、キーバインドとウィンドウルールのエディター、ログイン画面の共有、Eitrを掃除、Dockのウィンドウプレビュー、日本語・中国語・韓国語の入力",
-    "A lighter ISO: only Eitr and Eitr Light inside, with starter themes downloaded at first login; themes removable from the Store, which got faster with sorting; the GitHub plugin; the bar reloads itself after updates": "Eitr と Eitr Light だけを含む軽量な ISO、初回サインイン後の入門テーマ、高速化したストアでの並べ替えとテーマの削除、GitHub プラグイン、更新後のバーの自動再読み込み"
+    "A lighter ISO: only Eitr and Eitr Light inside, with starter themes downloaded at first login; themes removable from the Store, which got faster with sorting; the GitHub plugin; the bar reloads itself after updates": "Eitr と Eitr Light だけを含む軽量な ISO、初回サインイン後の入門テーマ、高速化したストアでの並べ替えとテーマの削除、GitHub プラグイン、更新後のバーの自動再読み込み",
+    "Installation in about a minute from a prebuilt system image, tested beside Windows 11": "あらかじめ構築したシステムイメージから約1分でインストール、Windows 11 との共存もテスト済み"
   },
   "client": {
     "day": "昼",
@@ -780,9 +781,12 @@
     "download": "{version} をダウンロード",
     "installation_link": "インストールガイド",
     "screenshots_link": "その他のスクリーンショット",
-    "lead": "Huginn では ISO が軽量化され、Eitr Store が高速になりました。バーの自動再読み込みと GitHub プラグインも加わりました。",
+    "lead": "Huginn 0.7.7 は約1分でインストールでき、Windows 11 との共存もテスト済みです。0.7.6 のスターターテーマ、より高速な Eitr Store、バーの自動再読み込み、GitHub プラグインもそのまま含まれます。",
+    "install_eyebrow": "インストール",
+    "install_title": "約1分でインストール",
+    "install_text": "ISO にはあらかじめ構築された Eitr システムが含まれるようになり、インストーラーは数百のパッケージを1つずつインストールする代わりに、それをディスクへコピーします。テスト用の仮想マシンでは、完全なインストールが2分以上から約70秒になり、インストールされるシステムは同じです。Windows 11 との共存インストールもテスト済みで、Windows のパーティションはすべてそのまま残り、どちらのシステムも Eitr のブートメニューから起動できます。",
     "themes_eyebrow": "テーマ",
-    "themes_title": "より軽量な ISO",
+    "themes_title": "同梱テーマは2つ、初回ログイン時にさらに追加",
     "themes_text": "ISO には Eitr と Eitr Light の 2 つのテーマが含まれます。 新しいアカウントでは、有線接続ならすぐに、Wi-Fi なら接続後に、公式とコミュニティの入門テーマをダウンロードします。Afterglow と九つの世界を題材にしたテーマは Eitr Store で入手できます。Eitr と Eitr Light 以外のテーマは削除できます。",
     "store_eyebrow": "Eitr Store",
     "store_title": "更新の確認中も閲覧",

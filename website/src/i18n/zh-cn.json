@@ -24,7 +24,7 @@
     "is_it_free": "是否完全免费？",
     "yes_free_to_download_use_and_share_with_no_account_subs": "是的，免费下载、使用与分享，无需注册账户、订阅或付费。Eitr 是开源软件：代码采用 GPL-3.0 协议，视觉设计采用 CC BY 4.0 协议，全部在 GitHub 上公开开发。如果它让你的工作更舒心，欢迎赞助支持其开发。",
     "how_long_does_installation_take": "安装需要多长时间？",
-    "about_two_minutes_in_a_virtual_machine_on_a_fast_comput": "在高性能计算机的虚拟机中，从确认到安装完成仅需大约两分钟。所有内容均来自 ISO，安装过程无需下载任何文件。",
+    "about_two_minutes_in_a_virtual_machine_on_a_fast_comput": "在高性能计算机的虚拟机中，从确认到安装完成仅需大约一分钟。所有内容均来自 ISO，安装过程无需下载任何文件。",
     "do_i_need_internet_to_install": "安装需要联网吗？",
     "no_the_iso_carries_the_packages_needed_for_guided_offli": "不需要。ISO 携带了向导式离线安装所需的一切软件包。后续的系统更新与可选工具下载需要网络连接；各可选服务也保留各自的账户要求。",
     "can_i_break_it_with_an_update": "更新会导致系统崩溃吗？",
@@ -59,7 +59,7 @@
     "with": "伴随",
     "install": "安装",
     "on_your_machine": "在你的设备上",
-    "download_the_iso_check_it_write_it_to_a_usb_stick_boot_": "下载 ISO，校验文件，写入 U 盘，引导启动并按照安装向导操作：在高性能设备上仅需两分钟左右，无需下载任何内容。它支持抹除整个磁盘或与 Windows 并存安装（与 Windows 并存目前仅在虚拟机中测试验证）。目标磁盘上的全部内容",
+    "download_the_iso_check_it_write_it_to_a_usb_stick_boot_": "下载 ISO，校验文件，写入 U 盘，引导启动并按照安装向导操作：在高性能设备上仅需一分钟左右，无需下载任何内容。它支持抹除整个磁盘或与 Windows 并存安装（与 Windows 并存目前仅在虚拟机中测试验证）。目标磁盘上的全部内容",
     "is_erased": "将被清除。",
     "download": "下载",
     "sha_256": "SHA-256",
@@ -334,7 +334,7 @@
     "install_alongside_mode_requires_a_gpt_disk_with_at_leas": "“与现有系统并存安装”模式需要一块 GPT 磁盘，且包含至少 34 GiB 的连续未分配空间。请预先准备该空间；安装程序不会调整现有分区大小。",
     "the_supported_fresh_install_layout_uses_btrfs_for_eitr_": "受支持的全新安装分区布局采用 Btrfs，以支持 Eitr 的快照与恢复工作流。全盘加密（LUKS2）要求至少 12 个字符的密码短语，开机解锁仅需约两秒；三到四个随机单词既高强度又易于输入。",
     "no_network_is_required_for_the_guided_installation_late": "向导式安装全程无需网络。后续系统更新、可选下载与在线服务则需要网络连接。",
-    "installation_takes_about_two_minutes_in_a_virtual_machi": "在高性能计算机的虚拟机中，安装仅需大约两分钟，无需下载任何内容。",
+    "installation_takes_about_two_minutes_in_a_virtual_machi": "在高性能计算机的虚拟机中，安装仅需大约一分钟，无需下载任何内容。",
     "back_up_your_files_before_changing_a_disk_verify_the_is": "改动磁盘前请务必备份重要文件。请使用官方发布的 SHA-256 校验和校验 ISO，并查阅权威指南以了解完整的安装与恢复要求。",
     "read_the_complete_installation_guide": "阅读完整的安装指南 ↗",
     "several_machines_answers_stick_organization_profiles": "多机部署 / 自动化应答 U 盘与组织配置文件",
@@ -579,7 +579,7 @@
     "contact": "联系方式",
     "eitr_linux_gpl_3_0_code_cc_by_4_0_artwork": "Eitr Linux · GPL-3.0 代码 · CC BY 4.0 视觉作品",
     "an_independent_arch_based_distribution_from_the_far_nor": "来自极北之地、独立维护且基于 Arch 的 Linux 发行版。",
-    "software_description": "基于 Arch Linux 的发行版，搭载键盘优先的 Hyprland 与 Quickshell 桌面，提供向导式离线安装程序，在高性能机器上仅需约两分钟即可完成安装，并享有带恢复快照的签名更新。",
+    "software_description": "基于 Arch Linux 的发行版，搭载键盘优先的 Hyprland 与 Quickshell 桌面，提供向导式离线安装程序，在高性能机器上仅需约一分钟即可完成安装，并享有带恢复快照的签名更新。",
     "language": "语言",
     "language_ai_note": "翻译由 AI 完成，可能存在少量错误。",
     "version_roadmap": "Eitr {version} {codename}：查看路线图"
@@ -587,7 +587,7 @@
   "metadata": {
     "home_label": "首页",
     "home_title": "Eitr Linux — 键盘优先的 Arch，深度集成的桌面",
-    "home_description": "Eitr Linux 将 Hyprland、Quickshell、精选开发者工具、AI 编程助手、云端与 Git 工作流以及系统恢复整合于一体，打造键盘优先的 Arch Linux 环境，离线安装仅需约两分钟。",
+    "home_description": "Eitr Linux 将 Hyprland、Quickshell、精选开发者工具、AI 编程助手、云端与 Git 工作流以及系统恢复整合于一体，打造键盘优先的 Arch Linux 环境，离线安装仅需约一分钟。",
     "screenshots_label": "截图",
     "screenshots_title": "Eitr Linux 截图 — 探索桌面全貌",
     "screenshots_description": "在真实截图画廊中欣赏 Eitr Linux 桌面、主题、日常工具、开发菜单与系统恢复。",
@@ -610,8 +610,8 @@
     "privacy_title": "Eitr Linux 隐私政策 — 错误报告与网站数据",
     "privacy_description": "了解 Eitr Linux 如何处理可选的问题报告，以及 Eitr 官方网站收集哪些数据。",
     "whatsnew_label": "新变化",
-    "whatsnew_title": "Eitr Linux 0.7.6 Huginn 的新功能",
-    "whatsnew_description": "Huginn 带来了更轻量的 ISO、更快的 Eitr Store、桌面栏自动重载和 GitHub 插件。"
+    "whatsnew_title": "Eitr Linux 0.7.7 Huginn 新功能",
+    "whatsnew_description": "Huginn 0.7.7 约一分钟即可完成安装，已在 Windows 11 旁并存安装测试，并带来入门主题、更快的 Eitr Store、桌面栏自动重载和 GitHub 插件。"
   },
   "gallery": {
     "desktop_bar": "桌面与桌面栏",
@@ -723,7 +723,8 @@
     "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "“设置”应用、“主题与插件”窗口、带欢迎导览的用户手册、“连接”中的 Wi-Fi 与蓝牙，以及以 Rune Seal 为首的全新 Eitr 壁纸",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "安装程序新增“语言”步骤并支持日语、简体中文与韩语，引入水滴桌面栏布局及其仪表板、支持复制与旋转的插件微件、Eitr 原生密码对话框、多显示器独立壁纸，以及跟随工作所在显示器的通知与录屏",
     "The Eitr Store, Backup and Restore, the Clock app, editors for keybinds and window rules, sharing the login screen, Clean My Eitr, window previews in the dock, and typing Japanese, Chinese and Korean": "Eitr Store、备份与还原、“时钟”应用、快捷键与窗口规则编辑器、共享登录界面、“清理我的 Eitr”、Dock 窗口预览，以及日语、中文与韩语输入支持",
-    "A lighter ISO: only Eitr and Eitr Light inside, with starter themes downloaded at first login; themes removable from the Store, which got faster with sorting; the GitHub plugin; the bar reloads itself after updates": "仅包含 Eitr 和 Eitr Light 的轻量 ISO、首次登录后下载的入门主题、支持排序和移除主题的更快商店、GitHub 插件，以及更新后自动重载桌面栏"
+    "A lighter ISO: only Eitr and Eitr Light inside, with starter themes downloaded at first login; themes removable from the Store, which got faster with sorting; the GitHub plugin; the bar reloads itself after updates": "仅包含 Eitr 和 Eitr Light 的轻量 ISO、首次登录后下载的入门主题、支持排序和移除主题的更快商店、GitHub 插件，以及更新后自动重载桌面栏",
+    "Installation in about a minute from a prebuilt system image, tested beside Windows 11": "基于预构建系统映像，约一分钟完成安装，并已与 Windows 11 并存安装测试"
   },
   "client": {
     "day": "白昼",
@@ -780,9 +781,12 @@
     "download": "下载 {version}",
     "installation_link": "安装指南",
     "screenshots_link": "查看更多截图",
-    "lead": "Huginn 带来了更轻量的 ISO、更快的 Eitr Store、桌面栏自动重载和 GitHub 插件。",
+    "lead": "Huginn 0.7.7 约一分钟即可完成安装，并已在 Windows 11 旁完成并存安装测试。0.7.6 的入门主题、更快的 Eitr Store、桌面栏自动重载和 GitHub 插件也都保留。",
+    "install_eyebrow": "安装",
+    "install_title": "约一分钟完成安装",
+    "install_text": "ISO 现在包含一个预先构建好的 Eitr 系统，安装程序会把它直接复制到磁盘，而不再逐个安装数百个软件包。在我们的测试虚拟机中，完整安装从两分钟以上缩短到约 70 秒，安装出的系统完全相同。与 Windows 11 并存安装也已测试：Windows 的所有分区保持不变，两个系统都可以从 Eitr 的启动菜单启动。",
     "themes_eyebrow": "主题",
-    "themes_title": "更轻量的 ISO",
+    "themes_title": "内置两款主题，首次登录时获取更多",
     "themes_text": "ISO 随附 Eitr 和 Eitr Light 两款主题。 新账户联网后会下载一组官方和社区入门主题，有线连接可立即下载，Wi-Fi 则在连接后开始。Afterglow 和诸界主题可在 Eitr Store 获取。除 Eitr 和 Eitr Light 外，所有主题均可移除。",
     "store_eyebrow": "Eitr Store",
     "store_title": "检查更新时也能浏览",

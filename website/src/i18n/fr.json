@@ -24,7 +24,7 @@
     "is_it_free": "Est-ce gratuit ?",
     "yes_free_to_download_use_and_share_with_no_account_subs": "Oui, à télécharger, utiliser et partager, sans compte, abonnement ni offre payante. Eitr est ouvert : code GPL-3.0 et illustrations CC BY 4.0, le tout développé publiquement sur GitHub. S’il améliore vos journées, vous pouvez soutenir son développement.",
     "how_long_does_installation_take": "Combien de temps prend l’installation ?",
-    "about_two_minutes_in_a_virtual_machine_on_a_fast_comput": "Environ deux minutes dans une VM sur un ordinateur rapide, de la confirmation à la fin. Tout vient de l’ISO, sans téléchargement pendant l’installation.",
+    "about_two_minutes_in_a_virtual_machine_on_a_fast_comput": "Environ une minute dans une VM sur un ordinateur rapide, de la confirmation à la fin. Tout vient de l’ISO, sans téléchargement pendant l’installation.",
     "do_i_need_internet_to_install": "Faut-il internet pour installer ?",
     "no_the_iso_carries_the_packages_needed_for_guided_offli": "Non. L’ISO contient les paquets nécessaires à l’installation guidée hors ligne. Les mises à jour et téléchargements facultatifs nécessitent une connexion ; les services facultatifs gardent leurs propres exigences de compte.",
     "can_i_break_it_with_an_update": "Une mise à jour peut-elle tout casser ?",
@@ -59,7 +59,7 @@
     "with": "avec",
     "install": "Installer",
     "on_your_machine": "Sur votre machine",
-    "download_the_iso_check_it_write_it_to_a_usb_stick_boot_": "Téléchargez l’ISO, vérifiez-la, écrivez-la sur une clé USB, démarrez dessus et suivez l’installateur : deux minutes environ sur une machine rapide, sans téléchargement. Il peut effacer un disque ou installer à côté de Windows (testé seulement en VM à ce jour). Tout sur",
+    "download_the_iso_check_it_write_it_to_a_usb_stick_boot_": "Téléchargez l’ISO, vérifiez-la, écrivez-la sur une clé USB, démarrez dessus et suivez l’installateur : une minute environ sur une machine rapide, sans téléchargement. Il peut effacer un disque ou installer à côté de Windows (testé seulement en VM à ce jour). Tout sur",
     "is_erased": "est effacé.",
     "download": "Télécharger",
     "sha_256": "SHA-256",
@@ -334,7 +334,7 @@
     "install_alongside_mode_requires_a_gpt_disk_with_at_leas": "L’installation à côté d’un autre système exige GPT et au moins 34 Gio non alloués d’un seul tenant. Préparez cet espace avant ; l’installateur ne redimensionne pas les partitions existantes.",
     "the_supported_fresh_install_layout_uses_btrfs_for_eitr_": "La disposition prise en charge pour une installation neuve utilise Btrfs pour les instantanés et la récupération d’Eitr. Le chiffrement LUKS2 demande une phrase secrète d’au moins 12 caractères et déverrouille en deux secondes environ au démarrage ; trois ou quatre mots aléatoires sont robustes et faciles à saisir.",
     "no_network_is_required_for_the_guided_installation_late": "L’installation guidée ne nécessite pas de réseau. Les mises à jour, téléchargements facultatifs et services en ligne ont besoin d’une connexion.",
-    "installation_takes_about_two_minutes_in_a_virtual_machi": "L’installation prend environ deux minutes dans une VM sur un ordinateur rapide, sans téléchargement.",
+    "installation_takes_about_two_minutes_in_a_virtual_machi": "L’installation prend environ une minute dans une VM sur un ordinateur rapide, sans téléchargement.",
     "back_up_your_files_before_changing_a_disk_verify_the_is": "Sauvegardez vos fichiers avant de modifier un disque. Vérifiez l’ISO avec sa somme SHA-256 publiée et lisez le guide de référence pour toutes les exigences d’installation et de récupération.",
     "read_the_complete_installation_guide": "Lire le guide complet d’installation ↗",
     "several_machines_answers_stick_organization_profiles": "Plusieurs machines / Clé de réponses et profils d’organisation",
@@ -579,7 +579,7 @@
     "contact": "Contact",
     "eitr_linux_gpl_3_0_code_cc_by_4_0_artwork": "Eitr Linux · code GPL-3.0 · illustrations CC BY 4.0",
     "an_independent_arch_based_distribution_from_the_far_nor": "Une distribution indépendante fondée sur Arch, venue du grand Nord.",
-    "software_description": "Une distribution Linux fondée sur Arch avec un bureau Hyprland et Quickshell pensé pour le clavier, un installateur guidé hors ligne en deux minutes environ sur une machine rapide et des mises à jour signées avec instantanés de récupération.",
+    "software_description": "Une distribution Linux fondée sur Arch avec un bureau Hyprland et Quickshell pensé pour le clavier, un installateur guidé hors ligne en une minute environ sur une machine rapide et des mises à jour signées avec instantanés de récupération.",
     "language": "Langue",
     "language_ai_note": "Les traductions ont été faites avec l'IA et peuvent contenir de petites erreurs.",
     "version_roadmap": "Eitr {version} {codename} : voir la feuille de route"
@@ -587,7 +587,7 @@
   "metadata": {
     "home_label": "Accueil",
     "home_title": "Eitr Linux — Arch au clavier, un bureau intégré",
-    "home_description": "Eitr Linux réunit Hyprland, Quickshell, outils de développement sélectionnés, agents IA, parcours cloud et Git et récupération dans un environnement Arch Linux pensé pour le clavier, installé hors ligne en deux minutes environ.",
+    "home_description": "Eitr Linux réunit Hyprland, Quickshell, outils de développement sélectionnés, agents IA, parcours cloud et Git et récupération dans un environnement Arch Linux pensé pour le clavier, installé hors ligne en une minute environ.",
     "screenshots_label": "Captures",
     "screenshots_title": "Captures Eitr Linux — Explorez le bureau",
     "screenshots_description": "Découvrez bureau, thèmes, outils quotidiens, menus de développement et récupération d’Eitr Linux dans une galerie de véritables captures.",
@@ -610,8 +610,8 @@
     "privacy_title": "Confidentialité Eitr Linux — Rapports et données du site",
     "privacy_description": "Comment Eitr Linux traite les rapports facultatifs et ce que collecte le site.",
     "whatsnew_label": "Nouveautés",
-    "whatsnew_title": "Nouveautés d’Eitr Linux 0.7.6 Huginn",
-    "whatsnew_description": "Huginn apporte une ISO allégée, un Eitr Store plus rapide, le rechargement automatique de la barre et une extension GitHub."
+    "whatsnew_title": "Nouveautés d’Eitr Linux 0.7.7 Huginn",
+    "whatsnew_description": "Huginn 0.7.7 s’installe en une minute environ, est testé à côté de Windows 11 et apporte des thèmes de départ, un Eitr Store plus rapide, le rechargement automatique de la barre et une extension GitHub."
   },
   "gallery": {
     "desktop_bar": "Bureau et barre",
@@ -723,7 +723,8 @@
     "The Settings app, the Themes & Plugins window, a Handbook that opens with a welcome tour, Wi-Fi and Bluetooth in Connections, and new Eitr wallpapers led by the Rune Seal": "L’application Paramètres, la fenêtre Thèmes et Plugins, un Manuel qui s’ouvre sur une visite d’accueil, le Wi-Fi et le Bluetooth dans Connexions et de nouveaux fonds d’écran Eitr menés par Rune Seal",
     "Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use": "Japonais, chinois simplifié et coréen avec une étape Langue dans l’installateur, la disposition de barre Drop et son tableau de bord, des widgets de plugins à copier et orienter, le dialogue de mot de passe propre à Eitr, un fond d’écran par écran, et des notifications et enregistrements qui suivent l’écran utilisé",
     "The Eitr Store, Backup and Restore, the Clock app, editors for keybinds and window rules, sharing the login screen, Clean My Eitr, window previews in the dock, and typing Japanese, Chinese and Korean": "L’Eitr Store, Sauvegarde et restauration, l’application Horloge, des éditeurs pour les raccourcis et les règles de fenêtre, le partage de l’écran de connexion, Nettoyer mon Eitr, les aperçus de fenêtres dans le dock et la saisie du japonais, du chinois et du coréen",
-    "A lighter ISO: only Eitr and Eitr Light inside, with starter themes downloaded at first login; themes removable from the Store, which got faster with sorting; the GitHub plugin; the bar reloads itself after updates": "Une ISO allégée avec Eitr et Eitr Light, des thèmes téléchargés après la première connexion, un Store plus rapide avec tri et suppression de thèmes, l’extension GitHub et le rechargement automatique de la barre après les mises à jour"
+    "A lighter ISO: only Eitr and Eitr Light inside, with starter themes downloaded at first login; themes removable from the Store, which got faster with sorting; the GitHub plugin; the bar reloads itself after updates": "Une ISO allégée avec Eitr et Eitr Light, des thèmes téléchargés après la première connexion, un Store plus rapide avec tri et suppression de thèmes, l’extension GitHub et le rechargement automatique de la barre après les mises à jour",
+    "Installation in about a minute from a prebuilt system image, tested beside Windows 11": "Installation en une minute environ depuis une image système prête à l’emploi, testée à côté de Windows 11"
   },
   "client": {
     "day": "Jour",
@@ -780,9 +781,12 @@
     "download": "Télécharger {version}",
     "installation_link": "Guide d’installation",
     "screenshots_link": "Plus de captures d’écran",
-    "lead": "Huginn apporte une ISO allégée, un Eitr Store plus rapide, le rechargement automatique de la barre et une extension GitHub.",
+    "lead": "Huginn 0.7.7 s’installe en une minute environ et est testé à côté de Windows 11. Il garde les thèmes de départ, l’Eitr Store plus rapide, le rechargement automatique de la barre et l’extension GitHub de la 0.7.6.",
+    "install_eyebrow": "Installation",
+    "install_title": "Installé en une minute environ",
+    "install_text": "L’ISO contient désormais un système Eitr prêt à l’emploi : l’installateur le copie sur votre disque au lieu d’installer des centaines de paquets un par un. Dans notre machine virtuelle de test, une installation complète prend environ 70 secondes au lieu de plus de deux minutes, pour un système installé identique. L’installation à côté de Windows 11 est aussi testée : Windows garde toutes ses partitions et les deux systèmes démarrent depuis le menu de démarrage d’Eitr.",
     "themes_eyebrow": "Thèmes",
-    "themes_title": "Une ISO allégée",
+    "themes_title": "Deux thèmes inclus, d’autres à la première connexion",
     "themes_text": "L’ISO contient deux thèmes, Eitr et Eitr Light. Un nouveau compte télécharge une sélection de thèmes officiels et communautaires dès qu’il est en ligne, immédiatement via Ethernet ou après connexion au Wi-Fi. Afterglow et les thèmes des royaumes sont disponibles dans l’Eitr Store. Tous les thèmes sauf Eitr et Eitr Light peuvent être supprimés.",
     "store_eyebrow": "Eitr Store",
     "store_title": "Explorez pendant la recherche de mises à jour",

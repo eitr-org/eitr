@@ -10,6 +10,7 @@ import { localizedScreenshots } from '../data/screenshots';
 
 const screenshots = localizedScreenshots(translator(Astro.url.pathname, 'gallery')).flatMap(group => group.shots);
 const highlights = [
+  { id: 'install', files: [] },
   { id: 'themes', files: ['settings-appearance'] },
   { id: 'store', files: ['catalog'] },
   { id: 'bar', files: ['settings-bar'] },

@@ -104,7 +104,7 @@ class WebsiteTranslations(unittest.TestCase):
             document = Document(ROOT / f'dist/{prefix}whats-new/index.html')
             gallery = json.loads((ROOT / f'src/i18n/{language}.json').read_text())['gallery']
             sections = document.attributes('section', **{'class': 'info-section release-highlight'})
-            self.assertEqual([section['id'] for section in sections], ['themes', 'store', 'bar', 'polish', 'plugins'])
+            self.assertEqual([section['id'] for section in sections], ['install', 'themes', 'store', 'bar', 'polish', 'plugins'])
             links = document.attributes('a', **{'class': 'release-shot'})
             self.assertEqual([link['href'] for link in links], [f'/shots/{file}.webp' for file in expected])
             for file, alt_key in expected.items():
