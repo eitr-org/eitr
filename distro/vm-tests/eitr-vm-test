@@ -3,6 +3,9 @@
 
   eitr-vm-test install --iso ISO --work DIR   offline install from the ISO
                        [--encrypted]          LUKS2 install; boots type its passphrase
+                       [--base DIR --layout alongside]
+                                              install beside Windows on a copy of a disk
+                                              from windows/make-base (see windows/README.md)
   eitr-vm-test verify --work DIR              boot the installed disk and check it
   eitr-vm-test update --work DIR              run System Update online, then verify
   eitr-vm-test reset --work DIR --mode MODE   Factory Reset from Walker's script, then verify
@@ -107,13 +110,20 @@ def install(arguments):
     if work.exists() and any(work.iterdir()):
         raise VmTestError(f"{work} is not empty; give each run its own work directory")
     work.mkdir(parents=True, exist_ok=True)
-    subprocess.run(["qemu-img", "create", "-q", "-f", "qcow2", str(work / "disk.qcow2"), "80G"], check=True)
-    shutil.copyfile(FIRMWARE_VARS, work / "vars.fd")
+    if arguments.base:
+        # A throwaway layer over a prepared disk (windows/make-base), with its firmware entries.
+        base = Path(arguments.base).resolve()
+        subprocess.run(["qemu-img", "create", "-q", "-f", "qcow2", "-b", str(base / "disk.qcow2"), "-F", "qcow2",
+                        str(work / "disk.qcow2")], check=True)
+        shutil.copyfile(base / "vars.fd", work / "vars.fd")
+    else:
+        subprocess.run(["qemu-img", "create", "-q", "-f", "qcow2", str(work / "disk.qcow2"), "80G"], check=True)
+        shutil.copyfile(FIRMWARE_VARS, work / "vars.fd")
     subprocess.run(["ssh-keygen", "-q", "-t", "ed25519", "-N", "", "-C", "eitr-vm-test", "-f", str(work / "key")],
                    check=True)
     password = secrets.token_urlsafe(12)
     (work / "password").write_text(password + "\n")
-    answers = {"disk": "/dev/vda", "layout": "erase", "encrypted": False, "hostname": "eitr-vm",
+    answers = {"disk": "/dev/vda", "layout": arguments.layout, "encrypted": False, "hostname": "eitr-vm",
                "username": USER, "password": password, "keyboard": "us",
                "ssh_authorized_key": (work / "key.pub").read_text().strip()}
     if arguments.encrypted:
@@ -133,7 +143,11 @@ def install(arguments):
         subprocess.run(['qemu-img', 'create', '-q', '-f', 'qcow2', str(work / 'empty.qcow2'), '80G'], check=True)
     serial = work / "install.serial.log"
     started = time.monotonic()
-    process = qemu(work, "install", ["-cdrom", str(Path(arguments.iso).resolve()), "-nic",
+    # Boot the installer first, like picking the USB stick in a PC's boot menu,
+    # also when the base disk's firmware entries put Windows first.
+    medium = ["-drive", f"media=cdrom,if=none,id=installer,readonly=on,file={Path(arguments.iso).resolve()}",
+              "-device", "ide-cd,drive=installer,bootindex=0"]
+    process = qemu(work, "install", [*medium, "-nic",
                                      "user,model=virtio-net-pci" if arguments.online else "none", "-no-reboot",
                                      "-fw_cfg", f"name=opt/eitr/answers,file={work / 'answers.json'}",
                                      "-serial", f"file:{serial}"])
@@ -560,6 +574,8 @@ def main():
     stick_parser.add_argument('--output', required=True)
     stick_parser.add_argument('--size', type=int, default=512, help='MiB')
     install_parser.add_argument("--timeout", type=int, default=3600)
+    install_parser.add_argument("--base", help="install over a copy of this prepared disk (windows/make-base)")
+    install_parser.add_argument("--layout", choices=["erase", "alongside"], default="erase")
     install_parser.add_argument("--encrypted", action="store_true", help="install on LUKS2; boots type the passphrase")
     install_parser.add_argument("--language", help="system locale to install, such as ja_JP.UTF-8")
     install_parser.add_argument("--input-method", choices=["japanese", "korean", "chinese"],

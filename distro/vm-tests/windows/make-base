@@ -1,0 +1,97 @@
+#!/usr/bin/env python3
+"""Build a Windows 11 disk for the Alongside VM test: Windows on 40 GB of a 100 GB disk.
+
+Usage: make-base --iso WINDOWS.iso --output DIR
+DIR receives disk.qcow2 and vars.fd (the firmware variables with Windows' boot entry).
+Installs from autounattend.xml beside this script, without network; takes 15-40 minutes.
+Windows has no driver for virtio disks, so it uses SATA (AHCI) here and when booted again.
+"""
+import argparse
+import json
+from pathlib import Path
+import shutil
+import socket
+import subprocess
+import tempfile
+import time
+
+HERE = Path(__file__).resolve().parent
+FIRMWARE = Path("/usr/share/edk2/x64/OVMF_CODE.4m.fd")
+FIRMWARE_VARS = Path("/usr/share/edk2/x64/OVMF_VARS.4m.fd")
+
+
+def qmp(sock, command, arguments=None):
+    with socket.socket(socket.AF_UNIX) as connection:
+        connection.connect(str(sock))
+        stream = connection.makefile("rw")
+        stream.readline()
+        for message in ({"execute": "qmp_capabilities"}, {"execute": command, "arguments": arguments or {}}):
+            stream.write(json.dumps(message) + "\n")
+            stream.flush()
+            while "return" not in (reply := json.loads(stream.readline())) and "error" not in reply:
+                continue
+        return reply
+
+
+def windows_qemu(work, extra, name):
+    """QEMU with the Windows disk on SATA, as Windows expects it."""
+    sock = work / f"{name}.qmp"
+    sock.unlink(missing_ok=True)
+    command = ["qemu-system-x86_64", "-name", name, "-machine", "q35,accel=kvm",
+               "-cpu", "host,hv_relaxed,hv_vapic,hv_spinlocks=0x1fff,hv_time", "-smp", "4", "-m", "8192",
+               "-drive", f"if=pflash,format=raw,readonly=on,file={FIRMWARE}",
+               "-drive", f"if=pflash,format=raw,file={work / 'vars.fd'}",
+               "-device", "ahci,id=sata",
+               "-drive", f"id=disk,if=none,format=qcow2,file={work / 'disk.qcow2'}",
+               "-device", "ide-hd,drive=disk,bus=sata.0",
+               "-vga", "std", "-display", "none", "-nic", "none", "-qmp", f"unix:{sock},server,nowait", *extra]
+    process = subprocess.Popen(command, stdout=subprocess.DEVNULL, stderr=open(work / f"{name}.qemu.log", "w"))
+    for _ in range(50):
+        if sock.exists():
+            break
+        time.sleep(0.1)
+    return process, sock
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--iso", required=True)
+    parser.add_argument("--output", required=True)
+    parser.add_argument("--timeout", type=int, default=5400)
+    arguments = parser.parse_args()
+    work = Path(arguments.output).resolve()
+    if work.exists() and any(work.iterdir()):
+        raise SystemExit(f"{work} is not empty")
+    work.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["qemu-img", "create", "-q", "-f", "qcow2", str(work / "disk.qcow2"), "100G"], check=True)
+    shutil.copyfile(FIRMWARE_VARS, work / "vars.fd")
+    with tempfile.TemporaryDirectory() as staging:
+        shutil.copy(HERE / "autounattend.xml", staging)
+        subprocess.run(["xorriso", "-as", "mkisofs", "-quiet", "-V", "UNATTEND", "-J", "-r",
+                        "-o", str(work / "unattend.iso"), staging], check=True)
+    process, sock = windows_qemu(work, [
+        "-drive", f"media=cdrom,if=none,id=setup,readonly=on,file={Path(arguments.iso).resolve()}",
+        "-device", "ide-cd,drive=setup,bus=sata.1,bootindex=0",
+        "-drive", f"media=cdrom,if=none,id=answers,readonly=on,file={work / 'unattend.iso'}",
+        "-device", "ide-cd,drive=answers,bus=sata.2"], "windows-install")
+    started = time.monotonic()
+    # Only the first start boots the DVD; later restarts wait out its prompt and boot the disk.
+    while time.monotonic() - started < 25 and process.poll() is None:
+        qmp(sock, "send-key", {"keys": [{"type": "qcode", "data": "ret"}]})
+        time.sleep(1)
+    shot = 0
+    while process.poll() is None:
+        if time.monotonic() - started > arguments.timeout:
+            process.kill()
+            raise SystemExit(f"Windows did not finish within {arguments.timeout} s; see {work}/progress.png")
+        time.sleep(30)
+        shot += 1
+        if shot % 4 == 0 and process.poll() is None:
+            qmp(sock, "screendump", {"filename": str(work / "progress.png"), "format": "png"})
+            print(f"{(time.monotonic() - started) / 60:.0f} min", flush=True)
+    (work / "unattend.iso").unlink()
+    print(f"Windows installed and shut down in {(time.monotonic() - started) / 60:.0f} min: {work}")
+
+
+if __name__ == "__main__":
+    main()
