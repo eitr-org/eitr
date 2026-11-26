@@ -2,8 +2,10 @@
 
 Guided installation extracts a prebuilt system image from the ISO and uses
 the supplemental pool for machine-specific and selected optional packages.
-Each installation creates its own pacman keyring and initramfs. ISO size,
-installation time and recovery behavior are pending verification in the release VM.
+Each installation creates its own pacman keyring, built while the image is
+extracted, and its own initramfs. In the release VM an installation takes about
+70 s instead of 2 minutes, on a 6.4 GB ISO; installing beside Windows 11 keeps
+every Windows partition and both systems start from Eitr's boot menu.
 
 Login starts Elephant and session preparation independently of the bar, bounds
 renderer and IPC probes, and shares saved-setting, plugin and keyboard reads.
@@ -123,6 +125,7 @@ problem report and the ISO name and boot menu all read it.
 | 0.7.4 | Huginn | beta | Japanese, Simplified Chinese and Korean with a Language step in the installer, the Drop bar layout and its dashboard, plugin widgets you can copy and turn, Eitr's own password dialog, a wallpaper per display, and notifications and recording that follow the display you use |
 | 0.7.5 | Huginn | beta | The Eitr Store, Backup and Restore, the Clock app, editors for keybinds and window rules, sharing the login screen, Clean My Eitr, window previews in the dock, and typing Japanese, Chinese and Korean |
 | 0.7.6 | Huginn | beta | A lighter ISO: only Eitr and Eitr Light inside, with starter themes downloaded at first login; themes removable from the Store, which got faster with sorting; the GitHub plugin; the bar reloads itself after updates |
+| 0.7.7 | Huginn | beta | Installation in about a minute from a prebuilt system image, tested beside Windows 11 |
 | 0.8.0 | Muninn | release candidate | The exact ISO intended for 1.0: repeated clean installs, upgrades from earlier public releases and destructive recovery tests in isolated environments, until installation, maintenance and recovery are reproducible on the declared supported configurations |
 | 1.0.0 | Bifröst | stable | A supported hardware matrix, tested upgrade paths, documented rollback limitations, a security-update process and a clear compatibility policy |
 
