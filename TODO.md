@@ -61,7 +61,7 @@ item says what decides the next step. Remove an item when it ships;
      ahead during the questions. Same VM, back to back: 127.1 s to 113.7 s (base 45.7 to 39.4 s,
      desktop 73.5 to 65.8 s); packages, services, `/etc`, boot files and initramfs contents
      identical to 0.7.6's installer. Step 1 used standard transactions for other archinstall versions.
-  2. *A prebuilt system image: working (2026-11-25), not yet on an ISO release.* The ISO build
+  2. *A prebuilt system image: released in 0.7.7 (2026-11-26).* The ISO build
      installs the fixed package set once into a generalized SquashFS root (`/eitr/system.sfs`,
      2.9 GB) and keeps only the hardware, input-method and profile closures in the pool (990 MB;
      ISO 6.4 GB). The installer lets archinstall 4.5 lay out the disk, extracts the root, makes a
