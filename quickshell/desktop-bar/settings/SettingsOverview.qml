@@ -218,6 +218,7 @@ Flickable {
                     }
                 }
             }
+            FontMetrics { id: metricLine; font.family: DesktopFonts.family; font.pixelSize: 30 }
             // The fourth card: download speed large, upload below it.
             Rectangle {
                 width: (dashboard.width - 42) / 4; height: 116
@@ -227,7 +228,8 @@ Flickable {
                 Column {
                     anchors.fill: parent; anchors.margins: 14; spacing: 8
                     Caption { text: Eitr.I18n.tr("Network") }
-                    Text { width: parent.width; text: "↓ " + overview.speed(overview.traffic.download); color: overview.foreground; font.family: DesktopFonts.family; font.pixelSize: 22; font.features: PanelStyle.tabularFigures; elide: Text.ElideRight }
+                    // Smaller than the 30 px percentages so speeds fit, but as tall, so the rows line up.
+                    Text { width: parent.width; height: Math.ceil(metricLine.height); verticalAlignment: Text.AlignVCenter; text: "↓ " + overview.speed(overview.traffic.download); color: overview.foreground; font.family: DesktopFonts.family; font.pixelSize: 22; font.features: PanelStyle.tabularFigures; elide: Text.ElideRight }
                     Caption { width: parent.width; text: "↑ " + overview.speed(overview.traffic.upload); maximumLineCount: 1; elide: Text.ElideRight }
                 }
             }
