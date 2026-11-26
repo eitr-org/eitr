@@ -60,18 +60,18 @@ item says what decides the next step. Remove an item when it ships;
      the initramfs is built once at the end instead of seven times, and the package pool is read
      ahead during the questions. Same VM, back to back: 127.1 s to 113.7 s (base 45.7 to 39.4 s,
      desktop 73.5 to 65.8 s); packages, services, `/etc`, boot files and initramfs contents
-     identical to 0.7.6's installer. Another archinstall version falls back to the old path.
-  2. *A pre-built system image.* At ISO build time, install the fixed package set once into a
-     btrfs image with Eitr's subvolumes (`@`, `@home`, `@log`, `@pkg`) and ship it compressed in
-     independent chunks. At install time: partition and format (encryption included), write the
-     image in parallel, give it new filesystem IDs, grow it to the disk, then add only
-     hardware-specific packages (GPU drivers, input methods) with pacman, set up the user, boot
-     menu, snapshots and the factory reset point as today. Pre-build the boot image with a
-     root found by partition type, so it boots on any machine. Expected: about 138 s to 20-30 s.
-     Decide first: partitioning outside archinstall (or archinstall only for disks), the ISO size
-     (image plus the hardware package pool), Secure Boot signing staying an explicit
-     `eitr-system` action, and the boot guard, factory reset and Alongside install on the new
-     layout. Needs repeated clean-install and recovery VM tests before it replaces pacstrap.
+     identical to 0.7.6's installer. Step 1 used standard transactions for other archinstall versions.
+  2. *A prebuilt system image: working (2026-11-25), not yet on an ISO release.* The ISO build
+     installs the fixed package set once into a generalized SquashFS root (`/eitr/system.sfs`,
+     2.9 GB) and keeps only the hardware, input-method and profile closures in the pool (990 MB;
+     ISO 6.4 GB). The installer lets archinstall 4.5 lay out the disk, extracts the root, makes a
+     new machine ID and pacman keyring, adds the hardware packages and builds the initramfs once.
+     VM: 75.6 s unencrypted, 79.7 s encrypted, 64 s with a profile; same packages, services,
+     boot files and initramfs as 0.7.6. Passed: verify (both), Japanese + Mozc, a profile with
+     removals, both factory resets, System Update. Not tested: Alongside (the VM harness has no
+     Windows disk). Next: extraction takes 40-45 s because Btrfs pays per file (275k files;
+     unpacking to memory takes 3 s), so a raw Btrfs image written block by block (the original
+     idea) could reach about 30 s; the keyring setup (12-18 s) can overlap the extraction.
 
 # 2. To test with the owner
 

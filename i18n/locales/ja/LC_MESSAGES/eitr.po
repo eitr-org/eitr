@@ -415,6 +415,9 @@ msgstr "このシステムの変更を適用しますか？続行するには ye
 msgid "Applying it…"
 msgstr "適用中…"
 
+msgid "Applying the organization profile"
+msgstr "組織プロファイルを適用しています"
+
 msgid "Applying…"
 msgstr "適用中…"
 
@@ -826,6 +829,9 @@ msgstr "インストール前にシステムアップデートを確認中…"
 msgid "Checking official package updates…"
 msgstr "公式パッケージのアップデートを確認中…"
 
+msgid "Checking the Eitr system image"
+msgstr "Eitr のシステムイメージを確認しています"
+
 msgid "Checking the downloaded copy…"
 msgstr "ダウンロードしたコピーを確認中…"
 
@@ -1062,6 +1068,9 @@ msgstr "先にOBSでこのソースを設定してください"
 
 msgid "Configured selection for {design_count} package-owned login designs."
 msgstr "{design_count} 個のパッケージ提供ログインデザイン用の選択を設定しました。"
+
+msgid "Configuring the installed system"
+msgstr "インストールしたシステムを設定しています"
 
 msgid "Confirm"
 msgstr "確認"
@@ -1366,11 +1375,14 @@ msgstr "保存先を利用できません"
 msgid "Destination {path} is on the same disk as your home folder. Continue?"
 msgstr "保存先 {path} はホームフォルダーと同じディスク上にあります。続行しますか？"
 
-msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
-msgstr "詳細ログ: /var/log/archinstall。失敗したステップ以降は何も変更されていません。"
+msgid "Detailed disk and system setup logs are in /var/log/archinstall."
+msgstr "ディスクとシステムの設定の詳細ログは /var/log/archinstall にあります。"
 
 msgid "Details"
 msgstr "詳細"
+
+msgid "Detecting eligible installation disks"
+msgstr "インストール可能なディスクを検出しています"
 
 msgid "Direct"
 msgstr "直接"
@@ -1509,6 +1521,9 @@ msgstr "空の値および制御文字は許可されていません"
 
 msgid "Enabled for: {services}"
 msgstr "有効: {services}"
+
+msgid "Enabling SSH for automated testing"
+msgstr "自動テスト用の SSH を有効にしています"
 
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "LUKS2で暗号化: 起動時パスフレーズが必要（推奨）"
@@ -1677,6 +1692,9 @@ msgstr "このタスクの失敗原因を説明し、修正方法を提案して
 
 msgid "Exported WiFi profile exceeds size limit: {name}"
 msgstr "エクスポートされた WiFi プロファイルがサイズ上限を超えています: {name}"
+
+msgid "Extracting the Eitr system image"
+msgstr "Eitr のシステムイメージを展開しています"
 
 msgid "FIDO2 registration must be a regular file owned by the desktop user"
 msgstr "FIDO2 registration must be a regular file owned by the desktop user"
@@ -2079,6 +2097,9 @@ msgstr "並行インストールは利用できません: {reason}"
 
 msgid "Installing alongside keeps every existing partition."
 msgstr "並行インストールでは、既存のすべてのパーティションが保持されます。"
+
+msgid "Installing hardware and selected packages"
+msgstr "ハードウェア用と選択したパッケージをインストールしています"
 
 msgid "Installing the selected software. Profile additions may need the internet. Keep the computer powered on."
 msgstr "選択したソフトウェアをインストールしています。プロファイルの追加にはインターネット接続が必要な場合があります。コンピューターの電源を入れたままにしてください。"
@@ -3148,6 +3169,9 @@ msgstr "パッケージのインストールを準備中…"
 msgid "Preparing plugin review: {name}…"
 msgstr "プラグインレビューを準備中: {name}…"
 
+msgid "Preparing the installation disk"
+msgstr "インストール先のディスクを準備しています"
+
 msgid "Preparing the restored system (the running system is not changed yet)"
 msgstr "復元システムを準備中 (実行中のシステムはまだ変更されていません)"
 
@@ -3691,6 +3715,15 @@ msgstr "保存されたプロファイルは個別に保持されます。最初
 msgid "Saved."
 msgstr "保存しました。"
 
+msgid "Saving the factory reset point"
+msgstr "初期状態への復元ポイントを保存しています"
+
+msgid "Scheduling mirror ranking"
+msgstr "ミラーの順位付けを予約しています"
+
+msgid "Scheduling timezone detection"
+msgstr "タイムゾーンの検出を予約しています"
+
 msgid "Scope"
 msgstr "スコープ"
 
@@ -3813,6 +3846,9 @@ msgstr "Ollamaを設定しますか？"
 
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "最初にOBSで全画面モニターキャプチャを設定してください"
+
+msgid "Setting up the desktop for {username}"
+msgstr "{username} のデスクトップを設定しています"
 
 msgid "Settings"
 msgstr "設定"
@@ -4135,6 +4171,9 @@ msgstr "サポートされているエンタープライズ方式: PEAP/MSCHAPv2
 msgid "Switch Account"
 msgstr "アカウントを切り替え"
 
+msgid "Switching to online package updates"
+msgstr "オンラインでのパッケージ更新に切り替えています"
+
 msgid "Switching to the restored system"
 msgstr "復元されたシステムに切り替えています"
 
@@ -4348,6 +4387,21 @@ msgstr "{id} の履歴が書き換えられました: 承認されたコミッ�
 msgid "The initramfs cannot use TPM2 unlock yet. Nothing was changed."
 msgstr "initramfsはまだTPM2ロック解除を使用できません。何も変更されませんでした。"
 
+msgid "The installed filesystems are incomplete"
+msgstr "インストール先のファイルシステムが揃っていません"
+
+msgid "The installed image package inventory does not match the ISO manifest"
+msgstr "インストールしたイメージのパッケージ一覧が ISO のマニフェストと一致しません"
+
+msgid "The installer could not load the selected disk layout"
+msgstr "選択したディスクレイアウトを読み込めませんでした"
+
+msgid "The installer could not set the account password"
+msgstr "アカウントのパスワードを設定できませんでした"
+
+msgid "The installer could not set the selected time zone"
+msgstr "選択したタイムゾーンを設定できませんでした"
+
 msgid "The layout your picture, color and greeting go into."
 msgstr "画像、色、挨拶メッセージを配置するレイアウト。"
 
@@ -4384,9 +4438,6 @@ msgstr "新しいパスワードが一致しません。"
 msgid "The password could not be changed."
 msgstr "パスワードを変更できませんでした。"
 
-msgid "The payload has no pacman {version} package"
-msgstr "ペイロードに pacman {version} パッケージがありません"
-
 msgid "The picture has too many pixels."
 msgstr "画像のピクセル数が多すぎます。"
 
@@ -4420,6 +4471,9 @@ msgstr "復元ポイントに /{required} が見つかりません"
 msgid "The restore point's boot files are damaged"
 msgstr "復元ポイントのブートファイルが破損しています"
 
+msgid "The root encryption mapping is already in use"
+msgstr "ルートの暗号化マッピングはすでに使用中です"
+
 msgid "The root filesystem is not the Btrfs @ subvolume of an Eitr installation"
 msgstr "ルートファイルシステムはEitrインストールのBtrfs @ サブボリュームではありません"
 
@@ -4443,6 +4497,9 @@ msgstr "音声モデルはこの録音を文字起こしできませんでした
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "システムディスクの空き容量が不足しているため、更新やアプリが失敗する可能性があります。「クリーンアップ」で空き容量を確保してください。"
+
+msgid "The system image has an unexpected initramfs configuration"
+msgstr "システムイメージの initramfs 設定が想定と異なります"
 
 msgid "The system language {language} was not generated on the installed system"
 msgstr "インストールされたシステムでシステム言語 {language} が生成されませんでした"
@@ -4477,8 +4534,14 @@ msgstr "テーマ"
 msgid "There is no update snapshot to go back to; the next System Update creates one."
 msgstr "復元先となる更新スナップショットがありません。次回のシステムアップデート時に作成されます。"
 
-msgid "This ISO has no complete offline payload ({amount} is missing)"
-msgstr "このISOには完全なオフラインペイロードがありません ({amount} が不足しています)"
+msgid "This ISO does not have the reviewed archinstall disk backend"
+msgstr "この ISO には検証済みの archinstall ディスク処理機能がありません"
+
+msgid "This ISO has a missing or mismatched system image. Use a complete Eitr ISO."
+msgstr "この ISO のシステムイメージが見つからないか、一致しません。完全な Eitr ISO を使用してください。"
+
+msgid "This ISO is missing required installer tools"
+msgstr "この ISO に必要なインストールツールがありません"
 
 msgid "This PC: {addresses}"
 msgstr "このPC: {addresses}"
@@ -4999,9 +5062,6 @@ msgstr "ユーザー名"
 msgid "Users"
 msgstr "ユーザー"
 
-msgid "Using standard archinstall package transactions and initramfs hooks"
-msgstr "archinstall 標準のパッケージ処理と initramfs フックを使用します"
-
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "デフォルトテーマを使用します: {user} のテーマを読み込めませんでした ({error})。"
 
@@ -5191,20 +5251,11 @@ msgstr "ゾーンの詳細"
 msgid "add.files must be a list"
 msgstr "add.files はリストである必要があります"
 
-msgid "archinstall and arch-chroot are required (they ship on the Arch ISO)"
-msgstr "archinstall と arch-chroot が必要です (Arch ISOに含まれています)"
-
-msgid "archinstall did not complete an installation; Eitr setup stopped"
-msgstr "archinstall がインストールを完了しませんでした。Eitrのセットアップが停止しました"
-
 msgid "archinstall did not create the user {name}"
 msgstr "archinstall がユーザー {name} を作成しませんでした"
 
 msgid "archinstall did not write exactly one limine.conf"
 msgstr "archinstall が正確に1つの limine.conf を書き込みませんでした"
-
-msgid "archinstall exited with status {returncode}"
-msgstr "archinstall がステータス {returncode} で終了しました"
 
 msgid "asking Huginn and Muninn"
 msgstr "フギンとムニンに尋ねています"

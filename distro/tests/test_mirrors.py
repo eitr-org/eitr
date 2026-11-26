@@ -131,7 +131,7 @@ class MirrorsTests(unittest.TestCase):
         self.assertIn("task-terminal.py python3", row["actions"]["open"])
         self.assertIn("system/mirrors.py", row["actions"]["open"])
         installer = (ROOT / "distro/archinstall/eitr-guided-install").read_text()
-        self.assertIn('("Scheduling mirror ranking", schedule_mirror_ranking)', installer)
+        self.assertIn('(tr("Scheduling mirror ranking"), schedule_mirror_ranking)', installer)
         self.assertIn('chroot(["systemctl", "enable", "eitr-mirrors.timer"], log)', installer)
         timer = (ROOT / "distro/system/eitr-mirrors.timer").read_text()
         self.assertIn("OnBootSec=2min", timer)

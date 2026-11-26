@@ -136,9 +136,10 @@ class InstallerAndSessionGuardTests(unittest.TestCase):
         wizard.choose.assert_called_once()
 
         guided = load_module("guided_install", ROOT / "distro/archinstall/eitr-guided-install")
-        with patch.object(guided.subprocess, "run", return_value=Mock(returncode=0, stdout="", stderr="")):
-            without_im = guided.desktop_packages(lambda msg: None, "")
-            with_im = guided.desktop_packages(lambda msg: None, "korean")
+        with patch.object(guided.subprocess, "run", return_value=Mock(returncode=0, stdout="", stderr="")), \
+                patch.object(guided.image_install, "firmware", return_value=[]):
+            without_im = guided.hardware_packages(lambda msg: None, "")
+            with_im = guided.hardware_packages(lambda msg: None, "korean")
         self.assertNotIn("fcitx5", without_im)
         self.assertIn("fcitx5", with_im)
         self.assertIn("fcitx5-hangul", with_im)

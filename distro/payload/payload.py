@@ -2,7 +2,8 @@
 
 The payload is a directory on the ISO medium:
 
-  pool/    official Arch packages with their .sig files, plus the core, extra
+  system.sfs  generalized root filesystem (added at ISO build time)
+  pool/    supplemental Arch packages with their .sig files, plus the core, extra
            and multilib sync databases they were downloaded with
   repo/    the unsigned `eitr` repository: prebuilt AUR packages, yay and
            eitr-desktop, with its own database
@@ -79,20 +80,38 @@ def hardware_manifests(root=ROOT):
     return sorted((root / "distro/hardware").glob("*.txt"))
 
 
+DEFERRED_DESKTOP = ("steam",)
+AUDIO_FIRMWARE = ("sof-firmware", "alsa-firmware")
+
+
+def transaction_lines(root):
+    return [line.split() for raw in (root / "distro/payload/transactions.txt").read_text().splitlines()
+            if (line := raw.split("#", 1)[0].strip())]
+
+
+def fixed_transactions(root=ROOT):
+    base, features, marker, *_ = transaction_lines(root)
+    if marker != [DESKTOP]:
+        raise ValueError("Missing fixed desktop transaction")
+    desktop = [name for name in desktop_official(root) if name not in DEFERRED_DESKTOP]
+    return [base, features, desktop + desktop_aur(root) + desktop_local(root) + ["eitr-desktop"]]
+
+
+def optional_transactions(root=ROOT):
+    _, _, _, *options = transaction_lines(root)
+    common = manifest(root / "distro/hardware/graphics-common.txt")
+    graphics = ("amd-gpu", "intel-gpu", "virtual-gpu", "nvidia")
+    for driver in graphics:
+        yield [*DEFERRED_DESKTOP, *common, *manifest(root / f"distro/hardware/{driver}.txt")]
+    for path in hardware_manifests(root):
+        if path.stem not in graphics:
+            yield manifest(path)
+    yield list(AUDIO_FIRMWARE)
+    yield from options
+
+
 def transactions(root=ROOT):
-    """Every package transaction the payload must satisfy, in install order."""
-    result = []
-    for line in (root / "distro/payload/transactions.txt").read_text().splitlines():
-        line = line.split("#", 1)[0].strip()
-        if not line:
-            continue
-        if line != DESKTOP:
-            result.append(line.split())
-            continue
-        desktop = desktop_official(root) + desktop_aur(root) + desktop_local(root) + ["eitr-desktop"]
-        result.append(desktop)
-        result.extend(desktop + manifest(path) for path in hardware_manifests(root))
-    return result
+    return [*fixed_transactions(root), *optional_transactions(root)]
 
 
 def dependency_name(dependency):

@@ -1,15 +1,5 @@
 #!/usr/bin/env python3
-"""Guided Eitr installation from the live ISO, entirely before the first reboot.
-
-Collects the installation choices, then installs offline from the package
-payload on the ISO medium (distro/payload): archinstall lays out the disk (the
-whole disk, or the largest free region next to existing partitions) and base
-system from Eitr's template (distro/archinstall/user_configuration.json), then
-the desktop packages are installed and set up for the new user, Windows joins
-the boot menu, the boot splash is selected, the installed system's package
-sources are switched to the online Arch mirrors, and the factory reset point
-is saved. The first boot reaches Eitr's graphical login.
-"""
+"""Guided Eitr installation from the live ISO's generalized system image."""
 import eitr_bootstrap
 from eitr_i18n import tr
 import eitr_input_methods
@@ -20,6 +10,7 @@ import json
 import os
 from pathlib import Path
 from contextlib import ExitStack
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 import re
 import shutil
 import subprocess
@@ -57,9 +48,12 @@ def load(name, path):
     return module
 
 
-payload = load("eitr_payload", SOURCE / "distro/payload/payload.py")
-install_backend = load("eitr_install_backend", Path(__file__).resolve().with_name("install_backend.py"))
-prefetch_payload = load("eitr_prefetch_payload", Path(__file__).resolve().with_name("prefetch_payload.py"))
+sys.path.insert(0, str(SOURCE / "distro/payload"))
+import payload
+import system_image
+
+image_install = load("eitr_image_install", Path(__file__).resolve().with_name("image_install.py"))
+install_boot = load("eitr_install_boot", Path(__file__).resolve().with_name("install_boot.py"))
 
 
 def human_size(size):
@@ -256,64 +250,11 @@ def stream(command, log, **kwargs):
 
 
 def check_payload():
-    """The ISO's package payload, readable and complete enough to start."""
-    for path in ("manifest.json", "pool/core.db", "pool/extra.db", "pool/multilib.db",
-                 f"repo/{payload.LOCAL_REPO}.db", "assets"):
-        if not (PAYLOAD / path).exists():
-            raise GuidedInstallError(tr('This ISO has no complete offline payload ({amount} is missing)', amount=f'{PAYLOAD / path}'))
-    return json.loads((PAYLOAD / "manifest.json").read_text())["source_commit"]
-
-
-def use_payload():
-    """Point the live system's pacman, which archinstall and pacstrap use, at the payload.
-    The mirrorlist is what pacstrap copies to the installed system."""
-    Path("/etc/pacman.conf").write_text(payload.pacman_conf(PAYLOAD / "pool", PAYLOAD / "repo"))
-    shutil.copyfile(SOURCE / "distro/payload/mirrorlist", "/etc/pacman.d/mirrorlist")
-    # pacman verifies the payload with the live keyring. Archiso's pacman-init.service
-    # waits for time synchronization, which never happens offline, so initialize
-    # the keyring here unless that service already did.
-    if subprocess.run(["systemctl", "is-active", "--quiet", "pacman-init.service"]).returncode:
-        subprocess.run(["systemctl", "stop", "pacman-init.service"], check=False)
-        subprocess.run(["pacman-key", "--init"], check=True, stdout=subprocess.DEVNULL)
-        subprocess.run(["pacman-key", "--populate"], check=True, stdout=subprocess.DEVNULL)
-
-
-def run_archinstall(config, credentials, work, log=None, optimized=False):
-    config_path = work / "user_configuration.json"
-    config_path.write_text(json.dumps(config, indent=2) + "\n")
-    # archinstall offers to reboot when it finishes; the desktop setup runs first.
-    shim = work / "bin"
-    shim.mkdir()
-    (shim / "reboot").write_text("#!/bin/sh\necho 'Eitr finishes its setup first and then offers to reboot.'\n")
-    (shim / "reboot").chmod(0o755)
-    environment = dict(os.environ, PATH=f"{shim}{os.pathsep}{os.environ.get('PATH', '')}")
-    reader, writer = os.pipe()
     try:
-        os.write(writer, json.dumps(credentials).encode())
-        os.close(writer)
-        writer = None
-        command = ["archinstall", "--silent", "--offline", "--skip-ntp", "--skip-wkd",
-                   "--config", str(config_path), "--creds", f"/dev/fd/{reader}", "--mountpoint", str(TARGET)]
-        if optimized:
-            command.extend(["--plugin", install_backend.__file__])
-            environment["EITR_INSTALL_WORK"] = str(work)
-        if log is None:
-            result = subprocess.run(command, pass_fds=(reader,), env=environment)
-        else:
-            with subprocess.Popen(command, pass_fds=(reader,), env=environment,
-                                  stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True) as process:
-                for line in process.stdout:
-                    log(line)
-                result = subprocess.CompletedProcess(command, process.wait())
-    finally:
-        os.close(reader)
-        if writer is not None:
-            os.close(writer)
-    if result.returncode != 0:
-        raise GuidedInstallError(tr('archinstall exited with status {returncode}', returncode=f'{result.returncode}'))
-    if not (TARGET / "etc/fstab").is_file() or subprocess.run(["findmnt", "-M", str(TARGET)],
-                                                             stdout=subprocess.DEVNULL).returncode:
-        raise GuidedInstallError(tr('archinstall did not complete an installation; Eitr setup stopped'))
+        commit = (SOURCE / "distro/archinstall/source-commit").read_text().strip()
+        return system_image.read(PAYLOAD, commit)["system_image"]
+    except (OSError, ValueError, TypeError, KeyError, AttributeError) as error:
+        raise GuidedInstallError(tr("This ISO has a missing or mismatched system image. Use a complete Eitr ISO.")) from error
 
 
 def system_locales(text):
@@ -352,8 +293,8 @@ def installed_user(name):
     raise GuidedInstallError(tr('archinstall did not create the user {name}', name=f'{name}'))
 
 
-def desktop_packages(log, input_method=""):
-    """Hardware packages for this computer plus the desktop and AUR manifests."""
+def hardware_packages(log, input_method=""):
+    """The packages which depend on this computer or its input method."""
     environment = dict(os.environ, HARDWARE_MODULES_ROOT=str(TARGET / "usr/lib/modules"),
                        DISTRO_NVIDIA_DRIVER=os.environ.get("DISTRO_NVIDIA_DRIVER", "open"))
     result = subprocess.run(["bash", str(SOURCE / "distro/hardware/detect.sh")], env=environment,
@@ -362,18 +303,9 @@ def desktop_packages(log, input_method=""):
         log(line)
     if result.returncode:
         raise GuidedInstallError(tr('Hardware detection failed; see the log above'))
-    hardware = result.stdout.split()
     extra = eitr_input_methods.packages_for(input_method) if input_method else []
-    return [*dict.fromkeys(payload.desktop_official(SOURCE) + hardware + extra + payload.desktop_aur(SOURCE)
-                           + payload.desktop_local(SOURCE) + ["eitr-desktop"])]
-
-
-def install_desktop(log, input_method=""):
-    packages = [package for package in desktop_packages(log, input_method) if package not in eitr_profile.removals(PROFILE or {})]
-    log(f"Installing {len(packages)} desktop packages and their dependencies")
-    # -G: keep the keyring archinstall initialized; -M: keep the copied mirrorlist.
-    stream(["pacstrap", "-C", "/etc/pacman.conf", "-G", "-M", str(TARGET),
-            "--noconfirm", "--needed", *packages], log)
+    names = [*payload.DEFERRED_DESKTOP, *result.stdout.split(), *image_install.firmware(), *extra]
+    return [package for package in dict.fromkeys(names) if package not in eitr_profile.removals(PROFILE or {})]
 
 
 def chroot(command, log, user=None, environment=None):
@@ -387,11 +319,12 @@ def chroot(command, log, user=None, environment=None):
             *(f"{key}={value}" for key, value in variables.items()), *command], log)
 
 
-def set_up_desktop(user, log, input_method=""):
+def set_up_desktop(user, log, input_method, cleanup):
     """The user's configs, shell and theme, then the system side, offline."""
     setup = TARGET / SETUP.lstrip("/")
     if setup.exists():
         raise GuidedInstallError(tr('{setup} already exists', setup=f'{setup}'))
+    cleanup.callback(shutil.rmtree, setup, ignore_errors=True)
     log("Copying the Eitr setup scripts")
     shutil.copytree(SOURCE, setup, symlinks=True)
     shutil.copytree(PAYLOAD / "assets", setup / "assets")
@@ -414,7 +347,7 @@ def set_up_desktop(user, log, input_method=""):
 def apply_profile(username, log, boot_palette, cleanup):
     palette = Path(cleanup.enter_context(tempfile.TemporaryDirectory(prefix="eitr-palette-", dir=TARGET / "var/tmp")))
     boot_palette.append(palette)
-    install_backend.save_boot_palette(TARGET, installed_user(username), palette)
+    install_boot.save_boot_palette(TARGET, installed_user(username), palette)
     destination = TARGET / 'var/tmp/eitr-profile'
     shutil.copytree(PROFILE_STAGE.name, destination)
     try:
@@ -479,7 +412,7 @@ def set_up_boot(username, log, boot_palette=()):
     try:
         command = ["/usr/lib/eitr/eitr-system", "boot-menu-style", username]
         if boot_palette:
-            command = install_backend.boot_style_command(TARGET, installed_user(username), boot_palette[0])
+            command = install_boot.boot_style_command(TARGET, installed_user(username), boot_palette[0])
         chroot(command, log)
     except GuidedInstallError as error:
         # The style is cosmetic; the installation goes on without it.
@@ -512,18 +445,6 @@ def save_factory_reset_point(log):
 
 def restore_online_sources(log):
     """The installed system updates from Arch mirrors, never from the ISO payload."""
-    version = output(["pacman", "--root", str(TARGET), "-Q", "pacman"]).split()[1]
-    package = next((path for path in (PAYLOAD / "pool").glob(f"pacman-{version}-*.pkg.tar.*")
-                    if path.suffix != ".sig"), None)
-    if package is None:
-        raise GuidedInstallError(tr('The payload has no pacman {version} package', version=f'{version}'))
-    default = output(["bsdtar", "-xOf", str(package), "etc/pacman.conf"])
-    online = payload.online_pacman_conf(default + "\n")
-    if payload.signing_key(SOURCE):
-        # EITR updates come from the signed [eitr] repository once the key exists.
-        online += payload.eitr_repository()
-    (TARGET / "etc/pacman.conf").write_text(online)
-    shutil.copyfile(SOURCE / "distro/payload/mirrorlist", TARGET / "etc/pacman.d/mirrorlist")
     for suffix in ("db", "files"):
         (TARGET / f"var/lib/pacman/sync/{payload.LOCAL_REPO}.{suffix}").unlink(missing_ok=True)
     shutil.rmtree(TARGET / SETUP.lstrip("/"))
@@ -642,16 +563,20 @@ def main():
         raise GuidedInstallError(tr('The guided install supports UEFI boot only; boot the ISO in UEFI mode'))
     if not Path("/run/archiso/bootmnt").is_mount():
         raise GuidedInstallError(tr('Run only from the booted Eitr live ISO, never an installed host'))
-    if not shutil.which("archinstall") or not shutil.which("arch-chroot"):
-        raise GuidedInstallError(tr('archinstall and arch-chroot are required (they ship on the Arch ISO)'))
+    if not all(shutil.which(tool) for tool in ("archinstall", "arch-chroot", "unsquashfs")):
+        raise GuidedInstallError(tr("This ISO is missing required installer tools"))
     if subprocess.run(["findmnt", "-M", str(TARGET)], stdout=subprocess.DEVNULL).returncode == 0:
         raise GuidedInstallError(tr('{TARGET} is already mounted; unmount it before installing', TARGET=f'{TARGET}'))
+    print(tr("Checking the Eitr system image"), flush=True)
+    expected = check_payload()
+    if not image_install.reviewed_backend():
+        raise GuidedInstallError(tr("This ISO does not have the reviewed archinstall disk backend"))
     global PROFILE, PROFILE_STAGE
     drive = Path(PROFILE_DRIVE or (Path(ANSWERS).parent if ANSWERS and not str(ANSWERS).startswith(TEST_ANSWERS) else '/run/eitr-answers'))
     if PROFILE_DRIVE or (drive / 'eitr-profile.json').exists():
         PROFILE_STAGE = tempfile.TemporaryDirectory(prefix='eitr-profile-', dir='/run')
         PROFILE = eitr_profile.snapshot(drive, PROFILE_STAGE.name)
-        eitr_profile.preflight_packages(PROFILE, PROFILE_STAGE.name, databases=[*Path("/var/lib/pacman/sync").glob("*.db"), *PAYLOAD.rglob("*.db")])
+        image_install.preflight_profile(PROFILE, PROFILE_STAGE.name, PAYLOAD)
     ui = load("eitr_installer_ui", SOURCE / "distro/archinstall/installer-ui.py")
     ui.PROFILE_REVIEW = eitr_profile.summary(PROFILE, installer=True).splitlines() if PROFILE else []
 
@@ -664,58 +589,85 @@ def main():
             raise GuidedInstallError(tr('No eligible writable disk of at least 64 GiB was found'))
         return [(disk_label(disk), disk) for disk in candidates]
 
-    checks = [("Detecting eligible installation disks", disks),
-              ("Checking the installation template", lambda: json.loads(TEMPLATE.read_text())),
-              ("Checking the Archinstall backend", lambda: output(["archinstall", "--version"])),
-              ("Checking the offline package payload", check_payload)]
-    with prefetch_payload.warming_payload(PAYLOAD, SOURCE / "distro/payload/transactions.txt"):
-        if ANSWERS:
-            choices = answered_choices(ANSWERS, ui, checks, disks)
-        else:
-            try:
-                choices = ui.run(checks, disks)
-            except ui.Cancelled:
-                raise GuidedInstallError(tr('Cancelled; nothing was changed')) from None
-            except subprocess.SubprocessError:
-                raise GuidedInstallError(tr('Preparation failed before any disk changes')) from None
+    checks = [(tr("Detecting eligible installation disks"), disks)]
+    if ANSWERS:
+        choices = answered_choices(ANSWERS, ui, checks, disks)
+    else:
+        try:
+            choices = ui.run(checks, disks)
+        except ui.Cancelled:
+            raise GuidedInstallError(tr('Cancelled; nothing was changed')) from None
+        except subprocess.SubprocessError:
+            raise GuidedInstallError(tr('Preparation failed before any disk changes')) from None
+    try:
+        ZoneInfo(choices["timezone"])
+    except (ValueError, ZoneInfoNotFoundError) as error:
+        raise GuidedInstallError(tr("The installer could not set the selected time zone")) from error
     config = build_config(json.loads(TEMPLATE.read_text()), choices["disk"], choices["encrypted"], choices["layout"])
     config.update(hostname=choices["hostname"], timezone=choices["timezone"],
                   locale_config={"kb_layout": choices["keyboard"], "sys_lang": choices["language"], "sys_enc": "UTF-8"})
-    credentials = {"users": [{"username": choices["username"], "!password": choices.pop("password"), "sudo": True}]}
-    if choices["encrypted"]:
-        credentials["encryption_password"] = choices.pop("passphrase")
-    use_payload()
-    with tempfile.TemporaryDirectory(prefix="eitr-guided-", dir="/run") as directory:
-        work = Path(directory)
-        with install_backend.deferred_hooks(TARGET, PAYLOAD / "pool", work) as optimized, ExitStack() as cleanup:
-            boot_palette = []
-            stages = [
-                ("Installing the base system", lambda log: run_archinstall(config, credentials, work, log, optimized)),
-                ("Generating the system language", lambda log: ensure_system_locale(choices["language"], log)),
-                ("Installing the Eitr desktop", lambda log: install_desktop(log, choices.get("input_method", ""))),
-                ("Setting up the desktop for " + choices["username"],
-                 lambda log: set_up_desktop(installed_user(choices["username"]), log, choices.get("input_method", ""))),
-                *([] if choices["timezone_detected"] else
-                  [("Scheduling timezone detection", schedule_timezone_detection)]),
-                ("Switching to online package updates", restore_online_sources),
-                ("Scheduling mirror ranking", schedule_mirror_ranking),
-                *([("Enabling SSH for automated testing",
-                    lambda log: enable_test_ssh(choices["username"], choices["ssh_authorized_key"], log))]
-                  if choices.get("ssh_authorized_key") else []),
-                *([("Applying the organization profile", lambda log: apply_profile(choices["username"], log, boot_palette, cleanup))] if PROFILE else []),
-                (tr("Building the boot image"), lambda log: install_backend.finish_boot_image(
-                    TARGET, work, choices["encrypted"], lambda command: chroot(command, log), output)),
-                (tr("Styling the boot menu"), lambda log: set_up_boot(choices["username"], log, boot_palette)),
-                ("Saving the factory reset point", save_factory_reset_point)]
-            durations = plain_installation(stages) if ANSWERS else ui.installation(stages)
-        del credentials
-    total = sum(seconds for _, seconds in durations)
-    (TARGET / "var/log/eitr-install.log").write_text(install_log(durations, total))
+    with image_install.target_mounts(TARGET, choices["encrypted"]), ExitStack() as cleanup:
+        stages = installation_stages(config, choices, expected, cleanup)
+        durations = plain_installation(stages) if ANSWERS else ui.installation(stages)
+        total = sum(seconds for _, seconds in durations)
+        (TARGET / "var/log/eitr-install.log").write_text(install_log(durations, total))
     if ANSWERS:
         print(tr('==> Installed in {total} s; powering off', total=f'{total:.0f}'), flush=True)
     if ANSWERS or ui.finished(total):
-        subprocess.run(["umount", "-R", str(TARGET)], check=False)
         subprocess.run(["systemctl", "poweroff"], check=False)
+
+
+def installation_stages(config, choices, expected, cleanup):
+    username = choices["username"]
+    input_method = choices["input_method"]
+    encrypted = choices["encrypted"]
+    boot_palette = []
+    hooks = cleanup.enter_context(ExitStack())
+    installer = None
+
+    def prepare(log):
+        nonlocal installer
+        installer = image_install.prepare(config, choices.pop("passphrase", None), TARGET)
+
+    def configure(log):
+        image_install.configure(installer, config, username, choices.pop("password"), encrypted,
+                                lambda command: chroot(command, log))
+        ensure_system_locale(choices["language"], log)
+
+    def install_packages(log):
+        hooks.enter_context(image_install.package_hooks(TARGET))
+        image_install.install_packages(TARGET, PAYLOAD, hardware_packages(log, input_method),
+                                       eitr_profile.repository_packages(PROFILE or {}), expected["desktop_dependencies"],
+                                       lambda command: chroot(command, log),
+                                       lambda command: output(["arch-chroot", str(TARGET), *command],
+                                                              stderr=subprocess.PIPE))
+
+    def boot(log):
+        hooks.close()
+        install_boot.finish_boot_image(TARGET, encrypted, lambda command: chroot(command, log), output)
+        image_install.install_limine(installer, config["bootloader_config"]["removable"],
+                                     lambda command: chroot(command, log))
+
+    return [
+        (tr("Preparing the installation disk"), prepare),
+        (tr("Extracting the Eitr system image"), lambda log: image_install.extract(
+            TARGET, PAYLOAD, expected, lambda command: stream(command, log), output)),
+        (tr("Configuring the installed system"), configure),
+        (tr("Installing hardware and selected packages"), install_packages),
+        (tr("Setting up the desktop for {username}", username=username),
+         lambda log: set_up_desktop(installed_user(username), log, input_method, cleanup)),
+        *([] if choices["timezone_detected"] else [(tr("Scheduling timezone detection"), schedule_timezone_detection)]),
+        (tr("Switching to online package updates"), restore_online_sources),
+        (tr("Scheduling mirror ranking"), schedule_mirror_ranking),
+        *([(tr("Enabling SSH for automated testing"),
+            lambda log: enable_test_ssh(username, choices["ssh_authorized_key"], log))]
+          if choices.get("ssh_authorized_key") else []),
+        *([(tr("Applying the organization profile"), lambda log: apply_profile(username, log, boot_palette, cleanup))]
+          if PROFILE else []),
+        (tr("Building the boot image"), boot),
+        (tr("Styling the boot menu"), lambda log: set_up_boot(username, log, boot_palette)),
+        (tr("Saving the factory reset point"), save_factory_reset_point),
+    ]
 
 
 # --answers FILE replaces the wizard's questions (automated VM tests).
@@ -736,7 +688,7 @@ if __name__ == "__main__":
         main()
     except (GuidedInstallError, eitr_profile.ProfileError, subprocess.CalledProcessError, OSError) as error:
         print('\neitr-guided-install: {error}'.format(error=f'{error}'), file=sys.stderr)
-        print(tr('Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.'), file=sys.stderr)
+        print(tr('Detailed disk and system setup logs are in /var/log/archinstall.'), file=sys.stderr)
         sys.exit(1)
     except KeyboardInterrupt:
         print(tr('\nInterrupted.'), file=sys.stderr)

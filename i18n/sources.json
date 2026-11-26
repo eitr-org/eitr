@@ -8006,6 +8006,9 @@
     "Applying it…": [
       "walker/scripts/actions/style/own.py"
     ],
+    "Applying the organization profile": [
+      "distro/archinstall/eitr-guided-install"
+    ],
     "Applying…": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -8194,10 +8197,10 @@
       "walker/scripts/actions/style/own.py"
     ],
     "Boot image {image} is missing the Plymouth hook or Eitr theme": [
-      "distro/archinstall/install_backend.py"
+      "distro/archinstall/install_boot.py"
     ],
     "Boot image {image} is missing the encrypted root hook": [
-      "distro/archinstall/install_backend.py"
+      "distro/archinstall/install_boot.py"
     ],
     "Boot loader: {loader}": [
       "distro/system/eitr-system.py"
@@ -8422,6 +8425,9 @@
     ],
     "Checking official package updates…": [
       "walker/scripts/actions/system/update.sh"
+    ],
+    "Checking the Eitr system image": [
+      "distro/archinstall/eitr-guided-install"
     ],
     "Checking the downloaded copy…": [
       "walker/scripts/actions/install/plugins.py"
@@ -8661,6 +8667,9 @@
     ],
     "Configured selection for {design_count} package-owned login designs.": [
       "quickshell/lockscreen/scripts/install-login.py"
+    ],
+    "Configuring the installed system": [
+      "distro/archinstall/eitr-guided-install"
     ],
     "Confirm": [
       "walker/scripts/actions/development/git-accounts.py",
@@ -8974,11 +8983,14 @@
     "Destination {path} is on the same disk as your home folder. Continue?": [
       "distro/lib/eitr_backup/cli.py"
     ],
-    "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed.": [
+    "Detailed disk and system setup logs are in /var/log/archinstall.": [
       "distro/archinstall/eitr-guided-install"
     ],
     "Details": [
       "walker/scripts/actions/system/crash-help.py"
+    ],
+    "Detecting eligible installation disks": [
+      "distro/archinstall/eitr-guided-install"
     ],
     "Direct": [
       "walker/scripts/actions/system/remote-access.py"
@@ -9120,6 +9132,9 @@
     ],
     "Enabled for: {services}": [
       "quickshell/desktop-bar/scripts/settings-system.py"
+    ],
+    "Enabling SSH for automated testing": [
+      "distro/archinstall/eitr-guided-install"
     ],
     "Encrypt with LUKS2: boot passphrase required (recommended)": [
       "distro/archinstall/installer-ui.py"
@@ -9291,6 +9306,9 @@
     ],
     "Exported WiFi profile exceeds size limit: {name}": [
       "distro/lib/eitr_backup/secrets.py"
+    ],
+    "Extracting the Eitr system image": [
+      "distro/archinstall/eitr-guided-install"
     ],
     "FIDO2 registration must be a regular file owned by the desktop user": [
       "distro/system/eitr-system.py"
@@ -9697,6 +9715,9 @@
     ],
     "Installing alongside keeps every existing partition.": [
       "distro/archinstall/installer-ui.py"
+    ],
+    "Installing hardware and selected packages": [
+      "distro/archinstall/eitr-guided-install"
     ],
     "Installing the selected software. Profile additions may need the internet. Keep the computer powered on.": [
       "distro/archinstall/installer-ui.py"
@@ -10267,7 +10288,7 @@
       "distro/system/eitr-system.py"
     ],
     "No boot image was found for the installed kernels": [
-      "distro/archinstall/install_backend.py"
+      "distro/archinstall/install_boot.py"
     ],
     "No brightness control available": [
       "quickshell/desktop-bar/scripts/brightness.py"
@@ -10805,6 +10826,9 @@
     ],
     "Preparing plugin review: {name}…": [
       "distro/lib/eitr_backup/packages.py"
+    ],
+    "Preparing the installation disk": [
+      "distro/archinstall/eitr-guided-install"
     ],
     "Preparing the restored system (the running system is not changed yet)": [
       "distro/system/factory-reset.py"
@@ -11360,6 +11384,15 @@
     "Saved.": [
       "walker/scripts/actions/development/git-accounts.py"
     ],
+    "Saving the factory reset point": [
+      "distro/archinstall/eitr-guided-install"
+    ],
+    "Scheduling mirror ranking": [
+      "distro/archinstall/eitr-guided-install"
+    ],
+    "Scheduling timezone detection": [
+      "distro/archinstall/eitr-guided-install"
+    ],
     "Scope": [
       "walker/scripts/menus/cloud/providers.py"
     ],
@@ -11485,6 +11518,9 @@
     ],
     "Set up full-screen monitor capture in OBS first": [
       "quickshell/desktop-bar/scripts/obs_options.py"
+    ],
+    "Setting up the desktop for {username}": [
+      "distro/archinstall/eitr-guided-install"
     ],
     "Settings": [
       "quickshell/desktop-bar/scripts/remote-status.py"
@@ -11809,6 +11845,9 @@
     "Switch Account": [
       "walker/scripts/menus/cloud/providers.py"
     ],
+    "Switching to online package updates": [
+      "distro/archinstall/eitr-guided-install"
+    ],
     "Switching to the restored system": [
       "distro/system/factory-reset.py"
     ],
@@ -12028,6 +12067,22 @@
     "The initramfs cannot use TPM2 unlock yet. Nothing was changed.": [
       "distro/system/eitr-system.py"
     ],
+    "The installed filesystems are incomplete": [
+      "distro/archinstall/image_install.py"
+    ],
+    "The installed image package inventory does not match the ISO manifest": [
+      "distro/archinstall/image_install.py"
+    ],
+    "The installer could not load the selected disk layout": [
+      "distro/archinstall/image_install.py"
+    ],
+    "The installer could not set the account password": [
+      "distro/archinstall/image_install.py"
+    ],
+    "The installer could not set the selected time zone": [
+      "distro/archinstall/eitr-guided-install",
+      "distro/archinstall/image_install.py"
+    ],
     "The layout your picture, color and greeting go into.": [
       "walker/scripts/actions/style/own.py"
     ],
@@ -12066,9 +12121,6 @@
     "The password could not be changed.": [
       "walker/scripts/actions/system/security.py"
     ],
-    "The payload has no pacman {version} package": [
-      "distro/archinstall/eitr-guided-install"
-    ],
     "The picture has too many pixels.": [
       "distro/lib/eitr_own_pictures.py"
     ],
@@ -12102,6 +12154,9 @@
     "The restore point's boot files are damaged": [
       "distro/system/factory-reset.py"
     ],
+    "The root encryption mapping is already in use": [
+      "distro/archinstall/image_install.py"
+    ],
     "The root filesystem is not the Btrfs @ subvolume of an Eitr installation": [
       "distro/system/factory-reset.py"
     ],
@@ -12130,6 +12185,9 @@
     ],
     "The system disk is almost full, so updates and apps can fail; free space with Cleanup.": [
       "distro/lib/eitr_selfcheck.py"
+    ],
+    "The system image has an unexpected initramfs configuration": [
+      "distro/archinstall/image_install.py"
     ],
     "The system language {language} was not generated on the installed system": [
       "distro/archinstall/eitr-guided-install"
@@ -12164,7 +12222,13 @@
     "There is no update snapshot to go back to; the next System Update creates one.": [
       "distro/lib/eitr_selfcheck.py"
     ],
-    "This ISO has no complete offline payload ({amount} is missing)": [
+    "This ISO does not have the reviewed archinstall disk backend": [
+      "distro/archinstall/eitr-guided-install"
+    ],
+    "This ISO has a missing or mismatched system image. Use a complete Eitr ISO.": [
+      "distro/archinstall/eitr-guided-install"
+    ],
+    "This ISO is missing required installer tools": [
       "distro/archinstall/eitr-guided-install"
     ],
     "This PC: {addresses}": [
@@ -12693,9 +12757,6 @@
     "Users": [
       "walker/scripts/menus/cloud/navigation.py"
     ],
-    "Using standard archinstall package transactions and initramfs hooks": [
-      "distro/archinstall/install_backend.py"
-    ],
     "Using the default theme: {user}'s theme could not be read ({error}).": [
       "distro/system/eitr-system.py"
     ],
@@ -12890,19 +12951,10 @@
     "add.files must be a list": [
       "distro/lib/eitr_profile.py"
     ],
-    "archinstall and arch-chroot are required (they ship on the Arch ISO)": [
-      "distro/archinstall/eitr-guided-install"
-    ],
-    "archinstall did not complete an installation; Eitr setup stopped": [
-      "distro/archinstall/eitr-guided-install"
-    ],
     "archinstall did not create the user {name}": [
       "distro/archinstall/eitr-guided-install"
     ],
     "archinstall did not write exactly one limine.conf": [
-      "distro/archinstall/eitr-guided-install"
-    ],
-    "archinstall exited with status {returncode}": [
       "distro/archinstall/eitr-guided-install"
     ],
     "asking Huginn and Muninn": [
@@ -13082,7 +13134,8 @@
       "distro/system/eitr-system.py"
     ],
     "{TARGET} is already mounted; unmount it before installing": [
-      "distro/archinstall/eitr-guided-install"
+      "distro/archinstall/eitr-guided-install",
+      "distro/archinstall/image_install.py"
     ],
     "{app} crashed": [
       "walker/scripts/actions/system/crash-help.py"

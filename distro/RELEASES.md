@@ -1,5 +1,10 @@
 # Releases
 
+Guided installation extracts a prebuilt system image from the ISO and uses
+the supplemental pool for machine-specific and selected optional packages.
+Each installation creates its own pacman keyring and initramfs. ISO size,
+installation time and recovery behavior are pending verification in the release VM.
+
 Login starts Elephant and session preparation independently of the bar, bounds
 renderer and IPC probes, and shares saved-setting, plugin and keyboard reads.
 The polkit watchdog starts with the session; machine-local milestones record

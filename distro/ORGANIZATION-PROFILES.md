@@ -63,9 +63,10 @@ it no longer allows and keeps their files.
 
 Recipes use `group/name` from `distro/software.json`. Only prebuilt pacman and
 Flatpak recipes are accepted. AUR and interactive managed/webapp recipes are
-refused; provide reviewed prebuilt package files instead. Repository packages,
-recipes and Flathub additions require internet. Stick packages install offline
-when their dependencies are already on the ISO or also supplied on the stick.
+refused; provide reviewed prebuilt package files instead. Pacman recipes and
+package additions can use the ISO pool for Chromium, WireGuard or the NetworkManager VPN
+packages. Other repository packages and Flathub additions can require internet.
+Stick packages install offline when their dependencies are already on the ISO or also supplied on the stick.
 Package names must be available in pacman's current sync databases when checked;
 refresh them through the normal update workflow before checking online additions.
 No AUR builds run during installation. Online pacman additions use a full upgrade,

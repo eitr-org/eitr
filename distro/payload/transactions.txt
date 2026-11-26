@@ -1,23 +1,13 @@
-# Package transactions of an offline ISO installation, one per line, in the
-# order they run. The payload holds each transaction's complete dependency
-# closure as resolved from an empty system, so every transaction succeeds
-# whatever ran before it. @desktop expands to the desktop manifests, the AUR
-# manifests and eitr-desktop, once without hardware packages and once with
-# each distro/hardware manifest.
-# Archinstall: base system, Btrfs and LUKS tools, CPU microcode.
-base sudo linux-firmware mkinitcpio linux btrfs-progs cryptsetup amd-ucode intel-ucode
-# Archinstall: Limine boot loader, zram swap, boot splash, audio, Bluetooth.
-limine efibootmgr
-zram-generator
-plymouth
-pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
-bluez bluez-utils
-# The packages list in distro/archinstall/user_configuration.json.
-git iwd pciutils python sudo
+# Fixed transactions first, then additional closures to carry on the ISO.
+base sudo linux-firmware mkinitcpio linux btrfs-progs
+zram-generator plymouth limine efibootmgr bluez bluez-utils pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber git iwd pciutils python sudo
 @desktop
+# Supported offline organization additions. Other additions can use online
+# repositories or a verified package file on the profile drive.
+chromium
 wireguard-tools
 networkmanager-openvpn networkmanager-openconnect
-# Optional CJK input methods (offered when installing Japanese, Korean or Chinese).
+# Optional CJK input methods.
 fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-mozc
 fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-hangul
 fcitx5 fcitx5-gtk fcitx5-qt fcitx5-configtool fcitx5-chinese-addons

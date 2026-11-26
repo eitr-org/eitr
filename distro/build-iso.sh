@@ -27,10 +27,7 @@ if [[ "${EITR_PUBLIC_RELEASE:-}" == 1 ]]; then
     printf 'Artwork under review blocks a public release; see distro/ARTWORK-LICENSING.md.\n' >&2
     exit 1
   fi
-  # Nor may it carry packages EITR cannot redistribute (distro/redistribution.json).
-  if ! python3 "$repo_root/distro/repo/publish.py" --check-payload "$payload"; then
-    exit 1
-  fi
+
 fi
 
 if [[ ${EUID} -eq 0 ]]; then
@@ -41,6 +38,9 @@ if [[ ! -d "$profile_source" ]] || ! command -v mkarchiso >/dev/null || ! comman
   printf 'Install archiso first: sudo pacman -S archiso\n' >&2
   exit 1
 fi
+for tool in mksquashfs pacstrap arch-chroot; do
+  command -v "$tool" >/dev/null || { printf 'Required build tool missing: %s\n' "$tool" >&2; exit 1; }
+done
 if ! git -C "$repo_root" rev-parse --verify --quiet HEAD >/dev/null; then
   printf 'Build from a Git checkout with at least one commit.\n' >&2
   exit 1
@@ -69,6 +69,16 @@ print(data["version"], data["stage"], data["codename"], sep="\t")' "$repo_root/d
 installer_title="Eitr $release_version $release_codename installer"
 
 mkdir -p "$profile" "$output_root"
+# Run the image builder from the committed source, with a separate ISO payload.
+image_source="$build_root/image-source"
+mkdir "$image_source"
+git -C "$repo_root" archive HEAD distro | tar -x -C "$image_source"
+medium="$build_root/medium"
+sudo python3 "$image_source/distro/payload/build-system-image.py" --payload "$payload" \
+  --medium "$medium" --work "$build_root/image-work" --commit "$payload_commit"
+if [[ "${EITR_PUBLIC_RELEASE:-}" == 1 ]]; then
+  python3 "$image_source/distro/repo/publish.py" --check-payload "$medium"
+fi
 cp -a "$profile_source/." "$profile/"
 entries="$profile/efiboot/loader/entries"
 sed -i "/^title/s/Arch Linux install medium/$installer_title/" "$entries/"*.conf
@@ -120,6 +130,7 @@ mkdir -p "$desktop_config"
 git -C "$repo_root" archive --format=tar HEAD -- . "${installer_excludes[@]}" | tar -x -C "$desktop_config"
 bash "$repo_root/distro/pkg/eitr-desktop/source-version.sh" "$repo_root" \
   > "$desktop_config/distro/pkg/eitr-desktop/source-version"
+printf '%s\n' "$payload_commit" > "$desktop_config/distro/archinstall/source-commit"
 # mkarchiso copies airootfs without file modes; restore the executable bits.
 while IFS= read -r -d '' file; do
   printf 'file_permissions[%q]="0:0:755"\n' "/opt/desktop-config/${file#"$desktop_config"/}"
@@ -162,9 +173,19 @@ printf '\nTo install Eitr (erases the disk you select), run: eitr-guided-install
 # The live environment needs the installer and splash, not the desktop packages,
 # which the installer reads from the payload on the medium. The graphical
 # installer terminal is cage and foot with a monospace font and CJK glyphs.
-printf '\ncage\ncurl\nfoot\ngit\nnoto-fonts-cjk\nplymouth\npython-pillow\nflatpak\nttf-dejavu\n' >> "$profile/packages.x86_64"
+printf '\ncage\ncurl\nfoot\ngit\nnoto-fonts-cjk\nplymouth\npython-pillow\nsquashfs-tools\nflatpak\nttf-dejavu\n' >> "$profile/packages.x86_64"
 sort -u -o "$profile/packages.x86_64" "$profile/packages.x86_64"
 sudo mkarchiso -v -w "$build_root/work" -o "$build_root/base" "$profile"
+PYTHONPATH="$image_source/distro/lib:$image_source/distro/archinstall:$image_source/distro/payload" \
+  python3 - "$build_root/work/x86_64/airootfs/usr/lib" <<'PYTHON'
+from pathlib import Path
+import sys
+
+from image_install import reviewed_backend
+
+if not any(reviewed_backend(path) for path in Path(sys.argv[1]).glob("python*/site-packages")):
+    sys.exit("The live image must contain the reviewed archinstall 4.5 backend.")
+PYTHON
 
 base_iso="$(find "$build_root/base" -maxdepth 1 -name '*.iso' -print -quit)"
 [[ -n "$base_iso" ]] || { printf 'mkarchiso produced no ISO.\n' >&2; exit 1; }
@@ -173,6 +194,6 @@ final_iso="$output_root/eitr-$release_version.iso"
 [[ ! -e "$final_iso" ]] || { printf 'Refusing to overwrite %s.\n' "$final_iso" >&2; exit 1; }
 # Replay keeps the BIOS/UEFI boot records; the payload joins the ISO filesystem.
 xorriso -indev "$base_iso" -outdev "$final_iso" -boot_image any replay \
-  -map "$payload" /eitr -chown_r 0 /eitr -- -chgrp_r 0 /eitr -- -chmod_r a+r,go-w /eitr --
+  -map "$medium" /eitr -chown_r 0 /eitr -- -chgrp_r 0 /eitr -- -chmod_r a+r,go-w /eitr --
 (cd "$output_root" && sha256sum "$(basename "$final_iso")" > "$(basename "$final_iso").sha256")
 printf 'Built %s\n' "$final_iso"

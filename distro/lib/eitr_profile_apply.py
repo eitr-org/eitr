@@ -207,14 +207,11 @@ def execute(profile, drive, username, channel_set, runner=run, root=Path('/'), i
                 stream.write(f"\n{section}\nSigLevel = Required DatabaseOptional\nServer = {repository['server']}\n")
     additions = profile.get('add', {})
     catalog = profiles.recipes()
-    packages = list(additions.get('packages', []))
-    for name in additions.get('recipes', []):
-        item = catalog[name]
-        if item['source'] == 'pacman':
-            packages.extend(item['packages'])
-            packages.extend(item.get('provider_defaults', {}).values())
+    packages = profiles.repository_packages(profile)
+    if installer:
+        packages = [name for name in packages if name not in installed]
     if packages:
-        runner(['pacman', '-Syu', '--needed', '--noconfirm', '--', *dict.fromkeys(packages)])
+        runner(['pacman', '-Syu', '--needed', '--noconfirm', '--', *packages])
     if additions.get('files'):
         runner(['pacman', '-U', '--needed', '--noconfirm', '--',
                 *(str(profiles.stick_file(drive, entry['file'])) for entry in additions['files'])])
@@ -260,7 +257,8 @@ def apply(drive, channel_set, installer=False, username=None, root=Path('/')):
         raise ValueError(tr('Run profile apply as the desktop user through sudo'))
     with tempfile.TemporaryDirectory(prefix='eitr-profile-', dir=root / 'run') as temporary:
         profile = profiles.snapshot(drive, temporary)
-        profiles.preflight_packages(profile, temporary)
+        installed = set(subprocess.check_output(['pacman', '-Qq'], text=True).splitlines()) if installer else ()
+        profiles.preflight_packages(profile, temporary, installed=installed)
         if not installer:
             profiles.preflight_flatpaks(profile)
         conf = root / 'etc/pacman.conf'

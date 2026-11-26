@@ -287,7 +287,19 @@ def snapshot(drive, destination):
     return validate(destination)
 
 
-def preflight_packages(profile, drive, run=subprocess.run, databases=None):
+def repository_packages(profile):
+    additions = profile.get('add', {})
+    catalog = recipes() if additions.get('recipes') else {}
+    packages = list(additions.get('packages', []))
+    for name in additions.get('recipes', []):
+        item = catalog[name]
+        if item['source'] == 'pacman':
+            packages.extend(item['packages'])
+            packages.extend(item.get('provider_defaults', {}).values())
+    return list(dict.fromkeys(packages))
+
+
+def preflight_packages(profile, drive, run=subprocess.run, databases=None, installed=()):
     """Read package metadata before any installation target is touched."""
     excluded = removals(profile)
     if excluded:
@@ -296,11 +308,7 @@ def preflight_packages(profile, drive, run=subprocess.run, databases=None):
         conflict = protected & excluded
         if conflict:
             fail(tr('Protected dependency cannot be removed: {packages}', packages=', '.join(sorted(conflict))))
-    catalog = recipes()
-    packages = list(profile.get('add', {}).get('packages', []))
-    for name in profile.get('add', {}).get('recipes', []):
-        if catalog[name]['source'] == 'pacman':
-            packages += catalog[name]['packages']
+    packages = [name for name in repository_packages(profile) if name not in installed]
     if packages:
         result = run(['pacman', '-Si', '--', *packages], capture_output=True, text=True)
         if result.returncode:

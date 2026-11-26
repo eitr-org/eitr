@@ -22,6 +22,8 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "distro/lib"))
 from eitr_choice_lists import UPDATE_CHANNELS  # noqa: E402
+sys.path.insert(0, str(ROOT / "distro/payload"))
+import system_image  # noqa: E402
 BUCKET = "eitr-downloads"
 PUBLIC = "https://download.eitr.info"
 R2_PROFILE = "eitr-r2"
@@ -142,7 +144,11 @@ def main():
     TAG, NAME = CHANNELS[arguments.channel]
     personal_only = json.loads((ROOT / "distro/redistribution.json").read_text())["personal_only"]
     if arguments.check_payload:
-        _, excluded = select(arguments.check_payload / "repo", personal_only)
+        manifest = system_image.read(arguments.check_payload)
+        packages = set(manifest["system_image"]["packages"])
+        for files in manifest["system_image"]["repositories"].values():
+            packages.update(package_name(Path(name)) for name in files)
+        excluded = sorted(packages & set(personal_only))
         if excluded:
             print("Not redistributable, so not allowed in a public image: " + ", ".join(excluded))
             return 1
@@ -173,5 +179,5 @@ if __name__ == "__main__":
         sys.exit(main())
     except subprocess.CalledProcessError as error:
         sys.exit(f"publish: {' '.join(error.cmd)} failed: {(error.stderr or error.output or '').strip() or error}")
-    except (OSError, ValueError) as error:
+    except (OSError, ValueError, KeyError, TypeError) as error:
         sys.exit(f"publish: {error}")

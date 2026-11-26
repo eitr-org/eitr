@@ -1,114 +1,289 @@
-"""Test the guided install's fast path without mounting disks or installing packages."""
+"""Exercise the image path without formatting disks or building an ISO."""
+from contextlib import ExitStack, nullcontext
+import json
 from pathlib import Path
 import subprocess
+import sys
 from tempfile import TemporaryDirectory
+from types import ModuleType, SimpleNamespace
 import unittest
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
-from test_guided_install import DISK, guided
+from test_guided_install import DISK, TEMPLATE, guided
 
-backend = guided.install_backend
-prefetch_payload = guided.prefetch_payload
+backend = guided.image_install
+builder = guided.load("eitr_build_image", guided.SOURCE / "distro/payload/build-system-image.py")
+COMMIT = "a" * 40
 
 
-class BackendTests(unittest.TestCase):
-    def test_backend_file_change_disables_optimization(self):
+class ImageTests(unittest.TestCase):
+    def medium(self, root):
+        for folder in ("pool", "repo", "assets"):
+            (root / folder).mkdir()
+        for name in ("core", "extra", "multilib", "eitr"):
+            (root / ("repo" if name == "eitr" else "pool") / (name + ".db")).touch()
+        image = root / "system.sfs"
+        image.write_bytes(b"test image")
+        manifest = {"source_commit": COMMIT,
+                    "system_image": {"format": 1, "source_commit": COMMIT,
+                                     "packages": {"linux": "1", "pacman": "1", "eitr-desktop": "1"},
+                                     "explicit": ["linux", "eitr-desktop"], "desktop_dependencies": [],
+                                     "bytes": image.stat().st_size, "sha256": guided.system_image.sha256(image),
+                                     "repositories": {"pool": [], "repo": []},
+                                     "databases": guided.system_image.database_hashes(root)}}
+        (root / "manifest.json").write_text(json.dumps(manifest))
+        return image
+
+    def test_rejects_bad_image_or_commit(self):
         with TemporaryDirectory() as directory:
             root = Path(directory)
+            image = self.medium(root)
+            self.assertEqual(guided.system_image.read(root, COMMIT)["source_commit"], COMMIT)
+            with self.assertRaisesRegex(ValueError, "commit"):
+                guided.system_image.read(root, "b" * 40)
+            image.write_bytes(b"bad image!")
+            with self.assertRaisesRegex(ValueError, "checksum"):
+                guided.system_image.read(root, COMMIT)
 
-            class Backend:
-                version = "4.5"
-
-                def locate_file(self, name):
-                    return root / name
-
-            filename = root / "archinstall" / next(iter(backend.BACKEND_FILES))
-            filename.parent.mkdir(parents=True)
-            filename.write_text("changed")
-            with patch.object(backend, "distribution", return_value=Backend()):
-                self.assertFalse(backend.reviewed_backend())
-
-    def test_fallback_leaves_hooks_and_pacman_config_alone(self):
+    def test_missing_image_refuses_before_loading_disk_backend(self):
         with TemporaryDirectory() as directory:
             root = Path(directory)
-            conf = root / "pacman.conf"
-            conf.write_text("[options]\n")
-            with patch.object(backend, "reviewed_backend", return_value=False), patch("builtins.print"):
-                with backend.deferred_hooks(root / "target", root, root, conf) as optimized:
-                    self.assertFalse(optimized)
-                    self.assertFalse((root / "target").exists())
-                    self.assertEqual(conf.read_text(), "[options]\n")
+            image = self.medium(root)
+            image.unlink()
+            stamp = root / "distro/archinstall/source-commit"
+            stamp.parent.mkdir(parents=True)
+            stamp.write_text(COMMIT)
+            with patch.multiple(guided, SOURCE=root, PAYLOAD=root), \
+                    patch.object(guided.os, "geteuid", return_value=0), \
+                    patch.object(Path, "is_mount", return_value=True), \
+                    patch.object(Path, "is_dir", return_value=True), \
+                    patch.object(guided.shutil, "which", return_value="/bin/tool"), \
+                    patch.object(guided.subprocess, "run", return_value=subprocess.CompletedProcess([], 1)), \
+                    patch.object(backend, "reviewed_backend") as reviewed:
+                with self.assertRaisesRegex(guided.GuidedInstallError, "missing or mismatched system image"):
+                    guided.main()
+                reviewed.assert_not_called()
 
-    def test_overrides_are_removed_after_success_or_failure(self):
-        for fail in (False, True):
-            with self.subTest(fail=fail), TemporaryDirectory() as directory:
-                root = Path(directory)
-                conf = root / "pacman.conf"
-                conf.write_text("[options]\n")
-                target = root / "target"
-                override = root / backend.KERNEL_HOOK
-                override.write_text("staged")
-                with patch.object(backend, "prepare_backend", return_value=override):
-                    try:
-                        with backend.deferred_hooks(target, root, root, conf) as optimized:
-                            self.assertTrue(optimized)
-                            self.assertIn(f"HookDir = {target / backend.HOOK_DIR}", conf.read_text())
-                            backend.install_overrides(target, override, root / "overrides")
-                            self.assertEqual((target / backend.HOOK_DIR / backend.THEME_HOOK).readlink(), Path("/dev/null"))
-                            if fail:
-                                raise RuntimeError("install failed")
-                    except RuntimeError as error:
-                        self.assertEqual(str(error), "install failed")
-                    self.assertEqual(list((target / backend.HOOK_DIR).iterdir()), [])
-                    self.assertEqual(conf.read_text(), "[options]\n")
-
-    def test_early_hook_keeps_kernel_setup_and_defers_only_build(self):
+    def test_generalization_preserves_package_state_and_public_keyrings(self):
         with TemporaryDirectory() as directory:
             root = Path(directory)
-            owned = root / "owned"
-            owned.mkdir()
-            override = root / "staged"
-            override.touch()
-            backend.install_overrides(root, override, owned)
-            result = subprocess.check_output(
-                ["env", f"BASH_ENV={root / backend.HOOK_DIR / backend.HOOK_ENV}", "bash", "-ec",
-                 'echo "copied kernel and generated preset"; mkinitcpio -P; echo "hook finished"'],
-                text=True)
-            self.assertEqual(result.splitlines(), ["copied kernel and generated preset", "hook finished"])
+            private = ("etc/machine-id", "etc/ssh/ssh_host_ed25519_key",
+                       "etc/pacman.d/gnupg/private-keys.d/secret", "boot/initramfs-linux.img",
+                       "boot/loader/random-seed", "var/lib/systemd/random-seed",
+                       "var/log/pacman.log", "var/cache/pacman/pkg/archive", "root/.bash_history")
+            public = ("etc/passwd", "usr/share/pacman/keyrings/eitr.gpg",
+                      "var/lib/pacman/local/linux/desc", "boot/vmlinuz-linux", "etc/mkinitcpio.d/linux.preset")
+            for name in (*private, *public):
+                path = root / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.touch()
+            (root / "var/log/journal").mkdir()
+            builder.generalize(root)
+            self.assertTrue((root / "var/log/journal").is_dir())
+            self.assertFalse(any((root / name).exists() for name in private))
+            self.assertTrue(all((root / name).exists() for name in public))
 
-    def test_features_are_batched_and_chroot_configuration_still_runs(self):
-        calls = []
-
-        class Pacman:
-            target = Path("/unused")
-
-            def strap(self, packages):
-                calls.append(packages)
-
-        class Installer:
-            def arch_chroot(self, cmd, **kwargs):
-                calls.append(cmd)
-
+    def test_builder_uses_reviewed_kernel_hook_and_supplements_only(self):
         with TemporaryDirectory() as directory:
-            owned = Path(directory)
-            override = owned / "staged"
-            with patch.object(backend, "install_overrides") as install:
-                install.side_effect = lambda *_args: (owned / backend.KERNEL_HOOK).touch()
-                backend.adapt_backend(Installer, Pacman, ["zram-generator", "plymouth", "bluez"], override, owned)
-                pacman, installer = Pacman(), Installer()
-                pacman.strap(["base", "linux"])
-                installer.arch_chroot("mkinitcpio -P", peek_output=True)
-                pacman.strap("zram-generator")
-                pacman.strap(["plymouth"])
-                installer.arch_chroot("plymouth-set-default-theme script")
-                installer.arch_chroot("mkinitcpio -P")
-                pacman.strap(["bluez"])
-                pacman.strap(["other"])
-                install.assert_called_once()
-        self.assertEqual(calls, [["base", "linux"], ["zram-generator", "plymouth", "bluez"],
-                                 "plymouth-set-default-theme script", ["other"]])
+            root = Path(directory)
+            pool = root / "pool"
+            pool.mkdir()
+            (pool / "mkinitcpio-1-1-any.pkg.tar.zst").touch()
+            with patch.object(builder, "output", side_effect=[
+                builder.image_hooks.KERNEL_COMMAND, '#!/usr/bin/env bash\n    mkinitcpio "${args[@]}"\nfi'
+            ]):
+                context = builder.package_hooks(root, pool)
+            hooks = root / "etc/pacman.d/hooks"
+            with context:
+                self.assertIn("BASH_ENV=", (hooks / builder.image_hooks.KERNEL_HOOK).read_text())
+                self.assertEqual((hooks / builder.image_hooks.THEME_HOOK).readlink(), Path("/dev/null"))
+                self.assertEqual((hooks / "eitr-image-bash-env").read_text(), "mkinitcpio() { :; }\n")
+            self.assertEqual(list(hooks.iterdir()), [])
+            medium = root / "medium"
+            (medium / "pool").mkdir(parents=True)
+            kept = medium / "pool/steam-1-1-any.pkg.tar.zst"
+            duplicate = medium / "pool/linux-1-1-any.pkg.tar.zst"
+            for path in (kept, duplicate, Path(f"{duplicate}.sig")):
+                path.touch()
+            builder.prune(medium, {kept}, {"linux": "1-1"})
+            self.assertEqual(list((medium / "pool").iterdir()), [kept])
 
-    def test_verified_build_checks_each_image_and_encryption(self):
+    def test_build_generalizes_before_writing_image_and_records_final_inventory(self):
+        with TemporaryDirectory() as directory:
+            work = Path(directory)
+            source = work / "payload"
+            source.mkdir()
+            self.medium(source)
+            (source / "system.sfs").unlink()
+            (source / "pool/pacman-1-1-x86_64.pkg.tar.zst").touch()
+            medium = work / "medium"
+            commands = []
+
+            def run(*args):
+                commands.append(args)
+                if args[0] == "mksquashfs":
+                    root, image = args[1:3]
+                    self.assertFalse((root / "etc/machine-id").exists())
+                    self.assertFalse((root / "etc/pacman.d/gnupg").exists())
+                    self.assertFalse((root / "boot").exists())
+                    self.assertTrue((root / "usr/lib/eitr/install-boot/vmlinuz-linux").is_file())
+                    self.assertIn("-xattrs", args)
+                    image.write_bytes(b"built system")
+
+            def strap(root, conf, packages):
+                self.assertIn("SigLevel = Required DatabaseOptional", conf.read_text())
+                for name in ("etc/machine-id", "etc/pacman.d/gnupg/private", "boot/vmlinuz-linux",
+                             "etc/mkinitcpio.d/linux.preset", "var/lib/pacman/local", "usr/lib/eitr"):
+                    path = root / name
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    if name in {"var/lib/pacman/local", "usr/lib/eitr"}:
+                        path.mkdir(exist_ok=True)
+                    else:
+                        path.touch()
+                commands.append(("strap", packages))
+
+            with patch.multiple(builder, run=run, strap=strap, package_hooks=Mock(return_value=nullcontext()), configure=Mock(),
+                                resolve=Mock(return_value=set())), patch.object(
+                    builder, "output", side_effect=["linux\npacman", "[options]", "linux 1\npacman 1\neitr-desktop 1",
+                                                    "linux\npacman\neitr-desktop"]):
+                builder.build(source, medium, work / "staging", COMMIT)
+            manifest = guided.system_image.read(medium, COMMIT)
+            self.assertEqual(manifest["system_image"]["repositories"], {"pool": [], "repo": []})
+            self.assertEqual(manifest["system_image"]["packages"]["eitr-desktop"], "1")
+            self.assertTrue((source / "pool/pacman-1-1-x86_64.pkg.tar.zst").is_file())
+            self.assertEqual([args[0] for args in commands],
+                             ["pacman-key", "pacman-key", "strap", "strap", "strap", "gpgconf", "mksquashfs"])
+
+    def test_cleanup_releases_mounts_before_luks_after_failure(self):
+        with TemporaryDirectory() as directory:
+            target = Path(directory) / "mnt"
+            mapper = Path(directory) / "root"
+            with patch.object(backend, "mounted", side_effect=[False, False, True]), \
+                    patch.object(backend, "run") as run:
+                with self.assertRaisesRegex(ValueError, "fixture"):
+                    with backend.target_mounts(target, True, mapper):
+                        mapper.touch()
+                        raise ValueError("fixture")
+                self.assertEqual([call.args[0] for call in run.call_args_list],
+                                 [["umount", "-R", target], ["cryptsetup", "close", "root"]])
+
+    def test_offline_mount_and_config_removed_on_transaction_failure(self):
+        with TemporaryDirectory() as directory:
+            target = Path(directory)
+            (target / "etc/pacman.d").mkdir(parents=True)
+            with patch.object(backend, "run") as run, self.assertRaisesRegex(ValueError, "fixture"):
+                with backend.offline_repository(target, Path("/iso/eitr")):
+                    self.assertTrue((target / backend.OFFLINE_CONF.relative_to("/")).is_file())
+                    raise ValueError("fixture")
+            self.assertEqual([call.args[0][0] for call in run.call_args_list], ["mount", "umount"])
+            self.assertFalse((target / backend.OFFLINE_CONF.relative_to("/")).exists())
+            self.assertFalse((target / backend.MEDIA.relative_to("/")).exists())
+
+    def test_available_profile_packages_join_the_hardware_transaction(self):
+        with TemporaryDirectory() as directory:
+            medium = Path(directory)
+            (medium / "pool").mkdir()
+            file = "chromium-1-1-x86_64.pkg.tar.zst"
+            (medium / "pool" / file).touch()
+            chroot = Mock()
+            with patch.object(backend, "offline_repository"):
+                backend.install_packages(medium, medium, ["steam", "mesa", "vulkan-icd-loader"], ["chromium"],
+                                         ["vulkan-icd-loader"], chroot,
+                                         Mock(return_value=f"file://{backend.MEDIA}/pool/{file}"))
+            self.assertEqual(chroot.call_args_list[1].args[0][-4:], ["steam", "mesa", "vulkan-icd-loader", "chromium"])
+            self.assertEqual(chroot.call_args_list[2].args[0], ["pacman", "-D", "--asexplicit", "--", "vulkan-icd-loader"])
+
+
+class TargetTests(unittest.TestCase):
+    def test_target_writers_use_reference_fstab_hostname_user_and_keyring(self):
+        # Normalized from the encrypted VM reference.
+        fstab = "UUID=UUID / btrfs rw,relatime,compress=zstd:3,space_cache=v2,subvol=/@ 0 0\n"
+        encrypted_hooks = ("HOOKS=(base udev autodetect microcode modconf kms keyboard keymap "
+                           "consolefont block plymouth encrypt filesystems fsck)")
+        with TemporaryDirectory() as directory:
+            target = Path(directory)
+            (target / "etc").mkdir()
+            (target / "etc/mkinitcpio.conf").write_text(f"HOOKS=({builder.HOOKS})\n")
+            keyring = target / "usr/share/pacman/keyrings/eitr.gpg"
+            keyring.parent.mkdir(parents=True)
+            keyring.touch()
+            installer = Mock(target=target)
+            installer.genfstab.side_effect = lambda: (target / "etc/fstab").write_text(
+                fstab)
+            installer.set_hostname.side_effect = lambda host: (target / "etc/hostname").write_text(host + "\n")
+            installer.set_timezone.return_value = True
+            def create_user(user):
+                (target / "etc/shadow").write_text(f"{user.username}:{user.password.enc_password}:1::::::\n")
+                (target / "etc/sudoers.d").mkdir()
+                (target / f"etc/sudoers.d/01_{user.username}").write_text(f"{user.username} ALL=(ALL) ALL\n")
+
+            installer.create_users.side_effect = create_user
+            modules = {}
+            for name, attrs in {
+                "locale": {"LocaleConfiguration": SimpleNamespace(
+                    parse_arg=lambda value: SimpleNamespace(kb_layout=value["kb_layout"]))},
+                "users": {"Password": lambda plaintext: SimpleNamespace(enc_password="hashed"),
+                          "User": lambda user, passwd, sudo: SimpleNamespace(username=user, password=passwd, sudo=sudo)}
+            }.items():
+                path = f"archinstall.lib.models.{name}"
+                modules[path] = ModuleType(path)
+                vars(modules[path]).update(attrs)
+            commands = []
+            config = {"hostname": "fixture", "timezone": "UTC", "locale_config": {"kb_layout": "us"}}
+            with patch.dict(sys.modules, modules), patch.object(backend, "run") as run:
+                backend.configure(installer, config, "alex", "private fixture password", True, commands.append)
+            self.assertEqual((target / "etc/hostname").read_text(), "fixture\n")
+            self.assertEqual((target / "etc/fstab").read_text(), fstab)
+            self.assertEqual((target / "etc/sudoers.d/00_alex").read_text(), "alex ALL=(ALL) ALL\n")
+            self.assertEqual((target / "etc/mkinitcpio.conf").read_text().strip(), encrypted_hooks)
+            user = installer.create_users.call_args.args[0]
+            self.assertEqual((user.username, user.sudo), ("alex", True))
+            self.assertNotIn("private fixture password", str(run.call_args_list) + str(commands))
+            self.assertIn(["pacman-key", "--init"], commands)
+            self.assertIn(["pacman-key", "--populate", "archlinux", "eitr"], commands)
+
+    def test_limine_uses_mounted_partitions_and_reference_kernel_options(self):
+        for removable in (True, False):
+            with self.subTest(removable=removable), TemporaryDirectory() as directory:
+                target = Path(directory)
+                (target / "boot").mkdir()
+                calls = []
+                installer = Mock(target=target, _kernel_params=[])
+                installer._add_limine_bootloader.side_effect = lambda *_args, **_kwargs: installer.pacman.strap("limine")
+                backend.install_limine(installer, removable, calls.append)
+                self.assertEqual(installer._kernel_params, ["quiet", "splash"])
+                self.assertTrue(installer._zram_enabled)
+                installer._add_limine_bootloader.assert_called_once_with(
+                    installer._get_boot_partition.return_value, installer._get_efi_partition.return_value,
+                    installer._get_root.return_value, bootloader_removable=removable)
+                self.assertEqual(calls, [["pacman", "-Q", "limine"]])
+                self.assertEqual((target / "boot/loader/random-seed").stat().st_size, 32)
+
+    def test_stage_order_through_boot_and_reset(self):
+        order = []
+        choices = dict(username="alex", password="fixture", input_method="", encrypted=False,
+                       timezone_detected=True, language="en_US.UTF-8")
+        config = guided.build_config(TEMPLATE, DISK, encrypted=False)
+        with ExitStack() as stack:
+            for module, names in (
+                (backend, ("prepare", "extract", "configure", "install_packages", "install_limine")),
+                (guided, ("ensure_system_locale", "set_up_desktop", "restore_online_sources",
+                          "schedule_mirror_ranking", "set_up_boot", "save_factory_reset_point")),
+                (guided.install_boot, ("finish_boot_image",)),
+            ):
+                for name in names:
+                    stack.enter_context(patch.object(module, name, Mock(
+                        side_effect=lambda *args, name=name, **kwargs: order.append(name))))
+            stack.enter_context(patch.object(backend, "package_hooks"))
+            stack.enter_context(patch.multiple(guided, installed_user=Mock(), hardware_packages=Mock()))
+            stages = guided.installation_stages(config, choices, {"desktop_dependencies": []}, stack)
+            for _, operation in stages:
+                operation(Mock())
+        self.assertEqual(order, ["prepare", "extract", "configure", "ensure_system_locale", "install_packages",
+                                 "set_up_desktop", "restore_online_sources", "schedule_mirror_ranking",
+                                 "finish_boot_image", "install_limine", "set_up_boot", "save_factory_reset_point"])
+
+    def test_boot_builder_checks_each_image_and_encryption(self):
         def output(command):
             if command[0] == "bash":
                 return "/boot/first.img\n/boot/second.img"
@@ -117,82 +292,8 @@ class BackendTests(unittest.TestCase):
             return "HOOKS=(base plymouth encrypt)"
 
         calls = []
-        backend.build_initramfs(True, calls.append, output)
+        guided.install_boot.build_initramfs(True, calls.append, output)
         self.assertEqual(calls, [["plymouth-set-default-theme", "eitr"], ["mkinitcpio", "-P"]])
         with self.assertRaisesRegex(OSError, "encrypted root hook"):
-            backend.build_initramfs(True, calls.append, lambda command: output(command).replace("hooks/encrypt", ""))
-
-    def test_install_stage_builds_before_styling_and_capture(self):
-        with TemporaryDirectory() as directory:
-            work = Path(directory)
-            target = work / "target"
-            order = []
-            choices = dict(disk=DISK, encrypted=False, layout="erase", hostname="eitr", timezone="UTC",
-                           timezone_detected=True, keyboard="us", language="en_US.UTF-8", username="eitr",
-                           password="fixture")
-            (target / "var/log").mkdir(parents=True)
-
-            def record(name):
-                def operation(*args, **kwargs):
-                    order.append(name)
-                return operation
-
-            def build_output(command):
-                if command[2] == "bash":
-                    return "/boot/initramfs-linux.img"
-                if command[3] == "-l":
-                    return "hooks/plymouth\nusr/share/plymouth/themes/eitr/eitr.plymouth"
-                return "HOOKS=(base plymouth)"
-
-            with patch.multiple(guided, TARGET=target, ANSWERS="fixture.json", PROFILE=None,
-                                answered_choices=lambda *_args: choices, use_payload=lambda: None,
-                                run_archinstall=record("base"), ensure_system_locale=record("locale"),
-                                install_desktop=record("desktop packages"), installed_user=lambda name: {"name": name},
-                                set_up_desktop=record("desktop setup"), restore_online_sources=record("sources"),
-                                schedule_mirror_ranking=record("mirrors"), set_up_boot=record("menu"),
-                                save_factory_reset_point=record("capture"), output=build_output,
-                                chroot=lambda command, _log: order.append(command)):
-                with patch.object(backend, "reviewed_backend", return_value=False), patch.object(
-                    guided.tempfile, "TemporaryDirectory", return_value=TemporaryDirectory(dir=work)
-                ), patch.object(guided.os, "geteuid", return_value=0), patch.object(
-                    Path, "is_mount", return_value=True
-                ), patch.object(Path, "is_dir", return_value=True), patch.object(
-                    guided.shutil, "which", return_value="/fake"
-                ), patch.object(guided.subprocess, "run", return_value=subprocess.CompletedProcess([], 1)), patch.object(
-                    prefetch_payload.subprocess, "Popen", side_effect=OSError
-                ), patch("builtins.print"):
-                    guided.main()
-            self.assertEqual(order, ["base", "locale", "desktop packages", "desktop setup", "sources", "mirrors",
-                                     ["plymouth-set-default-theme", "eitr"], ["mkinitcpio", "-P"], "menu", "capture"])
-            self.assertIn("Building the boot image", (target / "var/log/eitr-install.log").read_text())
-
-
-class PrefetchTests(unittest.TestCase):
-    def test_low_budget_reads_only_base_packages_that_fit(self):
-        with TemporaryDirectory() as directory:
-            root = Path(directory)
-            pool = root / "pool"
-            pool.mkdir()
-            base = pool / "base-1-any.pkg.tar.zst"
-            linux = pool / "linux-1-any.pkg.tar.zst"
-            desktop = pool / "desktop-1-any.pkg.tar.zst"
-            for path, size in ((base, 3), (linux, 5), (desktop, 1)):
-                path.write_bytes(b"0" * size)
-            opened = []
-            original_open = Path.open
-
-            def open_file(path, *args, **kwargs):
-                opened.append(path)
-                return original_open(path, *args, **kwargs)
-
-            with patch.object(prefetch_payload, "BLOCK", 1), patch.object(
-                prefetch_payload, "memory_available", return_value=prefetch_payload.RESERVE + 4
-            ), patch.object(prefetch_payload, "base_files", return_value={base, linux}), patch.object(
-                Path, "open", open_file
-            ):
-                prefetch_payload.prefetch(root, Path("transactions"))
-            self.assertEqual(opened, [base])
-
-
-if __name__ == "__main__":
-    unittest.main()
+            guided.install_boot.build_initramfs(
+                True, calls.append, lambda command: output(command).replace("hooks/encrypt", ""))

@@ -415,6 +415,9 @@ msgstr "Appliquer cette modification système ? Saisissez yes pour continuer : "
 msgid "Applying it…"
 msgstr "Application…"
 
+msgid "Applying the organization profile"
+msgstr "Application du profil de l’organisation"
+
 msgid "Applying…"
 msgstr "Application…"
 
@@ -826,6 +829,9 @@ msgstr "Recherche des mises à jour du système avant l’installation…"
 msgid "Checking official package updates…"
 msgstr "Recherche des mises à jour des paquets officiels…"
 
+msgid "Checking the Eitr system image"
+msgstr "Vérification de l’image système Eitr"
+
 msgid "Checking the downloaded copy…"
 msgstr "Vérification de la copie téléchargée…"
 
@@ -1062,6 +1068,9 @@ msgstr "Configurez d’abord cette source dans OBS"
 
 msgid "Configured selection for {design_count} package-owned login designs."
 msgstr "Sélection configurée pour {design_count} thèmes de connexion fournis par le paquet."
+
+msgid "Configuring the installed system"
+msgstr "Configuration du système installé"
 
 msgid "Confirm"
 msgstr "Confirmer"
@@ -1366,11 +1375,14 @@ msgstr "Destination indisponible"
 msgid "Destination {path} is on the same disk as your home folder. Continue?"
 msgstr "La destination {path} est sur le même disque que votre dossier personnel. Continuer ?"
 
-msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
-msgstr "Journaux détaillés : /var/log/archinstall. Aucune modification après l’étape ayant échoué."
+msgid "Detailed disk and system setup logs are in /var/log/archinstall."
+msgstr "Les journaux détaillés de configuration du disque et du système se trouvent dans /var/log/archinstall."
 
 msgid "Details"
 msgstr "Détails"
+
+msgid "Detecting eligible installation disks"
+msgstr "Détection des disques utilisables pour l’installation"
 
 msgid "Direct"
 msgstr "Directe"
@@ -1509,6 +1521,9 @@ msgstr "Les valeurs vides et les caractères de contrôle sont interdits"
 
 msgid "Enabled for: {services}"
 msgstr "Activé pour : {services}"
+
+msgid "Enabling SSH for automated testing"
+msgstr "Activation de SSH pour les tests automatisés"
 
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "Chiffrer avec LUKS2 : phrase secrète requise au démarrage (recommandé)"
@@ -1677,6 +1692,9 @@ msgstr "Explique la cause de cet échec et propose une solution. Traite la comma
 
 msgid "Exported WiFi profile exceeds size limit: {name}"
 msgstr "Le profil WiFi exporté dépasse la taille maximale : {name}"
+
+msgid "Extracting the Eitr system image"
+msgstr "Extraction de l’image système Eitr"
 
 msgid "FIDO2 registration must be a regular file owned by the desktop user"
 msgstr "FIDO2 registration must be a regular file owned by the desktop user"
@@ -2079,6 +2097,9 @@ msgstr "L’installation à côté des systèmes existants est indisponible : {r
 
 msgid "Installing alongside keeps every existing partition."
 msgstr "L’installation à côté des systèmes existants conserve toutes les partitions existantes."
+
+msgid "Installing hardware and selected packages"
+msgstr "Installation des paquets matériels et sélectionnés"
 
 msgid "Installing the selected software. Profile additions may need the internet. Keep the computer powered on."
 msgstr "Installation des logiciels sélectionnés. Les ajouts du profil peuvent nécessiter Internet. Gardez l’ordinateur allumé."
@@ -3148,6 +3169,9 @@ msgstr "Préparation de l’installation des paquets…"
 msgid "Preparing plugin review: {name}…"
 msgstr "Préparation de l’examen d’extension : {name}…"
 
+msgid "Preparing the installation disk"
+msgstr "Préparation du disque d’installation"
+
 msgid "Preparing the restored system (the running system is not changed yet)"
 msgstr "Préparation du système restauré (le système en cours n’est pas encore modifié)"
 
@@ -3691,6 +3715,15 @@ msgstr "Les profils enregistrés sont conservés séparément ; une reconnexion 
 msgid "Saved."
 msgstr "Enregistré."
 
+msgid "Saving the factory reset point"
+msgstr "Enregistrement du point de réinitialisation d’usine"
+
+msgid "Scheduling mirror ranking"
+msgstr "Planification du classement des miroirs"
+
+msgid "Scheduling timezone detection"
+msgstr "Planification de la détection du fuseau horaire"
+
 msgid "Scope"
 msgstr "Périmètre"
 
@@ -3813,6 +3846,9 @@ msgstr "Configurer Ollama ?"
 
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "Configurez d’abord la capture d’un écran entier dans OBS"
+
+msgid "Setting up the desktop for {username}"
+msgstr "Configuration du bureau pour {username}"
 
 msgid "Settings"
 msgstr "Paramètres"
@@ -4135,6 +4171,9 @@ msgstr "Méthodes d’entreprise prises en charge : PEAP/MSCHAPv2 et TTLS/PAP"
 msgid "Switch Account"
 msgstr "Changer de compte"
 
+msgid "Switching to online package updates"
+msgstr "Passage aux mises à jour de paquets en ligne"
+
 msgid "Switching to the restored system"
 msgstr "Basculement vers le système restauré"
 
@@ -4348,6 +4387,21 @@ msgstr "L’historique de {id} a été réécrit : le commit approuvé {commit} 
 msgid "The initramfs cannot use TPM2 unlock yet. Nothing was changed."
 msgstr "L’initramfs ne permet pas encore le déverrouillage TPM2. Aucune modification."
 
+msgid "The installed filesystems are incomplete"
+msgstr "Les systèmes de fichiers installés sont incomplets"
+
+msgid "The installed image package inventory does not match the ISO manifest"
+msgstr "L’inventaire des paquets de l’image installée ne correspond pas au manifeste de l’ISO"
+
+msgid "The installer could not load the selected disk layout"
+msgstr "L’installateur n’a pas pu charger le partitionnement sélectionné"
+
+msgid "The installer could not set the account password"
+msgstr "L’installateur n’a pas pu définir le mot de passe du compte"
+
+msgid "The installer could not set the selected time zone"
+msgstr "L’installateur n’a pas pu définir le fuseau horaire sélectionné"
+
 msgid "The layout your picture, color and greeting go into."
 msgstr "La mise en page qui accueille votre image, couleur et message."
 
@@ -4384,9 +4438,6 @@ msgstr "Les nouveaux mots de passe ne correspondent pas."
 msgid "The password could not be changed."
 msgstr "Le mot de passe n’a pas pu être changé."
 
-msgid "The payload has no pacman {version} package"
-msgstr "The payload has no pacman {version} package"
-
 msgid "The picture has too many pixels."
 msgstr "L’image a trop de pixels."
 
@@ -4420,6 +4471,9 @@ msgstr "Il manque /{required} dans le point de restauration"
 msgid "The restore point's boot files are damaged"
 msgstr "Les fichiers de démarrage du point de restauration sont endommagés"
 
+msgid "The root encryption mapping is already in use"
+msgstr "Le mappage de chiffrement de la racine est déjà utilisé"
+
 msgid "The root filesystem is not the Btrfs @ subvolume of an Eitr installation"
 msgstr "Le système de fichiers racine n’est pas le sous-volume Btrfs @ d’une installation Eitr"
 
@@ -4443,6 +4497,9 @@ msgstr "Le modèle vocal n’a pas pu transcrire cet enregistrement."
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "Le disque système est presque plein, les mises à jour et les applications peuvent donc échouer ; libérez de l’espace avec Nettoyage."
+
+msgid "The system image has an unexpected initramfs configuration"
+msgstr "La configuration initramfs de l’image système est inattendue"
 
 msgid "The system language {language} was not generated on the installed system"
 msgstr "La langue du système {language} n’a pas été générée sur le système installé"
@@ -4477,8 +4534,14 @@ msgstr "Thème"
 msgid "There is no update snapshot to go back to; the next System Update creates one."
 msgstr "Il n’y a aucun instantané de mise à jour vers lequel revenir ; la prochaine Mise à jour du système en créera un."
 
-msgid "This ISO has no complete offline payload ({amount} is missing)"
-msgstr "Cette ISO ne contient pas tous les paquets nécessaires hors ligne (il manque {amount})"
+msgid "This ISO does not have the reviewed archinstall disk backend"
+msgstr "Cette ISO ne contient pas le composant de gestion des disques archinstall vérifié"
+
+msgid "This ISO has a missing or mismatched system image. Use a complete Eitr ISO."
+msgstr "L’image système de cette ISO manque ou ne correspond pas. Utilisez une ISO Eitr complète."
+
+msgid "This ISO is missing required installer tools"
+msgstr "Il manque des outils d’installation requis dans cette ISO"
 
 msgid "This PC: {addresses}"
 msgstr "Ce PC : {addresses}"
@@ -4999,9 +5062,6 @@ msgstr "Nom d’utilisateur"
 msgid "Users"
 msgstr "Utilisateurs"
 
-msgid "Using standard archinstall package transactions and initramfs hooks"
-msgstr "Utilisation des transactions de paquets et des hooks initramfs habituels d’archinstall"
-
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "Utilisation du thème par défaut : le thème de {user} est illisible ({error})."
 
@@ -5191,20 +5251,11 @@ msgstr "Détails de la zone"
 msgid "add.files must be a list"
 msgstr "add.files doit être une liste"
 
-msgid "archinstall and arch-chroot are required (they ship on the Arch ISO)"
-msgstr "archinstall et arch-chroot sont requis (inclus dans l’ISO Arch)"
-
-msgid "archinstall did not complete an installation; Eitr setup stopped"
-msgstr "archinstall n’a pas terminé l’installation ; la configuration Eitr s’est arrêtée"
-
 msgid "archinstall did not create the user {name}"
 msgstr "archinstall n’a pas créé l’utilisateur {name}"
 
 msgid "archinstall did not write exactly one limine.conf"
 msgstr "archinstall did not write exactly one limine.conf"
-
-msgid "archinstall exited with status {returncode}"
-msgstr "archinstall s’est terminé avec le code {returncode}"
 
 msgid "asking Huginn and Muninn"
 msgstr "interrogeant Huginn et Muninn"

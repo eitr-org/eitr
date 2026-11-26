@@ -1,8 +1,8 @@
 # Eitr
 
 This repository contains the complete desktop configuration and its installers.
-`build-iso.sh` builds the Eitr installer ISO with an offline payload: its guided
-install sets up the complete desktop, AUR packages included, without a network
+`build-iso.sh` builds the Eitr installer ISO with a prebuilt system image and supplemental
+packages. Its guided install sets up the desktop, AUR packages included, from the medium
 (`download.eitr.info` serves the current one). `install.sh` installs onto an
 existing Arch system instead. The live ISO is not a preinstalled graphical session.
 
@@ -300,8 +300,8 @@ Desktops set up before the package layout run copies of the code from
 
 ## Build installer ISO
 
-Build on a dedicated, up-to-date Arch machine or VM with `archiso`, `pacman-contrib`
-and `python-markdown` (handbook generation/checks), never on a
+Build on a dedicated, up-to-date Arch machine or VM with `archiso`, `squashfs-tools`,
+`pacman-contrib` and `python-markdown` (handbook generation/checks), never on a
 desktop you use: the payload build installs AUR build dependencies. From a
 clean checkout of the commit the ISO ships:
 
@@ -317,8 +317,8 @@ It builds the AUR manifests, their AUR dependencies, `yay` and `eitr-desktop`
 every package's SHA-256, and records each AUR Git commit in `manifest.json`;
 review those PKGBUILDs before publishing an image. It then downloads, with an
 empty package database, the complete dependency closure of every transaction in
-[`payload/transactions.txt`](payload/transactions.txt): archinstall's base
-steps and the desktop, once without and once with each hardware manifest. The
+[`payload/transactions.txt`](payload/transactions.txt): the fixed
+base and desktop, plus hardware, input methods and selected profile additions. The
 official packages keep their Arch signatures and the sync databases they came
 from, so pacman verifies them against the image's `archlinux-keyring`. Oh My Zsh
 and Powerlevel10k are bundled as pinned Git checkouts. Finally every transaction
@@ -335,9 +335,11 @@ AUR commits. They never go into the ISO or the download bucket: they back
 `build-iso.sh` refuses a payload built from another commit. It exports the
 committed `HEAD` (via `git archive`) into `/opt/desktop-config` on the live
 image, so uncommitted, untracked and ignored machine-local files are excluded,
-adds the installer's live dependencies and the Eitr boot splash, then stores
-the payload on the ISO filesystem as `/eitr`, beside the live image rather than
-inside it. Main boot entries use `quiet splash copytoram=n` so the live system
+adds the installer’s live dependencies and the Eitr boot splash. It installs the
+fixed packages into a staging root, removes machine-specific state and archives
+the result as `/eitr/system.sfs` on the ISO filesystem beside the live image.
+The ISO package pool carries supplemental packages and their dependencies
+against that root. The input payload stays available to the package publisher. Main boot entries use `quiet splash copytoram=n` so the live system
 keeps reading the medium; the UEFI menu's "boot messages" entry omits the
 splash, and Escape reveals messages during it. The script refuses to reuse an
 existing build directory or overwrite an ISO. Keep the image off public mirrors
@@ -374,9 +376,8 @@ wizard supports arrow keys, type-to-filter lists, Enter and Escape. It:
    and optional LUKS2 encryption. English is the default; when online, the timezone is detected by
    HTTPS public-IP geolocation. Offline, it starts as UTC and
    `eitr-timezone.service` detects and sets the zone once the installed system
-   is online, then disables itself. Credentials are hidden and
-   handed to archinstall through a pipe, never written to a file or command line.
-3. Points the live pacman at the payload and runs archinstall offline with
+   is online, then disables itself. Credentials stay in memory and reach the password and encryption tools over standard input.
+3. Uses the reviewed archinstall 4.5 disk backend with
    [`archinstall/user_configuration.json`](archinstall/user_configuration.json):
    a 2 GiB FAT32 ESP at `/boot` and a Btrfs root with subvolumes `@` (`/`),
    `@home`, `@log` (`/var/log`) and `@pkg` (`/var/cache/pacman/pkg`), so `/usr`,
@@ -385,14 +386,13 @@ wizard supports arrow keys, type-to-filter lists, Enter and Escape. It:
    subvolume because `snapshots-setup` lets Snapper create it. Erase installs
    Limine to the removable fallback path; alongside installs register their own
    "Arch Linux Limine Bootloader" firmware entry instead, leaving the other
-   system's loader in place. It also selects
-   Limine (kernels on the FAT `/boot`, compatible with bootable snapshot entries),
-   linux, zram, Plymouth, PipeWire, Bluetooth, `[multilib]`, iwd with
-   systemd-networkd and resolved (no NetworkManager), and the Minimal profile.
-4. Installs the desktop packages, the hardware packages `hardware/detect.sh`
-   selects for this computer (NVIDIA GPUs get `nvidia-open`; set
-   `DISTRO_NVIDIA_DRIVER=skip` before running the installer to keep another
-   GPU in charge) and the prebuilt AUR packages.
+   system's loader in place.
+4. Extracts the verified image into the mounted filesystems, generates a fresh
+   machine identity and pacman keyring, and installs the hardware packages from
+   `hardware/detect.sh` and the chosen input method. NVIDIA GPUs get `nvidia-open`.
+   Set `DISTRO_NVIDIA_DRIVER=skip` before running the installer to keep another GPU
+   in charge. The installer builds the initramfs on the target before setting
+   up the boot menu and saving the factory reset point.
 5. Sets up the new user without a running session: `install.sh --seed-user`
    seeds the defaults, unpacks Oh My Zsh and Powerlevel10k, and generates every
    Eitr app style; `system/configure-desktop.sh` installs the network files,
@@ -494,8 +494,9 @@ addition, default, policy and setup script before any disk changes. Example:
 ```
 
 Replace example digests with `sha256sum` output and copy every named file to the
-stick. Only version and name are required. Repository/recipe/Flathub additions
-need internet; stick packages and their supplied dependencies work offline.
+stick. Only version and name are required. The installer can add Chromium, WireGuard and the NetworkManager VPN packages from the ISO.
+Other repository or recipe packages and Flathub additions may need internet.
+Stick packages can use their supplied dependencies offline.
 No AUR builds run. Only reviewed optional apps may be removed; desktop packages
 are protected. Use `eitr profile check DRIVE` to validate, and `eitr profile apply
 DRIVE` to review and type `APPLY PROFILE` on an installed system. The recorded

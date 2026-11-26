@@ -109,30 +109,6 @@ class GuidedInstallTests(unittest.TestCase):
         self.assertEqual(root_partition(config)["fs_type"], "btrfs")
         self.assertIn("disk_encryption", TEMPLATE["disk_config"])
 
-    def test_backend_credentials_use_inherited_pipe_not_config_or_arguments(self):
-        credentials = {"encryption_password": "private-test-passphrase",
-                       "users": [{"username": "alex", "!password": "private-test-password", "sudo": True}]}
-        with tempfile.TemporaryDirectory() as directory:
-            work = Path(directory)
-            target = work / "target"
-            (target / "etc").mkdir(parents=True)
-            (target / "etc/fstab").touch()
-
-            def run(args, **kwargs):
-                if args[0] == "archinstall":
-                    self.assertIn("--silent", args)
-                    self.assertLessEqual({"--offline", "--skip-ntp", "--skip-wkd"}, set(args))
-                    self.assertNotIn("private-test-password", " ".join(args))
-                    fd = kwargs["pass_fds"][0]
-                    self.assertEqual(json.loads(os.read(fd, 4096)), credentials)
-                    config = (work / "user_configuration.json").read_text()
-                    self.assertNotIn("private-test-password", config)
-                    self.assertNotIn("private-test-passphrase", config)
-                return subprocess.CompletedProcess(args, 0)
-
-            with patch.object(guided, "TARGET", target), patch.object(guided.subprocess, "run", side_effect=run):
-                guided.run_archinstall(guided.build_config(TEMPLATE, DISK), credentials, work)
-
     def test_build_config_fills_only_the_selected_disk(self):
         config = guided.build_config(TEMPLATE, DISK)
         (device,) = config["disk_config"]["device_modifications"]
@@ -281,68 +257,38 @@ class GuidedInstallTests(unittest.TestCase):
         self.assertEqual(guided.desktop_users(passwd),
                          [{"name": "alex", "uid": 1000, "gid": 1000, "home": "/home/alex"}])
 
-    def test_desktop_packages_follow_hardware_detection_for_the_target(self):
+    def test_hardware_packages_follow_detection_for_the_target(self):
         def run(args, **kwargs):
             self.assertEqual(kwargs["env"]["HARDWARE_MODULES_ROOT"], str(guided.TARGET / "usr/lib/modules"))
             self.assertEqual(kwargs["env"]["DISTRO_NVIDIA_DRIVER"], "open")
-            return subprocess.CompletedProcess(args, 0, "mesa\nvulkan-radeon\nhyprland\n", "Detected GPU vendors: amd\n")
+            return subprocess.CompletedProcess(args, 0, "mesa\nvulkan-radeon\nmesa\n", "Detected GPU vendors: amd\n")
 
         logged = []
-        with patch.dict(os.environ, {}, clear=False), patch.object(guided.subprocess, "run", side_effect=run):
+        with patch.dict(os.environ, {}, clear=False), patch.object(guided.subprocess, "run", side_effect=run), \
+                patch.object(guided.image_install, "firmware", return_value=["sof-firmware"]):
             os.environ.pop("DISTRO_NVIDIA_DRIVER", None)
-            packages = guided.desktop_packages(logged.append)
+            packages = guided.hardware_packages(logged.append)
         self.assertEqual(logged, ["Detected GPU vendors: amd"])
-        self.assertIn("vulkan-radeon", packages)
-        self.assertEqual(packages.count("hyprland"), 1)
-        self.assertEqual(packages[-1], "eitr-desktop")
-        self.assertLess(packages.index("hyprland"), packages.index("yay"))
+        self.assertEqual(packages, ["steam", "mesa", "vulkan-radeon", "sof-firmware"])
 
-    def test_installed_system_switches_to_online_mirrors(self):
+    def test_installed_system_cleans_up_offline_sources(self):
         with tempfile.TemporaryDirectory() as directory:
-            work = Path(directory)
-            target, medium = work / "target", work / "medium"
-            (target / "etc/pacman.d").mkdir(parents=True)
-            (target / "var/lib/pacman/sync").mkdir(parents=True)
-            (target / "var/tmp/eitr-setup").mkdir(parents=True)
-            (target / "etc/pacman.conf").write_text("[core]\nServer = file:///run/archiso/bootmnt/eitr/pool\n")
-            (target / "etc/pacman.d/mirrorlist").write_text("")
-            (target / "var/lib/pacman/sync/eitr.db").write_text("")
-            package = work / "package"
-            (package / "etc").mkdir(parents=True)
-            (package / "etc/pacman.conf").write_text("[options]\n\n[core]\nInclude = /etc/pacman.d/mirrorlist\n\n"
-                                                    "#[custom]\n#Server = file:///home/custompkgs\n"
-                                                    "#[multilib]\n#Include = /etc/pacman.d/mirrorlist\n")
-            (medium / "pool").mkdir(parents=True)
-            archive = medium / "pool/pacman-7.1.0-1-x86_64.pkg.tar.gz"
-            subprocess.run(["tar", "-czf", str(archive), "-C", str(package), "etc"], check=True)
-            (medium / "pool/pacman-7.1.0-1-x86_64.pkg.tar.gz.sig").write_text("")
-            logged = []
-            with patch.object(guided, "TARGET", target), patch.object(guided, "PAYLOAD", medium), \
-                    patch.object(guided, "output", side_effect=lambda args: (
-                        "pacman 7.1.0-1" if args[0] == "pacman" else subprocess.check_output(args, text=True))):
-                guided.restore_online_sources(logged.append)
-            conf = (target / "etc/pacman.conf").read_text()
-            self.assertIn("[multilib]\nInclude = /etc/pacman.d/mirrorlist", conf)
-            self.assertFalse([line for line in conf.splitlines() if "file://" in line and not line.startswith("#")])
-            self.assertIn("Server = https://", (target / "etc/pacman.d/mirrorlist").read_text())
+            target = Path(directory)
+            for name in ("etc/pacman.d", "var/lib/pacman/sync", "var/tmp/eitr-setup"):
+                (target / name).mkdir(parents=True)
+            config = "[core]\nInclude = /etc/pacman.d/mirrorlist\n"
+            (target / "etc/pacman.conf").write_text(config)
+            (target / "etc/pacman.d/mirrorlist").write_text("Server = https://mirror.example/\n")
+            (target / "var/lib/pacman/sync/eitr.db").touch()
+            with patch.object(guided, "TARGET", target):
+                guided.restore_online_sources(lambda _line: None)
+            self.assertEqual((target / "etc/pacman.conf").read_text(), config)
             self.assertFalse((target / "var/lib/pacman/sync/eitr.db").exists())
             self.assertFalse((target / "var/tmp/eitr-setup").exists())
 
-    def test_installation_runs_every_step_before_the_reboot(self):
-        script = (GUIDED / "eitr-guided-install").read_text()
-        order = ["run_archinstall(config", "install_desktop", "set_up_desktop(installed_user",
-                 "restore_online_sources),", "finish_boot_image(", "set_up_boot(choices",
-                 "save_factory_reset_point)]", "eitr-install.log", "ui.finished(total)", '"systemctl", "poweroff"']
-        positions = [script.index(item) for item in order]
-        self.assertEqual(positions, sorted(positions))
-        self.assertNotIn("https://archlinux.org", script)
-        self.assertNotIn(".bash_profile", script)
-        self.assertNotIn("NOPASSWD", script)
-        self.assertEqual(TEMPLATE["bootloader_config"]["plymouth"], "script")
-
     def test_build_iso_ships_the_guided_installer(self):
         script = (DISTRO / "build-iso.sh").read_text()
-        self.assertIn('-map "$payload" /eitr', script)
+        self.assertIn('-map "$medium" /eitr', script)
         self.assertIn("-boot_image any replay", script)
         self.assertIn("copytoram=n", script)
         self.assertIn("s/ kms / kms plymouth /", script)

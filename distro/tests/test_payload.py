@@ -18,7 +18,7 @@ class PayloadDefinitionTests(unittest.TestCase):
         self.assertEqual(payload.desktop_local(), ["eitr-artwork", "eitr-cmux-tui-bin", "eitr-sunshine", *["eitr-lockscreen-" + row["id"].replace("/", "-") for row in __import__("eitr_choice_lists").LOCKSCREEN_DESIGNS if not row["builtin"]], "eitr-keyring"])
         builder = (DISTRO / "payload/build-payload.py").read_text()
         self.assertIn("builder.build_local_packages()", builder)
-        self.assertIn("payload.desktop_local(SOURCE)", (DISTRO / "archinstall/eitr-guided-install").read_text())
+        self.assertTrue(set(payload.desktop_local()) <= set(payload.fixed_transactions()[-1]))
         self.assertIn('manifest "$repo_root/distro/local-packages.txt"', (DISTRO / "install.sh").read_text())
         recipe = (DISTRO / "pkg/eitr-cmux-tui-bin/PKGBUILD").read_text()
         self.assertNotIn("SKIP", recipe)
@@ -28,18 +28,15 @@ class PayloadDefinitionTests(unittest.TestCase):
     def test_transactions_cover_installer_template_and_every_hardware_manifest(self):
         transactions = payload.transactions()
         template = json.loads((DISTRO / "archinstall/user_configuration.json").read_text())
-        self.assertIn(template["packages"], transactions)
-        desktop = [packages for packages in transactions if "eitr-desktop" in packages]
-        self.assertEqual(len(desktop), 1 + len(payload.hardware_manifests()))
-        for packages in desktop:
-            self.assertIn("hyprland", packages)
-            self.assertIn("yay", packages)
-            self.assertIn("walker", packages)
-            self.assertIn("eitr-cmux-tui-bin", packages)
-            self.assertIn("less", packages)
+        self.assertTrue(set(template["packages"]) <= set(transactions[1]))
+        desktop = payload.fixed_transactions()[-1]
+        self.assertTrue({"hyprland", "yay", "walker", "eitr-cmux-tui-bin", "less", "eitr-desktop"} <= set(desktop))
+        self.assertNotIn("steam", desktop)
+        optional = list(payload.optional_transactions())
         for manifest in payload.hardware_manifests():
-            self.assertTrue(any(set(payload.manifest(manifest)) <= set(packages) for packages in desktop),
+            self.assertTrue(any(set(payload.manifest(manifest)) <= set(packages) for packages in optional),
                             manifest.name)
+        self.assertTrue(any({"steam", "lib32-vulkan-swrast"} <= set(packages) for packages in optional))
         self.assertEqual(transactions[0][:2], ["base", "sudo"])
 
     def test_dependency_names_drop_version_constraints(self):

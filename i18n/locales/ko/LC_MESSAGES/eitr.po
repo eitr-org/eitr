@@ -415,6 +415,9 @@ msgstr "이 시스템 변경 사항을 적용하시겠습니까? 계속하려면
 msgid "Applying it…"
 msgstr "적용 중…"
 
+msgid "Applying the organization profile"
+msgstr "조직 프로필 적용 중"
+
 msgid "Applying…"
 msgstr "적용 중…"
 
@@ -826,6 +829,9 @@ msgstr "설치 전 시스템 업데이트 확인 중…"
 msgid "Checking official package updates…"
 msgstr "공식 패키지 업데이트 확인 중…"
 
+msgid "Checking the Eitr system image"
+msgstr "Eitr 시스템 이미지 확인 중"
+
 msgid "Checking the downloaded copy…"
 msgstr "다운로드된 복사본 확인 중…"
 
@@ -1062,6 +1068,9 @@ msgstr "먼저 OBS에서 이 소스를 구성하세요"
 
 msgid "Configured selection for {design_count} package-owned login designs."
 msgstr "패키지에서 제공하는 {design_count}개의 로그인 디자인에 대한 선택이 구성되었습니다."
+
+msgid "Configuring the installed system"
+msgstr "설치된 시스템 구성 중"
 
 msgid "Confirm"
 msgstr "확인"
@@ -1366,11 +1375,14 @@ msgstr "대상을 사용할 수 없음"
 msgid "Destination {path} is on the same disk as your home folder. Continue?"
 msgstr "대상 {path}이(가) 홈 폴더와 같은 디스크에 있습니다. 계속할까요?"
 
-msgid "Detailed logs: /var/log/archinstall. Nothing after the failed step was changed."
-msgstr "상세 로그: /var/log/archinstall. 실패한 단계 이후에는 아무것도 변경되지 않았습니다."
+msgid "Detailed disk and system setup logs are in /var/log/archinstall."
+msgstr "디스크 및 시스템 설정의 상세 로그는 /var/log/archinstall에 있습니다."
 
 msgid "Details"
 msgstr "자세히"
+
+msgid "Detecting eligible installation disks"
+msgstr "설치할 수 있는 디스크 검색 중"
 
 msgid "Direct"
 msgstr "직접"
@@ -1509,6 +1521,9 @@ msgstr "빈 값 및 제어 문자는 허용되지 않습니다"
 
 msgid "Enabled for: {services}"
 msgstr "활성화 대상: {services}"
+
+msgid "Enabling SSH for automated testing"
+msgstr "자동 테스트용 SSH 활성화 중"
 
 msgid "Encrypt with LUKS2: boot passphrase required (recommended)"
 msgstr "LUKS2로 암호화: 부팅 시 암호문 필요(권장)"
@@ -1677,6 +1692,9 @@ msgstr "이 작업 실패의 원인을 설명하고 해결 방법을 제안해 �
 
 msgid "Exported WiFi profile exceeds size limit: {name}"
 msgstr "내보낸 WiFi 프로필이 크기 제한을 초과함: {name}"
+
+msgid "Extracting the Eitr system image"
+msgstr "Eitr 시스템 이미지 풀기"
 
 msgid "FIDO2 registration must be a regular file owned by the desktop user"
 msgstr "FIDO2 registration must be a regular file owned by the desktop user"
@@ -2079,6 +2097,9 @@ msgstr "나란히 설치를 사용할 수 없음: {reason}"
 
 msgid "Installing alongside keeps every existing partition."
 msgstr "나란히 설치하면 기존의 모든 파티션이 유지됩니다."
+
+msgid "Installing hardware and selected packages"
+msgstr "하드웨어 패키지와 선택한 패키지 설치 중"
 
 msgid "Installing the selected software. Profile additions may need the internet. Keep the computer powered on."
 msgstr "선택한 소프트웨어를 설치하는 중입니다. 프로필 추가 항목에는 인터넷이 필요할 수 있습니다. 컴퓨터 전원을 켜 둔 상태로 유지하세요."
@@ -3148,6 +3169,9 @@ msgstr "패키지 설치 준비 중…"
 msgid "Preparing plugin review: {name}…"
 msgstr "플러그인 검토 준비 중: {name}…"
 
+msgid "Preparing the installation disk"
+msgstr "설치 디스크 준비 중"
+
 msgid "Preparing the restored system (the running system is not changed yet)"
 msgstr "복원된 시스템 준비 중 (실행 중인 시스템은 아직 변경되지 않음)"
 
@@ -3691,6 +3715,15 @@ msgstr "저장된 프로필은 별도로 유지됩니다. 처음 전환한 후 �
 msgid "Saved."
 msgstr "저장되었습니다."
 
+msgid "Saving the factory reset point"
+msgstr "공장 초기화 기준점 저장 중"
+
+msgid "Scheduling mirror ranking"
+msgstr "미러 순위 평가 예약 중"
+
+msgid "Scheduling timezone detection"
+msgstr "시간대 감지 예약 중"
+
 msgid "Scope"
 msgstr "범위"
 
@@ -3813,6 +3846,9 @@ msgstr "Ollama를 설정하시겠습니까?"
 
 msgid "Set up full-screen monitor capture in OBS first"
 msgstr "먼저 OBS에서 전체 화면 모니터 캡처를 설정하세요"
+
+msgid "Setting up the desktop for {username}"
+msgstr "{username}의 데스크톱 설정 중"
 
 msgid "Settings"
 msgstr "설정"
@@ -4135,6 +4171,9 @@ msgstr "지원되는 기업용 방식: PEAP/MSCHAPv2 및 TTLS/PAP"
 msgid "Switch Account"
 msgstr "계정 전환"
 
+msgid "Switching to online package updates"
+msgstr "온라인 패키지 업데이트로 전환 중"
+
 msgid "Switching to the restored system"
 msgstr "복원된 시스템으로 전환 중"
 
@@ -4348,6 +4387,21 @@ msgstr "{id}의 기록이 다시 작성되었습니다: 승인된 커밋 {commit
 msgid "The initramfs cannot use TPM2 unlock yet. Nothing was changed."
 msgstr "initramfs가 아직 TPM2 잠금 해제를 사용할 수 없습니다. 아무것도 변경되지 않았습니다."
 
+msgid "The installed filesystems are incomplete"
+msgstr "설치 대상 파일 시스템이 완전하지 않습니다"
+
+msgid "The installed image package inventory does not match the ISO manifest"
+msgstr "설치된 이미지의 패키지 목록이 ISO 매니페스트와 일치하지 않습니다"
+
+msgid "The installer could not load the selected disk layout"
+msgstr "설치 프로그램이 선택한 디스크 레이아웃을 불러오지 못했습니다"
+
+msgid "The installer could not set the account password"
+msgstr "설치 프로그램이 계정 암호를 설정하지 못했습니다"
+
+msgid "The installer could not set the selected time zone"
+msgstr "설치 프로그램이 선택한 시간대를 설정하지 못했습니다"
+
 msgid "The layout your picture, color and greeting go into."
 msgstr "사진, 색상 및 인사말이 들어가는 레이아웃입니다."
 
@@ -4384,9 +4438,6 @@ msgstr "새 비밀번호가 일치하지 않습니다."
 msgid "The password could not be changed."
 msgstr "비밀번호를 변경할 수 없습니다."
 
-msgid "The payload has no pacman {version} package"
-msgstr "The payload has no pacman {version} package"
-
 msgid "The picture has too many pixels."
 msgstr "사진의 픽셀 수가 너무 많습니다."
 
@@ -4420,6 +4471,9 @@ msgstr "복원 지점에 /{required}이(가) 없습니다"
 msgid "The restore point's boot files are damaged"
 msgstr "복원 지점의 부팅 파일이 손상되었습니다"
 
+msgid "The root encryption mapping is already in use"
+msgstr "루트 암호화 매핑이 이미 사용 중입니다"
+
 msgid "The root filesystem is not the Btrfs @ subvolume of an Eitr installation"
 msgstr "루트 파일 시스템이 Eitr 설치의 Btrfs @ 서브볼륨이 아닙니다"
 
@@ -4443,6 +4497,9 @@ msgstr "음성 모델이 이 녹음을 텍스트로 변환할 수 없습니다."
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "시스템 디스크 공간이 거의 가득 차 업데이트 및 앱 실행에 실패할 수 있습니다. 정리 기능으로 공간을 확보하세요."
+
+msgid "The system image has an unexpected initramfs configuration"
+msgstr "시스템 이미지의 initramfs 구성이 예상과 다릅니다"
 
 msgid "The system language {language} was not generated on the installed system"
 msgstr "설치된 시스템에서 시스템 언어 {language}이(가) 생성되지 않았습니다"
@@ -4477,8 +4534,14 @@ msgstr "테마"
 msgid "There is no update snapshot to go back to; the next System Update creates one."
 msgstr "돌아갈 업데이트 스냅샷이 없습니다. 다음 시스템 업데이트 시 스냅샷이 생성됩니다."
 
-msgid "This ISO has no complete offline payload ({amount} is missing)"
-msgstr "이 ISO에는 완전한 오프라인 페이로드가 없습니다({amount} 누락됨)"
+msgid "This ISO does not have the reviewed archinstall disk backend"
+msgstr "이 ISO에 검토된 archinstall 디스크 백엔드가 없습니다"
+
+msgid "This ISO has a missing or mismatched system image. Use a complete Eitr ISO."
+msgstr "이 ISO에 시스템 이미지가 없거나 일치하지 않습니다. 완전한 Eitr ISO를 사용하세요."
+
+msgid "This ISO is missing required installer tools"
+msgstr "이 ISO에 필수 설치 도구가 없습니다"
 
 msgid "This PC: {addresses}"
 msgstr "현재 PC: {addresses}"
@@ -4999,9 +5062,6 @@ msgstr "사용자 이름"
 msgid "Users"
 msgstr "사용자"
 
-msgid "Using standard archinstall package transactions and initramfs hooks"
-msgstr "archinstall의 기본 패키지 트랜잭션과 initramfs 후크를 사용합니다"
-
 msgid "Using the default theme: {user}'s theme could not be read ({error})."
 msgstr "기본 테마 사용 중: {user}의 테마를 읽을 수 없습니다({error})."
 
@@ -5191,20 +5251,11 @@ msgstr "영역 세부 정보"
 msgid "add.files must be a list"
 msgstr "add.files는 목록이어야 합니다"
 
-msgid "archinstall and arch-chroot are required (they ship on the Arch ISO)"
-msgstr "archinstall 및 arch-chroot가 필요합니다(Arch ISO에 포함되어 있음)"
-
-msgid "archinstall did not complete an installation; Eitr setup stopped"
-msgstr "archinstall이 설치를 완료하지 못했습니다. Eitr 설정이 중단되었습니다"
-
 msgid "archinstall did not create the user {name}"
 msgstr "archinstall이 사용자 {name}을(를) 생성하지 않았습니다"
 
 msgid "archinstall did not write exactly one limine.conf"
 msgstr "archinstall이 정확히 하나의 limine.conf를 작성하지 않았습니다"
-
-msgid "archinstall exited with status {returncode}"
-msgstr "archinstall이 상태 코드 {returncode}(으)로 종료되었습니다"
 
 msgid "asking Huginn and Muninn"
 msgstr "후긴과 무닌에게 묻는 중"

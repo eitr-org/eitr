@@ -41,7 +41,7 @@ La clave debe contener exactamente una clave pública OpenPGP y el servidor debe
 
 Al aplicar una política así en un equipo instalado, se detienen y desactivan los servicios de los plugins que ya no permite, y se conservan sus archivos.
 
-Las recetas usan `group/name` de `distro/software.json`. Solo se aceptan recetas pacman y Flatpak precompiladas. AUR, instaladores interactivos y aplicaciones web se rechazan; suministre paquetes precompilados en la memoria. Repositorios, recetas y Flathub requieren internet. Los archivos de paquetes funcionan sin conexión si sus dependencias están en la ISO o la memoria.
+Las recetas usan `group/name` de `distro/software.json`. Solo se aceptan recetas pacman y Flatpak precompiladas. AUR, instaladores interactivos y aplicaciones web se rechazan; suministre paquetes precompilados en la memoria. Las recetas y adiciones de paquetes de pacman pueden usar la ISO para instalar Chromium, WireGuard y los paquetes VPN de NetworkManager. Otros paquetes de repositorio y adiciones de Flathub pueden requerir internet. Los archivos de paquetes funcionan sin conexión si sus dependencias están en la ISO o la memoria.
 
 Los nombres deben existir en las bases actuales de pacman; actualice por el proceso normal antes de comprobar adiciones online. No se compila AUR. Las adiciones pacman online realizan una actualización completa. El repositorio adicional sirve para actualizaciones futuras; suministre sus paquetes exclusivos como archivos.
 
