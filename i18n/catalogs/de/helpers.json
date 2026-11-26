@@ -1886,5 +1886,7 @@
   "The system image has an unexpected initramfs configuration": "Das Systemabbild enthält eine unerwartete initramfs-Konfiguration",
   "This ISO does not have the reviewed archinstall disk backend": "Dieser ISO fehlt die geprüfte archinstall-Komponente zur Datenträgereinrichtung",
   "This ISO has a missing or mismatched system image. Use a complete Eitr ISO.": "Das Systemabbild dieser ISO fehlt oder passt nicht. Verwenden Sie eine vollständige Eitr-ISO.",
-  "This ISO is missing required installer tools": "Auf dieser ISO fehlen erforderliche Installationswerkzeuge"
+  "This ISO is missing required installer tools": "Auf dieser ISO fehlen erforderliche Installationswerkzeuge",
+  "The installer could not create the package keyring": "Das Installationsprogramm konnte den Paket-Schlüsselbund nicht anlegen",
+  "The system image already contains a package keyring": "Das Systemabbild enthält bereits einen Paket-Schlüsselbund"
 }

@@ -4393,6 +4393,9 @@ msgstr "Les systèmes de fichiers installés sont incomplets"
 msgid "The installed image package inventory does not match the ISO manifest"
 msgstr "L’inventaire des paquets de l’image installée ne correspond pas au manifeste de l’ISO"
 
+msgid "The installer could not create the package keyring"
+msgstr "Le programme d’installation n’a pas pu créer le trousseau des paquets"
+
 msgid "The installer could not load the selected disk layout"
 msgstr "L’installateur n’a pas pu charger le partitionnement sélectionné"
 
@@ -4497,6 +4500,9 @@ msgstr "Le modèle vocal n’a pas pu transcrire cet enregistrement."
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "Le disque système est presque plein, les mises à jour et les applications peuvent donc échouer ; libérez de l’espace avec Nettoyage."
+
+msgid "The system image already contains a package keyring"
+msgstr "L’image système contient déjà un trousseau des paquets"
 
 msgid "The system image has an unexpected initramfs configuration"
 msgstr "La configuration initramfs de l’image système est inattendue"

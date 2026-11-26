@@ -624,14 +624,19 @@ def installation_stages(config, choices, expected, cleanup):
     boot_palette = []
     hooks = cleanup.enter_context(ExitStack())
     installer = None
+    keyring = None
 
     def prepare(log):
         nonlocal installer
         installer = image_install.prepare(config, choices.pop("passphrase", None), TARGET)
 
+    def extract(log):
+        nonlocal keyring
+        keyring = cleanup.enter_context(image_install.pacman_keyring(PAYLOAD, log))
+        image_install.extract(TARGET, PAYLOAD, expected, lambda command: stream(command, log), output)
+
     def configure(log):
-        image_install.configure(installer, config, username, choices.pop("password"), encrypted,
-                                lambda command: chroot(command, log))
+        image_install.configure(installer, config, username, choices.pop("password"), encrypted, keyring)
         ensure_system_locale(choices["language"], log)
 
     def install_packages(log):
@@ -650,8 +655,7 @@ def installation_stages(config, choices, expected, cleanup):
 
     return [
         (tr("Preparing the installation disk"), prepare),
-        (tr("Extracting the Eitr system image"), lambda log: image_install.extract(
-            TARGET, PAYLOAD, expected, lambda command: stream(command, log), output)),
+        (tr("Extracting the Eitr system image"), extract),
         (tr("Configuring the installed system"), configure),
         (tr("Installing hardware and selected packages"), install_packages),
         (tr("Setting up the desktop for {username}", username=username),

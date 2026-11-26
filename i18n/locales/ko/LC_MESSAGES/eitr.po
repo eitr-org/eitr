@@ -4393,6 +4393,9 @@ msgstr "설치 대상 파일 시스템이 완전하지 않습니다"
 msgid "The installed image package inventory does not match the ISO manifest"
 msgstr "설치된 이미지의 패키지 목록이 ISO 매니페스트와 일치하지 않습니다"
 
+msgid "The installer could not create the package keyring"
+msgstr "설치 프로그램이 패키지 키링을 만들지 못했습니다"
+
 msgid "The installer could not load the selected disk layout"
 msgstr "설치 프로그램이 선택한 디스크 레이아웃을 불러오지 못했습니다"
 
@@ -4497,6 +4500,9 @@ msgstr "음성 모델이 이 녹음을 텍스트로 변환할 수 없습니다."
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "시스템 디스크 공간이 거의 가득 차 업데이트 및 앱 실행에 실패할 수 있습니다. 정리 기능으로 공간을 확보하세요."
+
+msgid "The system image already contains a package keyring"
+msgstr "시스템 이미지에 이미 패키지 키링이 들어 있습니다"
 
 msgid "The system image has an unexpected initramfs configuration"
 msgstr "시스템 이미지의 initramfs 구성이 예상과 다릅니다"

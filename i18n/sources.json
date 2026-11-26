@@ -12073,6 +12073,9 @@
     "The installed image package inventory does not match the ISO manifest": [
       "distro/archinstall/image_install.py"
     ],
+    "The installer could not create the package keyring": [
+      "distro/archinstall/image_install.py"
+    ],
     "The installer could not load the selected disk layout": [
       "distro/archinstall/image_install.py"
     ],
@@ -12185,6 +12188,9 @@
     ],
     "The system disk is almost full, so updates and apps can fail; free space with Cleanup.": [
       "distro/lib/eitr_selfcheck.py"
+    ],
+    "The system image already contains a package keyring": [
+      "distro/archinstall/image_install.py"
     ],
     "The system image has an unexpected initramfs configuration": [
       "distro/archinstall/image_install.py"

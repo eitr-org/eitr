@@ -4393,6 +4393,9 @@ msgstr "Die installierten Dateisysteme sind unvollständig"
 msgid "The installed image package inventory does not match the ISO manifest"
 msgstr "Die Paketliste des installierten Abbilds stimmt nicht mit dem ISO-Manifest überein"
 
+msgid "The installer could not create the package keyring"
+msgstr "Das Installationsprogramm konnte den Paket-Schlüsselbund nicht anlegen"
+
 msgid "The installer could not load the selected disk layout"
 msgstr "Der Installer konnte das gewählte Datenträgerlayout nicht laden"
 
@@ -4497,6 +4500,9 @@ msgstr "Das Sprachmodell konnte diese Aufnahme nicht transkribieren."
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "Die Systemfestplatte ist fast voll, daher können Updates und Apps fehlschlagen; schaffe Platz mit der Bereinigung."
+
+msgid "The system image already contains a package keyring"
+msgstr "Das Systemabbild enthält bereits einen Paket-Schlüsselbund"
 
 msgid "The system image has an unexpected initramfs configuration"
 msgstr "Das Systemabbild enthält eine unerwartete initramfs-Konfiguration"

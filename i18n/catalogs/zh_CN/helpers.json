@@ -1886,5 +1886,7 @@
   "The system image has an unexpected initramfs configuration": "系统映像中的 initramfs 配置与预期不符",
   "This ISO does not have the reviewed archinstall disk backend": "此 ISO 缺少经过审核的 archinstall 磁盘后端",
   "This ISO has a missing or mismatched system image. Use a complete Eitr ISO.": "此 ISO 缺少系统映像或映像不匹配。请使用完整的 Eitr ISO。",
-  "This ISO is missing required installer tools": "此 ISO 缺少必需的安装工具"
+  "This ISO is missing required installer tools": "此 ISO 缺少必需的安装工具",
+  "The installer could not create the package keyring": "安装程序无法创建软件包密钥环",
+  "The system image already contains a package keyring": "系统映像中已包含软件包密钥环"
 }

@@ -1886,5 +1886,7 @@
   "The system image has an unexpected initramfs configuration": "システムイメージの initramfs 設定が想定と異なります",
   "This ISO does not have the reviewed archinstall disk backend": "この ISO には検証済みの archinstall ディスク処理機能がありません",
   "This ISO has a missing or mismatched system image. Use a complete Eitr ISO.": "この ISO のシステムイメージが見つからないか、一致しません。完全な Eitr ISO を使用してください。",
-  "This ISO is missing required installer tools": "この ISO に必要なインストールツールがありません"
+  "This ISO is missing required installer tools": "この ISO に必要なインストールツールがありません",
+  "The installer could not create the package keyring": "インストーラーはパッケージのキーリングを作成できませんでした",
+  "The system image already contains a package keyring": "システムイメージにはすでにパッケージのキーリングが含まれています"
 }

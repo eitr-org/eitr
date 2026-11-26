@@ -69,9 +69,12 @@ item says what decides the next step. Remove an item when it ships;
      VM: 75.6 s unencrypted, 79.7 s encrypted, 64 s with a profile; same packages, services,
      boot files and initramfs as 0.7.6. Passed: verify (both), Japanese + Mozc, a profile with
      removals, both factory resets, System Update. Not tested: Alongside (the VM harness has no
-     Windows disk). Next: extraction takes 40-45 s because Btrfs pays per file (275k files;
-     unpacking to memory takes 3 s), so a raw Btrfs image written block by block (the original
-     idea) could reach about 30 s; the keyring setup (12-18 s) can overlap the extraction.
+     Windows disk). The new pacman keyring is built in `/run` from the image's keyring files
+     while the image is extracted (2026-11-26): 68 s unencrypted, 77-88 s encrypted (the first
+     small writes after extraction wait for the disk to catch up, which varies by run).
+     Next, waiting for the owner: extraction takes 36-45 s because Btrfs pays per file (275k
+     files; unpacking to memory takes 3 s), so a raw Btrfs image written block by block (the
+     original idea) could reach about 30 s.
 
 # 2. To test with the owner
 

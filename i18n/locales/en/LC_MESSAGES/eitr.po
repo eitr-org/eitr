@@ -4393,6 +4393,9 @@ msgstr "The installed filesystems are incomplete"
 msgid "The installed image package inventory does not match the ISO manifest"
 msgstr "The installed image package inventory does not match the ISO manifest"
 
+msgid "The installer could not create the package keyring"
+msgstr "The installer could not create the package keyring"
+
 msgid "The installer could not load the selected disk layout"
 msgstr "The installer could not load the selected disk layout"
 
@@ -4497,6 +4500,9 @@ msgstr "The speech model could not transcribe this recording."
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
+
+msgid "The system image already contains a package keyring"
+msgstr "The system image already contains a package keyring"
 
 msgid "The system image has an unexpected initramfs configuration"
 msgstr "The system image has an unexpected initramfs configuration"

@@ -1886,5 +1886,7 @@
   "The system image has an unexpected initramfs configuration": "The system image has an unexpected initramfs configuration",
   "This ISO does not have the reviewed archinstall disk backend": "This ISO does not have the reviewed archinstall disk backend",
   "This ISO has a missing or mismatched system image. Use a complete Eitr ISO.": "This ISO has a missing or mismatched system image. Use a complete Eitr ISO.",
-  "This ISO is missing required installer tools": "This ISO is missing required installer tools"
+  "This ISO is missing required installer tools": "This ISO is missing required installer tools",
+  "The installer could not create the package keyring": "The installer could not create the package keyring",
+  "The system image already contains a package keyring": "The system image already contains a package keyring"
 }

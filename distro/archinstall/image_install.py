@@ -98,7 +98,67 @@ def extract(target, medium, expected, run_step, output):
     shutil.rmtree(boot_files)
 
 
-def configure(installer, config, username, password, encrypted, chroot):
+# The image's keyring files, read before extraction so the keyring builds beside it.
+KEYRINGS = "usr/share/pacman/keyrings"
+GNUPG = "etc/pacman.d/gnupg"
+# pacman-key reads keyrings only from /usr/share/pacman/keyrings, so a private mount
+# namespace shows it the image's files there.
+POPULATE = """mount --bind "$1" /usr/share/pacman/keyrings || exit
+gnupg=$2; shift 2
+pacman-key --gpgdir "$gnupg" --init && pacman-key --gpgdir "$gnupg" --populate "$@"
+status=$?
+gpgconf --homedir "$gnupg" --kill all
+exit $status"""
+
+
+class PacmanKeyring:
+    """A new installation's own pacman keyring, built while the image is extracted."""
+
+    def __init__(self, medium, work, log):
+        self.work, self.log = Path(work), log
+        image = self.work / "image"
+        run(["unsquashfs", "-no-progress", "-q", "-d", str(image), str(medium / system_image.IMAGE), KEYRINGS],
+            stdout=subprocess.DEVNULL)
+        keyrings = image / KEYRINGS
+        names = ["archlinux"] + (["eitr"] if (keyrings / "eitr.gpg").is_file() else [])
+        self.gnupg = self.work / "gnupg"
+        self.output = (self.work / "output").open("w+")
+        self.process = subprocess.Popen(
+            ["unshare", "--mount", "--propagation", "private", "bash", "-c", POPULATE, "populate",
+             str(keyrings), str(self.gnupg), *names],
+            stdin=subprocess.DEVNULL, stdout=self.output, stderr=subprocess.STDOUT)
+
+    def install(self, target):
+        status = self.process.wait()
+        self.output.seek(0)
+        for line in self.output:
+            self.log(line)
+        if status:
+            raise OSError(tr("The installer could not create the package keyring"))
+        destination = Path(target) / GNUPG
+        if destination.exists():
+            raise OSError(tr("The system image already contains a package keyring"))
+        shutil.copytree(self.gnupg, destination, symlinks=True,
+                        ignore=lambda _folder, names: [name for name in names if name.startswith("S.")])
+
+    def close(self):
+        if self.process.poll() is None:
+            self.process.kill()
+            self.process.wait()
+        self.output.close()
+
+
+@contextmanager
+def pacman_keyring(medium, log):
+    with tempfile.TemporaryDirectory(prefix="eitr-keyring-", dir="/run") as work:
+        keyring = PacmanKeyring(medium, work, log)
+        try:
+            yield keyring
+        finally:
+            keyring.close()
+
+
+def configure(installer, config, username, password, encrypted, keyring):
     from archinstall.lib.models.locale import LocaleConfiguration
     from archinstall.lib.models.users import Password, User
 
@@ -128,14 +188,7 @@ def configure(installer, config, username, password, encrypted, chroot):
         if text.count("block plymouth filesystems") != 1:
             raise OSError(tr("The system image has an unexpected initramfs configuration"))
         path.write_text(text.replace("block plymouth filesystems", "block plymouth encrypt filesystems"))
-    chroot(["pacman-key", "--init"])
-    keyrings = ["archlinux"]
-    if (target / "usr/share/pacman/keyrings/eitr.gpg").is_file():
-        keyrings.append("eitr")
-    try:
-        chroot(["pacman-key", "--populate", *keyrings])
-    finally:
-        chroot(["gpgconf", "--homedir", "/etc/pacman.d/gnupg", "--kill", "all"])
+    keyring.install(target)
 
 
 def install_limine(installer, removable, chroot):

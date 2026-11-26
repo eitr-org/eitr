@@ -204,9 +204,6 @@ class TargetTests(unittest.TestCase):
             target = Path(directory)
             (target / "etc").mkdir()
             (target / "etc/mkinitcpio.conf").write_text(f"HOOKS=({builder.HOOKS})\n")
-            keyring = target / "usr/share/pacman/keyrings/eitr.gpg"
-            keyring.parent.mkdir(parents=True)
-            keyring.touch()
             installer = Mock(target=target)
             installer.genfstab.side_effect = lambda: (target / "etc/fstab").write_text(
                 fstab)
@@ -228,19 +225,66 @@ class TargetTests(unittest.TestCase):
                 path = f"archinstall.lib.models.{name}"
                 modules[path] = ModuleType(path)
                 vars(modules[path]).update(attrs)
-            commands = []
+            keyring = Mock()
             config = {"hostname": "fixture", "timezone": "UTC", "locale_config": {"kb_layout": "us"}}
             with patch.dict(sys.modules, modules), patch.object(backend, "run") as run:
-                backend.configure(installer, config, "alex", "private fixture password", True, commands.append)
+                backend.configure(installer, config, "alex", "private fixture password", True, keyring)
             self.assertEqual((target / "etc/hostname").read_text(), "fixture\n")
             self.assertEqual((target / "etc/fstab").read_text(), fstab)
             self.assertEqual((target / "etc/sudoers.d/00_alex").read_text(), "alex ALL=(ALL) ALL\n")
             self.assertEqual((target / "etc/mkinitcpio.conf").read_text().strip(), encrypted_hooks)
             user = installer.create_users.call_args.args[0]
             self.assertEqual((user.username, user.sudo), ("alex", True))
-            self.assertNotIn("private fixture password", str(run.call_args_list) + str(commands))
-            self.assertIn(["pacman-key", "--init"], commands)
-            self.assertIn(["pacman-key", "--populate", "archlinux", "eitr"], commands)
+            self.assertNotIn("private fixture password", str(run.call_args_list))
+            keyring.install.assert_called_once_with(target)
+
+    def test_keyring_builds_from_image_keyrings_beside_extraction(self):
+        with TemporaryDirectory() as directory:
+            root = Path(directory)
+            work, target, medium = root / "work", root / "target", root / "medium"
+            for folder in (work, target / "etc/pacman.d"):
+                folder.mkdir(parents=True)
+
+            def unsquash(command, **_kwargs):
+                keyrings = Path(command[command.index("-d") + 1]) / backend.KEYRINGS
+                keyrings.mkdir(parents=True)
+                (keyrings / "eitr.gpg").touch()
+
+            def populate(command, stdout, **_kwargs):
+                gnupg = Path(command[command.index("populate") + 2])
+                gnupg.mkdir()
+                (gnupg / "pubring.gpg").write_text("keys")
+                (gnupg / "S.gpg-agent").touch()
+                stdout.write("==> Appending keys\n")
+                return Mock(wait=Mock(return_value=0), poll=Mock(return_value=0))
+
+            lines = []
+            with patch.object(backend, "run", side_effect=unsquash) as run, \
+                    patch.object(backend.subprocess, "Popen", side_effect=populate) as popen:
+                keyring = backend.PacmanKeyring(medium, work, lines.append)
+                keyring.install(target)
+                with self.assertRaisesRegex(OSError, "already contains"):
+                    keyring.install(target)
+                keyring.close()
+            self.assertEqual(run.call_args.args[0][-1], backend.KEYRINGS)
+            command = popen.call_args.args[0]
+            self.assertEqual(command[:4], ["unshare", "--mount", "--propagation", "private"])
+            self.assertEqual(command[-2:], ["archlinux", "eitr"])
+            gnupg = target / backend.GNUPG
+            self.assertEqual((gnupg / "pubring.gpg").read_text(), "keys")
+            self.assertFalse((gnupg / "S.gpg-agent").exists())
+            self.assertEqual(lines, ["==> Appending keys\n"] * 2)
+
+    def test_keyring_failure_stops_the_installation(self):
+        with TemporaryDirectory() as directory:
+            work = Path(directory)
+            failed = Mock(wait=Mock(return_value=1), poll=Mock(return_value=1))
+            with patch.object(backend, "run"), patch.object(backend.subprocess, "Popen", return_value=failed):
+                keyring = backend.PacmanKeyring(work, work, Mock())
+                with self.assertRaisesRegex(OSError, "keyring"):
+                    keyring.install(work / "target")
+                keyring.close()
+            self.assertFalse((work / "target").exists())
 
     def test_limine_uses_mounted_partitions_and_reference_kernel_options(self):
         for removable in (True, False):
@@ -275,11 +319,13 @@ class TargetTests(unittest.TestCase):
                     stack.enter_context(patch.object(module, name, Mock(
                         side_effect=lambda *args, name=name, **kwargs: order.append(name))))
             stack.enter_context(patch.object(backend, "package_hooks"))
+            stack.enter_context(patch.object(backend, "pacman_keyring", lambda *args: (
+                order.append("pacman_keyring"), nullcontext())[1]))
             stack.enter_context(patch.multiple(guided, installed_user=Mock(), hardware_packages=Mock()))
             stages = guided.installation_stages(config, choices, {"desktop_dependencies": []}, stack)
             for _, operation in stages:
                 operation(Mock())
-        self.assertEqual(order, ["prepare", "extract", "configure", "ensure_system_locale", "install_packages",
+        self.assertEqual(order, ["prepare", "pacman_keyring", "extract", "configure", "ensure_system_locale", "install_packages",
                                  "set_up_desktop", "restore_online_sources", "schedule_mirror_ranking",
                                  "finish_boot_image", "install_limine", "set_up_boot", "save_factory_reset_point"])
 

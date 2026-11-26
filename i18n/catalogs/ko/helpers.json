@@ -1886,5 +1886,7 @@
   "The system image has an unexpected initramfs configuration": "시스템 이미지의 initramfs 구성이 예상과 다릅니다",
   "This ISO does not have the reviewed archinstall disk backend": "이 ISO에 검토된 archinstall 디스크 백엔드가 없습니다",
   "This ISO has a missing or mismatched system image. Use a complete Eitr ISO.": "이 ISO에 시스템 이미지가 없거나 일치하지 않습니다. 완전한 Eitr ISO를 사용하세요.",
-  "This ISO is missing required installer tools": "이 ISO에 필수 설치 도구가 없습니다"
+  "This ISO is missing required installer tools": "이 ISO에 필수 설치 도구가 없습니다",
+  "The installer could not create the package keyring": "설치 프로그램이 패키지 키링을 만들지 못했습니다",
+  "The system image already contains a package keyring": "시스템 이미지에 이미 패키지 키링이 들어 있습니다"
 }

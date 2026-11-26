@@ -4393,6 +4393,9 @@ msgstr "安装目标的文件系统不完整"
 msgid "The installed image package inventory does not match the ISO manifest"
 msgstr "已安装映像的软件包清单与 ISO 清单不符"
 
+msgid "The installer could not create the package keyring"
+msgstr "安装程序无法创建软件包密钥环"
+
 msgid "The installer could not load the selected disk layout"
 msgstr "安装程序无法载入选定的磁盘布局"
 
@@ -4497,6 +4500,9 @@ msgstr "语音模型无法转录此录音。"
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "系统磁盘几乎已满，更新和应用可能会失败；请通过“清理”释放空间。"
+
+msgid "The system image already contains a package keyring"
+msgstr "系统映像中已包含软件包密钥环"
 
 msgid "The system image has an unexpected initramfs configuration"
 msgstr "系统映像中的 initramfs 配置与预期不符"

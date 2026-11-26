@@ -4393,6 +4393,9 @@ msgstr "インストール先のファイルシステムが揃っていません
 msgid "The installed image package inventory does not match the ISO manifest"
 msgstr "インストールしたイメージのパッケージ一覧が ISO のマニフェストと一致しません"
 
+msgid "The installer could not create the package keyring"
+msgstr "インストーラーはパッケージのキーリングを作成できませんでした"
+
 msgid "The installer could not load the selected disk layout"
 msgstr "選択したディスクレイアウトを読み込めませんでした"
 
@@ -4497,6 +4500,9 @@ msgstr "音声モデルはこの録音を文字起こしできませんでした
 
 msgid "The system disk is almost full, so updates and apps can fail; free space with Cleanup."
 msgstr "システムディスクの空き容量が不足しているため、更新やアプリが失敗する可能性があります。「クリーンアップ」で空き容量を確保してください。"
+
+msgid "The system image already contains a package keyring"
+msgstr "システムイメージにはすでにパッケージのキーリングが含まれています"
 
 msgid "The system image has an unexpected initramfs configuration"
 msgstr "システムイメージの initramfs 設定が想定と異なります"
