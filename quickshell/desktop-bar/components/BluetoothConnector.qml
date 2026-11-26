@@ -6,7 +6,9 @@ import "BluetoothDevices.js" as BluetoothDevices
 
 // What a click on a Bluetooth device row does, shared by Settings and the bar panel:
 // pair then connect a new device, connect a paired one, with progress, a 30 s deadline
-// and a plain error on the row that failed.
+// and a plain error on the row that failed. Eitr runs no BlueZ pairing agent, so the adapter
+// stays non-pairable and BlueZ would drop an unbonded pairing on the first disconnect: a
+// pairing makes the adapter pairable until it finishes and trusts the device once paired.
 Item {
     id: connector
     property var adapter: Bluetooth.defaultAdapter
@@ -18,6 +20,8 @@ Item {
     property var failedDevice: null
     property string failure: ""
     property var confirmingForget: null
+    // Whether this connector made the adapter pairable, so finish() puts it back.
+    property bool madePairable: false
     readonly property bool powered: !!adapter && adapter.enabled
     readonly property var stateLabels: ({pairing: Eitr.I18n.tr("Pairing..."), connecting: Eitr.I18n.tr("Connecting..."), connected: Eitr.I18n.tr("Connected"), paired: Eitr.I18n.tr("Paired"), "new": Eitr.I18n.tr("Not paired")})
     function activate(device) {
@@ -26,7 +30,10 @@ Item {
         failedDevice = null; failure = ""; confirmingForget = null;
         pendingDevice = device; pendingStep = action; sawConnecting = false;
         deadline.restart();
-        if (action === "pair") device.pair(); else device.connect();
+        if (action === "pair") {
+            if (!adapter.pairable) { adapter.pairable = true; madePairable = true; }
+            device.pair();
+        } else device.connect();
     }
     function finish(error) {
         if (!pendingDevice) return;
@@ -34,6 +41,8 @@ Item {
         failure = error;
         pendingDevice = null; pendingStep = ""; sawConnecting = false;
         deadline.stop();
+        if (madePairable && adapter) adapter.pairable = false;
+        madePairable = false;
     }
     function cancelPairing(device) {
         if (live) device.cancelPair();
@@ -41,7 +50,11 @@ Item {
     }
     function checkPairing() {
         if (!pendingDevice || pendingStep !== "pair" || pendingDevice.pairing) return;
-        if (pendingDevice.paired) { pendingStep = "connect"; pendingDevice.connect(); }
+        if (pendingDevice.paired) {
+            pendingDevice.trusted = true;
+            if (pendingDevice.connected) { finish(""); return; }
+            pendingStep = "connect"; pendingDevice.connect();
+        }
         else finish(Eitr.I18n.tr("Pairing failed. Put the device in pairing mode and try again."));
     }
     function disconnect(device) { if (live) device.disconnect(); }
@@ -65,7 +78,8 @@ Item {
         ignoreUnknownSignals: true
         function onPairingChanged() { Qt.callLater(connector.checkPairing); }
         function onPairedChanged() { Qt.callLater(connector.checkPairing); }
-        function onConnectedChanged() { if (connector.pendingDevice && connector.pendingDevice.connected) connector.finish(""); }
+        // Devices often connect before pairing completes; checkPairing finishes those.
+        function onConnectedChanged() { if (connector.pendingDevice && connector.pendingDevice.connected && connector.pendingStep === "connect") connector.finish(""); }
         function onStateChanged() {
             const state = connector.pendingDevice ? connector.pendingDevice.state : null;
             if (state === BluetoothDeviceState.Connecting) connector.sawConnecting = true;
