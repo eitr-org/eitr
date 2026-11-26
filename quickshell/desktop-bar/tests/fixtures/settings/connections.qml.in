@@ -30,6 +30,7 @@ ShellRoot {
   property bool connected: false
   property bool paired: false
   property bool pairing: false
+  property bool trusted: false
   property int state: BluetoothDeviceState.Disconnected
   property bool batteryAvailable: false
   property real battery: 0
@@ -42,13 +43,15 @@ ShellRoot {
  Device { id: keyboard; name: "Example keyboard"; address: "02:00:00:00:00:10"; icon: "input-keyboard"; connected: true; paired: true; state: BluetoothDeviceState.Connected; batteryAvailable: true; battery: 0.8 }
  Device { id: headset; name: "Example headset"; address: "02:00:00:00:00:11"; icon: "audio-headset"; paired: true }
  Device { id: speaker; name: "Example speaker"; address: "02:00:00:00:00:12"; icon: "audio-card" }
+ Device { id: buds; name: "Example buds"; address: "02:00:00:00:00:14"; icon: "audio-headphones" }
  Device { id: unnamed; name: "02-00-00-00-00-13"; address: "02:00:00:00:00:13" }
  QtObject {
   id: adapter
   property string name: "fixture-adapter"
   property bool enabled: true
   property bool discovering: false
-  property var devices: ({values: [unnamed, speaker, headset, keyboard]})
+  property bool pairable: false
+  property var devices: ({values: [unnamed, buds, speaker, headset, keyboard]})
  }
  QtObject {
   id: network
@@ -115,14 +118,29 @@ ShellRoot {
    // A new device pairs, then connects, from one click on its row.
    mouseClick(speakerRow, 300, speakerRow.height / 2);
    compare(calls, ["Example speaker:pair"]);
+   // Without a pairing agent the adapter is not pairable; BlueZ would drop the unbonded pairing.
+   verify(adapter.pairable);
    verify(speakerRow.loading);
    compare(speakerRow.detail, "Pairing...");
    verify(!row(bluetooth, "Example headset").activatable);
    speaker.paired = true; speaker.pairing = false;
    tryCompare(bluetooth, "pendingStep", "connect");
+   verify(speaker.trusted);
    compare(calls, ["Example speaker:pair", "Example speaker:connect"]);
    speaker.state = BluetoothDeviceState.Connected; speaker.connected = true;
    compare(bluetooth.pendingDevice, null);
+   verify(!adapter.pairable);
+   // Headsets often connect before pairing completes: that is not the end of the pairing.
+   const budsRow = row(bluetooth, "Example buds");
+   mouseClick(budsRow, 300, budsRow.height / 2);
+   compare(calls[calls.length - 1], "Example buds:pair");
+   buds.state = BluetoothDeviceState.Connected; buds.connected = true;
+   compare(bluetooth.pendingStep, "pair");
+   verify(adapter.pairable);
+   buds.paired = true; buds.pairing = false;
+   tryCompare(bluetooth, "pendingDevice", null);
+   verify(buds.trusted && !adapter.pairable);
+   compare(calls[calls.length - 1], "Example buds:pair");
    tryVerify(() => !!row(bluetooth, "Example speaker") && row(bluetooth, "Example speaker").selected);
    // A paired device connects; a drop back to disconnected shows the failure on its row.
    const headsetRow = row(bluetooth, "Example headset");
