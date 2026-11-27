@@ -12,7 +12,7 @@ Column {
     required property var adapter
     required property color foreground
     required property bool shown
-    readonly property var groups: BluetoothDevices.groups(adapter && adapter.devices ? adapter.devices.values : [])
+    readonly property var groups: BluetoothDevices.groups(adapter && adapter.devices ? adapter.devices.values : [], connector.holding)
     readonly property bool powered: !!adapter && adapter.enabled
     readonly property alias scanning: discovery.scanning
     function scan() { if (!discovery.scanning) discovery.toggle(); }

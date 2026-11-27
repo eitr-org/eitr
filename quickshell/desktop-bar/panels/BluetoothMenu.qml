@@ -13,7 +13,7 @@ ThemedPopup {
     property var adapter: Bluetooth.defaultAdapter
     property bool showUnnamed: false
     property var groups: BluetoothDevices.groups([])
-    readonly property var availableGroups: BluetoothDevices.groups(adapter && adapter.devices ? adapter.devices.values : [])
+    readonly property var availableGroups: BluetoothDevices.groups(adapter && adapter.devices ? adapter.devices.values : [], bluetoothConnector.holding)
     // Lists rebuild only after the panel has unfolded (DockPanel.updateContent).
     onAvailableGroupsChanged: menu.updateContent(function() { menu.groups = menu.availableGroups; })
     Component.onCompleted: groups = availableGroups

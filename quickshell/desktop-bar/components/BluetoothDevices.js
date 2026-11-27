@@ -15,12 +15,15 @@ function byName(first, second) {
 
 // Connected, paired and discovered devices; discovered devices without a name are kept
 // apart so the list can collapse them.
-function groups(devices) {
+// `holding` is a device that stays under Connected while its link is briefly down: a new
+// pairing on its way to connecting (BluetoothConnector.holding).
+function groups(devices, holding) {
     const list = (devices || []).slice();
-    const other = list.filter(device => !device.connected && !device.paired);
+    const linked = device => device.connected || device === holding;
+    const other = list.filter(device => !linked(device) && !device.paired);
     return {
-        connected: list.filter(device => device.connected).sort(byName),
-        known: list.filter(device => !device.connected && device.paired).sort(byName),
+        connected: list.filter(linked).sort(byName),
+        known: list.filter(device => !linked(device) && device.paired).sort(byName),
         other: other.filter(named).sort(byName),
         unnamed: other.filter(device => !named(device)).sort(byName)
     };

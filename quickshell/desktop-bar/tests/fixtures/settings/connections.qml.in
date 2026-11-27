@@ -143,6 +143,7 @@ ShellRoot {
    compare(calls[calls.length - 1], "Example buds:pair");
    buds.state = BluetoothDeviceState.Disconnected; buds.connected = false;
    compare(calls[calls.length - 1], "Example buds:connect");
+   verify(bluetooth.groups.connected.indexOf(buds) >= 0 && bluetooth.groups.known.indexOf(buds) < 0);
    compare(bluetooth.pendingDevice, buds);
    buds.state = BluetoothDeviceState.Connected; buds.connected = true;
    tryCompare(bluetooth, "pendingDevice", null);

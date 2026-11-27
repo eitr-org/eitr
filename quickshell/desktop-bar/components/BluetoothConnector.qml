@@ -24,6 +24,10 @@ Item {
     property bool madePairable: false
     // Paired and still on the link pairing opened, waiting for BlueZ to drop it (see checkPairing).
     property bool settling: false
+    // A device just paired here, which the lists keep under Connected until its connection
+    // finishes, so its row does not jump to Known Devices while the pairing link drops.
+    property bool justPaired: false
+    readonly property var holding: justPaired ? pendingDevice : null
     readonly property bool powered: !!adapter && adapter.enabled
     readonly property var stateLabels: ({pairing: Eitr.I18n.tr("Pairing..."), connecting: Eitr.I18n.tr("Connecting..."), connected: Eitr.I18n.tr("Connected"), paired: Eitr.I18n.tr("Paired"), "new": Eitr.I18n.tr("Not paired")})
     function activate(device) {
@@ -41,7 +45,7 @@ Item {
         if (!pendingDevice) return;
         failedDevice = error ? pendingDevice : null;
         failure = error;
-        pendingDevice = null; pendingStep = ""; sawConnecting = false; settling = false;
+        pendingDevice = null; pendingStep = ""; sawConnecting = false; settling = false; justPaired = false;
         deadline.stop(); settle.stop();
         if (madePairable && adapter) adapter.pairable = false;
         madePairable = false;
@@ -54,7 +58,7 @@ Item {
         if (!pendingDevice || pendingStep !== "pair" || pendingDevice.pairing) return;
         if (pendingDevice.paired) {
             pendingDevice.trusted = true;
-            pendingStep = "connect";
+            pendingStep = "connect"; justPaired = true;
             // Pairing leaves only a bare link, which BlueZ drops once it sits idle. Quickshell
             // will not connect a device that is still linked, so wait for that drop and connect then.
             if (pendingDevice.connected) { settling = true; settle.restart(); return; }

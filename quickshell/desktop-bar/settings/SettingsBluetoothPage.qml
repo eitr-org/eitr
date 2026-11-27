@@ -20,7 +20,7 @@ Column {
     readonly property bool powered: bluetoothConnector.powered
     readonly property alias pendingDevice: bluetoothConnector.pendingDevice
     readonly property alias pendingStep: bluetoothConnector.pendingStep
-    readonly property var groups: BluetoothDevices.groups(adapter && adapter.devices ? adapter.devices.values : [])
+    readonly property var groups: BluetoothDevices.groups(adapter && adapter.devices ? adapter.devices.values : [], bluetoothConnector.holding)
     width: parent ? parent.width : 0
     spacing: 18
     onActiveChanged: if (!active) { discovery.stop(); bluetoothConnector.confirmingForget = null; }
