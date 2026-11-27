@@ -138,9 +138,15 @@ ShellRoot {
    compare(bluetooth.pendingStep, "pair");
    verify(adapter.pairable);
    buds.paired = true; buds.pairing = false;
-   tryCompare(bluetooth, "pendingDevice", null);
-   verify(buds.trusted && !adapter.pairable);
+   // Paired on the bare pairing link: wait for BlueZ to drop it, then connect the device.
+   tryVerify(() => bluetooth.pendingStep === "connect" && buds.trusted);
    compare(calls[calls.length - 1], "Example buds:pair");
+   buds.state = BluetoothDeviceState.Disconnected; buds.connected = false;
+   compare(calls[calls.length - 1], "Example buds:connect");
+   compare(bluetooth.pendingDevice, buds);
+   buds.state = BluetoothDeviceState.Connected; buds.connected = true;
+   tryCompare(bluetooth, "pendingDevice", null);
+   verify(!adapter.pairable);
    tryVerify(() => !!row(bluetooth, "Example speaker") && row(bluetooth, "Example speaker").selected);
    // A paired device connects; a drop back to disconnected shows the failure on its row.
    const headsetRow = row(bluetooth, "Example headset");

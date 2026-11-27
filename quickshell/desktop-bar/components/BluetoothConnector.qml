@@ -22,6 +22,8 @@ Item {
     property var confirmingForget: null
     // Whether this connector made the adapter pairable, so finish() puts it back.
     property bool madePairable: false
+    // Paired and still on the link pairing opened, waiting for BlueZ to drop it (see checkPairing).
+    property bool settling: false
     readonly property bool powered: !!adapter && adapter.enabled
     readonly property var stateLabels: ({pairing: Eitr.I18n.tr("Pairing..."), connecting: Eitr.I18n.tr("Connecting..."), connected: Eitr.I18n.tr("Connected"), paired: Eitr.I18n.tr("Paired"), "new": Eitr.I18n.tr("Not paired")})
     function activate(device) {
@@ -39,8 +41,8 @@ Item {
         if (!pendingDevice) return;
         failedDevice = error ? pendingDevice : null;
         failure = error;
-        pendingDevice = null; pendingStep = ""; sawConnecting = false;
-        deadline.stop();
+        pendingDevice = null; pendingStep = ""; sawConnecting = false; settling = false;
+        deadline.stop(); settle.stop();
         if (madePairable && adapter) adapter.pairable = false;
         madePairable = false;
     }
@@ -52,8 +54,11 @@ Item {
         if (!pendingDevice || pendingStep !== "pair" || pendingDevice.pairing) return;
         if (pendingDevice.paired) {
             pendingDevice.trusted = true;
-            if (pendingDevice.connected) { finish(""); return; }
-            pendingStep = "connect"; pendingDevice.connect();
+            pendingStep = "connect";
+            // Pairing leaves only a bare link, which BlueZ drops once it sits idle. Quickshell
+            // will not connect a device that is still linked, so wait for that drop and connect then.
+            if (pendingDevice.connected) { settling = true; settle.restart(); return; }
+            pendingDevice.connect();
         }
         else finish(Eitr.I18n.tr("Pairing failed. Put the device in pairing mode and try again."));
     }
@@ -78,14 +83,25 @@ Item {
         ignoreUnknownSignals: true
         function onPairingChanged() { Qt.callLater(connector.checkPairing); }
         function onPairedChanged() { Qt.callLater(connector.checkPairing); }
-        // Devices often connect before pairing completes; checkPairing finishes those.
-        function onConnectedChanged() { if (connector.pendingDevice && connector.pendingDevice.connected && connector.pendingStep === "connect") connector.finish(""); }
+        // Devices link before pairing completes; checkPairing moves them on to connecting.
+        function onConnectedChanged() {
+            const device = connector.pendingDevice;
+            if (!device || connector.pendingStep !== "connect") return;
+            if (device.connected) { if (!connector.settling) connector.finish(""); }
+            else if (connector.settling) { connector.settling = false; settle.stop(); deadline.restart(); device.connect(); }
+        }
         function onStateChanged() {
             const state = connector.pendingDevice ? connector.pendingDevice.state : null;
             if (state === BluetoothDeviceState.Connecting) connector.sawConnecting = true;
             else if (state === BluetoothDeviceState.Disconnected && connector.sawConnecting && connector.pendingStep === "connect")
                 connector.finish(Eitr.I18n.tr("Could not connect. Make sure the device is on and in range."));
         }
+    }
+    // A device whose profiles connected over the pairing link keeps it; stop waiting then.
+    Timer {
+        id: settle
+        interval: 12000
+        onTriggered: connector.finish("")
     }
     Timer {
         id: deadline
